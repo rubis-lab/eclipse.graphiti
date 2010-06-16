@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?><!--
+    <copyright>
+   
+    Copyright (c) 2005, 2010 SAP AG.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       SAP AG - initial API, implementation and documentation
+   
+    </copyright>
+   
+ -->
+
+<plugin>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding
+            viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension
+                  isRoot="false"
+                  pattern="org.eclipse.graphiti.examples.navigatorContent">
+            </contentExtension>
+         </includes>
+      </viewerContentBinding>
+   </extension>
+	
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            contentProvider="org.eclipse.graphiti.examples.common.navigator.GFEmfTreeContentProvider"
+            id="org.eclipse.graphiti.examples.navigatorContent"
+            labelProvider="org.eclipse.graphiti.examples.common.navigator.GFEmfLabelProvider"
+            name="GFW EMF Navigator Content"
+            priority="higher">
+         <triggerPoints>
+            <or>
+               <instanceof
+                     value="org.eclipse.core.resources.IProject">
+               </instanceof>
+            </or>
+         </triggerPoints>
+         <actionProvider
+               class="org.eclipse.graphiti.examples.common.RenameActionProvider">
+            <enablement>
+               <and>
+                  <instanceof
+                        value="org.eclipse.emf.ecore.EClass">
+                  </instanceof>
+               </and>
+            </enablement>
+         </actionProvider>
+         <possibleChildren>
+            <or>
+               <instanceof
+                     value="org.eclipse.graphiti.examples.common.navigator.nodes.EClassesNode">
+               </instanceof>
+               <instanceof
+                     value="org.eclipse.emf.ecore.EClass">
+               </instanceof>
+            </or>
+         </possibleChildren>
+      </navigatorContent>
+      <commonWizard
+            type="new"
+            wizardId="org.eclipse.graphiti.examples.ui.CreateDiagramWizard">
+         <enablement>
+            <adapt
+                  type="org.eclipse.core.resources.IProject">
+                  <test
+                        property="org.eclipse.core.resources.projectNature"
+                        value="org.eclipse.graphiti.examples.gfwsamplenature"/>
+            </adapt>
+         </enablement>
+      </commonWizard>
+   </extension>
+
+	<extension
+		point = "org.eclipse.ui.newWizards">
+		<category
+			id = "org.eclipse.graphiti.examples.project.category"
+			parentCategory="org.eclipse.ui.Examples"
+			name="Graphiti">
+		</category>
+		<wizard
+        category="org.eclipse.ui.Examples/org.eclipse.graphiti.examples.project.category"
+        class="org.eclipse.graphiti.examples.common.ui.CreateSampleProjectWizard"
+        finalPerspective="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+        icon="icons/rialto16.gif"
+        id="org.eclipse.graphiti.examples.ui.CreateSampleProjectWizard"
+        name="Graphiti Sample Project"
+        project="true">
+			<description>Create a Graphiti Example Project</description>
+			<selection class="org.eclipse.core.resources.IResource"/>
+		</wizard>
+		<wizard
+        category="org.eclipse.ui.Examples/org.eclipse.graphiti.examples.project.category"
+        class="org.eclipse.graphiti.examples.common.ui.CreateDiagramWizard"
+        finalPerspective="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+        icon="icons/pid16.gif"
+        id="org.eclipse.graphiti.examples.ui.CreateDiagramWizard"
+        name="Graphiti Diagram">
+     <description>
+        Creates a new Graphiti diagram (the type of the new diagram can be chosen among all existing types)
+     </description>
+     <selection
+           class="org.eclipse.core.resources.IContainer">
+     </selection>
+		</wizard>
+	</extension>
+
+<extension
+      point="org.eclipse.core.resources.natures"
+      id="org.eclipse.graphiti.examples.examplesnature"
+      name="Graphiti Examples Nature">
+      <runtime>
+         <run class="org.eclipse.graphiti.examples.common.SampleProjectNature">
+         </run>
+      </runtime>
+</extension>
+
+   <extension
+         point="org.eclipse.graphiti.ui.imageProviders">
+      <imageProvider
+            class="org.eclipse.graphiti.examples.common.SampleImageProvider"
+            id="org.eclipse.graphiti.examples.common.SampleImageProvider">
+      </imageProvider>
+   </extension>
+
+	<extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.eclipse.graphiti.examples.common.preference.GraphicsPreferencePage"
+            id="org.eclipse.graphiti.examples.common.preference.GraphicsPreferencePage"
+            name="%_preferences_page">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.graphiti.examples.common.preference.GraphicsPreferencePage"
+            class="org.eclipse.graphiti.examples.common.preference.GraphicsTestPreferencePage"
+            id="org.eclipse.graphiti.examples.common.preference.GraphicsTestPreferencePage"
+            name="%_test_preferences_page">
+      </page>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+            fixed="false"
+            icon="icons/rialto16.gif"
+            id="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
+            name="Graphiti"/>
+   </extension>
+
+</plugin>

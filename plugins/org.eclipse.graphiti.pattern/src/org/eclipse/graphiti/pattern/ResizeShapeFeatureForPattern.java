@@ -1,0 +1,73 @@
+/*******************************************************************************
+ * <copyright>
+ *
+ * Copyright (c) 2005, 2010 SAP AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    SAP AG - initial API, implementation and documentation
+ *
+ * </copyright>
+ *
+ *******************************************************************************/
+package org.eclipse.graphiti.pattern;
+
+import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IResizeConfiguration;
+import org.eclipse.graphiti.features.context.IResizeShapeContext;
+import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
+
+/**
+ * The Class ResizeShapeFeatureForPattern.
+ */
+public class ResizeShapeFeatureForPattern extends DefaultResizeShapeFeature {
+
+	private IFeatureForPattern delegate;
+
+	/**
+	 * Instantiates a new resize shape feature for pattern.
+	 * 
+	 * @param featureProvider
+	 *            the feature provider
+	 * @param pattern
+	 *            the pattern
+	 */
+	public ResizeShapeFeatureForPattern(IFeatureProvider featureProvider, IPattern pattern) {
+		super(featureProvider);
+		delegate = new FeatureForPatternDelegate(pattern);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature#canResizeShape(org.eclipse.graphiti.features.context.IResizeShapeContext)
+	 */
+	@Override
+	public boolean canResizeShape(IResizeShapeContext context) {
+		IPattern pattern = delegate.getPattern();
+		return pattern.canResizeShape(context);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature#resizeShape(org.eclipse.graphiti.features.context.IResizeShapeContext)
+	 */
+	@Override
+	public void resizeShape(IResizeShapeContext context) {
+		delegate.getPattern().resizeShape(context);
+	}
+
+	@Override
+	public IResizeConfiguration getResizeConfiguration() {
+		IPattern pattern = delegate.getPattern();
+		IResizeConfiguration resizeConfiguration = pattern.getResizeConfiguration();
+		if (resizeConfiguration != null) {
+			return resizeConfiguration;
+		}
+		return super.getResizeConfiguration();
+	}
+}

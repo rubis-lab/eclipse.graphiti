@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content=
+"HTML Tidy for Windows (vers 25 March 2009), see www.w3.org">
+<meta http-equiv="Content-Type" content=
+"text/html; charset=us-ascii">
+<title>Image Providers</title>
+
+<style type="text/css">
+@import url("file:/C:/Eclipse/IDE/eclipse/configuration/org.eclipse.osgi/bundles/1059/1/.cp/book.css");
+</style>
+
+<style type="text/css">
+@import url("file:/C:/Eclipse/IDE/eclipse/configuration/org.eclipse.osgi/bundles/1070/1/.cp/schema.css");
+</style>
+</head>
+<body>
+<h1 style="text-align:center">Image Providers</h1>
+<h6 class="CaptionFigColumn SchemaHeader">Identifier:</h6>
+org.eclipse.graphiti.ui.imageProviders
+<h6 class="CaptionFigColumn SchemaHeader">Description:</h6>
+Customers of Graphiti can use this extension point to register
+their own image providers.
+<h6 class="CaptionFigColumn SchemaHeader">Configuration
+Markup:</h6>
+<p class="code SchemaDtd">&lt;!ELEMENT <a name="e.extension" id=
+"e.extension">extension</a> (<a href=
+"#e.imageProvider">imageProvider</a>*)&gt;</p>
+<p class="code SchemaDtd">&lt;!ATTLIST extension</p>
+<p class="code SchemaDtdAttlist">point&nbsp;CDATA #REQUIRED</p>
+<p class="code SchemaDtdAttlist">id&nbsp;&nbsp;&nbsp;&nbsp;CDATA
+#IMPLIED</p>
+<p class="code SchemaDtdAttlist">name&nbsp;&nbsp;CDATA
+#IMPLIED</p>
+&gt;
+<ul class="ConfigMarkupAttlistDesc"></ul>
+<br>
+<p class="code SchemaDtd">&lt;!ELEMENT <a name="e.imageProvider"
+id="e.imageProvider">imageProvider</a> EMPTY&gt;</p>
+<p class="code SchemaDtd">&lt;!ATTLIST imageProvider</p>
+<p class="code SchemaDtdAttlist">id&nbsp;&nbsp;&nbsp;&nbsp;CDATA
+#REQUIRED</p>
+<p class="code SchemaDtdAttlist">class&nbsp;CDATA #REQUIRED</p>
+&gt;
+<ul class="ConfigMarkupAttlistDesc">
+<li><b>id</b> - a unique name in the NWDS environment that will
+be used to identify this image provider</li>
+<li><b>class</b> - the name of a class that implements
+<samp>org.eclipse.graphiti.ui.platform.IImageProvider</samp>.</li>
+</ul>
+<br>
+<h6 class="CaptionFigColumn SchemaHeader">Examples:</h6>
+<pre class="Example">
+<span class="code SchemaTag">
+   &lt;extension
+         point=</span><span class=
+"code SchemaCstring">"org.eclipse.graphiti.ui.imageProviders"</span><span class="code SchemaTag">&gt;
+      &lt;imageProvider
+               id=</span><span class=
+"code SchemaCstring">"org.eclipse.graphiti.examples.common.SampleImageProvider"</span><span class="code SchemaTag">&gt;
+      &lt;/imageProvider&gt;
+   &lt;/extension&gt;
+</span>
+</pre>
+<h6 class="CaptionFigColumn SchemaHeader">API Information:</h6>
+Instead of implementing the interface
+<samp>org.eclipse.graphiti.ui.platform.IImageProvider</samp>
+directly, the customer should extend the base class
+<samp>org.eclipse.graphiti.ui.platform.AbstractImageProvider</samp>.<br>
+
+<hr>
+<a href="http://www.eclipse.org/legal/epl-v10.html" shape=
+"rect">Copyright (c) SAP AG 2005, 2010.</a>
+</body>
+</html>

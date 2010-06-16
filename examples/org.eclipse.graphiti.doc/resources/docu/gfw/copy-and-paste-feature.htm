@@ -1,0 +1,741 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 11 (filtered)">
+<title>Providing copy &amp; paste functionality</title>
+<link rel=Stylesheet type="text/css" media=all href="../book.css">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	color:windowtext;}
+h1
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-weight:bold;}
+h2
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-weight:bold;
+	font-style:italic;}
+h3
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-weight:bold;}
+h4
+	{margin-top:11.25pt;
+	margin-right:0cm;
+	margin-bottom:1.7pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-weight:bold;
+	font-style:italic;}
+h5
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-weight:bold;}
+h6
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:7.5pt;
+	font-weight:bold;}
+p.MsoCaption, li.MsoCaption, div.MsoCaption
+	{margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:24.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	font-size:10.0pt;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	text-decoration:underline;}
+p
+	{margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;}
+pre
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:3.4pt;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:Tahoma;}
+p.code, li.code, div.code
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:15.0pt;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;}
+p.note, li.note, div.note
+	{margin-top:19.5pt;
+	margin-right:0cm;
+	margin-bottom:19.5pt;
+	margin-left:30.0pt;
+	font-size:13.0pt;
+	font-style:italic;}
+span.code1
+	{font-style:italic;}
+@page Section1
+	{size:595.45pt 841.7pt;
+	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=DE link=blue vlink=blue style='margin-bottom:12.0pt'>
+
+<div class=Section1>
+
+<h1><span lang=EN-GB>Providing Copy &amp; Paste Functionality</span></h1>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-US>Copy &amp; Paste Functionality</span></h2>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The copy &amp; paste of graphical elements
+is integrated with the general copy and paste concept for models</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Note, that copy &amp; paste in graphical
+editors is always executed on the graphical model-elements. This gives the
+freedom to implement copy &amp; paste with different semantics</span></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><span lang=EN-US>On paste a duplicate of the graphical 
+	pictogram element and of the underlying business-model element is created. 
+	However, it is sometimes difficult to create a duplicate of the 
+	business-model element, because the semantic boundaries of it may be 
+	ambiguous, think of a
+     “deep copy”.</span></li>
+ <li class=MsoNormal><span lang=EN-US>On paste a duplicate of the graphical
+     pictogram element is created, which is associated to the same underlying
+     business-model element as the originally copied graphical pictogram
+     element.</span></li>
+</ul>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Below we will explain an example, which
+provides copy &amp; paste functionality for EClasses. For simplicity reasons
+we only create a duplicate of the graphical pictogram element and not also of
+the business-model element.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Creating a Copy Feature</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>First we have to create
+a copy feature and make it available in the feature provider.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>A copy feature has to
+implement the interface <a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/ICopyFeature.html">ICopyFeature</a>.
+Instead of implementing it directly it should extend one of the available base
+classes. In this example we extend the base class <a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/jam/AbstractCopyFeature.html">AbstractCopyFeature</a>,
+which offers methods to easily access the clipboard. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>In this case we have to
+implement/overwrite two methods:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/ICopyFeature.html#canCopy(com.sap.tc.emf.gfw.features.context.ICopyContext)">canCopy</a>
+has to check if the given context (containing the selected elements) can be
+copied to the clipboard.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/ICopyFeature.html#copy(com.sap.tc.emf.gfw.features.context.ICopyContext)">copy</a>
+finally has to copy the given context to the clipboard. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
+complete implementation of the copy feature here:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  org.eclipse.graphiti.examples.tutorial.features;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialCopyEClassFeature </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>extends</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  AbstractCopyFeature {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialCopyEClassFeature(IFeatureProvider fp) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(fp);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  canCopy(ICopyContext context) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> PictogramElement[]
+  pes = context.getPictogramElements();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  (pes == </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>null</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> || pes.</span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>length</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> ==
+  0) {  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// nothing selected</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
+  return true, if all selected elements are a EClasses</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>for</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> (PictogramElement
+  pe : pes) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  Object bo = getBusinessObjectForPictogramElement(pe);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  (!(bo </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>instanceof</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> EClass)) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>               
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>void</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> copy(ICopyContext
+  context) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
+  get the business-objects for all pictogram-elements</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
+  we already verified, that all business-objets are EClasses</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        PictogramElement[]
+  pes = context.getPictogramElements();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>       
+  Object[] bos = </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>new</span></b><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:black'> Object[pes.</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>length</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>];</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>for</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> (</span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>int</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> i
+  = 0; i &lt; pes.</span><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>length</span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:black'>; i++) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            PictogramElement
+  pe = pes[i];</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>           
+  bos[i] = getBusinessObjectForPictogramElement(pe);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
+  put all business objects to the clipboard</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>putToClipboard(bos);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>    }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>}</span></p>
+  <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
+feature provider has to deliver our newly created feature (overwrite the method
+<a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getCopyFeature(com.sap.tc.emf.gfw.features.context.ICopyContext)">getCopyFeature</a>).
+</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>This implementation can
+be seen here: </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  ICopyFeature getCopyFeature(ICopyContext context) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>TutorialCopyEClassFeature</span><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>(</span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>    }</span></p>
+  <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Creating a Paste Feature</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>Now</span><span
+lang=EN-GB style='color:black'> we have to create a corresponding paste feature
+and make it available in the feature provider.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>A paste feature has to implement
+the interface <a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/IPasteFeature.html">IPasteFeature</a>.
+Instead of implementing it directly it should extend one of the available base
+classes. In this example we extend the base class <a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/jam/AbstractPasteFeature.html">AbstractPasteFeature</a>,
+which offers methods to easily access the clipboard. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>In this case we have to
+implement/overwrite two methods:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/IPasteFeature.html#canPaste(com.sap.tc.emf.gfw.features.context.IPasteContext)">canPaste</a>
+has to check if the current clipboard contents can be pasted on the given
+context (containing the target object).</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/IPasteFeature.html#paste(com.sap.tc.emf.gfw.features.context.IPasteContext)">paste</a>
+finally has to paste the current clipboard contents on the given context.
+&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
+complete implementation of the paste feature here:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  com.sap.tc.emf.gfw.tutorial.features;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialPasteEClassFeature </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>extends</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  AbstractPasteFeature {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialPasteEClassFeature(IFeatureProvider fp) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(fp);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  canPaste(IPasteContext context) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
+  only support pasting directly in the diagram (nothing else selected)</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        PictogramElement[]
+  pes = context.getPictogramElements();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  (pes.</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#0000C0'>length</span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> != 1 || !(pes[0] </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  Diagram)) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
+  can paste, if all objects on the clipboard are EClasses</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        Object[]
+  fromClipboard = getFromClipboard();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  (fromClipboard == </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> || fromClipboard.</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>length</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> ==
+  0) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>for</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  (Object object : fromClipboard) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  (!(object </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>instanceof</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> EClass)) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>               
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>void</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  paste(IPasteContext context) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
+  we already verified, that we paste directly in the diagram</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        PictogramElement[]
+  pes = context.getPictogramElements();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>       
+  Diagram diagram = (Diagram) pes[0];</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
+  get the EClasses from the clipboard without copying them</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
+  (only copy the pictogram element, not the business object)</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
+  then create new pictogram elements using the add feature</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        Object[]
+  objects = getFromClipboard();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>for</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  (Object object : objects) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            AddContext
+  ac = </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> AddContext();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>           
+  ac.setLocation(0, 0); </span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#3F7F5F'>// for simplicity paste at (0, 0)</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            ac.setTargetContainer(diagram);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>           
+  addGraphicalRepresentation(ac, object);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>    }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>}</span></p>
+  <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
+feature provider has to deliver our newly created feature (overwrite the method
+<a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getPasteFeature(com.sap.tc.emf.gfw.features.context.IPasteContext)">getPasteFeature</a>).
+</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>This implementation can
+be seen here: </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  IPasteFeature getPasteFeature(IPasteContext context) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialPasteEClassFeature(</span><b><span style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>this</span></b><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>    }</span></p>
+  <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Test: Copy &amp; Paste a EClass</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Now start the editor
+again </span></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal style='color:black'><span lang=EN-US>Create a new EClass.</span></li>
+ <li class=MsoNormal style='color:black'><span lang=EN-GB>Copy the EClass to
+     the clipboard using the context-menu.</span></li>
+ <li class=MsoNormal style='color:black'><span lang=EN-US>Paste the clipboard
+     to the diagram using the context-menu, so that a new EClass is created
+     in the upper-left corner of the diagram (in future versions of the
+     graphics framework it will be possible to paste at the current
+     mouse-location).</span></li>
+ <li class=MsoNormal style='color:black'><span lang=EN-US>Verify that in the
+     context-menu of a EClass the paste action is disabled.</span></li>
+ <li class=MsoNormal style='color:black'><span lang=EN-US>Rename the new EClass, and verify that the other 
+	EClass is also renamed. This happens,
+     because the implementation only duplicates the graphical pictogram element
+     and not the underlying business-model element. <br>
+     Note: it might be necessary to explicitly call the update-action on the
+     other EClass. This is currently in discussion in Graphitti. </span></li>
+</ul>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+</div>
+<hr>
+	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+
+</body>
+
+</html>

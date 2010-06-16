@@ -1,0 +1,469 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
+<title>Connection visualization</title>
+<link rel=Stylesheet type="text/css" media=all href="../book.css">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"\00DCberschrift 1 Zchn";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+h2
+	{mso-style-link:"\00DCberschrift 2 Zchn";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;
+	font-style:italic;}
+p.MsoCaption, li.MsoCaption, div.MsoCaption
+	{margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:24.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p
+	{margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Sprechblasentext Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.berschrift1Zchn
+	{mso-style-name:"\00DCberschrift 1 Zchn";
+	mso-style-link:"\00DCberschrift 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.berschrift2Zchn
+	{mso-style-name:"\00DCberschrift 2 Zchn";
+	mso-style-link:"\00DCberschrift 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.SprechblasentextZchn
+	{mso-style-name:"Sprechblasentext Zchn";
+	mso-style-link:Sprechblasentext;
+	font-family:"Tahoma","sans-serif";}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+p.Heading1, li.Heading1, div.Heading1
+	{mso-style-name:"Heading 1";
+	mso-style-link:"Heading 1 Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+p.Heading2, li.Heading2, div.Heading2
+	{mso-style-name:"Heading 2";
+	mso-style-link:"Heading 2 Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+p.BalloonText, li.BalloonText, div.BalloonText
+	{mso-style-name:"Balloon Text";
+	mso-style-link:"Balloon Text Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.rschrift1, li.rschrift1, div.rschrift1
+	{mso-style-name:"\00BErschrift 1";
+	mso-style-link:"\00BErschrift 1 Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.rschrift1Zchn
+	{mso-style-name:"\00BErschrift 1 Zchn";
+	mso-style-link:"\00BErschrift 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+p.rschrift2, li.rschrift2, div.rschrift2
+	{mso-style-name:"\00BErschrift 2";
+	mso-style-link:"\00BErschrift 2 Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.rschrift2Zchn
+	{mso-style-name:"\00BErschrift 2 Zchn";
+	mso-style-link:"\00BErschrift 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.code0
+	{mso-style-name:code0;
+	font-style:italic;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:70.85pt 70.85pt 2.0cm 70.85pt;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+
+<div class=Section1>
+
+<div>
+
+<h1><span lang=EN-GB>Connection Visualization</span></h1>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>This chapter describes
+advanced connection visualization possibilities.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-US>Connection Decorators</span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The framework supports
+two different connection decorators:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Static decorators
+(inactive pictogram elements) are usually used for connection ends.</span></p>
+
+<p class=MsoNormal><span style='color:black'><img width=501 height=202
+src="visio/connection-decorator-static.png"></span></p>
+
+<p class=MsoCaption><span lang=EN-GB>Figure: Static connection decorators</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Dynamic decorators
+(active pictogram elements) are usually of type text; these decorators can be
+moved via drag &amp; drop; they can be placed anywhere in the diagram.</span></p>
+
+<p class=MsoNormal><span style='color:black'><img width=501 height=211
+src="visio/connection-decorator-dynamic.png"></span></p>
+
+<p class=MsoCaption><span lang=EN-GB>Figure: Dynamic connection decorators</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>To create such
+connection decorators we have to do the following in the graphics model:</span></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'>create
+     a connection decorator</li>
+ <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
+     lang=EN-GB>add a valid graphics algorithm to the connection decorator</span></li>
+ <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
+     lang=EN-GB>add this connection decorator to a connection</span></li>
+ <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
+     lang=EN-GB>optional: link connection decorator with the business object</span></li>
+</ul>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>There are some
+technical limitations for static decorators: they are only supported for
+graphics algorithm of type polyline or polygon (otherwise they can not be
+rotated) and they can only be placed at the beginning or at the end of a
+connection.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>In this example we want
+create two static connection decorators as shown above and one dynamic
+connection decorator which displays the name of the association.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>For simplification
+those static connection decorators will be created without consideration of the
+real values in the business model (types of association ends).</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The decorators will be
+added in the</span><span lang=EN-GB> </span><span class=code0><span lang=EN-US
+style='color:black'><a href="add-connection-feature.htm"><span
+style='font-style:normal'>add connection feature</span></a></span></span><span
+lang=EN-GB style='color:black'>. The following changes must be done in this
+feature.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>First add some helper
+methods to the add connection feature which create the graphics algorithms for
+the static decorators:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>private</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>Polyline
+  createArrow(GraphicsAlgorithmContainer gaContainer) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  IGaService gaService = Graphiti.getGaService();<span style='color:black'><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Polyline polyline =</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
+  style='color:black'>.createPolyline(gaContainer,</span> <b><span
+  style='color:#7F0055'>new</span></b> <b><span style='color:#7F0055'>int</span></b><span
+  style='color:black'>[] { -15, 10, 0, 0, -15,</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  -10 });</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  polyline.setForeground(manageColor(IColorConstant.</span><i><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>BLACK</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>));</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  polyline.setLineWidth(2);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>return</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>polyline;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Then create the
+connection decorators at the end of the add method of the add connection
+feature, as explained in the following code snippet:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>public</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>PictogramElement
+  add(IAddContext context) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// ... EXISTING CODING ...</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// add dynamic text decorator for the association name</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>IPeCreateService
+  peCreateService = Graphiti.getPeCreateService();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  ConnectionDecorator textDecorator =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>peCreateService<span
+  style='color:black'>.createConnectionDecorator(connection,</span> <b><span
+  style='color:#7F0055'>true</span></b><span style='color:black'>,<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5,</span>
+  <b><span style='color:#7F0055'>true</span></b><span style='color:black'>);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  IGaService gaService = Graphiti.getGaService();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Text text =</span><span lang=EN-US> </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.createDefaultText(textDecorator);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  text.setForeground(manageColor(IColorConstant.</span><i><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>BLACK</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>));</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
+  style='color:black'>.setLocationOfGraphicsAlgorithm(text, 10, 0);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// set reference name in the text decorator</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&acute;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  EReference eReference = (EReference) context.getNewObject();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=FR
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=FR> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>text.setValue(</span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New"'>eReference<span style='color:black'>.getName());</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// add static graphical decorator (composition and navigable)</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  ConnectionDecorator cd;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  cd =</span><span lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New"'>peCreateService<span style='color:black'><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  .<i>createConnectionDecorator</i>(connection,</span> <b><span
+  style='color:#7F0055'>false</span></b><span style='color:black'>, 0.0,</span>
+  <b><span style='color:#7F0055'>true</span></b><span style='color:black'>);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  createArrow(cd);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b> <span style='font-size:10.0pt;font-family:
+  "Courier New";color:black'>connection;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Test: Display and Move Connection Decorators</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Start the editor again
+and test these new connection decorators:</span></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
+     lang=EN-GB>create or open a diagram</span></li>
+ <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
+     lang=EN-GB>create a new EReference between two EClasses; you can see the
+     three decorators on the EReference</span></li>
+ <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
+     lang=EN-GB>move the EClasses; you can see that the static decorator
+     (arrow) rotate automatically</span></li>
+ <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
+     lang=EN-GB>move the dynamic decorator (text) via drag &amp; drop</span></li>
+</ol>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+</div>
+
+</div>
+<hr>
+	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+
+</body>
+
+</html>

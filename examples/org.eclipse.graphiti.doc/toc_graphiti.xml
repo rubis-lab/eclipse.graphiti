@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<!--
+    <copyright>
+   
+    Copyright (c) 2005, 2010 SAP AG.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       SAP AG - initial API, implementation and documentation
+   
+    </copyright>
+   
+ -->
+
+<toc label="Graphics framework"> 
+	<topic label="Graphiti Introduction" href="resources/docu/gfw/graphiti-introduction.htm"> 
+	</topic>
+	<topic label="Scenario Description" href="resources/docu/gfw/scenario-description.htm"/> 
+	<topic label="Diagram" href="resources/docu/gfw/diagram.htm"/>
+	<topic label="Features" href="resources/docu/gfw/features.htm">
+		<topic label="Add Feature" href="resources/docu/gfw/add-feature.htm"/> 
+		<topic label="Create Feature" href="resources/docu/gfw/create-feature.htm"/> 
+		<topic label="Update Feature" href="resources/docu/gfw/update-feature.htm"/> 
+		<topic label="Remove and Delete Feature" href="resources/docu/gfw/remove-and-delete-feature.htm"/> 
+		<topic label="Move Feature" href="resources/docu/gfw/move-feature.htm"/> 
+		<topic label="Resize Feature" href="resources/docu/gfw/resize-feature.htm"/> 
+		<topic label="Layout Feature" href="resources/docu/gfw/layout-feature.htm"/> 
+		<topic label="Custom Feature" href="resources/docu/gfw/custom-feature.htm"/> 
+		<topic label="Add Connection Feature" href="resources/docu/gfw/add-connection-feature.htm"> 
+		<topic label="Create Connection Feature" href="resources/docu/gfw/create-connection-feature.htm"/> 
+			<topic label="Anchors" href="resources/docu/gfw/anchors.htm"/> 
+			<topic label="Connection Visualization" href="resources/docu/gfw/connection-visualization.htm"/> 
+		</topic>
+		<topic label="Direct Editing Feature" href="resources/docu/gfw/direct-editing-feature.htm"> 
+			<topic label="Direct Editing Activation" href="resources/docu/gfw/direct-editing-activation.htm"/> 
+		</topic>
+		<topic label="Copy and Paste Feature" href="resources/docu/gfw/copy-and-paste-feature.htm"/> 
+		<topic label="Drill-Down" href="resources/docu/gfw/drill-down.htm"/> 
+	</topic>
+	<topic label="Tool Behavior Provider" href="resources/docu/gfw/tool-behavior-provider.htm"> 
+		<topic label="Context Buttons" href="resources/docu/gfw/context-buttons.htm"/> 
+		<topic label="Context Menus" href="resources/docu/gfw/context-menu.htm"/> 
+		<topic label="Palette" href="resources/docu/gfw/palette.htm"/> 
+		<topic label="Double-Click" href="resources/docu/gfw/double-click.htm"/> 
+		<topic label="Rendering Decorators" href="resources/docu/gfw/rendering-decorators.htm"/> 
+		<topic label="Selection Behavior" href="resources/docu/gfw/selection-behavior.htm"/> 
+	</topic>
+	<topic label="Property Sheet" href="resources/docu/gfw/property-sheet.htm"/>
+	<topic label="Images" href="resources/docu/gfw/images.htm"/>
+	<topic label="Styles" href="resources/docu/gfw/styles.htm"/>
+	<topic label="Color Schemas" href="resources/docu/gfw/color-schemas.htm"/>
+	<topic label="Polygon and Polyline" href="resources/docu/gfw/polygon-and-polyline.htm"/>
+	<topic label="User-defined Properties" href="resources/docu/gfw/user-defined-properties.htm"/>
+	<topic label="Dark Feature Processing" href="resources/docu/gfw/dark-feature-processing.htm"/>
+	<topic label="Prepared Example Project" href="resources/docu/gfw/example-projects.htm"/>
+</toc>

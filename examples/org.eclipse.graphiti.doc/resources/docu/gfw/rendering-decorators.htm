@@ -1,0 +1,320 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 11 (filtered)">
+<title>Providing rendering decorators</title>
+<link rel=Stylesheet type="text/css" media=all href="../book.css">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	color:windowtext;}
+h1
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-weight:bold;}
+h2
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-weight:bold;
+	font-style:italic;}
+h3
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-weight:bold;}
+h4
+	{margin-top:11.25pt;
+	margin-right:0cm;
+	margin-bottom:1.7pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-weight:bold;
+	font-style:italic;}
+h5
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-weight:bold;}
+h6
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:7.5pt;
+	font-weight:bold;}
+p.MsoCaption, li.MsoCaption, div.MsoCaption
+	{margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:24.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	font-size:10.0pt;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p
+	{margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;}
+pre
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:3.4pt;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:Tahoma;}
+p.code, li.code, div.code
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:15.0pt;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;}
+p.note, li.note, div.note
+	{margin-top:19.5pt;
+	margin-right:0cm;
+	margin-bottom:19.5pt;
+	margin-left:30.0pt;
+	font-size:13.0pt;
+	font-style:italic;}
+span.heading2char
+	{font-family:Arial;
+	color:black;
+	font-weight:bold;
+	font-style:italic;}
+span.code1
+	{font-style:italic;}
+span.code0
+	{font-style:italic;}
+span.code2
+	{font-style:italic;}
+@page Section1
+	{size:595.45pt 841.7pt;
+	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+
+<div class=Section1>
+
+<h1><a name="_Toc179099520"><span lang=EN-GB>Providing </span></a>
+<span lang="en-gb">R</span><span
+lang=EN-GB>endering Decorators</span></h1>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Enhancing the Tool Behavior Provider</span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>It is possible to draw
+so called “rendering decorators” on top of active pictogram elements. These
+rendering decorators </span><span lang=EN-US>are transiently determined and not
+persisted in the diagram.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>A typical use case is the rendering of
+error-markers on top of incorrect pictogram elements.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The rendering
+decorators are defined in the tool behavior provider.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>If you didn’t do so
+already you must <b>first create a tool behavior provider and add it to the
+diagram type provider as described <a href="tool-behavior-provider.htm">here</a>.</b></span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>There is one method of
+the tool behavior provider to overwrite: </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
+href="../../../javadoc/com/sap/tc/emf/gfw/tb/IToolBehaviorProvider.html#getRenderingDecorators(PictogramElement)">getRenderingDecorators</a>
+has to return the rendering decorators for the given pictogram element. A
+rendering decorator must implement the interface <a
+href="../../../javadoc/com/sap/tc/emf/gfw/tb/IRenderingDecorator.html">IRenderingDecorator</a>
+and may also implement <a
+href="../../../javadoc/com/sap/tc/emf/gfw/datatypes/ILocation.html">ILocation</a>,
+which provides the decorator location relative to the pictogram element.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Currently only the <a
+href="../../../javadoc/com/sap/tc/emf/gfw/tb/ImageRenderingDecorator.html">ImageRenderingDecorator</a>
+is supported, which renders an image at the defined location and can show a
+text message as tooltip.&nbsp;&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The class <span class=code2><a
+href="../../../javadoc/com/sap/tc/emf/gfw/tb/AdvancedDecoratingToolBehaviorProvider.html"><span
+style='font-style:normal'>AdvancedDecoratingToolBehaviorProvider</span></a></span>
+provides a default implementation, which decorates shapes with the problem
+markers (error/warning/info icons) assigned to the corresponding business
+object of the given pictogram element. Additionally a context button for quick
+fixes is offered. Note, that the context button is offered on the pictogram
+element independent of the decorators.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>In this example we want
+to show an image decorator for a EClass, whenever the class name does not
+start with an upper case letter. &nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img border=0 width=321 height=100
+src="visio/rendering-decorator.gif"></span></p>
+
+<p class=MsoCaption><span lang=EN-US>Figure: Rendering decorator displaying a
+warning</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
+complete implementation of the rendering decorators here:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
+  style='color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>    </span><span style='font-size:
+  10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>    </span><b><span style='font-size:
+  10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  IRenderingDecorator[] getRenderingDecorators(PictogramElement pe) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>        IFeatureProvider
+  featureProvider = getFeatureProvider();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>        Object bo = featureProvider.getBusinessObjectForPictogramElement(pe);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>        </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> (bo </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> EClass) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>            EClass eClass =
+  (EClass) bo;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>            String name =
+  eClass.getName();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>            </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> (name != </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> &amp;&amp;
+  name.length() &gt; 0</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>                &amp;&amp;
+  !(name.charAt(0) &gt;= </span><span style='font-size:10.0pt;font-family:"Courier New";
+  color:#2A00FF'>'A'</span><span style='font-size:10.0pt;font-family:"Courier New";
+  color:black'> &amp;&amp; name.charAt(0) &lt;= </span><span style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>'Z'</span><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>)) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>                IRenderingDecorator
+  imageRenderingDecorator =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>                    </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  ImageRenderingDecorator(</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>                       
+  IPlatformImageConstants.</span><i><span style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>IMG_ECLIPSE_WARNING_TSK</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>                imageRenderingDecorator</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>                    .setMessage(</span><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Name
+  should start with upper case letter&quot;</span><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>                </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  IRenderingDecorator[] { imageRenderingDecorator };</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>            }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>        }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>        </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>.getRenderingDecorators(pe);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>    }</span></p>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Test: Show Warning Decorator for EClass</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Now start the editor and
+create a new EClass named “address”. Verify that the warning decorator is
+shown and the tooltip displays the warning message. Create another EClass
+named “Address” and verify that no warning decorator is displayed.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+</div>
+<hr>
+	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+
+</body>
+
+</html>

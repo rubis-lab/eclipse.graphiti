@@ -1,0 +1,170 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 11 (filtered)">
+<title>Providing remove and delete functionality</title>
+<link rel=Stylesheet type="text/css" media=all href=../book.css>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+h1
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-family:Arial;}
+h2
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:Arial;
+	font-style:italic;}
+h3
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:Arial;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:Tahoma;}
+span.code
+	{font-style:italic;}
+span.Code0
+	{font-style:italic;}
+@page Section1
+	{size:595.45pt 841.7pt;
+	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+<body lang=DE link=blue vlink=purple>
+
+<div class=Section1>
+
+<h1><a name="_Toc179099521"><span lang=EN-GB>Providing Remove and Delete
+Functionality</span></a></h1>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Difference Between Remove and Delete</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>A remove feature only eliminates pictogram
+elements from the pictograms model but the underlying business object (domain
+model elements) remains in existence. It is basically the opposite of the add
+feature, which creates a pictogram element for an existing business object.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>A delete feature additionally eliminates the
+corresponding business object (domain model elements). It is basically the
+opposite of the create feature, which creates a business object and the corresponding
+pictogram element.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>A delete feature typically calls the remove
+feature to delete the pictogram element and then deletes the corresponding
+business object. This is similar to the create feature, which typically creates
+the business object and then calls the add feature to create the corresponding
+pictogram element.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Creating a Remove Feature</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>A remove feature has to implement the
+interface </span><span class=code><span lang=EN-US><a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/IRemoveFeature.html"><span
+style='font-style:normal'>IRemoveFeature</span></a></span></span><span
+lang=EN-GB>. Instead of implementing this directly you should extend the
+available default implementation </span><span class=code><span lang=EN-US><a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/jam/DefaultRemoveFeature.html"><span
+style='font-style:normal'>DefaultRemoveFeature</span></a></span></span><span
+lang=EN-GB>. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB>Own implementations of remove features have
+to be provided by the corresponding feature provider through its </span><span
+class=Code0><span lang=EN-US><a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getRemoveFeature(com.sap.tc.emf.gfw.features.context.IRemoveContext)"><span
+style='font-style:normal'>getRemoveFeature</span></a></span></span><span
+lang=EN-GB> method. Note, that in most cases it is not necessary to provide an
+own implementation of the remove feature, because the graphics framework has
+enough knowledge to provide a good default implementation. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>To enable the remove of not selectable, so
+called inner elements, you have to <a href="custom-feature.htm">provide custom features</a>.
+</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Creating a Delete Feature</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>A delete feature has to implement the
+interface </span><span class=code><span lang=EN-US><a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/IDeleteFeature.html"><span
+style='font-style:normal'>IDeleteFeature</span></a></span></span><span
+lang=EN-GB>. Instead of implementing this directly you should extend the
+available default implementation </span><span class=code><span lang=EN-US><a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/jam/DefaultDeleteFeature.html"><span
+style='font-style:normal'>DefaultDeleteFeature</span></a></span></span><span
+lang=EN-GB>. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB>Own implementations of delete features have
+to be provided by the corresponding feature provider through its </span><span
+class=Code0><span lang=EN-US style='font-style:normal'><a
+href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getDeleteFeature(com.sap.tc.emf.gfw.features.context.IDeleteContext)">getDeleteFeature</a></span></span><span
+lang=EN-GB> method. Note, that in most cases it is not necessary to provide an
+own implementation of the delete feature, because the graphics framework has
+enough knowledge to provide a good default implementation. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>To enable the deletion of not selectable,
+so called inner elements, you have to <a href="custom-feature.htm">provide
+custom features</a>. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+</div>
+<hr>
+	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+
+</body>
+
+</html>

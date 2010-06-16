@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content=
+"HTML Tidy for Windows (vers 25 March 2009), see www.w3.org">
+<meta http-equiv="Content-Type" content=
+"text/html; charset=us-ascii">
+<title>Diagram Types</title>
+
+<style type="text/css">
+@import url("file:/C:/Eclipse/IDE/eclipse/configuration/org.eclipse.osgi/bundles/1059/1/.cp/book.css");
+</style>
+
+<style type="text/css">
+@import url("file:/C:/Eclipse/IDE/eclipse/configuration/org.eclipse.osgi/bundles/1070/1/.cp/schema.css");
+</style>
+</head>
+<body>
+<h1 style="text-align:center">Diagram Types</h1>
+<h6 class="CaptionFigColumn SchemaHeader">Identifier:</h6>
+org.eclipse.graphiti.ui.diagramTypes
+<h6 class="CaptionFigColumn SchemaHeader">Description:</h6>
+Customers of Graphiti can use this extension point to register
+their own diagram types.
+<h6 class="CaptionFigColumn SchemaHeader">Configuration
+Markup:</h6>
+<p class="code SchemaDtd">&lt;!ELEMENT <a name="e.extension" id=
+"e.extension">extension</a> (<a href=
+"#e.diagramType">diagramType</a>*)&gt;</p>
+<p class="code SchemaDtd">&lt;!ATTLIST extension</p>
+<p class="code SchemaDtdAttlist">point&nbsp;CDATA #REQUIRED</p>
+<p class="code SchemaDtdAttlist">id&nbsp;&nbsp;&nbsp;&nbsp;CDATA
+#IMPLIED</p>
+<p class="code SchemaDtdAttlist">name&nbsp;&nbsp;CDATA
+#IMPLIED</p>
+&gt;
+<ul class="ConfigMarkupAttlistDesc"></ul>
+<br>
+<p class="code SchemaDtd">&lt;!ELEMENT <a name="e.diagramType"
+id="e.diagramType">diagramType</a> EMPTY&gt;</p>
+<p class="code SchemaDtd">&lt;!ATTLIST diagramType</p>
+<p class="code SchemaDtdAttlist">
+id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CDATA
+#REQUIRED</p>
+<p class="code SchemaDtdAttlist">
+type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CDATA
+#REQUIRED</p>
+<p class="code SchemaDtdAttlist">
+name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CDATA
+#REQUIRED</p>
+<p class="code SchemaDtdAttlist">description&nbsp;CDATA
+#IMPLIED</p>
+&gt;
+<ul class="ConfigMarkupAttlistDesc">
+<li><b>id</b> - a unique name in the NWDS environment that will
+be used to identify this diagram type</li>
+<li><b>type</b> - a unique type (e.g. "GalaxyTriggernetDiagram",
+"sample.mof"). Stored diagrams must always contain a valid
+type.</li>
+<li><b>name</b> - the name of this diagram type that will be used
+in the UI</li>
+<li><b>description</b> - an optional description of this diagram
+type that will be used in the UI</li>
+</ul>
+<br>
+<h6 class="CaptionFigColumn SchemaHeader">Examples:</h6>
+<pre class="Example">
+<span class="code SchemaTag">
+   &lt;extension
+         point=</span><span class=
+"code SchemaCstring">"org.eclipse.graphiti.ui.diagramTypes"</span><span class="code SchemaTag">&gt;
+      &lt;diagramType
+            description=</span><span class=
+"code SchemaCstring">"diagram type for demo examples"</span><span class="code SchemaTag">
+            id=</span><span class=
+"code SchemaCstring">"org.eclipse.graphiti.examples.ecore.EcoreDiagramType"</span><span class="code SchemaTag">
+            name=</span><span class=
+"code SchemaCstring">"Sample Ecore DT"</span><span class=
+"code SchemaTag">
+            type=</span><span class=
+"code SchemaCstring">"sample.ecore"</span><span class=
+"code SchemaTag">&gt;
+      &lt;/diagramType&gt;
+   &lt;/extension&gt;  
+</span>
+</pre>
+<hr>
+<a href="http://www.eclipse.org/legal/epl-v10.html" shape=
+"rect">Copyright (c) SAP AG 2005, 2010.</a>
+</body>
+</html>

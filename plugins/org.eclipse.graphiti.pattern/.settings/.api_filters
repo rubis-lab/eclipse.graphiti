@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.eclipse.graphiti.pattern" version="2">
+    <resource path="src/org/eclipse/graphiti/pattern/AbstractBasePattern.java" type="org.eclipse.graphiti.pattern.AbstractBasePattern">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IFeatureProviderHolder"/>
+                <message_argument value="AbstractBasePattern"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/pattern/AbstractConnectionPattern.java" type="org.eclipse.graphiti.pattern.AbstractConnectionPattern">
+        <filter id="574660632">
+            <message_arguments>
+                <message_argument value="IConnectionPattern"/>
+                <message_argument value="IAdd"/>
+                <message_argument value="AbstractConnectionPattern"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/pattern/AbstractPattern.java" type="org.eclipse.graphiti.pattern.AbstractPattern">
+        <filter id="574660632">
+            <message_arguments>
+                <message_argument value="IPattern"/>
+                <message_argument value="ICreate"/>
+                <message_argument value="AbstractPattern"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/pattern/IConnectionPattern.java" type="org.eclipse.graphiti.pattern.IConnectionPattern">
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IAdd"/>
+                <message_argument value="IConnectionPattern"/>
+            </message_arguments>
+        </filter>
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="ICreateConnection"/>
+                <message_argument value="IConnectionPattern"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/pattern/IPattern.java" type="org.eclipse.graphiti.pattern.IPattern">
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="ILayout"/>
+                <message_argument value="IPattern"/>
+            </message_arguments>
+        </filter>
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IAdd"/>
+                <message_argument value="IPattern"/>
+            </message_arguments>
+        </filter>
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="ICreate"/>
+                <message_argument value="IPattern"/>
+            </message_arguments>
+        </filter>
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IResizeShape"/>
+                <message_argument value="IPattern"/>
+            </message_arguments>
+        </filter>
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IMoveShape"/>
+                <message_argument value="IPattern"/>
+            </message_arguments>
+        </filter>
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IUpdate"/>
+                <message_argument value="IPattern"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/pattern/ReconnectionFeatureForPattern.java" type="org.eclipse.graphiti.pattern.ReconnectionFeatureForPattern">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IReconnectionFeature"/>
+                <message_argument value="ReconnectionFeatureForPattern"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

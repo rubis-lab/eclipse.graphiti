@@ -1,0 +1,30 @@
+.java i {
+	color:purple; font-style:normal; font-weight: bold;
+}
+.java em {
+	color:red; font-style:normal;
+}
+.java b {
+	color:blue; font-style:normal; font-weight: normal;
+}
+.java u {
+	color:green; font-style:normal; text-decoration: none; 
+}
+.java u i {
+	color:green; font-style:normal; text-decoration: none; font-weight: normal;
+}
+.java u b {
+	color:green; font-style:normal; text-decoration: none; font-weight: normal;
+}
+.java s {
+	color:#3366CC; font-style:normal; text-decoration: none; 
+}
+.java {
+	tab-size: 4 ; color:#000000; /* Needed in case the Eclipse book.css is used */ font-size: 100% 
+}
+
+/* Needed in case the Eclipse book.css is used */
+
+pre code.java {
+	font-size: 110%
+}

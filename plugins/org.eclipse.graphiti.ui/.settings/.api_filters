@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.eclipse.graphiti.ui" version="2">
+    <resource path="src/org/eclipse/graphiti/ui/features/AbstractCopyFeature.java" type="org.eclipse.graphiti.ui.features.AbstractCopyFeature">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="ICopyFeature"/>
+                <message_argument value="AbstractCopyFeature"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/features/AbstractPasteFeature.java" type="org.eclipse.graphiti.ui.features.AbstractPasteFeature">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IPasteFeature"/>
+                <message_argument value="AbstractPasteFeature"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/features/DefaultDeleteFeature.java" type="org.eclipse.graphiti.ui.features.DefaultDeleteFeature">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IDeleteFeature"/>
+                <message_argument value="DefaultDeleteFeature"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/command/EclipseProgress.java" type="org.eclipse.graphiti.ui.internal.command.EclipseProgress">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IProgress"/>
+                <message_argument value="EclipseProgress"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/command/ReconnectCommand.java" type="org.eclipse.graphiti.ui.internal.command.ReconnectCommand">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IFeatureAndContext"/>
+                <message_argument value="ReconnectCommand"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/config/ConfigurationProvider.java" type="org.eclipse.graphiti.ui.internal.config.ConfigurationProvider">
+        <filter id="574660632">
+            <message_arguments>
+                <message_argument value="IConfigurationProvider"/>
+                <message_argument value="IFeatureProviderHolder"/>
+                <message_argument value="ConfigurationProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/config/IConfigurationProvider.java" type="org.eclipse.graphiti.ui.internal.config.IConfigurationProvider">
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IFeatureProviderHolder"/>
+                <message_argument value="IConfigurationProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/figures/PredefinedColoredAreas.java" type="org.eclipse.graphiti.ui.internal.figures.PredefinedColoredAreas">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IPredefinedRenderingStyle"/>
+                <message_argument value="PredefinedColoredAreas"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/parts/IPictogramElementDelegate.java" type="org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate">
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IFeatureProviderHolder"/>
+                <message_argument value="IPictogramElementDelegate"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/parts/IPictogramElementEditPart.java" type="org.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart">
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IFeatureProviderHolder"/>
+                <message_argument value="IPictogramElementEditPart"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/parts/directedit/TextCellEditor.java" type="org.eclipse.graphiti.ui.internal.parts.directedit.TextCellEditor">
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="TextCellEditor"/>
+                <message_argument value="TextCellEditor"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/platform/DiagramTypeImpl.java" type="org.eclipse.graphiti.ui.internal.platform.DiagramTypeImpl">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IDiagramType"/>
+                <message_argument value="DiagramTypeImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

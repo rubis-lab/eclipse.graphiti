@@ -1,0 +1,694 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
+<title>Providing context buttons</title>
+<link rel=Stylesheet type="text/css" media=all href="../book.css">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;
+	font-style:italic;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:11.25pt;
+	margin-right:0cm;
+	margin-bottom:1.7pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;
+	font-style:italic;}
+h5
+	{mso-style-link:"Heading 5 Char";
+	margin-right:0cm;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+h6
+	{mso-style-link:"Heading 6 Char";
+	margin-right:0cm;
+	margin-left:0cm;
+	font-size:7.5pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.MsoCaption, li.MsoCaption, div.MsoCaption
+	{margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:24.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p
+	{margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+pre
+	{mso-style-link:"HTML Preformatted Char";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:3.4pt;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.Heading5Char
+	{mso-style-name:"Heading 5 Char";
+	mso-style-link:"Heading 5";
+	font-family:"Cambria","serif";
+	color:#243F60;}
+span.Heading6Char
+	{mso-style-name:"Heading 6 Char";
+	mso-style-link:"Heading 6";
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-style:italic;}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-link:"HTML Preformatted";
+	font-family:Consolas;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+p.code, li.code, div.code
+	{mso-style-name:code;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:15.0pt;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.note, li.note, div.note
+	{mso-style-name:note;
+	margin-top:19.5pt;
+	margin-right:0cm;
+	margin-bottom:19.5pt;
+	margin-left:30.0pt;
+	font-size:13.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.comment, li.comment, div.comment
+	{mso-style-name:comment;
+	margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+span.heading1char0
+	{mso-style-name:heading1char;
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.heading2char0
+	{mso-style-name:heading2char;
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.heading3char0
+	{mso-style-name:heading3char;
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.heading4char0
+	{mso-style-name:heading4char;
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.heading5char0
+	{mso-style-name:heading5char;
+	font-family:"Cambria","serif";
+	color:#243F60;}
+span.heading6char0
+	{mso-style-name:heading6char;
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-style:italic;}
+span.htmlpreformattedchar0
+	{mso-style-name:htmlpreformattedchar;
+	font-family:Consolas;}
+span.balloontextchar0
+	{mso-style-name:balloontextchar;
+	font-family:"Tahoma","sans-serif";}
+span.code1
+	{mso-style-name:code1;
+	font-style:italic;}
+span.code0
+	{mso-style-name:code0;
+	font-style:italic;}
+span.code2
+	{mso-style-name:code2;
+	font-style:italic;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page Section1
+	{size:595.45pt 841.7pt;
+	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+
+<div class=Section1>
+
+<h1><a name="_Toc179099521"><span lang=EN-GB>Providing </span></a>
+<span lang="en-gb">C</span><span
+lang=EN-GB>ontext Buttons</span></h1>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Context buttons allow
+adding actions as small, automatically appearing icons for each pictogram
+element in the diagram.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>They are shown along
+the borders of a pictogram element when the mouse is positioned on that
+pictogram element. They are hidden again when the mouse it positioned outside
+the area build by the pictogram element and the context buttons.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Context buttons can
+provide the same functionality as a <a href="context-menu.htm">context menu</a>,
+but in a nicer and quicker way: the context buttons are shown immediately.
+Another advantage of context buttons over context menus is, that each context
+button can have several drag and drop features, which get activated when the
+user drags from a context button and drops onto the canvas or another object.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Enhancing the Tool Behavior Provider</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Context buttons are
+defined in the tool behavior provider.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>If you didn’t do so
+already you must <b>first create a tool behavior provider and add it to the
+diagram type provider as described <a href="tool-behavior-provider.htm">here</a>.</b></span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>There is one method of
+the tool behavior provider to overwrite: </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
+href="../../../javadoc/com/sap/tc/emf/gfw/tb/IToolBehaviorProvider.html#getContextButtonPadData(com.sap.tc.emf.gfw.features.context.IPictogramElementContext)">getContextButtonPadData</a>
+has to return the context buttons for the given context (which implement <a
+href="../../../javadoc/com/sap/tc/emf/gfw/tb/IContextButtonEntry.html">IContextButtonEntry</a>).
+</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>There are different groups
+of context buttons:</span></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal style='color:black'><span lang=EN-GB>Generic context
+     buttons: their look and behaviour is standardized for all tools (e.g.
+     “delete”, “remove” and “update”). They are shown at the top of the
+     pictogram element in a predefined order. A specific tool can only choose
+     which of the generic context buttons to switch on/off.</span></li>
+ <li class=MsoNormal style='color:black'><span lang=EN-GB>Domain specific
+     context buttons: they are specific for each tool (e.g. “create sub-class”
+     in a class editor). They are shown at the right (and if necessary also
+     bottom) of the pictogram element. A specific tool must define the look and
+     behaviour for all domain specific context buttons. </span></li>
+ <li class=MsoNormal style='color:black'><span lang=EN-GB>Collapse context
+     button: the look and position for the collapse context button is
+     standardized for all tools. A specific tool must define the behavior of
+     the collapse context button by defining the feature to call (see <a
+     href="../../../javadoc/com/sap/tc/emf/gfw/tb/ContextEntryHelper.html#createCollapseContextButton(boolean, com.sap.tc.emf.gfw.features.IFeature, com.sap.tc.emf.gfw.features.context.IContext">createCollapseContextButton</a>).</span></li>
+</ul>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The following
+restrictions are defined by UX (but currently not checked technically): there
+can be 0-3 generic context buttons, 0-5 domain specific context buttons and 0-1
+collapse context button.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The functionality of
+context buttons is always provided by features. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Each context button can
+have one click-feature, which is executed when clicking the context-button,
+and/or several drag&amp;drop features, which are executed when the user starts
+dragging a connection from the context button. If several drag&amp;drop
+features are available, a context-menu will be offered to the user when he
+drops the connection, and he can choose the feature to execute.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>In this example we want
+create one context button, which offers all available <a
+href="create-connection-feature.htm">create connection features</a> as
+drag&amp;drop features, but has no click-feature. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='color:black'><img border=0 width=353
+height=120 src="visio/context-buttons-click.gif"></span><span lang=EN-GB
+style='color:black'>&nbsp; </span></p>
+
+<p class=MsoCaption><span lang=EN-GB>Figure: A context button, which the user
+can click or start drag&amp;drop from it</span></p>
+
+<p class=MsoNormal><span style='color:black'><img border=0 width=353
+height=102 src="visio/context-buttons-drag.gif"></span></p>
+
+<p class=MsoCaption><span lang=EN-GB>Figure: The user started dragging from the
+context button</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
+complete implementation of the context button here:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> IContextButtonPadData getContextButtonPadData(</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  IPictogramElementContext context) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  IContextButtonPadData data = </span><b><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.getContextButtonPadData(context);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  PictogramElement pe = context.getPictogramElement();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// 1. set the generic context buttons</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// note, that we do not add 'remove' (just as an example)</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;setGenericContextButtons(data, pe, </span><i><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>CONTEXT_BUTTON_DELETE</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> | </span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><i><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#0000C0'>CONTEXT_BUTTON_UPDATE</span></i><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// 2. set the collapse button </span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// simply use the first custom feature (senseless example)</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  CustomContext cc = </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>new</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  CustomContext(</span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>new</span></b><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:black'> PictogramElement[] { pe });</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  ICustomFeature[] cf = getFeatureProvider().getCustomFeatures(cc);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> (cf.</span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>length</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  &gt;= 1) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  IContextButtonEntry collapseButton = ContextEntryHelper</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<i>createCollapseContextButton</i>(</span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  cf[0], cc);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  data.setCollapseContextButton(collapseButton);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp; }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// 3. add one domain specific context-button, which offers all
+  </span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// available connection-features as drag&amp;drop features...</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// 3.a. create new CreateConnectionContext</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  CreateConnectionContext ccc = </span><b><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  CreateConnectionContext();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  ccc.setSourcePictogramElement(pe);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Anchor anchor = </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> (pe </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  Anchor) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  anchor = (Anchor) pe;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  } </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>else</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  (pe </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>instanceof</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> AnchorContainer) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// assume, that our shapes always have <u>chopbox</u> anchors</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=FR style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>anchor = Graphiti.getPeService()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<i>getChopboxAnchor</i>((AnchorContainer) pe);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=FR
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>}</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  ccc.setSourceAnchor(anchor);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// 3.b. create context button and add all applicable features</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  ContextButtonEntry button = </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>new</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  ContextButtonEntry(</span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>, context);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  button.setText(</span><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#2A00FF'>&quot;Create connection&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  button.setIconId(TutorialImageProvider.</span><i><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>IMG_EREFERENCE</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  ICreateConnectionFeature[] features =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  getFeatureProvider().getCreateConnectionFeatures();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>for</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> (ICreateConnectionFeature feature :
+  features) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> (feature.isAvailable(ccc) &amp;&amp;
+  feature.canStartConnection(ccc))</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button.addDragAndDropFeature(feature);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// 3.c. add context button, if it contains at least one feature</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>
+  (button.getDragAndDropFeatures().size() &gt; 0) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp; data.getDomainSpecificContextButtons().add(button);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; </span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> data;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The context button entries contain
+information about icon, display text and tooltip description.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The positioning of the context buttons can
+be influenced by changing the rectangle around which the context buttons are
+placed (see <a
+href="../../../javadoc/com/sap/tc/emf/gfw/tb/IContextButtonPadData.html#getPadLocation()">getPadLocation</a>).
+By default the selection area is used (see <a href="selection-behavior.htm">selection
+behavior</a>) if defined, or otherwise the bounds of the pictogram elements
+main graphics algorithm are used.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Test: Create a Connection by Drag&amp;Drop from a Context
+Button</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Note that previously we
+implemented one <a href="create-connection-feature.htm">create connection
+feature</a> which allows creating an association between two EClasses.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Now start the editor
+and test this new context button:</span></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>Create
+     or open a&nbsp;diagram and create two EClasses in the diagram.</span></li>
+ <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>Position
+     the mouse on top of the first EClass and the context button should appear
+     in the south-east of the shape.</span></li>
+ <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>Start
+     dragging with the mouse from the context-button.</span></li>
+ <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>Drop
+     the connection onto the second EClass, which will result in one of the
+     following possibilities:</span></li>
+</ol>
+
+<ol style='margin-top:0cm' start=1 type=1>
+  <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>If
+      only one create connection feature for the EClass exists, then the
+      association will be created immediately.</span></li>
+  <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>If
+      several create connection features for the EClass exist, then a context-menu
+      will be shown to the user, where he can choose the feature to execute.
+      Tip: if you have only one create connection feature you can try this
+      behaviour by simply duplicating the line </span><span lang=EN-GB
+      style='font-size:10.0pt;font-family:"Courier New"'>”button.addDragAndDropFeature(feature);”</span><span
+      lang=EN-GB>.</span></li>
+</ol>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Note, that our implementation
+of the create connection feature does not allow a connection, if the source and
+target business object are identical. If you have two different shapes
+associated with the same business object (e.g. via copy &amp; paste), then
+creating a connection between them is not possible.</span></p>
+
+</div>
+<hr>
+	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+
+</body>
+
+</html>

@@ -1,0 +1,348 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 11 (filtered)">
+<title>Tool behavior provider</title>
+<link rel=Stylesheet type="text/css" media=all href="../book.css">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	color:windowtext;}
+h1
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-weight:bold;}
+h2
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-weight:bold;
+	font-style:italic;}
+h3
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-weight:bold;}
+h4
+	{margin-top:11.25pt;
+	margin-right:0cm;
+	margin-bottom:1.7pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-weight:bold;
+	font-style:italic;}
+h5
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p
+	{font-size:12.0pt;}
+pre
+	{margin-top:0cm;
+	margin-bottom:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:Tahoma;}
+p.code, li.code, div.code
+	{font-size:12.0pt;}
+p.note, li.note, div.note
+	{font-size:13.0pt;}
+span.code1
+	{font-style:italic;}
+span.code0
+	{font-style:italic;}
+@page Section1
+	{size:595.45pt 841.7pt;
+	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+
+<div class=Section1>
+
+<h1><span lang=EN-GB>Tool Behavior Provider</span></h1>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The tool behavior
+provider is needed to integrate into the standard workbench tools. In most
+cases this means adding functionality to existing editing concepts of the
+workbench.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Typical examples are:</span></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal style='color:black'><span lang=EN-GB>Adding features to
+     the palette or tool-bar</span></li>
+ <li class=MsoNormal style='color:black'><span lang=EN-GB>Specifying the
+     double-click behaviour</span></li>
+ <li class=MsoNormal style='color:black'><span lang=EN-GB>Adding features to
+     the context menu or context buttons of pictogram elements</span></li>
+</ul>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Creating a Tool Behavior Provider</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>To create a tool
+behavior provider the interface <a
+href="../../../javadoc/com/sap/tc/emf/gfw/tb/IToolBehaviorProvider.html">IToolBehaviorProvider</a>
+has to be implemented. Instead of implementing this directly you should extend
+one of the available base classes <a
+href="../../../javadoc/com/sap/tc/emf/gfw/tb/DefaultToolBehaviorProvider.html">DefaultToolBehaviorProvider</a>
+or even better <a
+href="../../../javadoc/com/sap/tc/emf/gfw/tb/AdvancedToolBehaviorProvider.html">AdvancedToolBehaviorProvider</a>.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>At this point we will
+just create an empty tool behavior provider by extending the base class. We
+will add further functionality in the next chapters.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
+implementation of the empty tool behavior provider here:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  org.eclipse.graphiti.examples.tutorial.diagram;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>import</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  org.eclipse.graphiti.dt.IDiagramTypeProvider;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>import</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  org.eclipse.graphiti.tb.AdvancedToolBehaviorProvider;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialToolBehaviorProvider </span><b><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#7F0055'>extends</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> AdvancedToolBehaviorProvider
+  {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialToolBehaviorProvider(IDiagramTypeProvider dtp) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(dtp);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>}</span></p>
+  <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
+diagram type provider has to deliver this newly created tool behavior provider
+(overwrite the method </span><span class=code1><span style='color:black'><a
+href="../../../javadoc/com/sap/tc/emf/gfw/dt/IDiagramTypeProvider.html#getAvailableToolBehaviorProviders()"><span
+lang=EN-US style='font-style:normal'>getAvailableToolBehaviorProviders</span></a></span></span><span
+class=code1><span lang=EN-GB style='color:black;font-style:normal'>)</span></span><i><span
+lang=EN-GB style='color:black'>. </span></i></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>This implementation can
+be seen here:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  org.eclipse.graphiti.examples.tutorial.diagram;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>import</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>import</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  org.eclipse.graphiti.tb.IToolBehaviorProvider;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialDiagramTypeProvider </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>extends</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  AbstractDiagramTypeProvider {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>private</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  IToolBehaviorProvider[] </span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#0000C0'>toolBehaviorProviders</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialDiagramTypeProvider() {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>       
+  setFeatureProvider(</span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>new</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialFeatureProvider(</span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>this</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>));</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> (</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>toolBehaviorProviders</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> ==
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>null</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>toolBehaviorProviders</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>               
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> IToolBehaviorProvider[] { </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialToolBehaviorProvider(</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>                   
+  </span><b><span style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>) };</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>        }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>        </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>toolBehaviorProviders</span><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>    }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>}</span></p>
+  <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+</div>
+<hr>
+	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+
+</body>
+
+</html>

@@ -1,0 +1,213 @@
+/*******************************************************************************
+ * <copyright>
+ *
+ * Copyright (c) 2005, 2010 SAP AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    SAP AG - initial API, implementation and documentation
+ *
+ * </copyright>
+ *
+ *******************************************************************************/
+package org.eclipse.graphiti.ui.internal.services;
+
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.workspace.IWorkspaceCommandStack;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.jface.viewers.IStructuredSelection;
+
+/**
+ * @noimplement This interface is not intended to be implemented by clients.
+ * @noextend This class is not intended to be subclassed by clients.
+ */
+public interface IEmfService {
+
+	/**
+	 * Returns the human readable name of a given object or the EMF id if no
+	 * name can be found. The method tries to access a modeled attribute "name"
+	 * or "id" in this order. If no attribute with this name is modeled, the
+	 * first attribute whose value is a String or
+	 * {@link TranslatableTextFragment} is returned, otherwise <code>null</code>
+	 * .
+	 * 
+	 * @param obj
+	 *            the object to get a name for
+	 * @return the value of attribute "name" or the EMF id if no attribute
+	 *         "name" exists
+	 * 
+	 * @see #getObjectNameAttribute(RefObject)
+	 */
+	public abstract String getObjectName(final Object obj);
+
+	/**
+	 * Tries to convert the given object to a {@link EObject}
+	 * <ul>
+	 * <li>using {@link #adaptObject(Object, Class)},</li>
+	 * <li>unwrapping an {@link IStructuredSelection}.</li>
+	 * </ul>
+	 * 
+	 * @param object
+	 *            the object to convert
+	 * @return the target object or <code>null</code>
+	 * 
+	 * @see #getEObject(Object)
+	 */
+	public abstract EObject getEObject(Object object);
+
+	/**
+	 * Returns the EMF attribute that contains a human readable name of a given
+	 * object as its value. The method tries to access a modeled attribute
+	 * "name" or "id" in this order. If no attribute with this name is modeled,
+	 * the first attribute whose value is a String or {@link TranslatableText}
+	 * is returned, otherwise <code>null</code> .
+	 * 
+	 * @param eObject
+	 *            the object to get a name for
+	 * @return the attribute (currently "name", id" or a
+	 *         {@link TranslatableTextFragment}) and the readable name
+	 * 
+	 * @see #getObjectName(Object)
+	 */
+	public abstract Entry<EAttribute, String> getObjectNameAttribute(final EObject eObject);
+
+	/**
+	 * Returns the Eclipse file for the given {@link EObject}'s {@link Resource}
+	 * .
+	 * 
+	 * Note that the file is <code>null</code> for objects in
+	 * <ul>
+	 * <li>archives,</li>
+	 * <li>closed projects,</li>
+	 * <li>not yet persisted resources or not yet persisted EObjects in already
+	 * persisted resources. In this respect this methods behaves asymmetric to
+	 * the handle-only resource APIs like {@link IProject#getFile(String)}.</li>
+	 * </ul>
+	 * 
+	 * @param object
+	 *            the model object to get the file for
+	 * @return the partition file or <code>null</code> under the mentioned
+	 *         circumstances
+	 * 
+	 * @see #getFile(URI, ResourceSet)
+	 */
+	public abstract IFile getFile(EObject object);
+
+	/**
+	 * Returns the Eclipse file for the given {@link Resource}.
+	 * 
+	 * Note that the file is <code>null</code> for objects in
+	 * <ul>
+	 * <li>archives,</li>
+	 * <li>closed projects,</li>
+	 * <li>not yet persisted resources or not yet persisted EObjects in already
+	 * persisted resources. In this respect this methods behaves asymmetric to
+	 * the handle-only resource APIs like {@link IProject#getFile(String)}.</li>
+	 * </ul>
+	 * 
+	 * @param uri
+	 *            the resource id to get the file for
+	 * @return the partition file or <code>null</code> under the mentioned
+	 *         circumstances
+	 * 
+	 * @see #getFile(EObject)
+	 */
+	public abstract IFile getFile(URI uri, TransactionalEditingDomain editingDomain);
+
+	public abstract IFile getFile(URI uri, ResourceSet resourceSet);
+
+	public abstract TransactionalEditingDomain getEditingDomain(ResourceSet resourceSet);
+
+	/**
+	 * Returns the ResourceSet of the given model object
+	 * 
+	 * @param object
+	 *            the object to get the ResourceSet for. Must not be
+	 *            <code>null</code>.
+	 * @return the ResourceSet
+	 * 
+	 */
+	public abstract ResourceSet getResourceSet(EObject object);
+
+	/**
+	 * Returns the {@link EditingDomain} for the given {@link EObject}
+	 * 
+	 * @param object
+	 *            The object for which the {@link EditingDomain} should be
+	 *            retrieved
+	 * @return Returns the editing domain if it already exists, if none exists
+	 *         <code>null</code> is returned.
+	 */
+	public abstract TransactionalEditingDomain getEditingDomain(EObject object);
+
+	/**
+	 * Saves the given {@link TransactionalEditingDomain} by saving all its
+	 * dirty {@link Resource}s.
+	 * 
+	 * @param editingDomain
+	 *            The {@link TransactionalEditingDomain} to be saved.
+	 */
+	public abstract void save(TransactionalEditingDomain editingDomain) throws WrappedException;
+
+	/**
+	 * Saves the given {@link TransactionalEditingDomain} by saving all its
+	 * dirty {@link Resource}s.
+	 * 
+	 * @param editingDomain
+	 *            The {@link TransactionalEditingDomain} to be saved.
+	 * @param options
+	 *            Save options for each of the {@link Resource}s to save.
+	 */
+	public abstract void save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> options);
+
+	/**
+	 * Creates an extended string presentation of the given {@link EObject},
+	 * including its type and attributes
+	 * 
+	 * @param o
+	 *            the object to create a string presentation for
+	 * @param result
+	 *            the string buffer to store the result into
+	 * @return the same string buffer as <code>result</code> per convenience
+	 * 
+	 * @see #toString(EObject)
+	 */
+	public abstract StringBuilder toString(final EObject o, final StringBuilder result);
+
+	/**
+	 * If given file is a valid emf resource and it contains a diagram as root
+	 * element, this methods return the diagram. Otherwise this method returns
+	 * null.
+	 * 
+	 * @param file
+	 *            a valid emf (diagram) resource
+	 * @return diagram or null
+	 */
+	public abstract Diagram getDiagramFromFile(IFile file, ResourceSet resourceSet);
+
+	public abstract URI getFileURI(IFile file, ResourceSet resourceSet);
+
+	/**
+	 * Creates a {@link TransactionalEditingDomain} with a {@link ResourceSet}
+	 * resource set and a {@link IWorkspaceCommandStack} command stack.
+	 * 
+	 * @return a {@link TransactionalEditingDomain} editing domain
+	 */
+	public abstract TransactionalEditingDomain createResourceSetAndEditingDomain();
+
+}

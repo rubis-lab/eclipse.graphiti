@@ -1,0 +1,22 @@
+@import "../../PRODUCT_PLUGIN/book.css";
+
+
+
+/* Adding comments: */
+/* In your Document enclose your comments in a span block like this: <span class="comment">Comment</span> */
+.comment {
+/* 	use "display:run-in;" to make comments visible */
+/* 	use "display:none;"   to hide comments */
+	display:none;
+	font-weight:bold;
+	color:red;
+}
+
+
+/* this doesnt work with IE */
+kom {
+	display:none;
+	font-weight:bold;
+	color:red;
+}
+	

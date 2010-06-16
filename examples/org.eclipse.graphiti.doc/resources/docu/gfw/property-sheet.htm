@@ -1,0 +1,745 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 11 (filtered)">
+<title>Contributing to the property sheet</title>
+
+<link rel=Stylesheet type="text/css" media=all href="../book.css">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	color:windowtext;}
+h1
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h2
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;
+	font-style:italic;}
+h3
+	{margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h4
+	{margin-top:11.25pt;
+	margin-right:0cm;
+	margin-bottom:1.7pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;
+	font-style:italic;}
+h5
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h6
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:7.5pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p
+	{margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+pre
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:3.4pt;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:Tahoma;}
+p.code, li.code, div.code
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:15.0pt;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+p.note, li.note, div.note
+	{margin-top:19.5pt;
+	margin-right:0cm;
+	margin-bottom:19.5pt;
+	margin-left:30.0pt;
+	font-size:13.0pt;
+	font-family:"Times New Roman";
+	font-style:italic;}
+p.comment, li.comment, div.comment
+	{margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+span.code1
+	{font-style:italic;}
+@page Section1
+	{size:595.45pt 841.7pt;
+	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+
+<div class=Section1>
+
+<h1><span lang=EN-GB>Contributing to the Property Sheet</span></h1>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Prerequisite</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Contributing to the
+property sheet is platform dependent (e.g. Eclipse specific). </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Add a dependency to the
+plugin </span><span class=code1><span lang=EN-US style='color:black'>org.eclipse.ui.views.properties.tabbed</span></span><span
+lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
+class=code1><span lang=EN-US style='color:black;font-style:normal'>in the
+plugin.xml resp. manifest.mf</span></span><span lang=EN-GB style='color:black'>,
+which contains eclipse functionality for property sheets. </span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Contributing to the Property Sheet</span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Contributing to the
+property sheet is easy if you are familiar with the Eclipse property sheet
+concept. <b>If not please read the following <a
+href="http://www.eclipse.org/articles/Article-Tabbed-Properties/tabbed_properties_view.html">article</a>.</b></span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>First you have to add
+some declarations to your plugin.xml.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:"Courier New";color:navy'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:navy'>&lt;extension</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp; </span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:navy'>point=</span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;org.eclipse.ui.views.properties.tabbed.propertyContributor&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp; </span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:navy'>&lt;propertyContributor</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>contributorId=</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;mytutorial.PropertyContributor&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:navy'>&lt;propertyCategory</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>category=</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;Graphiti&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:navy'>&lt;/propertyCategory&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp; </span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:navy'>&lt;/propertyContributor&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:navy'>&lt;/extension&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:navy'>&lt;extension</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp; </span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:navy'>point=</span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;org.eclipse.ui.views.properties.tabbed.propertyTabs&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp; </span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:navy'>&lt;propertyTabs</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>contributorId=</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;mytutorial.PropertyContributor&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:navy'>&lt;propertyTab</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>label=</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;Main&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>category=</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>Graphiti</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>id=</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;graphiti.main.tab&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:navy'>&lt;/propertyTab&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp; </span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:navy'>&lt;/propertyTabs&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:navy'>&lt;/extension&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:navy'>&lt;extension</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp; </span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:navy'>point=</span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;org.eclipse.ui.views.properties.tabbed.propertySections&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp; </span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:navy'>&lt;propertySections</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>contributorId=</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;mytutorial.PropertyContributor&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:navy'>&lt;propertySection</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>tab=</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;graphiti.main.tab&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:navy'>class=</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;org.eclipse.graphiti.examples.tutorial.property<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .MyTutorialEClassSection&quot;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:navy'>filter=</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;org.eclipse.graphiti.examples.tutorial.property<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .MyTutorialEClassFilter&quot;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:navy'>id=</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;graphiti.main.tab.emfclass&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:navy'>&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style='font-size:
+  10.0pt;font-family:"Courier New";color:navy'>&lt;/propertySection&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp; </span><span style='font-size:10.0pt;font-family:"Courier New";
+  color:navy'>&lt;/propertySections&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+  style='font-size:10.0pt;font-family:"Courier New";color:navy'>&lt;/extension&gt;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The first extension <b>creates
+a category</b> with the id “Graphiti”. Categories are used to group tabs.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The second extension <b>creates
+a tab</b> with the label “Main” in the previously created category. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The third extension <b>creates
+a section</b> for the previously defined tab. Sections are the UI blocks of
+which a tab consists.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><span lang=EN-GB style='color:black'>It is very
+important, that the </span></b><b><span lang=EN-GB style='font-size:10.0pt;
+font-family:"Courier New";color:navy'>contributorId</span></b><b><span
+lang=EN-GB style='color:black'> in the plugin.xml is the same, which is
+determined internally in Graphiti. The </span></b><b><span
+lang=EN-GB style='font-size:10.0pt;font-family:"Courier New";color:navy'>contributorId</span></b><b><span
+lang=EN-GB style='color:black'> is calculated from the diagram-type-id by the
+formula: &nbsp;</span></b><b><i><span lang=EN-GB style='font-size:10.0pt;
+font-family:"Courier New";color:black'>Diagram.getDiagramTypeId()</span></i></b><b><span
+lang=EN-GB style='color:black'> </span></b><b><span lang=EN-GB
+style='font-size:10.0pt;font-family:"Courier New";color:black'>+ </span></b><b><span
+lang=EN-GB style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;.PropertyContributor&quot;</span></b><b><span
+lang=EN-GB style='color:black'>.</span></b></p>
+
+<p class=MsoNormal><b><span lang=EN-GB style='color:black'>In our example this
+results in </span></b><b><span lang=EN-GB style='font-size:10.0pt;font-family:
+"Courier New";color:navy'>contributorId=</span><span lang=EN-GB
+style='font-size:10.0pt;font-family:"Courier New";color:green'>&quot;mytutorial.PropertyContributor&quot;</span></b><b><span
+lang=EN-GB style='color:black'>. </span></b></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Note that the category
+“Graphiti” and the identifiers “graphiti.main.tab” and “graphiti.main.tab.emfclass” can be
+chosen freely, as long as they are kept consistent over all occurrences.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>In our example the
+section should be shown if the selected element represents a EClass.
+Therefore we have to implement a property filter class by extending <a
+href="../../../javadoc/com/sap/tc/emf/gfw/eclipse/platform/AbstractPropertySectionFilter.html">AbstractPropertySectionFilter</a>
+and overwriting the method <a
+href="../../../javadoc/com/sap/tc/emf/gfw/eclipse/platform/AbstractPropertySectionFilter.html#accept(PictogramElement)">accept</a>.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
+complete implementation of the property filter here:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> org.eclipse.graphiti.examples.tutorial.property;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialEClassFilter </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>extends</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  AbstractPropertySectionFilter {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>protected</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  accept(PictogramElement pe) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  EObject eObject =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Graphiti.getLinkService()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<i>getBusinessObjectForLinkedPictogramElement</i>(pe);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> (eObject </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  EClass) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>}</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Finally we have to
+implement a property section class which creates the UI shown in the tab using standard
+SWT controls (refer to the <a
+href="http://www.eclipse.org/articles/Article-Tabbed-Properties/tabbed_properties_view.html">article</a>
+mentioned above). This class should extend <a
+href="../../../javadoc/com/sap/tc/emf/gfw/eclipse/platform/GFPropertySection.html">GFPropertySection</a>,
+which offers some convenience methods to retrieve the selected Pictogram
+Element or execute Features.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>In this example we
+create a simple UI, which allows displaying and changing the name of a EClass.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see a very
+simple implementation of the property section here: </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  org.eclipse.graphiti.examples.tutorial.property;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span> 
+	<span
+  style='background:#FFFFFF; ; font-size:10.0pt; font-family:Courier New' lang="EN-US">TutorialEClassSection</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>extends</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  GFPropertySection </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>implements</span></b></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  ITabbedPropertyConstants {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>private</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> Text </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>nameText</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>void</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  createControls(Composite parent,</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  TabbedPropertySheetPage tabbedPropertySheetPage) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>super</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>.createControls(parent,
+  tabbedPropertySheetPage);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  TabbedPropertySheetWidgetFactory factory = getWidgetFactory();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Composite composite = factory.createFlatFormComposite(parent);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  FormData data;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#0000C0'>nameText</span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> = factory.createText(composite, </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  data = </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> FormData();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  data.</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#0000C0'>left</span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> = </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  FormAttachment(0, </span><i><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#0000C0'>STANDARD_LABEL_WIDTH</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  data.</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#0000C0'>right</span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> = </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  FormAttachment(100, 0);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  data.</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#0000C0'>top</span><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:black'> = </span><b><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  FormAttachment(0, </span><i><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#0000C0'>VSPACE</span></i><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#0000C0'>nameText</span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>.setLayoutData(data);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  CLabel valueLabel = factory.createCLabel(composite, </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Name:&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  data = </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> FormData();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  data.</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#0000C0'>left</span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> = </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> FormAttachment(0,
+  0);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  data.</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#0000C0'>right</span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> = </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  FormAttachment(</span><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>nameText</span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>, -</span><i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>HSPACE</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  data.</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#0000C0'>top</span><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:black'> = </span><b><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  FormAttachment(</span><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>nameText</span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>, 0, SWT.</span><i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>CENTER</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  valueLabel.setLayoutData(data);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>void</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  refresh() {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  PictogramElement pe = getSelectedPictogramElement();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> (pe != </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object bo = Graphiti.getLinkService()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<i>getBusinessObjectForLinkedPictogramElement</i>(pe);<br>
+	</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // the filter assured, that it is a EClass</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            String
+  name = ((EClass) bo).getName();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>            </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>nameText</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.setText(name
+  == </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>null</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> ? </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> :
+  name);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>}</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-GB>Test: Verify the Property Sheet for the EClass</span></h2>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Now start the editor
+and create a new EClass. Open the properties view and select the EClass.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Verify that the
+property sheet tab “Main” is shown, and that the class name is correctly
+displayed.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>There is currently no
+synchronization between the graphical editor and the property sheet. If the
+name of the EClass is changed in the editor, the change is not visible in
+the property sheet. The same happens vice versa. </span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The event handling can
+be implemented as an exercise.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+</div>
+<hr>
+	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+
+</body>
+
+</html>
