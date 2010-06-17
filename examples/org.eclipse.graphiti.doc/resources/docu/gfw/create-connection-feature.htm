@@ -375,7 +375,7 @@ href="add-connection-feature.htm">add connection feature</a> should be used.</sp
 create an EReference between EClasses via the connection tool from the palette.</span></p>
 <p class=MsoNormal>&nbsp;</p>
 <p class=MsoNormal>
-<img border="0" src="visio/connection-routing.png" width="457" height="256"></p>
+<img border="0" src="visio/connection-routing-direct.png" width="251" height="251"></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
@@ -848,50 +848,7 @@ in the following code snippet:</span></span></p>
   </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>peCreateService<span
   style='color:black'>.createChopboxAnchor(containerShape);</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt'>&nbsp;</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // create an
-  additional box relative anchor at middle-right</span></p>
-  <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>
-  BoxRelativeAnchor boxAnchor =<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  peCreateService.createBoxRelativeAnchor(containerShape);</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  boxAnchor.setRelativeWidth(1.0);</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  boxAnchor.setRelativeHeight(0.38); <span style='color:#3F7F5F'>// Use golden
-  section</span></span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // anchor
-  references visible rectangle instead of invisible rectangle</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // assign a
-  graphics algorithm for the box relative anchor</span></p>
-  <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> Ellipse
-  ellipse = gaService.createEllipse(boxAnchor);</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  ellipse.setFilled(<b><span style='color:#7F0055'>true</span></b>);</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // anchor is
-  located on the right border of the visible rectangle</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // and touches the
-  border of the invisible rectangle</span></p>
-  <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <b><span
-  style='color:#7F0055'>int</span></b> w = <i><span style='color:#0000C0'>INVISIBLE_RECT_RIGHT</span></i>;</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  gaService.setLocationAndSize(ellipse, -w, -w, 2 * w, 2 * w);</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  ellipse.setStyle(StyleUtil.getStyleForEClass(getDiagram()));</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt'>&nbsp;</span><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
