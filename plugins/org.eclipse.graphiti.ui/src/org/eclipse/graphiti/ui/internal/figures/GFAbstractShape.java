@@ -313,9 +313,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			if (renderingStyle != null) {
 				graphics.pushState();
 				try {
-					//					introduce with eclipse 3.6
-					//					graphics.clipPath(path);
-					graphics.setClip(path);
+					graphics.clipPath(path);
 					int styleAdaptation = getStyleAdaptation();
 					String coloredAreaId = renderingStyle.getPredefinedStyleId();
 					ColoredArea coloredArea[] = PredefinedColoredAreas.getColoredAreas(coloredAreaId, styleAdaptation);
