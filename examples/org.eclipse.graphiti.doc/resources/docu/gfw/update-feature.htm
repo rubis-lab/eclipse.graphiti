@@ -171,7 +171,7 @@ lang=EN-US style='color:black'>2.</span><span lang=EN-US style='font-size:7.0pt;
 color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US
 style='color:black'>If the <b>automatic update is inactive</b>, then a change
 in the business model will only mark the changed diagram shapes as outdated.
-The user can then manually update the outdated shapes.</span></p>
+The user can then manually update the outdated shapes.</span><br> </p>
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
 
@@ -205,6 +205,11 @@ href="../../../javadoc/com/sap/tc/emf/gfw/dt/IDiagramTypeProvider.html">IDiagram
      href="../../../javadoc/com/sap/tc/emf/gfw/dt/IDiagramTypeProvider.html#isAutoUpdateAtRuntime()">isAutoUpdateAtRuntime</a>
      returns true, then the diagram will be updated, when it is already open in
      the graphical editor, but only if the editor is already dirty.</span></li>
+	<li class=MsoNormal style='color:black'><span lang="en-us">If
+	<font color="#0000FF">isAutoUpdateAtReset</font> returns true, then the 
+	diagram will be updated, if the editor is already dirty and the user chooses 
+	to discard his changes (reset the diagram), when a change from outside the 
+	diagram occurs.</span></li>
 </ul>
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
@@ -371,11 +376,7 @@ can see the complete implementation of the update feature here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>for</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (Iterator iter =
-  cs.getChildren().iterator(); iter.hasNext();) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Shape shape = (Shape) iter.next();</span></p>
+  font-family:"Courier New";color:black'> (Shape shape : cs.getChildren()) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
@@ -547,11 +548,7 @@ can see the complete implementation of the update feature here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>for</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (Iterator iter =
-  cs.getChildren().iterator(); iter.hasNext();) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Shape shape = (Shape) iter.next();</span></p>
+  font-family:"Courier New";color:black'> (Shape shape : cs.getChildren()) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
@@ -720,19 +717,27 @@ again and test it:</span></p>
      the new EClass under “EClasses&quot;</span></li>
  <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>rename
      this EClass via context menu to “B”</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>the
-     diagram will be updated automatically</span></li>
+ <li class=MsoNormal style='color:black;text-align:justify'>when you activate 
+	the editor, you will receive a popup, choose yes and you will get the 
+	updated EClass (since <i>isAutoUpdateAtReset</i> is set to <b>true</b> by 
+	default)</li>
  <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>save
      current diagram </span></li>
+	<li class=MsoNormal style='color:black;text-align:justify'>
+	<span lang="en-gb">close the editor</span></li>
  <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>go
      to the Project Explorer</span></li>
  <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>rename
-     this EClass via context menu to “C” </span></li>
+     this EClass via context menu to “C”</span></li>
+	<li class=MsoNormal style='color:black;text-align:justify'>
+	<span lang="en-gb">reopen the diagram editor</span></li>
  <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>the
      diagram will not be updated automatically, instead the editor visualizes
-     dirty states</span></li>
+     dirty states, when the editor is activated (since <i>isAutoUpdateAtStartup</i> 
+	is set to <b>false</b> by default)</span></li>
  <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>move
-     mouse on dirty EClass shape and press appearing update button</span></li>
+     mouse on dirty EClass shape and hit appearing update button. The name &quot;C&quot; 
+	should appear.</span></li>
 </ol>
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
