@@ -28,4 +28,5 @@ public enum DiagramScrollingBehavior {
 	 * The SCROLLBAR s_ alway s_ visible.
 	 */
 	SCROLLBARS_ALWAYS_VISIBLE
+
 }
