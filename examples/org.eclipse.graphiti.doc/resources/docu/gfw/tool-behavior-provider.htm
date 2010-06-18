@@ -131,76 +131,20 @@ workbench.</span></p>
 behavior provider the interface <a
 href="../../../javadoc/com/sap/tc/emf/gfw/tb/IToolBehaviorProvider.html">IToolBehaviorProvider</a>
 has to be implemented. Instead of implementing this directly you should extend
-one of the available base classes <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/DefaultToolBehaviorProvider.html">DefaultToolBehaviorProvider</a>
-or even better <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/AdvancedToolBehaviorProvider.html">AdvancedToolBehaviorProvider</a>.</span></p>
+the base classe <a
+href="../../../javadoc/com/sap/tc/emf/gfw/tb/DefaultToolBehaviorProvider.html">DefaultToolBehaviorProvider</a>.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>At this point we will
-just create an empty tool behavior provider by extending the base class. We
-will add further functionality in the next chapters.</span></p>
+just create an empty tool behavior provider by extending the base class. </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
-implementation of the empty tool behavior provider here:</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  org.eclipse.graphiti.examples.tutorial.diagram;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>import</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  org.eclipse.graphiti.dt.IDiagramTypeProvider;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>import</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  org.eclipse.graphiti.tb.AdvancedToolBehaviorProvider;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  TutorialToolBehaviorProvider </span><b><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:#7F0055'>extends</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> AdvancedToolBehaviorProvider
-  {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  TutorialToolBehaviorProvider(IDiagramTypeProvider dtp) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(dtp);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-  </td>
- </tr>
-</table>
+implementation of the empty tool behavior provider <a href="custom-feature.htm">here</a> 
+. </span><span lang=EN-GB style='color:black'>We will add further functionality 
+in the next chapters.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
