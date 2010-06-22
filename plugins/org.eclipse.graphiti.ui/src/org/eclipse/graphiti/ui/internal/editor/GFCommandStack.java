@@ -22,6 +22,7 @@ import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.commands.operations.IUndoableOperation;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.workspace.impl.WorkspaceCommandStackImpl;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
@@ -116,7 +117,7 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 			if (command instanceof FeatureCommand) {
 				if (!((FeatureCommand) command).getFeature().hasDoneChanges()) {
 					// Use the default context and retrieve the last operation
-					GFWorkspaceCommandStackImpl gfWorkspaceCommandStackImpl = (GFWorkspaceCommandStackImpl) getEmfCommandStack();
+					WorkspaceCommandStackImpl gfWorkspaceCommandStackImpl = (WorkspaceCommandStackImpl) getEmfCommandStack();
 					IUndoContext context = gfWorkspaceCommandStackImpl.getDefaultUndoContext();
 					IUndoableOperation operation = gfWorkspaceCommandStackImpl.getOperationHistory().getUndoOperation(context);
 
