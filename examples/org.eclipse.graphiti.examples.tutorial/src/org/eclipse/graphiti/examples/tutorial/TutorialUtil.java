@@ -24,19 +24,23 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 
 public class TutorialUtil {
 
 	public static Collection<Diagram> getDiagrams(IProject p) {
-		List<IFile> files = getDiagramFiles(p);
-		List<Diagram> diagramList = new ArrayList<Diagram>();
-		ResourceSet rSet = new ResourceSetImpl();
-		for (IFile file : files) {
-			Diagram diagram = GraphitiUiInternal.getEmfService().getDiagramFromFile(file, rSet);
+		final List<IFile> files = getDiagramFiles(p);
+		final List<Diagram> diagramList = new ArrayList<Diagram>();
+		final ResourceSet rSet = new ResourceSetImpl();
+		for (final IFile file : files) {
+			final Diagram diagram = getDiagramFromFile(file, rSet);
 			if (diagram != null) {
 				diagramList.add(diagram);
 			}
@@ -45,23 +49,54 @@ public class TutorialUtil {
 	}
 
 	private static List<IFile> getDiagramFiles(IContainer folder) {
-		List<IFile> ret = new ArrayList<IFile>();
+		final List<IFile> ret = new ArrayList<IFile>();
 		try {
-			IResource[] members = folder.members();
-			for (IResource resource : members) {
+			final IResource[] members = folder.members();
+			for (final IResource resource : members) {
 				if (resource instanceof IContainer) {
 					ret.addAll(getDiagramFiles((IContainer) resource));
 				} else if (resource instanceof IFile) {
-					IFile file = (IFile) resource;
+					final IFile file = (IFile) resource;
 					if (file.getName().endsWith(".diagram")) { //$NON-NLS-1$
 						ret.add(file);
 					}
 				}
 			}
-		} catch (CoreException e) {
+		} catch (final CoreException e) {
 			e.printStackTrace();
 		}
 		return ret;
+	}
+
+	private static Diagram getDiagramFromFile(IFile file, ResourceSet resourceSet) {
+		// Get the URI of the model file.
+		final URI resourceURI = getFileURI(file, resourceSet);
+
+		// Demand load the resource for this file.
+		Resource resource;
+		try {
+			resource = resourceSet.getResource(resourceURI, true);
+			if (resource != null) {
+				// does resource contain a diagram as root object?
+				final EList<EObject> contents = resource.getContents();
+				for (final EObject object : contents) {
+					if (object instanceof Diagram) {
+						return (Diagram) object;
+					}
+				}
+			}
+		} catch (final WrappedException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	private static URI getFileURI(IFile file, ResourceSet resourceSet) {
+		final String pathName = file.getFullPath().toString();
+		URI resourceURI = URI.createFileURI(pathName);
+		resourceURI = resourceSet.getURIConverter().normalize(resourceURI);
+		return resourceURI;
 	}
 
 }
