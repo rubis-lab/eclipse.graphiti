@@ -18,7 +18,6 @@ package org.eclipse.graphiti.ui.features;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -176,21 +175,11 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 	}
 
 	/**
-	 * Returns all diagrams which are considered for navigation. This method can
-	 * be overridden.
+	 * Returns all diagrams which are considered for navigation.
 	 * 
 	 * @return the diagrams
 	 */
-	protected Collection<Diagram> getDiagrams() {
-		final Collection<Diagram> ret = new HashSet<Diagram>();
-		for (final TreeIterator<?> i = getDiagramEditor().getResourceSet().getAllContents(); i.hasNext();) {
-			final Object child = i.next();
-			if (child instanceof Diagram) {
-				ret.add((Diagram) child);
-			}
-		}
-		return ret;
-	}
+	protected abstract Collection<Diagram> getDiagrams();
 
 	/**
 	 * The Class DiagramLabelProvider.
