@@ -2,64 +2,81 @@
 
 <head>
 <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 11 (filtered)">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
 <title>Providing custom functionality</title>
 <link rel=Stylesheet type="text/css" media=all href="../book.css">
 <style>
 <!--
  /* Font Definitions */
  @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
 	{font-family:Tahoma;
 	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0cm;
 	margin-bottom:.0001pt;
 	font-size:12.0pt;
-	font-family:"Times New Roman";
-	color:windowtext;}
+	font-family:"Times New Roman","serif";}
 h1
-	{margin-top:12.0pt;
+	{mso-style-link:"Überschrift 1 Zchn";
+	margin-top:12.0pt;
 	margin-right:0cm;
 	margin-bottom:3.0pt;
 	margin-left:0cm;
 	page-break-after:avoid;
 	font-size:16.0pt;
+	font-family:"Times New Roman","serif";
 	font-weight:bold;}
 h2
-	{margin-top:12.0pt;
+	{mso-style-link:"Überschrift 2 Zchn";
+	margin-top:12.0pt;
 	margin-right:0cm;
 	margin-bottom:3.0pt;
 	margin-left:0cm;
 	page-break-after:avoid;
 	font-size:14.0pt;
+	font-family:"Times New Roman","serif";
 	font-weight:bold;
 	font-style:italic;}
 h3
-	{margin-top:12.0pt;
+	{mso-style-link:"Überschrift 3 Zchn";
+	margin-top:12.0pt;
 	margin-right:0cm;
 	margin-bottom:3.0pt;
 	margin-left:0cm;
 	page-break-after:avoid;
 	font-size:13.0pt;
+	font-family:"Times New Roman","serif";
 	font-weight:bold;}
 h4
-	{margin-top:11.25pt;
+	{mso-style-link:"Überschrift 4 Zchn";
+	margin-top:11.25pt;
 	margin-right:0cm;
 	margin-bottom:1.7pt;
 	margin-left:0cm;
 	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
 	font-weight:bold;
 	font-style:italic;}
 h5
-	{margin-right:0cm;
+	{mso-style-link:"Überschrift 5 Zchn";
+	margin-right:0cm;
 	margin-left:0cm;
 	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
 	font-weight:bold;}
 h6
-	{margin-right:0cm;
+	{mso-style-link:"Überschrift 6 Zchn";
+	margin-right:0cm;
 	margin-left:0cm;
 	font-size:7.5pt;
+	font-family:"Times New Roman","serif";
 	font-weight:bold;}
 p.MsoCaption, li.MsoCaption, div.MsoCaption
 	{margin-top:6.0pt;
@@ -68,6 +85,7 @@ p.MsoCaption, li.MsoCaption, div.MsoCaption
 	margin-left:0cm;
 	text-align:justify;
 	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
 	font-weight:bold;}
 a:link, span.MsoHyperlink
 	{color:blue;
@@ -80,35 +98,90 @@ p
 	margin-right:0cm;
 	margin-bottom:5.65pt;
 	margin-left:0cm;
-	font-size:12.0pt;}
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
 pre
-	{margin-top:0cm;
+	{mso-style-link:"HTML Vorformatiert Zchn";
+	margin-top:0cm;
 	margin-right:0cm;
 	margin-bottom:0cm;
 	margin-left:3.4pt;
 	margin-bottom:.0001pt;
-	font-size:11.0pt;}
+	font-size:11.0pt;
+	font-family:"Courier New";}
 p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{margin:0cm;
+	{mso-style-link:"Sprechblasentext Zchn";
+	margin:0cm;
 	margin-bottom:.0001pt;
 	font-size:8.0pt;
-	font-family:Tahoma;}
+	font-family:"Tahoma","sans-serif";}
+span.berschrift1Zchn
+	{mso-style-name:"Überschrift 1 Zchn";
+	mso-style-link:"Überschrift 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.berschrift2Zchn
+	{mso-style-name:"Überschrift 2 Zchn";
+	mso-style-link:"Überschrift 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.berschrift3Zchn
+	{mso-style-name:"Überschrift 3 Zchn";
+	mso-style-link:"Überschrift 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.berschrift4Zchn
+	{mso-style-name:"Überschrift 4 Zchn";
+	mso-style-link:"Überschrift 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.berschrift5Zchn
+	{mso-style-name:"Überschrift 5 Zchn";
+	mso-style-link:"Überschrift 5";
+	font-family:"Cambria","serif";
+	color:#243F60;}
+span.berschrift6Zchn
+	{mso-style-name:"Überschrift 6 Zchn";
+	mso-style-link:"Überschrift 6";
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-style:italic;}
+span.HTMLVorformatiertZchn
+	{mso-style-name:"HTML Vorformatiert Zchn";
+	mso-style-link:"HTML Vorformatiert";
+	font-family:Consolas;}
+span.SprechblasentextZchn
+	{mso-style-name:"Sprechblasentext Zchn";
+	mso-style-link:Sprechblasentext;
+	font-family:"Tahoma","sans-serif";}
 p.code, li.code, div.code
-	{margin-top:0cm;
+	{mso-style-name:code;
+	margin-top:0cm;
 	margin-right:0cm;
 	margin-bottom:0cm;
 	margin-left:15.0pt;
 	margin-bottom:.0001pt;
-	font-size:12.0pt;}
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
 p.note, li.note, div.note
-	{margin-top:19.5pt;
+	{mso-style-name:note;
+	margin-top:19.5pt;
 	margin-right:0cm;
 	margin-bottom:19.5pt;
 	margin-left:30.0pt;
 	font-size:13.0pt;
+	font-family:"Times New Roman","serif";
 	font-style:italic;}
 span.code1
-	{font-style:italic;}
+	{mso-style-name:code1;
+	font-style:italic;}
+.MsoChpDefault
+	{font-size:10.0pt;}
 @page Section1
 	{size:595.45pt 841.7pt;
 	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
@@ -134,10 +207,10 @@ ul
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>If the editor developer
 wants to add some editor specific functionality (e.g. context menu actions
-which can change the business and/or the pictogram model) the predefined
-features are not enough. In this case we need a more general feature. For
-that purpose the framework provides a custom feature. Examples for a custom
-feature are rename, change color, check out, …</span></p>
+which can change the business and/or the pictogram model) the predefined features
+are not enough. In this case we need a more general feature. For that purpose
+the framework provides a custom feature. Examples for a custom feature are
+rename, change color, check out, …</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
@@ -200,25 +273,25 @@ representation. &nbsp;</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>In this example we want
-to implement a custom feature which opens a popup-dialog to change the EClass name. This custom feature should be available and enabled in the context
-menu if exactly one EClass is selected.</span></p>
+to implement a custom feature which opens a popup-dialog to change the EClass
+name. This custom feature should be available and enabled in the context menu
+if exactly one EClass is selected.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
 complete implementation of the custom feature here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
   <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  org.eclipse.graphiti.examples.tutorial.features;</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> org.eclipse.graphiti.examples.tutorial.features;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
@@ -235,187 +308,206 @@ complete implementation of the custom feature here:</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>
   TutorialRenameEClassFeature(IFeatureProvider fp) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(fp);</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>super</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>(fp);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  String getName() {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Rename
-  EClass&quot;</span><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    }</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  String getDescription() {</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> String getName() {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Change
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Rename
+  EClass&quot;</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> String getDescription() {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Change
   the name of the EClass&quot;</span><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'>;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    }</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
   canExecute(ICustomContext context) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
-  allow rename if exactly one pictogram element</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// allow rename if exactly one pictogram element</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
-  representing a EClass is selected</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// representing a EClass is selected</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ret = </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>false</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>;</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>boolean</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> ret = </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>       
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   PictogramElement[] pes = context.getPictogramElements();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> (pes != </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  (pes != </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>null</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> &amp;&amp; pes.</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>length</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> ==
-  1) {</span></p>
+  &amp;&amp; pes.</span><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>length</span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:black'> == 1) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>            Object
-  bo = getBusinessObjectForPictogramElement(pes[0]);</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Object bo = getBusinessObjectForPictogramElement(pes[0]);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>            </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> (bo </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  (bo </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>instanceof</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> EClass) {</span></p>
+  EClass) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>               
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   ret = </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>true</span></b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'>;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>            }</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        }</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ret;</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> ret;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    }</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>void</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>void</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
   execute(ICustomContext context) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        PictogramElement[]
-  pes = context.getPictogramElements();</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  PictogramElement[] pes = context.getPictogramElements();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> (pes != </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  (pes != </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>null</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> &amp;&amp; pes.</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>length</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> ==
-  1) {</span></p>
+  &amp;&amp; pes.</span><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>length</span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:black'> == 1) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>            Object
-  bo = getBusinessObjectForPictogramElement(pes[0]);</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Object bo = getBusinessObjectForPictogramElement(pes[0]);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>            </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> (bo </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  (bo </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>instanceof</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> EClass) {</span></p>
+  EClass) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>               
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   EClass eClass = (EClass) bo;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>              
-   String currentName = eClass.getName();</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;String currentName = eClass.getName();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>               
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#3F7F5F'>// ask user for a new class name</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>               
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   String newName =SampleUtil.askString(getName(), getDescription(),</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>                       
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   currentName);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>               
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'> (newName != </span><b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>                   
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   eClass.setName(newName);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>               
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>            }</span></p>
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>        }</span></p>
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>    }</span></p>
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
   font-family:"Courier New";color:black'>}</span></p>
   <p class=MsoNormal><span style='color:black'>&nbsp;</span></p>
@@ -438,26 +530,29 @@ be seen here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ICustomFeature[] getCustomFeatures(ICustomContext context) {</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> ICustomFeature[]
+  getCustomFeatures(ICustomContext context) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
   ICustomFeature[] { </span><b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:#7F0055'>new</span></b><span lang=EN-US
@@ -466,8 +561,8 @@ be seen here:</span></p>
   font-family:"Courier New";color:#7F0055'>this</span></b><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>) };</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
   <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
   </td>
  </tr>
@@ -482,8 +577,8 @@ be seen here:</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally we have to
 define that this custom feature can appear in the context menu. For that
 purpose we have to define it in the <a href="tool-behavior-provider.htm">tool
-behavior provider</a>. The concept of the tool behaviour provider will be discussed
-later in this tutorial in more detail. </span></p>
+behavior provider</a>. The concept of the tool behaviour provider will be
+discussed later in this tutorial in more detail. </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
@@ -499,10 +594,10 @@ complete implementation of the tool behavior provider here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
@@ -516,54 +611,59 @@ complete implementation of the tool behavior provider here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  TutorialToolBehaviorProvider </span><b><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:#7F0055'>extends</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  DefaultToolBehaviorProvider {</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> MyTutorialToolBehaviorProvider
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>extends</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> DefaultToolBehaviorProvider {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  TutorialToolBehaviorProvider(IDiagramTypeProvider dtp) {</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> MyTutorialToolBehaviorProvider(IDiagramTypeProvider
+  dtp) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(dtp);</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>super</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>(dtp);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    }</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>    </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>protected</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>protected</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
   isContextMenuApplicable(IFeature feature) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
-  use all custom features as candidates for the context menu</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// use all custom features as candidates for the context menu</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>boolean</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> ret = (feature </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ret = (feature </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>instanceof</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>
   ICustomFeature);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>        </span><b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
   style='font-size:10.0pt;font-family:"Courier New";color:black'> ret;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>    }</span></p>
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
   font-family:"Courier New";color:black'>}</span></p>
   <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
@@ -599,9 +699,16 @@ and test this new custom feature:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=3 width="100%" align=center>
+
 </div>
-<hr>
-	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+
+<p class=MsoNormal><a href="http://www.eclipse.org/legal/epl-v10.html"
+shape=rect>Copyright (c) SAP AG 2005, 2010.</a> </p>
+
+</div>
 
 </body>
 
