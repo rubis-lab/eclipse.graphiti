@@ -188,22 +188,15 @@ p.msochpdefault, li.msochpdefault, div.msochpdefault
 	margin-left:0cm;
 	font-size:10.0pt;
 	font-family:"Times New Roman","serif";}
-p.rschrift1, li.rschrift1, div.rschrift1
-	{mso-style-name:"\00BErschrift 1";
-	mso-style-link:"\00BErschrift 1 Zchn";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
 span.rschrift1Zchn
 	{mso-style-name:"\00BErschrift 1 Zchn";
 	mso-style-link:"\00BErschrift 1";
 	font-family:"Cambria","serif";
 	color:#365F91;
 	font-weight:bold;}
-p.rschrift2, li.rschrift2, div.rschrift2
-	{mso-style-name:"\00BErschrift 2";
-	mso-style-link:"\00BErschrift 2 Zchn";
+p.rschrift1, li.rschrift1, div.rschrift1
+	{mso-style-name:"\00BErschrift 1";
+	mso-style-link:"\00BErschrift 1 Zchn";
 	margin:0cm;
 	margin-bottom:.0001pt;
 	font-size:12.0pt;
@@ -214,9 +207,9 @@ span.rschrift2Zchn
 	font-family:"Cambria","serif";
 	color:#4F81BD;
 	font-weight:bold;}
-p.rschrift3, li.rschrift3, div.rschrift3
-	{mso-style-name:"\00BErschrift 3";
-	mso-style-link:"\00BErschrift 3 Zchn";
+p.rschrift2, li.rschrift2, div.rschrift2
+	{mso-style-name:"\00BErschrift 2";
+	mso-style-link:"\00BErschrift 2 Zchn";
 	margin:0cm;
 	margin-bottom:.0001pt;
 	font-size:12.0pt;
@@ -227,9 +220,9 @@ span.rschrift3Zchn
 	font-family:"Cambria","serif";
 	color:#4F81BD;
 	font-weight:bold;}
-p.rschrift4, li.rschrift4, div.rschrift4
-	{mso-style-name:"\00BErschrift 4";
-	mso-style-link:"\00BErschrift 4 Zchn";
+p.rschrift3, li.rschrift3, div.rschrift3
+	{mso-style-name:"\00BErschrift 3";
+	mso-style-link:"\00BErschrift 3 Zchn";
 	margin:0cm;
 	margin-bottom:.0001pt;
 	font-size:12.0pt;
@@ -241,9 +234,9 @@ span.rschrift4Zchn
 	color:#4F81BD;
 	font-weight:bold;
 	font-style:italic;}
-p.rschrift5, li.rschrift5, div.rschrift5
-	{mso-style-name:"\00BErschrift 5";
-	mso-style-link:"\00BErschrift 5 Zchn";
+p.rschrift4, li.rschrift4, div.rschrift4
+	{mso-style-name:"\00BErschrift 4";
+	mso-style-link:"\00BErschrift 4 Zchn";
 	margin:0cm;
 	margin-bottom:.0001pt;
 	font-size:12.0pt;
@@ -253,9 +246,9 @@ span.rschrift5Zchn
 	mso-style-link:"\00BErschrift 5";
 	font-family:"Cambria","serif";
 	color:#243F60;}
-p.rschrift6, li.rschrift6, div.rschrift6
-	{mso-style-name:"\00BErschrift 6";
-	mso-style-link:"\00BErschrift 6 Zchn";
+p.rschrift5, li.rschrift5, div.rschrift5
+	{mso-style-name:"\00BErschrift 5";
+	mso-style-link:"\00BErschrift 5 Zchn";
 	margin:0cm;
 	margin-bottom:.0001pt;
 	font-size:12.0pt;
@@ -266,6 +259,13 @@ span.rschrift6Zchn
 	font-family:"Cambria","serif";
 	color:#243F60;
 	font-style:italic;}
+p.rschrift6, li.rschrift6, div.rschrift6
+	{mso-style-name:"\00BErschrift 6";
+	mso-style-link:"\00BErschrift 6 Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
 span.heading2char
 	{mso-style-name:heading2char;
 	font-family:"Arial","sans-serif";
@@ -329,8 +329,8 @@ following order:</span></p>
  <li class=MsoNormal><span lang=EN-US>The graphics algorithm itself</span></li>
  <li class=MsoNormal><span lang=EN-US>The style assigned to the graphics
      algorithm, if style exists</span></li>
- <li class=MsoNormal><span lang=EN-US>The parent-style(s) of the style, if parent-style(s)
-     exists</span></li>
+ <li class=MsoNormal><span lang=EN-US>The parent-style(s) of the style, if
+     parent-style(s) exists</span></li>
 </ol>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
@@ -351,7 +351,7 @@ is associated by many graphics algorithms:</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<h2><span lang=EN-GB>Creating a Drill-Down Feature</span></h2>
+<h2><span lang=EN-GB>Creating a Style Utility Class</span></h2>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
@@ -723,11 +723,6 @@ style='color:black'>:</span></p>
   lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#3F7F5F'>// ... EXISTING CODING ...</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>IPeCreateService</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>peCreateService
-  = Graphiti.getPeCreateService();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   IGaService gaService = Graphiti.getGaService();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
@@ -887,12 +882,12 @@ style='color:black'>:</span></p>
   text.setStyle(StyleUtil.getStyleForEClassText(getDiagram()));</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  text.setHorizontalAlignment(OrientationEnum.</span><i><span lang=EN-US
+  text.setHorizontalAlignment(Orientation.</span><i><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>ALIGNMENT_CENTER</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  text.setVerticalAlignment(OrientationEnum.</span><i><span lang=EN-US
+  text.setVerticalAlignment(Orientation.</span><i><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>ALIGNMENT_CENTER</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
@@ -984,8 +979,8 @@ implemented styles we have to create a small <a href="custom-feature.htm">custom
 feature</a>, which allows changing the foreground color or background color of
 the style.</span></p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>The implementation can
-be seen here:</span></p>
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The implementation can be
+seen here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
@@ -1330,8 +1325,8 @@ be seen here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Finally the feature
-provider has to deliver our newly created custom feature (overwrite the method</span><span
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Finally the feature provider
+has to deliver our newly created custom feature (overwrite the method</span><span
 lang=EN-GB> </span><span class=code1><span lang=EN-US style='color:black'><a
 href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getCustomFeatures(com.sap.tc.emf.gfw.features.context.ICustomContext)"><span
 style='font-style:normal'>getCustomFeatures</span></a></span></span><span
@@ -1372,26 +1367,6 @@ be seen here:</span></p>
   color:black'>TutorialRenameEClassFeature(</span><b><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>),</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>new</span></b><span lang=EN-US> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>TutorialAutoLayoutFeature(</span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,</span><span
-  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>false</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>),</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>new</span></b><span lang=EN-US> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>TutorialAutoLayoutFeature(</span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,</span><span
-  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>true</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>),</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
   lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
@@ -1439,12 +1414,12 @@ be seen here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<h2><span lang=EN-GB>Test: Navigate to Diagram Associated with a ECass</span></h2>
+<h2><span lang=EN-GB>Test: Change background color of all EClasses</span></h2>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Now start the editor
-and test this new drill-down feature:</span></p>
+and test this:</span></p>
 
 <ol style='margin-top:0cm' start=1 type=1>
  <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>create
@@ -1460,9 +1435,16 @@ and test this new drill-down feature:</span></p>
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
 
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=3 width="100%" align=center>
+
 </div>
-<hr>
-	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+
+<p class=MsoNormal><a href="http://www.eclipse.org/legal/epl-v10.html"
+shape=rect>Copyright (c) SAP AG 2005, 2010.</a> </p>
+
+</div>
 
 </body>
 
