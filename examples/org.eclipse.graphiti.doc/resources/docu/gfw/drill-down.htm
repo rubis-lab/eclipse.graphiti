@@ -259,8 +259,11 @@ href="../../../javadoc/com/sap/tc/emf/gfw/features/custom/impl/AbstractDrillDown
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The functionality of
-the AbstractDrillDownFeature is tool-independent, so there is no specific
-behavior which has to be provided. We just overwrite the canExecute() method,
+the AbstractDrillDownFeature is not tool-independent, so the method <i>
+getDiagrams()</i> can be implemented </span>
+<span lang=EN-GB style='color:black'>only</span><span lang=EN-GB style='color:black'> 
+by the tool </span><span lang=EN-GB style='color:black'>efficiently</span><span lang=EN-GB style='color:black'>. 
+Furthermore we just overwrite the <i>canExecute</i>() method,
 so that the feature is only enabled if exactly one EClass is selected.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
