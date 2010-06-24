@@ -19,7 +19,9 @@
 <toc label="Graphics framework"> 
 	<topic label="Graphiti Introduction" href="resources/docu/gfw/graphiti-introduction.htm"> 
 	</topic>
-	<topic label="Scenario Description" href="resources/docu/gfw/scenario-description.htm"/> 
+	<topic label="Scenario Description" href="resources/docu/gfw/scenario-description.htm"/>
+ <topic href="resources/docu/gfw/plugin-structure.htm" label="Plug-In Structure">
+ </topic> 
 	<topic label="Diagram" href="resources/docu/gfw/diagram.htm"/>
 	<topic label="Features" href="resources/docu/gfw/features.htm">
 		<topic label="Add Feature" href="resources/docu/gfw/add-feature.htm"/> 
