@@ -93,7 +93,6 @@ public class GFPerspective implements IPerspectiveFactory {
 				editorArea);
 		bottomRight.addView("org.eclipse.pde.runtime.LogView");
 		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
-		bottomRight.addView("com.sap.ide.junit.views.TestsView");
 		bottomRight.addView(IPageLayout.ID_PROBLEM_VIEW);
 	}
 }
