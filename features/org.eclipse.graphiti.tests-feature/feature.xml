@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.graphiti.feature.tests"
+      label="%featureName"
+      version="0.7.0.qualifier"
+      provider-name="%providerName"
+      image="eclipse_update_120.jpg">
+
+   <description>
+      %description
+   </description>
+
+   <copyright url="%copyrightURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%graphitiTestUpdateSiteName" url="http://download.eclipse.org/modeling/graphiti/updates/"/>
+      <discovery label="%graphitiTestUpdateSiteName" url="http://download.eclipse.org/modeling/graphiti/updates/"/>
+   </url>
+
+   <requires>
+      <import plugin="org.junit4" version="4.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.graphiti" version="0.7.0" match="greaterOrEqual"/>
+      <import plugin="org.easymock" version="2.3.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.graphiti.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
