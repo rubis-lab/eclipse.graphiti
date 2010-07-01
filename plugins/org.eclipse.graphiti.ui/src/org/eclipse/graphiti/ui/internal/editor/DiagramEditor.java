@@ -453,7 +453,13 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			hookGraphicalViewer();
 			initializeGraphicalViewer();
 		} else {
-			super.createGraphicalViewer(parent);
+			//super.createGraphicalViewer(parent);
+			GraphicalViewer viewer = new GraphitiScrollingGraphicalViewer(this);
+			viewer.createControl(parent);
+			setGraphicalViewer(viewer);
+			configureGraphicalViewer();
+			hookGraphicalViewer();
+			initializeGraphicalViewer();
 		}
 	}
 
