@@ -370,10 +370,9 @@ public class ExtensionManager implements IExtensionManager {
 		return dtp;
 	}
 
-	public String getProviderId(Diagram diagram) {
-		String diagramTypeProviders[] = getDiagramTypeProviderIds(diagram.getDiagramTypeId());
+	public String getDiagramTypeProviderId(String diagramTypeId) {
+		String diagramTypeProviders[] = getDiagramTypeProviderIds(diagramTypeId);
 		if (diagramTypeProviders != null && diagramTypeProviders.length > 0) {
-			// TODO handle if more then one DTPs are available
 			return diagramTypeProviders[0];
 		}
 		return null;

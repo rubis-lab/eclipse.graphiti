@@ -640,7 +640,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 			// if provider is null then take the first installed provider for this diagram type
 			if (providerId == null) {
-				providerId = GraphitiUi.getExtensionManager().getProviderId(diagram);
+				providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
 				diagramEditorInput.setProviderId(providerId);
 			}
 

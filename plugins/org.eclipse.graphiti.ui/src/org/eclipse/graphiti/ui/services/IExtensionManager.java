@@ -43,6 +43,18 @@ public interface IExtensionManager {
 	String[] getDiagramTypeProviderIds(String diagramTypeId);
 
 	/**
+	 * Gets the diagram type provider id.
+	 * 
+	 * @param diagramTypeId
+	 *            the diagram type id
+	 * 
+	 * @return provider id of the diagram type providers which can handle the
+	 *         given diagram type id. If more then one diagram type providers
+	 *         available, the first one will be returned.
+	 */
+	String getDiagramTypeProviderId(String diagramTypeId);
+
+	/**
 	 * Creates the diagram type provider.
 	 * 
 	 * @param providerId
@@ -88,12 +100,4 @@ public interface IExtensionManager {
 	 * @return the new dtp instance
 	 */
 	IDiagramTypeProvider createDiagramTypeProvider(Diagram diagram, String providerId);
-
-	/**
-	 * Get the provider ID of the diagram.
-	 * 
-	 * @param diagram
-	 * @return the provider ID
-	 */
-	String getProviderId(Diagram diagram);
 }

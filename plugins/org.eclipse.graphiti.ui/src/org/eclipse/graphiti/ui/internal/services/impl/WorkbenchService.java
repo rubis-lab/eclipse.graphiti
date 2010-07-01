@@ -94,7 +94,7 @@ public class WorkbenchService implements IWorkbenchService {
 	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, boolean disposeEditingDomain) {
 		IDiagramEditor ret = null;
 
-		String providerId = GraphitiUi.getExtensionManager().getProviderId(diagram);
+		String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
 		ret = openDiagramEditor(diagram, domain, providerId, disposeEditingDomain);
 
 		return ret;
