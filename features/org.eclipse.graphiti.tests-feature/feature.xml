@@ -23,12 +23,6 @@
       <discovery label="%graphitiTestUpdateSiteName" url="http://download.eclipse.org/modeling/graphiti/updates/"/>
    </url>
 
-   <requires>
-      <import plugin="org.junit4" version="4.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.graphiti" version="0.7.0" match="greaterOrEqual"/>
-      <import plugin="org.easymock" version="2.3.0" match="greaterOrEqual"/>
-   </requires>
-
    <plugin
          id="org.eclipse.graphiti.tests"
          download-size="0"
