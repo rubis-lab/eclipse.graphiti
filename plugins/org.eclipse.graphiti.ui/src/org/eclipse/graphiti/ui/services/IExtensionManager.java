@@ -32,15 +32,15 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 public interface IExtensionManager {
 
 	/**
-	 * Gets the diagram type provider extension ids.
+	 * Gets the diagram type provider id's.
 	 * 
 	 * @param diagramTypeId
 	 *            the diagram type id
 	 * 
-	 * @return extension id's of all the diagram type providers which can handle
+	 * @return provider id's of all the diagram type providers which can handle
 	 *         the given diagram type id.
 	 */
-	String[] getDiagramTypeProviderExtensionIds(String diagramTypeId);
+	String[] getDiagramTypeProviderIds(String diagramTypeId);
 
 	/**
 	 * Creates the diagram type provider.

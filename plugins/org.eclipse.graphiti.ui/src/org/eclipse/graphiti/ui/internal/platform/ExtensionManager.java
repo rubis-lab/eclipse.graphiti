@@ -34,7 +34,6 @@ import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorDummy;
 import org.eclipse.graphiti.ui.platform.IImageProvider;
 import org.eclipse.graphiti.ui.platform.PlatformImageProvider;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.ui.services.IExtensionManager;
 
 /**
@@ -84,13 +83,7 @@ public class ExtensionManager implements IExtensionManager {
 		return singleton;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.platform.IExtensionManager#
-	 * getDiagramTypeProviderExtensionIds(String diagramTypeId)
-	 */
-	public String[] getDiagramTypeProviderExtensionIds(String diagramTypeId) {
+	public String[] getDiagramTypeProviderIds(String diagramTypeId) {
 		String ret[] = new String[0];
 		if (diagramTypeId == null) {
 			return ret;
@@ -359,7 +352,7 @@ public class ExtensionManager implements IExtensionManager {
 	}
 
 	public IFeatureProvider createFeatureProvider(Diagram diagram) {
-		String[] dtpExtensionIds = getDiagramTypeProviderExtensionIds(diagram.getDiagramTypeId());
+		String[] dtpExtensionIds = getDiagramTypeProviderIds(diagram.getDiagramTypeId());
 		if (dtpExtensionIds != null && dtpExtensionIds.length > 0) {
 			IDiagramTypeProvider dtp = createDiagramTypeProvider(diagram, dtpExtensionIds[0]);
 			return dtp.getFeatureProvider();
@@ -378,7 +371,7 @@ public class ExtensionManager implements IExtensionManager {
 	}
 
 	public String getProviderId(Diagram diagram) {
-		String diagramTypeProviders[] = GraphitiUi.getExtensionManager().getDiagramTypeProviderExtensionIds(diagram.getDiagramTypeId());
+		String diagramTypeProviders[] = getDiagramTypeProviderIds(diagram.getDiagramTypeId());
 		if (diagramTypeProviders != null && diagramTypeProviders.length > 0) {
 			// TODO handle if more then one DTPs are available
 			return diagramTypeProviders[0];
