@@ -618,4 +618,26 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#isMultiSelectionEnabled()
+	 */
+	@Override
+	public boolean isMultiSelectionEnabled() {
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#isConnectionSelectionEnabled
+	 * ()
+	 */
+	@Override
+	public boolean isConnectionSelectionEnabled() {
+		return true;
+	}
 }

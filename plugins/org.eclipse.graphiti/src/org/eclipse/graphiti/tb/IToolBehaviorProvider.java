@@ -284,6 +284,20 @@ public interface IToolBehaviorProvider {
 	boolean isShowGuides();
 
 	/**
+	 * Indicates if the selection of multiple elements is enabled.
+	 * 
+	 * @return FALSE, if single selection is enforced
+	 */
+	boolean isMultiSelectionEnabled();
+
+	/**
+	 * Indicates if the selection of connections is enabled.
+	 * 
+	 * @return TRUE, if selection of connections is enabled
+	 */
+	boolean isConnectionSelectionEnabled();
+
+	/**
 	 * Called before the editor content will be saved.
 	 */
 	void preSave();
