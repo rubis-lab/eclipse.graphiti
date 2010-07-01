@@ -445,22 +445,17 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	@Override
 	protected void createGraphicalViewer(Composite parent) {
+		GraphicalViewer viewer;
 		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-			GFScrollingGraphicalViewer viewer = new GFScrollingGraphicalViewer(this);
-			viewer.createGFWControl(parent);
-			setGraphicalViewer(viewer);
-			configureGraphicalViewer();
-			hookGraphicalViewer();
-			initializeGraphicalViewer();
+			viewer = new GFScrollingGraphicalViewer(this);
 		} else {
-			//super.createGraphicalViewer(parent);
-			GraphicalViewer viewer = new GraphitiScrollingGraphicalViewer(this);
-			viewer.createControl(parent);
-			setGraphicalViewer(viewer);
-			configureGraphicalViewer();
-			hookGraphicalViewer();
-			initializeGraphicalViewer();
+			viewer = new GraphitiScrollingGraphicalViewer(this);
 		}
+		viewer.createControl(parent);
+		setGraphicalViewer(viewer);
+		configureGraphicalViewer();
+		hookGraphicalViewer();
+		initializeGraphicalViewer();
 	}
 
 	/**
@@ -1613,31 +1608,32 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		super.selectionChanged(part, selection);
 	}
 
-	//	private void select(URI[] uris) {
+	// private void select(URI[] uris) {
 	//
-	//		List<PictogramElement> selection = new ArrayList<PictogramElement>();
-	//		List<EObject> possibleBOs = new ArrayList<EObject>();
+	// List<PictogramElement> selection = new ArrayList<PictogramElement>();
+	// List<EObject> possibleBOs = new ArrayList<EObject>();
 	//
-	//		ResourceSet rs = getEditingDomain().getResourceSet();
-	//		for (URI uri : uris) {
-	//			EObject eObject = rs.getEObject(uri, true);
-	//			if (eObject instanceof PictogramElement) {
-	//				PictogramElement pe = (PictogramElement) eObject;
-	//				if (pe.isActive()) {
-	//					selection.add(pe);
-	//				}
-	//			} else {
-	//				possibleBOs.add(eObject);
-	//			}
-	//		}
+	// ResourceSet rs = getEditingDomain().getResourceSet();
+	// for (URI uri : uris) {
+	// EObject eObject = rs.getEObject(uri, true);
+	// if (eObject instanceof PictogramElement) {
+	// PictogramElement pe = (PictogramElement) eObject;
+	// if (pe.isActive()) {
+	// selection.add(pe);
+	// }
+	// } else {
+	// possibleBOs.add(eObject);
+	// }
+	// }
 	//
-	//		Diagram diagram = getDiagramTypeProvider().getDiagram();
-	//		List<PictogramElement> referencingPes = LinkUtil.getPictogramElements(diagram, possibleBOs, true);
-	//		selection.addAll(referencingPes);
-	//		PictogramElement[] pes = selection.toArray(new PictogramElement[0]);
+	// Diagram diagram = getDiagramTypeProvider().getDiagram();
+	// List<PictogramElement> referencingPes =
+	// LinkUtil.getPictogramElements(diagram, possibleBOs, true);
+	// selection.addAll(referencingPes);
+	// PictogramElement[] pes = selection.toArray(new PictogramElement[0]);
 	//
-	//		selectPictogramElements(pes);
-	//	}
+	// selectPictogramElements(pes);
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -1799,8 +1795,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	@Override
 	public boolean isDirty() {
-		//		boolean isDirty = getModelEditor().isDirty();
-		//		return isDirty;
+		// boolean isDirty = getModelEditor().isDirty();
+		// return isDirty;
 
 		return getBehavior().isDirty();
 
