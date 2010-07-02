@@ -100,10 +100,9 @@ public class ExtensionManager implements IExtensionManager {
 
 	private void searchForExtensions() {
 
-		// read and store all diagram types which are registered with the new
-		// extension point
-		List<IDiagramType> diagramTypeListNewExtensionPoint = createDiagramTypesNewEP();
-		diagramTypes = diagramTypeListNewExtensionPoint.toArray(new IDiagramType[0]);
+		// read and store all diagram types which are registered with the extension point
+		List<IDiagramType> diagramTypeList = createDiagramTypes();
+		diagramTypes = diagramTypeList.toArray(new IDiagramType[0]);
 
 		imageProviders = new IImageProvider[0];
 
@@ -111,13 +110,6 @@ public class ExtensionManager implements IExtensionManager {
 		loadImageProvider(PlatformImageProvider.ID);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.platform.IExtensionManager#createDiagramTypeProvider
-	 * (java.lang.String)
-	 */
 	public IDiagramTypeProvider createDiagramTypeProvider(String providerId) {
 		if (providerId == null) {
 			return null;
@@ -129,12 +121,6 @@ public class ExtensionManager implements IExtensionManager {
 		return diagramTypeProvider;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.ui.internal.platform.IExtensionManagerEclipse
-	 * #getImageProviders()
-	 */
 	public IImageProvider[] getImageProviders() {
 		return imageProviders;
 	}
@@ -266,7 +252,7 @@ public class ExtensionManager implements IExtensionManager {
 				return true;
 			}
 		}
-		IImageProvider newProvider = createImageProviderNewEP(extensionId);
+		IImageProvider newProvider = createImageProvider(extensionId);
 		if (newProvider != null) {
 
 			// extend current list of image providers
@@ -281,7 +267,7 @@ public class ExtensionManager implements IExtensionManager {
 		return false;
 	}
 
-	private List<IDiagramType> createDiagramTypesNewEP() {
+	private List<IDiagramType> createDiagramTypes() {
 
 		List<IDiagramType> ret = new ArrayList<IDiagramType>();
 
@@ -311,7 +297,7 @@ public class ExtensionManager implements IExtensionManager {
 		return ret;
 	}
 
-	private IImageProvider createImageProviderNewEP(String providerId) {
+	private IImageProvider createImageProvider(String providerId) {
 
 		if (providerId == null) {
 			return null;
