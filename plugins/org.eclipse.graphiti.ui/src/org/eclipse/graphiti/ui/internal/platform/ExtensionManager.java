@@ -90,9 +90,36 @@ public class ExtensionManager implements IExtensionManager {
 		}
 		List<String> retList = new ArrayList<String>();
 
-		// query diagram type providers registered with the new extension point
-		List<String> diagramTypeProviderExtensionIdsNewEP = getDiagramTypeProviderExtensionIdsNewEP(diagramTypeId);
-		retList.addAll(diagramTypeProviderExtensionIdsNewEP);
+		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+
+		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(EP_DIAGRAM_TYPE_PROVIDERS);
+		IExtension[] extensions = extensionPoint.getExtensions();
+		for (int i = 0; i < extensions.length; i++) {
+			IExtension extension = extensions[i];
+			IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+			for (int j = 0; j < configurationElements.length; j++) {
+				IConfigurationElement element = configurationElements[j];
+				String extensionId = element.getAttribute(EP_ATTRIBUTE_ID);
+				if (extensionId != null) {
+					// read references to diagram types
+					IConfigurationElement[] children = element.getChildren();
+					for (int k = 0; k < children.length; k++) {
+						IConfigurationElement childElement = children[k];
+						String childName = childElement.getName();
+						String childExtensionId = childElement.getAttribute(EP_ATTRIBUTE_ID);
+						if (childName != null && childExtensionId != null) {
+							if (EP_CHILD_NODE_DIAGRAM_TYPE.equals(childName)) {
+								String typeId = getDiagramTypeIdForDiagramTypeProviderId(childExtensionId);
+								if (diagramTypeId.equals(typeId)) {
+									retList.add(extensionId);
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 
 		ret = retList.toArray(ret);
 		return ret;
@@ -111,25 +138,6 @@ public class ExtensionManager implements IExtensionManager {
 	}
 
 	public IDiagramTypeProvider createDiagramTypeProvider(String providerId) {
-		if (providerId == null) {
-			return null;
-		}
-		IDiagramTypeProvider diagramTypeProvider = null;
-		// try to get diagram type provider from the new extension point
-		diagramTypeProvider = createDiagramTypeProviderNewEP(providerId);
-
-		return diagramTypeProvider;
-	}
-
-	public IImageProvider[] getImageProviders() {
-		return imageProviders;
-	}
-
-	public IDiagramType[] getDiagramTypes() {
-		return diagramTypes;
-	}
-
-	private IDiagramTypeProvider createDiagramTypeProviderNewEP(String providerId) {
 		IDiagramTypeProvider diagramTypeProvider = null;
 
 		if (providerId == null) {
@@ -189,47 +197,15 @@ public class ExtensionManager implements IExtensionManager {
 		return diagramTypeProvider;
 	}
 
-	private List<String> getDiagramTypeProviderExtensionIdsNewEP(String diagramTypeId) {
-		List<String> retList = new ArrayList<String>();
-
-		if (diagramTypeId == null) {
-			return retList;
-		}
-		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-
-		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(EP_DIAGRAM_TYPE_PROVIDERS);
-		IExtension[] extensions = extensionPoint.getExtensions();
-		for (int i = 0; i < extensions.length; i++) {
-			IExtension extension = extensions[i];
-			IConfigurationElement[] configurationElements = extension.getConfigurationElements();
-			for (int j = 0; j < configurationElements.length; j++) {
-				IConfigurationElement element = configurationElements[j];
-				String extensionId = element.getAttribute(EP_ATTRIBUTE_ID);
-				if (extensionId != null) {
-					// read references to diagram types
-					IConfigurationElement[] children = element.getChildren();
-					for (int k = 0; k < children.length; k++) {
-						IConfigurationElement childElement = children[k];
-						String childName = childElement.getName();
-						String childExtensionId = childElement.getAttribute(EP_ATTRIBUTE_ID);
-						if (childName != null && childExtensionId != null) {
-							if (EP_CHILD_NODE_DIAGRAM_TYPE.equals(childName)) {
-								String typeId = getDiagramTypeIdForDiagramTypeExtensionId(childExtensionId);
-								if (diagramTypeId.equals(typeId)) {
-									retList.add(extensionId);
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		return retList;
+	public IImageProvider[] getImageProviders() {
+		return imageProviders;
 	}
 
-	private String getDiagramTypeIdForDiagramTypeExtensionId(String extensionId) {
+	public IDiagramType[] getDiagramTypes() {
+		return diagramTypes;
+	}
+
+	private String getDiagramTypeIdForDiagramTypeProviderId(String extensionId) {
 		if (extensionId != null) {
 			IDiagramType diagramTypes[] = getDiagramTypes();
 			for (int i = 0; i < diagramTypes.length; i++) {
