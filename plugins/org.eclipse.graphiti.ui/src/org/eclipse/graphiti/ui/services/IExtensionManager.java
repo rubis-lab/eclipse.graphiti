@@ -55,19 +55,19 @@ public interface IExtensionManager {
 	String getDiagramTypeProviderId(String diagramTypeId);
 
 	/**
-	 * Creates the diagram type provider.
+	 * Creates a diagram type provider.
 	 * 
 	 * @param providerId
 	 *            the provider id
 	 * 
-	 * @return the i diagram type provider
+	 * @return new instance of a diagram type provider
 	 */
 	IDiagramTypeProvider createDiagramTypeProvider(String providerId);
 
 	/**
-	 * Gets the diagram types.
+	 * Gets all the registered diagram types.
 	 * 
-	 * @return the diagram types
+	 * @return the registered diagram types
 	 */
 	IDiagramType[] getDiagramTypes();
 
@@ -79,10 +79,8 @@ public interface IExtensionManager {
 	 * 
 	 * @param diagram
 	 *            The diagram on which the diagram type provider will work
-	 * @param providerId
-	 *            Id of the diagram type provider which should be used
 	 * 
-	 * @return the new feature provider instance
+	 * @return new instance of a feature provider
 	 */
 	IFeatureProvider createFeatureProvider(Diagram diagram);
 
@@ -97,7 +95,7 @@ public interface IExtensionManager {
 	 * @param providerId
 	 *            Id of the diagram type provider which should be used
 	 * 
-	 * @return the new dtp instance
+	 * @return new instance of a diagram type provider
 	 */
 	IDiagramTypeProvider createDiagramTypeProvider(Diagram diagram, String providerId);
 }

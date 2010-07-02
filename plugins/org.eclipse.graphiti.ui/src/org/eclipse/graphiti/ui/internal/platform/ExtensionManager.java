@@ -205,12 +205,12 @@ public class ExtensionManager implements IExtensionManager {
 		return diagramTypes;
 	}
 
-	private String getDiagramTypeIdForDiagramTypeProviderId(String extensionId) {
-		if (extensionId != null) {
+	private String getDiagramTypeIdForDiagramTypeProviderId(String providerId) {
+		if (providerId != null) {
 			IDiagramType diagramTypes[] = getDiagramTypes();
 			for (int i = 0; i < diagramTypes.length; i++) {
 				IDiagramType diagramType = diagramTypes[i];
-				if (extensionId.equals(diagramType.getProviderId())) {
+				if (providerId.equals(diagramType.getProviderId())) {
 					return diagramType.getId();
 				}
 			}
@@ -218,17 +218,17 @@ public class ExtensionManager implements IExtensionManager {
 		return null;
 	}
 
-	private boolean loadImageProvider(String extensionId) {
+	private boolean loadImageProvider(String providerId) {
 
 		// check whether the image provider is already loaded
 		IImageProvider providers[] = getImageProviders();
 		for (int i = 0; i < providers.length; i++) {
 			IImageProvider provider = providers[i];
-			if (extensionId.equals(provider.getProviderId())) {
+			if (providerId.equals(provider.getProviderId())) {
 				return true;
 			}
 		}
-		IImageProvider newProvider = createImageProvider(extensionId);
+		IImageProvider newProvider = createImageProvider(providerId);
 		if (newProvider != null) {
 
 			// extend current list of image providers
@@ -314,9 +314,9 @@ public class ExtensionManager implements IExtensionManager {
 	}
 
 	public IFeatureProvider createFeatureProvider(Diagram diagram) {
-		String[] dtpExtensionIds = getDiagramTypeProviderIds(diagram.getDiagramTypeId());
-		if (dtpExtensionIds != null && dtpExtensionIds.length > 0) {
-			IDiagramTypeProvider dtp = createDiagramTypeProvider(diagram, dtpExtensionIds[0]);
+		String providerId = getDiagramTypeProviderId(diagram.getDiagramTypeId());
+		if (providerId != null) {
+			IDiagramTypeProvider dtp = createDiagramTypeProvider(diagram, providerId);
 			return dtp.getFeatureProvider();
 		}
 		return null;
