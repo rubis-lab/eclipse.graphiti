@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.tests;
+package org.eclipse.graphiti.tests.reuse;
 
 import org.junit.BeforeClass;
 
@@ -25,5 +25,7 @@ public class GFAbstractTestCase {
 	public static void before() {
 		// do nothing
 	}
+	
+
 
 }

@@ -53,7 +53,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ICreateService;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipse.graphiti.services.IPeService;
-import org.eclipse.graphiti.tests.GFAbstractTestCase;
+import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 import org.eclipse.graphiti.util.ILocationInfo;
 import org.junit.After;
 import org.junit.AfterClass;

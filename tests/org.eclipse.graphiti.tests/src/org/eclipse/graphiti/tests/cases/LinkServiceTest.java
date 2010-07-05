@@ -34,7 +34,7 @@ import org.eclipse.graphiti.mm.pictograms.Property;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
-import org.eclipse.graphiti.tests.GFAbstractTestCase;
+import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

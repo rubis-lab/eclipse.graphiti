@@ -24,6 +24,7 @@ import org.eclipse.graphiti.mm.pictograms.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Orientation;
 import org.eclipse.graphiti.mm.pictograms.Polygon;
 import org.eclipse.graphiti.mm.pictograms.Polyline;
+import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 
 public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 

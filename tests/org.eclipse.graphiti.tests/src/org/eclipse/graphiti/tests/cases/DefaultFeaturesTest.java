@@ -50,7 +50,7 @@ import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.tests.GFAbstractTestCase;
+import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
