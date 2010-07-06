@@ -84,11 +84,6 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 	private static final String PROJECT_NAME = "GraphitiTestProject";
 
-	/**
-	 * The source folder of the Moin test DC type (value is <code>src</code>).
-	 * Since other DC types may define other paths, <b>do not use this in
-	 * productive code</b>.
-	 */
 	public static final IPath SOURCE_FOLDER = new Path("src"); //$NON-NLS-1$
 
 	private static IPath DIAGRAMS_FOLDER = SOURCE_FOLDER.append("diagrams");
@@ -380,11 +375,6 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 	private String createDiagramFileName(String extension) {
 
 		List<String> currentDiagramNames = new ArrayList<String>();
-
-		//		Collection<Diagram> diagramCollection = MoinHelper.refAllOfClass(getPictogramsPackage().getDiagram());
-		//		for (Diagram diagram : diagramCollection) {
-		//			currentDiagramNames.add(diagram.getName());
-		//		}
 
 		IFolder folder = getProject().getFolder(DIAGRAMS_FOLDER);
 		try {

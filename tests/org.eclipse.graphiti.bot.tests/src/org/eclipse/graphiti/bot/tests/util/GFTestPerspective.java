@@ -20,8 +20,8 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
 /**
- * This class is used for testing of GFW. Its purpose is to show all relevant
- * views (if possible next to each other).
+ * This class is used for testing of Graphiti. Its purpose is to show all
+ * relevant views (if possible next to each other).
  */
 public class GFTestPerspective implements IPerspectiveFactory {
 
@@ -40,7 +40,6 @@ public class GFTestPerspective implements IPerspectiveFactory {
 	public void createInitialLayout(IPageLayout layout) {
 		// top-left
 		IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, (float) 0.25, IPageLayout.ID_EDITOR_AREA);
-		//topLeft.addView("com.sap.tc.emf.gfw.samples.testview.MoinView");
 		topLeft.addPlaceholder(IPageLayout.ID_RES_NAV);
 		topLeft.addView("org.eclipse.ui.navigator.ProjectExplorer");
 		topLeft.addPlaceholder("org.eclipse.jdt.ui.PackageExplorer");
