@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: DatatypesFactory.java,v 1.1 2010/06/16 13:25:01 mwenz Exp $
+ * $Id: DatatypesFactory.java,v 1.2 2010/07/06 11:08:50 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.datatypes;
 
@@ -43,15 +43,6 @@ public interface DatatypesFactory extends EFactory {
 	 * @generated
 	 */
 	Point createPoint();
-
-	/**
-	 * Returns a new object of class '<em>View Port</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>View Port</em>'.
-	 * @generated
-	 */
-	ViewPort createViewPort();
 
 	/**
 	 * Returns a new object of class '<em>Color</em>'.

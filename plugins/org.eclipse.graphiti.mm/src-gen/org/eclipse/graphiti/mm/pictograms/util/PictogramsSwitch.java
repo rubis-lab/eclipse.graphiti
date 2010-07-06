@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsSwitch.java,v 1.1 2010/06/16 13:25:10 mwenz Exp $
+ * $Id: PictogramsSwitch.java,v 1.2 2010/07/06 11:08:51 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.util;
 
@@ -187,28 +187,6 @@ public class PictogramsSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case PictogramsPackage.HORIZONTAL_CONNECTION: {
-				HorizontalConnection horizontalConnection = (HorizontalConnection)theEObject;
-				T result = caseHorizontalConnection(horizontalConnection);
-				if (result == null) result = caseConnection(horizontalConnection);
-				if (result == null) result = caseAnchorContainer(horizontalConnection);
-				if (result == null) result = casePictogramElement(horizontalConnection);
-				if (result == null) result = caseGraphicsAlgorithmContainer(horizontalConnection);
-				if (result == null) result = casePropertyContainer(horizontalConnection);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.VERTICAL_CONNECTION: {
-				VerticalConnection verticalConnection = (VerticalConnection)theEObject;
-				T result = caseVerticalConnection(verticalConnection);
-				if (result == null) result = caseConnection(verticalConnection);
-				if (result == null) result = caseAnchorContainer(verticalConnection);
-				if (result == null) result = casePictogramElement(verticalConnection);
-				if (result == null) result = caseGraphicsAlgorithmContainer(verticalConnection);
-				if (result == null) result = casePropertyContainer(verticalConnection);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case PictogramsPackage.ANCHOR_CONTAINER: {
 				AnchorContainer anchorContainer = (AnchorContainer)theEObject;
 				T result = caseAnchorContainer(anchorContainer);
@@ -248,17 +226,6 @@ public class PictogramsSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case PictogramsPackage.LINK_TO_DIAGRAM: {
-				LinkToDiagram linkToDiagram = (LinkToDiagram)theEObject;
-				T result = caseLinkToDiagram(linkToDiagram);
-				if (result == null) result = caseShape(linkToDiagram);
-				if (result == null) result = caseAnchorContainer(linkToDiagram);
-				if (result == null) result = casePictogramElement(linkToDiagram);
-				if (result == null) result = caseGraphicsAlgorithmContainer(linkToDiagram);
-				if (result == null) result = casePropertyContainer(linkToDiagram);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case PictogramsPackage.PROPERTY: {
 				Property property = (Property)theEObject;
 				T result = caseProperty(property);
@@ -295,17 +262,6 @@ public class PictogramsSwitch<T> {
 				if (result == null) result = casePictogramElement(freeFormConnection);
 				if (result == null) result = caseGraphicsAlgorithmContainer(freeFormConnection);
 				if (result == null) result = casePropertyContainer(freeFormConnection);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.DIRECT_CONNECTION: {
-				DirectConnection directConnection = (DirectConnection)theEObject;
-				T result = caseDirectConnection(directConnection);
-				if (result == null) result = caseConnection(directConnection);
-				if (result == null) result = caseAnchorContainer(directConnection);
-				if (result == null) result = casePictogramElement(directConnection);
-				if (result == null) result = caseGraphicsAlgorithmContainer(directConnection);
-				if (result == null) result = casePropertyContainer(directConnection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -370,17 +326,6 @@ public class PictogramsSwitch<T> {
 				if (result == null) result = caseGraphicsAlgorithmContainer(image);
 				if (result == null) result = caseAbstractStyle(image);
 				if (result == null) result = casePropertyContainer(image);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.FAN_CONNECTION: {
-				FanConnection fanConnection = (FanConnection)theEObject;
-				T result = caseFanConnection(fanConnection);
-				if (result == null) result = caseConnection(fanConnection);
-				if (result == null) result = caseAnchorContainer(fanConnection);
-				if (result == null) result = casePictogramElement(fanConnection);
-				if (result == null) result = caseGraphicsAlgorithmContainer(fanConnection);
-				if (result == null) result = casePropertyContainer(fanConnection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -588,36 +533,6 @@ public class PictogramsSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Horizontal Connection</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Horizontal Connection</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseHorizontalConnection(HorizontalConnection object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Vertical Connection</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Vertical Connection</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseVerticalConnection(VerticalConnection object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Anchor Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -678,21 +593,6 @@ public class PictogramsSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Link To Diagram</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Link To Diagram</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseLinkToDiagram(LinkToDiagram object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -749,21 +649,6 @@ public class PictogramsSwitch<T> {
 	 * @generated
 	 */
 	public T caseFreeFormConnection(FreeFormConnection object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Direct Connection</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Direct Connection</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseDirectConnection(DirectConnection object) {
 		return null;
 	}
 
@@ -869,21 +754,6 @@ public class PictogramsSwitch<T> {
 	 * @generated
 	 */
 	public T caseImage(Image object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Fan Connection</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Fan Connection</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFanConnection(FanConnection object) {
 		return null;
 	}
 

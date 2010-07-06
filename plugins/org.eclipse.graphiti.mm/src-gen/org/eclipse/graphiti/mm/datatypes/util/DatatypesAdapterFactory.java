@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: DatatypesAdapterFactory.java,v 1.1 2010/06/16 13:25:09 mwenz Exp $
+ * $Id: DatatypesAdapterFactory.java,v 1.2 2010/07/06 11:08:50 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.datatypes.util;
 
@@ -86,10 +86,6 @@ public class DatatypesAdapterFactory extends AdapterFactoryImpl {
 				return createPointAdapter();
 			}
 			@Override
-			public Adapter caseViewPort(ViewPort object) {
-				return createViewPortAdapter();
-			}
-			@Override
 			public Adapter caseColor(Color object) {
 				return createColorAdapter();
 			}
@@ -124,20 +120,6 @@ public class DatatypesAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPointAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.datatypes.ViewPort <em>View Port</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.datatypes.ViewPort
-	 * @generated
-	 */
-	public Adapter createViewPortAdapter() {
 		return null;
 	}
 

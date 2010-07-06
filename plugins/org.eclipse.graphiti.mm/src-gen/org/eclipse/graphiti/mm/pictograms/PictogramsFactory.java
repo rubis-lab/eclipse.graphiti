@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsFactory.java,v 1.1 2010/06/16 13:24:52 mwenz Exp $
+ * $Id: PictogramsFactory.java,v 1.2 2010/07/06 11:08:50 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
@@ -90,24 +90,6 @@ public interface PictogramsFactory extends EFactory {
 	Connection createConnection();
 
 	/**
-	 * Returns a new object of class '<em>Horizontal Connection</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Horizontal Connection</em>'.
-	 * @generated
-	 */
-	HorizontalConnection createHorizontalConnection();
-
-	/**
-	 * Returns a new object of class '<em>Vertical Connection</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Vertical Connection</em>'.
-	 * @generated
-	 */
-	VerticalConnection createVerticalConnection();
-
-	/**
 	 * Returns a new object of class '<em>Fix Point Anchor</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -133,15 +115,6 @@ public interface PictogramsFactory extends EFactory {
 	 * @generated
 	 */
 	ChopboxAnchor createChopboxAnchor();
-
-	/**
-	 * Returns a new object of class '<em>Link To Diagram</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Link To Diagram</em>'.
-	 * @generated
-	 */
-	LinkToDiagram createLinkToDiagram();
 
 	/**
 	 * Returns a new object of class '<em>Property</em>'.
@@ -178,15 +151,6 @@ public interface PictogramsFactory extends EFactory {
 	 * @generated
 	 */
 	FreeFormConnection createFreeFormConnection();
-
-	/**
-	 * Returns a new object of class '<em>Direct Connection</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Direct Connection</em>'.
-	 * @generated
-	 */
-	DirectConnection createDirectConnection();
 
 	/**
 	 * Returns a new object of class '<em>Manhattan Connection</em>'.
@@ -250,15 +214,6 @@ public interface PictogramsFactory extends EFactory {
 	 * @generated
 	 */
 	Image createImage();
-
-	/**
-	 * Returns a new object of class '<em>Fan Connection</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Fan Connection</em>'.
-	 * @generated
-	 */
-	FanConnection createFanConnection();
 
 	/**
 	 * Returns a new object of class '<em>Platform Graphics Algorithm</em>'.

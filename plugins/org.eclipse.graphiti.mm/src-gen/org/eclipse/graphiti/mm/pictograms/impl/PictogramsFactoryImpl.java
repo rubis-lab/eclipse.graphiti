@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsFactoryImpl.java,v 1.1 2010/06/16 13:24:59 mwenz Exp $
+ * $Id: PictogramsFactoryImpl.java,v 1.2 2010/07/06 11:08:51 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
@@ -77,17 +77,13 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 			case PictogramsPackage.POLYLINE: return createPolyline();
 			case PictogramsPackage.ELLIPSE: return createEllipse();
 			case PictogramsPackage.CONNECTION: return createConnection();
-			case PictogramsPackage.HORIZONTAL_CONNECTION: return createHorizontalConnection();
-			case PictogramsPackage.VERTICAL_CONNECTION: return createVerticalConnection();
 			case PictogramsPackage.FIX_POINT_ANCHOR: return createFixPointAnchor();
 			case PictogramsPackage.BOX_RELATIVE_ANCHOR: return createBoxRelativeAnchor();
 			case PictogramsPackage.CHOPBOX_ANCHOR: return createChopboxAnchor();
-			case PictogramsPackage.LINK_TO_DIAGRAM: return createLinkToDiagram();
 			case PictogramsPackage.PROPERTY: return createProperty();
 			case PictogramsPackage.TEXT: return createText();
 			case PictogramsPackage.CONNECTION_DECORATOR: return createConnectionDecorator();
 			case PictogramsPackage.FREE_FORM_CONNECTION: return createFreeFormConnection();
-			case PictogramsPackage.DIRECT_CONNECTION: return createDirectConnection();
 			case PictogramsPackage.MANHATTAN_CONNECTION: return createManhattanConnection();
 			case PictogramsPackage.POLYGON: return createPolygon();
 			case PictogramsPackage.RECTANGLE: return createRectangle();
@@ -95,7 +91,6 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 			case PictogramsPackage.FONT: return createFont();
 			case PictogramsPackage.RENDERING_STYLE: return createRenderingStyle();
 			case PictogramsPackage.IMAGE: return createImage();
-			case PictogramsPackage.FAN_CONNECTION: return createFanConnection();
 			case PictogramsPackage.PLATFORM_GRAPHICS_ALGORITHM: return createPlatformGraphicsAlgorithm();
 			case PictogramsPackage.MULTI_TEXT: return createMultiText();
 			case PictogramsPackage.STYLE: return createStyle();
@@ -203,26 +198,6 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public HorizontalConnection createHorizontalConnection() {
-		HorizontalConnectionImpl horizontalConnection = new HorizontalConnectionImpl();
-		return horizontalConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public VerticalConnection createVerticalConnection() {
-		VerticalConnectionImpl verticalConnection = new VerticalConnectionImpl();
-		return verticalConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public FixPointAnchor createFixPointAnchor() {
 		FixPointAnchorImpl fixPointAnchor = new FixPointAnchorImpl();
 		return fixPointAnchor;
@@ -246,16 +221,6 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 	public ChopboxAnchor createChopboxAnchor() {
 		ChopboxAnchorImpl chopboxAnchor = new ChopboxAnchorImpl();
 		return chopboxAnchor;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public LinkToDiagram createLinkToDiagram() {
-		LinkToDiagramImpl linkToDiagram = new LinkToDiagramImpl();
-		return linkToDiagram;
 	}
 
 	/**
@@ -296,16 +261,6 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 	public FreeFormConnection createFreeFormConnection() {
 		FreeFormConnectionImpl freeFormConnection = new FreeFormConnectionImpl();
 		return freeFormConnection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DirectConnection createDirectConnection() {
-		DirectConnectionImpl directConnection = new DirectConnectionImpl();
-		return directConnection;
 	}
 
 	/**
@@ -376,16 +331,6 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 	public Image createImage() {
 		ImageImpl image = new ImageImpl();
 		return image;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FanConnection createFanConnection() {
-		FanConnectionImpl fanConnection = new FanConnectionImpl();
-		return fanConnection;
 	}
 
 	/**

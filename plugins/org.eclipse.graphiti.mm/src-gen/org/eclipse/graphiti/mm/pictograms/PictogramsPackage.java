@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsPackage.java,v 1.1 2010/06/16 13:24:53 mwenz Exp $
+ * $Id: PictogramsPackage.java,v 1.2 2010/07/06 11:08:50 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
@@ -78,7 +78,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getPropertyContainer()
 	 * @generated
 	 */
-	int PROPERTY_CONTAINER = 33;
+	int PROPERTY_CONTAINER = 28;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -106,7 +106,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getGraphicsAlgorithmContainer()
 	 * @generated
 	 */
-	int GRAPHICS_ALGORITHM_CONTAINER = 30;
+	int GRAPHICS_ALGORITHM_CONTAINER = 25;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -198,7 +198,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getAnchorContainer()
 	 * @generated
 	 */
-	int ANCHOR_CONTAINER = 11;
+	int ANCHOR_CONTAINER = 9;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -1334,224 +1334,6 @@ public interface PictogramsPackage extends EPackage {
 	int ANCHOR_FEATURE_COUNT = PICTOGRAM_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.HorizontalConnectionImpl <em>Horizontal Connection</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.graphiti.mm.pictograms.impl.HorizontalConnectionImpl
-	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getHorizontalConnection()
-	 * @generated
-	 */
-	int HORIZONTAL_CONNECTION = 9;
-
-	/**
-	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HORIZONTAL_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Visible</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HORIZONTAL_CONNECTION__VISIBLE = CONNECTION__VISIBLE;
-
-	/**
-	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HORIZONTAL_CONNECTION__GRAPHICS_ALGORITHM = CONNECTION__GRAPHICS_ALGORITHM;
-
-	/**
-	 * The feature id for the '<em><b>Active</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HORIZONTAL_CONNECTION__ACTIVE = CONNECTION__ACTIVE;
-
-	/**
-	 * The feature id for the '<em><b>Link</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HORIZONTAL_CONNECTION__LINK = CONNECTION__LINK;
-
-	/**
-	 * The feature id for the '<em><b>Anchors</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HORIZONTAL_CONNECTION__ANCHORS = CONNECTION__ANCHORS;
-
-	/**
-	 * The feature id for the '<em><b>Start</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HORIZONTAL_CONNECTION__START = CONNECTION__START;
-
-	/**
-	 * The feature id for the '<em><b>End</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HORIZONTAL_CONNECTION__END = CONNECTION__END;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HORIZONTAL_CONNECTION__PARENT = CONNECTION__PARENT;
-
-	/**
-	 * The feature id for the '<em><b>Connection Decorators</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HORIZONTAL_CONNECTION__CONNECTION_DECORATORS = CONNECTION__CONNECTION_DECORATORS;
-
-	/**
-	 * The number of structural features of the '<em>Horizontal Connection</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HORIZONTAL_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.VerticalConnectionImpl <em>Vertical Connection</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.graphiti.mm.pictograms.impl.VerticalConnectionImpl
-	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getVerticalConnection()
-	 * @generated
-	 */
-	int VERTICAL_CONNECTION = 10;
-
-	/**
-	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERTICAL_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Visible</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERTICAL_CONNECTION__VISIBLE = CONNECTION__VISIBLE;
-
-	/**
-	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERTICAL_CONNECTION__GRAPHICS_ALGORITHM = CONNECTION__GRAPHICS_ALGORITHM;
-
-	/**
-	 * The feature id for the '<em><b>Active</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERTICAL_CONNECTION__ACTIVE = CONNECTION__ACTIVE;
-
-	/**
-	 * The feature id for the '<em><b>Link</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERTICAL_CONNECTION__LINK = CONNECTION__LINK;
-
-	/**
-	 * The feature id for the '<em><b>Anchors</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERTICAL_CONNECTION__ANCHORS = CONNECTION__ANCHORS;
-
-	/**
-	 * The feature id for the '<em><b>Start</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERTICAL_CONNECTION__START = CONNECTION__START;
-
-	/**
-	 * The feature id for the '<em><b>End</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERTICAL_CONNECTION__END = CONNECTION__END;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERTICAL_CONNECTION__PARENT = CONNECTION__PARENT;
-
-	/**
-	 * The feature id for the '<em><b>Connection Decorators</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERTICAL_CONNECTION__CONNECTION_DECORATORS = CONNECTION__CONNECTION_DECORATORS;
-
-	/**
-	 * The number of structural features of the '<em>Vertical Connection</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERTICAL_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.FixPointAnchorImpl <em>Fix Point Anchor</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1559,7 +1341,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getFixPointAnchor()
 	 * @generated
 	 */
-	int FIX_POINT_ANCHOR = 12;
+	int FIX_POINT_ANCHOR = 10;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -1668,7 +1450,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getBoxRelativeAnchor()
 	 * @generated
 	 */
-	int BOX_RELATIVE_ANCHOR = 13;
+	int BOX_RELATIVE_ANCHOR = 11;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -1786,7 +1568,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getChopboxAnchor()
 	 * @generated
 	 */
-	int CHOPBOX_ANCHOR = 14;
+	int CHOPBOX_ANCHOR = 12;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -1879,115 +1661,6 @@ public interface PictogramsPackage extends EPackage {
 	int CHOPBOX_ANCHOR_FEATURE_COUNT = ANCHOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.LinkToDiagramImpl <em>Link To Diagram</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.graphiti.mm.pictograms.impl.LinkToDiagramImpl
-	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getLinkToDiagram()
-	 * @generated
-	 */
-	int LINK_TO_DIAGRAM = 15;
-
-	/**
-	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_TO_DIAGRAM__PROPERTIES = SHAPE__PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Visible</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_TO_DIAGRAM__VISIBLE = SHAPE__VISIBLE;
-
-	/**
-	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_TO_DIAGRAM__GRAPHICS_ALGORITHM = SHAPE__GRAPHICS_ALGORITHM;
-
-	/**
-	 * The feature id for the '<em><b>Active</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_TO_DIAGRAM__ACTIVE = SHAPE__ACTIVE;
-
-	/**
-	 * The feature id for the '<em><b>Link</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_TO_DIAGRAM__LINK = SHAPE__LINK;
-
-	/**
-	 * The feature id for the '<em><b>Anchors</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_TO_DIAGRAM__ANCHORS = SHAPE__ANCHORS;
-
-	/**
-	 * The feature id for the '<em><b>Container</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_TO_DIAGRAM__CONTAINER = SHAPE__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>As Icon</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_TO_DIAGRAM__AS_ICON = SHAPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Viewport</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_TO_DIAGRAM__VIEWPORT = SHAPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Diagram</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_TO_DIAGRAM__DIAGRAM = SHAPE_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of structural features of the '<em>Link To Diagram</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_TO_DIAGRAM_FEATURE_COUNT = SHAPE_FEATURE_COUNT + 3;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.PropertyImpl <em>Property</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1995,7 +1668,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getProperty()
 	 * @generated
 	 */
-	int PROPERTY = 16;
+	int PROPERTY = 13;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -2032,7 +1705,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getAbstractText()
 	 * @generated
 	 */
-	int ABSTRACT_TEXT = 31;
+	int ABSTRACT_TEXT = 26;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -2249,7 +1922,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getText()
 	 * @generated
 	 */
-	int TEXT = 17;
+	int TEXT = 14;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -2466,7 +2139,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getConnectionDecorator()
 	 * @generated
 	 */
-	int CONNECTION_DECORATOR = 18;
+	int CONNECTION_DECORATOR = 15;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -2575,7 +2248,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getFreeFormConnection()
 	 * @generated
 	 */
-	int FREE_FORM_CONNECTION = 19;
+	int FREE_FORM_CONNECTION = 16;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -2686,115 +2359,6 @@ public interface PictogramsPackage extends EPackage {
 	int FREE_FORM_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.DirectConnectionImpl <em>Direct Connection</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.graphiti.mm.pictograms.impl.DirectConnectionImpl
-	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getDirectConnection()
-	 * @generated
-	 */
-	int DIRECT_CONNECTION = 20;
-
-	/**
-	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECT_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Visible</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECT_CONNECTION__VISIBLE = CONNECTION__VISIBLE;
-
-	/**
-	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECT_CONNECTION__GRAPHICS_ALGORITHM = CONNECTION__GRAPHICS_ALGORITHM;
-
-	/**
-	 * The feature id for the '<em><b>Active</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECT_CONNECTION__ACTIVE = CONNECTION__ACTIVE;
-
-	/**
-	 * The feature id for the '<em><b>Link</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECT_CONNECTION__LINK = CONNECTION__LINK;
-
-	/**
-	 * The feature id for the '<em><b>Anchors</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECT_CONNECTION__ANCHORS = CONNECTION__ANCHORS;
-
-	/**
-	 * The feature id for the '<em><b>Start</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECT_CONNECTION__START = CONNECTION__START;
-
-	/**
-	 * The feature id for the '<em><b>End</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECT_CONNECTION__END = CONNECTION__END;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECT_CONNECTION__PARENT = CONNECTION__PARENT;
-
-	/**
-	 * The feature id for the '<em><b>Connection Decorators</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECT_CONNECTION__CONNECTION_DECORATORS = CONNECTION__CONNECTION_DECORATORS;
-
-	/**
-	 * The number of structural features of the '<em>Direct Connection</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIRECT_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.ManhattanConnectionImpl <em>Manhattan Connection</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2802,7 +2366,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getManhattanConnection()
 	 * @generated
 	 */
-	int MANHATTAN_CONNECTION = 21;
+	int MANHATTAN_CONNECTION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -2911,7 +2475,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getPolygon()
 	 * @generated
 	 */
-	int POLYGON = 22;
+	int POLYGON = 18;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -3092,7 +2656,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getRectangle()
 	 * @generated
 	 */
-	int RECTANGLE = 23;
+	int RECTANGLE = 19;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -3264,7 +2828,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getRoundedRectangle()
 	 * @generated
 	 */
-	int ROUNDED_RECTANGLE = 24;
+	int ROUNDED_RECTANGLE = 20;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -3454,7 +3018,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getFont()
 	 * @generated
 	 */
-	int FONT = 25;
+	int FONT = 21;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3509,7 +3073,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getRenderingStyle()
 	 * @generated
 	 */
-	int RENDERING_STYLE = 26;
+	int RENDERING_STYLE = 22;
 
 	/**
 	 * The feature id for the '<em><b>Predefined Style Id</b></em>' attribute.
@@ -3537,7 +3101,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getImage()
 	 * @generated
 	 */
-	int IMAGE = 27;
+	int IMAGE = 23;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -3738,115 +3302,6 @@ public interface PictogramsPackage extends EPackage {
 	int IMAGE_FEATURE_COUNT = GRAPHICS_ALGORITHM_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.FanConnectionImpl <em>Fan Connection</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.graphiti.mm.pictograms.impl.FanConnectionImpl
-	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getFanConnection()
-	 * @generated
-	 */
-	int FAN_CONNECTION = 28;
-
-	/**
-	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FAN_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
-
-	/**
-	 * The feature id for the '<em><b>Visible</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FAN_CONNECTION__VISIBLE = CONNECTION__VISIBLE;
-
-	/**
-	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FAN_CONNECTION__GRAPHICS_ALGORITHM = CONNECTION__GRAPHICS_ALGORITHM;
-
-	/**
-	 * The feature id for the '<em><b>Active</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FAN_CONNECTION__ACTIVE = CONNECTION__ACTIVE;
-
-	/**
-	 * The feature id for the '<em><b>Link</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FAN_CONNECTION__LINK = CONNECTION__LINK;
-
-	/**
-	 * The feature id for the '<em><b>Anchors</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FAN_CONNECTION__ANCHORS = CONNECTION__ANCHORS;
-
-	/**
-	 * The feature id for the '<em><b>Start</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FAN_CONNECTION__START = CONNECTION__START;
-
-	/**
-	 * The feature id for the '<em><b>End</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FAN_CONNECTION__END = CONNECTION__END;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FAN_CONNECTION__PARENT = CONNECTION__PARENT;
-
-	/**
-	 * The feature id for the '<em><b>Connection Decorators</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FAN_CONNECTION__CONNECTION_DECORATORS = CONNECTION__CONNECTION_DECORATORS;
-
-	/**
-	 * The number of structural features of the '<em>Fan Connection</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FAN_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.PlatformGraphicsAlgorithmImpl <em>Platform Graphics Algorithm</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3854,7 +3309,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getPlatformGraphicsAlgorithm()
 	 * @generated
 	 */
-	int PLATFORM_GRAPHICS_ALGORITHM = 29;
+	int PLATFORM_GRAPHICS_ALGORITHM = 24;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -4035,7 +3490,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getMultiText()
 	 * @generated
 	 */
-	int MULTI_TEXT = 32;
+	int MULTI_TEXT = 27;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -4252,7 +3707,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getStyleContainer()
 	 * @generated
 	 */
-	int STYLE_CONTAINER = 34;
+	int STYLE_CONTAINER = 29;
 
 	/**
 	 * The feature id for the '<em><b>Styles</b></em>' containment reference list.
@@ -4280,7 +3735,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getStyle()
 	 * @generated
 	 */
-	int STYLE = 35;
+	int STYLE = 30;
 
 	/**
 	 * The feature id for the '<em><b>Styles</b></em>' containment reference list.
@@ -4470,7 +3925,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getAbstractStyle()
 	 * @generated
 	 */
-	int ABSTRACT_STYLE = 36;
+	int ABSTRACT_STYLE = 31;
 
 	/**
 	 * The feature id for the '<em><b>Background</b></em>' reference.
@@ -4561,7 +4016,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getLineStyle()
 	 * @generated
 	 */
-	int LINE_STYLE = 37;
+	int LINE_STYLE = 32;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.Orientation <em>Orientation</em>}' enum.
@@ -4571,7 +4026,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getOrientation()
 	 * @generated
 	 */
-	int ORIENTATION = 38;
+	int ORIENTATION = 33;
 
 
 	/**
@@ -4995,26 +4450,6 @@ public interface PictogramsPackage extends EPackage {
 	EReference getAnchor_ReferencedGraphicsAlgorithm();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.HorizontalConnection <em>Horizontal Connection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Horizontal Connection</em>'.
-	 * @see org.eclipse.graphiti.mm.pictograms.HorizontalConnection
-	 * @generated
-	 */
-	EClass getHorizontalConnection();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.VerticalConnection <em>Vertical Connection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Vertical Connection</em>'.
-	 * @see org.eclipse.graphiti.mm.pictograms.VerticalConnection
-	 * @generated
-	 */
-	EClass getVerticalConnection();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.AnchorContainer <em>Anchor Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5097,49 +4532,6 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getChopboxAnchor();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.LinkToDiagram <em>Link To Diagram</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Link To Diagram</em>'.
-	 * @see org.eclipse.graphiti.mm.pictograms.LinkToDiagram
-	 * @generated
-	 */
-	EClass getLinkToDiagram();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.pictograms.LinkToDiagram#isAsIcon <em>As Icon</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>As Icon</em>'.
-	 * @see org.eclipse.graphiti.mm.pictograms.LinkToDiagram#isAsIcon()
-	 * @see #getLinkToDiagram()
-	 * @generated
-	 */
-	EAttribute getLinkToDiagram_AsIcon();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.graphiti.mm.pictograms.LinkToDiagram#getViewport <em>Viewport</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Viewport</em>'.
-	 * @see org.eclipse.graphiti.mm.pictograms.LinkToDiagram#getViewport()
-	 * @see #getLinkToDiagram()
-	 * @generated
-	 */
-	EReference getLinkToDiagram_Viewport();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.mm.pictograms.LinkToDiagram#getDiagram <em>Diagram</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Diagram</em>'.
-	 * @see org.eclipse.graphiti.mm.pictograms.LinkToDiagram#getDiagram()
-	 * @see #getLinkToDiagram()
-	 * @generated
-	 */
-	EReference getLinkToDiagram_Diagram();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.Property <em>Property</em>}'.
@@ -5246,16 +4638,6 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFreeFormConnection_Bendpoints();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.DirectConnection <em>Direct Connection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Direct Connection</em>'.
-	 * @see org.eclipse.graphiti.mm.pictograms.DirectConnection
-	 * @generated
-	 */
-	EClass getDirectConnection();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.ManhattanConnection <em>Manhattan Connection</em>}'.
@@ -5447,16 +4829,6 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getImage_Proportional();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.FanConnection <em>Fan Connection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Fan Connection</em>'.
-	 * @see org.eclipse.graphiti.mm.pictograms.FanConnection
-	 * @generated
-	 */
-	EClass getFanConnection();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.PlatformGraphicsAlgorithm <em>Platform Graphics Algorithm</em>}'.
@@ -6197,26 +5569,6 @@ public interface PictogramsPackage extends EPackage {
 		EReference ANCHOR__REFERENCED_GRAPHICS_ALGORITHM = eINSTANCE.getAnchor_ReferencedGraphicsAlgorithm();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.HorizontalConnectionImpl <em>Horizontal Connection</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.graphiti.mm.pictograms.impl.HorizontalConnectionImpl
-		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getHorizontalConnection()
-		 * @generated
-		 */
-		EClass HORIZONTAL_CONNECTION = eINSTANCE.getHorizontalConnection();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.VerticalConnectionImpl <em>Vertical Connection</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.graphiti.mm.pictograms.impl.VerticalConnectionImpl
-		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getVerticalConnection()
-		 * @generated
-		 */
-		EClass VERTICAL_CONNECTION = eINSTANCE.getVerticalConnection();
-
-		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.AnchorContainerImpl <em>Anchor Container</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6287,40 +5639,6 @@ public interface PictogramsPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CHOPBOX_ANCHOR = eINSTANCE.getChopboxAnchor();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.LinkToDiagramImpl <em>Link To Diagram</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.graphiti.mm.pictograms.impl.LinkToDiagramImpl
-		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getLinkToDiagram()
-		 * @generated
-		 */
-		EClass LINK_TO_DIAGRAM = eINSTANCE.getLinkToDiagram();
-
-		/**
-		 * The meta object literal for the '<em><b>As Icon</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute LINK_TO_DIAGRAM__AS_ICON = eINSTANCE.getLinkToDiagram_AsIcon();
-
-		/**
-		 * The meta object literal for the '<em><b>Viewport</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference LINK_TO_DIAGRAM__VIEWPORT = eINSTANCE.getLinkToDiagram_Viewport();
-
-		/**
-		 * The meta object literal for the '<em><b>Diagram</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference LINK_TO_DIAGRAM__DIAGRAM = eINSTANCE.getLinkToDiagram_Diagram();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.PropertyImpl <em>Property</em>}' class.
@@ -6409,16 +5727,6 @@ public interface PictogramsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FREE_FORM_CONNECTION__BENDPOINTS = eINSTANCE.getFreeFormConnection_Bendpoints();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.DirectConnectionImpl <em>Direct Connection</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.graphiti.mm.pictograms.impl.DirectConnectionImpl
-		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getDirectConnection()
-		 * @generated
-		 */
-		EClass DIRECT_CONNECTION = eINSTANCE.getDirectConnection();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.ManhattanConnectionImpl <em>Manhattan Connection</em>}' class.
@@ -6577,16 +5885,6 @@ public interface PictogramsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute IMAGE__PROPORTIONAL = eINSTANCE.getImage_Proportional();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.FanConnectionImpl <em>Fan Connection</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.graphiti.mm.pictograms.impl.FanConnectionImpl
-		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getFanConnection()
-		 * @generated
-		 */
-		EClass FAN_CONNECTION = eINSTANCE.getFanConnection();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.PlatformGraphicsAlgorithmImpl <em>Platform Graphics Algorithm</em>}' class.

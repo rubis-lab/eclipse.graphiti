@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsPackageImpl.java,v 1.1 2010/06/16 13:24:59 mwenz Exp $
+ * $Id: PictogramsPackageImpl.java,v 1.2 2010/07/06 11:08:51 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
@@ -21,17 +21,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.graphiti.mm.datatypes.DatatypesPackage;
-
 import org.eclipse.graphiti.mm.datatypes.impl.DatatypesPackageImpl;
-
 import org.eclipse.graphiti.mm.links.LinksPackage;
-
 import org.eclipse.graphiti.mm.links.impl.LinksPackageImpl;
-
 import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
 import org.eclipse.graphiti.mm.pictograms.AbstractText;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -42,18 +36,14 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.DirectConnection;
 import org.eclipse.graphiti.mm.pictograms.Ellipse;
-import org.eclipse.graphiti.mm.pictograms.FanConnection;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.Font;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer;
-import org.eclipse.graphiti.mm.pictograms.HorizontalConnection;
 import org.eclipse.graphiti.mm.pictograms.Image;
 import org.eclipse.graphiti.mm.pictograms.LineStyle;
-import org.eclipse.graphiti.mm.pictograms.LinkToDiagram;
 import org.eclipse.graphiti.mm.pictograms.ManhattanConnection;
 import org.eclipse.graphiti.mm.pictograms.MultiText;
 import org.eclipse.graphiti.mm.pictograms.Orientation;
@@ -72,7 +62,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.mm.pictograms.Style;
 import org.eclipse.graphiti.mm.pictograms.StyleContainer;
 import org.eclipse.graphiti.mm.pictograms.Text;
-import org.eclipse.graphiti.mm.pictograms.VerticalConnection;
 
 /**
  * <!-- begin-user-doc -->
@@ -149,20 +138,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass horizontalConnectionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass verticalConnectionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass anchorContainerEClass = null;
 
 	/**
@@ -191,13 +166,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass linkToDiagramEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass propertyEClass = null;
 
 	/**
@@ -220,13 +188,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * @generated
 	 */
 	private EClass freeFormConnectionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass directConnectionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -276,13 +237,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * @generated
 	 */
 	private EClass imageEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass fanConnectionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -779,24 +733,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getHorizontalConnection() {
-		return horizontalConnectionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getVerticalConnection() {
-		return verticalConnectionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getAnchorContainer() {
 		return anchorContainerEClass;
 	}
@@ -862,42 +798,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 */
 	public EClass getChopboxAnchor() {
 		return chopboxAnchorEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getLinkToDiagram() {
-		return linkToDiagramEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getLinkToDiagram_AsIcon() {
-		return (EAttribute)linkToDiagramEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getLinkToDiagram_Viewport() {
-		return (EReference)linkToDiagramEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getLinkToDiagram_Diagram() {
-		return (EReference)linkToDiagramEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -988,15 +888,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 */
 	public EReference getFreeFormConnection_Bendpoints() {
 		return (EReference)freeFormConnectionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getDirectConnection() {
-		return directConnectionEClass;
 	}
 
 	/**
@@ -1159,15 +1050,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 */
 	public EAttribute getImage_Proportional() {
 		return (EAttribute)imageEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getFanConnection() {
-		return fanConnectionEClass;
 	}
 
 	/**
@@ -1570,10 +1452,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		createEReference(anchorEClass, ANCHOR__INCOMING_CONNECTIONS);
 		createEReference(anchorEClass, ANCHOR__REFERENCED_GRAPHICS_ALGORITHM);
 
-		horizontalConnectionEClass = createEClass(HORIZONTAL_CONNECTION);
-
-		verticalConnectionEClass = createEClass(VERTICAL_CONNECTION);
-
 		anchorContainerEClass = createEClass(ANCHOR_CONTAINER);
 		createEReference(anchorContainerEClass, ANCHOR_CONTAINER__ANCHORS);
 
@@ -1585,11 +1463,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		createEAttribute(boxRelativeAnchorEClass, BOX_RELATIVE_ANCHOR__RELATIVE_HEIGHT);
 
 		chopboxAnchorEClass = createEClass(CHOPBOX_ANCHOR);
-
-		linkToDiagramEClass = createEClass(LINK_TO_DIAGRAM);
-		createEAttribute(linkToDiagramEClass, LINK_TO_DIAGRAM__AS_ICON);
-		createEReference(linkToDiagramEClass, LINK_TO_DIAGRAM__VIEWPORT);
-		createEReference(linkToDiagramEClass, LINK_TO_DIAGRAM__DIAGRAM);
 
 		propertyEClass = createEClass(PROPERTY);
 		createEAttribute(propertyEClass, PROPERTY__KEY);
@@ -1604,8 +1477,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 
 		freeFormConnectionEClass = createEClass(FREE_FORM_CONNECTION);
 		createEReference(freeFormConnectionEClass, FREE_FORM_CONNECTION__BENDPOINTS);
-
-		directConnectionEClass = createEClass(DIRECT_CONNECTION);
 
 		manhattanConnectionEClass = createEClass(MANHATTAN_CONNECTION);
 
@@ -1631,8 +1502,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		createEAttribute(imageEClass, IMAGE__STRETCH_H);
 		createEAttribute(imageEClass, IMAGE__STRETCH_V);
 		createEAttribute(imageEClass, IMAGE__PROPORTIONAL);
-
-		fanConnectionEClass = createEClass(FAN_CONNECTION);
 
 		platformGraphicsAlgorithmEClass = createEClass(PLATFORM_GRAPHICS_ALGORITHM);
 		createEAttribute(platformGraphicsAlgorithmEClass, PLATFORM_GRAPHICS_ALGORITHM__ID);
@@ -1724,23 +1593,18 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		pictogramElementEClass.getESuperTypes().add(this.getGraphicsAlgorithmContainer());
 		connectionEClass.getESuperTypes().add(this.getAnchorContainer());
 		anchorEClass.getESuperTypes().add(this.getPictogramElement());
-		horizontalConnectionEClass.getESuperTypes().add(this.getConnection());
-		verticalConnectionEClass.getESuperTypes().add(this.getConnection());
 		anchorContainerEClass.getESuperTypes().add(this.getPictogramElement());
 		fixPointAnchorEClass.getESuperTypes().add(this.getAnchor());
 		boxRelativeAnchorEClass.getESuperTypes().add(this.getAnchor());
 		chopboxAnchorEClass.getESuperTypes().add(this.getAnchor());
-		linkToDiagramEClass.getESuperTypes().add(this.getShape());
 		textEClass.getESuperTypes().add(this.getAbstractText());
 		connectionDecoratorEClass.getESuperTypes().add(this.getShape());
 		freeFormConnectionEClass.getESuperTypes().add(this.getConnection());
-		directConnectionEClass.getESuperTypes().add(this.getConnection());
 		manhattanConnectionEClass.getESuperTypes().add(this.getConnection());
 		polygonEClass.getESuperTypes().add(this.getPolyline());
 		rectangleEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
 		roundedRectangleEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
 		imageEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
-		fanConnectionEClass.getESuperTypes().add(this.getConnection());
 		platformGraphicsAlgorithmEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
 		graphicsAlgorithmContainerEClass.getESuperTypes().add(this.getPropertyContainer());
 		abstractTextEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
@@ -1797,10 +1661,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEReference(getAnchor_IncomingConnections(), this.getConnection(), this.getConnection_End(), "incomingConnections", null, 0, -1, Anchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getAnchor_ReferencedGraphicsAlgorithm(), this.getGraphicsAlgorithm(), null, "referencedGraphicsAlgorithm", null, 0, 1, Anchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
-		initEClass(horizontalConnectionEClass, HorizontalConnection.class, "HorizontalConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(verticalConnectionEClass, VerticalConnection.class, "VerticalConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(anchorContainerEClass, AnchorContainer.class, "AnchorContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAnchorContainer_Anchors(), this.getAnchor(), this.getAnchor_Parent(), "anchors", null, 0, -1, AnchorContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
@@ -1812,11 +1672,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEAttribute(getBoxRelativeAnchor_RelativeHeight(), ecorePackage.getEDouble(), "relativeHeight", null, 1, 1, BoxRelativeAnchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(chopboxAnchorEClass, ChopboxAnchor.class, "ChopboxAnchor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(linkToDiagramEClass, LinkToDiagram.class, "LinkToDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLinkToDiagram_AsIcon(), ecorePackage.getEBoolean(), "asIcon", null, 1, 1, LinkToDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getLinkToDiagram_Viewport(), theDatatypesPackage.getViewPort(), null, "viewport", null, 1, 1, LinkToDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getLinkToDiagram_Diagram(), this.getDiagram(), null, "diagram", null, 1, 1, LinkToDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getProperty_Key(), ecorePackage.getEString(), "key", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1831,8 +1686,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 
 		initEClass(freeFormConnectionEClass, FreeFormConnection.class, "FreeFormConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFreeFormConnection_Bendpoints(), theDatatypesPackage.getPoint(), null, "bendpoints", null, 0, -1, FreeFormConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(directConnectionEClass, DirectConnection.class, "DirectConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(manhattanConnectionEClass, ManhattanConnection.class, "ManhattanConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1858,8 +1711,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEAttribute(getImage_StretchH(), ecorePackage.getEBooleanObject(), "stretchH", null, 0, 1, Image.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getImage_StretchV(), ecorePackage.getEBooleanObject(), "stretchV", null, 0, 1, Image.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getImage_Proportional(), ecorePackage.getEBooleanObject(), "proportional", null, 0, 1, Image.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(fanConnectionEClass, FanConnection.class, "FanConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(platformGraphicsAlgorithmEClass, PlatformGraphicsAlgorithm.class, "PlatformGraphicsAlgorithm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPlatformGraphicsAlgorithm_Id(), ecorePackage.getEString(), "id", null, 1, 1, PlatformGraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);

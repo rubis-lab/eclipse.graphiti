@@ -80,8 +80,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedGraphicsAlgorithm"
         ordered="false" unique="false" eType="#//GraphicsAlgorithm"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HorizontalConnection" eSuperTypes="#//Connection"/>
-  <eClassifiers xsi:type="ecore:EClass" name="VerticalConnection" eSuperTypes="#//Connection"/>
   <eClassifiers xsi:type="ecore:EClass" name="AnchorContainer" abstract="true" eSuperTypes="#//PictogramElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="anchors" ordered="false"
         upperBound="-1" eType="#//Anchor" containment="true" eOpposite="#//Anchor/parent"/>
@@ -98,15 +96,6 @@
         unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ChopboxAnchor" eSuperTypes="#//Anchor"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LinkToDiagram" eSuperTypes="#//Shape">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="asIcon" ordered="false"
-        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="viewport" ordered="false"
-        unique="false" lowerBound="1" eType="ecore:EClass datatypes.ecore#//ViewPort"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" ordered="false"
-        unique="false" lowerBound="1" eType="#//Diagram"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Property">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -124,7 +113,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="bendpoints" upperBound="-1"
         eType="ecore:EClass datatypes.ecore#//Point" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DirectConnection" eSuperTypes="#//Connection"/>
   <eClassifiers xsi:type="ecore:EClass" name="ManhattanConnection" eSuperTypes="#//Connection"/>
   <eClassifiers xsi:type="ecore:EClass" name="Polygon" eSuperTypes="#//Polyline"/>
   <eClassifiers xsi:type="ecore:EEnum" name="LineStyle">
@@ -175,7 +163,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="proportional" ordered="false"
         unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FanConnection" eSuperTypes="#//Connection"/>
   <eClassifiers xsi:type="ecore:EClass" name="PlatformGraphicsAlgorithm" eSuperTypes="#//GraphicsAlgorithm">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" ordered="false" unique="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

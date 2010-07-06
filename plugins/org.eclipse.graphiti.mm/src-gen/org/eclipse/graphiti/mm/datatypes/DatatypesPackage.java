@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: DatatypesPackage.java,v 1.1 2010/06/16 13:25:01 mwenz Exp $
+ * $Id: DatatypesPackage.java,v 1.2 2010/07/06 11:08:50 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.datatypes;
 
@@ -124,25 +124,6 @@ public interface DatatypesPackage extends EPackage {
 	int POINT_FEATURE_COUNT = 4;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.graphiti.mm.datatypes.impl.ViewPortImpl <em>View Port</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.graphiti.mm.datatypes.impl.ViewPortImpl
-	 * @see org.eclipse.graphiti.mm.datatypes.impl.DatatypesPackageImpl#getViewPort()
-	 * @generated
-	 */
-	int VIEW_PORT = 1;
-
-	/**
-	 * The number of structural features of the '<em>View Port</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VIEW_PORT_FEATURE_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.datatypes.impl.ColorImpl <em>Color</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -150,7 +131,7 @@ public interface DatatypesPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.datatypes.impl.DatatypesPackageImpl#getColor()
 	 * @generated
 	 */
-	int COLOR = 2;
+	int COLOR = 1;
 
 	/**
 	 * The feature id for the '<em><b>Red</b></em>' attribute.
@@ -242,16 +223,6 @@ public interface DatatypesPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPoint_After();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.datatypes.ViewPort <em>View Port</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>View Port</em>'.
-	 * @see org.eclipse.graphiti.mm.datatypes.ViewPort
-	 * @generated
-	 */
-	EClass getViewPort();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.datatypes.Color <em>Color</em>}'.
@@ -359,16 +330,6 @@ public interface DatatypesPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute POINT__AFTER = eINSTANCE.getPoint_After();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.datatypes.impl.ViewPortImpl <em>View Port</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.graphiti.mm.datatypes.impl.ViewPortImpl
-		 * @see org.eclipse.graphiti.mm.datatypes.impl.DatatypesPackageImpl#getViewPort()
-		 * @generated
-		 */
-		EClass VIEW_PORT = eINSTANCE.getViewPort();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.datatypes.impl.ColorImpl <em>Color</em>}' class.

@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsAdapterFactory.java,v 1.1 2010/06/16 13:25:10 mwenz Exp $
+ * $Id: PictogramsAdapterFactory.java,v 1.2 2010/07/06 11:08:51 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.util;
 
@@ -118,14 +118,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 				return createAnchorAdapter();
 			}
 			@Override
-			public Adapter caseHorizontalConnection(HorizontalConnection object) {
-				return createHorizontalConnectionAdapter();
-			}
-			@Override
-			public Adapter caseVerticalConnection(VerticalConnection object) {
-				return createVerticalConnectionAdapter();
-			}
-			@Override
 			public Adapter caseAnchorContainer(AnchorContainer object) {
 				return createAnchorContainerAdapter();
 			}
@@ -142,10 +134,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 				return createChopboxAnchorAdapter();
 			}
 			@Override
-			public Adapter caseLinkToDiagram(LinkToDiagram object) {
-				return createLinkToDiagramAdapter();
-			}
-			@Override
 			public Adapter caseProperty(Property object) {
 				return createPropertyAdapter();
 			}
@@ -160,10 +148,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseFreeFormConnection(FreeFormConnection object) {
 				return createFreeFormConnectionAdapter();
-			}
-			@Override
-			public Adapter caseDirectConnection(DirectConnection object) {
-				return createDirectConnectionAdapter();
 			}
 			@Override
 			public Adapter caseManhattanConnection(ManhattanConnection object) {
@@ -192,10 +176,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseImage(Image object) {
 				return createImageAdapter();
-			}
-			@Override
-			public Adapter caseFanConnection(FanConnection object) {
-				return createFanConnectionAdapter();
 			}
 			@Override
 			public Adapter casePlatformGraphicsAlgorithm(PlatformGraphicsAlgorithm object) {
@@ -376,34 +356,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.HorizontalConnection <em>Horizontal Connection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.HorizontalConnection
-	 * @generated
-	 */
-	public Adapter createHorizontalConnectionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.VerticalConnection <em>Vertical Connection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.VerticalConnection
-	 * @generated
-	 */
-	public Adapter createVerticalConnectionAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.AnchorContainer <em>Anchor Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -460,20 +412,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.LinkToDiagram <em>Link To Diagram</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.LinkToDiagram
-	 * @generated
-	 */
-	public Adapter createLinkToDiagramAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.Property <em>Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -526,20 +464,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFreeFormConnectionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.DirectConnection <em>Direct Connection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.DirectConnection
-	 * @generated
-	 */
-	public Adapter createDirectConnectionAdapter() {
 		return null;
 	}
 
@@ -638,20 +562,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createImageAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.FanConnection <em>Fan Connection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.FanConnection
-	 * @generated
-	 */
-	public Adapter createFanConnectionAdapter() {
 		return null;
 	}
 

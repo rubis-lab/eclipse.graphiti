@@ -12,28 +12,21 @@
  * 
  * </copyright>
  *
- * $Id: DatatypesPackageImpl.java,v 1.1 2010/06/16 13:25:04 mwenz Exp $
+ * $Id: DatatypesPackageImpl.java,v 1.2 2010/07/06 11:08:50 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.datatypes.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.graphiti.mm.datatypes.Color;
 import org.eclipse.graphiti.mm.datatypes.DatatypesFactory;
 import org.eclipse.graphiti.mm.datatypes.DatatypesPackage;
 import org.eclipse.graphiti.mm.datatypes.Point;
-import org.eclipse.graphiti.mm.datatypes.ViewPort;
-
 import org.eclipse.graphiti.mm.links.LinksPackage;
-
 import org.eclipse.graphiti.mm.links.impl.LinksPackageImpl;
-
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
-
 import org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl;
 
 /**
@@ -49,13 +42,6 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	 * @generated
 	 */
 	private EClass pointEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass viewPortEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -183,15 +169,6 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getViewPort() {
-		return viewPortEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getColor() {
 		return colorEClass;
 	}
@@ -257,8 +234,6 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 		createEAttribute(pointEClass, POINT__BEFORE);
 		createEAttribute(pointEClass, POINT__AFTER);
 
-		viewPortEClass = createEClass(VIEW_PORT);
-
 		colorEClass = createEClass(COLOR);
 		createEAttribute(colorEClass, COLOR__RED);
 		createEAttribute(colorEClass, COLOR__GREEN);
@@ -300,8 +275,6 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 		initEAttribute(getPoint_Y(), ecorePackage.getEInt(), "y", null, 1, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPoint_Before(), ecorePackage.getEInt(), "before", null, 1, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPoint_After(), ecorePackage.getEInt(), "after", null, 1, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(viewPortEClass, ViewPort.class, "ViewPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(colorEClass, Color.class, "Color", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getColor_Red(), ecorePackage.getEInt(), "red", null, 1, 1, Color.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);

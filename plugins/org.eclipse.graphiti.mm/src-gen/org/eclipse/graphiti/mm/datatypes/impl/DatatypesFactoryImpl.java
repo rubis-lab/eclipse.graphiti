@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: DatatypesFactoryImpl.java,v 1.1 2010/06/16 13:25:04 mwenz Exp $
+ * $Id: DatatypesFactoryImpl.java,v 1.2 2010/07/06 11:08:50 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.datatypes.impl;
 
@@ -71,7 +71,6 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case DatatypesPackage.POINT: return createPoint();
-			case DatatypesPackage.VIEW_PORT: return createViewPort();
 			case DatatypesPackage.COLOR: return createColor();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -86,16 +85,6 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
 	public Point createPoint() {
 		PointImpl point = new PointImpl();
 		return point;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ViewPort createViewPort() {
-		ViewPortImpl viewPort = new ViewPortImpl();
-		return viewPort;
 	}
 
 	/**

@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: DatatypesSwitch.java,v 1.1 2010/06/16 13:25:09 mwenz Exp $
+ * $Id: DatatypesSwitch.java,v 1.2 2010/07/06 11:08:50 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.datatypes.util;
 
@@ -103,12 +103,6 @@ public class DatatypesSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DatatypesPackage.VIEW_PORT: {
-				ViewPort viewPort = (ViewPort)theEObject;
-				T result = caseViewPort(viewPort);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case DatatypesPackage.COLOR: {
 				Color color = (Color)theEObject;
 				T result = caseColor(color);
@@ -131,21 +125,6 @@ public class DatatypesSwitch<T> {
 	 * @generated
 	 */
 	public T casePoint(Point object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>View Port</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>View Port</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseViewPort(ViewPort object) {
 		return null;
 	}
 
