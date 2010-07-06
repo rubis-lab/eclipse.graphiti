@@ -16,12 +16,23 @@
 package org.eclipse.graphiti.platform.ga;
 
 /**
- * An interface listening on changes of the visual state.
+ *
  */
-public interface IVisualStateChangeListener {
+public class VisualStateChangedEvent {
+
+	public IVisualState.Type changedField;
+
+	public int oldValue;
+
+	public int newValue;
 
 	/**
-	 * Is called after the visual state changed.
+	 * 
 	 */
-	void visualStateChanged(VisualStateChangedEvent e);
+	public VisualStateChangedEvent(IVisualState.Type changedField, int oldValue, int newValue) {
+		this.changedField = changedField;
+		this.oldValue = oldValue;
+		this.newValue = newValue;
+	}
+
 }

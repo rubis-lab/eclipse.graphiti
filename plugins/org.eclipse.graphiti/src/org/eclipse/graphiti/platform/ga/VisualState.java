@@ -38,9 +38,9 @@ public class VisualState implements IVisualState {
 		changeListeners.remove(listener);
 	}
 
-	protected void fireVisualStateChanged() {
+	protected void fireVisualStateChanged(VisualStateChangedEvent e) {
 		for (IVisualStateChangeListener listener : changeListeners) {
-			listener.visualStateChanged();
+			listener.visualStateChanged(e);
 		}
 	}
 
@@ -52,7 +52,7 @@ public class VisualState implements IVisualState {
 		int oldActionTargetFeedback = actionTargetFeedback;
 		actionTargetFeedback = feedback;
 		if (oldActionTargetFeedback != actionTargetFeedback)
-			fireVisualStateChanged();
+			fireVisualStateChanged(new VisualStateChangedEvent(Type.ACTION_TARGET_FEEDBACK, oldActionTargetFeedback, feedback));
 	}
 
 	public int getSelectionFeedback() {
@@ -63,14 +63,14 @@ public class VisualState implements IVisualState {
 		int oldSelectionFeedback = selectionFeedback;
 		selectionFeedback = feedback;
 		if (oldSelectionFeedback != selectionFeedback)
-			fireVisualStateChanged();
+			fireVisualStateChanged(new VisualStateChangedEvent(Type.SELECTION, oldSelectionFeedback, feedback));
 	}
 
 	public void setHoverFeedback(int feedback) {
 		int oldHoverFeedback = hoverFeedback;
 		hoverFeedback = feedback;
 		if (oldHoverFeedback != hoverFeedback)
-			fireVisualStateChanged();
+			fireVisualStateChanged(new VisualStateChangedEvent(Type.HOVER, oldHoverFeedback, feedback));
 
 	}
 

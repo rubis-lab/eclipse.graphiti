@@ -53,9 +53,13 @@ public interface IVisualState {
 	 */
 	final static int SELECTION_SECONDARY = 2;
 
-	final static int HOVER_ON = 3;
+	final static int HOVER_ON = 0;
 
-	final static int HOVER_OFF = 4;
+	final static int HOVER_OFF = 1;
+
+	public static enum Type {
+		ACTION_TARGET_FEEDBACK, SELECTION, HOVER
+	};
 
 	/**
 	 * Adds a change listener.
