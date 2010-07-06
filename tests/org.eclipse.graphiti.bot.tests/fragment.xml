@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<fragment>
+
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.eclipse.graphiti.bot.tests.util.GFTestPerspective"
+            fixed="false"
+            id="org.eclipse.graphiti.tests.ui.GFTestPerspective"
+            name="Test Graphiti"/>
+   </extension>
+
+</fragment>
