@@ -31,6 +31,7 @@ import org.eclipse.graphiti.mm.pictograms.RenderingStyle;
 import org.eclipse.graphiti.platform.ga.IVisualState;
 import org.eclipse.graphiti.platform.ga.IVisualStateChangeListener;
 import org.eclipse.graphiti.platform.ga.IVisualStateHolder;
+import org.eclipse.graphiti.platform.ga.VisualStateChangedEvent;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.ISelectionInfo;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
@@ -585,7 +586,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	/**
 	 * Is called after the visual state changed.
 	 */
-	public void visualStateChanged() {
+	public void visualStateChanged(VisualStateChangedEvent e) {
 		// The colors might have changed, so force a repaint()
 		repaint();
 	}
