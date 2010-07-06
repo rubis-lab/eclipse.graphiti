@@ -22,7 +22,7 @@ public interface ITestConstants {
 	/**
 	 * The Constant DIAGRAM_TYPE_ID_SKETCH.
 	 */
-	public static final String DIAGRAM_TYPE_ID_SKETCH = "sample.sketch";
+	public static final String DIAGRAM_TYPE_ID_SKETCH = "testtool.sketch";
 
 	/**
 	 * The Constant DIAGRAM_TYPE_ID_PATTERN.
@@ -32,6 +32,6 @@ public interface ITestConstants {
 	/**
 	 * The Constant DIAGRAM_TYPE_ID_ECORE.
 	 */
-	public static final String DIAGRAM_TYPE_ID_ECORE = "sample.ecore";
+	public static final String DIAGRAM_TYPE_ID_ECORE = "testtool.ecore";
 
 }

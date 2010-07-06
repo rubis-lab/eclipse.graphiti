@@ -42,7 +42,7 @@ import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.MultiText;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.sample.sketch.SketchFeatureProvider;
+import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;

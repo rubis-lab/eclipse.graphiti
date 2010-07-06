@@ -15,7 +15,7 @@ Require-Bundle: org.easymock;bundle-version="2.3.0",
  org.eclipse.graphiti.pattern;bundle-version="0.7.0",
  org.eclipse.graphiti.tests;bundle-version="0.7.0",
  org.eclipse.graphiti.examples.common;bundle-version="0.7.0",
- org.eclipse.graphiti.sample.sketch;bundle-version="0.7.0",
- org.eclipse.graphiti.sample.ecore;bundle-version="0.7.0"
+ org.eclipse.graphiti.testtool.sketch;bundle-version="0.7.0",
+ org.eclipse.graphiti.testtool.ecore;bundle-version="0.7.0"
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
