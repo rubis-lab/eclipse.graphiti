@@ -1,15 +1,17 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2010 MAKE Technologies Inc and others
+ * <copyright>
+ *
+ * Copyright (c) 2005, 2010 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
- *    MAKE Technologies Inc - initial API and implementation
- *    Mariot Chauvin <mariot.chauvin@obeo.fr> - refactoring
- *    Steve Monnier <steve.monnier@obeo.fr> - add mouseMoveDoubleClick action
- *    Nathalie Lepine <nathalie.lepine@obeo.fr> - add mouseMoveDoubleClick action
+ *    SAP AG - initial API, implementation and documentation
+ *
+ * </copyright>
+ *
  *******************************************************************************/
 package org.eclipse.graphiti.bot.tests.swtbot;
 
