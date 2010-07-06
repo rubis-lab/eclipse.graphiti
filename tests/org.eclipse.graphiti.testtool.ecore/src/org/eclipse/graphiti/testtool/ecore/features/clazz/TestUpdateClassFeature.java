@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.sample.ecore.features.clazz;
+package org.eclipse.graphiti.testtool.ecore.features.clazz;
 
 import java.util.Collection;
 

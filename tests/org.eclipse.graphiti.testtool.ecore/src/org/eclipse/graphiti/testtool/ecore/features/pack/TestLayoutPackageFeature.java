@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.sample.ecore.features.pack;
+package org.eclipse.graphiti.testtool.ecore.features.pack;
 
 import java.util.Collection;
 

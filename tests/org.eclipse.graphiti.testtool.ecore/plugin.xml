@@ -21,21 +21,21 @@
          point="org.eclipse.graphiti.ui.diagramTypes">
       <diagramType
             description="diagram type for demo samples"
-            id="org.eclipse.graphiti.sample.ecore.EcoreDiagramType"
+            id="org.eclipse.graphiti.testtool.ecore.EcoreDiagramType"
             name="Sample Ecore DT"
-            type="sample.ecore">
+            type="testtool.ecore">
       </diagramType>
    </extension>   
    
    <extension
          point="org.eclipse.graphiti.ui.diagramTypeProviders">
       <diagramTypeProvider
-            class="org.eclipse.graphiti.sample.ecore.TestDiagramTypeProvider"
+            class="org.eclipse.graphiti.testtool.ecore.TestDiagramTypeProvider"
             description="This is a small Ecore test editor for the automated junit tests"
-            id="org.eclipse.graphiti.sample.ecore.TestDiagramTypeProvider"
+            id="org.eclipse.graphiti.testtool.ecore.TestDiagramTypeProvider"
             name="Ecore sample editor">
          <diagramType
-               id="org.eclipse.graphiti.sample.ecore.EcoreDiagramType">
+               id="org.eclipse.graphiti.testtool.ecore.EcoreDiagramType">
          </diagramType>
          <imageProvider
                id="org.eclipse.graphiti.examples.common.SampleImageProvider">

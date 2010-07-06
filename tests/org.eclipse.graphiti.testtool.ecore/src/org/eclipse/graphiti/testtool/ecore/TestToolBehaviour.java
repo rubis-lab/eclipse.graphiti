@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.sample.ecore;
+package org.eclipse.graphiti.testtool.ecore;
 
 import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;

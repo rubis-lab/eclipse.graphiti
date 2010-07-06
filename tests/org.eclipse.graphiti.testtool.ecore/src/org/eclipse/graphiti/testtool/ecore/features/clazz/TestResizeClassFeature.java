@@ -1,4 +1,4 @@
-package org.eclipse.graphiti.sample.ecore.features.clazz;
+package org.eclipse.graphiti.testtool.ecore.features.clazz;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;

@@ -13,35 +13,45 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.sample.ecore.features.clazz;
+package org.eclipse.graphiti.testtool.ecore.features.pack;
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
 
 /**
- * The Class TestMoveClassFeature.
+ * The Class TestMovePackageFeature.
  */
-public class TestMoveClassFeature extends DefaultMoveShapeFeature {
+public class TestMovePackageFeature extends DefaultMoveShapeFeature {
 
 	/**
-	 * Instantiates a new test move class feature.
+	 * Instantiates a new test move package feature.
 	 * 
 	 * @param fp
 	 *            the fp
 	 */
-	public TestMoveClassFeature(IFeatureProvider fp) {
+	public TestMovePackageFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
 	@Override
 	public boolean canMoveShape(IMoveShapeContext context) {
 
-		if (getBusinessObjectForPictogramElement(context.getTargetContainer()) instanceof EClass) {
-			return false;
-		}
-		return true;
-	}
+		boolean ret = super.canMoveShape(context);
 
+		// check further details only if move allowed by default feature
+		if (ret) {
+
+			// don't allow move if package name has the length of one
+			Object bo = getBusinessObjectForPictogramElement(context.getShape());
+			if (bo instanceof EPackage) {
+				EPackage p = (EPackage) bo;
+				if (p.getName() != null && p.getName().length() == 1) {
+					ret = false;
+				}
+			}
+		}
+		return ret;
+	}
 }

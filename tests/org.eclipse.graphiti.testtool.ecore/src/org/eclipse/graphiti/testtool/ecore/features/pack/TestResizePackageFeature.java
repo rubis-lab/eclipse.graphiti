@@ -1,4 +1,4 @@
-package org.eclipse.graphiti.sample.ecore.features.pack;
+package org.eclipse.graphiti.testtool.ecore.features.pack;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;

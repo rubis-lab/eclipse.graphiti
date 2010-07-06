@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.sample.ecore.features.association;
+package org.eclipse.graphiti.testtool.ecore.features.association;
 
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.graphiti.features.IFeatureProvider;

@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.sample.ecore;
+package org.eclipse.graphiti.testtool.ecore;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -38,22 +38,22 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.sample.ecore.features.association.TestAddAssociationFeature;
-import org.eclipse.graphiti.sample.ecore.features.association.TestCreateAssociationFeature;
-import org.eclipse.graphiti.sample.ecore.features.clazz.TestAddClassFeature;
-import org.eclipse.graphiti.sample.ecore.features.clazz.TestCreateClassFeature;
-import org.eclipse.graphiti.sample.ecore.features.clazz.TestDirectEditingClassFeature;
-import org.eclipse.graphiti.sample.ecore.features.clazz.TestLayoutClassFeature;
-import org.eclipse.graphiti.sample.ecore.features.clazz.TestMoveClassFeature;
-import org.eclipse.graphiti.sample.ecore.features.clazz.TestResizeClassFeature;
-import org.eclipse.graphiti.sample.ecore.features.clazz.TestUpdateClassFeature;
-import org.eclipse.graphiti.sample.ecore.features.pack.RenamePackageFeature;
-import org.eclipse.graphiti.sample.ecore.features.pack.TestAddPackageFeature;
-import org.eclipse.graphiti.sample.ecore.features.pack.TestCreatePackageFeature;
-import org.eclipse.graphiti.sample.ecore.features.pack.TestLayoutPackageFeature;
-import org.eclipse.graphiti.sample.ecore.features.pack.TestMovePackageFeature;
-import org.eclipse.graphiti.sample.ecore.features.pack.TestResizePackageFeature;
-import org.eclipse.graphiti.sample.ecore.features.pack.TestUpdatePackageFeature;
+import org.eclipse.graphiti.testtool.ecore.features.association.TestAddAssociationFeature;
+import org.eclipse.graphiti.testtool.ecore.features.association.TestCreateAssociationFeature;
+import org.eclipse.graphiti.testtool.ecore.features.clazz.TestAddClassFeature;
+import org.eclipse.graphiti.testtool.ecore.features.clazz.TestCreateClassFeature;
+import org.eclipse.graphiti.testtool.ecore.features.clazz.TestDirectEditingClassFeature;
+import org.eclipse.graphiti.testtool.ecore.features.clazz.TestLayoutClassFeature;
+import org.eclipse.graphiti.testtool.ecore.features.clazz.TestMoveClassFeature;
+import org.eclipse.graphiti.testtool.ecore.features.clazz.TestResizeClassFeature;
+import org.eclipse.graphiti.testtool.ecore.features.clazz.TestUpdateClassFeature;
+import org.eclipse.graphiti.testtool.ecore.features.pack.RenamePackageFeature;
+import org.eclipse.graphiti.testtool.ecore.features.pack.TestAddPackageFeature;
+import org.eclipse.graphiti.testtool.ecore.features.pack.TestCreatePackageFeature;
+import org.eclipse.graphiti.testtool.ecore.features.pack.TestLayoutPackageFeature;
+import org.eclipse.graphiti.testtool.ecore.features.pack.TestMovePackageFeature;
+import org.eclipse.graphiti.testtool.ecore.features.pack.TestResizePackageFeature;
+import org.eclipse.graphiti.testtool.ecore.features.pack.TestUpdatePackageFeature;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
 /**
