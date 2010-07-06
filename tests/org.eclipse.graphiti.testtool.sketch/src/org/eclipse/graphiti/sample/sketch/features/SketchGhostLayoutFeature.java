@@ -1,0 +1,113 @@
+/*******************************************************************************
+ * <copyright>
+ *
+ * Copyright (c) 2005, 2010 SAP AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    SAP AG - initial API, implementation and documentation
+ *
+ * </copyright>
+ *
+ *******************************************************************************/
+package org.eclipse.graphiti.sample.sketch.features;
+
+import java.util.List;
+
+import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.ILayoutContext;
+import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
+import org.eclipse.graphiti.mm.pictograms.AbstractText;
+import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.sample.sketch.SketchUtil;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
+
+/**
+ * The Class SketchGhostLayoutFeature.
+ */
+public class SketchGhostLayoutFeature extends AbstractLayoutFeature {
+
+	/**
+	 * The TOP.
+	 */
+	public static int TOP = 10;
+
+	/**
+	 * The BOTTOM.
+	 */
+	public static int BOTTOM = 10;
+
+	/**
+	 * The LEFT.
+	 */
+	public static int LEFT = 10;
+
+	/**
+	 * The RIGHT.
+	 */
+	public static int RIGHT = 10;
+
+	/**
+	 * The DIST.
+	 */
+	public static int DIST = 10;
+
+	/**
+	 * Instantiates a new sketch ghost layout feature.
+	 * 
+	 * @param fp
+	 *            the fp
+	 */
+	public SketchGhostLayoutFeature(IFeatureProvider fp) {
+		super(fp);
+	}
+
+	public boolean canLayout(ILayoutContext context) {
+		boolean ret = (SketchUtil.getGhostGa(context.getPictogramElement()) != null);
+		return ret;
+	}
+
+	public boolean layout(ILayoutContext context) {
+		IGaService gaService=Graphiti.getGaService();
+		final PictogramElement pe = context.getPictogramElement();
+		GraphicsAlgorithm containerGa = pe.getGraphicsAlgorithm();
+		final List<GraphicsAlgorithm> gaChildren = containerGa.getGraphicsAlgorithmChildren();
+		if (SketchUtil.getGhostGa(pe) != null) {
+			final IDimension containerGaSize = gaService.calculateSize(containerGa);
+			final int containerWidth = containerGaSize.getWidth();
+			final int containerHeight = containerGaSize.getHeight();
+			final GraphicsAlgorithm firstGa = gaChildren.get(0);
+			final GraphicsAlgorithm textGa = gaChildren.get(1);
+			final int textHeight = 20; // textGa.getHeight();
+
+			// first GA
+			gaService.setLocationAndSize(firstGa, LEFT, TOP, containerWidth - LEFT - RIGHT, containerHeight - TOP - BOTTOM
+					- DIST - textHeight, true);
+			final List<GraphicsAlgorithm> firstGaChildren = firstGa.getGraphicsAlgorithmChildren();
+			if (!firstGaChildren.isEmpty()) {
+				final GraphicsAlgorithm innerFirstGa = firstGaChildren.get(0);
+				final int innerDistX = gaService.calculateSize(firstGa).getWidth() / 8;
+				final int innerDistY = gaService.calculateSize(firstGa).getHeight() / 8;
+				gaService.setLocationAndSize(innerFirstGa, innerDistX, innerDistY, firstGa.getWidth() - (2 * innerDistX),
+						firstGa.getHeight() - (2 * innerDistY));
+			}
+
+			// text GA
+			gaService.setSize(textGa, containerWidth - LEFT - RIGHT, textHeight);
+			gaService.setLocation(textGa, LEFT, containerHeight - BOTTOM - textHeight, true);
+		}
+
+		AbstractText text = SketchUtil.getLabelGa(pe);
+		if (text != null) {
+			gaService.setSize(text, containerGa.getWidth(), containerGa.getHeight());
+		}
+
+		return true;
+	}
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+    <copyright>
+   
+    Copyright (c) 2005, 2010 SAP AG.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       SAP AG - initial API, implementation and documentation
+   
+    </copyright>
+   
+ -->
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <propertyContributor
+            typeMapper="org.eclipse.graphiti.examples.common.property.TypeMapper"
+            contributorId="sample.sketch.PropertyContributor"
+            labelProvider="org.eclipse.graphiti.examples.common.property.PropertiesLabelProvider">
+        <propertyCategory category="gfw-legacy" />
+      </propertyContributor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <propertyTabs
+            contributorId="sample.sketch.PropertyContributor">
+          <propertyTab
+               label="Advanced" category="gfw-legacy"
+               id="org.eclipse.graphiti.properties.legacytab">
+         </propertyTab>
+      </propertyTabs>
+   </extension>
+
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypes">
+      <diagramType
+            description="diagram type for sketch samples"
+            id="org.eclipse.graphiti.sample.sketch.SketchDiagramType"
+            name="Sample Sketch DT"
+            type="sample.sketch">
+      </diagramType>
+   </extension>
+   
+   
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypeProviders">
+      <diagramTypeProvider
+            class="org.eclipse.graphiti.sample.sketch.SketchDiagramTypeProvider"
+            description="A sample sketch editor"
+            id="org.eclipse.graphiti.sample.sketch.SketchDiagramTypeProvider"
+            name="Sketch">
+         <diagramType
+               id="org.eclipse.graphiti.sample.sketch.SketchDiagramType">
+         </diagramType>
+          <imageProvider
+               id="org.eclipse.graphiti.examples.common.SampleImageProvider">
+         </imageProvider>
+      </diagramTypeProvider>
+   </extension>
+   
+  
+</plugin>
