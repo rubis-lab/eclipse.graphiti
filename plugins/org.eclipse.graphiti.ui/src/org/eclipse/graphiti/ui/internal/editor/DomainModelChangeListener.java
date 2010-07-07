@@ -84,8 +84,9 @@ public class DomainModelChangeListener implements ResourceSetListener {
 		List<Notification> notifications = event.getNotifications();
 		for (Notification notification : notifications) {
 			Object notifier = notification.getNotifier();
-			if (!(notifier instanceof EObject))
+			if (!(notifier instanceof EObject)) {
 				continue;
+			}
 			changedBOs.add((EObject) notifier);
 		}
 
@@ -93,8 +94,9 @@ public class DomainModelChangeListener implements ResourceSetListener {
 				changedBOs.toArray());
 
 		// Do nothing if no BO linked to the diagram changed.
-		if (dirtyPes.length == 0)
+		if (dirtyPes.length == 0) {
 			return;
+		}
 
 		// Do an asynchronous update in the UI thread.
 		Display.getCurrent().asyncExec(new Runnable() {
