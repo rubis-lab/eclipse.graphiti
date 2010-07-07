@@ -70,7 +70,8 @@ public class DomainModelChangeListener implements ResourceSetListener {
 	@Override
 	public void resourceSetChanged(ResourceSetChangeEvent event) {
 
-		// if there is no diagramLink, we have also no pictogramLinks -> no references to bo's -> don't handle change events
+		// if there is no diagramLink, we have also no pictogramLinks -> no
+		// references to bo's -> don't handle change events
 		if (getDiagramTypeProvider() instanceof AbstractDiagramTypeProvider) {
 			DiagramLink cachedDiagramLink = ((AbstractDiagramTypeProvider) getDiagramTypeProvider()).getCachedDiagramLink();
 			if (cachedDiagramLink == null) {
@@ -100,12 +101,14 @@ public class DomainModelChangeListener implements ResourceSetListener {
 
 			@Override
 			public void run() {
-				if (getDiagramTypeProvider().isAutoUpdateAtRuntime() && getDiagramTypeProvider().getDiagramEditor().isDirty())
+				if (getDiagramTypeProvider().isAutoUpdateAtRuntime() && getDiagramTypeProvider().getDiagramEditor().isDirty()) {
 					// The notification service takes care of not only the
-					// linked BOs but also asks the diagram provider about related BOs.
+					// linked BOs but also asks the diagram provider about
+					// related BOs.
 					getDiagramTypeProvider().getNotificationService().updatePictogramElements(dirtyPes);
-				else
+				} else {
 					getDiagramTypeProvider().getDiagramEditor().refresh();
+				}
 			}
 
 		});
