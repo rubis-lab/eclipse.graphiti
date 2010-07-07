@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+Copyright (c) 2010 SAP AG.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors:
+  Cloudsmith Inc - build.xml for Buckminster project
+  Martin Taal - changes for Teneo
+  Michael Wenz - changes Graphiti
+
+The Teneo build.xml was used as a template for creating this file:
+http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.emf/org.eclipse.emf.teneo/releng/org.eclipse.emf.teneo.releng.buckminster/build.xml?root=Modeling_Project&view=log
+
+Some important parts have been copied from Buckminster's own build setup:
+http://dev.eclipse.org/viewsvn/index.cgi/trunk/org.eclipse.buckminster.releng/build.xml?root=Tools_BUCKMINSTER&view=markup
+-->
+
+<project default="build.and.test" name="Graphiti Build and Test Run">
+	<!-- load properties and set timestamp for the build -->
+	<property environment="env" />
+
+	<tstamp>
+		<format property="buildTimestamp" pattern="yyyyMMddHHmm" />
+	</tstamp>
+
+	<property file="buckminster.properties" />
+
+	<condition property="hudsonWorkSpacePath" value="${env.WORKSPACE}" else="${basedir}/../">
+		<isset property="env.WORKSPACE" />
+	</condition>
+
+	<condition property="graphiti.update.site.type" value="${env.GRAPHITI_UPDATE_SITE_TYPE}" else="interim">
+		<isset property="env.GRAPHITI_UPDATE_SITE_TYPE" />
+	</condition>
+
+	<condition property="site.pack200" value="${env.SITE_PACK200}" else="false">
+		<isset property="env.SITE_PACK200" />
+	</condition>
+
+	<condition property="site.signing" value="${env.SITE_SIGNING}" else="false">
+		<isset property="env.SITE_SIGNING" />
+	</condition>
+
+	<condition property="buckminster.loglevel" value="${env.BUCKMINSTER_LOGLEVEL}" else="info">
+		<isset property="env.BUCKMINSTER_LOGLEVEL" />
+	</condition>
+
+	<!-- Is used in buck.minster also -->
+	<condition property="build.type" value="${env.BUILDTYPE}" else="N">
+		<isset property="env.BUILDTYPE" />
+	</condition>
+
+	<condition property="graphiti.version" value="${env.VERSION}" else="0.7.0">
+		<isset property="env.VERSION" />
+	</condition>
+
+	<condition property="clean.tools" value="true">
+		<equals arg1="${env.CLEAN_TOOLS}" arg2="true" />
+	</condition>
+
+	<property name="buildsPath" location="${hudsonWorkSpacePath}/build" />
+
+	<!--property name="rootPath" location="${buildsPath}/${build.type}${buildTimestamp}"/-->
+	<property name="rootPath" location="${buildsPath}" />
+
+	<property name="buildRoot" location="${rootPath}/build" />
+	<property name="testRoot" location="${rootPath}/test" />
+	<property name="toolsPath" location="${rootPath}/tools" />
+	<property name="buildSitePath" location="${rootPath}/result/p2site" />
+	<property name="buildZipsPath" location="${rootPath}/result/zips" />
+	<property name="testResultsPath" location="${rootPath}/result/test" />
+
+	<property name="promoteUpdateSite" location="${graphiti.download.area}/updates/${graphiti.update.site.type}" />
+	<property name="promoteDropsLocation" location="${graphiti.download.area}/downloads/drops" />
+
+	<property name="buckminster.output.root" location="${rootPath}/output" />
+	<property name="buckminster.temp.root" location="${rootPath}/temp" />
+
+	<import file="ant_common.xml" />
+
+	<target name="build.and.test" depends="init, init.checks, install.buckminster">
+		<echo message=""/>
+		<echo message="=========================================================================================="/>
+		<echo message="Building" />
+		<ant dir="${basedir}/build" antfile="graphiti_build.xml" target="run" inheritRefs="true" />
+
+		<echo message=""/>
+		<echo message="=========================================================================================="/>
+		<echo message="Testing" />
+		<ant dir="${basedir}/test" antfile="graphiti_test.xml" target="run" inheritRefs="true" />
+	</target>
+
+	<target name="promote" depends="init.build.properties">
+		<echo message="Promoting build update site" />
+		<echo message="from ${buildSitePath}" />
+		<echo message="to ${promoteUpdateSite}" />
+
+		<delete dir="${promoteUpdateSite}" />
+		<mkdir dir="${promoteUpdateSite}"/>
+		<mkdir dir="${promoteUpdateSite}/plugins"/>
+		<mkdir dir="${promoteUpdateSite}/features"/>
+		
+		<copy todir="${promoteUpdateSite}">
+			<fileset dir="${buildSitePath}">
+				<include name="**/*" />
+				<include name="**" />
+			</fileset>
+		</copy>
+
+		<mkdir dir="${promoteDropsLocation}"/>
+		<mkdir dir="${promoteDropsLocation}/${graphiti.version}"/>
+		<mkdir dir="${promoteDropsLocation}/${graphiti.version}/${build.type}${buildTimestamp}"/>		
+		<copy todir="${promoteDropsLocation}/${graphiti.version}/${build.type}${buildTimestamp}">
+			<fileset dir="${buildZipsPath}">
+				<include name="*.zip" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="clean.all">
+		<echo message="Removing previous build" />
+		<delete dir="${buildsPath}" quiet="true" />
+	</target>
+
+	<target name="init.clean.tools" if="clean.tools">
+		<delete dir="${toolsPath}" failonerror="true" quiet="true" />
+	</target>
+
+	<target name="init.checks" depends="init.clean.tools">
+		<available file="${toolsPath}/director/director" property="director.exists" />
+		<available file="${toolsPath}/buckminster/buckminster" property="buckminster.exists" />
+	</target>
+
+	<target name="init" depends="clean.all">
+
+		<echo message="Creating main directories" />
+		<echo message="rootPath: ${rootPath}" />
+		<echo message="buildRoot: ${buildRoot}" />
+		<echo message="testRoot: ${testRoot}" />
+		<echo message="buildSitePath: ${buildSitePath}" />
+		<echo message="buildZipsPath: ${buildZipsPath}" />
+		<echo message="testResultsPath: ${testResultsPath}" />
+		<mkdir dir="${rootPath}" />
+		<mkdir dir="${buildRoot}" />
+		<mkdir dir="${testRoot}" />
+		<mkdir dir="${toolsPath}" />
+		<mkdir dir="${buildSitePath}" />
+		<mkdir dir="${buildZipsPath}" />
+		<mkdir dir="${testResultsPath}" />
+		<mkdir dir="${testResultsPath}/output" />
+
+		<available file="${tools}/director/director" property="director.exists" />
+		<available file="${tools}/buckminster/buckminster" property="buckminster.exists" />
+
+	</target>
+
+	<target name="get.director" unless="director.exists">
+		<echo message="Fetching headless director application" />
+		<tempfile destdir="${java.io.tmpdir}" prefix="director-" suffix=".zip" property="director.zip" deleteonexit="true" />
+		<get src="${director.url}" dest="${director.zip}" />
+		<mkdir dir="${tools}" />
+		<unzip src="${director.zip}" dest="${toolsPath}" />
+		<delete file="${director.zip}" />
+	</target>
+
+	<target name="install.buckminster" unless="buckminster.exists" depends="get.director">
+		<echo message="Configuring headless buckminster with needed features" />
+		<eclipse.launch app="director">
+			<args>
+				<jvmarg value="-Declipse.p2.mirrors=false" />
+				<!--jvmarg value="-Dorg.eclipse.update.jarprocessor.pack200=${org.eclipse.update.jarprocessor.pack200}" /-->
+				<arg value="-r" />
+				<arg value="${buckminster.p2.site}" />
+				<arg value="-d" />
+				<arg value="${toolsPath}/buckminster" />
+				<arg value="-p" />
+				<arg value="Buckminster" />
+				<arg value="-i" />
+				<arg value="org.eclipse.buckminster.cmdline.product" />
+				<arg value="-i" />
+				<arg value="org.eclipse.buckminster.core.headless.feature.feature.group" />
+				<arg value="-i" />
+				<arg value="org.eclipse.buckminster.pde.headless.feature.feature.group" />
+				<arg value="-i" />
+				<arg value="org.eclipse.buckminster.cvs.headless.feature.feature.group" />
+				<arg value="-i" />
+				<arg value="org.eclipse.buckminster.emma.headless.feature.feature.group" />
+			</args>
+		</eclipse.launch>
+	</target>
+
+	<target name="init.build.properties">
+		<!-- Echo relevant properties to a temporary file so that Buckminster can read them
+		  -->
+		<tempfile destdir="${java.io.tmpdir}" prefix="build-" suffix=".properties" deleteonexit="true" property="properties.tmp" />
+		<echoproperties destfile="${properties.tmp}">
+			<!-- We don't want these. basedir in particular will cause problems if passed explicitly -->
+			<propertyset negate="true">
+				<propertyref name="basedir" />
+				<propertyref name="eclipse.home" />
+				<propertyref name="properties.tmp" />
+				<propertyref name="line.separator" />
+				<propertyref name="path.separator" />
+				<propertyref prefix="ant." />
+				<propertyref prefix="file." />
+				<propertyref prefix="java." />
+				<propertyref prefix="sun." />
+				<propertyref prefix="user." />
+			</propertyset>
+		</echoproperties>
+	</target>
+</project>

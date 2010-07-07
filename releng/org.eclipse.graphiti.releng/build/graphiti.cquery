@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cq:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="graphiti.rmap" shortDesc="Component query for Graphiti framework and examples">
+    <cq:documentation xmlns="http://www.w3.org/1999/xhtml">Collects the Graphiti framework and the examples together with all needed dependencies for the build or for usage
+in the IDE (e.g. for setting up a workspace with the source projects)</cq:documentation>
+    <cq:rootRequest name="org.eclipse.graphiti.site-feature" componentType="eclipse.feature"/>
+    <cq:advisorNode namePattern="org\.eclipse\.graphiti.*\.source" skipComponent="true"/>
+</cq:componentQuery>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+Copyright (c) 2005, 2010 SAP AG.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors:
+  Cloudsmith Inc - build.xml for Buckminster project
+  Martin Taal - changes for Teneo
+  Michael Wenz - changes Graphiti project
+
+The Teneo teneo_build.xml was used as a template for creating this file:
+http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.emf/org.eclipse.emf.teneo/releng/org.eclipse.emf.teneo.releng.buckminster/build/teneo_build.xml?root=Modeling_Project&view=log
+
+Some important parts have been copied from Buckminster's own build setup:
+http://dev.eclipse.org/viewsvn/index.cgi/trunk/org.eclipse.buckminster.releng/build.xml?root=Tools_BUCKMINSTER&view=markup
+-->
+
+<project default="run" name="Graphiti Builds">
+	<!-- load properties and set timestamp for the build -->
+	<property environment="env"/>
+	
+	<!--
+		Inherited properties:
+		buildRoot: the root of this build
+		toolsPath: path containing buckminster
+		buildSitePath: the path to which the p2 site should be copied
+		buildZipsPath: the path to the directory with zip files
+		
+		buckminster.output.root
+		buckminster.temp.root
+	-->
+
+	<property name="targetPlatformPath" location="${buildRoot}/tp"/>
+	<property name="workspacePath" location="${buildRoot}/workspace"/>
+
+	<import file="../ant_common.xml" />
+	
+	<target name="run" depends="init,init.build.properties">
+		<echo message="Using workspace ${workspacePath}" />
+		
+		<echo message="Setting jre to ${env.JAVA_HOME}"/>
+		<buckminster command="installJRE" workspace="${workspacePath}">
+		    <cmdargs>
+		       <arg value="--location" />
+		       <arg value="${env.JAVA_HOME}" />
+		    </cmdargs>
+		</buckminster> 
+
+		<echo message="Setting targetPlatformPath to ${targetPlatformPath}" />
+		<buckminster command="setpref" workspace="${workspacePath}">
+			<cmdargs>
+				<arg value="targetPlatformPath=${targetPlatformPath}" />
+			</cmdargs>
+		</buckminster>
+
+		<echo message="Importing projects into workspace ${workspacePath} and"/>
+		<echo message="importing binaries into target platform ${targetPlatformPath}" />
+		<buckminster command="import" workspace="${workspacePath}">
+			<cmdargs>
+				<arg value="${basedir}/graphiti.mspec" />
+			</cmdargs>
+		</buckminster>
+		
+		<echo message="Building" />
+		<buckminster command="build" workspace="${workspacePath}">
+			<cmdargs>
+				<arg value="--thorough" />
+			</cmdargs>		
+		</buckminster>
+		
+		<echo message="Creating p2 site" />
+		<buckminster command="perform" workspace="${workspacePath}">
+			<cmdargs>
+				<arg value="org.eclipse.graphiti.site:eclipse.feature#site.p2" />
+			</cmdargs>
+		</buckminster>
+		
+		<echo message="Copying p2 site to result" />
+		<antcall target="copy.p2.site" inheritRefs="true" inheritAll="true"/>		
+		
+	</target>
+	
+	<!-- Copy site and create sdk zips --> 	
+	<target name="copy.p2.site">
+	    <echo message="Copying p2.site to ${buildSitePath}"/>
+	    <copy todir="${buildSitePath}" flatten="true">
+	            <fileset dir="${buckminster.output.root}">
+	                    <include name="*site*/site.p2/*"/>
+	            </fileset>
+	    </copy>
+	    <copy todir="${buildSitePath}/plugins" flatten="true">
+	            <fileset dir="${buckminster.output.root}">
+	                    <include name="*site*/site.p2/plugins/*"/>
+	            </fileset>
+	    </copy>
+	    <copy todir="${buildSitePath}/features" flatten="true">
+	            <fileset dir="${buckminster.output.root}">
+	                    <include name="*site*/site.p2/features/*"/>
+	            </fileset>
+	    </copy>
+	</target>
+	
+	<target name="init">
+		<mkdir dir="${targetPlatformPath}"/>
+		<mkdir dir="${workspacePath}"/>
+	</target>
+	
+	<target name="init.build.properties">
+		<!-- Echo relevant properties to a temporary file so that Buckminster can read them
+		  -->
+		<tempfile destdir="${java.io.tmpdir}" prefix="build-" suffix=".properties" deleteonexit="true" property="properties.tmp" />
+		<echoproperties destfile="${properties.tmp}">
+			<!-- We don't want these. basedir in particular will cause problems if passed explicitly -->
+			<propertyset negate="true">
+				<propertyref name="basedir" />
+				<propertyref name="eclipse.home" />
+				<propertyref name="properties.tmp" />
+				<propertyref name="line.separator" />
+				<propertyref name="path.separator" />
+				<propertyref prefix="ant." />
+				<propertyref prefix="file." />
+				<propertyref prefix="java." />
+				<propertyref prefix="sun." />
+				<propertyref prefix="user." />
+			</propertyset>
+		</echoproperties>
+	</target>
+</project>

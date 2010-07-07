@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
+  <rm:property key="build.type" mutable="true" value="N"/>
+  <rm:locator pattern="^org\.eclipse\.graphiti(\..+)?" searchPathRef="graphiti.plugins" failOnError="false"/>
+  <rm:locator pattern="^org\.eclipse\.graphiti\.examples(\..+)?" searchPathRef="graphiti.example.plugins" failOnError="false"/>
+  <rm:locator pattern="^org\.eclipse\.graphiti([\.\-].+)?" searchPathRef="graphiti.features" failOnError="false"/>
+  <rm:locator pattern="^org\.eclipse\.graphiti(\..+)?" searchPathRef="graphiti.doc" failOnError="false"/>
+  <rm:locator pattern="^org\.eclipse\.graphiti(\..+)?" searchPathRef="graphiti.releng" failOnError="false"/>
+  <rm:locator searchPathRef="target.platform"/>
+  <rm:searchPath name="graphiti.plugins">
+    <rm:provider componentTypes="osgi.bundle" readerType="cvs">
+      <rm:uri format=":pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmp/org.eclipse.gmp.graphiti/plugins/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="graphiti.example.plugins">
+    <rm:provider componentTypes="osgi.bundle" readerType="cvs">
+      <rm:uri format=":pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="graphiti.features">
+    <rm:provider componentTypes="eclipse.feature" readerType="cvs" mutable="false">
+      <rm:uri format=":pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmp/org.eclipse.gmp.graphiti/features/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="graphiti.doc">
+    <rm:provider componentTypes="osgi.bundle" readerType="cvs">
+      <rm:uri format=":pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="graphiti.releng">
+    <rm:provider componentTypes="buckminster" readerType="cvs" mutable="false">
+      <rm:uri format=":pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmp/org.eclipse.gmp.graphiti/releng/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="target.platform">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(build.type=N)">
+      <rm:uri format="http://download.eclipse.org/releases/helios"/>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(build.type=R)">
+      <rm:uri format="http://download.eclipse.org/releases/helios"/>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle" readerType="p2" source="false" mutable="false">
+      <rm:uri format="http://download.eclipse.org/tools/orbit/downloads/drops/S20100508202910/repository/"/>
+    </rm:provider>
+  </rm:searchPath>
+</rm:rmap>
