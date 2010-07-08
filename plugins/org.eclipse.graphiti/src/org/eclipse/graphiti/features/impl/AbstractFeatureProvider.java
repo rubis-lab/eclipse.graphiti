@@ -70,7 +70,6 @@ import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.mm.links.DiagramLink;
 import org.eclipse.graphiti.mm.links.LinksFactory;
 import org.eclipse.graphiti.mm.links.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -670,9 +669,9 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		}
 
 		if (businessObject instanceof EObject) {
-			DiagramLink diagramLink = getDiagramTypeProvider().getDiagramLink();
-			if (diagramLink != null) {
-				Collection<PictogramLink> pictogramLinks = diagramLink.getPictogramLinks();
+			Diagram diagram = getDiagramTypeProvider().getDiagram();
+			if (diagram != null) {
+				Collection<PictogramLink> pictogramLinks = diagram.getPictogramLinks();
 				for (PictogramLink pictogramLink : pictogramLinks) {
 					List<EObject> businessObjects = pictogramLink.getBusinessObjects();
 					for (EObject obj : businessObjects) {
@@ -713,9 +712,9 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		PictogramElement result = null;
 
 		if (businessObject instanceof EObject) {
-			DiagramLink diagramLink = getDiagramTypeProvider().getDiagramLink();
-			if (diagramLink != null) {
-				Collection<PictogramLink> pictogramLinks = diagramLink.getPictogramLinks();
+			Diagram diagram = getDiagramTypeProvider().getDiagram();
+			if (diagram != null) {
+				Collection<PictogramLink> pictogramLinks = diagram.getPictogramLinks();
 				for (PictogramLink pictogramLink : pictogramLinks) {
 					List<EObject> businessObjects = pictogramLink.getBusinessObjects();
 					for (EObject obj : businessObjects) {
@@ -834,11 +833,8 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 			ret = LinksFactory.eINSTANCE.createPictogramLink();
 			ret.setPictogramElement(pe);
 
-			// add new link to diagram-link
-			DiagramLink diagramLink = getDiagramTypeProvider().getDiagramLink();
-			if (diagramLink != null) {
-				diagramLink.getPictogramLinks().add(ret);
-			}
+			// add new link to diagram
+			diagram.getPictogramLinks().add(ret);
 		}
 		return ret;
 	}

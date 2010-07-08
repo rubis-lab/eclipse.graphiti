@@ -17,7 +17,6 @@ package org.eclipse.graphiti.dt;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.mm.links.DiagramLink;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.notification.DefaultNotificationService;
 import org.eclipse.graphiti.notification.INotificationService;
@@ -25,7 +24,6 @@ import org.eclipse.graphiti.platform.AbstractExtension;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
-import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 
@@ -39,9 +37,6 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	private Diagram diagram;
 
 	private IDiagramEditor diagramEditor;
-
-	// Cache DiagramLink
-	private DiagramLink diagramLink = null;
 
 	private IFeatureProvider featureProvider;
 
@@ -135,18 +130,6 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.dt.IDiagramTypeProvider#getDiagramLink()
-	 */
-	public final DiagramLink getDiagramLink() {
-		if (diagramLink == null) {
-			diagramLink = Graphiti.getLinkService().getDiagramLink(getDiagram(), true);
-		}
-		return diagramLink;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.graphiti.dt.IDiagramTypeProvider#getDiagramTitle()
 	 */
 	public String getDiagramTitle() {
@@ -197,9 +180,6 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	public void init(Diagram diagram, IDiagramEditor diagramEditor) {
 		setDiagram(diagram);
 		setDiagramEditor(diagramEditor);
-
-		// cache diagramLink if already available - don't create link here, otherwise editor becomes dirty
-		diagramLink = Graphiti.getLinkService().getDiagramLink(diagram, false);
 	}
 
 	private void setDiagramEditor(IDiagramEditor diagramEditor) {
@@ -320,10 +300,5 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	@Override
 	public void resourceReloaded(Diagram diagram) {
 		setDiagram(diagram);
-		this.diagramLink = null;
-	}
-
-	public DiagramLink getCachedDiagramLink() {
-		return diagramLink;
 	}
 }

@@ -19,7 +19,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.graphiti.mm.links.DiagramLink;
 import org.eclipse.graphiti.mm.links.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Property;
@@ -35,8 +34,6 @@ public class ExternalPictogramLink extends EObjectImpl implements PictogramLink 
 	public static final String KEY_INDEPENDENT_PROPERTY = "independentObject"; //$NON-NLS-1$
 
 	private PictogramElement pictogramElement;
-
-	private DiagramLink diagramLink;
 
 	/**
 	 * The Constructor.
@@ -57,30 +54,10 @@ public class ExternalPictogramLink extends EObjectImpl implements PictogramLink 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.mm.links.PictogramLink#getDiagramLink()
-	 */
-	public DiagramLink getDiagramLink() {
-		return diagramLink;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.graphiti.mm.links.PictogramLink#getPictogramElement()
 	 */
 	public PictogramElement getPictogramElement() {
 		return pictogramElement;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.mm.links.PictogramLink#setDiagramLink(org.eclipse
-	 * .graphiti.mm .links.DiagramLink)
-	 */
-	public void setDiagramLink(DiagramLink newValue) {
-		diagramLink = newValue;
 	}
 
 	/*

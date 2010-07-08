@@ -20,15 +20,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.internal.ExternalPictogramLink;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.mm.links.DiagramLink;
-import org.eclipse.graphiti.mm.links.LinksFactory;
 import org.eclipse.graphiti.mm.links.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -96,43 +92,6 @@ public final class LinkServiceImpl implements ILinkService {
 	}
 
 	/**
-	 * Gets the diagram link.
-	 * 
-	 * @param diagram
-	 *            the diagram
-	 * @param createIfNotYetThere
-	 *            create if not yet there
-	 * @return the diagram link
-	 */
-	public DiagramLink getDiagramLink(Diagram diagram, boolean createIfNotYetThere) {
-
-		if (diagram == null) {
-			return null;
-		}
-
-		//		DiagramLinkReferencesDiagram diagramLinkReferencesDiagram = PackageUtil.getLinksPackage(diagram).getDiagramLinkReferencesDiagram();
-		//		DiagramLink ret = diagramLinkReferencesDiagram.getLink(diagram);
-
-		//		DiagramLinkReferencesDiagram.getLink(diagram);
-
-		Resource resource = diagram.eResource();
-		EList<EObject> contents = resource.getContents();
-		for (EObject object : contents) {
-			if (object instanceof DiagramLink) {
-				DiagramLink dl = (DiagramLink) object;
-				if (diagram.equals(dl.getDiagram())) {
-					return dl;
-				}
-			}
-		}
-
-		if (createIfNotYetThere) {
-			return createDiagramLink(diagram);
-		}
-		return null;
-	}
-
-	/**
 	 * Returns the pictogram link referencing the given pictogram element.
 	 * 
 	 * @param pictogramElement
@@ -177,14 +136,14 @@ public final class LinkServiceImpl implements ILinkService {
 	 * 
 	 * @param eObject
 	 *            the ref object
-	 * @param diagramLink
-	 *            the diagram link
+	 * @param diagram
+	 *            the diagram
 	 * @return the pictogram elements
 	 */
-	public List<PictogramElement> getPictogramElements(DiagramLink diagramLink, EObject eObject) {
+	public List<PictogramElement> getPictogramElements(Diagram diagram, EObject eObject) {
 		List<PictogramElement> ret = new ArrayList<PictogramElement>();
 		if (eObject != null && GraphitiInternal.getEmfService().isObjectAlive(eObject)) {
-			Collection<PictogramLink> links = diagramLink.getPictogramLinks();
+			Collection<PictogramLink> links = diagram.getPictogramLinks();
 			for (PictogramLink link : links) {
 				EObject bo = getBusinessObjectForLinkedPictogramElement(link.getPictogramElement());
 				if (EcoreUtil.equals(eObject, bo)) {
@@ -212,18 +171,15 @@ public final class LinkServiceImpl implements ILinkService {
 	public List<PictogramElement> getPictogramElements(Diagram diagram, List<EObject> eObjects, boolean onlyActive) {
 		List<PictogramElement> ret = new ArrayList<PictogramElement>();
 		if (diagram != null && eObjects != null && eObjects.size() > 0) {
-			DiagramLink diagramLink = getDiagramLink(diagram, true);
-			if (diagramLink != null) {
-				Collection<PictogramLink> links = diagramLink.getPictogramLinks();
-				for (PictogramLink link : links) {
-					PictogramElement pe = link.getPictogramElement();
-					if (!onlyActive || pe.isActive()) {
-						EObject[] bos = getAllBusinessObjectsForLinkedPictogramElement(pe);
-						for (EObject bo : bos) {
-							if (eObjects.contains(bo)) {
-								ret.add(pe);
-								break;
-							}
+			Collection<PictogramLink> links = diagram.getPictogramLinks();
+			for (PictogramLink link : links) {
+				PictogramElement pe = link.getPictogramElement();
+				if (!onlyActive || pe.isActive()) {
+					EObject[] bos = getAllBusinessObjectsForLinkedPictogramElement(pe);
+					for (EObject bo : bos) {
+						if (eObjects.contains(bo)) {
+							ret.add(pe);
+							break;
 						}
 					}
 				}
@@ -279,12 +235,5 @@ public final class LinkServiceImpl implements ILinkService {
 	 */
 	public Property getLinkProperty(PictogramElement pictogramElement) {
 		return Graphiti.getPeService().getProperty(pictogramElement, KEY_LINK_PROPERTY);
-	}
-
-	private static DiagramLink createDiagramLink(Diagram diagram) {
-		DiagramLink ret = LinksFactory.eINSTANCE.createDiagramLink();
-		ret.setDiagram(diagram);
-		diagram.eResource().getContents().add(ret);
-		return ret;
 	}
 }

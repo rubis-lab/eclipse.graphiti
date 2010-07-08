@@ -18,7 +18,6 @@ package org.eclipse.graphiti.services;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.graphiti.mm.links.DiagramLink;
 import org.eclipse.graphiti.mm.links.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -59,17 +58,6 @@ public interface ILinkService {
 	EObject getBusinessObjectForLinkedPictogramElement(PictogramElement pictogramElement);
 
 	/**
-	 * Gets the diagram link.
-	 * 
-	 * @param diagram
-	 *            the diagram
-	 * @param createIfNotYetThere
-	 *            create if not yet there
-	 * @return the diagram link
-	 */
-	DiagramLink getDiagramLink(Diagram diagram, boolean createIfNotYetThere);
-
-	/**
 	 * Returns the pictogram link referencing the given pictogram element.
 	 * 
 	 * @param pictogramElement
@@ -83,11 +71,11 @@ public interface ILinkService {
 	 * 
 	 * @param eObject
 	 *            the ref object
-	 * @param diagramLink
-	 *            the diagram link
+	 * @param diagram
+	 *            the diagram
 	 * @return the pictogram elements
 	 */
-	List<PictogramElement> getPictogramElements(DiagramLink diagramLink, EObject eObject);
+	List<PictogramElement> getPictogramElements(Diagram diagram, EObject eObject);
 
 	/**
 	 * Gets the pictogram elements.

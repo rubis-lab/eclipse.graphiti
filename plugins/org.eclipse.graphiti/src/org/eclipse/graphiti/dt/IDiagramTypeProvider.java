@@ -19,7 +19,6 @@
 package org.eclipse.graphiti.dt;
 
 import org.eclipse.graphiti.features.IFeatureProviderHolder;
-import org.eclipse.graphiti.mm.links.DiagramLink;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.notification.INotificationService;
 import org.eclipse.graphiti.platform.IDiagramEditor;
@@ -62,13 +61,6 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 * @return the notification service
 	 */
 	INotificationService getNotificationService();
-
-	/**
-	 * Returns the diagram link.
-	 * 
-	 * @return the diagram link
-	 */
-	DiagramLink getDiagramLink();
 
 	/**
 	 * Get the list of available tool behaviour providers.
