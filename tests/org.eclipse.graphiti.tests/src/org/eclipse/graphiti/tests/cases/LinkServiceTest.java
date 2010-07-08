@@ -15,7 +15,11 @@
  *******************************************************************************/
 package org.eclipse.graphiti.tests.cases;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +29,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.graphiti.mm.links.DiagramLink;
 import org.eclipse.graphiti.mm.links.LinksFactory;
 import org.eclipse.graphiti.mm.links.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -96,14 +99,6 @@ public class LinkServiceTest extends GFAbstractTestCase {
 	}
 
 	@Test
-	public void getDiagramLink() {
-		DiagramLink diagramLink = linkService.getDiagramLink(d, false);
-		assertNull(diagramLink);
-		diagramLink = linkService.getDiagramLink(d, true);
-		assertNotNull(diagramLink);
-	}
-
-	@Test
 	public void linkProperty() {
 		// hasLinkProperty()
 		// setLinkProperty()
@@ -159,8 +154,7 @@ public class LinkServiceTest extends GFAbstractTestCase {
 		assertFalse(pes.isEmpty());
 		assertEquals(s1a, pes.get(0));
 
-		DiagramLink diagramLink = linkService.getDiagramLink(d, true);
-		pes = linkService.getPictogramElements(diagramLink, bo1);
+		pes = linkService.getPictogramElements(d, bo1);
 		assertTrue(pes.size() == 2);
 		assertTrue(pes.contains(s1a));
 		assertTrue(pes.contains(s3i));
@@ -171,8 +165,7 @@ public class LinkServiceTest extends GFAbstractTestCase {
 		if (link == null) {
 			link = LinksFactory.eINSTANCE.createPictogramLink();
 			link.setPictogramElement(pe);
-			DiagramLink diagramLink = linkService.getDiagramLink(d, true);
-			diagramLink.getPictogramLinks().add(link);
+			d.getPictogramLinks().add(link);
 		}
 		return link;
 	}
