@@ -26,9 +26,8 @@ import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.ResourceSetChangeEvent;
 import org.eclipse.emf.transaction.ResourceSetListener;
 import org.eclipse.emf.transaction.RollbackException;
-import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.mm.links.DiagramLink;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.swt.widgets.Display;
@@ -70,11 +69,19 @@ public class DomainModelChangeListener implements ResourceSetListener {
 	@Override
 	public void resourceSetChanged(ResourceSetChangeEvent event) {
 
-		// if there is no diagramLink, we have also no pictogramLinks -> no
+		//		// if there is no diagramLink, we have also no pictogramLinks -> no
+		//		// references to bo's -> don't handle change events
+		//		if (getDiagramTypeProvider() instanceof AbstractDiagramTypeProvider) {
+		//			DiagramLink cachedDiagramLink = ((AbstractDiagramTypeProvider) getDiagramTypeProvider()).getCachedDiagramLink();
+		//			if (cachedDiagramLink == null) {
+		//				return;
+		//			}
+		//		}
+		// if we have no pictogramLinks -> no
 		// references to bo's -> don't handle change events
-		if (getDiagramTypeProvider() instanceof AbstractDiagramTypeProvider) {
-			DiagramLink cachedDiagramLink = ((AbstractDiagramTypeProvider) getDiagramTypeProvider()).getCachedDiagramLink();
-			if (cachedDiagramLink == null) {
+		Diagram diagram = getDiagramTypeProvider().getDiagram();
+		if (diagram != null) {
+			if (diagram.getPictogramLinks().size() == 0) {
 				return;
 			}
 		}

@@ -87,7 +87,6 @@ import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.mm.links.DiagramLink;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -1591,9 +1590,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 					List<PictogramElement> peList = new ArrayList<PictogramElement>();
 					Diagram diagram = getDiagramTypeProvider().getDiagram();
 					ILinkService linkService = Graphiti.getLinkService();
-					DiagramLink diagramLink = linkService.getDiagramLink(diagram, true);
 					for (EObject eObject : selectedList) {
-						List<PictogramElement> referencingPes = linkService.getPictogramElements(diagramLink, eObject);
+						List<PictogramElement> referencingPes = linkService.getPictogramElements(diagram, eObject);
 						if (referencingPes.size() > 0) {
 							peList.addAll(referencingPes);
 						}
