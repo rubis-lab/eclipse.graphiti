@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: LinksFactory.java,v 1.1 2010/06/16 13:24:54 mwenz Exp $
+ * $Id: LinksFactory.java,v 1.2 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.links;
 
@@ -43,15 +43,6 @@ public interface LinksFactory extends EFactory {
 	 * @generated
 	 */
 	PictogramLink createPictogramLink();
-
-	/**
-	 * Returns a new object of class '<em>Diagram Link</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Diagram Link</em>'.
-	 * @generated
-	 */
-	DiagramLink createDiagramLink();
 
 	/**
 	 * Returns the package supported by this factory.

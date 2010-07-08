@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: DiagramImpl.java,v 1.1 2010/06/16 13:24:59 mwenz Exp $
+ * $Id: DiagramImpl.java,v 1.2 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
@@ -30,10 +30,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.graphiti.mm.datatypes.Color;
 
+import org.eclipse.graphiti.mm.links.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
@@ -55,6 +57,7 @@ import org.eclipse.graphiti.mm.pictograms.StyleContainer;
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#isSnapToGrid <em>Snap To Grid</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#isShowGuides <em>Show Guides</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getColors <em>Colors</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getPictogramLinks <em>Pictogram Links</em>}</li>
  * </ul>
  * </p>
  *
@@ -190,6 +193,16 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	 * @ordered
 	 */
 	protected EList<Color> colors;
+
+	/**
+	 * The cached value of the '{@link #getPictogramLinks() <em>Pictogram Links</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPictogramLinks()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PictogramLink> pictogramLinks;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -356,6 +369,18 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<PictogramLink> getPictogramLinks() {
+		if (pictogramLinks == null) {
+			pictogramLinks = new EObjectResolvingEList<PictogramLink>(PictogramLink.class, this, PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS);
+		}
+		return pictogramLinks;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -410,6 +435,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				return isShowGuides();
 			case PictogramsPackage.DIAGRAM__COLORS:
 				return getColors();
+			case PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS:
+				return getPictogramLinks();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -450,6 +477,10 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				getColors().clear();
 				getColors().addAll((Collection<? extends Color>)newValue);
 				return;
+			case PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS:
+				getPictogramLinks().clear();
+				getPictogramLinks().addAll((Collection<? extends PictogramLink>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -486,6 +517,9 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 			case PictogramsPackage.DIAGRAM__COLORS:
 				getColors().clear();
 				return;
+			case PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS:
+				getPictogramLinks().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -514,6 +548,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				return showGuides != SHOW_GUIDES_EDEFAULT;
 			case PictogramsPackage.DIAGRAM__COLORS:
 				return colors != null && !colors.isEmpty();
+			case PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS:
+				return pictogramLinks != null && !pictogramLinks.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsPackageImpl.java,v 1.2 2010/07/06 11:08:51 mgorning Exp $
+ * $Id: PictogramsPackageImpl.java,v 1.3 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
@@ -483,6 +483,15 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 */
 	public EReference getDiagram_Colors() {
 		return (EReference)diagramEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDiagram_PictogramLinks() {
+		return (EReference)diagramEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1418,6 +1427,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		createEAttribute(diagramEClass, DIAGRAM__SNAP_TO_GRID);
 		createEAttribute(diagramEClass, DIAGRAM__SHOW_GUIDES);
 		createEReference(diagramEClass, DIAGRAM__COLORS);
+		createEReference(diagramEClass, DIAGRAM__PICTOGRAM_LINKS);
 
 		graphicsAlgorithmEClass = createEClass(GRAPHICS_ALGORITHM);
 		createEReference(graphicsAlgorithmEClass, GRAPHICS_ALGORITHM__GRAPHICS_ALGORITHM_CHILDREN);
@@ -1627,6 +1637,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEAttribute(getDiagram_SnapToGrid(), ecorePackage.getEBoolean(), "snapToGrid", null, 1, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getDiagram_ShowGuides(), ecorePackage.getEBoolean(), "showGuides", null, 1, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getDiagram_Colors(), theDatatypesPackage.getColor(), null, "colors", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getDiagram_PictogramLinks(), theLinksPackage.getPictogramLink(), null, "pictogramLinks", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(graphicsAlgorithmEClass, GraphicsAlgorithm.class, "GraphicsAlgorithm", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGraphicsAlgorithm_GraphicsAlgorithmChildren(), this.getGraphicsAlgorithm(), this.getGraphicsAlgorithm_ParentGraphicsAlgorithm(), "graphicsAlgorithmChildren", null, 0, -1, GraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

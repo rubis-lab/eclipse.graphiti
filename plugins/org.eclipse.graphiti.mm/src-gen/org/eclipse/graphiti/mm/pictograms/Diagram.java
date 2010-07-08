@@ -12,13 +12,14 @@
  * 
  * </copyright>
  *
- * $Id: Diagram.java,v 1.1 2010/06/16 13:24:53 mwenz Exp $
+ * $Id: Diagram.java,v 1.2 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.graphiti.mm.datatypes.Color;
+import org.eclipse.graphiti.mm.links.PictogramLink;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,6 +36,7 @@ import org.eclipse.graphiti.mm.datatypes.Color;
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#isSnapToGrid <em>Snap To Grid</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#isShowGuides <em>Show Guides</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getColors <em>Colors</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getPictogramLinks <em>Pictogram Links</em>}</li>
  * </ul>
  * </p>
  *
@@ -206,5 +208,21 @@ public interface Diagram extends ContainerShape, StyleContainer {
 	 * @generated
 	 */
 	EList<Color> getColors();
+
+	/**
+	 * Returns the value of the '<em><b>Pictogram Links</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.graphiti.mm.links.PictogramLink}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Pictogram Links</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Pictogram Links</em>' reference list.
+	 * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getDiagram_PictogramLinks()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	EList<PictogramLink> getPictogramLinks();
 
 } // Diagram

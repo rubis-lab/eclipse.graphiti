@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: LinksFactoryImpl.java,v 1.1 2010/06/16 13:25:09 mwenz Exp $
+ * $Id: LinksFactoryImpl.java,v 1.2 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.links.impl;
 
@@ -71,7 +71,6 @@ public class LinksFactoryImpl extends EFactoryImpl implements LinksFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case LinksPackage.PICTOGRAM_LINK: return createPictogramLink();
-			case LinksPackage.DIAGRAM_LINK: return createDiagramLink();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -85,16 +84,6 @@ public class LinksFactoryImpl extends EFactoryImpl implements LinksFactory {
 	public PictogramLink createPictogramLink() {
 		PictogramLinkImpl pictogramLink = new PictogramLinkImpl();
 		return pictogramLink;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DiagramLink createDiagramLink() {
-		DiagramLinkImpl diagramLink = new DiagramLinkImpl();
-		return diagramLink;
 	}
 
 	/**

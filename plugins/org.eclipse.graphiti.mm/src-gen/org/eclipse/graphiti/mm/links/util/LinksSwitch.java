@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: LinksSwitch.java,v 1.1 2010/06/16 13:25:10 mwenz Exp $
+ * $Id: LinksSwitch.java,v 1.2 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.links.util;
 
@@ -106,12 +106,6 @@ public class LinksSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case LinksPackage.DIAGRAM_LINK: {
-				DiagramLink diagramLink = (DiagramLink)theEObject;
-				T result = caseDiagramLink(diagramLink);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -128,21 +122,6 @@ public class LinksSwitch<T> {
 	 * @generated
 	 */
 	public T casePictogramLink(PictogramLink object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Diagram Link</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Diagram Link</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseDiagramLink(DiagramLink object) {
 		return null;
 	}
 

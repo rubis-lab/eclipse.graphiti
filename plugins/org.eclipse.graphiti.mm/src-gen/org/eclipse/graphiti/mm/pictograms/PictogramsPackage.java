@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsPackage.java,v 1.2 2010/07/06 11:08:50 mgorning Exp $
+ * $Id: PictogramsPackage.java,v 1.3 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
@@ -591,13 +591,22 @@ public interface PictogramsPackage extends EPackage {
 	int DIAGRAM__COLORS = CONTAINER_SHAPE_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>Pictogram Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIAGRAM__PICTOGRAM_LINKS = CONTAINER_SHAPE_FEATURE_COUNT + 8;
+
+	/**
 	 * The number of structural features of the '<em>Diagram</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM_FEATURE_COUNT = CONTAINER_SHAPE_FEATURE_COUNT + 8;
+	int DIAGRAM_FEATURE_COUNT = CONTAINER_SHAPE_FEATURE_COUNT + 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.GraphicsAlgorithmImpl <em>Graphics Algorithm</em>}' class.
@@ -4159,6 +4168,17 @@ public interface PictogramsPackage extends EPackage {
 	EReference getDiagram_Colors();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.graphiti.mm.pictograms.Diagram#getPictogramLinks <em>Pictogram Links</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Pictogram Links</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.Diagram#getPictogramLinks()
+	 * @see #getDiagram()
+	 * @generated
+	 */
+	EReference getDiagram_PictogramLinks();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm <em>Graphics Algorithm</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5339,6 +5359,14 @@ public interface PictogramsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DIAGRAM__COLORS = eINSTANCE.getDiagram_Colors();
+
+		/**
+		 * The meta object literal for the '<em><b>Pictogram Links</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DIAGRAM__PICTOGRAM_LINKS = eINSTANCE.getDiagram_PictogramLinks();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.GraphicsAlgorithmImpl <em>Graphics Algorithm</em>}' class.

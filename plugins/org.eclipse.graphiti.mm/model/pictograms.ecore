@@ -26,6 +26,8 @@
         unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="colors" ordered="false"
         upperBound="-1" eType="ecore:EClass datatypes.ecore#//Color" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pictogramLinks" ordered="false"
+        upperBound="-1" eType="ecore:EClass links.ecore#//PictogramLink"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GraphicsAlgorithm" abstract="true" eSuperTypes="#//GraphicsAlgorithmContainer #//AbstractStyle">
     <eStructuralFeatures xsi:type="ecore:EReference" name="graphicsAlgorithmChildren"

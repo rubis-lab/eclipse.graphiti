@@ -6,15 +6,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PictogramLink" eSuperTypes="pictograms.ecore#//PropertyContainer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="pictogramElement" ordered="false"
         unique="false" eType="ecore:EClass pictograms.ecore#//PictogramElement" eOpposite="pictograms.ecore#//PictogramElement/link"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="diagramLink" ordered="false"
-        unique="false" lowerBound="1" eType="#//DiagramLink" eOpposite="#//DiagramLink/pictogramLinks"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="businessObjects" upperBound="-1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DiagramLink">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" ordered="false"
-        unique="false" eType="ecore:EClass pictograms.ecore#//Diagram"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="pictogramLinks" ordered="false"
-        upperBound="-1" eType="#//PictogramLink" eOpposite="#//PictogramLink/diagramLink"/>
   </eClassifiers>
 </ecore:EPackage>

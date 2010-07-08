@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: LinksPackage.java,v 1.1 2010/06/16 13:24:54 mwenz Exp $
+ * $Id: LinksPackage.java,v 1.2 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.links;
 
@@ -99,22 +99,13 @@ public interface LinksPackage extends EPackage {
 	int PICTOGRAM_LINK__PICTOGRAM_ELEMENT = PictogramsPackage.PROPERTY_CONTAINER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Diagram Link</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PICTOGRAM_LINK__DIAGRAM_LINK = PictogramsPackage.PROPERTY_CONTAINER_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Business Objects</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PICTOGRAM_LINK__BUSINESS_OBJECTS = PictogramsPackage.PROPERTY_CONTAINER_FEATURE_COUNT + 2;
+	int PICTOGRAM_LINK__BUSINESS_OBJECTS = PictogramsPackage.PROPERTY_CONTAINER_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Pictogram Link</em>' class.
@@ -123,45 +114,7 @@ public interface LinksPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PICTOGRAM_LINK_FEATURE_COUNT = PictogramsPackage.PROPERTY_CONTAINER_FEATURE_COUNT + 3;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.graphiti.mm.links.impl.DiagramLinkImpl <em>Diagram Link</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.graphiti.mm.links.impl.DiagramLinkImpl
-	 * @see org.eclipse.graphiti.mm.links.impl.LinksPackageImpl#getDiagramLink()
-	 * @generated
-	 */
-	int DIAGRAM_LINK = 1;
-
-	/**
-	 * The feature id for the '<em><b>Diagram</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIAGRAM_LINK__DIAGRAM = 0;
-
-	/**
-	 * The feature id for the '<em><b>Pictogram Links</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIAGRAM_LINK__PICTOGRAM_LINKS = 1;
-
-	/**
-	 * The number of structural features of the '<em>Diagram Link</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIAGRAM_LINK_FEATURE_COUNT = 2;
-
+	int PICTOGRAM_LINK_FEATURE_COUNT = PictogramsPackage.PROPERTY_CONTAINER_FEATURE_COUNT + 2;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.links.PictogramLink <em>Pictogram Link</em>}'.
@@ -185,17 +138,6 @@ public interface LinksPackage extends EPackage {
 	EReference getPictogramLink_PictogramElement();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.mm.links.PictogramLink#getDiagramLink <em>Diagram Link</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Diagram Link</em>'.
-	 * @see org.eclipse.graphiti.mm.links.PictogramLink#getDiagramLink()
-	 * @see #getPictogramLink()
-	 * @generated
-	 */
-	EReference getPictogramLink_DiagramLink();
-
-	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.graphiti.mm.links.PictogramLink#getBusinessObjects <em>Business Objects</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -205,38 +147,6 @@ public interface LinksPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPictogramLink_BusinessObjects();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.links.DiagramLink <em>Diagram Link</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Diagram Link</em>'.
-	 * @see org.eclipse.graphiti.mm.links.DiagramLink
-	 * @generated
-	 */
-	EClass getDiagramLink();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.mm.links.DiagramLink#getDiagram <em>Diagram</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Diagram</em>'.
-	 * @see org.eclipse.graphiti.mm.links.DiagramLink#getDiagram()
-	 * @see #getDiagramLink()
-	 * @generated
-	 */
-	EReference getDiagramLink_Diagram();
-
-	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.graphiti.mm.links.DiagramLink#getPictogramLinks <em>Pictogram Links</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Pictogram Links</em>'.
-	 * @see org.eclipse.graphiti.mm.links.DiagramLink#getPictogramLinks()
-	 * @see #getDiagramLink()
-	 * @generated
-	 */
-	EReference getDiagramLink_PictogramLinks();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -279,46 +189,12 @@ public interface LinksPackage extends EPackage {
 		EReference PICTOGRAM_LINK__PICTOGRAM_ELEMENT = eINSTANCE.getPictogramLink_PictogramElement();
 
 		/**
-		 * The meta object literal for the '<em><b>Diagram Link</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PICTOGRAM_LINK__DIAGRAM_LINK = eINSTANCE.getPictogramLink_DiagramLink();
-
-		/**
 		 * The meta object literal for the '<em><b>Business Objects</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference PICTOGRAM_LINK__BUSINESS_OBJECTS = eINSTANCE.getPictogramLink_BusinessObjects();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.links.impl.DiagramLinkImpl <em>Diagram Link</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.graphiti.mm.links.impl.DiagramLinkImpl
-		 * @see org.eclipse.graphiti.mm.links.impl.LinksPackageImpl#getDiagramLink()
-		 * @generated
-		 */
-		EClass DIAGRAM_LINK = eINSTANCE.getDiagramLink();
-
-		/**
-		 * The meta object literal for the '<em><b>Diagram</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DIAGRAM_LINK__DIAGRAM = eINSTANCE.getDiagramLink_Diagram();
-
-		/**
-		 * The meta object literal for the '<em><b>Pictogram Links</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DIAGRAM_LINK__PICTOGRAM_LINKS = eINSTANCE.getDiagramLink_PictogramLinks();
 
 	}
 

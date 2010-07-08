@@ -12,27 +12,20 @@
  * 
  * </copyright>
  *
- * $Id: LinksPackageImpl.java,v 1.1 2010/06/16 13:25:09 mwenz Exp $
+ * $Id: LinksPackageImpl.java,v 1.2 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.links.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.graphiti.mm.datatypes.DatatypesPackage;
-
 import org.eclipse.graphiti.mm.datatypes.impl.DatatypesPackageImpl;
-
-import org.eclipse.graphiti.mm.links.DiagramLink;
 import org.eclipse.graphiti.mm.links.LinksFactory;
 import org.eclipse.graphiti.mm.links.LinksPackage;
 import org.eclipse.graphiti.mm.links.PictogramLink;
-
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
-
 import org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl;
 
 /**
@@ -48,13 +41,6 @@ public class LinksPackageImpl extends EPackageImpl implements LinksPackage {
 	 * @generated
 	 */
 	private EClass pictogramLinkEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass diagramLinkEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -148,44 +134,8 @@ public class LinksPackageImpl extends EPackageImpl implements LinksPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPictogramLink_DiagramLink() {
-		return (EReference)pictogramLinkEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getPictogramLink_BusinessObjects() {
-		return (EReference)pictogramLinkEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getDiagramLink() {
-		return diagramLinkEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDiagramLink_Diagram() {
-		return (EReference)diagramLinkEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDiagramLink_PictogramLinks() {
-		return (EReference)diagramLinkEClass.getEStructuralFeatures().get(1);
+		return (EReference)pictogramLinkEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -218,12 +168,7 @@ public class LinksPackageImpl extends EPackageImpl implements LinksPackage {
 		// Create classes and their features
 		pictogramLinkEClass = createEClass(PICTOGRAM_LINK);
 		createEReference(pictogramLinkEClass, PICTOGRAM_LINK__PICTOGRAM_ELEMENT);
-		createEReference(pictogramLinkEClass, PICTOGRAM_LINK__DIAGRAM_LINK);
 		createEReference(pictogramLinkEClass, PICTOGRAM_LINK__BUSINESS_OBJECTS);
-
-		diagramLinkEClass = createEClass(DIAGRAM_LINK);
-		createEReference(diagramLinkEClass, DIAGRAM_LINK__DIAGRAM);
-		createEReference(diagramLinkEClass, DIAGRAM_LINK__PICTOGRAM_LINKS);
 	}
 
 	/**
@@ -262,12 +207,7 @@ public class LinksPackageImpl extends EPackageImpl implements LinksPackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(pictogramLinkEClass, PictogramLink.class, "PictogramLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPictogramLink_PictogramElement(), thePictogramsPackage.getPictogramElement(), thePictogramsPackage.getPictogramElement_Link(), "pictogramElement", null, 0, 1, PictogramLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getPictogramLink_DiagramLink(), this.getDiagramLink(), this.getDiagramLink_PictogramLinks(), "diagramLink", null, 1, 1, PictogramLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getPictogramLink_BusinessObjects(), ecorePackage.getEObject(), null, "businessObjects", null, 0, -1, PictogramLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(diagramLinkEClass, DiagramLink.class, "DiagramLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDiagramLink_Diagram(), thePictogramsPackage.getDiagram(), null, "diagram", null, 0, 1, DiagramLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getDiagramLink_PictogramLinks(), this.getPictogramLink(), this.getPictogramLink_DiagramLink(), "pictogramLinks", null, 0, -1, DiagramLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

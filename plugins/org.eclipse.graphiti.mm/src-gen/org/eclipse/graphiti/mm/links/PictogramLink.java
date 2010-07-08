@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramLink.java,v 1.1 2010/06/16 13:24:54 mwenz Exp $
+ * $Id: PictogramLink.java,v 1.2 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.links;
 
@@ -32,7 +32,6 @@ import org.eclipse.graphiti.mm.pictograms.PropertyContainer;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.graphiti.mm.links.PictogramLink#getPictogramElement <em>Pictogram Element</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.links.PictogramLink#getDiagramLink <em>Diagram Link</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.links.PictogramLink#getBusinessObjects <em>Business Objects</em>}</li>
  * </ul>
  * </p>
@@ -69,34 +68,6 @@ public interface PictogramLink extends PropertyContainer {
 	 * @generated
 	 */
 	void setPictogramElement(PictogramElement value);
-
-	/**
-	 * Returns the value of the '<em><b>Diagram Link</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.graphiti.mm.links.DiagramLink#getPictogramLinks <em>Pictogram Links</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Diagram Link</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Diagram Link</em>' reference.
-	 * @see #setDiagramLink(DiagramLink)
-	 * @see org.eclipse.graphiti.mm.links.LinksPackage#getPictogramLink_DiagramLink()
-	 * @see org.eclipse.graphiti.mm.links.DiagramLink#getPictogramLinks
-	 * @model opposite="pictogramLinks" required="true" ordered="false"
-	 * @generated
-	 */
-	DiagramLink getDiagramLink();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.links.PictogramLink#getDiagramLink <em>Diagram Link</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Diagram Link</em>' reference.
-	 * @see #getDiagramLink()
-	 * @generated
-	 */
-	void setDiagramLink(DiagramLink value);
 
 	/**
 	 * Returns the value of the '<em><b>Business Objects</b></em>' reference list.

@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: LinksAdapterFactory.java,v 1.1 2010/06/16 13:25:10 mwenz Exp $
+ * $Id: LinksAdapterFactory.java,v 1.2 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.links.util;
 
@@ -88,10 +88,6 @@ public class LinksAdapterFactory extends AdapterFactoryImpl {
 				return createPictogramLinkAdapter();
 			}
 			@Override
-			public Adapter caseDiagramLink(DiagramLink object) {
-				return createDiagramLinkAdapter();
-			}
-			@Override
 			public Adapter casePropertyContainer(PropertyContainer object) {
 				return createPropertyContainerAdapter();
 			}
@@ -126,20 +122,6 @@ public class LinksAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPictogramLinkAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.links.DiagramLink <em>Diagram Link</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.links.DiagramLink
-	 * @generated
-	 */
-	public Adapter createDiagramLinkAdapter() {
 		return null;
 	}
 
