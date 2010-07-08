@@ -712,16 +712,15 @@ style='color:black'>:</span></p>
   style='color:black'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>public</span></b><span lang=EN-US> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>PictogramElement
-  add(IAddContext context) {</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <b><span
+  style='color:#7F0055'>public</span></b> <span style='color:black'>PictogramElement
+  add(IAddContext context) {</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// ... EXISTING CODING ...</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// ... EXISTING CODING ...</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   IGaService gaService = Graphiti.getGaService();</span></p>
@@ -729,36 +728,36 @@ style='color:black'>:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  RoundedRectangle roundedRectangle;</span><span lang=EN-US> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
-  need to access it later</span></p>
+  RoundedRectangle roundedRectangle;</span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New"'> <span style='color:#3F7F5F'>// need to
+  access it later</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// create invisible outer rectangle expanded by</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create invisible outer rectangle expanded by</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// the width needed for the anchor</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// the width needed for the anchor</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   Rectangle invisibleRectangle =</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> gaService<span
   style='color:black'>.createInvisibleRectangle(containerShape);</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
-  style='color:black'>.setLocationAndSizeOfGraphicsAlgorithm(invisibleRectangle,</span></span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> gaService<span
+  style='color:black'>.setLocationAndSize(invisibleRectangle,</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  context.getX(), context.getY(), width +</span><span lang=EN-US> </span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>INVISIBLE_RECT_RIGHT</span></i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,</span></p>
+  context.getX(), context.getY(), width +</span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'> <i><span
+  style='color:#0000C0'>INVISIBLE_RECT_RIGHT</span></i><span style='color:black'>,</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   height);</span></p>
@@ -766,14 +765,15 @@ style='color:black'>:</span></p>
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// create and set visible rectangle inside invisible rectangle</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create and set visible rectangle inside invisible
+  rectangle</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   roundedRectangle =</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> gaService<span
   style='color:black'>.createRoundedRectangle(invisibleRectangle, 5, 5);</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -781,20 +781,17 @@ style='color:black'>:</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   .getStyleForEClass(getDiagram()));</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
-  style='color:black'>.setLocationAndSizeOfGraphicsAlgorithm(roundedRectangle,
-  0,</span></span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  0, width, height);</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> gaService<span
+  style='color:black'>.setLocationAndSize(roundedRectangle, 0,</span> 0, width,
+  height); </span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// create link and wire it</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create link and wire it</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   link(containerShape, addedClass);</span></p>
@@ -805,40 +802,35 @@ style='color:black'>:</span></p>
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// SHAPE WITH LINE</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// SHAPE WITH LINE</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// create shape for line</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create shape for line</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Shape shape =</span><span lang=EN-US> </span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>peCreateService<span
-  style='color:black'>.createShape(containerShape,</span></span><span
-  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>false</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  Shape shape =</span><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New"'> peCreateService<span style='color:black'>.createShape(containerShape,</span>
+  <b><span style='color:#7F0055'>false</span></b><span style='color:black'>);</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// create and set graphics algorithm</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create and set graphics algorithm</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   Polyline polyline =</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
-  style='color:black'>.createPolyline(shape,</span></span><span lang=EN-US> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
-  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>int</span></b><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>[] { 0, 20, width, 20 });</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> gaService<span
+  style='color:black'>.createPolyline(shape,</span> <b><span style='color:#7F0055'>new</span></b>
+  <b><span style='color:#7F0055'>int</span></b><span style='color:black'>[] {
+  0, 20, width, 20 });</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   polyline.setStyle(StyleUtil.<i>getStyleForEClass</i>(getDiagram()));</span></p>
@@ -849,33 +841,30 @@ style='color:black'>:</span></p>
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// SHAPE WITH TEXT</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// SHAPE WITH TEXT</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// create shape for text</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create shape for text</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Shape shape =</span><span lang=EN-US> </span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>peCreateService<span
-  style='color:black'>.<i>createShape</i>(containerShape,</span></span><span
-  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>false</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  Shape shape =</span><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New"'> peCreateService<span style='color:black'>.<i>createShape</i>(containerShape,</span>
+  <b><span style='color:#7F0055'>false</span></b><span style='color:black'>);</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// create and set text graphics algorithm</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create and set text graphics algorithm</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Text text =</span><span lang=EN-US> </span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.createDefaultText(shape,
+  Text text =</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>
+  gaService<span style='color:black'>.createDefaultText(shape,
   addedClass.getName());</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -897,16 +886,14 @@ style='color:black'>:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
-  style='color:black'>.setLocationAndSizeOfGraphicsAlgorithm(text, 0, 0,<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  width, 20);</span></span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> gaService<span
+  style='color:black'>.setLocationAndSize(text, 0, 0, width, 20);</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// create link and wire it</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create link and wire it</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   link(shape, addedClass);</span></p>
@@ -914,12 +901,14 @@ style='color:black'>:</span></p>
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// provide information to support direct-editing directly</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// provide information to support direct-editing
+  directly</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// after object creation (must be activated additionally)</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// after object creation (must be activated
+  additionally)</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   IDirectEditingInfo directEditingInfo =</span></p>
@@ -928,20 +917,21 @@ style='color:black'>:</span></p>
   getFeatureProvider().getDirectEditingInfo();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// set container shape for direct editing after object
-  creation</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// set container shape for direct editing after object
+  creation</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   directEditingInfo.setMainPictogramElement(containerShape);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// set shape and graphics algorithm where the editor for</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// set shape and graphics algorithm where the editor
+  for</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// direct editing shall be opened after object creation</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// direct editing shall be opened after object creation</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   directEditingInfo.setPictogramElement(shape);</span></p>
@@ -955,14 +945,14 @@ style='color:black'>:</span></p>
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// ... EXISTING CODING ...</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// ... EXISTING CODING ...</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-  <b><span style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b>
-  <span style='font-size:10.0pt;font-family:"Courier New";color:black'>containerShape;</span></p>
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  style='font-size:10.0pt;font-family:"Courier New"'> <b><span
+  style='color:#7F0055'>return</span></b> <span style='color:black'>containerShape;</span></span></p>
   <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
   color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
   <p class=MsoNormal>&nbsp;</p>
@@ -979,8 +969,8 @@ implemented styles we have to create a small <a href="custom-feature.htm">custom
 feature</a>, which allows changing the foreground color or background color of
 the style.</span></p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>The implementation can be
-seen here:</span></p>
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The implementation can
+be seen here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
@@ -1170,8 +1160,7 @@ seen here:</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
   lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// so theoretically it would be possible that canExecute()
-  always</span></p>
+  color:#3F7F5F'>// so theoretically it would be possible that canExecute() always</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
   lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
@@ -1325,8 +1314,8 @@ seen here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Finally the feature provider
-has to deliver our newly created custom feature (overwrite the method</span><span
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Finally the feature
+provider has to deliver our newly created custom feature (overwrite the method</span><span
 lang=EN-GB> </span><span class=code1><span lang=EN-US style='color:black'><a
 href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getCustomFeatures(com.sap.tc.emf.gfw.features.context.ICustomContext)"><span
 style='font-style:normal'>getCustomFeatures</span></a></span></span><span

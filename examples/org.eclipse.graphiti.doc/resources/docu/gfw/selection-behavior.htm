@@ -1,1422 +1,1191 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
+
 <head>
-<meta name="generator" content=
-"HTML Tidy for Windows (vers 25 March 2009), see www.w3.org">
-<meta http-equiv="Content-Type" content=
-"text/html; charset=us-ascii">
-<meta name="Generator" content="Microsoft Word 12 (filtered)">
+<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
 <title>Selection behavior</title>
-<link rel="Stylesheet" type="text/css" media="all" href=
-"../book.css">
-<style type="text/css">
+<link rel=Stylesheet type="text/css" media=all href="../book.css">
+<style>
 <!--
  /* Font Definitions */
  @font-face
-  {font-family:"Cambria Math";
-  panose-1:2 4 5 3 5 4 6 3 2 4;}
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-  {font-family:Cambria;
-  panose-1:2 4 5 3 5 4 6 3 2 4;}
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-  {font-family:Tahoma;
-  panose-1:2 11 6 4 3 5 4 4 2 4;}
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
 @font-face
-  {font-family:Consolas;
-  panose-1:2 11 6 9 2 2 4 3 2 4;}
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
-  {margin:0cm;
-  margin-bottom:.0001pt;
-  font-size:12.0pt;
-  font-family:"Times New Roman","serif";}
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
 h1
-  {mso-style-link:"&Uuml;berschrift 1 Zchn";
-  margin-top:12.0pt;
-  margin-right:0cm;
-  margin-bottom:3.0pt;
-  margin-left:0cm;
-  page-break-after:avoid;
-  font-size:16.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;}
+	{mso-style-link:"\00DCberschrift 1 Zchn";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 h2
-  {mso-style-link:"&Uuml;berschrift 2 Zchn";
-  margin-top:12.0pt;
-  margin-right:0cm;
-  margin-bottom:3.0pt;
-  margin-left:0cm;
-  page-break-after:avoid;
-  font-size:14.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;
-  font-style:italic;}
+	{mso-style-link:"\00DCberschrift 2 Zchn";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;
+	font-style:italic;}
 h3
-  {mso-style-link:"&Uuml;berschrift 3 Zchn";
-  margin-top:12.0pt;
-  margin-right:0cm;
-  margin-bottom:3.0pt;
-  margin-left:0cm;
-  page-break-after:avoid;
-  font-size:13.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;}
+	{mso-style-link:"\00DCberschrift 3 Zchn";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 h4
-  {mso-style-link:"&Uuml;berschrift 4 Zchn";
-  margin-top:11.25pt;
-  margin-right:0cm;
-  margin-bottom:1.7pt;
-  margin-left:0cm;
-  font-size:12.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;
-  font-style:italic;}
+	{mso-style-link:"\00DCberschrift 4 Zchn";
+	margin-top:11.25pt;
+	margin-right:0cm;
+	margin-bottom:1.7pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;
+	font-style:italic;}
 h5
-  {mso-style-link:"&Uuml;berschrift 5 Zchn";
-  margin-right:0cm;
-  margin-left:0cm;
-  font-size:10.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;}
+	{mso-style-link:"\00DCberschrift 5 Zchn";
+	margin-right:0cm;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 h6
-  {mso-style-link:"&Uuml;berschrift 6 Zchn";
-  margin-right:0cm;
-  margin-left:0cm;
-  font-size:7.5pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;}
+	{mso-style-link:"\00DCberschrift 6 Zchn";
+	margin-right:0cm;
+	margin-left:0cm;
+	font-size:7.5pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 p.MsoCaption, li.MsoCaption, div.MsoCaption
-  {margin-top:6.0pt;
-  margin-right:0cm;
-  margin-bottom:24.0pt;
-  margin-left:0cm;
-  text-align:justify;
-  font-size:10.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;}
+	{margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:24.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 a:link, span.MsoHyperlink
-  {color:blue;
-  text-decoration:underline;}
+	{color:blue;
+	text-decoration:underline;}
 a:visited, span.MsoHyperlinkFollowed
-  {color:purple;
-  text-decoration:underline;}
+	{color:purple;
+	text-decoration:underline;}
 p
-  {margin-top:5.65pt;
-  margin-right:0cm;
-  margin-bottom:5.65pt;
-  margin-left:0cm;
-  font-size:12.0pt;
-  font-family:"Times New Roman","serif";}
+	{margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
 pre
-  {mso-style-link:"HTML Vorformatiert Zchn";
-  margin-top:0cm;
-  margin-right:0cm;
-  margin-bottom:0cm;
-  margin-left:3.4pt;
-  margin-bottom:.0001pt;
-  font-size:11.0pt;
-  font-family:"Courier New";}
+	{mso-style-link:"HTML Vorformatiert Zchn";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:3.4pt;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
 p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-  {mso-style-link:"Sprechblasentext Zchn";
-  margin:0cm;
-  margin-bottom:.0001pt;
-  font-size:8.0pt;
-  font-family:"Tahoma","sans-serif";}
+	{mso-style-link:"Sprechblasentext Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
 span.berschrift1Zchn
-  {mso-style-name:"&Uuml;berschrift 1 Zchn";
-  mso-style-link:"&Uuml;berschrift 1";
-  font-family:"Cambria","serif";
-  color:#365F91;
-  font-weight:bold;}
+	{mso-style-name:"\00DCberschrift 1 Zchn";
+	mso-style-link:"\00DCberschrift 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
 span.berschrift2Zchn
-  {mso-style-name:"&Uuml;berschrift 2 Zchn";
-  mso-style-link:"&Uuml;berschrift 2";
-  font-family:"Cambria","serif";
-  color:#4F81BD;
-  font-weight:bold;}
+	{mso-style-name:"\00DCberschrift 2 Zchn";
+	mso-style-link:"\00DCberschrift 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
 span.berschrift3Zchn
-  {mso-style-name:"&Uuml;berschrift 3 Zchn";
-  mso-style-link:"&Uuml;berschrift 3";
-  font-family:"Cambria","serif";
-  color:#4F81BD;
-  font-weight:bold;}
+	{mso-style-name:"\00DCberschrift 3 Zchn";
+	mso-style-link:"\00DCberschrift 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
 span.berschrift4Zchn
-  {mso-style-name:"&Uuml;berschrift 4 Zchn";
-  mso-style-link:"&Uuml;berschrift 4";
-  font-family:"Cambria","serif";
-  color:#4F81BD;
-  font-weight:bold;
-  font-style:italic;}
+	{mso-style-name:"\00DCberschrift 4 Zchn";
+	mso-style-link:"\00DCberschrift 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
 span.berschrift5Zchn
-  {mso-style-name:"&Uuml;berschrift 5 Zchn";
-  mso-style-link:"&Uuml;berschrift 5";
-  font-family:"Cambria","serif";
-  color:#243F60;}
+	{mso-style-name:"\00DCberschrift 5 Zchn";
+	mso-style-link:"\00DCberschrift 5";
+	font-family:"Cambria","serif";
+	color:#243F60;}
 span.berschrift6Zchn
-  {mso-style-name:"&Uuml;berschrift 6 Zchn";
-  mso-style-link:"&Uuml;berschrift 6";
-  font-family:"Cambria","serif";
-  color:#243F60;
-  font-style:italic;}
+	{mso-style-name:"\00DCberschrift 6 Zchn";
+	mso-style-link:"\00DCberschrift 6";
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-style:italic;}
 span.HTMLVorformatiertZchn
-  {mso-style-name:"HTML Vorformatiert Zchn";
-  mso-style-link:"HTML Vorformatiert";
-  font-family:Consolas;}
+	{mso-style-name:"HTML Vorformatiert Zchn";
+	mso-style-link:"HTML Vorformatiert";
+	font-family:Consolas;}
 span.SprechblasentextZchn
-  {mso-style-name:"Sprechblasentext Zchn";
-  mso-style-link:Sprechblasentext;
-  font-family:"Tahoma","sans-serif";}
+	{mso-style-name:"Sprechblasentext Zchn";
+	mso-style-link:Sprechblasentext;
+	font-family:"Tahoma","sans-serif";}
 p.code, li.code, div.code
-  {mso-style-name:code;
-  margin-top:0cm;
-  margin-right:0cm;
-  margin-bottom:0cm;
-  margin-left:15.0pt;
-  margin-bottom:.0001pt;
-  font-size:12.0pt;
-  font-family:"Times New Roman","serif";}
+	{mso-style-name:code;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:15.0pt;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
 p.note, li.note, div.note
-  {mso-style-name:note;
-  margin-top:19.5pt;
-  margin-right:0cm;
-  margin-bottom:19.5pt;
-  margin-left:30.0pt;
-  font-size:13.0pt;
-  font-family:"Times New Roman","serif";
-  font-style:italic;}
+	{mso-style-name:note;
+	margin-top:19.5pt;
+	margin-right:0cm;
+	margin-bottom:19.5pt;
+	margin-left:30.0pt;
+	font-size:13.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
 p.msochpdefault, li.msochpdefault, div.msochpdefault
-  {mso-style-name:msochpdefault;
-  margin-top:5.65pt;
-  margin-right:0cm;
-  margin-bottom:5.65pt;
-  margin-left:0cm;
-  font-size:10.0pt;
-  font-family:"Times New Roman","serif";}
+	{mso-style-name:msochpdefault;
+	margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.Uuml, li.Uuml, div.Uuml
+	{mso-style-name:"&Uuml\,berschrift 1";
+	mso-style-link:"&Uuml6\,berschrift 6 Zchn1";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.Uuml1
+	{mso-style-name:"&Uuml1\,berschrift 1 Zchn1";
+	mso-style-link:"&Uuml\,berschrift 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Uuml2
+	{mso-style-name:"&Uuml2\,berschrift 2 Zchn1";
+	mso-style-link:"&Uuml\,berschrift 1";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Uuml3
+	{mso-style-name:"&Uuml3\,berschrift 3 Zchn1";
+	mso-style-link:"&Uuml\,berschrift 1";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Uuml4
+	{mso-style-name:"&Uuml4\,berschrift 4 Zchn1";
+	mso-style-link:"&Uuml\,berschrift 1";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+span.Uuml5
+	{mso-style-name:"&Uuml5\,berschrift 5 Zchn1";
+	mso-style-link:"&Uuml\,berschrift 1";
+	font-family:"Cambria","serif";
+	color:#243F60;}
+span.Uuml6
+	{mso-style-name:"&Uuml6\,berschrift 6 Zchn1";
+	mso-style-link:"&Uuml\,berschrift 1";
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-style:italic;}
 span.code1
-  {mso-style-name:code1;
-  font-style:italic;}
+	{mso-style-name:code1;
+	font-style:italic;}
 span.code0
-  {mso-style-name:code0;
-  font-style:italic;}
+	{mso-style-name:code0;
+	font-style:italic;}
 .MsoChpDefault
-  {font-size:10.0pt;}
+	{font-size:10.0pt;}
 @page Section1
-  {size:595.45pt 841.7pt;
-  margin:72.0pt 89.85pt 72.0pt 89.85pt;}
+	{size:595.45pt 841.7pt;
+	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
 div.Section1
-  {page:Section1;}
+	{page:Section1;}
 -->
 </style>
+
 </head>
-<body bgcolor="white" lang="DE" link="blue" vlink="purple" style=
-'margin-bottom:12.0pt'>
-<div class="Section1">
-<h1><span lang="EN-US">Selection Behavior</span></h1>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<h2><span lang="EN-US">Introduction</span></h2>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>In
-most cases a graphical figure is depicted by one outer
-&lsquo;main&rsquo; graphics algorithm, inside which several other
-graphics algorithms are located. The outer bounds of this outer
-&lsquo;main&rsquo; graphics algorithm also define the
+
+<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+
+<div class=Section1>
+
+<h1><span lang=EN-US>Selection Behavior</span></h1>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-US>Introduction</span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>In most cases a
+graphical figure is depicted by one outer &#8216;main&#8217; graphics
+algorithm, inside which several other graphics algorithms are located. The
+outer bounds of this outer &#8216;main&#8217; graphics algorithm also define
+the selection-behavior of the graphical figure.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>But it is also possible
+to assemble a shape from overlapping or even distributed graphics algorithms.
+In such a case it is not so clear anymore, which bounds define the
 selection-behavior of the graphical figure.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>But
-it is also possible to assemble a shape from overlapping or even
-distributed graphics algorithms. In such a case it is not so
-clear anymore, which bounds define the selection-behavior of the
-graphical figure.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>For a
-better understanding look at the following figure:</span></p>
-<p class="MsoNormal"><span style='color:black'><img width="111"
-height="71" src="visio/rendering-area-1a.gif" alt=""></span></p>
-<p class="MsoCaption"><span class="code1"><span lang="EN-US"
-style='font-style:normal'>Figure: Graphical figure with
-distributed graphics algorithms (ellipse and
-text)</span></span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>This
-graphical figure consists of an ellipse and a text. For technical
-reasons there is still an outer invisible rectangle, which
-contains the ellipse and text. But in this example it would seem
-strange for the user, if this outer invisible rectangle would
-define the selection-behavior, meaning that clicking on the
-invisible rectangle would select it and show the
-selection-handles along the bounds of the invisible
-rectangle.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>Instead the selection-behavior should work as can
-be seen in the following figure:</span></p>
-<p class="MsoNormal"><span style='color:black'><img width="111"
-height="72" src="visio/rendering-area-1b.gif" alt=""></span></p>
-<p class="MsoCaption"><span class="code1"><span lang="EN-US"
-style='font-style:normal'>Figure: Selection area is smaller than
-complete graphical figure</span></span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>The
-selection-handles appear only along the borders of the ellipse
-and not along the borders of the larger invisible rectangle. It
-is possible to move or resize the circle along these
-selection-handles (which will implicitly move or resize the
-complete graphical figure).&nbsp; This makes the ellipse the
-&lsquo;main&rsquo; graphics algorithm, although the ellipse is
-technically not the outer graphics algorithm of the graphical
-figure.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>Another aspect of the selection-behavior is that
-the graphical figure shall be selected when the mouse clicks on
-either the ellipse or the text. When the mouse clicks the text
-however, then the handle-bounds still appear around the ellipse
-as described above, and not around the text. This means, that the
-selection-handles can be shown around a different area, than the
-area which reacts on the mouse clicks to select the graphical
-figure.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<h2><span lang="EN-US">Creating an Extended Rendering
-Area</span></h2>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>The
-following example bases on the <a href="anchors.htm">box relative
-anchor</a> we created previously. As you can see the box relative
-anchor was located completely inside the bounds of the rectangle
-depicting the EClass.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>Now
-we want to change the location of the box relative anchor, so
-that it exceeds the bounds of the rectangle. This is actually
-quite typical, that box relative anchors or fix point anchors
-exceed the bounds of the graphical figure it belongs
-to.</span></p>
-<p class="MsoNormal"><span style='color:black'><img border="0"
-width="121" height="71" src="visio/rendering-area-2a.gif" alt=
-""></span></p>
-<p class="MsoCaption"><span class="code1"><span lang="EN-US"
-style='font-style:normal'>Figure: Box relative anchor exceeds
-bounds of graphical figure</span></span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>As
-already mentioned, for technical reasons a graphics algorithm can
-never be painted outside the bounds of its parent graphics
-algorithm. Although it is possible to set the bounds of a
-graphics algorithm to exceed the bounds of its parent graphics
-algorithm, it will just be clipped when painting.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>You
-can try that out by changing the bounds of the <a href=
-"anchors.htm">box relative anchor</a> we created
-previously:</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.<i>setLocationAndSizeOfGraphicsAlgorithm</i>(boxRect,
--8, -4,</span> <b>16</b><span style='color:black'>,
-8);</span></span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>As
-this doesn&rsquo;t work, we have to change the structure of the
-graphics algorithms for the EClass. The outer graphics algorithm
-shall be an invisible rectangle, which contains the rectangle
-depicting the EClass. The size of the invisible rectangle equals
-the size of the rectangle depicting the EClass, plus the space
-needed for the box relative anchor at its right side. You can see
-the bounds of the invisible rectangle when you select the
-graphical figure:</span></p>
-<p class="MsoNormal"><span style='color:black'><img border="0"
-width="131" height="71" src="visio/rendering-area-2b.gif" alt=
-""></span><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoCaption"><span class="code1"><span lang="EN-US"
-style='font-style:normal'>Figure: Selection-handles around the
-invisible rectangle</span></span><span lang=
-"EN-US">&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>The
-invisible rectangle has to be created in the add method of the
-<a href="add-feature.htm">add feature</a><span class=
-"code1"><span style='font-style:normal'>, as explained in the
-following code snippet. Additionally the bounds of the box
-relative anchor have to be set differently. Note, that the
-expanded width of the invisible rectangle is set in a static
-field, because it also has to be used in calculations outside
-this class.</span></span></span></p>
-<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
-<table class="MsoNormalTable" border="0" cellspacing="0"
-cellpadding="0" width="851" style=
-'width:18.0cm;border-collapse:collapse'>
-<tr>
-<td width="851" valign="top" style=
-'width:18.0cm;border:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt'>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-the additional size of the invisible rectangle at the right
-border</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-(this also equals the half width of the anchor to paint
-there)</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>public</span></b>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>int</span></b>
-<i><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#0000C0'>INVISIBLE_RECT_RIGHT</span></i>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>=
-6;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>public</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>PictogramElement
-add(IAddContext context) {</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-EClass addedClass = (EClass) context.getNewObject();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Diagram targetDiagram = (Diagram)
-context.getTargetContainer();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-CONTAINER SHAPE WITH ROUNDED RECTANGLE</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>IPeCreateService
-peCreateService = Graphiti.getPeCreateService();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-ContainerShape containerShape =</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>peCreateService<span style='color:black'>.createContainerShape(targetDiagram,</span>
-<b><span style='color:#7F0055'>true</span></b><span style=
-'color:black'>);</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-check whether the context has a size (e.g. from a create
-feature)</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-otherwise define a default size for the shape</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>int</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>width =
-context.getWidth() &lt;= 0 ? 100 : context.getWidth();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>int</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>height
-= context.getHeight() &lt;= 0 ? 50 :
-context.getHeight();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-RoundedRectangle roundedRectangle;</span> <span lang="EN-US"
-style=
-'font-size: 10.0pt;font-family:"Courier New";color:#3F7F5F'>//
-need to access it later</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;IGaService
-gaService = Graphiti.getGaService();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-{</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-create invisible outer rectangle expanded by</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-the width needed for the anchor</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Rectangle invisibleRectangle =</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.createInvisibleRectangle(containerShape);</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.setLocationAndSizeOfGraphicsAlgorithm(invisibleRectangle,</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-context.getX(), context.getY(), width +</span> <i><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#0000C0'>INVISIBLE_RECT_RIGHT</span></i><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>,</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-height);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-create and set visible rectangle inside invisible
-rectangle</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundedRectangle
-=</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.createRoundedRectangle(invisibleRectangle,
-5, 5);</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-roundedRectangle.setForeground(manageColor(</span><i><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#0000C0'>CLASS_FOREGROUND</span></i><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>));</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-roundedRectangle.setBackground(manageColor(</span><i><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#0000C0'>CLASS_BACKGROUND</span></i><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>));</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundedRectangle.setLineWidth(2);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.setLocationAndSizeOfGraphicsAlgorithm(roundedRectangle,
-0,</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-0, width, height);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-create link and wire it</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-link(containerShape, addedClass);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-... EXISTING CODING ...</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-add a chopbox anchor to the shape</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>peCreateService<span style='color:black'>.createChopboxAnchor(containerShape);</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-create an additional box relative anchor at
-middle-right</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-BoxRelativeAnchor boxAnchor =</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>peCreateService<span style='color:black'>.createBoxRelativeAnchor(containerShape);</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-boxAnchor.setRelativeWidth(1.0);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-boxAnchor.setRelativeHeight(0.5);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-anchor references visible rectangle instead of invisible
-rectangle</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-assign a graphics algorithm for the box relative
-anchor</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Rectangle boxRect =</span> <span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New"'>gaService<span style='color:black'>.createRectangle(boxAnchor);</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-anchor is located on the right border of the visible
-rectangle</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-and touches the border of the invisible rectangle</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>int</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>w
-=</span> <i><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#0000C0'>INVISIBLE_RECT_RIGHT</span></i><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.setLocationAndSizeOfGraphicsAlgorithm(boxRect,
--w, -w, 2 * w,</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2 * w);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Color c =</span> <span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.manageColor(getDiagram(),
-IColorConstant.</span><i><span style=
-'color:#0000C0'>DARK_BLUE</span></i><span style=
-'color:black'>);</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-boxRect.setBackground(c);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-call the layout feature</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>layoutPictogramElement(containerShape);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span style=
-'font-size:10.0pt; font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b>
-<span style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>containerShape;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
-</td>
-</tr>
-</table>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>Next
-we have to change the layout method of the <a href=
-"layout-feature.htm">layout feature</a><span class=
-"code1"><span style='font-style:normal'>. Previously it adjusted
-the size of the inner graphics algorithms (line and text) in
-relation to the container graphics algorithm (visible rectangle).
-Now it has to adjust the size of the inner graphics algorithms
-(visible rectangle, line and text) in relation to the container
-graphics algorithm (invisible
-rectangle).</span></span></span></p>
-<p class="MsoNormal"><span class="code1"><span lang="EN-US"
-style='color:black; font-style:normal'>The implementation can be
-seen in the following code-snippet:</span></span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<table class="MsoNormalTable" border="0" cellspacing="0"
-cellpadding="0" width="851" style=
-'width:18.0cm;border-collapse:collapse'>
-<tr>
-<td width="851" valign="top" style=
-'width:18.0cm;border:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt'>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style='color:black'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>public</span></b>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>layout(ILayoutContext
-context) {</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>boolean</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>anythingChanged
-=</span> <b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-ContainerShape containerShape =</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-(ContainerShape) context.getPictogramElement();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-GraphicsAlgorithm containerGa =
-containerShape.getGraphicsAlgorithm();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-the containerGa is the invisible rectangle</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-containing the visible rectangle as its (first and only)
-child</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-GraphicsAlgorithm rectangle =</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-containerGa.getGraphicsAlgorithmChildren().get(0);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-height of invisible rectangle</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>if</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>(containerGa.getHeight()
-&lt;</span> <i><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#0000C0'>MIN_HEIGHT</span></i><span lang="EN-US"
-style='font-size:10.0pt;font-family:"Courier New";color:black'>)
-{</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-containerGa.setHeight(</span><i><span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:#0000C0'>MIN_HEIGHT</span></i><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-anythingChanged =</span> <b><span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:#7F0055'>true</span></b><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-height of visible rectangle (same as invisible
-rectangle)</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>if</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>(rectangle.getHeight()
-!= containerGa.getHeight()) {</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-rectangle.setHeight(containerGa.getHeight());</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-anythingChanged =</span> <b><span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:#7F0055'>true</span></b><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-width of invisible rectangle</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>if</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>(containerGa.getWidth()
-&lt;</span> <i><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#0000C0'>MIN_WIDTH</span></i><span lang="EN-US"
-style='font-size:10.0pt;font-family:"Courier New";color:black'>)
-{</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containerGa.setWidth(</span><i><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:#0000C0'>MIN_WIDTH</span></i><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-anythingChanged =</span> <b><span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:#7F0055'>true</span></b><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-width of visible rectangle (smaller than invisible
-rectangle)</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>int</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>rectangleWidth
-=</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-containerGa.getWidth()</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-- TutorialEAddClassFeature.</span><i><span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:#0000C0'>INVISIBLE_RECT_RIGHT</span></i><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>if</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>(rectangle.getWidth()
-!= rectangleWidth) {</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-rectangle.setWidth(rectangleWidth);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-anythingChanged =</span> <b><span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:#7F0055'>true</span></b><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-width of text and line (same as visible rectangle)</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Iterator iter =
-containerShape.getChildren().iterator();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>while</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>(iter.hasNext())
-{</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Shape shape = (Shape) iter.next();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-GraphicsAlgorithm graphicsAlgorithm =
-shape.getGraphicsAlgorithm();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-IGaService gaService = Graphiti.getGaService();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-IDimension size =</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.<i>calculateSizeOfGraphicsAlgorithm</i>(graphicsAlgorithm);</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>if</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>(rectangleWidth
-!= size.getWidth()) {</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>if</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>(graphicsAlgorithm</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>Polyline)
-{</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Polyline polyline = (Polyline) graphicsAlgorithm;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Point secondPoint = polyline.getPoints().get(1);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Point newSecondPoint =</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.<i>createPoint</i>(rectangleWidth,</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-secondPoint.getY());</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-polyline.getPoints().set(1, newSecondPoint);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-anythingChanged =</span> <b><span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:#7F0055'>true</span></b><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span> <b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>else</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>{</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.<i>setWidthOfGraphicsAlgorithm</i>(graphicsAlgorithm,</span></span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-rectangleWidth);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-anythingChanged =</span> <b><span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:#7F0055'>true</span></b><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>return</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>anythingChanged;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span>
-<span style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
-</td>
-</tr>
-</table>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<h2><span lang="EN-US">Test: Create a EClass with Extended
-Rendering Area</span></h2>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>Start
-the editor and create a new EClass. Verify that the EClass and
-its selection-handles look similar to the figures
-above.&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<h2><span lang="EN-US">Adjusting the Selection
-Behavior</span></h2>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>As
-you can see above the selection-handles of the EClass are around
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>For a better
+understanding look at the following figure:</span></p>
+
+<p class=MsoNormal><span style='color:black'><img width=111 height=71
+src="visio/rendering-area-1a.gif"></span></p>
+
+<p class=MsoCaption><span class=code1><span lang=EN-US style='font-style:normal'>Figure:
+Graphical figure with distributed graphics algorithms (ellipse and text)</span></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>This graphical figure
+consists of an ellipse and a text. For technical reasons there is still an
+outer invisible rectangle, which contains the ellipse and text. But in this
+example it would seem strange for the user, if this outer invisible rectangle
+would define the selection-behavior, meaning that clicking on the invisible
+rectangle would select it and show the selection-handles along the bounds of
 the invisible rectangle.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>This
-is not a good selection-behavior, because the user considers the
-visible rectangle as the &lsquo;main&rsquo; graphics algorithm
-and doesn&rsquo;t care about the extra space needed to show the
-anchor. This also means that when resizing/moving the EClass,
-this should be done on the visible rectangle and not the
-invisible rectangle.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>In
-the following we want to change the selection behavior in a way
-that the selection-handles appear directly around the visible
-rectangle, as you can see in the following figure:</span></p>
-<p class="MsoNormal"><span style='color:black'><img border="0"
-width="121" height="71" src="visio/rendering-area-2c.gif" alt=
-""></span></p>
-<p class="MsoCaption"><span class="code1"><span lang="EN-US"
-style='font-style:normal'>Figure: Selection-handles around the
-visible rectangle</span></span><span lang=
-"EN-US">&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>Additionally we want to define the visible
-rectangle as the selection-area, which activates the selection
-when the mouse clicks into it. So a mouse click on the invisible
-rectangle outside the visible rectangle will no longer activate
-the selection.&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style=
-'color:black'>Selection areas are defined in the tool behavior
-provider.</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style='color:black'>If
-you didn&rsquo;t do so already you must <b>first create a tool
-behavior provider and add it to the diagram type provider as
-described <a href=
-"tool-behavior-provider.htm">here</a>.</b></span></p>
-<p class="MsoNormal"><span lang="EN-GB" style='color:black'>The
-following methods of the tool behavior provider must be
-overwritten:</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style='color:black'>The
-method <a href=
-"file://///wdfd00184898a/../javadoc/com/sap/tc/emf/gfw/tb/IToolBehaviorProvider.html#getSelectionGraphicsAlgorithm(com.sap.tc.emf.gfw.mm.pictograms.PictogramElement)">
-getSelectionGraphicsAlgorithm</a> has to return one graphics
-algorithm, which defines the selection-handle.</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style='color:black'>The
-method <a href=
-"file://///wdfd00184898a/../javadoc/com/sap/tc/emf/gfw/tb/IToolBehaviorProvider.html#getSelectionArea(com.sap.tc.emf.gfw.mm.pictograms.PictogramElement)">
-getSelectionArea</a> has to return multiple graphics algorithms,
-which union defines the selection-area inside which mouse-clicks
-activate the selection.</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style='color:black'>In
-this example we want to return the visible rectangle in both
-methods. &nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style='color:black'>You
-can see the complete implementation of the selection area
-here:</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style=
-'color:black'>&nbsp;</span></p>
-<table class="MsoNormalTable" border="0" cellspacing="0"
-cellpadding="0" width="851" style=
-'width:18.0cm;border-collapse:collapse'>
-<tr>
-<td width="851" valign="top" style=
-'width:18.0cm;border:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt'>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style='color:black'>&nbsp;&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#646464'>@Override</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>public</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>GraphicsAlgorithm[]
-getSelectionArea(PictogramElement pe) {</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-IFeatureProvider featureProvider =
-getFeatureProvider();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Object bo =
-featureProvider.getBusinessObjectForPictogramElement(pe);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>if</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>(bo</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>EClass)
-{</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-GraphicsAlgorithm invisible =
-pe.getGraphicsAlgorithm();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-GraphicsAlgorithm rectangle =</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-invisible.getGraphicsAlgorithmChildren().get(0);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>return</span></b>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>GraphicsAlgorithm[]
-{ rectangle };</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>return</span></b>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>.getSelectionArea(pe);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#646464'>@Override</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>public</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>GraphicsAlgorithm
-getSelectionGraphicsAlgorithm(</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-PictogramElement pe) {</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-IFeatureProvider featureProvider =
-getFeatureProvider();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Object bo =
-featureProvider.getBusinessObjectForPictogramElement(pe);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>if</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>(bo</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>EClass)
-{</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-GraphicsAlgorithm invisible = pe.getGraphicsAlgorithm();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-EList&lt;GraphicsAlgorithm&gt; graphicsAlgorithmChildren =<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-invisible.getGraphicsAlgorithmChildren();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<b><span style='color:purple'>if</span></b>
-(!graphicsAlgorithmChildren.isEmpty()) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<b><span style='color:purple'>return</span></b>
-graphicsAlgorithmChildren.get(0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>return</span></b>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span lang="EN-US"
-style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>.getSelectionGraphicsAlgorithm(pe);</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span>
-<span style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span style=
-'font-size:10.0pt; font-family:"Courier New"'>&nbsp;</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
-</td>
-</tr>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>Instead the
+selection-behavior should work as can be seen in the following figure:</span></p>
+
+<p class=MsoNormal><span style='color:black'><img width=111 height=72
+src="visio/rendering-area-1b.gif"></span></p>
+
+<p class=MsoCaption><span class=code1><span lang=EN-US style='font-style:normal'>Figure:
+Selection area is smaller than complete graphical figure</span></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>The selection-handles
+appear only along the borders of the ellipse and not along the borders of the
+larger invisible rectangle. It is possible to move or resize the circle along
+these selection-handles (which will implicitly move or resize the complete
+graphical figure).&nbsp; This makes the ellipse the &#8216;main&#8217; graphics
+algorithm, although the ellipse is technically not the outer graphics algorithm
+of the graphical figure.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>Another aspect of the
+selection-behavior is that the graphical figure shall be selected when the
+mouse clicks on either the ellipse or the text. When the mouse clicks the text
+however, then the handle-bounds still appear around the ellipse as described
+above, and not around the text. This means, that the selection-handles can be
+shown around a different area, than the area which reacts on the mouse clicks
+to select the graphical figure.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-US>Creating an Extended Rendering Area</span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>The following example
+bases on the <a href="anchors.htm">box relative anchor</a> we created
+previously. As you can see the box relative anchor was located completely
+inside the bounds of the rectangle depicting the EClass.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>Now we want to change
+the location of the box relative anchor, so that it exceeds the bounds of the
+rectangle. This is actually quite typical, that box relative anchors or fix
+point anchors exceed the bounds of the graphical figure it belongs to.</span></p>
+
+<p class=MsoNormal><span style='color:black'><img border=0 width=121 height=71
+src="visio/rendering-area-2a.gif"></span></p>
+
+<p class=MsoCaption><span class=code1><span lang=EN-US style='font-style:normal'>Figure:
+Box relative anchor exceeds bounds of graphical figure</span></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>As already mentioned,
+for technical reasons a graphics algorithm can never be painted outside the
+bounds of its parent graphics algorithm. Although it is possible to set the
+bounds of a graphics algorithm to exceed the bounds of its parent graphics
+algorithm, it will just be clipped when painting.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>You can try that out by
+changing the bounds of the <a href="anchors.htm">box relative anchor</a> we
+created previously:</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
+style='color:black'>.<i>setLocationAndSize</i>(boxRect, -8, -4,</span> <b>16</b><span
+style='color:black'>, 8);</span></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>As this doesn&#8217;t
+work, we have to change the structure of the graphics algorithms for the
+EClass. The outer graphics algorithm shall be an invisible rectangle, which
+contains the rectangle depicting the EClass. The size of the invisible
+rectangle equals the size of the rectangle depicting the EClass, plus the space
+needed for the box relative anchor at its right side. You can see the bounds of
+the invisible rectangle when you select the graphical figure:</span></p>
+
+<p class=MsoNormal><span style='color:black'><img border=0 width=131 height=71
+src="visio/rendering-area-2b.gif"></span><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoCaption><span class=code1><span lang=EN-US style='font-style:normal'>Figure:
+Selection-handles around the invisible rectangle</span></span><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>The invisible rectangle
+has to be created in the add method of the <a href="add-feature.htm">add
+feature</a><span class=code1><span style='font-style:normal'>, as explained in
+the following code snippet. Additionally the bounds of the box relative anchor
+have to be set differently. Note, that the expanded width of the invisible
+rectangle is set in a static field, because it also has to be used in
+calculations outside this class.</span></span></span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// the additional size of the invisible rectangle at
+  the right border</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// (this also equals the half width of the anchor to
+  paint there)</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <b><span
+  style='color:#7F0055'>public</span></b> <b><span style='color:#7F0055'>static</span></b>
+  <b><span style='color:#7F0055'>final</span></b> <b><span style='color:#7F0055'>int</span></b>
+  <i><span style='color:#0000C0'>INVISIBLE_RECT_RIGHT</span></i> <span
+  style='color:black'>= 6;</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <b><span
+  style='color:#7F0055'>public</span></b> <span style='color:black'>PictogramElement
+  add(IAddContext context) {</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  EClass addedClass = (EClass) context.getNewObject();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Diagram targetDiagram = (Diagram) context.getTargetContainer();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// CONTAINER SHAPE WITH ROUNDED RECTANGLE</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> IPeCreateService
+  peCreateService = Graphiti.getPeCreateService();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  ContainerShape containerShape =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> peCreateService<span
+  style='color:black'>.createContainerShape(targetDiagram,</span> <b><span
+  style='color:#7F0055'>true</span></b><span style='color:black'>);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// check whether the context has a size (e.g. from a
+  create feature)</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// otherwise define a default size for the shape</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <b><span
+  style='color:#7F0055'>int</span></b> <span style='color:black'>width =
+  context.getWidth() &lt;= 0 ? 100 : context.getWidth();</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <b><span
+  style='color:#7F0055'>int</span></b> <span style='color:black'>height =
+  context.getHeight() &lt;= 0 ? 50 : context.getHeight();</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  RoundedRectangle roundedRectangle;</span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New"'> <span style='color:#3F7F5F'>// need to
+  access it later</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> &nbsp;IGaService
+  gaService = Graphiti.getGaService();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create invisible outer rectangle expanded by</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// the width needed for the anchor</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Rectangle invisibleRectangle =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> gaService<span
+  style='color:black'>.createInvisibleRectangle(containerShape);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
+  style='color:black'>.setLocationAndSize(invisibleRectangle,</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  context.getX(), context.getY(), width +</span><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'> <i><span
+  style='color:#0000C0'>INVISIBLE_RECT_RIGHT</span></i><span style='color:black'>,</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  height);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create and set visible rectangle inside invisible
+  rectangle</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundedRectangle =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> gaService<span
+  style='color:black'>.createRoundedRectangle(invisibleRectangle, 5, 5);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  roundedRectangle.setForeground(manageColor(</span><i><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>CLASS_FOREGROUND</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>));</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  roundedRectangle.setBackground(manageColor(</span><i><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>CLASS_BACKGROUND</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>));</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundedRectangle.setLineWidth(2);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> gaService<span
+  style='color:black'>.setLocationAndSize(roundedRectangle, 0,</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  0, width, height);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create link and wire it</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  link(containerShape, addedClass);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// ... EXISTING CODING ...</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// add a chopbox anchor to the shape</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> peCreateService<span
+  style='color:black'>.createChopboxAnchor(containerShape);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// create an additional box relative anchor at middle-right</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  BoxRelativeAnchor boxAnchor =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> peCreateService<span
+  style='color:black'>.createBoxRelativeAnchor(containerShape);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  boxAnchor.setRelativeWidth(1.0);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  boxAnchor.setRelativeHeight(0.5);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// anchor references visible rectangle instead of
+  invisible rectangle</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// assign a graphics algorithm for the box relative
+  anchor</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Rectangle boxRect =</span><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New"'> gaService<span style='color:black'>.createRectangle(boxAnchor);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// anchor is located on the right border of the visible
+  rectangle</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// and touches the border of the invisible rectangle</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <b><span
+  style='color:#7F0055'>int</span></b> <span style='color:black'>w =</span> <i><span
+  style='color:#0000C0'>INVISIBLE_RECT_RIGHT</span></i><span style='color:black'>;</span></span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>
+  gaService.setLocationAndSize(boxRect, -w, -w, 2 * w 2 * w); </span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Color c =</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>
+  gaService<span style='color:black'>.manageColor(getDiagram(), IColorConstant.</span><i><span
+  style='color:#0000C0'>DARK_BLUE</span></i><span style='color:black'>);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  boxRect.setBackground(c);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
+  style='color:#3F7F5F'>// call the layout feature</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> </span><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>layoutPictogramElement(containerShape);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  style='font-size:10.0pt;font-family:"Courier New"'> <b><span
+  style='color:#7F0055'>return</span></b> <span style='color:black'>containerShape;</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
 </table>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<h2><span lang="EN-US">Test: Verify the Adjusted Selection
-Behavior</span></h2>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'><i>Note</i>: This change is incompatible with diagrams created in earlier stages of the tutorial. You will get an exception, when opening these diagrams.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal">S<span lang="EN-US" style='color:black'>tart
-the editor and create a new EClass. Click on the visible
-rectangle and verify that the selection-handles are only around
-the visible rectangle.&nbsp;Click slightly right of the visible
-rectangle on the invisible rectangle and verify that the EClass
-becomes deselected.</span></p>
-<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style=
-'color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>Next we have to change
+the layout method of the <a href="layout-feature.htm">layout feature</a><span
+class=code1><span style='font-style:normal'>. Previously it adjusted the size
+of the inner graphics algorithms (line and text) in relation to the container
+graphics algorithm (visible rectangle). Now it has to adjust the size of the
+inner graphics algorithms (visible rectangle, line and text) in relation to the
+container graphics algorithm (invisible rectangle).</span></span></span></p>
+
+<p class=MsoNormal><span class=code1><span lang=EN-US style='color:black;
+font-style:normal'>The implementation can be seen in the following
+code-snippet:</span></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>public</span></b><span lang=EN-US> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>layout(ILayoutContext context) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>boolean</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>anythingChanged
+  =</span><span lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>false</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  ContainerShape containerShape =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  (ContainerShape) context.getPictogramElement();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// the containerGa is the invisible rectangle</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// containing the visible rectangle as its (first and only)
+  child</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  GraphicsAlgorithm rectangle =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  containerGa.getGraphicsAlgorithmChildren().get(0);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// height of invisible rectangle</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>if</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(containerGa.getHeight()
+  &lt;</span><span lang=EN-US> </span><i><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#0000C0'>MIN_HEIGHT</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  containerGa.setHeight(</span><i><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#0000C0'>MIN_HEIGHT</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  anythingChanged =</span><span lang=EN-US> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// height of visible rectangle (same as invisible rectangle)</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>if</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(rectangle.getHeight()
+  != containerGa.getHeight()) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  rectangle.setHeight(containerGa.getHeight());</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  anythingChanged =</span><span lang=EN-US> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// width of invisible rectangle</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>if</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(containerGa.getWidth()
+  &lt;</span><span lang=EN-US> </span><i><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#0000C0'>MIN_WIDTH</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containerGa.setWidth(</span><i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>MIN_WIDTH</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  anythingChanged =</span><span lang=EN-US> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// width of visible rectangle (smaller than invisible
+  rectangle)</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>int</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>rectangleWidth
+  =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  containerGa.getWidth()</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  - TutorialEAddClassFeature.</span><i><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#0000C0'>INVISIBLE_RECT_RIGHT</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>if</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(rectangle.getWidth()
+  != rectangleWidth) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  rectangle.setWidth(rectangleWidth);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  anythingChanged =</span><span lang=EN-US> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// width of text and line (same as visible rectangle)</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Iterator iter = containerShape.getChildren().iterator();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>while</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(iter.hasNext())
+  {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Shape shape = (Shape) iter.next();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  IGaService gaService = Graphiti.getGaService();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  IDimension size =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
+  style='color:black'>.<i>calculateSize</i>(graphicsAlgorithm);</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>if</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(rectangleWidth
+  != size.getWidth()) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>if</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(graphicsAlgorithm</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>instanceof</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>Polyline)
+  {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Polyline polyline = (Polyline) graphicsAlgorithm;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Point secondPoint = polyline.getPoints().get(1);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Point newSecondPoint =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
+  style='color:black'>.<i>createPoint</i>(rectangleWidth,</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  secondPoint.getY());</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  polyline.getPoints().set(1, newSecondPoint);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  anythingChanged =</span><span lang=EN-US> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span><span lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>else</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>{</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
+  style='color:black'>.<i>setWidthOfGraphicsAlgorithm</i>(graphicsAlgorithm,</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  rectangleWidth);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  anythingChanged =</span><span lang=EN-US> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>return</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>anythingChanged;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>}</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-US>Test: Create a EClass with Extended Rendering Area</span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>Start the editor and
+create a new EClass. Verify that the EClass and its selection-handles look
+similar to the figures above.&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-US>Adjusting the Selection Behavior</span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>As you can see above
+the selection-handles of the EClass are around the invisible rectangle.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>This is not a good
+selection-behavior, because the user considers the visible rectangle as the
+&#8216;main&#8217; graphics algorithm and doesn&#8217;t care about the extra
+space needed to show the anchor. This also means that when resizing/moving the
+EClass, this should be done on the visible rectangle and not the invisible
+rectangle.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>In the following we
+want to change the selection behavior in a way that the selection-handles
+appear directly around the visible rectangle, as you can see in the following
+figure:</span></p>
+
+<p class=MsoNormal><span style='color:black'><img border=0 width=121 height=71
+src="visio/rendering-area-2c.gif"></span></p>
+
+<p class=MsoCaption><span class=code1><span lang=EN-US style='font-style:normal'>Figure:
+Selection-handles around the visible rectangle</span></span><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>Additionally we want to
+define the visible rectangle as the selection-area, which activates the
+selection when the mouse clicks into it. So a mouse click on the invisible
+rectangle outside the visible rectangle will no longer activate the
+selection.&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Selection areas are
+defined in the tool behavior provider.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>If you didn&#8217;t do
+so already you must <b>first create a tool behavior provider and add it to the
+diagram type provider as described <a href="tool-behavior-provider.htm">here</a>.</b></span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The following methods
+of the tool behavior provider must be overwritten:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
+href="file:///\\wdfd00184898a\..\javadoc\com\sap\tc\emf\gfw\tb\IToolBehaviorProvider.html#getSelectionGraphicsAlgorithm(com.sap.tc.emf.gfw.mm.pictograms.PictogramElement)">getSelectionGraphicsAlgorithm</a>
+has to return one graphics algorithm, which defines the selection-handle.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
+href="file:///\\wdfd00184898a\..\javadoc\com\sap\tc\emf\gfw\tb\IToolBehaviorProvider.html#getSelectionArea(com.sap.tc.emf.gfw.mm.pictograms.PictogramElement)">getSelectionArea</a>
+has to return multiple graphics algorithms, which union defines the
+selection-area inside which mouse-clicks activate the selection.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>In this example we want
+to return the visible rectangle in both methods. &nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
+complete implementation of the selection area here:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='color:black'>&nbsp;&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>public</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>GraphicsAlgorithm[]
+  getSelectionArea(PictogramElement pe) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  IFeatureProvider featureProvider = getFeatureProvider();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Object bo = featureProvider.getBusinessObjectForPictogramElement(pe);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>if</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(bo</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>instanceof</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>EClass)
+  {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  GraphicsAlgorithm invisible = pe.getGraphicsAlgorithm();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  GraphicsAlgorithm rectangle =</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  invisible.getGraphicsAlgorithmChildren().get(0);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>return</span></b><span lang=EN-US> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>GraphicsAlgorithm[] { rectangle };</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>return</span></b><span lang=EN-US> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.getSelectionArea(pe);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>public</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>GraphicsAlgorithm
+  getSelectionGraphicsAlgorithm(</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  PictogramElement pe) {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  IFeatureProvider featureProvider = getFeatureProvider();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Object bo = featureProvider.getBusinessObjectForPictogramElement(pe);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>if</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(bo</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>instanceof</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>EClass)
+  {</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  GraphicsAlgorithm invisible = pe.getGraphicsAlgorithm();<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  EList&lt;GraphicsAlgorithm&gt; graphicsAlgorithmChildren =<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  invisible.getGraphicsAlgorithmChildren();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b><span style='color:purple'>if</span></b>
+  (!graphicsAlgorithmChildren.isEmpty()) {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b><span style='color:purple'>return</span></b>
+  graphicsAlgorithmChildren.get(0);<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>return</span></b><span lang=EN-US> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.getSelectionGraphicsAlgorithm(pe);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>}</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<h2><span lang=EN-US>Test: Verify the Adjusted Selection Behavior</span></h2>
+
+<p class=MsoNormal><i><span lang=EN-US style='color:black'>Note</span></i><span
+lang=EN-US style='color:black'>: This change is incompatible with diagrams
+created in earlier stages of the tutorial. You will get an exception, when
+opening these diagrams.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>S<span style='color:black'>tart the editor
+and create a new EClass. Click on the visible rectangle and verify that the
+selection-handles are only around the visible rectangle.&nbsp;Click slightly
+right of the visible rectangle on the invisible rectangle and verify that the
+EClass becomes deselected.</span></span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=3 width="100%" align=center>
+
 </div>
-<hr>
-	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+
+<p class=MsoNormal><a href="http://www.eclipse.org/legal/epl-v10.html"
+shape=rect>Copyright (c) SAP AG 2005, 2010.</a> </p>
+
+</div>
+
 </body>
+
 </html>
