@@ -88,7 +88,6 @@ import org.eclipse.graphiti.internal.datatypes.impl.InsetsImpl;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.internal.datatypes.impl.RectangleImpl;
 import org.eclipse.graphiti.mm.datatypes.Color;
-import org.eclipse.graphiti.mm.links.DiagramLink;
 import org.eclipse.graphiti.mm.pictograms.AbstractText;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
@@ -1021,12 +1020,15 @@ public class PackageTest extends GFAbstractTestCase {
 		assertNotNull(pictogramElement);
 		assertTrue(pictogramElement.equals(pictogramElementMock));
 
-		DiagramLink diagramLinkMock = createNiceMock(DiagramLink.class);
-		myExternalPictogramLink.setDiagramLink(diagramLinkMock);
-
-		DiagramLink diagramLink = myExternalPictogramLink.getDiagramLink();
-		assertNotNull(diagramLink);
-		assertTrue(diagramLink.equals(diagramLinkMock));
+		// DiagramLink was removed
+		/*
+		 * DiagramLink diagramLinkMock = createNiceMock(DiagramLink.class);
+		 * myExternalPictogramLink.setDiagramLink(diagramLinkMock);
+		 * 
+		 * DiagramLink diagramLink = myExternalPictogramLink.getDiagramLink();
+		 * assertNotNull(diagramLink);
+		 * assertTrue(diagramLink.equals(diagramLinkMock));
+		 */
 
 		// ####################################################
 
@@ -1553,7 +1555,5 @@ public class PackageTest extends GFAbstractTestCase {
 		assertNotNull(platformGraphicsAlgorithm);
 		assertTrue(platformGraphicsAlgorithm.equals(platformGraphicsAlgorithmMock));
 	}
-
-
 
 }
