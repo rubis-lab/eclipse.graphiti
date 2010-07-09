@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cq:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="file:/C:/Development/GraphitiBuild/Workspace/org.eclipse.graphiti.releng/test/graphiti.rmap" shortDesc="Component query for Graphiti tests">
+<cq:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="graphiti.rmap" shortDesc="Component query for Graphiti tests">
     <cq:documentation xmlns="http://www.w3.org/1999/xhtml">Collects the Graphiti tests together with all needed dependencies for the build or for usage
 in the IDE (e.g. for setting up a workspace with the source projects)
 
