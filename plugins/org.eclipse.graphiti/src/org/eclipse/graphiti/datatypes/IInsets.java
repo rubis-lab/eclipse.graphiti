@@ -16,7 +16,7 @@
 package org.eclipse.graphiti.datatypes;
 
 /**
- * The Interface IInsets. Returns the Insets parameters
+ * The Interface IInsets. Returns the Insets values.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
@@ -24,30 +24,30 @@ package org.eclipse.graphiti.datatypes;
 public interface IInsets {
 
 	/**
-	 * Gets the left.
+	 * Gets the left inset.
 	 * 
-	 * @return the left
+	 * @return the left inset
 	 */
 	int getLeft();
 
 	/**
-	 * Gets the right.
+	 * Gets the right inset.
 	 * 
-	 * @return the right
+	 * @return the right inset
 	 */
 	int getRight();
 
 	/**
-	 * Gets the top.
+	 * Gets the top inset.
 	 * 
-	 * @return the top
+	 * @return the top inset
 	 */
 	int getTop();
 
 	/**
-	 * Gets the bottom.
+	 * Gets the bottom inset.
 	 * 
-	 * @return the bottom
+	 * @return the bottom inset
 	 */
 	int getBottom();
 }

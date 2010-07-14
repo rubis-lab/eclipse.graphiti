@@ -23,11 +23,33 @@ package org.eclipse.graphiti.datatypes;
  */
 public interface ILocation {
 
+	/**
+	 * Gets the y value
+	 * 
+	 * @return the y value of this location
+	 */
 	int getY();
 
+	/**
+	 * Sets the y coordinate of this location
+	 * 
+	 * @param y
+	 *            the new y coordinate
+	 */
 	void setY(int y);
 
+	/**
+	 * Gets the x value
+	 * 
+	 * @return the x value of this location
+	 */
 	int getX();
 
+	/**
+	 * Sets the x coordinate of this location
+	 * 
+	 * @param x
+	 *            the new x coordinate
+	 */
 	void setX(int x);
 }

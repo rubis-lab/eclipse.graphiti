@@ -23,11 +23,33 @@ package org.eclipse.graphiti.datatypes;
  */
 public interface IDimension {
 
+	/**
+	 * Gets the width
+	 * 
+	 * @return the width of this dimension
+	 */
 	int getWidth();
 
+	/**
+	 * Sets the width
+	 * 
+	 * @param width
+	 *            the new width of this dimension
+	 */
 	void setWidth(int width);
 
+	/**
+	 * Gets the height
+	 * 
+	 * @return the height of this dimension
+	 */
 	int getHeight();
 
+	/**
+	 * Sets the height
+	 * 
+	 * @param height
+	 *            the new height of this dimension
+	 */
 	void setHeight(int height);
 }
