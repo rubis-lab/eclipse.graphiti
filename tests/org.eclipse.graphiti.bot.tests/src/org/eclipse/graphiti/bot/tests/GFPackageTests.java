@@ -49,7 +49,6 @@ import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.DefaultMoveAnchorFeature;
 import org.eclipse.graphiti.features.impl.DefaultReconnectionFeature;
-import org.eclipse.graphiti.mm.links.DiagramLink;
 import org.eclipse.graphiti.mm.links.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
@@ -79,7 +78,6 @@ import org.eclipse.graphiti.ui.internal.util.clipboard.ModelClipboard;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.LocationInfo;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.junit.Test;
 
@@ -240,14 +238,15 @@ public class GFPackageTests extends AbstractGFTests {
 		assertTrue(!("".equals(s)));
 
 		// test ModelClipboard to paste a root element (parent = null)
-		final DiagramLink dl = Graphiti.getLinkService().getDiagramLink(diagram, true);
-		final EObject[] objs = new EObject[] { dl };
+		final Diagram dia = myDiagramTypeProvider.getDiagram();
+		;
+		final EObject[] objs = new EObject[] { dia };
 		syncExec(new VoidResult() {
 			public void run() {
 				ModelClipboard.getDefault().setContent(objs);
 				Collection<EObject> copy = ModelClipboard.getDefault().duplicateAndPaste(null, getTransactionalEditingDomain());
 				diagramEditor.doSave(null);
-				assertTrue(!copy.isEmpty() && !copy.contains(dl));
+				assertTrue(!copy.isEmpty() && !copy.contains(dia));
 			}
 		});
 

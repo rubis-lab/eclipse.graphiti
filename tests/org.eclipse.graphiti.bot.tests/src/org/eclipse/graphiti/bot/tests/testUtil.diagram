@@ -4,7 +4,7 @@
     <graphicsAlgorithm xsi:type="pi:Rectangle" background="/0/@colors.1" foreground="/0/@colors.0" width="1000" height="1000"/>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="pi:RoundedRectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" width="101" height="81" x="30" y="60" cornerHeight="5" cornerWidth="5"/>
-      <link diagramLink="/2" businessObjects="/1"/>
+      <link businessObjects="/1"/>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="pi:Polyline" foreground="/0/@colors.2" lineWidth="2" filled="false">
@@ -16,12 +16,12 @@
         <graphicsAlgorithm xsi:type="pi:Text" foreground="/0/@colors.4" width="101" height="20" value="C1">
           <font name="Arial" size="8" bold="true"/>
         </graphicsAlgorithm>
-        <link diagramLink="/2" businessObjects="/1"/>
+        <link businessObjects="/1"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="pi:RoundedRectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" width="91" height="81" x="160" y="60" cornerHeight="5" cornerWidth="5"/>
-      <link diagramLink="/2" businessObjects="/3"/>
+      <link businessObjects="/3"/>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="pi:Polyline" foreground="/0/@colors.2" lineWidth="2" filled="false">
@@ -33,7 +33,7 @@
         <graphicsAlgorithm xsi:type="pi:Text" foreground="/0/@colors.4" width="91" height="20" value="C2">
           <font name="Arial" size="8" bold="true"/>
         </graphicsAlgorithm>
-        <link diagramLink="/2" businessObjects="/3"/>
+        <link businessObjects="/3"/>
       </children>
     </children>
     <colors red="227" green="238" blue="249"/>
@@ -43,7 +43,6 @@
     <colors red="51" green="51" blue="153"/>
   </pi:Diagram>
   <ecore:EClass name="C1"/>
-  <li:DiagramLink diagram="/0" pictogramLinks="/0/@children.0/@link /0/@children.0/@children.1/@link /0/@children.1/@link /0/@children.1/@children.1/@link"/>
   <ecore:EClass name="C2"/>
   <ecore:EClass name="C3"/>
   <ecore:EClass name="C4"/>
