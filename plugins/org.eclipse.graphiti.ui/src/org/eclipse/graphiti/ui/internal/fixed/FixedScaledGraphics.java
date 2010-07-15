@@ -46,12 +46,7 @@ public class FixedScaledGraphics extends ScaledGraphics {
 	// ===================== overwritten changed methods ======================
 	// ========================================================================
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.draw2d.ScaledGraphics#fillGradient(int, int, int, int,
-	 * boolean)
-	 */
+
 	@Override
 	// Do not zoom anymore
 	// Just forward to the wrapped Graphics
@@ -63,59 +58,41 @@ public class FixedScaledGraphics extends ScaledGraphics {
 	// ===================== overwritten missing methods ======================
 	// ========================================================================
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.draw2d.Graphics#rotate(float)
-	 */
+
 	@Override
 	// Just forward to the wrapped Graphics
 	public void rotate(float degrees) {
 		graphics.rotate(degrees);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.draw2d.Graphics#translate(float, float)
-	 */
+
 	@Override
 	// Just forward to translate(int, int)
 	public void translate(float dx, float dy) {
 		graphics.translate(Math.round(dx), Math.round(dy));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.draw2d.Graphics#drawPath(org.eclipse.swt.graphics.Path)
-	 */
+
 	@Override
 	// Just forward to the wrapped Graphics
 	public void drawPath(Path path) {
 		graphics.drawPath(path);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.draw2d.Graphics#fillPath(org.eclipse.swt.graphics.Path)
-	 */
+
 	@Override
 	// Just forward to the wrapped Graphics
 	public void fillPath(Path path) {
 		graphics.fillPath(path);
 	}
 
+
+	@Override
 	public void clipPath(Path path) {
 			graphics.clipPath(path);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.draw2d.Graphics#setClip(org.eclipse.swt.graphics.Path)
-	 */
+
 	@Override
 	// Just forward to the wrapped Graphics
 	public void setClip(Path path) {
