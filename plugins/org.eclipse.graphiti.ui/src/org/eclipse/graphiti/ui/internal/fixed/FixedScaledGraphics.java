@@ -107,6 +107,10 @@ public class FixedScaledGraphics extends ScaledGraphics {
 		graphics.fillPath(path);
 	}
 
+	public void clipPath(Path path) {
+			graphics.clipPath(path);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

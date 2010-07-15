@@ -314,12 +314,13 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			if (renderingStyle != null) {
 				graphics.pushState();
 				try {
+					Rectangle pathBounds = GFFigureUtil.getPathBounds(path);
 					graphics.clipPath(path);
 					int styleAdaptation = getStyleAdaptation();
 					String coloredAreaId = renderingStyle.getPredefinedStyleId();
 					ColoredArea coloredArea[] = PredefinedColoredAreas.getColoredAreas(coloredAreaId, styleAdaptation);
 					for (int i = 0; i < coloredArea.length; i++) {
-						GFFigureUtil.paintColorFlow(getBounds(), graphics, coloredArea[i], getZoomLevel(graphics), true);
+						GFFigureUtil.paintColorFlow(pathBounds, graphics, coloredArea[i], getZoomLevel(graphics), true);
 					}
 				} finally {
 					graphics.popState();
