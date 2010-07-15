@@ -239,7 +239,6 @@ public class GFPackageTests extends AbstractGFTests {
 
 		// test ModelClipboard to paste a root element (parent = null)
 		final Diagram dia = myDiagramTypeProvider.getDiagram();
-		;
 		final EObject[] objs = new EObject[] { dia };
 		syncExec(new VoidResult() {
 			public void run() {
