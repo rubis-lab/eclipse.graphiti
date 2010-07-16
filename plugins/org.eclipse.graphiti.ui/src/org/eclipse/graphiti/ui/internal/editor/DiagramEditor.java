@@ -1499,7 +1499,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * Registers a listener for changes of business objects in the resource set
 	 * of the editor.
 	 */
-	private void registerBOListener() {
+	protected void registerBOListener() {
 		domainModelListener = new DomainModelChangeListener(this);
 		TransactionalEditingDomain eDomain = getTransactionalEditingDomain();
 		eDomain.addResourceSetListener(domainModelListener);
