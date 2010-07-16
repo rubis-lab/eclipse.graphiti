@@ -28,9 +28,9 @@
     </rm:provider>
   </rm:searchPath>
   <rm:searchPath name="graphiti.platform">
-    <rm:provider componentTypes="osgi.bundle" readerType="p2" source="false" mutable="false">
-      <rm:uri format="file:{0}">
-        <bc:propertyRef key="buildSitePath"/>
+    <rm:provider componentTypes="osgi.bundle" readerType="cvs">
+      <rm:uri format=":pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,org.eclipse.gmp/org.eclipse.gmp.graphiti/plugins/{0}">
+        <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
     </rm:provider>
   </rm:searchPath>
