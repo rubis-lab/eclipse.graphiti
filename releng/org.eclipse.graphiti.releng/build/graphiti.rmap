@@ -47,7 +47,7 @@
       <rm:uri format="http://download.eclipse.org/releases/helios"/>
     </rm:provider>
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(build.type=R)">
-      <rm:uri format="http://download.eclipse.org/releases/helios"/>
+      <rm:uri format="http://download.eclipse.org/releases/galileo"/>
     </rm:provider>
     <rm:provider componentTypes="osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:uri format="http://download.eclipse.org/tools/orbit/downloads/drops/S20100508202910/repository/"/>
