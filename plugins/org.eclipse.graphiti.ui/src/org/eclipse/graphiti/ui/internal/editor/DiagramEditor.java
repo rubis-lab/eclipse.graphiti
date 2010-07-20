@@ -33,7 +33,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
@@ -89,7 +88,6 @@ import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
@@ -150,7 +148,6 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  */
 public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements IConfigurationProviderHolder, IDiagramEditor,
 		ITabbedPropertySheetPageContributor, IResourceRegistryHolder, IRefreshableContent, IEditingDomainProvider {
-
 
 	private final CommandStackEventListener cmdStackListener = new CommandStackEventListener() {
 		public void stackChanged(CommandStackEvent event) {
@@ -559,16 +556,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		IToolBehaviorProvider tbp = getToolBehaviorProvider();
-		if (tbp != null) {
-			tbp.preSave();
-		}
 		getBehavior().doSave(monitor);
-		// TODO: The following is a workaround until EMF BI allows undo after save process.
 		commandStackChanged(null);
-		if (tbp != null) {
-			tbp.postSave();
-		}
 	}
 
 	@Override
@@ -1404,7 +1393,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		}
 	}
 
-
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		// If not the active editor, ignore selection changed.
@@ -1646,7 +1634,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	public TransactionalEditingDomain getEditingDomain() {
 		return editingDomain;
 	}
-
 
 	/**
 	 * 
