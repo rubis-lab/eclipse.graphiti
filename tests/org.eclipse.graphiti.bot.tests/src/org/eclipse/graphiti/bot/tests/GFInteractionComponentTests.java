@@ -129,7 +129,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				TransactionalEditingDomain editingDomain = diagramEditor.getTransactionalEditingDomain();
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 					@Override
@@ -227,7 +227,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				TransactionalEditingDomain editingDomain = diagramEditor.getTransactionalEditingDomain();
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 					@Override
@@ -311,7 +311,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 
-				TransactionalEditingDomain editingDomain = diagramEditor.getTransactionalEditingDomain();
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 					@Override
@@ -894,7 +894,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 
-				TransactionalEditingDomain editingDomain = diagramEditor.getTransactionalEditingDomain();
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 					@Override

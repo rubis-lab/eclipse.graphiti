@@ -360,7 +360,7 @@ public class GFPackageTests extends AbstractGFTests {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 
-				TransactionalEditingDomain editingDomain = diagramEditor.getTransactionalEditingDomain();
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 					@Override
@@ -480,7 +480,7 @@ public class GFPackageTests extends AbstractGFTests {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 
-				TransactionalEditingDomain editingDomain = diagramEditor.getTransactionalEditingDomain();
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 					@Override
@@ -504,7 +504,7 @@ public class GFPackageTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			public void run() {
 
-				TransactionalEditingDomain editingDomain = diagramEditor.getTransactionalEditingDomain();
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 					@Override

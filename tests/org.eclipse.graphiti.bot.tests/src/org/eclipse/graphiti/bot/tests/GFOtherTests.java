@@ -210,7 +210,7 @@ public class GFOtherTests extends AbstractGFTests {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 
-				TransactionalEditingDomain editingDomain = diagramEditor.getTransactionalEditingDomain();
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 					@Override
@@ -267,7 +267,7 @@ public class GFOtherTests extends AbstractGFTests {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram diagram = diagramTypeProvider.getDiagram();
 
-				TransactionalEditingDomain editingDomain = diagramEditor.getTransactionalEditingDomain();
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 					@Override
