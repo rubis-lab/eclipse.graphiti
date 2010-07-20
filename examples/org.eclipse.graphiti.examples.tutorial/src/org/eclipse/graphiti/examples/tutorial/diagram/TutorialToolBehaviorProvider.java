@@ -229,10 +229,4 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		}
 		return super.getSelectionGraphicsAlgorithm(pe);
 	}
-
-	@Override
-	public void postSave() {
-		super.postSave();
-	}
-
 }
