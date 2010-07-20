@@ -603,12 +603,6 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return null;
 	}
 
-	public void postSave() {
-	}
-
-	public void preSave() {
-	}
-
 	public String getContributorId() {
 		String diagramTypeId = getDiagramTypeProvider().getDiagram().getDiagramTypeId();
 		return diagramTypeId + DIAGRAM_PROPERTY_CONTRIBUTOR_SUFFIX;

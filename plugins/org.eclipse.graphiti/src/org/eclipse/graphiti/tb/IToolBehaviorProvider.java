@@ -298,16 +298,6 @@ public interface IToolBehaviorProvider {
 	boolean isConnectionSelectionEnabled();
 
 	/**
-	 * Called before the editor content will be saved.
-	 */
-	void preSave();
-
-	/**
-	 * Called after the editor content has been saved.
-	 */
-	void postSave();
-
-	/**
 	 * Returns the contributor ID for the tabbed property sheet page.
 	 * 
 	 * @return the contributor ID for the tabbed property sheet page.
