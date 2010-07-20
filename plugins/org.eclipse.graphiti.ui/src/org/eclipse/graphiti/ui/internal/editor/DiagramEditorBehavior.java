@@ -420,7 +420,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * Shows a dialog that asks if conflicting changes should be discarded.
 	 */
 	private boolean handleDirtyConflict() {
-		return MessageDialog.openQuestion(PlatformUI.getWorkbench().getModalDialogShellProvider().getShell(),
+		return MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 				Messages.DiscardChangesDialog_0_xmsg,
 				Messages.DiscardChangesDialog_1_xmsg);
 	}
@@ -501,7 +501,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		this.updateProblemIndication = false;
 		try {
 			// This runs the options, and shows progress.
-			new ProgressMonitorDialog(PlatformUI.getWorkbench().getModalDialogShellProvider().getShell()).run(true, false, operation);
+			new ProgressMonitorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()).run(true, false, operation);
 
 			((BasicCommandStack) editingDomain.getCommandStack()).saveIsDone();
 			// Refresh the necessary state.
