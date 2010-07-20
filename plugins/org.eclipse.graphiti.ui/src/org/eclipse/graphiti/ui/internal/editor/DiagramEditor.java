@@ -1513,7 +1513,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		}
 	}
 
-	private void unregisterBOListener() {
+	protected void unregisterBOListener() {
 		if (domainModelListener != null) {
 			TransactionalEditingDomain eDomain = getTransactionalEditingDomain();
 			eDomain.removeResourceSetListener(domainModelListener);
