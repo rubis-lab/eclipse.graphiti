@@ -64,7 +64,7 @@ public interface IDiagramEditor {
 	 * 
 	 * @return transactional editing domain which is linked to the editor
 	 */
-	TransactionalEditingDomain getTransactionalEditingDomain();
+	TransactionalEditingDomain getEditingDomain();
 
 	/**
 	 * Gets the resource set.

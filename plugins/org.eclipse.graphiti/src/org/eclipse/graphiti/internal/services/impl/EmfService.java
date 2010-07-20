@@ -49,7 +49,7 @@ public final class EmfService implements IEmfService {
 
 		IDiagramEditor diagramEditor = dtp.getDiagramEditor();
 		if (diagramEditor != null) {
-			ret = diagramEditor.getTransactionalEditingDomain();
+			ret = diagramEditor.getEditingDomain();
 		}
 
 		if (ret == null) {
