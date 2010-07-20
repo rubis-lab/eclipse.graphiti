@@ -108,7 +108,7 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 		final IFeatureProvider fp = directEditingFeature.getFeatureProvider();
 		final DiagramEditor diagramEditor = (DiagramEditor) fp.getDiagramTypeProvider().getDiagramEditor();
 		final CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
-		commandStack.execute(new GefCommandWrapper(cmd, diagramEditor.getTransactionalEditingDomain()));
+		commandStack.execute(new GefCommandWrapper(cmd, diagramEditor.getEditingDomain()));
 		// CommandExec.getSingleton().executeCommand(cmd, fp.getConnection());
 
 		return null;

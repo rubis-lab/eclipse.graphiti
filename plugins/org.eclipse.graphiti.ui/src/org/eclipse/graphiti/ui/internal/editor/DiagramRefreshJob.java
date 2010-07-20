@@ -41,6 +41,11 @@ import org.eclipse.ui.progress.UIJob;
  */
 class DiagramRefreshJob extends UIJob {
 
+	/**
+	 * The Constant UIJOB_FAMILY_REFRESH.
+	 */
+	private final String UIJOB_FAMILY_REFRESH = "org.eclipse.graphiti.ui.internal.refresh"; //$NON-NLS-1$
+
 	private final Set<EditPart> editParts = new HashSet<EditPart>();
 
 	private boolean refreshAll = false;
@@ -71,7 +76,7 @@ class DiagramRefreshJob extends UIJob {
 
 	@Override
 	public boolean belongsTo(Object family) {
-		return DiagramEditor.UIJOB_FAMILY_REFRESH.equals(family);
+		return UIJOB_FAMILY_REFRESH.equals(family);
 	}
 
 	boolean isRefreshAll() {

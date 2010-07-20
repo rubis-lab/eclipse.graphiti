@@ -60,6 +60,6 @@ public class CustomAction extends Action {
 
 	protected void executeOnCommandStack(ICommand command) {
 		CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
-		commandStack.execute(new GefCommandWrapper(command, diagramEditor.getTransactionalEditingDomain()));
+		commandStack.execute(new GefCommandWrapper(command, diagramEditor.getEditingDomain()));
 	}
 }

@@ -108,7 +108,7 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 	 * @see #isCompositionAllowed(EObject, EObject[])
 	 */
 	protected Object[] getCopiesFromClipBoard(Object target) {
-		return ModelClipboard.getDefault().duplicateAndPaste(target, getDiagramEditor().getTransactionalEditingDomain()).toArray();
+		return ModelClipboard.getDefault().duplicateAndPaste(target, getDiagramEditor().getEditingDomain()).toArray();
 	}
 
 	/**

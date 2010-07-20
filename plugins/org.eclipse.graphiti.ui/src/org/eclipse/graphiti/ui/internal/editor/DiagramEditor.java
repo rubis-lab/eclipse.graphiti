@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.commands.operations.IUndoContext;
-import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.FigureCanvas;
@@ -141,7 +140,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
@@ -151,14 +149,8 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  * The Class DiagramEditor.
  */
 public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements IConfigurationProviderHolder, IDiagramEditor,
-		ITabbedPropertySheetPageContributor, IGotoMarker, IResourceRegistryHolder, IRefreshableContent, IEditingDomainProvider {
+		ITabbedPropertySheetPageContributor, IResourceRegistryHolder, IRefreshableContent, IEditingDomainProvider {
 
-	private static final String GRAPHITI = " (Graphiti)";
-
-	/**
-	 * The Constant UIJOB_FAMILY_REFRESH.
-	 */
-	public static final String UIJOB_FAMILY_REFRESH = "org.eclipse.graphiti.ui.internal.refresh"; //$NON-NLS-1$
 
 	private final CommandStackEventListener cmdStackListener = new CommandStackEventListener() {
 		public void stackChanged(CommandStackEvent event) {
@@ -173,7 +165,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		}
 	};
 
-	public class FWCommandStackListener implements CommandStackListener {
+	protected class FWCommandStackListener implements CommandStackListener {
 
 		@Override
 		public void commandStackChanged(EventObject event) {
@@ -315,26 +307,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.gef.commands.CommandStackListener#commandStackChanged(java
-	 * .util.EventObject)
-	 */
-	@Override
-	public void commandStackChanged(EventObject event) {
-		super.commandStackChanged(event);
-		/*
-		 * disabled to prevent a SWTException (Invalid thread access) from
-		 * occurring when using a progress bar during long running operations
-		 */
-		// firePropertyChange(PROP_DIRTY);
-		// if (REFRESH_ON_COMMAND_STACK_CHANGES) {
-		// refresh();
-		// }
-	}
-
 	/**
 	 * Called to configure the editor, before it receives its content. The
 	 * default-implementation is for example doing the following: configure the
@@ -361,9 +333,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		// configure ZoomManager
 		viewer.setRootEditPart(rootEditPart); // support
 
-		// animation
-		// of the
-		// zoom
+		// animation of the zoom
 		ZoomManager zoomManager = rootEditPart.getZoomManager();
 		List<String> zoomLevels = new ArrayList<String>(3);
 		zoomLevels.add(ZoomManager.FIT_ALL);
@@ -548,11 +518,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 	// ====================== standard behaviour ==============================
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.IWorkbenchPart#dispose()
-	 */
 	@Override
 	public void dispose() {
 
@@ -582,10 +547,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			resourceRegistry.dispose();
 		}
 
-		DiagramEditorBehavior me = getBehavior();
-		me.getEditingDomain().getCommandStack().removeCommandStackListener(fwListener);
+		DiagramEditorBehavior behavior = getBehavior();
+		behavior.getEditingDomain().getCommandStack().removeCommandStackListener(fwListener);
 		fwListener = null;
-		me.dispose();
+		behavior.dispose();
 
 		super.dispose();
 
@@ -751,13 +716,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return _keyHandler;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.config.IConfigurationProviderHolder#
-	 * getConfigurationProvider()
-	 */
 	public IConfigurationProvider getConfigurationProvider() {
 		return _configurationProvider;
 	}
@@ -800,11 +758,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return contributorId;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.platform.IDiagramEditor#getCurrentSize()
-	 */
 	public IDimension getCurrentSize() {
 
 		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
@@ -841,12 +794,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return this.diagramScrollingBehavior;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.platform.IDiagramEditor#getDiagramTypeProvider()
-	 */
 	public IDiagramTypeProvider getDiagramTypeProvider() {
 		IConfigurationProvider cfgProvider = getConfigurationProvider();
 		if (cfgProvider != null)
@@ -854,11 +801,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#getEditDomain()
-	 */
 	@Override
 	public DefaultEditDomain getEditDomain() {
 		return super.getEditDomain();
@@ -902,7 +844,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * 
 	 * @return the gFW figure canvas
 	 */
-	public GFFigureCanvas getGFWFigureCanvas() {
+	private GFFigureCanvas getGFWFigureCanvas() {
 		GraphicalViewer viewer = getGraphicalViewer();
 		if (viewer != null)
 			return (GFFigureCanvas) viewer.getControl();
@@ -910,11 +852,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#getGraphicalViewer()
-	 */
 	@Override
 	public GraphicalViewer getGraphicalViewer() {
 		return super.getGraphicalViewer();
@@ -932,12 +869,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return mouseLocation;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette#
-	 * getPalettePreferences()
-	 */
 	@Override
 	protected FlyoutPreferences getPalettePreferences() {
 		return new FlyoutPreferences() {
@@ -973,13 +904,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return ps;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette#getPaletteRoot
-	 * ()
-	 */
 	@Override
 	protected PaletteRoot getPaletteRoot() {
 		if (_paletteRoot == null)
@@ -1027,13 +951,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return resourceRegistry;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.platform.IDiagramEditor#getSelectedPictogramElements
-	 * ()
-	 */
 	public PictogramElement[] getSelectedPictogramElements() {
 		PictogramElement pe[] = new PictogramElement[0];
 		ISelectionProvider selectionProvider = getSite().getSelectionProvider();
@@ -1068,11 +985,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return getSelectionSynchronizer();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.part.EditorPart#getTitleToolTip()
-	 */
 	@Override
 	public String getTitleToolTip() {
 		if (getDiagramTypeProvider() != null && getDiagramTypeProvider().getCurrentToolBehaviorProvider() != null) {
@@ -1110,17 +1022,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return Math.max(0.05D, zoomManager.getZoom());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.ide.IGotoMarker#gotoMarker(org.eclipse.core.resources.
-	 * IMarker)
-	 */
-	public void gotoMarker(IMarker marker) {
-		//do nothing
-	}
-
 	/**
 	 * Handle auto update at startup.
 	 * 
@@ -1129,7 +1030,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
 	 */
-	protected void handleAutoUpdateAtStartup(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
+	private void handleAutoUpdateAtStartup(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
 		if (diagramTypeProvider.isAutoUpdateAtStartup()) {
 			autoUpdate(diagram, diagramTypeProvider);
 		}
@@ -1143,7 +1044,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
 	 */
-	protected void handleAutoUpdateAtReset(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
+	private void handleAutoUpdateAtReset(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
 		if (diagramTypeProvider.isAutoUpdateAtReset()) {
 			autoUpdate(diagram, diagramTypeProvider);
 		}
@@ -1328,7 +1229,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	public boolean isAlive() {
 		IConfigurationProvider cp = getConfigurationProvider();
 		if (cp != null) {
-			TransactionalEditingDomain editingDomain = getTransactionalEditingDomain();
+			TransactionalEditingDomain editingDomain = getEditingDomain();
 			Diagram diagram = cp.getDiagram();
 			if (editingDomain != null && GraphitiInternal.getEmfService().isObjectAlive(diagram)) {
 				return true;
@@ -1346,18 +1247,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return autoRefresh;
 	}
 
-	protected void postInit() {
-		getDiagramTypeProvider().postInit();
-
-		// if (mrisToSelect != null) {
-		// selectMris(mrisToSelect);
-		// mrisToSelect = null;
-		// }
-
-		// after create part control
-		getEditDomain().getCommandStack().addCommandStackEventListener(cmdStackListener);
-	}
-
 	/**
 	 * Inits the refresh.
 	 */
@@ -1367,11 +1256,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		refreshedFigure4PE = new HashSet<PictogramElement>();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.platform.IDiagramEditor#refresh()
-	 */
 	public void refresh() {
 
 		if (!isAlive()) {
@@ -1455,7 +1339,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		if (name == null || name.length() == 0) {
 			name = getConfigurationElement().getAttribute("name"); //$NON-NLS-1$
 		}
-		setPartName(name + GRAPHITI);
+		setPartName(name);
 	}
 
 	public void refreshTitleToolTip() {
@@ -1491,7 +1375,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	private void registerDiagramResourceSetListener() {
 		diagramChangeListener = new DiagramChangeListener(this);
-		TransactionalEditingDomain eDomain = getTransactionalEditingDomain();
+		TransactionalEditingDomain eDomain = getEditingDomain();
 		eDomain.addResourceSetListener(diagramChangeListener);
 	}
 
@@ -1501,50 +1385,26 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	protected void registerBOListener() {
 		domainModelListener = new DomainModelChangeListener(this);
-		TransactionalEditingDomain eDomain = getTransactionalEditingDomain();
+		TransactionalEditingDomain eDomain = getEditingDomain();
 		eDomain.addResourceSetListener(domainModelListener);
 	}
 
 	private void unregisterDiagramResourceSetListener() {
 		if (diagramChangeListener != null) {
 			diagramChangeListener.stopListening();
-			TransactionalEditingDomain eDomain = getTransactionalEditingDomain();
+			TransactionalEditingDomain eDomain = getEditingDomain();
 			eDomain.removeResourceSetListener(diagramChangeListener);
 		}
 	}
 
 	protected void unregisterBOListener() {
 		if (domainModelListener != null) {
-			TransactionalEditingDomain eDomain = getTransactionalEditingDomain();
+			TransactionalEditingDomain eDomain = getEditingDomain();
 			eDomain.removeResourceSetListener(domainModelListener);
 		}
 	}
 
-	/**
-	 * selects the editpart the PE is associated with.
-	 * 
-	 * @param pictogramElement
-	 *            the pictogram element
-	 */
-	protected void selectEditPartFor(PictogramElement pictogramElement) {
-		EditPart editPart = (EditPart) getGraphicalViewer().getEditPartRegistry().get(pictogramElement);
 
-		if (editPart == null) {
-			if (GraphitiInternal.getEmfService().isObjectAlive(pictogramElement) && pictogramElement instanceof Shape)
-				selectEditPartFor(((Shape) pictogramElement).getContainer());
-
-		} else {
-			getGraphicalViewer().select(editPart);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.gef.ui.parts.GraphicalEditor#selectionChanged(org.eclipse
-	 * .ui.IWorkbenchPart, org.eclipse.jface.viewers.ISelection)
-	 */
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		// If not the active editor, ignore selection changed.
@@ -1684,16 +1544,11 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 		DefaultEditDomain editDomain = new DefaultEditDomain(this);
 		// XXX: replace default CommandStack with CombinedCommandStack
-		CommandStack commandStack = new GFCommandStack(configurationProvider, getTransactionalEditingDomain());
+		CommandStack commandStack = new GFCommandStack(configurationProvider, getEditingDomain());
 		editDomain.setCommandStack(commandStack);
 		setEditDomain(editDomain);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.IWorkbenchPart#setFocus()
-	 */
 	@Override
 	public void setFocus() {
 		if (getGraphicalViewer() == null)
@@ -1732,13 +1587,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		// </sw 3.9.08>
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.platform.IDiagramEditor#setPictogramElementForSelection
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	public void setPictogramElementForSelection(PictogramElement pictogramElementForSelection) {
 		if (pictogramElementForSelection == null)
 			this.pictogramElementsForSelection = null;
@@ -1784,31 +1632,21 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
-		postInit();
+		getDiagramTypeProvider().postInit();
+		getEditDomain().getCommandStack().addCommandStackEventListener(cmdStackListener);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#isDirty()
-	 */
 	@Override
 	public boolean isDirty() {
-		// boolean isDirty = getModelEditor().isDirty();
-		// return isDirty;
-
 		return getBehavior().isDirty();
 
 	}
 
 	@Override
-	public EditingDomain getEditingDomain() {
-		return getTransactionalEditingDomain();
-	}
-
-	public TransactionalEditingDomain getTransactionalEditingDomain() {
+	public TransactionalEditingDomain getEditingDomain() {
 		return editingDomain;
 	}
+
 
 	/**
 	 * 
@@ -1816,7 +1654,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	public ResourceSet getResourceSet() {
 		ResourceSet ret = null;
-		TransactionalEditingDomain editingDomain = getTransactionalEditingDomain();
+		TransactionalEditingDomain editingDomain = getEditingDomain();
 		if (editingDomain != null) {
 			ret = editingDomain.getResourceSet();
 		}

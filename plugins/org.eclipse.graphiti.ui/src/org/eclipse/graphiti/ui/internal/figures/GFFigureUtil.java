@@ -84,28 +84,6 @@ public class GFFigureUtil {
 		graphics.fillGradient(fillRectangle.x, fillRectangle.y, fillRectangle.width, fillRectangle.height, vertical);
 	}
 
-	public static void paintImage(Image im, Rectangle rectangle, Graphics graphics, ColoredArea coloredArea, double zoom, boolean vertical) {
-		// calculate rectangle to fill
-		Rectangle fillRectangle;
-		if (vertical) {
-			int start = coloredArea.getStart().getLocation(rectangle.height, zoom);
-			int end = coloredArea.getEnd().getLocation(rectangle.height, zoom);
-			fillRectangle = new Rectangle(rectangle.x, rectangle.y + start, rectangle.width, end - start);
-		} else {
-			int start = coloredArea.getStart().getLocation(rectangle.width, zoom);
-			int end = coloredArea.getEnd().getLocation(rectangle.width, zoom);
-			fillRectangle = new Rectangle(rectangle.x + start, rectangle.y, end - start, rectangle.height);
-		}
-		GC gc = new GC(im);
-		Pattern pattern = new Pattern(Display.getCurrent(), fillRectangle.x, fillRectangle.y, fillRectangle.x, fillRectangle.y
-				+ fillRectangle.height, coloredArea.getStart().getColor(), graphics.getAlpha(), coloredArea.getEnd().getColor(), graphics
-				.getAlpha());
-		gc.setBackgroundPattern(pattern);
-		gc.fillRectangle(fillRectangle.x, fillRectangle.y, fillRectangle.width, fillRectangle.height);
-		gc.dispose();
-		pattern.dispose();
-	}
-
 	/**
 	 * Returns if the given point is contained in the ellipse defined by the
 	 * bounding rectangle. Possible results are

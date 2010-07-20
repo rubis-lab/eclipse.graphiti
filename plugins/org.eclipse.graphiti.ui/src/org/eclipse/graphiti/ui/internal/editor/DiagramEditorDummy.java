@@ -39,7 +39,7 @@ public class DiagramEditorDummy implements IDiagramEditor {
 	}
 
 	@Override
-	public TransactionalEditingDomain getTransactionalEditingDomain() {
+	public TransactionalEditingDomain getEditingDomain() {
 		return null;
 	}
 

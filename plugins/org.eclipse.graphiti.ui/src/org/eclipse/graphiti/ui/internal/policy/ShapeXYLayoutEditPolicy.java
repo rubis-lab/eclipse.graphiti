@@ -71,6 +71,7 @@ import org.eclipse.graphiti.ui.internal.command.MoveAnchorFeatureCommandWithCont
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.viewers.ISelection;
@@ -125,7 +126,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			Point viewLocation = null;
 			DiagramEditor diagramEditor = getConfigurationProvider().getDiagramEditor();
 			if (diagramEditor.getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-				viewLocation = configurationProvider.getDiagramEditor().getGFWFigureCanvas().getViewport().getViewLocation();
+				GFFigureCanvas c =  (GFFigureCanvas) configurationProvider.getDiagramEditor().getGraphicalViewer().getControl();
+				viewLocation = c.getViewport().getViewLocation();
 			} else {
 				viewLocation = configurationProvider.getDiagramEditor().getFigureCanvas().getViewport().getViewLocation();
 			}
@@ -135,7 +137,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			ICommand cmd = getMoveConnectionDecoratorCommand((ConnectionDecorator) model, (Rectangle) constraint, rectangle.x, rectangle.y);
 
 			if (cmd != null) {
-				return new GefCommandWrapper(cmd, configurationProvider.getDiagramEditor().getTransactionalEditingDomain());
+				return new GefCommandWrapper(cmd, configurationProvider.getDiagramEditor().getEditingDomain());
 			}
 		}
 		return null;
@@ -257,7 +259,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			IContextButtonManager contextButtonManager = editor.getContextButtonManager();
 			contextButtonManager.hideContextButtonsInstantly();
 
-			return new GefCommandWrapper(ret, editor.getTransactionalEditingDomain());
+			return new GefCommandWrapper(ret, editor.getEditingDomain());
 		} else {
 			return null;
 		}

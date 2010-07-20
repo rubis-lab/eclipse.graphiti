@@ -58,6 +58,7 @@ import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -65,6 +66,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.ISaveablePart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPartSite;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -225,7 +227,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 					}
 
 					if (updateProblemIndication) {
-						editorPart.getSite().getShell().getDisplay().asyncExec(new Runnable() {
+						getShell().getDisplay().asyncExec(new Runnable() {
 							public void run() {
 								updateProblemIndication();
 							}
@@ -250,6 +252,10 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		}
 	};
 
+	private Shell getShell() {
+		return editorPart.getSite().getShell();
+	}
+
 	private final Adapter updateAdapter = new AdapterImpl() {
 		@Override
 		public void notifyChanged(Notification msg) {
@@ -264,7 +270,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 						setResourceChanged(true);
 						final IEditorPart activeEditor = editorPart.getSite().getPage().getActiveEditor();
 						if (activeEditor == editorPart) {
-							editorPart.getSite().getShell().getDisplay().asyncExec(new Runnable() {
+							getShell().getDisplay().asyncExec(new Runnable() {
 								public void run() {
 									handleActivate();
 								}
@@ -294,7 +300,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 							setResourceDeleted(true);
 							final IEditorPart activeEditor = editorPart.getSite().getPage().getActiveEditor();
 							if (activeEditor == editorPart) {
-								editorPart.getSite().getShell().getDisplay().asyncExec(new Runnable() {
+								getShell().getDisplay().asyncExec(new Runnable() {
 									public void run() {
 										handleActivate();
 									}
@@ -308,20 +314,24 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		}
 
 		private void startCloseEditorJob() {
-			editorPart.getSite().getShell().getDisplay().asyncExec(new Runnable() {
+			Display.getDefault().asyncExec(new Runnable() {
 				public void run() {
-					IWorkbenchPartSite site = editorPart.getSite();
-					// Since we run async we have to check if our ui is still there.
-					if (site == null)
-						return;
-					IWorkbenchPage page = site.getPage();
-					if (page == null)
-						return;
-					page.closeEditor(editorPart, false);
+					closeEd();
 				}
 			});
 		}
 	};
+
+	private void closeEd() {
+		IWorkbenchPartSite site = editorPart.getSite();
+		// Since we run async we have to check if our ui is still there.
+		if (site == null)
+			return;
+		IWorkbenchPage page = site.getPage();
+		if (page == null)
+			return;
+		page.closeEditor(editorPart, false);
+	}
 
 	private boolean adapterActive;
 
@@ -331,7 +341,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	private void handleActivate() {
 		if (isResourceDeleted()) {
 			if (handleDirtyConflict()) {
-				editorPart.getSite().getPage().closeEditor(editorPart, false);
+				closeEd();
 			} else {
 				setResourceDeleted(false);
 				setResourceChanged(false);
@@ -410,7 +420,8 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * Shows a dialog that asks if conflicting changes should be discarded.
 	 */
 	private boolean handleDirtyConflict() {
-		return MessageDialog.openQuestion(this.editorPart.getSite().getShell(), Messages.DiscardChangesDialog_0_xmsg,
+		return MessageDialog.openQuestion(PlatformUI.getWorkbench().getModalDialogShellProvider().getShell(),
+				Messages.DiscardChangesDialog_0_xmsg,
 				Messages.DiscardChangesDialog_1_xmsg);
 	}
 
@@ -490,7 +501,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		this.updateProblemIndication = false;
 		try {
 			// This runs the options, and shows progress.
-			new ProgressMonitorDialog(editorPart.getSite().getShell()).run(true, false, operation);
+			new ProgressMonitorDialog(PlatformUI.getWorkbench().getModalDialogShellProvider().getShell()).run(true, false, operation);
 
 			((BasicCommandStack) editingDomain.getCommandStack()).saveIsDone();
 			// Refresh the necessary state.
