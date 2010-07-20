@@ -39,6 +39,8 @@ import org.eclipse.graphiti.mm.pictograms.Text;
 import org.eclipse.graphiti.util.IColorConstant;
 
 /**
+ * The interface IGaCreateService provides services for the creation of all
+ * available graphics algorithm's. E.g. Polygon, Rectangle, Text, ...
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.

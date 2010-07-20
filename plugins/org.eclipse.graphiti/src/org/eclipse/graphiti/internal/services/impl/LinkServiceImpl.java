@@ -54,7 +54,6 @@ public final class LinkServiceImpl implements ILinkService {
 	 *            objects.
 	 * @return The business objects which are linked to the given pictogram
 	 *         element. Can be empty but not null.
-	 * @see #link(PictogramElement, Object[])
 	 */
 	public EObject[] getAllBusinessObjectsForLinkedPictogramElement(PictogramElement pictogramElement) {
 		EObject[] ret = new EObject[0];
@@ -74,13 +73,13 @@ public final class LinkServiceImpl implements ILinkService {
 	 * Returns the first of possibly several business objects which are linked
 	 * to the given pictogram element. This is a convenience method for
 	 * {@link #getAllBusinessObjectsForPictogramElement(PictogramElement)},
-	 * because in many usecases only a single business object is linked.
+	 * because in many use cases only a single business object is linked.
 	 * 
 	 * @param pictogramElement
-	 *            The pictogram element for which to return the business object.
+	 *            The pictogram element for which to return the business
+	 *            objects.
 	 * @return The first of possibly several business objects which are linked
 	 *         to the given pictogram element. Can be null.
-	 * @see #link(PictogramElement, Object)
 	 */
 	public EObject getBusinessObjectForLinkedPictogramElement(PictogramElement pictogramElement) {
 		EObject ret = null;
@@ -189,15 +188,15 @@ public final class LinkServiceImpl implements ILinkService {
 	}
 
 	/**
-	 * Checks existence and value of a property to a given pictogram element. It
-	 * is intended to use this property to be able to disinguish multiple
-	 * pictogram elements linked to same domain model element.
+	 * Checks existence and value of the link property to a given pictogram
+	 * element. It is intended to use this property to be able to disinguish
+	 * multiple pictogram elements linked to same domain model object.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
 	 * @param propertyValue
 	 *            the value to check against the property
-	 * @return true if property exists an has the given value; false if not
+	 * @return true if link property exists an has the given value; false if not
 	 */
 	public boolean hasLinkProperty(PictogramElement pictogramElement, String propertyValue) {
 		boolean ret = false;
@@ -213,21 +212,21 @@ public final class LinkServiceImpl implements ILinkService {
 	}
 
 	/**
-	 * Adds or modifies a property to a given pictogram element. It is intended
-	 * to use this property to be able to distinguish multiple pictogram
-	 * elements linked to same domain model element.
+	 * Adds or modifies the link property to a given pictogram element. It is
+	 * intended to use this property to be able to disinguish multiple pictogram
+	 * elements linked to same domain model object.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
 	 * @param propertyValue
-	 *            the new property value
+	 *            the new value for the link property
 	 */
 	public void setLinkProperty(PictogramElement pictogramElement, String propertyValue) {
 		Graphiti.getPeService().setPropertyValue(pictogramElement, KEY_LINK_PROPERTY, propertyValue);
 	}
 
 	/**
-	 * Gets the link property.
+	 * Gets the link property to a given pictogram element.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element

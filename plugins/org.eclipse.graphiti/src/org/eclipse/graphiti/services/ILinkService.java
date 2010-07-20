@@ -24,6 +24,9 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Property;
 
 /**
+ * The interface ILinkService provides services for the link handling between
+ * the graphical representation (pictogram elements) and the domain model
+ * (business objects).
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
@@ -39,7 +42,6 @@ public interface ILinkService {
 	 *            objects.
 	 * @return The business objects which are linked to the given pictogram
 	 *         element. Can be empty but not null.
-	 * @see #link(PictogramElement, Object[])
 	 */
 	EObject[] getAllBusinessObjectsForLinkedPictogramElement(PictogramElement pictogramElement);
 
@@ -47,13 +49,13 @@ public interface ILinkService {
 	 * Returns the first of possibly several business objects which are linked
 	 * to the given pictogram element. This is a convenience method for
 	 * {@link #getAllBusinessObjectsForPictogramElement(PictogramElement)},
-	 * because in many usecases only a single business object is linked.
+	 * because in many use cases only a single business object is linked.
 	 * 
 	 * @param pictogramElement
-	 *            The pictogram element for which to return the business object.
+	 *            The pictogram element for which to return the business
+	 *            objects.
 	 * @return The first of possibly several business objects which are linked
 	 *         to the given pictogram element. Can be null.
-	 * @see #link(PictogramElement, Object)
 	 */
 	EObject getBusinessObjectForLinkedPictogramElement(PictogramElement pictogramElement);
 
@@ -67,59 +69,61 @@ public interface ILinkService {
 	PictogramLink getLinkForPictogramElement(PictogramElement pictogramElement);
 
 	/**
-	 * get all pictogram elements which references the given eObject.
+	 * Gets all pictogram elements which references the given business object.
 	 * 
-	 * @param eObject
-	 *            the ref object
 	 * @param diagram
 	 *            the diagram
-	 * @return the pictogram elements
+	 * @param eObject
+	 *            the referenced business object
+	 * @return all pictogram elements in the diagram which references the given
+	 *         business object
 	 */
 	List<PictogramElement> getPictogramElements(Diagram diagram, EObject eObject);
 
 	/**
-	 * Gets the pictogram elements.
+	 * Gets all pictogram elements which references at least one of the given
+	 * business objects.
 	 * 
 	 * @param diagram
 	 *            the diagram
 	 * @param eObjects
-	 *            business objects
+	 *            the referenced business objects
 	 * @param onlyActive
 	 *            if true, then only active pictogram elements of the diagram
 	 *            will be considered; if false all pictogram elements will be
 	 *            considered
-	 * @return all (active) pictogram elements in the diagram, which have at
+	 * @return all (active) pictogram elements in the diagram which have at
 	 *         least one reference to one of the business objects
 	 */
 	List<PictogramElement> getPictogramElements(Diagram diagram, List<EObject> eObjects, boolean onlyActive);
 
 	/**
-	 * Checks existence and value of a property to a given pictogram element. It
-	 * is intended to use this property to be able to disinguish multiple
-	 * pictogram elements linked to same domain model element.
+	 * Checks existence and value of the link property to a given pictogram
+	 * element. It is intended to use this property to be able to disinguish
+	 * multiple pictogram elements linked to same domain model object.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
 	 * @param propertyValue
 	 *            the value to check against the property
-	 * @return true if property exists an has the given value; false if not
+	 * @return true if link property exists an has the given value; false if not
 	 */
 	boolean hasLinkProperty(PictogramElement pictogramElement, String propertyValue);
 
 	/**
-	 * Adds or modifies a property to a given pictogram element. It is intended
-	 * to use this property to be able to disinguish multiple pictogram elements
-	 * linked to same domain model element.
+	 * Adds or modifies the link property to a given pictogram element. It is
+	 * intended to use this property to be able to disinguish multiple pictogram
+	 * elements linked to same domain model object.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
 	 * @param propertyValue
-	 *            the new property value
+	 *            the new value for the link property
 	 */
 	void setLinkProperty(PictogramElement pictogramElement, String propertyValue);
 
 	/**
-	 * Gets the link property.
+	 * Gets the link property to a given pictogram element.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element

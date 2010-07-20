@@ -16,6 +16,9 @@
 package org.eclipse.graphiti.services;
 
 /**
+ * The interface ICreateService provides services for the creation of all
+ * available pictogram elements and graphics algorithm's. E.g. Shapes,
+ * Connections, Rectangles, ...
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.

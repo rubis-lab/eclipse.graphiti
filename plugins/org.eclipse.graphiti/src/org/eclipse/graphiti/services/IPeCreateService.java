@@ -27,6 +27,8 @@ import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**
+ * The interface IPeCreateService provides services for the creation of all
+ * available pictogram elements. E.g. Shapes, Connections, Anchors, ...
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
@@ -38,7 +40,7 @@ public interface IPeCreateService {
 	 * 
 	 * @param anchorContainer
 	 *            the anchors parent
-	 * @return the new anchor
+	 * @return the new box relative anchor
 	 */
 	BoxRelativeAnchor createBoxRelativeAnchor(AnchorContainer anchorContainer);
 
@@ -47,24 +49,23 @@ public interface IPeCreateService {
 	 * 
 	 * @param anchorContainer
 	 *            the anchors parent
-	 * @return the new anchor
+	 * @return the new chop box anchor
 	 */
 	ChopboxAnchor createChopboxAnchor(AnchorContainer anchorContainer);
 
 	/**
-	 * Creates the connection decorator.
+	 * Creates a connection decorator and adds it to the given connection.
 	 * 
 	 * @param connection
 	 *            the connection
 	 * @param active
-	 *            the active
+	 *            TRUE, if decorator is active, FALSE otherwise
 	 * @param location
-	 *            the location
+	 *            location of the decorator (must be between 0 and 1)
 	 * @param isRelative
 	 *            true if the decorator should be positioned relative to the
 	 *            connection's midpoint
-	 * @return the created ConnectionDecorator Create a ConnectionDecorator and
-	 *         add it to the given connection
+	 * @return the new connection decorator
 	 */
 	ConnectionDecorator createConnectionDecorator(Connection connection, boolean active, double location, boolean isRelative);
 
@@ -81,36 +82,32 @@ public interface IPeCreateService {
 	ContainerShape createContainerShape(ContainerShape parentContainerShape, boolean active);
 
 	/**
-	 * Creates the diagram.
+	 * Creates a diagram.
 	 * 
 	 * @param diagramTypeId
-	 *            the diagram type id
+	 *            the type id of the diagram
 	 * @param diagramName
-	 *            the diagram name
+	 *            the name of the diagram
 	 * @param snap
-	 *            the snap
-	 * @return the diagram
-	 * @see createDiagram(String diagramTypeId, String diagramName, int
+	 *            TRUE enables snap to grid
+	 * @return the new diagram
+	 * @see #createDiagram(String diagramTypeId, String diagramName, int
 	 *      gridUnit, boolean snap)
 	 */
 	Diagram createDiagram(String diagramTypeId, String diagramName, boolean snap);
 
 	/**
-	 * Create a diagram.
+	 * Creates a diagram.
 	 * 
 	 * @param diagramTypeId
-	 *            id of the diagram type
+	 *            the type id of the diagram
 	 * @param diagramName
-	 *            name of the diagram
+	 *            the name of the diagram
 	 * @param gridUnit
 	 *            grid size in pixel; if 0 then no grid will be drawn
 	 * @param snap
-	 *            true enables snap to grid
+	 *            TRUE enables snap to grid
 	 * @return the new diagram
-	 *         <p>
-	 *         The following values are set by default:
-	 *         <p>
-	 *         diagram.setShowGuides(true); <br>
 	 */
 	Diagram createDiagram(String diagramTypeId, String diagramName, int gridUnit, boolean snap);
 
@@ -119,7 +116,7 @@ public interface IPeCreateService {
 	 * 
 	 * @param anchorContainer
 	 *            the anchors parent
-	 * @return the new anchor
+	 * @return the new fix point anchor
 	 */
 	FixPointAnchor createFixPointAnchor(AnchorContainer anchorContainer);
 
@@ -128,17 +125,18 @@ public interface IPeCreateService {
 	 * 
 	 * @param diagram
 	 *            the diagram
-	 * @return the new connection
+	 * @return the new free form connection
 	 */
 	FreeFormConnection createFreeFormConnection(Diagram diagram);
 
 	/**
-	 * Creates a container shape inside the given parent container shape.
+	 * Creates a shape inside the given parent container shape.
 	 * 
 	 * @param parentContainerShape
-	 *            the shape's parent
+	 *            the parent container shape
 	 * @param active
-	 *            true if shape should be active (means selectable in editor)
+	 *            TRUE, if shape should be active (means selectable in the
+	 *            editor)
 	 * @return the new shape
 	 */
 	Shape createShape(ContainerShape parentContainerShape, boolean active);

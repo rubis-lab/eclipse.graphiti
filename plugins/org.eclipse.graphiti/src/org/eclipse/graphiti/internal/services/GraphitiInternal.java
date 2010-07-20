@@ -18,6 +18,8 @@ package org.eclipse.graphiti.internal.services;
 import org.eclipse.graphiti.internal.services.impl.EmfService;
 
 /**
+ * This class is the main access point to all internal Graphiti services.
+ * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
@@ -25,6 +27,11 @@ public final class GraphitiInternal {
 
 	private static IEmfService emfService = new EmfService();
 
+	/**
+	 * Returns the EMF service
+	 * 
+	 * @return the EMF service
+	 */
 	public static IEmfService getEmfService() {
 		return emfService;
 	}
