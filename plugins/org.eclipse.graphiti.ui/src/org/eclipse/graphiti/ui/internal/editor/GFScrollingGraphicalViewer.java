@@ -52,8 +52,6 @@ public class GFScrollingGraphicalViewer extends FixedScrollingGraphicalViewer {
 	/**
 	 * The diagram editor.
 	 */
-	private DiagramEditor diagramEditor = null;
-
 	/**
 	 * Constructs a ScrollingGraphicalViewer;.
 	 * 
@@ -61,7 +59,7 @@ public class GFScrollingGraphicalViewer extends FixedScrollingGraphicalViewer {
 	 *            the diagram editor
 	 */
 	public GFScrollingGraphicalViewer(DiagramEditor diagramEditor) {
-		setDiagramEditor(diagramEditor);
+		super(diagramEditor);
 	}
 
 	/**
@@ -160,148 +158,4 @@ public class GFScrollingGraphicalViewer extends FixedScrollingGraphicalViewer {
 
 		getGFWFigureCanvas().scrollSmoothTo(finalLocation.x, finalLocation.y);
 	}
-
-	@Override
-	public void select(EditPart editpart) {
-		IToolBehaviorProvider tbp = getDiagramEditor().getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-		boolean connectionPossible = tbp.isConnectionSelectionEnabled();
-	
-		if (connectionPossible) {
-			super.select(editpart);
-			return;
-		} else {
-			Object model = editpart.getModel();
-			if (!(model instanceof Connection)) {
-				super.select(editpart);
-				return;
-			}
-		}
-	}
-
-	@Override
-	public void setSelection(ISelection newSelection) {
-		IToolBehaviorProvider tbp = getDiagramEditor().getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-		boolean multiPossible = tbp.isMultiSelectionEnabled();
-		boolean connectionPossible = tbp.isConnectionSelectionEnabled();
-	
-		// default case
-		if (multiPossible && connectionPossible) {
-			super.setSelection(newSelection);
-			return;
-		}
-	
-		// multi possible but no connection
-		if (multiPossible && !connectionPossible) {
-			boolean change = false;
-			List<Object> l = new ArrayList<Object>();
-			if (newSelection instanceof IStructuredSelection) {
-				IStructuredSelection strSel = (IStructuredSelection) newSelection;
-				for (int i = 0; i < strSel.toArray().length; i++) {
-					Object o = strSel.toArray()[i];
-					if (o instanceof EditPart) {
-						EditPart editpart = (EditPart) o;
-						if (editpart.getModel() instanceof Connection) {
-							change = true;
-							continue;
-						}
-					}
-					l.add(o);
-				}
-			}
-			if (change) {
-				newSelection = new StructuredSelection(l);
-			}
-			super.setSelection(newSelection);
-			return;
-		}
-	
-		// connection possible but no multi select
-		if (!multiPossible && connectionPossible) {
-			if (newSelection instanceof IStructuredSelection) {
-				IStructuredSelection strSel = (IStructuredSelection) newSelection;
-				for (int i = 0; i < strSel.toArray().length; i++) {
-					Object o = strSel.toArray()[i];
-					if (o instanceof EditPart) {
-						EditPart ep = (EditPart) o;
-						select(ep);
-						return;
-					}
-				}
-				deselectAll();
-			}
-			return;
-		}
-	
-		// no multi and no connection selection
-		if (!multiPossible && !connectionPossible) {
-			if (newSelection instanceof IStructuredSelection) {
-				IStructuredSelection strSel = (IStructuredSelection) newSelection;
-				for (int i = 0; i < strSel.toArray().length; i++) {
-					Object o = strSel.toArray()[i];
-					if (o instanceof EditPart) {
-						EditPart ep = (EditPart) o;
-						if (!(ep.getModel() instanceof Connection)) {
-							select(ep);
-							return;
-						}
-					}
-				}
-				deselectAll();
-			}
-			return;
-		}
-	}
-
-	@Override
-	public void appendSelection(EditPart editpart) {
-		IToolBehaviorProvider tbp = getDiagramEditor().getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-		boolean multiPossible = tbp.isMultiSelectionEnabled();
-		boolean connectionPossible = tbp.isConnectionSelectionEnabled();
-	
-		// default case
-		if (multiPossible && connectionPossible) {
-			super.appendSelection(editpart);
-			return;
-		}
-	
-		// multi possible but no connection
-		if (multiPossible && !connectionPossible) {
-			Object model = editpart.getModel();
-			if (model instanceof Connection) {
-				return;
-			} else {
-				super.appendSelection(editpart);
-				return;
-			}
-		}
-	
-		// connection possible but no multi select
-		if (!multiPossible && connectionPossible) {
-			deselectAll();
-			super.appendSelection(editpart);
-			return;
-		}
-	
-		// no multi and no connection selection
-		if (!multiPossible && !connectionPossible) {
-			Object model = editpart.getModel();
-			if (model instanceof Connection) {
-				return;
-			} else {
-				deselectAll();
-				super.appendSelection(editpart);
-				return;
-			}
-		}
-	}
-
-	private void setDiagramEditor(DiagramEditor diagramEditor) {
-		this.diagramEditor = diagramEditor;
-	}
-
-	protected DiagramEditor getDiagramEditor() {
-		return diagramEditor;
-	}
-	
-	
 }

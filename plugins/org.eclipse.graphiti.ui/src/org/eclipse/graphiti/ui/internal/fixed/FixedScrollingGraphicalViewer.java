@@ -15,7 +15,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.fixed;
 
-import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.GraphitiScrollingGraphicalViewer;
 
 /**
  * The Class FixedScrollingGraphicalViewer.
@@ -23,7 +24,11 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class FixedScrollingGraphicalViewer extends ScrollingGraphicalViewer {
+public abstract class FixedScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer {
+
+	public FixedScrollingGraphicalViewer(DiagramEditor diagramEditor) {
+		super(diagramEditor);
+	}
 
 	/**
 	 * Creates the default root editpart. Called during construction.
