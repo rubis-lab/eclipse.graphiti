@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsSwitch.java,v 1.2 2010/07/06 11:08:51 mgorning Exp $
+ * $Id: PictogramsSwitch.java,v 1.3 2010/07/21 12:34:45 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.util;
 
@@ -390,6 +390,30 @@ public class PictogramsSwitch<T> {
 			case PictogramsPackage.ABSTRACT_STYLE: {
 				AbstractStyle abstractStyle = (AbstractStyle)theEObject;
 				T result = caseAbstractStyle(abstractStyle);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PictogramsPackage.GRADIENT_COLORED_LOCATION: {
+				GradientColoredLocation gradientColoredLocation = (GradientColoredLocation)theEObject;
+				T result = caseGradientColoredLocation(gradientColoredLocation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PictogramsPackage.GRADIENT_COLORED_AREA: {
+				GradientColoredArea gradientColoredArea = (GradientColoredArea)theEObject;
+				T result = caseGradientColoredArea(gradientColoredArea);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PictogramsPackage.GRADIENT_COLORED_AREAS: {
+				GradientColoredAreas gradientColoredAreas = (GradientColoredAreas)theEObject;
+				T result = caseGradientColoredAreas(gradientColoredAreas);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PictogramsPackage.ADAPTED_GRADIENT_COLORED_AREAS: {
+				AdaptedGradientColoredAreas adaptedGradientColoredAreas = (AdaptedGradientColoredAreas)theEObject;
+				T result = caseAdaptedGradientColoredAreas(adaptedGradientColoredAreas);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -874,6 +898,66 @@ public class PictogramsSwitch<T> {
 	 * @generated
 	 */
 	public T caseAbstractStyle(AbstractStyle object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gradient Colored Location</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gradient Colored Location</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGradientColoredLocation(GradientColoredLocation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gradient Colored Area</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gradient Colored Area</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGradientColoredArea(GradientColoredArea object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gradient Colored Areas</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gradient Colored Areas</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGradientColoredAreas(GradientColoredAreas object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Adapted Gradient Colored Areas</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Adapted Gradient Colored Areas</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAdaptedGradientColoredAreas(AdaptedGradientColoredAreas object) {
 		return null;
 	}
 

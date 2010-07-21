@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsPackage.java,v 1.3 2010/07/08 09:27:59 mgorning Exp $
+ * $Id: PictogramsPackage.java,v 1.4 2010/07/21 12:34:45 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
@@ -3085,13 +3085,13 @@ public interface PictogramsPackage extends EPackage {
 	int RENDERING_STYLE = 22;
 
 	/**
-	 * The feature id for the '<em><b>Predefined Style Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Adapted Gradient Colored Areas</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RENDERING_STYLE__PREDEFINED_STYLE_ID = 0;
+	int RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS = 0;
 
 	/**
 	 * The number of structural features of the '<em>Rendering Style</em>' class.
@@ -4018,6 +4018,163 @@ public interface PictogramsPackage extends EPackage {
 	int ABSTRACT_STYLE_FEATURE_COUNT = 8;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.GradientColoredLocationImpl <em>Gradient Colored Location</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.GradientColoredLocationImpl
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getGradientColoredLocation()
+	 * @generated
+	 */
+	int GRADIENT_COLORED_LOCATION = 32;
+
+	/**
+	 * The feature id for the '<em><b>Location Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_COLORED_LOCATION__LOCATION_TYPE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Location Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_COLORED_LOCATION__LOCATION_VALUE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Color</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_COLORED_LOCATION__COLOR = 2;
+
+	/**
+	 * The number of structural features of the '<em>Gradient Colored Location</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_COLORED_LOCATION_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.GradientColoredAreaImpl <em>Gradient Colored Area</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.GradientColoredAreaImpl
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getGradientColoredArea()
+	 * @generated
+	 */
+	int GRADIENT_COLORED_AREA = 33;
+
+	/**
+	 * The feature id for the '<em><b>Start</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_COLORED_AREA__START = 0;
+
+	/**
+	 * The feature id for the '<em><b>End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_COLORED_AREA__END = 1;
+
+	/**
+	 * The number of structural features of the '<em>Gradient Colored Area</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_COLORED_AREA_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.GradientColoredAreasImpl <em>Gradient Colored Areas</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.GradientColoredAreasImpl
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getGradientColoredAreas()
+	 * @generated
+	 */
+	int GRADIENT_COLORED_AREAS = 34;
+
+	/**
+	 * The feature id for the '<em><b>Gradient Color</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_COLORED_AREAS__GRADIENT_COLOR = 0;
+
+	/**
+	 * The feature id for the '<em><b>Style Adaption</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_COLORED_AREAS__STYLE_ADAPTION = 1;
+
+	/**
+	 * The number of structural features of the '<em>Gradient Colored Areas</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_COLORED_AREAS_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.AdaptedGradientColoredAreasImpl <em>Adapted Gradient Colored Areas</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.AdaptedGradientColoredAreasImpl
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getAdaptedGradientColoredAreas()
+	 * @generated
+	 */
+	int ADAPTED_GRADIENT_COLORED_AREAS = 35;
+
+	/**
+	 * The feature id for the '<em><b>Defined Style Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADAPTED_GRADIENT_COLORED_AREAS__DEFINED_STYLE_ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Adapted Gradient Colored Areas</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADAPTED_GRADIENT_COLORED_AREAS__ADAPTED_GRADIENT_COLORED_AREAS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Adapted Gradient Colored Areas</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADAPTED_GRADIENT_COLORED_AREAS_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.LineStyle <em>Line Style</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4025,7 +4182,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getLineStyle()
 	 * @generated
 	 */
-	int LINE_STYLE = 32;
+	int LINE_STYLE = 36;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.Orientation <em>Orientation</em>}' enum.
@@ -4035,7 +4192,18 @@ public interface PictogramsPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getOrientation()
 	 * @generated
 	 */
-	int ORIENTATION = 33;
+	int ORIENTATION = 37;
+
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.LocationType <em>Location Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.graphiti.mm.pictograms.LocationType
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getLocationType()
+	 * @generated
+	 */
+	int LOCATION_TYPE = 38;
 
 
 	/**
@@ -4786,15 +4954,15 @@ public interface PictogramsPackage extends EPackage {
 	EClass getRenderingStyle();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.pictograms.RenderingStyle#getPredefinedStyleId <em>Predefined Style Id</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.graphiti.mm.pictograms.RenderingStyle#getAdaptedGradientColoredAreas <em>Adapted Gradient Colored Areas</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Predefined Style Id</em>'.
-	 * @see org.eclipse.graphiti.mm.pictograms.RenderingStyle#getPredefinedStyleId()
+	 * @return the meta object for the containment reference '<em>Adapted Gradient Colored Areas</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.RenderingStyle#getAdaptedGradientColoredAreas()
 	 * @see #getRenderingStyle()
 	 * @generated
 	 */
-	EAttribute getRenderingStyle_PredefinedStyleId();
+	EReference getRenderingStyle_AdaptedGradientColoredAreas();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.Image <em>Image</em>}'.
@@ -5217,6 +5385,145 @@ public interface PictogramsPackage extends EPackage {
 	EAttribute getAbstractStyle_Transparency();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredLocation <em>Gradient Colored Location</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gradient Colored Location</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredLocation
+	 * @generated
+	 */
+	EClass getGradientColoredLocation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredLocation#getLocationType <em>Location Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Location Type</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredLocation#getLocationType()
+	 * @see #getGradientColoredLocation()
+	 * @generated
+	 */
+	EAttribute getGradientColoredLocation_LocationType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredLocation#getLocationValue <em>Location Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Location Value</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredLocation#getLocationValue()
+	 * @see #getGradientColoredLocation()
+	 * @generated
+	 */
+	EAttribute getGradientColoredLocation_LocationValue();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredLocation#getColor <em>Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Color</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredLocation#getColor()
+	 * @see #getGradientColoredLocation()
+	 * @generated
+	 */
+	EReference getGradientColoredLocation_Color();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredArea <em>Gradient Colored Area</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gradient Colored Area</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredArea
+	 * @generated
+	 */
+	EClass getGradientColoredArea();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredArea#getStart <em>Start</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Start</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredArea#getStart()
+	 * @see #getGradientColoredArea()
+	 * @generated
+	 */
+	EReference getGradientColoredArea_Start();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredArea#getEnd <em>End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>End</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredArea#getEnd()
+	 * @see #getGradientColoredArea()
+	 * @generated
+	 */
+	EReference getGradientColoredArea_End();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredAreas <em>Gradient Colored Areas</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gradient Colored Areas</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredAreas
+	 * @generated
+	 */
+	EClass getGradientColoredAreas();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredAreas#getGradientColor <em>Gradient Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Gradient Color</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredAreas#getGradientColor()
+	 * @see #getGradientColoredAreas()
+	 * @generated
+	 */
+	EReference getGradientColoredAreas_GradientColor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredAreas#getStyleAdaption <em>Style Adaption</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Style Adaption</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredAreas#getStyleAdaption()
+	 * @see #getGradientColoredAreas()
+	 * @generated
+	 */
+	EAttribute getGradientColoredAreas_StyleAdaption();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas <em>Adapted Gradient Colored Areas</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Adapted Gradient Colored Areas</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas
+	 * @generated
+	 */
+	EClass getAdaptedGradientColoredAreas();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas#getDefinedStyleId <em>Defined Style Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Defined Style Id</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas#getDefinedStyleId()
+	 * @see #getAdaptedGradientColoredAreas()
+	 * @generated
+	 */
+	EAttribute getAdaptedGradientColoredAreas_DefinedStyleId();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas#getAdaptedGradientColoredAreas <em>Adapted Gradient Colored Areas</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Adapted Gradient Colored Areas</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas#getAdaptedGradientColoredAreas()
+	 * @see #getAdaptedGradientColoredAreas()
+	 * @generated
+	 */
+	EReference getAdaptedGradientColoredAreas_AdaptedGradientColoredAreas();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.graphiti.mm.pictograms.LineStyle <em>Line Style</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5235,6 +5542,16 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getOrientation();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.graphiti.mm.pictograms.LocationType <em>Location Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Location Type</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.LocationType
+	 * @generated
+	 */
+	EEnum getLocationType();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -5865,12 +6182,12 @@ public interface PictogramsPackage extends EPackage {
 		EClass RENDERING_STYLE = eINSTANCE.getRenderingStyle();
 
 		/**
-		 * The meta object literal for the '<em><b>Predefined Style Id</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Adapted Gradient Colored Areas</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute RENDERING_STYLE__PREDEFINED_STYLE_ID = eINSTANCE.getRenderingStyle_PredefinedStyleId();
+		EReference RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS = eINSTANCE.getRenderingStyle_AdaptedGradientColoredAreas();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.ImageImpl <em>Image</em>}' class.
@@ -6203,6 +6520,118 @@ public interface PictogramsPackage extends EPackage {
 		EAttribute ABSTRACT_STYLE__TRANSPARENCY = eINSTANCE.getAbstractStyle_Transparency();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.GradientColoredLocationImpl <em>Gradient Colored Location</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.GradientColoredLocationImpl
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getGradientColoredLocation()
+		 * @generated
+		 */
+		EClass GRADIENT_COLORED_LOCATION = eINSTANCE.getGradientColoredLocation();
+
+		/**
+		 * The meta object literal for the '<em><b>Location Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRADIENT_COLORED_LOCATION__LOCATION_TYPE = eINSTANCE.getGradientColoredLocation_LocationType();
+
+		/**
+		 * The meta object literal for the '<em><b>Location Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRADIENT_COLORED_LOCATION__LOCATION_VALUE = eINSTANCE.getGradientColoredLocation_LocationValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Color</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GRADIENT_COLORED_LOCATION__COLOR = eINSTANCE.getGradientColoredLocation_Color();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.GradientColoredAreaImpl <em>Gradient Colored Area</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.GradientColoredAreaImpl
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getGradientColoredArea()
+		 * @generated
+		 */
+		EClass GRADIENT_COLORED_AREA = eINSTANCE.getGradientColoredArea();
+
+		/**
+		 * The meta object literal for the '<em><b>Start</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GRADIENT_COLORED_AREA__START = eINSTANCE.getGradientColoredArea_Start();
+
+		/**
+		 * The meta object literal for the '<em><b>End</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GRADIENT_COLORED_AREA__END = eINSTANCE.getGradientColoredArea_End();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.GradientColoredAreasImpl <em>Gradient Colored Areas</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.GradientColoredAreasImpl
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getGradientColoredAreas()
+		 * @generated
+		 */
+		EClass GRADIENT_COLORED_AREAS = eINSTANCE.getGradientColoredAreas();
+
+		/**
+		 * The meta object literal for the '<em><b>Gradient Color</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GRADIENT_COLORED_AREAS__GRADIENT_COLOR = eINSTANCE.getGradientColoredAreas_GradientColor();
+
+		/**
+		 * The meta object literal for the '<em><b>Style Adaption</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRADIENT_COLORED_AREAS__STYLE_ADAPTION = eINSTANCE.getGradientColoredAreas_StyleAdaption();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.AdaptedGradientColoredAreasImpl <em>Adapted Gradient Colored Areas</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.AdaptedGradientColoredAreasImpl
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getAdaptedGradientColoredAreas()
+		 * @generated
+		 */
+		EClass ADAPTED_GRADIENT_COLORED_AREAS = eINSTANCE.getAdaptedGradientColoredAreas();
+
+		/**
+		 * The meta object literal for the '<em><b>Defined Style Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADAPTED_GRADIENT_COLORED_AREAS__DEFINED_STYLE_ID = eINSTANCE.getAdaptedGradientColoredAreas_DefinedStyleId();
+
+		/**
+		 * The meta object literal for the '<em><b>Adapted Gradient Colored Areas</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ADAPTED_GRADIENT_COLORED_AREAS__ADAPTED_GRADIENT_COLORED_AREAS = eINSTANCE.getAdaptedGradientColoredAreas_AdaptedGradientColoredAreas();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.LineStyle <em>Line Style</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6221,6 +6650,16 @@ public interface PictogramsPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum ORIENTATION = eINSTANCE.getOrientation();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.LocationType <em>Location Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.graphiti.mm.pictograms.LocationType
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getLocationType()
+		 * @generated
+		 */
+		EEnum LOCATION_TYPE = eINSTANCE.getLocationType();
 
 	}
 

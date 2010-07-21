@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsFactory.java,v 1.2 2010/07/06 11:08:50 mgorning Exp $
+ * $Id: PictogramsFactory.java,v 1.3 2010/07/21 12:34:45 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
@@ -241,6 +241,42 @@ public interface PictogramsFactory extends EFactory {
 	 * @generated
 	 */
 	Style createStyle();
+
+	/**
+	 * Returns a new object of class '<em>Gradient Colored Location</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gradient Colored Location</em>'.
+	 * @generated
+	 */
+	GradientColoredLocation createGradientColoredLocation();
+
+	/**
+	 * Returns a new object of class '<em>Gradient Colored Area</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gradient Colored Area</em>'.
+	 * @generated
+	 */
+	GradientColoredArea createGradientColoredArea();
+
+	/**
+	 * Returns a new object of class '<em>Gradient Colored Areas</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gradient Colored Areas</em>'.
+	 * @generated
+	 */
+	GradientColoredAreas createGradientColoredAreas();
+
+	/**
+	 * Returns a new object of class '<em>Adapted Gradient Colored Areas</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Adapted Gradient Colored Areas</em>'.
+	 * @generated
+	 */
+	AdaptedGradientColoredAreas createAdaptedGradientColoredAreas();
 
 	/**
 	 * Returns the package supported by this factory.

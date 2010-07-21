@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsPackageImpl.java,v 1.3 2010/07/08 09:27:59 mgorning Exp $
+ * $Id: PictogramsPackageImpl.java,v 1.4 2010/07/21 12:34:45 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
@@ -28,6 +28,7 @@ import org.eclipse.graphiti.mm.links.LinksPackage;
 import org.eclipse.graphiti.mm.links.impl.LinksPackageImpl;
 import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
 import org.eclipse.graphiti.mm.pictograms.AbstractText;
+import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
@@ -40,10 +41,14 @@ import org.eclipse.graphiti.mm.pictograms.Ellipse;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.Font;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredAreas;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredLocation;
 import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.pictograms.Image;
 import org.eclipse.graphiti.mm.pictograms.LineStyle;
+import org.eclipse.graphiti.mm.pictograms.LocationType;
 import org.eclipse.graphiti.mm.pictograms.ManhattanConnection;
 import org.eclipse.graphiti.mm.pictograms.MultiText;
 import org.eclipse.graphiti.mm.pictograms.Orientation;
@@ -299,6 +304,34 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass gradientColoredLocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gradientColoredAreaEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gradientColoredAreasEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass adaptedGradientColoredAreasEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum lineStyleEEnum = null;
 
 	/**
@@ -307,6 +340,13 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * @generated
 	 */
 	private EEnum orientationEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum locationTypeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1012,8 +1052,8 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRenderingStyle_PredefinedStyleId() {
-		return (EAttribute)renderingStyleEClass.getEStructuralFeatures().get(0);
+	public EReference getRenderingStyle_AdaptedGradientColoredAreas() {
+		return (EReference)renderingStyleEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1372,6 +1412,123 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGradientColoredLocation() {
+		return gradientColoredLocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGradientColoredLocation_LocationType() {
+		return (EAttribute)gradientColoredLocationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGradientColoredLocation_LocationValue() {
+		return (EAttribute)gradientColoredLocationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGradientColoredLocation_Color() {
+		return (EReference)gradientColoredLocationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGradientColoredArea() {
+		return gradientColoredAreaEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGradientColoredArea_Start() {
+		return (EReference)gradientColoredAreaEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGradientColoredArea_End() {
+		return (EReference)gradientColoredAreaEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGradientColoredAreas() {
+		return gradientColoredAreasEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGradientColoredAreas_GradientColor() {
+		return (EReference)gradientColoredAreasEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGradientColoredAreas_StyleAdaption() {
+		return (EAttribute)gradientColoredAreasEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAdaptedGradientColoredAreas() {
+		return adaptedGradientColoredAreasEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAdaptedGradientColoredAreas_DefinedStyleId() {
+		return (EAttribute)adaptedGradientColoredAreasEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAdaptedGradientColoredAreas_AdaptedGradientColoredAreas() {
+		return (EReference)adaptedGradientColoredAreasEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getLineStyle() {
 		return lineStyleEEnum;
 	}
@@ -1383,6 +1540,15 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 */
 	public EEnum getOrientation() {
 		return orientationEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getLocationType() {
+		return locationTypeEEnum;
 	}
 
 	/**
@@ -1505,7 +1671,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		createEAttribute(fontEClass, FONT__BOLD);
 
 		renderingStyleEClass = createEClass(RENDERING_STYLE);
-		createEAttribute(renderingStyleEClass, RENDERING_STYLE__PREDEFINED_STYLE_ID);
+		createEReference(renderingStyleEClass, RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS);
 
 		imageEClass = createEClass(IMAGE);
 		createEAttribute(imageEClass, IMAGE__ID);
@@ -1555,9 +1721,27 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		createEReference(abstractStyleEClass, ABSTRACT_STYLE__RENDERING_STYLE);
 		createEAttribute(abstractStyleEClass, ABSTRACT_STYLE__TRANSPARENCY);
 
+		gradientColoredLocationEClass = createEClass(GRADIENT_COLORED_LOCATION);
+		createEAttribute(gradientColoredLocationEClass, GRADIENT_COLORED_LOCATION__LOCATION_TYPE);
+		createEAttribute(gradientColoredLocationEClass, GRADIENT_COLORED_LOCATION__LOCATION_VALUE);
+		createEReference(gradientColoredLocationEClass, GRADIENT_COLORED_LOCATION__COLOR);
+
+		gradientColoredAreaEClass = createEClass(GRADIENT_COLORED_AREA);
+		createEReference(gradientColoredAreaEClass, GRADIENT_COLORED_AREA__START);
+		createEReference(gradientColoredAreaEClass, GRADIENT_COLORED_AREA__END);
+
+		gradientColoredAreasEClass = createEClass(GRADIENT_COLORED_AREAS);
+		createEReference(gradientColoredAreasEClass, GRADIENT_COLORED_AREAS__GRADIENT_COLOR);
+		createEAttribute(gradientColoredAreasEClass, GRADIENT_COLORED_AREAS__STYLE_ADAPTION);
+
+		adaptedGradientColoredAreasEClass = createEClass(ADAPTED_GRADIENT_COLORED_AREAS);
+		createEAttribute(adaptedGradientColoredAreasEClass, ADAPTED_GRADIENT_COLORED_AREAS__DEFINED_STYLE_ID);
+		createEReference(adaptedGradientColoredAreasEClass, ADAPTED_GRADIENT_COLORED_AREAS__ADAPTED_GRADIENT_COLORED_AREAS);
+
 		// Create enums
 		lineStyleEEnum = createEEnum(LINE_STYLE);
 		orientationEEnum = createEEnum(ORIENTATION);
+		locationTypeEEnum = createEEnum(LOCATION_TYPE);
 	}
 
 	/**
@@ -1715,7 +1899,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEAttribute(getFont_Bold(), ecorePackage.getEBoolean(), "bold", null, 1, 1, Font.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(renderingStyleEClass, RenderingStyle.class, "RenderingStyle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRenderingStyle_PredefinedStyleId(), ecorePackage.getEString(), "predefinedStyleId", null, 1, 1, RenderingStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getRenderingStyle_AdaptedGradientColoredAreas(), this.getAdaptedGradientColoredAreas(), null, "adaptedGradientColoredAreas", null, 0, 1, RenderingStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(imageEClass, Image.class, "Image", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImage_Id(), ecorePackage.getEString(), "id", null, 1, 1, Image.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -1738,7 +1922,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEClass(multiTextEClass, MultiText.class, "MultiText", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(propertyContainerEClass, PropertyContainer.class, "PropertyContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPropertyContainer_Properties(), this.getProperty(), null, "properties", null, 0, -1, PropertyContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getPropertyContainer_Properties(), this.getProperty(), null, "properties", null, 0, -1, PropertyContainer.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(styleContainerEClass, StyleContainer.class, "StyleContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStyleContainer_Styles(), this.getStyle(), this.getStyle_StyleContainer(), "styles", null, 0, -1, StyleContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -1765,6 +1949,23 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEReference(getAbstractStyle_RenderingStyle(), this.getRenderingStyle(), null, "renderingStyle", null, 0, 1, AbstractStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getAbstractStyle_Transparency(), ecorePackage.getEDoubleObject(), "transparency", "0", 0, 1, AbstractStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
+		initEClass(gradientColoredLocationEClass, GradientColoredLocation.class, "GradientColoredLocation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGradientColoredLocation_LocationType(), this.getLocationType(), "locationType", null, 1, 1, GradientColoredLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGradientColoredLocation_LocationValue(), ecorePackage.getEIntegerObject(), "locationValue", null, 1, 1, GradientColoredLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGradientColoredLocation_Color(), theDatatypesPackage.getColor(), null, "color", null, 1, 1, GradientColoredLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(gradientColoredAreaEClass, GradientColoredArea.class, "GradientColoredArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGradientColoredArea_Start(), this.getGradientColoredLocation(), null, "start", null, 0, 1, GradientColoredArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGradientColoredArea_End(), this.getGradientColoredLocation(), null, "end", null, 0, 1, GradientColoredArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(gradientColoredAreasEClass, GradientColoredAreas.class, "GradientColoredAreas", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGradientColoredAreas_GradientColor(), this.getGradientColoredArea(), null, "gradientColor", null, 0, -1, GradientColoredAreas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGradientColoredAreas_StyleAdaption(), ecorePackage.getEIntegerObject(), "styleAdaption", null, 0, 1, GradientColoredAreas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(adaptedGradientColoredAreasEClass, AdaptedGradientColoredAreas.class, "AdaptedGradientColoredAreas", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAdaptedGradientColoredAreas_DefinedStyleId(), ecorePackage.getEString(), "definedStyleId", null, 0, 1, AdaptedGradientColoredAreas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAdaptedGradientColoredAreas_AdaptedGradientColoredAreas(), this.getGradientColoredAreas(), null, "adaptedGradientColoredAreas", null, 0, -1, AdaptedGradientColoredAreas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(lineStyleEEnum, LineStyle.class, "LineStyle");
 		addEEnumLiteral(lineStyleEEnum, LineStyle.SOLID);
@@ -1782,6 +1983,11 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		addEEnumLiteral(orientationEEnum, Orientation.ALIGNMENT_BOTTOM);
 		addEEnumLiteral(orientationEEnum, Orientation.ALIGNMENT_MIDDLE);
 		addEEnumLiteral(orientationEEnum, Orientation.UNSPECIFIED);
+
+		initEEnum(locationTypeEEnum, LocationType.class, "LocationType");
+		addEEnumLiteral(locationTypeEEnum, LocationType.LOCATION_TYPE_RELATIVE);
+		addEEnumLiteral(locationTypeEEnum, LocationType.LOCATION_TYPE_ABSOLUTE_START);
+		addEEnumLiteral(locationTypeEEnum, LocationType.LOCATION_TYPE_ABSOLUTE_END);
 
 		// Create resource
 		createResource(eNS_URI);

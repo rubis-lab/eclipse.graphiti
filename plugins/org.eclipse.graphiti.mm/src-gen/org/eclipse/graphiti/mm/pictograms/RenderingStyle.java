@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: RenderingStyle.java,v 1.1 2010/06/16 13:24:53 mwenz Exp $
+ * $Id: RenderingStyle.java,v 1.2 2010/07/21 12:34:45 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.graphiti.mm.pictograms.RenderingStyle#getPredefinedStyleId <em>Predefined Style Id</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.pictograms.RenderingStyle#getAdaptedGradientColoredAreas <em>Adapted Gradient Colored Areas</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,29 +36,29 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface RenderingStyle extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Predefined Style Id</b></em>' attribute.
+	 * Returns the value of the '<em><b>Adapted Gradient Colored Areas</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Predefined Style Id</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Adapted Gradient Colored Areas</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Predefined Style Id</em>' attribute.
-	 * @see #setPredefinedStyleId(String)
-	 * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getRenderingStyle_PredefinedStyleId()
-	 * @model unique="false" required="true" ordered="false"
+	 * @return the value of the '<em>Adapted Gradient Colored Areas</em>' containment reference.
+	 * @see #setAdaptedGradientColoredAreas(AdaptedGradientColoredAreas)
+	 * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getRenderingStyle_AdaptedGradientColoredAreas()
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
-	String getPredefinedStyleId();
+	AdaptedGradientColoredAreas getAdaptedGradientColoredAreas();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.pictograms.RenderingStyle#getPredefinedStyleId <em>Predefined Style Id</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.graphiti.mm.pictograms.RenderingStyle#getAdaptedGradientColoredAreas <em>Adapted Gradient Colored Areas</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Predefined Style Id</em>' attribute.
-	 * @see #getPredefinedStyleId()
+	 * @param value the new value of the '<em>Adapted Gradient Colored Areas</em>' containment reference.
+	 * @see #getAdaptedGradientColoredAreas()
 	 * @generated
 	 */
-	void setPredefinedStyleId(String value);
+	void setAdaptedGradientColoredAreas(AdaptedGradientColoredAreas value);
 
 } // RenderingStyle

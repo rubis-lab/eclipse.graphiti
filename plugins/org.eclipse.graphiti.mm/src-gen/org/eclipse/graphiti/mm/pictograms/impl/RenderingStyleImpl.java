@@ -12,17 +12,17 @@
  * 
  * </copyright>
  *
- * $Id: RenderingStyleImpl.java,v 1.1 2010/06/16 13:24:59 mwenz Exp $
+ * $Id: RenderingStyleImpl.java,v 1.2 2010/07/21 12:34:45 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
+import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.mm.pictograms.RenderingStyle;
 
@@ -33,7 +33,7 @@ import org.eclipse.graphiti.mm.pictograms.RenderingStyle;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.RenderingStyleImpl#getPredefinedStyleId <em>Predefined Style Id</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.RenderingStyleImpl#getAdaptedGradientColoredAreas <em>Adapted Gradient Colored Areas</em>}</li>
  * </ul>
  * </p>
  *
@@ -41,24 +41,14 @@ import org.eclipse.graphiti.mm.pictograms.RenderingStyle;
  */
 public class RenderingStyleImpl extends EObjectImpl implements RenderingStyle {
 	/**
-	 * The default value of the '{@link #getPredefinedStyleId() <em>Predefined Style Id</em>}' attribute.
+	 * The cached value of the '{@link #getAdaptedGradientColoredAreas() <em>Adapted Gradient Colored Areas</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPredefinedStyleId()
+	 * @see #getAdaptedGradientColoredAreas()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String PREDEFINED_STYLE_ID_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getPredefinedStyleId() <em>Predefined Style Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPredefinedStyleId()
-	 * @generated
-	 * @ordered
-	 */
-	protected String predefinedStyleId = PREDEFINED_STYLE_ID_EDEFAULT;
+	protected AdaptedGradientColoredAreas adaptedGradientColoredAreas;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -84,8 +74,22 @@ public class RenderingStyleImpl extends EObjectImpl implements RenderingStyle {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getPredefinedStyleId() {
-		return predefinedStyleId;
+	public AdaptedGradientColoredAreas getAdaptedGradientColoredAreas() {
+		if (adaptedGradientColoredAreas != null && adaptedGradientColoredAreas.eIsProxy()) {
+			InternalEObject oldAdaptedGradientColoredAreas = (InternalEObject)adaptedGradientColoredAreas;
+			adaptedGradientColoredAreas = (AdaptedGradientColoredAreas)eResolveProxy(oldAdaptedGradientColoredAreas);
+			if (adaptedGradientColoredAreas != oldAdaptedGradientColoredAreas) {
+				InternalEObject newAdaptedGradientColoredAreas = (InternalEObject)adaptedGradientColoredAreas;
+				NotificationChain msgs = oldAdaptedGradientColoredAreas.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS, null, null);
+				if (newAdaptedGradientColoredAreas.eInternalContainer() == null) {
+					msgs = newAdaptedGradientColoredAreas.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS, null, msgs);
+				}
+				if (msgs != null) msgs.dispatch();
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS, oldAdaptedGradientColoredAreas, adaptedGradientColoredAreas));
+			}
+		}
+		return adaptedGradientColoredAreas;
 	}
 
 	/**
@@ -93,11 +97,56 @@ public class RenderingStyleImpl extends EObjectImpl implements RenderingStyle {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPredefinedStyleId(String newPredefinedStyleId) {
-		String oldPredefinedStyleId = predefinedStyleId;
-		predefinedStyleId = newPredefinedStyleId;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PictogramsPackage.RENDERING_STYLE__PREDEFINED_STYLE_ID, oldPredefinedStyleId, predefinedStyleId));
+	public AdaptedGradientColoredAreas basicGetAdaptedGradientColoredAreas() {
+		return adaptedGradientColoredAreas;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAdaptedGradientColoredAreas(AdaptedGradientColoredAreas newAdaptedGradientColoredAreas, NotificationChain msgs) {
+		AdaptedGradientColoredAreas oldAdaptedGradientColoredAreas = adaptedGradientColoredAreas;
+		adaptedGradientColoredAreas = newAdaptedGradientColoredAreas;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS, oldAdaptedGradientColoredAreas, newAdaptedGradientColoredAreas);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAdaptedGradientColoredAreas(AdaptedGradientColoredAreas newAdaptedGradientColoredAreas) {
+		if (newAdaptedGradientColoredAreas != adaptedGradientColoredAreas) {
+			NotificationChain msgs = null;
+			if (adaptedGradientColoredAreas != null)
+				msgs = ((InternalEObject)adaptedGradientColoredAreas).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS, null, msgs);
+			if (newAdaptedGradientColoredAreas != null)
+				msgs = ((InternalEObject)newAdaptedGradientColoredAreas).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS, null, msgs);
+			msgs = basicSetAdaptedGradientColoredAreas(newAdaptedGradientColoredAreas, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS, newAdaptedGradientColoredAreas, newAdaptedGradientColoredAreas));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS:
+				return basicSetAdaptedGradientColoredAreas(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -108,8 +157,9 @@ public class RenderingStyleImpl extends EObjectImpl implements RenderingStyle {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PictogramsPackage.RENDERING_STYLE__PREDEFINED_STYLE_ID:
-				return getPredefinedStyleId();
+			case PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS:
+				if (resolve) return getAdaptedGradientColoredAreas();
+				return basicGetAdaptedGradientColoredAreas();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -122,8 +172,8 @@ public class RenderingStyleImpl extends EObjectImpl implements RenderingStyle {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PictogramsPackage.RENDERING_STYLE__PREDEFINED_STYLE_ID:
-				setPredefinedStyleId((String)newValue);
+			case PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS:
+				setAdaptedGradientColoredAreas((AdaptedGradientColoredAreas)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -137,8 +187,8 @@ public class RenderingStyleImpl extends EObjectImpl implements RenderingStyle {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PictogramsPackage.RENDERING_STYLE__PREDEFINED_STYLE_ID:
-				setPredefinedStyleId(PREDEFINED_STYLE_ID_EDEFAULT);
+			case PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS:
+				setAdaptedGradientColoredAreas((AdaptedGradientColoredAreas)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -152,26 +202,10 @@ public class RenderingStyleImpl extends EObjectImpl implements RenderingStyle {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PictogramsPackage.RENDERING_STYLE__PREDEFINED_STYLE_ID:
-				return PREDEFINED_STYLE_ID_EDEFAULT == null ? predefinedStyleId != null : !PREDEFINED_STYLE_ID_EDEFAULT.equals(predefinedStyleId);
+			case PictogramsPackage.RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS:
+				return adaptedGradientColoredAreas != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (predefinedStyleId: ");
-		result.append(predefinedStyleId);
-		result.append(')');
-		return result.toString();
 	}
 
 } //RenderingStyleImpl

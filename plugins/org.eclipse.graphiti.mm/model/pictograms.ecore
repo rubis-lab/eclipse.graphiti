@@ -152,8 +152,8 @@
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RenderingStyle">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="predefinedStyleId" ordered="false"
-        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="adaptedGradientColoredAreas"
+        eType="#//AdaptedGradientColoredAreas" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Image" eSuperTypes="#//GraphicsAlgorithm">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" ordered="false" unique="false"
@@ -187,7 +187,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="MultiText" eSuperTypes="#//AbstractText"/>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyContainer" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" ordered="false"
-        upperBound="-1" eType="#//Property" containment="true"/>
+        upperBound="-1" eType="#//Property" transient="true" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StyleContainer" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="styles" ordered="false"
@@ -236,5 +236,34 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="transparency" ordered="false"
         unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"
         defaultValueLiteral="0"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LocationType">
+    <eLiterals name="LOCATION_TYPE_RELATIVE" value="1"/>
+    <eLiterals name="LOCATION_TYPE_ABSOLUTE_START" value="2"/>
+    <eLiterals name="LOCATION_TYPE_ABSOLUTE_END" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GradientColoredLocation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="locationType" lowerBound="1"
+        eType="#//LocationType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="locationValue" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="color" lowerBound="1" eType="ecore:EClass datatypes.ecore#//Color"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GradientColoredArea">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="start" eType="#//GradientColoredLocation"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="end" eType="#//GradientColoredLocation"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GradientColoredAreas">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="gradientColor" upperBound="-1"
+        eType="#//GradientColoredArea" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="styleAdaption" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AdaptedGradientColoredAreas">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="definedStyleId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="adaptedGradientColoredAreas"
+        upperBound="-1" eType="#//GradientColoredAreas" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

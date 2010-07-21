@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsFactoryImpl.java,v 1.2 2010/07/06 11:08:51 mgorning Exp $
+ * $Id: PictogramsFactoryImpl.java,v 1.3 2010/07/21 12:34:45 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
@@ -94,6 +94,10 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 			case PictogramsPackage.PLATFORM_GRAPHICS_ALGORITHM: return createPlatformGraphicsAlgorithm();
 			case PictogramsPackage.MULTI_TEXT: return createMultiText();
 			case PictogramsPackage.STYLE: return createStyle();
+			case PictogramsPackage.GRADIENT_COLORED_LOCATION: return createGradientColoredLocation();
+			case PictogramsPackage.GRADIENT_COLORED_AREA: return createGradientColoredArea();
+			case PictogramsPackage.GRADIENT_COLORED_AREAS: return createGradientColoredAreas();
+			case PictogramsPackage.ADAPTED_GRADIENT_COLORED_AREAS: return createAdaptedGradientColoredAreas();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -111,6 +115,8 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 				return createLineStyleFromString(eDataType, initialValue);
 			case PictogramsPackage.ORIENTATION:
 				return createOrientationFromString(eDataType, initialValue);
+			case PictogramsPackage.LOCATION_TYPE:
+				return createLocationTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -128,6 +134,8 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 				return convertLineStyleToString(eDataType, instanceValue);
 			case PictogramsPackage.ORIENTATION:
 				return convertOrientationToString(eDataType, instanceValue);
+			case PictogramsPackage.LOCATION_TYPE:
+				return convertLocationTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -368,6 +376,46 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GradientColoredLocation createGradientColoredLocation() {
+		GradientColoredLocationImpl gradientColoredLocation = new GradientColoredLocationImpl();
+		return gradientColoredLocation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GradientColoredArea createGradientColoredArea() {
+		GradientColoredAreaImpl gradientColoredArea = new GradientColoredAreaImpl();
+		return gradientColoredArea;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GradientColoredAreas createGradientColoredAreas() {
+		GradientColoredAreasImpl gradientColoredAreas = new GradientColoredAreasImpl();
+		return gradientColoredAreas;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AdaptedGradientColoredAreas createAdaptedGradientColoredAreas() {
+		AdaptedGradientColoredAreasImpl adaptedGradientColoredAreas = new AdaptedGradientColoredAreasImpl();
+		return adaptedGradientColoredAreas;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public LineStyle createLineStyleFromString(EDataType eDataType, String initialValue) {
 		LineStyle result = LineStyle.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -400,6 +448,26 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 	 * @generated
 	 */
 	public String convertOrientationToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LocationType createLocationTypeFromString(EDataType eDataType, String initialValue) {
+		LocationType result = LocationType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLocationTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

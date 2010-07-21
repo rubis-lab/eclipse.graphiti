@@ -12,7 +12,7 @@
  * 
  * </copyright>
  *
- * $Id: PictogramsAdapterFactory.java,v 1.2 2010/07/06 11:08:51 mgorning Exp $
+ * $Id: PictogramsAdapterFactory.java,v 1.3 2010/07/21 12:34:46 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.util;
 
@@ -208,6 +208,22 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseAbstractStyle(AbstractStyle object) {
 				return createAbstractStyleAdapter();
+			}
+			@Override
+			public Adapter caseGradientColoredLocation(GradientColoredLocation object) {
+				return createGradientColoredLocationAdapter();
+			}
+			@Override
+			public Adapter caseGradientColoredArea(GradientColoredArea object) {
+				return createGradientColoredAreaAdapter();
+			}
+			@Override
+			public Adapter caseGradientColoredAreas(GradientColoredAreas object) {
+				return createGradientColoredAreasAdapter();
+			}
+			@Override
+			public Adapter caseAdaptedGradientColoredAreas(AdaptedGradientColoredAreas object) {
+				return createAdaptedGradientColoredAreasAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -674,6 +690,62 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAbstractStyleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredLocation <em>Gradient Colored Location</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredLocation
+	 * @generated
+	 */
+	public Adapter createGradientColoredLocationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredArea <em>Gradient Colored Area</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredArea
+	 * @generated
+	 */
+	public Adapter createGradientColoredAreaAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredAreas <em>Gradient Colored Areas</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredAreas
+	 * @generated
+	 */
+	public Adapter createGradientColoredAreasAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas <em>Adapted Gradient Colored Areas</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas
+	 * @generated
+	 */
+	public Adapter createAdaptedGradientColoredAreasAdapter() {
 		return null;
 	}
 
