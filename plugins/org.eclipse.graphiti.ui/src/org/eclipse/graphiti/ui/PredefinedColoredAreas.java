@@ -474,9 +474,9 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	}
 
 	/**
-	 * Converts a Char representing a hexadecimal number into an Integer.
+	 * Converts a String representing a hexadecimal number into an Integer.
 	 * 
-	 * @param Char
+	 * @param String
 	 *            representing a hexadecimal number
 	 * @return the integer representation of the hexadecimal string
 	 */
