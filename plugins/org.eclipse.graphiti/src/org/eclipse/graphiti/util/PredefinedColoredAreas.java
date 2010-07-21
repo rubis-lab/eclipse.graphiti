@@ -25,9 +25,7 @@ import org.eclipse.graphiti.mm.pictograms.LocationType;
 import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
 
 /**
- * Predefined colored areas to be used in
- * {@link GFFigureUtil#paintColorFlow(IConfigurationProvider, Rectangle, Graphics, GradientColoredArea, double, boolean)}
- * .
+ * Predefined colored areas to be used in {@link GFFigureUtil#paintColorFlow} .
  * 
  */
 public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
@@ -401,16 +399,16 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 		gcas.add(gca);
 		gca.setStart(PictogramsFactory.eINSTANCE.createGradientColoredLocation());
 		gca.getStart().setColor(DatatypesFactory.eINSTANCE.createColor());
-		gca.getStart().getColor().setBlue(getBlueFromHex(colorStart));
-		gca.getStart().getColor().setGreen(getGreenFromHex(colorStart));
-		gca.getStart().getColor().setRed(getRedFromHex(colorStart));
+		gca.getStart().getColor().setBlue(ColorUtil.getBlueFromHex(colorStart));
+		gca.getStart().getColor().setGreen(ColorUtil.getGreenFromHex(colorStart));
+		gca.getStart().getColor().setRed(ColorUtil.getRedFromHex(colorStart));
 		gca.getStart().setLocationType(locationTypeStart);
 		gca.getStart().setLocationValue(locationValueStart);
 		gca.setEnd(PictogramsFactory.eINSTANCE.createGradientColoredLocation());
 		gca.getEnd().setColor(DatatypesFactory.eINSTANCE.createColor());
-		gca.getEnd().getColor().setBlue(getBlueFromHex(colorEnd));
-		gca.getEnd().getColor().setGreen(getGreenFromHex(colorEnd));
-		gca.getEnd().getColor().setRed(getRedFromHex(colorEnd));
+		gca.getEnd().getColor().setBlue(ColorUtil.getBlueFromHex(colorEnd));
+		gca.getEnd().getColor().setGreen(ColorUtil.getGreenFromHex(colorEnd));
+		gca.getEnd().getColor().setRed(ColorUtil.getRedFromHex(colorEnd));
 		gca.getEnd().setLocationType(locationTypeEnd);
 		gca.getEnd().setLocationValue(locationValueEnd);
 	}
@@ -446,17 +444,5 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 		throw new IllegalStateException("Unknown location type '" + gradientColoredLocation.getLocationType() + "'"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-
-	public static int getBlueFromHex(final String hexRGBString) {
-		return Integer.valueOf(hexRGBString.substring(4, 6), 16);
-	}
-
-	public static int getRedFromHex(final String hexRGBString) {
-		return Integer.valueOf(hexRGBString.substring(0, 2), 16);
-	}
-
-	public static int getGreenFromHex(final String hexRGBString) {
-		return Integer.valueOf(hexRGBString.substring(2, 4), 16);
-	}
 
 }
