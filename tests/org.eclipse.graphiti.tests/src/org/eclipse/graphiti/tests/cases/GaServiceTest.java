@@ -25,6 +25,7 @@ import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.datatypes.Color;
 import org.eclipse.graphiti.mm.datatypes.Point;
 import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
+import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Ellipse;
 import org.eclipse.graphiti.mm.pictograms.Font;
@@ -45,6 +46,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.tests.GFAbstractCreateTestCase;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
+import org.eclipse.graphiti.util.PredefinedColoredAreas;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -416,8 +418,9 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		Style style = gas.createStyle(d, VALUE);
 		assertEquals(VALUE, style.getId());
 		assertEquals(1, d.getStyles().size());
-		gas.setRenderingStyle(style, IPredefinedRenderingStyle.BLUE_WHITE_GLOSS_ID);
-		assertEquals(IPredefinedRenderingStyle.BLUE_WHITE_GLOSS_ID, style.getRenderingStyle().getPredefinedStyleId());
+		AdaptedGradientColoredAreas gradient = PredefinedColoredAreas.getBlueWhiteGlossAdaptions();
+		gas.setRenderingStyle(style, gradient);
+		assertEquals(gradient, style.getRenderingStyle().getAdaptedGradientColoredAreas());
 		gas.deleteRenderingStyle(style);
 		assertNull(style.getRenderingStyle());
 	}
@@ -456,7 +459,8 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		Style style = gas.createStyle(d, VALUE);
 		assertEquals(VALUE, style.getId());
 		assertEquals(1, d.getStyles().size());
-		gas.setRenderingStyle(style, IPredefinedRenderingStyle.BLUE_WHITE_GLOSS_ID);
+		AdaptedGradientColoredAreas gradient = PredefinedColoredAreas.getBlueWhiteGlossAdaptions();
+		gas.setRenderingStyle(style, gradient);
 		style.setAngle(2);
 		style.setLineWidth(3);
 		style.setTransparency(4.0);
@@ -492,7 +496,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		assertEquals(font, gas.getFont(text, true));
 		assertEquals(Orientation.ALIGNMENT_BOTTOM, gas.getHorizontalAlignment(text, true));
 		assertEquals(Orientation.ALIGNMENT_TOP, gas.getVerticalAlignment(text, true));
-		assertEquals(IPredefinedRenderingStyle.BLUE_WHITE_GLOSS_ID, gas.getRenderingStyle(text, true).getPredefinedStyleId());
+		assertEquals(gradient, gas.getRenderingStyle(text, true).getAdaptedGradientColoredAreas());
 		assertEquals(4.0, (double) gas.getTransparency(text, true), 0);
 		assertEquals(gas.manageColor(d, IColorConstant.BLUE), gas.getForegroundColor(text, true));
 		assertEquals(gas.manageColor(d, IColorConstant.BLACK), gas.getBackgroundColor(text, true));
@@ -546,7 +550,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 	public void ignoreAll() {
 		AbstractStyle style = gas.createStyle(d, VALUE);
 		assertEquals(1, d.getStyles().size());
-		gas.setRenderingStyle(style, IPredefinedRenderingStyle.BLUE_WHITE_GLOSS_ID);
+		gas.setRenderingStyle(style, PredefinedColoredAreas.getBlueWhiteGlossAdaptions());
 		style.setLineWidth(3);
 		style.setTransparency(4.0);
 		style.setLineStyle(LineStyle.DASH);
