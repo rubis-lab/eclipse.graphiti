@@ -63,7 +63,7 @@ public interface IGaCreateService {
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new multiline text
 	 */
 	public MultiText createDefaultMultiText(GraphicsAlgorithmContainer gaContainer);
@@ -86,13 +86,13 @@ public interface IGaCreateService {
 	 * @param value
 	 *            initial text
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new multiline text
 	 */
 	public MultiText createDefaultMultiText(GraphicsAlgorithmContainer gaContainer, String value);
 
 	/**
-	 * Creates a text graphics algorithm.
+	 * Creates a text graphics algorithm with the default font (Arial, size 8).
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -107,13 +107,14 @@ public interface IGaCreateService {
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new text
 	 */
 	public Text createDefaultText(GraphicsAlgorithmContainer gaContainer);
 
 	/**
-	 * Creates a text graphics algorithm with the given text.
+	 * Creates a text graphics algorithm with the default font (Arial, size 8)
+	 * and the given text.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -130,7 +131,7 @@ public interface IGaCreateService {
 	 * @param value
 	 *            initial text
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new text
 	 */
 	public Text createDefaultText(GraphicsAlgorithmContainer gaContainer, String value);
@@ -147,7 +148,7 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setTransparency(0);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new ellipse
 	 */
 	public Ellipse createEllipse(GraphicsAlgorithmContainer gaContainer);
@@ -230,7 +231,7 @@ public interface IGaCreateService {
 	 * @param imageId
 	 *            the image id
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new image
 	 */
 	public Image createImage(GraphicsAlgorithmContainer gaContainer, String imageId);
@@ -259,7 +260,7 @@ public interface IGaCreateService {
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new multiline text
 	 */
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer);
@@ -281,7 +282,7 @@ public interface IGaCreateService {
 	 * @param value
 	 *            initial text
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new multiline text
 	 */
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer, String value);
@@ -290,7 +291,7 @@ public interface IGaCreateService {
 	 * Creates the platform graphics algorithm.
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @param id
 	 *            the id
 	 * @return the platform graphics algorithm
@@ -350,7 +351,7 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setTransparency(0);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new polygon
 	 */
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer);
@@ -369,7 +370,7 @@ public interface IGaCreateService {
 	 * @param points
 	 *            collection of point
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new polygon
 	 */
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
@@ -386,7 +387,7 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setTransparency(0);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @param xy
 	 *            The x/y coordinates: [x0, y0, ..., xN, yN]
 	 * @return the new polygon
@@ -405,7 +406,7 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setTransparency(0);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @param xy
 	 *            The x/y coordinates: [x0, y0, ..., xN, yN]
 	 * @param beforeAfter
@@ -427,7 +428,7 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setTransparency(0);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new polyline
 	 */
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer);
@@ -446,7 +447,7 @@ public interface IGaCreateService {
 	 * @param points
 	 *            collection of point
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new polyline
 	 */
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
@@ -463,7 +464,7 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setTransparency(0);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @param xy
 	 *            The x/y coordinates: [x0, y0, ..., xN, yN]
 	 * @return the new polyline
@@ -482,7 +483,7 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setTransparency(0);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @param xy
 	 *            The x/y coordinates: [x0, y0, ..., xN, yN]
 	 * @param beforeAfter
@@ -504,7 +505,7 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setTransparency(0);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new rectangle
 	 */
 	public Rectangle createRectangle(GraphicsAlgorithmContainer gaContainer);
@@ -526,7 +527,7 @@ public interface IGaCreateService {
 	 * @param cornerHeight
 	 *            the corner height
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new rounded rectangle
 	 */
 	public RoundedRectangle createRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight);
@@ -582,7 +583,7 @@ public interface IGaCreateService {
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new text
 	 */
 	public Text createText(GraphicsAlgorithmContainer gaContainer);
@@ -604,7 +605,7 @@ public interface IGaCreateService {
 	 * @param value
 	 *            initial text
 	 * @param gaContainer
-	 *            the ga container
+	 *            the container for the new graphics algorithm
 	 * @return the new text
 	 */
 	public Text createText(GraphicsAlgorithmContainer gaContainer, String value);
