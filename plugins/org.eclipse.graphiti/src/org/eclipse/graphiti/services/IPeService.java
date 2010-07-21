@@ -32,6 +32,8 @@ import org.eclipse.graphiti.mm.pictograms.PropertyContainer;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**
+ * The interface IPeService provides convenient services for the creation and
+ * layout of pictogram elements.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.

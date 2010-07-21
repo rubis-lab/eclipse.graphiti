@@ -32,6 +32,8 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 
 /**
+ * The interface IGaService provides convenient services for the creation and
+ * layout of graphics algorithm.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.

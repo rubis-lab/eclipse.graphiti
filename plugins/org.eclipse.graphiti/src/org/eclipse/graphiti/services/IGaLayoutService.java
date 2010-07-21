@@ -19,6 +19,9 @@ import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 
 /**
+ * The interface IGaLayoutService provides convenient services for the
+ * calculation and change of the size and/or location of graphics algorithm.
+ * This makes it easier to write layout features.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
@@ -31,8 +34,8 @@ public interface IGaLayoutService {
 	 * Otherwise the size of the graphics algorithm is simply returned.
 	 * 
 	 * @param ga
-	 *            GraphicsAlgorithm
-	 * @return the i dimension
+	 *            graphics algorithm
+	 * @return the dimension of the given graphics algorithm
 	 */
 	public IDimension calculateSize(GraphicsAlgorithm ga);
 
@@ -42,102 +45,102 @@ public interface IGaLayoutService {
 	 * Otherwise the size of the graphics algorithm is simply returned.
 	 * 
 	 * @param ga
-	 *            GraphicsAlgorithm
+	 *            graphics algorithm
 	 * @param considerLineWidth
-	 *            the consider line width
-	 * @return the i dimension
+	 *            if TRUE, the line width will be considered in the dimension
+	 * @return the dimension of the given graphics algorithm
 	 */
 	public IDimension calculateSize(GraphicsAlgorithm ga, boolean considerLineWidth);
 
 	/**
-	 * Changes the height of the given graphics algorithm.
+	 * Sets the height of the given graphics algorithm.
 	 * 
 	 * @param ga
-	 *            GraphicsAlgorithm
+	 *            graphics algorithm
 	 * @param height
-	 *            the height
+	 *            the new height
 	 */
 	public void setHeight(GraphicsAlgorithm ga, int height);
 
 	/**
-	 * Changes location and size of the given graphics algorithm.
+	 * Sets location and size of the given graphics algorithm.
 	 * 
 	 * @param ga
-	 *            GraphicsAlgorithm
+	 *            graphics algorithm
 	 * @param x
-	 *            the x
+	 *            the new x coordinate
 	 * @param y
-	 *            the y
+	 *            the new y coordinate
 	 * @param width
-	 *            the width
+	 *            the new width
 	 * @param height
-	 *            the height
+	 *            the new height
 	 */
 	public void setLocationAndSize(GraphicsAlgorithm ga, int x, int y, int width, int height);
 
 	/**
-	 * Changes location and size of the given graphics algorithm.
+	 * Sets location and size of the given graphics algorithm.
 	 * 
 	 * @param ga
-	 *            GraphicsAlgorithm
+	 *            graphics algorithm
 	 * @param x
-	 *            the x
+	 *            the new x coordinate
 	 * @param y
-	 *            the y
+	 *            the new y coordinate
 	 * @param width
-	 *            the width
+	 *            the new width
 	 * @param height
-	 *            the height
+	 *            the new height
 	 * @param avoidNegativeCoordinates
-	 *            the avoid negative coordinates
+	 *            if TRUE, a negative coordinate will automatically set to 0.
 	 */
 	public void setLocationAndSize(GraphicsAlgorithm ga, int x, int y, int width, int height, boolean avoidNegativeCoordinates);
 
 	/**
-	 * Changes location of the given graphics algorithm.
+	 * Sets the location of the given graphics algorithm.
 	 * 
 	 * @param ga
-	 *            GraphicsAlgorithm
+	 *            graphics algorithm
 	 * @param x
-	 *            the x
+	 *            the new x coordinate
 	 * @param y
-	 *            the y
+	 *            the new y coordinate
 	 */
 	public void setLocation(GraphicsAlgorithm ga, int x, int y);
 
 	/**
-	 * Changes location of the given graphics algorithm.
+	 * Sets the location of the given graphics algorithm.
 	 * 
 	 * @param ga
-	 *            GraphicsAlgorithm
+	 *            graphics algorithm
 	 * @param x
-	 *            the x
+	 *            the new x coordinate
 	 * @param y
-	 *            the y
+	 *            the new y coordinate
 	 * @param avoidNegativeCoordinates
-	 *            the avoid negative coordinates
+	 *            if TRUE, a negative coordinate will automatically set to 0.
 	 */
 	public void setLocation(GraphicsAlgorithm ga, int x, int y, boolean avoidNegativeCoordinates);
 
 	/**
-	 * Changes the size of the given graphics algorithm.
+	 * Sets the size of the given graphics algorithm.
 	 * 
 	 * @param ga
-	 *            GraphicsAlgorithm
+	 *            graphics algorithm
 	 * @param width
-	 *            the width
+	 *            the new width
 	 * @param height
-	 *            the height
+	 *            the new height
 	 */
 	public void setSize(GraphicsAlgorithm ga, int width, int height);
 
 	/**
-	 * Changes the width of the given graphics algorithm.
+	 * Sets the width of the given graphics algorithm.
 	 * 
 	 * @param ga
-	 *            GraphicsAlgorithm
+	 *            graphics algorithm
 	 * @param width
-	 *            the width
+	 *            the new width
 	 */
 	public void setWidth(GraphicsAlgorithm ga, int width);
 

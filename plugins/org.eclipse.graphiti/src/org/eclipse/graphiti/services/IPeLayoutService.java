@@ -23,6 +23,8 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.util.ILocationInfo;
 
 /**
+ * The interface IPeLayoutService provides services (e.g. query location info
+ * for a pictogram element) which makes it easier to write layout features.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
@@ -33,15 +35,21 @@ public interface IPeLayoutService {
 	 * Gets the connection midpoint.
 	 * 
 	 * @param c
-	 *            the c
+	 *            the connection
 	 * @param d
-	 *            the d
+	 *            a relative location on the connection (must be between 0 and
+	 *            1)
 	 * @return the connection midpoint
 	 */
 	ILocation getConnectionMidpoint(Connection c, double d);
 
 	/**
-	 * Returns the bounds of the GA, which is referenced by the anchor.
+	 * Returns the bounds of the graphics algorithm, which is referenced by the
+	 * anchor.
+	 * 
+	 * @param anchor
+	 *            the anchor
+	 * @return the bounds of the anchor graphics algorithm
 	 */
 	IRectangle getGaBoundsForAnchor(Anchor anchor);
 
@@ -53,7 +61,7 @@ public interface IPeLayoutService {
 	 * @param shape
 	 *            the shape
 	 * @param x
-	 *            x coorsinate
+	 *            x coordinate
 	 * @param y
 	 *            y coordinate
 	 * @return the location info
