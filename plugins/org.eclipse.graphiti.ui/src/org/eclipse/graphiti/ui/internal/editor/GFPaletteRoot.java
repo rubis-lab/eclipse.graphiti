@@ -52,7 +52,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class GraphicsPaletteRoot extends PaletteRoot {
+public class GFPaletteRoot extends PaletteRoot {
 
 	/*
 	 * later we can make this configurable in the toolbehaviour provider, so
@@ -69,7 +69,7 @@ public class GraphicsPaletteRoot extends PaletteRoot {
 	 * @param configurationProvider
 	 *            the configuration provider
 	 */
-	public GraphicsPaletteRoot(IConfigurationProvider configurationProvider) {
+	public GFPaletteRoot(IConfigurationProvider configurationProvider) {
 		cfgProvider = configurationProvider;
 		updatePaletteEntries();
 	}

@@ -442,7 +442,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * @see org.eclipse.graphiti.ui.editor.GraphicalEditorIncludingPalette#createPaletteRoot()
 	 */
 	protected PaletteRoot createPaletteRoot() {
-		return new GraphicsPaletteRoot(getConfigurationProvider());
+		return new GFPaletteRoot(getConfigurationProvider());
 	}
 
 	/**
@@ -1307,8 +1307,8 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	public void refreshPalette() {
 		PaletteRoot pr = getPaletteRoot();
-		if (pr instanceof GraphicsPaletteRoot) {
-			GraphicsPaletteRoot gpr = (GraphicsPaletteRoot) pr;
+		if (pr instanceof GFPaletteRoot) {
+			GFPaletteRoot gpr = (GFPaletteRoot) pr;
 			gpr.updatePaletteEntries();
 		}
 	}
