@@ -27,7 +27,6 @@ import org.eclipse.gef.handles.AbstractHandle;
 import org.eclipse.gef.tools.DragEditPartsTracker;
 import org.eclipse.gef.tools.ResizeTracker;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
-import org.eclipse.graphiti.ui.internal.figures.ColoredLocation;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -61,32 +60,32 @@ public class GFCornerHandle extends AbstractHandle {
 	/**
 	 * The foreground color for resizable directions.
 	 */
-	private static Color FG_COLOR_RESIZABLE = ColoredLocation.getColor("f17d00"); //$NON-NLS-1$
+	private static Color FG_COLOR_RESIZABLE;
 
 	/**
 	 * The foreground color for not-resizable directions.
 	 */
-	private static Color FG_COLOR_NOT_RESIZABLE = ColoredLocation.getColor("b3b6bb"); //$NON-NLS-1$
+	private static Color FG_COLOR_NOT_RESIZABLE;
 
 	/**
 	 * The background color for primary-selected, resizable directions.
 	 */
-	private static Color BG_COLOR_PRIMARY_RESIZABLE = ColoredLocation.getColor("ff8400"); //$NON-NLS-1$
+	private static Color BG_COLOR_PRIMARY_RESIZABLE;
 
 	/**
 	 * The background color for secondary-selected, resizable directions.
 	 */
-	private static Color BG_COLOR_SECONDARY_RESIZABLE = ColoredLocation.getColor("ffffff"); //$NON-NLS-1$
+	private static Color BG_COLOR_SECONDARY_RESIZABLE;
 
 	/**
 	 * The background color for primary-selected, not-resizable directions.
 	 */
-	private static Color BG_COLOR_PRIMARY_NOT_RESIZABLE = ColoredLocation.getColor("b3b6bb"); //$NON-NLS-1$
+	private static Color BG_COLOR_PRIMARY_NOT_RESIZABLE;
 
 	/**
 	 * The background color for secondary-selected, not-resizable directions.
 	 */
-	private static Color BG_COLOR_SECONDARY_NOT_RESIZABLE = ColoredLocation.getColor("edf4ff"); //$NON-NLS-1$
+	private static Color BG_COLOR_SECONDARY_NOT_RESIZABLE;
 
 	// ========================================================================
 
@@ -147,6 +146,60 @@ public class GFCornerHandle extends AbstractHandle {
 	}
 
 	/**
+	 * @return the fG_COLOR_RESIZABLE
+	 */
+	public Color getFG_COLOR_RESIZABLE() {
+		if (FG_COLOR_RESIZABLE == null)
+			FG_COLOR_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("f17d00"); //$NON-NLS-1$
+		return FG_COLOR_RESIZABLE;
+	}
+
+	/**
+	 * @return the fG_COLOR_NOT_RESIZABLE
+	 */
+	public Color getFG_COLOR_NOT_RESIZABLE() {
+		if (FG_COLOR_NOT_RESIZABLE == null)
+			FG_COLOR_NOT_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("b3b6bb"); //$NON-NLS-1$
+		return FG_COLOR_NOT_RESIZABLE;
+	}
+
+	/**
+	 * @return the bG_COLOR_PRIMARY_RESIZABLE
+	 */
+	public Color getBG_COLOR_PRIMARY_RESIZABLE() {
+		if (BG_COLOR_PRIMARY_RESIZABLE == null)
+			BG_COLOR_PRIMARY_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("ff8400"); //$NON-NLS-1$
+		return BG_COLOR_PRIMARY_RESIZABLE;
+	}
+
+	/**
+	 * @return the bG_COLOR_SECONDARY_RESIZABLE
+	 */
+	public Color getBG_COLOR_SECONDARY_RESIZABLE() {
+		if (BG_COLOR_SECONDARY_RESIZABLE == null)
+			BG_COLOR_SECONDARY_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("ffffff"); //$NON-NLS-1$
+		return BG_COLOR_SECONDARY_RESIZABLE;
+	}
+
+	/**
+	 * @return the bG_COLOR_PRIMARY_NOT_RESIZABLE
+	 */
+	public Color getBG_COLOR_PRIMARY_NOT_RESIZABLE() {
+		if (BG_COLOR_PRIMARY_NOT_RESIZABLE == null)
+			BG_COLOR_PRIMARY_NOT_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("b3b6bb"); //$NON-NLS-1$
+		return BG_COLOR_PRIMARY_NOT_RESIZABLE;
+	}
+
+	/**
+	 * @return the bG_COLOR_SECONDARY_NOT_RESIZABLE
+	 */
+	public Color getBG_COLOR_SECONDARY_NOT_RESIZABLE() {
+		if (BG_COLOR_SECONDARY_NOT_RESIZABLE == null)
+			BG_COLOR_SECONDARY_NOT_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("edf4ff"); //$NON-NLS-1$
+		return BG_COLOR_SECONDARY_NOT_RESIZABLE;
+	}
+
+	/**
 	 * Overridden to create a {@link ResizeTracker}, if resizing is supported,
 	 * or to create a {@link DragEditPartsTracker}, if moving is supported.
 	 */
@@ -186,17 +239,17 @@ public class GFCornerHandle extends AbstractHandle {
 		Color fg;
 		Color bg;
 		if (primary && isResizable()) {
-			fg = FG_COLOR_RESIZABLE;
-			bg = BG_COLOR_PRIMARY_RESIZABLE;
+			fg = getFG_COLOR_RESIZABLE();
+			bg = getBG_COLOR_PRIMARY_RESIZABLE();
 		} else if (primary && !isResizable()) {
-			fg = FG_COLOR_NOT_RESIZABLE;
-			bg = BG_COLOR_PRIMARY_NOT_RESIZABLE;
+			fg = getFG_COLOR_NOT_RESIZABLE();
+			bg = getBG_COLOR_PRIMARY_NOT_RESIZABLE();
 		} else if (!primary && isResizable()) {
-			fg = FG_COLOR_RESIZABLE;
-			bg = BG_COLOR_SECONDARY_RESIZABLE;
+			fg = getFG_COLOR_RESIZABLE();
+			bg = getBG_COLOR_SECONDARY_RESIZABLE();
 		} else { // (!primary && !isResizable())
-			fg = FG_COLOR_NOT_RESIZABLE;
-			bg = BG_COLOR_SECONDARY_NOT_RESIZABLE;
+			fg = getFG_COLOR_NOT_RESIZABLE();
+			bg = getBG_COLOR_SECONDARY_NOT_RESIZABLE();
 		}
 		if (fg != null)
 			g.setForegroundColor(fg);

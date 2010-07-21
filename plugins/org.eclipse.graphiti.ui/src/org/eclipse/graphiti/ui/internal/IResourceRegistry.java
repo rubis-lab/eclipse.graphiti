@@ -23,4 +23,6 @@ import org.eclipse.swt.graphics.Color;
  */
 public interface IResourceRegistry extends IDisposable {
 	Color getSwtColor(int red, int green, int blue);
+
+	Color getSwtColor(String hexRGBString);
 }

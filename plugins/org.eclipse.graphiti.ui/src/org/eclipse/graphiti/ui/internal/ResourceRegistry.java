@@ -18,6 +18,7 @@ package org.eclipse.graphiti.ui.internal;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.graphiti.util.ColorUtil;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Resource;
@@ -48,5 +49,10 @@ public class ResourceRegistry implements IResourceRegistry {
 	public void dispose() {
 		ResourceManager.getResourceManager().cleanUpResources(this);
 		registry.clear();
+	}
+
+	public Color getSwtColor(String hexRGBString) {
+		return getSwtColor(ColorUtil.getRedFromHex(hexRGBString), ColorUtil.getGreenFromHex(hexRGBString), ColorUtil
+				.getBlueFromHex(hexRGBString));
 	}
 }

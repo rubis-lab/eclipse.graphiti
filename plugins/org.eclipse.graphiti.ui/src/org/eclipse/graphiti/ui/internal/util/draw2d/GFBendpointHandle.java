@@ -33,7 +33,6 @@ import org.eclipse.graphiti.features.context.impl.AddBendpointContext;
 import org.eclipse.graphiti.features.context.impl.MoveBendpointContext;
 import org.eclipse.graphiti.features.context.impl.RemoveBendpointContext;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
-import org.eclipse.graphiti.ui.internal.figures.ColoredLocation;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -72,22 +71,22 @@ public class GFBendpointHandle extends BendpointHandle {
 	/**
 	 * The foreground color for resizable directions.
 	 */
-	private static Color FG_COLOR_PRIMARY = ColoredLocation.getColor("cc6a01"); //$NON-NLS-1$
+	private static Color FG_COLOR_PRIMARY;
 
 	/**
 	 * The foreground color for not-resizable directions.
 	 */
-	private static Color FG_COLOR_SECONDARY = ColoredLocation.getColor("cc6a01"); //$NON-NLS-1$
+	private static Color FG_COLOR_SECONDARY;
 
 	/**
 	 * The background color for primary-selected, resizable directions.
 	 */
-	private static Color BG_COLOR_PRIMARY = ColoredLocation.getColor("ffaa2f"); //$NON-NLS-1$
+	private static Color BG_COLOR_PRIMARY;
 
 	/**
 	 * The background color for secondary-selected, resizable directions.
 	 */
-	private static Color BG_COLOR_SECONDARY = ColoredLocation.getColor("ffffff"); //$NON-NLS-1$;
+	private static Color BG_COLOR_SECONDARY;
 
 	// ========================================================================
 
@@ -188,11 +187,11 @@ public class GFBendpointHandle extends BendpointHandle {
 		Color fg;
 		Color bg;
 		if (primary) {
-			fg = FG_COLOR_PRIMARY;
-			bg = BG_COLOR_PRIMARY;
+			fg = getFgColorPrimary();
+			bg = getBgColorPrimary();
 		} else { // (!primary)
-			fg = FG_COLOR_SECONDARY;
-			bg = BG_COLOR_SECONDARY;
+			fg = getFgColorSecondary();
+			bg = getBgColorSecondary();
 		}
 		if (fg != null)
 			g.setForegroundColor(fg);
@@ -202,6 +201,34 @@ public class GFBendpointHandle extends BendpointHandle {
 		Rectangle r = GFFigureUtil.getAdjustedRectangle(getBounds(), 1.0, getLineWidth());
 		g.fillOval(r);
 		g.drawOval(r);
+	}
+
+	private Color getFgColorPrimary() {
+		if (FG_COLOR_PRIMARY == null) {
+			FG_COLOR_PRIMARY = configurationProvider.getResourceRegistry().getSwtColor("cc6a01"); //$NON-NLS-1$
+		}
+		return FG_COLOR_PRIMARY;
+	}
+
+	private Color getFgColorSecondary() {
+		if (FG_COLOR_SECONDARY == null) {
+			FG_COLOR_SECONDARY = configurationProvider.getResourceRegistry().getSwtColor("cc6a01"); //$NON-NLS-1$
+		}
+		return FG_COLOR_SECONDARY;
+	}
+
+	private Color getBgColorPrimary() {
+		if (BG_COLOR_PRIMARY == null) {
+			BG_COLOR_PRIMARY = configurationProvider.getResourceRegistry().getSwtColor("ffaa2f"); //$NON-NLS-1$
+		}
+		return BG_COLOR_PRIMARY;
+	}
+
+	private Color getBgColorSecondary() {
+		if (BG_COLOR_SECONDARY == null) {
+			BG_COLOR_SECONDARY = configurationProvider.getResourceRegistry().getSwtColor("ffffff"); //$NON-NLS-1$
+		}
+		return BG_COLOR_SECONDARY;
 	}
 
 	/**
@@ -250,4 +277,5 @@ public class GFBendpointHandle extends BendpointHandle {
 		}
 		return super.isFixed();
 	}
+
 }

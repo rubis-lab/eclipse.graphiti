@@ -25,6 +25,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Ray;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
+import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
@@ -66,7 +67,8 @@ public class GFFigureUtil {
 	 * @param vertical
 	 *            If true, fills the area vertically, otherwise horizontally
 	 */
-	public static void paintColorFlow(IConfigurationProvider configurationProvider, Rectangle rectangle, Graphics graphics, GradientColoredArea coloredArea, double zoom, boolean vertical) {
+	public static void paintColorFlow(IResourceRegistryHolder registryHolder, Rectangle rectangle, Graphics graphics,
+			GradientColoredArea coloredArea, double zoom, boolean vertical) {
 		// calculate rectangle to fill
 		Rectangle fillRectangle;
 		if (vertical) {
@@ -80,9 +82,9 @@ public class GFFigureUtil {
 		}
 		// fill rectangle
 		org.eclipse.graphiti.mm.datatypes.Color foregroundColor = coloredArea.getStart().getColor();
-		Color foregroundColorSWT = DataTypeTransformation.toSwtColor(configurationProvider, foregroundColor);
+		Color foregroundColorSWT = DataTypeTransformation.toSwtColor(registryHolder, foregroundColor);
 		org.eclipse.graphiti.mm.datatypes.Color backgroundColor = coloredArea.getEnd().getColor();
-		Color backgroundColorSWT = DataTypeTransformation.toSwtColor(configurationProvider, backgroundColor);
+		Color backgroundColorSWT = DataTypeTransformation.toSwtColor(registryHolder, backgroundColor);
 		
 		graphics.setForegroundColor(foregroundColorSWT);
 		graphics.setBackgroundColor(backgroundColorSWT);

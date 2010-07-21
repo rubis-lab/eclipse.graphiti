@@ -27,7 +27,6 @@ import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.gef.handles.AbstractHandle;
 import org.eclipse.gef.tools.DragEditPartsTracker;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
-import org.eclipse.graphiti.ui.internal.figures.ColoredLocation;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -66,14 +65,32 @@ public class GFSurroundingHandle extends AbstractHandle {
 	/**
 	 * The foreground color to use for resizable directions.
 	 */
-	private static Color FG_COLOR_RESIZABLE = ColoredLocation.getColor("ff850f"); //$NON-NLS-1$
+	private static Color FG_COLOR_RESIZABLE;
 
 	/**
 	 * The foreground color to use for not-resizable directions.
 	 */
-	private static Color FG_COLOR_NOT_RESIZABLE = ColoredLocation.getColor("d9dadd"); //$NON-NLS-1$
+	private static Color FG_COLOR_NOT_RESIZABLE;
 
 	// ========================================================================
+
+	/**
+	 * @return the fG_COLOR_RESIZABLE
+	 */
+	public Color getFG_COLOR_RESIZABLE() {
+		if (FG_COLOR_RESIZABLE == null)
+			FG_COLOR_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("ff850f"); //$NON-NLS-1$
+		return FG_COLOR_RESIZABLE;
+	}
+
+	/**
+	 * @return the fG_COLOR_NOT_RESIZABLE
+	 */
+	public Color getFG_COLOR_NOT_RESIZABLE() {
+		if (FG_COLOR_NOT_RESIZABLE == null)
+			FG_COLOR_NOT_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("d9dadd"); //$NON-NLS-1$
+		return FG_COLOR_NOT_RESIZABLE;
+	}
 
 	/**
 	 * The configuration provider, which can be used to access the environment.
@@ -204,10 +221,10 @@ public class GFSurroundingHandle extends AbstractHandle {
 		Color fg;
 		if (resizable) {
 			dash = LINE_STYLE_RESIZABLE;
-			fg = FG_COLOR_RESIZABLE;
+			fg = getFG_COLOR_RESIZABLE();
 		} else {
 			dash = LINE_STYLE_NOT_RESIZABLE;
-			fg = FG_COLOR_NOT_RESIZABLE;
+			fg = getFG_COLOR_NOT_RESIZABLE();
 		}
 
 		int dashZoomed[];
