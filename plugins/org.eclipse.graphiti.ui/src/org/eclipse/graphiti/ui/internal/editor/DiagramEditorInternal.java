@@ -92,9 +92,9 @@ import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
-import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
@@ -255,11 +255,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	private boolean autoRefresh = true;
 
 	private TransactionalEditingDomain editingDomain = null;
-
-	/**
-	 * The Constant DIAGRAM_EDITOR_ID.
-	 */
-	public static final String DIAGRAM_EDITOR_ID = "org.eclipse.graphiti.ui.internal.editor.DiagramEditor"; //$NON-NLS-1$
 
 	/**
 	 * Instantiates a new diagram editor.

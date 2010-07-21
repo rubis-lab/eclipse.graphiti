@@ -37,12 +37,12 @@
    <extension
          point="org.eclipse.ui.editors">
  	  <editor
-          class="org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal"
+          class="org.eclipse.graphiti.ui.editor.DiagramEditor"
           contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
           default="true"
           extensions="diagram"
           icon="icons/lazy.gif"
-          id="org.eclipse.graphiti.ui.internal.editor.DiagramEditor"
+          id="org.eclipse.graphiti.ui.editor.DiagramEditor"
           matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
           name="%_diagram_editor_name">
        <contentTypeBinding

@@ -19,8 +19,8 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.services.IWorkbenchService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -117,7 +117,7 @@ public class WorkbenchService implements IWorkbenchService {
 		DiagramEditorInput diagramEditorInput = DiagramEditorInput.createEditorInput(diagram, domain, providerId, disposeEditingDomain);
 		IWorkbenchPage workbenchPage = getActivePage();
 		try {
-			IEditorPart editorPart = IDE.openEditor(workbenchPage, diagramEditorInput, DiagramEditorInternal.DIAGRAM_EDITOR_ID);
+			IEditorPart editorPart = IDE.openEditor(workbenchPage, diagramEditorInput, DiagramEditor.DIAGRAM_EDITOR_ID);
 			if (editorPart instanceof IDiagramEditor) {
 				ret = (IDiagramEditor) editorPart;
 			}
