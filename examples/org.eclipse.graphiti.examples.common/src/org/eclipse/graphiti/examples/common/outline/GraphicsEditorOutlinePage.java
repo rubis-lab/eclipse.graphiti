@@ -34,9 +34,9 @@ import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.graphiti.examples.common.outline.tree.PictogramsTreeEditPartFactory;
 import org.eclipse.graphiti.examples.common.util.ImagePool;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.internal.config.IEditPartFactory;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
-import org.eclipse.graphiti.ui.internal.editor.GraphicsContextMenuProvider;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScrollableThumbnail;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -77,7 +77,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 
 	private SelectionSynchronizer _selectionSynchronizer;
 
-	private DiagramEditor _diagramEditor;
+	private DiagramEditorInternal _diagramEditor;
 
 	// The thumbnail to display
 	private FixedScrollableThumbnail _thumbnail;
@@ -118,7 +118,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	 */
 	public GraphicsEditorOutlinePage(EditPartViewer viewer, GraphicalViewer graphicalViewer, ActionRegistry actionRegistry,
 			EditDomain editDomain, KeyHandler keyHandler, Object zoomManagerAdapter, SelectionSynchronizer selectionSynchronizer,
-			DiagramEditor diagramEditor) {
+			DiagramEditorInternal diagramEditor) {
 		super(viewer);
 		_graphicalViewer = graphicalViewer;
 		_actionRegistry = actionRegistry;
@@ -301,7 +301,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	 * @return A new ContextMenuProvider.
 	 */
 	protected ContextMenuProvider createContextMenuProvider() {
-		return new GraphicsContextMenuProvider(getViewer(), _actionRegistry, null, _diagramEditor.getConfigurationProvider());
+		return new DiagramEditorContextMenuProvider(getViewer(), _actionRegistry, null, _diagramEditor.getConfigurationProvider());
 	}
 
 	/**

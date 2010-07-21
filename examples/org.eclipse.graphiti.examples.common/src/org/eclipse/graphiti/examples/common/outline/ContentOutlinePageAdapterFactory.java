@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
@@ -29,8 +29,8 @@ public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		if (GFPreferences.getInstance().isGenericOutlineActive()) {
 			if (IContentOutlinePage.class.equals(adapterType)) {
-				if (adaptableObject instanceof DiagramEditor) {
-					DiagramEditor diagramEditor = (DiagramEditor) adaptableObject;
+				if (adaptableObject instanceof DiagramEditorInternal) {
+					DiagramEditorInternal diagramEditor = (DiagramEditorInternal) adaptableObject;
 					if (diagramEditor.getConfigurationProvider() != null) { // diagram editor initialized?
 						GraphicsEditorOutlinePage outlinePage = new GraphicsEditorOutlinePage(new TreeViewer(), diagramEditor
 								.getGraphicalViewer(), diagramEditor.getActionRegistryInternal(), diagramEditor.getEditDomain(),
