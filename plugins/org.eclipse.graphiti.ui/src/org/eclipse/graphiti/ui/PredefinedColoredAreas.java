@@ -467,70 +467,21 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 */
 	public static Color getColor(final String hexRGBString) {
 		assert hexRGBString != null && hexRGBString.length() == 6;
-		final int red = 16 * hexToInt(hexRGBString.charAt(0)) + hexToInt(hexRGBString.charAt(1));
-		final int green = 16 * hexToInt(hexRGBString.charAt(2)) + hexToInt(hexRGBString.charAt(3));
-		final int blue = 16 * hexToInt(hexRGBString.charAt(4)) + hexToInt(hexRGBString.charAt(5));
+		final int red = hexToInt(hexRGBString.substring(0, 2));
+		final int green = hexToInt(hexRGBString.substring(2, 4));
+		final int blue = hexToInt(hexRGBString.substring(4, 6));
 		return new Color(null, red, green, blue);
 	}
 
 	/**
-	 * Returns the integer-value for the given hexadecimal character [0-9, A-F,
-	 * a-f].
+	 * Converts a Char representing a hexadecimal number into an Integer.
 	 * 
-	 * @param hexChar
-	 *            The hexadecimal character, for which to return the
-	 *            integer-value.
-	 * @return The integer-value for the given hexadecimal character.
-	 * @throws NumberFormatException
-	 *             , if given character is not hexadecimal [0-9, A-F, a-f]
+	 * @param Char
+	 *            representing a hexadecimal number
+	 * @return the integer representation of the hexadecimal string
 	 */
-	private static int hexToInt(char hexChar) throws NumberFormatException {
-		switch (hexChar) {
-		case '0':
-			return 0;
-		case '1':
-			return 1;
-		case '2':
-			return 2;
-		case '3':
-			return 3;
-		case '4':
-			return 4;
-		case '5':
-			return 5;
-		case '6':
-			return 6;
-		case '7':
-			return 7;
-		case '8':
-			return 8;
-		case '9':
-			return 9;
-		case 'A':
-			return 10;
-		case 'B':
-			return 11;
-		case 'C':
-			return 12;
-		case 'D':
-			return 13;
-		case 'E':
-			return 14;
-		case 'F':
-			return 15;
-		case 'a':
-			return 10;
-		case 'b':
-			return 11;
-		case 'c':
-			return 12;
-		case 'd':
-			return 13;
-		case 'e':
-			return 14;
-		case 'f':
-			return 15;
-		}
-		throw new NumberFormatException("Not a hexadecimal char: ascii-code=" + (int) hexChar); //$NON-NLS-1$
+	private static int hexToInt(String hexString) {
+		return Integer.valueOf(hexString, 16);
 	}
+
 }
