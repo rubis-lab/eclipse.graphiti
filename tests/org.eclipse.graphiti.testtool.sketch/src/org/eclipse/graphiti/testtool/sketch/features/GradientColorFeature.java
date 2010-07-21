@@ -27,8 +27,8 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.PredefinedColoredAreas;
 import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
+import org.eclipse.graphiti.util.PredefinedColoredAreas;
 
 /**
  * The Class GradientColorFeature.
