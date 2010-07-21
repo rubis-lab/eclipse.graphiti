@@ -15,13 +15,13 @@
  *******************************************************************************/
 package org.eclipse.graphiti.util;
 
+import org.eclipse.graphiti.services.IGaService;
+
 /**
  * The IDs of the predefined rendering styles. See
- * {@link GaUtil#setRenderingStyle(org.eclipse.graphiti.mm.pictograms.AbstractStyle, String)}
- * .
+ * {@link IGaService#setRenderingStyle(AbstractStyle, org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas)}.
  * 
- * @noimplement This interface is not intended to be implemented by clients.
- * @noextend This interface is not intended to be extended by clients.
+ * 
  */
 public interface IPredefinedRenderingStyle {
 
@@ -56,9 +56,28 @@ public interface IPredefinedRenderingStyle {
 	public static final String SILVER_WHITE_GLOSS_ID = "silver-white-gloss"; //$NON-NLS-1$
 
 	/**
-	 * All IDs.
+	 * The style-adaptation to use for default elements.
 	 */
-	public static final String[] ALL_IDS = new String[] { BLUE_WHITE_GLOSS_ID, BLUE_WHITE_ID, LIGHT_YELLOW_ID, LIGHT_GRAY_ID,
-			COPPER_WHITE_GLOSS_ID, SILVER_WHITE_GLOSS_ID };
+	public static final int STYLE_ADAPTATION_DEFAULT = 0;
+
+	/**
+	 * The style-adaptation to use for primary selected elements.
+	 */
+	public static final int STYLE_ADAPTATION_PRIMARY_SELECTED = 1;
+
+	/**
+	 * The style-adaptation to use for secondary selected elements.
+	 */
+	public static final int STYLE_ADAPTATION_SECONDARY_SELECTED = 2;
+
+	/**
+	 * The style-adaptation to use to indicate that an action is allowed.
+	 */
+	public static final int STYLE_ADAPTATION_ACTION_ALLOWED = 3;
+
+	/**
+	 * The style-adaptation to use to indicate that an action is forbidden.
+	 */
+	public static final int STYLE_ADAPTATION_ACTION_FORBIDDEN = 4;
 
 }

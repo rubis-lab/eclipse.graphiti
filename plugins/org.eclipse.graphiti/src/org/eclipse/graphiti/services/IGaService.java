@@ -18,6 +18,7 @@ package org.eclipse.graphiti.services;
 import org.eclipse.graphiti.mm.datatypes.Color;
 import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
 import org.eclipse.graphiti.mm.pictograms.AbstractText;
+import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Font;
 import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
@@ -29,7 +30,6 @@ import org.eclipse.graphiti.mm.pictograms.RenderingStyle;
 import org.eclipse.graphiti.mm.pictograms.Style;
 import org.eclipse.graphiti.mm.pictograms.StyleContainer;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 
 /**
  * The interface IGaService provides convenient services for the creation and
@@ -293,8 +293,8 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * 
 	 * @param abstractStyle
 	 *            The AbstractStyle for which to set the RenderingStyle.
-	 * @param id
-	 *            The ID of the RenderingStyle.
+	 * @param adaptedGradientColoredAreas
+	 *            The {@link AdaptedGradientColoredAreas} gradient colored areas.
 	 */
-	public void setRenderingStyle(AbstractStyle abstractStyle, String id);
+	public void setRenderingStyle(AbstractStyle abstractStyle, AdaptedGradientColoredAreas adaptedGradientColoredAreas);
 }

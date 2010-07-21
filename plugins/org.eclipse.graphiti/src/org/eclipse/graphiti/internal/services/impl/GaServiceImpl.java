@@ -29,6 +29,7 @@ import org.eclipse.graphiti.mm.datatypes.DatatypesFactory;
 import org.eclipse.graphiti.mm.datatypes.Point;
 import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
 import org.eclipse.graphiti.mm.pictograms.AbstractText;
+import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Ellipse;
 import org.eclipse.graphiti.mm.pictograms.Font;
@@ -1486,34 +1487,6 @@ public final class GaServiceImpl implements IGaService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.eclipse.graphiti.services.IGaService#setRenderingStyle(org.eclipse
-	 * .graphiti.mm.pictograms.AbstractStyle, java.lang.String)
-	 */
-	public void setRenderingStyle(AbstractStyle abstractStyle, String id) {
-		// is the ID supported?
-		boolean idSupported = false;
-		for (int i = 0; i < IPredefinedRenderingStyle.ALL_IDS.length; i++) {
-			if (IPredefinedRenderingStyle.ALL_IDS[i].equals(id)) {
-				idSupported = true;
-			}
-		}
-		if (!idSupported) {
-			throw new IllegalArgumentException("The ID '" + id + "' is not supported."); //$NON-NLS-1$ //$NON-NLS-2$
-		}
-
-		// set the RenderingStyle with ID
-		RenderingStyle renderingStyle = abstractStyle.getRenderingStyle();
-		if (renderingStyle == null) {
-			renderingStyle = PictogramsFactory.eINSTANCE.createRenderingStyle();
-			abstractStyle.setRenderingStyle(renderingStyle);
-		}
-		renderingStyle.setPredefinedStyleId(id);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
 	 * org.eclipse.graphiti.services.IGaLayoutService#setSizeOfGraphicsAlgorithm
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm, int, int)
 	 */
@@ -1532,5 +1505,21 @@ public final class GaServiceImpl implements IGaService {
 	public void setWidth(GraphicsAlgorithm ga, int width) {
 		ga.setWidth(width);
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.graphiti.services.IGaService#setRenderingStyle(org.eclipse.graphiti.mm.pictograms.AbstractStyle, org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas)
+	 */
+	public void setRenderingStyle(AbstractStyle abstractStyle, AdaptedGradientColoredAreas adaptedGradientColoredAreas) {
+		if (adaptedGradientColoredAreas != null && adaptedGradientColoredAreas.getAdaptedGradientColoredAreas() != null &&!adaptedGradientColoredAreas.getAdaptedGradientColoredAreas().isEmpty()) {
+			// set the RenderingStyle with AdaptedGradientColoredAreas
+			RenderingStyle renderingStyle = abstractStyle.getRenderingStyle();
+			if (renderingStyle == null) {
+				renderingStyle = PictogramsFactory.eINSTANCE.createRenderingStyle();
+				abstractStyle.setRenderingStyle(renderingStyle);
+			}
+			renderingStyle.setAdaptedGradientColoredAreas(adaptedGradientColoredAreas);
+		}else{
+			throw new IllegalArgumentException("Object AdaptedGradientColoredAreas is null or empty"); //$NON-NLS-1$
+		}
+	}
 }
