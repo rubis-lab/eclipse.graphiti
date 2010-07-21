@@ -92,6 +92,9 @@ import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
+import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
@@ -144,15 +147,15 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributo
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 /**
- * The Class DiagramEditor.
+ * The Class DiagramEditorInternal.
  */
-public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements IConfigurationProviderHolder, IDiagramEditor,
-		ITabbedPropertySheetPageContributor, IResourceRegistryHolder, IRefreshableContent, IEditingDomainProvider {
+public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette implements IConfigurationProviderHolder, IDiagramEditor,
+		ITabbedPropertySheetPageContributor, IResourceRegistryHolder, IEditingDomainProvider {
 
 	private final CommandStackEventListener cmdStackListener = new CommandStackEventListener() {
 		public void stackChanged(CommandStackEvent event) {
 			if (Display.getCurrent() != null) { // Only fire if triggered from UI thread
-				DiagramEditor.this.firePropertyChange(IEditorPart.PROP_DIRTY);
+				DiagramEditorInternal.this.firePropertyChange(IEditorPart.PROP_DIRTY);
 
 				// Promote the changes to the command stack also to the action bars and registered actions to
 				// correctly reflect e.g. undo/redo in the menu (introduced to enable removing NOP commands from
@@ -261,7 +264,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	/**
 	 * Instantiates a new diagram editor.
 	 */
-	public DiagramEditor() {
+	public DiagramEditorInternal() {
 		behavior = new DiagramEditorBehavior(this);
 	}
 
@@ -398,7 +401,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @return A new ContextMenuProvider.
 	 */
 	protected ContextMenuProvider createContextMenuProvider() {
-		return new GraphicsContextMenuProvider(getGraphicalViewer(), getActionRegistry(), getGraphicalViewer().getControl(),
+		return new DiagramEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry(), getGraphicalViewer().getControl(),
 				getConfigurationProvider());
 	}
 
@@ -889,7 +892,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 	private IPreferenceStore getPreferenceStore() {
 		IPreferenceStore ps = GraphitiUIPlugin.getDefault().getPreferenceStore();
-		ps.setDefault(DiagramEditor.PALETTE_STATE, FlyoutPaletteComposite.STATE_PINNED_OPEN);
+		ps.setDefault(DiagramEditorInternal.PALETTE_STATE, FlyoutPaletteComposite.STATE_PINNED_OPEN);
 		return ps;
 	}
 
@@ -1202,7 +1205,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			long time = (stop - start);
 			if (time > 500) {
 				String output = "refreshEditPart took " + time + " ms."; //$NON-NLS-1$ //$NON-NLS-2$
-				T.racer().warning("DiagramEditor.refreshEditPart() ", output); //$NON-NLS-1$
+				T.racer().warning("DiagramEditorInternal.refreshEditPart() ", output); //$NON-NLS-1$
 
 			}
 		} catch (NullPointerException e) {
@@ -1253,7 +1256,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 		if (GFPreferences.getInstance().isCPUProfilingTraceActive()) {
 			if (T.racer().info()) {
-				T.racer().info("DiagramEditor.refresh()"); //$NON-NLS-1$
+				T.racer().info("DiagramEditorInternal.refresh()"); //$NON-NLS-1$
 			}
 		}
 
@@ -1286,7 +1289,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		long time = (stop - start);
 		if (time > 500) {
 			String output = "refresh took " + time + " ms."; //$NON-NLS-1$ //$NON-NLS-2$
-			T.racer().warning("DiagramEditor.refresh() ", output); //$NON-NLS-1$
+			T.racer().warning("DiagramEditorInternal.refresh() ", output); //$NON-NLS-1$
 		}
 
 		// prove if switch to direct editing is required

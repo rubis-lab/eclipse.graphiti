@@ -19,7 +19,7 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.partfactory.PictogramsEditPartFactory;
 import org.eclipse.graphiti.ui.internal.policy.DefaultEditPolicyFactory;
 import org.eclipse.graphiti.ui.internal.policy.IEditPolicyFactory;
@@ -40,7 +40,7 @@ public class ConfigurationProvider implements IConfigurationProvider {
 
 	private IWorkbenchPart _workbenchPart;
 
-	private DiagramEditor diagramEditor;
+	private DiagramEditorInternal diagramEditor;
 
 	private IDiagramTypeProvider diagramTypeProvider;
 
@@ -52,7 +52,7 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
 	 */
-	public ConfigurationProvider(DiagramEditor diagramEditor, IDiagramTypeProvider diagramTypeProvider) {
+	public ConfigurationProvider(DiagramEditorInternal diagramEditor, IDiagramTypeProvider diagramTypeProvider) {
 		this.diagramEditor = diagramEditor;
 		setDiagramTypeProvider(diagramTypeProvider);
 	}
@@ -137,7 +137,7 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	 * @see org.eclipse.graphiti.ui.internal.config.IConfigurationProvider#
 	 * getDiagramEditor()
 	 */
-	public DiagramEditor getDiagramEditor() {
+	public DiagramEditorInternal getDiagramEditor() {
 		return diagramEditor;
 	}
 

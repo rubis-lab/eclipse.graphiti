@@ -77,7 +77,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		return request;
 	}
 
-	private DiagramEditor diagramEditor;
+	private DiagramEditorInternal diagramEditor;
 
 	private ContextButtonEntry contextButtonEntry;
 
@@ -91,7 +91,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	 * @param contextButtonEntry
 	 *            the context button entry
 	 */
-	public void startConnection(EditPart targetEditPart, DiagramEditor diagramEditor, ContextButtonEntry contextButtonEntry) {
+	public void startConnection(EditPart targetEditPart, DiagramEditorInternal diagramEditor, ContextButtonEntry contextButtonEntry) {
 
 		this.diagramEditor = diagramEditor;
 		this.contextButtonEntry = contextButtonEntry;
@@ -123,7 +123,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	 * @param targetTargetEditPart
 	 *            the target target edit part
 	 */
-	public void continueConnection(EditPart targetEditPart, DiagramEditor diagramEditor, ContextButtonEntry contextButtonEntry,
+	public void continueConnection(EditPart targetEditPart, DiagramEditorInternal diagramEditor, ContextButtonEntry contextButtonEntry,
 			EditPart targetTargetEditPart) {
 
 		this.diagramEditor = diagramEditor;

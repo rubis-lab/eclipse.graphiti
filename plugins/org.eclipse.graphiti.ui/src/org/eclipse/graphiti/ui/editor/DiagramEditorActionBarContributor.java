@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.ui.internal.editor;
+package org.eclipse.graphiti.ui.editor;
 
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.gef.internal.GEFMessages;
@@ -46,7 +46,7 @@ import org.eclipse.ui.actions.RetargetAction;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class GraphicsActionBarContributor extends ActionBarContributor {
+public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 	/**
 	 * Creates and initializes all Actions.

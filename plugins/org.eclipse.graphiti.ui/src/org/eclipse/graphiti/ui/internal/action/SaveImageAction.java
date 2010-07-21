@@ -19,7 +19,7 @@ import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.context.ISaveImageContext;
 import org.eclipse.graphiti.ui.internal.Messages;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.action.Action;
 
@@ -33,9 +33,9 @@ public class SaveImageAction extends Action {
 
 	private ISaveImageContext context;
 
-	private DiagramEditor graphicsEditor;
+	private DiagramEditorInternal graphicsEditor;
 
-	public SaveImageAction(ISaveImageFeature saveImageFeature, ISaveImageContext context, DiagramEditor graphicsEditor) {
+	public SaveImageAction(ISaveImageFeature saveImageFeature, ISaveImageContext context, DiagramEditorInternal graphicsEditor) {
 		super();
 		this.saveImageFeature = saveImageFeature;
 		this.context = context;

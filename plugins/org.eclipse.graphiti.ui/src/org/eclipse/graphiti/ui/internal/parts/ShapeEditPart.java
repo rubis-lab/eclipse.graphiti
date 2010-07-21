@@ -66,7 +66,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.parts.directedit.GFDirectEditManager;
 import org.eclipse.graphiti.ui.internal.parts.directedit.TextCellLocator;
 import org.eclipse.graphiti.ui.internal.policy.DefaultEditPolicyFactory;
@@ -715,7 +715,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	}
 
 	private Point getRelativeMouseLocation() {
-		DiagramEditor editor = (DiagramEditor) getConfigurationProvider().getWorkbenchPart();
+		DiagramEditorInternal editor = (DiagramEditorInternal) getConfigurationProvider().getWorkbenchPart();
 
 		// get current mouse location from the viewer
 		Point mouseLocation = new Point(editor.getMouseLocation());

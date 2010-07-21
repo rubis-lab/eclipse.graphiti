@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.fixed;
 
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.editor.GraphitiScrollingGraphicalViewer;
 
 /**
@@ -26,7 +26,7 @@ import org.eclipse.graphiti.ui.internal.editor.GraphitiScrollingGraphicalViewer;
  */
 public abstract class FixedScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer {
 
-	public FixedScrollingGraphicalViewer(DiagramEditor diagramEditor) {
+	public FixedScrollingGraphicalViewer(DiagramEditorInternal diagramEditor) {
 		super(diagramEditor);
 	}
 

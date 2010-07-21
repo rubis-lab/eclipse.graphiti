@@ -36,7 +36,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.internal.ImagePool;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.util.ui.PopupMenu;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -137,7 +137,7 @@ public class CreateConnectionCommand extends AbstractCommand {
 		CustomContext customContext = new CustomContext();
 		customContext.setPictogramElements(new PictogramElement[] { sourceObject, targetObject });
 
-		DiagramEditor diagramEditor = (DiagramEditor) getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
+		DiagramEditorInternal diagramEditor = (DiagramEditorInternal) getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
 		Point newLocation = diagramEditor.calculateRealMouseLocation(location);
 		customContext.setLocation(newLocation.x, newLocation.y);
 

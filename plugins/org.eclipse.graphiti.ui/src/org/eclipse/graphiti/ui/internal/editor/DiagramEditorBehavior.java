@@ -52,6 +52,7 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.emf.workspace.ResourceUndoContext;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.T;
@@ -765,8 +766,8 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	private void refreshEditorContent() {
-		if (editorPart instanceof IRefreshableContent) {
-			((IRefreshableContent) editorPart).refreshContent();
+		if (editorPart instanceof DiagramEditorInternal) {
+			((DiagramEditorInternal) editorPart).refreshContent();
 		}
 	}
 }

@@ -34,7 +34,7 @@ import org.eclipse.ui.progress.UIJob;
 
 /**
  * Package-private Refresh Job used by the DiagramListener to update the
- * DiagramEditor.
+ * DiagramEditorInternal.
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
@@ -50,9 +50,9 @@ class DiagramRefreshJob extends UIJob {
 
 	private boolean refreshAll = false;
 
-	private DiagramEditor ed;
+	private DiagramEditorInternal ed;
 
-	DiagramRefreshJob(String name, DiagramEditor ed) {
+	DiagramRefreshJob(String name, DiagramEditorInternal ed) {
 		super(name);
 		this.ed = ed;
 	}
@@ -87,7 +87,7 @@ class DiagramRefreshJob extends UIJob {
 	public IStatus runInUIThread(IProgressMonitor monitor) {
 		if (GFPreferences.getInstance().isCPUProfilingTraceActive()) {
 			if (T.racer().info()) {
-				T.racer().info("RUN UI  =>  DiagramEditor.RefreshDiagramJob.runInUIThread()"); //$NON-NLS-1$
+				T.racer().info("RUN UI  =>  DiagramEditorInternal.RefreshDiagramJob.runInUIThread()"); //$NON-NLS-1$
 			}
 		}
 

@@ -47,7 +47,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * Listener for model changes in the notational model. Is attached to the
- * <code>ResourceSet</code> provided by the <code>DiagramEditor</code>.
+ * <code>ResourceSet</code> provided by the <code>DiagramEditorInternal</code>.
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
@@ -55,9 +55,9 @@ import org.eclipse.swt.widgets.Display;
 public class DiagramChangeListener implements ResourceSetListener {
 
 	private DiagramRefreshJob diagramRefreshJob;
-	private DiagramEditor ed;
+	private DiagramEditorInternal ed;
 
-	public DiagramChangeListener(DiagramEditor ed) {
+	public DiagramChangeListener(DiagramEditorInternal ed) {
 		this.ed = ed;
 	}
 
@@ -279,15 +279,15 @@ public class DiagramChangeListener implements ResourceSetListener {
 //import org.eclipse.graphiti.util.T;
 //
 ///**
-// * Package-private listener used to update the DiagramEditor. See
+// * Package-private listener used to update the DiagramEditorInternal. See
 // * DiagramChangeListener2 for a more efficient version.
 // * 
 // */
 //class DiagramChangeListener extends EContentAdapter {
 //	private DiagramRefreshJob diagramRefreshJob;
-//	private DiagramEditor ed;
+//	private DiagramEditorInternal ed;
 //
-//	DiagramChangeListener(DiagramEditor ed) {
+//	DiagramChangeListener(DiagramEditorInternal ed) {
 //		super();
 //		this.ed = ed;
 //	}

@@ -89,7 +89,7 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.tb.ImageRenderingDecorator;
 import org.eclipse.graphiti.ui.internal.ImagePool;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFAbstractShape;
 import org.eclipse.graphiti.ui.internal.figures.GFEllipse;
 import org.eclipse.graphiti.ui.internal.figures.GFEllipseDecoration;
@@ -169,7 +169,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * #activate ()
 	 */
 	public void activate() {
-		// register listener for changes in the bo model -> will be done globally in the DiagramEditor
+		// register listener for changes in the bo model -> will be done globally in the DiagramEditorInternal
 	}
 
 	/*
@@ -1377,7 +1377,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		return forceRefresh;
 	}
 
-	private DiagramEditor getEditor() {
+	private DiagramEditorInternal getEditor() {
 		return getConfigurationProvider().getDiagramEditor();
 	}
 

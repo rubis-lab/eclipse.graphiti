@@ -70,7 +70,7 @@ import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.command.MoveAnchorFeatureCommandWithContext;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
@@ -124,7 +124,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 			IConfigurationProvider configurationProvider = getConfigurationProvider();
 			Point viewLocation = null;
-			DiagramEditor diagramEditor = getConfigurationProvider().getDiagramEditor();
+			DiagramEditorInternal diagramEditor = getConfigurationProvider().getDiagramEditor();
 			if (diagramEditor.getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
 				GFFigureCanvas c =  (GFFigureCanvas) configurationProvider.getDiagramEditor().getGraphicalViewer().getControl();
 				viewLocation = c.getViewport().getViewLocation();
@@ -255,7 +255,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 		if (ret.containsCommands()) {
 			// hide context-buttons, if the user resizes/moves the shape
-			DiagramEditor editor = getConfigurationProvider().getDiagramEditor();
+			DiagramEditorInternal editor = getConfigurationProvider().getDiagramEditor();
 			IContextButtonManager contextButtonManager = editor.getContextButtonManager();
 			contextButtonManager.hideContextButtonsInstantly();
 

@@ -58,7 +58,7 @@ public class GFScrollingGraphicalViewer extends FixedScrollingGraphicalViewer {
 	 * @param diagramEditor
 	 *            the diagram editor
 	 */
-	public GFScrollingGraphicalViewer(DiagramEditor diagramEditor) {
+	public GFScrollingGraphicalViewer(DiagramEditorInternal diagramEditor) {
 		super(diagramEditor);
 	}
 

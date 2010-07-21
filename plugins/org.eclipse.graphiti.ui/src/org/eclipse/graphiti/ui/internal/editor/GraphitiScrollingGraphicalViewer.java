@@ -28,9 +28,9 @@ import org.eclipse.jface.viewers.StructuredSelection;
 
 public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 
-	private DiagramEditor diagramEditor;
+	private DiagramEditorInternal diagramEditor;
 
-	public GraphitiScrollingGraphicalViewer(DiagramEditor diagramEditor) {
+	public GraphitiScrollingGraphicalViewer(DiagramEditorInternal diagramEditor) {
 		this.setDiagramEditor(diagramEditor);
 	}
 
@@ -168,11 +168,11 @@ public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 		}
 	}
 
-	private void setDiagramEditor(DiagramEditor diagramEditor) {
+	private void setDiagramEditor(DiagramEditorInternal diagramEditor) {
 		this.diagramEditor = diagramEditor;
 	}
 
-	protected DiagramEditor getDiagramEditor() {
+	protected DiagramEditorInternal getDiagramEditor() {
 		return diagramEditor;
 	}
 }

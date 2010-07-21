@@ -17,6 +17,7 @@ package org.eclipse.graphiti.ui.internal.editor;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 
 public class DiagramEditorInputDisposingTED extends DiagramEditorInput {
 

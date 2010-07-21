@@ -27,7 +27,7 @@ import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.IContributedContentsView;
@@ -77,14 +77,14 @@ public abstract class GFPropertySection extends AbstractPropertySection implemen
 
 	protected IDiagramEditor getDiagramEditor() {
 		IWorkbenchPart part = getPart();
-		if (part instanceof DiagramEditor) {
-			return (DiagramEditor) part;
+		if (part instanceof DiagramEditorInternal) {
+			return (DiagramEditorInternal) part;
 		}
 		IContributedContentsView contributedView = (IContributedContentsView) part.getAdapter(IContributedContentsView.class);
 		if (contributedView != null)
 			part = contributedView.getContributingPart();
-		if (part instanceof DiagramEditor) {
-			return (DiagramEditor) part;
+		if (part instanceof DiagramEditorInternal) {
+			return (DiagramEditorInternal) part;
 		}
 
 		return null;

@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.ui.internal.editor;
+package org.eclipse.graphiti.ui.editor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -50,6 +50,7 @@ import org.eclipse.graphiti.ui.internal.action.RemoveAction;
 import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
 import org.eclipse.graphiti.util.ILocationInfo;
 import org.eclipse.jface.action.ActionContributionItem;
@@ -76,7 +77,7 @@ import org.eclipse.ui.actions.ActionFactory;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class GraphicsContextMenuProvider extends ContextMenuProvider {
+public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 
 	private ActionRegistry _actionRegistry;
 
@@ -85,7 +86,7 @@ public class GraphicsContextMenuProvider extends ContextMenuProvider {
 	private IConfigurationProvider configurationProvider;
 
 	/**
-	 * Creates a new GraphicsContextMenuProvider.
+	 * Creates a new DiagramEditorContextMenuProvider.
 	 * 
 	 * @param viewer
 	 *            The EditPartViewer, for which the context-menu shall be
@@ -100,7 +101,7 @@ public class GraphicsContextMenuProvider extends ContextMenuProvider {
 	 * @param configurationProvider
 	 *            the configuration provider
 	 */
-	public GraphicsContextMenuProvider(EditPartViewer viewer, ActionRegistry registry, Control menuLocationReferenceControl,
+	public DiagramEditorContextMenuProvider(EditPartViewer viewer, ActionRegistry registry, Control menuLocationReferenceControl,
 			IConfigurationProvider configurationProvider) {
 		super(viewer);
 		_actionRegistry = registry;
@@ -508,7 +509,7 @@ public class GraphicsContextMenuProvider extends ContextMenuProvider {
 		return ret;
 	}
 
-	private DiagramEditor getEditor() {
+	private DiagramEditorInternal getEditor() {
 		return getConfigurationProvider().getDiagramEditor();
 	}
 }

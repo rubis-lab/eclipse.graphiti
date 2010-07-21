@@ -27,7 +27,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.internal.contextbuttons.IContextButtonPadDeclaration;
 import org.eclipse.graphiti.internal.contextbuttons.PositionedContextButton;
 import org.eclipse.graphiti.internal.contextbuttons.IContextButtonPadDeclaration.PadStyle;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.swt.SWT;
@@ -80,7 +80,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	/**
 	 * The editor as described in {@link #getEditor()}.
 	 */
-	private DiagramEditor editor;
+	private DiagramEditorInternal editor;
 
 	/**
 	 * The edit-part as described in {@link #getEditPart()}.
@@ -153,7 +153,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	 * @param editPart
 	 *            The edit-part as described in {@link #getEditPart()}.
 	 */
-	public ContextButtonPad(IContextButtonPadDeclaration declaration, double zoomLevel, DiagramEditor editor, EditPart editPart) {
+	public ContextButtonPad(IContextButtonPadDeclaration declaration, double zoomLevel, DiagramEditorInternal editor, EditPart editPart) {
 		this.declaration = declaration;
 		this.zoomLevel = zoomLevel;
 		this.editor = editor;
@@ -197,7 +197,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	 * 
 	 * @return The editor, which can be used to access the environment.
 	 */
-	public final DiagramEditor getEditor() {
+	public final DiagramEditorInternal getEditor() {
 		return editor;
 	}
 

@@ -37,13 +37,13 @@
    <extension
          point="org.eclipse.ui.editors">
  	  <editor
-          class="org.eclipse.graphiti.ui.internal.editor.DiagramEditor"
-          contributorClass="org.eclipse.graphiti.ui.internal.editor.GraphicsActionBarContributor"
+          class="org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal"
+          contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
           default="true"
           extensions="diagram"
           icon="icons/lazy.gif"
           id="org.eclipse.graphiti.ui.internal.editor.DiagramEditor"
-          matchingStrategy="org.eclipse.graphiti.ui.internal.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
+          matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
           name="%_diagram_editor_name">
        <contentTypeBinding
              contentTypeId="org.eclipse.graphiti.content.diagram">
@@ -61,7 +61,7 @@
    </extension>
 
    <extension point="org.eclipse.ui.elementFactories" id=".DiagramEditorFactory" name="%_diagram_editor_factory">
-      <factory class="org.eclipse.graphiti.ui.internal.editor.DiagramEditorFactory" id="org.eclipse.graphiti.ui.internal.editor.DiagramEditorFactory">
+      <factory class="org.eclipse.graphiti.ui.editor.DiagramEditorFactory" id="org.eclipse.graphiti.ui.internal.editor.DiagramEditorFactory">
       </factory>
    </extension>
    

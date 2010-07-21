@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.ui.internal.editor;
+package org.eclipse.graphiti.ui.editor;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
@@ -25,6 +25,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.T;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInputDisposingTED;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;
@@ -32,7 +34,7 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 
 /**
- * The model based editor input for {@link DiagramEditor} diagram editors.
+ * The model based editor input for {@link DiagramEditorInternal} diagram editors.
  * Basically a {@linkTransactionalEditingDomain} with an already existing
  * {@linkResourceSet} is hosted to resolve an {@link EObject} from an
  * {@link URI} or {@link URI} String. Some helper methods are added.
@@ -41,7 +43,7 @@ import org.eclipse.ui.IPersistableElement;
  * @see {@link IPersistableElement}
  * @see {@link DiagramEditorInputDisposingTED}
  * @see {@link DiagramEditorFactory}
- * @see {@link DiagramEditor}
+ * @see {@link DiagramEditorInternal}
  */
 public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 
@@ -53,12 +55,17 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	/**
 	 * The key for the stored {@link URI} string
 	 */
-	public static final String KEY_URI = "uri"; //$NON-NLS-1$
+	public static final String KEY_URI = "org.eclipse.graphiti.uri"; //$NON-NLS-1$
 
 	/**
 	 * The key for the stored object name
 	 */
-	public static final String KEY_OBJECT_NAME = "objectName"; //$NON-NLS-1$
+	public static final String KEY_OBJECT_NAME = "org.eclipse.graphiti.objectName"; //$NON-NLS-1$
+
+	/**
+	 * The key for the ID of the diagram type provider.
+	 */
+	public static String KEY_PROVIDER_ID = "org.eclipse.graphiti.providerId"; //$NON-NLS-1$
 
 	/**
 	 * The cached input name
@@ -87,10 +94,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 */
 	private String providerId;
 
-	/**
-	 * The key for the ID of the diagram type provider.
-	 */
-	public static String KEY_PROVIDER_ID = "PROVIDERID"; //$NON-NLS-1$
 
 	/**
 	 * Creates an input out of a {@link URI} string and a transactional editing
@@ -107,7 +110,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 *            {@link ResourceSet}
 	 * @param providerID2
 	 *            A {@link String} which holds the diagram type id. When it is
-	 *            null, it is set later in {@link DiagramEditor}
+	 *            null, it is set later in {@link DiagramEditorInternal}
 	 * @throws IllegalArgumentException
 	 *             if <code>uriString</code> parameter is null
 	 * @see URI
@@ -139,7 +142,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 *            {@link ResourceSet}
 	 * @param providerID2
 	 *            A {@link String} which holds the diagram type id. When it is
-	 *            null, it is set later in {@link DiagramEditor}
+	 *            null, it is set later in {@link DiagramEditorInternal}
 	 * @throws IllegalArgumentException
 	 *             , if <code>uri</code> parameter is null
 	 * @see #DiagramEditorInputBase(String, TransactionalEditingDomain)
@@ -214,7 +217,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @param providerId
 	 *            The providerId to set.
 	 */
-	protected void setProviderId(String providerId) {
+	public void setProviderId(String providerId) {
 		this.providerId = providerId;
 	}
 
@@ -357,7 +360,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 				// Not able to adapt to eObject, object has been deleted, file was deleted...
 				// adapt must deliver null
 				//TODO IStatus status = new Status(IStatus.WARNING, 0, e.getMessage(), e, EmfFwkUIPlugin.PLUGIN_ID);
-				T.racer().log(IStatus.INFO, e.getMessage());
+				T.racer().debug(e.getMessage());
 				return null;
 			}
 			return eObject;
@@ -365,11 +368,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 			return getEditingDomain();
 		} else if (ResourceSet.class.isAssignableFrom(adapter)) {
 			return getEditingDomain().getResourceSet();
-		} else if (IFile.class == adapter) {
-			final EObject refObject = getEObject();
-			if (refObject != null) {
-				return GraphitiUiInternal.getEmfService().getFile(refObject);
-			}
 		}
 		return null;
 	}

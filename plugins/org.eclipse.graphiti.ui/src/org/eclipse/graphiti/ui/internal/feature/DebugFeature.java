@@ -21,7 +21,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 
 /**
@@ -53,7 +53,7 @@ public class DebugFeature extends AbstractCustomFeature {
 		PictogramElement[] pes = context.getPictogramElements();
 		if (pes != null && pes.length > 0 && pes[0] != null) {
 			PictogramElement pe = pes[0];
-			DiagramEditor diagramEditor = (DiagramEditor) getDiagramEditor();
+			DiagramEditorInternal diagramEditor = (DiagramEditorInternal) getDiagramEditor();
 			GraphicalEditPart ep = diagramEditor.getEditPartForPictogramElement(pe);
 			IFigure figure = diagramEditor.getFigureForPictogramElement(pe);
 

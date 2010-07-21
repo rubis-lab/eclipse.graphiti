@@ -40,7 +40,7 @@ import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart;
 
 /**
@@ -62,7 +62,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 * The editor on which this context button manager works, see
 	 * {@link #getEditor()}. It is set in the constructor.
 	 */
-	private DiagramEditor editor;
+	private DiagramEditorInternal editor;
 
 	/**
 	 * A backward-map from the edit-part figures to their edit-parts as
@@ -109,7 +109,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 		}
 
 		private void reactOnMouse(MouseEvent me) {
-			DiagramEditor ed = getEditor();
+			DiagramEditorInternal ed = getEditor();
 
 			if (ed.isDirectEditingActive()) {
 				return;
@@ -134,7 +134,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 *            The editor on which this context button manager works, see
 	 *            {@link #getEditor()}.
 	 */
-	public ContextButtonManagerForPad(DiagramEditor editor) {
+	public ContextButtonManagerForPad(DiagramEditorInternal editor) {
 		this.editor = editor;
 
 		ZoomManager zoomMgr = (ZoomManager) getEditor().getGraphicalViewer().getProperty(ZoomManager.class.toString());
@@ -151,7 +151,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 * 
 	 * @return The editor this context button manager works on.
 	 */
-	public DiagramEditor getEditor() {
+	public DiagramEditorInternal getEditor() {
 		return editor;
 	}
 

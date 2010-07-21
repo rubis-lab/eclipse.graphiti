@@ -86,7 +86,7 @@ public class GFFigureCanvas extends Canvas {
 
 	private final GFUpdateListener gfUpdateListener = new GFUpdateListener();
 
-	private DiagramEditor diagramEditor = null;
+	private DiagramEditorInternal diagramEditor = null;
 
 	private boolean init = true;
 
@@ -172,7 +172,7 @@ public class GFFigureCanvas extends Canvas {
 	 * @param diagramEditor
 	 *            the diagram editor
 	 */
-	public GFFigureCanvas(Composite parent, DiagramEditor diagramEditor) {
+	public GFFigureCanvas(Composite parent, DiagramEditorInternal diagramEditor) {
 		this(parent, SWT.DOUBLE_BUFFERED, new LightweightSystem(), diagramEditor);
 	}
 
@@ -187,7 +187,7 @@ public class GFFigureCanvas extends Canvas {
 	 *            the diagram editor
 	 * @since 3.1
 	 */
-	public GFFigureCanvas(Composite parent, int style, DiagramEditor diagramEditor) {
+	public GFFigureCanvas(Composite parent, int style, DiagramEditorInternal diagramEditor) {
 		this(parent, style, new LightweightSystem(), diagramEditor);
 	}
 
@@ -202,7 +202,7 @@ public class GFFigureCanvas extends Canvas {
 	 * @param diagramEditor
 	 *            the diagram editor
 	 */
-	public GFFigureCanvas(Composite parent, LightweightSystem lws, DiagramEditor diagramEditor) {
+	public GFFigureCanvas(Composite parent, LightweightSystem lws, DiagramEditorInternal diagramEditor) {
 		this(parent, SWT.DOUBLE_BUFFERED, lws, diagramEditor);
 	}
 
@@ -219,7 +219,7 @@ public class GFFigureCanvas extends Canvas {
 	 *            the diagram editor
 	 * @since 3.1
 	 */
-	public GFFigureCanvas(Composite parent, int style, LightweightSystem lws, DiagramEditor diagramEditor) {
+	public GFFigureCanvas(Composite parent, int style, LightweightSystem lws, DiagramEditorInternal diagramEditor) {
 		super(parent, checkStyle(style | SWT.NO_REDRAW_RESIZE | SWT.NO_BACKGROUND | SWT.V_SCROLL | SWT.H_SCROLL));
 		getHorizontalBar().setVisible(false);
 		getVerticalBar().setVisible(false);

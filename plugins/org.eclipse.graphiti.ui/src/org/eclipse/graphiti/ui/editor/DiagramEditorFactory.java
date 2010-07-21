@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.ui.internal.editor;
+package org.eclipse.graphiti.ui.editor;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInputDisposingTED;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorMatchingStrategy;
@@ -34,7 +35,7 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.PartInitException;
 
 /**
- * A factory for creating DiagramEditor objects.
+ * A factory for creating DiagramEditorInternal objects.
  * 
  * @see {@link DiagramEditorInputBase}
  * @see {@link DiagramEditorInputDisposingTED}

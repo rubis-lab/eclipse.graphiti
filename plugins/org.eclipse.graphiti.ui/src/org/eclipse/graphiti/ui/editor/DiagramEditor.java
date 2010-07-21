@@ -13,14 +13,14 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.ui.internal.editor;
+package org.eclipse.graphiti.ui.editor;
+
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 
 /**
- * @noimplement This interface is not intended to be implemented by clients.
- * @noextend This class is not intended to be subclassed by clients.
+ * This class is for extension by clients if they need their own editor class.
+ * 
  */
-public interface IRefreshableContent {
-
-	public void refreshContent();
+public class DiagramEditor extends DiagramEditorInternal {
 
 }
