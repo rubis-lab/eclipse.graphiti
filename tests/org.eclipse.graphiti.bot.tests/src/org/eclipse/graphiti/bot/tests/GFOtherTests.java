@@ -88,12 +88,12 @@ import org.eclipse.graphiti.mm.pictograms.RoundedRectangle;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.features.AbstractDrillDownFeature;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorFactory;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInput;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
 import org.eclipse.graphiti.ui.internal.figures.ColoredArea;
 import org.eclipse.graphiti.ui.internal.figures.ColoredLocation;
@@ -201,7 +201,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testOnEcoreDiagram() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -258,7 +258,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	//	@Test
 	public void xxtestUndoRedo() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -303,7 +303,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testAbstractDrillDownFeature() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		Object rootModelObject = diagramEditor.getGraphicalViewer().getContents().getModel();
 		assertTrue(rootModelObject instanceof Diagram);
 		Diagram diagram = (Diagram) rootModelObject;
@@ -380,7 +380,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testOnPatternDiagram() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_PATTERN);
+		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_PATTERN);
 
 		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 		syncExec(new VoidResult() {
@@ -431,11 +431,11 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testPlatformUtil() throws Exception {
-		final DiagramEditor ed = syncExec(new Result<DiagramEditor>() {
-			public DiagramEditor run() {
+		final DiagramEditorInternal ed = syncExec(new Result<DiagramEditorInternal>() {
+			public DiagramEditorInternal run() {
 				final Diagram newDiagram = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 				assertTrue("create diagram does not work", newDiagram != null);
-				return (DiagramEditor) GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram,
+				return (DiagramEditorInternal) GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram,
 						getTransactionalEditingDomain(), false);
 			}
 		});
@@ -451,7 +451,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testOnSketchDiagram() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -1002,8 +1002,8 @@ public class GFOtherTests extends AbstractGFTests {
 			public Integer run() {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				try {
-					IEditorPart ed = IDE.openEditor(page, diagFile, DiagramEditor.DIAGRAM_EDITOR_ID);
-					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditor);
+					IEditorPart ed = IDE.openEditor(page, diagFile, DiagramEditorInternal.DIAGRAM_EDITOR_ID);
+					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditorInternal);
 				} catch (PartInitException e) {
 					fail(e.getMessage());
 				}
@@ -1022,8 +1022,8 @@ public class GFOtherTests extends AbstractGFTests {
 				try {
 					IEditorInput input = DiagramEditorInput.createEditorInput(diagram, domain, GraphitiUi.getExtensionManager()
 							.getDiagramTypeProviderId(diagram.getDiagramTypeId()), false);
-					IEditorPart ed = IDE.openEditor(page, input, DiagramEditor.DIAGRAM_EDITOR_ID);
-					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditor);
+					IEditorPart ed = IDE.openEditor(page, input, DiagramEditorInternal.DIAGRAM_EDITOR_ID);
+					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditorInternal);
 				} catch (PartInitException e) {
 					fail(e.getMessage());
 				}

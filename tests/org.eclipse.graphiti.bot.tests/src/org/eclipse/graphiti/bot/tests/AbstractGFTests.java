@@ -59,7 +59,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.SWT;
@@ -89,13 +89,13 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 	private static IPath DIAGRAMS_FOLDER = SOURCE_FOLDER.append("diagrams");
 
 	private class DiagramEditorHolder {
-		DiagramEditor diagramEditor;
+		DiagramEditorInternal diagramEditor;
 
-		public DiagramEditor getDiagramEditor() {
+		public DiagramEditorInternal getDiagramEditor() {
 			return diagramEditor;
 		}
 
-		public void setDiagramEditor(DiagramEditor diagramEditor2) {
+		public void setDiagramEditor(DiagramEditorInternal diagramEditor2) {
 			this.diagramEditor = diagramEditor2;
 		}
 	}
@@ -168,7 +168,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 		}
 	}
 
-	protected void closeEditor(final DiagramEditor diagramEditor) {
+	protected void closeEditor(final DiagramEditorInternal diagramEditor) {
 
 		if (diagramEditor == null) {
 			return;
@@ -304,7 +304,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 		}
 	}
 
-	protected DiagramEditor openDiagram(final String type) {
+	protected DiagramEditorInternal openDiagram(final String type) {
 		final DiagramEditorHolder deh = new DiagramEditorHolder();
 		syncExec(new VoidResult() {
 			public void run() {
@@ -317,12 +317,12 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 				// use TestUtil to open editor since this waits for late
 				// initialization
-				DiagramEditor diagramEditor = (DiagramEditor) GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram,
+				DiagramEditorInternal diagramEditor = (DiagramEditorInternal) GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram,
 						getTransactionalEditingDomain(), false);
 				deh.setDiagramEditor(diagramEditor);
 			}
 		});
-		DiagramEditor diagramEditor = deh.getDiagramEditor();
+		DiagramEditorInternal diagramEditor = deh.getDiagramEditor();
 		if (ITestConstants.DIAGRAM_TYPE_ID_SKETCH.equals(type)) {
 			IFeatureProvider featureProvider = diagramEditor.getDiagramTypeProvider().getFeatureProvider();
 			if (featureProvider instanceof ConfigurableFeatureProviderWrapper) {
@@ -458,7 +458,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 	/**
 	 * @param diagramEditor
 	 */
-	protected void shutdownEditor(final DiagramEditor diagramEditor) {
+	protected void shutdownEditor(final DiagramEditorInternal diagramEditor) {
 		syncExec(new VoidResult() {
 			public void run() {
 				// Using SWTBot yields an exception since a keyboard layout file for DE is not available.

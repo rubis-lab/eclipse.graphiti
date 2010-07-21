@@ -23,7 +23,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.PrintGraphicalViewerAction;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.printing.Printer;
@@ -49,7 +49,7 @@ public class GFDialogTests extends AbstractGFTests {
 		// check if default printer is configured, otherwise SWT throws a "no more handles" error in Printer.checkNull(..)  
 		if (Printer.getDefaultPrinterData() != null) {
 
-			final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+			final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 			asyncExec(new VoidResult() {
 				public void run() {
 					IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
@@ -76,7 +76,7 @@ public class GFDialogTests extends AbstractGFTests {
 
 	@Test
 	public void testSaveDialog() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		asyncExec(new VoidResult() {
 			public void run() {
