@@ -28,7 +28,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
-import org.eclipse.graphiti.util.test;
 import org.eclipse.swt.graphics.Color;
 
 /**
@@ -37,7 +36,7 @@ import org.eclipse.swt.graphics.Color;
  * .
  * 
  */
-public class PredefinedColoredAreas implements IPredefinedRenderingStyle, test {
+public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 
 	/**
 	 * The color-areas, which are used for default elements with the ID
