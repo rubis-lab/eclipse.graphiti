@@ -24,6 +24,7 @@ import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -37,6 +38,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Ray;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -73,15 +75,21 @@ import org.eclipse.graphiti.internal.command.DefaultExecutionInfo;
 import org.eclipse.graphiti.internal.command.ICommand;
 import org.eclipse.graphiti.internal.util.DynamicLook;
 import org.eclipse.graphiti.internal.util.LookManager;
+import org.eclipse.graphiti.mm.datatypes.Color;
 import org.eclipse.graphiti.mm.datatypes.DatatypesFactory;
+import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredAreas;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredLocation;
 import org.eclipse.graphiti.mm.pictograms.MultiText;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.mm.pictograms.Polyline;
 import org.eclipse.graphiti.mm.pictograms.RoundedRectangle;
@@ -93,15 +101,16 @@ import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.features.AbstractDrillDownFeature;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
+import org.eclipse.graphiti.ui.internal.IResourceRegistry;
+import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
+import org.eclipse.graphiti.ui.internal.ResourceRegistry;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
-import org.eclipse.graphiti.ui.internal.figures.ColoredArea;
-import org.eclipse.graphiti.ui.internal.figures.ColoredLocation;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
-import org.eclipse.graphiti.ui.internal.figures.PredefinedColoredAreas;
 import org.eclipse.graphiti.ui.internal.policy.ShapeXYLayoutEditPolicy;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.ui.internal.util.draw2d.LineSeg;
 import org.eclipse.graphiti.ui.internal.util.draw2d.LineSeg.KeyPoint;
 import org.eclipse.graphiti.ui.internal.util.draw2d.LineSeg.Sign;
@@ -109,7 +118,9 @@ import org.eclipse.graphiti.ui.internal.util.ui.PopupMenu;
 import org.eclipse.graphiti.ui.internal.util.ui.PopupMenu.CascadingMenu;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.ui.services.IExtensionManager;
+import org.eclipse.graphiti.util.ColorUtil;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.eclipse.graphiti.util.PredefinedColoredAreas;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.GC;
@@ -815,16 +826,31 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testGfwFigureUtil() {
+		class RegistryHolder implements IResourceRegistryHolder {
+			IResourceRegistry resourceRegistry = new ResourceRegistry();
+
+			@Override
+			public IResourceRegistry getResourceRegistry() {
+				return resourceRegistry;
+			}
+
+		}
+		//IConfigurationProvider xx = new 
 		Image image = new Image(Display.getCurrent(), 22, 22);
 		GC gc = new GC(image);
 		SWTGraphics graphics = new SWTGraphics(gc);
 		double zoom = 1;
 		Rectangle rectangle = new Rectangle(1, 2, 3, 4);
-		ColoredLocation start = new ColoredLocation("D4E7F8", 0, ColoredLocation.LOCATION_TYPE_ABSOLUTE_START);
-		ColoredLocation end = new ColoredLocation("FAFBFC", 0, ColoredLocation.LOCATION_TYPE_ABSOLUTE_END);
-		ColoredArea coloredArea = new ColoredArea(start, end);
-		GFFigureUtil.paintColorFlow(rectangle, graphics, coloredArea, zoom, true);
-		GFFigureUtil.paintColorFlow(rectangle, graphics, coloredArea, zoom, false);
+		AdaptedGradientColoredAreas agca = PredefinedColoredAreas.getLightYellowAdaptions();
+		IResourceRegistryHolder rrh = new RegistryHolder();
+
+		EList<GradientColoredAreas> gradientColoredAreas = (EList<GradientColoredAreas>) agca.getAdaptedGradientColoredAreas();
+		EList<GradientColoredArea> gradienColoredAreaList = gradientColoredAreas.get(0).getGradientColor();
+
+		for (Iterator<GradientColoredArea> iterator = gradienColoredAreaList.iterator(); iterator.hasNext();) {
+			GradientColoredArea gradientColoredArea = (GradientColoredArea) iterator.next();
+			GFFigureUtil.paintColorFlow(rrh, rectangle, graphics, gradientColoredArea, zoom, true);
+		}
 
 		final Diagram diagram = createDiagram("test_peutil");
 
@@ -843,6 +869,8 @@ public class GFOtherTests extends AbstractGFTests {
 			}
 		});
 	}
+
+
 
 	@Test
 	public void testPopupMenu() {
@@ -871,12 +899,13 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testPredefinedColoredAreas() {
-		String[] ids = PredefinedColoredAreas.ALL_IDS;
-		for (String id : ids) {
-			PredefinedColoredAreas.getColoredAreas(id, PredefinedColoredAreas.STYLE_ADAPTATION_DEFAULT);
-			PredefinedColoredAreas.getColoredAreas(id, PredefinedColoredAreas.STYLE_ADAPTATION_PRIMARY_SELECTED);
-			PredefinedColoredAreas.getColoredAreas(id, PredefinedColoredAreas.STYLE_ADAPTATION_SECONDARY_SELECTED);
-		}
+		assertNotNull(PredefinedColoredAreas.getBlueWhiteAdaptions());
+		assertNotNull(PredefinedColoredAreas.getBlueWhiteGlossAdaptions());
+		assertNotNull(PredefinedColoredAreas.getCopperWhiteGlossAdaptions());
+		assertNotNull(PredefinedColoredAreas.getLightGrayAdaptions());
+		assertNotNull(PredefinedColoredAreas.getLightYellowAdaptions());
+		assertNotNull(PredefinedColoredAreas.getSilverWhiteGlossAdaptions());
+
 	}
 
 	@Test
