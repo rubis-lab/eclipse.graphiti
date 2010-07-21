@@ -15,9 +15,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.editor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -27,12 +24,7 @@ import org.eclipse.gef.AccessibleEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ExposeHelper;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.fixed.FixedScrollingGraphicalViewer;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.graphiti.ui.internal.fixed.FixedScalableRootEditPart;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
@@ -42,7 +34,7 @@ import org.eclipse.swt.widgets.Control;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class GFScrollingGraphicalViewer extends FixedScrollingGraphicalViewer {
+public class GFScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer {
 
 	/**
 	 * The root figure.
@@ -63,6 +55,14 @@ public class GFScrollingGraphicalViewer extends FixedScrollingGraphicalViewer {
 	}
 
 	/**
+	 * Creates the default root editpart. Called during construction.
+	 */
+	@Override
+	protected void createDefaultRoot() {
+		setRootEditPart(new FixedScalableRootEditPart());
+	}
+
+	/**
 	 * Creates the gfw control.
 	 * 
 	 * @param parent
@@ -78,12 +78,12 @@ public class GFScrollingGraphicalViewer extends FixedScrollingGraphicalViewer {
 	}
 
 	private void installRootFigure() {
-		if (getGFWFigureCanvas() == null)
+		if (getGFFigureCanvas() == null)
 			return;
 		if (rootFigure instanceof Viewport)
-			getGFWFigureCanvas().setViewport((Viewport) rootFigure);
+			getGFFigureCanvas().setViewport((Viewport) rootFigure);
 		else
-			getGFWFigureCanvas().setContents(rootFigure);
+			getGFFigureCanvas().setContents(rootFigure);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class GFScrollingGraphicalViewer extends FixedScrollingGraphicalViewer {
 	 * 
 	 * @return the gFW figure canvas
 	 */
-	protected GFFigureCanvas getGFWFigureCanvas() {
+	protected GFFigureCanvas getGFFigureCanvas() {
 		return (GFFigureCanvas) getControl();
 	}
 
@@ -131,7 +131,7 @@ public class GFScrollingGraphicalViewer extends FixedScrollingGraphicalViewer {
 		if (acc != null)
 			getControl().getAccessible().setFocus(acc.getAccessibleID());
 
-		Viewport port = getGFWFigureCanvas().getViewport();
+		Viewport port = getGFFigureCanvas().getViewport();
 		IFigure target = ((GraphicalEditPart) part).getFigure();
 		Rectangle exposeRegion = target.getBounds().getCopy();
 		target = target.getParent();
@@ -156,6 +156,6 @@ public class GFScrollingGraphicalViewer extends FixedScrollingGraphicalViewer {
 		else
 			finalLocation.y = Math.min(topLeft.y, Math.max(bottomRight.y, port.getViewLocation().y));
 
-		getGFWFigureCanvas().scrollSmoothTo(finalLocation.x, finalLocation.y);
+		getGFFigureCanvas().scrollSmoothTo(finalLocation.x, finalLocation.y);
 	}
 }
