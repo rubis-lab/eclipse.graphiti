@@ -22,9 +22,9 @@ import org.eclipse.graphiti.mm.pictograms.Style;
 import org.eclipse.graphiti.mm.pictograms.StyleContainer;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.ui.PredefinedColoredAreas;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 
 public class StyleUtil {
 
@@ -37,11 +37,11 @@ public class StyleUtil {
 
 		Style style = findStyle(diagram, styleId);
 
+		IGaService gaService = Graphiti.getGaService();
 		if (style == null) { // style not found - create new style
-			IGaService gaService = Graphiti.getGaService();
 			style = gaService.createStyle(diagram, styleId);
 			style.setForeground(gaService.manageColor(diagram, E_CLASS_FOREGROUND));
-			gaService.setRenderingStyle(style, IPredefinedRenderingStyle.BLUE_WHITE_GLOSS_ID);
+			gaService.setRenderingStyle(style, PredefinedColoredAreas.getBlueWhiteGlossAdaptions());
 			style.setLineWidth(2);
 		}
 		return style;
