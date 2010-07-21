@@ -25,9 +25,9 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Ray;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
-import org.eclipse.graphiti.ui.PredefinedColoredAreas;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
+import org.eclipse.graphiti.util.PredefinedColoredAreas;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Path;
 
