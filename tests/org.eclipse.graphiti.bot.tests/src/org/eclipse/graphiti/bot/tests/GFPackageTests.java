@@ -67,6 +67,7 @@ import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.testtool.ecore.TestDiagramTypeProvider;
 import org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.features.AbstractPasteFeature;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
@@ -100,7 +101,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 	@Test
 	public void testGraphitiUi() throws Exception {
-		String id = DiagramEditorInternal.DIAGRAM_EDITOR_ID;
+		String id = DiagramEditor.DIAGRAM_EDITOR_ID;
 		assertNotNull(id);
 		assertTrue(!("".equals(id)));
 		assertNotNull(GraphitiUIPlugin.getDefault());

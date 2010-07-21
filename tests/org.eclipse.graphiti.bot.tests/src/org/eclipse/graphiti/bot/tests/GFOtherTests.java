@@ -88,6 +88,7 @@ import org.eclipse.graphiti.mm.pictograms.RoundedRectangle;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.features.AbstractDrillDownFeature;
@@ -1002,7 +1003,7 @@ public class GFOtherTests extends AbstractGFTests {
 			public Integer run() {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				try {
-					IEditorPart ed = IDE.openEditor(page, diagFile, DiagramEditorInternal.DIAGRAM_EDITOR_ID);
+					IEditorPart ed = IDE.openEditor(page, diagFile, DiagramEditor.DIAGRAM_EDITOR_ID);
 					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditorInternal);
 				} catch (PartInitException e) {
 					fail(e.getMessage());
@@ -1022,7 +1023,7 @@ public class GFOtherTests extends AbstractGFTests {
 				try {
 					IEditorInput input = DiagramEditorInput.createEditorInput(diagram, domain, GraphitiUi.getExtensionManager()
 							.getDiagramTypeProviderId(diagram.getDiagramTypeId()), false);
-					IEditorPart ed = IDE.openEditor(page, input, DiagramEditorInternal.DIAGRAM_EDITOR_ID);
+					IEditorPart ed = IDE.openEditor(page, input, DiagramEditor.DIAGRAM_EDITOR_ID);
 					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditorInternal);
 				} catch (PartInitException e) {
 					fail(e.getMessage());
