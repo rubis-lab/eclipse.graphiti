@@ -22,9 +22,9 @@ import org.eclipse.graphiti.mm.pictograms.Style;
 import org.eclipse.graphiti.mm.pictograms.StyleContainer;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
-import org.eclipse.graphiti.ui.PredefinedColoredAreas;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.eclipse.graphiti.util.PredefinedColoredAreas;
 
 public class StyleUtil {
 
