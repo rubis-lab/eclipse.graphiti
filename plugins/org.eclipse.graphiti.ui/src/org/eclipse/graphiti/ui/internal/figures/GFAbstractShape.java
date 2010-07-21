@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.figures;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.draw2d.Figure;
@@ -22,9 +24,13 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.handles.HandleBounds;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
+import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredAreas;
 import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.RenderingStyle;
@@ -40,6 +46,7 @@ import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFColorConstants;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Path;
@@ -314,13 +321,17 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			if (renderingStyle != null) {
 				graphics.pushState();
 				try {
+					//do not use getZoomLevel(), which returns wrong scales
 					Rectangle pathBounds = GFFigureUtil.getPathBounds(path);
 					graphics.clipPath(path);
 					int styleAdaptation = getStyleAdaptation();
-					String coloredAreaId = renderingStyle.getPredefinedStyleId();
-					ColoredArea coloredArea[] = PredefinedColoredAreas.getColoredAreas(coloredAreaId, styleAdaptation);
-					for (int i = 0; i < coloredArea.length; i++) {
-						GFFigureUtil.paintColorFlow(pathBounds, graphics, coloredArea[i], getZoomLevel(graphics), true);
+					AdaptedGradientColoredAreas adaptedGradientColoredAreas = renderingStyle.getAdaptedGradientColoredAreas();
+					EList<GradientColoredAreas> gradientColoredAreas = (EList<GradientColoredAreas>) adaptedGradientColoredAreas.getAdaptedGradientColoredAreas();
+					EList<GradientColoredArea> gradienColoredAreaList = gradientColoredAreas.get(styleAdaptation).getGradientColor();
+					
+					for (Iterator<GradientColoredArea> iterator = gradienColoredAreaList.iterator(); iterator.hasNext();) {
+						GradientColoredArea gradientColoredArea = (GradientColoredArea) iterator.next();
+						GFFigureUtil.paintColorFlow(getConfigurationProvider(), pathBounds, graphics, gradientColoredArea, getZoomLevel(graphics), true);
 					}
 				} finally {
 					graphics.popState();
@@ -331,7 +342,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			}
 		}
 	}
-
+	
 	private void setBackgroundWithoutStyle(Graphics graphics, Path path) {
 		// set background color depending on visual state
 		Color oldBackground = graphics.getBackgroundColor();
@@ -361,31 +372,31 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	}
 
 	private int getStyleAdaptation() {
-		int styleAdaptation = PredefinedColoredAreas.STYLE_ADAPTATION_DEFAULT;
+		int styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT;
 		if (getPreferences().getVisualStateRendering() == 1) {
-			styleAdaptation = PredefinedColoredAreas.STYLE_ADAPTATION_DEFAULT;
+			styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT;
 			int selectionFeedback = getVisualState().getSelectionFeedback();
 			if (selectionFeedback == IVisualState.SELECTION_PRIMARY)
-				styleAdaptation = PredefinedColoredAreas.STYLE_ADAPTATION_PRIMARY_SELECTED;
+				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED;
 			else if (selectionFeedback == IVisualState.SELECTION_SECONDARY)
-				styleAdaptation = PredefinedColoredAreas.STYLE_ADAPTATION_SECONDARY_SELECTED;
+				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
 
 			int actionTargetFeedback = getVisualState().getActionTargetFeedback();
 			if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
-				styleAdaptation = PredefinedColoredAreas.STYLE_ADAPTATION_ACTION_ALLOWED;
+				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED;
 			else if (actionTargetFeedback == IVisualState.ACTION_TARGET_FORBIDDEN)
-				styleAdaptation = PredefinedColoredAreas.STYLE_ADAPTATION_ACTION_FORBIDDEN;
+				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN;
 		} else {
-			styleAdaptation = PredefinedColoredAreas.STYLE_ADAPTATION_DEFAULT;
+			styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT;
 			int selectionFeedback = getVisualState().getSelectionFeedback();
 			if (selectionFeedback == IVisualState.SELECTION_PRIMARY)
-				styleAdaptation = PredefinedColoredAreas.STYLE_ADAPTATION_PRIMARY_SELECTED;
+				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED;
 			else if (selectionFeedback == IVisualState.SELECTION_SECONDARY)
-				styleAdaptation = PredefinedColoredAreas.STYLE_ADAPTATION_SECONDARY_SELECTED;
+				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
 
 			int actionTargetFeedback = getVisualState().getActionTargetFeedback();
 			if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
-				styleAdaptation = PredefinedColoredAreas.STYLE_ADAPTATION_SECONDARY_SELECTED;
+				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
 		}
 		return styleAdaptation;
 	}

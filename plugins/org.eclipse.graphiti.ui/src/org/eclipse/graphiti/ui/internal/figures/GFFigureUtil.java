@@ -24,11 +24,12 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Ray;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Image;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
+import org.eclipse.graphiti.ui.PredefinedColoredAreas;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Path;
-import org.eclipse.swt.graphics.Pattern;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * A utility class containing static helper-methods for GFW figures.
@@ -65,22 +66,26 @@ public class GFFigureUtil {
 	 * @param vertical
 	 *            If true, fills the area vertically, otherwise horizontally
 	 */
-	public static void paintColorFlow(Rectangle rectangle, Graphics graphics, ColoredArea coloredArea, double zoom, boolean vertical) {
+	public static void paintColorFlow(IConfigurationProvider configurationProvider, Rectangle rectangle, Graphics graphics, GradientColoredArea coloredArea, double zoom, boolean vertical) {
 		// calculate rectangle to fill
 		Rectangle fillRectangle;
 		if (vertical) {
-			int start = coloredArea.getStart().getLocation(rectangle.height, zoom);
-			int end = coloredArea.getEnd().getLocation(rectangle.height, zoom);
+			int start = PredefinedColoredAreas.getLocation(coloredArea.getStart(), rectangle.height, zoom);
+			int end = PredefinedColoredAreas.getLocation(coloredArea.getEnd(), rectangle.height, zoom);
 			fillRectangle = new Rectangle(rectangle.x, rectangle.y + start, rectangle.width, end - start);
 		} else {
-			int start = coloredArea.getStart().getLocation(rectangle.width, zoom);
-			int end = coloredArea.getEnd().getLocation(rectangle.width, zoom);
+			int start = PredefinedColoredAreas.getLocation(coloredArea.getStart(), rectangle.width, zoom);
+			int end = PredefinedColoredAreas.getLocation(coloredArea.getEnd(), rectangle.width, zoom);
 			fillRectangle = new Rectangle(rectangle.x + start, rectangle.y, end - start, rectangle.height);
 		}
-
 		// fill rectangle
-		graphics.setForegroundColor(coloredArea.getStart().getColor());
-		graphics.setBackgroundColor(coloredArea.getEnd().getColor());
+		org.eclipse.graphiti.mm.datatypes.Color foregroundColor = coloredArea.getStart().getColor();
+		Color foregroundColorSWT = DataTypeTransformation.toSwtColor(configurationProvider, foregroundColor);
+		org.eclipse.graphiti.mm.datatypes.Color backgroundColor = coloredArea.getEnd().getColor();
+		Color backgroundColorSWT = DataTypeTransformation.toSwtColor(configurationProvider, backgroundColor);
+		
+		graphics.setForegroundColor(foregroundColorSWT);
+		graphics.setBackgroundColor(backgroundColorSWT);
 		graphics.fillGradient(fillRectangle.x, fillRectangle.y, fillRectangle.width, fillRectangle.height, vertical);
 	}
 
