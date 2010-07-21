@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInputDisposingTED;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorMatchingStrategy;
@@ -66,7 +65,7 @@ public class DiagramEditorFactory implements IElementFactory {
 			if (diagramFileUri != null) {
 				// the file has to contain one base node which has to be a diagram
 				diagramFileUri = diagramFileUri.appendFragment("/"); //$NON-NLS-1$
-				return new DiagramEditorInputDisposingTED(diagramFileUri, domain, null);
+				return new DiagramEditorInput(diagramFileUri, domain, null, true);
 			}
 		}
 
@@ -138,7 +137,7 @@ public class DiagramEditorFactory implements IElementFactory {
 		//			return null;
 
 		final TransactionalEditingDomain domain = GraphitiUiInternal.getEmfService().createResourceSetAndEditingDomain();
-		return new DiagramEditorInputDisposingTED(diagramUriString, domain, providerID);
+		return new DiagramEditorInput(diagramUriString, domain, providerID, true);
 	}
 
 }

@@ -15,8 +15,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
@@ -26,7 +24,6 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInputDisposingTED;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;
@@ -34,18 +31,39 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 
 /**
- * The model based editor input for {@link DiagramEditorInternal} diagram editors.
- * Basically a {@linkTransactionalEditingDomain} with an already existing
- * {@linkResourceSet} is hosted to resolve an {@link EObject} from an
+ * The model based editor input for {@link DiagramEditor} diagram editors.
+ * Basically a {@link TransactionalEditingDomain} with an already existing
+ * {@link ResourceSet} is hosted to resolve an {@link EObject} from an
  * {@link URI} or {@link URI} String. Some helper methods are added.
+ * <p>
+ * Note that neither the {@link URI} nor the {@link EObject} is held by an
+ * instance of this object. Only the {@link TransactionalEditingDomain} (needs
+ * to be passed to the constructor) is held and the creator of the domain is
+ * also responsible for disposing it, unless the flag
+ * <code>disposeEditingDomain</code> is set to <code>true</code> in one of the
+ * appropriate constructors.
  * 
  * @see {@link IEditorInput}
  * @see {@link IPersistableElement}
- * @see {@link DiagramEditorInputDisposingTED}
  * @see {@link DiagramEditorFactory}
- * @see {@link DiagramEditorInternal}
+ * @see {@link DiagramEditor}
  */
 public class DiagramEditorInput implements IEditorInput, IPersistableElement {
+
+	/**
+	 * The memento key for the stored {@link URI} string
+	 */
+	public static final String KEY_URI = "org.eclipse.graphiti.uri"; //$NON-NLS-1$
+
+	/**
+	 * The memento key for the stored object name
+	 */
+	public static final String KEY_OBJECT_NAME = "org.eclipse.graphiti.objectName"; //$NON-NLS-1$
+
+	/**
+	 * The memento key for the ID of the diagram type provider.
+	 */
+	public static String KEY_PROVIDER_ID = "org.eclipse.graphiti.providerId"; //$NON-NLS-1$
 
 	/**
 	 * The stored {@link URI} string
@@ -53,22 +71,13 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	private final String uriName;
 
 	/**
-	 * The key for the stored {@link URI} string
+	 * The ID of the diagram type provider.
 	 */
-	public static final String KEY_URI = "org.eclipse.graphiti.uri"; //$NON-NLS-1$
+	private String providerId;
 
 	/**
-	 * The key for the stored object name
-	 */
-	public static final String KEY_OBJECT_NAME = "org.eclipse.graphiti.objectName"; //$NON-NLS-1$
-
-	/**
-	 * The key for the ID of the diagram type provider.
-	 */
-	public static String KEY_PROVIDER_ID = "org.eclipse.graphiti.providerId"; //$NON-NLS-1$
-
-	/**
-	 * The cached input name
+	 * The cached input name (e.g. for displaying the name in the navigation
+	 * history without having to instantiate the {@link EObject})
 	 * 
 	 * @see #getLiveName()
 	 */
@@ -89,11 +98,12 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @see #getEditingDomain()
 	 */
 	protected TransactionalEditingDomain editingDomain;
-	/**
-	 * The ID of the diagram type provider.
-	 */
-	private String providerId;
 
+	/**
+	 * Used to control if this instance is responsible for disposing its
+	 * {@link TransactionalEditingDomain} member or not.
+	 */
+	private boolean disposeEditingDomain;
 
 	/**
 	 * Creates an input out of a {@link URI} string and a transactional editing
@@ -107,21 +117,56 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 *            that denotes the input's {@link EObject}
 	 * @param domain
 	 *            A {@link TransactionalEditingDomain} which contains the
-	 *            {@link ResourceSet}
-	 * @param providerID2
+	 *            {@link ResourceSet}. Note that the caller is responsible for
+	 *            disposing this instance of the domain when it is no longer
+	 *            needed!
+	 * @param providerId
 	 *            A {@link String} which holds the diagram type id. When it is
 	 *            null, it is set later in {@link DiagramEditorInternal}
 	 * @throws IllegalArgumentException
 	 *             if <code>uriString</code> parameter is null
 	 * @see URI
 	 */
-	public DiagramEditorInput(String diagramUriString, TransactionalEditingDomain domain, String providerID2) {
+	public DiagramEditorInput(String diagramUriString, TransactionalEditingDomain domain, String providerId) {
+		this(diagramUriString, domain, providerId, false);
+	}
+
+	/**
+	 * Creates an input out of a {@link URI} string and a transactional editing
+	 * domain. For resolving the {@link URI} to an {@link EObject} its
+	 * {@link ResourceSet} is used. The ResourceSet of the editing domain must
+	 * have been already set from outside. A diagram type provider ID is hold in
+	 * this class.
+	 * 
+	 * @param diagramUriString
+	 *            A {@link URI} string as returned by {@link URI#toString()}
+	 *            that denotes the input's {@link EObject}
+	 * @param domain
+	 *            A {@link TransactionalEditingDomain} which contains the
+	 *            {@link ResourceSet}. Unless <code>disposeEditingDomain</code>
+	 *            is set, the caller is responsible for disposing this instance
+	 *            of the domain when it is no longer needed!
+	 * @param providerId
+	 *            A {@link String} which holds the diagram type id. When it is
+	 *            null, it is set later in {@link DiagramEditorInternal}
+	 * @param disposeEditingDomain
+	 *            If set to <code>true</code> this instance of
+	 *            {@link DiagramEditorInput} will on dispose care about
+	 *            disposing the passed {@link TransactionalEditingDomain} as
+	 *            well. If <code>false</code> is passed the caller (or rather
+	 *            the creator of the domain needs to care about that.
+	 * @throws IllegalArgumentException
+	 *             if <code>uriString</code> parameter is null
+	 * @see URI
+	 */
+	public DiagramEditorInput(String diagramUriString, TransactionalEditingDomain domain, String providerId, boolean disposeEditingDomain) {
 		if (diagramUriString == null) {
 			throw new IllegalStateException("diagramUriString must not be null"); //$NON-NLS-1$
 		}
 		this.uriName = diagramUriString;
 		setEditorEditingDomain(domain);
-		setProviderId(providerID2);
+		this.disposeEditingDomain = disposeEditingDomain;
+		setProviderId(providerId);
 	}
 
 	/**
@@ -139,8 +184,10 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 *            a {@link URI} that denotes the input's {@link EObject}
 	 * @param domain
 	 *            A {@link TransactionalEditingDomain} which contains the
-	 *            {@link ResourceSet}
-	 * @param providerID2
+	 *            {@link ResourceSet}. Note that the caller is responsible for
+	 *            disposing this instance of the domain when it is no longer
+	 *            needed!
+	 * @param providerId
 	 *            A {@link String} which holds the diagram type id. When it is
 	 *            null, it is set later in {@link DiagramEditorInternal}
 	 * @throws IllegalArgumentException
@@ -148,20 +195,56 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @see #DiagramEditorInputBase(String, TransactionalEditingDomain)
 	 * @see URI
 	 */
-	public DiagramEditorInput(URI diagramUri, TransactionalEditingDomain domain, String providerID2) {
+	public DiagramEditorInput(URI diagramUri, TransactionalEditingDomain domain, String providerId) {
+		this(diagramUri, domain, providerId, false);
+	}
+
+	/**
+	 * Creates an input out of a {@link URI} string and a transactional editing
+	 * domain. For resolving the {@link URI} to an {@link EObject} its
+	 * {@link ResourceSet} is used. The ResourceSet of the editing domain must
+	 * have been already set from outside. A diagram type provider ID is hold in
+	 * this class.Creates an input out of a {@link URI} string and a
+	 * transactional editing domain. For resolving the {@link URI} to an
+	 * {@link EObject} its {@link ResourceSet} is used. The ResourceSet of the
+	 * editing domain must have been already set from outside. A diagram type
+	 * provider ID is hold in this class.
+	 * 
+	 * @param diagramUri
+	 *            a {@link URI} that denotes the input's {@link EObject}
+	 * @param domain
+	 *            A {@link TransactionalEditingDomain} which contains the
+	 *            {@link ResourceSet}. Unless <code>disposeEditingDomain</code>
+	 *            is set, the caller is responsible for disposing this instance
+	 *            of the domain when it is no longer needed!
+	 * @param providerId
+	 *            A {@link String} which holds the diagram type id. When it is
+	 *            null, it is set later in {@link DiagramEditorInternal}
+	 * @param disposeEditingDomain
+	 *            If set to <code>true</code> this instance of
+	 *            {@link DiagramEditorInput} will on dispose care about
+	 *            disposing the passed {@link TransactionalEditingDomain} as
+	 *            well. If <code>false</code> is passed the caller (or rather
+	 *            the creator of the domain needs to care about that.
+	 * @throws IllegalArgumentException
+	 *             , if <code>uri</code> parameter is null
+	 * @see #DiagramEditorInputBase(String, TransactionalEditingDomain)
+	 * @see URI
+	 */
+	public DiagramEditorInput(URI diagramUri, TransactionalEditingDomain domain, String providerId, boolean disposeEditingDomain) {
 		if (diagramUri == null) {
 			throw new IllegalStateException("diagramUri must not be null"); //$NON-NLS-1$
 		}
 		this.uriName = diagramUri.toString();
 		setEditorEditingDomain(domain);
-		setProviderId(providerID2);
+		this.disposeEditingDomain = disposeEditingDomain;
+		setProviderId(providerId);
 	}
 
 	/**
-	 * Creates an editor input {@link DiagramEditorInput} or a
-	 * {@link DiagramEditorInputDisposingTED} with a self created {@link}
-	 * TransactionalEditingDomain editing domain, which must be disposed later
-	 * on.
+	 * Creates an editor input {@link DiagramEditorInput} with a self created
+	 * {@link} TransactionalEditingDomain editing domain, which must be disposed
+	 * later on.
 	 * 
 	 * @param diagram
 	 *            A {@link Diagram}
@@ -171,9 +254,11 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @param providerId
 	 *            A {@link String} which holds the diagram type id.
 	 * @param disposeEditingDomain
-	 *            A {@link Boolean}, when true a
-	 *            {@link DiagramEditorInputDisposingTED} is created, otherwise a
-	 *            {@link DiagramEditorInput}
+	 *            If set to <code>true</code> the created instance of
+	 *            {@link DiagramEditorInput} will on dispose care about
+	 *            disposing the passed {@link TransactionalEditingDomain} as
+	 *            well. If <code>false</code> is passed the caller (or rather
+	 *            the creator of the domain needs to care about that.
 	 * @return A {@link DiagramEditorInput} editor input
 	 */
 	public static DiagramEditorInput createEditorInput(Diagram diagram, TransactionalEditingDomain domain, String providerId,
@@ -186,7 +271,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		final URI fragmentUri = resource.getURI().appendFragment(fragment);
 		DiagramEditorInput diagramEditorInput;
 		if (disposeEditingDomain) {
-			diagramEditorInput = new DiagramEditorInputDisposingTED(fragmentUri, domain, providerId);
+			diagramEditorInput = new DiagramEditorInput(fragmentUri, domain, providerId, true);
 		} else {
 			diagramEditorInput = new DiagramEditorInput(fragmentUri, domain, providerId);
 		}
@@ -194,18 +279,18 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	}
 
 	/**
-	 * Gets the diagram.
+	 * Returns the diagram instance of this input
 	 * 
-	 * @return Returns the diagram.
+	 * @return The diagram.
 	 */
 	public Diagram getDiagram() {
 		return (Diagram) getAdapter(Diagram.class);
 	}
 
 	/**
-	 * Gets the diagram type provider id.
+	 * Returns the diagram type provider id.
 	 * 
-	 * @return Returns the providerId.
+	 * @return The providerId.
 	 */
 	public String getProviderId() {
 		return this.providerId;
@@ -221,17 +306,25 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		this.providerId = providerId;
 	}
 
+	/**
+	 * Returns the factory ID for creating {@link DiagramEditorInput}s from
+	 * mementos.
+	 * 
+	 * @return The ID of the associated factory
+	 */
 	public String getFactoryId() {
 		return DiagramEditorFactory.class.getName();
 	}
 
 	public void dispose() {
-		// do nothing
-
+		if (this.disposeEditingDomain && this.editingDomain != null) {
+			this.editingDomain.dispose();
+			this.editingDomain = null;
+		}
 	}
 
 	/**
-	 * @return <code>null</code>
+	 * @return Simply returns <code>null</code>.
 	 */
 	public ImageDescriptor getImageDescriptor() {
 		return null;
@@ -248,10 +341,22 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		return this.uriName;
 	}
 
+	/**
+	 * Checks if a name is set for this instance
+	 * 
+	 * @return <code>true</code> in case a name is set, <code>false</code> in
+	 *         name is <code>null</code>.
+	 */
 	protected boolean hasName() {
 		return this.mame != null;
 	}
 
+	/**
+	 * Sets the name for this instance.
+	 * 
+	 * @param name
+	 *            The name to set.
+	 */
 	protected void setName(String name) {
 		this.mame = name;
 	}
@@ -269,8 +374,8 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 
 	/**
 	 * Returns a name for the input from the {@link Diagram}, when possible.
-	 * Otherwise it tries to get a human readable name from the hold EObject of
-	 * the editor input.
+	 * Otherwise it tries to get a human readable name from the EObject
+	 * (retrieved via its URI) of the editor input.
 	 * 
 	 * @return A name from Diagram or from the EObject of the editor input or
 	 *         <code>null</code> to indicate that a it can currently not be
@@ -321,22 +426,18 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	}
 
 	/**
-	 * Returns the concrete model element represented by the given URI, if the
+	 * Returns the concrete model element represented by the stored URI, if the
 	 * requested adapter is either the same class or super class. In addition
 	 * the method examines all composition parents and checks whether or not
 	 * they are of the requested class or a sub class.
 	 * <ul>
-	 * <li>get model element for uri</li>
+	 * <li>get model element for {@link URI}</li>
 	 * <li>if adapter == modelElement.class return modelElement</li>
 	 * <li>if adapter == modelElement.superclass return modelElement</li>
 	 * <li>if adapter == modelElement.compositionParent.class return
 	 * modelElement</li>
-	 * <li>if adapter == modelElement.anyCompositionParent.class return
-	 * modelElement</li>
 	 * <li>if adapter == ResourceSet return resourceSet</li>
 	 * <li>if adapter == TransactionalEditingDomain return editingDomain</li>
-	 * <li>if adapter == IFile returns the file (aka. Resource) in which the
-	 * root element of this editor is contained</li>
 	 * </ul>
 	 * 
 	 * @param adapter
@@ -359,7 +460,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 			} catch (final Exception e) {
 				// Not able to adapt to eObject, object has been deleted, file was deleted...
 				// adapt must deliver null
-				//TODO IStatus status = new Status(IStatus.WARNING, 0, e.getMessage(), e, EmfFwkUIPlugin.PLUGIN_ID);
 				T.racer().debug(e.getMessage());
 				return null;
 			}
@@ -373,10 +473,13 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	}
 
 	/**
-	 * Saves {@link URI} string and object name
+	 * Saves {@link URI} string, object name and provider ID to the given
+	 * {@link IMemento}.
+	 * 
+	 * @param memento
+	 *            The memeto to store the information in
 	 */
 	public void saveState(IMemento memento) {
-		//TODO
 		// Do not store anything for deleted objects
 		boolean exists = exists();
 		if (!exists) {
@@ -395,7 +498,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * {@link #uriName}.
 	 * 
 	 * @param editingDomain
-	 *            the current transactional editing domain
+	 *            the {@link TransactionalEditingDomain} to set
 	 * @throws IllegalArgumentException
 	 *             if <code>editingDomain</code> parameter is null
 	 * @see #getEditingDomain()
@@ -439,10 +542,12 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	}
 
 	/**
+	 * Checks if the diagram this input represents exist.
+	 * <p>
+	 * Note: The editor gets only restored, when <code>true</code> is returned.
+	 * 
 	 * @return <code>true</code> if the input's state denotes a living EMF
 	 *         object <br>
-	 *         Note: The editor gets only restored, when <code>true</code> is
-	 *         returned.
 	 */
 	public boolean exists() {
 		if (this.uriName == null) {
@@ -471,7 +576,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		try {
 			obj = getEObject();
 		} catch (WrappedException e) {
-			// JL-EXC$
 			// Ignore (object may not exists, even resource may be gone
 		}
 		if (obj != null) {
@@ -512,12 +616,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 				modelElement.eResource().setTrackingModification(true);
 
 				// Climb up the chain of composition. Also uses a counter to
-				// prevent infinite loops
-				// in case refImmediateComposite does not return null
-				// TODO ModelEditorInput must not adapt to composite
-				// children
-				// as this is completely unpredictable - e.g. the first
-				// element in an unordered collection might be returned
+				// prevent infinite loops in case refImmediateComposite does not return null
 				int i = 0;
 				EObject o = modelElement;
 				do {
@@ -551,6 +650,14 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		return this.editingDomain;
 	}
 
+	/**
+	 * Checks if this instance of the input represents the same object as the
+	 * given instance.
+	 * 
+	 * @param obj
+	 *            The object to compare this instance with.
+	 * @return <code>true</code> if the represented objects are the same
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -573,6 +680,9 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		return true;
 	}
 
+	/**
+	 * Calculates the hash code for this input
+	 */
 	@Override
 	public int hashCode() {
 		final int PRIME = 31;
@@ -581,6 +691,9 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		return result;
 	}
 
+	/**
+	 * Used for logging only!
+	 */
 	@Override
 	public String toString() {
 		final String s = super.toString() + " uriName: " + this.uriName + " on TransactionalEditingDomain " //$NON-NLS-1$ 
