@@ -200,8 +200,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            the menu location
 	 */
 	protected void addDefaultMenuGroupPrint(IMenuManager manager, Point menuLocation) {
-		// addActionToMenu(manager, menuLocation, ActionFactory.PRINT.getId(),
-		// GEFActionConstants.GROUP_PRINT);
+		addActionToMenu(manager, menuLocation, ActionFactory.PRINT.getId(), GEFActionConstants.GROUP_PRINT);
 	}
 
 	/**
