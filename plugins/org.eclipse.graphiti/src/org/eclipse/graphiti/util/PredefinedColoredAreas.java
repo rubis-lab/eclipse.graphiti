@@ -393,7 +393,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 
 	}
 
-	private static void addGradientColoredArea(EList<GradientColoredArea> gcas, String colorStart, int locationValueStart,
+	protected static void addGradientColoredArea(EList<GradientColoredArea> gcas, String colorStart, int locationValueStart,
 			LocationType locationTypeStart, String colorEnd, int locationValueEnd, LocationType locationTypeEnd) {
 		final GradientColoredArea gca = PictogramsFactory.eINSTANCE.createGradientColoredArea();
 		gcas.add(gca);
@@ -443,6 +443,5 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 		}
 		throw new IllegalStateException("Unknown location type '" + gradientColoredLocation.getLocationType() + "'"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
-
 
 }
