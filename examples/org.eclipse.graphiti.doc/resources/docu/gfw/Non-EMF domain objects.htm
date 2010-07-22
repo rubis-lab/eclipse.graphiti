@@ -1,0 +1,202 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<title>Page Title</title>
+<link rel=Stylesheet type="text/css" media=all href="../book.css"">
+<style>
+/* Font Definitions */
+@font-face {
+	font-family: Tahoma;
+	panose-1: 2 11 6 4 3 5 4 4 2 4;
+}
+
+/* Style Definitions */
+p.MsoNormal,li.MsoNormal,div.MsoNormal {
+	margin: 0cm;
+	margin-bottom: .0001pt;
+	font-size: 12.0pt;
+	font-family: "Times New Roman";
+	color: windowtext;
+}
+
+h1 {
+	margin-top: 12.0pt;
+	margin-right: 0cm;
+	margin-bottom: 3.0pt;
+	margin-left: 0cm;
+	page-break-after: avoid;
+	font-size: 16.0pt;
+	font-weight: bold;
+}
+
+h2 {
+	margin-top: 12.0pt;
+	margin-right: 0cm;
+	margin-bottom: 3.0pt;
+	margin-left: 0cm;
+	page-break-after: avoid;
+	font-size: 14.0pt;
+	font-weight: bold;
+	font-style: italic;
+}
+
+h3 {
+	margin-top: 12.0pt;
+	margin-right: 0cm;
+	margin-bottom: 3.0pt;
+	margin-left: 0cm;
+	page-break-after: avoid;
+	font-size: 13.0pt;
+	font-weight: bold;
+}
+
+h4 {
+	margin-top: 11.25pt;
+	margin-right: 0cm;
+	margin-bottom: 1.7pt;
+	margin-left: 0cm;
+	font-size: 12.0pt;
+	font-weight: bold;
+	font-style: italic;
+}
+
+h5 {
+	margin-right: 0cm;
+	margin-left: 0cm;
+	font-size: 10.0pt;
+	font-weight: bold;
+}
+
+p.MsoCaption,li.MsoCaption,div.MsoCaption {
+	margin-top: 6.0pt;
+	margin-right: 0cm;
+	margin-bottom: 24.0pt;
+	margin-left: 0cm;
+	text-align: justify;
+	font-size: 10.0pt;
+	font-weight: bold;
+}
+
+a:link,span.MsoHyperlink {
+	color: blue;
+	text-decoration: underline;
+}
+
+a:visited,span.MsoHyperlinkFollowed {
+	color: purple;
+	text-decoration: underline;
+}
+
+p {
+	margin-top: 5.65pt;
+	margin-right: 0cm;
+	margin-bottom: 5.65pt;
+	margin-left: 0cm;
+	font-size: 12.0pt;
+}
+
+pre {
+	margin-top: 0cm;
+	margin-right: 0cm;
+	margin-bottom: 0cm;
+	margin-left: 3.4pt;
+	margin-bottom: .0001pt;
+	font-size: 11.0pt;
+}
+
+p.MsoAcetate,li.MsoAcetate,div.MsoAcetate {
+	margin: 0cm;
+	margin-bottom: .0001pt;
+	font-size: 8.0pt;
+	font-family: Tahoma;
+}
+
+p.code,li.code,div.code {
+	margin-top: 0cm;
+	margin-right: 0cm;
+	margin-bottom: 0cm;
+	margin-left: 15.0pt;
+	margin-bottom: .0001pt;
+	font-size: 12.0pt;
+}
+
+p.note,li.note,div.note {
+	margin-top: 19.5pt;
+	margin-right: 0cm;
+	margin-bottom: 19.5pt;
+	margin-left: 30.0pt;
+	font-size: 13.0pt;
+	font-style: italic;
+}
+
+p.comment,li.comment,div.comment {
+	margin-top: 5.65pt;
+	margin-right: 0cm;
+	margin-bottom: 5.65pt;
+	margin-left: 0cm;
+	font-size: 12.0pt;
+	font-weight: bold;
+}
+
+span.code1 {
+	font-style: italic;
+}
+
+@page Section1 {
+	size: 595.45pt 841.7pt;
+	margin: 72.0pt 89.85pt 72.0pt 89.85pt;
+}
+
+div.Section1 {
+	page: Section1;
+}
+</style>
+
+</head>
+
+<body bgcolor=white link=blue vlink=purple style='margin-bottom: 12.0pt'>
+
+<div class=Section1>
+
+<h1><span>Non-EMF Domain Objects</span></h1>
+
+<p class=MsoNormal>By deafult Graphiti supports domain models from
+the EMF world and offers automated support for reacting to changes and
+updating the editor. Since not only EObjects but simple POJOs can be
+passed top all relevant framework APIs, it is also possible to use
+non-EMF domain objects with Graphiti.</p>
+<p class=MsoNormal>Of course the framework cannot support automated
+notification to changes in such domain models, so the tool builder needs
+to hook an appropriate listener into the framework. Here's the process
+how to do this:</p>
+
+<ol>
+	<li class=MsoNormal>Create an appropriate specific domain listener class. As an
+	example you can have a look at DomainModelChangeListener in the
+	Graphiti framework; this class does this job for EMF models.</li>
+	<li class=MsoNormal>Subclass DiagramEditor and override its method
+	registerBOListener. In that method create an instance of your listener
+	from step 1 and register it.</li>
+	<li class=MsoNormal>Create an appropriate notification service class by
+	subclassing DefaultNotificationService or implementing its interface.
+	An instance of this class is used by the framework to get the
+	connection between domain objects and their graphical representation
+	(method calculateLinkedPictogramElements) and triggers the actual
+	update of the graphical representation in the diagram (method
+	updatePictogramElements) unsing the appropriate update features. The
+	class DeafultNotificationService does the job for EMF models.</li>
+	<li class=MsoNormal>In your Diagram Type Provider implementation create and return
+	an instance of the class from step 3 within the method
+	getNotificationService.</li>
+</ol>
+<p class=MsoNormal><span style='color: black'>&nbsp;</span></p>
+
+</div>
+<hr>
+<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright
+(c) SAP AG 2005, 2010.</a>
+
+</body>
+
+</html>
