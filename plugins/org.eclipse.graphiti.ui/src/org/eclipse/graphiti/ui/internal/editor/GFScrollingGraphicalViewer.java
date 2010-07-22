@@ -69,7 +69,7 @@ public class GFScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer
 	 *            the parent
 	 * @return the control
 	 */
-	public final Control createGFWControl(Composite parent) {
+	public final Control createGFControl(Composite parent) {
 		GFFigureCanvas canvas = new GFFigureCanvas(parent, getLightweightSystem(), getDiagramEditor());
 		canvas.setData(new String("name"), canvas.getClass().toString()); //$NON-NLS-1$
 		setControl(canvas);

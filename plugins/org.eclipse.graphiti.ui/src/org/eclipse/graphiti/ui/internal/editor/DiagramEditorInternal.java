@@ -412,7 +412,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		GraphicalViewer viewer;
 		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
 			viewer = new GFScrollingGraphicalViewer(this);
-			((GFScrollingGraphicalViewer) viewer).createGFWControl(parent);
+			((GFScrollingGraphicalViewer) viewer).createGFControl(parent);
 		} else {
 			viewer = new GraphitiScrollingGraphicalViewer(this);
 			viewer.createControl(parent);
