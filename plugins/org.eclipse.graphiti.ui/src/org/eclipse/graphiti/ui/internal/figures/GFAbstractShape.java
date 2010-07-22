@@ -15,7 +15,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.figures;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -327,8 +326,13 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 					int styleAdaptation = getStyleAdaptation();
 					AdaptedGradientColoredAreas adaptedGradientColoredAreas = renderingStyle.getAdaptedGradientColoredAreas();
 					EList<GradientColoredAreas> gradientColoredAreas = (EList<GradientColoredAreas>) adaptedGradientColoredAreas.getAdaptedGradientColoredAreas();
-					EList<GradientColoredArea> gradienColoredAreaList = gradientColoredAreas.get(styleAdaptation).getGradientColor();
-					
+					EList<GradientColoredArea> gradienColoredAreaList = null;
+					//get the style adaption or use the default style
+					if (gradientColoredAreas != null && gradientColoredAreas.size() > 0 && gradientColoredAreas.size() -1 >= styleAdaptation) {
+						gradienColoredAreaList = gradientColoredAreas.get(styleAdaptation).getGradientColor();
+					} else {
+						gradienColoredAreaList = gradientColoredAreas.get(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT).getGradientColor();
+					}
 					for (Iterator<GradientColoredArea> iterator = gradienColoredAreaList.iterator(); iterator.hasNext();) {
 						GradientColoredArea gradientColoredArea = (GradientColoredArea) iterator.next();
 						GFFigureUtil.paintColorFlow(getConfigurationProvider(), pathBounds, graphics, gradientColoredArea, getZoomLevel(graphics), true);
