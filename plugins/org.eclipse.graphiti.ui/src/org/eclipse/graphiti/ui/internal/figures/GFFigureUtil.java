@@ -25,8 +25,8 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Ray;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
+import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
 import org.eclipse.swt.graphics.Color;
@@ -55,6 +55,10 @@ public class GFFigureUtil {
 	 * Example: The parameters [Color.red, Color.yellow, Color.green] and [0,
 	 * 20, 80] would result in a filled rectangle, where the top 20% are flow
 	 * from red to yellow and the next 80% flow from yellow to green.
+	 * 
+	 * @param registryHolder
+	 *            To get the
+	 *            {@link IResourceRegistry#getSwtColor(int, int, int)}.
 	 * 
 	 * @param rectangle
 	 *            The rectangle, which to fill with the gradient color-flow.
@@ -85,7 +89,7 @@ public class GFFigureUtil {
 		Color foregroundColorSWT = DataTypeTransformation.toSwtColor(registryHolder, foregroundColor);
 		org.eclipse.graphiti.mm.datatypes.Color backgroundColor = coloredArea.getEnd().getColor();
 		Color backgroundColorSWT = DataTypeTransformation.toSwtColor(registryHolder, backgroundColor);
-		
+
 		graphics.setForegroundColor(foregroundColorSWT);
 		graphics.setBackgroundColor(backgroundColorSWT);
 		graphics.fillGradient(fillRectangle.x, fillRectangle.y, fillRectangle.width, fillRectangle.height, vertical);
