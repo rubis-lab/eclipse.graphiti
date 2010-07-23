@@ -29,7 +29,6 @@ public class GFPreferences {
 
 	public static final String CPU_PROFILING_TRACE_ACTIVE = "CPU_PROFILING_TRACE_ACTIVE"; //$NON-NLS-1$
 	public static final String RECURSIVE_CHECK_FOR_UPDATE_ACTIVE = "RECURSIVE_CHECK_FOR_UPDATE_ACTIVE"; //$NON-NLS-1$
-	public static final String MULTIPLE_REFRESH_SUPPRESSION_ACTIVE = "MULTIPLE_REFRESH_SUPPRESSION_ACTIVE"; //$NON-NLS-1$
 	public static final String INVISIBLE_RECTANGLES_SHOWN = "INVISIBLE_RECTANGLES_SHOWN"; //$NON-NLS-1$
 	public static final String VISUAL_STATE_RENDERING = "VISUAL_STATE_RENDERING"; //$NON-NLS-1$
 	public static final String PROGRESS_DIALOG_ACTIVE = "PROGRESS_DIALOG_ACTIVE"; //$NON-NLS-1$
@@ -92,10 +91,6 @@ public class GFPreferences {
 
 	public boolean isMofExampleShowingAllProperties() {
 		return getNode().getBoolean(MOF_EXAMPLE_SHOWING_ALL_PROPERTIES, false);
-	}
-
-	public boolean isMultipleRefreshSupressionActive() {
-		return getNode().getBoolean(MULTIPLE_REFRESH_SUPPRESSION_ACTIVE, false);
 	}
 
 	public boolean isProgressDialogActive() {
