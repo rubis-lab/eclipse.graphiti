@@ -348,37 +348,15 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	}
 	
 	private void setBackgroundWithoutStyle(Graphics graphics, Path path) {
-		// set background color depending on visual state
 		Color oldBackground = graphics.getBackgroundColor();
-		if (getPreferences().getVisualStateRendering() == 1) {
-			int selectionFeedback = getVisualState().getSelectionFeedback();
-			if (selectionFeedback == IVisualState.SELECTION_PRIMARY)
-				graphics.setBackgroundColor(GFColorConstants.MEDIUM_BLUE);
-			else if (selectionFeedback == IVisualState.SELECTION_SECONDARY)
-				graphics.setBackgroundColor(GFColorConstants.LIGHT_BLUE);
-			else
-				graphics.setBackgroundColor(GFColorConstants.VERY_LIGHT_BLUE);
-
-			int actionTargetFeedback = getVisualState().getActionTargetFeedback();
-			if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
-				graphics.setBackgroundColor(GFColorConstants.LIGHT_GREEN);
-			else if (actionTargetFeedback == IVisualState.ACTION_TARGET_FORBIDDEN)
-				graphics.setBackgroundColor(GFColorConstants.LIGHT_ORANGE);
-		} else {
-			// usually not supported for simple BackgroundColor
-			// customers must use RenderingStyle instead
-		}
 		// fill area
 		graphics.fillPath(path);
-
 		// revert to old background color
 		graphics.setBackgroundColor(oldBackground);
 	}
 
 	private int getStyleAdaptation() {
-		int styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT;
-		if (getPreferences().getVisualStateRendering() == 1) {
-			styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT;
+			int styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT;
 			int selectionFeedback = getVisualState().getSelectionFeedback();
 			if (selectionFeedback == IVisualState.SELECTION_PRIMARY)
 				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED;
@@ -386,22 +364,15 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
 
 			int actionTargetFeedback = getVisualState().getActionTargetFeedback();
-			if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
-				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED;
-			else if (actionTargetFeedback == IVisualState.ACTION_TARGET_FORBIDDEN)
-				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN;
-		} else {
-			styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT;
-			int selectionFeedback = getVisualState().getSelectionFeedback();
-			if (selectionFeedback == IVisualState.SELECTION_PRIMARY)
-				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED;
-			else if (selectionFeedback == IVisualState.SELECTION_SECONDARY)
-				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
-
-			int actionTargetFeedback = getVisualState().getActionTargetFeedback();
+//			if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
+//				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED;
+//			else if (actionTargetFeedback == IVisualState.ACTION_TARGET_FORBIDDEN)
+//				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN;
+			
+//			TODO why is every actionTargetFeedback folded to STYLE_ADAPTATION_SECONDARY_SELECTED?
+			//
 			if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
 				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
-		}
 		return styleAdaptation;
 	}
 
