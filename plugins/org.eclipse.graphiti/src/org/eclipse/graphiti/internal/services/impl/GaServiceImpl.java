@@ -1505,12 +1505,18 @@ public final class GaServiceImpl implements IGaService {
 	public void setWidth(GraphicsAlgorithm ga, int width) {
 		ga.setWidth(width);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.graphiti.services.IGaService#setRenderingStyle(org.eclipse.graphiti.mm.pictograms.AbstractStyle, org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaService#setRenderingStyle(org.eclipse
+	 * .graphiti.mm.pictograms.AbstractStyle,
+	 * org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas)
 	 */
 	public void setRenderingStyle(AbstractStyle abstractStyle, AdaptedGradientColoredAreas adaptedGradientColoredAreas) {
-		if (adaptedGradientColoredAreas != null && adaptedGradientColoredAreas.getAdaptedGradientColoredAreas() != null &&!adaptedGradientColoredAreas.getAdaptedGradientColoredAreas().isEmpty()) {
+		if (adaptedGradientColoredAreas != null && adaptedGradientColoredAreas.getAdaptedGradientColoredAreas() != null
+				&& !adaptedGradientColoredAreas.getAdaptedGradientColoredAreas().isEmpty()) {
 			// set the RenderingStyle with AdaptedGradientColoredAreas
 			RenderingStyle renderingStyle = abstractStyle.getRenderingStyle();
 			if (renderingStyle == null) {
@@ -1518,8 +1524,8 @@ public final class GaServiceImpl implements IGaService {
 				abstractStyle.setRenderingStyle(renderingStyle);
 			}
 			renderingStyle.setAdaptedGradientColoredAreas(adaptedGradientColoredAreas);
-		}else{
-			throw new IllegalArgumentException("Object AdaptedGradientColoredAreas is null or empty"); //$NON-NLS-1$
+		} else {
+			throw new IllegalArgumentException("Object AdaptedGradientColoredAreas must not be null or empty"); //$NON-NLS-1$
 		}
 	}
 }
