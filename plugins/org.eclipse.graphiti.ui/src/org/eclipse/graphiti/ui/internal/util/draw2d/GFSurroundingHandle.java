@@ -65,12 +65,12 @@ public class GFSurroundingHandle extends AbstractHandle {
 	/**
 	 * The foreground color to use for resizable directions.
 	 */
-	private static Color FG_COLOR_RESIZABLE;
+	private Color FG_COLOR_RESIZABLE;
 
 	/**
 	 * The foreground color to use for not-resizable directions.
 	 */
-	private static Color FG_COLOR_NOT_RESIZABLE;
+	private Color FG_COLOR_NOT_RESIZABLE;
 
 	// ========================================================================
 

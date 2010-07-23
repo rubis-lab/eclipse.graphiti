@@ -60,32 +60,32 @@ public class GFCornerHandle extends AbstractHandle {
 	/**
 	 * The foreground color for resizable directions.
 	 */
-	private static Color FG_COLOR_RESIZABLE;
+	private Color FG_COLOR_RESIZABLE;
 
 	/**
 	 * The foreground color for not-resizable directions.
 	 */
-	private static Color FG_COLOR_NOT_RESIZABLE;
+	private Color FG_COLOR_NOT_RESIZABLE;
 
 	/**
 	 * The background color for primary-selected, resizable directions.
 	 */
-	private static Color BG_COLOR_PRIMARY_RESIZABLE;
+	private Color BG_COLOR_PRIMARY_RESIZABLE;
 
 	/**
 	 * The background color for secondary-selected, resizable directions.
 	 */
-	private static Color BG_COLOR_SECONDARY_RESIZABLE;
+	private Color BG_COLOR_SECONDARY_RESIZABLE;
 
 	/**
 	 * The background color for primary-selected, not-resizable directions.
 	 */
-	private static Color BG_COLOR_PRIMARY_NOT_RESIZABLE;
+	private Color BG_COLOR_PRIMARY_NOT_RESIZABLE;
 
 	/**
 	 * The background color for secondary-selected, not-resizable directions.
 	 */
-	private static Color BG_COLOR_SECONDARY_NOT_RESIZABLE;
+	private Color BG_COLOR_SECONDARY_NOT_RESIZABLE;
 
 	// ========================================================================
 

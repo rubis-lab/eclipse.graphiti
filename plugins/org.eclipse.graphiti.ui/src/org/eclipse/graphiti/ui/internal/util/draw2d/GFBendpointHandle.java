@@ -71,22 +71,22 @@ public class GFBendpointHandle extends BendpointHandle {
 	/**
 	 * The foreground color for resizable directions.
 	 */
-	private static Color FG_COLOR_PRIMARY;
+	private Color FG_COLOR_PRIMARY;
 
 	/**
 	 * The foreground color for not-resizable directions.
 	 */
-	private static Color FG_COLOR_SECONDARY;
+	private Color FG_COLOR_SECONDARY;
 
 	/**
 	 * The background color for primary-selected, resizable directions.
 	 */
-	private static Color BG_COLOR_PRIMARY;
+	private Color BG_COLOR_PRIMARY;
 
 	/**
 	 * The background color for secondary-selected, resizable directions.
 	 */
-	private static Color BG_COLOR_SECONDARY;
+	private Color BG_COLOR_SECONDARY;
 
 	// ========================================================================
 
