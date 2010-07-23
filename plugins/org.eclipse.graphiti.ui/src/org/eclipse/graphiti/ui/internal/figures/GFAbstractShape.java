@@ -43,7 +43,6 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
-import org.eclipse.graphiti.ui.internal.util.draw2d.GFColorConstants;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 import org.eclipse.swt.SWT;
