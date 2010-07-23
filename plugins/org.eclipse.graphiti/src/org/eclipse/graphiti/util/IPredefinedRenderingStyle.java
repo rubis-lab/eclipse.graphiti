@@ -15,12 +15,30 @@
  *******************************************************************************/
 package org.eclipse.graphiti.util;
 
+import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
+import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredAreas;
+import org.eclipse.graphiti.mm.pictograms.GradientColoredLocation;
 import org.eclipse.graphiti.services.IGaService;
 
 /**
- * The IDs of the predefined rendering styles. See
- * {@link IGaService#setRenderingStyle(AbstractStyle, org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas)}.
+ * This interface defines the IDs of the predefined rendering styles for
+ * gradients, and constants for style adaptations of gradients. Each
+ * (predefined) ID for a rendering style of an gradient corresponds to an
+ * {@link AdaptedGradientColoredAreas} defined in {@link PredefinedColoredAreas}
+ * . Clients should extend this interface with an ID for each definition of an
+ * own {@link AdaptedGradientColoredAreas}. Clients can define their own
+ * gradient adaptations by extending {@link PredefinedColoredAreas}. A gradient
+ * can be set by
+ * {@link IGaService#setRenderingStyle(AbstractStyle, AdaptedGradientColoredAreas)}
+ * .
  * 
+ * @see {@link PredefinedColoredAreas}
+ * @see {@link AdaptedGradientColoredAreas}
+ * @see {@link GradientColoredAreas}
+ * @see {@link GradientColoredArea}
+ * @see {@link GradientColoredLocation}
  * 
  */
 public interface IPredefinedRenderingStyle {
