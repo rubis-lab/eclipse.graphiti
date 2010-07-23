@@ -30,6 +30,7 @@ import org.eclipse.graphiti.mm.pictograms.RenderingStyle;
 import org.eclipse.graphiti.mm.pictograms.Style;
 import org.eclipse.graphiti.mm.pictograms.StyleContainer;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.eclipse.graphiti.util.PredefinedColoredAreas;
 
 /**
  * The interface IGaService provides convenient services for the creation and
@@ -288,13 +289,15 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	public void movePolylinePoint(Polyline polyline, int index, int deltaX, int deltaY);
 
 	/**
-	 * Sets a RenderingStyle with a given ID for the given AbstractStyle. The ID
-	 * must be defined in {@link IPredefinedRenderingStyle}.
+	 * Sets a RenderingStyle with given adapted gradient colored areas for the
+	 * given {@link AbstractStyle}. The {@link AdaptedGradientColoredAreas} are
+	 * defined and created in {@link PredefinedColoredAreas}.
 	 * 
 	 * @param abstractStyle
 	 *            The AbstractStyle for which to set the RenderingStyle.
 	 * @param adaptedGradientColoredAreas
-	 *            The {@link AdaptedGradientColoredAreas} gradient colored areas.
+	 *            The {@link AdaptedGradientColoredAreas} gradient colored
+	 *            areas.
 	 */
 	public void setRenderingStyle(AbstractStyle abstractStyle, AdaptedGradientColoredAreas adaptedGradientColoredAreas);
 }
