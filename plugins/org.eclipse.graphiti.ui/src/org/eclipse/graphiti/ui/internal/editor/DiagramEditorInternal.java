@@ -1658,4 +1658,8 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	private DiagramEditorBehavior getBehavior() {
 		return behavior;
 	}
+
+	public boolean isMultipleRefreshSupressionActive() {
+		return true;
+	}
 }

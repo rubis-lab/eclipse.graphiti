@@ -181,7 +181,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	public IFigure createFigure() {
 		PictogramElement pe = getPictogramElement();
 		IFigure ret = createFigureForPictogramElement(pe);
-		if (getPreferences().isMultipleRefreshSupressionActive()) {
+		if (getEditor().isMultipleRefreshSupressionActive()) {
 			return ret;
 		} else {
 			refreshFigureForPictogramElement(pe);
@@ -302,7 +302,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	public void refreshFigureForEditPart() {
 
 		// DR: Avoid multiple refresh of the same edit part
-		if (!isForceRefresh() && getPreferences().isMultipleRefreshSupressionActive()) {
+		if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
 			if (!getEditor().getRefreshedFigure4EP().add(getContainerEditPart())) {
 				return;
 			}
@@ -422,7 +422,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			return;
 		}
 
-		if (!isForceRefresh() && getPreferences().isMultipleRefreshSupressionActive()) {
+		if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
 			if (!getEditor().getRefreshedFigure4GA().add(graphicsAlgorithm)) {
 				return;
 			}
@@ -1037,7 +1037,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	private void refreshFigureForPictogramElement(PictogramElement pe) {
 
 		if (pe != null) {
-			if (!isForceRefresh() && getPreferences().isMultipleRefreshSupressionActive()) {
+			if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
 				if (!getEditor().getRefreshedFigure4PE().add(pe)) {
 					return;
 				}
