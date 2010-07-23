@@ -30,6 +30,21 @@ import org.eclipse.swt.graphics.Resource;
 public class ResourceRegistry implements IResourceRegistry {
 	private Map<Object, Resource> registry = new HashMap<Object, Resource>();
 
+	/**
+	 * Returns a SWT color for the given red, green and blue values expressed as
+	 * ints in the range 0 to 255 (where 0 is black and 255 is full brightness).
+	 * <p>
+	 * If this this registry disposes, this returned color will also disposed.
+	 * </p>
+	 * 
+	 * @param red
+	 *            the amount of red in the color
+	 * @param green
+	 *            the amount of green in the color
+	 * @param blue
+	 *            the amount of blue in the color
+	 * @return a SWT color
+	 */
 	public Color getSwtColor(int red, int green, int blue) {
 		RGB rgb = new RGB(red, green, blue);
 		Resource ret = registry.get(rgb);
@@ -46,11 +61,27 @@ public class ResourceRegistry implements IResourceRegistry {
 		return retColor;
 	}
 
+	/**
+	 * Calls dispose() on all registered resources.
+	 */
 	public void dispose() {
 		ResourceManager.getResourceManager().cleanUpResources(this);
 		registry.clear();
 	}
 
+	/**
+	 * Returns a SWT color for for a given String, which defines the RGB values
+	 * in hexadecimal format. This means, that the String must have a length of
+	 * 6 characters. Example: <code>getColor("FF0000")</code> returns a red
+	 * color.
+	 * <p>
+	 * If this this registry disposes, this returned color will also disposed.
+	 * </p>
+	 * 
+	 * @param hexRGBString
+	 *            The RGB values in hexadecimal format.
+	 * @return a SWT color
+	 */
 	public Color getSwtColor(String hexRGBString) {
 		return getSwtColor(ColorUtil.getRedFromHex(hexRGBString), ColorUtil.getGreenFromHex(hexRGBString), ColorUtil
 				.getBlueFromHex(hexRGBString));
