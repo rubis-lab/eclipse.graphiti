@@ -79,5 +79,42 @@
 	    </propertySections>
 	</extension>
  
+	<extension point="org.eclipse.ui.commands">
+		<command id="org.eclipse.graphiti.examples.tutorial.commands.createDiagramWithAllClasses" name="Create Diagram with all Classes" /> 
+	</extension>
+
+	<extension point="org.eclipse.ui.handlers">
+		<handler commandId="org.eclipse.graphiti.examples.tutorial.commands.createDiagramWithAllClasses" class="org.eclipse.graphiti.examples.tutorial.handlers.CreateDiagramWithAllClassesHandler">
+			<enabledWhen>
+				<reference definitionId="org.eclipse.graphiti.examples.tutorial.definitions.OneEClassesNodeSelected" /> 
+			</enabledWhen>
+			<activeWhen>
+				<reference definitionId="org.eclipse.graphiti.examples.tutorial.definitions.OneEClassesNodeSelected" /> 
+			</activeWhen>
+		</handler>
+	</extension>
+
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+			<command commandId="org.eclipse.graphiti.examples.tutorial.commands.createDiagramWithAllClasses">
+					id="org.eclipse.graphiti.examples.tutorial.menus.createDiagramWithAllClasses"> 
+				<visibleWhen>
+					<reference definitionId="org.eclipse.graphiti.examples.tutorial.definitions.OneEClassesNodeSelected" /> 
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+
+	<extension point="org.eclipse.core.expressions.definitions">
+		<definition id="org.eclipse.graphiti.examples.tutorial.definitions.OneEClassesNodeSelected">
+			<and>
+				<count value="1" /> 
+				<iterate ifEmpty="false" operator="and">
+					<instanceof value="org.eclipse.graphiti.examples.common.navigator.nodes.EClassesNode" /> 
+				</iterate>
+			</and>
+		</definition>
+	</extension>
+	
 </plugin>
  
