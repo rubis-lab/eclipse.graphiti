@@ -65,12 +65,12 @@ public class GFSurroundingHandle extends AbstractHandle {
 	/**
 	 * The foreground color to use for resizable directions.
 	 */
-	private Color FG_COLOR_RESIZABLE;
+	private static Color FG_COLOR_RESIZABLE;
 
 	/**
 	 * The foreground color to use for not-resizable directions.
 	 */
-	private Color FG_COLOR_NOT_RESIZABLE;
+	private static Color FG_COLOR_NOT_RESIZABLE;
 
 	// ========================================================================
 
@@ -78,7 +78,7 @@ public class GFSurroundingHandle extends AbstractHandle {
 	 * @return the fG_COLOR_RESIZABLE
 	 */
 	public Color getFG_COLOR_RESIZABLE() {
-		if (FG_COLOR_RESIZABLE == null)
+		if (FG_COLOR_RESIZABLE == null || FG_COLOR_RESIZABLE.isDisposed())
 			FG_COLOR_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("ff850f"); //$NON-NLS-1$
 		return FG_COLOR_RESIZABLE;
 	}
@@ -87,7 +87,7 @@ public class GFSurroundingHandle extends AbstractHandle {
 	 * @return the fG_COLOR_NOT_RESIZABLE
 	 */
 	public Color getFG_COLOR_NOT_RESIZABLE() {
-		if (FG_COLOR_NOT_RESIZABLE == null)
+		if (FG_COLOR_NOT_RESIZABLE == null || FG_COLOR_NOT_RESIZABLE.isDisposed())
 			FG_COLOR_NOT_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("d9dadd"); //$NON-NLS-1$
 		return FG_COLOR_NOT_RESIZABLE;
 	}

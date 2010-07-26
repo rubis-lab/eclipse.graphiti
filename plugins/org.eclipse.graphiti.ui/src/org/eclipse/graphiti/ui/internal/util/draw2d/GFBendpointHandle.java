@@ -71,22 +71,22 @@ public class GFBendpointHandle extends BendpointHandle {
 	/**
 	 * The foreground color for resizable directions.
 	 */
-	private Color FG_COLOR_PRIMARY;
+	private static Color FG_COLOR_PRIMARY;
 
 	/**
 	 * The foreground color for not-resizable directions.
 	 */
-	private Color FG_COLOR_SECONDARY;
+	private static Color FG_COLOR_SECONDARY;
 
 	/**
 	 * The background color for primary-selected, resizable directions.
 	 */
-	private Color BG_COLOR_PRIMARY;
+	private static Color BG_COLOR_PRIMARY;
 
 	/**
 	 * The background color for secondary-selected, resizable directions.
 	 */
-	private Color BG_COLOR_SECONDARY;
+	private static Color BG_COLOR_SECONDARY;
 
 	// ========================================================================
 
@@ -204,28 +204,28 @@ public class GFBendpointHandle extends BendpointHandle {
 	}
 
 	private Color getFgColorPrimary() {
-		if (FG_COLOR_PRIMARY == null) {
+		if (FG_COLOR_PRIMARY == null || FG_COLOR_PRIMARY.isDisposed()) {
 			FG_COLOR_PRIMARY = configurationProvider.getResourceRegistry().getSwtColor("cc6a01"); //$NON-NLS-1$
 		}
 		return FG_COLOR_PRIMARY;
 	}
 
 	private Color getFgColorSecondary() {
-		if (FG_COLOR_SECONDARY == null) {
+		if (FG_COLOR_SECONDARY == null || FG_COLOR_SECONDARY.isDisposed()) {
 			FG_COLOR_SECONDARY = configurationProvider.getResourceRegistry().getSwtColor("cc6a01"); //$NON-NLS-1$
 		}
 		return FG_COLOR_SECONDARY;
 	}
 
 	private Color getBgColorPrimary() {
-		if (BG_COLOR_PRIMARY == null) {
+		if (BG_COLOR_PRIMARY == null || BG_COLOR_PRIMARY.isDisposed()) {
 			BG_COLOR_PRIMARY = configurationProvider.getResourceRegistry().getSwtColor("ffaa2f"); //$NON-NLS-1$
 		}
 		return BG_COLOR_PRIMARY;
 	}
 
 	private Color getBgColorSecondary() {
-		if (BG_COLOR_SECONDARY == null) {
+		if (BG_COLOR_SECONDARY == null || BG_COLOR_SECONDARY.isDisposed()) {
 			BG_COLOR_SECONDARY = configurationProvider.getResourceRegistry().getSwtColor("ffffff"); //$NON-NLS-1$
 		}
 		return BG_COLOR_SECONDARY;
