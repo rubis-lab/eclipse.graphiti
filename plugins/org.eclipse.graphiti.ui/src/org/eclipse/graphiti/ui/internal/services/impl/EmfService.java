@@ -528,17 +528,24 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Retrieves the workspace-local string location of the given {@link IFile},
+	 * constructs a potentially normalized platform resource {@link URI} from it
+	 * and returns it.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#getFileURI(org.eclipse
-	 * .core.resources.IFile, org.eclipse.emf.ecore.resource.ResourceSet)
+	 * @param file
+	 *            The file to construct the URI for
+	 * @param resourceSet
+	 *            The {@link ResourceSet} to use for the normalization (can be
+	 *            <code>null</code>, in this case no normalization is done).
+	 * @return The platform resource URI for the given file.
 	 */
 	public URI getFileURI(IFile file, ResourceSet resourceSet) {
 		String pathName = file.getFullPath().toString();
-		URI resourceURI = URI.createFileURI(pathName);
-		resourceURI = resourceSet.getURIConverter().normalize(resourceURI);
+		URI resourceURI = URI.createPlatformResourceURI(pathName, true);
+		if (resourceSet != null) {
+			resourceURI = resourceSet.getURIConverter().normalize(resourceURI);
+		}
 		return resourceURI;
 	}
 
