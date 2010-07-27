@@ -15,14 +15,18 @@
  *******************************************************************************/
 package org.eclipse.graphiti.examples.tutorial;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -47,6 +51,25 @@ public class TutorialUtil {
 		}
 		return diagramList;
 	}
+
+	public static void saveToModelFile(final EObject obj, final Diagram d) throws CoreException, IOException {
+		URI uri = d.eResource().getURI();
+		uri = uri.trimFragment();
+		uri = uri.trimFileExtension();
+		uri = uri.appendFileExtension("model");
+		ResourceSet rSet = d.eResource().getResourceSet();
+		final IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		IResource file = workspaceRoot.findMember(uri.toPlatformString(true));
+		if (file == null || !file.exists()) {
+			Resource createResource = rSet.createResource(uri);
+			createResource.save(Collections.emptyMap());
+			createResource.setTrackingModification(true);
+		}
+		final Resource resource = rSet.getResource(uri, true);
+		resource.getContents().add(obj);
+
+	}
+
 
 	private static List<IFile> getDiagramFiles(IContainer folder) {
 		final List<IFile> ret = new ArrayList<IFile>();

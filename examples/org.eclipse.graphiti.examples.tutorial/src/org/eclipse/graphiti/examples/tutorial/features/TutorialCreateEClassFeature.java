@@ -36,12 +36,23 @@ public class TutorialCreateEClassFeature extends AbstractCreateFeature {
 	public Object[] create(ICreateContext context) {
 		// create EClass
 		EClass newClass = EcoreFactory.eINSTANCE.createEClass();
-
 		// Add model element to resource.
 		// We add the model element to the resource of the diagram for
 		// simplicity's sake. Normally, a customer would use its own
 		// model persistence layer for storing the business model separately.
 		getDiagram().eResource().getContents().add(newClass);
+
+		//		Use the following instead of the above line to store the model
+		//		data in a seperate file parallel to the diagram file
+		//		try {
+		//			try {
+		//				TutorialUtil.saveToModelFile(newClass, getDiagram());
+		//			} catch (IOException e) {
+		//				e.printStackTrace();
+		//			}
+		//		} catch (CoreException e) {
+		//			e.printStackTrace();
+		//		}
 
 		// do the add
 		addGraphicalRepresentation(context, newClass);
