@@ -120,7 +120,7 @@ http://dev.eclipse.org/viewsvn/index.cgi/trunk/org.eclipse.buckminster.releng/bu
 		</copy>
 	</target>
 
-	<target name="clean.all">
+	<target name="clean.all" depends="init.clean.tools">
 		<echo message="Removing previous build" />
 		<delete dir="${buildsPath}" quiet="true" />
 	</target>
