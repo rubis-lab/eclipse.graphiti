@@ -35,10 +35,10 @@
     </rm:provider>
   </rm:searchPath>
   <rm:searchPath name="target.platform">
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(build.type=R)">
       <rm:uri format="http://download.eclipse.org/releases/helios"/>
     </rm:provider>
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(build.type=R)">
       <rm:uri format="http://download.eclipse.org/eclipse/updates/3.6"/>
     </rm:provider>
     <rm:provider componentTypes="osgi.bundle" readerType="p2" source="false" mutable="false">
