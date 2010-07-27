@@ -35,11 +35,14 @@
     </rm:provider>
   </rm:searchPath>
   <rm:searchPath name="target.platform">
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(build.type=R)">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(build.type=N)">
       <rm:uri format="http://download.eclipse.org/releases/helios"/>
     </rm:provider>
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(build.type=R)">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(|(build.type=N)(build.type=R))">
       <rm:uri format="http://download.eclipse.org/eclipse/updates/3.6"/>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(build.type=R)">
+      <rm:uri format="http://download.eclipse.org/releases/galileo"/>
     </rm:provider>
     <rm:provider componentTypes="osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:uri format="http://download.eclipse.org/tools/orbit/downloads/drops/R20100519200754/repository/"/>
