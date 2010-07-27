@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.T;
@@ -69,6 +70,11 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * The stored {@link URI} string
 	 */
 	private final String uriName;
+
+	/**
+	 * The stored {@link URI} in normalized form.
+	 */
+	private URI normalizedUri;
 
 	/**
 	 * The ID of the diagram type provider.
@@ -167,6 +173,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		setEditorEditingDomain(domain);
 		this.disposeEditingDomain = disposeEditingDomain;
 		setProviderId(providerId);
+		this.normalizedUri = createNormalizedUri();
 	}
 
 	/**
@@ -239,6 +246,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		setEditorEditingDomain(domain);
 		this.disposeEditingDomain = disposeEditingDomain;
 		setProviderId(providerId);
+		this.normalizedUri = createNormalizedUri();
 	}
 
 	/**
@@ -669,25 +677,30 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		final DiagramEditorInput other = (DiagramEditorInput) obj;
-		if (this.uriName == null) {
-			if (other.uriName != null) {
+		DiagramEditorInput other = (DiagramEditorInput) obj;
+		if (normalizedUri == null) {
+			if (other.normalizedUri != null) {
 				return false;
 			}
-		} else if (!this.uriName.equals(other.uriName)) {
+		} else if (!normalizedUri.equals(other.normalizedUri)) {
+			return false;
+		}
+		if (providerId == null) {
+			if (other.providerId != null) {
+				return false;
+			}
+		} else if (!providerId.equals(other.providerId)) {
 			return false;
 		}
 		return true;
 	}
 
-	/**
-	 * Calculates the hash code for this input
-	 */
 	@Override
 	public int hashCode() {
-		final int PRIME = 31;
-		int result = 0; // super.hashCode();
-		result = PRIME * result + (this.uriName == null ? 0 : this.uriName.hashCode());
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((normalizedUri == null) ? 0 : normalizedUri.hashCode());
+		result = prime * result + ((providerId == null) ? 0 : providerId.hashCode());
 		return result;
 	}
 
@@ -701,4 +714,14 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		return s;
 	}
 
+	private URI createNormalizedUri() {
+		URI ret = null;
+		if (getEditingDomain() != null && getEditingDomain().getResourceSet() != null) {
+			URIConverter uriConverter = getEditingDomain().getResourceSet().getURIConverter();
+			if (uriConverter != null) {
+				ret = uriConverter.normalize(this.getUri());
+			}
+		}
+		return ret;
+	}
 }
