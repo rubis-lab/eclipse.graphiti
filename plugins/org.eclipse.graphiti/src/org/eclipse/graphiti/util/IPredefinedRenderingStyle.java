@@ -74,7 +74,7 @@ public interface IPredefinedRenderingStyle {
 	public static final String SILVER_WHITE_GLOSS_ID = "silver-white-gloss"; //$NON-NLS-1$
 
 	/**
-	 * The style-adaptation to use for default elements.
+	 * The style-adaptation to use for default, element is not selected.
 	 */
 	public static final int STYLE_ADAPTATION_DEFAULT = 0;
 

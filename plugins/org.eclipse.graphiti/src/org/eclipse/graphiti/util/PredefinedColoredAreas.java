@@ -17,16 +17,45 @@ package org.eclipse.graphiti.util;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.mm.datatypes.DatatypesFactory;
+import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
 import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
 import org.eclipse.graphiti.mm.pictograms.GradientColoredAreas;
 import org.eclipse.graphiti.mm.pictograms.GradientColoredLocation;
 import org.eclipse.graphiti.mm.pictograms.LocationType;
 import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
+import org.eclipse.graphiti.services.IGaService;
 
 /**
- * Predefined colored areas to be used in {@link GFFigureUtil#paintColorFlow} .
+ * Predefined gradient color-areas to be used in GFFigureUtil with method
+ * paintColorFlow(..).
  * 
+ * This class comprises the definitions for predefined gradients and their
+ * adaptations for one or more visual states: {@link #STYLE_ADAPTATION_DEFAULT},
+ * {@link #STYLE_ADAPTATION_PRIMARY_SELECTED} ,
+ * {@link #STYLE_ADAPTATION_SECONDARY_SELECTED},
+ * {@link #STYLE_ADAPTATION_ACTION_ALLOWED},
+ * {@link #STYLE_ADAPTATION_ACTION_FORBIDDEN}.
+ * 
+ * Gradient definitions have corresponding ID's: {@link #BLUE_WHITE_GLOSS_ID},
+ * {@link #BLUE_WHITE_GLOSS_ID}, {@link #BLUE_WHITE_ID},
+ * {@link #LIGHT_YELLOW_ID}, {@link #LIGHT_GRAY_ID},
+ * {@link #COPPER_WHITE_GLOSS_ID}, {@link #SILVER_WHITE_GLOSS_ID}.
+ * 
+ * A Gradient definition for a shape can be set as a rendering style with
+ * {@link IGaService#setRenderingStyle(AbstractStyle, AdaptedGradientColoredAreas)}
+ * . The {@link AdaptedGradientColoredAreas} gradient definitions are retrieved
+ * by getter methods defined here, like {@link #getBlueWhiteGlossAdaptions()}.
+ * 
+ * Clients may create their own gradient definition by overriding
+ * {@link PredefinedColoredAreas} for gradient definitions and
+ * {@link IPredefinedRenderingStyle} for corresponding ID's. Simply follow
+ * straightforward the example {@link #getBlueWhiteGlossAdaptions(). It is
+ * recommended to support at least {@link #STYLE_ADAPTATION_DEFAULT} and
+ * {@link #STYLE_ADAPTATION_PRIMARY_SELECTED} as visual states.
+ * 
+ * @see IGaService#setRenderingStyle(AbstractStyle, AdaptedGradientColoredAreas)
+ * @see IPredefinedRenderingStyle
  */
 public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 
@@ -125,7 +154,13 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	}
 
 	/**
-	 * @return
+	 * @return {@link AdaptedGradientColoredAreas} color-areas for
+	 *         {@link #BLUE_WHITE_GLOSS_ID} with the adaptations:
+	 *         {@link #STYLE_ADAPTATION_DEFAULT},
+	 *         {@link #STYLE_ADAPTATION_PRIMARY_SELECTED},
+	 *         {@link #STYLE_ADAPTATION_SECONDARY_SELECTED},
+	 *         {@link #STYLE_ADAPTATION_ACTION_ALLOWED},
+	 *         {@link #STYLE_ADAPTATION_ACTION_FORBIDDEN}.
 	 */
 	public static AdaptedGradientColoredAreas getBlueWhiteGlossAdaptions() {
 		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
@@ -185,7 +220,11 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	}
 
 	/**
-	 * @return
+	 * @return {@link AdaptedGradientColoredAreas} color-areas for
+	 *         {@link #BLUE_WHITE_ID} with the adaptations:
+	 *         {@link #STYLE_ADAPTATION_DEFAULT},
+	 *         {@link #STYLE_ADAPTATION_PRIMARY_SELECTED},
+	 *         {@link #STYLE_ADAPTATION_SECONDARY_SELECTED}.
 	 */
 	public static AdaptedGradientColoredAreas getBlueWhiteAdaptions() {
 		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
@@ -241,7 +280,11 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	}
 
 	/**
-	 * @return
+	 * @return {@link AdaptedGradientColoredAreas} color-areas for
+	 *         {@link #LIGHT_YELLOW_ID} with the adaptations:
+	 *         {@link #STYLE_ADAPTATION_DEFAULT},
+	 *         {@link #STYLE_ADAPTATION_PRIMARY_SELECTED},
+	 *         {@link #STYLE_ADAPTATION_SECONDARY_SELECTED}.
 	 */
 	public static AdaptedGradientColoredAreas getLightYellowAdaptions() {
 		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
@@ -297,7 +340,10 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	}
 
 	/**
-	 * @return
+	 * @return {@link AdaptedGradientColoredAreas} color-areas for
+	 *         {@link #LIGHT_GRAY_ID} with the adaptations:
+	 *         {@link #STYLE_ADAPTATION_DEFAULT},
+	 *         {@link #STYLE_ADAPTATION_PRIMARY_SELECTED}.
 	 */
 	public static AdaptedGradientColoredAreas getLightGrayAdaptions() {
 		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
@@ -331,7 +377,9 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	}
 
 	/**
-	 * @return
+	 * @return {@link AdaptedGradientColoredAreas} color-areas for
+	 *         {@link #COPPER_WHITE_GLOSS_ID} with the adaptation
+	 *         {@link #STYLE_ADAPTATION_DEFAULT}.
 	 */
 	public static AdaptedGradientColoredAreas getCopperWhiteGlossAdaptions() {
 		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
@@ -361,7 +409,9 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	}
 
 	/**
-	 * @return
+	 * @return {@link AdaptedGradientColoredAreas} color-areas for
+	 *         {@link #SILVER_WHITE_GLOSS_ID} with the adaptation
+	 *         {@link #STYLE_ADAPTATION_DEFAULT}.
 	 */
 	public static AdaptedGradientColoredAreas getSilverWhiteGlossAdaptions() {
 		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
@@ -371,8 +421,19 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	}
 
 	/**
+	 * Get {@link AdaptedGradientColoredAreas} by id. The id should be defined
+	 * in {@link IPredefinedRenderingStyle} or in an extension. This is a helper
+	 * method for tests etc. Please use methods like
+	 * {@link #getBlueWhiteGlossAdaptions} to set the rendering style with
+	 * {@link IGaService#setRenderingStyle(AbstractStyle, AdaptedGradientColoredAreas)}
+	 * . Clients should override this method, if they have own gradient
+	 * definitions and id's.
+	 * 
 	 * @param id
-	 * @return
+	 *            The id which designates a corresponding
+	 *            {@link AdaptedGradientColoredAreas} object.
+	 * @return the corresponding {@link AdaptedGradientColoredAreas} object or
+	 *         null, if id is not defined.
 	 */
 	public static AdaptedGradientColoredAreas getAdaptedGradientColoredAreas(String id) {
 		if (BLUE_WHITE_GLOSS_ID.equals(id)) {
