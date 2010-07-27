@@ -73,7 +73,8 @@ public class AbstractContextEntry implements IContextEntry {
 	 */
 	public void execute() {
 		GenericFeatureCommandWithContext genericFeatureCommandWithContext = new GenericFeatureCommandWithContext(getFeature(), getContext());
-		TransactionalEditingDomain editingDomain = GraphitiInternal.getEmfService().getTransactionalEditingDomain(getFeature().getFeatureProvider().getDiagramTypeProvider());
+		TransactionalEditingDomain editingDomain = getFeature().getFeatureProvider().getDiagramTypeProvider().getDiagramEditor()
+				.getEditingDomain();
 		CommandExec.getSingleton().executeCommand(genericFeatureCommandWithContext, editingDomain);
 	}
 

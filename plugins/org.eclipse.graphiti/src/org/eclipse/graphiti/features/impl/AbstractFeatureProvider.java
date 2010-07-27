@@ -368,8 +368,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 			// updateSemanticsFeature.canUpdate(context)) {
 			// ret = updateSemanticsFeature.update(context);
 			// }
-			TransactionalEditingDomain editingDomain = GraphitiInternal.getEmfService().getTransactionalEditingDomain(
-					getDiagramTypeProvider());
+			TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
 			b = CommandExec.getSingleton().executeCommand(new GenericFeatureCommandWithContext(updateFeature, context), editingDomain);
 		}
 		IReason reason = new Reason(b);
@@ -395,8 +394,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		boolean b = false;
 		ILayoutFeature layoutSemanticsFeature = getLayoutFeature(context);
 		if (layoutSemanticsFeature != null) {
-			TransactionalEditingDomain editingDomain = GraphitiInternal.getEmfService().getTransactionalEditingDomain(
-					getDiagramTypeProvider());
+			TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
 			b = CommandExec.getSingleton().executeCommand(new GenericFeatureCommandWithContext(layoutSemanticsFeature, context),
 					editingDomain);
 		}
@@ -477,8 +475,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		if (canAdd(context).toBoolean()) {
 			IAddFeature feature = getAddFeature(context);
 			AddFeatureCommandWithContext addFeatureCommandWithContext = new AddFeatureCommandWithContext(feature, context);
-			TransactionalEditingDomain editingDomain = GraphitiInternal.getEmfService().getTransactionalEditingDomain(
-					getDiagramTypeProvider());
+			TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
 			boolean b = CommandExec.getSingleton().executeCommand(addFeatureCommandWithContext, editingDomain);
 			if (b) {
 				ret = addFeatureCommandWithContext.getAddedPictogramElements();
@@ -801,8 +798,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 						EObject bo = (EObject) businessObjects[i];
 
 						ResourceSet resourceSet = bo.eResource().getResourceSet();
-						TransactionalEditingDomain editingDomain = GraphitiInternal.getEmfService().getTransactionalEditingDomain(
-								getDiagramTypeProvider());
+						TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
 						ResourceSet editorResourceSet = editingDomain.getResourceSet();
 						if (!resourceSet.equals(editorResourceSet)) {
 							URI boUri = EcoreUtil.getURI(bo);

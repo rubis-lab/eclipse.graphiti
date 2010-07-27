@@ -16,8 +16,6 @@
 package org.eclipse.graphiti.internal.services;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 
 /**
  * @noimplement This interface is not intended to be implemented by clients.
@@ -26,7 +24,5 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 public interface IEmfService {
 
 	public boolean isObjectAlive(EObject obj);
-
-	public TransactionalEditingDomain getTransactionalEditingDomain(IDiagramTypeProvider dtp);
 
 }

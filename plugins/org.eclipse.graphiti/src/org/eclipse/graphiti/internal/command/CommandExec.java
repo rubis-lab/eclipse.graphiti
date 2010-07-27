@@ -116,8 +116,8 @@ public class CommandExec {
 	 */
 	public static void executeFeatureWithContext(IFeature feature, IContext context) {
 		GenericFeatureCommandWithContext genericFeatureCommandWithContext = new GenericFeatureCommandWithContext(feature, context);
-		TransactionalEditingDomain editingDomain = GraphitiInternal.getEmfService().getTransactionalEditingDomain(
-				feature.getFeatureProvider().getDiagramTypeProvider());
+		TransactionalEditingDomain editingDomain = feature.getFeatureProvider().getDiagramTypeProvider().getDiagramEditor()
+				.getEditingDomain();
 		CommandExec.getSingleton().executeCommand(genericFeatureCommandWithContext, editingDomain);
 	}
 
