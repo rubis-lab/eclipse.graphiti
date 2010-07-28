@@ -69,19 +69,11 @@ public class EmfService implements IEmfService {
 	private final String ATTRIBUTE_OBJ_NAME = "name";//$NON-NLS-1$
 	private final String ATTRIBUTE_OBJ_ID = "id";//$NON-NLS-1$
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#getObjectName(java.
-	 * lang.Object)
-	 */
 	public String getObjectName(final Object obj) {
 		if (obj == null) {
 			throw new IllegalArgumentException("Obj must not be null"); //$NON-NLS-1$
 		}
 
-		// shortcut for MOF
 		if (obj instanceof ENamedElement) {
 			final ENamedElement elem = (ENamedElement) obj;
 			final String name = elem.getName();
@@ -103,13 +95,6 @@ public class EmfService implements IEmfService {
 		return obj.toString();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#getEObject(java.lang
-	 * .Object)
-	 */
 	public EObject getEObject(Object object) {
 		// if object directly adapts to target type, take this
 		//EObject refBaseObject = adaptObject(object, EObject.class);
@@ -129,13 +114,6 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#getObjectNameAttribute
-	 * (org.eclipse.emf.ecore.EObject)
-	 */
 	public Entry<EAttribute, String> getObjectNameAttribute(final EObject eObject) {
 		final EClass metaObject = eObject.eClass();
 		final EList<EAttribute> attrs = metaObject.getEAllAttributes();
@@ -171,13 +149,6 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#getFile(org.eclipse
-	 * .emf.ecore.EObject)
-	 */
 	public IFile getFile(EObject object) {
 		IFile result = null;
 		final Resource resource = object.eResource();
@@ -190,25 +161,10 @@ public class EmfService implements IEmfService {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#getFile(org.eclipse
-	 * .emf.common.util.URI,
-	 * org.eclipse.emf.transaction.TransactionalEditingDomain)
-	 */
 	public IFile getFile(URI uri, TransactionalEditingDomain editingDomain) {
 		return getFile(uri, editingDomain.getResourceSet());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#getFile(org.eclipse
-	 * .emf.common.util.URI, org.eclipse.emf.ecore.resource.ResourceSet)
-	 */
 	public IFile getFile(URI uri, ResourceSet resourceSet) {
 		if (uri == null) {
 			return null;
@@ -274,24 +230,10 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#getEditingDomain(org
-	 * .eclipse.emf.ecore.resource.ResourceSet)
-	 */
 	public TransactionalEditingDomain getEditingDomain(ResourceSet resourceSet) {
 		return TransactionUtil.getEditingDomain(resourceSet);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#getResourceSet(org.
-	 * eclipse.emf.ecore.EObject)
-	 */
 	public ResourceSet getResourceSet(EObject object) {
 		ResourceSet resourceSet = null;
 		if (object == null) {
@@ -304,13 +246,6 @@ public class EmfService implements IEmfService {
 		return resourceSet;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#getEditingDomain(org
-	 * .eclipse.emf.ecore.EObject)
-	 */
 	public TransactionalEditingDomain getEditingDomain(EObject object) {
 		final ResourceSet resourceSet = getResourceSet(object);
 		if (resourceSet != null) {
@@ -319,25 +254,11 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#save(org.eclipse.emf
-	 * .transaction.TransactionalEditingDomain)
-	 */
 	@SuppressWarnings("unchecked")
 	public void save(TransactionalEditingDomain editingDomain) throws WrappedException {
 		save(editingDomain, Collections.EMPTY_MAP);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#save(org.eclipse.emf
-	 * .transaction.TransactionalEditingDomain, java.util.Map)
-	 */
 	public void save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> options) {
 		saveInWorkspaceRunnable(editingDomain, options);
 	}
@@ -439,13 +360,6 @@ public class EmfService implements IEmfService {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#toString(org.eclipse
-	 * .emf.ecore.EObject, java.lang.StringBuilder)
-	 */
 	public StringBuilder toString(final EObject o, final StringBuilder result) {
 		final EClass metaObject = o.eClass();
 		// type
@@ -515,12 +429,10 @@ public class EmfService implements IEmfService {
 			resource = resourceSet.getResource(resourceURI, true);
 			if (resource != null) {
 				// does resource contain a diagram as root object?
-				EList<EObject> contents = resource.getContents();
-				for (EObject object : contents) {
-					if (object instanceof Diagram) {
-						return (Diagram) object;
-					}
-				}
+				URI diagramUri = mapDiagramFileUriToDiagramUri(resourceURI);
+				EObject eObject = resource.getEObject(diagramUri.fragment());
+				if (eObject instanceof Diagram)
+					return (Diagram) eObject;
 			}
 		} catch (WrappedException e) {
 		}
@@ -561,5 +473,10 @@ public class EmfService implements IEmfService {
 		final TransactionalEditingDomainImpl editingDomain = new TransactionalEditingDomainImpl(new ComposedAdapterFactory(
 				ComposedAdapterFactory.Descriptor.Registry.INSTANCE), workspaceCommandStack, resourceSet);
 		return editingDomain;
+	}
+
+	@Override
+	public URI mapDiagramFileUriToDiagramUri(URI diagramFileUri) {
+		return diagramFileUri.appendFragment("/"); //$NON-NLS-1$
 	}
 }

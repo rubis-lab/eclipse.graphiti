@@ -64,7 +64,7 @@ public class DiagramEditorFactory implements IElementFactory {
 			URI diagramFileUri = GraphitiUiInternal.getEmfService().getFileURI(file, domain.getResourceSet());
 			if (diagramFileUri != null) {
 				// the file has to contain one base node which has to be a diagram
-				diagramFileUri = diagramFileUri.appendFragment("/"); //$NON-NLS-1$
+				diagramFileUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri);
 				return new DiagramEditorInput(diagramFileUri, domain, null, true);
 			}
 		}

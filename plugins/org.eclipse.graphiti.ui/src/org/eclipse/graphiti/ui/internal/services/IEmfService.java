@@ -203,6 +203,17 @@ public interface IEmfService {
 	public abstract URI getFileURI(IFile file, ResourceSet resourceSet);
 
 	/**
+	 * Maps the fileURI to an URI which points directly to the Diagram Object.
+	 * This methods assumes the Diagram object is the first root object in the
+	 * given file.
+	 * 
+	 * @param diagramFileUri
+	 *            URI of the diagramFile
+	 * @return URI of the diagram
+	 */
+	public abstract URI mapDiagramFileUriToDiagramUri(URI diagramFileUri);
+
+	/**
 	 * Creates a {@link TransactionalEditingDomain} with a {@link ResourceSet}
 	 * resource set and a {@link IWorkspaceCommandStack} command stack.
 	 * 
