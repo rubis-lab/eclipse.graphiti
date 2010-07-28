@@ -96,8 +96,6 @@ public class EmfService implements IEmfService {
 	}
 
 	public EObject getEObject(Object object) {
-		// if object directly adapts to target type, take this
-		//EObject refBaseObject = adaptObject(object, EObject.class);
 		EObject eObject = null;
 		if (object != null && object instanceof EObject) {
 			eObject = (EObject) object;
@@ -138,11 +136,6 @@ public class EmfService implements IEmfService {
 				if (value instanceof String) {
 					return Collections.singletonMap(attr, (String) value).entrySet().iterator().next();
 				}
-				// translatable texts
-				//				if (value instanceof TranslatableText) {
-				//					final String text = valueAsString(value);
-				//					return Collections.singletonMap(attr, text).entrySet().iterator().next();
-				//				}
 			}
 		}
 
@@ -170,14 +163,6 @@ public class EmfService implements IEmfService {
 			return null;
 		}
 
-		//		// Check extension point
-		//		if (resourceSet != null) {
-		//			IFile file = UriConverter.resolve(resourceSet, uri);
-		//			if (file != null && file.exists()) {
-		//				return file;
-		//			}
-		//		}
-
 		final IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
 		// File URIs
@@ -188,37 +173,12 @@ public class EmfService implements IEmfService {
 			if (file != null) {
 				return file;
 			}
-
 			return null;
 		}
 
 		// Platform resource URIs
 		else {
 			final IResource workspaceResource = workspaceRoot.findMember(filePath);
-			if (workspaceResource == null || workspaceResource.getType() != IResource.FILE) {
-				// Alternative ?
-				final String fileName = uri.toString();
-				if (fileName != null) {
-					// TODO check
-					//					IPath uriPath = new Path(fileName).makeUNC(true).makeRelative().removeFirstSegments(1);
-					//					IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-					//					for (int i = 0; i < projects.length; i++) {
-					//						IPath projectPath = projects[i].getLocation();
-					//						if (uriPath.matchingFirstSegments(projectPath) == projectPath.segmentCount()) {
-					//							IProject project = projects[i];
-					//
-					//							break;
-					//						}
-					//					}
-
-					//					IFile files = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(fileName));
-					//					if (files.length > 0) {
-					//						IProject project = files[0].getProject();
-					//					}
-				}
-
-				return null;
-			}
 			return (IFile) workspaceResource;
 		}
 	}
@@ -279,24 +239,21 @@ public class EmfService implements IEmfService {
 							do {
 								if (!parentTx.isReadOnly()) {
 									throw new IllegalStateException(
-											"ModelUtil.save() called from within a command (likely produces a deadlock)");
+											"saveInWorkspaceRunnable() called from within a command (likely to produce deadlock)");
 								}
 							} while ((parentTx = ((TransactionalEditingDomainImpl) editingDomain).getActiveTransaction().getParent()) != null);
 						}
 
 						final EList<Resource> resources = editingDomain.getResourceSet().getResources();
-						// Copy list to an array to prevent
-						// ConcurrentModificationExceptions
+						// Copy list to an array to prevent ConcurrentModificationExceptions
 						// during the saving of the dirty resources
 						Resource[] resourcesArray = new Resource[resources.size()];
 						resourcesArray = resources.toArray(resourcesArray);
 						final Set<Resource> savedResources = new HashSet<Resource>();
 						for (int i = 0; i < resourcesArray.length; i++) {
-							// In case resource modification tracking is
-							// switched on, we can check if a resource
-							// has been modified, so that we only need to same
-							// really changed resources; otherwise
-							// we need to save all resources in the set
+							// In case resource modification tracking is switched on, 
+							// we can check if a resource has been modified, so that we only need to save
+							// really changed resources; otherwise we need to save all resources in the set
 							final Resource resource = resourcesArray[i];
 							if (!resource.isTrackingModification() || resource.isModified()) {
 								try {
@@ -315,11 +272,9 @@ public class EmfService implements IEmfService {
 				} catch (final InterruptedException e) {
 					throw new RuntimeException(e);
 				}
-				// For the time being, we clear the command stack after
-				// saving.
+				// For the time being, we clear the command stack after saving.
 				// In a later sprint we might try to implement undo/redo
-				// across save calls (not that easy
-				// to handle the ResourceImpl.isModified flag, which is also
+				// across save calls (not that easy to handle the ResourceImpl.isModified flag, which is also
 				// set by save() outside any command).
 				editingDomain.getCommandStack().flush();
 			}
@@ -380,7 +335,7 @@ public class EmfService implements IEmfService {
 				result.append("  "); //$NON-NLS-1$
 				result.append(attr.getKey().getName());
 				result.append("="); //$NON-NLS-1$
-				result.append(valueAsString(attr.getValue()));
+				result.append(String.valueOf(attr.getValue()));
 				result.append(LINE_SEP);
 			}
 		}
@@ -398,31 +353,13 @@ public class EmfService implements IEmfService {
 			final Object value = refObject.eGet(attr);
 			result.put(attr, value);
 		}
-
 		return result;
 	}
 
-	/**
-	 * @return the given value as a string
-	 */
-	private String valueAsString(final Object value) {
 
-		return String.valueOf(value);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.IEmfService#getDiagramFromFile(
-	 * org.eclipse.core.resources.IFile,
-	 * org.eclipse.emf.ecore.resource.ResourceSet)
-	 */
 	public Diagram getDiagramFromFile(IFile file, ResourceSet resourceSet) {
-
 		// Get the URI of the model file.
 		URI resourceURI = getFileURI(file, resourceSet);
-
 		// Demand load the resource for this file.
 		Resource resource;
 		try {
@@ -436,7 +373,6 @@ public class EmfService implements IEmfService {
 			}
 		} catch (WrappedException e) {
 		}
-
 		return null;
 	}
 
