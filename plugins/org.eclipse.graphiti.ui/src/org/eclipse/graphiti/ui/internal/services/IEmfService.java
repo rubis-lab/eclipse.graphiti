@@ -16,13 +16,11 @@
 package org.eclipse.graphiti.ui.internal.services;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -33,6 +31,9 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 /**
+ * Provides EMF Services, in particular with respect to {@link EObject},
+ * {@link URI}, {@link ResourceSet}, and {@link TransactionalEditingDomain}.
+ * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
@@ -51,7 +52,6 @@ public interface IEmfService {
 	 * @return the value of attribute "name" or the EMF id if no attribute
 	 *         "name" exists
 	 * 
-	 * @see #getObjectNameAttribute(RefObject)
 	 */
 	public abstract String getObjectName(final Object obj);
 
@@ -70,21 +70,6 @@ public interface IEmfService {
 	 */
 	public abstract EObject getEObject(Object object);
 
-	/**
-	 * Returns the EMF attribute that contains a human readable name of a given
-	 * object as its value. The method tries to access a modeled attribute
-	 * "name" or "id" in this order. If no attribute with this name is modeled,
-	 * the first attribute whose value is a String or {@link TranslatableText}
-	 * is returned, otherwise <code>null</code> .
-	 * 
-	 * @param eObject
-	 *            the object to get a name for
-	 * @return the attribute (currently "name", id" or a
-	 *         {@link TranslatableTextFragment}) and the readable name
-	 * 
-	 * @see #getObjectName(Object)
-	 */
-	public abstract Entry<EAttribute, String> getObjectNameAttribute(final EObject eObject);
 
 	/**
 	 * Returns the Eclipse file for the given {@link EObject}'s {@link Resource}
@@ -109,7 +94,7 @@ public interface IEmfService {
 	public abstract IFile getFile(EObject object);
 
 	/**
-	 * Returns the Eclipse file for the given {@link Resource}.
+	 * Returns the Eclipse file for the given {@link URI}.
 	 * 
 	 * Note that the file is <code>null</code> for objects in
 	 * <ul>
@@ -121,16 +106,44 @@ public interface IEmfService {
 	 * </ul>
 	 * 
 	 * @param uri
-	 *            the resource id to get the file for
-	 * @return the partition file or <code>null</code> under the mentioned
-	 *         circumstances
+	 *            the URI to get the file for
+	 * @param editingDomain
+	 *            the respective TransactionalEditingDomain
+	 * @return the file or <code>null</code> under the mentioned circumstances
 	 * 
 	 * @see #getFile(EObject)
 	 */
 	public abstract IFile getFile(URI uri, TransactionalEditingDomain editingDomain);
 
+	/**
+	 * Returns the Eclipse file for the given {@link URI}.
+	 * 
+	 * Note that the file is <code>null</code> for objects in
+	 * <ul>
+	 * <li>archives,</li>
+	 * <li>closed projects,</li>
+	 * <li>not yet persisted resources or not yet persisted EObjects in already
+	 * persisted resources. In this respect this methods behaves asymmetric to
+	 * the handle-only resource APIs like {@link IProject#getFile(String)}.</li>
+	 * </ul>
+	 * 
+	 * @param uri
+	 *            the URI to get the file for
+	 * @param resourceSet
+	 *            the respective ResourceSet
+	 * @return the file or <code>null</code> under the mentioned circumstances
+	 * 
+	 * @see #getFile(EObject)
+	 */
 	public abstract IFile getFile(URI uri, ResourceSet resourceSet);
 
+	/**
+	 * Returns the TransactionalEditingDomain for
+	 * <code>resourceSet</code> based on emf.transaction heuristics.
+	 * 
+	 * @param resourceSet
+	 * @return the TransactionalEditingDomain or <code>null</code>
+	 */
 	public abstract TransactionalEditingDomain getEditingDomain(ResourceSet resourceSet);
 
 	/**
@@ -163,7 +176,8 @@ public interface IEmfService {
 	 *            The {@link TransactionalEditingDomain} to be saved.
 	 */
 	public abstract void save(TransactionalEditingDomain editingDomain) throws WrappedException;
-
+	
+	
 	/**
 	 * Saves the given {@link TransactionalEditingDomain} by saving all its
 	 * dirty {@link Resource}s.
@@ -173,7 +187,7 @@ public interface IEmfService {
 	 * @param options
 	 *            Save options for each of the {@link Resource}s to save.
 	 */
-	public abstract void save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> options);
+	public abstract void save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options);
 
 	/**
 	 * Creates an extended string presentation of the given {@link EObject},
@@ -200,6 +214,18 @@ public interface IEmfService {
 	 */
 	public abstract Diagram getDiagramFromFile(IFile file, ResourceSet resourceSet);
 
+	/**
+	 * Retrieves the workspace-local string location of the given {@link IFile},
+	 * constructs a potentially normalized platform resource {@link URI} from it
+	 * and returns it.
+	 * 
+	 * @param file
+	 *            The file to construct the URI for
+	 * @param resourceSet
+	 *            The {@link ResourceSet} to use for the normalization (can be
+	 *            <code>null</code>, in this case no normalization is done).
+	 * @return The platform resource URI for the given file.
+	 */
 	public abstract URI getFileURI(IFile file, ResourceSet resourceSet);
 
 	/**

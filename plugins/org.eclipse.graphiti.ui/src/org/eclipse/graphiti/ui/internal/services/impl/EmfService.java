@@ -69,6 +69,7 @@ public class EmfService implements IEmfService {
 	private final String ATTRIBUTE_OBJ_NAME = "name";//$NON-NLS-1$
 	private final String ATTRIBUTE_OBJ_ID = "id";//$NON-NLS-1$
 
+	@Override
 	public String getObjectName(final Object obj) {
 		if (obj == null) {
 			throw new IllegalArgumentException("Obj must not be null"); //$NON-NLS-1$
@@ -95,6 +96,7 @@ public class EmfService implements IEmfService {
 		return obj.toString();
 	}
 
+	@Override
 	public EObject getEObject(Object object) {
 		EObject eObject = null;
 		if (object != null && object instanceof EObject) {
@@ -112,7 +114,20 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	public Entry<EAttribute, String> getObjectNameAttribute(final EObject eObject) {
+	/**
+	 * Returns the EMF attribute that contains a human readable name of a given
+	 * object as its value. The method tries to access a modeled attribute
+	 * "name" or "id" in this order. If no attribute with this name is modeled,
+	 * the first attribute whose value is a String is returned, otherwise
+	 * <code>null</code> .
+	 * 
+	 * @param eObject
+	 *            the object to get a name for
+	 * @return the attribute (currently "name", id") and the readable name
+	 * 
+	 * @see #getObjectName(Object)
+	 */
+	private Entry<EAttribute, String> getObjectNameAttribute(final EObject eObject) {
 		final EClass metaObject = eObject.eClass();
 		final EList<EAttribute> attrs = metaObject.getEAllAttributes();
 		if (attrs != null) {
@@ -142,6 +157,7 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
+	@Override
 	public IFile getFile(EObject object) {
 		IFile result = null;
 		final Resource resource = object.eResource();
@@ -154,10 +170,12 @@ public class EmfService implements IEmfService {
 		return result;
 	}
 
+	@Override
 	public IFile getFile(URI uri, TransactionalEditingDomain editingDomain) {
 		return getFile(uri, editingDomain.getResourceSet());
 	}
 
+	@Override
 	public IFile getFile(URI uri, ResourceSet resourceSet) {
 		if (uri == null) {
 			return null;
@@ -190,10 +208,12 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
+	@Override
 	public TransactionalEditingDomain getEditingDomain(ResourceSet resourceSet) {
 		return TransactionUtil.getEditingDomain(resourceSet);
 	}
 
+	@Override
 	public ResourceSet getResourceSet(EObject object) {
 		ResourceSet resourceSet = null;
 		if (object == null) {
@@ -206,6 +226,7 @@ public class EmfService implements IEmfService {
 		return resourceSet;
 	}
 
+	@Override
 	public TransactionalEditingDomain getEditingDomain(EObject object) {
 		final ResourceSet resourceSet = getResourceSet(object);
 		if (resourceSet != null) {
@@ -214,16 +235,14 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void save(TransactionalEditingDomain editingDomain) throws WrappedException {
 		save(editingDomain, Collections.EMPTY_MAP);
 	}
 
-	public void save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> options) {
-		saveInWorkspaceRunnable(editingDomain, options);
-	}
-
-	private void saveInWorkspaceRunnable(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options) {
+	@Override
+	public void save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options) {
 
 		final Map<URI, Throwable> failedSaves = new HashMap<URI, Throwable>();
 		final IWorkspaceRunnable wsRunnable = new IWorkspaceRunnable() {
@@ -315,6 +334,7 @@ public class EmfService implements IEmfService {
 		return result;
 	}
 
+	@Override
 	public StringBuilder toString(final EObject o, final StringBuilder result) {
 		final EClass metaObject = o.eClass();
 		// type
@@ -356,7 +376,7 @@ public class EmfService implements IEmfService {
 		return result;
 	}
 
-
+	@Override
 	public Diagram getDiagramFromFile(IFile file, ResourceSet resourceSet) {
 		// Get the URI of the model file.
 		URI resourceURI = getFileURI(file, resourceSet);
@@ -376,18 +396,7 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	/**
-	 * Retrieves the workspace-local string location of the given {@link IFile},
-	 * constructs a potentially normalized platform resource {@link URI} from it
-	 * and returns it.
-	 * 
-	 * @param file
-	 *            The file to construct the URI for
-	 * @param resourceSet
-	 *            The {@link ResourceSet} to use for the normalization (can be
-	 *            <code>null</code>, in this case no normalization is done).
-	 * @return The platform resource URI for the given file.
-	 */
+	@Override
 	public URI getFileURI(IFile file, ResourceSet resourceSet) {
 		String pathName = file.getFullPath().toString();
 		URI resourceURI = URI.createPlatformResourceURI(pathName, true);
@@ -397,12 +406,7 @@ public class EmfService implements IEmfService {
 		return resourceURI;
 	}
 
-	/**
-	 * Creates a {@link TransactionalEditingDomain} with a {@link ResourceSet}
-	 * resource set and a {@link IWorkspaceCommandStack} command stack.
-	 * 
-	 * @return a {@link TransactionalEditingDomain} editing domain
-	 */
+	@Override
 	public TransactionalEditingDomain createResourceSetAndEditingDomain() {
 		final ResourceSet resourceSet = new ResourceSetImpl();
 		final IWorkspaceCommandStack workspaceCommandStack = new GFWorkspaceCommandStackImpl(new DefaultOperationHistory());
