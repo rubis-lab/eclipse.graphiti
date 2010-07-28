@@ -120,7 +120,7 @@ http://dev.eclipse.org/viewsvn/index.cgi/trunk/org.eclipse.buckminster.releng/bu
 		</copy>
 	</target>
 
-	<target name="clean.all" depends="init.clean.tools">
+	<target name="clean.all">
 		<echo message="Removing previous build" />
 		<delete dir="${buildsPath}" quiet="true" />
 	</target>
@@ -134,7 +134,7 @@ http://dev.eclipse.org/viewsvn/index.cgi/trunk/org.eclipse.buckminster.releng/bu
 		<available file="${toolsPath}/buckminster/buckminster" property="buckminster.exists" />
 	</target>
 
-	<target name="init" depends="clean.all">
+	<target name="init">
 
 		<echo message="Creating main directories" />
 		<echo message="rootPath: ${rootPath}" />
