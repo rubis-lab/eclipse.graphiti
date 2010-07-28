@@ -20,6 +20,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.StatusLineManager;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 
 /**
@@ -69,5 +70,12 @@ public interface IWorkbenchService {
 	 */
 	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, String providerId,
 			boolean disposeEditingDomain);
+
+	/**
+	 * Returns the shell of the active workbench window.
+	 * 
+	 * @return the shell
+	 */
+	public Shell getShell();
 
 }

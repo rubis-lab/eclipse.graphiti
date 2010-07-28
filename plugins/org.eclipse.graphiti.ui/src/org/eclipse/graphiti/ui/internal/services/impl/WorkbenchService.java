@@ -21,10 +21,12 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
+import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.services.IWorkbenchService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.StatusLineManager;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorActionBarContributor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IViewPart;
@@ -42,12 +44,7 @@ import org.eclipse.ui.part.EditorActionBarContributor;
  */
 public class WorkbenchService implements IWorkbenchService {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.ui.internal.util.ui.IWorkbenchService#
-	 * getActiveStatusLineManager()
-	 */
+
 	public IStatusLineManager getActiveStatusLineManager() {
 		final IWorkbenchPart activePart = getActiveOrFirstWorkbenchWindow().getActivePage().getActivePart();
 		if (activePart instanceof IViewPart) {
@@ -66,12 +63,7 @@ public class WorkbenchService implements IWorkbenchService {
 		return new StatusLineManager();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.ui.internal.util.ui.IWorkbenchService#
-	 * getActiveOrFirstWorkbenchWindow()
-	 */
+
 	public IWorkbenchWindow getActiveOrFirstWorkbenchWindow() {
 		IWorkbenchWindow result = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if (result == null) {
@@ -139,5 +131,11 @@ public class WorkbenchService implements IWorkbenchService {
 		if (workbenchWindow != null)
 			return workbenchWindow.getActivePage();
 		return null;
+	}
+
+
+	@Override
+	public Shell getShell() {
+		return GraphitiUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 	}
 }

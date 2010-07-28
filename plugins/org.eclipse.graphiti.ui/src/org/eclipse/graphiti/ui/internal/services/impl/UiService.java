@@ -129,14 +129,15 @@ public class UiService implements IUiService {
 	public void startSaveAsImageDialog(GraphicalViewer graphicalViewer) {
 		String METHOD = "startSaveAsImageDialog(graphicalViewer)"; //$NON-NLS-1$
 
+		Shell shell = GraphitiUiInternal.getWorkbenchService().getShell();
 		// select image-format and scale-factor
-		SaveFigureAsImageDialog saveAsImageDialog = new SaveFigureAsImageDialog(getShell(), graphicalViewer);
+		SaveFigureAsImageDialog saveAsImageDialog = new SaveFigureAsImageDialog(shell, graphicalViewer);
 		saveAsImageDialog.open();
 		if (saveAsImageDialog.getReturnCode() == Window.CANCEL)
 			return;
 
 		// select filename with file-dialog
-		FileDialog fileDialog = new FileDialog(getShell(), SWT.SAVE);
+		FileDialog fileDialog = new FileDialog(shell, SWT.SAVE);
 		String fileExtensions[] = new String[] { "*." + saveAsImageDialog.getFileExtensionForImageFormat() }; //$NON-NLS-1$
 		fileDialog.setFilterExtensions(fileExtensions);
 		String filename = fileDialog.open();
@@ -151,10 +152,10 @@ public class UiService implements IUiService {
 
 				// save image as file
 				WorkspaceModifyOperation saveOperation = saveContentsToFile(filename, image);
-				new ProgressMonitorDialog(getShell()).run(false, false, saveOperation);
+				new ProgressMonitorDialog(shell).run(false, false, saveOperation);
 			} catch (Exception e) {
 				String message = "Can not save image: "; //$NON-NLS-1$
-				MessageDialog.openError(getShell(), "Can not save image", message + e.getMessage()); //$NON-NLS-1$
+				MessageDialog.openError(shell, "Can not save image", message + e.getMessage()); //$NON-NLS-1$
 				T.racer().error(METHOD, message + "\nDetails: " + GraphitiUiInternal.getTraceService().getStacktrace(e)); //$NON-NLS-1$
 				e.printStackTrace();
 			}
@@ -196,16 +197,6 @@ public class UiService implements IUiService {
 		};
 
 		return operation;
-	}
-
-	/**
-	 * Returns the currently active Shell.
-	 * 
-	 * @return The currently active Shell.
-	 */
-	@Override
-	public Shell getShell() {
-		return GraphitiUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 	}
 
 }

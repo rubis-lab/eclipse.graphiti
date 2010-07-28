@@ -72,11 +72,6 @@ public interface IUiService {
 	 */
 	public abstract void startSaveAsImageDialog(GraphicalViewer graphicalViewer);
 
-	/**
-	 * Returns the shell of the active workbench window.
-	 * 
-	 * @return the shell
-	 */
-	public abstract Shell getShell();
+
 
 }
