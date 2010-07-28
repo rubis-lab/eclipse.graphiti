@@ -39,13 +39,7 @@ public class TraceService implements ITraceService {
 	private final boolean FULL_QUALIFIED = false;
 	private final boolean ADD_OBJECT_INFO = false;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.services.impl.ITraceService#getStacktrace
-	 * (java.lang.Throwable)
-	 */
+	@Override
 	public String getStacktrace(Throwable t) {
 		if (t == null)
 			return null;
@@ -54,25 +48,13 @@ public class TraceService implements ITraceService {
 		return writer.toString();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.services.impl.ITraceService#dumpFigureTree
-	 * (org.eclipse.draw2d.IFigure)
-	 */
+	@Override
 	public void dumpFigureTree(IFigure figure) {
 		System.out.println("\nFigure Tree"); //$NON-NLS-1$
 		dumpFigureTree(figure, 0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.services.impl.ITraceService#dumpFigureTree
-	 * (org.eclipse.draw2d.IFigure, int)
-	 */
+	@Override
 	public void dumpFigureTree(IFigure figure, int indent) {
 		String indentString = createIndentString(indent);
 
@@ -103,25 +85,13 @@ public class TraceService implements ITraceService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.services.impl.ITraceService#dumpEditPartTree
-	 * (org.eclipse.gef.EditPart)
-	 */
+	@Override
 	public void dumpEditPartTree(EditPart editPart) {
 		System.out.println("\nEdit Part Tree()"); //$NON-NLS-1$
 		dumpEditPartTree(editPart, 0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.services.impl.ITraceService#dumpEditPartTree
-	 * (org.eclipse.gef.EditPart, int)
-	 */
+	@Override
 	public void dumpEditPartTree(EditPart editPart, int indent) {
 		String indentString = createIndentString(indent);
 		Object m = editPart.getModel();
@@ -147,25 +117,13 @@ public class TraceService implements ITraceService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.ui.internal.services.impl.ITraceService#
-	 * dumpPictogramModelTree
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
+	@Override
 	public void dumpPictogramModelTree(PictogramElement pe) {
 		System.out.println("\nPictogram Model Tree()"); //$NON-NLS-1$
 		dumpPictogramModelTree(pe, 0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.ui.internal.services.impl.ITraceService#
-	 * dumpPictogramModelTree
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement, int)
-	 */
+	@Override
 	public void dumpPictogramModelTree(PictogramElement pe, int indent) {
 		String indentString = createIndentString(indent);
 
@@ -183,24 +141,12 @@ public class TraceService implements ITraceService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.services.impl.ITraceService#dumpGATree
-	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm)
-	 */
+	@Override
 	public void dumpGATree(GraphicsAlgorithm ga) {
 		dumpGATree(ga, 0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.services.impl.ITraceService#dumpGATree
-	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm, int)
-	 */
+	@Override
 	public void dumpGATree(GraphicsAlgorithm ga, int indent) {
 		String indentString = createIndentString(indent);
 		if (ga == null) {

@@ -17,6 +17,7 @@ package org.eclipse.graphiti.ui.internal.services;
 
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * @noimplement This interface is not intended to be implemented by clients.
@@ -70,5 +71,12 @@ public interface IUiService {
 	 *            The GraphicalViewer, which to save as an image.
 	 */
 	public abstract void startSaveAsImageDialog(GraphicalViewer graphicalViewer);
+
+	/**
+	 * Returns the shell of the active workbench window.
+	 * 
+	 * @return the shell
+	 */
+	public abstract Shell getShell();
 
 }

@@ -52,13 +52,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
  */
 public class UiService implements IUiService {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.ui.UiService#createImage(org.eclipse
-	 * .swt.graphics.Image, int)
-	 */
+	@Override
 	public byte[] createImage(Image image, int format) throws Exception {
 		ByteArrayOutputStream result = new ByteArrayOutputStream();
 
@@ -80,12 +74,7 @@ public class UiService implements IUiService {
 		return result.toByteArray();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.ui.internal.util.ui.UiService#
-	 * create8BitIndexedPaletteImage(org.eclipse.swt.graphics.Image)
-	 */
+	@Override
 	public Image create8BitIndexedPaletteImage(Image image) throws Exception {
 		int upperboundWidth = image.getBounds().width;
 		int upperboundHeight = image.getBounds().height;
@@ -136,24 +125,18 @@ public class UiService implements IUiService {
 		return image;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.ui.UiService#startSaveAsImageDialog
-	 * (org.eclipse.gef.GraphicalViewer)
-	 */
+	@Override
 	public void startSaveAsImageDialog(GraphicalViewer graphicalViewer) {
 		String METHOD = "startSaveAsImageDialog(graphicalViewer)"; //$NON-NLS-1$
 
 		// select image-format and scale-factor
-		SaveFigureAsImageDialog saveAsImageDialog = new SaveFigureAsImageDialog(UiService.getShell(), graphicalViewer);
+		SaveFigureAsImageDialog saveAsImageDialog = new SaveFigureAsImageDialog(getShell(), graphicalViewer);
 		saveAsImageDialog.open();
 		if (saveAsImageDialog.getReturnCode() == Window.CANCEL)
 			return;
 
 		// select filename with file-dialog
-		FileDialog fileDialog = new FileDialog(UiService.getShell(), SWT.SAVE);
+		FileDialog fileDialog = new FileDialog(getShell(), SWT.SAVE);
 		String fileExtensions[] = new String[] { "*." + saveAsImageDialog.getFileExtensionForImageFormat() }; //$NON-NLS-1$
 		fileDialog.setFilterExtensions(fileExtensions);
 		String filename = fileDialog.open();
@@ -168,10 +151,10 @@ public class UiService implements IUiService {
 
 				// save image as file
 				WorkspaceModifyOperation saveOperation = saveContentsToFile(filename, image);
-				new ProgressMonitorDialog(UiService.getShell()).run(false, false, saveOperation);
+				new ProgressMonitorDialog(getShell()).run(false, false, saveOperation);
 			} catch (Exception e) {
 				String message = "Can not save image: "; //$NON-NLS-1$
-				MessageDialog.openError(UiService.getShell(), "Can not save image", message + e.getMessage()); //$NON-NLS-1$
+				MessageDialog.openError(getShell(), "Can not save image", message + e.getMessage()); //$NON-NLS-1$
 				T.racer().error(METHOD, message + "\nDetails: " + GraphitiUiInternal.getTraceService().getStacktrace(e)); //$NON-NLS-1$
 				e.printStackTrace();
 			}
@@ -220,33 +203,9 @@ public class UiService implements IUiService {
 	 * 
 	 * @return The currently active Shell.
 	 */
-	public static Shell getShell() {
+	@Override
+	public Shell getShell() {
 		return GraphitiUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 	}
 
-	// public static Color[] calculateColorsSteps(Color startColor, Color
-	// endColor, int steps) {
-	// if (steps < 2) {
-	// throw new IllegalArgumentException();
-	// }
-	//
-	// Color[] ret = new Color[steps];
-	//
-	// int redDiff = endColor.getRed() - startColor.getRed();
-	// int greenDiff = endColor.getGreen() - startColor.getGreen();
-	// int blueDiff = endColor.getBlue() - startColor.getBlue();
-	//
-	// ret[0] = startColor;
-	//
-	// for (int i = 1; i < steps - 1; i++) {
-	// int red = startColor.getRed() + ((i * redDiff) / (steps - 1));
-	// int green = startColor.getGreen() + ((i * greenDiff) / (steps - 1));
-	// int blue = startColor.getBlue() + ((i * blueDiff) / (steps - 1));
-	// ret[i] = new Color(null, red, green, blue);
-	// }
-	//
-	// ret[steps - 1] = endColor;
-	//
-	// return ret;
-	// }
 }

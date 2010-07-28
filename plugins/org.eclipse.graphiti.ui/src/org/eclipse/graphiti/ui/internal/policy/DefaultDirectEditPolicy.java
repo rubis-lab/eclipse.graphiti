@@ -74,7 +74,7 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 
 		final String message = request.getCellEditor().getErrorMessage();
 		if (message != null && message.length() != 0) {
-			MessageDialog.openError(UiService.getShell(), Messages.DefaultDirectEditPolicy_0_xmsg, message);
+			MessageDialog.openError(GraphitiUiInternal.getUiService().getShell(), Messages.DefaultDirectEditPolicy_0_xmsg, message);
 			return null;
 		}
 
