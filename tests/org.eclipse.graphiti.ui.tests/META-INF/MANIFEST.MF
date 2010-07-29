@@ -6,6 +6,6 @@ Bundle-Version: 0.7.0.qualifier
 Fragment-Host: org.eclipse.graphiti.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.easymock;bundle-version="2.4.0",
- org.junit4;bundle-version="4.8.1",
+ org.junit4;bundle-version="4.5.0",
  org.eclipse.graphiti.tests;bundle-version="0.7.0"
 Bundle-Vendor: %providerName
