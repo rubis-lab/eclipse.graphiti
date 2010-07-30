@@ -41,6 +41,7 @@ public class StyleUtil {
 		if (style == null) { // style not found - create new style
 			style = gaService.createStyle(diagram, styleId);
 			style.setForeground(gaService.manageColor(diagram, E_CLASS_FOREGROUND));
+			//gaService.setRenderingStyle(style, TutorialColoredAreas.getLimeWhiteAdaptions());
 			gaService.setRenderingStyle(style, PredefinedColoredAreas.getBlueWhiteGlossAdaptions());
 			style.setLineWidth(2);
 		}
