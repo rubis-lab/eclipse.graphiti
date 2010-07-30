@@ -1,11 +1,11 @@
 package org.eclipse.graphiti.examples.tutorial;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredAreas;
-import org.eclipse.graphiti.mm.pictograms.LocationType;
-import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
+import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.LocationType;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
 
@@ -19,7 +19,7 @@ import org.eclipse.graphiti.util.PredefinedColoredAreas;
 public class TutorialColoredAreas extends PredefinedColoredAreas implements ITutorialRenderingStyle {
 
 	private static GradientColoredAreas getLimeWhiteDefaultAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
 		addGradientColoredArea(gcas, "CCFFCC", 0, LocationType.LOCATION_TYPE_ABSOLUTE_START, "CCFFCC", 1, //$NON-NLS-1$ //$NON-NLS-2$
@@ -37,7 +37,7 @@ public class TutorialColoredAreas extends PredefinedColoredAreas implements ITut
 	}
 
 	private static GradientColoredAreas getLimeWhitePrimarySelectedAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -55,7 +55,7 @@ public class TutorialColoredAreas extends PredefinedColoredAreas implements ITut
 	}
 
 	private static GradientColoredAreas getLimeWhiteSecondarySelectedAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -73,7 +73,7 @@ public class TutorialColoredAreas extends PredefinedColoredAreas implements ITut
 	}
 
 	public static AdaptedGradientColoredAreas getLimeWhiteAdaptions() {
-		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
+		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(LIME_WHITE_ID);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getLimeWhiteDefaultAreas());
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
