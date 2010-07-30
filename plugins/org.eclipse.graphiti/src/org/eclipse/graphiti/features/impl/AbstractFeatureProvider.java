@@ -70,11 +70,11 @@ import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.mm.links.LinksFactory;
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Property;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
+import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
@@ -826,7 +826,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		Diagram diagram = getDiagramTypeProvider().getDiagram();
 		if (diagram != null) {
 			// create new link
-			ret = LinksFactory.eINSTANCE.createPictogramLink();
+			ret = PictogramsFactory.eINSTANCE.createPictogramLink();
 			ret.setPictogramElement(pe);
 
 			// add new link to diagram

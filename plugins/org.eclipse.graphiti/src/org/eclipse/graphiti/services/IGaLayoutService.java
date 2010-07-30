@@ -16,7 +16,7 @@
 package org.eclipse.graphiti.services;
 
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 
 /**
  * The interface IGaLayoutService provides convenient services for the

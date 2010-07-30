@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.util;
 
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**

@@ -17,7 +17,7 @@ package org.eclipse.graphiti.features.context.impl;
 
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.internal.features.context.impl.base.DetailedPictogramElementContext;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**

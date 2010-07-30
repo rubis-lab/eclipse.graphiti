@@ -18,10 +18,10 @@ package org.eclipse.graphiti.services;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Property;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 
 /**
  * The interface ILinkService provides services for the link handling between

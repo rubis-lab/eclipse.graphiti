@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.features.context;
 
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 
 /**
  * The Interface IDirectEditingContext.

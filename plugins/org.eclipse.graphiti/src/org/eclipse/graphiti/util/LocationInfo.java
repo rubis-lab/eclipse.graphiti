@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.util;
 
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**
@@ -28,7 +28,8 @@ public class LocationInfo implements ILocationInfo {
 	private GraphicsAlgorithm graphicsAlgorithm;
 
 	/**
-	 * Constructs a new instance of this class with given shape and graphics algorithm.
+	 * Constructs a new instance of this class with given shape and graphics
+	 * algorithm.
 	 * 
 	 * @param shape
 	 *            the shape

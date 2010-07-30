@@ -39,8 +39,12 @@ import org.eclipse.graphiti.internal.datatypes.impl.RectangleImpl;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.LookManager;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.mm.datatypes.Point;
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.MmFactory;
+import org.eclipse.graphiti.mm.Property;
+import org.eclipse.graphiti.mm.PropertyContainer;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
@@ -51,12 +55,9 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
-import org.eclipse.graphiti.mm.pictograms.Property;
-import org.eclipse.graphiti.mm.pictograms.PropertyContainer;
-import org.eclipse.graphiti.mm.pictograms.Rectangle;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -1376,7 +1377,7 @@ public final class PeServiceImpl implements IPeService {
 		if (property != null) {
 			removeProperty(propertyContainer, key);
 		}
-		property = PictogramsFactory.eINSTANCE.createProperty();
+		property = MmFactory.eINSTANCE.createProperty();
 		property.setKey(key);
 		property.setValue(value);
 		propertyContainer.getProperties().add(property);

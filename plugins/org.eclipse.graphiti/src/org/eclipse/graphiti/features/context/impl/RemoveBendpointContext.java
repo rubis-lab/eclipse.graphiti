@@ -17,7 +17,7 @@ package org.eclipse.graphiti.features.context.impl;
 
 import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.internal.features.context.impl.base.DefaultContext;
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 
 /**
@@ -48,7 +48,8 @@ public class RemoveBendpointContext extends DefaultContext implements IRemoveBen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.context.IBendpointContext#getBendpoint()
+	 * @see
+	 * org.eclipse.graphiti.features.context.IBendpointContext#getBendpoint()
 	 */
 	public Point getBendpoint() {
 		return bendpoint;
@@ -77,7 +78,9 @@ public class RemoveBendpointContext extends DefaultContext implements IRemoveBen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.context.IBendpointContext#getBendpointIndex()
+	 * @see
+	 * org.eclipse.graphiti.features.context.IBendpointContext#getBendpointIndex
+	 * ()
 	 */
 	public int getBendpointIndex() {
 		return bendpointIndex;
@@ -86,7 +89,8 @@ public class RemoveBendpointContext extends DefaultContext implements IRemoveBen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.context.IBendpointContext#getConnection()
+	 * @see
+	 * org.eclipse.graphiti.features.context.IBendpointContext#getConnection()
 	 */
 	public FreeFormConnection getConnection() {
 		return freeFormConnection;

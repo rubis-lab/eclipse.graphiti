@@ -20,15 +20,15 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.IExecutionInfo;
+import org.eclipse.graphiti.mm.Property;
+import org.eclipse.graphiti.mm.PropertyContainer;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Property;
-import org.eclipse.graphiti.mm.pictograms.PropertyContainer;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**

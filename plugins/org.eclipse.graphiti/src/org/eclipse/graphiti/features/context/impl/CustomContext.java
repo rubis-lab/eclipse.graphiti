@@ -19,7 +19,7 @@
 package org.eclipse.graphiti.features.context.impl;
 
 import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
@@ -54,7 +54,8 @@ public class CustomContext extends LocationContext implements ICustomContext {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.context.ICustomContext#getInnerGraphicsAlgorithm()
+	 * @seeorg.eclipse.graphiti.features.context.ICustomContext#
+	 * getInnerGraphicsAlgorithm()
 	 */
 	public GraphicsAlgorithm getInnerGraphicsAlgorithm() {
 		return innerGraphicsAlgorithm;
@@ -63,7 +64,9 @@ public class CustomContext extends LocationContext implements ICustomContext {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.context.ICustomContext#getInnerPictogramElement()
+	 * @see
+	 * org.eclipse.graphiti.features.context.ICustomContext#getInnerPictogramElement
+	 * ()
 	 */
 	public PictogramElement getInnerPictogramElement() {
 		return innerPictogramElement;
@@ -72,7 +75,9 @@ public class CustomContext extends LocationContext implements ICustomContext {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.context.ICustomContext#getPictogramElements()
+	 * @see
+	 * org.eclipse.graphiti.features.context.ICustomContext#getPictogramElements
+	 * ()
 	 */
 	public PictogramElement[] getPictogramElements() {
 		return pictogramElements;

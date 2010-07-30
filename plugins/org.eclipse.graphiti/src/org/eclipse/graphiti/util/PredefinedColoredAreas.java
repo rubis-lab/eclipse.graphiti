@@ -16,14 +16,13 @@
 package org.eclipse.graphiti.util;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.graphiti.mm.datatypes.DatatypesFactory;
-import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
-import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredAreas;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredLocation;
-import org.eclipse.graphiti.mm.pictograms.LocationType;
-import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
+import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredLocation;
+import org.eclipse.graphiti.mm.algorithms.styles.LocationType;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.services.IGaService;
 
 /**
@@ -64,7 +63,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * {@link #BLUE_WHITE_GLOSS_ID}.
 	 */
 	private static GradientColoredAreas getBlueWhiteGlossDefaultAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
 		addGradientColoredArea(gcas, "F8FBFE", 0, LocationType.LOCATION_TYPE_ABSOLUTE_START, "F8FBFE", 1, //$NON-NLS-1$ //$NON-NLS-2$
@@ -86,7 +85,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * {@link #BLUE_WHITE_GLOSS_ID}.
 	 */
 	private static GradientColoredAreas getBlueWhiteGlossPrimarySelectedAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -108,7 +107,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * ID {@link #BLUE_WHITE_GLOSS_ID}.
 	 */
 	private static GradientColoredAreas getBlueWhiteGlossSecondarySelectedAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -130,7 +129,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * with the ID {@link #BLUE_WHITE_GLOSS_ID}.
 	 */
 	private static GradientColoredAreas getBlueWhiteGlossActionAllowedAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -144,7 +143,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * with the ID {@link #BLUE_WHITE_GLOSS_ID}.
 	 */
 	private static GradientColoredAreas getBlueWhiteGlossActionForbiddenAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -163,7 +162,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 *         {@link #STYLE_ADAPTATION_ACTION_FORBIDDEN}.
 	 */
 	public static AdaptedGradientColoredAreas getBlueWhiteGlossAdaptions() {
-		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
+		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(BLUE_WHITE_GLOSS_ID);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getBlueWhiteGlossDefaultAreas());
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
@@ -182,7 +181,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * {@link #BLUE_WHITE_ID}.
 	 */
 	private static GradientColoredAreas getBlueWhiteDefaultAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -196,7 +195,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * {@link #BLUE_WHITE_ID}.
 	 */
 	private static GradientColoredAreas getBlueWhitePrimarySelectedAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -210,7 +209,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * ID {@link #BLUE_WHITE_ID}.
 	 */
 	private static GradientColoredAreas getBlueWhiteSecondarySelectedAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -227,7 +226,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 *         {@link #STYLE_ADAPTATION_SECONDARY_SELECTED}.
 	 */
 	public static AdaptedGradientColoredAreas getBlueWhiteAdaptions() {
-		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
+		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(BLUE_WHITE_ID);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getBlueWhiteDefaultAreas());
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
@@ -242,7 +241,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * {@link #LIGHT_YELLOW_ID}.
 	 */
 	private static GradientColoredAreas getLightYellowDefaultAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -256,7 +255,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * {@link #LIGHT_YELLOW_ID}.
 	 */
 	private static GradientColoredAreas getLightYellowPrimarySelectedAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -270,7 +269,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * ID {@link #LIGHT_YELLOW_ID}.
 	 */
 	private static GradientColoredAreas getLightYellowSecondarySelectedAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -287,7 +286,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 *         {@link #STYLE_ADAPTATION_SECONDARY_SELECTED}.
 	 */
 	public static AdaptedGradientColoredAreas getLightYellowAdaptions() {
-		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
+		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(LIGHT_YELLOW_ID);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getLightYellowDefaultAreas());
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
@@ -302,7 +301,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * {@link #LIGHT_GRAY_ID}.
 	 */
 	private static GradientColoredAreas getLightGrayDefaultAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -316,7 +315,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * {@link #LIGHT_GRAY_ID}.
 	 */
 	private static GradientColoredAreas getLightGrayPrimarySelectedAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -330,7 +329,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * ID {@link #LIGHT_GRAY_ID}.
 	 */
 	private static GradientColoredAreas getLightGraySecondarySelectedAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -346,7 +345,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 *         {@link #STYLE_ADAPTATION_PRIMARY_SELECTED}.
 	 */
 	public static AdaptedGradientColoredAreas getLightGrayAdaptions() {
-		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
+		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(LIGHT_GRAY_ID);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getLightGrayDefaultAreas());
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
@@ -361,7 +360,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * {@link #COPPER_WHITE_GLOSS_ID}.
 	 */
 	private static GradientColoredAreas getCopperWhiteGlossDefaultAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -382,7 +381,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 *         {@link #STYLE_ADAPTATION_DEFAULT}.
 	 */
 	public static AdaptedGradientColoredAreas getCopperWhiteGlossAdaptions() {
-		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
+		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(COPPER_WHITE_GLOSS_ID);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getCopperWhiteGlossDefaultAreas());
 		return agca;
@@ -393,7 +392,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 * {@link #SILVER_WHITE_GLOSS_ID}.
 	 */
 	private static GradientColoredAreas getSilverWhiteGlossDefaultAreas() {
-		final GradientColoredAreas gradientColoredAreas = PictogramsFactory.eINSTANCE.createGradientColoredAreas();
+		final GradientColoredAreas gradientColoredAreas = StylesFactory.eINSTANCE.createGradientColoredAreas();
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT);
 		final EList<GradientColoredArea> gcas = gradientColoredAreas.getGradientColor();
 
@@ -414,7 +413,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	 *         {@link #STYLE_ADAPTATION_DEFAULT}.
 	 */
 	public static AdaptedGradientColoredAreas getSilverWhiteGlossAdaptions() {
-		final AdaptedGradientColoredAreas agca = PictogramsFactory.eINSTANCE.createAdaptedGradientColoredAreas();
+		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(SILVER_WHITE_GLOSS_ID);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getSilverWhiteGlossDefaultAreas());
 		return agca;
@@ -456,17 +455,17 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 
 	protected static void addGradientColoredArea(EList<GradientColoredArea> gcas, String colorStart, int locationValueStart,
 			LocationType locationTypeStart, String colorEnd, int locationValueEnd, LocationType locationTypeEnd) {
-		final GradientColoredArea gca = PictogramsFactory.eINSTANCE.createGradientColoredArea();
+		final GradientColoredArea gca = StylesFactory.eINSTANCE.createGradientColoredArea();
 		gcas.add(gca);
-		gca.setStart(PictogramsFactory.eINSTANCE.createGradientColoredLocation());
-		gca.getStart().setColor(DatatypesFactory.eINSTANCE.createColor());
+		gca.setStart(StylesFactory.eINSTANCE.createGradientColoredLocation());
+		gca.getStart().setColor(StylesFactory.eINSTANCE.createColor());
 		gca.getStart().getColor().setBlue(ColorUtil.getBlueFromHex(colorStart));
 		gca.getStart().getColor().setGreen(ColorUtil.getGreenFromHex(colorStart));
 		gca.getStart().getColor().setRed(ColorUtil.getRedFromHex(colorStart));
 		gca.getStart().setLocationType(locationTypeStart);
 		gca.getStart().setLocationValue(locationValueStart);
-		gca.setEnd(PictogramsFactory.eINSTANCE.createGradientColoredLocation());
-		gca.getEnd().setColor(DatatypesFactory.eINSTANCE.createColor());
+		gca.setEnd(StylesFactory.eINSTANCE.createGradientColoredLocation());
+		gca.getEnd().setColor(StylesFactory.eINSTANCE.createColor());
 		gca.getEnd().getColor().setBlue(ColorUtil.getBlueFromHex(colorEnd));
 		gca.getEnd().getColor().setGreen(ColorUtil.getGreenFromHex(colorEnd));
 		gca.getEnd().getColor().setRed(ColorUtil.getRedFromHex(colorEnd));

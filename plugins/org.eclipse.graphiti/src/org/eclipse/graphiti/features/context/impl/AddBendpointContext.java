@@ -16,7 +16,7 @@
 package org.eclipse.graphiti.features.context.impl;
 
 import org.eclipse.graphiti.features.context.IAddBendpointContext;
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 
 /**
@@ -49,7 +49,8 @@ public class AddBendpointContext extends LocationContext implements IAddBendpoin
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.context.IBendpointContext#getConnection()
+	 * @see
+	 * org.eclipse.graphiti.features.context.IBendpointContext#getConnection()
 	 */
 	public FreeFormConnection getConnection() {
 		return freeFormConnection;
@@ -68,7 +69,9 @@ public class AddBendpointContext extends LocationContext implements IAddBendpoin
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.context.IBendpointContext#getBendpointIndex()
+	 * @see
+	 * org.eclipse.graphiti.features.context.IBendpointContext#getBendpointIndex
+	 * ()
 	 */
 	public int getBendpointIndex() {
 		return bendpointIndex;
@@ -87,7 +90,8 @@ public class AddBendpointContext extends LocationContext implements IAddBendpoin
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.context.IBendpointContext#getBendpoint()
+	 * @see
+	 * org.eclipse.graphiti.features.context.IBendpointContext#getBendpoint()
 	 */
 	public Point getBendpoint() {
 		return null;

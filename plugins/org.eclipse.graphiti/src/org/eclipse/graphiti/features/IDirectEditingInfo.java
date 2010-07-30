@@ -16,7 +16,7 @@
 package org.eclipse.graphiti.features;
 
 import org.eclipse.graphiti.features.impl.DefaultDirectEditingInfo;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**

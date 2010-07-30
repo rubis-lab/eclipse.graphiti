@@ -20,7 +20,7 @@ import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IMoveBendpointContext;
 import org.eclipse.graphiti.internal.Messages;
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.services.Graphiti;
 
 /**

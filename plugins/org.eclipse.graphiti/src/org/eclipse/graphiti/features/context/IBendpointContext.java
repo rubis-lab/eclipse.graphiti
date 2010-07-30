@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.features.context;
 
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 
 /**

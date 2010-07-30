@@ -24,38 +24,37 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
-import org.eclipse.graphiti.mm.datatypes.Color;
-import org.eclipse.graphiti.mm.datatypes.DatatypesFactory;
-import org.eclipse.graphiti.mm.datatypes.Point;
-import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
-import org.eclipse.graphiti.mm.pictograms.AbstractText;
-import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
+import org.eclipse.graphiti.mm.StyleContainer;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.AlgorithmsFactory;
+import org.eclipse.graphiti.mm.algorithms.Ellipse;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Image;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
+import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polygon;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
+import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.Ellipse;
-import org.eclipse.graphiti.mm.pictograms.Font;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer;
-import org.eclipse.graphiti.mm.pictograms.Image;
-import org.eclipse.graphiti.mm.pictograms.LineStyle;
-import org.eclipse.graphiti.mm.pictograms.MultiText;
-import org.eclipse.graphiti.mm.pictograms.Orientation;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
-import org.eclipse.graphiti.mm.pictograms.PlatformGraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Polygon;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
-import org.eclipse.graphiti.mm.pictograms.Rectangle;
-import org.eclipse.graphiti.mm.pictograms.RenderingStyle;
-import org.eclipse.graphiti.mm.pictograms.RoundedRectangle;
-import org.eclipse.graphiti.mm.pictograms.Style;
-import org.eclipse.graphiti.mm.pictograms.StyleContainer;
-import org.eclipse.graphiti.mm.pictograms.Text;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -86,7 +85,7 @@ public final class GaServiceImpl implements IGaService {
 	}
 
 	private static Font createFontInternal(String name, int size, boolean isItalic, boolean isBold) {
-		Font ret = PictogramsFactory.eINSTANCE.createFont();
+		Font ret = StylesFactory.eINSTANCE.createFont();
 		ret.setName(name);
 		ret.setSize(size);
 		ret.setItalic(isItalic);
@@ -469,7 +468,7 @@ public final class GaServiceImpl implements IGaService {
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
 	public Ellipse createEllipse(GraphicsAlgorithmContainer gaContainer) {
-		Ellipse ret = PictogramsFactory.eINSTANCE.createEllipse();
+		Ellipse ret = AlgorithmsFactory.eINSTANCE.createEllipse();
 		setDefaultGraphicsAlgorithmValues(ret);
 		setContainer(ret, gaContainer);
 		return ret;
@@ -542,7 +541,7 @@ public final class GaServiceImpl implements IGaService {
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, java.lang.String)
 	 */
 	public Image createImage(GraphicsAlgorithmContainer gaContainer, String imageId) {
-		Image ret = PictogramsFactory.eINSTANCE.createImage();
+		Image ret = AlgorithmsFactory.eINSTANCE.createImage();
 		setDefaultGraphicsAlgorithmValues(ret);
 		ret.setId(imageId);
 		ret.setProportional(false);
@@ -607,7 +606,7 @@ public final class GaServiceImpl implements IGaService {
 	 * java.lang.String)
 	 */
 	public PlatformGraphicsAlgorithm createPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id) {
-		PlatformGraphicsAlgorithm ret = PictogramsFactory.eINSTANCE.createPlatformGraphicsAlgorithm();
+		PlatformGraphicsAlgorithm ret = AlgorithmsFactory.eINSTANCE.createPlatformGraphicsAlgorithm();
 		setDefaultGraphicsAlgorithmValues(ret);
 		ret.setId(id);
 		setContainer(ret, gaContainer);
@@ -638,7 +637,7 @@ public final class GaServiceImpl implements IGaService {
 		// container.put(Point.DESCRIPTORS.Y(), y);
 		// container.put(Point.DESCRIPTORS.BEFORE(), before);
 		// container.put(Point.DESCRIPTORS.AFTER(), after);
-		Point ret = DatatypesFactory.eINSTANCE.createPoint();
+		Point ret = StylesFactory.eINSTANCE.createPoint();
 		ret.setX(x);
 		ret.setY(y);
 		ret.setBefore(before);
@@ -687,7 +686,7 @@ public final class GaServiceImpl implements IGaService {
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer) {
-		Polygon ret = PictogramsFactory.eINSTANCE.createPolygon();
+		Polygon ret = AlgorithmsFactory.eINSTANCE.createPolygon();
 		setDefaultGraphicsAlgorithmValues(ret);
 		ret.setFilled(true);
 		setContainer(ret, gaContainer);
@@ -741,7 +740,7 @@ public final class GaServiceImpl implements IGaService {
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer) {
-		Polyline ret = PictogramsFactory.eINSTANCE.createPolyline();
+		Polyline ret = AlgorithmsFactory.eINSTANCE.createPolyline();
 		setDefaultGraphicsAlgorithmValues(ret);
 		ret.setFilled(false);
 		setContainer(ret, gaContainer);
@@ -795,7 +794,7 @@ public final class GaServiceImpl implements IGaService {
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
 	public Rectangle createRectangle(GraphicsAlgorithmContainer gaContainer) {
-		Rectangle ret = PictogramsFactory.eINSTANCE.createRectangle();
+		Rectangle ret = AlgorithmsFactory.eINSTANCE.createRectangle();
 		setDefaultGraphicsAlgorithmValues(ret);
 		setContainer(ret, gaContainer);
 		return ret;
@@ -809,7 +808,7 @@ public final class GaServiceImpl implements IGaService {
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer, int, int)
 	 */
 	public RoundedRectangle createRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight) {
-		RoundedRectangle ret = PictogramsFactory.eINSTANCE.createRoundedRectangle();
+		RoundedRectangle ret = AlgorithmsFactory.eINSTANCE.createRoundedRectangle();
 		setDefaultGraphicsAlgorithmValues(ret);
 		ret.setCornerWidth(cornerWidth);
 		ret.setCornerHeight(cornerHeight);
@@ -869,7 +868,7 @@ public final class GaServiceImpl implements IGaService {
 	 * .graphiti.mm.pictograms.StyleContainer, java.lang.String)
 	 */
 	public Style createStyle(StyleContainer styleContainer, String id) {
-		Style ret = PictogramsFactory.eINSTANCE.createStyle();
+		Style ret = StylesFactory.eINSTANCE.createStyle();
 		ret.setId(id);
 		ret.setStyleContainer(styleContainer);
 		return ret;
@@ -887,7 +886,7 @@ public final class GaServiceImpl implements IGaService {
 	}
 
 	private AbstractText createText(GraphicsAlgorithmContainer gaContainer, boolean multiText, String value, boolean createFont) {
-		AbstractText ret = multiText ? PictogramsFactory.eINSTANCE.createMultiText() : PictogramsFactory.eINSTANCE.createText();
+		AbstractText ret = multiText ? AlgorithmsFactory.eINSTANCE.createMultiText() : AlgorithmsFactory.eINSTANCE.createText();
 		setDefaultTextAttributes(ret, value, createFont);
 		setContainer(ret, gaContainer);
 		return ret;
@@ -1371,7 +1370,7 @@ public final class GaServiceImpl implements IGaService {
 			}
 		}
 
-		Color newColor = DatatypesFactory.eINSTANCE.createColor();
+		Color newColor = StylesFactory.eINSTANCE.createColor();
 		newColor.setRed(red);
 		newColor.setGreen(green);
 		newColor.setBlue(blue);
@@ -1520,7 +1519,7 @@ public final class GaServiceImpl implements IGaService {
 			// set the RenderingStyle with AdaptedGradientColoredAreas
 			RenderingStyle renderingStyle = abstractStyle.getRenderingStyle();
 			if (renderingStyle == null) {
-				renderingStyle = PictogramsFactory.eINSTANCE.createRenderingStyle();
+				renderingStyle = StylesFactory.eINSTANCE.createRenderingStyle();
 				abstractStyle.setRenderingStyle(renderingStyle);
 			}
 			renderingStyle.setAdaptedGradientColoredAreas(adaptedGradientColoredAreas);

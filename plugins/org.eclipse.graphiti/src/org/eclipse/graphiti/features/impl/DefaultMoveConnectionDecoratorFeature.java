@@ -20,8 +20,8 @@ import org.eclipse.graphiti.features.IMoveConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IMoveConnectionDecoratorContext;
 import org.eclipse.graphiti.internal.Messages;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 
 /**
  * The Class DefaultMoveConnectionDecoratorFeature.
@@ -41,7 +41,8 @@ public class DefaultMoveConnectionDecoratorFeature extends AbstractFeature imple
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.IMoveConnectionDecoratorFeature#canLayoutConnectionDecorator(org.eclipse.graphiti.dt.IContext)
+	 * @seeorg.eclipse.graphiti.features.IMoveConnectionDecoratorFeature#
+	 * canLayoutConnectionDecorator(org.eclipse.graphiti.dt.IContext)
 	 */
 	public boolean canMoveConnectionDecorator(IMoveConnectionDecoratorContext context) {
 		return true;
@@ -50,7 +51,8 @@ public class DefaultMoveConnectionDecoratorFeature extends AbstractFeature imple
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.IMoveConnectionDecoratorFeature#layoutConnectionDecorator(org.eclipse.graphiti.dt.IContext)
+	 * @seeorg.eclipse.graphiti.features.IMoveConnectionDecoratorFeature#
+	 * layoutConnectionDecorator(org.eclipse.graphiti.dt.IContext)
 	 */
 	public void moveConnectionDecorator(IMoveConnectionDecoratorContext context) {
 		if (!getUserDecision()) {
@@ -68,7 +70,9 @@ public class DefaultMoveConnectionDecoratorFeature extends AbstractFeature imple
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti.features.context.IContext)
+	 * @see
+	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
+	 * .features.context.IContext)
 	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
@@ -81,7 +85,9 @@ public class DefaultMoveConnectionDecoratorFeature extends AbstractFeature imple
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features.context.IContext)
+	 * @see
+	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
+	 * .context.IContext)
 	 */
 	public void execute(IContext context) {
 		if (context instanceof IMoveConnectionDecoratorContext) {

@@ -19,7 +19,7 @@
 package org.eclipse.graphiti.features.context.impl;
 
 import org.eclipse.graphiti.features.context.IMoveBendpointContext;
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 
 /**
@@ -64,7 +64,9 @@ public class MoveBendpointContext extends MoveContext implements IMoveBendpointC
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.context.IBendpointContext#getBendpointIndex()
+	 * @see
+	 * org.eclipse.graphiti.features.context.IBendpointContext#getBendpointIndex
+	 * ()
 	 */
 	public int getBendpointIndex() {
 		return bendpointIndex;
@@ -73,7 +75,8 @@ public class MoveBendpointContext extends MoveContext implements IMoveBendpointC
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.features.context.IBendpointContext#getConnection()
+	 * @see
+	 * org.eclipse.graphiti.features.context.IBendpointContext#getConnection()
 	 */
 	public FreeFormConnection getConnection() {
 		return connection;

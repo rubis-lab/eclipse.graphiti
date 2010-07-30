@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.tb;
 
-import org.eclipse.graphiti.mm.pictograms.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.util.IColorConstant;
 
 /**

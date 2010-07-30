@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -141,15 +141,13 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 
 			shapeToMove.setContainer(newContainerShape);
 			if (shapeToMove.getGraphicsAlgorithm() != null) {
-				Graphiti.getGaService()
-						.setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
+				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
 			}
 			// restore selection
 			getDiagramEditor().setPictogramElementsForSelection(currentSelection);
 		} else { // move within the same container
 			if (shapeToMove.getGraphicsAlgorithm() != null) {
-				Graphiti.getGaService()
-						.setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
+				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
 			}
 		}
 	}

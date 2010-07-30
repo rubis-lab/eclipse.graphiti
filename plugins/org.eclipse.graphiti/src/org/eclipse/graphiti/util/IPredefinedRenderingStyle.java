@@ -15,11 +15,11 @@
  *******************************************************************************/
 package org.eclipse.graphiti.util;
 
-import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
-import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredAreas;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredLocation;
+import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredLocation;
 import org.eclipse.graphiti.services.IGaService;
 
 /**

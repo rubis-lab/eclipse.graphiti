@@ -15,20 +15,20 @@
  *******************************************************************************/
 package org.eclipse.graphiti.services;
 
-import org.eclipse.graphiti.mm.datatypes.Color;
-import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
-import org.eclipse.graphiti.mm.pictograms.AbstractText;
-import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.StyleContainer;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Image;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.Font;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Image;
-import org.eclipse.graphiti.mm.pictograms.LineStyle;
-import org.eclipse.graphiti.mm.pictograms.Orientation;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
-import org.eclipse.graphiti.mm.pictograms.RenderingStyle;
-import org.eclipse.graphiti.mm.pictograms.Style;
-import org.eclipse.graphiti.mm.pictograms.StyleContainer;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
 

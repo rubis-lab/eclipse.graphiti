@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti;
 
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 
 /**
  * Returns a GraphicsAlgorithm.

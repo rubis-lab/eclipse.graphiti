@@ -18,7 +18,7 @@ package org.eclipse.graphiti.platform.ga;
 import org.eclipse.graphiti.IGraphicsAlgorithmHolder;
 import org.eclipse.graphiti.dt.IDiagramTypeProviderHolder;
 import org.eclipse.graphiti.features.IMappingProvider;
-import org.eclipse.graphiti.mm.pictograms.PlatformGraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
 
 /**
  * The Interface IRendererContext.
