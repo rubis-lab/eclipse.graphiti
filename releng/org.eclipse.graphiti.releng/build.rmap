@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
+  <rm:property key="build.type" mutable="true" value="N"/>
+  <rm:locator pattern="^org\.eclipse\.graphiti\.releng.*" searchPathRef="releng"/>
+  <rm:locator pattern="^org\.eclipse\.graphiti\.*" searchPathRef="sources"/>
+  <rm:locator searchPathRef="orbit" failOnError="false"/>
+  <rm:locator searchPathRef="platform.binaries"/>
+  <rm:searchPath name="releng">
+    <rm:provider componentTypes="buckminster,osgi.bundle" readerType="cvs">
+      <rm:uri format="{0},org.eclipse.gmp/org.eclipse.gmp.graphiti/releng/{1}">
+        <bc:propertyRef key="cvs.repository"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature" readerType="cvs">
+      <rm:uri format="{0},org.eclipse.gmp/org.eclipse.gmp.graphiti/features/{1}">
+        <bc:propertyRef key="cvs.repository"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="sources">
+    <rm:provider componentTypes="osgi.bundle" readerType="cvs">
+      <rm:uri format="{0},org.eclipse.gmp/org.eclipse.gmp.graphiti/plugins/{1}">
+        <bc:propertyRef key="cvs.repository"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle" readerType="cvs">
+      <rm:uri format="{0},org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/{1}">
+        <bc:propertyRef key="cvs.repository"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature" readerType="cvs">
+      <rm:uri format="{0},org.eclipse.gmp/org.eclipse.gmp.graphiti/features/{1}">
+        <bc:propertyRef key="cvs.repository"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle" readerType="cvs">
+      <rm:uri format="{0},org.eclipse.gmp/org.eclipse.gmp.graphiti/tests/{1}">
+        <bc:propertyRef key="cvs.repository"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="orbit">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+      <rm:uri format="{0}/tools/orbit/downloads/drops/R20100519200754/updateSite">
+        <bc:propertyRef key="eclipse.downloads"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="platform.binaries">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+      <rm:uri format="{0}/modeling/emf/emf/updates/2.6milestones/">
+        <bc:propertyRef key="eclipse.downloads"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+      <rm:uri format="{0}/tools/gef/updates/milestones/">
+        <bc:propertyRef key="eclipse.downloads"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+      <rm:uri format="{0}/eclipse/updates/3.6milestones">
+        <bc:propertyRef key="eclipse.downloads"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(|(build.type=N)(build.type=I))">
+      <rm:uri format="{0}/releases/helios">
+        <bc:propertyRef key="eclipse.downloads"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="(|(build.type=M)(build.type=S)(build.type=R))">
+      <rm:uri format="{0}/releases/staging">
+        <bc:propertyRef key="eclipse.downloads"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+</rm:rmap>

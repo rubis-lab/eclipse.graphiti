@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cs:cspec xmlns:cs="http://www.eclipse.org/buckminster/CSpec-1.0" name="org.eclipse.emf.cdo.releng" componentType="buckminster" version="0.7.0.qualifier">
+    <cs:dependencies>
+        <cs:dependency name="org.eclipse.graphiti.site" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.graphiti.tests-feature" componentType="eclipse.feature"/>
+    </cs:dependencies>
+    <cs:actions>
+        <cs:public name="clear.site" actor="ant" always="true">
+            <cs:actorProperties>
+                <cs:property key="buildFile" value="buckminster.ant"/>
+                <cs:property key="targets" value="clear.directory"/>
+            </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="directory" value="${graphiti.download.area}/updates/0.7.0/"/>
+            </cs:properties>
+        </cs:public>
+        <cs:public name="promote.site" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.pdetasks"/>
+                <cs:property key="targets" value="copy.group"/>
+            </cs:actorProperties>
+            <cs:prerequisites alias="action.requirements">
+                <cs:attribute name="clear.site" contributor="false"/>
+                <cs:attribute name="site.p2" component="org.eclipse.graphiti.site"/>
+            </cs:prerequisites>
+            <cs:products alias="action.output" base="${graphiti.download.area}/updates/0.7.0/"/>
+        </cs:public>
+        <cs:public name="promote.site.to.archive" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFileId" value="buckminster.pdetasks"/>
+                <cs:property key="targets" value="copy.group"/>
+            </cs:actorProperties>
+            <cs:prerequisites alias="action.requirements">
+                <cs:attribute name="site.p2.zip" component="org.eclipse.graphiti.site"/>
+            </cs:prerequisites>
+            <cs:products alias="action.output" base="${graphiti.download.area}/archives/0.7.0/"/>
+        </cs:public>
+    </cs:actions>
+    <cs:groups>
+        <cs:public name="promote">
+            <cs:attribute name="promote.site"/>
+            <cs:attribute name="promote.site.to.archive"/>
+        </cs:public>
+    </cs:groups>
+</cs:cspec>
