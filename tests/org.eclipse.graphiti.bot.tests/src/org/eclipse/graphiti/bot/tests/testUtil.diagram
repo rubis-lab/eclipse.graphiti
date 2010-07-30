@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:li="http://eclipse.org/graphiti/links" xmlns:pi="http://eclipse.org/graphiti/pictograms">
-  <pi:Diagram visible="true" gridUnit="10" diagramTypeId="sample.ecore" name="testUtil" snapToGrid="true" showGuides="true">
-    <graphicsAlgorithm xsi:type="pi:Rectangle" background="/0/@colors.1" foreground="/0/@colors.0" width="1000" height="1000"/>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms">
+  <pi:Diagram visible="true" gridUnit="10" diagramTypeId="sample.ecore" name="testUtil" snapToGrid="true" showGuides="true" pictogramLinks="/0/@children.0/@link /0/@children.0/@children.1/@link /0/@children.1/@link /0/@children.1/@children.1/@link">
+    <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.1" foreground="/0/@colors.0" width="1000" height="1000"/>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="pi:RoundedRectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" width="101" height="81" x="30" y="60" cornerHeight="5" cornerWidth="5"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" width="101" height="81" x="30" y="60" cornerHeight="5" cornerWidth="5"/>
       <link businessObjects="/1"/>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
-        <graphicsAlgorithm xsi:type="pi:Polyline" foreground="/0/@colors.2" lineWidth="2" filled="false">
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="/0/@colors.2" lineWidth="2" filled="false">
           <points y="20"/>
           <points x="101" y="20"/>
         </graphicsAlgorithm>
       </children>
       <children visible="true">
-        <graphicsAlgorithm xsi:type="pi:Text" foreground="/0/@colors.4" width="101" height="20" value="C1">
+        <graphicsAlgorithm xsi:type="al:Text" foreground="/0/@colors.4" width="101" height="20" value="C1">
           <font name="Arial" size="8" bold="true"/>
         </graphicsAlgorithm>
         <link businessObjects="/1"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="pi:RoundedRectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" width="91" height="81" x="160" y="60" cornerHeight="5" cornerWidth="5"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="/0/@colors.3" foreground="/0/@colors.2" lineWidth="2" width="91" height="81" x="160" y="60" cornerHeight="5" cornerWidth="5"/>
       <link businessObjects="/3"/>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
-        <graphicsAlgorithm xsi:type="pi:Polyline" foreground="/0/@colors.2" lineWidth="2" filled="false">
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="/0/@colors.2" lineWidth="2" filled="false">
           <points y="20"/>
           <points x="91" y="20"/>
         </graphicsAlgorithm>
       </children>
       <children visible="true">
-        <graphicsAlgorithm xsi:type="pi:Text" foreground="/0/@colors.4" width="91" height="20" value="C2">
+        <graphicsAlgorithm xsi:type="al:Text" foreground="/0/@colors.4" width="91" height="20" value="C2">
           <font name="Arial" size="8" bold="true"/>
         </graphicsAlgorithm>
         <link businessObjects="/3"/>

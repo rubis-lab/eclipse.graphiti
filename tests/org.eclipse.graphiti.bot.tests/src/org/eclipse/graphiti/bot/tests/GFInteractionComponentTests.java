@@ -36,10 +36,10 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.MultiText;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
@@ -108,8 +108,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		syncExec(new VoidResult() {
 			public void run() {
-					ed.activateTool("Select");
-					ed.drag(x + 50, y + 50, x + 200, y + 50);
+				ed.activateTool("Select");
+				ed.drag(x + 50, y + 50, x + 200, y + 50);
 			}
 		});
 		Thread.sleep(1000);
@@ -204,7 +204,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			public void run() {
 				GFFigureCanvas gfwFigureCanvas = getGFCanvas(ed);
 				// regain space
-					gfwFigureCanvas.regainSpace();
+				gfwFigureCanvas.regainSpace();
 			}
 		});
 		Thread.sleep(2000);
@@ -399,7 +399,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(1000);
 		shutdownEditor(diagramEditor);
 	}
-	
+
 	@Test
 	public void testDropOnConnection() throws Exception {
 		final int xOfShape1 = 100;
@@ -532,7 +532,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(1000);
-		
+
 		syncExec(new VoidResult() {
 			public void run() {
 				ed.directEditType(INPUT_STRING);
@@ -712,8 +712,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			public void run() {
 				int currX = xContainer1 + containerSize + rectangleSize / 2;
 				int currY = yContainer1 + containerSize + rectangleSize / 2;
-				ed.drag(currX, currY, currX - (containerSize + rectangleSize) / 2, currY
-						- (containerSize + rectangleSize) / 2);
+				ed.drag(currX, currY, currX - (containerSize + rectangleSize) / 2, currY - (containerSize + rectangleSize) / 2);
 				currX = xContainer2 + containerSize + rectangleSize / 2;
 				currY = yContainer2 + containerSize + rectangleSize / 2;
 				ed.drag(currX, currY, currX - (containerSize + rectangleSize) / 2, currY - (containerSize + rectangleSize) / 2);
@@ -733,7 +732,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			public void run() {
 				ed.activateDefaultTool();
-					// move to connection start point
+				// move to connection start point
 				ed.click(300 + containerSize / 2 - rectangleSize / 2 - 5, 100 + containerSize / 2); // middle
 			}
 		});
@@ -864,7 +863,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		});
 		final int x = 10;
 		final int y = 6 * objectCreationTools.size();
-		final int[] counter = new int[] {0};
+		final int[] counter = new int[] { 0 };
 		for (PaletteEntry o : objectCreationTools) {
 			if (o instanceof ToolEntry) {
 				final ToolEntry toolEntry = (ToolEntry) o;

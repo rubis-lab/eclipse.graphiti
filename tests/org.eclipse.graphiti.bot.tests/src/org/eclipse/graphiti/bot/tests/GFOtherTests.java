@@ -75,24 +75,21 @@ import org.eclipse.graphiti.internal.command.DefaultExecutionInfo;
 import org.eclipse.graphiti.internal.command.ICommand;
 import org.eclipse.graphiti.internal.util.DynamicLook;
 import org.eclipse.graphiti.internal.util.LookManager;
-import org.eclipse.graphiti.mm.datatypes.Color;
-import org.eclipse.graphiti.mm.datatypes.DatatypesFactory;
-import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredAreas;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredLocation;
-import org.eclipse.graphiti.mm.pictograms.MultiText;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
-import org.eclipse.graphiti.mm.pictograms.RoundedRectangle;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -110,7 +107,6 @@ import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.policy.ShapeXYLayoutEditPolicy;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
-import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.ui.internal.util.draw2d.LineSeg;
 import org.eclipse.graphiti.ui.internal.util.draw2d.LineSeg.KeyPoint;
 import org.eclipse.graphiti.ui.internal.util.draw2d.LineSeg.Sign;
@@ -118,7 +114,6 @@ import org.eclipse.graphiti.ui.internal.util.ui.PopupMenu;
 import org.eclipse.graphiti.ui.internal.util.ui.PopupMenu.CascadingMenu;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.ui.services.IExtensionManager;
-import org.eclipse.graphiti.util.ColorUtil;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -729,7 +724,7 @@ public class GFOtherTests extends AbstractGFTests {
 				LookManager.setDynamicLook(false);
 
 				GraphitiUiInternal.getTraceService().dumpPictogramModelTree(diagram);
-				org.eclipse.graphiti.mm.pictograms.Rectangle rectangle = Graphiti.getGaCreateService().createRectangle(diagram);
+				org.eclipse.graphiti.mm.algorithms.Rectangle rectangle = Graphiti.getGaCreateService().createRectangle(diagram);
 				Graphiti.getGaCreateService().createDefaultText(rectangle);
 				GraphitiUiInternal.getTraceService().dumpGATree(rectangle);
 				Ellipse ellipse = new Ellipse();
@@ -770,7 +765,7 @@ public class GFOtherTests extends AbstractGFTests {
 				containerShape1.getAnchors().add(anchor1);
 				containerShape2.getAnchors().add(anchor2);
 				FreeFormConnection freeFormConnection = getPeService().createFreeFormConnection(diagram);
-				org.eclipse.graphiti.mm.datatypes.Point p = DatatypesFactory.eINSTANCE.createPoint();
+				org.eclipse.graphiti.mm.algorithms.styles.Point p = StylesFactory.eINSTANCE.createPoint();
 				p.setX(12);
 				p.setY(13);
 				freeFormConnection.getBendpoints().add(p);
@@ -869,8 +864,6 @@ public class GFOtherTests extends AbstractGFTests {
 			}
 		});
 	}
-
-
 
 	@Test
 	public void testPopupMenu() {

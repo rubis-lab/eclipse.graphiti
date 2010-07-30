@@ -49,7 +49,8 @@ import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.DefaultMoveAnchorFeature;
 import org.eclipse.graphiti.features.impl.DefaultReconnectionFeature;
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.Property;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
@@ -58,9 +59,8 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Property;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.mapping.data.ImageDataMapping;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
@@ -203,7 +203,6 @@ public class GFPackageTests extends AbstractGFTests {
 		EList<Shape> shapes = diagram.getChildren();
 		assertNotNull(pe);
 		PictogramElement[] pes = new PictogramElement[] { pe };
-
 
 		final DefaultCopyFeature myDefaultCopyFeature = new DefaultCopyFeature(myDiagramTypeProvider.getFeatureProvider());
 		final ICopyContext copyContext = new CopyContext(pes);
@@ -395,7 +394,6 @@ public class GFPackageTests extends AbstractGFTests {
 		myImageDataMapping.getUpdateWarning(pictogramLinkMock);
 	}
 
-
 	@Test
 	public void testGraphitiUtil() throws Exception {
 		Shape shapeMock = createNiceMock(Shape.class);
@@ -425,7 +423,7 @@ public class GFPackageTests extends AbstractGFTests {
 		EList<Shape> shapeList = new BasicEList<Shape>();
 		shapeList.add(shapeMock);
 
-		EList<org.eclipse.graphiti.mm.datatypes.Point> points = new BasicEList<org.eclipse.graphiti.mm.datatypes.Point>();
+		EList<org.eclipse.graphiti.mm.algorithms.styles.Point> points = new BasicEList<org.eclipse.graphiti.mm.algorithms.styles.Point>();
 
 		ConnectionDecorator connectionDecoratorMock1 = createNiceMock(ConnectionDecorator.class);
 		expect(connectionDecoratorMock1.isLocationRelative()).andReturn(new Boolean(true)).anyTimes();
@@ -501,7 +499,6 @@ public class GFPackageTests extends AbstractGFTests {
 
 		});
 
-
 		syncExec(new VoidResult() {
 			public void run() {
 
@@ -523,6 +520,5 @@ public class GFPackageTests extends AbstractGFTests {
 
 		closeEditor(diagramEditor);
 	}
-
 
 }
