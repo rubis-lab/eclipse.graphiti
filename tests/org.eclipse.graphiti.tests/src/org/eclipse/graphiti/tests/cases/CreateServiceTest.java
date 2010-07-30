@@ -15,26 +15,30 @@
  *******************************************************************************/
 package org.eclipse.graphiti.tests.cases;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.Ellipse;
+import org.eclipse.graphiti.mm.algorithms.Image;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
+import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polygon;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
+import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.Ellipse;
-import org.eclipse.graphiti.mm.pictograms.Font;
-import org.eclipse.graphiti.mm.pictograms.Image;
-import org.eclipse.graphiti.mm.pictograms.MultiText;
-import org.eclipse.graphiti.mm.pictograms.PlatformGraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Polygon;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
-import org.eclipse.graphiti.mm.pictograms.Rectangle;
-import org.eclipse.graphiti.mm.pictograms.RoundedRectangle;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.mm.pictograms.Style;
-import org.eclipse.graphiti.mm.pictograms.Text;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ICreateService;
 import org.eclipse.graphiti.tests.GFAbstractCreateTestCase;
@@ -48,6 +52,7 @@ public class CreateServiceTest extends GFAbstractCreateTestCase {
 	private Diagram d;
 	private Shape s1;
 	private static final String FONTNAME = "Baskerville Old Face";
+
 	@BeforeClass
 	public static void prepareClass() {
 	}
@@ -141,7 +146,7 @@ public class CreateServiceTest extends GFAbstractCreateTestCase {
 		assertFalse(font.isItalic());
 		assertFalse(font.isBold());
 		assertEquals(font, style.getFont());
-	
+
 	}
 
 	@Test
@@ -159,7 +164,7 @@ public class CreateServiceTest extends GFAbstractCreateTestCase {
 		font = crs.createFont(style, FONTNAME, 10, true, false);
 		assertTrue(font.isItalic());
 		assertFalse(font.isBold());
-	
+
 	}
 
 	@Test

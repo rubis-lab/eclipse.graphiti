@@ -15,8 +15,17 @@
  *******************************************************************************/
 package org.eclipse.graphiti.tests.cases;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.isA;
+import static org.easymock.EasyMock.replay;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,16 +46,16 @@ import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 import org.eclipse.graphiti.internal.command.DefaultExecutionInfo;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
+import org.eclipse.graphiti.mm.Property;
+import org.eclipse.graphiti.mm.algorithms.Ellipse;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.Ellipse;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Property;
-import org.eclipse.graphiti.mm.pictograms.Rectangle;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
@@ -238,7 +247,7 @@ public class PeServiceTest extends GFAbstractTestCase {
 		ILocation connectionMidpoint = layoutService.getConnectionMidpoint(connection1, 0.5);
 		assertEquals(new LocationImpl(200, 200), connectionMidpoint);
 
-		org.eclipse.graphiti.mm.datatypes.Point bendpoint = createService.createPoint(150, 150);
+		org.eclipse.graphiti.mm.algorithms.styles.Point bendpoint = createService.createPoint(150, 150);
 		connection1.getBendpoints().add(bendpoint);
 		IExecutionInfo executionInfo1 = new DefaultExecutionInfo();
 		MoveBendpointContext moveBendpointContext1 = new MoveBendpointContext(bendpoint);

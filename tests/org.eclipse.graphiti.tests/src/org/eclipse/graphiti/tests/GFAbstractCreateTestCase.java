@@ -15,15 +15,18 @@
  *******************************************************************************/
 package org.eclipse.graphiti.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
-import org.eclipse.graphiti.mm.pictograms.AbstractText;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Image;
-import org.eclipse.graphiti.mm.pictograms.LineStyle;
-import org.eclipse.graphiti.mm.pictograms.Orientation;
-import org.eclipse.graphiti.mm.pictograms.Polygon;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Image;
+import org.eclipse.graphiti.mm.algorithms.Polygon;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 
 public class GFAbstractCreateTestCase extends GFAbstractTestCase {
@@ -46,7 +49,7 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 		assertFalse(im.getProportional());
 		assertFalse(im.getStretchH());
 		assertFalse(im.getStretchV());
-	
+
 	}
 
 	protected void checkTextDefaults(AbstractText text, String value) {

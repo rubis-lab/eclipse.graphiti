@@ -29,11 +29,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.graphiti.mm.links.LinksFactory;
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Property;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
+import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
@@ -163,7 +163,7 @@ public class LinkServiceTest extends GFAbstractTestCase {
 	private PictogramLink createOrGetPictogramLink(PictogramElement pe) {
 		PictogramLink link = pe.getLink();
 		if (link == null) {
-			link = LinksFactory.eINSTANCE.createPictogramLink();
+			link = PictogramsFactory.eINSTANCE.createPictogramLink();
 			link.setPictogramElement(pe);
 			d.getPictogramLinks().add(link);
 		}

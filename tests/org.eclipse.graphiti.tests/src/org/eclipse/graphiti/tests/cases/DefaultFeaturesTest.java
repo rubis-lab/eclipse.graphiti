@@ -15,8 +15,15 @@
  *******************************************************************************/
 package org.eclipse.graphiti.tests.cases;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.isA;
+import static org.easymock.EasyMock.replay;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import junit.framework.Assert;
 
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
@@ -166,7 +173,7 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 		}
 
 		{
-			org.eclipse.graphiti.mm.datatypes.Point point = c.getBendpoints().get(0);
+			org.eclipse.graphiti.mm.algorithms.styles.Point point = c.getBendpoints().get(0);
 			DefaultMoveBendpointFeature moveBendpointFeature = new DefaultMoveBendpointFeature(fpMock);
 			MoveBendpointContext context = new MoveBendpointContext(point);
 			context.setConnection(c);
