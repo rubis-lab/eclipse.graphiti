@@ -11,8 +11,6 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: PictogramsSwitch.java,v 1.3 2010/07/21 12:34:45 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.util;
 
@@ -20,6 +18,10 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
+import org.eclipse.graphiti.mm.PropertyContainer;
+import org.eclipse.graphiti.mm.StyleContainer;
 
 import org.eclipse.graphiti.mm.pictograms.*;
 
@@ -131,35 +133,6 @@ public class PictogramsSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case PictogramsPackage.GRAPHICS_ALGORITHM: {
-				GraphicsAlgorithm graphicsAlgorithm = (GraphicsAlgorithm)theEObject;
-				T result = caseGraphicsAlgorithm(graphicsAlgorithm);
-				if (result == null) result = caseGraphicsAlgorithmContainer(graphicsAlgorithm);
-				if (result == null) result = caseAbstractStyle(graphicsAlgorithm);
-				if (result == null) result = casePropertyContainer(graphicsAlgorithm);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.POLYLINE: {
-				Polyline polyline = (Polyline)theEObject;
-				T result = casePolyline(polyline);
-				if (result == null) result = caseGraphicsAlgorithm(polyline);
-				if (result == null) result = caseGraphicsAlgorithmContainer(polyline);
-				if (result == null) result = caseAbstractStyle(polyline);
-				if (result == null) result = casePropertyContainer(polyline);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.ELLIPSE: {
-				Ellipse ellipse = (Ellipse)theEObject;
-				T result = caseEllipse(ellipse);
-				if (result == null) result = caseGraphicsAlgorithm(ellipse);
-				if (result == null) result = caseGraphicsAlgorithmContainer(ellipse);
-				if (result == null) result = caseAbstractStyle(ellipse);
-				if (result == null) result = casePropertyContainer(ellipse);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case PictogramsPackage.PICTOGRAM_ELEMENT: {
 				PictogramElement pictogramElement = (PictogramElement)theEObject;
 				T result = casePictogramElement(pictogramElement);
@@ -226,23 +199,6 @@ public class PictogramsSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case PictogramsPackage.PROPERTY: {
-				Property property = (Property)theEObject;
-				T result = caseProperty(property);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.TEXT: {
-				Text text = (Text)theEObject;
-				T result = caseText(text);
-				if (result == null) result = caseAbstractText(text);
-				if (result == null) result = caseGraphicsAlgorithm(text);
-				if (result == null) result = caseGraphicsAlgorithmContainer(text);
-				if (result == null) result = caseAbstractStyle(text);
-				if (result == null) result = casePropertyContainer(text);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case PictogramsPackage.CONNECTION_DECORATOR: {
 				ConnectionDecorator connectionDecorator = (ConnectionDecorator)theEObject;
 				T result = caseConnectionDecorator(connectionDecorator);
@@ -276,144 +232,10 @@ public class PictogramsSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case PictogramsPackage.POLYGON: {
-				Polygon polygon = (Polygon)theEObject;
-				T result = casePolygon(polygon);
-				if (result == null) result = casePolyline(polygon);
-				if (result == null) result = caseGraphicsAlgorithm(polygon);
-				if (result == null) result = caseGraphicsAlgorithmContainer(polygon);
-				if (result == null) result = caseAbstractStyle(polygon);
-				if (result == null) result = casePropertyContainer(polygon);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.RECTANGLE: {
-				Rectangle rectangle = (Rectangle)theEObject;
-				T result = caseRectangle(rectangle);
-				if (result == null) result = caseGraphicsAlgorithm(rectangle);
-				if (result == null) result = caseGraphicsAlgorithmContainer(rectangle);
-				if (result == null) result = caseAbstractStyle(rectangle);
-				if (result == null) result = casePropertyContainer(rectangle);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.ROUNDED_RECTANGLE: {
-				RoundedRectangle roundedRectangle = (RoundedRectangle)theEObject;
-				T result = caseRoundedRectangle(roundedRectangle);
-				if (result == null) result = caseGraphicsAlgorithm(roundedRectangle);
-				if (result == null) result = caseGraphicsAlgorithmContainer(roundedRectangle);
-				if (result == null) result = caseAbstractStyle(roundedRectangle);
-				if (result == null) result = casePropertyContainer(roundedRectangle);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.FONT: {
-				Font font = (Font)theEObject;
-				T result = caseFont(font);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.RENDERING_STYLE: {
-				RenderingStyle renderingStyle = (RenderingStyle)theEObject;
-				T result = caseRenderingStyle(renderingStyle);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.IMAGE: {
-				Image image = (Image)theEObject;
-				T result = caseImage(image);
-				if (result == null) result = caseGraphicsAlgorithm(image);
-				if (result == null) result = caseGraphicsAlgorithmContainer(image);
-				if (result == null) result = caseAbstractStyle(image);
-				if (result == null) result = casePropertyContainer(image);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.PLATFORM_GRAPHICS_ALGORITHM: {
-				PlatformGraphicsAlgorithm platformGraphicsAlgorithm = (PlatformGraphicsAlgorithm)theEObject;
-				T result = casePlatformGraphicsAlgorithm(platformGraphicsAlgorithm);
-				if (result == null) result = caseGraphicsAlgorithm(platformGraphicsAlgorithm);
-				if (result == null) result = caseGraphicsAlgorithmContainer(platformGraphicsAlgorithm);
-				if (result == null) result = caseAbstractStyle(platformGraphicsAlgorithm);
-				if (result == null) result = casePropertyContainer(platformGraphicsAlgorithm);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.GRAPHICS_ALGORITHM_CONTAINER: {
-				GraphicsAlgorithmContainer graphicsAlgorithmContainer = (GraphicsAlgorithmContainer)theEObject;
-				T result = caseGraphicsAlgorithmContainer(graphicsAlgorithmContainer);
-				if (result == null) result = casePropertyContainer(graphicsAlgorithmContainer);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.ABSTRACT_TEXT: {
-				AbstractText abstractText = (AbstractText)theEObject;
-				T result = caseAbstractText(abstractText);
-				if (result == null) result = caseGraphicsAlgorithm(abstractText);
-				if (result == null) result = caseGraphicsAlgorithmContainer(abstractText);
-				if (result == null) result = caseAbstractStyle(abstractText);
-				if (result == null) result = casePropertyContainer(abstractText);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.MULTI_TEXT: {
-				MultiText multiText = (MultiText)theEObject;
-				T result = caseMultiText(multiText);
-				if (result == null) result = caseAbstractText(multiText);
-				if (result == null) result = caseGraphicsAlgorithm(multiText);
-				if (result == null) result = caseGraphicsAlgorithmContainer(multiText);
-				if (result == null) result = caseAbstractStyle(multiText);
-				if (result == null) result = casePropertyContainer(multiText);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.PROPERTY_CONTAINER: {
-				PropertyContainer propertyContainer = (PropertyContainer)theEObject;
-				T result = casePropertyContainer(propertyContainer);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.STYLE_CONTAINER: {
-				StyleContainer styleContainer = (StyleContainer)theEObject;
-				T result = caseStyleContainer(styleContainer);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.STYLE: {
-				Style style = (Style)theEObject;
-				T result = caseStyle(style);
-				if (result == null) result = caseStyleContainer(style);
-				if (result == null) result = caseAbstractStyle(style);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.ABSTRACT_STYLE: {
-				AbstractStyle abstractStyle = (AbstractStyle)theEObject;
-				T result = caseAbstractStyle(abstractStyle);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.GRADIENT_COLORED_LOCATION: {
-				GradientColoredLocation gradientColoredLocation = (GradientColoredLocation)theEObject;
-				T result = caseGradientColoredLocation(gradientColoredLocation);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.GRADIENT_COLORED_AREA: {
-				GradientColoredArea gradientColoredArea = (GradientColoredArea)theEObject;
-				T result = caseGradientColoredArea(gradientColoredArea);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.GRADIENT_COLORED_AREAS: {
-				GradientColoredAreas gradientColoredAreas = (GradientColoredAreas)theEObject;
-				T result = caseGradientColoredAreas(gradientColoredAreas);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case PictogramsPackage.ADAPTED_GRADIENT_COLORED_AREAS: {
-				AdaptedGradientColoredAreas adaptedGradientColoredAreas = (AdaptedGradientColoredAreas)theEObject;
-				T result = caseAdaptedGradientColoredAreas(adaptedGradientColoredAreas);
+			case PictogramsPackage.PICTOGRAM_LINK: {
+				PictogramLink pictogramLink = (PictogramLink)theEObject;
+				T result = casePictogramLink(pictogramLink);
+				if (result == null) result = casePropertyContainer(pictogramLink);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -463,51 +285,6 @@ public class PictogramsSwitch<T> {
 	 * @generated
 	 */
 	public T caseDiagram(Diagram object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Graphics Algorithm</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Graphics Algorithm</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGraphicsAlgorithm(GraphicsAlgorithm object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Polyline</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Polyline</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePolyline(Polyline object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Ellipse</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Ellipse</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEllipse(Ellipse object) {
 		return null;
 	}
 
@@ -617,36 +394,6 @@ public class PictogramsSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Property</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Property</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseProperty(Property object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Text</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Text</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseText(Text object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Connection Decorator</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -692,152 +439,17 @@ public class PictogramsSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Polygon</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Pictogram Link</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Polygon</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Pictogram Link</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePolygon(Polygon object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Rectangle</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Rectangle</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseRectangle(Rectangle object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Rounded Rectangle</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Rounded Rectangle</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseRoundedRectangle(RoundedRectangle object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Font</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Font</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFont(Font object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Rendering Style</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Rendering Style</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseRenderingStyle(RenderingStyle object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Image</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Image</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseImage(Image object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Platform Graphics Algorithm</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Platform Graphics Algorithm</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePlatformGraphicsAlgorithm(PlatformGraphicsAlgorithm object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Graphics Algorithm Container</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Graphics Algorithm Container</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGraphicsAlgorithmContainer(GraphicsAlgorithmContainer object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract Text</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract Text</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAbstractText(AbstractText object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Multi Text</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Multi Text</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseMultiText(MultiText object) {
+	public T casePictogramLink(PictogramLink object) {
 		return null;
 	}
 
@@ -857,6 +469,21 @@ public class PictogramsSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Graphics Algorithm Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Graphics Algorithm Container</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGraphicsAlgorithmContainer(GraphicsAlgorithmContainer object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Style Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -868,96 +495,6 @@ public class PictogramsSwitch<T> {
 	 * @generated
 	 */
 	public T caseStyleContainer(StyleContainer object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Style</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Style</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseStyle(Style object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract Style</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract Style</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAbstractStyle(AbstractStyle object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Gradient Colored Location</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Gradient Colored Location</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGradientColoredLocation(GradientColoredLocation object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Gradient Colored Area</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Gradient Colored Area</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGradientColoredArea(GradientColoredArea object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Gradient Colored Areas</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Gradient Colored Areas</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGradientColoredAreas(GradientColoredAreas object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Adapted Gradient Colored Areas</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Adapted Gradient Colored Areas</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAdaptedGradientColoredAreas(AdaptedGradientColoredAreas object) {
 		return null;
 	}
 

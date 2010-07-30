@@ -11,8 +11,6 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: ContainerShapeImpl.java,v 1.1 2010/06/16 13:25:00 mwenz Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 

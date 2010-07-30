@@ -11,8 +11,6 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: AnchorImpl.java,v 1.1 2010/06/16 13:24:59 mwenz Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
@@ -32,10 +30,11 @@ import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 
 /**

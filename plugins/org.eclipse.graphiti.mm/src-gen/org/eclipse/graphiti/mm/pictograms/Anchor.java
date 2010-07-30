@@ -11,12 +11,12 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: Anchor.java,v 1.1 2010/06/16 13:24:53 mwenz Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
 import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 
 /**
  * <!-- begin-user-doc -->

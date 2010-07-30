@@ -11,8 +11,6 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: PictogramsFactory.java,v 1.3 2010/07/21 12:34:45 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
@@ -63,24 +61,6 @@ public interface PictogramsFactory extends EFactory {
 	Diagram createDiagram();
 
 	/**
-	 * Returns a new object of class '<em>Polyline</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Polyline</em>'.
-	 * @generated
-	 */
-	Polyline createPolyline();
-
-	/**
-	 * Returns a new object of class '<em>Ellipse</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Ellipse</em>'.
-	 * @generated
-	 */
-	Ellipse createEllipse();
-
-	/**
 	 * Returns a new object of class '<em>Connection</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -117,24 +97,6 @@ public interface PictogramsFactory extends EFactory {
 	ChopboxAnchor createChopboxAnchor();
 
 	/**
-	 * Returns a new object of class '<em>Property</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Property</em>'.
-	 * @generated
-	 */
-	Property createProperty();
-
-	/**
-	 * Returns a new object of class '<em>Text</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Text</em>'.
-	 * @generated
-	 */
-	Text createText();
-
-	/**
 	 * Returns a new object of class '<em>Connection Decorator</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -162,121 +124,13 @@ public interface PictogramsFactory extends EFactory {
 	ManhattanConnection createManhattanConnection();
 
 	/**
-	 * Returns a new object of class '<em>Polygon</em>'.
+	 * Returns a new object of class '<em>Pictogram Link</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Polygon</em>'.
+	 * @return a new object of class '<em>Pictogram Link</em>'.
 	 * @generated
 	 */
-	Polygon createPolygon();
-
-	/**
-	 * Returns a new object of class '<em>Rectangle</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Rectangle</em>'.
-	 * @generated
-	 */
-	Rectangle createRectangle();
-
-	/**
-	 * Returns a new object of class '<em>Rounded Rectangle</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Rounded Rectangle</em>'.
-	 * @generated
-	 */
-	RoundedRectangle createRoundedRectangle();
-
-	/**
-	 * Returns a new object of class '<em>Font</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Font</em>'.
-	 * @generated
-	 */
-	Font createFont();
-
-	/**
-	 * Returns a new object of class '<em>Rendering Style</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Rendering Style</em>'.
-	 * @generated
-	 */
-	RenderingStyle createRenderingStyle();
-
-	/**
-	 * Returns a new object of class '<em>Image</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Image</em>'.
-	 * @generated
-	 */
-	Image createImage();
-
-	/**
-	 * Returns a new object of class '<em>Platform Graphics Algorithm</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Platform Graphics Algorithm</em>'.
-	 * @generated
-	 */
-	PlatformGraphicsAlgorithm createPlatformGraphicsAlgorithm();
-
-	/**
-	 * Returns a new object of class '<em>Multi Text</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Multi Text</em>'.
-	 * @generated
-	 */
-	MultiText createMultiText();
-
-	/**
-	 * Returns a new object of class '<em>Style</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Style</em>'.
-	 * @generated
-	 */
-	Style createStyle();
-
-	/**
-	 * Returns a new object of class '<em>Gradient Colored Location</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Gradient Colored Location</em>'.
-	 * @generated
-	 */
-	GradientColoredLocation createGradientColoredLocation();
-
-	/**
-	 * Returns a new object of class '<em>Gradient Colored Area</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Gradient Colored Area</em>'.
-	 * @generated
-	 */
-	GradientColoredArea createGradientColoredArea();
-
-	/**
-	 * Returns a new object of class '<em>Gradient Colored Areas</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Gradient Colored Areas</em>'.
-	 * @generated
-	 */
-	GradientColoredAreas createGradientColoredAreas();
-
-	/**
-	 * Returns a new object of class '<em>Adapted Gradient Colored Areas</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Adapted Gradient Colored Areas</em>'.
-	 * @generated
-	 */
-	AdaptedGradientColoredAreas createAdaptedGradientColoredAreas();
+	PictogramLink createPictogramLink();
 
 	/**
 	 * Returns the package supported by this factory.

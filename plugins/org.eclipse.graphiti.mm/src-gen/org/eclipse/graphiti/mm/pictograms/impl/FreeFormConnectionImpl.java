@@ -11,8 +11,6 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: FreeFormConnectionImpl.java,v 1.1 2010/06/16 13:24:59 mwenz Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
@@ -28,7 +26,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;

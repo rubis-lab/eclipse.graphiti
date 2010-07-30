@@ -11,24 +11,28 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: PictogramsPackageImpl.java,v 1.4 2010/07/21 12:34:45 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.graphiti.mm.datatypes.DatatypesPackage;
-import org.eclipse.graphiti.mm.datatypes.impl.DatatypesPackageImpl;
-import org.eclipse.graphiti.mm.links.LinksPackage;
-import org.eclipse.graphiti.mm.links.impl.LinksPackageImpl;
-import org.eclipse.graphiti.mm.pictograms.AbstractStyle;
-import org.eclipse.graphiti.mm.pictograms.AbstractText;
-import org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas;
+
+import org.eclipse.graphiti.mm.MmPackage;
+
+import org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage;
+
+import org.eclipse.graphiti.mm.algorithms.impl.AlgorithmsPackageImpl;
+
+import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
+
+import org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl;
+
+import org.eclipse.graphiti.mm.impl.MmPackageImpl;
+
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
@@ -37,36 +41,14 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.Ellipse;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
-import org.eclipse.graphiti.mm.pictograms.Font;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredAreas;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredLocation;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer;
-import org.eclipse.graphiti.mm.pictograms.Image;
-import org.eclipse.graphiti.mm.pictograms.LineStyle;
-import org.eclipse.graphiti.mm.pictograms.LocationType;
 import org.eclipse.graphiti.mm.pictograms.ManhattanConnection;
-import org.eclipse.graphiti.mm.pictograms.MultiText;
-import org.eclipse.graphiti.mm.pictograms.Orientation;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
-import org.eclipse.graphiti.mm.pictograms.PlatformGraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Polygon;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
-import org.eclipse.graphiti.mm.pictograms.Property;
-import org.eclipse.graphiti.mm.pictograms.PropertyContainer;
-import org.eclipse.graphiti.mm.pictograms.Rectangle;
-import org.eclipse.graphiti.mm.pictograms.RenderingStyle;
-import org.eclipse.graphiti.mm.pictograms.RoundedRectangle;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.mm.pictograms.Style;
-import org.eclipse.graphiti.mm.pictograms.StyleContainer;
-import org.eclipse.graphiti.mm.pictograms.Text;
 
 /**
  * <!-- begin-user-doc -->
@@ -95,27 +77,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * @generated
 	 */
 	private EClass diagramEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass graphicsAlgorithmEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass polylineEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass ellipseEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -171,20 +132,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass propertyEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass textEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass connectionDecoratorEClass = null;
 
 	/**
@@ -206,147 +153,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass polygonEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass rectangleEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass roundedRectangleEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass fontEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass renderingStyleEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass imageEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass platformGraphicsAlgorithmEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass graphicsAlgorithmContainerEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass abstractTextEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass multiTextEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass propertyContainerEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass styleContainerEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass styleEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass abstractStyleEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass gradientColoredLocationEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass gradientColoredAreaEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass gradientColoredAreasEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass adaptedGradientColoredAreasEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum lineStyleEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum orientationEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum locationTypeEEnum = null;
+	private EClass pictogramLinkEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -395,18 +202,21 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		DatatypesPackageImpl theDatatypesPackage = (DatatypesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI) instanceof DatatypesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI) : DatatypesPackage.eINSTANCE);
-		LinksPackageImpl theLinksPackage = (LinksPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(LinksPackage.eNS_URI) instanceof LinksPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(LinksPackage.eNS_URI) : LinksPackage.eINSTANCE);
+		MmPackageImpl theMmPackage = (MmPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(MmPackage.eNS_URI) instanceof MmPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(MmPackage.eNS_URI) : MmPackage.eINSTANCE);
+		AlgorithmsPackageImpl theAlgorithmsPackage = (AlgorithmsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AlgorithmsPackage.eNS_URI) instanceof AlgorithmsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AlgorithmsPackage.eNS_URI) : AlgorithmsPackage.eINSTANCE);
+		StylesPackageImpl theStylesPackage = (StylesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(StylesPackage.eNS_URI) instanceof StylesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(StylesPackage.eNS_URI) : StylesPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		thePictogramsPackage.createPackageContents();
-		theDatatypesPackage.createPackageContents();
-		theLinksPackage.createPackageContents();
+		theMmPackage.createPackageContents();
+		theAlgorithmsPackage.createPackageContents();
+		theStylesPackage.createPackageContents();
 
 		// Initialize created meta-data
 		thePictogramsPackage.initializePackageContents();
-		theDatatypesPackage.initializePackageContents();
-		theLinksPackage.initializePackageContents();
+		theMmPackage.initializePackageContents();
+		theAlgorithmsPackage.initializePackageContents();
+		theStylesPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		thePictogramsPackage.freeze();
@@ -532,114 +342,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 */
 	public EReference getDiagram_PictogramLinks() {
 		return (EReference)diagramEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGraphicsAlgorithm() {
-		return graphicsAlgorithmEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGraphicsAlgorithm_GraphicsAlgorithmChildren() {
-		return (EReference)graphicsAlgorithmEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGraphicsAlgorithm_ParentGraphicsAlgorithm() {
-		return (EReference)graphicsAlgorithmEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGraphicsAlgorithm_PictogramElement() {
-		return (EReference)graphicsAlgorithmEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGraphicsAlgorithm_Width() {
-		return (EAttribute)graphicsAlgorithmEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGraphicsAlgorithm_Height() {
-		return (EAttribute)graphicsAlgorithmEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGraphicsAlgorithm_X() {
-		return (EAttribute)graphicsAlgorithmEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGraphicsAlgorithm_Y() {
-		return (EAttribute)graphicsAlgorithmEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGraphicsAlgorithm_Style() {
-		return (EReference)graphicsAlgorithmEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getPolyline() {
-		return polylineEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPolyline_Points() {
-		return (EReference)polylineEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getEllipse() {
-		return ellipseEClass;
 	}
 
 	/**
@@ -854,42 +556,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getProperty() {
-		return propertyEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getProperty_Key() {
-		return (EAttribute)propertyEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getProperty_Value() {
-		return (EAttribute)propertyEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getText() {
-		return textEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getConnectionDecorator() {
 		return connectionDecoratorEClass;
 	}
@@ -953,8 +619,8 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getPolygon() {
-		return polygonEClass;
+	public EClass getPictogramLink() {
+		return pictogramLinkEClass;
 	}
 
 	/**
@@ -962,8 +628,8 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getRectangle() {
-		return rectangleEClass;
+	public EReference getPictogramLink_PictogramElement() {
+		return (EReference)pictogramLinkEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -971,584 +637,8 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getRoundedRectangle() {
-		return roundedRectangleEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getRoundedRectangle_CornerHeight() {
-		return (EAttribute)roundedRectangleEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getRoundedRectangle_CornerWidth() {
-		return (EAttribute)roundedRectangleEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getFont() {
-		return fontEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getFont_Name() {
-		return (EAttribute)fontEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getFont_Size() {
-		return (EAttribute)fontEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getFont_Italic() {
-		return (EAttribute)fontEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getFont_Bold() {
-		return (EAttribute)fontEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getRenderingStyle() {
-		return renderingStyleEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getRenderingStyle_AdaptedGradientColoredAreas() {
-		return (EReference)renderingStyleEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getImage() {
-		return imageEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getImage_Id() {
-		return (EAttribute)imageEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getImage_StretchH() {
-		return (EAttribute)imageEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getImage_StretchV() {
-		return (EAttribute)imageEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getImage_Proportional() {
-		return (EAttribute)imageEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getPlatformGraphicsAlgorithm() {
-		return platformGraphicsAlgorithmEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPlatformGraphicsAlgorithm_Id() {
-		return (EAttribute)platformGraphicsAlgorithmEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGraphicsAlgorithmContainer() {
-		return graphicsAlgorithmContainerEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getAbstractText() {
-		return abstractTextEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAbstractText_Font() {
-		return (EReference)abstractTextEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAbstractText_HorizontalAlignment() {
-		return (EAttribute)abstractTextEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAbstractText_VerticalAlignment() {
-		return (EAttribute)abstractTextEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAbstractText_Angle() {
-		return (EAttribute)abstractTextEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAbstractText_Value() {
-		return (EAttribute)abstractTextEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getMultiText() {
-		return multiTextEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getPropertyContainer() {
-		return propertyContainerEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPropertyContainer_Properties() {
-		return (EReference)propertyContainerEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getStyleContainer() {
-		return styleContainerEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getStyleContainer_Styles() {
-		return (EReference)styleContainerEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getStyle() {
-		return styleEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStyle_Id() {
-		return (EAttribute)styleEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStyle_Description() {
-		return (EAttribute)styleEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getStyle_Font() {
-		return (EReference)styleEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStyle_HorizontalAlignment() {
-		return (EAttribute)styleEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStyle_VerticalAlignment() {
-		return (EAttribute)styleEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStyle_Angle() {
-		return (EAttribute)styleEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStyle_StretchH() {
-		return (EAttribute)styleEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStyle_StretchV() {
-		return (EAttribute)styleEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStyle_Proportional() {
-		return (EAttribute)styleEClass.getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getStyle_StyleContainer() {
-		return (EReference)styleEClass.getEStructuralFeatures().get(9);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getAbstractStyle() {
-		return abstractStyleEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAbstractStyle_Background() {
-		return (EReference)abstractStyleEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAbstractStyle_Foreground() {
-		return (EReference)abstractStyleEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAbstractStyle_LineWidth() {
-		return (EAttribute)abstractStyleEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAbstractStyle_LineStyle() {
-		return (EAttribute)abstractStyleEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAbstractStyle_Filled() {
-		return (EAttribute)abstractStyleEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAbstractStyle_LineVisible() {
-		return (EAttribute)abstractStyleEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAbstractStyle_RenderingStyle() {
-		return (EReference)abstractStyleEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAbstractStyle_Transparency() {
-		return (EAttribute)abstractStyleEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGradientColoredLocation() {
-		return gradientColoredLocationEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGradientColoredLocation_LocationType() {
-		return (EAttribute)gradientColoredLocationEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGradientColoredLocation_LocationValue() {
-		return (EAttribute)gradientColoredLocationEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGradientColoredLocation_Color() {
-		return (EReference)gradientColoredLocationEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGradientColoredArea() {
-		return gradientColoredAreaEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGradientColoredArea_Start() {
-		return (EReference)gradientColoredAreaEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGradientColoredArea_End() {
-		return (EReference)gradientColoredAreaEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGradientColoredAreas() {
-		return gradientColoredAreasEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGradientColoredAreas_GradientColor() {
-		return (EReference)gradientColoredAreasEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGradientColoredAreas_StyleAdaption() {
-		return (EAttribute)gradientColoredAreasEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getAdaptedGradientColoredAreas() {
-		return adaptedGradientColoredAreasEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAdaptedGradientColoredAreas_DefinedStyleId() {
-		return (EAttribute)adaptedGradientColoredAreasEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAdaptedGradientColoredAreas_AdaptedGradientColoredAreas() {
-		return (EReference)adaptedGradientColoredAreasEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getLineStyle() {
-		return lineStyleEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getOrientation() {
-		return orientationEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getLocationType() {
-		return locationTypeEEnum;
+	public EReference getPictogramLink_BusinessObjects() {
+		return (EReference)pictogramLinkEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1595,21 +685,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		createEReference(diagramEClass, DIAGRAM__COLORS);
 		createEReference(diagramEClass, DIAGRAM__PICTOGRAM_LINKS);
 
-		graphicsAlgorithmEClass = createEClass(GRAPHICS_ALGORITHM);
-		createEReference(graphicsAlgorithmEClass, GRAPHICS_ALGORITHM__GRAPHICS_ALGORITHM_CHILDREN);
-		createEReference(graphicsAlgorithmEClass, GRAPHICS_ALGORITHM__PARENT_GRAPHICS_ALGORITHM);
-		createEReference(graphicsAlgorithmEClass, GRAPHICS_ALGORITHM__PICTOGRAM_ELEMENT);
-		createEAttribute(graphicsAlgorithmEClass, GRAPHICS_ALGORITHM__WIDTH);
-		createEAttribute(graphicsAlgorithmEClass, GRAPHICS_ALGORITHM__HEIGHT);
-		createEAttribute(graphicsAlgorithmEClass, GRAPHICS_ALGORITHM__X);
-		createEAttribute(graphicsAlgorithmEClass, GRAPHICS_ALGORITHM__Y);
-		createEReference(graphicsAlgorithmEClass, GRAPHICS_ALGORITHM__STYLE);
-
-		polylineEClass = createEClass(POLYLINE);
-		createEReference(polylineEClass, POLYLINE__POINTS);
-
-		ellipseEClass = createEClass(ELLIPSE);
-
 		pictogramElementEClass = createEClass(PICTOGRAM_ELEMENT);
 		createEAttribute(pictogramElementEClass, PICTOGRAM_ELEMENT__VISIBLE);
 		createEReference(pictogramElementEClass, PICTOGRAM_ELEMENT__GRAPHICS_ALGORITHM);
@@ -1640,12 +715,6 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 
 		chopboxAnchorEClass = createEClass(CHOPBOX_ANCHOR);
 
-		propertyEClass = createEClass(PROPERTY);
-		createEAttribute(propertyEClass, PROPERTY__KEY);
-		createEAttribute(propertyEClass, PROPERTY__VALUE);
-
-		textEClass = createEClass(TEXT);
-
 		connectionDecoratorEClass = createEClass(CONNECTION_DECORATOR);
 		createEAttribute(connectionDecoratorEClass, CONNECTION_DECORATOR__LOCATION_RELATIVE);
 		createEAttribute(connectionDecoratorEClass, CONNECTION_DECORATOR__LOCATION);
@@ -1656,92 +725,9 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 
 		manhattanConnectionEClass = createEClass(MANHATTAN_CONNECTION);
 
-		polygonEClass = createEClass(POLYGON);
-
-		rectangleEClass = createEClass(RECTANGLE);
-
-		roundedRectangleEClass = createEClass(ROUNDED_RECTANGLE);
-		createEAttribute(roundedRectangleEClass, ROUNDED_RECTANGLE__CORNER_HEIGHT);
-		createEAttribute(roundedRectangleEClass, ROUNDED_RECTANGLE__CORNER_WIDTH);
-
-		fontEClass = createEClass(FONT);
-		createEAttribute(fontEClass, FONT__NAME);
-		createEAttribute(fontEClass, FONT__SIZE);
-		createEAttribute(fontEClass, FONT__ITALIC);
-		createEAttribute(fontEClass, FONT__BOLD);
-
-		renderingStyleEClass = createEClass(RENDERING_STYLE);
-		createEReference(renderingStyleEClass, RENDERING_STYLE__ADAPTED_GRADIENT_COLORED_AREAS);
-
-		imageEClass = createEClass(IMAGE);
-		createEAttribute(imageEClass, IMAGE__ID);
-		createEAttribute(imageEClass, IMAGE__STRETCH_H);
-		createEAttribute(imageEClass, IMAGE__STRETCH_V);
-		createEAttribute(imageEClass, IMAGE__PROPORTIONAL);
-
-		platformGraphicsAlgorithmEClass = createEClass(PLATFORM_GRAPHICS_ALGORITHM);
-		createEAttribute(platformGraphicsAlgorithmEClass, PLATFORM_GRAPHICS_ALGORITHM__ID);
-
-		graphicsAlgorithmContainerEClass = createEClass(GRAPHICS_ALGORITHM_CONTAINER);
-
-		abstractTextEClass = createEClass(ABSTRACT_TEXT);
-		createEReference(abstractTextEClass, ABSTRACT_TEXT__FONT);
-		createEAttribute(abstractTextEClass, ABSTRACT_TEXT__HORIZONTAL_ALIGNMENT);
-		createEAttribute(abstractTextEClass, ABSTRACT_TEXT__VERTICAL_ALIGNMENT);
-		createEAttribute(abstractTextEClass, ABSTRACT_TEXT__ANGLE);
-		createEAttribute(abstractTextEClass, ABSTRACT_TEXT__VALUE);
-
-		multiTextEClass = createEClass(MULTI_TEXT);
-
-		propertyContainerEClass = createEClass(PROPERTY_CONTAINER);
-		createEReference(propertyContainerEClass, PROPERTY_CONTAINER__PROPERTIES);
-
-		styleContainerEClass = createEClass(STYLE_CONTAINER);
-		createEReference(styleContainerEClass, STYLE_CONTAINER__STYLES);
-
-		styleEClass = createEClass(STYLE);
-		createEAttribute(styleEClass, STYLE__ID);
-		createEAttribute(styleEClass, STYLE__DESCRIPTION);
-		createEReference(styleEClass, STYLE__FONT);
-		createEAttribute(styleEClass, STYLE__HORIZONTAL_ALIGNMENT);
-		createEAttribute(styleEClass, STYLE__VERTICAL_ALIGNMENT);
-		createEAttribute(styleEClass, STYLE__ANGLE);
-		createEAttribute(styleEClass, STYLE__STRETCH_H);
-		createEAttribute(styleEClass, STYLE__STRETCH_V);
-		createEAttribute(styleEClass, STYLE__PROPORTIONAL);
-		createEReference(styleEClass, STYLE__STYLE_CONTAINER);
-
-		abstractStyleEClass = createEClass(ABSTRACT_STYLE);
-		createEReference(abstractStyleEClass, ABSTRACT_STYLE__BACKGROUND);
-		createEReference(abstractStyleEClass, ABSTRACT_STYLE__FOREGROUND);
-		createEAttribute(abstractStyleEClass, ABSTRACT_STYLE__LINE_WIDTH);
-		createEAttribute(abstractStyleEClass, ABSTRACT_STYLE__LINE_STYLE);
-		createEAttribute(abstractStyleEClass, ABSTRACT_STYLE__FILLED);
-		createEAttribute(abstractStyleEClass, ABSTRACT_STYLE__LINE_VISIBLE);
-		createEReference(abstractStyleEClass, ABSTRACT_STYLE__RENDERING_STYLE);
-		createEAttribute(abstractStyleEClass, ABSTRACT_STYLE__TRANSPARENCY);
-
-		gradientColoredLocationEClass = createEClass(GRADIENT_COLORED_LOCATION);
-		createEAttribute(gradientColoredLocationEClass, GRADIENT_COLORED_LOCATION__LOCATION_TYPE);
-		createEAttribute(gradientColoredLocationEClass, GRADIENT_COLORED_LOCATION__LOCATION_VALUE);
-		createEReference(gradientColoredLocationEClass, GRADIENT_COLORED_LOCATION__COLOR);
-
-		gradientColoredAreaEClass = createEClass(GRADIENT_COLORED_AREA);
-		createEReference(gradientColoredAreaEClass, GRADIENT_COLORED_AREA__START);
-		createEReference(gradientColoredAreaEClass, GRADIENT_COLORED_AREA__END);
-
-		gradientColoredAreasEClass = createEClass(GRADIENT_COLORED_AREAS);
-		createEReference(gradientColoredAreasEClass, GRADIENT_COLORED_AREAS__GRADIENT_COLOR);
-		createEAttribute(gradientColoredAreasEClass, GRADIENT_COLORED_AREAS__STYLE_ADAPTION);
-
-		adaptedGradientColoredAreasEClass = createEClass(ADAPTED_GRADIENT_COLORED_AREAS);
-		createEAttribute(adaptedGradientColoredAreasEClass, ADAPTED_GRADIENT_COLORED_AREAS__DEFINED_STYLE_ID);
-		createEReference(adaptedGradientColoredAreasEClass, ADAPTED_GRADIENT_COLORED_AREAS__ADAPTED_GRADIENT_COLORED_AREAS);
-
-		// Create enums
-		lineStyleEEnum = createEEnum(LINE_STYLE);
-		orientationEEnum = createEEnum(ORIENTATION);
-		locationTypeEEnum = createEEnum(LOCATION_TYPE);
+		pictogramLinkEClass = createEClass(PICTOGRAM_LINK);
+		createEReference(pictogramLinkEClass, PICTOGRAM_LINK__PICTOGRAM_ELEMENT);
+		createEReference(pictogramLinkEClass, PICTOGRAM_LINK__BUSINESS_OBJECTS);
 	}
 
 	/**
@@ -1768,8 +754,9 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		DatatypesPackage theDatatypesPackage = (DatatypesPackage)EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI);
-		LinksPackage theLinksPackage = (LinksPackage)EPackage.Registry.INSTANCE.getEPackage(LinksPackage.eNS_URI);
+		MmPackage theMmPackage = (MmPackage)EPackage.Registry.INSTANCE.getEPackage(MmPackage.eNS_URI);
+		StylesPackage theStylesPackage = (StylesPackage)EPackage.Registry.INSTANCE.getEPackage(StylesPackage.eNS_URI);
+		AlgorithmsPackage theAlgorithmsPackage = (AlgorithmsPackage)EPackage.Registry.INSTANCE.getEPackage(AlgorithmsPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -1779,32 +766,18 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		shapeEClass.getESuperTypes().add(this.getAnchorContainer());
 		containerShapeEClass.getESuperTypes().add(this.getShape());
 		diagramEClass.getESuperTypes().add(this.getContainerShape());
-		diagramEClass.getESuperTypes().add(this.getStyleContainer());
-		graphicsAlgorithmEClass.getESuperTypes().add(this.getGraphicsAlgorithmContainer());
-		graphicsAlgorithmEClass.getESuperTypes().add(this.getAbstractStyle());
-		polylineEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
-		ellipseEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
-		pictogramElementEClass.getESuperTypes().add(this.getGraphicsAlgorithmContainer());
+		diagramEClass.getESuperTypes().add(theMmPackage.getStyleContainer());
+		pictogramElementEClass.getESuperTypes().add(theMmPackage.getGraphicsAlgorithmContainer());
 		connectionEClass.getESuperTypes().add(this.getAnchorContainer());
 		anchorEClass.getESuperTypes().add(this.getPictogramElement());
 		anchorContainerEClass.getESuperTypes().add(this.getPictogramElement());
 		fixPointAnchorEClass.getESuperTypes().add(this.getAnchor());
 		boxRelativeAnchorEClass.getESuperTypes().add(this.getAnchor());
 		chopboxAnchorEClass.getESuperTypes().add(this.getAnchor());
-		textEClass.getESuperTypes().add(this.getAbstractText());
 		connectionDecoratorEClass.getESuperTypes().add(this.getShape());
 		freeFormConnectionEClass.getESuperTypes().add(this.getConnection());
 		manhattanConnectionEClass.getESuperTypes().add(this.getConnection());
-		polygonEClass.getESuperTypes().add(this.getPolyline());
-		rectangleEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
-		roundedRectangleEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
-		imageEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
-		platformGraphicsAlgorithmEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
-		graphicsAlgorithmContainerEClass.getESuperTypes().add(this.getPropertyContainer());
-		abstractTextEClass.getESuperTypes().add(this.getGraphicsAlgorithm());
-		multiTextEClass.getESuperTypes().add(this.getAbstractText());
-		styleEClass.getESuperTypes().add(this.getStyleContainer());
-		styleEClass.getESuperTypes().add(this.getAbstractStyle());
+		pictogramLinkEClass.getESuperTypes().add(theMmPackage.getPropertyContainer());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(shapeEClass, Shape.class, "Shape", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1820,29 +793,14 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEAttribute(getDiagram_Name(), ecorePackage.getEString(), "name", null, 1, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getDiagram_SnapToGrid(), ecorePackage.getEBoolean(), "snapToGrid", null, 1, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getDiagram_ShowGuides(), ecorePackage.getEBoolean(), "showGuides", null, 1, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getDiagram_Colors(), theDatatypesPackage.getColor(), null, "colors", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getDiagram_PictogramLinks(), theLinksPackage.getPictogramLink(), null, "pictogramLinks", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(graphicsAlgorithmEClass, GraphicsAlgorithm.class, "GraphicsAlgorithm", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGraphicsAlgorithm_GraphicsAlgorithmChildren(), this.getGraphicsAlgorithm(), this.getGraphicsAlgorithm_ParentGraphicsAlgorithm(), "graphicsAlgorithmChildren", null, 0, -1, GraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGraphicsAlgorithm_ParentGraphicsAlgorithm(), this.getGraphicsAlgorithm(), this.getGraphicsAlgorithm_GraphicsAlgorithmChildren(), "parentGraphicsAlgorithm", null, 0, 1, GraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getGraphicsAlgorithm_PictogramElement(), this.getPictogramElement(), this.getPictogramElement_GraphicsAlgorithm(), "pictogramElement", null, 0, 1, GraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getGraphicsAlgorithm_Width(), ecorePackage.getEInt(), "width", null, 1, 1, GraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getGraphicsAlgorithm_Height(), ecorePackage.getEInt(), "height", null, 1, 1, GraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getGraphicsAlgorithm_X(), ecorePackage.getEInt(), "x", null, 1, 1, GraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getGraphicsAlgorithm_Y(), ecorePackage.getEInt(), "y", null, 1, 1, GraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getGraphicsAlgorithm_Style(), this.getStyle(), null, "style", null, 0, 1, GraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(polylineEClass, Polyline.class, "Polyline", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPolyline_Points(), theDatatypesPackage.getPoint(), null, "points", null, 0, -1, Polyline.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(ellipseEClass, Ellipse.class, "Ellipse", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDiagram_Colors(), theStylesPackage.getColor(), null, "colors", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getDiagram_PictogramLinks(), this.getPictogramLink(), null, "pictogramLinks", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(pictogramElementEClass, PictogramElement.class, "PictogramElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPictogramElement_Visible(), ecorePackage.getEBoolean(), "visible", null, 1, 1, PictogramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getPictogramElement_GraphicsAlgorithm(), this.getGraphicsAlgorithm(), this.getGraphicsAlgorithm_PictogramElement(), "graphicsAlgorithm", null, 0, 1, PictogramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getPictogramElement_GraphicsAlgorithm(), theAlgorithmsPackage.getGraphicsAlgorithm(), theAlgorithmsPackage.getGraphicsAlgorithm_PictogramElement(), "graphicsAlgorithm", null, 0, 1, PictogramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getPictogramElement_Active(), ecorePackage.getEBoolean(), "active", null, 1, 1, PictogramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getPictogramElement_Link(), theLinksPackage.getPictogramLink(), theLinksPackage.getPictogramLink_PictogramElement(), "link", null, 0, 1, PictogramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getPictogramElement_Link(), this.getPictogramLink(), this.getPictogramLink_PictogramElement(), "link", null, 0, 1, PictogramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(connectionEClass, Connection.class, "Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConnection_Start(), this.getAnchor(), this.getAnchor_OutgoingConnections(), "start", null, 1, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -1854,13 +812,13 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEReference(getAnchor_Parent(), this.getAnchorContainer(), this.getAnchorContainer_Anchors(), "parent", null, 1, 1, Anchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getAnchor_OutgoingConnections(), this.getConnection(), this.getConnection_Start(), "outgoingConnections", null, 0, -1, Anchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getAnchor_IncomingConnections(), this.getConnection(), this.getConnection_End(), "incomingConnections", null, 0, -1, Anchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getAnchor_ReferencedGraphicsAlgorithm(), this.getGraphicsAlgorithm(), null, "referencedGraphicsAlgorithm", null, 0, 1, Anchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getAnchor_ReferencedGraphicsAlgorithm(), theAlgorithmsPackage.getGraphicsAlgorithm(), null, "referencedGraphicsAlgorithm", null, 0, 1, Anchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(anchorContainerEClass, AnchorContainer.class, "AnchorContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAnchorContainer_Anchors(), this.getAnchor(), this.getAnchor_Parent(), "anchors", null, 0, -1, AnchorContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(fixPointAnchorEClass, FixPointAnchor.class, "FixPointAnchor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFixPointAnchor_Location(), theDatatypesPackage.getPoint(), null, "location", null, 1, 1, FixPointAnchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getFixPointAnchor_Location(), theStylesPackage.getPoint(), null, "location", null, 1, 1, FixPointAnchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(boxRelativeAnchorEClass, BoxRelativeAnchor.class, "BoxRelativeAnchor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBoxRelativeAnchor_RelativeWidth(), ecorePackage.getEDouble(), "relativeWidth", null, 1, 1, BoxRelativeAnchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -1868,129 +826,19 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 
 		initEClass(chopboxAnchorEClass, ChopboxAnchor.class, "ChopboxAnchor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getProperty_Key(), ecorePackage.getEString(), "key", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProperty_Value(), ecorePackage.getEString(), "value", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(textEClass, Text.class, "Text", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(connectionDecoratorEClass, ConnectionDecorator.class, "ConnectionDecorator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConnectionDecorator_LocationRelative(), ecorePackage.getEBoolean(), "locationRelative", null, 1, 1, ConnectionDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getConnectionDecorator_Location(), ecorePackage.getEDouble(), "location", null, 1, 1, ConnectionDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getConnectionDecorator_Connection(), this.getConnection(), this.getConnection_ConnectionDecorators(), "connection", null, 1, 1, ConnectionDecorator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(freeFormConnectionEClass, FreeFormConnection.class, "FreeFormConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFreeFormConnection_Bendpoints(), theDatatypesPackage.getPoint(), null, "bendpoints", null, 0, -1, FreeFormConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFreeFormConnection_Bendpoints(), theStylesPackage.getPoint(), null, "bendpoints", null, 0, -1, FreeFormConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(manhattanConnectionEClass, ManhattanConnection.class, "ManhattanConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(polygonEClass, Polygon.class, "Polygon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(rectangleEClass, Rectangle.class, "Rectangle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(roundedRectangleEClass, RoundedRectangle.class, "RoundedRectangle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRoundedRectangle_CornerHeight(), ecorePackage.getEInt(), "cornerHeight", null, 1, 1, RoundedRectangle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getRoundedRectangle_CornerWidth(), ecorePackage.getEInt(), "cornerWidth", null, 1, 1, RoundedRectangle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(fontEClass, Font.class, "Font", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFont_Name(), ecorePackage.getEString(), "name", null, 1, 1, Font.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getFont_Size(), ecorePackage.getEInt(), "size", null, 1, 1, Font.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getFont_Italic(), ecorePackage.getEBoolean(), "italic", null, 1, 1, Font.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getFont_Bold(), ecorePackage.getEBoolean(), "bold", null, 1, 1, Font.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(renderingStyleEClass, RenderingStyle.class, "RenderingStyle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRenderingStyle_AdaptedGradientColoredAreas(), this.getAdaptedGradientColoredAreas(), null, "adaptedGradientColoredAreas", null, 0, 1, RenderingStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(imageEClass, Image.class, "Image", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getImage_Id(), ecorePackage.getEString(), "id", null, 1, 1, Image.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getImage_StretchH(), ecorePackage.getEBooleanObject(), "stretchH", null, 0, 1, Image.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getImage_StretchV(), ecorePackage.getEBooleanObject(), "stretchV", null, 0, 1, Image.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getImage_Proportional(), ecorePackage.getEBooleanObject(), "proportional", null, 0, 1, Image.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(platformGraphicsAlgorithmEClass, PlatformGraphicsAlgorithm.class, "PlatformGraphicsAlgorithm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPlatformGraphicsAlgorithm_Id(), ecorePackage.getEString(), "id", null, 1, 1, PlatformGraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(graphicsAlgorithmContainerEClass, GraphicsAlgorithmContainer.class, "GraphicsAlgorithmContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(abstractTextEClass, AbstractText.class, "AbstractText", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAbstractText_Font(), this.getFont(), null, "font", null, 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getAbstractText_HorizontalAlignment(), this.getOrientation(), "horizontalAlignment", "ALIGNMENT_LEFT", 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getAbstractText_VerticalAlignment(), this.getOrientation(), "verticalAlignment", "ALIGNMENT_CENTER", 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getAbstractText_Angle(), ecorePackage.getEIntegerObject(), "angle", "0", 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getAbstractText_Value(), ecorePackage.getEString(), "value", null, 1, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(multiTextEClass, MultiText.class, "MultiText", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(propertyContainerEClass, PropertyContainer.class, "PropertyContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPropertyContainer_Properties(), this.getProperty(), null, "properties", null, 0, -1, PropertyContainer.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(styleContainerEClass, StyleContainer.class, "StyleContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStyleContainer_Styles(), this.getStyle(), this.getStyle_StyleContainer(), "styles", null, 0, -1, StyleContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(styleEClass, Style.class, "Style", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getStyle_Id(), ecorePackage.getEString(), "id", null, 1, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getStyle_Description(), ecorePackage.getEString(), "description", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getStyle_Font(), this.getFont(), null, "font", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getStyle_HorizontalAlignment(), this.getOrientation(), "horizontalAlignment", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getStyle_VerticalAlignment(), this.getOrientation(), "verticalAlignment", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getStyle_Angle(), ecorePackage.getEIntegerObject(), "angle", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getStyle_StretchH(), ecorePackage.getEBooleanObject(), "stretchH", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getStyle_StretchV(), ecorePackage.getEBooleanObject(), "stretchV", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getStyle_Proportional(), ecorePackage.getEBooleanObject(), "proportional", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getStyle_StyleContainer(), this.getStyleContainer(), this.getStyleContainer_Styles(), "styleContainer", null, 1, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(abstractStyleEClass, AbstractStyle.class, "AbstractStyle", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAbstractStyle_Background(), theDatatypesPackage.getColor(), null, "background", null, 0, 1, AbstractStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getAbstractStyle_Foreground(), theDatatypesPackage.getColor(), null, "foreground", null, 0, 1, AbstractStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getAbstractStyle_LineWidth(), ecorePackage.getEIntegerObject(), "lineWidth", "1", 0, 1, AbstractStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getAbstractStyle_LineStyle(), this.getLineStyle(), "lineStyle", "SOLID", 0, 1, AbstractStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getAbstractStyle_Filled(), ecorePackage.getEBooleanObject(), "filled", "true", 0, 1, AbstractStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getAbstractStyle_LineVisible(), ecorePackage.getEBooleanObject(), "lineVisible", "true", 0, 1, AbstractStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getAbstractStyle_RenderingStyle(), this.getRenderingStyle(), null, "renderingStyle", null, 0, 1, AbstractStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getAbstractStyle_Transparency(), ecorePackage.getEDoubleObject(), "transparency", "0", 0, 1, AbstractStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(gradientColoredLocationEClass, GradientColoredLocation.class, "GradientColoredLocation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGradientColoredLocation_LocationType(), this.getLocationType(), "locationType", null, 1, 1, GradientColoredLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGradientColoredLocation_LocationValue(), ecorePackage.getEIntegerObject(), "locationValue", null, 1, 1, GradientColoredLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGradientColoredLocation_Color(), theDatatypesPackage.getColor(), null, "color", null, 1, 1, GradientColoredLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(gradientColoredAreaEClass, GradientColoredArea.class, "GradientColoredArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGradientColoredArea_Start(), this.getGradientColoredLocation(), null, "start", null, 0, 1, GradientColoredArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGradientColoredArea_End(), this.getGradientColoredLocation(), null, "end", null, 0, 1, GradientColoredArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(gradientColoredAreasEClass, GradientColoredAreas.class, "GradientColoredAreas", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGradientColoredAreas_GradientColor(), this.getGradientColoredArea(), null, "gradientColor", null, 0, -1, GradientColoredAreas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGradientColoredAreas_StyleAdaption(), ecorePackage.getEIntegerObject(), "styleAdaption", null, 0, 1, GradientColoredAreas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(adaptedGradientColoredAreasEClass, AdaptedGradientColoredAreas.class, "AdaptedGradientColoredAreas", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAdaptedGradientColoredAreas_DefinedStyleId(), ecorePackage.getEString(), "definedStyleId", null, 0, 1, AdaptedGradientColoredAreas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAdaptedGradientColoredAreas_AdaptedGradientColoredAreas(), this.getGradientColoredAreas(), null, "adaptedGradientColoredAreas", null, 0, -1, AdaptedGradientColoredAreas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		// Initialize enums and add enum literals
-		initEEnum(lineStyleEEnum, LineStyle.class, "LineStyle");
-		addEEnumLiteral(lineStyleEEnum, LineStyle.SOLID);
-		addEEnumLiteral(lineStyleEEnum, LineStyle.DASH);
-		addEEnumLiteral(lineStyleEEnum, LineStyle.DASHDOT);
-		addEEnumLiteral(lineStyleEEnum, LineStyle.DASHDOTDOT);
-		addEEnumLiteral(lineStyleEEnum, LineStyle.DOT);
-		addEEnumLiteral(lineStyleEEnum, LineStyle.UNSPECIFIED);
-
-		initEEnum(orientationEEnum, Orientation.class, "Orientation");
-		addEEnumLiteral(orientationEEnum, Orientation.ALIGNMENT_CENTER);
-		addEEnumLiteral(orientationEEnum, Orientation.ALIGNMENT_LEFT);
-		addEEnumLiteral(orientationEEnum, Orientation.ALIGNMENT_TOP);
-		addEEnumLiteral(orientationEEnum, Orientation.ALIGNMENT_RIGHT);
-		addEEnumLiteral(orientationEEnum, Orientation.ALIGNMENT_BOTTOM);
-		addEEnumLiteral(orientationEEnum, Orientation.ALIGNMENT_MIDDLE);
-		addEEnumLiteral(orientationEEnum, Orientation.UNSPECIFIED);
-
-		initEEnum(locationTypeEEnum, LocationType.class, "LocationType");
-		addEEnumLiteral(locationTypeEEnum, LocationType.LOCATION_TYPE_RELATIVE);
-		addEEnumLiteral(locationTypeEEnum, LocationType.LOCATION_TYPE_ABSOLUTE_START);
-		addEEnumLiteral(locationTypeEEnum, LocationType.LOCATION_TYPE_ABSOLUTE_END);
-
-		// Create resource
-		createResource(eNS_URI);
+		initEClass(pictogramLinkEClass, PictogramLink.class, "PictogramLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPictogramLink_PictogramElement(), this.getPictogramElement(), this.getPictogramElement_Link(), "pictogramElement", null, 0, 1, PictogramLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getPictogramLink_BusinessObjects(), ecorePackage.getEObject(), null, "businessObjects", null, 0, -1, PictogramLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //PictogramsPackageImpl

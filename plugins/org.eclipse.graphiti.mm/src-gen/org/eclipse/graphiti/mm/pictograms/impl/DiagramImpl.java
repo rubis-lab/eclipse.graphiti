@@ -11,8 +11,6 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: DiagramImpl.java,v 1.2 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
@@ -33,14 +31,17 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.graphiti.mm.datatypes.Color;
+import org.eclipse.graphiti.mm.MmPackage;
+import org.eclipse.graphiti.mm.StyleContainer;
 
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
+
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
-import org.eclipse.graphiti.mm.pictograms.Style;
-import org.eclipse.graphiti.mm.pictograms.StyleContainer;
 
 /**
  * <!-- begin-user-doc -->
@@ -230,7 +231,7 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	 */
 	public EList<Style> getStyles() {
 		if (styles == null) {
-			styles = new EObjectContainmentWithInverseEList.Resolving<Style>(Style.class, this, PictogramsPackage.DIAGRAM__STYLES, PictogramsPackage.STYLE__STYLE_CONTAINER);
+			styles = new EObjectContainmentWithInverseEList.Resolving<Style>(Style.class, this, PictogramsPackage.DIAGRAM__STYLES, StylesPackage.STYLE__STYLE_CONTAINER);
 		}
 		return styles;
 	}
@@ -563,7 +564,7 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == StyleContainer.class) {
 			switch (derivedFeatureID) {
-				case PictogramsPackage.DIAGRAM__STYLES: return PictogramsPackage.STYLE_CONTAINER__STYLES;
+				case PictogramsPackage.DIAGRAM__STYLES: return MmPackage.STYLE_CONTAINER__STYLES;
 				default: return -1;
 			}
 		}
@@ -579,7 +580,7 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == StyleContainer.class) {
 			switch (baseFeatureID) {
-				case PictogramsPackage.STYLE_CONTAINER__STYLES: return PictogramsPackage.DIAGRAM__STYLES;
+				case MmPackage.STYLE_CONTAINER__STYLES: return PictogramsPackage.DIAGRAM__STYLES;
 				default: return -1;
 			}
 		}

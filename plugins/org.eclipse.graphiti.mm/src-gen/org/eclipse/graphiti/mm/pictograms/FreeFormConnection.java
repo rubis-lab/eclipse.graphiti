@@ -11,14 +11,12 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: FreeFormConnection.java,v 1.1 2010/06/16 13:24:52 mwenz Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,7 +37,7 @@ import org.eclipse.graphiti.mm.datatypes.Point;
 public interface FreeFormConnection extends Connection {
 	/**
 	 * Returns the value of the '<em><b>Bendpoints</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.graphiti.mm.datatypes.Point}.
+	 * The list contents are of type {@link org.eclipse.graphiti.mm.algorithms.styles.Point}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Bendpoints</em>' containment reference list isn't clear,

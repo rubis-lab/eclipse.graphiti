@@ -11,8 +11,6 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: PictogramsAdapterFactory.java,v 1.3 2010/07/21 12:34:46 jpasch Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.util;
 
@@ -22,6 +20,10 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
+import org.eclipse.graphiti.mm.PropertyContainer;
+import org.eclipse.graphiti.mm.StyleContainer;
 
 import org.eclipse.graphiti.mm.pictograms.*;
 
@@ -94,18 +96,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 				return createDiagramAdapter();
 			}
 			@Override
-			public Adapter caseGraphicsAlgorithm(GraphicsAlgorithm object) {
-				return createGraphicsAlgorithmAdapter();
-			}
-			@Override
-			public Adapter casePolyline(Polyline object) {
-				return createPolylineAdapter();
-			}
-			@Override
-			public Adapter caseEllipse(Ellipse object) {
-				return createEllipseAdapter();
-			}
-			@Override
 			public Adapter casePictogramElement(PictogramElement object) {
 				return createPictogramElementAdapter();
 			}
@@ -134,14 +124,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 				return createChopboxAnchorAdapter();
 			}
 			@Override
-			public Adapter caseProperty(Property object) {
-				return createPropertyAdapter();
-			}
-			@Override
-			public Adapter caseText(Text object) {
-				return createTextAdapter();
-			}
-			@Override
 			public Adapter caseConnectionDecorator(ConnectionDecorator object) {
 				return createConnectionDecoratorAdapter();
 			}
@@ -154,76 +136,20 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 				return createManhattanConnectionAdapter();
 			}
 			@Override
-			public Adapter casePolygon(Polygon object) {
-				return createPolygonAdapter();
-			}
-			@Override
-			public Adapter caseRectangle(Rectangle object) {
-				return createRectangleAdapter();
-			}
-			@Override
-			public Adapter caseRoundedRectangle(RoundedRectangle object) {
-				return createRoundedRectangleAdapter();
-			}
-			@Override
-			public Adapter caseFont(Font object) {
-				return createFontAdapter();
-			}
-			@Override
-			public Adapter caseRenderingStyle(RenderingStyle object) {
-				return createRenderingStyleAdapter();
-			}
-			@Override
-			public Adapter caseImage(Image object) {
-				return createImageAdapter();
-			}
-			@Override
-			public Adapter casePlatformGraphicsAlgorithm(PlatformGraphicsAlgorithm object) {
-				return createPlatformGraphicsAlgorithmAdapter();
-			}
-			@Override
-			public Adapter caseGraphicsAlgorithmContainer(GraphicsAlgorithmContainer object) {
-				return createGraphicsAlgorithmContainerAdapter();
-			}
-			@Override
-			public Adapter caseAbstractText(AbstractText object) {
-				return createAbstractTextAdapter();
-			}
-			@Override
-			public Adapter caseMultiText(MultiText object) {
-				return createMultiTextAdapter();
+			public Adapter casePictogramLink(PictogramLink object) {
+				return createPictogramLinkAdapter();
 			}
 			@Override
 			public Adapter casePropertyContainer(PropertyContainer object) {
 				return createPropertyContainerAdapter();
 			}
 			@Override
+			public Adapter caseGraphicsAlgorithmContainer(GraphicsAlgorithmContainer object) {
+				return createGraphicsAlgorithmContainerAdapter();
+			}
+			@Override
 			public Adapter caseStyleContainer(StyleContainer object) {
 				return createStyleContainerAdapter();
-			}
-			@Override
-			public Adapter caseStyle(Style object) {
-				return createStyleAdapter();
-			}
-			@Override
-			public Adapter caseAbstractStyle(AbstractStyle object) {
-				return createAbstractStyleAdapter();
-			}
-			@Override
-			public Adapter caseGradientColoredLocation(GradientColoredLocation object) {
-				return createGradientColoredLocationAdapter();
-			}
-			@Override
-			public Adapter caseGradientColoredArea(GradientColoredArea object) {
-				return createGradientColoredAreaAdapter();
-			}
-			@Override
-			public Adapter caseGradientColoredAreas(GradientColoredAreas object) {
-				return createGradientColoredAreasAdapter();
-			}
-			@Override
-			public Adapter caseAdaptedGradientColoredAreas(AdaptedGradientColoredAreas object) {
-				return createAdaptedGradientColoredAreasAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -284,48 +210,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDiagramAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm <em>Graphics Algorithm</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm
-	 * @generated
-	 */
-	public Adapter createGraphicsAlgorithmAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.Polyline <em>Polyline</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.Polyline
-	 * @generated
-	 */
-	public Adapter createPolylineAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.Ellipse <em>Ellipse</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.Ellipse
-	 * @generated
-	 */
-	public Adapter createEllipseAdapter() {
 		return null;
 	}
 
@@ -428,34 +312,6 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.Property <em>Property</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.Property
-	 * @generated
-	 */
-	public Adapter createPropertyAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.Text <em>Text</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.Text
-	 * @generated
-	 */
-	public Adapter createTextAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.ConnectionDecorator <em>Connection Decorator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -498,153 +354,27 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.Polygon <em>Polygon</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.PictogramLink <em>Pictogram Link</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.Polygon
+	 * @see org.eclipse.graphiti.mm.pictograms.PictogramLink
 	 * @generated
 	 */
-	public Adapter createPolygonAdapter() {
+	public Adapter createPictogramLinkAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.Rectangle <em>Rectangle</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.PropertyContainer <em>Property Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.Rectangle
-	 * @generated
-	 */
-	public Adapter createRectangleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.RoundedRectangle <em>Rounded Rectangle</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.RoundedRectangle
-	 * @generated
-	 */
-	public Adapter createRoundedRectangleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.Font <em>Font</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.Font
-	 * @generated
-	 */
-	public Adapter createFontAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.RenderingStyle <em>Rendering Style</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.RenderingStyle
-	 * @generated
-	 */
-	public Adapter createRenderingStyleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.Image <em>Image</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.Image
-	 * @generated
-	 */
-	public Adapter createImageAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.PlatformGraphicsAlgorithm <em>Platform Graphics Algorithm</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.PlatformGraphicsAlgorithm
-	 * @generated
-	 */
-	public Adapter createPlatformGraphicsAlgorithmAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer <em>Graphics Algorithm Container</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer
-	 * @generated
-	 */
-	public Adapter createGraphicsAlgorithmContainerAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.AbstractText <em>Abstract Text</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.AbstractText
-	 * @generated
-	 */
-	public Adapter createAbstractTextAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.MultiText <em>Multi Text</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.MultiText
-	 * @generated
-	 */
-	public Adapter createMultiTextAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.PropertyContainer <em>Property Container</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.PropertyContainer
+	 * @see org.eclipse.graphiti.mm.PropertyContainer
 	 * @generated
 	 */
 	public Adapter createPropertyContainerAdapter() {
@@ -652,100 +382,30 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.StyleContainer <em>Style Container</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.GraphicsAlgorithmContainer <em>Graphics Algorithm Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.StyleContainer
+	 * @see org.eclipse.graphiti.mm.GraphicsAlgorithmContainer
+	 * @generated
+	 */
+	public Adapter createGraphicsAlgorithmContainerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.StyleContainer <em>Style Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.StyleContainer
 	 * @generated
 	 */
 	public Adapter createStyleContainerAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.Style <em>Style</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.Style
-	 * @generated
-	 */
-	public Adapter createStyleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.AbstractStyle <em>Abstract Style</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.AbstractStyle
-	 * @generated
-	 */
-	public Adapter createAbstractStyleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredLocation <em>Gradient Colored Location</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredLocation
-	 * @generated
-	 */
-	public Adapter createGradientColoredLocationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredArea <em>Gradient Colored Area</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredArea
-	 * @generated
-	 */
-	public Adapter createGradientColoredAreaAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.GradientColoredAreas <em>Gradient Colored Areas</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.GradientColoredAreas
-	 * @generated
-	 */
-	public Adapter createGradientColoredAreasAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas <em>Adapted Gradient Colored Areas</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas
-	 * @generated
-	 */
-	public Adapter createAdaptedGradientColoredAreasAdapter() {
 		return null;
 	}
 

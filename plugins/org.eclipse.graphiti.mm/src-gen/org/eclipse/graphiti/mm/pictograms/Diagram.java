@@ -11,15 +11,14 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: Diagram.java,v 1.2 2010/07/08 09:27:59 mgorning Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.graphiti.mm.datatypes.Color;
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.StyleContainer;
+
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
 
 /**
  * <!-- begin-user-doc -->
@@ -195,7 +194,7 @@ public interface Diagram extends ContainerShape, StyleContainer {
 
 	/**
 	 * Returns the value of the '<em><b>Colors</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.graphiti.mm.datatypes.Color}.
+	 * The list contents are of type {@link org.eclipse.graphiti.mm.algorithms.styles.Color}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Colors</em>' containment reference list isn't clear,
@@ -211,7 +210,7 @@ public interface Diagram extends ContainerShape, StyleContainer {
 
 	/**
 	 * Returns the value of the '<em><b>Pictogram Links</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.graphiti.mm.links.PictogramLink}.
+	 * The list contents are of type {@link org.eclipse.graphiti.mm.pictograms.PictogramLink}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Pictogram Links</em>' reference list isn't clear,

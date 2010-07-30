@@ -11,12 +11,12 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: PictogramElement.java,v 1.1 2010/06/16 13:24:52 mwenz Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
+
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 
 /**
  * <!-- begin-user-doc -->
@@ -66,7 +66,7 @@ public interface PictogramElement extends GraphicsAlgorithmContainer {
 
 	/**
 	 * Returns the value of the '<em><b>Graphics Algorithm</b></em>' containment reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm#getPictogramElement <em>Pictogram Element</em>}'.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm#getPictogramElement <em>Pictogram Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Graphics Algorithm</em>' containment reference isn't clear,
@@ -76,7 +76,7 @@ public interface PictogramElement extends GraphicsAlgorithmContainer {
 	 * @return the value of the '<em>Graphics Algorithm</em>' containment reference.
 	 * @see #setGraphicsAlgorithm(GraphicsAlgorithm)
 	 * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getPictogramElement_GraphicsAlgorithm()
-	 * @see org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm#getPictogramElement
+	 * @see org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm#getPictogramElement
 	 * @model opposite="pictogramElement" containment="true" resolveProxies="true" ordered="false"
 	 * @generated
 	 */
@@ -120,7 +120,7 @@ public interface PictogramElement extends GraphicsAlgorithmContainer {
 
 	/**
 	 * Returns the value of the '<em><b>Link</b></em>' containment reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.graphiti.mm.links.PictogramLink#getPictogramElement <em>Pictogram Element</em>}'.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.graphiti.mm.pictograms.PictogramLink#getPictogramElement <em>Pictogram Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Link</em>' containment reference isn't clear,
@@ -130,7 +130,7 @@ public interface PictogramElement extends GraphicsAlgorithmContainer {
 	 * @return the value of the '<em>Link</em>' containment reference.
 	 * @see #setLink(PictogramLink)
 	 * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getPictogramElement_Link()
-	 * @see org.eclipse.graphiti.mm.links.PictogramLink#getPictogramElement
+	 * @see org.eclipse.graphiti.mm.pictograms.PictogramLink#getPictogramElement
 	 * @model opposite="pictogramElement" containment="true" resolveProxies="true" ordered="false"
 	 * @generated
 	 */

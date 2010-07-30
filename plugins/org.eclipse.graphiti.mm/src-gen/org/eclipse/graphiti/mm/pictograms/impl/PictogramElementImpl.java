@@ -11,8 +11,6 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: PictogramElementImpl.java,v 1.1 2010/06/16 13:24:59 mwenz Exp $
  */
 package org.eclipse.graphiti.mm.pictograms.impl;
 
@@ -24,11 +22,13 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.graphiti.mm.links.LinksPackage;
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.impl.GraphicsAlgorithmContainerImpl;
+
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 
 /**
@@ -159,9 +159,9 @@ public abstract class PictogramElementImpl extends GraphicsAlgorithmContainerImp
 			graphicsAlgorithm = (GraphicsAlgorithm)eResolveProxy(oldGraphicsAlgorithm);
 			if (graphicsAlgorithm != oldGraphicsAlgorithm) {
 				InternalEObject newGraphicsAlgorithm = (InternalEObject)graphicsAlgorithm;
-				NotificationChain msgs =  oldGraphicsAlgorithm.eInverseRemove(this, PictogramsPackage.GRAPHICS_ALGORITHM__PICTOGRAM_ELEMENT, GraphicsAlgorithm.class, null);
+				NotificationChain msgs =  oldGraphicsAlgorithm.eInverseRemove(this, AlgorithmsPackage.GRAPHICS_ALGORITHM__PICTOGRAM_ELEMENT, GraphicsAlgorithm.class, null);
 				if (newGraphicsAlgorithm.eInternalContainer() == null) {
-					msgs =  newGraphicsAlgorithm.eInverseAdd(this, PictogramsPackage.GRAPHICS_ALGORITHM__PICTOGRAM_ELEMENT, GraphicsAlgorithm.class, msgs);
+					msgs =  newGraphicsAlgorithm.eInverseAdd(this, AlgorithmsPackage.GRAPHICS_ALGORITHM__PICTOGRAM_ELEMENT, GraphicsAlgorithm.class, msgs);
 				}
 				if (msgs != null) msgs.dispatch();
 				if (eNotificationRequired())
@@ -204,9 +204,9 @@ public abstract class PictogramElementImpl extends GraphicsAlgorithmContainerImp
 		if (newGraphicsAlgorithm != graphicsAlgorithm) {
 			NotificationChain msgs = null;
 			if (graphicsAlgorithm != null)
-				msgs = ((InternalEObject)graphicsAlgorithm).eInverseRemove(this, PictogramsPackage.GRAPHICS_ALGORITHM__PICTOGRAM_ELEMENT, GraphicsAlgorithm.class, msgs);
+				msgs = ((InternalEObject)graphicsAlgorithm).eInverseRemove(this, AlgorithmsPackage.GRAPHICS_ALGORITHM__PICTOGRAM_ELEMENT, GraphicsAlgorithm.class, msgs);
 			if (newGraphicsAlgorithm != null)
-				msgs = ((InternalEObject)newGraphicsAlgorithm).eInverseAdd(this, PictogramsPackage.GRAPHICS_ALGORITHM__PICTOGRAM_ELEMENT, GraphicsAlgorithm.class, msgs);
+				msgs = ((InternalEObject)newGraphicsAlgorithm).eInverseAdd(this, AlgorithmsPackage.GRAPHICS_ALGORITHM__PICTOGRAM_ELEMENT, GraphicsAlgorithm.class, msgs);
 			msgs = basicSetGraphicsAlgorithm(newGraphicsAlgorithm, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -246,9 +246,9 @@ public abstract class PictogramElementImpl extends GraphicsAlgorithmContainerImp
 			link = (PictogramLink)eResolveProxy(oldLink);
 			if (link != oldLink) {
 				InternalEObject newLink = (InternalEObject)link;
-				NotificationChain msgs =  oldLink.eInverseRemove(this, LinksPackage.PICTOGRAM_LINK__PICTOGRAM_ELEMENT, PictogramLink.class, null);
+				NotificationChain msgs =  oldLink.eInverseRemove(this, PictogramsPackage.PICTOGRAM_LINK__PICTOGRAM_ELEMENT, PictogramLink.class, null);
 				if (newLink.eInternalContainer() == null) {
-					msgs =  newLink.eInverseAdd(this, LinksPackage.PICTOGRAM_LINK__PICTOGRAM_ELEMENT, PictogramLink.class, msgs);
+					msgs =  newLink.eInverseAdd(this, PictogramsPackage.PICTOGRAM_LINK__PICTOGRAM_ELEMENT, PictogramLink.class, msgs);
 				}
 				if (msgs != null) msgs.dispatch();
 				if (eNotificationRequired())
@@ -291,9 +291,9 @@ public abstract class PictogramElementImpl extends GraphicsAlgorithmContainerImp
 		if (newLink != link) {
 			NotificationChain msgs = null;
 			if (link != null)
-				msgs = ((InternalEObject)link).eInverseRemove(this, LinksPackage.PICTOGRAM_LINK__PICTOGRAM_ELEMENT, PictogramLink.class, msgs);
+				msgs = ((InternalEObject)link).eInverseRemove(this, PictogramsPackage.PICTOGRAM_LINK__PICTOGRAM_ELEMENT, PictogramLink.class, msgs);
 			if (newLink != null)
-				msgs = ((InternalEObject)newLink).eInverseAdd(this, LinksPackage.PICTOGRAM_LINK__PICTOGRAM_ELEMENT, PictogramLink.class, msgs);
+				msgs = ((InternalEObject)newLink).eInverseAdd(this, PictogramsPackage.PICTOGRAM_LINK__PICTOGRAM_ELEMENT, PictogramLink.class, msgs);
 			msgs = basicSetLink(newLink, msgs);
 			if (msgs != null) msgs.dispatch();
 		}

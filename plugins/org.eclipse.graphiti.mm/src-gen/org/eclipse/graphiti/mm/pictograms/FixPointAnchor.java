@@ -11,12 +11,10 @@
  *    SAP AG - initial API, implementation and documentation
  * 
  * </copyright>
- *
- * $Id: FixPointAnchor.java,v 1.1 2010/06/16 13:24:52 mwenz Exp $
  */
 package org.eclipse.graphiti.mm.pictograms;
 
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 
 /**
  * <!-- begin-user-doc -->
