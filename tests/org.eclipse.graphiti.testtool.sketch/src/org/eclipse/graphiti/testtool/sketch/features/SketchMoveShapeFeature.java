@@ -20,10 +20,10 @@ import java.util.Collection;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 
@@ -59,8 +59,7 @@ public class SketchMoveShapeFeature extends DefaultMoveShapeFeature {
 				Shape shape = context.getShape();
 				GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 
-				Graphiti.getGaService().setLocation(ga, context.getX() - (ga.getWidth() / 2),
-						context.getY() - (ga.getHeight() / 2));
+				Graphiti.getGaService().setLocation(ga, context.getX() - (ga.getWidth() / 2), context.getY() - (ga.getHeight() / 2));
 
 				Collection<Anchor> anchors = shape.getAnchors();
 				if (anchors.size() > 0) {

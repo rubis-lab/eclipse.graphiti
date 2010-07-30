@@ -21,10 +21,10 @@ package org.eclipse.graphiti.testtool.sketch.features;
 import org.eclipse.graphiti.examples.common.SampleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.mm.datatypes.Color;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Style;
 import org.eclipse.graphiti.services.Graphiti;
 
 /**

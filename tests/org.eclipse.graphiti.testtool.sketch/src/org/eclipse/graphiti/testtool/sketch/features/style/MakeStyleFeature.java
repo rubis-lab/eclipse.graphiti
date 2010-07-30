@@ -18,9 +18,9 @@ package org.eclipse.graphiti.testtool.sketch.features.style;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Style;
 import org.eclipse.graphiti.services.Graphiti;
 
 /**

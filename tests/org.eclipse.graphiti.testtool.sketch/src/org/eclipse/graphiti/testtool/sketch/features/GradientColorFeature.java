@@ -24,7 +24,7 @@ import java.util.List;
 import org.eclipse.graphiti.examples.common.SampleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.util.IPredefinedRenderingStyle;

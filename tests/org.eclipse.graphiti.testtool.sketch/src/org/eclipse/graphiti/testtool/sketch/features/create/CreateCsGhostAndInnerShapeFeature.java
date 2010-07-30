@@ -18,10 +18,10 @@ package org.eclipse.graphiti.testtool.sketch.features.create;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
+import org.eclipse.graphiti.mm.algorithms.Ellipse;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
+import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Ellipse;
-import org.eclipse.graphiti.mm.pictograms.Rectangle;
-import org.eclipse.graphiti.mm.pictograms.RoundedRectangle;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -54,7 +54,7 @@ public class CreateCsGhostAndInnerShapeFeature extends AbstractCreateFeature {
 	public Object[] create(ICreateContext context) {
 		ContainerShape targetContainer = context.getTargetContainer();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-		IGaService gaService=Graphiti.getGaService();
+		IGaService gaService = Graphiti.getGaService();
 		ContainerShape ret = peCreateService.createContainerShape(targetContainer, true);
 		peCreateService.createChopboxAnchor(ret);
 		Rectangle ghostRect = gaService.createInvisibleRectangle(ret);
@@ -65,8 +65,7 @@ public class CreateCsGhostAndInnerShapeFeature extends AbstractCreateFeature {
 		Ellipse ellipse = gaService.createEllipse(innerShape);
 		ellipse.setBackground(manageColor(ColorConstant.RED));
 
-		gaService.setLocationAndSize(ghostRect, context.getX(), context.getY(), context.getWidth(), context.getHeight(),
-				true);
+		gaService.setLocationAndSize(ghostRect, context.getX(), context.getY(), context.getWidth(), context.getHeight(), true);
 
 		layoutPictogramElement(ret);
 

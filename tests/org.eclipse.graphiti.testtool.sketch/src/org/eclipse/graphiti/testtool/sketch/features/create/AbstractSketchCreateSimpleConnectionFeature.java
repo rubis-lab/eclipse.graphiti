@@ -17,13 +17,13 @@ package org.eclipse.graphiti.testtool.sketch.features.create;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.LineStyle;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaCreateService;
 import org.eclipse.graphiti.util.IColorConstant;

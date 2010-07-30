@@ -21,8 +21,8 @@ import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
-import org.eclipse.graphiti.mm.pictograms.AbstractText;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -74,7 +74,7 @@ public class SketchLayoutFeature extends AbstractLayoutFeature {
 	}
 
 	public boolean layout(ILayoutContext context) {
-		IGaService gaService=Graphiti.getGaService();
+		IGaService gaService = Graphiti.getGaService();
 		final PictogramElement pe = context.getPictogramElement();
 		GraphicsAlgorithm containerGa = pe.getGraphicsAlgorithm();
 		final List<GraphicsAlgorithm> gaChildren = containerGa.getGraphicsAlgorithmChildren();
@@ -85,8 +85,8 @@ public class SketchLayoutFeature extends AbstractLayoutFeature {
 			final GraphicsAlgorithm firstGa = gaChildren.get(0);
 			final GraphicsAlgorithm textGa = gaChildren.get(1);
 			final int textHeight = 20; // textGa.getHeight();
-			gaService.setLocationAndSize(firstGa, LEFT, TOP, containerWidth - LEFT - RIGHT, containerHeight - TOP - BOTTOM
-					- DIST - textHeight, true);
+			gaService.setLocationAndSize(firstGa, LEFT, TOP, containerWidth - LEFT - RIGHT, containerHeight - TOP - BOTTOM - DIST
+					- textHeight, true);
 			gaService.setSize(textGa, containerWidth - LEFT - RIGHT, textHeight);
 			gaService.setLocation(textGa, LEFT, containerHeight - BOTTOM - textHeight, true);
 		}

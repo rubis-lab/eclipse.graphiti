@@ -21,10 +21,10 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddFeature;
-import org.eclipse.graphiti.mm.links.LinksFactory;
-import org.eclipse.graphiti.mm.links.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
+import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
@@ -64,7 +64,7 @@ public class AddLinkFeature extends AbstractAddFeature {
 				ContainerShape targetContainer = context.getTargetContainer();
 				PictogramLink link = Graphiti.getLinkService().getLinkForPictogramElement(targetContainer);
 				if (link == null) {
-					link = LinksFactory.eINSTANCE.createPictogramLink();
+					link = PictogramsFactory.eINSTANCE.createPictogramLink();
 					link.setPictogramElement(targetContainer);
 				}
 				link.getBusinessObjects().add(newEObject);

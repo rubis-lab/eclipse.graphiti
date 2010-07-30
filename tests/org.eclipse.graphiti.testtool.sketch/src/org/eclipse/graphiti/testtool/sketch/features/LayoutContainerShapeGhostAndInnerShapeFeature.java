@@ -19,8 +19,8 @@ import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -48,13 +48,13 @@ public class LayoutContainerShapeGhostAndInnerShapeFeature extends AbstractLayou
 
 	public boolean layout(ILayoutContext context) {
 		ContainerShape cs = (ContainerShape) context.getPictogramElement();
-		IGaService gaService=Graphiti.getGaService();
+		IGaService gaService = Graphiti.getGaService();
 		GraphicsAlgorithm ghost = cs.getGraphicsAlgorithm();
 		IDimension ghostSize = gaService.calculateSize(ghost);
 		int ghostWidth = ghostSize.getWidth();
 		int ghostHeight = ghostSize.getHeight();
-		gaService.setLocationAndSize(ghost.getGraphicsAlgorithmChildren().get(0), INSET, INSET, ghostWidth - INSET - INSET,
-				ghostHeight - INSET - INSET);
+		gaService.setLocationAndSize(ghost.getGraphicsAlgorithmChildren().get(0), INSET, INSET, ghostWidth - INSET - INSET, ghostHeight
+				- INSET - INSET);
 
 		Shape innerShape = cs.getChildren().get(0);
 		int width = INSET;

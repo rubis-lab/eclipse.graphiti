@@ -19,9 +19,9 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.MultiText;
-import org.eclipse.graphiti.mm.pictograms.Orientation;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.services.Graphiti;
 
 /**

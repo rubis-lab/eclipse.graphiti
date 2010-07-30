@@ -21,8 +21,8 @@ import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
-import org.eclipse.graphiti.mm.pictograms.AbstractText;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -74,7 +74,7 @@ public class SketchGhostLayoutFeature extends AbstractLayoutFeature {
 	}
 
 	public boolean layout(ILayoutContext context) {
-		IGaService gaService=Graphiti.getGaService();
+		IGaService gaService = Graphiti.getGaService();
 		final PictogramElement pe = context.getPictogramElement();
 		GraphicsAlgorithm containerGa = pe.getGraphicsAlgorithm();
 		final List<GraphicsAlgorithm> gaChildren = containerGa.getGraphicsAlgorithmChildren();
@@ -87,15 +87,16 @@ public class SketchGhostLayoutFeature extends AbstractLayoutFeature {
 			final int textHeight = 20; // textGa.getHeight();
 
 			// first GA
-			gaService.setLocationAndSize(firstGa, LEFT, TOP, containerWidth - LEFT - RIGHT, containerHeight - TOP - BOTTOM
-					- DIST - textHeight, true);
+			gaService.setLocationAndSize(firstGa, LEFT, TOP, containerWidth - LEFT - RIGHT, containerHeight - TOP - BOTTOM - DIST
+					- textHeight, true);
 			final List<GraphicsAlgorithm> firstGaChildren = firstGa.getGraphicsAlgorithmChildren();
 			if (!firstGaChildren.isEmpty()) {
 				final GraphicsAlgorithm innerFirstGa = firstGaChildren.get(0);
 				final int innerDistX = gaService.calculateSize(firstGa).getWidth() / 8;
 				final int innerDistY = gaService.calculateSize(firstGa).getHeight() / 8;
-				gaService.setLocationAndSize(innerFirstGa, innerDistX, innerDistY, firstGa.getWidth() - (2 * innerDistX),
-						firstGa.getHeight() - (2 * innerDistY));
+				gaService.setLocationAndSize(innerFirstGa, innerDistX, innerDistY, firstGa.getWidth() - (2 * innerDistX), firstGa
+						.getHeight()
+						- (2 * innerDistY));
 			}
 
 			// text GA

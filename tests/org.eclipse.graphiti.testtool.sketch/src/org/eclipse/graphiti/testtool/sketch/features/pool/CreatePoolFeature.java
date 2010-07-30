@@ -18,9 +18,9 @@ package org.eclipse.graphiti.testtool.sketch.features.pool;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeService;
@@ -62,7 +62,7 @@ public class CreatePoolFeature extends AbstractCreateFeature {
 
 		// create pool
 		final IPeService peService = Graphiti.getPeService();
-		IGaService gaService=Graphiti.getGaService();
+		IGaService gaService = Graphiti.getGaService();
 		ContainerShape poolPe = peService.createContainerShape(targetContainer, true);
 		peService.setPropertyValue(poolPe, SketchUtil.POOL_TAG, "");
 		Diagram diagram = getDiagram();

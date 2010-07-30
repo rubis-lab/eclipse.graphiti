@@ -16,13 +16,13 @@
 package org.eclipse.graphiti.testtool.sketch.features.create;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
+import org.eclipse.graphiti.mm.algorithms.Ellipse;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Ellipse;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Rectangle;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
@@ -58,7 +58,7 @@ public class SketchCreateGaShapeFeatureWithGhost extends SketchCreateGaShapeFeat
 
 	@Override
 	protected GraphicsAlgorithm createGa(GraphicsAlgorithmContainer gac, int width, int height) {
-		IGaService gaService=Graphiti.getGaService();
+		IGaService gaService = Graphiti.getGaService();
 		final Rectangle ghostGa = gaService.createInvisibleRectangle((PictogramElement) gac);
 		gaService.setSize(ghostGa, width, height);
 		final int newWidth = width - 2 * FRAME;

@@ -22,8 +22,8 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
@@ -45,7 +45,9 @@ public abstract class AbstractColorFeature extends AbstractCustomFeature {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.sap.tc.emf.gfw.dt.jmof.features.custom.AbstractColorFeature#isAvailable(com.sap.tc.emf.gfw.features.context.ICustomContext)
+	 * @see
+	 * com.sap.tc.emf.gfw.dt.jmof.features.custom.AbstractColorFeature#isAvailable
+	 * (com.sap.tc.emf.gfw.features.context.ICustomContext)
 	 */
 	@Override
 	public boolean isAvailable(IContext context) {
