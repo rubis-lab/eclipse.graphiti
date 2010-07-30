@@ -18,8 +18,8 @@ package org.eclipse.graphiti.ui.internal.util.draw2d;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.internal.util.LookManager;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
@@ -46,7 +46,7 @@ public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
 
 		GraphicsAlgorithm graphicsAlgorithm = getDiagram().getGraphicsAlgorithm();
 
-		org.eclipse.graphiti.mm.datatypes.Color background = Graphiti.getGaService().getBackgroundColor(graphicsAlgorithm, true);
+		org.eclipse.graphiti.mm.algorithms.styles.Color background = Graphiti.getGaService().getBackgroundColor(graphicsAlgorithm, true);
 		if (background.getBlue() != getBackgroundColor().getBlue() || background.getRed() != getBackgroundColor().getRed()
 				|| background.getGreen() != getBackgroundColor().getGreen()
 
@@ -128,9 +128,9 @@ public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
 	private void updateFromDiagram() {
 		GraphicsAlgorithm diagramGa = getDiagram().getGraphicsAlgorithm();
 
-		org.eclipse.graphiti.mm.datatypes.Color background = Graphiti.getGaService().getBackgroundColor(diagramGa, true);
+		org.eclipse.graphiti.mm.algorithms.styles.Color background = Graphiti.getGaService().getBackgroundColor(diagramGa, true);
 		setBackgroundColor(DataTypeTransformation.toSwtColor(getDiagramEditor(), background));
-		org.eclipse.graphiti.mm.datatypes.Color foreground = Graphiti.getGaService().getForegroundColor(diagramGa, true);
+		org.eclipse.graphiti.mm.algorithms.styles.Color foreground = Graphiti.getGaService().getForegroundColor(diagramGa, true);
 		setForegroundColor(DataTypeTransformation.toSwtColor(getDiagramEditor(), foreground));
 	}
 
@@ -141,7 +141,7 @@ public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
 	}
 
 	private Color getMinorLineColor() {
-		org.eclipse.graphiti.mm.datatypes.Color foregroundColor = null;
+		org.eclipse.graphiti.mm.algorithms.styles.Color foregroundColor = null;
 		final Diagram diagram = getDiagram();
 		if (diagram != null) {
 			GraphicsAlgorithm diagramGa = diagram.getGraphicsAlgorithm();

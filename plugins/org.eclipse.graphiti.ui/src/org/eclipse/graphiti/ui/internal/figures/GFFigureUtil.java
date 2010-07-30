@@ -24,7 +24,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Ray;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.graphiti.mm.pictograms.GradientColoredArea;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
@@ -85,9 +85,9 @@ public class GFFigureUtil {
 			fillRectangle = new Rectangle(rectangle.x + start, rectangle.y, end - start, rectangle.height);
 		}
 		// fill rectangle
-		org.eclipse.graphiti.mm.datatypes.Color foregroundColor = coloredArea.getStart().getColor();
+		org.eclipse.graphiti.mm.algorithms.styles.Color foregroundColor = coloredArea.getStart().getColor();
 		Color foregroundColorSWT = DataTypeTransformation.toSwtColor(registryHolder, foregroundColor);
-		org.eclipse.graphiti.mm.datatypes.Color backgroundColor = coloredArea.getEnd().getColor();
+		org.eclipse.graphiti.mm.algorithms.styles.Color backgroundColor = coloredArea.getEnd().getColor();
 		Color backgroundColorSWT = DataTypeTransformation.toSwtColor(registryHolder, backgroundColor);
 
 		graphics.setForegroundColor(foregroundColorSWT);
@@ -297,12 +297,12 @@ public class GFFigureUtil {
 	 *            point-list.
 	 * @return A draw2d point-list of the given polygon model-element.
 	 */
-	public static PointList getPointList(org.eclipse.graphiti.mm.pictograms.Polyline polyline) {
+	public static PointList getPointList(org.eclipse.graphiti.mm.algorithms.Polyline polyline) {
 		int deltaX = polyline.getX();
 		int deltaY = polyline.getY();
 
 		PointList pointList = new PointList();
-		for (org.eclipse.graphiti.mm.datatypes.Point dtp : polyline.getPoints()) {
+		for (org.eclipse.graphiti.mm.algorithms.styles.Point dtp : polyline.getPoints()) {
 			pointList.addPoint(dtp.getX() + deltaX, dtp.getY() + deltaY);
 		}
 		return pointList;

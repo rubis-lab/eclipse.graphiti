@@ -76,7 +76,7 @@ public class FreeFormConnectionEditPart extends ConnectionEditPart {
 
 		List<Bendpoint> pointList = new ArrayList<Bendpoint>();
 		for (Iterator iter = ffc.getBendpoints().iterator(); iter.hasNext();) {
-			org.eclipse.graphiti.mm.datatypes.Point point = (org.eclipse.graphiti.mm.datatypes.Point) iter.next();
+			org.eclipse.graphiti.mm.algorithms.styles.Point point = (org.eclipse.graphiti.mm.algorithms.styles.Point) iter.next();
 			Bendpoint draw2dBendPoint = DataTypeTransformation.toDraw2dBendPoint(point);
 			pointList.add(draw2dBendPoint);
 		}

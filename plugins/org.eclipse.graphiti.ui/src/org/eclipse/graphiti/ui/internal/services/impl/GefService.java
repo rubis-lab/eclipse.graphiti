@@ -35,13 +35,13 @@ import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.Font;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILayoutService;
@@ -260,9 +260,9 @@ public class GefService implements IGefService {
 
 				if (c instanceof FreeFormConnection) {
 					FreeFormConnection ffc = (FreeFormConnection) c;
-					List<org.eclipse.graphiti.mm.datatypes.Point> bendpoints = ffc.getBendpoints();
+					List<org.eclipse.graphiti.mm.algorithms.styles.Point> bendpoints = ffc.getBendpoints();
 					if (!bendpoints.isEmpty()) {
-						org.eclipse.graphiti.mm.datatypes.Point firstBendpoint = bendpoints.get(0);
+						org.eclipse.graphiti.mm.algorithms.styles.Point firstBendpoint = bendpoints.get(0);
 						pointNextToStartAnchor.setLocation(firstBendpoint.getX(), firstBendpoint.getY());
 					}
 				}
@@ -282,9 +282,9 @@ public class GefService implements IGefService {
 
 				if (c instanceof FreeFormConnection) {
 					FreeFormConnection ffc = (FreeFormConnection) c;
-					List<org.eclipse.graphiti.mm.datatypes.Point> bendpoints = ffc.getBendpoints();
+					List<org.eclipse.graphiti.mm.algorithms.styles.Point> bendpoints = ffc.getBendpoints();
 					if (!bendpoints.isEmpty()) {
-						org.eclipse.graphiti.mm.datatypes.Point lastBendpoint = bendpoints.get(bendpoints.size() - 1);
+						org.eclipse.graphiti.mm.algorithms.styles.Point lastBendpoint = bendpoints.get(bendpoints.size() - 1);
 						pointNextToEndAnchor.setLocation(lastBendpoint.getX(), lastBendpoint.getY());
 					}
 				}
@@ -297,12 +297,12 @@ public class GefService implements IGefService {
 
 		if (c instanceof FreeFormConnection) {
 			FreeFormConnection ffc = (FreeFormConnection) c;
-			List<org.eclipse.graphiti.mm.datatypes.Point> bendpoints = ffc.getBendpoints();
+			List<org.eclipse.graphiti.mm.algorithms.styles.Point> bendpoints = ffc.getBendpoints();
 			Point[] draw2dPoints = new Point[bendpoints.size() + 2];
 			{
 				draw2dPoints[0] = startPoint;
 				int i = 1;
-				for (org.eclipse.graphiti.mm.datatypes.Point pictogramsPoint : bendpoints) {
+				for (org.eclipse.graphiti.mm.algorithms.styles.Point pictogramsPoint : bendpoints) {
 					draw2dPoints[i] = new Point(pictogramsPoint.getX(), pictogramsPoint.getY());
 					i++;
 				}
@@ -416,9 +416,9 @@ public class GefService implements IGefService {
 
 				if (c instanceof FreeFormConnection) {
 					FreeFormConnection ffc = (FreeFormConnection) c;
-					List<org.eclipse.graphiti.mm.datatypes.Point> bendpoints = ffc.getBendpoints();
+					List<org.eclipse.graphiti.mm.algorithms.styles.Point> bendpoints = ffc.getBendpoints();
 					if (!bendpoints.isEmpty()) {
-						org.eclipse.graphiti.mm.datatypes.Point firstBendpoint = bendpoints.get(0);
+						org.eclipse.graphiti.mm.algorithms.styles.Point firstBendpoint = bendpoints.get(0);
 						pointNextToStartAnchor.setLocation(firstBendpoint.getX(), firstBendpoint.getY());
 					}
 				}
@@ -436,9 +436,9 @@ public class GefService implements IGefService {
 
 				if (c instanceof FreeFormConnection) {
 					FreeFormConnection ffc = (FreeFormConnection) c;
-					List<org.eclipse.graphiti.mm.datatypes.Point> bendpoints = ffc.getBendpoints();
+					List<org.eclipse.graphiti.mm.algorithms.styles.Point> bendpoints = ffc.getBendpoints();
 					if (!bendpoints.isEmpty()) {
-						org.eclipse.graphiti.mm.datatypes.Point lastBendpoint = bendpoints.get(bendpoints.size() - 1);
+						org.eclipse.graphiti.mm.algorithms.styles.Point lastBendpoint = bendpoints.get(bendpoints.size() - 1);
 						pointNextToEndAnchor.setLocation(lastBendpoint.getX(), lastBendpoint.getY());
 					}
 				}
@@ -451,12 +451,12 @@ public class GefService implements IGefService {
 
 		if (c instanceof FreeFormConnection) {
 			FreeFormConnection ffc = (FreeFormConnection) c;
-			List<org.eclipse.graphiti.mm.datatypes.Point> bendpoints = ffc.getBendpoints();
+			List<org.eclipse.graphiti.mm.algorithms.styles.Point> bendpoints = ffc.getBendpoints();
 			Point[] draw2dPoints = new Point[bendpoints.size() + 2];
 			{
 				draw2dPoints[0] = startPoint;
 				int i = 1;
-				for (org.eclipse.graphiti.mm.datatypes.Point pictogramsPoint : bendpoints) {
+				for (org.eclipse.graphiti.mm.algorithms.styles.Point pictogramsPoint : bendpoints) {
 					draw2dPoints[i] = new Point(pictogramsPoint.getX(), pictogramsPoint.getY());
 					i++;
 				}

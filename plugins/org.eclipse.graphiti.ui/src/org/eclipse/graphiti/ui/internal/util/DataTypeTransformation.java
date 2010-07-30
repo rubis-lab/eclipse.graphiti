@@ -25,11 +25,11 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.graphiti.datatypes.IInsets;
 import org.eclipse.graphiti.internal.datatypes.impl.InsetsImpl;
-import org.eclipse.graphiti.mm.datatypes.Point;
-import org.eclipse.graphiti.mm.pictograms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.Font;
-import org.eclipse.graphiti.mm.pictograms.LineStyle;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
@@ -63,7 +63,7 @@ public class DataTypeTransformation {
 		}
 	}
 
-	public static Color toSwtColor(IResourceRegistryHolder rrh, org.eclipse.graphiti.mm.datatypes.Color pictogramsColor) {
+	public static Color toSwtColor(IResourceRegistryHolder rrh, org.eclipse.graphiti.mm.algorithms.styles.Color pictogramsColor) {
 		IResourceRegistry rr = rrh.getResourceRegistry();
 		if (pictogramsColor != null)
 			return rr.getSwtColor(pictogramsColor.getRed(), pictogramsColor.getGreen(), pictogramsColor.getBlue());
@@ -101,12 +101,12 @@ public class DataTypeTransformation {
 	// return new Color(null, 100, 100, 100);
 	// }
 	//
-	public static org.eclipse.graphiti.mm.datatypes.Color toPictogramsColor(Color swtColor, Diagram diagram) {
+	public static org.eclipse.graphiti.mm.algorithms.styles.Color toPictogramsColor(Color swtColor, Diagram diagram) {
 		return Graphiti.getGaService().manageColor(diagram, swtColor.getRed(), swtColor.getGreen(), swtColor.getBlue());
 
 	}
 
-	public static org.eclipse.graphiti.mm.datatypes.Color toPictogramsColor(RGB rgb, Diagram diagram) {
+	public static org.eclipse.graphiti.mm.algorithms.styles.Color toPictogramsColor(RGB rgb, Diagram diagram) {
 		return Graphiti.getGaService().manageColor(diagram, rgb.red, rgb.green, rgb.blue);
 
 	}

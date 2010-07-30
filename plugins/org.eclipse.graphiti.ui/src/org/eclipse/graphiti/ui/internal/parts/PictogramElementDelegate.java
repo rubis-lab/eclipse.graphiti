@@ -55,27 +55,27 @@ import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.mm.pictograms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.Ellipse;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Image;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
+import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polygon;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
+import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Ellipse;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Image;
-import org.eclipse.graphiti.mm.pictograms.LineStyle;
-import org.eclipse.graphiti.mm.pictograms.MultiText;
-import org.eclipse.graphiti.mm.pictograms.Orientation;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.PlatformGraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Polygon;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
-import org.eclipse.graphiti.mm.pictograms.Rectangle;
-import org.eclipse.graphiti.mm.pictograms.RoundedRectangle;
-import org.eclipse.graphiti.mm.pictograms.Text;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRenderer;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
 import org.eclipse.graphiti.platform.ga.IRendererContext;
@@ -607,7 +607,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		// if valid font-information exists in the pictogram-model, then
 		// create/change swt-font of label
-		org.eclipse.graphiti.mm.pictograms.Font font = Graphiti.getGaService().getFont(text, true);
+		org.eclipse.graphiti.mm.algorithms.styles.Font font = Graphiti.getGaService().getFont(text, true);
 		if (font != null && font.getName() != null) {
 
 			Font currentSwtFont = label.getFont();
@@ -636,13 +636,13 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	}
 
 	private ILocation calculatePolylineLocation(Polyline polyline) {
-		Collection<org.eclipse.graphiti.mm.datatypes.Point> points = polyline.getPoints();
+		Collection<org.eclipse.graphiti.mm.algorithms.styles.Point> points = polyline.getPoints();
 
-		int minX = points.isEmpty() ? 0 : ((org.eclipse.graphiti.mm.datatypes.Point) points.toArray()[0]).getX();
-		int minY = points.isEmpty() ? 0 : ((org.eclipse.graphiti.mm.datatypes.Point) points.toArray()[0]).getY();
+		int minX = points.isEmpty() ? 0 : ((org.eclipse.graphiti.mm.algorithms.styles.Point) points.toArray()[0]).getX();
+		int minY = points.isEmpty() ? 0 : ((org.eclipse.graphiti.mm.algorithms.styles.Point) points.toArray()[0]).getY();
 
-		for (Iterator<org.eclipse.graphiti.mm.datatypes.Point> iter = points.iterator(); iter.hasNext();) {
-			org.eclipse.graphiti.mm.datatypes.Point point = iter.next();
+		for (Iterator<org.eclipse.graphiti.mm.algorithms.styles.Point> iter = points.iterator(); iter.hasNext();) {
+			org.eclipse.graphiti.mm.algorithms.styles.Point point = iter.next();
 			int x = point.getX();
 			int y = point.getY();
 			minX = Math.min(minX, x);
@@ -1276,7 +1276,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		} else if (pe instanceof FixPointAnchor) {
 			FixPointAnchor fpa = (FixPointAnchor) pe;
 			IRectangle gaBoundsForAnchor = Graphiti.getLayoutService().getGaBoundsForAnchor(fpa);
-			org.eclipse.graphiti.mm.datatypes.Point fpaLocation = fpa.getLocation();
+			org.eclipse.graphiti.mm.algorithms.styles.Point fpaLocation = fpa.getLocation();
 			if (fpaLocation == null) {
 				return;
 			}
@@ -1312,7 +1312,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 		PointList pointList = new PointList();
 		for (Iterator iter = points.iterator(); iter.hasNext();) {
-			org.eclipse.graphiti.mm.datatypes.Point dtp = (org.eclipse.graphiti.mm.datatypes.Point) iter.next();
+			org.eclipse.graphiti.mm.algorithms.styles.Point dtp = (org.eclipse.graphiti.mm.algorithms.styles.Point) iter.next();
 			pointList.addPoint(dtp.getX() + deltaX, dtp.getY() + deltaY);
 		}
 		return pointList;
@@ -1333,7 +1333,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			int i = 0;
 			int bezierDistances[] = new int[points.size() * 2];
 			for (Iterator iter = points.iterator(); iter.hasNext();) {
-				org.eclipse.graphiti.mm.datatypes.Point dtp = (org.eclipse.graphiti.mm.datatypes.Point) iter.next();
+				org.eclipse.graphiti.mm.algorithms.styles.Point dtp = (org.eclipse.graphiti.mm.algorithms.styles.Point) iter.next();
 				if (getPreferences().getPolylineRounding() == 0) { // rounding on
 					bezierDistances[i++] = dtp.getBefore(); // bezierDistancesBefore
 					bezierDistances[i++] = dtp.getAfter(); // bezierDistancesAfter

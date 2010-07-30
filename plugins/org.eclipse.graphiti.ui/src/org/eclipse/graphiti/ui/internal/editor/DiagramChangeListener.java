@@ -32,12 +32,15 @@ import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
+import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
+import org.eclipse.graphiti.mm.MmPackage;
+import org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.services.Graphiti;
@@ -112,8 +115,9 @@ public class DiagramChangeListener implements ResourceSetListener {
 						break;
 					// Filter non-pictogram model element changes, these are handled by the framework
 					EPackage p = eo.eClass().getEPackage();
-					if (!(p instanceof PictogramsPackage))
+					if (!(p instanceof PictogramsPackage || p instanceof AlgorithmsPackage || p instanceof StylesPackage || p instanceof MmPackage)) {
 						continue;
+					}
 					// Compute editpart for eo and add it to job's editpart list.
 					PictogramElement activeContainerPe = calculateActiveContainerPe(eo);
 					if (activeContainerPe != null) {
@@ -210,7 +214,7 @@ public class DiagramChangeListener implements ResourceSetListener {
 		GraphicsAlgorithmContainer gac = null;
 		if (affectedElement instanceof GraphicsAlgorithmContainer) {
 			gac = (GraphicsAlgorithmContainer) affectedElement;
-		} else if (affectedElement instanceof org.eclipse.graphiti.mm.datatypes.Point) {
+		} else if (affectedElement instanceof org.eclipse.graphiti.mm.algorithms.styles.Point) {
 			// org.eclipse.graphiti.mm.datatypes.Point p =
 			// (org.eclipse.graphiti.mm.datatypes.Point) affectedElement;
 			// RefFeatured refImmediateComposite =

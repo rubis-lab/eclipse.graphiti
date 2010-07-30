@@ -22,8 +22,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.Font;
 import org.eclipse.graphiti.ui.internal.util.draw2d.ChopboxAnchorFixed;
 
 /**
