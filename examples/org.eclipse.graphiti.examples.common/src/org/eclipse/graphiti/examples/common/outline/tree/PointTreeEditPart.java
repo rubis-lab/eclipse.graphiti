@@ -15,11 +15,12 @@
  *******************************************************************************/
 package org.eclipse.graphiti.examples.common.outline.tree;
 
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
 /**
- * A default-implementation for a TreeEditPart, which wraps a Shape. It can be overwritten to provide different behaviour.
+ * A default-implementation for a TreeEditPart, which wraps a Shape. It can be
+ * overwritten to provide different behaviour.
  */
 public class PointTreeEditPart extends AbstractGraphicsTreeEditPart {
 
@@ -42,7 +43,8 @@ public class PointTreeEditPart extends AbstractGraphicsTreeEditPart {
 	// ======================= overwriteable behaviour ========================
 
 	/**
-	 * Creates the EditPolicies of this EditPart. Subclasses often overwrite this method to change the behaviour of the editpart.
+	 * Creates the EditPolicies of this EditPart. Subclasses often overwrite
+	 * this method to change the behaviour of the editpart.
 	 */
 	@Override
 	protected void createEditPolicies() {

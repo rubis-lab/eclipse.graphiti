@@ -24,18 +24,18 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
-import org.eclipse.graphiti.mm.datatypes.Point;
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Image;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
+import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Image;
-import org.eclipse.graphiti.mm.pictograms.Orientation;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
-import org.eclipse.graphiti.mm.pictograms.Rectangle;
-import org.eclipse.graphiti.mm.pictograms.RoundedRectangle;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.mm.pictograms.Text;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.mapping.ILinkCreationInfo;
 import org.eclipse.graphiti.pattern.mapping.IStructureMappingMulti;
@@ -238,11 +238,11 @@ public abstract class CompartmentPattern extends AbstractPattern {
 							innerY += TEXT_HEIGHT;
 						}
 						int compartmentHeight = compartmentContainerShape.getChildren().size() * TEXT_HEIGHT;
-						gaService.setLocationAndSize(compartmentContainerShape.getGraphicsAlgorithm(),
-								getConfiguration().getOuterIndentLeft(), continousY, innerWidth, compartmentHeight, true);
+						gaService.setLocationAndSize(compartmentContainerShape.getGraphicsAlgorithm(), getConfiguration()
+								.getOuterIndentLeft(), continousY, innerWidth, compartmentHeight, true);
 					} else { // header shape
-						gaService.setLocationAndSize(shape.getGraphicsAlgorithm(), getConfiguration()
-								.getOuterIndentLeft(), getConfiguration().getOuterIndentTop(), innerWidth, TEXT_HEIGHT);
+						gaService.setLocationAndSize(shape.getGraphicsAlgorithm(), getConfiguration().getOuterIndentLeft(),
+								getConfiguration().getOuterIndentTop(), innerWidth, TEXT_HEIGHT);
 
 						if (getConfiguration().isHeaderImageVisible()) {
 							GraphicsAlgorithm imageGa = ga.getGraphicsAlgorithmChildren().get(0);

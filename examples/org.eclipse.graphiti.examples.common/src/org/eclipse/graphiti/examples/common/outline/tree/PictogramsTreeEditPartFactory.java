@@ -16,18 +16,19 @@
 package org.eclipse.graphiti.examples.common.outline.tree;
 
 import org.eclipse.gef.EditPart;
-import org.eclipse.graphiti.mm.datatypes.Color;
-import org.eclipse.graphiti.mm.datatypes.Point;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Style;
 import org.eclipse.graphiti.ui.internal.config.AbstractConfigurationProviderHolder;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IEditPartFactory;
 
 /**
- * A concrete implementation of the interface IEditPartFactory for Trees, which works on a pictogram model.
+ * A concrete implementation of the interface IEditPartFactory for Trees, which
+ * works on a pictogram model.
  */
 public class PictogramsTreeEditPartFactory extends AbstractConfigurationProviderHolder implements IEditPartFactory {
 
@@ -41,7 +42,9 @@ public class PictogramsTreeEditPartFactory extends AbstractConfigurationProvider
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.gef.EditPartFactory#createEditPart(org.eclipse.gef.EditPart, java.lang.Object)
+	 * @see
+	 * org.eclipse.gef.EditPartFactory#createEditPart(org.eclipse.gef.EditPart,
+	 * java.lang.Object)
 	 */
 	public EditPart createEditPart(EditPart context, Object model) {
 		EditPart ret = null;

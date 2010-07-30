@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
 /**

@@ -20,8 +20,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.examples.common.navigator.nodes.EClassesNode;
 import org.eclipse.graphiti.examples.common.navigator.nodes.base.IContainerNode;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -76,9 +76,9 @@ public class GFEmfLabelProvider extends LabelProvider {
 		return "Diagram";
 	}
 
-//	private String createTextForDiagramFile(Diagram diagram) {
-//		return diagram.getName() + " (" + diagram.getDiagramTypeId() + ")";
-//	}
+	//	private String createTextForDiagramFile(Diagram diagram) {
+	//		return diagram.getName() + " (" + diagram.getDiagramTypeId() + ")";
+	//	}
 
 	@Override
 	public Image getImage(Object element) {

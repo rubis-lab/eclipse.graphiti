@@ -15,8 +15,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.examples.common;
 
-import org.eclipse.graphiti.mm.datatypes.Color;
-import org.eclipse.graphiti.mm.pictograms.Font;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 
 /**
  * The Class ColoredFont.
