@@ -87,23 +87,23 @@ import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.internal.datatypes.impl.InsetsImpl;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.internal.datatypes.impl.RectangleImpl;
-import org.eclipse.graphiti.mm.datatypes.Color;
-import org.eclipse.graphiti.mm.pictograms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Image;
+import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.Font;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
-import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Image;
-import org.eclipse.graphiti.mm.pictograms.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.PlatformGraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.RenderingStyle;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.mm.pictograms.Style;
 import org.eclipse.graphiti.palette.impl.StackEntry;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.platform.ga.RendererContext;
@@ -517,7 +517,7 @@ public class PackageTest extends GFAbstractTestCase {
 		DataTypeTransformation myDataTypeTransformation = new DataTypeTransformation();
 		assertNotNull(myDataTypeTransformation);
 
-		org.eclipse.graphiti.mm.datatypes.Point pointMock = createNiceMock(org.eclipse.graphiti.mm.datatypes.Point.class);
+		org.eclipse.graphiti.mm.algorithms.styles.Point pointMock = createNiceMock(org.eclipse.graphiti.mm.algorithms.styles.Point.class);
 		replay(pointMock);
 
 		Point draw2dPoint = DataTypeTransformation.toDraw2dPoint(pointMock);
@@ -526,7 +526,7 @@ public class PackageTest extends GFAbstractTestCase {
 		Bendpoint draw2dBendPoint = DataTypeTransformation.toDraw2dBendPoint(pointMock);
 		assertNotNull(draw2dBendPoint);
 
-		Vector<org.eclipse.graphiti.mm.datatypes.Point> points = new Vector<org.eclipse.graphiti.mm.datatypes.Point>();
+		Vector<org.eclipse.graphiti.mm.algorithms.styles.Point> points = new Vector<org.eclipse.graphiti.mm.algorithms.styles.Point>();
 		points.add(pointMock);
 		points.add(pointMock);
 
@@ -718,7 +718,7 @@ public class PackageTest extends GFAbstractTestCase {
 		assertEquals("setReconnectType", myReconnectionContext.getReconnectType());
 
 		// test RemoveBendpointContext
-		org.eclipse.graphiti.mm.datatypes.Point pointMock = createNiceMock(org.eclipse.graphiti.mm.datatypes.Point.class);
+		org.eclipse.graphiti.mm.algorithms.styles.Point pointMock = createNiceMock(org.eclipse.graphiti.mm.algorithms.styles.Point.class);
 		replay(pointMock);
 
 		RemoveBendpointContext myRemoveBendpointContext = new RemoveBendpointContext(freeFormConnectionMock, pointMock);
@@ -731,7 +731,7 @@ public class PackageTest extends GFAbstractTestCase {
 		assertNotNull(freeFormConnection);
 		assertEquals(freeFormConnectionMock, freeFormConnection);
 
-		org.eclipse.graphiti.mm.datatypes.Point bendpoint = myRemoveBendpointContext.getBendpoint();
+		org.eclipse.graphiti.mm.algorithms.styles.Point bendpoint = myRemoveBendpointContext.getBendpoint();
 		assertNotNull(bendpoint);
 		assertEquals(pointMock, bendpoint);
 
@@ -972,7 +972,7 @@ public class PackageTest extends GFAbstractTestCase {
 			// do nothing
 		}
 
-		org.eclipse.graphiti.mm.datatypes.Point pointMock = createNiceMock(org.eclipse.graphiti.mm.datatypes.Point.class);
+		org.eclipse.graphiti.mm.algorithms.styles.Point pointMock = createNiceMock(org.eclipse.graphiti.mm.algorithms.styles.Point.class);
 		replay(pointMock);
 
 		// test stub
