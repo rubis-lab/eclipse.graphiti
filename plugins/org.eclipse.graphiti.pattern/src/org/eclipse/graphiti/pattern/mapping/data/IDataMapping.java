@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.pattern.mapping.data;
 
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 
 /**
  * The Interface IDataMapping.

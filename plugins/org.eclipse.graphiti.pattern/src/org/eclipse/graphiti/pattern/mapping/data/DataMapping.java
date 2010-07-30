@@ -17,8 +17,8 @@ package org.eclipse.graphiti.pattern.mapping.data;
 
 import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.internal.Messages;
-import org.eclipse.graphiti.mm.links.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.pattern.mapping.MappingProviderProvider;
 
 

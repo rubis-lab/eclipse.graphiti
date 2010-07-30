@@ -33,15 +33,15 @@ import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
-import org.eclipse.graphiti.mm.datatypes.Color;
-import org.eclipse.graphiti.mm.datatypes.Point;
-import org.eclipse.graphiti.mm.links.PictogramLink;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.config.IPatternConfiguration;
 import org.eclipse.graphiti.pattern.mapping.IStructureMapping;
@@ -259,13 +259,11 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 
 			shapeToMove.setContainer(newContainerShape);
 			if (shapeToMove.getGraphicsAlgorithm() != null) {
-				Graphiti.getGaService()
-						.setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
+				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
 			}
 		} else { // move within the same container
 			if (shapeToMove.getGraphicsAlgorithm() != null) {
-				Graphiti.getGaService()
-						.setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
+				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
 			}
 		}
 	}
