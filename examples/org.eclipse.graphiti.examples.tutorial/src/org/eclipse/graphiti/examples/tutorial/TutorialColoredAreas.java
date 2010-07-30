@@ -30,7 +30,7 @@ public class TutorialColoredAreas extends PredefinedColoredAreas implements ITut
 				LocationType.LOCATION_TYPE_ABSOLUTE_START);
 		addGradientColoredArea(gcas, "66FF00", 3, LocationType.LOCATION_TYPE_ABSOLUTE_START, "CCFFCC", 2, //$NON-NLS-1$ //$NON-NLS-2$
 				LocationType.LOCATION_TYPE_ABSOLUTE_END);
-		addGradientColoredArea(gcas, "CCFFFF", 2, LocationType.LOCATION_TYPE_ABSOLUTE_END, "CCFFCC", 0, //$NON-NLS-1$ //$NON-NLS-2$
+		addGradientColoredArea(gcas, "CCFFCC", 2, LocationType.LOCATION_TYPE_ABSOLUTE_END, "CCFFCC", 0, //$NON-NLS-1$ //$NON-NLS-2$
 				LocationType.LOCATION_TYPE_ABSOLUTE_END);
 		gradientColoredAreas.setStyleAdaption(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT);
 		return gradientColoredAreas;
