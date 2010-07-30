@@ -23,10 +23,10 @@ import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
+import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.mm.pictograms.Text;
 
 /**
  * The Class TestUpdateClassFeature.
@@ -61,7 +61,7 @@ public class TestUpdateClassFeature extends AbstractUpdateFeature {
 			Collection<Shape> children = cs.getChildren();
 			for (Shape shape : children) {
 				if (shape.getGraphicsAlgorithm() instanceof Text) {
-					Text text = (org.eclipse.graphiti.mm.pictograms.Text) shape.getGraphicsAlgorithm();
+					Text text = (Text) shape.getGraphicsAlgorithm();
 					pictogramName = text.getValue();
 				}
 			}

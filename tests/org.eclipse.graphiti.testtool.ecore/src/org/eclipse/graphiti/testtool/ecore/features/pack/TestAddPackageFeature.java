@@ -19,14 +19,14 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.Orientation;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Polyline;
-import org.eclipse.graphiti.mm.pictograms.RoundedRectangle;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.mm.pictograms.Text;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
@@ -72,7 +72,7 @@ public class TestAddPackageFeature extends AbstractAddShapeFeature {
 
 		// CONTAINER SHAPE WITH ROUNDED RECTANGLE
 		IPeCreateService pecService = Graphiti.getPeCreateService();
-		IGaService gaService=Graphiti.getGaService();
+		IGaService gaService = Graphiti.getGaService();
 		ContainerShape containerShape = pecService.createContainerShape(targetDiagram, true);
 
 		// check whether valid size is available, e.g. if called from the create
