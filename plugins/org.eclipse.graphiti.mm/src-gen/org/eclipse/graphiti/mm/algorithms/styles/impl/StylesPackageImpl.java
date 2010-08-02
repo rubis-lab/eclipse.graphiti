@@ -540,6 +540,15 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getAdaptedGradientColoredAreas_GradientType() {
+		return (EAttribute)adaptedGradientColoredAreasEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFont() {
 		return fontEClass;
 	}
@@ -757,6 +766,7 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 		adaptedGradientColoredAreasEClass = createEClass(ADAPTED_GRADIENT_COLORED_AREAS);
 		createEAttribute(adaptedGradientColoredAreasEClass, ADAPTED_GRADIENT_COLORED_AREAS__DEFINED_STYLE_ID);
 		createEReference(adaptedGradientColoredAreasEClass, ADAPTED_GRADIENT_COLORED_AREAS__ADAPTED_GRADIENT_COLORED_AREAS);
+		createEAttribute(adaptedGradientColoredAreasEClass, ADAPTED_GRADIENT_COLORED_AREAS__GRADIENT_TYPE);
 
 		fontEClass = createEClass(FONT);
 		createEAttribute(fontEClass, FONT__NAME);
@@ -857,6 +867,7 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 		initEClass(adaptedGradientColoredAreasEClass, AdaptedGradientColoredAreas.class, "AdaptedGradientColoredAreas", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAdaptedGradientColoredAreas_DefinedStyleId(), ecorePackage.getEString(), "definedStyleId", null, 0, 1, AdaptedGradientColoredAreas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAdaptedGradientColoredAreas_AdaptedGradientColoredAreas(), this.getGradientColoredAreas(), null, "adaptedGradientColoredAreas", null, 0, -1, AdaptedGradientColoredAreas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAdaptedGradientColoredAreas_GradientType(), ecorePackage.getEIntegerObject(), "gradientType", null, 0, 1, AdaptedGradientColoredAreas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fontEClass, Font.class, "Font", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFont_Name(), ecorePackage.getEString(), "name", null, 1, 1, Font.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);

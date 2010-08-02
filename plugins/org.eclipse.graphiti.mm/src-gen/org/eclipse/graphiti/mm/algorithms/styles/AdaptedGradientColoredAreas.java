@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas#getDefinedStyleId <em>Defined Style Id</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas#getAdaptedGradientColoredAreas <em>Adapted Gradient Colored Areas</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas#getGradientType <em>Gradient Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,5 +78,31 @@ public interface AdaptedGradientColoredAreas extends EObject {
 	 * @generated
 	 */
 	EList<GradientColoredAreas> getAdaptedGradientColoredAreas();
+
+	/**
+	 * Returns the value of the '<em><b>Gradient Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Gradient Type</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Gradient Type</em>' attribute.
+	 * @see #setGradientType(Integer)
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getAdaptedGradientColoredAreas_GradientType()
+	 * @model
+	 * @generated
+	 */
+	Integer getGradientType();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas#getGradientType <em>Gradient Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Gradient Type</em>' attribute.
+	 * @see #getGradientType()
+	 * @generated
+	 */
+	void setGradientType(Integer value);
 
 } // AdaptedGradientColoredAreas

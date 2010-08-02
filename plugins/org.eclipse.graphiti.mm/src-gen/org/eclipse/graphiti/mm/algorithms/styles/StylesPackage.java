@@ -528,13 +528,22 @@ public interface StylesPackage extends EPackage {
 	int ADAPTED_GRADIENT_COLORED_AREAS__ADAPTED_GRADIENT_COLORED_AREAS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Gradient Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADAPTED_GRADIENT_COLORED_AREAS__GRADIENT_TYPE = 2;
+
+	/**
 	 * The number of structural features of the '<em>Adapted Gradient Colored Areas</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ADAPTED_GRADIENT_COLORED_AREAS_FEATURE_COUNT = 2;
+	int ADAPTED_GRADIENT_COLORED_AREAS_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.algorithms.styles.impl.FontImpl <em>Font</em>}' class.
@@ -1102,6 +1111,17 @@ public interface StylesPackage extends EPackage {
 	EReference getAdaptedGradientColoredAreas_AdaptedGradientColoredAreas();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas#getGradientType <em>Gradient Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Gradient Type</em>'.
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas#getGradientType()
+	 * @see #getAdaptedGradientColoredAreas()
+	 * @generated
+	 */
+	EAttribute getAdaptedGradientColoredAreas_GradientType();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.algorithms.styles.Font <em>Font</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1597,6 +1617,14 @@ public interface StylesPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ADAPTED_GRADIENT_COLORED_AREAS__ADAPTED_GRADIENT_COLORED_AREAS = eINSTANCE.getAdaptedGradientColoredAreas_AdaptedGradientColoredAreas();
+
+		/**
+		 * The meta object literal for the '<em><b>Gradient Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADAPTED_GRADIENT_COLORED_AREAS__GRADIENT_TYPE = eINSTANCE.getAdaptedGradientColoredAreas_GradientType();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.algorithms.styles.impl.FontImpl <em>Font</em>}' class.

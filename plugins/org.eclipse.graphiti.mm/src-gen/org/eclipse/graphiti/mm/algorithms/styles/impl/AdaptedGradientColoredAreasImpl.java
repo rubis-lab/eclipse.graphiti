@@ -43,6 +43,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
  * <ul>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.impl.AdaptedGradientColoredAreasImpl#getDefinedStyleId <em>Defined Style Id</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.impl.AdaptedGradientColoredAreasImpl#getAdaptedGradientColoredAreas <em>Adapted Gradient Colored Areas</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.impl.AdaptedGradientColoredAreasImpl#getGradientType <em>Gradient Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -78,6 +79,26 @@ public class AdaptedGradientColoredAreasImpl extends EObjectImpl implements Adap
 	 * @ordered
 	 */
 	protected EList<GradientColoredAreas> adaptedGradientColoredAreas;
+
+	/**
+	 * The default value of the '{@link #getGradientType() <em>Gradient Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGradientType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Integer GRADIENT_TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getGradientType() <em>Gradient Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGradientType()
+	 * @generated
+	 * @ordered
+	 */
+	protected Integer gradientType = GRADIENT_TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -136,6 +157,27 @@ public class AdaptedGradientColoredAreasImpl extends EObjectImpl implements Adap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Integer getGradientType() {
+		return gradientType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGradientType(Integer newGradientType) {
+		Integer oldGradientType = gradientType;
+		gradientType = newGradientType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StylesPackage.ADAPTED_GRADIENT_COLORED_AREAS__GRADIENT_TYPE, oldGradientType, gradientType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -157,6 +199,8 @@ public class AdaptedGradientColoredAreasImpl extends EObjectImpl implements Adap
 				return getDefinedStyleId();
 			case StylesPackage.ADAPTED_GRADIENT_COLORED_AREAS__ADAPTED_GRADIENT_COLORED_AREAS:
 				return getAdaptedGradientColoredAreas();
+			case StylesPackage.ADAPTED_GRADIENT_COLORED_AREAS__GRADIENT_TYPE:
+				return getGradientType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -177,6 +221,9 @@ public class AdaptedGradientColoredAreasImpl extends EObjectImpl implements Adap
 				getAdaptedGradientColoredAreas().clear();
 				getAdaptedGradientColoredAreas().addAll((Collection<? extends GradientColoredAreas>)newValue);
 				return;
+			case StylesPackage.ADAPTED_GRADIENT_COLORED_AREAS__GRADIENT_TYPE:
+				setGradientType((Integer)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -195,6 +242,9 @@ public class AdaptedGradientColoredAreasImpl extends EObjectImpl implements Adap
 			case StylesPackage.ADAPTED_GRADIENT_COLORED_AREAS__ADAPTED_GRADIENT_COLORED_AREAS:
 				getAdaptedGradientColoredAreas().clear();
 				return;
+			case StylesPackage.ADAPTED_GRADIENT_COLORED_AREAS__GRADIENT_TYPE:
+				setGradientType(GRADIENT_TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -211,6 +261,8 @@ public class AdaptedGradientColoredAreasImpl extends EObjectImpl implements Adap
 				return DEFINED_STYLE_ID_EDEFAULT == null ? definedStyleId != null : !DEFINED_STYLE_ID_EDEFAULT.equals(definedStyleId);
 			case StylesPackage.ADAPTED_GRADIENT_COLORED_AREAS__ADAPTED_GRADIENT_COLORED_AREAS:
 				return adaptedGradientColoredAreas != null && !adaptedGradientColoredAreas.isEmpty();
+			case StylesPackage.ADAPTED_GRADIENT_COLORED_AREAS__GRADIENT_TYPE:
+				return GRADIENT_TYPE_EDEFAULT == null ? gradientType != null : !GRADIENT_TYPE_EDEFAULT.equals(gradientType);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -227,6 +279,8 @@ public class AdaptedGradientColoredAreasImpl extends EObjectImpl implements Adap
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (definedStyleId: ");
 		result.append(definedStyleId);
+		result.append(", gradientType: ");
+		result.append(gradientType);
 		result.append(')');
 		return result.toString();
 	}
