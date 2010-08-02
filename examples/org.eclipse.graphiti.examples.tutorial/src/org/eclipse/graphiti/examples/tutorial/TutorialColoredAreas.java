@@ -21,6 +21,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
 import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
 import org.eclipse.graphiti.mm.algorithms.styles.LocationType;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
+import org.eclipse.graphiti.util.IGradientType;
 import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
 
@@ -90,6 +91,7 @@ public class TutorialColoredAreas extends PredefinedColoredAreas implements ITut
 	public static AdaptedGradientColoredAreas getLimeWhiteAdaptions() {
 		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(LIME_WHITE_ID);
+		agca.setGradientType(IGradientType.VERTICAL);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getLimeWhiteDefaultAreas());
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
 				getLimeWhitePrimarySelectedAreas());
