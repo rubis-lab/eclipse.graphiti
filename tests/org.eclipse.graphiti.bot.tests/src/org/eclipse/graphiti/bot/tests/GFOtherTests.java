@@ -673,7 +673,7 @@ public class GFOtherTests extends AbstractGFTests {
 		}
 		pathName = pathName + "src" + getClass().getResource("testUtil.diagram").getFile();
 
-		TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService().createResourceSetAndEditingDomain();
+		TransactionalEditingDomain editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
 		this.domain = editingDomain;
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		URI diagramFileUri = URI.createFileURI(pathName);
