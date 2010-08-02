@@ -55,6 +55,7 @@ import org.eclipse.graphiti.services.IGaService;
  * 
  * @see IGaService#setRenderingStyle(AbstractStyle, AdaptedGradientColoredAreas)
  * @see IPredefinedRenderingStyle
+ * @see IGradientType
  */
 public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 
@@ -164,6 +165,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	public static AdaptedGradientColoredAreas getBlueWhiteGlossAdaptions() {
 		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(BLUE_WHITE_GLOSS_ID);
+		agca.setGradientType(IGradientType.VERTICAL);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getBlueWhiteGlossDefaultAreas());
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
 				getBlueWhiteGlossPrimarySelectedAreas());
@@ -228,6 +230,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	public static AdaptedGradientColoredAreas getBlueWhiteAdaptions() {
 		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(BLUE_WHITE_ID);
+		agca.setGradientType(IGradientType.VERTICAL);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getBlueWhiteDefaultAreas());
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
 				getBlueWhitePrimarySelectedAreas());
@@ -288,6 +291,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	public static AdaptedGradientColoredAreas getLightYellowAdaptions() {
 		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(LIGHT_YELLOW_ID);
+		agca.setGradientType(IGradientType.VERTICAL);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getLightYellowDefaultAreas());
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
 				getLightYellowPrimarySelectedAreas());
@@ -347,6 +351,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	public static AdaptedGradientColoredAreas getLightGrayAdaptions() {
 		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(LIGHT_GRAY_ID);
+		agca.setGradientType(IGradientType.VERTICAL);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getLightGrayDefaultAreas());
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED,
 				getLightGrayPrimarySelectedAreas());
@@ -383,6 +388,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	public static AdaptedGradientColoredAreas getCopperWhiteGlossAdaptions() {
 		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(COPPER_WHITE_GLOSS_ID);
+		agca.setGradientType(IGradientType.VERTICAL);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getCopperWhiteGlossDefaultAreas());
 		return agca;
 	}
@@ -415,6 +421,7 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 	public static AdaptedGradientColoredAreas getSilverWhiteGlossAdaptions() {
 		final AdaptedGradientColoredAreas agca = StylesFactory.eINSTANCE.createAdaptedGradientColoredAreas();
 		agca.setDefinedStyleId(SILVER_WHITE_GLOSS_ID);
+		agca.setGradientType(IGradientType.VERTICAL);
 		agca.getAdaptedGradientColoredAreas().add(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT, getSilverWhiteGlossDefaultAreas());
 		return agca;
 	}
