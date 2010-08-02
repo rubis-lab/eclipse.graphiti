@@ -99,7 +99,7 @@
 			<eclipse.launch app="buckminster">
 				<args>
 					<jvmarg value="-Dbugfix.288796=true" />
-					<jvmarg value="-Xmx1024m" />
+					<jvmarg value="-Xmx4096m" />
 					<arg value="-data" />
 					<arg value="@{workspace}" />
 					<arg value="--loglevel" />
@@ -139,7 +139,7 @@
 
 	<target name="get.director" unless="director.exists">
 		<echo message="Fetching headless director application" />
-		<tempfile destdir="${java.io.tmpdir}/graphiti"
+		<tempfile destdir="${java.io.tmpdir}"
 		          prefix="director-"
 		          suffix=".zip"
 		          property="director.zip"
@@ -185,7 +185,7 @@
 
 	<target name="init.build.properties">
 		<!-- Echo relevant properties to a temporary file so that Buckminster can read them -->
-		<tempfile destdir="${java.io.tmpdir}/graphiti"
+		<tempfile destdir="${java.io.tmpdir}"
 		          prefix="build-"
 		          suffix=".properties"
 		          deleteonexit="true"
