@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="CDO">
+<project name="Graphiti">
 
 	<condition property="properties.file" value="build.properties" else="local.properties">
 		<isset property="server.build" />
@@ -139,7 +139,7 @@
 
 	<target name="get.director" unless="director.exists">
 		<echo message="Fetching headless director application" />
-		<tempfile destdir="${java.io.tmpdir}"
+		<tempfile destdir="${java.io.tmpdir}/graphiti"
 		          prefix="director-"
 		          suffix=".zip"
 		          property="director.zip"
@@ -185,7 +185,7 @@
 
 	<target name="init.build.properties">
 		<!-- Echo relevant properties to a temporary file so that Buckminster can read them -->
-		<tempfile destdir="${java.io.tmpdir}"
+		<tempfile destdir="${java.io.tmpdir}/graphiti"
 		          prefix="build-"
 		          suffix=".properties"
 		          deleteonexit="true"
