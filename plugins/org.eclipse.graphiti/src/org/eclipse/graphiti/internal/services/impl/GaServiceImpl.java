@@ -1515,7 +1515,8 @@ public final class GaServiceImpl implements IGaService {
 	 */
 	public void setRenderingStyle(AbstractStyle abstractStyle, AdaptedGradientColoredAreas adaptedGradientColoredAreas) {
 		if (adaptedGradientColoredAreas != null && adaptedGradientColoredAreas.getAdaptedGradientColoredAreas() != null
-				&& !adaptedGradientColoredAreas.getAdaptedGradientColoredAreas().isEmpty()) {
+				&& !adaptedGradientColoredAreas.getAdaptedGradientColoredAreas().isEmpty()
+				&& adaptedGradientColoredAreas.getGradientType() != null) {
 			// set the RenderingStyle with AdaptedGradientColoredAreas
 			RenderingStyle renderingStyle = abstractStyle.getRenderingStyle();
 			if (renderingStyle == null) {
@@ -1524,7 +1525,7 @@ public final class GaServiceImpl implements IGaService {
 			}
 			renderingStyle.setAdaptedGradientColoredAreas(adaptedGradientColoredAreas);
 		} else {
-			throw new IllegalArgumentException("Object AdaptedGradientColoredAreas must not be null or empty"); //$NON-NLS-1$
+			throw new IllegalArgumentException("Object AdaptedGradientColoredAreas or its attributes must not be null or empty"); //$NON-NLS-1$
 		}
 	}
 }
