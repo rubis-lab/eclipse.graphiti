@@ -231,8 +231,8 @@ ul
 EClass shapes using a single background color (see implementation of class </span><span
 lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>StyleUtil</span><span
 lang=EN-US style='color:black'> in chapter &#8220;<a href="styles.htm">Using
-styles</a>&#8221;). It is also possible to use a complex background color
-schema instead. This offers the following enhancements:</span></p>
+styles</a>&#8221;). It is also possible to use a complex background color schema
+instead. This offers the following enhancements:</span></p>
 
 <ul style='margin-top:0cm' type=disc>
  <li class=MsoNormal style='color:black'><span lang=EN-US>Instead of a single
@@ -250,8 +250,8 @@ schema instead. This offers the following enhancements:</span></p>
 <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal style='page-break-after:avoid'><span style='color:black'><img
-border=0 width=669 height=423 id="Grafik 2"
-src="color-schemas-Dateien/image001.jpg" alt=ui-spec-blue-white-gloss.png></span></p>
+border=0 width=669 height=423 src="color-schemas-Dateien/image001.jpg"
+alt=ui-spec-blue-white-gloss.png></span></p>
 
 <p class=MsoCaption align=left style='text-align:left'><span lang=EN-US>Figure&nbsp;
 Color schema definition for &quot;blue-white-gloss- unselected&#8221; from
@@ -371,8 +371,8 @@ complete implementation of the style utility class here:</span></p>
   lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#7F0055'>public</span></b><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'> <b><span
-  style='color:#7F0055'>static</span></b> <span style='color:black'>Style
-  getStyleForEClass(Diagram diagram) {</span></span></p>
+  style='color:#7F0055'>static</span></b> <span style='color:black'>Style getStyleForEClass(Diagram
+  diagram) {</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
   lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
@@ -453,10 +453,10 @@ complete implementation of the style utility class here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-US style='color:black'>Keep in mind that from
-now on the background color attribute will not work any more. So you might
-consider to delete the custom feature changing the background color, which was
-created in the chapter about <a href="styles.htm">styles</a>.</span></p>
+<p class=MsoNormal><span lang=EN-US style='color:black'>Keep in mind that from now
+on the background color attribute will not work any more. So you might consider
+to delete the custom feature changing the background color, which was created
+in the chapter about <a href="styles.htm">styles</a>.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
@@ -475,8 +475,8 @@ select the EClass shape.</span></p>
 lang=EN-GB>Areas</span></h2>
 
 <p class=MsoNormal><span lang=EN-GB>We want to define our own (background color
-schema) style with id &#8220;lime-white&#8221;. To do this we have to extend the
-interface </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+schema) style with id &#8220;lime-white&#8221;. To do this we have to extend
+the interface </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
 color:black'>IPredefinedRenderingStyle </span><span lang=EN-US>to define the id
 &#8220;lime-white</span><span lang=EN-GB>&#8221;. In addition we extend class </span><span
 lang=EN-US style='font-family:"Courier New"'>PredefinedColoredAreas</span><span
@@ -488,7 +488,7 @@ should look like the image below.</span></p>
 <p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
 
 <p class=MsoNormal style='page-break-after:avoid'><img border=0 width=352
-height=153 id="Grafik 1" src="color-schemas-Dateien/image002.jpg"
+height=153 src="color-schemas-Dateien/image002.jpg"
 alt=user-defined-gradient.png></p>
 
 <p class=MsoCaption align=left style='text-align:left'><span lang=EN-US>Figure
@@ -496,8 +496,8 @@ The newly defined &quot;lime-white&quot; gradient</span></p>
 
 <p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-GB>You can see the complete implementation of the
-interface tutorial rendering style here:</span></p>
+<p class=MsoNormal><span lang=EN-GB>You can see the complete implementation of
+the interface tutorial rendering style here:</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -529,12 +529,14 @@ interface tutorial rendering style here:</span></p>
   style='color:black'> </span><b><span style='color:#7F0055'>extends</span></b><span
   style='color:black'> IPredefinedRenderingStyle {</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
@@ -555,8 +557,8 @@ interface tutorial rendering style here:</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;border:none'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse'>
  <tr>
   <td width=188 valign=top style='width:140.9pt;border:solid black 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
@@ -669,12 +671,13 @@ unselected&quot;</span></p>
 <p class=MsoNormal><span lang=EN-US>For our new color scheme
 &#8220;lime-white&#8221;, we are guided by the preceding example of
 &#8220;blue-white-gloss.<span style='color:black'> The color scheme &nbsp;is
-illustrated in the table above for the interaction state &#8220;not selected&#8221;.
-</span>&nbsp;<span class=longtext1><span style='color:black'>There are also
-three rows of pixels at the beginning and one at the end to represent a sublime
-effect on the shape. In between, the resizable gradient has been defined.</span></span><span
-style='color:black'> The interaction states &#8220;primary selected&#8221; and
-&#8220;secondary selected&#8221; are treated very similar and not listed here.</span></span></p>
+illustrated in the table above for the interaction state &#8220;not
+selected&#8221;. </span>&nbsp;<span class=longtext1><span style='color:black'>There
+are also three rows of pixels at the beginning and one at the end to represent
+a sublime effect on the shape. In between, the resizable gradient has been
+defined.</span></span><span style='color:black'> The interaction states
+&#8220;primary selected&#8221; and &#8220;secondary selected&#8221; are treated
+very similar and not listed here.</span></span></p>
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
 
@@ -692,9 +695,11 @@ color scheme. </span></p>
 <p class=MsoNormal><span lang=EN-US style='color:black'>We define
 &#8220;lime-white&#8221; in our new class </span><span lang=EN-US
 style='font-family:"Courier New";color:black'>TutorialColoredAreas</span><span
-lang=EN-US style='color:black'> in a similar way, as &#8220;blue-white-gloss&#8221;
-is defined in class </span><span lang=EN-US style='font-family:"Courier New";
-color:black'>PredefinedColorAreas</span><span lang=EN-US style='color:black'> .</span></p>
+lang=EN-US style='color:black'> in a similar way, as
+&#8220;blue-white-gloss&#8221; is defined in class </span><span lang=EN-US
+style='font-family:"Courier New";color:black'>PredefinedColorAreas</span><span
+lang=EN-US style='color:black'> . Do not forget to set the gradient type to &#8220;vertical&#8221;.
+</span></p>
 
 <p class=MsoNormal><span class=longtext1><span lang=EN-US style='font-size:
 10.0pt;font-family:"Arial","sans-serif";color:black'>&nbsp;</span></span></p>
@@ -723,77 +728,87 @@ the tutorial colored area class here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> TutorialColoredAreas
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>extends</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> PredefinedColoredAreas<br>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialColoredAreas </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>extends</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  PredefinedColoredAreas<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>implements</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ITutorialRenderingStyle {</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> ITutorialRenderingStyle
+  {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>private</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>private</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
   GradientColoredAreas getLimeWhiteDefaultAreas() {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  GradientColoredAreas gradientColoredAreas =<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>final</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> GradientColoredAreas
+  gradientColoredAreas =<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   PictogramsFactory.</span><i><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:#0000C0'>eINSTANCE</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.createGradientColoredAreas();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> EList&lt;GradientColoredArea&gt;
-  gcas =<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>final</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> EList&lt;GradientColoredArea&gt; gcas
+  =<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   gradientColoredAreas.getGradientColor();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;CCFFCC&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 0, <br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;CCFFCC&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  0, <br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>, </span><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;CCFFCC&quot;</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>, 1,</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  1,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;CCFF99&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 1,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;CCFF99&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  1,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>, </span><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;CCFF99&quot;</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>, 2,</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  2,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;CCFF66&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 2,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;CCFF66&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  2,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
@@ -802,14 +817,16 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   3,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;66FF00&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 3,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;66FF00&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  3,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
@@ -818,14 +835,16 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   2,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;CCFFCC&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 2,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;CCFFCC&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  2,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
@@ -834,61 +853,68 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   0,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gradientColoredAreas.setStyleAdaption<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  gradientColoredAreas.setStyleAdaption<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   &nbsp;(IPredefinedRenderingStyle.</span><i><span lang=EN-US style='font-size:
   10.0pt;font-family:"Courier New";color:#0000C0'>STYLE_ADAPTATION_DEFAULT</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  gradientColoredAreas;</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> gradientColoredAreas;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>private</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  GradientColoredAreas getLimeWhitePrimarySelectedAreas() {</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>private</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> GradientColoredAreas
+  getLimeWhitePrimarySelectedAreas() {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  GradientColoredAreas gradientColoredAreas =<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>final</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> GradientColoredAreas
+  gradientColoredAreas =<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   &nbsp;PictogramsFactory.</span><i><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:#0000C0'>eINSTANCE</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.createGradientColoredAreas();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-  gradientColoredAreas.setStyleAdaption<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp; gradientColoredAreas.setStyleAdaption<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   (IPredefinedRenderingStyle.</span><i><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:#0000C0'>STYLE_ADAPTATION_PRIMARY_SELECTED</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  EList&lt;GradientColoredArea&gt; gcas =<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>final</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> EList&lt;GradientColoredArea&gt; gcas
+  =<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   gradientColoredAreas.getGradientColor();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;66CCCC&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 0,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;66CCCC&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  0,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
@@ -897,14 +923,16 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   1,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;66CC99&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 1,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;66CC99&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  1,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
@@ -913,15 +941,16 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   2,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;66CC66&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 2,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;66CC66&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  2,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
@@ -930,14 +959,16 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   3,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;00CC00&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 3,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;00CC00&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  3,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
@@ -945,14 +976,16 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;00CC66&quot;</span><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   2,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;00CC99&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 2,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;00CC99&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  2,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
@@ -961,54 +994,61 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   0,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  gradientColoredAreas;</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> gradientColoredAreas;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>private</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>private</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
   GradientColoredAreas getLimeWhiteSecondarySelectedAreas() {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  GradientColoredAreas gradientColoredAreas =<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>final</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> GradientColoredAreas
+  gradientColoredAreas =<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   &nbsp;PictogramsFactory.</span><i><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:#0000C0'>eINSTANCE</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.createGradientColoredAreas();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gradientColoredAreas.setStyleAdaption<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  gradientColoredAreas.setStyleAdaption<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   (IPredefinedRenderingStyle.</span><i><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:#0000C0'>STYLE_ADAPTATION_SECONDARY_SELECTED</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  EList&lt;GradientColoredArea&gt; gcas =<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>final</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> EList&lt;GradientColoredArea&gt; gcas
+  =<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   gradientColoredAreas.getGradientColor();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;33CCCC&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 0,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;33CCCC&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  0,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
@@ -1016,14 +1056,16 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;33CCCC&quot;</span><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   1,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;33CC99&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 1,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;33CC99&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  1,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
@@ -1031,15 +1073,16 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;33CC99&quot;</span><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   2,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;33CC66&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 2,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;33CC66&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  2,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
@@ -1048,14 +1091,16 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   3,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;33CC00&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 3,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;33CC00&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  3,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_START</span></i><span
@@ -1064,14 +1109,16 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   2,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>addGradientColoredArea</i>(gcas,
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;66CC99&quot;</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'>, 2,<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>addGradientColoredArea</i>(gcas, </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;66CC99&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
+  2,<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
@@ -1080,40 +1127,48 @@ the tutorial colored area class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,
   0,</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocationType.</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  LocationType.</span><i><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#0000C0'>LOCATION_TYPE_ABSOLUTE_END</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  gradientColoredAreas;</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> gradientColoredAreas;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> AdaptedGradientColoredAreas
-  getLimeWhiteAdaptions() {</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  AdaptedGradientColoredAreas getLimeWhiteAdaptions() {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> AdaptedGradientColoredAreas
-  agca =<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>final</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> AdaptedGradientColoredAreas agca =<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   &nbsp;PictogramsFactory.</span><i><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:#0000C0'>eINSTANCE</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.createAdaptedGradientColoredAreas();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; agca.setDefinedStyleId(</span><i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>LIME_WHITE_ID</span></i><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  agca.setDefinedStyleId(</span><i><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#0000C0'>LIME_WHITE_ID</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; agca.getAdaptedGradientColoredAreas()<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>agca.setGradientType(IGradientType.<i>VERTICAL</i>);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  agca.getAdaptedGradientColoredAreas()<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   .add(IPredefinedRenderingStyle.</span><i><span lang=EN-US style='font-size:
   10.0pt;font-family:"Courier New";color:#0000C0'>STYLE_ADAPTATION_DEFAULT</span></i><span
@@ -1121,14 +1176,17 @@ the tutorial colored area class here:</span></p>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <i>getLimeWhiteDefaultAreas</i>());</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; agca.getAdaptedGradientColoredAreas()<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  agca.getAdaptedGradientColoredAreas()<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   .add(IPredefinedRenderingStyle.</span><i><span lang=EN-US style='font-size:
   10.0pt;font-family:"Courier New";color:#0000C0'>STYLE_ADAPTATION_PRIMARY_SELECTED</span></i><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>getLimeWhitePrimarySelectedAreas</i>());</span></p>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <i>getLimeWhitePrimarySelectedAreas</i>());</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; agca.getAdaptedGradientColoredAreas()<br>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  agca.getAdaptedGradientColoredAreas()<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   .add(IPredefinedRenderingStyle.</span><i><span lang=EN-US style='font-size:
   10.0pt;font-family:"Courier New";color:#0000C0'>STYLE_ADAPTATION_SECONDARY_SELECTED</span></i><span
@@ -1137,12 +1195,13 @@ the tutorial colored area class here:</span></p>
   <i><span style='color:black'>getLimeWhiteSecondarySelectedAreas</span></i><span
   style='color:black'>());</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  agca;</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> agca;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal style='text-align:justify'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span><span
   lang=EN-GB style='font-size:10.0pt;color:black'>&nbsp;</span></p>
@@ -1203,10 +1262,8 @@ lang=EN-US style='color:black'>:</span></p>
   style='color:black'>.setRenderingStyle(style,</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PredefinedColoredAreas.</span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  getLimeWhiteAdaptions</span><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>());</span></p>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PredefinedColoredAreas.
+  getLimeWhiteAdaptions());</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
@@ -1249,10 +1306,10 @@ lang=EN-US style='color:black'>:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Create a new diagram
-and inside it create a new EClass. Verify that the background color is a
-lime-white gradient. Also verify, that the background color changes, if you
-select the EClass shape.</span></p>
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Create a new diagram and
+inside it create a new EClass. Verify that the background color is a lime-white
+gradient. Also verify, that the background color changes, if you select the
+EClass shape.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
 
