@@ -34,25 +34,6 @@ public class ObjectCreationToolEntry extends AbstractPaletteToolEntry implements
 	 *            the description
 	 * @param iconId
 	 *            the icon id
-	 * @param createFeature
-	 *            the feature which should be called on creation
-	 * @deprecated use ObjectCreationToolEntry(String label, String description, String iconId, String largeIconId, ICreateFeature
-	 *             createFeature) instead
-	 */
-	@Deprecated
-	public ObjectCreationToolEntry(String label, String description, String iconId, ICreateFeature createFeature) {
-		this(label, description, iconId, iconId, createFeature);
-	}
-
-	/**
-	 * The Constructor.
-	 * 
-	 * @param label
-	 *            the label
-	 * @param description
-	 *            the description
-	 * @param iconId
-	 *            the icon id
 	 * @param largeIconId
 	 *            the large icon id
 	 * @param createFeature
