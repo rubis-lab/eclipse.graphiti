@@ -17,8 +17,8 @@ package org.eclipse.graphiti.util;
 
 public interface IGradientType {
 	
-	public final int VERTICAL = 0;
+	public final Integer VERTICAL = 0;
 	
-	public final int HORIZONTAL = 1;
+	public final Integer HORIZONTAL = 1;
 
 }
