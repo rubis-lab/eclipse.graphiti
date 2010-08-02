@@ -44,6 +44,7 @@ import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.eclipse.graphiti.util.IGradientType;
 import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -332,9 +333,15 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 					} else {
 						gradienColoredAreaList = gradientColoredAreas.get(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT).getGradientColor();
 					}
+					boolean isVertical = true;
+					if (adaptedGradientColoredAreas.getGradientType() != null) {
+						if (adaptedGradientColoredAreas.getGradientType().equals(IGradientType.HORIZONTAL)) {
+							isVertical = false;
+						}
+					} 
 					for (Iterator<GradientColoredArea> iterator = gradienColoredAreaList.iterator(); iterator.hasNext();) {
 						GradientColoredArea gradientColoredArea = (GradientColoredArea) iterator.next();
-						GFFigureUtil.paintColorFlow(getConfigurationProvider(), pathBounds, graphics, gradientColoredArea, getZoomLevel(graphics), true);
+						GFFigureUtil.paintColorFlow(getConfigurationProvider(), pathBounds, graphics, gradientColoredArea, getZoomLevel(graphics), isVertical);
 					}
 				} finally {
 					graphics.popState();
