@@ -54,6 +54,7 @@ import org.eclipse.emf.transaction.impl.TransactionalEditingDomainImpl;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.internal.editor.GFWorkspaceCommandStackImpl;
 import org.eclipse.graphiti.ui.internal.services.IEmfService;
 import org.eclipse.graphiti.ui.internal.util.ModelElementNameComparator;
@@ -404,15 +405,6 @@ public class EmfService implements IEmfService {
 			resourceURI = resourceSet.getURIConverter().normalize(resourceURI);
 		}
 		return resourceURI;
-	}
-
-	@Override
-	public TransactionalEditingDomain createResourceSetAndEditingDomain() {
-		final ResourceSet resourceSet = new ResourceSetImpl();
-		final IWorkspaceCommandStack workspaceCommandStack = new GFWorkspaceCommandStackImpl(new DefaultOperationHistory());
-		final TransactionalEditingDomainImpl editingDomain = new TransactionalEditingDomainImpl(new ComposedAdapterFactory(
-				ComposedAdapterFactory.Descriptor.Registry.INSTANCE), workspaceCommandStack, resourceSet);
-		return editingDomain;
 	}
 
 	@Override

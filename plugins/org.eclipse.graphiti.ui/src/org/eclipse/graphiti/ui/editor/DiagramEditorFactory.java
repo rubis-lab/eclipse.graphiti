@@ -15,15 +15,20 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
+import org.eclipse.core.commands.operations.DefaultOperationHistory;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.impl.TransactionalEditingDomainImpl;
+import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.internal.editor.GFWorkspaceCommandStackImpl;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorMatchingStrategy;
@@ -60,7 +65,7 @@ public class DiagramEditorFactory implements IElementFactory {
 		if (otherInput instanceof IFileEditorInput) {
 			final IFileEditorInput fileInput = (IFileEditorInput) otherInput;
 			final IFile file = fileInput.getFile();
-			final TransactionalEditingDomain domain = GraphitiUiInternal.getEmfService().createResourceSetAndEditingDomain();
+			final TransactionalEditingDomain domain = createResourceSetAndEditingDomain();
 			URI diagramFileUri = GraphitiUiInternal.getEmfService().getFileURI(file, domain.getResourceSet());
 			if (diagramFileUri != null) {
 				// the file has to contain one base node which has to be a diagram
@@ -136,8 +141,22 @@ public class DiagramEditorFactory implements IElementFactory {
 		//TODO		if (providerID == null)
 		//			return null;
 
-		final TransactionalEditingDomain domain = GraphitiUiInternal.getEmfService().createResourceSetAndEditingDomain();
+		final TransactionalEditingDomain domain = createResourceSetAndEditingDomain();
 		return new DiagramEditorInput(diagramUriString, domain, providerID, true);
+	}
+
+	/**
+	 * Creates a {@link TransactionalEditingDomain} with a {@link ResourceSet}
+	 * resource set and a {@link IWorkspaceCommandStack} command stack.
+	 * 
+	 * @return a {@link TransactionalEditingDomain} editing domain
+	 */
+	public static TransactionalEditingDomain createResourceSetAndEditingDomain() {
+		final ResourceSet resourceSet = new ResourceSetImpl();
+		final IWorkspaceCommandStack workspaceCommandStack = new GFWorkspaceCommandStackImpl(new DefaultOperationHistory());
+		final TransactionalEditingDomainImpl editingDomain = new TransactionalEditingDomainImpl(new ComposedAdapterFactory(
+				ComposedAdapterFactory.Descriptor.Registry.INSTANCE), workspaceCommandStack, resourceSet);
+		return editingDomain;
 	}
 
 }

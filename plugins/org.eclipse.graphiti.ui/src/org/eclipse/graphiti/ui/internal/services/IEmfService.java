@@ -239,12 +239,4 @@ public interface IEmfService {
 	 */
 	public abstract URI mapDiagramFileUriToDiagramUri(URI diagramFileUri);
 
-	/**
-	 * Creates a {@link TransactionalEditingDomain} with a {@link ResourceSet}
-	 * resource set and a {@link IWorkspaceCommandStack} command stack.
-	 * 
-	 * @return a {@link TransactionalEditingDomain} editing domain
-	 */
-	public abstract TransactionalEditingDomain createResourceSetAndEditingDomain();
-
 }

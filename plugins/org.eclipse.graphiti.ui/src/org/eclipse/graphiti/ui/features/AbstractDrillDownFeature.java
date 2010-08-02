@@ -28,6 +28,7 @@ import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
+import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.internal.ImagePool;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -214,7 +215,7 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 	}
 
 	protected TransactionalEditingDomain getTransActionalEditingDomainForNewDiagram() {
-		return GraphitiUiInternal.getEmfService().createResourceSetAndEditingDomain();
+		return DiagramEditorFactory.createResourceSetAndEditingDomain();
 	}
 
 }
