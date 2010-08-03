@@ -52,7 +52,7 @@ import org.eclipse.graphiti.services.IGaService;
  * straightforward the example {@link #getBlueWhiteGlossAdaptions(). It is
  * recommended to support at least {@link #STYLE_ADAPTATION_DEFAULT},
  * {@link #STYLE_ADAPTATION_PRIMARY_SELECTED},
- * {@link #STYLE_ADAPTATION_SECONDARY_SELECTED} and as visual states.
+ * {@link #STYLE_ADAPTATION_SECONDARY_SELECTED} as visual states.
  * 
  * @see IGaService#setRenderingStyle(AbstractStyle, AdaptedGradientColoredAreas)
  * @see IPredefinedRenderingStyle
