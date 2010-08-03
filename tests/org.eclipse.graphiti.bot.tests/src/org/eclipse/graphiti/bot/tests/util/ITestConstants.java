@@ -24,10 +24,6 @@ public interface ITestConstants {
 	 */
 	public static final String DIAGRAM_TYPE_ID_SKETCH = "testtool.sketch";
 
-	/**
-	 * The Constant DIAGRAM_TYPE_ID_PATTERN.
-	 */
-	public static final String DIAGRAM_TYPE_ID_PATTERN = "sample.pattern";
 
 	/**
 	 * The Constant DIAGRAM_TYPE_ID_ECORE.

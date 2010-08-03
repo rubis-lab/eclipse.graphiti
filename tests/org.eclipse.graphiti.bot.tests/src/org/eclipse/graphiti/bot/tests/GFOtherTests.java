@@ -137,11 +137,6 @@ import org.junit.After;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 
-/**
- * prerequisite for this test plugin:
- * <p>
- * - moin installation is available
- */
 public class GFOtherTests extends AbstractGFTests {
 
 	public GFOtherTests() {
@@ -172,8 +167,7 @@ public class GFOtherTests extends AbstractGFTests {
 		assertNotNull("sketch digram type is not available", sketchDiagramType);
 
 		// checker whether a provider for the sketch diagram type is registered
-		// - and if yes - instantiate a diagram
-		// type provider
+		// - and if yes - instantiate a diagram type provider
 		if (sketchDiagramType != null) {
 			String[] diagramTypeProviderExtensionIds = em.getDiagramTypeProviderIds(sketchDiagramType.getId());
 			if (diagramTypeProviderExtensionIds != null && diagramTypeProviderExtensionIds.length > 0) {
@@ -263,8 +257,8 @@ public class GFOtherTests extends AbstractGFTests {
 		shutdownEditor(diagramEditor);
 	}
 
-	//	@Test
-	public void xxtestUndoRedo() throws Exception {
+	@Test
+	public void testUndoRedo() throws Exception {
 		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
@@ -385,35 +379,6 @@ public class GFOtherTests extends AbstractGFTests {
 
 	}
 
-	@Test
-	public void testOnPatternDiagram() throws Exception {
-		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_PATTERN);
-
-		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
-		syncExec(new VoidResult() {
-			public void run() {
-
-				final IFeatureProvider fp = dtp.getFeatureProvider();
-				int x = 50;
-				CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
-				ICreateFeature[] createFeatures = fp.getCreateFeatures();
-				for (ICreateFeature createFeature : createFeatures) {
-					if (createFeature.getName().startsWith("Gri")) {
-						continue;
-					}
-					Rectangle rectangle = new Rectangle(x, 50, 100, 100);
-					ICreateContext createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
-					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-							createContext, rectangle);
-					commandStack.execute(createCommand);
-					x += 150;
-				}
-			}
-
-		});
-
-		shutdownEditor(diagramEditor);
-	}
 
 	@Test
 	public void testThumbnailView() throws Exception {
