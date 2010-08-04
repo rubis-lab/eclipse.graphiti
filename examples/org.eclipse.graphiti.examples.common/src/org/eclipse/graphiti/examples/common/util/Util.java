@@ -42,10 +42,10 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
  */
 public class Util {
 
-	private static final Class PRIMITIVE_CLASSES[] = new Class[] { Boolean.TYPE, Byte.TYPE, Character.TYPE, Short.TYPE, Integer.TYPE,
+	private static final Class<?> PRIMITIVE_CLASSES[] = new Class[] { Boolean.TYPE, Byte.TYPE, Character.TYPE, Short.TYPE, Integer.TYPE,
 			Long.TYPE, Float.TYPE, Double.TYPE };
 
-	private static final Class NON_PRIMITIVE_CLASSES[] = new Class[] { Boolean.class, Byte.class, Character.class, Short.class,
+	private static final Class<?> NON_PRIMITIVE_CLASSES[] = new Class[] { Boolean.class, Byte.class, Character.class, Short.class,
 			Integer.class, Long.class, Float.class, Double.class };
 
 	/**

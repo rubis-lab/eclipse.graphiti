@@ -29,32 +29,6 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 
 public class ProjectUtil {
 
-	public static Diagram getDiagram(IProject p, String diagramName, ResourceSet rSet) {
-		if (p == null || diagramName == null) {
-			return null;
-		}
-		List<Diagram> allDiagrams = getAllDiagrams(p, rSet);
-		for (Diagram diagram : allDiagrams) {
-			if (diagramName.equals(diagram.getName())) {
-				return diagram;
-			}
-		}
-		return null;
-	}
-
-	public static List<Diagram> getAllDiagrams(IProject p, ResourceSet rSet) {
-		List<IFile> files = ProjectUtil.getFiles(p);
-
-		List<Diagram> diagramList = new ArrayList<Diagram>();
-		for (IFile file : files) {
-			Diagram diagram = GraphitiUiInternal.getEmfService().getDiagramFromFile(file, rSet);
-			if (diagram != null) {
-				diagramList.add(diagram);
-			}
-		}
-		return diagramList;
-	}
-
 	private static List<IFile> getFiles(IContainer folder) {
 		List<IFile> ret = new ArrayList<IFile>();
 		try {

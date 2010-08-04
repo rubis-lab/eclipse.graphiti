@@ -18,6 +18,8 @@ package org.eclipse.graphiti.examples.common.property;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -26,7 +28,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.internal.keys.model.ModelElement;
 import org.eclipse.ui.views.properties.tabbed.ITypeMapper;
 
 /**
@@ -92,12 +93,12 @@ public class PropertiesLabelProvider extends LabelProvider {
 
 					// return the name of the MetamodelClass
 					EObject refMetaObject = businessObject.eClass();
-					if (refMetaObject instanceof ModelElement) {
-						return ((ModelElement) refMetaObject).getName();
+					if (refMetaObject instanceof ENamedElement) {
+						return ((ENamedElement) refMetaObject).getName();
 					}
 					return ""; // no luck //$NON-NLS-1$
 				} else {
-					return "" + ((ModelElement) robj.eClass()).getName(); //$NON-NLS-1$
+					return "" + ((EModelElement) robj.eClass()).getClass().getName(); //$NON-NLS-1$
 				}
 			} else {
 				return object.toString();
@@ -131,12 +132,12 @@ public class PropertiesLabelProvider extends LabelProvider {
 			}
 			// multiple elements selected
 			multiple[0] = true;
-			Class firstClass = typeMapper.mapType(object);
+			Class<?> firstClass = typeMapper.mapType(object);
 			// determine if all the objects in the selection are the same type
 			if (selection.size() > 1) {
-				for (Iterator i = selection.iterator(); i.hasNext();) {
+				for (Iterator<?> i = selection.iterator(); i.hasNext();) {
 					Object next = i.next();
-					Class nextClass = typeMapper.mapType(next);
+					Class<?> nextClass = typeMapper.mapType(next);
 					if (!nextClass.equals(firstClass)) {
 						// two elements not equal == multiple selected unequal
 						multiple[0] = false;

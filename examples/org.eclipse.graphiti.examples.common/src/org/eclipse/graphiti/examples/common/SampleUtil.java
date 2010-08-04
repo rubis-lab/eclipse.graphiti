@@ -20,7 +20,6 @@ import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
@@ -68,7 +67,7 @@ public class SampleUtil {
 		if (color != null && color.eContainer() instanceof Diagram) {
 			Shell shell = getShell();
 			ColorDialog colorDialog = new ColorDialog(shell);
-			colorDialog.setText(Messages.PlatformServiceImpl_0_xfld);
+			colorDialog.setText("Choose Color");
 			colorDialog.setRGB(new RGB(color.getRed(), color.getGreen(), color.getBlue()));
 
 			RGB retRgb = colorDialog.open();

@@ -25,8 +25,8 @@ import org.eclipse.graphiti.examples.common.outline.ContentOutlinePageAdapterFac
 import org.eclipse.graphiti.examples.common.property.PropertySourceAdapterFactory;
 import org.eclipse.graphiti.examples.common.util.uiprovider.IUIProvider;
 import org.eclipse.graphiti.examples.common.util.uiprovider.UIProvider;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderHolder;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -66,7 +66,7 @@ public class ExamplesCommonPlugin extends AbstractUIPlugin {
 
 		IAdapterManager manager = Platform.getAdapterManager();
 		manager.registerAdapters(new PropertySourceAdapterFactory(), IConfigurationProviderHolder.class);
-		manager.registerAdapters(new ContentOutlinePageAdapterFactory(), DiagramEditorInternal.class);
+		manager.registerAdapters(new ContentOutlinePageAdapterFactory(), DiagramEditor.class);
 	}
 
 	/**

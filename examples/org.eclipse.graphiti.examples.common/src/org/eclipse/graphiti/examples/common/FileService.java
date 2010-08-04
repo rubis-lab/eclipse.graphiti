@@ -42,7 +42,6 @@ import org.eclipse.emf.transaction.impl.TransactionalEditingDomainImpl;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
-import org.eclipse.graphiti.ui.internal.services.IEmfService;
 
 public class FileService {
 
@@ -68,9 +67,6 @@ public class FileService {
 		return editingDomain;
 	}
 
-	/**
-	 * @see {@link IEmfService} in org.eclipse.graphiti.ui.internal.util
-	 */
 	private static void save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> options) {
 		saveInWorkspaceRunnable(editingDomain, options);
 	}

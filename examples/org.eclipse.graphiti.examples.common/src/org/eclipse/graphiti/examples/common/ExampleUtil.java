@@ -15,19 +15,13 @@
  *******************************************************************************/
 package org.eclipse.graphiti.examples.common;
 
-import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
-import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.internal.Messages;
-import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.ColorDialog;
-import org.eclipse.swt.widgets.FontDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
@@ -68,7 +62,7 @@ public class ExampleUtil {
 		if (color != null && color.eContainer() instanceof Diagram) {
 			Shell shell = getShell();
 			ColorDialog colorDialog = new ColorDialog(shell);
-			colorDialog.setText(Messages.PlatformServiceImpl_0_xfld);
+			colorDialog.setText("Choose Color");
 			colorDialog.setRGB(new RGB(color.getRed(), color.getGreen(), color.getBlue()));
 
 			RGB retRgb = colorDialog.open();
@@ -83,44 +77,6 @@ public class ExampleUtil {
 		}
 
 		return null;
-	}
-
-	/**
-	 * Opens a dialog to change the font styles and colors.
-	 * 
-	 * @param coloredFont
-	 *            the current colored font
-	 * @param diagram
-	 *            the diagram
-	 * @param text
-	 *            the text
-	 * @return the changed colored font
-	 */
-	public static ColoredFont editFont(AbstractText text, ColoredFont coloredFont, Diagram diagram) {
-		Font inputFont = coloredFont.getFont();
-		Color inputColor = coloredFont.getColor();
-
-		Shell shell = getShell();
-		FontDialog fontDialog = new FontDialog(shell);
-		FontData fontData = DataTypeTransformation.toFontData(inputFont);
-
-		fontDialog.setFontList(new FontData[] { fontData });
-		RGB rgb = new RGB(inputColor.getRed(), inputColor.getGreen(), inputColor.getBlue());
-		fontDialog.setRGB(rgb);
-
-		FontData retFontData = fontDialog.open();
-
-		if (retFontData == null) {
-			return null;
-		}
-
-		Font retFont = DataTypeTransformation.toPictogramsFont(text, retFontData);
-		RGB retRgb = fontDialog.getRGB();
-		Color retColor = DataTypeTransformation.toPictogramsColor(retRgb, diagram);
-
-		ColoredFont ret = new ColoredFont(retFont, retColor);
-
-		return ret;
 	}
 
 	/**

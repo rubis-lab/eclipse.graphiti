@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.gef.editparts.AbstractTreeEditPart;
-import org.eclipse.graphiti.examples.common.SamplesCommonPlugin;
+import org.eclipse.graphiti.examples.common.ExamplesCommonPlugin;
 import org.eclipse.graphiti.examples.common.util.uiprovider.IUIProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderHolder;
@@ -99,7 +99,7 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implement
 	}
 
 	private IUIProvider getUIProvider() {
-		return SamplesCommonPlugin.getDefault().getUIProvider();
+		return ExamplesCommonPlugin.getDefault().getUIProvider();
 	}
 
 	/**

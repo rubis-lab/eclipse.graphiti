@@ -22,8 +22,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.graphiti.examples.common.ExamplesCommonPlugin;
 import org.eclipse.graphiti.examples.common.FileService;
-import org.eclipse.graphiti.examples.common.SamplesCommonPlugin;
 import org.eclipse.graphiti.examples.common.navigator.nodes.base.AbstractInstancesOfTypeContainerNode;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
@@ -106,7 +106,7 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 
 		if (project == null || !project.isAccessible()) {
 			String error = "No open project was found for the current selection. Select a project and restart the wizard.";
-			IStatus status = new Status(IStatus.ERROR, SamplesCommonPlugin.getID(), error);
+			IStatus status = new Status(IStatus.ERROR, ExamplesCommonPlugin.getID(), error);
 			ErrorDialog.openError(getShell(), "No Project Found", null, status);
 			return false;
 		}

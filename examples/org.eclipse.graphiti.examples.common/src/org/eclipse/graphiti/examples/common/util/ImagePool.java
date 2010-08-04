@@ -18,7 +18,7 @@ package org.eclipse.graphiti.examples.common.util;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.eclipse.graphiti.examples.common.SamplesCommonPlugin;
+import org.eclipse.graphiti.examples.common.ExamplesCommonPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
@@ -89,7 +89,7 @@ public class ImagePool {
 	 */
 	public static ImageDescriptor getImageDescriptor(String relativeImageLocation) {
 		try {
-			URL url = new URL(SamplesCommonPlugin.getInstallURL(), ROOT_FOLDER_FOR_IMG + relativeImageLocation);
+			URL url = new URL(ExamplesCommonPlugin.getInstallURL(), ROOT_FOLDER_FOR_IMG + relativeImageLocation);
 			return ImageDescriptor.createFromURL(url);
 		} catch (MalformedURLException e) {
 			// $JL-EXC$
@@ -111,7 +111,7 @@ public class ImagePool {
 	 *         name.
 	 */
 	public static Image getImage(String imageName) {
-		ImageRegistry imageRegistry = SamplesCommonPlugin.getDefault().getImageRegistry();
+		ImageRegistry imageRegistry = ExamplesCommonPlugin.getDefault().getImageRegistry();
 		Image result = imageRegistry.get(imageName);
 		if (result != null)
 			return result;

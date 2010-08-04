@@ -24,7 +24,7 @@ public class PropertySourceAdapterFactory implements IAdapterFactory {
 
 	@Override
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		//		if (GFTestConfiguration.isGenericPropertySheetActive()) {
+		//		if (GFPreferences.getInstance().isGenericPropertySheetActive()) {
 		//			if (IPropertySource.class.equals(adapterType)) {
 		//				if (adaptableObject instanceof IConfigurationProviderHolder) {
 		//					IConfigurationProviderHolder holder = (IConfigurationProviderHolder) adaptableObject;

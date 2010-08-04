@@ -27,8 +27,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
 
 /**
  * The Class AbstractInputFieldWizardPage.
@@ -88,8 +86,6 @@ public abstract class AbstractInputFieldWizardPage extends AbstractWizardPage {
 		composite.setFont(parent.getFont());
 
 		initializeDialogUnits(parent);
-
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, IIDEHelpContextIds.NEW_PROJECT_WIZARD_PAGE);
 
 		composite.setLayout(new GridLayout());
 		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
