@@ -301,7 +301,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	 * @return A new ContextMenuProvider.
 	 */
 	protected ContextMenuProvider createContextMenuProvider() {
-		return new DiagramEditorContextMenuProvider(getViewer(), _actionRegistry, null, _diagramEditor.getConfigurationProvider());
+		return null;
 	}
 
 	/**
