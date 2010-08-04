@@ -396,8 +396,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * @return A new ContextMenuProvider.
 	 */
 	protected ContextMenuProvider createContextMenuProvider() {
-		return new DiagramEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry(), getGraphicalViewer().getControl(),
-				getConfigurationProvider());
+		return new DiagramEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry(), getConfigurationProvider());
 	}
 
 	/**

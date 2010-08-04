@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
@@ -60,10 +61,6 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.actions.ActionFactory;
 
 /**
@@ -81,8 +78,6 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 
 	private ActionRegistry _actionRegistry;
 
-	private Control _menuLocationReferenceControl;
-
 	private IConfigurationProvider configurationProvider;
 
 	/**
@@ -94,18 +89,13 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 * @param registry
 	 *            The action-registry, which contains the actions corresponding
 	 *            to the menu-items.
-	 * @param menuLocationReferenceControl
-	 *            The control which serves as origin to calculate the
-	 *            menu-location. If null, then the menu-location is not
-	 *            calculated (and not forwarded).
 	 * @param configurationProvider
 	 *            the configuration provider
 	 */
-	public DiagramEditorContextMenuProvider(EditPartViewer viewer, ActionRegistry registry, Control menuLocationReferenceControl,
+	public DiagramEditorContextMenuProvider(EditPartViewer viewer, ActionRegistry registry,
 			IConfigurationProvider configurationProvider) {
 		super(viewer);
 		_actionRegistry = registry;
-		_menuLocationReferenceControl = menuLocationReferenceControl;
 		this.configurationProvider = configurationProvider;
 	}
 
@@ -277,12 +267,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	// ====================== add single menu-entries =========================
 
 	private void extendCustomContext(PictogramElement pe, CustomContext context) {
-		Point location = getCurrentMouseLocation();
-
-		if (location == null) {
-			return;
-		}
-
+		Point location = getEditor().getMouseLocation();
 		int mX = location.x;
 		int mY = location.y;
 		context.setX(mX);
@@ -428,29 +413,6 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	// ======================== private helper methods =========================
 
 	/**
-	 * Returns the current mouse menuLocation with regard to the
-	 * reference-control. Returns null, if the mouse menuLocation is outside the
-	 * area of the reference-control.
-	 * 
-	 * @return The current mouse menuLocation with regard to the
-	 *         reference-control.
-	 */
-	protected Point getCurrentMouseLocation() {
-		if (_menuLocationReferenceControl != null) {
-			Point point = Display.getCurrent().getCursorLocation();
-			Point location = Display.getCurrent().map(null, _menuLocationReferenceControl, point);
-			Rectangle rectangle = new Rectangle(0, 0, _menuLocationReferenceControl.getSize().x, _menuLocationReferenceControl.getSize().y);
-			if (rectangle.contains(location)){
-//				System.out.println("selbst  x: " + location.x + "y: " + location.y);
-//				org.eclipse.draw2d.geometry.Point edLoc = this.configurationProvider.getDiagramEditor().getMouseLocation();
-//				System.out.println("editor  x: " + edLoc.x + "y: " + edLoc.y);
-				return location;
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * Gets the configuration provider.
 	 * 
 	 * @return Returns the configurationProvider.
@@ -459,12 +421,8 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 		return configurationProvider;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.jface.action.ContributionManager#allowItem(org.eclipse.jface
-	 * .action.IContributionItem)
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.action.ContributionManager#allowItem(org.eclipse.jface.action.IContributionItem)
 	 */
 	@Override
 	protected boolean allowItem(IContributionItem itemToAdd) {
