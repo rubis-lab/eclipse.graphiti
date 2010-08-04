@@ -121,12 +121,11 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	public void buildContextMenu(IMenuManager manager) {
 
 		GEFActionConstants.addStandardActionGroups(manager);
-		Point menuLocation = getCurrentMouseLocation();
 
-		addDefaultMenuGroupSave(manager, menuLocation);
-		addDefaultMenuGroupEdit(manager, menuLocation);
-		addDefaultMenuGroupPrint(manager, menuLocation);
-		addDefaultMenuGroupRest(manager, menuLocation);
+		addDefaultMenuGroupSave(manager);
+		addDefaultMenuGroupEdit(manager);
+		addDefaultMenuGroupPrint(manager);
+		addDefaultMenuGroupRest(manager);
 	}
 
 	// ====================== add default menu-groups =========================
@@ -136,12 +135,10 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 * 
 	 * @param manager
 	 *            the manager
-	 * @param menuLocation
-	 *            the menu location
 	 */
-	protected void addDefaultMenuGroupUndo(IMenuManager manager, Point menuLocation) {
-		addActionToMenu(manager, menuLocation, ActionFactory.UNDO.getId(), GEFActionConstants.GROUP_UNDO);
-		addActionToMenu(manager, menuLocation, ActionFactory.REDO.getId(), GEFActionConstants.GROUP_UNDO);
+	protected void addDefaultMenuGroupUndo(IMenuManager manager) {
+		addActionToMenu(manager, ActionFactory.UNDO.getId(), GEFActionConstants.GROUP_UNDO);
+		addActionToMenu(manager, ActionFactory.REDO.getId(), GEFActionConstants.GROUP_UNDO);
 	}
 
 	/**
@@ -149,15 +146,8 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 * 
 	 * @param manager
 	 *            the manager
-	 * @param menuLocation
-	 *            the menu location
 	 */
-	protected void addDefaultMenuGroupSave(IMenuManager manager, Point menuLocation) {
-		// addActionToMenu(manager, menuLocation, ActionFactory.SAVE.getId(),
-		// GEFActionConstants.GROUP_SAVE);
-		// addActionToMenu(manager, menuLocation, ActionFactory.SAVE_AS.getId(),
-		// GEFActionConstants.GROUP_SAVE);
-
+	protected void addDefaultMenuGroupSave(IMenuManager manager) {
 		IFeatureProvider fp = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
 		if (fp != null) {
 			ISaveImageFeature sf = fp.getSaveImageFeature();
@@ -176,19 +166,14 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 * 
 	 * @param manager
 	 *            the manager
-	 * @param menuLocation
-	 *            the menu location
 	 */
-	protected void addDefaultMenuGroupEdit(IMenuManager manager, Point menuLocation) {
-		addNewObjectSubMenu(manager, GEFActionConstants.GROUP_EDIT, menuLocation);
-		addActionToMenuIfAvailable(manager, menuLocation, ActionFactory.COPY.getId(), GEFActionConstants.GROUP_EDIT);
-		addActionToMenuIfAvailable(manager, menuLocation, ActionFactory.PASTE.getId(), GEFActionConstants.GROUP_EDIT);
-		// addActionToMenuIfAvailable(manager, menuLocation,
-		// ActionFactory.DELETE.getId(),
-		// GEFActionConstants.GROUP_EDIT);
-		// addActionToMenuIfAvailable(manager, menuLocation,
-		// GEFActionConstants.DIRECT_EDIT,
-		// GEFActionConstants.GROUP_EDIT);
+	protected void addDefaultMenuGroupEdit(IMenuManager manager) {
+		addNewObjectSubMenu(manager, GEFActionConstants.GROUP_EDIT);
+		addActionToMenuIfAvailable(manager, ActionFactory.COPY.getId(), GEFActionConstants.GROUP_EDIT);
+		addActionToMenuIfAvailable(manager, ActionFactory.PASTE.getId(), GEFActionConstants.GROUP_EDIT);
+		
+//		addActionToMenuIfAvailable(manager, ActionFactory.DELETE.getId(), GEFActionConstants.GROUP_EDIT);
+//		addActionToMenuIfAvailable(manager, GEFActionConstants.DIRECT_EDIT, GEFActionConstants.GROUP_EDIT);
 	}
 
 	/**
@@ -196,11 +181,9 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 * 
 	 * @param manager
 	 *            the manager
-	 * @param menuLocation
-	 *            the menu location
 	 */
-	protected void addDefaultMenuGroupPrint(IMenuManager manager, Point menuLocation) {
-		addActionToMenu(manager, menuLocation, ActionFactory.PRINT.getId(), GEFActionConstants.GROUP_PRINT);
+	protected void addDefaultMenuGroupPrint(IMenuManager manager) {
+		addActionToMenu(manager, ActionFactory.PRINT.getId(), GEFActionConstants.GROUP_PRINT);
 	}
 
 	/**
@@ -208,15 +191,13 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 * 
 	 * @param manager
 	 *            the manager
-	 * @param menuLocation
-	 *            the menu location
 	 */
-	protected void addDefaultMenuGroupRest(IMenuManager manager, Point menuLocation) {
-		addAlignmentSubMenu(manager, GEFActionConstants.GROUP_REST, menuLocation);
+	protected void addDefaultMenuGroupRest(IMenuManager manager) {
+		addAlignmentSubMenu(manager, GEFActionConstants.GROUP_REST);
 
-		addActionToMenuIfAvailable(manager, menuLocation, UpdateAction.ACTION_ID, GEFActionConstants.GROUP_REST);
-		addActionToMenuIfAvailable(manager, menuLocation, RemoveAction.ACTION_ID, GEFActionConstants.GROUP_REST);
-		addActionToMenuIfAvailable(manager, menuLocation, DeleteAction.ACTION_ID, GEFActionConstants.GROUP_REST);
+		addActionToMenuIfAvailable(manager, UpdateAction.ACTION_ID, GEFActionConstants.GROUP_REST);
+		addActionToMenuIfAvailable(manager, RemoveAction.ACTION_ID, GEFActionConstants.GROUP_REST);
+		addActionToMenuIfAvailable(manager, DeleteAction.ACTION_ID, GEFActionConstants.GROUP_REST);
 
 		PictogramElement pes[] = getEditor().getSelectedPictogramElements();
 		ICustomContext context = new CustomContext(pes);
@@ -245,10 +226,10 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 			contextMenuEntries = contextMenuEntries2;
 		}
 
-		addEntries(manager, contextMenuEntries, menuLocation, context, GEFActionConstants.GROUP_REST, null);
+		addEntries(manager, contextMenuEntries, context, GEFActionConstants.GROUP_REST, null);
 	}
 
-	private void addEntries(IMenuManager manager, IContextMenuEntry[] contextMenuEntries, Point menuLocation, ICustomContext context,
+	private void addEntries(IMenuManager manager, IContextMenuEntry[] contextMenuEntries, ICustomContext context,
 			String groupID, String textParentEntry) {
 
 		for (int i = 0; i < contextMenuEntries.length; i++) {
@@ -272,13 +253,13 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 				if (cmEntry.isSubmenu()) {
 
 					MenuManager subMenu = new MenuManager(text);
-					addEntries(subMenu, cmEntry.getChildren(), menuLocation, context, null, null);
+					addEntries(subMenu, cmEntry.getChildren(), context, null, null);
 					if (!subMenu.isEmpty()) {
 						appendContributionItem(manager, groupID, subMenu);
 					}
 				} else {
 					appendContributionItem(manager, groupID, new Separator());
-					addEntries(manager, cmEntry.getChildren(), menuLocation, context, groupID, text);
+					addEntries(manager, cmEntry.getChildren(), context, groupID, text);
 					appendContributionItem(manager, groupID, new Separator());
 				}
 			}
@@ -336,10 +317,8 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            the manager
 	 * @param group
 	 *            the group
-	 * @param menuLocation
-	 *            the menu location
 	 */
-	protected void addAlignmentSubMenu(IMenuManager manager, String group, Point menuLocation) {
+	protected void addAlignmentSubMenu(IMenuManager manager, String group) {
 		IAction action;
 		MenuManager alignmentSubMenu = new MenuManager(Messages.GraphicsContextMenuProvider_0_xmen);
 
@@ -386,10 +365,8 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            the manager
 	 * @param group
 	 *            the group
-	 * @param menuLocation
-	 *            the menu location
 	 */
-	protected void addNewObjectSubMenu(IMenuManager manager, String group, Point menuLocation) {
+	protected void addNewObjectSubMenu(IMenuManager manager, String group) {
 		IAction action;
 		MenuManager subMenu = new MenuManager(Messages.GraphicsContextMenuProvider_1_xmen);
 		// XXX: find all new-object-actions in the action-registry
@@ -410,14 +387,12 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 * 
 	 * @param manager
 	 *            the manager
-	 * @param menuLocation
-	 *            the menu location
 	 * @param actionId
 	 *            the action id
 	 * @param menuGroup
 	 *            the menu group
 	 */
-	protected void addActionToMenu(IMenuManager manager, Point menuLocation, String actionId, String menuGroup) {
+	protected void addActionToMenu(IMenuManager manager, String actionId, String menuGroup) {
 		IAction action;
 		action = _actionRegistry.getAction(actionId);
 		if (action != null && action.isEnabled())
@@ -429,14 +404,12 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 * 
 	 * @param manager
 	 *            the manager
-	 * @param menuLocation
-	 *            the menu location
 	 * @param actionId
 	 *            the action id
 	 * @param menuGroup
 	 *            the menu group
 	 */
-	protected void addActionToMenuIfAvailable(IMenuManager manager, Point menuLocation, String actionId, String menuGroup) {
+	protected void addActionToMenuIfAvailable(IMenuManager manager, String actionId, String menuGroup) {
 		IAction action = _actionRegistry.getAction(actionId);
 		if (action instanceof IAvailable) {
 			if (((IAvailable) action).isAvailable()) {
@@ -464,16 +437,15 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 */
 	protected Point getCurrentMouseLocation() {
 		if (_menuLocationReferenceControl != null) {
-			/*
-			 * This stuff is not platform independent // int pos =
-			 * OS.GetMessagePos(); // int x = (short) (pos & 0xFFFF); // int y =
-			 * (short) (pos >> 16); // Point point = new Point(x, y);
-			 */
 			Point point = Display.getCurrent().getCursorLocation();
 			Point location = Display.getCurrent().map(null, _menuLocationReferenceControl, point);
 			Rectangle rectangle = new Rectangle(0, 0, _menuLocationReferenceControl.getSize().x, _menuLocationReferenceControl.getSize().y);
-			if (rectangle.contains(location))
+			if (rectangle.contains(location)){
+//				System.out.println("selbst  x: " + location.x + "y: " + location.y);
+//				org.eclipse.draw2d.geometry.Point edLoc = this.configurationProvider.getDiagramEditor().getMouseLocation();
+//				System.out.println("editor  x: " + edLoc.x + "y: " + edLoc.y);
 				return location;
+			}
 		}
 		return null;
 	}
