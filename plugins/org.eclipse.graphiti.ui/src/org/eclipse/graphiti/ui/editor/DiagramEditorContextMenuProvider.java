@@ -108,9 +108,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 */
 	@Override
 	public void buildContextMenu(IMenuManager manager) {
-
 		GEFActionConstants.addStandardActionGroups(manager);
-
 		addDefaultMenuGroupSave(manager);
 		addDefaultMenuGroupEdit(manager);
 		addDefaultMenuGroupPrint(manager);
@@ -137,14 +135,14 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            the manager
 	 */
 	protected void addDefaultMenuGroupSave(IMenuManager manager) {
-		final IFeatureProvider fp = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
+		IFeatureProvider fp = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
 		if (fp != null) {
-			final ISaveImageFeature sf = fp.getSaveImageFeature();
+			ISaveImageFeature sf = fp.getSaveImageFeature();
 
 			if (sf != null) {
-				final PictogramElement pe[] = getEditor().getSelectedPictogramElements();
-				final ISaveImageContext context = new SaveImageContext(pe);
-				final IAction action = new SaveImageAction(sf, context, getEditor());
+				PictogramElement pe[] = getEditor().getSelectedPictogramElements();
+				ISaveImageContext context = new SaveImageContext(pe);
+				IAction action = new SaveImageAction(sf, context, getEditor());
 				manager.appendToGroup(GEFActionConstants.GROUP_SAVE, action);
 			}
 		}
@@ -188,20 +186,20 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 		addActionToMenuIfAvailable(manager, RemoveAction.ACTION_ID, GEFActionConstants.GROUP_REST);
 		addActionToMenuIfAvailable(manager, DeleteAction.ACTION_ID, GEFActionConstants.GROUP_REST);
 
-		final PictogramElement pes[] = getEditor().getSelectedPictogramElements();
-		final ICustomContext context = new CustomContext(pes);
+		PictogramElement pes[] = getEditor().getSelectedPictogramElements();
+		ICustomContext context = new CustomContext(pes);
 
 		if (pes.length == 1) {
 			extendCustomContext(pes[0], (CustomContext) context);
 		}
 
-		final IToolBehaviorProvider tb = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+		IToolBehaviorProvider tb = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 
 		IContextMenuEntry[] contextMenuEntries = tb.getContextMenu(context);
 
 		if (GFPreferences.getInstance().areDebugActionsActive()) {
-			final IFeatureProvider fp = getConfigurationProvider().getFeatureProvider();
-			final ContextMenuEntry debugEntry = new ContextMenuEntry(null, context);
+			IFeatureProvider fp = getConfigurationProvider().getFeatureProvider();
+			ContextMenuEntry debugEntry = new ContextMenuEntry(null, context);
 			debugEntry.setText("Debug"); //$NON-NLS-1$
 			debugEntry.setSubmenu(true);
 			debugEntry.add(new ContextMenuEntry(new DebugFeature(fp, DebugFeature.TYPE_DUMP_FIGURE_DATA), context));
@@ -209,7 +207,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 			debugEntry.add(new ContextMenuEntry(new DebugFeature(fp, DebugFeature.TYPE_DUMP_EDIT_PART_DATA), context));
 			debugEntry.add(new ContextMenuEntry(new DebugFeature(fp, DebugFeature.TYPE_DUMP_ALL), context));
 			debugEntry.add(new ContextMenuEntry(new DebugFeature(fp, DebugFeature.TYPE_REFRESH), context));
-			final IContextMenuEntry[] contextMenuEntries2 = new IContextMenuEntry[contextMenuEntries.length + 1];
+			IContextMenuEntry[] contextMenuEntries2 = new IContextMenuEntry[contextMenuEntries.length + 1];
 			System.arraycopy(contextMenuEntries, 0, contextMenuEntries2, 0, contextMenuEntries.length);
 			contextMenuEntries2[contextMenuEntries2.length - 1] = debugEntry;
 			contextMenuEntries = contextMenuEntries2;
@@ -222,26 +220,25 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 			String textParentEntry) {
 
 		for (int i = 0; i < contextMenuEntries.length; i++) {
-			final IContextMenuEntry cmEntry = contextMenuEntries[i];
+			IContextMenuEntry cmEntry = contextMenuEntries[i];
 			String text = cmEntry.getText();
 			if (cmEntry.getChildren().length == 0) {
-				final IFeature feature = cmEntry.getFeature();
+				IFeature feature = cmEntry.getFeature();
 				if (feature instanceof ICustomFeature && feature.isAvailable(context)) {
-					final IAction action = new CustomAction((ICustomFeature) feature, context, getEditor());
+					IAction action = new CustomAction((ICustomFeature) feature, context, getEditor());
 					if (textParentEntry != null) {
 						text = textParentEntry + " " + text; //$NON-NLS-1$
 					}
 					action.setText(text);
 					action.setDescription(cmEntry.getDescription());
-					final ImageDescriptor image = ImagePool.getImageDescriptorForId(cmEntry.getIconId());
+					ImageDescriptor image = ImagePool.getImageDescriptorForId(cmEntry.getIconId());
 					action.setImageDescriptor(image);
 					appendContributionItem(manager, groupID, new ActionContributionItem(action));
 				}
 			} else {
-
 				if (cmEntry.isSubmenu()) {
 
-					final MenuManager subMenu = new MenuManager(text);
+					MenuManager subMenu = new MenuManager(text);
 					addEntries(subMenu, cmEntry.getChildren(), context, null, null);
 					if (!subMenu.isEmpty()) {
 						appendContributionItem(manager, groupID, subMenu);
@@ -266,27 +263,25 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	// ====================== add single menu-entries =========================
 
 	private void extendCustomContext(PictogramElement pe, CustomContext context) {
-		final Point location = getEditor().getMouseLocation();
-		final int mX = location.x;
-		final int mY = location.y;
+		Point location = getEditor().getMouseLocation();
+		int mX = location.x;
+		int mY = location.y;
 		context.setX(mX);
 		context.setY(mY);
 
 		if (pe instanceof Shape && !(pe instanceof Diagram)) {
-			final GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
+			GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
 			if (ga != null) {
-				// int x = ga.getX();
-				// int y = ga.getY();
-				final ILocation relLocation = Graphiti.getPeService().getLocationRelativeToDiagram((Shape) pe);
-				final int x = relLocation.getX();
-				final int y = relLocation.getY();
-				final int width = ga.getWidth();
-				final int height = ga.getHeight();
+				ILocation relLocation = Graphiti.getPeService().getLocationRelativeToDiagram((Shape) pe);
+				int x = relLocation.getX();
+				int y = relLocation.getY();
+				int width = ga.getWidth();
+				int height = ga.getHeight();
 
 				if (mX > x && mX < x + width && mY > y && mY < y + height) {
-					final int relativeX = mX - x;
-					final int relativeY = mY - y;
-					final ILocationInfo locationInfo = Graphiti.getLayoutService().getLocationInfo((Shape) pe, relativeX, relativeY);
+					int relativeX = mX - x;
+					int relativeY = mY - y;
+					ILocationInfo locationInfo = Graphiti.getLayoutService().getLocationInfo((Shape) pe, relativeX, relativeY);
 					context.setInnerPictogramElement(locationInfo.getShape());
 					context.setInnerGraphicsAlgorithm(locationInfo.getGraphicsAlgorithm());
 				}
@@ -304,7 +299,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 */
 	protected void addAlignmentSubMenu(IMenuManager manager, String group) {
 		IAction action;
-		final MenuManager alignmentSubMenu = new MenuManager(Messages.GraphicsContextMenuProvider_0_xmen);
+		MenuManager alignmentSubMenu = new MenuManager(Messages.GraphicsContextMenuProvider_0_xmen);
 
 		action = this.actionRegistry.getAction(GEFActionConstants.ALIGN_LEFT);
 		if (action != null && action.isEnabled()) {
@@ -361,10 +356,10 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 */
 	protected void addNewObjectSubMenu(IMenuManager manager, String group) {
 		IAction action;
-		final MenuManager subMenu = new MenuManager(Messages.GraphicsContextMenuProvider_1_xmen);
+		MenuManager subMenu = new MenuManager(Messages.GraphicsContextMenuProvider_1_xmen);
 		// XXX: find all new-object-actions in the action-registry
-		final List createActions = new ArrayList();
-		for (final Iterator iter = createActions.iterator(); iter.hasNext();) {
+		List createActions = new ArrayList();
+		for (Iterator iter = createActions.iterator(); iter.hasNext();) {
 			action = (IAction) iter.next();
 			if (action.isEnabled()) {
 				subMenu.add(action);
@@ -405,14 +400,14 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            the menu group
 	 */
 	protected void addActionToMenuIfAvailable(IMenuManager manager, String actionId, String menuGroup) {
-		final IAction action = this.actionRegistry.getAction(actionId);
+		IAction action = this.actionRegistry.getAction(actionId);
 		if (action instanceof IAvailable) {
 			if (((IAvailable) action).isAvailable()) {
 				manager.appendToGroup(menuGroup, action);
 				//For Update Actions we have to trigger a refresh of the enablement, also if no selection change occured:
 				//e.g. update was triggered, then update has to be disabled.
 				if (action instanceof UpdateAction) {
-					final UpdateAction updateAction = (UpdateAction) action;
+					UpdateAction updateAction = (UpdateAction) action;
 					updateAction.setEnabled(updateAction.isEnabled());
 
 				}
@@ -440,9 +435,9 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 */
 	@Override
 	protected boolean allowItem(IContributionItem itemToAdd) {
-		final boolean ret = super.allowItem(itemToAdd);
+		boolean ret = super.allowItem(itemToAdd);
 		if (ret) {
-			final String itemId = itemToAdd.getId();
+			String itemId = itemToAdd.getId();
 			if (itemId != null) {
 				if (itemId.startsWith("org.eclipse.debug.ui.contextualLaunch.")) { //$NON-NLS-1$
 					return false;
