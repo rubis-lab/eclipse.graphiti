@@ -46,7 +46,7 @@ public interface PropertyContainer extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Properties</em>' containment reference list.
 	 * @see org.eclipse.graphiti.mm.MmPackage#getPropertyContainer_Properties()
-	 * @model containment="true" resolveProxies="true" transient="true" ordered="false"
+	 * @model containment="true" resolveProxies="true" ordered="false"
 	 * @generated
 	 */
 	EList<Property> getProperties();
