@@ -78,5 +78,10 @@
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+      <rm:uri format="{0}/technology/swtbot/helios/dev-build/update-site">
+        <bc:propertyRef key="eclipse.downloads"/>
+      </rm:uri>
+    </rm:provider>
   </rm:searchPath>
 </rm:rmap>
