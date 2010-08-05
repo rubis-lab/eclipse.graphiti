@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.pde.ui.JunitLaunchConfig">
+<listAttribute key="com.mountainminds.eclemma.core.INSTRUMENTATION_PATHS">
+<listEntry value="/org.eclipse.graphiti.mm/bin"/>
+<listEntry value="/org.eclipse.graphiti/bin"/>
+<listEntry value="/org.eclipse.graphiti.ui/bin"/>
+<listEntry value="/org.eclipse.graphiti.pattern/bin"/>
+</listAttribute>
 <booleanAttribute key="append.args" value="true"/>
 <booleanAttribute key="askclear" value="false"/>
 <booleanAttribute key="automaticAdd" value="true"/>
