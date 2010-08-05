@@ -21,16 +21,21 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.examples.common.ExamplesCommonPlugin;
 import org.eclipse.graphiti.examples.common.FileService;
 import org.eclipse.graphiti.examples.common.navigator.nodes.base.AbstractInstancesOfTypeContainerNode;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 
 /**
@@ -120,8 +125,17 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 		URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 
 		TransactionalEditingDomain domain = FileService.createEmfFileForDiagram(uri, diagram);
+		String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
+		DiagramEditorInput editorInput = new DiagramEditorInput(EcoreUtil.getURI(diagram), domain, providerId);
 
-		GraphitiUiInternal.getWorkbenchService().openDiagramEditor(diagram, domain, true);
+		try {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, DiagramEditor.DIAGRAM_EDITOR_ID);
+		} catch (PartInitException e) {
+			String error = "Error while opening diagram editor";
+			IStatus status = new Status(IStatus.ERROR, ExamplesCommonPlugin.getID(), error, e);
+			ErrorDialog.openError(getShell(), "An error occured", null, status);
+			return false;
+		}
 
 		return true;
 	}
