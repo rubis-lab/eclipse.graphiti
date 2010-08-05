@@ -276,13 +276,6 @@
 			</cmdargs>
 		</buckminster>
 
-		<echo message="Rebuilding all projects in workspace ${workspace}" />
-		<buckminster command="build">
-			<cmdargs>
-				<arg value="--clean" />
-			</cmdargs>
-		</buckminster>
-
 		<echo message="Running SWT Bot tests for Graphiti" />
 		<buckminster command="emma">
 			<cmdargs>
