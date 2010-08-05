@@ -15,10 +15,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartViewer;
@@ -66,13 +62,11 @@ import org.eclipse.ui.actions.ActionFactory;
 /**
  * This ContextMenuProvider provides a standard-context-menu and adds it to the
  * given EditPartViewer. Another feature is, that it can set the menu-location
- * to all Actions, which implement the interface ILocationReceiver.
+ * to all Actions.
  * <p>
  * Some of the standard-menu-items are: undo/redo, delete, copy/paste,
  * alignment, zooming.
  * 
- * @noinstantiate This class is not intended to be instantiated by clients.
- * @noextend This class is not intended to be subclassed by clients.
  */
 public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 
@@ -109,6 +103,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	@Override
 	public void buildContextMenu(IMenuManager manager) {
 		GEFActionConstants.addStandardActionGroups(manager);
+		addDefaultMenuGroupUndo(manager);
 		addDefaultMenuGroupSave(manager);
 		addDefaultMenuGroupEdit(manager);
 		addDefaultMenuGroupPrint(manager);
@@ -155,12 +150,8 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            the manager
 	 */
 	protected void addDefaultMenuGroupEdit(IMenuManager manager) {
-		addNewObjectSubMenu(manager, GEFActionConstants.GROUP_EDIT);
 		addActionToMenuIfAvailable(manager, ActionFactory.COPY.getId(), GEFActionConstants.GROUP_EDIT);
 		addActionToMenuIfAvailable(manager, ActionFactory.PASTE.getId(), GEFActionConstants.GROUP_EDIT);
-
-		//		addActionToMenuIfAvailable(manager, ActionFactory.DELETE.getId(), GEFActionConstants.GROUP_EDIT);
-		//		addActionToMenuIfAvailable(manager, GEFActionConstants.DIRECT_EDIT, GEFActionConstants.GROUP_EDIT);
 	}
 
 	/**
@@ -347,31 +338,6 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	}
 
 	/**
-	 * Adds the new object sub menu.
-	 * 
-	 * @param manager
-	 *            the manager
-	 * @param group
-	 *            the group
-	 */
-	protected void addNewObjectSubMenu(IMenuManager manager, String group) {
-		IAction action;
-		MenuManager subMenu = new MenuManager(Messages.GraphicsContextMenuProvider_1_xmen);
-		// XXX: find all new-object-actions in the action-registry
-		List createActions = new ArrayList();
-		for (Iterator iter = createActions.iterator(); iter.hasNext();) {
-			action = (IAction) iter.next();
-			if (action.isEnabled()) {
-				subMenu.add(action);
-			}
-		}
-
-		if (!subMenu.isEmpty()) {
-			manager.appendToGroup(group, subMenu);
-		}
-	}
-
-	/**
 	 * Adds the action to menu.
 	 * 
 	 * @param manager
@@ -415,24 +381,6 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 		}
 	}
 
-	// ======================== private helper methods =========================
-
-	/**
-	 * Gets the configuration provider.
-	 * 
-	 * @return Returns the configurationProvider.
-	 */
-	protected IConfigurationProvider getConfigurationProvider() {
-		return this.configurationProvider;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.jface.action.ContributionManager#allowItem(org.eclipse.jface
-	 * .action.IContributionItem)
-	 */
 	@Override
 	protected boolean allowItem(IContributionItem itemToAdd) {
 		boolean ret = super.allowItem(itemToAdd);
@@ -445,6 +393,10 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 			}
 		}
 		return ret;
+	}
+
+	private IConfigurationProvider getConfigurationProvider() {
+		return this.configurationProvider;
 	}
 
 	private DiagramEditorInternal getEditor() {
