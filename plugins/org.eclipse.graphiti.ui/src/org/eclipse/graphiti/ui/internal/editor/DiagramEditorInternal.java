@@ -75,6 +75,7 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -82,6 +83,7 @@ import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
+import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
@@ -396,7 +398,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * @return A new ContextMenuProvider.
 	 */
 	protected ContextMenuProvider createContextMenuProvider() {
-		return new DiagramEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry(), getConfigurationProvider());
+		return new DiagramEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry(),getConfigurationProvider());
 	}
 
 	/**
@@ -853,6 +855,12 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			mouseLocation = new Point();
 		}
 		return mouseLocation;
+	}
+	
+	@Override
+	public ILocation getCurrentMouseLocation() {
+		Point mL = getMouseLocation();
+		return new LocationImpl(mL.x, mL.y);
 	}
 
 	@Override
@@ -1661,4 +1669,5 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	public boolean isMultipleRefreshSupressionActive() {
 		return true;
 	}
+
 }

@@ -18,6 +18,7 @@ package org.eclipse.graphiti.ui.internal.editor;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -87,5 +88,10 @@ public class DiagramEditorDummy implements IDiagramEditor {
 	}
 
 	public void refreshPalette() {
+	}
+
+	@Override
+	public ILocation getCurrentMouseLocation() {
+		return null;
 	}
 }
