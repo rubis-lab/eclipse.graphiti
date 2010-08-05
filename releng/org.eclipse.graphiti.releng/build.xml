@@ -261,6 +261,7 @@
 				<arg value="${result}/coverageReportJunitGraphiti.xml" />
 			</cmdargs>
 		</buckminster>
+
 		<echo message="Running JUnit tests for GraphitiUI" />
 		<buckminster command="emma">
 			<cmdargs>
@@ -274,6 +275,14 @@
 				<arg value="${result}/coverageReportJunitGraphitiUi.xml" />
 			</cmdargs>
 		</buckminster>
+
+		<echo message="Rebuilding all projects in workspace ${workspace}" />
+		<buckminster command="build">
+			<cmdargs>
+				<arg value="--clean" />
+			</cmdargs>
+		</buckminster>
+
 		<echo message="Running SWT Bot tests for Graphiti" />
 		<buckminster command="emma">
 			<cmdargs>
