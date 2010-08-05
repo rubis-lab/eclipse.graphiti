@@ -18,6 +18,7 @@ package org.eclipse.graphiti.platform;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
@@ -119,4 +120,11 @@ public interface IDiagramEditor {
 	 * Refreshes the editor's palette.
 	 */
 	void refreshPalette();
+	
+	/**
+	 * Gets the mouse location.
+	 * 
+	 * @return the mouse location
+	 */
+	ILocation getCurrentMouseLocation();
 }
