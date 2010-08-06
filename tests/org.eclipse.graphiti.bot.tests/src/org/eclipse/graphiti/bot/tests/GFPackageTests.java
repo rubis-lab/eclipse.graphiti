@@ -71,7 +71,6 @@ import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.features.AbstractPasteFeature;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
-import org.eclipse.graphiti.ui.internal.ImagePool;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.editor.GFMarqueeSelectionTool;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
@@ -109,7 +108,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 	@Test
 	public void testGraphitiUiInternal() throws Exception {
-		org.eclipse.swt.graphics.Image imageForId = ImagePool.getImageForId(IPlatformImageConstants.IMG_DIAGRAM);
+		org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(IPlatformImageConstants.IMG_DIAGRAM);
 		GraphitiUiInternal.getUiService().createImage(imageForId, SWT.IMAGE_GIF);
 	}
 
