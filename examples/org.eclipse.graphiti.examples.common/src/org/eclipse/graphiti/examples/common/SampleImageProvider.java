@@ -21,7 +21,7 @@ package org.eclipse.graphiti.examples.common;
 import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
 
 /**
- * The Class MofImageProvider.
+ * The Class SampleImageProvider.
  */
 public class SampleImageProvider extends AbstractImageProvider {
 
