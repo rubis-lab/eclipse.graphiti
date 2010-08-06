@@ -19,29 +19,40 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 /**
- * This interface provides services ...
+ * This interface provides services for the creation of images.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
 public interface IImageService {
 	/**
-	 * Gets the image descriptor for id.
+	 * Gets an image descriptor for the given image id. This image id must be
+	 * supported by an graphiti image provider. The image registry of the plugin
+	 * <code>org.eclipse.graphiti.ui</code> is used. This ensures that the image
+	 * descriptor will only created once.
 	 * 
 	 * @param imageId
-	 *            the image id
+	 *            the image id which is supported by an graphiti image provider
 	 * 
-	 * @return the image descriptor for id
+	 * @return the image descriptor for the id
+	 * 
+	 * @see org.eclipse.jface.resource.ImageDescriptor
 	 */
 	ImageDescriptor getImageDescriptorForId(String imageId);
 
 	/**
-	 * Gets the image for id.
+	 * Gets an image for the given image id. This image id must be supported by
+	 * an graphiti image provider. The image registry of the plugin
+	 * <code>org.eclipse.graphiti.ui</code> is used. This ensures that the image
+	 * will only created once. The image returned must not be disposed by the
+	 * caller.
 	 * 
 	 * @param imageId
-	 *            the image id
+	 *            the image id which is supported by an graphiti image provider
 	 * 
-	 * @return the image for id
+	 * @return the image for the id
+	 * 
+	 * @see org.eclipse.swt.graphics.Image
 	 */
 	Image getImageForId(String imageId);
 }
