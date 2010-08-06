@@ -31,13 +31,13 @@ import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.parts.ContentOutlinePage;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
+import org.eclipse.graphiti.examples.common.ISampleImageConstants;
 import org.eclipse.graphiti.examples.common.outline.tree.PictogramsTreeEditPartFactory;
-import org.eclipse.graphiti.examples.common.util.ImagePool;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.internal.config.IEditPartFactory;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScrollableThumbnail;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
@@ -52,9 +52,11 @@ import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.part.PageBook;
 
 /**
- * An outline page for the graphical modelling editor. It displays the contents of the editor either as a hierachical Outline or as a
- * graphical Thumbnail. There are buttons to switch between those displays. Subclasses should overwrite this outline page (and dependent
- * classes), to change the default-behaviour.
+ * An outline page for the graphical modelling editor. It displays the contents
+ * of the editor either as a hierachical Outline or as a graphical Thumbnail.
+ * There are buttons to switch between those displays. Subclasses should
+ * overwrite this outline page (and dependent classes), to change the
+ * default-behaviour.
  */
 public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAdaptable, IPropertyListener {
 
@@ -96,11 +98,14 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	private Canvas _overview;
 
 	/**
-	 * Creates a new GraphicsEditorOutlinePage. It is important, that this outline page uses the same handlers (ActionRegistry, KeyHandler,
-	 * ZoomManagerAdapter, ...) as the main editor, so that the behaviour is synchronized between them.
+	 * Creates a new GraphicsEditorOutlinePage. It is important, that this
+	 * outline page uses the same handlers (ActionRegistry, KeyHandler,
+	 * ZoomManagerAdapter, ...) as the main editor, so that the behaviour is
+	 * synchronized between them.
 	 * 
 	 * @param viewer
-	 *            The viewer (typically a tree-viewer) for the hierarchical outline.
+	 *            The viewer (typically a tree-viewer) for the hierarchical
+	 *            outline.
 	 * @param graphicalViewer
 	 *            The GraphicalViewer for the Thumbnail.
 	 * @param actionRegistry
@@ -112,7 +117,8 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	 * @param zoomManagerAdapter
 	 *            The ZoomManagerAdapter to use for the Thumbnail-Display.
 	 * @param selectionSynchronizer
-	 *            The selection-synchronizer for the main-editor and this outline page.
+	 *            The selection-synchronizer for the main-editor and this
+	 *            outline page.
 	 * @param configurationProviderHolder
 	 *            the configuration provider holder
 	 */
@@ -132,7 +138,8 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	// ========================= standard behaviour ===========================
 
 	/**
-	 * Is called to indicate, that the contents have changed. Causes a complete update of the contents of the outline page.
+	 * Is called to indicate, that the contents have changed. Causes a complete
+	 * update of the contents of the outline page.
 	 */
 	public void initContents() {
 		IEditPartFactory treeEditPartFactory = new PictogramsTreeEditPartFactory(_diagramEditor.getConfigurationProvider());
@@ -142,8 +149,9 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	}
 
 	/**
-	 * Is used to register several global action handlers (UNDO, REDO, COPY, PASTE, ...) on initialization of this outline page. This
-	 * activates for example the undo-action in the central Eclipse-Menu.
+	 * Is used to register several global action handlers (UNDO, REDO, COPY,
+	 * PASTE, ...) on initialization of this outline page. This activates for
+	 * example the undo-action in the central Eclipse-Menu.
 	 * 
 	 * @param pageSite
 	 *            the page site
@@ -164,8 +172,9 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	}
 
 	/**
-	 * Creates the Control of this outline page. By default this is a PageBook, which can toggle between a hierarchical Outline and a
-	 * graphical Thumbnail.
+	 * Creates the Control of this outline page. By default this is a PageBook,
+	 * which can toggle between a hierarchical Outline and a graphical
+	 * Thumbnail.
 	 * 
 	 * @param parent
 	 *            the parent
@@ -203,7 +212,8 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	}
 
 	/**
-	 * Returns the Control of this outline page, which was created in createControl().
+	 * Returns the Control of this outline page, which was created in
+	 * createControl().
 	 * 
 	 * @return the control
 	 * 
@@ -231,17 +241,20 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	}
 
 	/**
-	 * Refreshes the outline on any change of the diagram editor. Most importantly, there is a property change event editor-dirty.
+	 * Refreshes the outline on any change of the diagram editor. Most
+	 * importantly, there is a property change event editor-dirty.
 	 */
 	public void propertyChanged(Object source, int propId) {
 		refresh();
 	}
 
 	/**
-	 * Toggles the page to display between hierarchical Outline and graphical Thumbnail.
+	 * Toggles the page to display between hierarchical Outline and graphical
+	 * Thumbnail.
 	 * 
 	 * @param id
-	 *            The ID of the page to display. It must be either ID_OUTLINE or ID_THUMBNAIL.
+	 *            The ID of the page to display. It must be either ID_OUTLINE or
+	 *            ID_THUMBNAIL.
 	 */
 	protected void showPage(int id) {
 		if (id == ID_OUTLINE) {
@@ -279,7 +292,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 				showPage(ID_OUTLINE);
 			}
 		};
-		_showOutlineAction.setImageDescriptor(ImagePool.getImageDescriptor(ImagePool.IMG_OUTLINE_TREE));
+		_showOutlineAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(ISampleImageConstants.IMG_OUTLINE_TREE));
 		tbm.add(_showOutlineAction);
 		_showOverviewAction = new Action() {
 
@@ -288,7 +301,8 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 				showPage(ID_THUMBNAIL);
 			}
 		};
-		_showOverviewAction.setImageDescriptor(ImagePool.getImageDescriptor(ImagePool.IMG_OUTLINE_THUMBNAIL));
+		_showOverviewAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
+				ISampleImageConstants.IMG_OUTLINE_THUMBNAIL));
 		tbm.add(_showOverviewAction);
 
 		// by default show the outline-page
@@ -296,7 +310,8 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	}
 
 	/**
-	 * Returns a new ContextMenuProvider. Can be null, if no context-menu shall be displayed.
+	 * Returns a new ContextMenuProvider. Can be null, if no context-menu shall
+	 * be displayed.
 	 * 
 	 * @return A new ContextMenuProvider.
 	 */

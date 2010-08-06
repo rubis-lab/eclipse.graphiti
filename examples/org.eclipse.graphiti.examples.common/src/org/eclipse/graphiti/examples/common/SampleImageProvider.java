@@ -63,5 +63,8 @@ public class SampleImageProvider extends AbstractImageProvider {
 		addImageFilePath(ISampleImageConstants.IMG_TREE_RIGHT, ROOT_FOLDER_FOR_IMG + "tree/tree_right.gif"); //$NON-NLS-1$
 		addImageFilePath(ISampleImageConstants.IMG_TREE_UP, ROOT_FOLDER_FOR_IMG + "tree/tree_up.gif"); //$NON-NLS-1$
 
+		// outline
+		addImageFilePath(ISampleImageConstants.IMG_OUTLINE_TREE, ROOT_FOLDER_FOR_IMG + "outline/tree.gif"); //$NON-NLS-1$
+		addImageFilePath(ISampleImageConstants.IMG_OUTLINE_THUMBNAIL, ROOT_FOLDER_FOR_IMG + "outline/thumbnail.gif"); //$NON-NLS-1$
 	}
 }

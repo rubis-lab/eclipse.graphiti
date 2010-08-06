@@ -119,4 +119,14 @@ public interface ISampleImageConstants {
 	 */
 	static final String IMG_TREE_RIGHT = "tree/tree_right.gif"; //$NON-NLS-1$
 
+	// outline
+	/**
+	 * The Constant IMG_OUTLINE_TREE.
+	 */
+	static final String IMG_OUTLINE_TREE = "outline/tree.gif"; //$NON-NLS-1$
+
+	/**
+	 * The Constant IMG_OUTLINE_THUMBNAIL.
+	 */
+	static final String IMG_OUTLINE_THUMBNAIL = "outline/thumbnail.gif"; //$NON-NLS-1$
 }
