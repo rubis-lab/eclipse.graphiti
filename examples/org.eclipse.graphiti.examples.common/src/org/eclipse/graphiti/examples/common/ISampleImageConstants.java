@@ -102,31 +102,31 @@ public interface ISampleImageConstants {
 	/**
 	 * The Constant IMG_TREE_UP.
 	 */
-	static final String IMG_TREE_UP = "tree/tree_up.gif"; //$NON-NLS-1$
+	static final String IMG_TREE_UP = PRE + "tree.up"; //$NON-NLS-1$
 
 	/**
 	 * The Constant IMG_TREE_DOWN.
 	 */
-	static final String IMG_TREE_DOWN = "tree/tree_down.gif"; //$NON-NLS-1$
+	static final String IMG_TREE_DOWN = PRE + "tree.down"; //$NON-NLS-1$
 
 	/**
 	 * The Constant IMG_TREE_LEFT.
 	 */
-	static final String IMG_TREE_LEFT = "tree/tree_left.gif"; //$NON-NLS-1$
+	static final String IMG_TREE_LEFT = PRE + "tree.left"; //$NON-NLS-1$
 
 	/**
 	 * The Constant IMG_TREE_RIGHT.
 	 */
-	static final String IMG_TREE_RIGHT = "tree/tree_right.gif"; //$NON-NLS-1$
+	static final String IMG_TREE_RIGHT = PRE + "tree.right"; //$NON-NLS-1$
 
 	// outline
 	/**
 	 * The Constant IMG_OUTLINE_TREE.
 	 */
-	static final String IMG_OUTLINE_TREE = "outline/tree.gif"; //$NON-NLS-1$
+	static final String IMG_OUTLINE_TREE = PRE + "outline.tree"; //$NON-NLS-1$
 
 	/**
 	 * The Constant IMG_OUTLINE_THUMBNAIL.
 	 */
-	static final String IMG_OUTLINE_THUMBNAIL = "outline/thumbnail.gif"; //$NON-NLS-1$
+	static final String IMG_OUTLINE_THUMBNAIL = PRE + "outline.thumbnail"; //$NON-NLS-1$
 }
