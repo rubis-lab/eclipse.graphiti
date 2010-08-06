@@ -43,9 +43,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 
-
 /**
- * @author d025638
  * 
  */
 public class ConfigurableFeatureProviderWrapper extends DefaultFeatureProviderWrapper {
