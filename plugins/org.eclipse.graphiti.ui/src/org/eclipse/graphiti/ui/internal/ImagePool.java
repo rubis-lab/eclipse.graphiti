@@ -63,18 +63,18 @@ public class ImagePool {
 	 * @return the image for id
 	 */
 	public static Image getImageForId(String imageId) {
-		if (imageId != null) {
-			// if image already available take it
-			ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
-			Image result = imageRegistry.get(imageId);
-			if (result != null)
-				return result;
 
-			createImageDescriptorForId(imageId);
-			return imageRegistry.get(imageId); // now there is an image registered
-		}
+		if (imageId == null)
+			return null;
 
-		return null;
+		// if image already available take it
+		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
+		Image result = imageRegistry.get(imageId);
+		if (result != null)
+			return result;
+
+		createImageDescriptorForId(imageId);
+		return imageRegistry.get(imageId); // now there is an image registered
 	}
 
 	/**
@@ -94,22 +94,6 @@ public class ImagePool {
 		ImageData data = descriptor.getImageData();
 		return ImageDescriptor.createFromImageData(data);
 
-	}
-
-	/**
-	 * Gets the image for pictogram image.
-	 * 
-	 * @param pictogramImage
-	 *            the pictogram image
-	 * 
-	 * @return the image for pictogram image
-	 */
-	private static Image getImageForPictogramImage(org.eclipse.graphiti.mm.algorithms.Image pictogramImage) {
-		if (pictogramImage != null) {
-			String imageId = pictogramImage.getId();
-			return getImageForId(imageId);
-		}
-		return null;
 	}
 
 	private static ImageDescriptor createImageDescriptorForId(String imageId) {
