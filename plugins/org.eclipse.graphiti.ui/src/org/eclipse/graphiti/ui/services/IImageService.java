@@ -15,32 +15,33 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.services;
 
-import org.eclipse.graphiti.ui.internal.platform.ExtensionManager;
-import org.eclipse.graphiti.ui.internal.services.impl.ImageService;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 
 /**
- * @noinstantiate This class is not intended to be instantiated by clients.
+ * This interface provides services ...
+ * 
+ * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class GraphitiUi {
-
-	final private static IImageService imageService = new ImageService();
+public interface IImageService {
+	/**
+	 * Gets the image descriptor for id.
+	 * 
+	 * @param imageId
+	 *            the image id
+	 * 
+	 * @return the image descriptor for id
+	 */
+	ImageDescriptor getImageDescriptorForId(String imageId);
 
 	/**
-	 * Gets the extension manager.
+	 * Gets the image for id.
 	 * 
-	 * @return the extension manager
-	 */
-	public static IExtensionManager getExtensionManager() {
-		return ExtensionManager.getSingleton();
-	}
-
-	/**
-	 * Gets the image service
+	 * @param imageId
+	 *            the image id
 	 * 
-	 * @return the image service
+	 * @return the image for id
 	 */
-	public static IImageService getImageService() {
-		return imageService;
-	}
+	Image getImageForId(String imageId);
 }

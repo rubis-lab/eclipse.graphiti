@@ -13,34 +13,26 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.ui.services;
+package org.eclipse.graphiti.ui.internal.services.impl;
 
-import org.eclipse.graphiti.ui.internal.platform.ExtensionManager;
-import org.eclipse.graphiti.ui.internal.services.impl.ImageService;
+import org.eclipse.graphiti.ui.internal.ImagePool;
+import org.eclipse.graphiti.ui.services.IImageService;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class GraphitiUi {
+public class ImageService implements IImageService {
 
-	final private static IImageService imageService = new ImageService();
-
-	/**
-	 * Gets the extension manager.
-	 * 
-	 * @return the extension manager
-	 */
-	public static IExtensionManager getExtensionManager() {
-		return ExtensionManager.getSingleton();
+	@Override
+	public ImageDescriptor getImageDescriptorForId(String imageId) {
+		return ImagePool.getImageDescriptorForId(imageId);
 	}
 
-	/**
-	 * Gets the image service
-	 * 
-	 * @return the image service
-	 */
-	public static IImageService getImageService() {
-		return imageService;
+	@Override
+	public Image getImageForId(String imageId) {
+		return ImagePool.getImageForId(imageId);
 	}
 }
