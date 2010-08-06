@@ -53,7 +53,7 @@ public class TestLayoutClassFeature extends AbstractLayoutFeature {
 			return false;
 		}
 
-		// return true, if linked business object is a MOF Class
+		// return true, if linked business object is a Class
 		Object bo = getBusinessObjectForPictogramElement(context.getPictogramElement());
 		return (bo instanceof EClass);
 	}

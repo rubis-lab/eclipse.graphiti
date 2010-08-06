@@ -44,7 +44,7 @@ public class TestUpdateClassFeature extends AbstractUpdateFeature {
 	}
 
 	public boolean canUpdate(IUpdateContext context) {
-		// return true, if linked business object is a MOF Class
+		// return true, if linked business object is a Class
 		Object bo = getBusinessObjectForPictogramElement(context.getPictogramElement());
 		return (bo instanceof EClass);
 	}
@@ -91,8 +91,8 @@ public class TestUpdateClassFeature extends AbstractUpdateFeature {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		Object bo = getBusinessObjectForPictogramElement(pictogramElement);
 		if (bo instanceof EClass) {
-			EClass mofClass = (EClass) bo;
-			businessName = mofClass.getName();
+			EClass c = (EClass) bo;
+			businessName = c.getName();
 		}
 
 		// Set value in pictogram model

@@ -55,7 +55,7 @@ public class TestAddPackageFeature extends AbstractAddShapeFeature {
 	}
 
 	public boolean canAdd(IAddContext context) {
-		// check if user wants to add a MOF package
+		// check if user wants to add a package
 		if (context.getNewObject() instanceof EPackage) {
 
 			// check if user wants to add to a diagram
