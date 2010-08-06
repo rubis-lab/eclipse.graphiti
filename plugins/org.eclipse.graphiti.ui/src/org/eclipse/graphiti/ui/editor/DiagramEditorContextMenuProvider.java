@@ -38,7 +38,6 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.ContextMenuEntry;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.ImagePool;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.CustomAction;
 import org.eclipse.graphiti.ui.internal.action.DeleteAction;
@@ -49,6 +48,7 @@ import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.ILocationInfo;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
@@ -222,7 +222,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 					}
 					action.setText(text);
 					action.setDescription(cmEntry.getDescription());
-					ImageDescriptor image = ImagePool.getImageDescriptorForId(cmEntry.getIconId());
+					ImageDescriptor image = GraphitiUi.getImageService().getImageDescriptorForId(cmEntry.getIconId());
 					action.setImageDescriptor(image);
 					appendContributionItem(manager, groupID, new ActionContributionItem(action));
 				}

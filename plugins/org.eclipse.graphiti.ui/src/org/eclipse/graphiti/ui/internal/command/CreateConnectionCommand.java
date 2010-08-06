@@ -33,11 +33,11 @@ import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.internal.ImagePool;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.util.ui.PopupMenu;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
@@ -291,9 +291,9 @@ public class CreateConnectionCommand extends AbstractCommand {
 
 			IFeature feature = command.getFeature();
 			if (feature instanceof ICreateInfo) // e.g. ICreateConnectionFeature
-				return ImagePool.getImageForId(((ICreateInfo) feature).getCreateImageId());
+				return GraphitiUi.getImageService().getImageForId(((ICreateInfo) feature).getCreateImageId());
 			if (feature instanceof ICustomFeature)
-				return ImagePool.getImageForId(((ICustomFeature) feature).getImageId());
+				return GraphitiUi.getImageService().getImageForId(((ICustomFeature) feature).getImageId());
 
 			return null;
 		}

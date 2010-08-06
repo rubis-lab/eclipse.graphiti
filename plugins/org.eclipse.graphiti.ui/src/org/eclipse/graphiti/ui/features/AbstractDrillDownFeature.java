@@ -29,8 +29,8 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
-import org.eclipse.graphiti.ui.internal.ImagePool;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -207,7 +207,7 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 
 		public Image getImage(Object element) {
 			if (image == null) {
-				image = ImagePool.getImageForId(IPlatformImageConstants.IMG_DIAGRAM);
+				image = GraphitiUi.getImageService().getImageForId(IPlatformImageConstants.IMG_DIAGRAM);
 			}
 			return image;
 		}

@@ -33,7 +33,6 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.internal.contextbuttons.PositionedContextButton;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
-import org.eclipse.graphiti.ui.internal.ImagePool;
 import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.editor.GFDragConnectionTool;
@@ -41,6 +40,7 @@ import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.ui.internal.util.draw2d.Tooltip;
 import org.eclipse.graphiti.ui.internal.util.ui.PopupMenu;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -121,7 +121,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 
 		@Override
 		public Image getImage(Object element) {
-			return ImagePool.getImageForId(((ContextButtonEntry) element).getIconId());
+			return GraphitiUi.getImageService().getImageForId(((ContextButtonEntry) element).getIconId());
 		}
 	};
 
@@ -326,7 +326,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 
 		// create image
 		String iconId = getEntry().getIconId();
-		Image originalImage = ImagePool.getImageForId(iconId);
+		Image originalImage = GraphitiUi.getImageService().getImageForId(iconId);
 		Image image;
 		if (!isEnabled()) {
 			image = new Image(originalImage.getDevice(), originalImage, SWT.IMAGE_DISABLE);

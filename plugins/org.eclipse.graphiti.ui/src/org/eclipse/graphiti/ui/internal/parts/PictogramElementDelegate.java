@@ -87,7 +87,6 @@ import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IRenderingDecorator;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.tb.ImageRenderingDecorator;
-import org.eclipse.graphiti.ui.internal.ImagePool;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFAbstractShape;
@@ -106,6 +105,7 @@ import org.eclipse.graphiti.ui.internal.figures.GFText;
 import org.eclipse.graphiti.ui.internal.figures.RenderingImageFigure;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.ui.ISharedImages;
@@ -556,7 +556,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		} else if (graphicsAlgorithm instanceof Image && figure instanceof ImageFigure) {
 			ImageFigure imageFigure = (ImageFigure) figure;
 			Image pictogramImage = (Image) graphicsAlgorithm;
-			org.eclipse.swt.graphics.Image image = ImagePool.getImageForId(pictogramImage.getId());
+			org.eclipse.swt.graphics.Image image = GraphitiUi.getImageService().getImageForId(pictogramImage.getId());
 			imageFigure.setImage(image);
 			imageFigure.setAlignment(PositionConstants.CENTER);
 			imageFigure.setOpaque(false);
@@ -870,7 +870,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		if (renderingDecorator instanceof ImageRenderingDecorator) {
 			ImageRenderingDecorator imageRenderingDecorator = (ImageRenderingDecorator) renderingDecorator;
-			org.eclipse.swt.graphics.Image imageForId = ImagePool.getImageForId(imageRenderingDecorator.getImageId());
+			org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(imageRenderingDecorator.getImageId());
 			ImageFigure imageFigure = new RenderingImageFigure(imageForId);
 			decoratorFigure = imageFigure;
 			org.eclipse.swt.graphics.Rectangle imageBounds = imageFigure.getImage().getBounds();

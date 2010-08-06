@@ -37,10 +37,10 @@ import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.IStackToolEntry;
 import org.eclipse.graphiti.palette.IToolEntry;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.ImagePool;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.util.gef.MultiCreationFactory;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
@@ -116,8 +116,8 @@ public class GFPaletteRoot extends PaletteRoot {
 
 				} else if (toolEntry instanceof IStackToolEntry) {
 					IStackToolEntry stackToolEntry = (IStackToolEntry) toolEntry;
-					PaletteStack stack = new PaletteStack(stackToolEntry.getLabel(), stackToolEntry.getDescription(), ImagePool
-							.getImageDescriptorForId(stackToolEntry.getIconId()));
+					PaletteStack stack = new PaletteStack(stackToolEntry.getLabel(), stackToolEntry.getDescription(), GraphitiUi
+							.getImageService().getImageDescriptorForId(stackToolEntry.getIconId()));
 					drawer.add(stack);
 					List<ICreationToolEntry> creationToolEntries = stackToolEntry.getCreationToolEntries();
 					for (ICreationToolEntry creationToolEntry : creationToolEntries) {
@@ -299,7 +299,7 @@ public class GFPaletteRoot extends PaletteRoot {
 			imageDescriptor = ((IEclipseImageDescriptor) creationToolEntry).getImageDescriptor();
 		} else {
 			String iconId = (smallImage) ? creationToolEntry.getIconId() : creationToolEntry.getLargeIconId();
-			imageDescriptor = ImagePool.getImageDescriptorForId(iconId);
+			imageDescriptor = GraphitiUi.getImageService().getImageDescriptorForId(iconId);
 		}
 		return imageDescriptor;
 	}
@@ -309,7 +309,7 @@ public class GFPaletteRoot extends PaletteRoot {
 		if (compartmentEntry instanceof IEclipseImageDescriptor) {
 			imageDescriptor = ((IEclipseImageDescriptor) compartmentEntry).getImageDescriptor();
 		} else {
-			imageDescriptor = ImagePool.getImageDescriptorForId(compartmentEntry.getIconId());
+			imageDescriptor = GraphitiUi.getImageService().getImageDescriptorForId(compartmentEntry.getIconId());
 		}
 		return imageDescriptor;
 	}

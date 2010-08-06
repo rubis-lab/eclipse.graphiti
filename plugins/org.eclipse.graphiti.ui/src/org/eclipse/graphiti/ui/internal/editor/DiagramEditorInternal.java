@@ -100,7 +100,6 @@ import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
-import org.eclipse.graphiti.ui.internal.ImagePool;
 import org.eclipse.graphiti.ui.internal.ResourceRegistry;
 import org.eclipse.graphiti.ui.internal.action.CopyAction;
 import org.eclipse.graphiti.ui.internal.action.DeleteAction;
@@ -398,7 +397,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * @return A new ContextMenuProvider.
 	 */
 	protected ContextMenuProvider createContextMenuProvider() {
-		return new DiagramEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry(),getConfigurationProvider());
+		return new DiagramEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry(), getConfigurationProvider());
 	}
 
 	/**
@@ -613,7 +612,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			// image
 			String imageId = diagramTypeProvider.getDiagramTitleImage();
 			if (imageId != null) {
-				Image image = ImagePool.getImageForId(imageId);
+				Image image = GraphitiUi.getImageService().getImageForId(imageId);
 				if (image != null) {
 					setTitleImage(image);
 				}
@@ -856,7 +855,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		}
 		return mouseLocation;
 	}
-	
+
 	@Override
 	public ILocation getCurrentMouseLocation() {
 		Point mL = getMouseLocation();
