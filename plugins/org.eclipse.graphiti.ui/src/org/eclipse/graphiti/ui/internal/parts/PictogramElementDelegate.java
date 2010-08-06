@@ -556,7 +556,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		} else if (graphicsAlgorithm instanceof Image && figure instanceof ImageFigure) {
 			ImageFigure imageFigure = (ImageFigure) figure;
 			Image pictogramImage = (Image) graphicsAlgorithm;
-			org.eclipse.swt.graphics.Image image = ImagePool.getImageForPictogramImage(pictogramImage);
+			org.eclipse.swt.graphics.Image image = ImagePool.getImageForId(pictogramImage.getId());
 			imageFigure.setImage(image);
 			imageFigure.setAlignment(PositionConstants.CENTER);
 			imageFigure.setOpaque(false);

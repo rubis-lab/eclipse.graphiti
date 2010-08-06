@@ -104,7 +104,7 @@ public class ImagePool {
 	 * 
 	 * @return the image for pictogram image
 	 */
-	public static Image getImageForPictogramImage(org.eclipse.graphiti.mm.algorithms.Image pictogramImage) {
+	private static Image getImageForPictogramImage(org.eclipse.graphiti.mm.algorithms.Image pictogramImage) {
 		if (pictogramImage != null) {
 			String imageId = pictogramImage.getId();
 			return getImageForId(imageId);
