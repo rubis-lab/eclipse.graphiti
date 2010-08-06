@@ -42,13 +42,6 @@ public abstract class AbstractColorFeature extends AbstractCustomFeature {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.dt.jmof.features.custom.AbstractColorFeature#isAvailable
-	 * (com.sap.tc.emf.gfw.features.context.ICustomContext)
-	 */
 	@Override
 	public boolean isAvailable(IContext context) {
 		boolean ret = false;
