@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
@@ -204,9 +203,9 @@ public interface IEmfService {
 	public abstract StringBuilder toString(final EObject o, final StringBuilder result);
 
 	/**
-	 * If given file is a valid emf resource and it contains a diagram as root
-	 * element, this methods return the diagram. Otherwise this method returns
-	 * null.
+	 * If given file is a valid emf resource and it contains a diagram as first
+	 * root element, this methods return the diagram. Otherwise this method
+	 * returns null.
 	 * 
 	 * @param file
 	 *            a valid emf (diagram) resource

@@ -22,9 +22,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -241,6 +241,7 @@ public class EmfService implements IEmfService {
 
 		final Map<URI, Throwable> failedSaves = new HashMap<URI, Throwable>();
 		final IWorkspaceRunnable wsRunnable = new IWorkspaceRunnable() {
+			@Override
 			public void run(final IProgressMonitor monitor) throws CoreException {
 
 				final Runnable runnable = new Runnable() {
