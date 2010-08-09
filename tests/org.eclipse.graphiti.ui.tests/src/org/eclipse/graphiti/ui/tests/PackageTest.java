@@ -38,6 +38,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.datatypes.IInsets;
 import org.eclipse.graphiti.datatypes.ILocation;
@@ -116,6 +119,7 @@ import org.eclipse.graphiti.tb.DynamicContextMenuEntry;
 import org.eclipse.graphiti.tb.IContextEntry;
 import org.eclipse.graphiti.tb.ImageRenderingDecorator;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
+import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.internal.command.AddModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
@@ -1554,6 +1558,16 @@ public class PackageTest extends GFAbstractTestCase {
 		PlatformGraphicsAlgorithm platformGraphicsAlgorithm = myRendererContext.getPlatformGraphicsAlgorithm();
 		assertNotNull(platformGraphicsAlgorithm);
 		assertTrue(platformGraphicsAlgorithm.equals(platformGraphicsAlgorithmMock));
+	}
+
+	@Test
+	public void testDiagramEditorFactory() {
+		TransactionalEditingDomain ted = DiagramEditorFactory.createResourceSetAndEditingDomain();
+		assertNotNull(ted);
+		ResourceSet rSet = ted.getResourceSet();
+		TransactionalEditingDomain ted2 = TransactionUtil.getEditingDomain(rSet);
+		assertEquals(ted, ted2);
+
 	}
 
 }
