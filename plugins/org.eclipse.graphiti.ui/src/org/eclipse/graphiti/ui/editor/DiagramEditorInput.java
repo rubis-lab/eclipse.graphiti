@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
+import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
@@ -114,9 +116,11 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	/**
 	 * Creates an input out of a {@link URI} string and a transactional editing
 	 * domain. For resolving the {@link URI} to an {@link EObject} its
-	 * {@link ResourceSet} is used. The ResourceSet of the editing domain must
-	 * have been already set from outside. A diagram type provider ID is hold in
-	 * this class.
+	 * {@link ResourceSet} is used. <br>
+	 * The ResourceSet of the editing domain must have been already set from
+	 * outside and has to contain an instance of {@link IWorkspaceCommandStack}
+	 * as the used command stack. <br>
+	 * A diagram type provider ID is held in this class.
 	 * 
 	 * @param diagramUriString
 	 *            A {@link URI} string as returned by {@link URI#toString()}
@@ -130,7 +134,9 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 *            A {@link String} which holds the diagram type id. When it is
 	 *            null, it is set later in {@link DiagramEditorInternal}
 	 * @throws IllegalArgumentException
-	 *             if <code>uriString</code> parameter is null
+	 *             if <code>uriString</code> parameter is null <br>
+	 *             if the command stack of the passed <code>domain</code> is no
+	 *             <code>IWorkspaceCommandStack</code>
 	 * @see URI
 	 */
 	public DiagramEditorInput(String diagramUriString, TransactionalEditingDomain domain, String providerId) {
@@ -140,9 +146,11 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	/**
 	 * Creates an input out of a {@link URI} string and a transactional editing
 	 * domain. For resolving the {@link URI} to an {@link EObject} its
-	 * {@link ResourceSet} is used. The ResourceSet of the editing domain must
-	 * have been already set from outside. A diagram type provider ID is hold in
-	 * this class.
+	 * {@link ResourceSet} is used. <br>
+	 * The ResourceSet of the editing domain must have been already set from
+	 * outside and has to contain an instance of {@link IWorkspaceCommandStack}
+	 * as the used command stack. <br>
+	 * A diagram type provider ID is hold in this class.
 	 * 
 	 * @param diagramUriString
 	 *            A {@link URI} string as returned by {@link URI#toString()}
@@ -162,7 +170,9 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 *            well. If <code>false</code> is passed the caller (or rather
 	 *            the creator of the domain needs to care about that.
 	 * @throws IllegalArgumentException
-	 *             if <code>uriString</code> parameter is null
+	 *             if <code>uriString</code> parameter is null <br>
+	 *             if the command stack of the passed <code>domain</code> is no
+	 *             <code>IWorkspaceCommandStack</code>
 	 * @see URI
 	 */
 	public DiagramEditorInput(String diagramUriString, TransactionalEditingDomain domain, String providerId, boolean disposeEditingDomain) {
@@ -179,13 +189,15 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	/**
 	 * Creates an input out of a {@link URI} string and a transactional editing
 	 * domain. For resolving the {@link URI} to an {@link EObject} its
-	 * {@link ResourceSet} is used. The ResourceSet of the editing domain must
-	 * have been already set from outside. A diagram type provider ID is hold in
-	 * this class.Creates an input out of a {@link URI} string and a
-	 * transactional editing domain. For resolving the {@link URI} to an
-	 * {@link EObject} its {@link ResourceSet} is used. The ResourceSet of the
-	 * editing domain must have been already set from outside. A diagram type
-	 * provider ID is hold in this class.
+	 * {@link ResourceSet} is used. <br>
+	 * The ResourceSet of the editing domain must have been already set from
+	 * outside and has to contain an instance of {@link IWorkspaceCommandStack}
+	 * as the used command stack. <br>
+	 * A diagram type provider ID is hold in this class.Creates an input out of
+	 * a {@link URI} string and a transactional editing domain. For resolving
+	 * the {@link URI} to an {@link EObject} its {@link ResourceSet} is used.
+	 * The ResourceSet of the editing domain must have been already set from
+	 * outside. A diagram type provider ID is hold in this class.
 	 * 
 	 * @param diagramUri
 	 *            a {@link URI} that denotes the input's {@link EObject}
@@ -198,8 +210,10 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 *            A {@link String} which holds the diagram type id. When it is
 	 *            null, it is set later in {@link DiagramEditorInternal}
 	 * @throws IllegalArgumentException
-	 *             , if <code>uri</code> parameter is null
-	 * @see #DiagramEditorInputBase(String, TransactionalEditingDomain)
+	 *             if <code>uri</code> parameter is null <br>
+	 *             if the command stack of the passed <code>domain</code> is no
+	 *             <code>IWorkspaceCommandStack</code>
+	 * @see #DiagramEditorInput(String, TransactionalEditingDomain)
 	 * @see URI
 	 */
 	public DiagramEditorInput(URI diagramUri, TransactionalEditingDomain domain, String providerId) {
@@ -209,13 +223,15 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	/**
 	 * Creates an input out of a {@link URI} string and a transactional editing
 	 * domain. For resolving the {@link URI} to an {@link EObject} its
-	 * {@link ResourceSet} is used. The ResourceSet of the editing domain must
-	 * have been already set from outside. A diagram type provider ID is hold in
-	 * this class.Creates an input out of a {@link URI} string and a
-	 * transactional editing domain. For resolving the {@link URI} to an
-	 * {@link EObject} its {@link ResourceSet} is used. The ResourceSet of the
-	 * editing domain must have been already set from outside. A diagram type
-	 * provider ID is hold in this class.
+	 * {@link ResourceSet} is used. <br>
+	 * The ResourceSet of the editing domain must have been already set from
+	 * outside and has to contain an instance of {@link IWorkspaceCommandStack}
+	 * as the used command stack. <br>
+	 * A diagram type provider ID is hold in this class.Creates an input out of
+	 * a {@link URI} string and a transactional editing domain. For resolving
+	 * the {@link URI} to an {@link EObject} its {@link ResourceSet} is used.
+	 * The ResourceSet of the editing domain must have been already set from
+	 * outside. A diagram type provider ID is hold in this class.
 	 * 
 	 * @param diagramUri
 	 *            a {@link URI} that denotes the input's {@link EObject}
@@ -234,8 +250,10 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 *            well. If <code>false</code> is passed the caller (or rather
 	 *            the creator of the domain needs to care about that.
 	 * @throws IllegalArgumentException
-	 *             , if <code>uri</code> parameter is null
-	 * @see #DiagramEditorInputBase(String, TransactionalEditingDomain)
+	 *             if <code>uri</code> parameter is null <br>
+	 *             if the command stack of the passed <code>domain</code> is no
+	 *             <code>IWorkspaceCommandStack</code>
+	 * @see #DiagramEditorInput(String, TransactionalEditingDomain)
 	 * @see URI
 	 */
 	public DiagramEditorInput(URI diagramUri, TransactionalEditingDomain domain, String providerId, boolean disposeEditingDomain) {
@@ -252,7 +270,10 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	/**
 	 * Creates an editor input {@link DiagramEditorInput} with a self created
 	 * {@link} TransactionalEditingDomain editing domain, which must be disposed
-	 * later on.
+	 * later on. <br>
+	 * The ResourceSet of the editing domain must have been already set from
+	 * outside and has to contain an instance of {@link IWorkspaceCommandStack}
+	 * as the used command stack. <br>
 	 * 
 	 * @param diagram
 	 *            A {@link Diagram}
@@ -320,6 +341,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * 
 	 * @return The ID of the associated factory
 	 */
+	@Override
 	public String getFactoryId() {
 		return DiagramEditorFactory.class.getName();
 	}
@@ -334,6 +356,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	/**
 	 * @return Simply returns <code>null</code>.
 	 */
+	@Override
 	public ImageDescriptor getImageDescriptor() {
 		return null;
 	}
@@ -342,6 +365,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @return The cached name or the input's {@link URI} string
 	 * @see #getLiveName()
 	 */
+	@Override
 	public String getName() {
 		if (this.mame != null) {
 			return this.mame;
@@ -373,6 +397,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @return The cached tooltip or the input's {@link URI} string
 	 * @see #getLiveToolTipText()
 	 */
+	@Override
 	public String getToolTipText() {
 		if (this.tooltip != null) {
 			return this.tooltip;
@@ -453,8 +478,9 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @return A object castable to the given class, or <code>null</code> if
 	 *         this object does not have an adapter for the given class
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
-	public Object getAdapter(Class adapter) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 
 		if (Diagram.class.isAssignableFrom(adapter)) {
 			final EObject obj = getEObject();
@@ -487,6 +513,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @param memento
 	 *            The memeto to store the information in
 	 */
+	@Override
 	public void saveState(IMemento memento) {
 		// Do not store anything for deleted objects
 		boolean exists = exists();
@@ -517,6 +544,10 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		}
 
 		this.editingDomain = editingDomain;
+		CommandStack commandStack = this.editingDomain.getCommandStack();
+		if (commandStack == null || !(commandStack instanceof IWorkspaceCommandStack)) {
+			throw new IllegalStateException("Command stack of the editing domain must be an IWorkspaceCommandStack"); //$NON-NLS-1$
+		}
 		final EObject obj = getEObject(EObject.class);
 		if (obj != null) {
 			if (this.mame == null) {
@@ -557,6 +588,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @return <code>true</code> if the input's state denotes a living EMF
 	 *         object <br>
 	 */
+	@Override
 	public boolean exists() {
 		if (this.uriName == null) {
 			return false;
@@ -578,6 +610,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	/**
 	 * @return this input if it is persistable, otherwise null
 	 */
+	@Override
 	public IPersistableElement getPersistable() {
 		IPersistableElement element = null;
 		EObject obj = null;
