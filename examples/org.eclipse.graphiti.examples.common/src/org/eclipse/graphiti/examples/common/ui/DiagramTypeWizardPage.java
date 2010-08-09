@@ -62,12 +62,6 @@ public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextPr
 		super(pageName);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seecom.sap.tc.emf.gfw.examples.testview.wizard.AbstractWizardPage#
-	 * createWizardContents(org.eclipse.swt.widgets.Composite)
-	 */
 	@Override
 	protected void createWizardContents(Composite parent) {
 		// project specification group

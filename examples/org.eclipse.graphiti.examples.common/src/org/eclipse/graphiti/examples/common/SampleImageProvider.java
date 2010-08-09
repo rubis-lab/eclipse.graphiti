@@ -27,13 +27,6 @@ public class SampleImageProvider extends AbstractImageProvider {
 
 	private static final String ROOT_FOLDER_FOR_IMG = "icons/"; //$NON-NLS-1$
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.eclipse.platform.AbstractImageProvider#addAvailableImages
-	 * ()
-	 */
 	@Override
 	protected void addAvailableImages() {
 		// attributes

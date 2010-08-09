@@ -40,20 +40,10 @@ public abstract class AbstractInstancesOfTypeContainerNode extends AbstractConta
 		this.project = project;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.ui.action.view.nodes.IContainerNode#getParent()
-	 */
 	public Object getParent() {
 		return parent;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.ui.action.view.nodes.IContainerNode#hasChildren()
-	 */
 	@Override
 	public boolean hasChildren() {
 		return super.hasChildren(); // getChildren().length > 0;

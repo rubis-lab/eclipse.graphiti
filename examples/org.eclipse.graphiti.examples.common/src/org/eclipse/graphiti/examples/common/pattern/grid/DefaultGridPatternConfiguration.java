@@ -44,20 +44,10 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 
 	private int majorUnitY = 0;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IColorConfiguration#getBackgroundColor()
-	 */
 	public IColorConstant getBackgroundColor() {
 		return backgroundColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IColorConfiguration#getForegroundColor()
-	 */
 	public IColorConstant getForegroundColor() {
 		return foregroundColor;
 	}
@@ -71,56 +61,26 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 		return lineWidth;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IMinimumSizeConfiguration#getMinimumHeight()
-	 */
 	public int getMinimumHeight() {
 		return minimumHeight;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IMinimumSizeConfiguration#getMinimumWidth()
-	 */
 	public int getMinimumWidth() {
 		return minimumWidth;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IColorConfiguration#getTextColor()
-	 */
 	public IColorConstant getTextColor() {
 		return textColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IColorConfiguration#getTransparency()
-	 */
 	public double getTransparency() {
 		return transparency;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IColorConfiguration#setBackgroundColor(com.sap.tc.emf.gfw.util.IColorConstant)
-	 */
 	public void setBackgroundColor(IColorConstant color) {
 		backgroundColor = color;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IColorConfiguration#setForegroundColor(com.sap.tc.emf.gfw.util.IColorConstant)
-	 */
 	public void setForegroundColor(IColorConstant color) {
 		foregroundColor = color;
 	}
@@ -135,38 +95,18 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 		this.lineWidth = lineWidth;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IMinimumSizeConfiguration#setMinimumHeight(int)
-	 */
 	public void setMinimumHeight(int minimumHeight) {
 		this.minimumHeight = minimumHeight;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IMinimumSizeConfiguration#setMinimumWidth(int)
-	 */
 	public void setMinimumWidth(int minimumWidth) {
 		this.minimumWidth = minimumWidth;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IColorConfiguration#setTextColor(com.sap.tc.emf.gfw.util.IColorConstant)
-	 */
 	public void setTextColor(IColorConstant color) {
 		textColor = color;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.pattern.config.IColorConfiguration#setTransparency(int)
-	 */
 	public void setTransparency(int t) {
 		transparency = t;
 	}
@@ -184,7 +124,9 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration#getMajorUnitSeparatorWidth()
+	 * @see
+	 * org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration
+	 * #getMajorUnitSeparatorWidth()
 	 */
 	public int getMajorUnitSeparatorWidth() {
 		return majorUnitSeparatorWidth;
@@ -193,7 +135,9 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration#getMajorUnitX()
+	 * @see
+	 * org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration
+	 * #getMajorUnitX()
 	 */
 	public int getMajorUnitX() {
 		return majorUnitX;
@@ -202,7 +146,9 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration#getMajorUnitY()
+	 * @see
+	 * org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration
+	 * #getMajorUnitY()
 	 */
 	public int getMajorUnitY() {
 		return majorUnitY;
@@ -211,7 +157,9 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration#getMinorSeparatorWidth()
+	 * @see
+	 * org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration
+	 * #getMinorSeparatorWidth()
 	 */
 	public int getMinorSeparatorWidth() {
 		return minorUnitSeparatorWidth;
@@ -220,7 +168,9 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration#setMajorUnitSeparatorWidth(int)
+	 * @see
+	 * org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration
+	 * #setMajorUnitSeparatorWidth(int)
 	 */
 	public void setMajorUnitSeparatorWidth(int majorUnitSeparatorWidth) {
 		this.majorUnitSeparatorWidth = majorUnitSeparatorWidth;
@@ -229,7 +179,9 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration#setMajorUnitX(int)
+	 * @see
+	 * org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration
+	 * #setMajorUnitX(int)
 	 */
 	public void setMajorUnitX(int majorUnitX) {
 		this.majorUnitX = majorUnitX;
@@ -238,7 +190,9 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration#setMajorUnitY(int)
+	 * @see
+	 * org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration
+	 * #setMajorUnitY(int)
 	 */
 	public void setMajorUnitY(int majorUnitY) {
 		this.majorUnitY = majorUnitY;
@@ -247,7 +201,9 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration#setMinorSeparatorWidth(int)
+	 * @see
+	 * org.eclipse.graphiti.examples.common.pattern.grid.IGridPatternConfiguration
+	 * #setMinorSeparatorWidth(int)
 	 */
 	public void setMinorSeparatorWidth(int minorSeparatorWidth) {
 		this.minorUnitSeparatorWidth = minorSeparatorWidth;

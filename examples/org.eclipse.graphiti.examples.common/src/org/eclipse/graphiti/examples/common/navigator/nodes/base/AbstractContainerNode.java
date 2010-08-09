@@ -39,11 +39,6 @@ public abstract class AbstractContainerNode implements IContainerNode {
 	protected AbstractContainerNode() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.ui.action.view.nodes.IContainerNode#getText()
-	 */
 	public String getText() {
 		String ret = getContainerName();
 		if (APPEND_FOLDER_SIZE) {
@@ -64,11 +59,6 @@ public abstract class AbstractContainerNode implements IContainerNode {
 	 */
 	abstract protected String getContainerName();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sap.tc.emf.gfw.ui.action.view.nodes.IContainerNode#hasChildren()
-	 */
 	public boolean hasChildren() {
 		if (OPTIMISTIC_CHILDREN_CHECK) {
 			return true;

@@ -54,13 +54,6 @@ public abstract class GridPattern extends AbstractPattern {
 		super(new DefaultGridPatternConfiguration());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.pattern.AbstractBasePattern#add(com.sap.tc.emf.gfw
-	 * .features.context.IAddContext)
-	 */
 	@Override
 	final public PictogramElement add(IAddContext context) {
 		Object mainBusinessObject = context.getNewObject();
@@ -114,13 +107,6 @@ public abstract class GridPattern extends AbstractPattern {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.pattern.AbstractPattern#layout(com.sap.tc.emf.gfw.
-	 * features.context.ILayoutContext)
-	 */
 	@Override
 	public boolean layout(ILayoutContext context) {
 		boolean ret = true;
@@ -165,13 +151,6 @@ public abstract class GridPattern extends AbstractPattern {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.pattern.AbstractPattern#update(com.sap.tc.emf.gfw.
-	 * features.context.IUpdateContext)
-	 */
 	@Override
 	public boolean update(IUpdateContext context) {
 		boolean ret = false;
@@ -190,13 +169,6 @@ public abstract class GridPattern extends AbstractPattern {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.pattern.AbstractPattern#updateNeeded(com.sap.tc.emf
-	 * .gfw.features.context.IUpdateContext)
-	 */
 	@Override
 	public IReason updateNeeded(IUpdateContext context) {
 
@@ -259,26 +231,12 @@ public abstract class GridPattern extends AbstractPattern {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.pattern.AbstractPattern#isPatternControlled(com.sap
-	 * .tc.emf.gfw.mm.pictograms.PictogramElement)
-	 */
 	@Override
 	protected boolean isPatternControlled(PictogramElement pictogramElement) {
 		ContainerShape patternRoot = getPatternRoot(pictogramElement);
 		return patternRoot != null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.pattern.AbstractPattern#isPatternRoot(com.sap.tc.emf
-	 * .gfw.mm.pictograms.PictogramElement)
-	 */
 	@Override
 	protected boolean isPatternRoot(PictogramElement pe) {
 		boolean ret = false;
