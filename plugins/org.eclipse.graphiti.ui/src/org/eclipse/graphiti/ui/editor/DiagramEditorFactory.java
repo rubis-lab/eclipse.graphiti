@@ -42,16 +42,16 @@ import org.eclipse.ui.PartInitException;
  * A factory for creating DiagramEditorInternal objects.
  * 
  * @see {@link DiagramEditorInputBase}
- * @see {@link DiagramEditorInputDisposingTED}
  * @see {@link DiagramEditorFactory}
  * @see {@link DiagramEditorInput}
  */
 public class DiagramEditorFactory implements IElementFactory {
 
 	/**
-	 * Creates a {@link DiagramEditorInputDisposingTED} with a self created
+	 * Creates a {@link DiagramEditorInput} with a self created
 	 * {@link TransactionalEditingDomain} or returns otherInput, if it is a
-	 * {@link DiagramEditorInput}.
+	 * {@link DiagramEditorInput}. The created editor input object will care
+	 * about the disposal of the editing domain.
 	 * 
 	 * @param otherInput
 	 *            an {@link IEditorInput} editor input
@@ -84,6 +84,7 @@ public class DiagramEditorFactory implements IElementFactory {
 	 * file, no new editor must be opened.
 	 */
 	public static final class DiagramEditorMatchingStrategy implements IEditorMatchingStrategy {
+		@Override
 		public boolean matches(IEditorReference editorRef, IEditorInput input) {
 			try {
 				if (input instanceof IFileEditorInput) {
