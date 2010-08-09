@@ -42,25 +42,11 @@ public class UpdateFeatureForPattern extends AbstractUpdateFeature {
 		this.pattern = pattern;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.func.IUpdate#canUpdate(com.sap.tc.emf.gfw.features
-	 * .context.IUpdateContext)
-	 */
 	public boolean canUpdate(IUpdateContext context) {
 		boolean ret = pattern.canUpdate(context);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.func.IUpdate#updateNeeded(com.sap.tc.emf.gfw.features
-	 * .context.IUpdateContext)
-	 */
 	public IReason updateNeeded(IUpdateContext context) {
 		if (T.racer().info()) {
 			T.racer().info("UpdateFeatureForPattern", "updateNeeded", "context: " + context); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -72,13 +58,6 @@ public class UpdateFeatureForPattern extends AbstractUpdateFeature {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.func.IUpdate#update(com.sap.tc.emf.gfw.features.context
-	 * .IUpdateContext)
-	 */
 	public boolean update(IUpdateContext context) {
 		return pattern.update(context);
 	}
