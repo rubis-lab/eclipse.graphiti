@@ -38,25 +38,11 @@ public class DefaultCopyFeature extends AbstractCopyFeature {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.features.ICopyFeature#canCopy(com.sap.tc.emf.gfw.features
-	 * .context.ICopyContext)
-	 */
 	public boolean canCopy(ICopyContext context) {
 		final PictogramElement[] pictogramElements = context.getPictogramElements();
 		return pictogramElements != null && pictogramElements.length > 0;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.sap.tc.emf.gfw.features.ICopyFeature#copy(com.sap.tc.emf.gfw.features
-	 * .context.ICopyContext)
-	 */
 	public void copy(ICopyContext context) {
 		final PictogramElement[] pes = context.getPictogramElements();
 		putToClipboard(pes);
