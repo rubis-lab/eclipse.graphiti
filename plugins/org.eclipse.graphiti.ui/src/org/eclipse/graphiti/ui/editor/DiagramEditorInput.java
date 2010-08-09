@@ -34,10 +34,10 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 
 /**
- * The model based editor input for {@link DiagramEditor} diagram editors.
- * Basically a {@link TransactionalEditingDomain} with an already existing
+ * The editor input for {@link DiagramEditor} diagram editors. Basically a
+ * {@link TransactionalEditingDomain} with an already existing
  * {@link ResourceSet} is hosted to resolve an {@link EObject} from an
- * {@link URI} or {@link URI} String. Some helper methods are added.
+ * {@link URI} String. Some helper methods are added.
  * <p>
  * Note that neither the {@link URI} nor the {@link EObject} is held by an
  * instance of this object. Only the {@link TransactionalEditingDomain} (needs
@@ -89,7 +89,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * 
 	 * @see #getLiveName()
 	 */
-	private String mame;
+	private String name;
 
 	/**
 	 * The cached input tooltip
@@ -108,7 +108,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	protected TransactionalEditingDomain editingDomain;
 
 	/**
-	 * Used to control if this instance is responsible for disposing its
+	 * Controls if this instance is responsible for disposing its
 	 * {@link TransactionalEditingDomain} member or not.
 	 */
 	private boolean disposeEditingDomain;
@@ -367,8 +367,8 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 */
 	@Override
 	public String getName() {
-		if (this.mame != null) {
-			return this.mame;
+		if (this.name != null) {
+			return this.name;
 		}
 		return this.uriName;
 	}
@@ -380,7 +380,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 *         name is <code>null</code>.
 	 */
 	protected boolean hasName() {
-		return this.mame != null;
+		return this.name != null;
 	}
 
 	/**
@@ -390,7 +390,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 *            The name to set.
 	 */
 	protected void setName(String name) {
-		this.mame = name;
+		this.name = name;
 	}
 
 	/**
@@ -550,12 +550,12 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		}
 		final EObject obj = getEObject(EObject.class);
 		if (obj != null) {
-			if (this.mame == null) {
-				this.mame = getLiveName();
+			if (this.name == null) {
+				this.name = getLiveName();
 			} else {
 				final String newName = getLiveName();
 				if (newName != null) {
-					this.mame = newName;
+					this.name = newName;
 				}
 			}
 			this.tooltip = getLiveToolTipText();

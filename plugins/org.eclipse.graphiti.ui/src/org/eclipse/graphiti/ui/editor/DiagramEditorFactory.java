@@ -26,6 +26,7 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.impl.TransactionalEditingDomainImpl;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
+import org.eclipse.emf.workspace.WorkspaceEditingDomainFactory;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.editor.GFWorkspaceCommandStackImpl;
@@ -155,8 +156,10 @@ public class DiagramEditorFactory implements IElementFactory {
 	public static TransactionalEditingDomain createResourceSetAndEditingDomain() {
 		final ResourceSet resourceSet = new ResourceSetImpl();
 		final IWorkspaceCommandStack workspaceCommandStack = new GFWorkspaceCommandStackImpl(new DefaultOperationHistory());
+
 		final TransactionalEditingDomainImpl editingDomain = new TransactionalEditingDomainImpl(new ComposedAdapterFactory(
 				ComposedAdapterFactory.Descriptor.Registry.INSTANCE), workspaceCommandStack, resourceSet);
+		WorkspaceEditingDomainFactory.INSTANCE.mapResourceSet(editingDomain);
 		return editingDomain;
 	}
 
