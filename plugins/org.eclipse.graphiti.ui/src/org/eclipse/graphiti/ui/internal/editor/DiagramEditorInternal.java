@@ -248,9 +248,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	private IResourceRegistry resourceRegistry = new ResourceRegistry();
 
-	// remember MRIs to select when called from gotoMarker during initialization
-	// private URI[] mrisToSelect = null;
-
 	private RemoveAction removeAction;
 
 	private boolean autoRefresh = true;
@@ -1425,13 +1422,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 						eObject = (EObject) nextElement;
 					} else if (nextElement instanceof IAdaptable) {
 						eObject = (EObject) ((IAdaptable) nextElement).getAdapter(EObject.class);
-						// if (refObject == null) {
-						// MRI mri = (MRI) ((IAdaptable)
-						// firstElement).getAdapter(MRI.class);
-						// if (mri != null) {
-						// refObject = getConnection().getElement(mri);
-						// }
-						// }
 					}
 					if (eObject != null) {
 						selectedList.add(eObject);

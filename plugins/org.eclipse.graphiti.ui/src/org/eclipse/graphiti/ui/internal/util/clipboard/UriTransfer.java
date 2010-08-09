@@ -105,10 +105,10 @@ public class UriTransfer extends ByteArrayTransfer {
 			in = new ByteArrayInputStream(bytes);
 			dataIn = new DataInputStream(in);
 			final int len = dataIn.readInt();
-			final byte[] mriBytes = new byte[len];
-			dataIn.readFully(mriBytes);
-			final List<String> mriStrings = fromTransferBytes(mriBytes);
-			return new UriTransferData(mriStrings);
+			final byte[] uriBytes = new byte[len];
+			dataIn.readFully(uriBytes);
+			final List<String> uriStrings = fromTransferBytes(uriBytes);
+			return new UriTransferData(uriStrings);
 		} catch (final IOException e) {
 			T.racer().error("Error when writing transfer data", e);
 			return null;
@@ -124,9 +124,9 @@ public class UriTransfer extends ByteArrayTransfer {
 		}
 	}
 
-	private byte[] toTransferBytes(final List<String> mriStrings) throws IOException {
+	private byte[] toTransferBytes(final List<String> uriStrings) throws IOException {
 		final StringBuilder b = new StringBuilder();
-		for (final Iterator<String> iter = mriStrings.iterator(); iter.hasNext();) {
+		for (final Iterator<String> iter = uriStrings.iterator(); iter.hasNext();) {
 			final String s = iter.next();
 			b.append(s);
 			if (iter.hasNext()) {

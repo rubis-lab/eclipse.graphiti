@@ -561,8 +561,8 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		if (this.uriName == null) {
 			return false;
 		}
-		final URI mri = getUri();
-		if (mri == null) {
+		final URI uri = getUri();
+		if (uri == null) {
 			return false;
 		}
 		EObject eObject = null;

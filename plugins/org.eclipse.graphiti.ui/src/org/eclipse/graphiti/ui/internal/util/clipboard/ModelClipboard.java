@@ -496,12 +496,12 @@ public final class ModelClipboard {
 			return empty;
 		}
 
-		final List<String> mriStrings = new ArrayList<String>(size);
+		final List<String> uriStrings = new ArrayList<String>(size);
 		final List<IResource> files = new ArrayList<IResource>(size);
 		final List<String> filePaths = new ArrayList<String>(size);
 		for (int i = 0; i < size; i++) {
 			final EObject o = objects.get(i);
-			mriStrings.add(EcoreUtil.getURI(o).toString());
+			uriStrings.add(EcoreUtil.getURI(o).toString());
 			final IFile file = GraphitiUiInternal.getEmfService().getFile(o);
 			if (file != null && file.exists() && !files.contains(file)) {
 				files.add(file);
@@ -509,7 +509,7 @@ public final class ModelClipboard {
 			}
 		}
 		final Map<Transfer, Object> result = new HashMap<Transfer, Object>(7);
-		final UriTransferData data = new UriTransferData(mriStrings);
+		final UriTransferData data = new UriTransferData(uriStrings);
 		result.put(LocalSelectionTransfer.getTransfer(), new StructuredSelection(objects));
 		result.put(UriTransfer.getInstance(), data);
 		result.put(FileTransfer.getInstance(), filePaths.toArray(new String[filePaths.size()]));
@@ -534,8 +534,8 @@ public final class ModelClipboard {
 	@SuppressWarnings( { "unchecked", "hiding" })
 	private static <T extends EObject> List<T> getObjectsFromUri(List<String> uriStrings, ResourceSet resourceSet, Class<T> type) {
 		final List<T> result = new ArrayList<T>(uriStrings.size());
-		for (final String mriString : uriStrings) {
-			final URI uri = URI.createURI(mriString);
+		for (final String uriString : uriStrings) {
+			final URI uri = URI.createURI(uriString);
 			if (resourceSet.getURIConverter().exists(uri, null)) {
 				final EObject element = resourceSet.getEObject(uri, true);
 				if (element != null && type.isInstance(element)) {

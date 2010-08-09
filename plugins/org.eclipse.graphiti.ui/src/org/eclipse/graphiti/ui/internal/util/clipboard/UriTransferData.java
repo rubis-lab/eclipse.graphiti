@@ -36,10 +36,10 @@ public final class UriTransferData {
 	/**
 	 * Creates {@link UriTransferData}.
 	 * 
-	 * @param mriStrings
+	 * @param uriStrings
 	 */
-	public UriTransferData(List<String> mriStrings) {
-		this.uriStrings = mriStrings;
+	public UriTransferData(List<String> uriStrings) {
+		this.uriStrings = uriStrings;
 	}
 
 	/**
@@ -85,8 +85,8 @@ public final class UriTransferData {
 		if (this.uriStrings != null && !this.uriStrings.isEmpty()) {
 			s.append("\n"); //$NON-NLS-1$
 			for (final Iterator<String> iter = this.uriStrings.iterator(); iter.hasNext();) {
-				final String mri = iter.next();
-				s.append(mri);
+				final String uri = iter.next();
+				s.append(uri);
 				if (iter.hasNext()) {
 					s.append("\n"); //$NON-NLS-1$
 				}
