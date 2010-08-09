@@ -38,7 +38,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.internal.T;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
-
 /**
  * The Class DefaultFeatureProviderWithPatterns.
  */
@@ -58,13 +57,6 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		super(dtp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.pattern.IPatternContainer#addPattern(com.sap.tc.graphiti
-	 * .pattern.IPattern)
-	 */
 	public void addPattern(IPattern pattern) {
 		pattern.setFeatureProvider(this);
 		getPatterns().add(pattern);
@@ -82,7 +74,7 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	private boolean checkFeature(IFeature feature) {
-		boolean ret = (feature != null); // feature.isAvailable(context);
+		boolean ret = feature != null; // feature.isAvailable(context);
 		return ret;
 	}
 
@@ -103,14 +95,6 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.impl.AbstractFeatureProvider#getAddFeature
-	 * (org.eclipse.graphiti.features.context.IAddContext) Prefer overriding
-	 * getAddFeatureAdditional instead of overriding this method.
-	 */
 	@Override
 	public IAddFeature getAddFeature(IAddContext context) {
 		IAddFeature ret = null;
@@ -131,8 +115,9 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		}
 		if (ret == null) {
 			for (IConnectionPattern conPattern : getConnectionPatterns()) {
-				if (conPattern.canAdd(context))
+				if (conPattern.canAdd(context)) {
 					return new AddFeatureForPattern(this, conPattern);
+				}
 			}
 		}
 
@@ -169,13 +154,6 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		return super.getAddFeature(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.impl.AbstractFeatureProvider#getCreateFeatures
-	 * ()
-	 */
 	@Override
 	public final ICreateFeature[] getCreateFeatures() {
 		ICreateFeature[] ret = new ICreateFeature[0];
@@ -208,14 +186,6 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		return retList.toArray(ret);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.impl.AbstractFeatureProvider#getLayoutFeature
-	 * (org.eclipse.graphiti.features.context.ILayoutContext) Prefer overriding
-	 * getLayoutFeatureAdditional instead of overriding this method.
-	 */
 	@Override
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		ILayoutFeature ret = null;
@@ -253,15 +223,6 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		return super.getLayoutFeature(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.jam.DefaultJAMFeatureProvider#
-	 * getMoveShapeFeature
-	 * (org.eclipse.graphiti.features.context.IMoveShapeContext) Prefer
-	 * overriding getMoveShapeFeatureAdditional instead of overriding this
-	 * method.
-	 */
 	@Override
 	public IMoveShapeFeature getMoveShapeFeature(IMoveShapeContext context) {
 		IMoveShapeFeature ret = null;
@@ -305,10 +266,10 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	 * @return the patterns
 	 */
 	protected List<IPattern> getPatterns() {
-		if (patterns == null) {
-			patterns = new ArrayList<IPattern>();
+		if (this.patterns == null) {
+			this.patterns = new ArrayList<IPattern>();
 		}
-		return patterns;
+		return this.patterns;
 	}
 
 	/**
@@ -317,21 +278,12 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	 * @return the patterns
 	 */
 	protected List<IConnectionPattern> getConnectionPatterns() {
-		if (connectionPatters == null) {
-			connectionPatters = new ArrayList<IConnectionPattern>();
+		if (this.connectionPatters == null) {
+			this.connectionPatters = new ArrayList<IConnectionPattern>();
 		}
-		return connectionPatters;
+		return this.connectionPatters;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.jam.DefaultJAMFeatureProvider#
-	 * getResizeShapeFeature
-	 * (org.eclipse.graphiti.features.context.IResizeShapeContext) Prefer
-	 * overriding getResizeShapeFeatureAdditional instead of overriding this
-	 * method.
-	 */
 	@Override
 	public IResizeShapeFeature getResizeShapeFeature(IResizeShapeContext context) {
 		IResizeShapeFeature ret = null;
@@ -383,14 +335,6 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		return super.getResizeShapeFeature(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.impl.AbstractFeatureProvider#getUpdateFeature
-	 * (org.eclipse.graphiti.features.context.IUpdateContext) Prefer overriding
-	 * getUpdateFeatureAdditional instead of overriding this method.
-	 */
 	@Override
 	public IUpdateFeature getUpdateFeature(IUpdateContext context) {
 		IUpdateFeature ret = null;
@@ -429,31 +373,18 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		return super.getUpdateFeature(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seecom.sap.tc.graphiti.pattern.IFeatureProviderWithPatterns#
-	 * getPatternForPictogramElement
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	public IPattern getPatternForPictogramElement(PictogramElement pe) {
 		for (IPattern pattern : getPatterns()) {
 			if (pattern instanceof AbstractPattern) {
 				AbstractPattern ap = (AbstractPattern) pattern;
-				if (ap.isPatternRoot(pe))
+				if (ap.isPatternRoot(pe)) {
 					return pattern;
+				}
 			}
 		}
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seecom.sap.tc.graphiti.pattern.IFeatureProviderWithPatterns#
-	 * activateDirectEditingForPatterns
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement, java.lang.Object)
-	 */
 	public void activateDirectEditingForPatterns(PictogramElement mainPictogramElement, Object bo) {
 		IPattern pattern = getPatternForPictogramElement(mainPictogramElement);
 		if (pattern != null) {
@@ -464,14 +395,6 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seecom.sap.tc.graphiti.pattern.IFeatureProviderWithPatterns#
-	 * activateDirectEditingForPatterns
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement, java.lang.Object,
-	 * java.lang.String)
-	 */
 	public void activateDirectEditingForPatterns(PictogramElement mainPictogramElement, Object bo, String keyProperty) {
 		IPattern pattern = getPatternForPictogramElement(mainPictogramElement);
 		if (pattern != null) {
@@ -482,12 +405,6 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.impl.AbstractFeatureProvider#
-	 * getCreateConnectionFeatures()
-	 */
 	@Override
 	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
 		ICreateConnectionFeature[] ret = new ICreateConnectionFeature[0];
