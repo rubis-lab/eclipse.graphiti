@@ -73,37 +73,16 @@ public class DefaultFeatureProvider extends AbstractFeatureProvider {
 		super(dtp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.impl.AbstractFeatureProvider#
-	 * getAddBendpointFeature
-	 * (org.eclipse.graphiti.features.context.IAddBendpointContext)
-	 */
 	@Override
 	public IAddBendpointFeature getAddBendpointFeature(IAddBendpointContext context) {
 		IAddBendpointFeature ret = new DefaultAddBendpointFeature(this);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getCopyFeature(org.eclipse
-	 * .graphiti.features.context.ICopyContext)
-	 */
 	public ICopyFeature getCopyFeature(ICopyContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.impl.AbstractFeatureProvider#getCustomFeatures
-	 * (org.eclipse.graphiti.features.context.ICustomContext)
-	 */
 	@Override
 	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
 		ICustomFeature[] ret = super.getCustomFeatures(context);
@@ -115,12 +94,6 @@ public class DefaultFeatureProvider extends AbstractFeatureProvider {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.edit.IFeatureProvider#getDeleteFeatures()
-	 */
 	@Override
 	public IDeleteFeature getDeleteFeature(IDeleteContext context) {
 		IDeleteFeature ret = null;
@@ -128,114 +101,51 @@ public class DefaultFeatureProvider extends AbstractFeatureProvider {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.impl.AbstractFeatureProvider#
-	 * getMoveAnchorFeature
-	 * (org.eclipse.graphiti.features.context.IMoveAnchorContext)
-	 */
 	@Override
 	public IMoveAnchorFeature getMoveAnchorFeature(IMoveAnchorContext context) {
 		IMoveAnchorFeature ret = new DefaultMoveAnchorFeature(this);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.impl.AbstractFeatureProvider#
-	 * getMoveBendpointFeature
-	 * (org.eclipse.graphiti.features.context.IMoveBendpointContext)
-	 */
 	@Override
 	public IMoveBendpointFeature getMoveBendpointFeature(IMoveBendpointContext context) {
 		IMoveBendpointFeature ret = new DefaultMoveBendpointFeature(this);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.impl.AbstractFeatureProvider#
-	 * getMoveConnectionDecoratorFeature(org.eclipse.graphiti.features.context.
-	 * IMoveConnectionDecoratorContext)
-	 */
 	@Override
 	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(IMoveConnectionDecoratorContext context) {
 		IMoveConnectionDecoratorFeature ret = new DefaultMoveConnectionDecoratorFeature(this);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.impl.AbstractFeatureProvider#
-	 * getMoveShapeFeature
-	 * (org.eclipse.graphiti.features.context.IMoveShapeContext)
-	 */
 	@Override
 	public IMoveShapeFeature getMoveShapeFeature(IMoveShapeContext context) {
 		IMoveShapeFeature ret = new DefaultMoveShapeFeature(this);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getPasteFeature(org.eclipse
-	 * .graphiti.features.context.IPasteContext)
-	 */
 	public IPasteFeature getPasteFeature(IPasteContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.impl.AbstractFeatureProvider#
-	 * getRemoveBendpointFeature
-	 * (org.eclipse.graphiti.features.context.IRemoveBendpointContext )
-	 */
 	@Override
 	public IRemoveBendpointFeature getRemoveBendpointFeature(IRemoveBendpointContext context) {
 		IRemoveBendpointFeature ret = new DefaultRemoveBendpointFeature(this);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.impl.AbstractFeatureProvider#
-	 * getResizeShapeFeature
-	 * (org.eclipse.graphiti.features.context.IResizeShapeContext)
-	 */
 	@Override
 	public IResizeShapeFeature getResizeShapeFeature(IResizeShapeContext context) {
 		IResizeShapeFeature ret = new DefaultResizeShapeFeature(this);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.impl.AbstractFeatureProvider#getRemoveFeature
-	 * (org.eclipse.graphiti.features.context.IRemoveContext)
-	 */
 	@Override
 	public IRemoveFeature getRemoveFeature(IRemoveContext context) {
 		return new DefaultRemoveFeature(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.impl.AbstractFeatureProvider#getUpdateFeature
-	 * (org.eclipse.graphiti.features.context.IUpdateContext)
-	 */
 	@Override
 	public IUpdateFeature getUpdateFeature(IUpdateContext context) {
 		IUpdateFeature ret = null;
