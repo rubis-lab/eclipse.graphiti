@@ -24,7 +24,6 @@ import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -136,36 +135,6 @@ public interface IEmfService {
 	 */
 	public abstract IFile getFile(URI uri, ResourceSet resourceSet);
 
-	/**
-	 * Returns the TransactionalEditingDomain for
-	 * <code>resourceSet</code> based on emf.transaction heuristics.
-	 * 
-	 * @param resourceSet
-	 * @return the TransactionalEditingDomain or <code>null</code>
-	 */
-	public abstract TransactionalEditingDomain getEditingDomain(ResourceSet resourceSet);
-
-	/**
-	 * Returns the ResourceSet of the given model object
-	 * 
-	 * @param object
-	 *            the object to get the ResourceSet for. Must not be
-	 *            <code>null</code>.
-	 * @return the ResourceSet
-	 * 
-	 */
-	public abstract ResourceSet getResourceSet(EObject object);
-
-	/**
-	 * Returns the {@link EditingDomain} for the given {@link EObject}
-	 * 
-	 * @param object
-	 *            The object for which the {@link EditingDomain} should be
-	 *            retrieved
-	 * @return Returns the editing domain if it already exists, if none exists
-	 *         <code>null</code> is returned.
-	 */
-	public abstract TransactionalEditingDomain getEditingDomain(EObject object);
 
 	/**
 	 * Saves the given {@link TransactionalEditingDomain} by saving all its

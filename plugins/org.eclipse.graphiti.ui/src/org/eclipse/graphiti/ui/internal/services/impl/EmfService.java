@@ -48,7 +48,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.Transaction;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.impl.TransactionalEditingDomainImpl;
-import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.services.IEmfService;
 import org.eclipse.graphiti.ui.internal.util.ModelElementNameComparator;
@@ -203,32 +202,6 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	@Override
-	public TransactionalEditingDomain getEditingDomain(ResourceSet resourceSet) {
-		return TransactionUtil.getEditingDomain(resourceSet);
-	}
-
-	@Override
-	public ResourceSet getResourceSet(EObject object) {
-		ResourceSet resourceSet = null;
-		if (object == null) {
-			throw new IllegalArgumentException("Object must not be null"); //$NON-NLS-1$
-		}
-		final Resource resource = object.eResource();
-		if (resource != null) {
-			resourceSet = resource.getResourceSet();
-		}
-		return resourceSet;
-	}
-
-	@Override
-	public TransactionalEditingDomain getEditingDomain(EObject object) {
-		final ResourceSet resourceSet = getResourceSet(object);
-		if (resourceSet != null) {
-			return getEditingDomain(resourceSet);
-		}
-		return null;
-	}
 
 	@Override
 	@SuppressWarnings("unchecked")

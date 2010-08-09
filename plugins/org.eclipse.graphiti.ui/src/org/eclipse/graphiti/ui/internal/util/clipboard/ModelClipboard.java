@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.util.LocalSelectionTransfer;
@@ -149,7 +150,8 @@ public final class ModelClipboard {
 	 */
 	public boolean isCompositionAllowed(EObject parent, EObject[] objects) {
 		for (final EObject object : objects) {
-			// optimistic approach: if one association can aggregate one element, we are OK
+			// optimistic approach: if one association can aggregate one
+			// element, we are OK
 			final List<EReference> assocs = findUsableTargetAssociations(parent, object);
 			if (assocs.size() > 0) {
 				return true;
@@ -192,12 +194,13 @@ public final class ModelClipboard {
 		}
 		final EObject parent = GraphitiUiInternal.getEmfService().getEObject(target);
 		if (parent != null) {
-			// detect TransactionalEditingDomain mismatch to prevent modification of wrong object
-			final TransactionalEditingDomain parentEditingDomain = GraphitiUiInternal.getEmfService().getEditingDomain(parent);
+			// detect TransactionalEditingDomain mismatch to prevent
+			// modification of wrong object
+			final TransactionalEditingDomain parentEditingDomain = TransactionUtil.getEditingDomain(parent);
 			if (parentEditingDomain != null && !transactionalEditingDomain.equals(parentEditingDomain)) {
 				throw new IllegalStateException(
 						"Ambiguous TransactionalEditingDomains: transactionalEditingDomain: " + transactionalEditingDomain //$NON-NLS-1$
-								+ " <-> TransactionalEditingDomain of target object: " + GraphitiUiInternal.getEmfService().getResourceSet(parent) //$NON-NLS-1$
+								+ " <-> TransactionalEditingDomain of target object: " + parentEditingDomain //$NON-NLS-1$
 								+ ". Not clear which one to use for copy."); //$NON-NLS-1$
 			}
 		}
@@ -216,7 +219,8 @@ public final class ModelClipboard {
 			return null;
 		}
 
-		// subsequent operations run in a command and are rolled back in case of errors
+		// subsequent operations run in a command and are rolled back in case of
+		// errors
 		final CommandStack commandStack = transactionalEditingDomain.getCommandStack();
 		final Collection<EObject>[] copyResults = new Collection[1];
 		try {
@@ -249,6 +253,7 @@ public final class ModelClipboard {
 		// in the case of a UI
 		if (canUseUI()) {
 			BusyIndicator.showWhile(Display.getCurrent(), new Runnable() {
+				@Override
 				public void run() {
 					final Copier copier = new Copier(true, true);
 					result[0] = copier.copyAll(Arrays.asList(srcObjects));
@@ -290,7 +295,8 @@ public final class ModelClipboard {
 				}
 				continue;
 			}
-			// Find the composition relationships to use between parent and child
+			// Find the composition relationships to use between parent and
+			// child
 			final List<EReference> assocs = findUsableTargetAssociations(parent, object);
 			EReference assoc;
 
@@ -299,7 +305,8 @@ public final class ModelClipboard {
 				final String msg = "No composite associations found for " //$NON-NLS-1$
 						+ toObjectString(parent.eClass()) + " -> " //$NON-NLS-1$
 						+ toObjectString(object.eClass());
-				// Don't issue an error here. The client might already have composed the objects.
+				// Don't issue an error here. The client might already have
+				// composed the objects.
 				T.racer().debug(msg);
 				continue;
 			case 1:
@@ -531,7 +538,7 @@ public final class ModelClipboard {
 		}
 	}
 
-	@SuppressWarnings( { "unchecked", "hiding" })
+	@SuppressWarnings({ "unchecked", "hiding" })
 	private static <T extends EObject> List<T> getObjectsFromUri(List<String> uriStrings, ResourceSet resourceSet, Class<T> type) {
 		final List<T> result = new ArrayList<T>(uriStrings.size());
 		for (final String uriString : uriStrings) {
