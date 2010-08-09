@@ -838,67 +838,6 @@ public final class PeServiceImpl implements IPeService {
 		Object[] result = new Object[linkedPEs.size()];
 		result = linkedPEs.toArray(result);
 		return result;
-
-		//		/*
-		//		 * select pe from GFW_CONTAINER_NAME#pictograms::PictogramElement as pe
-		//		 * in partitions {diagramPri}, GFW_CONTAINER_NAME#links::PictogramLink
-		//		 * as pl in partitions {diagramPr}, Reflect::Element as el in elements {
-		//		 * elementMrisAsStrings } where el.pictogramLink = pl where
-		//		 * pl.pictogramElement = pe
-		//		 */
-		//		if (elements.length == 0) {
-		//			PictogramElement[] res = new PictogramElement[0];
-		//			if (info) {
-		//				T.racer().exiting(PeUtil.class, SIGNATURE, res);
-		//			}
-		//			return res;
-		//		}
-		//
-		//		// get current development component
-		//		ResourceSet resourceSet = diagram.eResource().getResourceSet();
-		//		IProject project = ResourceSetManager.getProjectForResourceSet(resourceSet);
-		//		IDevelopmentComponent dc = DiiLibAPI.getResourceService().getDevelopmentComponent(project);
-		//
-		//		OxUtil util = OxActivator.getDefault().getOxUtil();
-		//		final Index index = util.getIndex(dc.getContainingSoftwareComponent().getContainingDevelopmentConfiguration());
-		//
-		//		QueryProcessor processor = new QueryProcessorImpl(index);
-		//		TypeScopeProvider diagramScope = processor.getInclusivePartitionScopeProvider(diagram.eResource().getURI());
-		//
-		//		URI[] elementUris = new URI[elements.length];
-		//		for (int i = 0; i < elements.length; i++) {
-		//			elementUris[i] = EcoreUtil.getURI(elements[i]);
-		//		}
-		//
-		//		SelectEntry[] selectEntries = new SelectEntry[] { new SelectAlias("pe") }; //$NON-NLS-1$
-		//		FromType pe = new FromType("pe", EcoreUtil.getURI(PictogramsPackage.Literals.PICTOGRAM_ELEMENT), false, diagramScope); //$NON-NLS-1$
-		//		FromType pl = new FromType("pl", EcoreUtil.getURI(LinksPackage.Literals.PICTOGRAM_LINK), false, diagramScope); //$NON-NLS-1$
-		//		FromFixedSet el = new FromFixedSet("el", EcoreUtil.getURI(EcorePackage.Literals.EOBJECT), elementUris); //$NON-NLS-1$
-		//
-		//		FromEntry[] fromEntries = new FromEntry[] { pe, pl, el };
-		//		WhereRelationReference pictogramLinkPred = new WhereRelationReference("pl", "businessObjects", "el"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		//		WhereRelationReference pictogramElementPred = new WhereRelationReference("pl", "pictogramElement", "pe"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		//		WhereEntry[] whereEntries = new WhereEntry[] { pictogramElementPred, pictogramLinkPred };
-		//
-		//		Query queryAst = new Query(selectEntries, fromEntries, whereEntries);
-		//
-		//		// get nwdi scope for query
-		//		QueryContext scopeProvider = util.getQueryContextFactory().createInnerQueryContext(resourceSet, Collections.singletonList(dc));
-		//
-		//		ResultSet resultSetFromAst = processor.execute(queryAst, scopeProvider);
-		//
-		//		//RefObject[] res = resultSetFromAst.getRefObjects("pe"); //$NON-NLS-1$
-		//
-		//		URI[] uris = resultSetFromAst.getUris("pe"); //$NON-NLS-1$
-		//		EObject ret[] = new EObject[uris.length];
-		//		for (int i = 0; i < uris.length; i++) {
-		//			ret[i] = resourceSet.getEObject(uris[i], true);
-		//		}
-		//
-		//		if (info) {
-		//			T.racer().exiting(PeUtil.class, SIGNATURE, ret);
-		//		}
-		//		return ret;
 	}
 
 	/*
