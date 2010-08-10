@@ -15,11 +15,19 @@
  *******************************************************************************/
 package org.eclipse.graphiti.examples.common.navigator.nodes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.graphiti.examples.common.ProjectUtil;
 import org.eclipse.graphiti.examples.common.navigator.nodes.base.AbstractInstancesOfTypeContainerNode;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 
 
 public class DiagramsNode extends AbstractInstancesOfTypeContainerNode {
@@ -40,8 +48,41 @@ public class DiagramsNode extends AbstractInstancesOfTypeContainerNode {
 		IProject project = getProject();
 		if (project != null) {
 			ResourceSet rSet = new ResourceSetImpl();
-			return ProjectUtil.getAllDiagramFiles(project, rSet).toArray();
+			return getAllDiagramFiles(project, rSet).toArray();
 		}
 		return null;
+	}
+
+	private List<IFile> getFiles(IContainer folder) {
+		List<IFile> ret = new ArrayList<IFile>();
+		try {
+			IResource[] members = folder.members();
+			for (IResource resource : members) {
+				if (resource instanceof IContainer) {
+					ret.addAll(getFiles((IContainer) resource));
+				} else if (resource instanceof IFile) {
+					IFile file = (IFile) resource;
+					if (file.getName().endsWith(".diagram")) { //$NON-NLS-1$
+						ret.add(file);
+					}
+				}
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+
+	private List<IFile> getAllDiagramFiles(IProject project, ResourceSet rSet) {
+		List<IFile> files = getFiles(project);
+
+		List<IFile> ret = new ArrayList<IFile>();
+		for (IFile file : files) {
+			Diagram diagram = GraphitiUiInternal.getEmfService().getDiagramFromFile(file, rSet);
+			if (diagram != null) {
+				ret.add(file);
+			}
+		}
+		return ret;
 	}
 }

@@ -22,11 +22,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.graphiti.examples.common.outline.ContentOutlinePageAdapterFactory;
-import org.eclipse.graphiti.examples.common.property.PropertySourceAdapterFactory;
-import org.eclipse.graphiti.examples.common.util.uiprovider.IUIProvider;
-import org.eclipse.graphiti.examples.common.util.uiprovider.UIProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderHolder;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -38,7 +34,6 @@ public class ExamplesCommonPlugin extends AbstractUIPlugin {
 
 	private static ExamplesCommonPlugin _plugin;
 
-	private UIProvider _uiProvider;
 
 	/**
 	 * Creates the Plugin and caches its default instance.
@@ -62,28 +57,8 @@ public class ExamplesCommonPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 
-		_uiProvider = new UIProvider();
-
 		IAdapterManager manager = Platform.getAdapterManager();
-		manager.registerAdapters(new PropertySourceAdapterFactory(), IConfigurationProviderHolder.class);
 		manager.registerAdapters(new ContentOutlinePageAdapterFactory(), DiagramEditor.class);
-	}
-
-	/**
-	 * This method is called when the plug-in is stopped.
-	 * 
-	 * @param context
-	 *            the context
-	 * 
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Override
-	public void stop(BundleContext context) throws Exception {
-		if (_uiProvider != null)
-			_uiProvider.dispose();
-
-		super.stop(context);
 	}
 
 	// ======================== static access methods ==========================
@@ -146,14 +121,5 @@ public class ExamplesCommonPlugin extends AbstractUIPlugin {
 	 */
 	public static Shell getShell() {
 		return getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
-	}
-
-	/**
-	 * Returns the IUIProvider.
-	 * 
-	 * @return The IUIProvider.
-	 */
-	public IUIProvider getUIProvider() {
-		return _uiProvider;
 	}
 }

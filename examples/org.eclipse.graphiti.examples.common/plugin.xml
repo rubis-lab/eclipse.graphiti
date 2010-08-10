@@ -131,14 +131,6 @@
       </imageProvider>
    </extension>
 
-	<extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            class="org.eclipse.graphiti.examples.common.preference.GraphicsPreferencePage"
-            id="org.eclipse.graphiti.examples.common.preference.GraphicsPreferencePage"
-            name="%_preferences_page">
-      </page>
-   </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page

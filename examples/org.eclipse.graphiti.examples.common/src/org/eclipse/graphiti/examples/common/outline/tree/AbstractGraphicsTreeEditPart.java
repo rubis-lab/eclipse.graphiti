@@ -18,20 +18,81 @@
  */
 package org.eclipse.graphiti.examples.common.outline.tree;
 
+import java.lang.reflect.Array;
+import java.text.DateFormat;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.editparts.AbstractTreeEditPart;
-import org.eclipse.graphiti.examples.common.ExamplesCommonPlugin;
-import org.eclipse.graphiti.examples.common.util.uiprovider.IUIProvider;
+import org.eclipse.graphiti.examples.common.util.uiprovider.TwoObjectsContainer;
+import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderHolder;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 /**
  * 
  */
 public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implements IConfigurationProviderHolder {
+
+	private Map<TwoObjectsContainer, Image> _imageRegistry = new HashMap<TwoObjectsContainer, Image>(); // ImageDescriptor
+
+	/**
+	 * The Constant TEXT_TYPE_DEFAULT.
+	 */
+	public static final String TEXT_TYPE_DEFAULT = null;
+
+	/**
+	 * The Constant ARRAY_TEXT_START.
+	 */
+	public static final String ARRAY_TEXT_START = "["; //$NON-NLS-1$
+
+	/**
+	 * The Constant ARRAY_TEXT_END.
+	 */
+	public static final String ARRAY_TEXT_END = "]"; //$NON-NLS-1$
+
+	/**
+	 * The Constant ARRAY_TEXT_SEPARATOR.
+	 */
+	public static final String ARRAY_TEXT_SEPARATOR = "; "; //$NON-NLS-1$
+
+	/**
+	 * The Constant FORMAT_JAVA_SQL_DATE.
+	 */
+	public static final DateFormat FORMAT_JAVA_SQL_DATE = DateFormat.getDateInstance(DateFormat.SHORT);
+
+	/**
+	 * The Constant FORMAT_JAVA_SQL_TIME.
+	 */
+	public static final DateFormat FORMAT_JAVA_SQL_TIME = DateFormat.getTimeInstance(DateFormat.SHORT);
+
+	/**
+	 * The Constant FORMAT_JAVA_UTIL_DATE.
+	 */
+	public static final DateFormat FORMAT_JAVA_UTIL_DATE = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
+
+	/**
+	 * The Constant TUPLE_TEXT_END.
+	 */
+	public static final String TUPLE_TEXT_END = ")"; //$NON-NLS-1$
+
+	/**
+	 * The Constant TUPLE_TEXT_SEPARATOR.
+	 */
+	public static final String TUPLE_TEXT_SEPARATOR = ", "; //$NON-NLS-1$
+
+	/**
+	 * The Constant TUPLE_TEXT_START.
+	 */
+	public static final String TUPLE_TEXT_START = "("; //$NON-NLS-1$
 
 	private IConfigurationProvider configurationProvider;
 
@@ -56,6 +117,7 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implement
 	 * 
 	 * @return The IConfigurationProvider of this EditPart
 	 */
+	@Override
 	public IConfigurationProvider getConfigurationProvider() {
 		return configurationProvider;
 	}
@@ -71,7 +133,7 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implement
 	 */
 	@Override
 	protected Image getImage() {
-		Image result = getUIProvider().getImage(getModel(), null);
+		Image result = getImage(getModel(), null);
 		return result;
 	}
 
@@ -86,7 +148,7 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implement
 	 */
 	@Override
 	protected String getText() {
-		String text = getUIProvider().getText(getModel(), IUIProvider.TEXT_TYPE_DEFAULT);
+		String text = getText(getModel(), TEXT_TYPE_DEFAULT);
 		return (text == null) ? "" : text; //$NON-NLS-1$
 	}
 
@@ -96,10 +158,6 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implement
 	 */
 	private void setConfigurationProvider(IConfigurationProvider configurationProvider) {
 		this.configurationProvider = configurationProvider;
-	}
-
-	private IUIProvider getUIProvider() {
-		return ExamplesCommonPlugin.getDefault().getUIProvider();
 	}
 
 	/**
@@ -118,4 +176,130 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implement
 		}
 	}
 
+	private String getText(Object element, Object textType) {
+		// get inner objects from 'own' wrappers
+		// if (element instanceof PropertyForAttribute) {
+		// PropertyForAttribute casted = (PropertyForAttribute) element;
+		// element = casted.getValue();
+		// }
+		// if (element instanceof PropertyTypeForAttribute) {
+		// PropertyTypeForAttribute casted = (PropertyTypeForAttribute) element;
+		// element = casted.getAttribute();
+		// }
+
+		// // special handlings
+		// if (element instanceof Attribute) {
+		// Attribute casted = (Attribute) element;
+		// if (Util.equalsWithNull(textType, TEXT_TYPE_DEFAULT) ||
+		// Util.equalsWithNull(textType, TEXT_TYPE_NAME))
+		// return casted.getName();
+		// if (Util.equalsWithNull(textType, TEXT_TYPE_TOOLTIP))
+		// return "The attribute" + " " + casted.getName();
+		// if (Util.equalsWithNull(textType, TEXT_TYPE_PROPERTYSHEET_CATEGORY))
+		// {
+		// if
+		// (casted.refOutermostComposite().refGetValue("name").equals("pictograms"))
+		// {
+		// return "Graphics Extension";
+		// } else {
+		// return "Business Model";
+		// }
+		// }
+		// }
+
+		if (element instanceof EObject) {
+			EObject casted = (EObject) element;
+			if (GraphitiInternal.getEmfService().isObjectAlive(casted)) {
+				final EObject eObject = casted.eClass();
+				if (GraphitiInternal.getEmfService().isObjectAlive(eObject) && eObject instanceof EClass) {
+					EClass eClass = (EClass) eObject;
+					String className = eClass.getName();
+					return className + " (" + casted.toString() + ")";
+				}
+			}
+		}
+
+		if (element == null)
+			return ""; //$NON-NLS-1$
+
+		// Collection: convert to array and call recursively
+		if (element instanceof Collection) {
+			Collection collection = (Collection) element;
+			return getText(collection.toArray(), textType);
+		}
+
+		// Array: build comma-separated List with recursive calls
+		if (element.getClass().isArray()) {
+			StringBuffer result = new StringBuffer();
+			result.append(ARRAY_TEXT_START);
+			boolean afterFirstElement = false;
+			for (int i = 0; i < Array.getLength(element); i++) {
+				if (afterFirstElement)
+					result.append(ARRAY_TEXT_SEPARATOR);
+				Object next = Array.get(element, i); // this automatically
+				// converts primitive
+				// types to Object types
+				result.append(getText(next, textType));
+				afterFirstElement = true;
+			}
+			result.append(ARRAY_TEXT_END);
+			return result.toString();
+		}
+
+		// Date/Time: use DateFormatter
+		if (element instanceof java.sql.Date)
+			return FORMAT_JAVA_SQL_DATE.format((java.sql.Date) element);
+		if (element instanceof java.sql.Time)
+			return FORMAT_JAVA_SQL_TIME.format((java.sql.Time) element);
+		if (element instanceof java.util.Date) // java.uti.Date must be the
+			// last, because the java.sql.*
+			// extend this class
+			return FORMAT_JAVA_UTIL_DATE.format((java.util.Date) element);
+
+		// Rectangle/Point
+		if (element instanceof Rectangle) {
+			Rectangle casted = (Rectangle) element;
+			StringBuffer result = new StringBuffer();
+			result.append(TUPLE_TEXT_START);
+			result.append(casted.x).append(TUPLE_TEXT_SEPARATOR).append(casted.y).append(TUPLE_TEXT_SEPARATOR).append(casted.width)
+					.append(TUPLE_TEXT_SEPARATOR).append(casted.height);
+			result.append(TUPLE_TEXT_END);
+			return result.toString();
+		}
+		if (element instanceof Point) {
+			Point casted = (Point) element;
+			StringBuffer result = new StringBuffer();
+			result.append(TUPLE_TEXT_START);
+			result.append(casted.x).append(TUPLE_TEXT_SEPARATOR).append(casted.y);
+			result.append(TUPLE_TEXT_END);
+			return result.toString();
+		}
+
+		// default
+		return element.toString();
+	}
+
+	private Image getImage(Object element, Object imageType) {
+		if (element != null) {
+			ImageDescriptor descriptor = getImageDescriptor(element, imageType);
+			TwoObjectsContainer container = new TwoObjectsContainer(descriptor, imageType);
+			if (descriptor != null) {
+				Image image = getImageRegistry().get(container);
+				if (image == null) {
+					image = descriptor.createImage();
+					getImageRegistry().put(container, image);
+				}
+				return image;
+			}
+		}
+		return null;
+	}
+
+	private ImageDescriptor getImageDescriptor(Object element, Object imageType) {
+		return null;
+	}
+
+	private Map<TwoObjectsContainer, Image> getImageRegistry() {
+		return _imageRegistry;
+	}
 }
