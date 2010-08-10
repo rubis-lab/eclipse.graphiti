@@ -88,7 +88,13 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 */
 	public DiagramEditorContextMenuProvider(EditPartViewer viewer, ActionRegistry registry, IConfigurationProvider configurationProvider) {
 		super(viewer);
+		if (registry == null) {
+			throw new IllegalArgumentException("Argument registry must not be null");
+		}
 		this.actionRegistry = registry;
+		if (configurationProvider == null) {
+			throw new IllegalArgumentException("Argument configurationProvider must not be null");
+		}
 		this.configurationProvider = configurationProvider;
 	}
 
