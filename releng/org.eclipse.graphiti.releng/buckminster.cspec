@@ -11,7 +11,7 @@
                 <cs:property key="targets" value="clear.directory"/>
             </cs:actorProperties>
             <cs:properties>
-                <cs:property key="directory" value="${graphiti.download.area}/updates/0.7.0/"/>
+                <cs:property key="directory" value="${graphiti.download.area}/updates/nightly/"/>
             </cs:properties>
         </cs:public>
         <cs:public name="promote.site" actor="ant">
@@ -23,7 +23,7 @@
                 <cs:attribute name="clear.site" contributor="false"/>
                 <cs:attribute name="site.p2" component="org.eclipse.graphiti.site"/>
             </cs:prerequisites>
-            <cs:products alias="action.output" base="${graphiti.download.area}/updates/0.7.0/"/>
+            <cs:products alias="action.output" base="${graphiti.download.area}/updates/nightly/"/>
         </cs:public>
         <cs:public name="promote.site.to.archive" actor="ant">
             <cs:actorProperties>
@@ -33,7 +33,7 @@
             <cs:prerequisites alias="action.requirements">
                 <cs:attribute name="site.p2.zip" component="org.eclipse.graphiti.site"/>
             </cs:prerequisites>
-            <cs:products alias="action.output" base="${graphiti.download.area}/archives/0.7.0/"/>
+            <cs:products alias="action.output" base="${graphiti.download.area}/archives/nightly/"/>
         </cs:public>
     </cs:actions>
     <cs:groups>
