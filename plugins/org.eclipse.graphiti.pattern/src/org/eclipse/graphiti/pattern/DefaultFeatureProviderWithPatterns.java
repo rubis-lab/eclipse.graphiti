@@ -58,6 +58,10 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	public void addPattern(IPattern pattern) {
+		if (pattern == null) {
+			throw new IllegalArgumentException("Argument pattern must not be null."); //$NON-NLS-1$
+		}
+		
 		pattern.setFeatureProvider(this);
 		getPatterns().add(pattern);
 	}
@@ -69,15 +73,37 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	 *            the pattern
 	 */
 	public void addConnectionPattern(IConnectionPattern pattern) {
+		if (pattern == null) {
+			throw new IllegalArgumentException("Argument pattern must not be null."); //$NON-NLS-1$
+		}
 		pattern.setFeatureProvider(this);
 		getConnectionPatterns().add(pattern);
 	}
 
-	private boolean checkFeature(IFeature feature) {
-		boolean ret = feature != null; // feature.isAvailable(context);
-		return ret;
+	/**
+	 * Gets the patterns.
+	 * 
+	 * @return the patterns
+	 */
+	protected List<IPattern> getPatterns() {
+		if (this.patterns == null) {
+			this.patterns = new ArrayList<IPattern>();
+		}
+		return this.patterns;
 	}
 
+	/**
+	 * Gets the connection patterns.
+	 * 
+	 * @return the patterns
+	 */
+	protected List<IConnectionPattern> getConnectionPatterns() {
+		if (this.connectionPatters == null) {
+			this.connectionPatters = new ArrayList<IConnectionPattern>();
+		}
+		return this.connectionPatters;
+	}
+	
 	/**
 	 * Check feature and context.
 	 * 
@@ -89,7 +115,7 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	 * @return true, if successful
 	 */
 	protected boolean checkFeatureAndContext(IFeature feature, IContext context) {
-		boolean featureOkay = checkFeature(feature);
+		boolean featureOkay = feature != null;
 		boolean featureAvailable = feature.isAvailable(context);
 		boolean ret = featureOkay && featureAvailable;
 		return ret;
@@ -97,6 +123,9 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 
 	@Override
 	public IAddFeature getAddFeature(IAddContext context) {
+		if (context == null) {
+			throw new IllegalArgumentException("Argument context must not be null."); //$NON-NLS-1$
+		}
 		IAddFeature ret = null;
 		for (IPattern pattern : getPatterns()) {
 			if (checkPattern(pattern, context.getNewObject())) {
@@ -126,20 +155,6 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		}
 
 		return ret;
-	}
-
-	/**
-	 * Trace warning.
-	 * 
-	 * @param string
-	 *            the string
-	 * @param pattern
-	 *            the pattern
-	 * @param choosenPattern
-	 *            the choosen pattern
-	 */
-	protected void traceWarning(String string, IPattern pattern, IPattern choosenPattern) {
-		T.racer().warning(string + ": " + "Pattern " + pattern + " is executable additionally to pattern " + choosenPattern + "."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
 	/**
@@ -188,6 +203,9 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 
 	@Override
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
+		if (context == null) {
+			throw new IllegalArgumentException("Argument context must not be null."); //$NON-NLS-1$
+		}
 		ILayoutFeature ret = null;
 		for (IPattern pattern : getPatterns()) {
 			if (checkPattern(pattern, getBusinessObjectForPictogramElement(context.getPictogramElement()))) {
@@ -225,6 +243,9 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 
 	@Override
 	public IMoveShapeFeature getMoveShapeFeature(IMoveShapeContext context) {
+		if (context == null) {
+			throw new IllegalArgumentException("Argument context must not be null."); //$NON-NLS-1$
+		}
 		IMoveShapeFeature ret = null;
 		for (IPattern pattern : getPatterns()) {
 			if (checkPattern(pattern, getBusinessObjectForPictogramElement(context.getPictogramElement()))) {
@@ -260,32 +281,11 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		return super.getMoveShapeFeature(context);
 	}
 
-	/**
-	 * Gets the patterns.
-	 * 
-	 * @return the patterns
-	 */
-	protected List<IPattern> getPatterns() {
-		if (this.patterns == null) {
-			this.patterns = new ArrayList<IPattern>();
-		}
-		return this.patterns;
-	}
-
-	/**
-	 * Gets the connection patterns.
-	 * 
-	 * @return the patterns
-	 */
-	protected List<IConnectionPattern> getConnectionPatterns() {
-		if (this.connectionPatters == null) {
-			this.connectionPatters = new ArrayList<IConnectionPattern>();
-		}
-		return this.connectionPatters;
-	}
-
 	@Override
 	public IResizeShapeFeature getResizeShapeFeature(IResizeShapeContext context) {
+		if (context == null) {
+			throw new IllegalArgumentException("Argument context must not be null."); //$NON-NLS-1$
+		}
 		IResizeShapeFeature ret = null;
 		for (IPattern pattern : getPatterns()) {
 			if (checkPattern(pattern, getBusinessObjectForPictogramElement(context.getPictogramElement()))) {
@@ -337,6 +337,9 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 
 	@Override
 	public IUpdateFeature getUpdateFeature(IUpdateContext context) {
+		if (context == null) {
+			throw new IllegalArgumentException("Argument context must not be null."); //$NON-NLS-1$
+		}
 		IUpdateFeature ret = null;
 		Object businessObject = getBusinessObjectForPictogramElement(context.getPictogramElement());
 		for (IPattern pattern : getPatterns()) {
@@ -374,6 +377,9 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	public IPattern getPatternForPictogramElement(PictogramElement pe) {
+		if (pe == null) {
+			throw new IllegalArgumentException("Argument pe must not be null."); //$NON-NLS-1$
+		}
 		for (IPattern pattern : getPatterns()) {
 			if (pattern instanceof AbstractPattern) {
 				AbstractPattern ap = (AbstractPattern) pattern;
@@ -429,6 +435,20 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	 */
 	protected ICreateConnectionFeature[] getCreateConnectionFeaturesAdditional() {
 		return super.getCreateConnectionFeatures();
+	}
+	
+	/**
+	 * Trace warning.
+	 * 
+	 * @param string
+	 *            the string
+	 * @param pattern
+	 *            the pattern
+	 * @param choosenPattern
+	 *            the choosen pattern
+	 */
+	protected void traceWarning(String string, IPattern pattern, IPattern choosenPattern) {
+		T.racer().warning(string + ": " + "Pattern " + pattern + " is executable additionally to pattern " + choosenPattern + "."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
 }
