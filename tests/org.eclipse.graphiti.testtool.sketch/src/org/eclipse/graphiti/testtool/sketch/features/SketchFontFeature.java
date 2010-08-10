@@ -16,7 +16,6 @@
 package org.eclipse.graphiti.testtool.sketch.features;
 
 import org.eclipse.graphiti.examples.common.ColoredFont;
-import org.eclipse.graphiti.examples.common.SampleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
@@ -24,9 +23,16 @@ import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.testtool.sketch.SketchUtil;
+import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
+import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.FontDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * The Class SketchFontFeature.
@@ -52,6 +58,7 @@ public class SketchFontFeature extends AbstractCustomFeature {
 		return true;
 	}
 
+	@Override
 	public void execute(ICustomContext context) {
 		PictogramElement[] pes = context.getPictogramElements();
 
@@ -59,7 +66,7 @@ public class SketchFontFeature extends AbstractCustomFeature {
 
 		Font font = textGa.getFont();
 		Color fgColor = textGa.getForeground();
-		ColoredFont coloredFont = SampleUtil.editFont(textGa, new ColoredFont(font, fgColor), getDiagram());
+		ColoredFont coloredFont = editFont(textGa, new ColoredFont(font, fgColor), getDiagram());
 		if (coloredFont == null) {
 			return; // cancel in dialog
 		}
@@ -105,4 +112,41 @@ public class SketchFontFeature extends AbstractCustomFeature {
 		return ret;
 	}
 
+	/**
+	 * Opens a dialog to change the font styles and colors.
+	 * 
+	 * @param coloredFont
+	 *            the current colored font
+	 * @param diagram
+	 *            the diagram
+	 * @param text
+	 *            the text
+	 * @return the changed colored font
+	 */
+	private ColoredFont editFont(AbstractText text, ColoredFont coloredFont, Diagram diagram) {
+		Font inputFont = coloredFont.getFont();
+		Color inputColor = coloredFont.getColor();
+
+		Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+		FontDialog fontDialog = new FontDialog(shell);
+		FontData fontData = DataTypeTransformation.toFontData(inputFont);
+
+		fontDialog.setFontList(new FontData[] { fontData });
+		RGB rgb = new RGB(inputColor.getRed(), inputColor.getGreen(), inputColor.getBlue());
+		fontDialog.setRGB(rgb);
+
+		FontData retFontData = fontDialog.open();
+
+		if (retFontData == null) {
+			return null;
+		}
+
+		Font retFont = DataTypeTransformation.toPictogramsFont(text, retFontData);
+		RGB retRgb = fontDialog.getRGB();
+		Color retColor = DataTypeTransformation.toPictogramsColor(retRgb, diagram);
+
+		ColoredFont ret = new ColoredFont(retFont, retColor);
+
+		return ret;
+	}
 }
