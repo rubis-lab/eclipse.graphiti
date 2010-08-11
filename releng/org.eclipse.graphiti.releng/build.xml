@@ -248,31 +248,17 @@
 	</target>
 
 	<target name="test" depends="site.p2">
-		<echo message="Running JUnit tests for Graphiti" />
+		<echo message="Running SWT Bot tests for Graphiti" />
 		<buckminster command="emma">
 			<cmdargs>
 				<arg value="-l" />
-				<arg value="org.eclipse.graphiti.tests/AllJunitTests.launch" />
+				<arg value="org.eclipse.graphiti.bot.tests/AllBotTests.launch" />
 				<arg value="-o" />
-				<arg value="${result}/testReportJunitGraphiti.xml" />
+				<arg value="${result}/testReportSwtBotGraphiti.xml" />
 				<arg value="--terseXML" />
 				<arg value="--flatXML" />
 				<arg value="--xml" />
-				<arg value="${result}/coverageReportJunitGraphiti.xml" />
-			</cmdargs>
-		</buckminster>
-
-		<echo message="Running JUnit tests for GraphitiUI" />
-		<buckminster command="emma">
-			<cmdargs>
-				<arg value="-l" />
-				<arg value="org.eclipse.graphiti.ui.tests/AllJunitUiTests.launch" />
-				<arg value="-o" />
-				<arg value="${result}/testReportJunitGraphitiUi.xml" />
-				<arg value="--terseXML" />
-				<arg value="--flatXML" />
-				<arg value="--xml" />
-				<arg value="${result}/coverageReportJunitGraphitiUi.xml" />
+				<arg value="${result}/coverageReportSwtBotGraphiti.xml" />
 			</cmdargs>
 		</buckminster>
 	</target>
