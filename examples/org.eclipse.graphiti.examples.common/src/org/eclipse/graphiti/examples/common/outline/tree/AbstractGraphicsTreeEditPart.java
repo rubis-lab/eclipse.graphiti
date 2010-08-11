@@ -223,8 +223,8 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implement
 			return ""; //$NON-NLS-1$
 
 		// Collection: convert to array and call recursively
-		if (element instanceof Collection) {
-			Collection collection = (Collection) element;
+		if (element instanceof Collection<?>) {
+			Collection<?> collection = (Collection<?>) element;
 			return getText(collection.toArray(), textType);
 		}
 

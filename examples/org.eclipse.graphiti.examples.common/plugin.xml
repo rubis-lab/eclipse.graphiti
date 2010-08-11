@@ -134,7 +134,6 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            category="org.eclipse.graphiti.examples.common.preference.GraphicsPreferencePage"
             class="org.eclipse.graphiti.examples.common.preference.GraphicsTestPreferencePage"
             id="org.eclipse.graphiti.examples.common.preference.GraphicsTestPreferencePage"
             name="%_test_preferences_page">

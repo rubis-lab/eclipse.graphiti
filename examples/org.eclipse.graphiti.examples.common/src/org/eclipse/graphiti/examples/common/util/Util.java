@@ -42,31 +42,6 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
  */
 public class Util {
 
-	private static final Class<?> PRIMITIVE_CLASSES[] = new Class[] { Boolean.TYPE, Byte.TYPE, Character.TYPE, Short.TYPE, Integer.TYPE,
-			Long.TYPE, Float.TYPE, Double.TYPE };
-
-	private static final Class<?> NON_PRIMITIVE_CLASSES[] = new Class[] { Boolean.class, Byte.class, Character.class, Short.class,
-			Integer.class, Long.class, Float.class, Double.class };
-
-	/**
-	 * Returns the non-primitive class for the given class. For example returns
-	 * Integer.class for int.class. Returns the given class, if it is not a
-	 * primitive class.
-	 * 
-	 * @param sourceClass
-	 *            The class, for which to return the non-primitive class.
-	 * @return The non-primitive class for the given class.
-	 */
-	public static Class getNonPrimitiveClass(Class sourceClass) {
-		if (!sourceClass.isPrimitive())
-			return sourceClass;
-		for (int i = 0; i < PRIMITIVE_CLASSES.length; i++) {
-			if (PRIMITIVE_CLASSES[i].equals(sourceClass))
-				return NON_PRIMITIVE_CLASSES[i];
-		}
-		throw new RuntimeException("Unknown primitive class: " + sourceClass); //$NON-NLS-1$
-	}
-
 	/**
 	 * Moves the object at the source index of the list to the _target index of
 	 * the list and returns the moved object.

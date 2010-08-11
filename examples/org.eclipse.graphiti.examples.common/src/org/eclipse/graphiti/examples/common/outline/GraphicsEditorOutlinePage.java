@@ -234,7 +234,8 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	 * 
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#getAdapter(Class)
 	 */
-	public Object getAdapter(Class type) {
+	@Override
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
 		if (type == ZoomManager.class)
 			return _zoomManagerAdapter;
 		return null;
@@ -244,6 +245,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	 * Refreshes the outline on any change of the diagram editor. Most
 	 * importantly, there is a property change event editor-dirty.
 	 */
+	@Override
 	public void propertyChanged(Object source, int propId) {
 		refresh();
 	}

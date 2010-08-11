@@ -24,9 +24,10 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 
-	private static final Class[] ADAPTERS = new Class[] { IContentOutlinePage.class };
+	private static final Class<?>[] ADAPTERS = new Class[] { IContentOutlinePage.class };
 
-	public Object getAdapter(Object adaptableObject, Class adapterType) {
+	@Override
+	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		if (GFPreferences.getInstance().isGenericOutlineActive()) {
 			if (IContentOutlinePage.class.equals(adapterType)) {
 				if (adaptableObject instanceof DiagramEditorInternal) {
@@ -44,6 +45,8 @@ public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
+	@Override
+	@SuppressWarnings("rawtypes")
 	public Class[] getAdapterList() {
 		return ADAPTERS;
 	}

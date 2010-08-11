@@ -26,29 +26,14 @@ import org.eclipse.ui.PlatformUI;
  * The Class AbstractContainerNode.
  */
 public abstract class AbstractContainerNode implements IContainerNode {
-	/**
-	 * Performance Flag Set value to false for best performance.
-	 */
-	private static final boolean APPEND_FOLDER_SIZE = false;
-
-	/**
-	 * Performance Flag Set value to true for best performance.
-	 */
-	private static final boolean OPTIMISTIC_CHILDREN_CHECK = true;
 
 	protected AbstractContainerNode() {
+		super();
 	}
 
+	@Override
 	public String getText() {
 		String ret = getContainerName();
-		if (APPEND_FOLDER_SIZE) {
-			int childCount = 0;
-			Object[] children = getChildren();
-			if (children != null) {
-				childCount = children.length;
-			}
-			ret = ret + " (" + childCount + ")";
-		}
 		return ret;
 	}
 
@@ -59,16 +44,9 @@ public abstract class AbstractContainerNode implements IContainerNode {
 	 */
 	abstract protected String getContainerName();
 
+	@Override
 	public boolean hasChildren() {
-		if (OPTIMISTIC_CHILDREN_CHECK) {
 			return true;
-		}
-
-		long start = System.currentTimeMillis();
-		boolean bool = getChildren() != null && getChildren().length > 0;
-		long stop = System.currentTimeMillis();
-		long time = stop - start;
-		return bool;
 	}
 
 	@Override
