@@ -249,14 +249,14 @@
 
 	<target name="test" depends="site.p2">
 		<echo message="Running SWT Bot tests for Graphiti" />
-		<buckminster command="junit">
+		<buckminster command="launch">
 			<cmdargs>
 				<arg value="-l" />
 				<arg value="org.eclipse.graphiti.bot.tests/AllBotTests.launch" />
-				<arg value="-o" />
-				<arg value="${result}/testReportSwtBotGraphiti.xml" />
-				<arg value="--terseXML" />
-				<arg value="--flatXML" />
+				<arg value="--stderr" />
+				<arg value="${result}/testReportSwtBotGraphitiErr.xml" />
+				<arg value="--stdout" />
+				<arg value="${result}/testReportSwtBotGraphitiOut.xml" />
 			</cmdargs>
 		</buckminster>
 	</target>
