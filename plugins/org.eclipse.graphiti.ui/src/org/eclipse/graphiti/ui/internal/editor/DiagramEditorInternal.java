@@ -1302,10 +1302,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			}
 		}
 
-		if (getPictogramElementsForSelection() != null) {
-			selectPictogramElements(getPictogramElementsForSelection());
-			setPictogramElementsForSelection(null);
-		}
+		selectBufferedPictogramElements();
 	}
 
 	public void refreshPalette() {
@@ -1659,4 +1656,10 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return true;
 	}
 
+	protected void selectBufferedPictogramElements() {
+		if (getPictogramElementsForSelection() != null) {
+			selectPictogramElements(getPictogramElementsForSelection());
+			setPictogramElementsForSelection(null);
+		}
+	}
 }

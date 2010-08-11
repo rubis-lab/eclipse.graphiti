@@ -112,6 +112,7 @@ class DiagramRefreshJob extends UIJob {
 					ep.refresh();
 				}
 			}
+			ed.selectBufferedPictogramElements();
 		}
 
 		refreshAll = false;
