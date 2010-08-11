@@ -18,10 +18,8 @@ package org.eclipse.graphiti.examples.common.outline.tree;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
 /**
  * A default-implementation for a TreeEditPart, which wraps a Shape. It can be
@@ -37,8 +35,8 @@ public class GraphicsAlgorithmTreeEditPart extends AbstractGraphicsTreeEditPart 
 	 * @param shape
 	 *            The Shape of this EditPart.
 	 */
-	public GraphicsAlgorithmTreeEditPart(IConfigurationProvider configurationProvider, GraphicsAlgorithm graphicsAlgorithm) {
-		super(configurationProvider, graphicsAlgorithm);
+	public GraphicsAlgorithmTreeEditPart(GraphicsAlgorithm graphicsAlgorithm) {
+		super(graphicsAlgorithm);
 	}
 
 	/**
@@ -69,7 +67,7 @@ public class GraphicsAlgorithmTreeEditPart extends AbstractGraphicsTreeEditPart 
 	protected List<Object> getModelChildren() {
 		List<Object> retList = new ArrayList<Object>();
 		GraphicsAlgorithm graphicsAlgorithm = getGraphicsAlgorithm();
-		if (GraphitiInternal.getEmfService().isObjectAlive(graphicsAlgorithm)) {
+		if (graphicsAlgorithm != null && graphicsAlgorithm.eResource() != null) {
 			final List<GraphicsAlgorithm> graphicsAlgorithmChildren = graphicsAlgorithm.getGraphicsAlgorithmChildren();
 			addAllElementsIfNotNull(retList, graphicsAlgorithmChildren);
 			if (graphicsAlgorithm instanceof Polyline) {

@@ -16,7 +16,6 @@
 package org.eclipse.graphiti.examples.common.outline.tree;
 
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
 /**
  * A default-implementation for a TreeEditPart, which wraps a Shape. It can be
@@ -32,8 +31,8 @@ public class PointTreeEditPart extends AbstractGraphicsTreeEditPart {
 	 * @param shape
 	 *            The Shape of this EditPart.
 	 */
-	public PointTreeEditPart(IConfigurationProvider configurationProvider, Point point) {
-		super(configurationProvider, point);
+	public PointTreeEditPart(Point point) {
+		super(point);
 	}
 
 	public Point getPoint() {

@@ -22,6 +22,7 @@ import org.eclipse.draw2d.Viewport;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
@@ -34,7 +35,7 @@ import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.graphiti.examples.common.ISampleImageConstants;
 import org.eclipse.graphiti.examples.common.outline.tree.PictogramsTreeEditPartFactory;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.internal.config.IEditPartFactory;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScrollableThumbnail;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
@@ -142,9 +143,9 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	 * update of the contents of the outline page.
 	 */
 	public void initContents() {
-		IEditPartFactory treeEditPartFactory = new PictogramsTreeEditPartFactory(_diagramEditor.getConfigurationProvider());
+		EditPartFactory treeEditPartFactory = new PictogramsTreeEditPartFactory();
 		getViewer().setEditPartFactory(treeEditPartFactory);
-		Diagram diagram = _diagramEditor.getConfigurationProvider().getDiagram();
+		Diagram diagram = ((DiagramEditorInput) _diagramEditor.getEditorInput()).getDiagram();
 		getViewer().setContents(diagram);
 	}
 

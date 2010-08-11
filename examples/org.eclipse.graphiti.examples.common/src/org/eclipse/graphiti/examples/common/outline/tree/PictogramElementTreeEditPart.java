@@ -31,7 +31,6 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
 /**
  * A default-implementation for a TreeEditPart, which wraps a Shape. It can be
@@ -47,8 +46,8 @@ public class PictogramElementTreeEditPart extends AbstractGraphicsTreeEditPart {
 	 * @param shape
 	 *            The Shape of this EditPart.
 	 */
-	public PictogramElementTreeEditPart(IConfigurationProvider configurationProvider, PictogramElement pictogramElement) {
-		super(configurationProvider, pictogramElement);
+	public PictogramElementTreeEditPart(PictogramElement pictogramElement) {
+		super(pictogramElement);
 	}
 
 	/**

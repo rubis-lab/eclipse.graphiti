@@ -16,7 +16,6 @@
 package org.eclipse.graphiti.examples.common.outline.tree;
 
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
 /**
  * A default-implementation for a TreeEditPart, which wraps a Shape. It can be
@@ -32,8 +31,8 @@ public class ColorTreeEditPart extends AbstractGraphicsTreeEditPart {
 	 * @param shape
 	 *            The Shape of this EditPart.
 	 */
-	public ColorTreeEditPart(IConfigurationProvider configurationProvider, Color color) {
-		super(configurationProvider, color);
+	public ColorTreeEditPart(Color color) {
+		super(color);
 	}
 
 	public Color getColor() {

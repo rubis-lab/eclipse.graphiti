@@ -35,7 +35,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 
 /**
  * Collection of general static helper methods.
@@ -117,7 +116,9 @@ public class Util {
 						// This may of course be different in a concrete tool
 						// implementation, so tool builders should use their own
 						// way of retrieval here
-						Diagram diag = GraphitiUiInternal.getEmfService().getDiagramFromFile(file, rSet);
+						@SuppressWarnings("restriction")
+						Diagram diag = org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal.getEmfService().getDiagramFromFile(
+								file, rSet);
 						if (diag != null) {
 							diagrams.add(diag);
 						} else {
@@ -127,7 +128,8 @@ public class Util {
 							// use their own logic to browse through their files
 							// (e.g. known by a special extension or residing in
 							// a special folder) instead of this generic logic.
-							URI uri = GraphitiUiInternal.getEmfService().getFileURI(file, rSet);
+							@SuppressWarnings("restriction")
+							URI uri = org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal.getEmfService().getFileURI(file, rSet);
 							Resource fileResource = rSet.getResource(uri, true);
 							if (fileResource != null) {
 								EList<EObject> contents = fileResource.getContents();

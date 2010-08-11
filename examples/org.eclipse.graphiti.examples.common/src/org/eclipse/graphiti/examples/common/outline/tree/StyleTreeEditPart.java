@@ -20,7 +20,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
 /**
  * A default-implementation for a TreeEditPart, which wraps a Shape. It can be
@@ -36,8 +35,8 @@ public class StyleTreeEditPart extends AbstractGraphicsTreeEditPart {
 	 * @param shape
 	 *            The Shape of this EditPart.
 	 */
-	public StyleTreeEditPart(IConfigurationProvider configurationProvider, Style style) {
-		super(configurationProvider, style);
+	public StyleTreeEditPart(Style style) {
+		super(style);
 	}
 
 	public Style getStyle() {

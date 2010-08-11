@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
 /**
  * A default-implementation for a TreeEditPart, which wraps a Shape. It can be
@@ -36,8 +35,8 @@ public class ConnectionDecoratorTreeEditPart extends AbstractGraphicsTreeEditPar
 	 * @param shape
 	 *            The Shape of this EditPart.
 	 */
-	public ConnectionDecoratorTreeEditPart(IConfigurationProvider configurationProvider, ConnectionDecorator connectionDecorator) {
-		super(configurationProvider, connectionDecorator);
+	public ConnectionDecoratorTreeEditPart(ConnectionDecorator connectionDecorator) {
+		super(connectionDecorator);
 	}
 
 	/**

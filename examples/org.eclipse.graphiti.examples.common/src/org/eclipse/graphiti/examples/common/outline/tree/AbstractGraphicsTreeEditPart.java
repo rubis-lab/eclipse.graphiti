@@ -31,16 +31,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.editparts.AbstractTreeEditPart;
 import org.eclipse.graphiti.examples.common.util.uiprovider.TwoObjectsContainer;
-import org.eclipse.graphiti.internal.services.GraphitiInternal;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderHolder;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 /**
  * 
  */
-public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implements IConfigurationProviderHolder {
+public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart {
 
 	private Map<TwoObjectsContainer, Image> _imageRegistry = new HashMap<TwoObjectsContainer, Image>(); // ImageDescriptor
 
@@ -94,32 +91,12 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implement
 	 */
 	public static final String TUPLE_TEXT_START = "("; //$NON-NLS-1$
 
-	private IConfigurationProvider configurationProvider;
-
-	/**
-	 * 
-	 */
-	public AbstractGraphicsTreeEditPart(IConfigurationProvider configurationProvider) {
-		super();
-		setConfigurationProvider(configurationProvider);
-	}
 
 	/**
 	 * @param model
 	 */
-	public AbstractGraphicsTreeEditPart(IConfigurationProvider configurationProvider, Object model) {
+	public AbstractGraphicsTreeEditPart(Object model) {
 		super(model);
-		setConfigurationProvider(configurationProvider);
-	}
-
-	/**
-	 * Returns the IConfigurationProvider of this EditPart
-	 * 
-	 * @return The IConfigurationProvider of this EditPart
-	 */
-	@Override
-	public IConfigurationProvider getConfigurationProvider() {
-		return configurationProvider;
 	}
 
 	/**
@@ -150,14 +127,6 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implement
 	protected String getText() {
 		String text = getText(getModel(), TEXT_TYPE_DEFAULT);
 		return (text == null) ? "" : text; //$NON-NLS-1$
-	}
-
-	/**
-	 * @param configurationProvider
-	 *            The configurationProvider to set.
-	 */
-	private void setConfigurationProvider(IConfigurationProvider configurationProvider) {
-		this.configurationProvider = configurationProvider;
 	}
 
 	/**
@@ -209,9 +178,9 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart implement
 
 		if (element instanceof EObject) {
 			EObject casted = (EObject) element;
-			if (GraphitiInternal.getEmfService().isObjectAlive(casted)) {
+			if (casted != null && casted.eResource() != null) {
 				final EObject eObject = casted.eClass();
-				if (GraphitiInternal.getEmfService().isObjectAlive(eObject) && eObject instanceof EClass) {
+				if (eObject instanceof EClass && eObject.eResource() != null) {
 					EClass eClass = (EClass) eObject;
 					String className = eClass.getName();
 					return className + " (" + casted.toString() + ")";

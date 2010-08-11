@@ -32,6 +32,9 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 /**
  * The workbench-preference-page of this Plugin.
  */
+@SuppressWarnings("restriction")
+// The Test preference page is allowed to use the preference settings
+// defined and used in the framework
 public class GraphicsTestPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
 	/**
@@ -87,6 +90,7 @@ public class GraphicsTestPreferencePage extends FieldEditorPreferencePage implem
 			label.setText(message);
 	}
 
+	@Override
 	public void init(IWorkbench workbench) {
 		// nothing to do
 	}
