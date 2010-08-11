@@ -18,12 +18,12 @@ package org.eclipse.graphiti.examples.common.navigator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.graphiti.examples.common.ExamplesCommonPlugin;
 import org.eclipse.graphiti.examples.common.navigator.nodes.EClassesNode;
 import org.eclipse.graphiti.examples.common.navigator.nodes.base.IContainerNode;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -107,11 +107,11 @@ public class GFEmfLabelProvider extends LabelProvider {
 	}
 
 	private Image getEClassImage() {
-		ImageRegistry registry = GraphitiUIPlugin.getDefault().getImageRegistry();
+		ImageRegistry registry = ExamplesCommonPlugin.getDefault().getImageRegistry();
 		String key = "icons/full/obj16/EClass.gif"; //$NON-NLS-1$
 		Image image = registry.get(key);
 		if (image == null) {
-			ImageDescriptor desc = GraphitiUIPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key);
+			ImageDescriptor desc = ExamplesCommonPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key);
 			registry.put(key, desc);
 			image = registry.get(key);
 		}
@@ -119,11 +119,11 @@ public class GFEmfLabelProvider extends LabelProvider {
 	}
 
 	private Image getEObjectImage() {
-		ImageRegistry registry = GraphitiUIPlugin.getDefault().getImageRegistry();
+		ImageRegistry registry = ExamplesCommonPlugin.getDefault().getImageRegistry();
 		String key = "icons/full/obj16/EObject.gif"; //$NON-NLS-1$
 		Image image = registry.get(key);
 		if (image == null) {
-			ImageDescriptor desc = GraphitiUIPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key);
+			ImageDescriptor desc = ExamplesCommonPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key);
 			registry.put(key, desc);
 			image = registry.get(key);
 		}
@@ -131,11 +131,11 @@ public class GFEmfLabelProvider extends LabelProvider {
 	}
 
 	private Image getEClassesNodeImage() {
-		ImageRegistry registry = GraphitiUIPlugin.getDefault().getImageRegistry();
+		ImageRegistry registry = ExamplesCommonPlugin.getDefault().getImageRegistry();
 		String key = "icons/full/obj16/EPackage.gif"; //$NON-NLS-1$
 		Image image = registry.get(key);
 		if (image == null) {
-			ImageDescriptor desc = GraphitiUIPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key);
+			ImageDescriptor desc = ExamplesCommonPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key);
 			registry.put(key, desc);
 			image = registry.get(key);
 		}

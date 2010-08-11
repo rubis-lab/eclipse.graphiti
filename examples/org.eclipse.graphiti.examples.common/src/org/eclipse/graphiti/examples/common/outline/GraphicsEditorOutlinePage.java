@@ -35,8 +35,8 @@ import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.graphiti.examples.common.ISampleImageConstants;
 import org.eclipse.graphiti.examples.common.outline.tree.PictogramsTreeEditPartFactory;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScrollableThumbnail;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.Action;
@@ -53,12 +53,15 @@ import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.part.PageBook;
 
 /**
- * An outline page for the graphical modelling editor. It displays the contents
- * of the editor either as a hierachical Outline or as a graphical Thumbnail.
+ * An outline page for the graphical modeling editor. It displays the contents
+ * of the editor either as a hierarchical Outline or as a graphical Thumbnail.
  * There are buttons to switch between those displays. Subclasses should
  * overwrite this outline page (and dependent classes), to change the
  * default-behaviour.
  */
+// The generic outline uses internal functionality of Graphiti. For concrete
+// tool implementations this should not be necessary
+@SuppressWarnings("restriction")
 public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAdaptable, IPropertyListener {
 
 	// The IDs to identify the outline and the thunbnail
@@ -80,7 +83,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 
 	private SelectionSynchronizer _selectionSynchronizer;
 
-	private DiagramEditorInternal _diagramEditor;
+	private DiagramEditor _diagramEditor;
 
 	// The thumbnail to display
 	private FixedScrollableThumbnail _thumbnail;
@@ -125,7 +128,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	 */
 	public GraphicsEditorOutlinePage(EditPartViewer viewer, GraphicalViewer graphicalViewer, ActionRegistry actionRegistry,
 			EditDomain editDomain, KeyHandler keyHandler, Object zoomManagerAdapter, SelectionSynchronizer selectionSynchronizer,
-			DiagramEditorInternal diagramEditor) {
+			DiagramEditor diagramEditor) {
 		super(viewer);
 		_graphicalViewer = graphicalViewer;
 		_actionRegistry = actionRegistry;

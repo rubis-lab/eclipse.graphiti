@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.graphiti.examples.common.navigator.nodes.base.AbstractInstancesOfTypeContainerNode;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 
 
 public class DiagramsNode extends AbstractInstancesOfTypeContainerNode {
@@ -78,7 +77,14 @@ public class DiagramsNode extends AbstractInstancesOfTypeContainerNode {
 
 		List<IFile> ret = new ArrayList<IFile>();
 		for (IFile file : files) {
-			Diagram diagram = GraphitiUiInternal.getEmfService().getDiagramFromFile(file, rSet);
+			// The following call extracts the diagram from the
+			// given file. For the Tutorial, diagrams always reside
+			// in a file of their own and are the first root object.
+			// This may of course be different in a concrete tool
+			// implementation, so tool builders should use their own
+			// way of retrieval here
+			@SuppressWarnings("restriction")
+			Diagram diagram = org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal.getEmfService().getDiagramFromFile(file, rSet);
 			if (diagram != null) {
 				ret.add(file);
 			}

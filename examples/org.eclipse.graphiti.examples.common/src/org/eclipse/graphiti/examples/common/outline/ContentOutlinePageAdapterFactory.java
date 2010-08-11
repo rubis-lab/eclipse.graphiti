@@ -19,9 +19,12 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
+// The generic outline uses internal functionality of Graphiti. For concrete
+// tool implementations this should not be necessary 
+@SuppressWarnings("restriction")
 public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 
 	private static final Class<?>[] ADAPTERS = new Class[] { IContentOutlinePage.class };
@@ -30,8 +33,8 @@ public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		if (GFPreferences.getInstance().isGenericOutlineActive()) {
 			if (IContentOutlinePage.class.equals(adapterType)) {
-				if (adaptableObject instanceof DiagramEditorInternal) {
-					DiagramEditorInternal diagramEditor = (DiagramEditorInternal) adaptableObject;
+				if (adaptableObject instanceof DiagramEditor) {
+					DiagramEditor diagramEditor = (DiagramEditor) adaptableObject;
 					if (diagramEditor.getConfigurationProvider() != null) { // diagram editor initialized?
 						GraphicsEditorOutlinePage outlinePage = new GraphicsEditorOutlinePage(new TreeViewer(), diagramEditor
 								.getGraphicalViewer(), diagramEditor.getActionRegistryInternal(), diagramEditor.getEditDomain(),
