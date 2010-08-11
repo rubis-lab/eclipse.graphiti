@@ -22,7 +22,6 @@ import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
-import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
@@ -120,7 +119,7 @@ public abstract class GridPattern extends AbstractPattern {
 		for (int x = 0; x < getColumnCount(); x++) {
 			for (int y = 0; y < getRowCount(); y++) {
 				int cellIndex = (y * getColumnCount()) + x;
-				PictogramElement cellShape = (PictogramElement) children.get(cellIndex);
+				PictogramElement cellShape = children.get(cellIndex);
 				int xPos = x * cellWidth;
 				int yPos = y * cellHeight;
 				gaService.setLocationAndSize(cellShape.getGraphicsAlgorithm(), xPos, yPos, cellWidth, cellHeight);
@@ -217,7 +216,8 @@ public abstract class GridPattern extends AbstractPattern {
 
 	private ContainerShape getPatternRoot(PictogramElement pe) {
 		ContainerShape ret = null;
-		if (GraphitiInternal.getEmfService().isObjectAlive(pe)) {
+		// Check that a pictogram element was provided and that it is alive
+		if (pe != null && pe.eResource() != null) {
 			int i = 0;
 			do {
 				if (isPatternRoot(pe)) {
@@ -240,7 +240,8 @@ public abstract class GridPattern extends AbstractPattern {
 	@Override
 	protected boolean isPatternRoot(PictogramElement pe) {
 		boolean ret = false;
-		if (pe instanceof ContainerShape && GraphitiInternal.getEmfService().isObjectAlive(pe)) {
+		// Check if not null, of right instance and alive
+		if (pe instanceof ContainerShape && pe.eResource() != null) {
 			GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
 			if (ga instanceof Rectangle) {
 				Object bo = getBusinessObjectForPictogramElement(pe);

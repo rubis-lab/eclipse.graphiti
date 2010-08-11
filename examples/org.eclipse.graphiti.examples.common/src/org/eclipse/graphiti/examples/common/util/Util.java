@@ -111,10 +111,22 @@ public class Util {
 				if (resource instanceof IFile) {
 					IFile file = (IFile) resource;
 					if ("diagram".equals(file.getFileExtension()) || file.getName().equals("Predefined.data")) {
+						// The following call extracts the diagram from the
+						// given file. For the Tutorial diagrams always reside
+						// in a file of their own and are the first root object.
+						// This may of course be different in a concrete tool
+						// implementation, so tool builders should use their own
+						// way of retrieval here
 						Diagram diag = GraphitiUiInternal.getEmfService().getDiagramFromFile(file, rSet);
 						if (diag != null) {
 							diagrams.add(diag);
 						} else {
+							// The following call tries to retrieve a URI from
+							// any of the found files to check if there are any
+							// EClasses inside this file. Concrete tools should
+							// use their own logic to browse through their files
+							// (e.g. known by a special extension or residing in
+							// a special folder) instead of this generic logic.
 							URI uri = GraphitiUiInternal.getEmfService().getFileURI(file, rSet);
 							Resource fileResource = rSet.getResource(uri, true);
 							if (fileResource != null) {
