@@ -72,6 +72,7 @@ import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
@@ -179,6 +180,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 		if (Display.getCurrent() == null) {
 
 			syncExec(new VoidResult() {
+				@Override
 				public void run() {
 					if (diagramEditor != null) {
 						workbenchPage.closeEditor(diagramEditor, false);
@@ -192,6 +194,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 	protected void closeAllEditors() {
 		syncExec(new VoidResult() {
+			@Override
 			public void run() {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				page.closeAllEditors(false);
@@ -307,6 +310,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 	protected DiagramEditorInternal openDiagram(final String type) {
 		final DiagramEditorHolder deh = new DiagramEditorHolder();
 		syncExec(new VoidResult() {
+			@Override
 			public void run() {
 
 				/**/
@@ -336,11 +340,22 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return diagramEditor;
 	}
 
+	@Override
 	@Before
 	protected void setUp() throws Exception {
 		//		T.racer().setInfoAlwaysTrue(true); // tracing enabled for testing
 
 		super.setUp();
+
+		// Force activation of current shell to avoid "no widget found"
+		// exceptions
+		// see http://www.eclipse.org/forums/index.php?t=msg&goto=484090&
+		UIThreadRunnable.syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().forceActive();
+			}
+		});
 
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IWorkspaceRoot root = workspace.getRoot();
@@ -423,6 +438,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 	private void openGfwTestPerspective() {
 		syncExec(new VoidResult() {
+			@Override
 			public void run() {
 				SWTBotPerspective p = bot.perspectiveById("org.eclipse.graphiti.tests.ui.GFTestPerspective");
 				p.activate();
@@ -460,6 +476,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 	 */
 	protected void shutdownEditor(final DiagramEditorInternal diagramEditor) {
 		syncExec(new VoidResult() {
+			@Override
 			public void run() {
 				// Using SWTBot yields an exception since a keyboard layout file for DE is not available.
 				//				bot.activeShell().pressShortcut(SWT.NONE, SWT.ESC);
