@@ -1493,9 +1493,17 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			}
 			getSite().getSelectionProvider().setSelection(new StructuredSelection(editParts));
 			if (editParts.size() > 0) {
-				EditPart editpart = editParts.get(0);
+				final EditPart editpart = editParts.get(0);
 				if (!(editpart instanceof IConnectionEditPart)) {
-					getGraphicalViewer().reveal(editpart);
+					// if the editPart is newly created it is possible that his figure 
+					// has not a valid bounds. Hence we have to wait for the UI update 
+					// (for the validation of the figure tree). Otherwise the reveal 
+					// method can't work correctly.
+					Display.getDefault().asyncExec(new Runnable() {
+						public void run() {
+							getGraphicalViewer().reveal(editpart);
+						}
+					});
 				}
 			}
 		}
