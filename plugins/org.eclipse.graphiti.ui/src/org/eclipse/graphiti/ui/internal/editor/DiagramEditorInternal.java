@@ -222,11 +222,11 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	private PictogramElement pictogramElementsForSelection[] = null;
 
-	private IConfigurationProvider _configurationProvider = null;
+	private IConfigurationProvider configurationProvider = null;
 
-	private KeyHandler _keyHandler;
+	private KeyHandler keyHandler;
 
-	private PaletteRoot _paletteRoot;
+	private PaletteRoot paletteRoot;
 
 	private Point mouseLocation;
 
@@ -269,8 +269,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		if (getConfigurationProvider() == null) // can happen for example on
 			// first initialization
 			return;
-
-		// XXX: create and register the new-object-actions
 	}
 
 	/**
@@ -521,11 +519,11 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			// TODO rollback
 		}
 
-		if (_configurationProvider != null) {
-			_configurationProvider.dispose();
+		if (getConfigurationProvider() != null) {
+			getConfigurationProvider().dispose();
 		}
 
-		_paletteRoot = null;
+		this.paletteRoot = null;
 
 		// unregister selection listener, registered during createPartControl()
 		if (getSite() != null && getSite().getPage() != null) {
@@ -687,21 +685,21 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 *         Graphical Viewer.
 	 */
 	public KeyHandler getCommonKeyHandler() {
-		if (_keyHandler == null) {
-			_keyHandler = new KeyHandler();
-			_keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0), getActionRegistry().getAction(ActionFactory.DELETE.getId()));
-			_keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, SWT.SHIFT), getActionRegistry().getAction(RemoveAction.ACTION_ID));
-			_keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
-			_keyHandler.put(KeyStroke.getPressed('c', SWT.CTRL), getActionRegistry().getAction(ActionFactory.COPY.getId()));
-			_keyHandler.put(KeyStroke.getPressed('v', SWT.CTRL), getActionRegistry().getAction(ActionFactory.PASTE.getId()));
+		if (keyHandler == null) {
+			keyHandler = new KeyHandler();
+			keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0), getActionRegistry().getAction(ActionFactory.DELETE.getId()));
+			keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, SWT.SHIFT), getActionRegistry().getAction(RemoveAction.ACTION_ID));
+			keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
+			keyHandler.put(KeyStroke.getPressed('c', SWT.CTRL), getActionRegistry().getAction(ActionFactory.COPY.getId()));
+			keyHandler.put(KeyStroke.getPressed('v', SWT.CTRL), getActionRegistry().getAction(ActionFactory.PASTE.getId()));
 			// _keyHandler.put(KeyStroke.getPressed((char) 1, 'a', SWT.CTRL),
 			// getActionRegistry().getAction(ActionFactory.SELECT_ALL.getId()));
 		}
-		return _keyHandler;
+		return keyHandler;
 	}
 
 	public IConfigurationProvider getConfigurationProvider() {
-		return _configurationProvider;
+		return configurationProvider;
 	}
 
 	/**
@@ -896,9 +894,9 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	@Override
 	protected PaletteRoot getPaletteRoot() {
-		if (_paletteRoot == null)
-			_paletteRoot = createPaletteRoot();
-		return _paletteRoot;
+		if (paletteRoot == null)
+			paletteRoot = createPaletteRoot();
+		return paletteRoot;
 	}
 
 	/**
@@ -1052,9 +1050,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		// Eclipse may call us with an IFileEditorInput when a file is to be
 		// opened. Try to convert this to a diagram input.
 		if (!(input instanceof DiagramEditorInput)) {
-			// ModelEditorManager mem = ModelEditorManager.getInstance();
-			// IEditorInput newInput = mem.convertEditorInput(input,
-			// GraphitiUIPlugin.DIAGRAM_EDITOR_ID);
 			IEditorInput newInput = new DiagramEditorFactory().createEditorInput(input);
 			if (!(newInput instanceof DiagramEditorInput)) {
 				// give up
@@ -1149,11 +1144,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		if (paletteViewer != null) {
 			IPreferenceStore store = GraphitiUIPlugin.getDefault().getPreferenceStore();
 			paletteViewer.setPaletteViewerPreferences(new DefaultPaletteViewerPreferences(store));
-
-			// change the palette's background color to WHITE
-			// ((Figure) ((PaletteRootEditPart)
-			// paletteViewer.getRootEditPart()).getContentPane().getChildren().get(0))
-			// .setBackgroundColor(ColorConstants.white);
 
 			// Refresh the PaletteViewer
 			// This can be achieved by firing a font-change-event from the
@@ -1269,7 +1259,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 		// this should indicate that the editor is already disposed
 		// perhaps you find a better way to do this
-		if (_paletteRoot == null)
+		if (this.paletteRoot == null)
 			return;
 
 		long start = System.currentTimeMillis();
@@ -1446,40 +1436,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		super.selectionChanged(part, selection);
 	}
 
-	// private void select(URI[] uris) {
-	//
-	// List<PictogramElement> selection = new ArrayList<PictogramElement>();
-	// List<EObject> possibleBOs = new ArrayList<EObject>();
-	//
-	// ResourceSet rs = getEditingDomain().getResourceSet();
-	// for (URI uri : uris) {
-	// EObject eObject = rs.getEObject(uri, true);
-	// if (eObject instanceof PictogramElement) {
-	// PictogramElement pe = (PictogramElement) eObject;
-	// if (pe.isActive()) {
-	// selection.add(pe);
-	// }
-	// } else {
-	// possibleBOs.add(eObject);
-	// }
-	// }
-	//
-	// Diagram diagram = getDiagramTypeProvider().getDiagram();
-	// List<PictogramElement> referencingPes =
-	// LinkUtil.getPictogramElements(diagram, possibleBOs, true);
-	// selection.addAll(referencingPes);
-	// PictogramElement[] pes = selection.toArray(new PictogramElement[0]);
-	//
-	// selectPictogramElements(pes);
-	// }
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.platform.IDiagramEditor#selectPictogramElements(
-	 * org.eclipse.graphiti.mm.pictograms.PictogramElement[])
-	 */
 	public void selectPictogramElements(PictogramElement[] pictogramElements) {
 		List<EditPart> editParts = new ArrayList<EditPart>();
 		Map editPartRegistry = getGraphicalViewer().getEditPartRegistry();
@@ -1521,16 +1477,15 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	private void setConfigurationProvider(IConfigurationProvider configurationProvider) {
 
-		_configurationProvider = configurationProvider;
+		this.configurationProvider = configurationProvider;
 
 		// initialize configuration-provider depending on this editor
-		_configurationProvider.setWorkbenchPart(this);
+		this.configurationProvider.setWorkbenchPart(this);
 
 		if (getGraphicalViewer() != null)
 			initializeGraphicalViewer();
 
 		DefaultEditDomain editDomain = new DefaultEditDomain(this);
-		// XXX: replace default CommandStack with CombinedCommandStack
 		CommandStack commandStack = new GFCommandStack(configurationProvider, getEditingDomain());
 		editDomain.setCommandStack(commandStack);
 		setEditDomain(editDomain);
@@ -1558,20 +1513,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 */
 	void setMouseLocation(int x, int y) {
 		getMouseLocation().setLocation(x, y);
-
-		// <sw 3.9.08> translate mouse position from absolute coordinates to
-		// canvas coordinates
-		// Point viewPortLocation;
-		// if (getDiagramScrollingBehavior() ==
-		// DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-		// viewPortLocation =
-		// getGFWFigureCanvas().getViewport().getViewLocation();
-		// } else {
-		// viewPortLocation = getFigureCanvas().getViewport().getViewLocation();
-		// }
-		// getMouseLocation().setLocation(x + viewPortLocation.x, y +
-		// viewPortLocation.y);
-		// </sw 3.9.08>
 	}
 
 	public void setPictogramElementForSelection(PictogramElement pictogramElementForSelection) {
@@ -1597,12 +1538,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			initRefresh(); // clean performance hashtables which have references to old proxies
 			setPictogramElementsForSelection(null);
 			getGraphicalViewer().setContents(diagram); // create new edit parts
-			// if (isDirty()) {
-			// IFeatureProvider featureProvider = diagramTypeProvider.getFeatureProvider();
-			// IUpdateContext updateCtx = new UpdateContext(diagram);
-			// featureProvider.updateIfPossibleAndNeeded(updateCtx);
-			// refresh();
-			// }
 			handleAutoUpdateAtReset(diagram, diagramTypeProvider);
 		}
 	}
