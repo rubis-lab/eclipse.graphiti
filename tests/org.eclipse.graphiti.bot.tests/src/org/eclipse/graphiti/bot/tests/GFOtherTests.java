@@ -143,6 +143,7 @@ public class GFOtherTests extends AbstractGFTests {
 		super();
 	}
 
+	@Override
 	@After
 	protected void tearDown() throws Exception {
 		closeAllEditors();
@@ -205,6 +206,7 @@ public class GFOtherTests extends AbstractGFTests {
 		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
+			@Override
 			public void run() {
 
 				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
@@ -262,6 +264,7 @@ public class GFOtherTests extends AbstractGFTests {
 		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
+			@Override
 			public void run() {
 
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
@@ -313,6 +316,7 @@ public class GFOtherTests extends AbstractGFTests {
 		IFeatureProvider featureProvider = diagramTypeProvider.getFeatureProvider();
 
 		syncExec(new VoidResult() {
+			@Override
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
@@ -383,6 +387,7 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testThumbnailView() throws Exception {
 		syncExec(new VoidResult() {
+			@Override
 			public void run() {
 				IWorkbench workbench = PlatformUI.getWorkbench();
 				if (workbench != null) {
@@ -404,6 +409,7 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testPlatformUtil() throws Exception {
 		final DiagramEditorInternal ed = syncExec(new Result<DiagramEditorInternal>() {
+			@Override
 			public DiagramEditorInternal run() {
 				final Diagram newDiagram = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 				assertTrue("create diagram does not work", newDiagram != null);
@@ -414,6 +420,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 		if (ed != null) {
 			syncExec(new VoidResult() {
+				@Override
 				public void run() {
 					closeEditor(ed);
 				}
@@ -426,6 +433,7 @@ public class GFOtherTests extends AbstractGFTests {
 		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
+			@Override
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
@@ -503,26 +511,32 @@ public class GFOtherTests extends AbstractGFTests {
 		assertFalse(container.containsCommands());
 		assertNotNull(container.getDescription());
 		container.add(new ICommand() {
+			@Override
 			public boolean canExecute() {
 				return false;
 			}
 
+			@Override
 			public boolean canUndo() {
 				return false;
 			}
 
+			@Override
 			public boolean execute() {
 				return false;
 			}
 
+			@Override
 			public IFeatureProvider getFeatureProvider() {
 				return null;
 			}
 
+			@Override
 			public boolean undo() {
 				return false;
 			}
 
+			@Override
 			public String getDescription() {
 				return new String("Test Description");
 			}
@@ -633,8 +647,8 @@ public class GFOtherTests extends AbstractGFTests {
 		if (pathName.startsWith("reference:")) {
 			pathName = pathName.substring(10);
 		}
-		if (pathName.startsWith("file:/")) {
-			pathName = pathName.substring(6);
+		if (pathName.startsWith("file:")) {
+			pathName = pathName.substring(5);
 		}
 		pathName = pathName + "src" + getClass().getResource("testUtil.diagram").getFile();
 
@@ -804,11 +818,11 @@ public class GFOtherTests extends AbstractGFTests {
 		AdaptedGradientColoredAreas agca = PredefinedColoredAreas.getLightYellowAdaptions();
 		IResourceRegistryHolder rrh = new RegistryHolder();
 
-		EList<GradientColoredAreas> gradientColoredAreas = (EList<GradientColoredAreas>) agca.getAdaptedGradientColoredAreas();
+		EList<GradientColoredAreas> gradientColoredAreas = agca.getAdaptedGradientColoredAreas();
 		EList<GradientColoredArea> gradienColoredAreaList = gradientColoredAreas.get(0).getGradientColor();
 
 		for (Iterator<GradientColoredArea> iterator = gradienColoredAreaList.iterator(); iterator.hasNext();) {
-			GradientColoredArea gradientColoredArea = (GradientColoredArea) iterator.next();
+			GradientColoredArea gradientColoredArea = iterator.next();
 			GFFigureUtil.paintColorFlow(rrh, rectangle, graphics, gradientColoredArea, zoom, true);
 		}
 
@@ -846,6 +860,7 @@ public class GFOtherTests extends AbstractGFTests {
 		final PopupMenu popupMenu = new PopupMenu(content, labelProvider);
 
 		syncExec(new VoidResult() {
+			@Override
 			public void run() {
 				// Shell activeShell = Display.getCurrent().getActiveShell();
 				// popupMenu.show(activeShell);
@@ -987,6 +1002,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	private int openDiagramEditorFromFile(final IFile diagFile) {
 		return syncExec(new IntResult() {
+			@Override
 			public Integer run() {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				try {
@@ -1005,6 +1021,7 @@ public class GFOtherTests extends AbstractGFTests {
 		assertNotNull(resource);
 
 		return syncExec(new IntResult() {
+			@Override
 			public Integer run() {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				try {
