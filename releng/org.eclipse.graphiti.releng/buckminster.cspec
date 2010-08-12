@@ -3,6 +3,15 @@
     <cs:dependencies>
         <cs:dependency name="org.eclipse.graphiti.site" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.graphiti.tests-feature" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.pde" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.pde.source" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.platform" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.platform.source" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.swtbot" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.swtbot.eclipse" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.swtbot.eclipse.gef" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.swtbot.ide" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.swtbot.eclipse.test.junit4" componentType="eclipse.feature"/>
     </cs:dependencies>
     <cs:actions>
         <cs:public name="clear.site" actor="ant" always="true">
