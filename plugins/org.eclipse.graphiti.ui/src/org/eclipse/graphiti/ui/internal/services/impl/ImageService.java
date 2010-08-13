@@ -51,7 +51,7 @@ public class ImageService implements IImageService {
 	public Image getImageForId(String imageId) {
 
 		if (imageId == null)
-			return null;
+			throw new IllegalArgumentException("imageId must not be null");
 
 		// if image already available take it
 		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
@@ -60,7 +60,12 @@ public class ImageService implements IImageService {
 			return result;
 
 		createImageDescriptorForId(imageId);
-		return imageRegistry.get(imageId); // now there is an image registered
+		Image image = imageRegistry.get(imageId); // now there is an image
+													// registered
+		if (image == null) {
+			throw new IllegalStateException("No image could be retrieved for imageId '" + imageId + "'");
+		}
+		return image;
 	}
 
 	/**

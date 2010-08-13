@@ -35,6 +35,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
@@ -65,7 +66,13 @@ public class UiService implements IUiService {
 
 			ImageLoader imageLoader = new ImageLoader();
 			imageLoader.data = new ImageData[] { image.getImageData() };
-			imageLoader.save(result, format);
+			try {
+				imageLoader.save(result, format);
+			} catch (SWTException e) {
+				String error = "Depth: " + Integer.toString(image.getImageData().depth) + "\n" + "X: "
+						+ Integer.toString(image.getImageData().x) + "\n" + "Y: " + Integer.toString(image.getImageData().y);
+				throw new IllegalStateException(error, e);
+			}
 
 		} finally {
 			image.dispose();
@@ -101,7 +108,7 @@ public class UiService implements IUiService {
 		for (int i = 0; i < 256; i++)
 			rgbs[i] = new RGB(255, 255, 255);
 		for (int i = 0; i < colors.size(); i++) {
-			int pixelValue = ((Integer) (colors.get(i))).intValue();
+			int pixelValue = ((colors.get(i))).intValue();
 			int red = (pixelValue & imageData.palette.redMask) >>> Math.abs(imageData.palette.redShift);
 			int green = (pixelValue & imageData.palette.greenMask) >>> Math.abs(imageData.palette.greenShift);
 			int blue = (pixelValue & imageData.palette.blueMask) >>> Math.abs(imageData.palette.blueShift);
