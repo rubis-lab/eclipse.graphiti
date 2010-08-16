@@ -30,7 +30,7 @@ public class SplitConnectionContext extends DefaultContext implements ISplitConn
 	private Shape shape;
 
 	/**
-	 * Instantiates a new split connection context.
+	 * Creates a new {@link SplitConnectionContext}.
 	 * 
 	 * @param connection
 	 *            the connection
@@ -43,22 +43,12 @@ public class SplitConnectionContext extends DefaultContext implements ISplitConn
 		this.shape = shape;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ISplitConnectionContext#getConnection()
-	 */
 	public Connection getConnection() {
-		return connection;
+		return this.connection;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ISplitConnectionContext#getShape()
-	 */
 	public Shape getShape() {
-		return shape;
+		return this.shape;
 	}
 
 	@Override
