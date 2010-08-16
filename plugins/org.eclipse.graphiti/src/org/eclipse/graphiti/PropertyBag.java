@@ -17,31 +17,27 @@ package org.eclipse.graphiti;
 
 import java.util.HashMap;
 
+/**
+ * The class PropertyBag.
+ */
 public class PropertyBag implements IPropertyBag {
 	private HashMap<Object, Object> propertyMap;
 
-	/*
-	 * @see org.eclipse.graphiti.IPropertyBag#getProperty(java.lang.Object)
-	 */
 	@Override
 	public Object getProperty(Object key) {
 		return getPropertyMap().get(key);
 	}
 
-	/*
-	 * @see org.eclipse.graphiti.IPropertyBag#putProperty(java.lang.Object,
-	 * java.lang.Object)
-	 */
 	@Override
 	public Object putProperty(Object key, Object value) {
 		return getPropertyMap().put(key, value);
 	}
 
 	private HashMap<Object, Object> getPropertyMap() {
-		if (propertyMap == null) {
-			propertyMap = new HashMap<Object, Object>();
+		if (this.propertyMap == null) {
+			this.propertyMap = new HashMap<Object, Object>();
 		}
-		return propertyMap;
+		return this.propertyMap;
 	}
 
 }
