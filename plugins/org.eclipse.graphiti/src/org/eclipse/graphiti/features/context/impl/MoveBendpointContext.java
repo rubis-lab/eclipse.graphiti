@@ -50,7 +50,7 @@ public class MoveBendpointContext extends MoveContext implements IMoveBendpointC
 	 * @return Returns the bendpoint.
 	 */
 	public Point getBendpoint() {
-		return bendpoint;
+		return this.bendpoint;
 	}
 
 	/**
@@ -61,25 +61,12 @@ public class MoveBendpointContext extends MoveContext implements IMoveBendpointC
 		this.bendpoint = bendpoint;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.context.IBendpointContext#getBendpointIndex
-	 * ()
-	 */
 	public int getBendpointIndex() {
-		return bendpointIndex;
+		return this.bendpointIndex;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.context.IBendpointContext#getConnection()
-	 */
 	public FreeFormConnection getConnection() {
-		return connection;
+		return this.connection;
 	}
 
 	/**
