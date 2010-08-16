@@ -43,22 +43,12 @@ public class CreateConnectionContext extends DefaultContext implements ICreateCo
 		super();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ICreateConnectionContext#getSourceAnchor()
-	 */
 	public Anchor getSourceAnchor() {
-		return sourceAnchor;
+		return this.sourceAnchor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ICreateConnectionContext#getTargetAnchor()
-	 */
 	public Anchor getTargetAnchor() {
-		return targetAnchor;
+		return this.targetAnchor;
 	}
 
 	/**
@@ -81,22 +71,12 @@ public class CreateConnectionContext extends DefaultContext implements ICreateCo
 		this.targetAnchor = targetAnchor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ICreateConnectionContext#getSourcePictogramElement()
-	 */
 	public PictogramElement getSourcePictogramElement() {
-		return sourcePictogramElement;
+		return this.sourcePictogramElement;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ICreateConnectionContext#getTargetPictogramElement()
-	 */
 	public PictogramElement getTargetPictogramElement() {
-		return targetPictogramElement;
+		return this.targetPictogramElement;
 	}
 
 	/**
