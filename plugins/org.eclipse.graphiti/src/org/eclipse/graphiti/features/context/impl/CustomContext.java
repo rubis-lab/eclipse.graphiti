@@ -41,7 +41,7 @@ public class CustomContext extends LocationContext implements ICustomContext {
 	}
 
 	/**
-	 * The constructor.
+	 * Creates a new {@link CustomContext}.
 	 * 
 	 * @param pictogramElements
 	 *            the pictogram elements
