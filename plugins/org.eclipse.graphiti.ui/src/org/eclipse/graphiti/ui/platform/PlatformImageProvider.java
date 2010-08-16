@@ -17,6 +17,10 @@ package org.eclipse.graphiti.ui.platform;
 
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 
+/**
+ * @noinstantiate This class is not intended to be instantiated by clients.
+ * @noextend This class is not intended to be subclassed by clients.
+ */
 public class PlatformImageProvider extends AbstractImageProvider {
 
 	private static final String ROOT_FOLDER_FOR_IMG = "icons/"; //$NON-NLS-1$

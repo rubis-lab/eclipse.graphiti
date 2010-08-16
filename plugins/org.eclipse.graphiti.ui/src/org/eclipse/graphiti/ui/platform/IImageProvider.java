@@ -18,9 +18,14 @@ package org.eclipse.graphiti.ui.platform;
 import org.eclipse.graphiti.platform.IExtension;
 
 /**
+ * The interface IImageProvider.
+ * 
+ * Instead of implementing this interface directly the clients should extend the
+ * class <code>AbstractImageProvider</code>.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
+ * 
  */
 public interface IImageProvider extends IExtension {
 

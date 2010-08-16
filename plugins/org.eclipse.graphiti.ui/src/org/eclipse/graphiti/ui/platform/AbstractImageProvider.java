@@ -20,6 +20,11 @@ import java.util.Hashtable;
 import org.eclipse.graphiti.platform.AbstractExtension;
 import org.eclipse.graphiti.ui.internal.T;
 
+/**
+ * Instead of implementing IImageProvider directly the clients should extend
+ * this AbstractImageProvider. They can simply override the method
+ * addAvailableImages().
+ */
 public abstract class AbstractImageProvider extends AbstractExtension implements IImageProvider {
 
 	private String pluginId;
@@ -34,7 +39,8 @@ public abstract class AbstractImageProvider extends AbstractExtension implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.ui.internal.platform.IImageProvider#getPluginId()
+	 * @see
+	 * org.eclipse.graphiti.ui.internal.platform.IImageProvider#getPluginId()
 	 */
 	final public String getPluginId() {
 		return pluginId;
@@ -51,7 +57,9 @@ public abstract class AbstractImageProvider extends AbstractExtension implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.internal.platform.IImageProvider#getImageFilePath(java.lang.String)
+	 * @see
+	 * org.eclipse.graphiti.internal.platform.IImageProvider#getImageFilePath
+	 * (java.lang.String)
 	 */
 	final public String getImageFilePath(String imageId) {
 		Object htObject = htKeyImage.get(imageId);
@@ -69,7 +77,8 @@ public abstract class AbstractImageProvider extends AbstractExtension implements
 	}
 
 	/**
-	 * add all available images with addImageFilePath(String imageId, String imageFilePath);
+	 * add all available images with addImageFilePath(String imageId, String
+	 * imageFilePath);
 	 */
 	abstract protected void addAvailableImages();
 }
