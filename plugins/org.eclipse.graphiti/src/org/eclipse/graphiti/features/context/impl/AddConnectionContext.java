@@ -42,22 +42,12 @@ public class AddConnectionContext extends AddContext implements IAddConnectionCo
 		this.targetAnchor = targetAnchor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IConnectionContext#getSourceAnchor()
-	 */
 	public Anchor getSourceAnchor() {
-		return sourceAnchor;
+		return this.sourceAnchor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IConnectionContext#getTargetAnchor()
-	 */
 	public Anchor getTargetAnchor() {
-		return targetAnchor;
+		return this.targetAnchor;
 	}
 
 	@Override
