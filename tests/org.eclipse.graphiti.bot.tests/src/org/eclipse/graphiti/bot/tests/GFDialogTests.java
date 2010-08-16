@@ -38,6 +38,7 @@ public class GFDialogTests extends AbstractGFTests {
 		super();
 	}
 
+	// FIXME
 	// @Test
 	// public void testPrintDialog() throws Exception {
 	// // check if default printer is configured, otherwise SWT throws a
