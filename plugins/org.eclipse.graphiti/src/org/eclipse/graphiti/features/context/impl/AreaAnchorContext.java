@@ -34,7 +34,7 @@ public class AreaAnchorContext extends AreaContext implements IMoveAnchorContext
 	private AnchorContainer targetContainer;
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link AreaAnchorContext}.
 	 * 
 	 * @param anchor
 	 *            the anchor
@@ -50,25 +50,15 @@ public class AreaAnchorContext extends AreaContext implements IMoveAnchorContext
 	 * @return Returns the anchor.
 	 */
 	public Anchor getAnchor() {
-		return anchor;
+		return this.anchor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IMoveAnchorContext#getSourceContainer()
-	 */
 	public AnchorContainer getSourceContainer() {
-		return sourceContainer;
+		return this.sourceContainer;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IMoveAnchorContext#getTargetContainer()
-	 */
 	public AnchorContainer getTargetContainer() {
-		return targetContainer;
+		return this.targetContainer;
 	}
 
 	/**
