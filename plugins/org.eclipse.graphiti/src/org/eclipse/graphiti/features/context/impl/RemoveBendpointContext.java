@@ -32,7 +32,7 @@ public class RemoveBendpointContext extends DefaultContext implements IRemoveBen
 	private int bendpointIndex;
 
 	/**
-	 * Instantiates a new removes the bendpoint context.
+	 * Creates a new {@link RemoveBendpointContext}.
 	 * 
 	 * @param freeFormConnection
 	 *            the free form connection
@@ -45,14 +45,8 @@ public class RemoveBendpointContext extends DefaultContext implements IRemoveBen
 		setBendpoint(bendpoint);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.context.IBendpointContext#getBendpoint()
-	 */
 	public Point getBendpoint() {
-		return bendpoint;
+		return this.bendpoint;
 	}
 
 	/**
@@ -75,25 +69,12 @@ public class RemoveBendpointContext extends DefaultContext implements IRemoveBen
 		this.freeFormConnection = freeFormConnection;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.context.IBendpointContext#getBendpointIndex
-	 * ()
-	 */
 	public int getBendpointIndex() {
-		return bendpointIndex;
+		return this.bendpointIndex;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.context.IBendpointContext#getConnection()
-	 */
 	public FreeFormConnection getConnection() {
-		return freeFormConnection;
+		return this.freeFormConnection;
 	}
 
 	/**
@@ -103,7 +84,7 @@ public class RemoveBendpointContext extends DefaultContext implements IRemoveBen
 	 *            the new bendpoint index
 	 */
 	public void setBendpointIndex(int index) {
-		bendpointIndex = index;
+		this.bendpointIndex = index;
 	}
 
 	@Override
