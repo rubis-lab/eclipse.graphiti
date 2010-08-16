@@ -44,7 +44,7 @@ public abstract class AbstractFeature implements IFeature {
 	private IProgress progressCallback;
 
 	/**
-	 * Instantiates a new abstract feature.
+	 * Creates a new {@link AbstractFeature}.
 	 * 
 	 * @param fp
 	 *            the fp
@@ -54,81 +54,31 @@ public abstract class AbstractFeature implements IFeature {
 		this.fp = fp;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canUndo(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public boolean canUndo(IContext context) {
 		return true;
 	}
 
-	/*
-	 * Always returns true to indicate that the feature execution really changed
-	 * something. Should be changed with extreme care only to avoid
-	 * inconsistencies!
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#isUndoable(org.eclipse.graphiti
-	 * .features.context.IContext)
-	 */
 	@Override
 	public boolean hasDoneChanges() {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.IDescription#getDescription()
-	 */
 	public String getDescription() {
 		return toString();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProviderHolder#getFeatureProvider()
-	 */
 	public IFeatureProvider getFeatureProvider() {
-		return fp;
+		return this.fp;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.IName#getName()
-	 */
 	public String getName() {
 		return this.getClass().getName();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#isAvailable(org.eclipse.graphiti
-	 * .features .context.IContext)
-	 */
 	public boolean isAvailable(IContext context) {
 		return true;
 	}
 
-	// protected DiagramLink getDiagramLink() {
-	// return getFeatureProvider().getDiagramTypeProvider().getDiagramLink();
-	// }
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IProgressProvider#setProgressCallback(org
-	 * .eclipse.graphiti.features.IProgress)
-	 */
 	/**
 	 * Sets the progress callback.
 	 * 
@@ -139,11 +89,6 @@ public abstract class AbstractFeature implements IFeature {
 		this.progressCallback = progress;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return getClass().getSimpleName();
@@ -187,27 +132,6 @@ public abstract class AbstractFeature implements IFeature {
 		return getFeatureProvider().getBusinessObjectForPictogramElement(pe);
 	}
 
-	//	/**
-	//	 * 
-	//	 * @return the transactional editing domain
-	//	 */
-	//	protected TransactionalEditingDomain getTransactionalEditingDomain() {
-	//		return getFeatureProvider().getTransactionalEditingDomain();
-	//	}
-
-	//	/**
-	//	 * 
-	//	 * @return the resource set
-	//	 */
-	//	protected ResourceSet getResourceSet() {
-	//		ResourceSet ret = null;
-	//		TransactionalEditingDomain editingDomain = getTransactionalEditingDomain();
-	//		if (editingDomain != null) {
-	//			ret = editingDomain.getResourceSet();
-	//		}
-	//		return ret;
-	//	}
-
 	/**
 	 * Gets the diagram.
 	 * 
@@ -232,19 +156,8 @@ public abstract class AbstractFeature implements IFeature {
 	 * @return the progress callback
 	 */
 	protected IProgress getProgressCallback() {
-		return progressCallback;
+		return this.progressCallback;
 	}
-
-	// protected void provideProgress() {
-	// provideProgress(1);
-	// }
-
-	// protected void provideProgress(int progress) {
-	// IProgress p = getProgressCallback();
-	// if (p != null) {
-	// p.addProgress(progress);
-	// }
-	// }
 
 	/**
 	 * Gets the user decision.
@@ -253,15 +166,6 @@ public abstract class AbstractFeature implements IFeature {
 	 */
 	protected boolean getUserDecision() {
 		return true;
-		//		boolean ret = false;
-		//		String questionToUser = getQuestionToUser();
-		//
-		//		if (questionToUser == null) {
-		//			ret = true;
-		//		} else {
-		//			//			ret = PlatformRegistry.getInstance().getPlatformService().askUser(Messages.AbstractFeature_0_xhed, questionToUser);
-		//		}
-		//		return ret;
 	}
 
 	/**
