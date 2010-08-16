@@ -28,7 +28,7 @@ public class LocationContext extends DefaultContext implements ILocationContext 
 	private int y = -1;
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link LocationContext}.
 	 * 
 	 * @param x
 	 *            the x
@@ -41,7 +41,7 @@ public class LocationContext extends DefaultContext implements ILocationContext 
 	}
 
 	/**
-	 * Instantiates a new location context.
+	 * Creates a new {@link LocationContext}.
 	 */
 	public LocationContext() {
 	}
