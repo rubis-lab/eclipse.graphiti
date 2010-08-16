@@ -48,13 +48,6 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IDeleteFeature#canDelete(org.eclipse.graphiti
-	 * .dt.IContext)
-	 */
 	public boolean canDelete(IDeleteContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		IRemoveContext rc = new RemoveContext(pictogramElement);
@@ -63,13 +56,6 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IDeleteFeature#delete(org.eclipse.graphiti.
-	 * features.context.IDeleteContext)
-	 */
 	public void delete(IDeleteContext context) {
 		PictogramElement pe = context.getPictogramElement();
 		Object[] businessObjectsForPictogramElement = getAllBusinessObjectsForPictogramElement(pe);
@@ -119,44 +105,18 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getUserDecision()
-	 */
 	@Override
 	protected boolean getUserDecision() {
 		return MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Messages.AbstractFeature_0_xhed,
 				Messages.DefaultDeleteFeature_0_xmsg);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IDeleteFeature#delete(org.eclipse.graphiti.
-	 * dt.IContext)
-	 */
 	public void preDelete(IDeleteContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IDeleteFeature#postDelete(org.eclipse.graphiti
-	 * .dt.IContext)
-	 */
 	public void postDelete(IDeleteContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
-	 * .features .context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IDeleteContext) {
@@ -165,24 +125,12 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		if (context instanceof IDeleteContext) {
 			delete((IDeleteContext) context);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
