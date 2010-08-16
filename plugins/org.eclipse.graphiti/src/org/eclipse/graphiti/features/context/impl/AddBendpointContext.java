@@ -46,14 +46,8 @@ public class AddBendpointContext extends LocationContext implements IAddBendpoin
 		setBendpointIndex(index);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.context.IBendpointContext#getConnection()
-	 */
 	public FreeFormConnection getConnection() {
-		return freeFormConnection;
+		return this.freeFormConnection;
 	}
 
 	/**
@@ -66,15 +60,8 @@ public class AddBendpointContext extends LocationContext implements IAddBendpoin
 		this.freeFormConnection = freeFormConnection;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.context.IBendpointContext#getBendpointIndex
-	 * ()
-	 */
 	public int getBendpointIndex() {
-		return bendpointIndex;
+		return this.bendpointIndex;
 	}
 
 	/**
@@ -87,12 +74,6 @@ public class AddBendpointContext extends LocationContext implements IAddBendpoin
 		this.bendpointIndex = index;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.context.IBendpointContext#getBendpoint()
-	 */
 	public Point getBendpoint() {
 		return null;
 	}
