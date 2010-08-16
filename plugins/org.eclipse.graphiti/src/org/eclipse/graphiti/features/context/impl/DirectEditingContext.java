@@ -26,7 +26,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 public class DirectEditingContext extends DetailedPictogramElementContext implements IDirectEditingContext {
 
 	/**
-	 * Instantiates a new direct editing context.
+	 * Creates a new {@link DirectEditingContext}.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
