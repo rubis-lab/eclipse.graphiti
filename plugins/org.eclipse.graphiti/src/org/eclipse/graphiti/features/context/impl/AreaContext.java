@@ -30,27 +30,17 @@ public class AreaContext extends LocationContext implements IAreaContext {
 	private int width = -1;
 
 	/**
-	 * Instantiates a new area context.
+	 * Creates a new {@link AreaContext}.
 	 */
 	public AreaContext() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IContext#getHeight()
-	 */
 	public int getHeight() {
-		return height;
+		return this.height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IContext#getWidth()
-	 */
 	public int getWidth() {
-		return width;
+		return this.width;
 	}
 
 	/**
@@ -86,11 +76,6 @@ public class AreaContext extends LocationContext implements IAreaContext {
 		this.width = width;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.impl.LocationContext#toString()
-	 */
 	@Override
 	public String toString() {
 		String ret = super.toString();
