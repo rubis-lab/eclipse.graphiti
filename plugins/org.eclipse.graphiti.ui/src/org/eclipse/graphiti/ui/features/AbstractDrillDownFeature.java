@@ -55,23 +55,11 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.custom.ICustomFeature#execute(org.eclipse
-	 * .graphiti.features.context.ICustomContext)
-	 */
 	public void execute(ICustomContext context) {
 		final PictogramElement pe = context.getPictogramElements()[0];
 		final Collection<Diagram> possibleDiagramsList = getLinkedDiagrams(pe);
@@ -119,13 +107,6 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.custom.AbstractCustomFeature#canExecute
-	 * (org.eclipse.graphiti.features.context.ICustomContext)
-	 */
 	@Override
 	public boolean canExecute(ICustomContext context) {
 		final PictogramElement[] pes = context.getPictogramElements();
@@ -196,6 +177,7 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 			super();
 		}
 
+		@Override
 		public String getText(Object o) {
 			String ret = null;
 			if (o instanceof Diagram) {
@@ -205,11 +187,12 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 			return ret;
 		}
 
+		@Override
 		public Image getImage(Object element) {
-			if (image == null) {
-				image = GraphitiUi.getImageService().getImageForId(IPlatformImageConstants.IMG_DIAGRAM);
+			if (this.image == null) {
+				this.image = GraphitiUi.getImageService().getImageForId(IPlatformImageConstants.IMG_DIAGRAM);
 			}
-			return image;
+			return this.image;
 		}
 
 	}
