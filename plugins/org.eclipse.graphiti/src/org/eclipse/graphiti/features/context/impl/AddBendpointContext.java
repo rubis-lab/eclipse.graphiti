@@ -29,7 +29,7 @@ public class AddBendpointContext extends LocationContext implements IAddBendpoin
 	private int bendpointIndex;
 
 	/**
-	 * Instantiates a new adds the bendpoint context.
+	 * Creates a new {@link AddBendpointContext}.
 	 * 
 	 * @param connection
 	 *            the connection
