@@ -34,7 +34,7 @@ public class MoveBendpointContext extends MoveContext implements IMoveBendpointC
 	private FreeFormConnection connection;
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link MoveBendpointContext}.
 	 * 
 	 * @param bendpoint
 	 *            the bendpoint
