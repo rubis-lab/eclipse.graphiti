@@ -30,7 +30,7 @@ public class ResizeShapeContext extends ResizeContext implements IResizeShapeCon
 	private Shape shape;
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link ResizeShapeContext}.
 	 * 
 	 * @param shape
 	 *            the shape
@@ -46,7 +46,7 @@ public class ResizeShapeContext extends ResizeContext implements IResizeShapeCon
 	 * @return Returns the shape.
 	 */
 	public Shape getShape() {
-		return shape;
+		return this.shape;
 	}
 
 	/**
@@ -57,11 +57,6 @@ public class ResizeShapeContext extends ResizeContext implements IResizeShapeCon
 		this.shape = shape;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IPictogramElementContext#getPictogramElement()
-	 */
 	public PictogramElement getPictogramElement() {
 		return getShape();
 	}
