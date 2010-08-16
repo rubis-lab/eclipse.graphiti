@@ -28,7 +28,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 public class LayoutContext extends PictogramElementContext implements ILayoutContext {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link LayoutContext}.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
