@@ -26,7 +26,6 @@ import org.eclipse.graphiti.features.context.IPasteContext;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.ui.internal.util.clipboard.ModelClipboard;
-import org.eclipse.swt.dnd.Clipboard;
 
 /**
  * The Class AbstractPasteFeature.
@@ -45,13 +44,6 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
-	 * .features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IPasteContext) {
@@ -60,24 +52,12 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		if (context instanceof IPasteContext) {
 			paste((IPasteContext) context);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
