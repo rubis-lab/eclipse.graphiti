@@ -37,7 +37,7 @@ public class CreateConnectionContext extends DefaultContext implements ICreateCo
 	private PictogramElement targetPictogramElement;
 
 	/**
-	 * Instantiates a new creates the connection context.
+	 * Creates a new {@link CreateConnectionContext}.
 	 */
 	public CreateConnectionContext() {
 		super();
