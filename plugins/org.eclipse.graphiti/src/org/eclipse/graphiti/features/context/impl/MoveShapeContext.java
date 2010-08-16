@@ -42,7 +42,7 @@ public class MoveShapeContext extends MoveContext implements IMoveShapeContext {
 	private Connection targetConnection;
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link MoveShapeContext}.
 	 * 
 	 * @param shape
 	 *            the shape
