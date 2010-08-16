@@ -32,7 +32,7 @@ public class CreateContext extends AreaContext implements ICreateContext {
 	private Connection targetConnection;
 
 	/**
-	 * Instantiates a new creates the context.
+	 * Creates a new {@link CreateContext}.
 	 */
 	public CreateContext() {
 		super();
