@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.graphiti.examples.common.SampleProjectNature;
+import org.eclipse.graphiti.examples.common.ExampleProjectNature;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 
 public class CreateSampleProjectWizard extends BasicNewProjectResourceWizard {
@@ -42,7 +42,7 @@ public class CreateSampleProjectWizard extends BasicNewProjectResourceWizard {
 		IProject newProject = getNewProject();
 		try {
 			IProjectDescription description = newProject.getDescription();
-			description.setNatureIds(new String[] { SampleProjectNature.NATURE_ID });
+			description.setNatureIds(new String[] { ExampleProjectNature.NATURE_ID });
 			newProject.setDescription(description, null);
 			createPredefinedContent(newProject);
 		} catch (CoreException e) {

@@ -31,7 +31,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.graphiti.examples.common.SampleProjectNature;
+import org.eclipse.graphiti.examples.common.ExampleProjectNature;
 import org.eclipse.graphiti.examples.common.navigator.nodes.EClassesNode;
 import org.eclipse.graphiti.examples.common.navigator.nodes.base.IContainerNode;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -50,6 +50,7 @@ public class GFEmfTreeContentProvider implements ITreeContentProvider, IResource
 
 	}
 
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof IContainerNode) {
 			IContainerNode icn = (IContainerNode) parentElement;
@@ -58,7 +59,7 @@ public class GFEmfTreeContentProvider implements ITreeContentProvider, IResource
 		if (parentElement instanceof IProject) {
 			IProject project = (IProject) parentElement;
 			try {
-				if (project.isAccessible() && project.hasNature(SampleProjectNature.NATURE_ID)) {
+				if (project.isAccessible() && project.hasNature(ExampleProjectNature.NATURE_ID)) {
 					EClassesNode node = projectToEClassesNode.get(project);
 					if (node == null) {
 						node = new EClassesNode(project, project, viewer);
@@ -77,10 +78,12 @@ public class GFEmfTreeContentProvider implements ITreeContentProvider, IResource
 		return new Object[0];
 	}
 
+	@Override
 	public Object getParent(Object element) {
 		return null;
 	}
 
+	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof IContainerNode) {
 			IContainerNode icn = (IContainerNode) element;
@@ -92,14 +95,17 @@ public class GFEmfTreeContentProvider implements ITreeContentProvider, IResource
 		return true;
 	}
 
+	@Override
 	public Object[] getElements(Object inputElement) {
 		return null;
 	}
 
+	@Override
 	public void dispose() {
 		// do nothing 
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		this.viewer = viewer;
 	}
@@ -121,7 +127,7 @@ public class GFEmfTreeContentProvider implements ITreeContentProvider, IResource
 					case IResource.PROJECT:
 						IProject p = (IProject) resource;
 						try {
-							boolean hasNature = p.hasNature(SampleProjectNature.NATURE_ID);
+							boolean hasNature = p.hasNature(ExampleProjectNature.NATURE_ID);
 							return hasNature;
 						} catch (CoreException e) {
 							// Do nothing, e.g. project deleted.

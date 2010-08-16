@@ -118,7 +118,7 @@
       id="org.eclipse.graphiti.examples.examplesnature"
       name="Graphiti Examples Nature">
       <runtime>
-         <run class="org.eclipse.graphiti.examples.common.SampleProjectNature">
+         <run class="org.eclipse.graphiti.examples.common.ExampleProjectNature">
          </run>
       </runtime>
 </extension>
@@ -126,8 +126,8 @@
    <extension
          point="org.eclipse.graphiti.ui.imageProviders">
       <imageProvider
-            class="org.eclipse.graphiti.examples.common.SampleImageProvider"
-            id="org.eclipse.graphiti.examples.common.SampleImageProvider">
+            class="org.eclipse.graphiti.examples.common.ExampleImageProvider"
+            id="org.eclipse.graphiti.examples.common.ExampleImageProvider">
       </imageProvider>
    </extension>
 

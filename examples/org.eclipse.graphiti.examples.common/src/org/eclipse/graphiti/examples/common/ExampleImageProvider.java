@@ -21,9 +21,9 @@ package org.eclipse.graphiti.examples.common;
 import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
 
 /**
- * The Class SampleImageProvider.
+ * The Class ExampleImageProvider.
  */
-public class SampleImageProvider extends AbstractImageProvider {
+public class ExampleImageProvider extends AbstractImageProvider {
 
 	private static final String ROOT_FOLDER_FOR_IMG = "icons/"; //$NON-NLS-1$
 

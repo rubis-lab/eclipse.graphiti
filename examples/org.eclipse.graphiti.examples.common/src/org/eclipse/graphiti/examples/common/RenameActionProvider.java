@@ -61,7 +61,7 @@ public class RenameActionProvider extends CommonActionProvider {
 					return;
 				IProject project = file.getProject();
 				try {
-					if (!project.hasNature(SampleProjectNature.NATURE_ID))
+					if (!project.hasNature(ExampleProjectNature.NATURE_ID))
 						return;
 				} catch (CoreException e) {
 					e.printStackTrace();
