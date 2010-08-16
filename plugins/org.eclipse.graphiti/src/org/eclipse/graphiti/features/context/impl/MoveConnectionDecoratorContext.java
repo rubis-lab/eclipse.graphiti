@@ -45,13 +45,8 @@ public class MoveConnectionDecoratorContext extends LocationContext implements I
 		setExecuteAllowed(executeAllowed);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IMoveConnectionDecoratorContext#getConnectionDecorator()
-	 */
 	public ConnectionDecorator getConnectionDecorator() {
-		return connectionDecorator;
+		return this.connectionDecorator;
 	}
 
 	/**
@@ -64,13 +59,8 @@ public class MoveConnectionDecoratorContext extends LocationContext implements I
 		this.connectionDecorator = connectionDecorator;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IMoveConnectionDecoratorContext#isExecuteAllowed()
-	 */
 	public boolean isExecuteAllowed() {
-		return executeAllowed;
+		return this.executeAllowed;
 	}
 
 	/**
