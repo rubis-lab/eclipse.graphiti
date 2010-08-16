@@ -41,8 +41,8 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.bot.tests.swtbot.GFSWTBotGefEditor;
 import org.eclipse.graphiti.bot.tests.swtbot.GFSWTGefBot;
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
+import org.eclipse.graphiti.examples.common.ExampleProjectNature;
 import org.eclipse.graphiti.examples.common.FileService;
-import org.eclipse.graphiti.examples.common.SampleProjectNature;
 import org.eclipse.graphiti.features.ConfigurableFeatureProviderWrapper;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
@@ -363,7 +363,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 		project.create(null);
 		project.open(null);
 		IProjectDescription desc = project.getDescription();
-		desc.setNatureIds(new String[] { SampleProjectNature.NATURE_ID });
+		desc.setNatureIds(new String[] { ExampleProjectNature.NATURE_ID });
 		project.setDescription(desc, null);
 
 		this.project = project;
