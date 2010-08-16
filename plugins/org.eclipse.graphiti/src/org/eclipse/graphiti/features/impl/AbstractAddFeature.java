@@ -37,7 +37,7 @@ public abstract class AbstractAddFeature extends AbstractFeature implements IAdd
 	protected static final PictogramElement[] EMPTY = new PictogramElement[0];
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link AbstractAddFeature}.
 	 * 
 	 * @param fp
 	 *            the fp
@@ -46,11 +46,6 @@ public abstract class AbstractAddFeature extends AbstractFeature implements IAdd
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti.features.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		final String SIGNATURE = "canExecute(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -67,11 +62,6 @@ public abstract class AbstractAddFeature extends AbstractFeature implements IAdd
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features.IContext)
-	 */
 	public void execute(IContext context) {
 		final String SIGNATURE = "execute(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -86,11 +76,6 @@ public abstract class AbstractAddFeature extends AbstractFeature implements IAdd
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
