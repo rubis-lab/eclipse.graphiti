@@ -24,12 +24,13 @@ package org.eclipse.graphiti.features.impl;
 import org.eclipse.graphiti.features.IFeatureProvider;
 
 /**
- * Add feature especially for pictogram elements.
+ * The Class AbstractAddShapeFeature. Add feature especially for pictogram
+ * elements.
  */
 public abstract class AbstractAddShapeFeature extends AbstractAddPictogramElementFeature {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link AbstractAddShapeFeature}.
 	 * 
 	 * @param fp
 	 *            the fp
