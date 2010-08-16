@@ -15,6 +15,9 @@
  *******************************************************************************/
 package org.eclipse.graphiti.features;
 
+/**
+ * Class DefaultResizeConfiguration defines the default resize behaviour.
+ */
 public class DefaultResizeConfiguration implements IResizeConfiguration {
 
 	public boolean isHorizantalResizeAllowed() {
