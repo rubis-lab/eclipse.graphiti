@@ -28,7 +28,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 public class CopyContext extends PictogramElementsContext implements ICopyContext {
 
 	/**
-	 * Instantiates a new copy context.
+	 * Creates a new {@link CopyContext}.
 	 * 
 	 * @param pictogramElements
 	 *            the pictogram elements
