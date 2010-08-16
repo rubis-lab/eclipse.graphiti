@@ -27,7 +27,8 @@ import org.eclipse.graphiti.features.context.ISplitConnectionContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 
 /**
- * Convenience implementation of IFeatureChecker. All methods return either true or false.
+ * Convenience implementation of IFeatureChecker. All methods return either true
+ * or false.
  * 
  * This class is expected to be sub-classed.
  */
@@ -40,59 +41,59 @@ public class FeatureCheckerAdapter implements IFeatureChecker {
 	}
 
 	public boolean allowAdd(IContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowConnectionSplit(ISplitConnectionContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowCreate() {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowCustomFeatures(ICustomContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowDelete(IDeleteContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowDragAndDrop(IPictogramElementContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowLayout(ILayoutContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowMove(IContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowPaste(IPasteContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowReconnect(IReconnectionContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowRemove(IContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowResize(IResizeShapeContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allowUpdate(IUpdateContext context) {
-		return allow;
+		return this.allow;
 	}
 
 	public boolean allow(IFeature feature, IContext context) {
-		return allow;
+		return this.allow;
 	}
 
 }
