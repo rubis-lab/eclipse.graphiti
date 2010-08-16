@@ -52,29 +52,14 @@ public class MoveShapeContext extends MoveContext implements IMoveShapeContext {
 		setShape(shape);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IMoveShapeContext#getDeltaX()
-	 */
 	public int getDeltaX() {
-		return deltaX;
+		return this.deltaX;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IMoveShapeContext#getDeltaY()
-	 */
 	public int getDeltaY() {
-		return deltaY;
+		return this.deltaY;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IPictogramElementContext#getPictogramElement()
-	 */
 	public PictogramElement getPictogramElement() {
 		return getShape();
 	}
@@ -85,34 +70,19 @@ public class MoveShapeContext extends MoveContext implements IMoveShapeContext {
 	 * @return Returns the shape.
 	 */
 	public Shape getShape() {
-		return shape;
+		return this.shape;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ILayoutShapeContext#getSourceContainer()
-	 */
 	public ContainerShape getSourceContainer() {
-		return sourceContainer;
+		return this.sourceContainer;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ITargetConnectionContext#getTargetConnection()
-	 */
 	public Connection getTargetConnection() {
-		return targetConnection;
+		return this.targetConnection;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ILayoutShapeContext#getTargetContainer()
-	 */
 	public ContainerShape getTargetContainer() {
-		return targetContainer;
+		return this.targetContainer;
 	}
 
 	/**
@@ -173,11 +143,6 @@ public class MoveShapeContext extends MoveContext implements IMoveShapeContext {
 		this.targetContainer = targetContainer;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.impl.LocationContext#toString()
-	 */
 	@Override
 	public String toString() {
 		String ret = super.toString();
