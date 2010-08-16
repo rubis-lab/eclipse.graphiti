@@ -34,7 +34,7 @@ public abstract class AbstractCreateConnectionFeature extends AbstractFeature im
 	private String createName;
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link AbstractAddShapeFeature}.
 	 * 
 	 * @param fp
 	 *            the fp
@@ -55,7 +55,7 @@ public abstract class AbstractCreateConnectionFeature extends AbstractFeature im
 	 * @return Returns the description.
 	 */
 	public String getCreateDescription() {
-		return createDescription;
+		return this.createDescription;
 	}
 
 	/**
@@ -64,7 +64,7 @@ public abstract class AbstractCreateConnectionFeature extends AbstractFeature im
 	 * @return Returns the name.
 	 */
 	public String getCreateName() {
-		return createName;
+		return this.createName;
 	}
 
 	/**
@@ -83,11 +83,6 @@ public abstract class AbstractCreateConnectionFeature extends AbstractFeature im
 		this.createName = name;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof ICreateConnectionContext) {
@@ -96,22 +91,12 @@ public abstract class AbstractCreateConnectionFeature extends AbstractFeature im
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public void execute(IContext context) {
 		if (context instanceof ICreateConnectionContext) {
 			create((ICreateConnectionContext) context);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ICreateInfo#getCreateImageId()
-	 */
 	public String getCreateImageId() {
 		return null;
 	}
@@ -120,11 +105,6 @@ public abstract class AbstractCreateConnectionFeature extends AbstractFeature im
 		return getCreateImageId();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
