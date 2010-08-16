@@ -38,22 +38,12 @@ public class CreateContext extends AreaContext implements ICreateContext {
 		super();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ITargetConnectionContext#getTargetConnection()
-	 */
 	public Connection getTargetConnection() {
-		return targetConnection;
+		return this.targetConnection;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ICreateContext#getTargetContainer()
-	 */
 	public ContainerShape getTargetContainer() {
-		return targetContainer;
+		return this.targetContainer;
 	}
 
 	/**
