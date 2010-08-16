@@ -45,7 +45,7 @@ public class AddContext extends AreaContext implements IAddContext {
 	}
 
 	/**
-	 * The constructor.
+	 * Creates a new {@link AddContext}.
 	 * 
 	 * @param context
 	 *            the context
