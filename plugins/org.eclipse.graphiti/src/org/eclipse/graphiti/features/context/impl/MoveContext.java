@@ -29,7 +29,7 @@ import org.eclipse.graphiti.features.context.IMoveContext;
 public class MoveContext extends LocationContext implements IMoveContext {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link MoveContext}.
 	 * 
 	 * @param x
 	 *            the x
