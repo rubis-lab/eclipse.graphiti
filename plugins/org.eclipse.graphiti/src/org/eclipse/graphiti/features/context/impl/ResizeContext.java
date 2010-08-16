@@ -31,27 +31,17 @@ public class ResizeContext extends DefaultContext implements IResizeContext {
 	private int width = -1;
 
 	/**
-	 * Instantiates a new resize context.
+	 * Creates a new {@link ResizeContext}.
 	 */
 	public ResizeContext() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IContext#getHeight()
-	 */
 	public int getHeight() {
-		return height;
+		return this.height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IContext#getWidth()
-	 */
 	public int getWidth() {
-		return width;
+		return this.width;
 	}
 
 	/**
@@ -87,11 +77,6 @@ public class ResizeContext extends DefaultContext implements IResizeContext {
 		this.width = width;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.internal.features.context.impl.base.DefaultContext#toString()
-	 */
 	@Override
 	public String toString() {
 		String ret = super.toString();
