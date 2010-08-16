@@ -23,12 +23,13 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 
 /**
- * Add feature especially for pictogram elements.
+ * The Class AbstractAddPictogramElementFeature implements an add feature
+ * especially for pictogram elements.
  */
 public abstract class AbstractAddPictogramElementFeature extends AbstractAddFeature {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link AbstractAddPictogramElementFeature}.
 	 * 
 	 * @param fp
 	 *            the fp
