@@ -28,7 +28,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 public class UpdateContext extends PictogramElementContext implements IUpdateContext {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link UpdateContext}.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
