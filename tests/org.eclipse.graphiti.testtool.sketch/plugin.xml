@@ -59,7 +59,7 @@
                id="org.eclipse.graphiti.testtool.sketch.SketchDiagramType">
          </diagramType>
           <imageProvider
-               id="org.eclipse.graphiti.examples.common.SampleImageProvider">
+               id="org.eclipse.graphiti.examples.common.ExampleImageProvider">
          </imageProvider>
       </diagramTypeProvider>
    </extension>
