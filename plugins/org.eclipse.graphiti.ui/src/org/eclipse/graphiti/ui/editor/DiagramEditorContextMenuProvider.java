@@ -93,7 +93,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 		}
 		this.actionRegistry = registry;
 		if (configurationProvider == null) {
-			throw new IllegalArgumentException("Argument configurationProvider must not be null");
+			throw new IllegalArgumentException("Argument configurationProvider must not be null"); //$NON-NLS-1$
 		}
 		this.configurationProvider = configurationProvider;
 	}
