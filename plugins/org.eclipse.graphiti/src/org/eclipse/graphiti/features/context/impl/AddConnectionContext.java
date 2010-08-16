@@ -29,7 +29,7 @@ public class AddConnectionContext extends AddContext implements IAddConnectionCo
 	Anchor sourceAnchor, targetAnchor;
 
 	/**
-	 * Instantiates a new adds the connection context.
+	 * Creates a new {@link AddConnectionContext}.
 	 * 
 	 * @param sourceAnchor
 	 *            the source anchor
