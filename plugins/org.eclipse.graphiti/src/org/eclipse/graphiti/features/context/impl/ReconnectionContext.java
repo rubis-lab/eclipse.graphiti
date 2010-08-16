@@ -30,12 +30,14 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 public class ReconnectionContext extends DefaultContext implements IReconnectionContext {
 
 	/**
-	 * Constant used to indicate that the <i>source</i> end of an existing connection is being reconnected to a new source node.
+	 * Constant used to indicate that the <i>source</i> end of an existing
+	 * connection is being reconnected to a new source node.
 	 */
 	public static String RECONNECT_SOURCE = "Reconnection source";//$NON-NLS-1$
 
 	/**
-	 * Constant used to indicate that the <i>target</i> end of an existing connection is being reconnected to a new target node.
+	 * Constant used to indicate that the <i>target</i> end of an existing
+	 * connection is being reconnected to a new target node.
 	 */
 	public static String RECONNECT_TARGET = "Reconnection target";//$NON-NLS-1$
 
@@ -50,7 +52,7 @@ public class ReconnectionContext extends DefaultContext implements IReconnection
 	private String reconnectType = ""; //$NON-NLS-1$
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link ReconnectionContext}.
 	 * 
 	 * @param connection
 	 *            the connection
@@ -72,7 +74,7 @@ public class ReconnectionContext extends DefaultContext implements IReconnection
 	 * @return Returns the connection.
 	 */
 	public Connection getConnection() {
-		return connection;
+		return this.connection;
 	}
 
 	/**
@@ -91,7 +93,7 @@ public class ReconnectionContext extends DefaultContext implements IReconnection
 	 * @return Returns the newAnchor.
 	 */
 	public Anchor getNewAnchor() {
-		return newAnchor;
+		return this.newAnchor;
 	}
 
 	/**
@@ -110,7 +112,7 @@ public class ReconnectionContext extends DefaultContext implements IReconnection
 	 * @return Returns the oldAnchor.
 	 */
 	public Anchor getOldAnchor() {
-		return oldAnchor;
+		return this.oldAnchor;
 	}
 
 	/**
@@ -123,20 +125,10 @@ public class ReconnectionContext extends DefaultContext implements IReconnection
 		this.oldAnchor = oldAnchor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IReconnectionContext#getTargetPictogramElement()
-	 */
 	public PictogramElement getTargetPictogramElement() {
-		return targetPictogramElement;
+		return this.targetPictogramElement;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IReconnectionContext#setTargetPictogramElement(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	public void setTargetPictogramElement(PictogramElement targetPictogramElement) {
 		this.targetPictogramElement = targetPictogramElement;
 	}
@@ -149,16 +141,19 @@ public class ReconnectionContext extends DefaultContext implements IReconnection
 	}
 
 	/**
-	 * Indicate whether the end of an existing connection is being reconnected to a new source node or a new target node.
+	 * Indicate whether the end of an existing connection is being reconnected
+	 * to a new source node or a new target node.
 	 * 
-	 * @return {@link ReconnectionContext#RECONNECT_TARGET} or {@link ReconnectionContext#RECONNECT_SOURCE}
+	 * @return {@link ReconnectionContext#RECONNECT_TARGET} or
+	 *         {@link ReconnectionContext#RECONNECT_SOURCE}
 	 */
 	public String getReconnectType() {
-		return reconnectType;
+		return this.reconnectType;
 	}
 
 	/**
-	 * Sets the reconnection type. {@link ReconnectionContext#RECONNECT_TARGET} or {@link ReconnectionContext#RECONNECT_SOURCE}
+	 * Sets the reconnection type. {@link ReconnectionContext#RECONNECT_TARGET}
+	 * or {@link ReconnectionContext#RECONNECT_SOURCE}
 	 * 
 	 * @param reconnectType
 	 */
