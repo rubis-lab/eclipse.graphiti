@@ -46,22 +46,12 @@ public class LocationContext extends DefaultContext implements ILocationContext 
 	public LocationContext() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IContext#getX()
-	 */
 	public int getX() {
-		return x;
+		return this.x;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IContext#getY()
-	 */
 	public int getY() {
-		return y;
+		return this.y;
 	}
 
 	/**
@@ -97,11 +87,6 @@ public class LocationContext extends DefaultContext implements ILocationContext 
 		this.y = y;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.internal.features.context.impl.base.DefaultContext#toString()
-	 */
 	@Override
 	public String toString() {
 		String ret = super.toString();
