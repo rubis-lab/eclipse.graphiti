@@ -31,7 +31,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 public class DeleteContext extends PictogramElementContext implements IDeleteContext {
 
 	/**
-	 * Instantiates a new delete context.
+	 * Creates a new {@link DeleteContext}.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
