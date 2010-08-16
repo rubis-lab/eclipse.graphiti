@@ -45,7 +45,7 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	private int currentToolBahaviorIndex = 0;
 
 	/**
-	 * Instantiates a new abstract diagram type provider.
+	 * Creates a new {@link AbstractDiagramTypeProvider}.
 	 */
 	public AbstractDiagramTypeProvider() {
 		super();
