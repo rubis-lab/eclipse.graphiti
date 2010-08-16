@@ -34,7 +34,7 @@ public abstract class AbstractCreateFeature extends AbstractFeature implements I
 	private String name;
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link AbstractCreateFeature}.
 	 * 
 	 * @param fp
 	 *            feature provider
@@ -49,20 +49,10 @@ public abstract class AbstractCreateFeature extends AbstractFeature implements I
 		setDescription(description);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.ICreateFeature#getDescription()
-	 */
 	public String getCreateDescription() {
 		return description;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.ICreateFeature#getName()
-	 */
 	public String getCreateName() {
 		return name;
 	}
@@ -83,11 +73,6 @@ public abstract class AbstractCreateFeature extends AbstractFeature implements I
 		this.name = name;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		final String SIGNATURE = "canExecute(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -105,11 +90,6 @@ public abstract class AbstractCreateFeature extends AbstractFeature implements I
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public void execute(IContext context) {
 		final String SIGNATURE = "execute(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -124,11 +104,6 @@ public abstract class AbstractCreateFeature extends AbstractFeature implements I
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ICreate#getCreateImageId()
-	 */
 	public String getCreateImageId() {
 		return null;
 	}
@@ -137,21 +112,11 @@ public abstract class AbstractCreateFeature extends AbstractFeature implements I
 		return getCreateImageId();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return name;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getDescription()
-	 */
 	@Override
 	public String getDescription() {
 		return description;
