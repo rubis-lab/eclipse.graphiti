@@ -33,12 +33,12 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	protected static final String[] EMPTY_STRING_ARRAY = new String[0];
 
 	/**
-	 * Used to track if direct editing did really change anything
+	 * Used to track if direct editing did really change anything.
 	 */
 	private boolean valueChanged = false;
 
 	/**
-	 * Instantiates a new abstract direct editing feature.
+	 * Creates a new {@link AbstractDirectEditingFeature}.
 	 * 
 	 * @param fp
 	 *            the fp
@@ -47,13 +47,6 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature#canExecute
-	 * (org.eclipse.graphiti.features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		final String SIGNATURE = "canExecute(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -71,29 +64,15 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IDirectEditing#canDirectEdit(org.eclipse.graphiti
-	 * .features.context.IDirectEditingContext)
-	 */
 	public boolean canDirectEdit(IDirectEditingContext context) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		// nop
 	}
 
-	/*
+	/**
 	 * Returns true only if the direct editing feature really has changed
 	 * anything. This is indicated by the execution of the feature in the
 	 * DirectEditingFeatureCommandWithContext.execute method
@@ -102,7 +81,7 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	 */
 	@Override
 	public boolean hasDoneChanges() {
-		return valueChanged;
+		return this.valueChanged;
 	}
 
 	/**
@@ -112,88 +91,37 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	 * and the editor should get dirty.
 	 */
 	public final void setValueChanged() {
-		valueChanged = true;
+		this.valueChanged = true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IDirectEditingFeature#getPossibleValues
-	 * (org.eclipse.graphiti.features.context.IDirectEditingContext)
-	 */
 	public String[] getPossibleValues(IDirectEditingContext context) {
 		return EMPTY_STRING_ARRAY;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IDirectEditingFeature#getValueProposals
-	 * (java.lang.String,
-	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
-	 */
 	public String[] getValueProposals(String value, int caretPos, IDirectEditingContext context) {
 		return EMPTY_STRING_ARRAY;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IDirectEditingFeature#checkValueValid(java
-	 * .lang.String,
-	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
-	 */
 	public String checkValueValid(String value, IDirectEditingContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IDirectEditingFeature#completeValue(java
-	 * .lang.String, java.lang.String,
-	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
-	 */
 	public String completeValue(String value, int caretPos, String choosenValue, IDirectEditingContext context) {
 		return choosenValue;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.IDirectEditing#stretchTextfieldToFitText()
-	 */
 	public boolean stretchTextfieldToFitText() {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.IDirectEditing#isAutoCompletionEnabled()
-	 */
 	public boolean isAutoCompletionEnabled() {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.IDirectEditing#isCompletionAvailable()
-	 */
 	public boolean isCompletionAvailable() {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
