@@ -245,22 +245,22 @@ public interface IColorConstant {
 
 	// selection and selection handles
 	/**
-	 * The HANDL e_ fg.
+	 * The handle foreground color.
 	 */
 	IColorConstant HANDLE_FG = VC_DARK_ORANGE;
 
 	/**
-	 * The HANDL e_ bg.
+	 * The handle background color.
 	 */
 	IColorConstant HANDLE_BG = VC_MEDIUM_ORANGE;
 
 	/**
-	 * The SHAP e_ selectio n_ fg.
+	 * The foreground selection color of a shape.
 	 */
 	IColorConstant SHAPE_SELECTION_FG = VC_LIGHT_ORANGE;
 
 	/**
-	 * The CONNECTIO n_ selectio n_ fg.
+	 * The foreground selection color of a connection.
 	 */
 	IColorConstant CONNECTION_SELECTION_FG = VC_MEDIUM_ORANGE;
 
