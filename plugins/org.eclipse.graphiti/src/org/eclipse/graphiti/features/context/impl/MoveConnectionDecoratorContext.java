@@ -28,7 +28,7 @@ public class MoveConnectionDecoratorContext extends LocationContext implements I
 	private boolean executeAllowed;
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link MoveConnectionDecoratorContext}.
 	 * 
 	 * @param connectionDecorator
 	 *            the connection decorator
