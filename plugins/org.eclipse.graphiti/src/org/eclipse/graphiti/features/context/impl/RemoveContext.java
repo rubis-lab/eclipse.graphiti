@@ -31,7 +31,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 public class RemoveContext extends PictogramElementContext implements IRemoveContext {
 
 	/**
-	 * Instantiates a new removes the context.
+	 * Creates a new {@link RemoveContext}.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
