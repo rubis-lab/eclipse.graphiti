@@ -28,7 +28,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 public class PasteContext extends PictogramElementsContext implements IPasteContext {
 
 	/**
-	 * Instantiates a new paste context.
+	 * Creates a new {@link PasteContext}.
 	 * 
 	 * @param pictogramElements
 	 *            the pictogram elements
