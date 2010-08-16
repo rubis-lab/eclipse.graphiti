@@ -103,208 +103,84 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	private IIndependenceSolver independenceSolver = null;
 
 	/**
-	 * Instantiates a new abstract feature provider.
+	 * Creates a new {@link AbstractFeatureProvider}.
 	 * 
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
 	 */
 	public AbstractFeatureProvider(IDiagramTypeProvider diagramTypeProvider) {
 		super();
-		dtp = diagramTypeProvider;
+		this.dtp = diagramTypeProvider;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getAddFeature(org.eclipse
-	 * .graphiti.features.context.IAddContext)
-	 */
 	public IAddFeature getAddFeature(IAddContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getCreateConnectionFeatures
-	 * ()
-	 */
 	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
 		return new ICreateConnectionFeature[0];
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.edit.IFeatureProvider#getCreateFeatures()
-	 */
 	public ICreateFeature[] getCreateFeatures() {
 		return new ICreateFeature[0];
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getCustomFeatures(org.
-	 * eclipse.graphiti.features.context.IContext)
-	 */
 	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
 		return ZERO_CUSTOM_FEATURES;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getDeleteFeature(org.eclipse
-	 * .graphiti.features.context.IDeleteContext)
-	 */
 	public IDeleteFeature getDeleteFeature(IDeleteContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getDiagramTypeProvider()
-	 */
 	public IDiagramTypeProvider getDiagramTypeProvider() {
-		return dtp;
+		return this.dtp;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.edit.IFeatureProvider#getPropertyFeatures()
-	 */
 
 	public IMoveAnchorFeature getMoveAnchorFeature(IMoveAnchorContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.edit.IFeatureProvider#getRemoveFeature(
-	 * org.eclipse.graphiti.features.context.IContext)
-	 */
 	public IRemoveFeature getRemoveFeature(IRemoveContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getUpdateFeature(org.eclipse
-	 * .graphiti.features.context.IUpdateContext)
-	 */
 	public IUpdateFeature getUpdateFeature(IUpdateContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getLayoutFeature(org.eclipse
-	 * .graphiti.features.context.ILayoutContext)
-	 */
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getMoveShapeFeatures(org
-	 * .eclipse.graphiti.features.context.IMoveShapeContext)
-	 */
 	public IMoveShapeFeature getMoveShapeFeature(IMoveShapeContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeatureProvider#
-	 * getMoveConnectionDecoratorFeatures(org.eclipse.graphiti.features.context.
-	 * IMoveConnectionDecoratorContext)
-	 */
 	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(IMoveConnectionDecoratorContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getMoveBendpointFeatures
-	 * (org.eclipse.graphiti.features.context.IMoveBendpointContext)
-	 */
 	public IMoveBendpointFeature getMoveBendpointFeature(IMoveBendpointContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getResizeShapeFeatures
-	 * (org.eclipse.graphiti.features.context.IResizeShapeContext)
-	 */
 	public IResizeShapeFeature getResizeShapeFeature(IResizeShapeContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getAddBendpointFeature
-	 * (org.eclipse.graphiti.features.context.IAddBendpointContext)
-	 */
 	public IAddBendpointFeature getAddBendpointFeature(IAddBendpointContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getRemoveBendpointFeature
-	 * (org.eclipse.graphiti.features.context.IRemoveBendpointContext)
-	 */
 	public IRemoveBendpointFeature getRemoveBendpointFeature(IRemoveBendpointContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getDirectEditingFeature(
-	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
-	 */
 	public IDirectEditingFeature getDirectEditingFeature(IDirectEditingContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IConvenientFeatureProvider#canUpdate(org
-	 * .eclipse.graphiti.features.context.IUpdateContext)
-	 */
 	public IReason canUpdate(IUpdateContext context) {
 		final String SIGNATURE = "canUpdate(IUpdateContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -323,13 +199,6 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#canLayout(org.eclipse.
-	 * graphiti.features.context.ILayoutContext)
-	 */
 	public IReason canLayout(ILayoutContext context) {
 		final String SIGNATURE = "canLayout(ILayoutContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -348,13 +217,6 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IConvenientFeatureProvider#updateIfPossible
-	 * (org.eclipse.graphiti.features.context.IUpdateContext)
-	 */
 	public IReason updateIfPossible(IUpdateContext context) {
 		final String SIGNATURE = "updateIfPossible(IUpdateContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -378,13 +240,6 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return reason;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#layoutIfPossible(org.eclipse
-	 * .graphiti.features.context.ILayoutContext)
-	 */
 	public IReason layoutIfPossible(ILayoutContext context) {
 		final String SIGNATURE = "layoutIfPossible(ILayoutContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -405,13 +260,6 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return res;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IConvenientFeatureProvider#updateNeeded
-	 * (org.eclipse.graphiti.features.context.IUpdateContext)
-	 */
 	public IReason updateNeeded(IUpdateContext context) {
 		final String SIGNATURE = "updateNeeded(IUpdateContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -432,13 +280,6 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IConvenientFeatureProvider#
-	 * updateIfPossibleAndNeeded
-	 * (org.eclipse.graphiti.features.context.IUpdateContext)
-	 */
 	public IReason updateIfPossibleAndNeeded(IUpdateContext context) {
 		final String SIGNATURE = "updateIfPossibleAndNeeded(IUpdateContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -458,13 +299,6 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IConvenientFeatureProvider#addIfPossible(
-	 * org.eclipse.graphiti.features.context.IAddContext)
-	 */
 	public PictogramElement addIfPossible(IAddContext context) {
 		final String SIGNATURE = "addIfPossible(IAddContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -491,13 +325,6 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IConvenientFeatureProvider#canAdd(org.eclipse
-	 * .graphiti.features.context.IAddContext)
-	 */
 	public IReason canAdd(IAddContext context) {
 		final String SIGNATURE = "canAdd(IAddContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -516,63 +343,26 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getDirectEditingInfo()
-	 */
 	final public IDirectEditingInfo getDirectEditingInfo() {
-		return directEditingInfo;
+		return this.directEditingInfo;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getReconnectionFeature
-	 * (org.eclipse.graphiti.features.context.IReconnectionContext)
-	 */
 	public IReconnectionFeature getReconnectionFeature(IReconnectionContext context) {
 		return new DefaultReconnectionFeature(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeatureProvider#getPrintFeature()
-	 */
 	public IPrintFeature getPrintFeature() {
 		return new DefaultPrintFeature(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeatureProvider#getSaveImageFeature()
-	 */
 	public ISaveImageFeature getSaveImageFeature() {
 		return new DefaultSaveImageFeature(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProvider#getDragAndDropFeatures
-	 * (org.eclipse.graphiti.features.context.IPictogramElementContext)
-	 */
 	public IFeature[] getDragAndDropFeatures(IPictogramElementContext context) {
 		return new IFeature[0];
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IMappingProvider#
-	 * getAllBusinessObjectsForPictogramElement
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	public Object[] getAllBusinessObjectsForPictogramElement(PictogramElement pictogramElement) {
 		final String SIGNATURE = "getAllBusinessObjectsForPictogramElement(PictogramElement)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -601,13 +391,6 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return retList.toArray(ret);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IMappingProvider#
-	 * getBusinessObjectForPictogramElement
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	public Object getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
 		final String SIGNATURE = "getBusinessObjectForPictogramElement(PictogramElement)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -636,12 +419,6 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IMappingProvider#
-	 * getAllPictogramElementsForBusinessObject(java.lang.Object)
-	 */
 	public PictogramElement[] getAllPictogramElementsForBusinessObject(Object businessObject) {
 		final String SIGNATURE = "getAllPictogramElementsForBusinessObject(Object)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -672,7 +449,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 				for (PictogramLink pictogramLink : pictogramLinks) {
 					List<EObject> businessObjects = pictogramLink.getBusinessObjects();
 					for (EObject obj : businessObjects) {
-						if (EcoreUtil.equals((EObject) businessObject, (EObject) obj)) {
+						if (EcoreUtil.equals((EObject) businessObject, obj)) {
 							PictogramElement pe = pictogramLink.getPictogramElement();
 							if (pe != null) {
 								retList.add(pe);
@@ -763,24 +540,10 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return getPictogramElementForBusinessObject(businessObject) != null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMappingProvider#link(org.eclipse.graphiti.
-	 * mm.pictograms.PictogramElement, java.lang.Object)
-	 */
 	public void link(PictogramElement pictogramElement, Object businessObject) {
 		link(pictogramElement, new Object[] { businessObject });
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMappingProvider#link(org.eclipse.graphiti.
-	 * mm.pictograms.PictogramElement, java.lang.Object[])
-	 */
 	public void link(PictogramElement pictogramElement, Object[] businessObjects) {
 		final String SIGNATURE = "link(PictogramElement, Object[])"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -849,7 +612,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	 * @return the independence solver
 	 */
 	protected final IIndependenceSolver getIndependenceSolver() {
-		return independenceSolver;
+		return this.independenceSolver;
 	}
 
 	/**
