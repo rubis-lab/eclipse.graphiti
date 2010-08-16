@@ -34,14 +34,14 @@ public class CustomContext extends LocationContext implements ICustomContext {
 	private PictogramElement pictogramElements[];
 
 	/**
-	 * Instantiates a new custom context.
+	 * Creates a new {@link CustomContext}.
 	 */
 	public CustomContext() {
 		super();
 	}
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link CustomContext}.
 	 * 
 	 * @param pictogramElements
 	 *            the pictogram elements
@@ -51,36 +51,16 @@ public class CustomContext extends LocationContext implements ICustomContext {
 		setPictogramElements(pictogramElements);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.context.ICustomContext#
-	 * getInnerGraphicsAlgorithm()
-	 */
 	public GraphicsAlgorithm getInnerGraphicsAlgorithm() {
-		return innerGraphicsAlgorithm;
+		return this.innerGraphicsAlgorithm;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.context.ICustomContext#getInnerPictogramElement
-	 * ()
-	 */
 	public PictogramElement getInnerPictogramElement() {
-		return innerPictogramElement;
+		return this.innerPictogramElement;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.context.ICustomContext#getPictogramElements
-	 * ()
-	 */
 	public PictogramElement[] getPictogramElements() {
-		return pictogramElements;
+		return this.pictogramElements;
 	}
 
 	/**
