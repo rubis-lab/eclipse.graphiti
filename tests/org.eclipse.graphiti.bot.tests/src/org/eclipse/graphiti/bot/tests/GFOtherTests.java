@@ -30,7 +30,6 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.Polygon;
 import org.eclipse.draw2d.SWTGraphics;
@@ -97,7 +96,6 @@ import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.features.AbstractDrillDownFeature;
-import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
 import org.eclipse.graphiti.ui.internal.ResourceRegistry;
@@ -135,7 +133,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.junit.After;
 import org.junit.Test;
-import org.osgi.framework.Bundle;
 
 public class GFOtherTests extends AbstractGFTests {
 
@@ -637,25 +634,11 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testUtils() throws Exception {
-		Bundle[] fragments = Platform.getFragments(GraphitiUIPlugin.getDefault().getBundle());
-		if (fragments.length != 1 && fragments[0].getSymbolicName().equals("org.eclipse.graphiti.tests.old")) {
-			fail("Fragment org.eclipse.graphiti.tests.old not found");
-		}
-		Bundle fragment = fragments[0];
-
-		String pathName = fragment.getLocation();
-		if (pathName.startsWith("reference:")) {
-			pathName = pathName.substring(10);
-		}
-		if (pathName.startsWith("file:")) {
-			pathName = pathName.substring(5);
-		}
-		pathName = pathName + "src" + getClass().getResource("testUtil.diagram").getFile();
-
 		TransactionalEditingDomain editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
 		this.domain = editingDomain;
 		ResourceSet resourceSet = editingDomain.getResourceSet();
-		URI diagramFileUri = URI.createFileURI(pathName);
+		URI diagramFileUri = URI.createPlatformPluginURI(
+				"/org.eclipse.graphiti.bot.tests/src/org/eclipse/graphiti/bot/tests/testUtil.diagram", true);
 		Resource diagramResource = resourceSet.getResource(diagramFileUri, true);
 
 		final Diagram diagram = (Diagram) diagramResource.getEObject("/0");
