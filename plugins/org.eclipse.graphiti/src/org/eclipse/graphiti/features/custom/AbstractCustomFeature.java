@@ -30,8 +30,7 @@ import org.eclipse.graphiti.internal.util.T;
 public abstract class AbstractCustomFeature extends AbstractFeature implements ICustomFeature {
 
 	/**
-	 * The Constructor.
-	 * 
+	 * Creates a new {@link AbstractCustomFeature}.
 	 * @param fp
 	 *            the fp
 	 */
@@ -39,41 +38,20 @@ public abstract class AbstractCustomFeature extends AbstractFeature implements I
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.custom.ICustomFeature#getDescription()
-	 */
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
 		return ""; //$NON-NLS-1$
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.custom.ICustomFeature#canExecute(org.eclipse.graphiti.features.context.ICustomContext)
-	 */
 	public boolean canExecute(ICustomContext context) {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.custom.ICustomFeature#isAvailable(org.eclipse.graphiti.features.context.ICustomContext)
-	 */
 	@Override
 	public boolean isAvailable(IContext context) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public final boolean canExecute(IContext context) {
 		final String SIGNATURE = "canExecute(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -90,11 +68,6 @@ public abstract class AbstractCustomFeature extends AbstractFeature implements I
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public void execute(IContext context) {
 		final String SIGNATURE = "execute(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -110,11 +83,6 @@ public abstract class AbstractCustomFeature extends AbstractFeature implements I
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.custom.ICustomFeature#getImageId()
-	 */
 	public String getImageId() {
 		return null;
 	}
