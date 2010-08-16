@@ -27,7 +27,7 @@ public class SaveImageContext extends DefaultContext implements ISaveImageContex
 	private PictogramElement pictogramElements[];
 
 	/**
-	 * Instantiates a new save image context.
+	 * Creates a new {@link SaveImageContext}.
 	 * 
 	 * @param pictogramElements
 	 *            the pictogram elements
@@ -38,19 +38,14 @@ public class SaveImageContext extends DefaultContext implements ISaveImageContex
 	}
 
 	/**
-	 * Instantiates a new save image context.
+	 * Creates a new {@link SaveImageContext}.
 	 */
 	public SaveImageContext() {
 		super();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ISaveImageContext#getPictogramElements()
-	 */
 	public PictogramElement[] getPictogramElements() {
-		return pictogramElements;
+		return this.pictogramElements;
 	}
 
 	/**
