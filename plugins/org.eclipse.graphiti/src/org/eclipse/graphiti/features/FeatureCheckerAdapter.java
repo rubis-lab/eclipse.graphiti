@@ -36,6 +36,11 @@ public class FeatureCheckerAdapter implements IFeatureChecker {
 
 	private final boolean allow;
 
+	/**
+	 * Creates an {@link FeatureCheckerAdapter}.
+	 * 
+	 * @param allow
+	 */
 	public FeatureCheckerAdapter(boolean allow) {
 		this.allow = allow;
 	}
