@@ -38,14 +38,14 @@ public class AddContext extends AreaContext implements IAddContext {
 	private Object newObject;
 
 	/**
-	 * Instantiates a new adds the context.
+	 * Creates a new {@link AddContext}.
 	 */
 	public AddContext() {
 		super();
 	}
 
 	/**
-	 * Instantiates a new adds the context.
+	 * Creates a new {@link AddContext}.
 	 * 
 	 * @param context
 	 *            the context
@@ -75,31 +75,16 @@ public class AddContext extends AreaContext implements IAddContext {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IAddContext#getNewObject()
-	 */
 	public Object getNewObject() {
-		return newObject;
+		return this.newObject;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.ITargetConnectionContext#getTargetConnection()
-	 */
 	public Connection getTargetConnection() {
-		return targetConnection;
+		return this.targetConnection;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.context.IAddContext#getTargetContainer()
-	 */
 	public ContainerShape getTargetContainer() {
-		return targetContainer;
+		return this.targetContainer;
 	}
 
 	/**
