@@ -24,7 +24,7 @@ import org.eclipse.graphiti.internal.features.context.impl.base.DefaultContext;
 public class PrintContext extends DefaultContext implements IPrintContext {
 
 	/**
-	 * Instantiates a new prints the context.
+	 * Creates a new {@link PasteContext}.
 	 */
 	public PrintContext() {
 		super();
