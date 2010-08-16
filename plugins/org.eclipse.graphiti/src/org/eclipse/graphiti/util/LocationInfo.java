@@ -28,7 +28,7 @@ public class LocationInfo implements ILocationInfo {
 	private GraphicsAlgorithm graphicsAlgorithm;
 
 	/**
-	 * Constructs a new instance of this class with given shape and graphics
+	 * Constructs a new instance of LocationInfo with given shape and graphics
 	 * algorithm.
 	 * 
 	 * @param shape
@@ -41,20 +41,10 @@ public class LocationInfo implements ILocationInfo {
 		this.graphicsAlgorithm = graphicsAlgorithm;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.util.ILocationInfo#getShape()
-	 */
 	public Shape getShape() {
 		return shape;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.util.ILocationInfo#getGraphicsAlgorithm()
-	 */
 	public GraphicsAlgorithm getGraphicsAlgorithm() {
 		return graphicsAlgorithm;
 	}
