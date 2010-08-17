@@ -27,7 +27,7 @@ public interface IVisualStateHolder {
 	/**
 	 * Returns the {@link IVisualState}. Must not be null.
 	 * 
-	 * @return The {@link IVisualState}. Must not be null.
+	 * @return The {@link IVisualState}
 	 */
 	IVisualState getVisualState();
 }
