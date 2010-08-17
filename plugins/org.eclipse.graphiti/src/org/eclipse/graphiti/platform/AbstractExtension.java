@@ -25,22 +25,11 @@ public abstract class AbstractExtension implements IExtension {
 
 	private String providerId;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.platform.IExtension#getProviderId()
-	 */
 	final public String getProviderId() {
-		return providerId;
+		return this.providerId;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.platform.IExtension#setProviderId(java.lang.String)
-	 */
 	final public void setProviderId(String providerId) {
 		this.providerId = providerId;
 	}
-
 }
