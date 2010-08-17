@@ -26,7 +26,7 @@ public interface IGraphicsAlgorithmRendererFactory {
 	 * @param rendererContext
 	 *            the renderer context
 	 * 
-	 * @return the i graphics algorithm renderer
+	 * @return the IGraphics algorithm renderer
 	 */
 	IGraphicsAlgorithmRenderer createGraphicsAlgorithmRenderer(IRendererContext rendererContext);
 }
