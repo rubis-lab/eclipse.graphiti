@@ -24,63 +24,40 @@ import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
  * The Class RendererContext.
  */
 public class RendererContext implements IRendererContext {
+
 	private PlatformGraphicsAlgorithm platformGraphicsAlgorithm;
 
 	private IDiagramTypeProvider diagramTypeProvider;
 
 	/**
-	 * Instantiates a new renderer context.
+	 * Creates a new {@link RendererContext}.
 	 * 
 	 * @param pga
-	 *            the pga
+	 *            the platform graphics algorithm
 	 * @param dtp
-	 *            the dtp
+	 *            the diagram type provider
 	 */
 	public RendererContext(PlatformGraphicsAlgorithm pga, IDiagramTypeProvider dtp) {
 		setPlatformGraphicsAlgorithm(pga);
 		setDiagramTypeProvider(dtp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.platform.ga.IRendererContext#getMappingProvider()
-	 */
 	public IMappingProvider getMappingProvider() {
 		return getDiagramTypeProvider().getFeatureProvider();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.platform.ga.IRendererContext#getPlatformGraphicsAlgorithm()
-	 */
 	public PlatformGraphicsAlgorithm getPlatformGraphicsAlgorithm() {
-		return platformGraphicsAlgorithm;
+		return this.platformGraphicsAlgorithm;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.dt.IDiagramTypeProviderHolder#getDiagramTypeProvider()
-	 */
 	public IDiagramTypeProvider getDiagramTypeProvider() {
-		return diagramTypeProvider;
+		return this.diagramTypeProvider;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.IGraphicsAlgorithmHolder#getGraphicsAlgorithm()
-	 */
 	public GraphicsAlgorithm getGraphicsAlgorithm() {
 		return getPlatformGraphicsAlgorithm();
 	}
 
-	/**
-	 * @param platformGraphicsAlgorithm
-	 *            the platformGraphicsAlgorithm to set
-	 */
 	private void setPlatformGraphicsAlgorithm(PlatformGraphicsAlgorithm platformGraphicsAlgorithm) {
 		this.platformGraphicsAlgorithm = platformGraphicsAlgorithm;
 	}
