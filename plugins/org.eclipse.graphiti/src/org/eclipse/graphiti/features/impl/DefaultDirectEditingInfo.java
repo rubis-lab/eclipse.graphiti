@@ -32,47 +32,22 @@ public class DefaultDirectEditingInfo implements IDirectEditingInfo {
 
 	private boolean isActive = false;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IDirectEditingInfo#getGraphicsAlgorithm()
-	 */
 	public GraphicsAlgorithm getGraphicsAlgorithm() {
-		return graphicsAlgorithm;
+		return this.graphicsAlgorithm;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IDirectEditingInfo#getMainPictogramElement()
-	 */
 	public PictogramElement getMainPictogramElement() {
-		return mainPictogramElement;
+		return this.mainPictogramElement;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IDirectEditingInfo#getPictogramElement()
-	 */
 	public PictogramElement getPictogramElement() {
-		return pictogramElement;
+		return this.pictogramElement;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IDirectEditingInfo#isActive()
-	 */
 	public boolean isActive() {
-		return isActive;
+		return this.isActive;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IDirectEditingInfo#reset()
-	 */
 	public void reset() {
 		setMainPictogramElement(null);
 		setPictogramElement(null);
@@ -80,38 +55,18 @@ public class DefaultDirectEditingInfo implements IDirectEditingInfo {
 		setActive(false);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IDirectEditingInfo#setActive(boolean)
-	 */
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IDirectEditingInfo#setGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm)
-	 */
 	public void setGraphicsAlgorithm(GraphicsAlgorithm graphicsAlgorithm) {
 		this.graphicsAlgorithm = graphicsAlgorithm;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IDirectEditingInfo#setMainPictogramElement(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	public void setMainPictogramElement(PictogramElement pictogramElement) {
 		this.mainPictogramElement = pictogramElement;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IDirectEditingInfo#setPictogramElement(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	public void setPictogramElement(PictogramElement pictogramElement) {
 		this.pictogramElement = pictogramElement;
 	}
