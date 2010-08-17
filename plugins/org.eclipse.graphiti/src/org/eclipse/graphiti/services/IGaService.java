@@ -52,7 +52,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Deletes the RenderingStyle from the given AbstractStyle.
 	 * 
 	 * @param abstractStyle
-	 *            The AbstractStyle from which to delete the RenderingStyle.
+	 *            the abstract style from which to delete the RenderingStyle.
 	 */
 	public void deleteRenderingStyle(AbstractStyle abstractStyle);
 
@@ -61,7 +61,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * style container (which will usually be the diagram).
 	 * 
 	 * @param styleContainer
-	 *            container style
+	 *            the style container
 	 * @param id
 	 *            style id
 	 * @return the found style; null if not found
@@ -72,7 +72,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Gets the angle.
 	 * 
 	 * @param at
-	 *            the at
+	 *            the abstract text
 	 * @param checkStyles
 	 *            the check styles
 	 * @return the angle
@@ -83,7 +83,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Gets the background color.
 	 * 
 	 * @param ga
-	 *            the ga
+	 *            the graphics algorithm
 	 * @param checkStyles
 	 *            the check styles
 	 * @return the background color
@@ -94,7 +94,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Gets the font.
 	 * 
 	 * @param at
-	 *            the at
+	 *            the abstract text
 	 * @param checkStyles
 	 *            the check styles
 	 * @return the font
@@ -105,7 +105,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Gets the foreground color.
 	 * 
 	 * @param ga
-	 *            the ga
+	 *            the graphics algorithm
 	 * @param checkStyles
 	 *            the check styles
 	 * @return the foreground color
@@ -116,7 +116,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Gets the horizontal alignment.
 	 * 
 	 * @param at
-	 *            the at
+	 *            the abstract text
 	 * @param checkStyles
 	 *            the check styles
 	 * @return the horizontal alignment
@@ -127,7 +127,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Gets the line style.
 	 * 
 	 * @param ga
-	 *            the ga
+	 *            the graphics algorithm
 	 * @param checkStyles
 	 *            the check styles
 	 * @return the line style
@@ -138,7 +138,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Gets the line width.
 	 * 
 	 * @param ga
-	 *            the ga
+	 *            the graphics algorithm
 	 * @param checkStyles
 	 *            the check styles
 	 * @return the line width
@@ -149,7 +149,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Gets the rendering style.
 	 * 
 	 * @param ga
-	 *            the ga
+	 *            the graphics algorithm
 	 * @param checkStyles
 	 *            the check styles
 	 * @return the rendering style
@@ -160,7 +160,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Gets the transparency.
 	 * 
 	 * @param ga
-	 *            the ga
+	 *            the graphics algorithm
 	 * @param checkStyles
 	 *            the check styles
 	 * @return the transparency
@@ -171,7 +171,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Gets the vertical alignment.
 	 * 
 	 * @param at
-	 *            the at
+	 *            the abstract text
 	 * @param checkStyles
 	 *            the check styles
 	 * @return the vertical alignment
@@ -193,7 +193,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Checks if is filled.
 	 * 
 	 * @param ga
-	 *            the ga
+	 *            the graphics algorithm
 	 * @param checkStyles
 	 *            the check styles
 	 * @return true, if is filled
@@ -204,7 +204,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * Checks if line is visible.
 	 * 
 	 * @param ga
-	 *            the ga
+	 *            the graphics algorithm
 	 * @param checkStyles
 	 *            the check styles
 	 * @return true, if line is visible
@@ -294,7 +294,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * defined and created in {@link PredefinedColoredAreas}.
 	 * 
 	 * @param abstractStyle
-	 *            The AbstractStyle for which to set the RenderingStyle.
+	 *            the abstract style for which to set the rendering style.
 	 * @param adaptedGradientColoredAreas
 	 *            The {@link AdaptedGradientColoredAreas} gradient colored
 	 *            areas.
