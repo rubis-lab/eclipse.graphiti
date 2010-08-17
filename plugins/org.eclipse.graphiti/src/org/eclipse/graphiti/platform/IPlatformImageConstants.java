@@ -16,8 +16,8 @@
 package org.eclipse.graphiti.platform;
 
 /**
- * This interface provides pre defined image constants which can be used by <br>
- * the features for image graphics algorithm.
+ * This interface provides predefined image constants which can be used by the
+ * features for image graphics algorithm.
  */
 public interface IPlatformImageConstants {
 
@@ -69,8 +69,9 @@ public interface IPlatformImageConstants {
 	 * The Constant IMG_DIAGRAM.
 	 */
 	public static final String IMG_DIAGRAM = PRE + "diagram"; //$NON-NLS-1$
-
+	//
 	// eclipse
+	//
 	/**
 	 * The Constant IMG_ECLIPSE_WARNING.
 	 */
