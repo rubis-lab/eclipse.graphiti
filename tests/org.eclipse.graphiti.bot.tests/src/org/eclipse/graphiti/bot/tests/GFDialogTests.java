@@ -47,8 +47,9 @@ public class GFDialogTests extends AbstractGFTests {
 	public void testPrintDialog() throws Exception {
 		// check if default printer is configured, otherwise SWT throws a
 		// "no more handles" error in Printer.checkNull(..)
+		System.out.println("Anfang print test");
 		if (Printer.getDefaultPrinterData() != null) {
-
+			System.out.println("printer available");
 			final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 			asyncExec(new VoidResult() {
 				@Override
@@ -56,19 +57,26 @@ public class GFDialogTests extends AbstractGFTests {
 					IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 					IFeatureProvider fp = dtp.getFeatureProvider();
 					IPrintFeature pf = fp.getPrintFeature();
+					System.out.println("A");
 					IAction createPrintGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor.getConfigurationProvider(),
 							diagramEditor, pf);
 					createPrintGraphicalViewerAction.run();
+					System.out.println("B");
 				}
 			});
-
+			System.out.println("C");
 			bot.waitUntil(Conditions.shellIsActive(Messages.PrintFigureDialog_3_xfld), TIMEOUT);
+			System.out.println("D");
 			SWTBotShell shell = bot.shell(Messages.PrintFigureDialog_3_xfld);
+			System.out.println("E");
 			Thread.sleep(2000);
 			shell.bot().button("Cancel").click();
+			System.out.println("F");
 			Thread.sleep(300);
 			bot.waitUntil(Conditions.shellCloses(shell), TIMEOUT);
+			System.out.println("G");
 			closeEditor(diagramEditor);
+			System.out.println("H");
 
 		} else {
 			System.out.println("!-> GFDialogTests.testPrintDialog():  No default printer configured. Skip test.");
