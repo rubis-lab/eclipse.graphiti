@@ -25,7 +25,7 @@ public abstract class AbstractPaletteEntry implements IPaletteEntry {
 	private String label, iconId;
 
 	/**
-	 * Instantiates a new abstract palette entry.
+	 * Creates a new {@link AbstractPaletteEntry}.
 	 * 
 	 * @param label
 	 *            the label
@@ -37,22 +37,12 @@ public abstract class AbstractPaletteEntry implements IPaletteEntry {
 		this.iconId = iconId;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.palette.IPaletteEntry#getLabel()
-	 */
 	public String getLabel() {
-		return label;
+		return this.label;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.palette.IPaletteEntry#getIconId()
-	 */
 	public String getIconId() {
-		return iconId;
+		return this.iconId;
 	}
 
 }
