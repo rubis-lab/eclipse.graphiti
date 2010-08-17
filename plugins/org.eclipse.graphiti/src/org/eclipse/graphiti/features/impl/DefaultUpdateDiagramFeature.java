@@ -30,14 +30,18 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**
- * Updates the shapes directly contained in the diagram. Does not update the
- * connections contained in the diagram, since in many cases the connections get
- * already updated by the shapes they belong to.
+ * The Class DefaultUpdateDiagramFeature. Updates the shapes directly contained
+ * in the diagram. Does not update the connections contained in the diagram,
+ * since in many cases the connections get already updated by the shapes they
+ * belong to.
  */
 public class DefaultUpdateDiagramFeature extends AbstractUpdateFeature {
 
 	/**
+	 * Creates a new {@link DefaultUpdateDiagramFeature}.
+	 * 
 	 * @param fp
+	 *            the feature provider
 	 */
 	public DefaultUpdateDiagramFeature(IFeatureProvider fp) {
 		super(fp);
@@ -45,7 +49,7 @@ public class DefaultUpdateDiagramFeature extends AbstractUpdateFeature {
 
 	@Override
 	public boolean canUpdate(IUpdateContext context) {
-		return (context.getPictogramElement() instanceof Diagram);
+		return context.getPictogramElement() instanceof Diagram;
 	}
 
 	@Override
@@ -61,8 +65,9 @@ public class DefaultUpdateDiagramFeature extends AbstractUpdateFeature {
 				UpdateContext updateContext = new UpdateContext(shape);
 				IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
 				if (updateFeature != null && updateFeature.canUpdate(updateContext)
-						&& updateFeature.updateNeeded(updateContext).toBoolean())
+						&& updateFeature.updateNeeded(updateContext).toBoolean()) {
 					connToUpdate.put(updateFeature, updateContext);
+				}
 			}
 			for (IUpdateFeature feature : connToUpdate.keySet()) {
 				feature.update(connToUpdate.get(feature));
@@ -80,15 +85,17 @@ public class DefaultUpdateDiagramFeature extends AbstractUpdateFeature {
 			for (Shape shape : children) {
 				UpdateContext updateContext = new UpdateContext(shape);
 				IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
-				if (updateFeature != null && updateFeature.updateNeeded(updateContext).toBoolean())
+				if (updateFeature != null && updateFeature.updateNeeded(updateContext).toBoolean()) {
 					return Reason.createTrueReason();
+				}
 			}
 			EList<Connection> connections = d.getConnections();
 			for (Connection connection : connections) {
 				UpdateContext updateContext = new UpdateContext(connection);
 				IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
-				if (updateFeature != null && updateFeature.updateNeeded(updateContext).toBoolean())
+				if (updateFeature != null && updateFeature.updateNeeded(updateContext).toBoolean()) {
 					return Reason.createTrueReason();
+				}
 			}
 		}
 		return Reason.createFalseReason();
