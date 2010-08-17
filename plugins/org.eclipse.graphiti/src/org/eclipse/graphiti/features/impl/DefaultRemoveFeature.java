@@ -39,33 +39,19 @@ import org.eclipse.graphiti.services.Graphiti;
 public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeature {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link DefaultRemoveFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public DefaultRemoveFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IDeleteFeature#canDelete(org.eclipse.graphiti
-	 * .dt.IContext)
-	 */
 	public boolean canRemove(IRemoveContext context) {
 		return !(context.getPictogramElement() instanceof Diagram);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IRemoveFeature#remove(org.eclipse.graphiti.
-	 * features.context.IRemoveContext)
-	 */
 	public final void remove(IRemoveContext context) {
 		if (!getUserDecision()) {
 			return;
@@ -73,7 +59,7 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 		preRemove(context);
 
 		PictogramElement pe = context.getPictogramElement();
-
+		//TODO: clean up commented code
 		// if (pe instanceof ContainerShape) {
 		// ContainerShape containerShape = (ContainerShape) pe;
 		// // array instead of an unmodifiable list is necessary
@@ -113,13 +99,6 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 		postRemove(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IDeleteFeature#delete(org.eclipse.graphiti.
-	 * dt.IContext)
-	 */
 	public void preRemove(IRemoveContext context) {
 	}
 
@@ -152,23 +131,9 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IDeleteFeature#postDelete(org.eclipse.graphiti
-	 * .dt.IContext)
-	 */
 	public void postRemove(IRemoveContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
-	 * .features .context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IRemoveContext) {
@@ -177,24 +142,12 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		if (context instanceof IRemoveContext) {
 			remove((IRemoveContext) context);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
