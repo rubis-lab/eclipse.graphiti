@@ -27,45 +27,25 @@ import org.eclipse.graphiti.internal.Messages;
 public class DefaultSaveImageFeature extends AbstractFeature implements ISaveImageFeature {
 
 	/**
-	 * Instantiates a new default save image feature.
+	 * Creates a new {@link DefaultSaveImageFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public DefaultSaveImageFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.ISaveImageFeature#canSave(org.eclipse.graphiti.features.context.ISaveImageContext)
-	 */
 	public boolean canSave(ISaveImageContext context) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.ISaveImageFeature#postSave(org.eclipse.graphiti.features.context.ISaveImageContext)
-	 */
 	public void postSave(ISaveImageContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.ISaveImageFeature#preSave(org.eclipse.graphiti.features.context.ISaveImageContext)
-	 */
 	public void preSave(ISaveImageContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof ISaveImageContext) {
@@ -74,20 +54,10 @@ public class DefaultSaveImageFeature extends AbstractFeature implements ISaveIma
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public void execute(IContext context) {
-		// todo: not possible yet
+		// TODO: not possible yet
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
