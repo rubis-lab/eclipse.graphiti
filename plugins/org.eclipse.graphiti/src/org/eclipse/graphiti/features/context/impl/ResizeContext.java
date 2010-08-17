@@ -19,12 +19,11 @@
 package org.eclipse.graphiti.features.context.impl;
 
 import org.eclipse.graphiti.features.context.IResizeContext;
-import org.eclipse.graphiti.internal.features.context.impl.base.DefaultContext;
 
 /**
  * The Class ResizeContext.
  */
-public class ResizeContext extends DefaultContext implements IResizeContext {
+public class ResizeContext extends LocationContext implements IResizeContext {
 
 	private int height = -1;
 

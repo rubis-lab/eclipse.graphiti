@@ -61,11 +61,13 @@ public class DefaultResizeShapeFeature extends AbstractFeature implements IResiz
 	 */
 	public void resizeShape(IResizeShapeContext context) {
 		Shape shape = context.getShape();
+		int x = context.getX();
+		int y = context.getY();
 		int width = context.getWidth();
 		int height = context.getHeight();
 
 		if (shape.getGraphicsAlgorithm() != null) {
-			Graphiti.getGaService().setSize(shape.getGraphicsAlgorithm(), width, height);
+			Graphiti.getGaService().setLocationAndSize(shape.getGraphicsAlgorithm(), x, y, width, height);
 		}
 
 		layoutPictogramElement(shape);
