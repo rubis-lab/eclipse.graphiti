@@ -28,7 +28,7 @@ public interface IConnectionCreationToolEntry extends ICreationToolEntry {
 	/**
 	 * Gets the creates the connection features.
 	 * 
-	 * @return the creates the connection features
+	 * @return the the List<IFeature> connection features
 	 */
 	public List<IFeature> getCreateConnectionFeatures();
 }
