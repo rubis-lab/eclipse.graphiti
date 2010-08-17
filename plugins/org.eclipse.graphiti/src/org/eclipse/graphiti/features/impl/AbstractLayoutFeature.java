@@ -33,7 +33,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 public abstract class AbstractLayoutFeature extends AbstractFeature implements ILayoutFeature {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link AbstractLayoutFeature}.
 	 * 
 	 * @param fp
 	 *            the fp
@@ -42,11 +42,6 @@ public abstract class AbstractLayoutFeature extends AbstractFeature implements I
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public final boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof ILayoutContext) {
@@ -56,11 +51,6 @@ public abstract class AbstractLayoutFeature extends AbstractFeature implements I
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public void execute(IContext context) {
 		if (context instanceof ILayoutContext) {
 			layout((ILayoutContext) context);
@@ -99,11 +89,6 @@ public abstract class AbstractLayoutFeature extends AbstractFeature implements I
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
