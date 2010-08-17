@@ -51,12 +51,10 @@ public class GFDialogTests extends AbstractGFTests {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
 				IPrintFeature pf = fp.getPrintFeature();
-				System.out.println("A");
 				IAction printGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor.getConfigurationProvider(),
 						diagramEditor, pf);
 				// check if default printer is configured, otherwise SWT throws
-				// a
-				// "no more handles" error in Printer.checkNull(..)
+				// a "no more handles" error in Printer.checkNull(..)
 				enabled[0] = printGraphicalViewerAction.isEnabled();
 				if (enabled[0])
 					printGraphicalViewerAction.run();
@@ -69,19 +67,13 @@ public class GFDialogTests extends AbstractGFTests {
 		if (!enabled[0]) {
 			return;
 		}
-		System.out.println("C");
 		bot.waitUntil(Conditions.shellIsActive(Messages.PrintFigureDialog_3_xfld));
-		System.out.println("D");
 		SWTBotShell shell = bot.shell(Messages.PrintFigureDialog_3_xfld);
-		System.out.println("E");
 		Thread.sleep(1000);
 		shell.bot().button("Cancel").click();
-		System.out.println("F");
 		Thread.sleep(300);
 		bot.waitUntil(Conditions.shellCloses(shell));
-		System.out.println("G");
 		closeEditor(diagramEditor);
-		System.out.println("H");
 
 	}
 
