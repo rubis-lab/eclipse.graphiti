@@ -27,38 +27,23 @@ import org.eclipse.graphiti.internal.Messages;
 public class DefaultRemoveBendpointFeature extends AbstractFeature implements IRemoveBendpointFeature {
 
 	/**
-	 * Instantiates a new default remove bendpoint feature.
+	 * Creates a new {@link DefaultRemoveBendpointFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public DefaultRemoveBendpointFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IRemoveBendpointFeature#canRemoveBendpoint(org.eclipse.graphiti.features.context.IRemoveBendpointContext)
-	 */
 	public boolean canRemoveBendpoint(IRemoveBendpointContext context) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IRemoveBendpointFeature#removeBendpoint(org.eclipse.graphiti.features.context.IRemoveBendpointContext)
-	 */
 	public void removeBendpoint(IRemoveBendpointContext context) {
 		context.getConnection().getBendpoints().remove(context.getBendpointIndex());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IRemoveBendpointContext) {
@@ -67,20 +52,10 @@ public class DefaultRemoveBendpointFeature extends AbstractFeature implements IR
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public void execute(IContext context) {
 		removeBendpoint((IRemoveBendpointContext) context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
