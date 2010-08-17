@@ -23,12 +23,14 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.palette.IConnectionCreationToolEntry;
 
 /**
- * creates a tool entry for the palette which can create connections.
+ * The Class ConnectionCreationToolEntry creates a tool entry for the palette
+ * which can create connections. Connection creation features are added
+ * separately.
  */
 public class ConnectionCreationToolEntry extends AbstractPaletteToolEntry implements IConnectionCreationToolEntry {
 
 	/**
-	 * connection creation features are added seperately.
+	 * Create a new {@link ConnectionCreationToolEntry}.
 	 * 
 	 * @param label
 	 *            the label
@@ -44,7 +46,7 @@ public class ConnectionCreationToolEntry extends AbstractPaletteToolEntry implem
 	}
 
 	/**
-	 * adds a create feature to the tool. you have to provide at least one. if
+	 * Adds a create feature to the tool. you have to provide at least one. If
 	 * several features are added the tool will display a popup menu after
 	 * connection creation which lets the user choose between all features which
 	 * canExecute.
@@ -53,7 +55,7 @@ public class ConnectionCreationToolEntry extends AbstractPaletteToolEntry implem
 	 *            the create feature
 	 */
 	public void addCreateConnectionFeature(ICreateConnectionFeature createFeature) {
-		features.add(createFeature);
+		this.features.add(createFeature);
 	}
 
 	/**
@@ -65,8 +67,9 @@ public class ConnectionCreationToolEntry extends AbstractPaletteToolEntry implem
 
 		List<IFeature> createFeatures = new ArrayList<IFeature>();
 
-		for (IFeature feature : features)
+		for (IFeature feature : this.features) {
 			createFeatures.add(feature);
+		}
 
 		return createFeatures;
 	}
