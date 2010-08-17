@@ -29,31 +29,19 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 public class DefaultMoveConnectionDecoratorFeature extends AbstractFeature implements IMoveConnectionDecoratorFeature {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link DefaultMoveConnectionDecoratorFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public DefaultMoveConnectionDecoratorFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.IMoveConnectionDecoratorFeature#
-	 * canLayoutConnectionDecorator(org.eclipse.graphiti.dt.IContext)
-	 */
 	public boolean canMoveConnectionDecorator(IMoveConnectionDecoratorContext context) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.features.IMoveConnectionDecoratorFeature#
-	 * layoutConnectionDecorator(org.eclipse.graphiti.dt.IContext)
-	 */
 	public void moveConnectionDecorator(IMoveConnectionDecoratorContext context) {
 		if (!getUserDecision()) {
 			return;
@@ -67,13 +55,6 @@ public class DefaultMoveConnectionDecoratorFeature extends AbstractFeature imple
 		ga.setY(posY);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
-	 * .features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IMoveConnectionDecoratorContext) {
@@ -82,13 +63,6 @@ public class DefaultMoveConnectionDecoratorFeature extends AbstractFeature imple
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		if (context instanceof IMoveConnectionDecoratorContext) {
 			IMoveConnectionDecoratorContext moveConnectionDecoratorContext = (IMoveConnectionDecoratorContext) context;
@@ -98,11 +72,6 @@ public class DefaultMoveConnectionDecoratorFeature extends AbstractFeature imple
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
