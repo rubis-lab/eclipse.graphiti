@@ -21,7 +21,6 @@ import java.util.List;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.palette.ICreationToolEntry;
 
-
 /**
  * The Class AbstractPaletteToolEntry.
  */
@@ -37,7 +36,7 @@ public abstract class AbstractPaletteToolEntry extends AbstractPaletteEntry impl
 	private String largeIconId = null;
 
 	/**
-	 * Instantiates a new abstract palette tool entry.
+	 * Create a new {@link AbstractPaletteToolEntry}.
 	 * 
 	 * @param label
 	 *            the label
@@ -54,13 +53,8 @@ public abstract class AbstractPaletteToolEntry extends AbstractPaletteEntry impl
 		setLargeIconId(largeIconId);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.palette.ICreationToolEntry#getDescription()
-	 */
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	/**
@@ -69,13 +63,19 @@ public abstract class AbstractPaletteToolEntry extends AbstractPaletteEntry impl
 	 * @return the features
 	 */
 	public List<IFeature> getFeatures() {
-		return features;
+		return this.features;
 	}
 
 	public String getLargeIconId() {
-		return largeIconId;
+		return this.largeIconId;
 	}
 
+	/**
+	 * Sets the large icon id.
+	 * 
+	 * @param largeIconId
+	 *            the large icon id
+	 */
 	private void setLargeIconId(String largeIconId) {
 		this.largeIconId = largeIconId;
 	}
