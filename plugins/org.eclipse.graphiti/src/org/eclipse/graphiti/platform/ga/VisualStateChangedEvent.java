@@ -16,7 +16,9 @@
 package org.eclipse.graphiti.platform.ga;
 
 /**
- *
+ * The Class VisualStateChangedEvent.
+ * 
+ * @see IVisualStateChangeListener
  */
 public class VisualStateChangedEvent {
 
@@ -27,7 +29,14 @@ public class VisualStateChangedEvent {
 	public int newValue;
 
 	/**
+	 * Creates a new {@link VisualStateChangedEvent}.
 	 * 
+	 * @param changedField
+	 *            the changed field
+	 * @param oldValue
+	 *            the int old value
+	 * @param newValue
+	 *            the int new value
 	 */
 	public VisualStateChangedEvent(IVisualState.Type changedField, int oldValue, int newValue) {
 		this.changedField = changedField;
