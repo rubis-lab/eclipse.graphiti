@@ -29,35 +29,21 @@ import org.eclipse.graphiti.services.Graphiti;
 public class DefaultMoveBendpointFeature extends AbstractFeature implements IMoveBendpointFeature {
 
 	/**
-	 * Instantiates a new default move bendpoint feature.
+	 * Creates a new {@link DefaultMoveBendpointFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public DefaultMoveBendpointFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveBendpointFeature#moveBendpoint(org
-	 * .eclipse.graphiti.features.context.IMoveBendpointContext)
-	 */
 	public boolean moveBendpoint(IMoveBendpointContext context) {
 		Point newPoint = Graphiti.getGaService().createPoint(context.getX(), context.getY());
 		context.getConnection().getBendpoints().set(context.getBendpointIndex(), newPoint);
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
-	 * .features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IMoveBendpointContext) {
@@ -67,33 +53,14 @@ public class DefaultMoveBendpointFeature extends AbstractFeature implements IMov
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		moveBendpoint((IMoveBendpointContext) context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveBendpointFeature#canMoveBendpoint(
-	 * org.eclipse.graphiti.features.context.IMoveBendpointContext)
-	 */
 	public boolean canMoveBendpoint(IMoveBendpointContext context) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
