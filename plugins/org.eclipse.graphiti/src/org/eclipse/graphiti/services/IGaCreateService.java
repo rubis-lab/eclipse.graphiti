@@ -83,10 +83,10 @@ public interface IGaCreateService {
 	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
-	 * @param value
-	 *            initial text
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
+	 * @param value
+	 *            initial text
 	 * @return the new multiline text
 	 */
 	public MultiText createDefaultMultiText(GraphicsAlgorithmContainer gaContainer, String value);
@@ -128,10 +128,10 @@ public interface IGaCreateService {
 	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
-	 * @param value
-	 *            initial text
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
+	 * @param value
+	 *            initial text
 	 * @return the new text
 	 */
 	public Text createDefaultText(GraphicsAlgorithmContainer gaContainer, String value);
@@ -156,12 +156,12 @@ public interface IGaCreateService {
 	/**
 	 * Creates a font datatype.
 	 * 
+	 * @param text
+	 *            the text
 	 * @param name
 	 *            the name
 	 * @param size
 	 *            the size
-	 * @param text
-	 *            the text
 	 * @return the new font
 	 */
 	public Font createFont(AbstractText text, String name, int size);
@@ -169,6 +169,8 @@ public interface IGaCreateService {
 	/**
 	 * Creates a font datatype.
 	 * 
+	 * @param text
+	 *            the text
 	 * @param name
 	 *            the name
 	 * @param size
@@ -177,8 +179,6 @@ public interface IGaCreateService {
 	 *            the is italic
 	 * @param isBold
 	 *            the is bold
-	 * @param text
-	 *            the text
 	 * @return the new font
 	 */
 	public Font createFont(AbstractText text, String name, int size, boolean isItalic, boolean isBold);
@@ -186,12 +186,12 @@ public interface IGaCreateService {
 	/**
 	 * Creates a font datatype.
 	 * 
+	 * @param style
+	 *            the style
 	 * @param name
 	 *            the name
 	 * @param size
 	 *            the size
-	 * @param style
-	 *            the style
 	 * @return the new font
 	 */
 	public Font createFont(Style style, String name, int size);
@@ -199,6 +199,8 @@ public interface IGaCreateService {
 	/**
 	 * Creates a font datatype.
 	 * 
+	 * @param style
+	 *            the style
 	 * @param name
 	 *            the name
 	 * @param size
@@ -207,8 +209,6 @@ public interface IGaCreateService {
 	 *            the is italic
 	 * @param isBold
 	 *            the is bold
-	 * @param style
-	 *            the style
 	 * @return the new font
 	 */
 	public Font createFont(Style style, String name, int size, boolean isItalic, boolean isBold);
@@ -228,10 +228,10 @@ public interface IGaCreateService {
 	 * image.setStretchH(false);<br>
 	 * image.setStretchV(false);<br>
 	 * 
-	 * @param imageId
-	 *            the image id
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
+	 * @param imageId
+	 *            the image id
 	 * @return the new image
 	 */
 	public Image createImage(GraphicsAlgorithmContainer gaContainer, String imageId);
@@ -240,8 +240,8 @@ public interface IGaCreateService {
 	 * Create an invisible rectangle.
 	 * 
 	 * @param pe
-	 *            the PE to create the GA in
-	 * @return the rectangle GA
+	 *            the pictogram element to create the rectangle
+	 * @return the rectangle
 	 */
 	public Rectangle createInvisibleRectangle(PictogramElement pe);
 
@@ -279,10 +279,10 @@ public interface IGaCreateService {
 	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
-	 * @param value
-	 *            initial text
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
+	 * @param value
+	 *            initial text
 	 * @return the new multiline text
 	 */
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer, String value);
@@ -301,6 +301,10 @@ public interface IGaCreateService {
 	/**
 	 * Creates a point datatype for the given x/y coordinates.
 	 * 
+	 * @param x
+	 *            the x coordinate
+	 * @param y
+	 *            the y coordinate
 	 * @return the new point
 	 */
 	public Point createPoint(int x, int y);
@@ -308,10 +312,19 @@ public interface IGaCreateService {
 	/**
 	 * Creates a point datatype for the given x/y coordinates. The additional
 	 * before/after parameters defined at which distance before/after the point
-	 * a rounded curve will start/end. Note, that before/after parameters have
-	 * only an effect, if the graphics algorithm support them, e.g. polygon and
-	 * polyline.
+	 * a rounded curve will start/end.
 	 * 
+	 * Note, that before/after parameters have only an effect, if the graphics
+	 * algorithm support them, e.g. polygon and polyline.
+	 * 
+	 * @param x
+	 *            the x coordinate
+	 * @param y
+	 *            the y coordinate
+	 * @param before
+	 *            the distance before, if supported
+	 * @param after
+	 *            the distance after, if supported
 	 * @return the new point
 	 */
 	public Point createPoint(int x, int y, int before, int after);
@@ -328,6 +341,9 @@ public interface IGaCreateService {
 
 	/**
 	 * Creates a list of point datatypes for the given x/y coordinates.
+	 * 
+	 * Note, that before/after parameters have only an effect, if the graphics
+	 * algorithm support them, e.g. polygon and polyline.
 	 * 
 	 * @param xy
 	 *            The x/y coordinates: [x0, y0, ..., xN, yN]
@@ -367,10 +383,10 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setLineWidth(1);<br>
 	 * graphicsAlgorithm.setTransparency(0);<br>
 	 * 
-	 * @param points
-	 *            collection of point
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
+	 * @param points
+	 *            collection of point
 	 * @return the new polygon
 	 */
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
@@ -444,10 +460,10 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setLineWidth(1);<br>
 	 * graphicsAlgorithm.setTransparency(0);<br>
 	 * 
-	 * @param points
-	 *            collection of point
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
+	 * @param points
+	 *            collection of point
 	 * @return the new polyline
 	 */
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
@@ -522,12 +538,12 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setLineWidth(1);<br>
 	 * graphicsAlgorithm.setTransparency(0);<br>
 	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
 	 * @param cornerWidth
 	 *            the corner width
 	 * @param cornerHeight
 	 *            the corner height
-	 * @param gaContainer
-	 *            the container for the new graphics algorithm
 	 * @return the new rounded rectangle
 	 */
 	public RoundedRectangle createRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight);
@@ -602,10 +618,10 @@ public interface IGaCreateService {
 	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
-	 * @param value
-	 *            initial text
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
+	 * @param value
+	 *            initial text
 	 * @return the new text
 	 */
 	public Text createText(GraphicsAlgorithmContainer gaContainer, String value);
