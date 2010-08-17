@@ -22,8 +22,21 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  */
 public interface INotificationService {
 
+	/**
+	 * Calculate dirty pictogram elements.
+	 * 
+	 * @param bos
+	 *            the changed BOs
+	 * @return the pictogram element[]
+	 */
 	PictogramElement[] calculateRelatedPictogramElements(Object[] bos);
 
+	/**
+	 * Update dirty pictogram elements.
+	 * 
+	 * @param pes
+	 *            the dirty pes
+	 */
 	void updatePictogramElements(PictogramElement[] pes);
 
 }
