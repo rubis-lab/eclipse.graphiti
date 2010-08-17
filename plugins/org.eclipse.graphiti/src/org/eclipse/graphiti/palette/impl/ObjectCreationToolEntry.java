@@ -19,14 +19,15 @@ import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.palette.IObjectCreationToolEntry;
 
 /**
- * creates an palette tool which creates an object.
+ * The Class ObjectCreationToolEntry creates an palette tool which creates an
+ * object.
  */
 public class ObjectCreationToolEntry extends AbstractPaletteToolEntry implements IObjectCreationToolEntry {
 
 	private ICreateFeature createFeature;
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link ObjectCreationToolEntry}.
 	 * 
 	 * @param label
 	 *            the label
@@ -50,7 +51,7 @@ public class ObjectCreationToolEntry extends AbstractPaletteToolEntry implements
 	 * @return the associated creation tool
 	 */
 	public ICreateFeature getCreateFeature() {
-		return createFeature;
+		return this.createFeature;
 	}
 
 }
