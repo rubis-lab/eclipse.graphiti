@@ -126,7 +126,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			Point viewLocation = null;
 			DiagramEditorInternal diagramEditor = getConfigurationProvider().getDiagramEditor();
 			if (diagramEditor.getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-				GFFigureCanvas c =  (GFFigureCanvas) configurationProvider.getDiagramEditor().getGraphicalViewer().getControl();
+				GFFigureCanvas c = (GFFigureCanvas) configurationProvider.getDiagramEditor().getGraphicalViewer().getControl();
 				viewLocation = c.getViewport().getViewLocation();
 			} else {
 				viewLocation = configurationProvider.getDiagramEditor().getFigureCanvas().getViewport().getViewLocation();
@@ -305,16 +305,22 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	protected IResizeShapeContext createResizeShapeContext(Shape shape, Object constraint) {
 		ResizeShapeContext ret = new ResizeShapeContext(shape);
 
+		Point loc = null;
 		Dimension dim = null;
 		if (constraint instanceof Rectangle) {
 			Rectangle rect = (Rectangle) constraint;
 			dim = rect.getSize();
+			loc = rect.getLocation();
 		} else if (constraint instanceof Dimension) {
 			dim = (Dimension) constraint;
 		}
 		if (dim != null) {
 			ret.setWidth(dim.width);
 			ret.setHeight(dim.height);
+		}
+		if (loc != null) {
+			ret.setX(loc.x);
+			ret.setY(loc.y);
 		}
 
 		return ret;
