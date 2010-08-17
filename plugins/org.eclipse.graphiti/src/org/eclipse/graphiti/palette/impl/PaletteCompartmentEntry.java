@@ -21,9 +21,9 @@ import java.util.List;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.IToolEntry;
 
-
 /**
- * creates a compartment entry which visualises as a drawer in the palette containing multiple tools.
+ * The Class PaletteCompartmentEntry creates a compartment entry which
+ * visualises as a drawer in the palette containing multiple tools.
  */
 public class PaletteCompartmentEntry extends AbstractPaletteEntry implements IPaletteCompartmentEntry {
 
@@ -32,7 +32,7 @@ public class PaletteCompartmentEntry extends AbstractPaletteEntry implements IPa
 	private boolean initiallyOpen = true;
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link PaletteCompartmentEntry}.
 	 * 
 	 * @param label
 	 *            the text label
@@ -49,7 +49,7 @@ public class PaletteCompartmentEntry extends AbstractPaletteEntry implements IPa
 	 * @return the tools contained in the compartment
 	 */
 	public List<IToolEntry> getToolEntries() {
-		return toolEntries;
+		return this.toolEntries;
 	}
 
 	/**
@@ -59,25 +59,15 @@ public class PaletteCompartmentEntry extends AbstractPaletteEntry implements IPa
 	 *            the tool entry
 	 */
 	public void addToolEntry(IToolEntry toolEntry) {
-		toolEntries.add(toolEntry);
+		this.toolEntries.add(toolEntry);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.palette.IPaletteCompartmentEntry#setInitiallyOpen(boolean)
-	 */
 	public void setInitiallyOpen(boolean initiallyOpen) {
 		this.initiallyOpen = initiallyOpen;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.palette.IPaletteCompartmentEntry#isInitiallyOpen()
-	 */
 	public boolean isInitiallyOpen() {
-		return initiallyOpen;
+		return this.initiallyOpen;
 	}
 
 }
