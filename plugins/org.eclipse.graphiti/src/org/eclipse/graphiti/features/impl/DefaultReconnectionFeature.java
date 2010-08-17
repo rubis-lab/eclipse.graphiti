@@ -33,22 +33,15 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 public class DefaultReconnectionFeature extends AbstractFeature implements IReconnectionFeature {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link DefaultReconnectionFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public DefaultReconnectionFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IReconnectionFeature#canReconnect(org.eclipse
-	 * .graphiti.features.context.IReconnectionContext)
-	 */
 	public boolean canReconnect(IReconnectionContext context) {
 		Connection connection = context.getConnection();
 		Anchor newAnchor = getNewAnchor(context);
@@ -69,13 +62,6 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 		return context.getNewAnchor();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IReconnectionFeature#reconnnect(org.eclipse
-	 * .graphiti.features.context.IReconnectionContext)
-	 */
 	public final void reconnect(IReconnectionContext context) {
 		if (!getUserDecision()) {
 			return;
@@ -95,33 +81,12 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 		postReconnect(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IReconnectionFeature#preReconnnect(org.
-	 * eclipse.graphiti.features.context.IReconnectionContext)
-	 */
 	public void preReconnect(IReconnectionContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IReconnectionFeature#postReconnnect(org
-	 * .eclipse.graphiti.features.context.IReconnectionContext)
-	 */
 	public void postReconnect(IReconnectionContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
-	 * .features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IReconnectionContext) {
@@ -130,24 +95,12 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		if (context instanceof IReconnectionContext) {
 			reconnect((IReconnectionContext) context);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
