@@ -37,22 +37,15 @@ import org.eclipse.graphiti.services.Graphiti;
 public abstract class AbstractUpdateFeature extends AbstractFeature implements IUpdateFeature {
 
 	/**
-	 * The Constructor.
+	 * Create a new {@link AbstractUpdateFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public AbstractUpdateFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
-	 * .features.context.IContext)
-	 */
 	public final boolean canExecute(IContext context) {
 		final String SIGNATURE = Messages.AbstractUpdateFeature_0_xfld;
 		boolean info = T.racer().info();
@@ -70,13 +63,6 @@ public abstract class AbstractUpdateFeature extends AbstractFeature implements I
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		final String SIGNATURE = Messages.AbstractUpdateFeature_1_xfld;
 		boolean info = T.racer().info();
@@ -113,13 +99,6 @@ public abstract class AbstractUpdateFeature extends AbstractFeature implements I
 		return getFeatureProvider().updateNeeded(new UpdateContext(pe));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.impl.AbstractFeature#updatePictogramElement
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	@Override
 	protected void updatePictogramElement(PictogramElement pe) {
 		getFeatureProvider().updateIfPossible(new UpdateContext(pe));
@@ -146,11 +125,6 @@ public abstract class AbstractUpdateFeature extends AbstractFeature implements I
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
