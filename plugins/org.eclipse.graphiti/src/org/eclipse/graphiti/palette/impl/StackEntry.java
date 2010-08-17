@@ -21,10 +21,10 @@ import java.util.List;
 import org.eclipse.graphiti.palette.ICreationToolEntry;
 import org.eclipse.graphiti.palette.IStackToolEntry;
 
-
 /**
- * creates a compartment entry which visualises as a drawer in the palette
- * containing multiple tools.
+ * The Class StackEntry creates a compartment entry which visualises as a drawer
+ * in the palette containing multiple tools in a drop down list of which one is
+ * active and visible.
  */
 public class StackEntry extends AbstractPaletteEntry implements IStackToolEntry {
 
@@ -33,8 +33,7 @@ public class StackEntry extends AbstractPaletteEntry implements IStackToolEntry 
 	private List<ICreationToolEntry> creationToolEntries = new ArrayList<ICreationToolEntry>();
 
 	/**
-	 * creates a new stack tool for the palette. A stack entry contains multiple
-	 * tools in a drop down list of which one is active and visible
+	 * Creates a new {@link StackEntry}.
 	 * 
 	 * @param label
 	 *            the text to display
@@ -54,25 +53,25 @@ public class StackEntry extends AbstractPaletteEntry implements IStackToolEntry 
 	 * @return the description
 	 */
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	/**
-	 * return the creation tools.
+	 * Returns the creation tools.
 	 * 
 	 * @return the creation tool entries
 	 */
 	public List<ICreationToolEntry> getCreationToolEntries() {
-		return creationToolEntries;
+		return this.creationToolEntries;
 	}
 
 	/**
-	 * adds a creation tool to the stack entry.
+	 * Adds a creation tool to the stack entry.
 	 * 
 	 * @param creationToolEntry
 	 *            the creation tool entry
 	 */
 	public void addCreationToolEntry(ICreationToolEntry creationToolEntry) {
-		creationToolEntries.add(creationToolEntry);
+		this.creationToolEntries.add(creationToolEntry);
 	}
 }
