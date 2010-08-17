@@ -27,39 +27,26 @@ import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.services.Graphiti;
 
 /**
- * Prefer using this default implementation over implementing interface
+ * The Class DefaultAddBendpointFeature. Prefer using this default
+ * implementation over implementing interface
  * {@link org.eclipse.graphiti.features.IAddBendpointFeature} for yourself.
  */
 public class DefaultAddBendpointFeature extends AbstractFeature implements IAddBendpointFeature {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link DefaultAddBendpointFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public DefaultAddBendpointFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IAddBendpointFeature#canAddBendpoint(org
-	 * .eclipse.graphiti.features.context.IAddBendpointContext)
-	 */
 	public boolean canAddBendpoint(IAddBendpointContext context) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IAddBendpointFeature#addBendpoint(org.eclipse
-	 * .graphiti.features.context.IAddBendpointContext)
-	 */
 	public void addBendpoint(IAddBendpointContext context) {
 		FreeFormConnection freeFormConnection = context.getConnection();
 		List<Point> bendpoints = freeFormConnection.getBendpoints();
@@ -68,13 +55,6 @@ public class DefaultAddBendpointFeature extends AbstractFeature implements IAddB
 		bendpoints.add(index, newPoint);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
-	 * .features .context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IAddBendpointContext) {
@@ -83,22 +63,10 @@ public class DefaultAddBendpointFeature extends AbstractFeature implements IAddB
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		addBendpoint((IAddBendpointContext) context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
