@@ -21,6 +21,7 @@ import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.context.IPrintContext;
 import org.eclipse.graphiti.features.context.impl.PrintContext;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.ui.print.PrintFigureDialog;
 import org.eclipse.graphiti.ui.internal.util.ui.print.PrintFigureScaleableOperation;
 import org.eclipse.jface.action.IAction;
@@ -110,7 +111,7 @@ public class PrintGraphicalViewerAction extends PrintAction {
 		IPrintContext printContext = new PrintContext();
 		printFeature.prePrint(printContext);
 
-		Shell shell = new Shell();
+		Shell shell = GraphitiUiInternal.getWorkbenchService().getShell();
 
 		// get viewer
 		GraphicalViewer viewer = (GraphicalViewer) getWorkbenchPart().getAdapter(GraphicalViewer.class);
