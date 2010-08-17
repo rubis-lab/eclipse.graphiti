@@ -24,6 +24,7 @@ import org.eclipse.graphiti.features.IReason;
  * The Class Reason.
  */
 public class Reason implements IReason {
+
 	private static final String FALSE_REASON_TEXT = ""; //$NON-NLS-1$
 
 	private static final String TRUE_REASON_TEXT = ""; //$NON-NLS-1$
@@ -73,10 +74,10 @@ public class Reason implements IReason {
 	private String text;
 
 	/**
-	 * Instantiates a new reason.
+	 * Creates a new {@link Reason}.
 	 * 
 	 * @param b
-	 *            the b
+	 *            the bool
 	 */
 	public Reason(boolean b) {
 		super();
@@ -84,10 +85,10 @@ public class Reason implements IReason {
 	}
 
 	/**
-	 * Instantiates a new reason.
+	 * Creates a new {@link Reason}.
 	 * 
 	 * @param b
-	 *            the b
+	 *            the bool
 	 * @param reasonText
 	 *            the reason text
 	 */
@@ -96,13 +97,8 @@ public class Reason implements IReason {
 		setText(reasonText);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IReason#getText()
-	 */
 	public String getText() {
-		return text;
+		return this.text;
 	}
 
 	/**
@@ -122,25 +118,15 @@ public class Reason implements IReason {
 	 *            the new text
 	 */
 	public void setText(String reasonText) {
-		text = reasonText;
+		this.text = reasonText;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IReason#toBoolean()
-	 */
 	public boolean toBoolean() {
-		return bool;
+		return this.bool;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return super.toString() + " bool: " + bool + "; text: " + text; //$NON-NLS-1$ //$NON-NLS-2$
+		return super.toString() + " bool: " + this.bool + "; text: " + this.text; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 }
