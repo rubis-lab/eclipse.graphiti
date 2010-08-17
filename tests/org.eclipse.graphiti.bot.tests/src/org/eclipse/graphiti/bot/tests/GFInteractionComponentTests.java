@@ -23,9 +23,11 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.palette.PaletteEntry;
@@ -66,6 +68,10 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	/**
 	 * 
 	 */
+	private static final String SHAPE_NAME = "Connection";
+	/**
+	 * 
+	 */
 	private static final String INPUT_STRING = "Graphiti Rulez";
 
 	public GFInteractionComponentTests() {
@@ -83,7 +89,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				ed.drag("Connection", 200, 50);
+				ed.drag(SHAPE_NAME, 200, 50);
 				ed.drag("ConnectionDecorator", 200, 400);
 			}
 		});
@@ -138,7 +144,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					@Override
 					protected void doExecute() {
 						// add a class to the diagram
-						addClassToDiagram(fp, currentDiagram, x, y, "Connection");
+						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
 				});
 			}
@@ -149,7 +155,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			@Override
 			public void run() {
 				// move class-shape to origin
-				ed.drag("Connection", -100, -100);
+				ed.drag(SHAPE_NAME, -100, -100);
 			}
 		});
 		Thread.sleep(500);
@@ -240,7 +246,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					@Override
 					protected void doExecute() {
 						// add a class to the diagram
-						addClassToDiagram(fp, currentDiagram, x, y, "Connection");
+						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
 				});
 			}
@@ -252,7 +258,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			@Override
 			public void run() {
 				// move class-shape to origin
-				ed.drag("Connection", 0, 0);
+				ed.drag(SHAPE_NAME, 0, 0);
 			}
 		});
 		Thread.sleep(2000);
@@ -329,7 +335,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 					@Override
 					protected void doExecute() {
-						addClassToDiagram(fp, currentDiagram, x, y, "Connection");
+						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
 				});
 
@@ -886,6 +892,58 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	}
 
 	@Test
+	public void testResizeAndPosition() throws Exception {
+		final int x = 100;
+		final int y = 100;
+		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				// find diagram
+				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+
+					@Override
+					protected void doExecute() {
+						// add a class to the diagram
+						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
+					}
+				});
+			}
+		});
+		Thread.sleep(1000);
+
+		// select shape
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				final SWTBotGefEditPart editPart = ed.getEditPart(SHAPE_NAME);
+				ed.select(editPart);
+			}
+		});
+		Thread.sleep(1000);
+
+		// resize shape
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				ed.drag(100, 100, 120, 120);
+			}
+		});
+		Thread.sleep(1000);
+
+		SWTBotGefEditPart editPart = ed.getEditPart(SHAPE_NAME);
+		IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
+		assertEquals(120, figure.getBounds().x);
+		assertEquals(120, figure.getBounds().y);
+	}
+
+	@Test
 	public void testSketchAll() throws Exception {
 		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
@@ -942,7 +1000,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 					@Override
 					protected void doExecute() {
-						addClassesAndReferenceToDiagram(fp, currentDiagram, x, y, "Connection", x, y + 300, "ConnectionDecorator");
+						addClassesAndReferenceToDiagram(fp, currentDiagram, x, y, SHAPE_NAME, x, y + 300, "ConnectionDecorator");
 					}
 				});
 				if (toolToActivate != null)
