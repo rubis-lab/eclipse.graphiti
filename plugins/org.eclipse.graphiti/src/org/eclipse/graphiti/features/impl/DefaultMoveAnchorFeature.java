@@ -36,35 +36,21 @@ import org.eclipse.graphiti.services.Graphiti;
  */
 public class DefaultMoveAnchorFeature extends AbstractFeature implements IMoveAnchorFeature {
 
-	/**
-	 * The Constructor.
+/**
+	 * Creates a new {@link DefaultMoveAnchorFeature.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public DefaultMoveAnchorFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveAnchorFeature#canLayoutAnchor(org.
-	 * eclipse.graphiti.dt.IContext)
-	 */
 	public boolean canMoveAnchor(IMoveAnchorContext context) {
 		Anchor anchor = context.getAnchor();
 		return (anchor instanceof FixPointAnchor || anchor instanceof BoxRelativeAnchor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveAnchorFeature#layoutAnchor(org.eclipse
-	 * .graphiti.dt.IContext)
-	 */
 	public void moveAnchor(IMoveAnchorContext context) {
 		if (!getUserDecision()) {
 			return;
@@ -75,23 +61,9 @@ public class DefaultMoveAnchorFeature extends AbstractFeature implements IMoveAn
 		moveAnchor(context.getAnchor(), posX, posY);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveAnchorFeature#preLayoutAnchor(org.
-	 * eclipse.graphiti.dt.IContext)
-	 */
 	public void preMoveAnchor(IMoveAnchorContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveAnchorFeature#postLayoutAnchor(org
-	 * .eclipse.graphiti.dt.IContext)
-	 */
 	public void postMoveAnchor(IMoveAnchorContext context) {
 	}
 
@@ -137,13 +109,6 @@ public class DefaultMoveAnchorFeature extends AbstractFeature implements IMoveAn
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
-	 * .features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IMoveAnchorContext) {
@@ -152,24 +117,12 @@ public class DefaultMoveAnchorFeature extends AbstractFeature implements IMoveAn
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		if (context instanceof IMoveAnchorContext) {
 			moveAnchor((IMoveAnchorContext) context);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
