@@ -118,7 +118,7 @@ public class PrintGraphicalViewerAction extends PrintAction {
 
 		// create default PrinterData
 		PrinterData printerData = Printer.getDefaultPrinterData();
-		if (printerData.name == null && printerData.driver == null) {
+		if (printerData == null || (printerData.name == null && printerData.driver == null)) {
 			printerData = Printer.getPrinterList()[0];
 		}
 
