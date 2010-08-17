@@ -27,20 +27,15 @@ import org.eclipse.graphiti.internal.Messages;
 public abstract class AbstractMoveShapeFeature extends AbstractFeature implements IMoveShapeFeature {
 
 	/**
-	 * Instantiates a new abstract move shape feature.
+	 * Creates a new {@link AbstractMoveShapeFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public AbstractMoveShapeFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IMoveShapeContext) {
@@ -49,22 +44,12 @@ public abstract class AbstractMoveShapeFeature extends AbstractFeature implement
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public void execute(IContext context) {
 		if (context instanceof IMoveShapeContext) {
 			moveShape((IMoveShapeContext) context);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
