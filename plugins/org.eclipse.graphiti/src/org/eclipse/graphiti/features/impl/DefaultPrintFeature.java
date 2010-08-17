@@ -27,45 +27,25 @@ import org.eclipse.graphiti.internal.Messages;
 public class DefaultPrintFeature extends AbstractFeature implements IPrintFeature {
 
 	/**
-	 * Instantiates a new default print feature.
+	 * Creates a new {@link DefaultPrintFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feauture provider
 	 */
 	public DefaultPrintFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IPrintFeature#canPrint(org.eclipse.graphiti.features.context.IPrintContext)
-	 */
 	public boolean canPrint(IPrintContext context) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IPrintFeature#postPrint(org.eclipse.graphiti.features.context.IPrintContext)
-	 */
 	public void postPrint(IPrintContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IPrintFeature#prePrint(org.eclipse.graphiti.features.context.IPrintContext)
-	 */
 	public void prePrint(IPrintContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IPrintContext) {
@@ -74,20 +54,10 @@ public class DefaultPrintFeature extends AbstractFeature implements IPrintFeatur
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features.context.IContext)
-	 */
 	public void execute(IContext context) {
-		// todo: not possible yet
+		//TODO: not possible yet
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
