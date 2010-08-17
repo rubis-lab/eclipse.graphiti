@@ -119,6 +119,11 @@ public interface IVisualState {
 	 */
 	void setHoverFeedback(int feedback);
 
+	/**
+	 * Gets the hover feedback.
+	 * 
+	 * @return the int hover feedback.
+	 */
 	int getHoverFeedback();
 
 }

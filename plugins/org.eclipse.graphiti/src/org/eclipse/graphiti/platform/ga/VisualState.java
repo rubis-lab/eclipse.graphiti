@@ -18,7 +18,7 @@ package org.eclipse.graphiti.platform.ga;
 import java.util.ArrayList;
 
 /**
- * A simple implementation of {@link IVisualState}.
+ * The Class VisualState, a simple implementation of {@link IVisualState}.
  */
 public class VisualState implements IVisualState {
 
@@ -31,50 +31,59 @@ public class VisualState implements IVisualState {
 	private int hoverFeedback = HOVER_OFF;
 
 	public void addChangeListener(IVisualStateChangeListener listener) {
-		changeListeners.add(listener);
+		this.changeListeners.add(listener);
 	}
 
 	public void removeChangeListener(IVisualStateChangeListener listener) {
-		changeListeners.remove(listener);
+		this.changeListeners.remove(listener);
 	}
 
+	/**
+	 * Propagates the visual state change to registered listeners.
+	 * 
+	 * @param e
+	 *            the {@link VisualStateChangedEvent } event
+	 */
 	protected void fireVisualStateChanged(VisualStateChangedEvent e) {
-		for (IVisualStateChangeListener listener : changeListeners) {
+		for (IVisualStateChangeListener listener : this.changeListeners) {
 			listener.visualStateChanged(e);
 		}
 	}
 
 	public int getActionTargetFeedback() {
-		return actionTargetFeedback;
+		return this.actionTargetFeedback;
 	}
 
 	public void setActionTargetFeedback(int feedback) {
-		int oldActionTargetFeedback = actionTargetFeedback;
-		actionTargetFeedback = feedback;
-		if (oldActionTargetFeedback != actionTargetFeedback)
+		int oldActionTargetFeedback = this.actionTargetFeedback;
+		this.actionTargetFeedback = feedback;
+		if (oldActionTargetFeedback != this.actionTargetFeedback) {
 			fireVisualStateChanged(new VisualStateChangedEvent(Type.ACTION_TARGET_FEEDBACK, oldActionTargetFeedback, feedback));
+		}
 	}
 
 	public int getSelectionFeedback() {
-		return selectionFeedback;
+		return this.selectionFeedback;
 	}
 
 	public void setSelectionFeedback(int feedback) {
-		int oldSelectionFeedback = selectionFeedback;
-		selectionFeedback = feedback;
-		if (oldSelectionFeedback != selectionFeedback)
+		int oldSelectionFeedback = this.selectionFeedback;
+		this.selectionFeedback = feedback;
+		if (oldSelectionFeedback != this.selectionFeedback) {
 			fireVisualStateChanged(new VisualStateChangedEvent(Type.SELECTION, oldSelectionFeedback, feedback));
+		}
 	}
 
 	public void setHoverFeedback(int feedback) {
-		int oldHoverFeedback = hoverFeedback;
-		hoverFeedback = feedback;
-		if (oldHoverFeedback != hoverFeedback)
+		int oldHoverFeedback = this.hoverFeedback;
+		this.hoverFeedback = feedback;
+		if (oldHoverFeedback != this.hoverFeedback) {
 			fireVisualStateChanged(new VisualStateChangedEvent(Type.HOVER, oldHoverFeedback, feedback));
+		}
 
 	}
 
 	public int getHoverFeedback() {
-		return hoverFeedback;
+		return this.hoverFeedback;
 	}
 }
