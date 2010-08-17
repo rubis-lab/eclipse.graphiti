@@ -95,9 +95,7 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	protected boolean calculateEnabled() {
 		if (getWorkbenchPart().getAdapter(GraphicalViewer.class) == null)
 			return false;
-		PrinterData[] printerList = Printer.getPrinterList();
-		boolean printersAvailable = printerList != null && printerList.length > 0 && printerList[0] != null;
-		return printersAvailable && super.calculateEnabled();
+		return super.calculateEnabled();
 
 		// TODO ask also feature for canPrint() ?
 	}
@@ -119,7 +117,10 @@ public class PrintGraphicalViewerAction extends PrintAction {
 		GraphicalViewer viewer = (GraphicalViewer) getWorkbenchPart().getAdapter(GraphicalViewer.class);
 
 		// create default PrinterData
-		PrinterData printerData = new PrinterData();
+		PrinterData printerData = Printer.getDefaultPrinterData();
+		if (printerData.name == null & printerData.driver == null) {
+			printerData = Printer.getPrinterList()[0];
+		}
 
 		// open PrintFigureDialog
 		PrintFigureDialog printImageDialog = new PrintFigureDialog(shell, viewer, new Printer(printerData));
