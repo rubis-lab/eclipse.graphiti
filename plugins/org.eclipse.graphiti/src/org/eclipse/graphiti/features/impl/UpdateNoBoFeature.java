@@ -29,11 +29,18 @@ import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.services.Graphiti;
 
 /**
- * An update feature, which marks a pictogram element without a linked business
- * object as "update needed". On "update" such a pictogram element is deleted.
+ * The Class UpdateNoBoFeature. An update feature, which marks a pictogram
+ * element without a linked business object as "update needed". On "update" such
+ * a pictogram element is deleted.
  */
 public class UpdateNoBoFeature extends AbstractUpdateFeature {
 
+	/**
+	 * Creates a new {@link UpdateNoBoFeature}.
+	 * 
+	 * @param fp
+	 *            the feature provider
+	 */
 	public UpdateNoBoFeature(IFeatureProvider fp) {
 		super(fp);
 	}
