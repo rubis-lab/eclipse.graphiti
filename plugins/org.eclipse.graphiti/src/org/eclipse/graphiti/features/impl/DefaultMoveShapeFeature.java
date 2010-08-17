@@ -36,10 +36,10 @@ import org.eclipse.graphiti.services.Graphiti;
 public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link DefaultMoveShapeFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public DefaultMoveShapeFeature(IFeatureProvider fp) {
 		super(fp);
@@ -54,24 +54,10 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveShapeFeature#canMoveShape(org.eclipse
-	 * .graphiti.features.context.IMoveShapeContext)
-	 */
 	public boolean canMoveShape(IMoveShapeContext context) {
 		return context.getSourceContainer() != null && context.getSourceContainer().equals(context.getTargetContainer());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveShapeFeature#moveShape(org.eclipse
-	 * .graphiti.features.context.IMoveShapeContext)
-	 */
 	final public void moveShape(IMoveShapeContext context) {
 		preMoveShape(context);
 		moveAllBendpoints(context);
@@ -79,13 +65,6 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 		postMoveShape(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveShapeFeature#postMoveShape(org.eclipse
-	 * .graphiti.dt.IContext)
-	 */
 	/**
 	 * Post move shape.
 	 * 
@@ -95,13 +74,6 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 	protected void postMoveShape(IMoveShapeContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveShapeFeature#preMoveShape(org.eclipse
-	 * .graphiti.features.context.IMoveShapeContext)
-	 */
 	/**
 	 * Pre move shape.
 	 * 
@@ -152,9 +124,8 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 		}
 	}
 
-	// move bendpoints within a container shape
 	/**
-	 * Move all bendpoints.
+	 * Move all bendpoints. Move bendpoints within a container shape.
 	 * 
 	 * @param context
 	 *            the context
