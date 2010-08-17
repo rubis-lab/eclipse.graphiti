@@ -30,7 +30,7 @@ public class DefaultNotificationService implements INotificationService {
 	private IDiagramTypeProvider diagramTypeProvider;
 
 	/**
-	 * Instantiates a new abstract notification service.
+	 * Creates a new {@link DefaultNotificationService}.
 	 * 
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
@@ -45,7 +45,7 @@ public class DefaultNotificationService implements INotificationService {
 	 * @return the diagram type provider
 	 */
 	protected IDiagramTypeProvider getDiagramTypeProvider() {
-		return diagramTypeProvider;
+		return this.diagramTypeProvider;
 	}
 
 	/**
