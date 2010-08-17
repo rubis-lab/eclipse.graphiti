@@ -25,7 +25,7 @@ public interface IObjectCreationToolEntry extends ICreationToolEntry {
 	/**
 	 * Gets the creates the feature.
 	 * 
-	 * @return the creates the feature
+	 * @return the ICreateFeature feature
 	 */
 	public ICreateFeature getCreateFeature();
 }
