@@ -16,6 +16,9 @@
 package org.eclipse.graphiti.bot.tests;
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.asyncExec;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -32,10 +35,6 @@ import org.junit.Test;
 
 public class GFDialogTests extends AbstractGFTests {
 
-	/**
-	 * 
-	 */
-	private static final int TIMEOUT = 5000;
 
 	public GFDialogTests() {
 		super();
@@ -43,10 +42,9 @@ public class GFDialogTests extends AbstractGFTests {
 
 	@Test
 	public void testPrintDialog() throws Exception {
-		// check if default printer is configured, otherwise SWT throws a
-		// "no more handles" error in Printer.checkNull(..)
-		System.out.println("printer available");
 		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final boolean[] enabled = new boolean[1];
+		final CountDownLatch signal = new CountDownLatch(1);
 		asyncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -54,22 +52,33 @@ public class GFDialogTests extends AbstractGFTests {
 				IFeatureProvider fp = dtp.getFeatureProvider();
 				IPrintFeature pf = fp.getPrintFeature();
 				System.out.println("A");
-				IAction createPrintGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor.getConfigurationProvider(),
+				IAction printGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor.getConfigurationProvider(),
 						diagramEditor, pf);
-				createPrintGraphicalViewerAction.run();
-				System.out.println("B");
+				// check if default printer is configured, otherwise SWT throws
+				// a
+				// "no more handles" error in Printer.checkNull(..)
+				enabled[0] = printGraphicalViewerAction.isEnabled();
+				if (enabled[0])
+					printGraphicalViewerAction.run();
+				signal.countDown();
 			}
 		});
+		signal.await(5, TimeUnit.SECONDS);
+		// If the action is not enabled since there is no printer available on the system,
+		// we simply return.
+		if (!enabled[0]) {
+			return;
+		}
 		System.out.println("C");
-		bot.waitUntil(Conditions.shellIsActive(Messages.PrintFigureDialog_3_xfld), TIMEOUT);
+		bot.waitUntil(Conditions.shellIsActive(Messages.PrintFigureDialog_3_xfld));
 		System.out.println("D");
 		SWTBotShell shell = bot.shell(Messages.PrintFigureDialog_3_xfld);
 		System.out.println("E");
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		shell.bot().button("Cancel").click();
 		System.out.println("F");
 		Thread.sleep(300);
-		bot.waitUntil(Conditions.shellCloses(shell), TIMEOUT);
+		bot.waitUntil(Conditions.shellCloses(shell));
 		System.out.println("G");
 		closeEditor(diagramEditor);
 		System.out.println("H");
@@ -87,12 +96,12 @@ public class GFDialogTests extends AbstractGFTests {
 			}
 		});
 
-		bot.waitUntil(Conditions.shellIsActive(Messages.AbstractFigureSelectionDialog_0_xtxt), TIMEOUT);
+		bot.waitUntil(Conditions.shellIsActive(Messages.AbstractFigureSelectionDialog_0_xtxt));
 		SWTBotShell shell = bot.shell(Messages.AbstractFigureSelectionDialog_0_xtxt);
 		Thread.sleep(2000);
 		shell.bot().button("Cancel").click();
 		Thread.sleep(300);
-		bot.waitUntil(Conditions.shellCloses(shell), TIMEOUT);
+		bot.waitUntil(Conditions.shellCloses(shell));
 		closeEditor(diagramEditor);
 
 	}
