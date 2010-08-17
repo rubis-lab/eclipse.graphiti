@@ -32,33 +32,19 @@ import org.eclipse.graphiti.services.Graphiti;
 public class DefaultResizeShapeFeature extends AbstractFeature implements IResizeShapeFeature {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link DefaultResizeShapeFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public DefaultResizeShapeFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IResizeShapeFeature#canResizeShape(org.
-	 * eclipse.graphiti.dt.IContext)
-	 */
 	public boolean canResizeShape(IResizeShapeContext context) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IResizeShapeFeature#resizeShape(org.eclipse
-	 * .graphiti.dt.IContext)
-	 */
 	public void resizeShape(IResizeShapeContext context) {
 		Shape shape = context.getShape();
 		int x = context.getX();
@@ -73,13 +59,6 @@ public class DefaultResizeShapeFeature extends AbstractFeature implements IResiz
 		layoutPictogramElement(shape);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
-	 * .features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IResizeShapeContext) {
@@ -88,13 +67,6 @@ public class DefaultResizeShapeFeature extends AbstractFeature implements IResiz
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		if (context instanceof IResizeShapeContext) {
 			resizeShape((IResizeShapeContext) context);
@@ -117,11 +89,6 @@ public class DefaultResizeShapeFeature extends AbstractFeature implements IResiz
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;
