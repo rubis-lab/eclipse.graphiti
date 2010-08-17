@@ -95,7 +95,9 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	protected boolean calculateEnabled() {
 		if (getWorkbenchPart().getAdapter(GraphicalViewer.class) == null)
 			return false;
-		return super.calculateEnabled();
+		PrinterData[] printerList = Printer.getPrinterList();
+		boolean printersAvailable = printerList != null && printerList.length > 0 && printerList[0] != null;
+		return printersAvailable && super.calculateEnabled();
 
 		// TODO ask also feature for canPrint() ?
 	}
