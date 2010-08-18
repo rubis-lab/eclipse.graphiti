@@ -23,6 +23,8 @@ import org.eclipse.graphiti.IName;
 import org.eclipse.graphiti.features.context.IContext;
 
 /**
+ * The Interface IDirectEditingInfo.
+ * 
  * Similar to actions and commands. Contains check/can methods and (in the
  * future) methods for undo and redo functionality.
  * 

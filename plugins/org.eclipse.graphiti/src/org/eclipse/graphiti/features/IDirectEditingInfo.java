@@ -20,7 +20,8 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
- * The information provided by this interface is needed to switch automatically<br>
+ * The information provided by the <i>IDirectEditingInfo</i> is needed to switch
+ * automatically<br>
  * into the direct editing mode. (e.g. after creation of a new object) <br>
  * <br>
  * The direct editing field will be opened on the figure<br>

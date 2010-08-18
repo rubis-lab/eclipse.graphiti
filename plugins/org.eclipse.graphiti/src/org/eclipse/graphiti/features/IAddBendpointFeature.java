@@ -19,7 +19,7 @@ import org.eclipse.graphiti.features.context.IAddBendpointContext;
 import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
 
 /**
- * Feature, that can add a bendpoint to a
+ * The Interface IAddBendpointFeature. Feature, that can add a bendpoint to a
  * {@link org.eclipse.graphiti.mm.pictograms.FreeFormConnection}.
  * 
  * @noextend This interface is not intended to be extended by clients.

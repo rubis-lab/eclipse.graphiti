@@ -22,8 +22,8 @@ import org.eclipse.graphiti.features.impl.AbstractAddFeature;
 import org.eclipse.graphiti.func.IAdd;
 
 /**
- * A pictogram element has to be added. This pictogram element has to link to a
- * domain model element.
+ * The Interface IAddFeature. A pictogram element has to be added. This
+ * pictogram element has to link to a domain model element.
  * 
  * @return instance of a domain model element
  * 

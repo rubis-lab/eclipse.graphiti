@@ -27,8 +27,8 @@ import org.eclipse.graphiti.features.context.ISplitConnectionContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 
 /**
- * Convenience implementation of IFeatureChecker. All methods return either true
- * or false.
+ * The Class FeatureCheckerAdapter is a convenience implementation of
+ * IFeatureChecker. All methods return either true or false.
  * 
  * This class is expected to be sub-classed.
  */
@@ -39,7 +39,7 @@ public class FeatureCheckerAdapter implements IFeatureChecker {
 	/**
 	 * Creates an {@link FeatureCheckerAdapter}.
 	 * 
-	 * @param allow
+	 * @param allow the boolean allow
 	 */
 	public FeatureCheckerAdapter(boolean allow) {
 		this.allow = allow;
