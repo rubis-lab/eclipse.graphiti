@@ -24,7 +24,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 public abstract class TextDataMapping extends DataMapping implements ITextDataMapping {
 
 	/**
-	 * Instantiates a new text data mapping.
+	 * Creates a new {@link TextDataMapping}.
 	 * 
 	 * @param mappingProvider
 	 *            the mapping provider

@@ -30,7 +30,7 @@ public abstract class DataMapping extends MappingProviderProvider implements IDa
 	private static final String DEFAULT_UPDATE_WARNING = Messages.DataMapping_0_xmsg;
 
 	/**
-	 * Instantiates a new data mapping.
+	 * Creates a new {@link DataMapping}.
 	 * 
 	 * @param mappingProvider
 	 *            the mapping provider

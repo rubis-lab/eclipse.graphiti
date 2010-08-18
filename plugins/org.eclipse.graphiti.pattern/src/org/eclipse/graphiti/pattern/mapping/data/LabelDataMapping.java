@@ -24,7 +24,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 public abstract class LabelDataMapping extends TextDataMapping implements ILabelDataMapping {
 
 	/**
-	 * Instantiates a new label data mapping.
+	 * Creates a new {@link LabelDataMapping}.
 	 * 
 	 * @param mappingProvider
 	 *            the mapping provider

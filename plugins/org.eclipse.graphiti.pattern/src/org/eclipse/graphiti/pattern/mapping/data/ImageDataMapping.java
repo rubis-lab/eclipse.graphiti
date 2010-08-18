@@ -24,7 +24,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 public abstract class ImageDataMapping extends DataMapping implements IImageDataMapping {
 
 	/**
-	 * Instantiates a new image data mapping.
+	 * Creates a new {@link ImageDataMapping}.
 	 * 
 	 * @param mappingProvider
 	 *            the mapping provider
