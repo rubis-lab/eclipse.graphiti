@@ -153,10 +153,6 @@ public class DefaultCompartmentPatternConfiguration implements ICompartmentPatte
 		textColor = color;
 	}
 
-	public void setTransparency(int t) {
-		transparency = t;
-	}
-
 	public void setCornerHeight(int cornerHeight) {
 		this.cornerHeight = cornerHeight;
 	}

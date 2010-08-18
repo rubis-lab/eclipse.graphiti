@@ -107,10 +107,6 @@ public class DefaultGridPatternConfiguration implements IGridPatternConfiguratio
 		textColor = color;
 	}
 
-	public void setTransparency(int t) {
-		transparency = t;
-	}
-
 	/**
 	 * Sets the transparency.
 	 * 
