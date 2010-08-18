@@ -83,6 +83,6 @@ public interface IColorConfiguration extends IPatternConfiguration {
 	 * @param i
 	 *            the new transparency
 	 */
-	void setTransparency(int i);
+	void setTransparency(double transparency);
 
 }
