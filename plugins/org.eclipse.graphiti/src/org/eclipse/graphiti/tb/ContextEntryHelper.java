@@ -32,7 +32,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 
 /**
- * The Class ContextEntryHelper.
+ * The Class ContextEntryHelper comprises methods for creating and modifying
+ * context button entries.
  */
 public class ContextEntryHelper {
 
