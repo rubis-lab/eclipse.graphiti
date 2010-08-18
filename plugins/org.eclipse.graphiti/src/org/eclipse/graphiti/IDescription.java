@@ -16,7 +16,8 @@
 package org.eclipse.graphiti;
 
 /**
- * Allows to provide a general explanatory text for any object.
+ * The Interface IDescription. Allows to provide a general explanatory text for
+ * any object.
  */
 public interface IDescription {
 

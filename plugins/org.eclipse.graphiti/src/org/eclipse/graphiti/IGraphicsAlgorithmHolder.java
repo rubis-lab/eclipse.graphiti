@@ -18,7 +18,7 @@ package org.eclipse.graphiti;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 
 /**
- * Returns a GraphicsAlgorithm.
+ * The Interface IGraphicsAlgorithmHolder. Returns a GraphicsAlgorithm.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.

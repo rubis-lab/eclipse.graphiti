@@ -21,12 +21,12 @@ package org.eclipse.graphiti;
 public enum DiagramScrollingBehavior {
 
 	/**
-	 * The GE f_ default.
+	 * The GEF default behavior.
 	 */
 	GEF_DEFAULT,
+	
 	/**
-	 * The SCROLLBAR s_ alway s_ visible.
+	 * The scrollbars are always visible.
 	 */
 	SCROLLBARS_ALWAYS_VISIBLE
-
 }
