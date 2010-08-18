@@ -22,6 +22,8 @@ import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
 import org.eclipse.graphiti.func.IResizeShape;
 
 /**
+ * The Interface IResizeShapeFeature.
+ * 
  * Resizing shapes means to change their coordinates or/and their parent.
  * 
  * @noextend This interface is not intended to be extended by clients.

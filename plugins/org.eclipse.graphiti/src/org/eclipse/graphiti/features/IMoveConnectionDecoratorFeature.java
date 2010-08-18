@@ -19,6 +19,8 @@ import org.eclipse.graphiti.features.context.IMoveConnectionDecoratorContext;
 import org.eclipse.graphiti.features.impl.DefaultMoveConnectionDecoratorFeature;
 
 /**
+ * The Interface IMoveConnectionDecoratorFeature.
+ * 
  * Moving shapes means to change their coordinates or/and their parent.
  * 
  * @noextend This interface is not intended to be extended by clients.
