@@ -32,7 +32,7 @@ public abstract class AbstractCustomFeature extends AbstractFeature implements I
 	/**
 	 * Creates a new {@link AbstractCustomFeature}.
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public AbstractCustomFeature(IFeatureProvider fp) {
 		super(fp);
