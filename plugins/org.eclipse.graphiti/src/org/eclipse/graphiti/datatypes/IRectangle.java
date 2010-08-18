@@ -30,7 +30,7 @@ public interface IRectangle extends IDimension, ILocation {
 	public IRectangle getRectangleCopy();
 
 	/**
-	 * Sets the location and dimension of the rectangle
+	 * Sets the location and dimension of the rectangle.
 	 * 
 	 * @param x
 	 *            the x coordinate of the rectangle

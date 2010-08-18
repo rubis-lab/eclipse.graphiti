@@ -30,7 +30,7 @@ public interface IAdvancedLocation extends ILocation {
 	ILocation getLocationCopy();
 
 	/**
-	 * Sets the location
+	 * Sets the location.
 	 * 
 	 * @param x
 	 *            the new x coordinate of the location
@@ -41,7 +41,7 @@ public interface IAdvancedLocation extends ILocation {
 	ILocation setLocation(int x, int y);
 
 	/**
-	 * Sets the location
+	 * Sets the location.
 	 * 
 	 * @param location
 	 *            the location which contains the new x and y coordinates
@@ -50,7 +50,7 @@ public interface IAdvancedLocation extends ILocation {
 	ILocation setLocation(ILocation location);
 
 	/**
-	 * Changes the current location
+	 * Changes the current location.
 	 * 
 	 * @param amount
 	 *            x and y coordinate of the location will be multiplied with
@@ -59,7 +59,7 @@ public interface IAdvancedLocation extends ILocation {
 	void scale(double amount);
 
 	/**
-	 * Translates the current location
+	 * Translates the current location.
 	 * 
 	 * @param dx
 	 *            this value will be added to the x coordinate

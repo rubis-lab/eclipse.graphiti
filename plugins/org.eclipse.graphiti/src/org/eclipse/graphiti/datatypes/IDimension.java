@@ -24,14 +24,14 @@ package org.eclipse.graphiti.datatypes;
 public interface IDimension {
 
 	/**
-	 * Gets the width
+	 * Gets the width.
 	 * 
 	 * @return the width of this dimension
 	 */
 	int getWidth();
 
 	/**
-	 * Sets the width
+	 * Sets the width.
 	 * 
 	 * @param width
 	 *            the new width of this dimension
@@ -39,14 +39,14 @@ public interface IDimension {
 	void setWidth(int width);
 
 	/**
-	 * Gets the height
+	 * Gets the height.
 	 * 
 	 * @return the height of this dimension
 	 */
 	int getHeight();
 
 	/**
-	 * Sets the height
+	 * Sets the height.
 	 * 
 	 * @param height
 	 *            the new height of this dimension
