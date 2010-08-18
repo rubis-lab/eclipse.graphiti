@@ -25,7 +25,7 @@ import org.eclipse.graphiti.pattern.mapping.data.IDataMapping;
 public abstract class StructureMappingGrid extends StructureMappingMulti implements IStructureMappingGrid {
 
 	/**
-	 * Instantiates a new structure mapping grid.
+	 * Creates a new {@link StructureMappingGrid}.
 	 * 
 	 * @param dataMapping
 	 *            the data mapping

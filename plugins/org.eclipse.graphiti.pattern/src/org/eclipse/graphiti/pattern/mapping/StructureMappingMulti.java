@@ -29,7 +29,7 @@ import org.eclipse.graphiti.pattern.mapping.data.IDataMapping;
 public abstract class StructureMappingMulti extends StructureMapping implements IStructureMappingMulti {
 
 	/**
-	 * Instantiates a new structure mapping multi.
+	 * Creates a new {@link StructureMappingMulti}.
 	 * 
 	 * @param dataMapping
 	 *            the data mapping

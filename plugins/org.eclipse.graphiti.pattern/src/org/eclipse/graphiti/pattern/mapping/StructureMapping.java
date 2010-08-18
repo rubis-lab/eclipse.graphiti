@@ -27,7 +27,7 @@ public abstract class StructureMapping extends MappingProviderProvider implement
 	private IDataMapping dataMapping;
 
 	/**
-	 * Instantiates a new structure mapping.
+	 * Creates a new {@link StructureMapping}.
 	 * 
 	 * @param dataMapping
 	 *            the data mapping

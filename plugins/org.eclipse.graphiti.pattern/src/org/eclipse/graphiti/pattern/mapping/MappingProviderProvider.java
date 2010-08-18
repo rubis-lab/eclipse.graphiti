@@ -25,7 +25,7 @@ public abstract class MappingProviderProvider {
 	private IMappingProvider mappingProvider;
 
 	/**
-	 * Instantiates a new mapping provider provider.
+	 * Creates a new {@link MappingProviderProvider}.
 	 * 
 	 * @param mappingProvider
 	 *            the mapping provider

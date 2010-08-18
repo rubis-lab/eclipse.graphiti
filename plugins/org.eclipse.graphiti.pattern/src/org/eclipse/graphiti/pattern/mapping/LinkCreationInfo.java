@@ -25,7 +25,7 @@ public class LinkCreationInfo implements ILinkCreationInfo {
 	private String property;
 
 	/**
-	 * Instantiates a new link creation info.
+	 * Creates a new {@link LinkCreationInfo}.
 	 * 
 	 * @param businessObject
 	 *            the business object

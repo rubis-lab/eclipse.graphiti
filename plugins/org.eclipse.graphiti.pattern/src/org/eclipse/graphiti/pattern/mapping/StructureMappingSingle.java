@@ -25,7 +25,7 @@ import org.eclipse.graphiti.pattern.mapping.data.IDataMapping;
 public abstract class StructureMappingSingle extends StructureMapping implements IStructureMappingSingle {
 
 	/**
-	 * Instantiates a new structure mapping single.
+	 * Creates a new {@link StructureMappingSingle}.
 	 * 
 	 * @param dataMapping
 	 *            the data mapping
