@@ -36,71 +36,7 @@ import org.eclipse.graphiti.platform.IPlatformImageConstants;
  * context button entries.
  */
 public class ContextEntryHelper {
-
-	/**
-	 * Marks the given context entry with update figure.
-	 * 
-	 * @param entry
-	 *            the context entry
-	 */
-	public static void markAsUpdateContextEntry(IContextEntry entry) {
-		if (entry != null) {
-			entry.setText(Messages.ContextEntryHelper_0_xfld);
-			entry.setDescription(Messages.ContextEntryHelper_1_xfld);
-			entry.setIconId(IPlatformImageConstants.IMG_EDIT_REFRESH);
-		}
-	}
-
-	/**
-	 * Marks the given context entry with remove figure from diagram.
-	 * 
-	 * @param entry
-	 *            the context entry
-	 */
-	public static void markAsRemoveContextEntry(IContextEntry entry) {
-		if (entry != null) {
-			entry.setText(Messages.ContextEntryHelper_2_xfld);
-			entry.setDescription(Messages.ContextEntryHelper_3_xfld);
-			entry.setIconId(IPlatformImageConstants.IMG_EDIT_REMOVE);
-		}
-	}
-
-	/**
-	 * Marks the given context entry with delete from model.
-	 * 
-	 * @param entry
-	 *            the context entry
-	 */
-	public static void markAsDeleteContextEntry(IContextEntry entry) {
-		if (entry != null) {
-			entry.setText(Messages.ContextEntryHelper_4_xfld);
-			entry.setDescription(Messages.ContextEntryHelper_5_xfld);
-			entry.setIconId(IPlatformImageConstants.IMG_EDIT_DELETE);
-		}
-	}
-
-	/**
-	 * Marks the given context entry with collapse or expand figure.
-	 * 
-	 * @param entry
-	 *            the context entry
-	 * @param collapse
-	 *            mark with collapse when true, otherwise with expand
-	 */
-	public static void markAsCollapseContextEntry(IContextEntry entry, boolean collapse) {
-		if (entry != null) {
-			if (collapse) {
-				entry.setText(Messages.ContextEntryHelper_6_xfld);
-				entry.setDescription(Messages.ContextEntryHelper_7_xfld);
-				entry.setIconId(IPlatformImageConstants.IMG_EDIT_COLLAPSE);
-			} else {
-				entry.setText(Messages.ContextEntryHelper_8_xfld);
-				entry.setDescription(Messages.ContextEntryHelper_9_xfld);
-				entry.setIconId(IPlatformImageConstants.IMG_EDIT_EXPAND);
-			}
-		}
-	}
-
+	
 	/**
 	 * Creates an default update context button entry.
 	 * 
@@ -192,5 +128,69 @@ public class ContextEntryHelper {
 			ret.setIconId(IPlatformImageConstants.IMG_EDIT_EXPAND);
 		}
 		return ret;
+	}
+
+	/**
+	 * Marks the given context entry with update figure.
+	 * 
+	 * @param entry
+	 *            the context entry
+	 */
+	public static void markAsUpdateContextEntry(IContextEntry entry) {
+		if (entry != null) {
+			entry.setText(Messages.ContextEntryHelper_0_xfld);
+			entry.setDescription(Messages.ContextEntryHelper_1_xfld);
+			entry.setIconId(IPlatformImageConstants.IMG_EDIT_REFRESH);
+		}
+	}
+
+	/**
+	 * Marks the given context entry with remove figure from diagram.
+	 * 
+	 * @param entry
+	 *            the context entry
+	 */
+	public static void markAsRemoveContextEntry(IContextEntry entry) {
+		if (entry != null) {
+			entry.setText(Messages.ContextEntryHelper_2_xfld);
+			entry.setDescription(Messages.ContextEntryHelper_3_xfld);
+			entry.setIconId(IPlatformImageConstants.IMG_EDIT_REMOVE);
+		}
+	}
+
+	/**
+	 * Marks the given context entry with delete from model.
+	 * 
+	 * @param entry
+	 *            the context entry
+	 */
+	public static void markAsDeleteContextEntry(IContextEntry entry) {
+		if (entry != null) {
+			entry.setText(Messages.ContextEntryHelper_4_xfld);
+			entry.setDescription(Messages.ContextEntryHelper_5_xfld);
+			entry.setIconId(IPlatformImageConstants.IMG_EDIT_DELETE);
+		}
+	}
+
+	/**
+	 * Marks the given context entry with collapse or expand figure.
+	 * 
+	 * @param entry
+	 *            the context entry
+	 * @param collapse
+	 *            mark with collapse when true, otherwise with expand
+	 */
+	public static void markAsCollapseContextEntry(IContextEntry entry, boolean collapse) {
+		if (entry != null) {
+			if (collapse) {
+				entry.setText(Messages.ContextEntryHelper_6_xfld);
+				entry.setDescription(Messages.ContextEntryHelper_7_xfld);
+				entry.setIconId(IPlatformImageConstants.IMG_EDIT_COLLAPSE);
+			} else {
+				entry.setText(Messages.ContextEntryHelper_8_xfld);
+				entry.setDescription(Messages.ContextEntryHelper_9_xfld);
+				entry.setIconId(IPlatformImageConstants.IMG_EDIT_EXPAND);
+			}
+		}
 	}
 }
