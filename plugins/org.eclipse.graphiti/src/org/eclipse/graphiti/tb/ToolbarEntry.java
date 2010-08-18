@@ -18,8 +18,19 @@ package org.eclipse.graphiti.tb;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
 
+/**
+ * The Class ToolbarEntry.
+ */
 public class ToolbarEntry extends AbstractContextEntry implements IToolbarEntry {
 
+	/**
+	 * Creates a new {@link ToolbarEntry}.
+	 * 
+	 * @param feature
+	 *            the feature
+	 * @param context
+	 *            the context
+	 */
 	public ToolbarEntry(IFeature feature, IContext context) {
 		super(feature, context);
 	}

@@ -36,7 +36,7 @@ public class SelectionInfoImpl implements ISelectionInfo {
 	private IColorConstant hoverColorParentSelected;
 
 	/**
-	 * Instantiates a new selection info impl.
+	 * Creates a new {@link SelectionInfoImpl}.
 	 * 
 	 * @param color
 	 *            the color
@@ -57,7 +57,7 @@ public class SelectionInfoImpl implements ISelectionInfo {
 	}
 
 	/**
-	 * Instantiates a new selection info impl.
+	 * Creates a new {@link SelectionInfoImpl}.
 	 * 
 	 * @param color
 	 *            the color
@@ -79,144 +79,64 @@ public class SelectionInfoImpl implements ISelectionInfo {
 	}
 
 	/**
-	 * Instantiates a new selection info impl.
+	 * Creates a new {@link SelectionInfoImpl}.
 	 */
 	public SelectionInfoImpl() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.ISelectionInfo#getColor()
-	 */
 	public IColorConstant getColor() {
-		return color;
+		return this.color;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.ISelectionInfo#getHandleForegroundColor()
-	 */
 	public IColorConstant getHandleForegroundColor() {
-		return handleForegroundColor;
+		return this.handleForegroundColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.ISelectionInfo#setHandleForegroundColor(org.eclipse
-	 * .graphiti.util.IColorConstant)
-	 */
 	public void setHandleForegroundColor(IColorConstant handleForegroundColor) {
 		this.handleForegroundColor = handleForegroundColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.ISelectionInfo#getHandleBackgroundColor()
-	 */
 	public IColorConstant getHandleBackgroundColor() {
-		return handleBackgroundColor;
+		return this.handleBackgroundColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.ISelectionInfo#setHandleBackgroundColor(org.eclipse
-	 * .graphiti.util.IColorConstant)
-	 */
 	public void setHandleBackgroundColor(IColorConstant handleBackgroundColor) {
 		this.handleBackgroundColor = handleBackgroundColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.ISelectionInfo#getLineStyle()
-	 */
 	public LineStyle getLineStyle() {
-		return lineStyle;
+		return this.lineStyle;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.ISelectionInfo#setLineStyle(org.eclipse.graphiti.
-	 * mm.pictograms.LineStyleEnum)
-	 */
 	public void setLineStyle(LineStyle lineStyle) {
 		this.lineStyle = lineStyle;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.ISelectionInfo#setColor(org.eclipse.graphiti.util
-	 * .IColorConstant)
-	 */
 	public void setColor(IColorConstant color) {
 		this.color = color;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.ISelectionInfo#getHoverColor()
-	 */
 	@Override
 	public IColorConstant getHoverColor() {
-		return hoverColor;
+		return this.hoverColor;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.ISelectionInfo#setLineStyle(org.eclipse.graphiti
-	 * .util.IColorConstant)
-	 */
 	@Override
 	public void setLineStyle(IColorConstant color) {
-		// TODO Auto-generated method stub
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.ISelectionInfo#setHoverColor(org.eclipse.graphiti
-	 * .util.IColorConstant)
-	 */
 	@Override
 	public void setHoverColor(IColorConstant hoverColor) {
 		this.hoverColor = hoverColor;
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.ISelectionInfo#getHoverColorParentSelected()
-	 */
 	@Override
 	public IColorConstant getHoverColorParentSelected() {
-		return hoverColorParentSelected;
+		return this.hoverColorParentSelected;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.ISelectionInfo#setHoverColorParentSelected(org
-	 * .eclipse.graphiti.util.IColorConstant)
-	 */
 	@Override
 	public void setHoverColorParentSelected(IColorConstant hoverColor) {
 		this.hoverColorParentSelected = hoverColor;
