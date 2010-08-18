@@ -16,6 +16,8 @@
 package org.eclipse.graphiti.features.context;
 
 /**
+ * The Interface IAddContext.
+ * 
  * This context contains the information, needed to let a feature add a
  * pictogram element, which has to be linked to any domain model element, to a
  * container shape.

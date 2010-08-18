@@ -16,6 +16,8 @@
 package org.eclipse.graphiti.features.context;
 
 /**
+ * The interface IAreaContext.
+ * 
  * Types of this context describe an area, where features have to work in.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
