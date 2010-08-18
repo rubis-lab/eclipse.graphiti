@@ -126,7 +126,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	// }
 
 	@Test
-	public void testGFWFigureCanvas() throws Exception {
+	public void testGFFigureCanvas() throws Exception {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
@@ -169,7 +169,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				Canvas canvas = gfCanvas.widget;
 				if (!(canvas instanceof GFFigureCanvas))
 					return;
-				GFFigureCanvas gfwFigureCanvas = (GFFigureCanvas) canvas;
+				GFFigureCanvas gfFigureCanvas = (GFFigureCanvas) canvas;
 
 				// do some scrolling
 				Event e = new Event();
@@ -177,39 +177,48 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				e.stateMask = 0;
 
 				e.detail = SWT.ARROW_UP;
-				gfwFigureCanvas.getHorizontalBar().notifyListeners(SWT.Selection, e);
-				gfwFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
+				gfFigureCanvas.getHorizontalBar().notifyListeners(SWT.Selection, e);
+				gfFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
 
 				e.detail = SWT.ARROW_DOWN;
-				gfwFigureCanvas.getHorizontalBar().notifyListeners(SWT.Selection, e);
-				gfwFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
+				gfFigureCanvas.getHorizontalBar().notifyListeners(SWT.Selection, e);
+				gfFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
 
 				e.detail = SWT.PAGE_UP;
-				gfwFigureCanvas.getHorizontalBar().notifyListeners(SWT.Selection, e);
-				gfwFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
+				gfFigureCanvas.getHorizontalBar().notifyListeners(SWT.Selection, e);
+				gfFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
 
 				e.detail = SWT.PAGE_DOWN;
-				gfwFigureCanvas.getHorizontalBar().notifyListeners(SWT.Selection, e);
-				gfwFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
+				gfFigureCanvas.getHorizontalBar().notifyListeners(SWT.Selection, e);
+				gfFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
 			}
 		});
-		Thread.sleep(200);
+		Thread.sleep(500);
+		
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				Event event = new Event();
+				event.type = SWT.KeyDown;
+				event.keyCode = SWT.DEL;
+				event.character = SWT.DEL;
+				event.stateMask = 0; // SWT.SHIFT;
+				Display.getDefault().post(event);
+			}
+		});
+		Thread.sleep(500);
 
-		Event event = new Event();
-		event.type = SWT.KeyDown;
-		event.keyCode = SWT.DEL;
-		event.character = SWT.DEL;
-		event.stateMask = 0; // SWT.SHIFT;
-		Display.getDefault().post(event);
-
-		Robot r = new Robot();
-		try {
-			r.keyPress(KeyEvent.VK_ENTER);
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-		} finally {
-			r.keyRelease(KeyEvent.VK_ENTER);
-		}
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				Event event = new Event();
+				event.type = SWT.KeyDown;
+				event.keyCode = SWT.CR;
+				event.character = SWT.CR;
+				event.stateMask = 0; // SWT.SHIFT;
+				Display.getDefault().post(event);
+			}
+		});
 		Thread.sleep(500);
 
 		syncExec(new VoidResult() {
@@ -220,7 +229,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				gfwFigureCanvas.regainSpace();
 			}
 		});
-		Thread.sleep(2000);
+		Thread.sleep(500);
 		shutdownEditor(diagramEditor);
 	}
 
@@ -262,7 +271,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag(SHAPE_NAME, 0, 0);
 			}
 		});
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -281,7 +290,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				gfwFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
 			}
 		});
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -295,7 +304,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					display.post(event);
 			}
 		});
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 
 		PictogramElement[] selectedPictogramElements = diagramEditor.getSelectedPictogramElements();
 		for (PictogramElement pictogramElement : selectedPictogramElements) {
@@ -669,7 +678,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 
 		});
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 
 		syncExec(new VoidResult() {
 			@Override
