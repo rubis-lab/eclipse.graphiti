@@ -22,20 +22,10 @@ public abstract class AbstractRenderingDecorator implements IRenderingDecorator 
 
 	private String message;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IRenderingDecorator#getMessage()
-	 */
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IRenderingDecorator#setMessage(java.lang.String)
-	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
