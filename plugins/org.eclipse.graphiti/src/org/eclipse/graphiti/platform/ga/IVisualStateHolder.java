@@ -16,7 +16,7 @@
 package org.eclipse.graphiti.platform.ga;
 
 /**
- * This interface provides access to an {@link IVisualState}.
+ * The Interface IVisualStateHolder provides access to an {@link IVisualState}.
  */
 public interface IVisualStateHolder {
 

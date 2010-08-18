@@ -16,6 +16,8 @@
 package org.eclipse.graphiti.platform.ga;
 
 /**
+ * The Interface IGraphicsAlgorithmRendererFactory.
+ * 
  * A factory for creating IGraphicsAlgorithmRenderer objects.
  */
 public interface IGraphicsAlgorithmRendererFactory {

@@ -16,9 +16,9 @@
 package org.eclipse.graphiti.platform.ga;
 
 /**
- * This interface allows to access and modify the transient visual state of an
- * element. The transient visual state includes all feedback relevant
- * attributes, which are not persisted, like selection-feedback or
+ * The Interface IVisualState allows to access and modify the transient visual
+ * state of an element. The transient visual state includes all feedback
+ * relevant attributes, which are not persisted, like selection-feedback or
  * action-target-feedback.
  */
 public interface IVisualState {

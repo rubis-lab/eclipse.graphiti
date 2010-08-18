@@ -16,7 +16,8 @@
 package org.eclipse.graphiti.platform.ga;
 
 /**
- * An interface listening on changes of the visual state.
+ * The Interface IVisualStateChangeListener comprises listening on changes of
+ * the visual state.
  */
 public interface IVisualStateChangeListener {
 
