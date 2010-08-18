@@ -20,14 +20,35 @@ package org.eclipse.graphiti.util;
  */
 public class ColorUtil {
 
+	/**
+	 * Gets the corresponding int representation from hexedecimal RGB string for
+	 * color blue.
+	 * 
+	 * @param hexRGBString
+	 * @return corresponding int value for blue
+	 */
 	public static int getBlueFromHex(final String hexRGBString) {
 		return Integer.valueOf(hexRGBString.substring(4, 6), 16);
 	}
 
+	/**
+	 * Gets the corresponding int representation from hexedecimal RGB string for
+	 * color red.
+	 * 
+	 * @param hexRGBString
+	 * @return corresponding int value for red
+	 */
 	public static int getRedFromHex(final String hexRGBString) {
 		return Integer.valueOf(hexRGBString.substring(0, 2), 16);
 	}
 
+	/**
+	 * Gets the corresponding int representation from hexedecimal RGB string for
+	 * color green.
+	 * 
+	 * @param hexRGBString
+	 * @return corresponding int value for green
+	 */
 	public static int getGreenFromHex(final String hexRGBString) {
 		return Integer.valueOf(hexRGBString.substring(2, 4), 16);
 	}
