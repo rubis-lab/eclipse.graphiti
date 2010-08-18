@@ -26,7 +26,7 @@ public interface INotificationService {
 	 * Calculate dirty pictogram elements.
 	 * 
 	 * @param bos
-	 *            the changed BOs
+	 *            the changed business objects
 	 * @return the pictogram element[]
 	 */
 	PictogramElement[] calculateRelatedPictogramElements(Object[] bos);
