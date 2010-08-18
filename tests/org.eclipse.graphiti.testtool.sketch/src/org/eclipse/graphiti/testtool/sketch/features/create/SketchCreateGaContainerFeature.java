@@ -16,6 +16,7 @@
 package org.eclipse.graphiti.testtool.sketch.features.create;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -38,7 +39,7 @@ public class SketchCreateGaContainerFeature extends SketchCreateGaFeature {
 	 * @param gaType
 	 *            the ga type
 	 */
-	public SketchCreateGaContainerFeature(IFeatureProvider fp, String name, String description, Class<GraphicsAlgorithm> gaType) {
+	public SketchCreateGaContainerFeature(IFeatureProvider fp, String name, String description, Class<? extends GraphicsAlgorithm> gaType) {
 		super(fp, name, description, gaType);
 	}
 

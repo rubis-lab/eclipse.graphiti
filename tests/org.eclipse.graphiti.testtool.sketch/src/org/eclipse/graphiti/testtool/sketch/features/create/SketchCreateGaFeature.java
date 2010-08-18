@@ -47,7 +47,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 
 	private static final String NEW_ELEMENT = "new element";
-	private Class gaType;
+	private Class<? extends GraphicsAlgorithm> gaType;
 
 	/**
 	 * Instantiates a new sketch create ga feature.
@@ -61,7 +61,7 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 	 * @param gaType
 	 *            the ga type
 	 */
-	public SketchCreateGaFeature(IFeatureProvider fp, String name, String description, Class<GraphicsAlgorithm> gaType) {
+	public SketchCreateGaFeature(IFeatureProvider fp, String name, String description, Class<? extends GraphicsAlgorithm> gaType) {
 		super(fp, name, description);
 		setGaType(gaType);
 	}
@@ -203,11 +203,11 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 		return ret;
 	}
 
-	private void setGaType(Class gaType) {
+	private void setGaType(Class<? extends GraphicsAlgorithm> gaType) {
 		this.gaType = gaType;
 	}
 
-	protected Class getGaType() {
+	protected Class<?> getGaType() {
 		return gaType;
 	}
 

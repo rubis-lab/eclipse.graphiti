@@ -41,11 +41,11 @@ public class SketchCreateGaShapeFeature extends SketchCreateGaFeature {
 	 * @param gaType
 	 *            the ga type
 	 */
-	public SketchCreateGaShapeFeature(IFeatureProvider fp, String name, String description, Class<GraphicsAlgorithm> gaType) {
+	public SketchCreateGaShapeFeature(IFeatureProvider fp, String name, String description, Class<? extends GraphicsAlgorithm> gaType) {
 		super(fp, name, description, gaType);
 	}
 
-	public SketchCreateGaShapeFeature(IFeatureProvider fp, String name, String description, Class<GraphicsAlgorithm> gaType,
+	public SketchCreateGaShapeFeature(IFeatureProvider fp, String name, String description, Class<? extends GraphicsAlgorithm> gaType,
 			boolean multiLineText) {
 		this(fp, name, description, gaType);
 		this.multiLineText = multiLineText;

@@ -260,22 +260,22 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		return retList.toArray(new ICreateConnectionFeature[0]);
 	}
 
-	private ICreateFeature createCreateGaContainerFeature(String name, String description, Class gaType) {
+	private ICreateFeature createCreateGaContainerFeature(String name, String description, Class<? extends GraphicsAlgorithm> gaType) {
 		ICreateFeature createFeature = new SketchCreateGaContainerFeature(this, name, description, gaType);
 		return createFeature;
 	}
 
-	private ICreateFeature createCreateGaShapeFeature(String name, String description, Class gaType) {
+	private ICreateFeature createCreateGaShapeFeature(String name, String description, Class<? extends GraphicsAlgorithm> gaType) {
 		ICreateFeature createFeature = new SketchCreateGaShapeFeature(this, name, description, gaType);
 		return createFeature;
 	}
 
-	private ICreateFeature createCreateGaShapeFeatureSingleText(String name, String description, Class gaType) {
+	private ICreateFeature createCreateGaShapeFeatureSingleText(String name, String description, Class<? extends GraphicsAlgorithm> gaType) {
 		ICreateFeature createFeature = new SketchCreateGaShapeFeature(this, name, description, gaType, false);
 		return createFeature;
 	}
 
-	private ICreateFeature createCreateGaShapeFeatureWithGhost(String name, String description, Class gaType) {
+	private ICreateFeature createCreateGaShapeFeatureWithGhost(String name, String description, Class<? extends GraphicsAlgorithm> gaType) {
 		// breaks the build: ICreateFeature createFeature = new
 		// SketchCreateGaShapeFeatureWithGhost(this, name, description,
 		// gaType);
@@ -283,7 +283,7 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		return createFeature;
 	}
 
-	private ICreateFeature createCreateGaContainerFeatureWithGhost(String name, String description, Class gaType) {
+	private ICreateFeature createCreateGaContainerFeatureWithGhost(String name, String description, Class<? extends GraphicsAlgorithm> gaType) {
 		// breaks the build: ICreateFeature createFeature = new
 		// SketchCreateGaShapeFeatureWithGhost(this, name, description,
 		// gaType);

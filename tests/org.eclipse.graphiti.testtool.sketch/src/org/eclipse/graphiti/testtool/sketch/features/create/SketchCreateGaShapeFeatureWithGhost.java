@@ -46,7 +46,7 @@ public class SketchCreateGaShapeFeatureWithGhost extends SketchCreateGaShapeFeat
 	 * @param gaType
 	 *            the ga type
 	 */
-	public SketchCreateGaShapeFeatureWithGhost(IFeatureProvider fp, String name, String description, Class<GraphicsAlgorithm> gaType) {
+	public SketchCreateGaShapeFeatureWithGhost(IFeatureProvider fp, String name, String description, Class<? extends GraphicsAlgorithm> gaType) {
 		super(fp, name, description, gaType);
 	}
 
