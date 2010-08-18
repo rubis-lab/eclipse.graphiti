@@ -73,9 +73,11 @@ import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.editor.GFMarqueeSelectionTool;
+import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.clipboard.ModelClipboard;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.LocationInfo;
+import org.eclipse.swt.SWT;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.junit.Test;
 
@@ -107,9 +109,7 @@ public class GFPackageTests extends AbstractGFTests {
 	@Test
 	public void testGraphitiUiInternal() throws Exception {
 		org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(IPlatformImageConstants.IMG_DIAGRAM);
-		// FIXME
-		// GraphitiUiInternal.getUiService().createImage(imageForId,
-		// SWT.IMAGE_GIF);
+		GraphitiUiInternal.getUiService().createImage(imageForId, SWT.IMAGE_GIF);
 	}
 
 	@Test
