@@ -21,7 +21,6 @@ import java.util.List;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
 
-
 /**
  * The Class ContextButtonEntry.
  */
@@ -38,7 +37,7 @@ public class ContextButtonEntry extends AbstractContextEntry implements IContext
 	 *            the context button entry
 	 */
 	public void addContextButtonMenuEntry(IContextButtonEntry contextButtonEntry) {
-		contextButtonMenuEntries.add(contextButtonEntry);
+		this.contextButtonMenuEntries.add(contextButtonEntry);
 	}
 
 	/**
@@ -47,17 +46,18 @@ public class ContextButtonEntry extends AbstractContextEntry implements IContext
 	 * @return returns the menu features
 	 */
 	public List<IContextButtonEntry> getContextButtonMenuEntries() {
-		return contextButtonMenuEntries;
+		return this.contextButtonMenuEntries;
 	}
 
 	/**
-	 * add a drag and drop feature. gets triggered when you drag from the button and drop on an arbitrary part of the screen
+	 * add a drag and drop feature. gets triggered when you drag from the button
+	 * and drop on an arbitrary part of the screen
 	 * 
 	 * @param dragAndDropFeature
 	 *            the drag and drop feature
 	 */
 	public void addDragAndDropFeature(IFeature dragAndDropFeature) {
-		dragAndDropFeatures.add(dragAndDropFeature);
+		this.dragAndDropFeatures.add(dragAndDropFeature);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class ContextButtonEntry extends AbstractContextEntry implements IContext
 	 * @return returns the drag and drop features
 	 */
 	public List<IFeature> getDragAndDropFeatures() {
-		return dragAndDropFeatures;
+		return this.dragAndDropFeatures;
 	}
 
 	/**

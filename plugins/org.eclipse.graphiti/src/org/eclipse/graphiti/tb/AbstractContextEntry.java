@@ -21,7 +21,6 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
-import org.eclipse.graphiti.internal.services.GraphitiInternal;
 
 /**
  * The Class AbstractContextEntry.
@@ -39,7 +38,7 @@ public class AbstractContextEntry implements IContextEntry {
 	private String description;
 
 	/**
-	 * Instantiates a new abstract context entry.
+	 * Creates a new {@link AbstractContextEntry}.
 	 * 
 	 * @param feature
 	 *            the feature
@@ -54,11 +53,6 @@ public class AbstractContextEntry implements IContextEntry {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextEntry#canExecute()
-	 */
 	public boolean canExecute() {
 		if (getFeature() == null) {
 			return false;
@@ -66,11 +60,6 @@ public class AbstractContextEntry implements IContextEntry {
 		return getFeature().canExecute(getContext());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextEntry#execute()
-	 */
 	public void execute() {
 		GenericFeatureCommandWithContext genericFeatureCommandWithContext = new GenericFeatureCommandWithContext(getFeature(), getContext());
 		TransactionalEditingDomain editingDomain = getFeature().getFeatureProvider().getDiagramTypeProvider().getDiagramEditor()
@@ -78,40 +67,20 @@ public class AbstractContextEntry implements IContextEntry {
 		CommandExec.getSingleton().executeCommand(genericFeatureCommandWithContext, editingDomain);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextEntry#getContext()
-	 */
 	public IContext getContext() {
-		return context;
+		return this.context;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextEntry#getFeature()
-	 */
 	public IFeature getFeature() {
-		return feature;
+		return this.feature;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextEntry#getIconId()
-	 */
 	public String getIconId() {
-		return iconId;
+		return this.iconId;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextEntry#getText()
-	 */
 	public String getText() {
-		String ret = text;
+		String ret = this.text;
 		if (ret == null) {
 			IFeature f = getFeature();
 			if (f instanceof ICustomFeature) {
@@ -122,13 +91,8 @@ public class AbstractContextEntry implements IContextEntry {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextEntry#getDescription()
-	 */
 	public String getDescription() {
-		String ret = description;
+		String ret = this.description;
 		if (ret == null) {
 			IFeature f = getFeature();
 			if (f instanceof ICustomFeature) {
@@ -147,30 +111,14 @@ public class AbstractContextEntry implements IContextEntry {
 		this.feature = feature;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextEntry#setIconId(java.lang.String)
-	 */
 	public void setIconId(String iconId) {
 		this.iconId = iconId;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextEntry#setText(java.lang.String)
-	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IContextEntry#setDescription(java.lang.String)
-	 */
 	public void setDescription(String text) {
 		this.description = text;
 	}
