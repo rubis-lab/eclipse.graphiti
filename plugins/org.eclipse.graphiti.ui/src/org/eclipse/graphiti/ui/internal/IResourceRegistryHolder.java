@@ -20,5 +20,12 @@ package org.eclipse.graphiti.ui.internal;
  * @noextend This class is not intended to be subclassed by clients.
  */
 public interface IResourceRegistryHolder {
+	/**
+	 * Provides the resource registry.
+	 * 
+	 * @return the resource registry
+	 * 
+	 * @see org.eclipse.graphiti.ui.internal.IResourceRegistry
+	 */
 	IResourceRegistry getResourceRegistry();
 }

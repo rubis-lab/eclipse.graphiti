@@ -44,6 +44,8 @@ public class ResourceRegistry implements IResourceRegistry {
 	 * @param blue
 	 *            the amount of blue in the color
 	 * @return a SWT color
+	 * 
+	 * @see org.eclipse.swt.graphics.Color
 	 */
 	public Color getSwtColor(int red, int green, int blue) {
 		RGB rgb = new RGB(red, green, blue);
@@ -81,6 +83,8 @@ public class ResourceRegistry implements IResourceRegistry {
 	 * @param hexRGBString
 	 *            The RGB values in hexadecimal format.
 	 * @return a SWT color
+	 * 
+	 * @see org.eclipse.swt.graphics.Color
 	 */
 	public Color getSwtColor(String hexRGBString) {
 		return getSwtColor(ColorUtil.getRedFromHex(hexRGBString), ColorUtil.getGreenFromHex(hexRGBString), ColorUtil

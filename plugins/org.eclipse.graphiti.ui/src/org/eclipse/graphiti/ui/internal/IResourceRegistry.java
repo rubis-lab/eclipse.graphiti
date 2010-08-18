@@ -22,7 +22,25 @@ import org.eclipse.swt.graphics.Color;
  * @noextend This class is not intended to be subclassed by clients.
  */
 public interface IResourceRegistry extends IDisposable {
+	/**
+	 * Provides a SWT color instance with the given RGB values.
+	 * 
+	 * @param red the value for the red part of the color
+	 * @param green the value for the green part of the color
+	 * @param blue the value for the blue part of the color
+	 * 
+	 * @return a SWT color instance
+	 * 
+	 * @see org.eclipse.swt.graphics.Color
+	 */
 	Color getSwtColor(int red, int green, int blue);
 
+	/**
+	 * @param hexRGBString
+
+	 * @return a SWT color instance
+	 * 
+	 * @see org.eclipse.swt.graphics.Color
+	 */
 	Color getSwtColor(String hexRGBString);
 }

@@ -30,6 +30,13 @@ public class ResourceManager implements IResourceManager {
 
 	private HashMap<Object, List<Resource>> map = new HashMap<Object, List<Resource>>();
 
+	/**
+	 * Provides the resource manager.
+	 * 
+	 * @return the resource manager
+	 * 
+	 * @see org.eclipse.graphiti.ui.internal.IResourceManager
+	 */
 	public static IResourceManager getResourceManager() {
 		if (singleton == null) {
 			singleton = new ResourceManager();
