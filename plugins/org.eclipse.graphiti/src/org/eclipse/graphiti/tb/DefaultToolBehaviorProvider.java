@@ -95,7 +95,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	private IDiagramTypeProvider diagramTypeProvider;
 
 	/**
-	 * Instantiates a new default tool behavior provider.
+	 * Creates a new {@link DefaultToolBehaviorProvider}.
 	 * 
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
@@ -105,43 +105,17 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		setDiagramTypeProvider(diagramTypeProvider);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#dispose()
-	 */
 	public void dispose() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#getAdapter(java.lang.Class)
-	 */
 	public Object getAdapter(Class<?> type) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#getAlternativeSelection
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement,
-	 * org.eclipse.graphiti.mm.pictograms.PictogramElement[])
-	 */
 	public PictogramElement getAlternativeSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#getConnectionSelectionInfo
-	 * (org.eclipse.graphiti.mm.pictograms.Connection)
-	 */
 	public ISelectionInfo getConnectionSelectionInfo(Connection connection) {
 		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.CONNECTION_SELECTION_FG, IColorConstant.HANDLE_FG,
 				IColorConstant.HANDLE_BG, LineStyle.DASH);
@@ -154,10 +128,13 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * to the selection graphics algorithm or the pictogram element (see
 	 * {@link #getSelectionGraphicsAlgorithm(PictogramElement)}) or if not
 	 * defined to the graphics algorithm associated directly the pictogram
-	 * element. Note, that the pad-location must be given in absolute
-	 * coordinates, which can be calculated using
-	 * {@link #getAbsoluteLocation(GraphicsAlgorithm)}.
+	 * element.
 	 * 
+	 * Note, that the pad-location must be given in absolute coordinates, which
+	 * can be calculated using {@link #getAbsoluteLocation(GraphicsAlgorithm)}.
+	 * 
+	 * @param pe
+	 *            the given pictogram element
 	 * @return The context button pad data for the given pictogram element
 	 *         context.
 	 */
@@ -280,13 +257,6 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#getContextMenu(org.eclipse
-	 * .graphiti.features.context.IContext)
-	 */
 	public IContextMenuEntry[] getContextMenu(IContext context) {
 		final String SIGNATURE = "getContextMenu(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -315,25 +285,10 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#
-	 * getDefaultLocationInfoForDirectEditing
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement,
-	 * org.eclipse.graphiti.util.ILocationInfo)
-	 */
 	public ILocationInfo getDefaultLocationInfoForDirectEditing(PictogramElement pe, ILocationInfo locationInfo) {
 		return locationInfo;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#getDoubleClickFeature(org
-	 * .eclipse.graphiti.features.context.IDoubleClickContext)
-	 */
 	public ICustomFeature getDoubleClickFeature(IDoubleClickContext context) {
 		return null;
 	}
@@ -399,72 +354,34 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return res;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#getRenderingDecorators(
-	 * org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	public IRenderingDecorator[] getRenderingDecorators(PictogramElement pe) {
 		return NO_RENDERING_DECORATORS;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#getShapeSelectionInfo(org
-	 * .eclipse.graphiti.mm.pictograms.Shape)
-	 */
 	public ISelectionInfo getShapeSelectionInfo(Shape shape) {
 		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.SHAPE_SELECTION_FG, IColorConstant.HANDLE_FG, IColorConstant.HANDLE_BG,
 				LineStyle.DASH);
 		return si;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getZoomLevels()
-	 */
 	public double[] getZoomLevels() {
 		return ZOOM_LEVELS;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#getDiagramScrollingBehavior
-	 * ()
-	 * 
+	/**
 	 * @deprecated Scroll bar based infinite canvas is a workaround for Bug
-	 * 195527 and can be harmed by GEF modifications. It will be removed then
+	 *             195527 and can be harmed by GEF modifications. It will be
+	 *             removed then
 	 */
 	@Deprecated
 	public DiagramScrollingBehavior getDiagramScrollingBehavior() {
 		return DiagramScrollingBehavior.GEF_DEFAULT;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#isPaletteApplicable(org
-	 * .eclipse.graphiti.features.IFeature)
-	 */
 	public boolean isPaletteApplicable(IFeature feature) {
-		return (feature instanceof ICreateFeature);
+		return feature instanceof ICreateFeature;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#isToolbarApplicable(org
-	 * .eclipse.graphiti.features.IFeature)
-	 */
 	public boolean isToolbarApplicable(IFeature feature) {
 		return false;
 	}
@@ -479,7 +396,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * @return the diagram type provider
 	 */
 	protected IDiagramTypeProvider getDiagramTypeProvider() {
-		return diagramTypeProvider;
+		return this.diagramTypeProvider;
 	}
 
 	/**
@@ -502,23 +419,9 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#preExecute(org.eclipse.
-	 * graphiti.ei.IExecutionInfo)
-	 */
 	public void preExecute(IExecutionInfo executionInfo) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#postExecute(org.eclipse
-	 * .graphiti.ei.IExecutionInfo)
-	 */
 	public void postExecute(IExecutionInfo executionInfo) {
 	}
 
@@ -526,7 +429,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * Gets the tool tip.
 	 * 
 	 * @param ga
-	 *            the ga
+	 *            the graphics algorithm
 	 * @return the tool tip
 	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getToolTip(org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm)
 	 */
@@ -538,7 +441,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * Gets the selection graphics algorithm.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 * @return the selection graphics algorithm
 	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getSelectionGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
@@ -550,7 +453,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * Gets the selection area.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 * @return the selection area
 	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getSelectionArea(org.eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
@@ -562,22 +465,10 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return new GraphicsAlgorithm[0];
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.tb.IToolBehaviorProvider#
-	 * getChopboxAnchorGraphicsAlgorithm
-	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	public GraphicsAlgorithm getChopboxAnchorGraphicsAlgorithm(PictogramElement pe) {
 		return pe.getGraphicsAlgorithm();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getTitleToolTip()
-	 */
 	public String getTitleToolTip() {
 		return null;
 	}
@@ -590,14 +481,9 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#getContentGraphicsAlgorithm
-	 * (org.eclipse.graphiti.mm.pictograms.ContainerShape) Default
-	 * implementation returns null which is interpreted by framework as the
-	 * master graphics algorithm for the container shape
+	/**
+	 * Default implementation returns null which is interpreted by framework as
+	 * the master graphics algorithm for the container shape
 	 */
 	public GraphicsAlgorithm getContentGraphicsAlgorithm(ContainerShape cs) {
 		return null;
@@ -612,24 +498,11 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#isMultiSelectionEnabled()
-	 */
 	@Override
 	public boolean isMultiSelectionEnabled() {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.tb.IToolBehaviorProvider#isConnectionSelectionEnabled
-	 * ()
-	 */
 	@Override
 	public boolean isConnectionSelectionEnabled() {
 		return true;
