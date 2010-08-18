@@ -24,226 +24,235 @@ package org.eclipse.graphiti.util;
 public interface IColorConstant {
 
 	/**
-	 * some pre-defined colors.
+	 * The "white" color.
 	 */
 	IColorConstant WHITE = new ColorConstant(255, 255, 255);
 
 	/**
-	 * The LIGH t_ ligh t_ gray.
+	 * The "light light gray" color.
 	 */
 	IColorConstant LIGHT_LIGHT_GRAY = new ColorConstant(250, 250, 250);
 
 	/**
-	 * The LIGH t_ gray.
+	 * The "light gray" color.
 	 */
 	IColorConstant LIGHT_GRAY = new ColorConstant(192, 192, 192);
 
 	/**
-	 * The GRAY.
+	 * The "gray" color.
 	 */
 	IColorConstant GRAY = new ColorConstant(128, 128, 128);
 
 	/**
-	 * The DAR k_ gray.
+	 * The "dark gray" color.
 	 */
 	IColorConstant DARK_GRAY = new ColorConstant(64, 64, 64);
 
 	/**
-	 * The BLACK.
+	 * The "black" color.
 	 */
 	IColorConstant BLACK = new ColorConstant(0, 0, 0);
 
 	/**
-	 * The RED.
+	 * The "red" color.
 	 */
 	IColorConstant RED = new ColorConstant(255, 0, 0);
 
 	/**
-	 * The ORANGE.
+	 * The "orange" color.
 	 */
 	IColorConstant ORANGE = new ColorConstant(255, 196, 0);
 
 	/**
-	 * The YELLOW.
+	 * The "yellow" color.
 	 */
 	IColorConstant YELLOW = new ColorConstant(255, 255, 0);
 
 	/**
-	 * The GREEN.
+	 * The "green" color.
 	 */
 	IColorConstant GREEN = new ColorConstant(0, 255, 0);
 
 	/**
-	 * The LIGH t_ green.
+	 * The "light green" color.
 	 */
 	IColorConstant LIGHT_GREEN = new ColorConstant(96, 255, 96);
 
 	/**
-	 * The DAR k_ green.
+	 * The "dark green" color.
 	 */
 	IColorConstant DARK_GREEN = new ColorConstant(0, 127, 0);
 
 	/**
-	 * The CYAN.
+	 * The "cyan" color.
 	 */
 	IColorConstant CYAN = new ColorConstant(0, 255, 255);
 
 	/**
-	 * The LIGH t_ blue.
+	 * The "light blue" color.
 	 */
 	IColorConstant LIGHT_BLUE = new ColorConstant(127, 127, 255);
 
 	/**
-	 * The BLUE.
+	 * The "blue" color.
 	 */
 	IColorConstant BLUE = new ColorConstant(0, 0, 255);
 
 	/**
-	 * The DAR k_ blue.
+	 * The "dark blue" color.
 	 */
 	IColorConstant DARK_BLUE = new ColorConstant(0, 0, 127);
-
+	//
 	// === Colors aligned with Visual Composer ===
-
+	//
 	// Color Style: BLUE
+	//
 	/**
-	 * The V c_ ver y_ ligh t_ blue.
+	 * The "Visual Composer very light blue" color.
 	 */
 	IColorConstant VC_VERY_LIGHT_BLUE = new ColorConstant(245, 247, 250);
 
 	/**
-	 * The V c_ ligh t_ blue.
+	 * The "Visual Composer light blue" color.
 	 */
 	IColorConstant VC_LIGHT_BLUE = new ColorConstant(224, 231, 247);
 
 	/**
-	 * The V c_ mediu m_ blue.
+	 * The "Visual Composer medium blue" color.
 	 */
 	IColorConstant VC_MEDIUM_BLUE = new ColorConstant(176, 192, 216);
 
 	/**
-	 * The V c_ dar k_ blue.
+	 * The "Visual Composer dark blue" color.
 	 */
 	IColorConstant VC_DARK_BLUE = new ColorConstant(51, 102, 153);
-
+	//
 	// Color Style: GREY
+	//
 	/**
-	 * The V c_ ligh t_ grey.
+	 * The "Visual Composer light gray" color.
 	 */
 	IColorConstant VC_LIGHT_GREY = new ColorConstant(221, 221, 221);
 
 	/**
-	 * The V c_ mediu m_ grey.
+	 * The "Visual Composer medium gray" color.
 	 */
 	IColorConstant VC_MEDIUM_GREY = new ColorConstant(178, 178, 178);
 
 	/**
-	 * The V c_ dar k_ grey.
+	 * The "Visual Composer dark gray" color.
 	 */
 	IColorConstant VC_DARK_GREY = new ColorConstant(77, 77, 77);
-
+	//
 	// Color Style: PURPLE
+	//
 	/**
-	 * The V c_ ligh t_ purple.
+	 * The "Visual Composer light purple" color.
 	 */
 	IColorConstant VC_LIGHT_PURPLE = new ColorConstant(242, 242, 255);
 
 	/**
-	 * The V c_ mediu m_ purple.
+	 * The "Visual Composer medium purple" color.
 	 */
 	IColorConstant VC_MEDIUM_PURPLE = new ColorConstant(223, 223, 255);
 
 	/**
-	 * The V c_ dar k_ purple.
+	 * The "Visual Composer dark purple" color.
 	 */
 	IColorConstant VC_DARK_PURPLE = new ColorConstant(139, 157, 213);
-
+	//
 	// Color Style: GREEN
+	//
 	/**
-	 * The V c_ ver y_ ligh t_ green.
+	 * The "Visual Composer very light green" color.
 	 */
 	IColorConstant VC_VERY_LIGHT_GREEN = new ColorConstant(242, 247, 242);
 
 	/**
-	 * The V c_ ligh t_ green.
+	 * The "Visual Composer light green" color.
 	 */
 	IColorConstant VC_LIGHT_GREEN = new ColorConstant(179, 217, 179);
 
 	/**
-	 * The V c_ mediu m_ green.
+	 * The "Visual Composer medium green" color.
 	 */
 	IColorConstant VC_MEDIUM_GREEN = new ColorConstant(111, 149, 111);
 
 	/**
-	 * The V c_ dar k_ green.
+	 * The "Visual Composer dark green" color.
 	 */
 	IColorConstant VC_DARK_GREEN = new ColorConstant(0, 102, 0);
-
+	//
 	// Color Style: BROWN
+	//
 	/**
-	 * The V c_ ligh t_ brown.
+	 * The "Visual Composer light brown" color.
 	 */
 	IColorConstant VC_LIGHT_BROWN = new ColorConstant(213, 214, 189);
 
 	/**
-	 * The V c_ mediu m_ brown.
+	 * The "Visual Composer medium brown" color.
 	 */
 	IColorConstant VC_MEDIUM_BROWN = new ColorConstant(162, 149, 126);
 
 	/**
-	 * The V c_ dar k_ brown.
+	 * The "Visual Composer dark brown" color.
 	 */
 	IColorConstant VC_DARK_BROWN = new ColorConstant(147, 128, 88);
-
+	//
 	// Color Style: ORANGE
+	//
 	/**
-	 * The V c_ ligh t_ orange.
+	 * The "Visual Composer light orange" color.
 	 */
 	IColorConstant VC_LIGHT_ORANGE = new ColorConstant(252, 207, 153);
 
 	/**
-	 * The V c_ mediu m_ orange.
+	 * The "Visual Composer medium orange" color.
 	 */
 	IColorConstant VC_MEDIUM_ORANGE = new ColorConstant(255, 153, 51);
 
 	/**
-	 * The V c_ dar k_ orange.
+	 * The "Visual Composer dark orange" color.
 	 */
 	IColorConstant VC_DARK_ORANGE = new ColorConstant(187, 102, 0);
-
+	//
 	// Color Style: BEIGE
+	//
 	/**
-	 * The V c_ ligh t_ beige.
+	 * The "Visual Composer light beige" color.
 	 */
 	IColorConstant VC_LIGHT_BEIGE = new ColorConstant(255, 238, 221);
 
 	/**
-	 * The V c_ mediu m_ beige.
+	 * The "Visual Composer medium beige" color.
 	 */
 	IColorConstant VC_MEDIUM_BEIGE = new ColorConstant(255, 219, 181);
 
 	/**
-	 * The V c_ dar k_ beige.
+	 * The "Visual Composer dark beige" color.
 	 */
 	IColorConstant VC_DARK_BEIGE = new ColorConstant(254, 192, 164);
-
+	//
 	// Color Style: GREYISH-BLUE
+	//
 	/**
-	 * The V c_ ligh t_ greyis h_ blue.
+	 * The "Visual Composer light greyish blue" color.
 	 */
 	IColorConstant VC_LIGHT_GREYISH_BLUE = new ColorConstant(222, 231, 239);
 
 	/**
-	 * The V c_ mediu m_ greyis h_ blue.
+	 * The "Visual Composer medium greyish blue" color.
 	 */
 	IColorConstant VC_MEDIUM_GREYISH_BLUE = new ColorConstant(199, 208, 217);
 
 	/**
-	 * The V c_ dar k_ greyis h_ blue.
+	 * The "Visual Composer dark greyish blue" color.
 	 */
 	IColorConstant VC_DARK_GREYISH_BLUE = new ColorConstant(113, 131, 152);
-
+	//
 	// selection and selection handles
+	//
 	/**
 	 * The handle foreground color.
 	 */
