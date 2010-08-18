@@ -116,7 +116,7 @@ public interface IToolBehaviorProvider {
 	 * Gets the rendering decorators.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 * @return the rendering decorators
 	 */
 	IRenderingDecorator[] getRenderingDecorators(PictogramElement pe);
@@ -134,7 +134,7 @@ public interface IToolBehaviorProvider {
 	 * Override this method if you want to change the selection on mouse click.
 	 * 
 	 * @param originalPe
-	 *            the original pe
+	 *            the original pictogram element
 	 * @param oldSelection
 	 *            the old selection
 	 * @return the active PE to be selected instead; return null if there should
@@ -195,10 +195,11 @@ public interface IToolBehaviorProvider {
 	 * framework cannot decide this.
 	 * 
 	 * @param pe
-	 *            the active and selected PE
+	 *            the active and selected pictogram element
 	 * @param locationInfo
 	 *            the location info
-	 * @return the default location info for the given selected PE
+	 * @return the default location info for the given selected pictogram
+	 *         element
 	 */
 	ILocationInfo getDefaultLocationInfoForDirectEditing(PictogramElement pe, ILocationInfo locationInfo);
 
@@ -219,7 +220,7 @@ public interface IToolBehaviorProvider {
 	void postExecute(IExecutionInfo executionInfo);
 
 	/**
-	 * Returns tooltip to be attached to GA.
+	 * Returns tooltip to be attached to graphics algorithm.
 	 * 
 	 * @param graphicsAlgorithm
 	 *            the graphics algorithm
@@ -228,11 +229,11 @@ public interface IToolBehaviorProvider {
 	String getToolTip(GraphicsAlgorithm graphicsAlgorithm);
 
 	/**
-	 * The provided GA will define the selection border and the rectangle the
-	 * context buttons appear at.
+	 * The provided graphics algorithm will define the selection border and the
+	 * rectangle the context buttons appear at.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 * @return the selection graphics algorithm
 	 */
 	GraphicsAlgorithm getSelectionGraphicsAlgorithm(PictogramElement pe);
@@ -243,7 +244,7 @@ public interface IToolBehaviorProvider {
 	 * not make sense for other types of GAs.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 * @return the graphics algorithm acting as technical container
 	 */
 	GraphicsAlgorithm getContentGraphicsAlgorithm(ContainerShape cs);
@@ -252,14 +253,14 @@ public interface IToolBehaviorProvider {
 	 * Provides GAs that can be clicked to make the shape selected.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 * @return the selection area
 	 */
 	GraphicsAlgorithm[] getSelectionArea(PictogramElement pe);
 
 	/**
-	 * Provides the GA that defines the outline for the given PE's chopbox
-	 * Anchor.
+	 * Provides the GA that defines the outline for the given pictogram
+	 * element's chopbox Anchor.
 	 * 
 	 * @param pe
 	 *            the given pictogram element

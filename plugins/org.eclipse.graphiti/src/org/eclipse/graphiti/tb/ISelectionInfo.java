@@ -71,7 +71,7 @@ public interface ISelectionInfo {
 	LineStyle getLineStyle();
 
 	/**
-	 * set the color of the selection.
+	 * Set the color of the selection.
 	 * 
 	 * @param color
 	 *            the color
@@ -95,7 +95,7 @@ public interface ISelectionInfo {
 	void setHoverColorParentSelected(IColorConstant hoverColor);
 
 	/**
-	 * set the foreground color of the selection handle.
+	 * Set the foreground color of the selection handle.
 	 * 
 	 * @param color
 	 *            the color
@@ -103,7 +103,7 @@ public interface ISelectionInfo {
 	void setHandleForegroundColor(IColorConstant color);
 
 	/**
-	 * set the background color of the selection handle.
+	 * Set the background color of the selection handle.
 	 * 
 	 * @param color
 	 *            the color
@@ -111,7 +111,7 @@ public interface ISelectionInfo {
 	void setHandleBackgroundColor(IColorConstant color);
 
 	/**
-	 * set the line style of the selection.
+	 * Set the line style of the selection.
 	 * 
 	 * @param lineStyle
 	 *            the line style

@@ -21,6 +21,7 @@ import org.eclipse.graphiti.datatypes.ILocation;
  * The Class ImageRenderingDecorator.
  */
 public class ImageRenderingDecorator extends AbstractRenderingDecorator implements ILocation {
+
 	private static final int DEFAULT_LOCATION = 4;
 
 	private String imageId;
@@ -30,7 +31,7 @@ public class ImageRenderingDecorator extends AbstractRenderingDecorator implemen
 	private int x = DEFAULT_LOCATION;
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link ImageRenderingDecorator}.
 	 * 
 	 * @param imageId
 	 *            the image id
@@ -46,41 +47,21 @@ public class ImageRenderingDecorator extends AbstractRenderingDecorator implemen
 	 * @return the image id
 	 */
 	public String getImageId() {
-		return imageId;
+		return this.imageId;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.datatypes.ILocation#getX()
-	 */
 	public int getX() {
-		return x;
+		return this.x;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.datatypes.ILocation#getY()
-	 */
 	public int getY() {
-		return y;
+		return this.y;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.datatypes.ILocation#setX(int)
-	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.datatypes.ILocation#setY(int)
-	 */
 	public void setY(int y) {
 		this.y = y;
 	}
