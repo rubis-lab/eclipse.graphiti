@@ -49,6 +49,7 @@ import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.graphiti.ui.internal.policy.ShapeXYLayoutEditPolicy;
+import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
@@ -285,14 +286,13 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				Robot r;
-				try {
-					r = new Robot();
 					Point p = getOrigin(ed);
-					r.mouseMove(p.x + 35, p.y + 35);
-				} catch (AWTException e) {
-					e.printStackTrace();
-				}
+					Display display = GraphitiUiInternal.getWorkbenchService().getShell().getDisplay();
+					Event event = createMouseEvent(p.x + 35, p.y + 35, 0, 0, 0);
+					event.type = SWT.MouseMove;
+					event.widget = diagramEditor.getGraphicalViewer().getControl();
+					event.display = display;
+					display.post(event);
 			}
 		});
 		Thread.sleep(2000);
@@ -306,9 +306,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				org.eclipse.draw2d.geometry.Point mouseLocation = diagramEditor
 						.calculateRealMouseLocation(diagramEditor.getMouseLocation());
 				boolean mouseIsInsideShape = rectangle.contains(mouseLocation);
-				// FIXME
-				// assertEquals(" Wrong mouse coordinates :  ", true,
-				// mouseIsInsideShape);
+				assertEquals(" Wrong mouse coordinates :  ", true, mouseIsInsideShape);
 				break;
 			}
 		}
@@ -1007,5 +1005,16 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					ed.activateTool(toolToActivate);
 			}
 		});
+	}
+
+	protected Event createMouseEvent(int x, int y, int button, int stateMask, int count) {
+		Event event = new Event();
+		event.time = (int) System.currentTimeMillis();
+		event.x = x;
+		event.y = y;
+		event.button = button;
+		event.stateMask = stateMask;
+		event.count = count;
+		return event;
 	}
 }
