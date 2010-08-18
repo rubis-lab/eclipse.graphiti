@@ -28,7 +28,7 @@ public class LocationInfo implements ILocationInfo {
 	private GraphicsAlgorithm graphicsAlgorithm;
 
 	/**
-	 * Constructs a new instance of LocationInfo with given shape and graphics
+	 * Creates a new {@link LocationInfo} with given shape and graphics
 	 * algorithm.
 	 * 
 	 * @param shape
@@ -42,10 +42,10 @@ public class LocationInfo implements ILocationInfo {
 	}
 
 	public Shape getShape() {
-		return shape;
+		return this.shape;
 	}
 
 	public GraphicsAlgorithm getGraphicsAlgorithm() {
-		return graphicsAlgorithm;
+		return this.graphicsAlgorithm;
 	}
 }
