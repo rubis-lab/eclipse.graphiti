@@ -17,7 +17,7 @@ package org.eclipse.graphiti.ui.internal.services;
 
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.graphics.ImageData;
 
 /**
  * @noimplement This interface is not intended to be implemented by clients.
@@ -56,7 +56,7 @@ public interface IUiService {
 	 * @throws Exception
 	 *             If the image has more than 256 colors (not supported yet).
 	 */
-	public abstract Image create8BitIndexedPaletteImage(Image image) throws Exception;
+	public abstract ImageData create8BitIndexedPaletteImage(Image image) throws Exception;
 
 	/**
 	 * Start the procedure to save the given GraphicalViewer as an image:

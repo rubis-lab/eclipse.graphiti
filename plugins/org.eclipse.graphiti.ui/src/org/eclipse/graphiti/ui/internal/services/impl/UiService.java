@@ -58,14 +58,18 @@ public class UiService implements IUiService {
 		ByteArrayOutputStream result = new ByteArrayOutputStream();
 
 		try {
+			ImageData imDat = null;
 			// at the moment saving as GIF is only working if not more than 256
 			// colors are used in the figure
 			if (format == SWT.IMAGE_GIF) {
-				image = create8BitIndexedPaletteImage(image);
+				imDat = create8BitIndexedPaletteImage(image);
 			}
 
+			if (imDat == null)
+				imDat = image.getImageData();
+
 			ImageLoader imageLoader = new ImageLoader();
-			imageLoader.data = new ImageData[] { image.getImageData() };
+			imageLoader.data = new ImageData[] { imDat };
 			try {
 				imageLoader.save(result, format);
 			} catch (SWTException e) {
@@ -82,7 +86,7 @@ public class UiService implements IUiService {
 	}
 
 	@Override
-	public Image create8BitIndexedPaletteImage(Image image) throws Exception {
+	public ImageData create8BitIndexedPaletteImage(Image image) throws Exception {
 		int upperboundWidth = image.getBounds().width;
 		int upperboundHeight = image.getBounds().height;
 		ImageData imageData = image.getImageData();
@@ -127,9 +131,7 @@ public class UiService implements IUiService {
 			}
 		}
 
-		// create new Image
-		image = new Image(null, newImageData);
-		return image;
+		return newImageData;
 	}
 
 	@Override
