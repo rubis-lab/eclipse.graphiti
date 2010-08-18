@@ -27,9 +27,9 @@ public class ColorConstant implements IColorConstant {
 	private int blue;
 
 	/**
-	 * Constructs a new instance of this class given the desired red, green and
-	 * blue values expressed as ints in the range 0 to 255 (where 0 is black and
-	 * 255 is full brightness).
+	 * Creates a new {@link ColorConstant} given the desired red, green and blue
+	 * values expressed as ints in the range 0 to 255 (where 0 is black and 255
+	 * is full brightness).
 	 * 
 	 * @param red
 	 *            the amount of red in the color
