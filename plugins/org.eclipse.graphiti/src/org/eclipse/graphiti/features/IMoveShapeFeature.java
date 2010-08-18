@@ -23,6 +23,8 @@ import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
 import org.eclipse.graphiti.func.IMoveShape;
 
 /**
+ * The Interface IMoveShapeFeature.
+ * 
  * Moving shapes means to change their coordinates or/and their parent.
  * 
  * @noextend This interface is not intended to be extended by clients.
