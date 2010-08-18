@@ -31,18 +31,22 @@ public class GraphitiUi {
 	final private static IImageService imageService = new ImageService();
 
 	/**
-	 * Gets the extension manager.
+	 * Provides the extension manager.
 	 * 
 	 * @return the extension manager
+	 * 
+	 * @see org.eclipse.graphiti.ui.services.IExtensionManager
 	 */
 	public static IExtensionManager getExtensionManager() {
 		return ExtensionManager.getSingleton();
 	}
 
 	/**
-	 * Gets the image service
+	 * Provides the image service.
 	 * 
 	 * @return the image service
+	 * 
+	 * @see org.eclipse.graphiti.ui.services.IImageService
 	 */
 	public static IImageService getImageService() {
 		return imageService;

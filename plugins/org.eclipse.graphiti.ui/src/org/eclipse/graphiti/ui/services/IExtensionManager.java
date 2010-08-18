@@ -61,6 +61,8 @@ public interface IExtensionManager {
 	 *            the provider id
 	 * 
 	 * @return new instance of a diagram type provider
+	 * 
+	 * @see org.eclipse.graphiti.dt.IDiagramTypeProvider
 	 */
 	IDiagramTypeProvider createDiagramTypeProvider(String providerId);
 
@@ -68,6 +70,8 @@ public interface IExtensionManager {
 	 * Gets all the registered diagram types.
 	 * 
 	 * @return the registered diagram types
+	 * 
+	 * @see org.eclipse.graphiti.dt.IDiagramType
 	 */
 	IDiagramType[] getDiagramTypes();
 
@@ -81,6 +85,8 @@ public interface IExtensionManager {
 	 *            The diagram on which the diagram type provider will work
 	 * 
 	 * @return new instance of a feature provider
+	 * 
+	 * @see org.eclipse.graphiti.features.IFeatureProvider
 	 */
 	IFeatureProvider createFeatureProvider(Diagram diagram);
 
@@ -96,6 +102,8 @@ public interface IExtensionManager {
 	 *            Id of the diagram type provider which should be used
 	 * 
 	 * @return new instance of a diagram type provider
+	 * 
+	 * @see org.eclipse.graphiti.dt.IDiagramTypeProvider
 	 */
 	IDiagramTypeProvider createDiagramTypeProvider(Diagram diagram, String providerId);
 }
