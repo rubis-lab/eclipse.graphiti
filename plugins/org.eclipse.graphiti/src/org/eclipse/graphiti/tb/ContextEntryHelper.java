@@ -31,8 +31,17 @@ import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 
+/**
+ * The Class ContextEntryHelper.
+ */
 public class ContextEntryHelper {
 
+	/**
+	 * Marks the given context entry with update figure.
+	 * 
+	 * @param entry
+	 *            the context entry
+	 */
 	public static void markAsUpdateContextEntry(IContextEntry entry) {
 		if (entry != null) {
 			entry.setText(Messages.ContextEntryHelper_0_xfld);
@@ -41,6 +50,12 @@ public class ContextEntryHelper {
 		}
 	}
 
+	/**
+	 * Marks the given context entry with remove figure from diagram.
+	 * 
+	 * @param entry
+	 *            the context entry
+	 */
 	public static void markAsRemoveContextEntry(IContextEntry entry) {
 		if (entry != null) {
 			entry.setText(Messages.ContextEntryHelper_2_xfld);
@@ -49,6 +64,12 @@ public class ContextEntryHelper {
 		}
 	}
 
+	/**
+	 * Marks the given context entry with delete from model.
+	 * 
+	 * @param entry
+	 *            the context entry
+	 */
 	public static void markAsDeleteContextEntry(IContextEntry entry) {
 		if (entry != null) {
 			entry.setText(Messages.ContextEntryHelper_4_xfld);
@@ -57,6 +78,14 @@ public class ContextEntryHelper {
 		}
 	}
 
+	/**
+	 * Marks the given context entry with collapse or expand figure.
+	 * 
+	 * @param entry
+	 *            the context entry
+	 * @param collapse
+	 *            mark with collapse when true, otherwise with expand
+	 */
 	public static void markAsCollapseContextEntry(IContextEntry entry, boolean collapse) {
 		if (entry != null) {
 			if (collapse) {
@@ -71,6 +100,15 @@ public class ContextEntryHelper {
 		}
 	}
 
+	/**
+	 * Creates an default update context button entry.
+	 * 
+	 * @param featureProvider
+	 *            the feature provider
+	 * @param pe
+	 *            the pictogram element
+	 * @return the created default update context button entry
+	 */
 	public static IContextButtonEntry createDefaultUpdateContextButton(IFeatureProvider featureProvider, PictogramElement pe) {
 		final IUpdateContext updateContext = new UpdateContext(pe);
 		final IUpdateFeature updateFeature = featureProvider.getUpdateFeature(updateContext);
@@ -87,6 +125,15 @@ public class ContextEntryHelper {
 		return ret;
 	}
 
+	/**
+	 * Creates an default remove context button entry.
+	 * 
+	 * @param featureProvider
+	 *            the feature provider
+	 * @param pe
+	 *            the pictogram element
+	 * @return the created default remove context button entry
+	 */
 	public static IContextButtonEntry createDefaultRemoveContextButton(IFeatureProvider featureProvider, PictogramElement pe) {
 		IRemoveContext removeContext = new RemoveContext(pe);
 		IRemoveFeature removeFeature = featureProvider.getRemoveFeature(removeContext);
@@ -98,6 +145,15 @@ public class ContextEntryHelper {
 		return ret;
 	}
 
+	/**
+	 * Creates an default delete context button entry.
+	 * 
+	 * @param featureProvider
+	 *            the feature provider
+	 * @param pe
+	 *            the pictogram element
+	 * @return the created default delete context button entry
+	 */
 	public static IContextButtonEntry createDefaultDeleteContextButton(IFeatureProvider featureProvider, PictogramElement pe) {
 		IDeleteContext deleteContext = new DeleteContext(pe);
 		IDeleteFeature deleteFeature = featureProvider.getDeleteFeature(deleteContext);
@@ -109,6 +165,19 @@ public class ContextEntryHelper {
 		return ret;
 	}
 
+	/**
+	 * Creates collapse button entry or expand button entry as indicated by
+	 * parameter collapse.
+	 * 
+	 * @param collapse
+	 *            creates a collapse button entry when true, otherwise a expand
+	 *            button entry
+	 * @param customFeature
+	 *            the custom feature
+	 * @param customContext
+	 *            the custom context
+	 * @return
+	 */
 	public static IContextButtonEntry createCollapseContextButton(boolean collapse, IFeature customFeature, IContext customContext) {
 		IContextButtonEntry ret = null;
 		ret = new ContextButtonEntry(customFeature, customContext);
