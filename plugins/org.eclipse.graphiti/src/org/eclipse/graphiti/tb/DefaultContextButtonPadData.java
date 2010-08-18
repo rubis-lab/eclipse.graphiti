@@ -21,11 +21,12 @@ import java.util.List;
 import org.eclipse.graphiti.datatypes.IRectangle;
 import org.eclipse.graphiti.internal.datatypes.impl.RectangleImpl;
 
-
 /**
- * A very simple implementation of {@link IContextButtonPadData} without any real functionality.
+ * A very simple implementation of {@link IContextButtonPadData} without any
+ * real functionality.
  * 
- * This class is not intended to be instanciated by customers.
+ * @noinstantiate This class is not intended to be instantiated by clients.
+ * @noextend This class is not intended to be subclassed by clients.
  */
 public class DefaultContextButtonPadData implements IContextButtonPadData {
 
@@ -36,25 +37,23 @@ public class DefaultContextButtonPadData implements IContextButtonPadData {
 
 	/**
 	 * Creates a new {@link DefaultContextButtonPadData}.
-	 * 
-	 * This class is not intended to be instanciated by customers.
 	 */
 	public DefaultContextButtonPadData() {
-		genericContextButtons = new ArrayList<IContextButtonEntry>();
-		domainSpecificContextButtons = new ArrayList<IContextButtonEntry>();
-		location = new RectangleImpl(0, 0, 0, 0);
+		this.genericContextButtons = new ArrayList<IContextButtonEntry>();
+		this.domainSpecificContextButtons = new ArrayList<IContextButtonEntry>();
+		this.location = new RectangleImpl(0, 0, 0, 0);
 	}
 
 	public List<IContextButtonEntry> getGenericContextButtons() {
-		return genericContextButtons;
+		return this.genericContextButtons;
 	}
 
 	public List<IContextButtonEntry> getDomainSpecificContextButtons() {
-		return domainSpecificContextButtons;
+		return this.domainSpecificContextButtons;
 	}
 
 	public IContextButtonEntry getCollapseContextButton() {
-		return collapseContextButton;
+		return this.collapseContextButton;
 	}
 
 	public void setCollapseContextButton(IContextButtonEntry collapseContextButton) {
@@ -62,6 +61,6 @@ public class DefaultContextButtonPadData implements IContextButtonPadData {
 	}
 
 	public IRectangle getPadLocation() {
-		return location;
+		return this.location;
 	}
 }

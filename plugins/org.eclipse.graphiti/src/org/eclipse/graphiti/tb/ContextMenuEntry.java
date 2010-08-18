@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
 
-
 /**
  * The Class ContextMenuEntry.
  */
@@ -32,7 +31,7 @@ public class ContextMenuEntry extends AbstractContextEntry implements IContextMe
 	private boolean submenu = true;
 
 	/**
-	 * Instantiates a new context menu entry.
+	 * Creates a new {@link ContextMenuEntry}.
 	 * 
 	 * @param feature
 	 *            the feature
@@ -43,32 +42,17 @@ public class ContextMenuEntry extends AbstractContextEntry implements IContextMe
 		super(feature, context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextMenuEntry#getChildren()
-	 */
 	public IContextMenuEntry[] getChildren() {
-		IContextMenuEntry[] ret = children.toArray(NO_CONTEXT_MENU_ENTRIES);
+		IContextMenuEntry[] ret = this.children.toArray(NO_CONTEXT_MENU_ENTRIES);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextMenuEntry#add(org.eclipse.graphiti.tb.IContextMenuEntry)
-	 */
 	public void add(IContextMenuEntry entry) {
-		children.add(entry);
+		this.children.add(entry);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.tb.IContextMenuEntry#isSubmenu()
-	 */
 	public boolean isSubmenu() {
-		return submenu;
+		return this.submenu;
 	}
 
 	/**
