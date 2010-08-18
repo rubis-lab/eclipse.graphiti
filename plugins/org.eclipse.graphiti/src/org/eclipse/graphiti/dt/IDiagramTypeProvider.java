@@ -27,9 +27,10 @@ import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 
 /**
- * This is the central interface from the Graphiti framework to the diagram type
- * agent. Do not implement this class directly. Extend appropriate classes
- * instead. This is the first revision of the diagram type interface.
+ * The Interface IDiagramTypeProvider is the central interface from the Graphiti
+ * framework to the diagram type agent. Do not implement this class directly.
+ * Extend appropriate classes instead. This is the first revision of the diagram
+ * type interface.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
@@ -136,7 +137,7 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 * Gets the related business objects.
 	 * 
 	 * @param bos
-	 *            the bos
+	 *            the business objects
 	 * @return the related business objects
 	 */
 	Object[] getRelatedBusinessObjects(Object[] bos);
