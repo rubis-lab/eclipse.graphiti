@@ -22,6 +22,8 @@ import org.eclipse.graphiti.features.context.IMoveAnchorContext;
 import org.eclipse.graphiti.features.impl.DefaultMoveAnchorFeature;
 
 /**
+ * The Interface IMoveAnchorFeature.
+ * 
  * Layouting shapes means to change their ccordinates or/and their parent.
  * 
  * @noextend This interface is not intended to be extended by clients.

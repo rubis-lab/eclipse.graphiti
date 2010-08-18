@@ -22,8 +22,9 @@ import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.eclipse.graphiti.func.ICreate;
 
 /**
- * For creating model content. The appropriate pictogram content is added by the
- * add feature.
+ * The Interface ICreateFeature is for creating model content.
+ * 
+ * The appropriate pictogram content is added by the add feature.
  * 
  * @see org.eclipse.graphiti.features.IAddFeature
  * @noextend This interface is not intended to be extended by clients.

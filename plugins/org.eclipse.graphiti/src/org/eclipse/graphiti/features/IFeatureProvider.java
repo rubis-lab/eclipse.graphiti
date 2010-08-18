@@ -39,6 +39,8 @@ import org.eclipse.graphiti.features.impl.AbstractFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
+ * The Interface IFeatureProvider.
+ * 
  * The set of provided features defines the operations, potentially available in
  * a graphical editor. There has been the idea to restrict available operations
  * through tool behavior providers (
