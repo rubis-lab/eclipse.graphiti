@@ -87,7 +87,7 @@ public class DefaultNotificationService implements INotificationService {
 	 * Calculate dirty pictogram elements.
 	 * 
 	 * @param changedBOs
-	 *            the changed BOs
+	 *            the changed business objects
 	 * @return the pictogram element[]
 	 */
 	public PictogramElement[] calculateRelatedPictogramElements(Object[] changedBOs) {
