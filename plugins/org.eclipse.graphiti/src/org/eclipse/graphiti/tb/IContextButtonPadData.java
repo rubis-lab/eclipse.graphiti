@@ -20,8 +20,8 @@ import java.util.List;
 import org.eclipse.graphiti.datatypes.IRectangle;
 
 /**
- * This interface allows to define all information needed to show a context
- * button pad.
+ * The interface IContextButtonPadData allows to define all information needed
+ * to show a context button pad.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
