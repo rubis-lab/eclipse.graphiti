@@ -68,89 +68,37 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		setPatternConfiguration(patternConfiguration);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.ICreate#canCreate(org.eclipse.graphiti.features
-	 * .context.ICreateContext)
-	 */
 	public boolean canCreate(ICreateContext context) {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.ILayout#canLayout(org.eclipse.graphiti.features
-	 * .context.ILayoutContext)
-	 */
 	public boolean canLayout(ILayoutContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		return isPatternControlled(pictogramElement);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IMoveShape#canMoveShape(org.eclipse.graphiti
-	 * .features.context.IMoveShapeContext)
-	 */
 	public boolean canMoveShape(IMoveShapeContext context) {
 		return context.getSourceContainer() != null && context.getSourceContainer().equals(context.getTargetContainer())
 				&& isPatternRoot(context.getPictogramElement());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IResizeShape#canResizeShape(org.eclipse.graphiti
-	 * .features.context.IResizeShapeContext)
-	 */
 	public boolean canResizeShape(IResizeShapeContext context) {
 		return isPatternRoot(context.getPictogramElement());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IUpdate#canUpdate(org.eclipse.graphiti.features
-	 * .context.IUpdateContext)
-	 */
 	public boolean canUpdate(IUpdateContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		return isPatternControlled(pictogramElement);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.ICreate#create(org.eclipse.graphiti.features
-	 * .context.ICreateContext)
-	 */
 	public Object[] create(ICreateContext context) {
 		return EMPTY;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.pattern.IPattern#getCreateDescription()
-	 */
 	public String getCreateDescription() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ICreateInfo#getCreateImageId()
-	 */
 	public String getCreateImageId() {
 		return null;
 	}
@@ -159,42 +107,16 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		return getCreateImageId();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.pattern.IPattern#getCreateName()
-	 */
 	public String getCreateName() {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.pattern.IPattern#isMainBusinessObjectApplicable(
-	 * java.lang.Object)
-	 */
 	abstract public boolean isMainBusinessObjectApplicable(Object mainBusinessObject);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.ILayout#layout(org.eclipse.graphiti.features
-	 * .context.ILayoutContext)
-	 */
 	public boolean layout(ILayoutContext context) {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveShapeFeature#moveShape(org.eclipse
-	 * .graphiti.features.context.IMoveShapeContext)
-	 */
 	final public void moveShape(IMoveShapeContext context) {
 		preMoveShape(context);
 		moveAllBendpoints(context);
@@ -202,34 +124,20 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		postMoveShape(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveShapeFeature#postMoveShape(org.eclipse
-	 * .graphiti.dt.IContext)
-	 */
 	/**
 	 * Post move shape.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the move shape context
 	 */
 	protected void postMoveShape(IMoveShapeContext context) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IMoveShapeFeature#preMoveShape(org.eclipse
-	 * .graphiti.features.context.IMoveShapeContext)
-	 */
 	/**
 	 * Pre move shape.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the move shape context
 	 */
 	protected void preMoveShape(IMoveShapeContext context) {
 	}
@@ -238,7 +146,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * Internal move.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the move shape context
 	 */
 	protected void internalMove(IMoveShapeContext context) {
 		Shape shapeToMove = context.getShape();
@@ -268,12 +176,11 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		}
 	}
 
-	// move bendpoints within a container shape
 	/**
-	 * Move all bendpoints.
+	 * Move all bendpoints within a container shape.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the move shape context
 	 */
 	protected void moveAllBendpoints(IMoveShapeContext context) {
 
@@ -335,13 +242,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IResizeShape#resizeShape(org.eclipse.graphiti
-	 * .features.context.IResizeShapeContext)
-	 */
 	public void resizeShape(IResizeShapeContext context) {
 		Shape shape = context.getShape();
 		int width = context.getWidth();
@@ -354,24 +254,10 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		layoutPictogramElement(shape);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IUpdate#update(org.eclipse.graphiti.features
-	 * .context.IUpdateContext)
-	 */
 	public boolean update(IUpdateContext context) {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IUpdate#updateNeeded(org.eclipse.graphiti.features
-	 * .context.IUpdateContext)
-	 */
 	public IReason updateNeeded(IUpdateContext context) {
 		return Reason.createFalseReason();
 	}
@@ -380,7 +266,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * Adds the graphical representation.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the area context
 	 * @param newObject
 	 *            the new object
 	 */
@@ -389,8 +275,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	}
 
 	/**
-	 * Sublasses can override this method.
-	 * 
 	 * @return true if moving to negative coordinates should not be possible
 	 */
 	protected boolean avoidNegativeCoordinates() {
@@ -412,7 +296,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * @param structureMapping
 	 *            the structure mapping
 	 * @param link
-	 *            the link
+	 *            the pictogram link
 	 * @return the image
 	 */
 	protected String getImage(IStructureMapping structureMapping, PictogramLink link) {
@@ -430,7 +314,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * @param structureMapping
 	 *            the structure mapping
 	 * @param link
-	 *            the link
+	 *            the pictogram link
 	 * @return the text
 	 */
 	protected String getText(IStructureMapping structureMapping, PictogramLink link) {
@@ -464,7 +348,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * Layout pictogram element.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 */
 	protected void layoutPictogramElement(PictogramElement pe) {
 		LayoutContext context = new LayoutContext(pe);
@@ -475,7 +359,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * Update pictogram element.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 */
 	protected void updatePictogramElement(PictogramElement pe) {
 		UpdateContext context = new UpdateContext(pe);
@@ -487,7 +371,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * Sets the pattern configuration.
 	 * 
 	 * @param patternConfiguration
-	 *            the patternConfiguration to set
+	 *            the new patternConfiguration
 	 */
 	protected void setPatternConfiguration(IPatternConfiguration patternConfiguration) {
 		this.patternConfiguration = patternConfiguration;
@@ -528,23 +412,9 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		return Graphiti.getGaService().manageColor(getDiagram(), colorConstant);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.pattern.IPattern#completeInfo(org.eclipse.graphiti
-	 * .features.IDirectEditingInfo, java.lang.Object)
-	 */
 	public void completeInfo(IDirectEditingInfo info, Object bo) {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.pattern.IPattern#completeInfo(org.eclipse.graphiti
-	 * .features.IDirectEditingInfo, java.lang.Object, java.lang.String)
-	 */
 	public void completeInfo(IDirectEditingInfo info, Object bo, String keyProperty) {
 	}
 

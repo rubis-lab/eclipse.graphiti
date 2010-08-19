@@ -38,31 +38,16 @@ public class CreateFeatureForPattern extends AbstractCreateFeature {
 		delegate = new FeatureForPatternDelegate(pattern);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ICreate#canCreate(org.eclipse.graphiti.features.context.ICreateContext)
-	 */
 	public boolean canCreate(ICreateContext context) {
 		IPattern pattern = delegate.getPattern();
 		boolean ret = /* pattern.isContextApplicable(context) && */pattern.canCreate(context);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ICreate#create(org.eclipse.graphiti.features.context.ICreateContext)
-	 */
 	public Object[] create(ICreateContext context) {
 		return delegate.getPattern().create(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractCreateFeature#getCreateImageId()
-	 */
 	@Override
 	public String getCreateImageId() {
 		return delegate.getPattern().getCreateImageId();

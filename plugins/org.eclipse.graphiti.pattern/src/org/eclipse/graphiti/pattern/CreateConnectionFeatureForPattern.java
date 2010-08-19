@@ -39,30 +39,15 @@ public class CreateConnectionFeatureForPattern extends AbstractCreateConnectionF
 		delegate = pattern;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ICreateConnection#canCreate(org.eclipse.graphiti.features.context.ICreateConnectionContext)
-	 */
 	public boolean canCreate(ICreateConnectionContext context) {
 		boolean ret = delegate.canCreate(context);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ICreateConnection#canStartConnection(org.eclipse.graphiti.features.context.ICreateConnectionContext)
-	 */
 	public boolean canStartConnection(ICreateConnectionContext context) {
 		return delegate.canStartConnection(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ICreateConnection#create(org.eclipse.graphiti.features.context.ICreateConnectionContext)
-	 */
 	public Connection create(ICreateConnectionContext context) {
 		return delegate.create(context);
 	}

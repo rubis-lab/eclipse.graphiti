@@ -45,7 +45,7 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	 * Can add.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the add context
 	 * 
 	 * @return true, if successful
 	 */

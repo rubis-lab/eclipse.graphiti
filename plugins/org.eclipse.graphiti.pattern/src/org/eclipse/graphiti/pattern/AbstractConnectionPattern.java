@@ -45,7 +45,7 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 	 * Gets the adds the connection context.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the create connection context
 	 * 
 	 * @return the adds the connection context
 	 */
@@ -54,39 +54,15 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.ICreateConnectionFeature#canCreate(org.
-	 * eclipse.graphiti.features.context.ICreateConnectionContext)
-	 */
 	public boolean canCreate(ICreateConnectionContext context) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.ICreateConnectionFeature#canStartConnection
-	 * (org.eclipse.graphiti.features.context.ICreateConnectionContext)
-	 */
 	public boolean canStartConnection(ICreateConnectionContext context) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.ICreateConnectionFeature#create(org.eclipse
-	 * .graphiti.features.context.ICreateConnectionContext)
-	 */
 	public Connection create(ICreateConnectionContext context) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -94,7 +70,7 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 	 * Adds the graphical representation.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the connection context
 	 * @param newObject
 	 *            the new object
 	 * 
@@ -112,7 +88,7 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 	 * @param structureMapping
 	 *            the structure mapping
 	 * @param link
-	 *            the link
+	 *            the pictogram link
 	 * 
 	 * @return the text
 	 */
@@ -129,7 +105,7 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 	 * Layout pictogram element.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 */
 	protected void layoutPictogramElement(PictogramElement pe) {
 		LayoutContext context = new LayoutContext(pe);
@@ -137,7 +113,8 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 	}
 
 	/**
-	 * Manage color.
+	 * A convenient method for the color handling which simply calls
+	 * <code>Graphiti.getGaService().manageColor(...)</code>.
 	 * 
 	 * @param colorConstant
 	 *            the color constant
@@ -149,7 +126,8 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 	}
 
 	/**
-	 * Manage color.
+	 * A convenient method for the color handling which simply calls
+	 * <code>Graphiti.getGaService().manageColor(...)</code>.
 	 * 
 	 * @param red
 	 *            the red
@@ -168,7 +146,7 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 	 * Update pictogram element.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 */
 	protected void updatePictogramElement(PictogramElement pe) {
 		UpdateContext context = new UpdateContext(pe);
@@ -176,23 +154,11 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 		layoutPictogramElement(pe);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ICreateInfo#getCreateDescription()
-	 */
 	public String getCreateDescription() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ICreateInfo#getCreateImageId()
-	 */
 	public String getCreateImageId() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -200,13 +166,7 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 		return getCreateImageId();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ICreateInfo#getCreateName()
-	 */
 	public String getCreateName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

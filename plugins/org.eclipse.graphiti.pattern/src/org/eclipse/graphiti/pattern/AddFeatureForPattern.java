@@ -40,20 +40,10 @@ public class AddFeatureForPattern extends AbstractAddFeature {
 		this.pattern = pattern;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.IAdd#canAdd(org.eclipse.graphiti.features.context.IAddContext)
-	 */
 	public boolean canAdd(IAddContext context) {
 		return pattern.canAdd(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.IAdd#add(org.eclipse.graphiti.features.context.IAddContext)
-	 */
 	public PictogramElement add(IAddContext context) {
 		return pattern.add(context);
 	}
