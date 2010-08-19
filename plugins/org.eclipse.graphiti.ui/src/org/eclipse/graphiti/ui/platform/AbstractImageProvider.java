@@ -46,6 +46,8 @@ public abstract class AbstractImageProvider extends AbstractExtension implements
 	}
 
 	/**
+	 * Sets the pluginId.
+	 * 
 	 * @param pluginId
 	 *            The pluginId to set.
 	 */
@@ -61,6 +63,14 @@ public abstract class AbstractImageProvider extends AbstractExtension implements
 		return null;
 	}
 
+	/**
+	 * Add image file path.
+	 * 
+	 * @param imageId
+	 *            the image id
+	 * @param imageFilePath
+	 *            the image file path
+	 */
 	final protected void addImageFilePath(String imageId, String imageFilePath) {
 		if (this.htKeyImage.get(imageId) != null) {
 			T.racer().error("Image with ID '" + imageId + "' is already registered"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -70,7 +80,7 @@ public abstract class AbstractImageProvider extends AbstractExtension implements
 	}
 
 	/**
-	 * add all available images with addImageFilePath(String imageId, String
+	 * Add all available images with addImageFilePath(String imageId, String
 	 * imageFilePath);
 	 */
 	abstract protected void addAvailableImages();
