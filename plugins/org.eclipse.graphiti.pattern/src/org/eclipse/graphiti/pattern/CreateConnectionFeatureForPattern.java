@@ -32,7 +32,7 @@ public class CreateConnectionFeatureForPattern extends AbstractCreateConnectionF
 	 * @param featureProvider
 	 *            the feature provider
 	 * @param pattern
-	 *            the pattern
+	 *            the connection pattern
 	 */
 	public CreateConnectionFeatureForPattern(IFeatureProvider featureProvider, IConnectionPattern pattern) {
 		super(featureProvider, pattern.getCreateName(), pattern.getCreateDescription());
@@ -45,7 +45,7 @@ public class CreateConnectionFeatureForPattern extends AbstractCreateConnectionF
 	 * @see org.eclipse.graphiti.func.ICreateConnection#canCreate(org.eclipse.graphiti.features.context.ICreateConnectionContext)
 	 */
 	public boolean canCreate(ICreateConnectionContext context) {
-		boolean ret = /* pattern.isContextApplicable(context) && */delegate.canCreate(context);
+		boolean ret = delegate.canCreate(context);
 		return ret;
 	}
 
@@ -67,11 +67,6 @@ public class CreateConnectionFeatureForPattern extends AbstractCreateConnectionF
 		return delegate.create(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.jam.AbstractCreateConnectionFeature#getCreateImageId()
-	 */
 	@Override
 	public String getCreateImageId() {
 		return delegate.getCreateImageId();

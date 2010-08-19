@@ -38,21 +38,11 @@ public class MoveShapeFeatureForPattern extends AbstractMoveShapeFeature {
 		delegate = new FeatureForPatternDelegate(pattern);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature#canMoveShape(org.eclipse.graphiti.features.context.IMoveShapeContext)
-	 */
 	public boolean canMoveShape(IMoveShapeContext context) {
 		IPattern pattern = delegate.getPattern();
 		return pattern.canMoveShape(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature#moveShape(org.eclipse.graphiti.features.context.IMoveShapeContext)
-	 */
 	public void moveShape(IMoveShapeContext context) {
 		delegate.getPattern().moveShape(context);
 	}

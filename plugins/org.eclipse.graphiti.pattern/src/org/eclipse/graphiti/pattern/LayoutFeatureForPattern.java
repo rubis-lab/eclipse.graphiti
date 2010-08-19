@@ -38,21 +38,11 @@ public class LayoutFeatureForPattern extends AbstractLayoutFeature {
 		delegate = new FeatureForPatternDelegate(pattern);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ILayout#canLayout(org.eclipse.graphiti.features.context.ILayoutContext)
-	 */
 	public boolean canLayout(ILayoutContext context) {
 		IPattern pattern = delegate.getPattern();
 		return pattern.canLayout(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.func.ILayout#layout(org.eclipse.graphiti.features.context.ILayoutContext)
-	 */
 	public boolean layout(ILayoutContext context) {
 		return delegate.getPattern().layout(context);
 	}

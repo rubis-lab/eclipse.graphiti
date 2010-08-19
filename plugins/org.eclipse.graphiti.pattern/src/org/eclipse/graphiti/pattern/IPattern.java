@@ -50,9 +50,6 @@ public interface IPattern extends ICreate, IAdd, IUpdate, ILayout, IResizeShape,
 	 */
 	String getCreateDescription();
 
-	// *************************************************************
-	// others
-	// *************************************************************
 	/**
 	 * Sets the feature provider.
 	 * 
@@ -73,22 +70,26 @@ public interface IPattern extends ICreate, IAdd, IUpdate, ILayout, IResizeShape,
 	boolean isMainBusinessObjectApplicable(Object mainBusinessObject);
 
 	/**
-	 * Complete info.
+	 * Complete the directEditing info. This information is needed to switch
+	 * automatically into the direct editing mode. (e.g. after creation of a new
+	 * object)
 	 * 
 	 * @param info
-	 *            the info
+	 *            the directEditing info
 	 * @param bo
-	 *            the bo
+	 *            the business object
 	 */
 	void completeInfo(IDirectEditingInfo info, Object bo);
 
 	/**
-	 * Complete info.
+	 * Complete the directEditing info. This information is needed to switch
+	 * automatically into the direct editing mode. (e.g. after creation of a new
+	 * object)
 	 * 
 	 * @param info
-	 *            the info
+	 *            the directEditing info
 	 * @param bo
-	 *            the bo
+	 *            the business object
 	 * @param keyProperty
 	 *            the key property
 	 */
@@ -113,9 +114,9 @@ public interface IPattern extends ICreate, IAdd, IUpdate, ILayout, IResizeShape,
 	public boolean canAdd(IAddContext context);
 
 	/**
-	 * Provides configuration object, which describes the resize behavior
+	 * Provides configuration object, which describes the resize behavior.
 	 * 
-	 * @return configuration object
+	 * @return the resize configuration object
 	 */
 	IResizeConfiguration getResizeConfiguration();
 }

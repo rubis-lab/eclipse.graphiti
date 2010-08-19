@@ -32,7 +32,7 @@ public interface IFeatureProviderWithPatterns extends IPatternContainer {
 	 * @param mainPictogramElement
 	 *            the main pictogram element
 	 * @param bo
-	 *            the bo
+	 *            the business object
 	 */
 	void activateDirectEditingForPatterns(PictogramElement mainPictogramElement, Object bo);
 
@@ -42,7 +42,7 @@ public interface IFeatureProviderWithPatterns extends IPatternContainer {
 	 * @param mainPictogramElement
 	 *            the main pictogram element
 	 * @param bo
-	 *            the bo
+	 *            the business object
 	 * @param keyProperty
 	 *            the key property
 	 */

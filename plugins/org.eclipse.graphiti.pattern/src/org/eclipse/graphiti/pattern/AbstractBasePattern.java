@@ -33,7 +33,7 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	 * Adds the.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the add context
 	 * 
 	 * @return the pictogram element
 	 */
@@ -66,7 +66,7 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	 * Sets the feature provider.
 	 * 
 	 * @param featureProvider
-	 *            The featureProvider to set.
+	 *            the new featureProvider
 	 */
 	public void setFeatureProvider(IFeatureProvider featureProvider) {
 		this.featureProvider = featureProvider;
@@ -76,15 +76,13 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	 * Gets the business object for pictogram element.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 * 
 	 * @return the business object for pictogram element
 	 */
 	protected Object getBusinessObjectForPictogramElement(PictogramElement pe) {
 		return getFeatureProvider().getBusinessObjectForPictogramElement(pe);
 	}
-
-	
 
 	/**
 	 * Gets the diagram editor.
@@ -108,7 +106,7 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	 * Link.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 * @param businessObject
 	 *            the business object
 	 */
@@ -120,7 +118,7 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	 * Link.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the pictogram element
 	 * @param businessObjects
 	 *            the business objects
 	 */
