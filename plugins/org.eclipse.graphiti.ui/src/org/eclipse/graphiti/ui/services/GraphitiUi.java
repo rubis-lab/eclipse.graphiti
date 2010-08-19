@@ -19,6 +19,8 @@ import org.eclipse.graphiti.ui.internal.platform.ExtensionManager;
 import org.eclipse.graphiti.ui.internal.services.impl.ImageService;
 
 /**
+ * The Class GraphitiUi.
+ * 
  * This class is the main access point to all public Graphiti UI services. These
  * services can be used to work with eclipse platform stuff. E.g. deal with
  * images or platform extensions.
