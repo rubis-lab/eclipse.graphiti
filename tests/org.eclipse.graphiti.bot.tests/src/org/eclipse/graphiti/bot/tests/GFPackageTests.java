@@ -89,11 +89,12 @@ public class GFPackageTests extends AbstractGFTests {
 	}
 
 	@Test
-	public void testGraphiti() throws Exception {
+	public void testDarkFeatureProcessing() throws Exception {
 		String[] providerIds = GraphitiUi.getExtensionManager().getDiagramTypeProviderIds(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		assertTrue("no dtp for sketch diagram type available", providerIds.length > 0);
 		if (providerIds.length > 0) {
-			IDiagramTypeProvider dtp = GraphitiUi.getExtensionManager().createDiagramTypeProvider(null, providerIds[0]);
+			Diagram d = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH, "diagram");
+			IDiagramTypeProvider dtp = GraphitiUi.getExtensionManager().createDiagramTypeProvider(d, providerIds[0]);
 			assertNotNull("dtp couldn't be instantiated", dtp);
 		}
 	}
