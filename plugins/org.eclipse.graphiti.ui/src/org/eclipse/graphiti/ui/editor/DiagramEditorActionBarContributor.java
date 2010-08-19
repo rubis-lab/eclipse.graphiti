@@ -37,8 +37,8 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.RetargetAction;
 
 /**
- * This ActionBarContributor provides some standard-actions and adds them to the
- * toolbar or the toplevel-menu.
+ * The Class DiagramEditorActionBarContributor provides some standard-actions
+ * and adds them to the toolbar or the toplevel-menu.
  * <p>
  * Some of the standard-actions are: undo/redo, delete, copy/paste, alignment,
  * zooming.

@@ -34,6 +34,8 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 
 /**
+ * The Class DiagramEditorInput.
+ * 
  * The editor input for {@link DiagramEditor} diagram editors. Basically a
  * {@link TransactionalEditingDomain} with an already existing
  * {@link ResourceSet} is hosted to resolve an {@link EObject} from an
@@ -114,9 +116,9 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	private boolean disposeEditingDomain;
 
 	/**
-	 * Creates an input out of a {@link URI} string and a transactional editing
-	 * domain. For resolving the {@link URI} to an {@link EObject} its
-	 * {@link ResourceSet} is used. <br>
+	 * Creates a new {@link DiagramEditorInput} out of a {@link URI} string and
+	 * a transactional editing domain. For resolving the {@link URI} to an
+	 * {@link EObject} its {@link ResourceSet} is used. <br>
 	 * The ResourceSet of the editing domain must have been already set from
 	 * outside and has to contain an instance of {@link IWorkspaceCommandStack}
 	 * as the used command stack. <br>
@@ -144,9 +146,9 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	}
 
 	/**
-	 * Creates an input out of a {@link URI} string and a transactional editing
-	 * domain. For resolving the {@link URI} to an {@link EObject} its
-	 * {@link ResourceSet} is used. <br>
+	 * Creates a new {@link DiagramEditorInput} out of a {@link URI} string and
+	 * a transactional editing domain. For resolving the {@link URI} to an
+	 * {@link EObject} its {@link ResourceSet} is used. <br>
 	 * The ResourceSet of the editing domain must have been already set from
 	 * outside and has to contain an instance of {@link IWorkspaceCommandStack}
 	 * as the used command stack. <br>
@@ -187,9 +189,9 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	}
 
 	/**
-	 * Creates an input out of a {@link URI} string and a transactional editing
-	 * domain. For resolving the {@link URI} to an {@link EObject} its
-	 * {@link ResourceSet} is used. <br>
+	 * Creates a new {@link DiagramEditorInput} out of a {@link URI} string and
+	 * a transactional editing domain. For resolving the {@link URI} to an
+	 * {@link EObject} its {@link ResourceSet} is used. <br>
 	 * The ResourceSet of the editing domain must have been already set from
 	 * outside and has to contain an instance of {@link IWorkspaceCommandStack}
 	 * as the used command stack. <br>
@@ -221,9 +223,9 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	}
 
 	/**
-	 * Creates an input out of a {@link URI} string and a transactional editing
-	 * domain. For resolving the {@link URI} to an {@link EObject} its
-	 * {@link ResourceSet} is used. <br>
+	 * Creates a new {@link DiagramEditorInput} out of a {@link URI} string and
+	 * a transactional editing domain. For resolving the {@link URI} to an
+	 * {@link EObject} its {@link ResourceSet} is used. <br>
 	 * The ResourceSet of the editing domain must have been already set from
 	 * outside and has to contain an instance of {@link IWorkspaceCommandStack}
 	 * as the used command stack. <br>
@@ -268,9 +270,9 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	}
 
 	/**
-	 * Creates an editor input {@link DiagramEditorInput} with a self created
-	 * {@link} TransactionalEditingDomain editing domain, which must be disposed
-	 * later on. <br>
+	 * Creates a new {@link DiagramEditorInput} with a self created {@link}
+	 * TransactionalEditingDomain editing domain, which must be disposed later
+	 * on. <br>
 	 * The ResourceSet of the editing domain must have been already set from
 	 * outside and has to contain an instance of {@link IWorkspaceCommandStack}
 	 * as the used command stack. <br>

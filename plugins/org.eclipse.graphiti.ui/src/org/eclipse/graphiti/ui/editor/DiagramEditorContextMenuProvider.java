@@ -60,9 +60,9 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.actions.ActionFactory;
 
 /**
- * This ContextMenuProvider provides a standard-context-menu and adds it to the
- * given EditPartViewer. Another feature is, that it can set the menu-location
- * to all Actions.
+ * The class DiagramEditorContextMenuProvider provides a standard-context-menu
+ * and adds it to the given EditPartViewer. Another feature is, that it can set
+ * the menu-location to all Actions.
  * <p>
  * Some of the standard-menu-items are: undo/redo, delete, copy/paste,
  * alignment, zooming.

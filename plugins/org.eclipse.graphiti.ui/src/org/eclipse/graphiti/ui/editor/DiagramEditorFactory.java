@@ -40,6 +40,8 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.PartInitException;
 
 /**
+ * The Class DiagramEditorFactory.
+ * 
  * A factory for creating DiagramEditorInternal objects.
  * 
  * @see {@link DiagramEditorInputBase}
@@ -49,7 +51,7 @@ import org.eclipse.ui.PartInitException;
 public class DiagramEditorFactory implements IElementFactory {
 
 	/**
-	 * Creates a {@link DiagramEditorInput} with a self created
+	 * Creates a new {@link DiagramEditorInput} with a self created
 	 * {@link TransactionalEditingDomain} or returns otherInput, if it is a
 	 * {@link DiagramEditorInput}. The created editor input object will care
 	 * about the disposal of the editing domain.
