@@ -49,6 +49,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.SelectionHandlesEditPolicy;
 import org.eclipse.gef.handles.BendpointCreationHandle;
+import org.eclipse.gef.handles.BendpointHandle;
 import org.eclipse.gef.handles.BendpointMoveHandle;
 import org.eclipse.gef.requests.BendpointRequest;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -70,10 +71,10 @@ import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
  */
 public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolicy implements PropertyChangeListener {
 
-	protected static final List NULL_CONSTRAINT = new ArrayList();
+	protected static final List<?> NULL_CONSTRAINT = new ArrayList<Object>();
 
 	// CHANGED: make fields protected
-	protected List originalConstraint;
+	protected List<?> originalConstraint;
 	protected boolean isDeleting = false;
 
 	private IConfigurationProvider configurationProvider;
@@ -98,8 +99,8 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 		getConnection().addPropertyChangeListener(Connection.PROPERTY_POINTS, this);
 	}
 
-	protected List createHandlesForAutomaticBendpoints() {
-		List list = new ArrayList();
+	protected List<BendpointHandle> createHandlesForAutomaticBendpoints() {
+		List<BendpointHandle> list = new ArrayList<BendpointHandle>();
 		ConnectionEditPart connEP = (ConnectionEditPart) getHost();
 		PointList points = getConnection().getPoints();
 		for (int i = 0; i < points.size() - 1; i++)
@@ -108,11 +109,11 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 		return list;
 	}
 
-	protected List createHandlesForUserBendpoints() {
-		List list = new ArrayList();
+	protected List<BendpointHandle> createHandlesForUserBendpoints() {
+		List<BendpointHandle> list = new ArrayList<BendpointHandle>();
 		ConnectionEditPart connEP = (ConnectionEditPart) getHost();
 		PointList points = getConnection().getPoints();
-		List bendPoints = (List) getConnection().getRoutingConstraint();
+		List<?> bendPoints = (List<?>) getConnection().getRoutingConstraint();
 		int bendPointIndex = 0;
 		Point currBendPoint = null;
 
@@ -156,8 +157,8 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 	 * @see SelectionHandlesEditPolicy#createSelectionHandles()
 	 */
 	@Override
-	protected List createSelectionHandles() {
-		List list = new ArrayList();
+	protected List<BendpointHandle> createSelectionHandles() {
+		List<BendpointHandle> list = new ArrayList<BendpointHandle>();
 		boolean automaticallyBending = isAutomaticallyBending();
 		if (automaticallyBending) {
 			list = createHandlesForAutomaticBendpoints();
@@ -259,7 +260,7 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 	protected abstract Command getMoveBendpointCommand(BendpointRequest request);
 
 	protected boolean isAutomaticallyBending() {
-		List constraint = (List) getConnection().getRoutingConstraint();
+		List<?> constraint = (List<?>) getConnection().getRoutingConstraint();
 		PointList points = getConnection().getPoints();
 		return ((points.size() > 2) && (constraint == null || constraint.isEmpty()));
 	}
@@ -326,16 +327,16 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 	 * erased.
 	 */
 	protected void saveOriginalConstraint() {
-		originalConstraint = (List) getConnection().getRoutingConstraint();
+		originalConstraint = (List<?>) getConnection().getRoutingConstraint();
 		if (originalConstraint == null)
 			originalConstraint = NULL_CONSTRAINT;
-		getConnection().setRoutingConstraint(new ArrayList(originalConstraint));
+		getConnection().setRoutingConstraint(new ArrayList<Object>(originalConstraint));
 	}
 
 	protected void setReferencePoints(BendpointRequest request) {
 		PointList points = getConnection().getPoints();
 		int bpIndex = -1;
-		List bendPoints = (List) getConnection().getRoutingConstraint();
+		List<?> bendPoints = (List<?>) getConnection().getRoutingConstraint();
 		Point bp = ((Bendpoint) bendPoints.get(request.getIndex())).getLocation();
 
 		int smallestDistance = -1;
@@ -365,7 +366,7 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 	 */
 	protected void showCreateBendpointFeedback(BendpointRequest request) {
 		Point p = new Point(request.getLocation());
-		List constraint;
+		List<Bendpoint> constraint;
 		getConnection().translateToRelative(p);
 		Bendpoint bp = new AbsoluteBendpoint(p);
 		if (originalConstraint == null) {
@@ -391,7 +392,7 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 	protected void showDeleteBendpointFeedback(BendpointRequest request) {
 		if (originalConstraint == null) {
 			saveOriginalConstraint();
-			List constraint = (List) getConnection().getRoutingConstraint();
+			List<?> constraint = (List<?>) getConnection().getRoutingConstraint();
 			constraint.remove(request.getIndex());
 			getConnection().setRoutingConstraint(constraint);
 		}
@@ -426,7 +427,7 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 		}
 		if (originalConstraint == null)
 			saveOriginalConstraint();
-		List constraint = (List) getConnection().getRoutingConstraint();
+		List<Bendpoint> constraint = (List) getConnection().getRoutingConstraint();
 		getConnection().translateToRelative(p);
 		Bendpoint bp = new AbsoluteBendpoint(p);
 		constraint.set(request.getIndex(), bp);

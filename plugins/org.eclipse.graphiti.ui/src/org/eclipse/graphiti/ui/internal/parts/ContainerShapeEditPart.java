@@ -35,6 +35,7 @@ import org.eclipse.gef.rulers.RulerProvider;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRenderer;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
@@ -130,9 +131,9 @@ public class ContainerShapeEditPart extends ShapeEditPart implements IContainerS
 	 * @return
 	 */
 	private List<PictogramElement> collectActiveChildrenRecursively(ContainerShape containerShape) {
-		Collection coll = containerShape.getChildren();
+		Collection<? extends Shape> coll = containerShape.getChildren();
 		List<PictogramElement> activeChildren = new ArrayList<PictogramElement>();
-		for (Iterator iter = coll.iterator(); iter.hasNext();) {
+		for (Iterator<? extends Shape> iter = coll.iterator(); iter.hasNext();) {
 			Object obj = iter.next();
 			if (obj != null && obj instanceof PictogramElement) {
 				PictogramElement pe = (PictogramElement) obj;

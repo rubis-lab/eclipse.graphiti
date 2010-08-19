@@ -24,6 +24,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.handles.BendpointHandle;
 import org.eclipse.gef.requests.BendpointRequest;
 import org.eclipse.graphiti.features.IAddBendpointFeature;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
@@ -185,8 +186,8 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 	}
 
 	@Override
-	protected List createHandlesForAutomaticBendpoints() {
-		List list = new ArrayList();
+	protected List<BendpointHandle> createHandlesForAutomaticBendpoints() {
+		List<BendpointHandle> list = new ArrayList<BendpointHandle>();
 		ConnectionEditPart connEP = (ConnectionEditPart) getHost();
 		PointList points = getConnection().getPoints();
 		for (int i = 0; i < points.size() - 1; i++) {
@@ -199,8 +200,8 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 	}
 
 	@Override
-	protected List createHandlesForUserBendpoints() {
-		List list = new ArrayList();
+	protected List<BendpointHandle> createHandlesForUserBendpoints() {
+		List<BendpointHandle> list = new ArrayList<BendpointHandle>();
 		ConnectionEditPart connEP = (ConnectionEditPart) getHost();
 		PointList points = getConnection().getPoints();
 		List bendPoints = (List) getConnection().getRoutingConstraint();
@@ -276,7 +277,7 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 			deltaPredecessor = Integer.MAX_VALUE; // never snap because of
 			// huge distance
 		}
-		if (request.getIndex() == ((List) getConnection().getRoutingConstraint()).size() - 1) {
+		if (request.getIndex() == ((List<?>) getConnection().getRoutingConstraint()).size() - 1) {
 			deltaSuccessor = Integer.MAX_VALUE; // never snap because of huge
 			// distance
 		}
