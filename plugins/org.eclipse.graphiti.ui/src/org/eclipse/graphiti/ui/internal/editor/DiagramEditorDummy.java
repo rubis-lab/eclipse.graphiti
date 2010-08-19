@@ -34,14 +34,16 @@ import org.eclipse.graphiti.platform.IDiagramEditor;
 public class DiagramEditorDummy implements IDiagramEditor {
 
 	private IDiagramTypeProvider diagramTypeProvider;
+	private TransactionalEditingDomain editingDomain;
 
-	public DiagramEditorDummy(IDiagramTypeProvider diagramTypeProvider) {
+	public DiagramEditorDummy(IDiagramTypeProvider diagramTypeProvider, TransactionalEditingDomain eDomain) {
 		setDiagramTypeProvider(diagramTypeProvider);
+		editingDomain = eDomain;
 	}
 
 	@Override
 	public TransactionalEditingDomain getEditingDomain() {
-		return null;
+		return editingDomain;
 	}
 
 	@Override
@@ -49,34 +51,43 @@ public class DiagramEditorDummy implements IDiagramEditor {
 		return null;
 	}
 
+	@Override
 	public IDimension getCurrentSize() {
 		return new DimensionImpl(0, 0);
 	}
 
+	@Override
 	public IDiagramTypeProvider getDiagramTypeProvider() {
 		return diagramTypeProvider;
 	}
 
+	@Override
 	public PictogramElement[] getSelectedPictogramElements() {
 		return new PictogramElement[0];
 	}
 
+	@Override
 	public boolean isDirty() {
 		return false;
 	}
 
+	@Override
 	public void refresh() {
 	}
 
+	@Override
 	public void refreshTitleToolTip() {
 	}
 
+	@Override
 	public void selectPictogramElements(PictogramElement[] pictogramElements) {
 	}
 
+	@Override
 	public void setPictogramElementForSelection(PictogramElement pictogramElement) {
 	}
 
+	@Override
 	public void setPictogramElementsForSelection(PictogramElement[] pictogramElements) {
 	}
 
@@ -84,9 +95,11 @@ public class DiagramEditorDummy implements IDiagramEditor {
 		this.diagramTypeProvider = diagramTypeProvider;
 	}
 
+	@Override
 	public void refreshRenderingDecorators(PictogramElement pe) {
 	}
 
+	@Override
 	public void refreshPalette() {
 	}
 

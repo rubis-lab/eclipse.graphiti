@@ -25,12 +25,13 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.dt.IDiagramType;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorDummy;
 import org.eclipse.graphiti.ui.platform.IImageProvider;
 import org.eclipse.graphiti.ui.platform.PlatformImageProvider;
@@ -83,6 +84,7 @@ public class ExtensionManager implements IExtensionManager {
 		return singleton;
 	}
 
+	@Override
 	public String[] getDiagramTypeProviderIds(String diagramTypeId) {
 		String ret[] = new String[0];
 		if (diagramTypeId == null) {
@@ -137,6 +139,7 @@ public class ExtensionManager implements IExtensionManager {
 		loadImageProvider(PlatformImageProvider.ID);
 	}
 
+	@Override
 	public IDiagramTypeProvider createDiagramTypeProvider(String providerId) {
 		IDiagramTypeProvider diagramTypeProvider = null;
 
@@ -201,6 +204,7 @@ public class ExtensionManager implements IExtensionManager {
 		return imageProviders;
 	}
 
+	@Override
 	public IDiagramType[] getDiagramTypes() {
 		return diagramTypes;
 	}
@@ -313,6 +317,7 @@ public class ExtensionManager implements IExtensionManager {
 		return null;
 	}
 
+	@Override
 	public IFeatureProvider createFeatureProvider(Diagram diagram) {
 		String providerId = getDiagramTypeProviderId(diagram.getDiagramTypeId());
 		if (providerId != null) {
@@ -322,16 +327,19 @@ public class ExtensionManager implements IExtensionManager {
 		return null;
 	}
 
+	@Override
 	public IDiagramTypeProvider createDiagramTypeProvider(Diagram diagram, String providerId) {
 
 		IDiagramTypeProvider dtp = createDiagramTypeProvider(providerId);
 		if (dtp != null) {
-			IDiagramEditor diagramEditor = new DiagramEditorDummy(dtp);
+			TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(diagram);
+			DiagramEditorDummy diagramEditor = new DiagramEditorDummy(dtp, editingDomain);
 			dtp.init(diagram, diagramEditor);
 		}
 		return dtp;
 	}
 
+	@Override
 	public String getDiagramTypeProviderId(String diagramTypeId) {
 		String diagramTypeProviders[] = getDiagramTypeProviderIds(diagramTypeId);
 		if (diagramTypeProviders != null && diagramTypeProviders.length > 0) {
