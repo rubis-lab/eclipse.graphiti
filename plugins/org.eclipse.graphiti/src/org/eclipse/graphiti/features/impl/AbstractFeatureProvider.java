@@ -113,74 +113,92 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		this.dtp = diagramTypeProvider;
 	}
 
+	@Override
 	public IAddFeature getAddFeature(IAddContext context) {
 		return null;
 	}
 
+	@Override
 	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
 		return new ICreateConnectionFeature[0];
 	}
 
+	@Override
 	public ICreateFeature[] getCreateFeatures() {
 		return new ICreateFeature[0];
 	}
 
+	@Override
 	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
 		return ZERO_CUSTOM_FEATURES;
 	}
 
+	@Override
 	public IDeleteFeature getDeleteFeature(IDeleteContext context) {
 		return null;
 	}
 
+	@Override
 	public IDiagramTypeProvider getDiagramTypeProvider() {
 		return this.dtp;
 	}
 
+	@Override
 	public IMoveAnchorFeature getMoveAnchorFeature(IMoveAnchorContext context) {
 		return null;
 	}
 
+	@Override
 	public IRemoveFeature getRemoveFeature(IRemoveContext context) {
 		return null;
 	}
 
+	@Override
 	public IUpdateFeature getUpdateFeature(IUpdateContext context) {
 		return null;
 	}
 
+	@Override
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		return null;
 	}
 
+	@Override
 	public IMoveShapeFeature getMoveShapeFeature(IMoveShapeContext context) {
 		return null;
 	}
 
+	@Override
 	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(IMoveConnectionDecoratorContext context) {
 		return null;
 	}
 
+	@Override
 	public IMoveBendpointFeature getMoveBendpointFeature(IMoveBendpointContext context) {
 		return null;
 	}
 
+	@Override
 	public IResizeShapeFeature getResizeShapeFeature(IResizeShapeContext context) {
 		return null;
 	}
 
+	@Override
 	public IAddBendpointFeature getAddBendpointFeature(IAddBendpointContext context) {
 		return null;
 	}
 
+	@Override
 	public IRemoveBendpointFeature getRemoveBendpointFeature(IRemoveBendpointContext context) {
 		return null;
 	}
 
+	@Override
 	public IDirectEditingFeature getDirectEditingFeature(IDirectEditingContext context) {
 		return null;
 	}
 
+	@Override
 	public IReason canUpdate(IUpdateContext context) {
 		final String SIGNATURE = "canUpdate(IUpdateContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -199,6 +217,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
+	@Override
 	public IReason canLayout(ILayoutContext context) {
 		final String SIGNATURE = "canLayout(ILayoutContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -217,6 +236,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
+	@Override
 	public IReason updateIfPossible(IUpdateContext context) {
 		final String SIGNATURE = "updateIfPossible(IUpdateContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -240,6 +260,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return reason;
 	}
 
+	@Override
 	public IReason layoutIfPossible(ILayoutContext context) {
 		final String SIGNATURE = "layoutIfPossible(ILayoutContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -260,6 +281,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return res;
 	}
 
+	@Override
 	public IReason updateNeeded(IUpdateContext context) {
 		final String SIGNATURE = "updateNeeded(IUpdateContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -280,6 +302,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
+	@Override
 	public IReason updateIfPossibleAndNeeded(IUpdateContext context) {
 		final String SIGNATURE = "updateIfPossibleAndNeeded(IUpdateContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -299,6 +322,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
+	@Override
 	public PictogramElement addIfPossible(IAddContext context) {
 		final String SIGNATURE = "addIfPossible(IAddContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -325,6 +349,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
+	@Override
 	public IReason canAdd(IAddContext context) {
 		final String SIGNATURE = "canAdd(IAddContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -343,26 +368,32 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
+	@Override
 	final public IDirectEditingInfo getDirectEditingInfo() {
 		return this.directEditingInfo;
 	}
 
+	@Override
 	public IReconnectionFeature getReconnectionFeature(IReconnectionContext context) {
 		return new DefaultReconnectionFeature(this);
 	}
 
+	@Override
 	public IPrintFeature getPrintFeature() {
 		return new DefaultPrintFeature(this);
 	}
 
+	@Override
 	public ISaveImageFeature getSaveImageFeature() {
 		return new DefaultSaveImageFeature(this);
 	}
 
+	@Override
 	public IFeature[] getDragAndDropFeatures(IPictogramElementContext context) {
 		return new IFeature[0];
 	}
 
+	@Override
 	public Object[] getAllBusinessObjectsForPictogramElement(PictogramElement pictogramElement) {
 		final String SIGNATURE = "getAllBusinessObjectsForPictogramElement(PictogramElement)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -391,6 +422,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return retList.toArray(ret);
 	}
 
+	@Override
 	public Object getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
 		final String SIGNATURE = "getBusinessObjectForPictogramElement(PictogramElement)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -419,6 +451,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return ret;
 	}
 
+	@Override
 	public PictogramElement[] getAllPictogramElementsForBusinessObject(Object businessObject) {
 		final String SIGNATURE = "getAllPictogramElementsForBusinessObject(Object)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -477,6 +510,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	 * @see "getPictogramElementsForBusinessObject()", but only return the first
 	 *      PictogramElement.
 	 */
+	@Override
 	public PictogramElement getPictogramElementForBusinessObject(Object businessObject) {
 		final String SIGNATURE = "getPictogramElementForBusinessObject(Object)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -536,14 +570,17 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	 * @return true when at least one pictogram element is linked, otherwise
 	 *         return false.
 	 */
+	@Override
 	public boolean hasPictogramElementForBusinessObject(Object businessObject) {
 		return getPictogramElementForBusinessObject(businessObject) != null;
 	}
 
+	@Override
 	public void link(PictogramElement pictogramElement, Object businessObject) {
 		link(pictogramElement, new Object[] { businessObject });
 	}
 
+	@Override
 	public void link(PictogramElement pictogramElement, Object[] businessObjects) {
 		final String SIGNATURE = "link(PictogramElement, Object[])"; //$NON-NLS-1$
 		boolean info = T.racer().info();
