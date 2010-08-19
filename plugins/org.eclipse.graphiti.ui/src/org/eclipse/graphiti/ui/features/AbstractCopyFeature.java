@@ -38,7 +38,7 @@ public abstract class AbstractCopyFeature extends AbstractFeature implements ICo
 	private static final String NAME = Messages.AbstractCopyFeature_0_xfld;
 
 	/**
-	 * Creates {@link AbstractCopyFeature}.
+	 * Creates a new {@link AbstractCopyFeature}.
 	 * 
 	 * @param fp
 	 *            the {@link IFeatureProvider} fp

@@ -46,10 +46,10 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 	private static final String NAME = Messages.AbstractDrillDownFeature_0_xfld;
 
 	/**
-	 * Instantiates a new abstract drill down feature.
+	 * Creates a new {@link AbstractDrillDownFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public AbstractDrillDownFeature(IFeatureProvider fp) {
 		super(fp);

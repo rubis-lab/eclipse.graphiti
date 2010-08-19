@@ -64,10 +64,10 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 public class DefaultFeatureProvider extends AbstractFeatureProvider {
 
 	/**
-	 * Instantiates a new default feature provider.
+	 * Creates a new {@link DefaultFeatureProvider}.
 	 * 
 	 * @param dtp
-	 *            the dtp
+	 *            the default feature provider
 	 */
 	public DefaultFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);

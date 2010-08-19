@@ -39,10 +39,10 @@ import org.eclipse.ui.PlatformUI;
 public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeature {
 
 	/**
-	 * The Constructor.
+	 * Creates a new {@link DefaultDeleteFeature}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 */
 	public DefaultDeleteFeature(IFeatureProvider fp) {
 		super(fp);

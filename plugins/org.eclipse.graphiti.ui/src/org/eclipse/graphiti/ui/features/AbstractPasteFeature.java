@@ -35,10 +35,10 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 	private static final String NAME = Messages.AbstractPasteFeature_0_xfld;
 
 	/**
-	 * Creates {@link AbstractPasteFeature}.
+	 * Creates a new {@link AbstractPasteFeature}.
 	 * 
 	 * @param fp
-	 *            the {@link IFeatureProvider}fp
+	 *            the feature provider
 	 */
 	public AbstractPasteFeature(IFeatureProvider fp) {
 		super(fp);
