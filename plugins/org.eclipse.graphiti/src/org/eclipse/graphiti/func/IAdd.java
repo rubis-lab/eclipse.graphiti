@@ -30,7 +30,7 @@ public interface IAdd {
 	 * Checks, if the add can be executed.
 	 * 
 	 * @param context
-	 *            context the context needed to execute the add
+	 *            the context needed to execute the add
 	 * 
 	 * @return true, if the add can be executed
 	 */
