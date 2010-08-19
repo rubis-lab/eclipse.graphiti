@@ -33,11 +33,6 @@ public abstract class ImageDataMapping extends DataMapping implements IImageData
 		super(mappingProvider);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.pattern.mapping.data.IImageDataMapping#getImageId(org.eclipse.graphiti.mm.links.PictogramLink)
-	 */
 	public String getImageId(PictogramLink link) {
 		return null;
 	}

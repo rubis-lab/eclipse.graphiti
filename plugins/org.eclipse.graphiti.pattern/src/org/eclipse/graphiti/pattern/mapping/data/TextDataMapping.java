@@ -33,11 +33,6 @@ public abstract class TextDataMapping extends DataMapping implements ITextDataMa
 		super(mappingProvider);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.pattern.mapping.data.ITextDataMapping#getText(org.eclipse.graphiti.mm.links.PictogramLink)
-	 */
 	public String getText(PictogramLink link) {
 		return ""; //$NON-NLS-1$
 	}

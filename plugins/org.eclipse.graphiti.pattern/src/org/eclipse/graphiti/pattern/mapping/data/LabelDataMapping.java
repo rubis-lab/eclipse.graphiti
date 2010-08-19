@@ -33,11 +33,6 @@ public abstract class LabelDataMapping extends TextDataMapping implements ILabel
 		super(mappingProvider);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.pattern.mapping.IImageDataMapping#getImageId(org.eclipse.graphiti.mm.links.PictogramLink)
-	 */
 	public String getImageId(PictogramLink link) {
 		return null;
 	}

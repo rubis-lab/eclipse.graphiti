@@ -39,11 +39,6 @@ public abstract class StructureMapping extends MappingProviderProvider implement
 		setDataMapping(dataMapping);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.pattern.mapping.IStructureMapping#getDataMapping()
-	 */
 	public IDataMapping getDataMapping() {
 		return dataMapping;
 	}

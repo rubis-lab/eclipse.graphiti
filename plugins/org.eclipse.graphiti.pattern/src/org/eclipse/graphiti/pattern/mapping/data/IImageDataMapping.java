@@ -30,7 +30,7 @@ public interface IImageDataMapping extends IDataMapping {
 	 * Gets the image id.
 	 * 
 	 * @param link
-	 *            the link
+	 *            the pictogram link
 	 * 
 	 * @return the image id
 	 */

@@ -35,7 +35,7 @@ public class LinkCreationInfo implements ILinkCreationInfo {
 	}
 
 	/**
-	 * Instantiates a new link creation info.
+	 * Creates a new {@link LinkCreationInfo}.
 	 * 
 	 * @param businessObjects
 	 *            the business objects
@@ -45,7 +45,7 @@ public class LinkCreationInfo implements ILinkCreationInfo {
 	}
 
 	/**
-	 * Instantiates a new link creation info.
+	 * Creates a new {@link LinkCreationInfo}.
 	 * 
 	 * @param businessObjects
 	 *            the business objects
@@ -58,20 +58,10 @@ public class LinkCreationInfo implements ILinkCreationInfo {
 		this.property = property;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.pattern.mapping.ILinkCreationInfo#getBusinessObjects()
-	 */
 	public Object[] getBusinessObjects() {
 		return businessObjects;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.pattern.mapping.ILinkCreationInfo#getProperty()
-	 */
 	public String getProperty() {
 		return property;
 	}

@@ -30,7 +30,7 @@ public interface ITextDataMapping extends IDataMapping {
 	 * Gets the text.
 	 * 
 	 * @param link
-	 *            the link
+	 *            the pictogram link
 	 * 
 	 * @return the text
 	 */

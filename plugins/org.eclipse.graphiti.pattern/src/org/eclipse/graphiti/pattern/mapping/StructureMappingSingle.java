@@ -36,11 +36,6 @@ public abstract class StructureMappingSingle extends StructureMapping implements
 		super(dataMapping, mappingProvider);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.pattern.mapping.IStructureMappingSingle#getLinkCreationInfo(java.lang.Object)
-	 */
 	public ILinkCreationInfo getLinkCreationInfo(Object mainBusinessObject) {
 		return new LinkCreationInfo(mainBusinessObject);
 	}

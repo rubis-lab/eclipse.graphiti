@@ -40,11 +40,6 @@ public abstract class StructureMappingMulti extends StructureMapping implements 
 		super(dataMapping, mappingProvider);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.pattern.mapping.IStructureMappingMulti#getLinkCreationInfos(java.lang.Object)
-	 */
 	public List<ILinkCreationInfo> getLinkCreationInfos(Object mainBusinessObject) {
 		ILinkCreationInfo linkCreationInfo = new LinkCreationInfo(mainBusinessObject);
 		return Collections.singletonList(linkCreationInfo);

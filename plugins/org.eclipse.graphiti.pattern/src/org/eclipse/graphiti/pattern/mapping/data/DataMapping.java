@@ -39,11 +39,6 @@ public abstract class DataMapping extends MappingProviderProvider implements IDa
 		super(mappingProvider);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.pattern.mapping.data.IDataMapping#getUpdateWarning(org.eclipse.graphiti.mm.links.PictogramLink)
-	 */
 	public String getUpdateWarning(PictogramLink pictogramLink) {
 		return DEFAULT_UPDATE_WARNING;
 	}
@@ -52,7 +47,7 @@ public abstract class DataMapping extends MappingProviderProvider implements IDa
 	 * Gets the business object.
 	 * 
 	 * @param link
-	 *            the link
+	 *            the pictogram link
 	 * 
 	 * @return the business object
 	 */
