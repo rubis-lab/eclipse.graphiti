@@ -30,7 +30,7 @@ public class UpdateFeatureForPattern extends AbstractUpdateFeature {
 	private IUpdate pattern;
 
 	/**
-	 * Instantiates a new update feature for pattern.
+	 * Creates a new {@link UpdateFeatureForPattern}.
 	 * 
 	 * @param featureProvider
 	 *            the feature provider

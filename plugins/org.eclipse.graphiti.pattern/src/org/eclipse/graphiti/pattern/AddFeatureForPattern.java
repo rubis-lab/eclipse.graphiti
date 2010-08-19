@@ -28,7 +28,7 @@ public class AddFeatureForPattern extends AbstractAddFeature {
 	private IAdd pattern;
 
 	/**
-	 * Instantiates a new adds the feature for pattern.
+	 * Creates a new {@link AddFeatureForPattern}.
 	 * 
 	 * @param featureProvider
 	 *            the feature provider

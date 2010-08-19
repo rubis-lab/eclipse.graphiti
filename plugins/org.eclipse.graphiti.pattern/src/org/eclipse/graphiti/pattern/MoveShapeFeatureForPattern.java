@@ -26,7 +26,7 @@ public class MoveShapeFeatureForPattern extends AbstractMoveShapeFeature {
 	private IFeatureForPattern delegate;
 
 	/**
-	 * Instantiates a new move shape feature for pattern.
+	 * Creates a new {@link MoveShapeFeatureForPattern}.
 	 * 
 	 * @param featureProvider
 	 *            the feature provider

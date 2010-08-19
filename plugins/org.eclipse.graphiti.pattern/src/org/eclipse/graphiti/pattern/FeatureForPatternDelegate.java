@@ -23,7 +23,7 @@ public class FeatureForPatternDelegate implements IFeatureForPattern {
 	private IPattern pattern;
 
 	/**
-	 * Instantiates a new feature for pattern delegate.
+	 * Creates a new {@link FeatureForPatternDelegate}.
 	 * 
 	 * @param pattern
 	 *            the pattern

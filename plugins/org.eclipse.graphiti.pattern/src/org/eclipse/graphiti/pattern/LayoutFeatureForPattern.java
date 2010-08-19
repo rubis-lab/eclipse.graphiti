@@ -26,7 +26,7 @@ public class LayoutFeatureForPattern extends AbstractLayoutFeature {
 	private IFeatureForPattern delegate;
 
 	/**
-	 * Instantiates a new layout feature for pattern.
+	 * Creates a new {@link LayoutFeatureForPattern}.
 	 * 
 	 * @param featureProvider
 	 *            the feature provider

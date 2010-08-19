@@ -27,7 +27,7 @@ public class CreateConnectionFeatureForPattern extends AbstractCreateConnectionF
 	private IConnectionPattern delegate;
 
 	/**
-	 * Instantiates a new creates the connection feature for pattern.
+	 * Creates a new {@link CreateConnectionFeatureForPattern}.
 	 * 
 	 * @param featureProvider
 	 *            the feature provider

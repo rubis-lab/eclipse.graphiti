@@ -36,6 +36,12 @@ import org.eclipse.graphiti.util.IColorConstant;
 public abstract class AbstractConnectionPattern extends AbstractBasePattern implements IConnectionPattern {
 
 	/**
+	 * Creates a new {@link AbstractConnectionPattern}.
+	 */
+	public AbstractConnectionPattern() {
+	}
+
+	/**
 	 * Gets the adds the connection context.
 	 * 
 	 * @param context
@@ -46,12 +52,6 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 	protected static AddConnectionContext getAddConnectionContext(ICreateConnectionContext context) {
 		AddConnectionContext result = new AddConnectionContext(context.getSourceAnchor(), context.getTargetAnchor());
 		return result;
-	}
-
-	/**
-	 * Instantiates a new abstract connection pattern.
-	 */
-	public AbstractConnectionPattern() {
 	}
 
 	/*

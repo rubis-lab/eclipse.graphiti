@@ -59,7 +59,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	private IPatternConfiguration patternConfiguration;
 
 	/**
-	 * Instantiates a new abstract pattern.
+	 * Creates a new {@link AbstractPattern}.
 	 * 
 	 * @param patternConfiguration
 	 *            the pattern configuration

@@ -48,7 +48,7 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	private List<IConnectionPattern> connectionPatters;
 
 	/**
-	 * Instantiates a new default jam feature provider with patterns.
+	 * Creates a new {@link DefaultFeatureProviderWithPatterns}.
 	 * 
 	 * @param dtp
 	 *            the dtp

@@ -26,7 +26,7 @@ public class CreateFeatureForPattern extends AbstractCreateFeature {
 	private IFeatureForPattern delegate;
 
 	/**
-	 * Instantiates a new creates the feature for pattern.
+	 * Creates a new {@link CreateFeatureForPattern}.
 	 * 
 	 * @param featureProvider
 	 *            the feature provider

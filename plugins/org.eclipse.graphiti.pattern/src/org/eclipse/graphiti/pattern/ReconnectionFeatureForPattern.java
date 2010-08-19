@@ -31,7 +31,7 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	private IReconnection deletegate;
 
 	/**
-	 * Instantiates a new reconnection feature for pattern.
+	 * Creates a new {@link ReconnectionFeatureForPattern}.
 	 * 
 	 * @param fp
 	 *            the fp
@@ -43,57 +43,22 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 		this.deletegate = pattern;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IReconnection#canReconnect(org.eclipse.graphiti
-	 * .features.context.IReconnectionContext)
-	 */
 	public boolean canReconnect(IReconnectionContext context) {
 		return deletegate.canReconnect(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IReconnection#postReconnnect(org.eclipse.graphiti
-	 * .features.context.IReconnectionContext)
-	 */
 	public void postReconnect(IReconnectionContext context) {
 		deletegate.postReconnect(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IReconnection#preReconnnect(org.eclipse.graphiti
-	 * .features.context.IReconnectionContext)
-	 */
 	public void preReconnect(IReconnectionContext context) {
 		deletegate.preReconnect(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IReconnection#reconnnect(org.eclipse.graphiti
-	 * .features.context.IReconnectionContext)
-	 */
 	public void reconnect(IReconnectionContext context) {
 		deletegate.reconnect(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
-	 * .features.context.IContext)
-	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IReconnectionContext) {
@@ -102,24 +67,12 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
-	 * .context.IContext)
-	 */
 	public void execute(IContext context) {
 		if (context instanceof IReconnectionContext) {
 			reconnect((IReconnectionContext) context);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#getName()
-	 */
 	@Override
 	public String getName() {
 		return NAME;

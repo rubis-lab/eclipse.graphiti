@@ -27,7 +27,7 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	private IDirectEditing delegate;
 
 	/**
-	 * Instantiates a new direct editing feature for pattern.
+	 * Creates a new {@link DirectEditingFeatureForPattern}.
 	 * 
 	 * @param featureProvider
 	 *            the feature provider

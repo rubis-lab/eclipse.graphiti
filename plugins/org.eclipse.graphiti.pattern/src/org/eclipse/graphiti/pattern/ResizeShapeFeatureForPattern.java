@@ -28,7 +28,7 @@ public class ResizeShapeFeatureForPattern extends DefaultResizeShapeFeature {
 	private IFeatureForPattern delegate;
 
 	/**
-	 * Instantiates a new resize shape feature for pattern.
+	 * Creates a new {@link ResizeShapeFeatureForPattern}.
 	 * 
 	 * @param featureProvider
 	 *            the feature provider
@@ -40,22 +40,12 @@ public class ResizeShapeFeatureForPattern extends DefaultResizeShapeFeature {
 		delegate = new FeatureForPatternDelegate(pattern);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature#canResizeShape(org.eclipse.graphiti.features.context.IResizeShapeContext)
-	 */
 	@Override
 	public boolean canResizeShape(IResizeShapeContext context) {
 		IPattern pattern = delegate.getPattern();
 		return pattern.canResizeShape(context);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature#resizeShape(org.eclipse.graphiti.features.context.IResizeShapeContext)
-	 */
 	@Override
 	public void resizeShape(IResizeShapeContext context) {
 		delegate.getPattern().resizeShape(context);
