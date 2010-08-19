@@ -37,6 +37,8 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.SharedCursors;
 import org.eclipse.gef.handles.HandleBounds;
 import org.eclipse.gef.tools.AbstractTool;
+import org.eclipse.graphiti.ui.internal.parts.AnchorEditPart;
+import org.eclipse.graphiti.ui.internal.parts.ConnectionDecoratorEditPart;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -492,7 +494,27 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 			newSelections.addAll(viewer.getSelectedEditParts());
 			newSelections.removeAll(deselections);
 		}
-		viewer.setSelection(new StructuredSelection(newSelections.toArray()));
+
+		/*
+		 * Filter the current selection of editParts. Remove those editParts
+		 * where the parentEditPart is already in the current selection. Anchors
+		 * and ConnectionDecorators are always excluded from the selection.
+		 */
+		Collection<EditPart> filteredSelections = new ArrayList<EditPart>();
+		for (Object object : newSelections) {
+			if (object instanceof EditPart) {
+				EditPart ep = (EditPart) object;
+				if (newSelections.contains(ep.getParent())) {
+					continue;
+				}
+				if (ep instanceof AnchorEditPart || ep instanceof ConnectionDecoratorEditPart) {
+					continue;
+				}
+				filteredSelections.add(ep);
+			}
+		}
+
+		viewer.setSelection(new StructuredSelection(filteredSelections.toArray()));
 	}
 
 	/**
