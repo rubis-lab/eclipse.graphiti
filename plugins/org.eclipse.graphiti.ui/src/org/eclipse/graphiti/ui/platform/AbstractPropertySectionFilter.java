@@ -21,6 +21,9 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.jface.viewers.IFilter;
 
+/**
+ * The Class AbstractPropertySectionFilter.
+ */
 abstract public class AbstractPropertySectionFilter implements IFilter {
 
 	final public boolean select(Object object) {
@@ -49,5 +52,12 @@ abstract public class AbstractPropertySectionFilter implements IFilter {
 		return false;
 	}
 
+	/**
+	 * Check the given pictogram element for acceptance.
+	 * 
+	 * @param pictogramElement
+	 *            the pictogram element
+	 * @return true, if pictogram element is accepted, otherwise false
+	 */
 	abstract protected boolean accept(PictogramElement pictogramElement);
 }

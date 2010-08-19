@@ -21,6 +21,8 @@ import org.eclipse.graphiti.platform.AbstractExtension;
 import org.eclipse.graphiti.ui.internal.T;
 
 /**
+ * The Class AbstractImageProvider.
+ * 
  * Instead of implementing IImageProvider directly the clients should extend
  * this AbstractImageProvider. They can simply override the method
  * addAvailableImages().
@@ -31,19 +33,16 @@ public abstract class AbstractImageProvider extends AbstractExtension implements
 
 	private Hashtable<String, String> htKeyImage = new Hashtable<String, String>();
 
+	/**
+	 * Creates a new {@link AbstractImageProvider}.
+	 */
 	public AbstractImageProvider() {
 		super();
 		addAvailableImages();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.platform.IImageProvider#getPluginId()
-	 */
 	final public String getPluginId() {
-		return pluginId;
+		return this.pluginId;
 	}
 
 	/**
@@ -54,15 +53,8 @@ public abstract class AbstractImageProvider extends AbstractExtension implements
 		this.pluginId = pluginId;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.internal.platform.IImageProvider#getImageFilePath
-	 * (java.lang.String)
-	 */
 	final public String getImageFilePath(String imageId) {
-		Object htObject = htKeyImage.get(imageId);
+		Object htObject = this.htKeyImage.get(imageId);
 		if (htObject instanceof String) {
 			return (String) htObject;
 		}
@@ -70,10 +62,11 @@ public abstract class AbstractImageProvider extends AbstractExtension implements
 	}
 
 	final protected void addImageFilePath(String imageId, String imageFilePath) {
-		if (htKeyImage.get(imageId) != null)
+		if (this.htKeyImage.get(imageId) != null) {
 			T.racer().error("Image with ID '" + imageId + "' is already registered"); //$NON-NLS-1$ //$NON-NLS-2$
+		}
 
-		htKeyImage.put(imageId, imageFilePath);
+		this.htKeyImage.put(imageId, imageFilePath);
 	}
 
 	/**

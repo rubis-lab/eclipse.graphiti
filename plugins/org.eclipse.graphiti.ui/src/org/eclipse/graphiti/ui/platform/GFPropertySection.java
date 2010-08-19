@@ -33,8 +33,14 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.IContributedContentsView;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 
+/**
+ * The Class GFPropertySection.
+ */
 public abstract class GFPropertySection extends AbstractPropertySection implements PropertyChangeListener {
 
+	/**
+	 * @return the selected pictogram element.
+	 */
 	protected PictogramElement getSelectedPictogramElement() {
 		if (getSelection() instanceof StructuredSelection) {
 			StructuredSelection structuredSelection = (StructuredSelection) getSelection();
@@ -59,30 +65,34 @@ public abstract class GFPropertySection extends AbstractPropertySection implemen
 	}
 
 	/**
-	 * executes the feature and adds it to the command stack
+	 * Executes the feature and adds it to the command stack.
 	 * 
 	 * @param feature
+	 *            the feature
+	 * @param context
+	 *            the context
 	 */
 	public void execute(IFeature feature, IContext context) {
 		GenericFeatureCommandWithContext c = new GenericFeatureCommandWithContext(feature, context);
 		c.execute();
 	}
 
-	/**
-	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
-	 */
 	public void propertyChange(PropertyChangeEvent evt) {
 		refresh();
 	}
 
+	/**
+	 * @return the {@link IDiagramEditor} diagram editor.
+	 */
 	protected IDiagramEditor getDiagramEditor() {
 		IWorkbenchPart part = getPart();
 		if (part instanceof DiagramEditorInternal) {
 			return (DiagramEditorInternal) part;
 		}
 		IContributedContentsView contributedView = (IContributedContentsView) part.getAdapter(IContributedContentsView.class);
-		if (contributedView != null)
+		if (contributedView != null) {
 			part = contributedView.getContributingPart();
+		}
 		if (part instanceof DiagramEditorInternal) {
 			return (DiagramEditorInternal) part;
 		}
@@ -90,6 +100,9 @@ public abstract class GFPropertySection extends AbstractPropertySection implemen
 		return null;
 	}
 
+	/**
+	 * @return the diagram.
+	 */
 	protected Diagram getDiagram() {
 		IDiagramTypeProvider diagramTypeProvider = getDiagramTypeProvider();
 		if (diagramTypeProvider == null) {
@@ -98,6 +111,9 @@ public abstract class GFPropertySection extends AbstractPropertySection implemen
 		return diagramTypeProvider.getDiagram();
 	}
 
+	/**
+	 * @return the diagram type provider.
+	 */
 	protected IDiagramTypeProvider getDiagramTypeProvider() {
 		IDiagramEditor diagramEditor = getDiagramEditor();
 		if (diagramEditor == null) {

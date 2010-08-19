@@ -18,6 +18,8 @@ package org.eclipse.graphiti.ui.platform;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 
 /**
+ * The Class PlatformImageProvider.
+ * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
@@ -27,6 +29,9 @@ public class PlatformImageProvider extends AbstractImageProvider {
 
 	public final static String ID = "org.eclipse.graphiti.ui.platform.PlatformImageProvider"; //$NON-NLS-1$
 
+	/**
+	 * Creates a new {@link PlatformImageProvider}.
+	 */
 	public PlatformImageProvider() {
 		super();
 	}
