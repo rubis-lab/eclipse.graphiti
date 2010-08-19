@@ -18,6 +18,7 @@ package org.eclipse.graphiti.ui.internal.platform;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IContributor;
@@ -319,6 +320,7 @@ public class ExtensionManager implements IExtensionManager {
 
 	@Override
 	public IFeatureProvider createFeatureProvider(Diagram diagram) {
+		Assert.isNotNull(diagram);
 		String providerId = getDiagramTypeProviderId(diagram.getDiagramTypeId());
 		if (providerId != null) {
 			IDiagramTypeProvider dtp = createDiagramTypeProvider(diagram, providerId);
@@ -329,7 +331,7 @@ public class ExtensionManager implements IExtensionManager {
 
 	@Override
 	public IDiagramTypeProvider createDiagramTypeProvider(Diagram diagram, String providerId) {
-
+		Assert.isNotNull(diagram);
 		IDiagramTypeProvider dtp = createDiagramTypeProvider(providerId);
 		if (dtp != null) {
 			TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(diagram);
