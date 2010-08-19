@@ -44,12 +44,15 @@ import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 
 /**
- * 
+ * The Class ConfigurableFeatureProviderWrapper.
  */
 public class ConfigurableFeatureProviderWrapper extends DefaultFeatureProviderWrapper {
 
 	/**
+	 * Creates a new {@link ConfigurableFeatureProviderWrapper}.
+	 * 
 	 * @param innerFeatureProvider
+	 *            the inner feature provider
 	 */
 	public ConfigurableFeatureProviderWrapper(IFeatureProvider innerFeatureProvider) {
 		super(innerFeatureProvider);
