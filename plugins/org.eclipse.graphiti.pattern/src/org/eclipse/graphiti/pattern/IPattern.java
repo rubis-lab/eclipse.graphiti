@@ -95,22 +95,8 @@ public interface IPattern extends ICreate, IAdd, IUpdate, ILayout, IResizeShape,
 	 */
 	void completeInfo(IDirectEditingInfo info, Object bo, String keyProperty);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IAdd#add(org.eclipse.graphiti.features.context
-	 * .IAddContext)
-	 */
 	public PictogramElement add(IAddContext context);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IAdd#canAdd(org.eclipse.graphiti.features.context
-	 * .IAddContext)
-	 */
 	public boolean canAdd(IAddContext context);
 
 	/**

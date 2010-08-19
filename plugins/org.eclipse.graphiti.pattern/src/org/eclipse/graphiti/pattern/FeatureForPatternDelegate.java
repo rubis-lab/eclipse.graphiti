@@ -43,8 +43,10 @@ public class FeatureForPatternDelegate implements IFeatureForPattern {
 	}
 
 	/**
+	 * Sets the pattern.
+	 * 
 	 * @param pattern
-	 *            The pattern to set.
+	 *            the new pattern
 	 */
 	private void setPattern(IPattern pattern) {
 		this.pattern = pattern;

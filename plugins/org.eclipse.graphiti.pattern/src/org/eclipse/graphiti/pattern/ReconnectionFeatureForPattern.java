@@ -28,13 +28,14 @@ import org.eclipse.graphiti.internal.Messages;
  */
 public class ReconnectionFeatureForPattern extends AbstractFeature implements IReconnectionFeature {
 
+	private static final String NAME = Messages.ReconnectionFeatureForPattern_0_xfld;
 	private IReconnection deletegate;
 
 	/**
 	 * Creates a new {@link ReconnectionFeatureForPattern}.
 	 * 
 	 * @param fp
-	 *            the fp
+	 *            the feature provider
 	 * @param pattern
 	 *            the pattern
 	 */
@@ -77,7 +78,5 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	public String getName() {
 		return NAME;
 	}
-
-	private static final String NAME = Messages.ReconnectionFeatureForPattern_0_xfld;
 
 }

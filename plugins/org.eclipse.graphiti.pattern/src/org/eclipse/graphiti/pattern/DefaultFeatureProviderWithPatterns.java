@@ -51,7 +51,7 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	 * Creates a new {@link DefaultFeatureProviderWithPatterns}.
 	 * 
 	 * @param dtp
-	 *            the dtp
+	 *            the diagram type provider
 	 */
 	public DefaultFeatureProviderWithPatterns(IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -67,10 +67,10 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	/**
-	 * Adds the connection pattern.
+	 * Adds a connection pattern.
 	 * 
 	 * @param pattern
-	 *            the pattern
+	 *            the connection pattern
 	 */
 	public void addConnectionPattern(IConnectionPattern pattern) {
 		if (pattern == null) {
@@ -95,7 +95,7 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	/**
 	 * Gets the connection patterns.
 	 * 
-	 * @return the patterns
+	 * @return the connection patterns
 	 */
 	protected List<IConnectionPattern> getConnectionPatterns() {
 		if (this.connectionPatters == null) {
@@ -158,12 +158,12 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	/**
-	 * Gets the adds the feature additional.
+	 * Gets the additional add feature.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the add context
 	 * 
-	 * @return the adds the feature additional
+	 * @return the additional add feature
 	 */
 	protected IAddFeature getAddFeatureAdditional(IAddContext context) {
 		return super.getAddFeature(context);
@@ -187,9 +187,9 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	/**
-	 * Gets the creates the features additional.
+	 * Gets the additional create features.
 	 * 
-	 * @return the creates the features additional
+	 * @return the additional create features 
 	 */
 	protected ICreateFeature[] getCreateFeaturesAdditional() {
 		ICreateFeature[] ret = new ICreateFeature[0];
@@ -230,12 +230,12 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	/**
-	 * Gets the layout feature additional.
+	 * Gets the additional layout feature.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the layout context
 	 * 
-	 * @return the layout feature additional
+	 * @return the additional layout feature
 	 */
 	protected ILayoutFeature getLayoutFeatureAdditional(ILayoutContext context) {
 		return super.getLayoutFeature(context);
@@ -270,12 +270,12 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	/**
-	 * Gets the move shape feature additional.
+	 * Gets the additional move shape feature.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the move shape context
 	 * 
-	 * @return the move shape feature additional
+	 * @return the additional move shape feature
 	 */
 	protected IMoveShapeFeature getMoveShapeFeatureAdditional(IMoveShapeContext context) {
 		return super.getMoveShapeFeature(context);
@@ -324,12 +324,12 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	/**
-	 * Gets the resize shape feature additional.
+	 * Gets the additional resize shape feature.
 	 * 
 	 * @param context
 	 *            the context
 	 * 
-	 * @return the resize shape feature additional
+	 * @return the additional resize shape feature
 	 */
 	protected IResizeShapeFeature getResizeShapeFeatureAdditional(IResizeShapeContext context) {
 		return super.getResizeShapeFeature(context);
@@ -365,12 +365,12 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	/**
-	 * Gets the update feature additional.
+	 * Gets additional the update feature.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the update context
 	 * 
-	 * @return the update feature additional
+	 * @return the additional update feature
 	 */
 	protected IUpdateFeature getUpdateFeatureAdditional(IUpdateContext context) {
 		return super.getUpdateFeature(context);
@@ -429,9 +429,9 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	/**
-	 * Gets the creates the connection features additional.
+	 * Gets the additional create connection features.
 	 * 
-	 * @return the creates the connection features additional
+	 * @return the additional create connection features
 	 */
 	protected ICreateConnectionFeature[] getCreateConnectionFeaturesAdditional() {
 		return super.getCreateConnectionFeatures();

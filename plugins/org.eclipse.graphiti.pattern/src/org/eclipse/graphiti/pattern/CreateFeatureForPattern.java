@@ -40,7 +40,7 @@ public class CreateFeatureForPattern extends AbstractCreateFeature {
 
 	public boolean canCreate(ICreateContext context) {
 		IPattern pattern = delegate.getPattern();
-		boolean ret = /* pattern.isContextApplicable(context) && */pattern.canCreate(context);
+		boolean ret = pattern.canCreate(context);
 		return ret;
 	}
 
