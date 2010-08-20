@@ -150,7 +150,7 @@ public class GFPackageTests extends AbstractGFTests {
 	}
 
 	@Test
-	public void testGraphitiFeaturesContextJam() throws Exception {
+	public void testGraphitiFeaturesContext() throws Exception {
 
 		final class MyPasteFeature extends AbstractPasteFeature {
 
@@ -311,9 +311,9 @@ public class GFPackageTests extends AbstractGFTests {
 		assertNotNull(s);
 		assertTrue(!("".equals(s)));
 
-		DefaultFeatureProvider myDefaultJAMFeatureProvider = new DefaultFeatureProvider(myDiagramTypeProvider);
+		DefaultFeatureProvider myDefaultFeatureProvider = new DefaultFeatureProvider(myDiagramTypeProvider);
 		IUpdateContext context = new UpdateContext(null);
-		IUpdateFeature updateFeature = myDefaultJAMFeatureProvider.getUpdateFeature(context);
+		IUpdateFeature updateFeature = myDefaultFeatureProvider.getUpdateFeature(context);
 
 		final PictogramLink linkForPictogramElement = Graphiti.getLinkService().getLinkForPictogramElement(pe);
 
