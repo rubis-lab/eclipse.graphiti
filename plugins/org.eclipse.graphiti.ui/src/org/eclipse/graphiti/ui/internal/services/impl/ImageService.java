@@ -51,7 +51,7 @@ public class ImageService implements IImageService {
 	public Image getImageForId(String imageId) {
 
 		if (imageId == null)
-			throw new IllegalArgumentException("imageId must not be null");
+			return null;
 
 		// if image already available take it
 		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
