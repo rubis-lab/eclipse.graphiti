@@ -59,23 +59,6 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 		preRemove(context);
 
 		PictogramElement pe = context.getPictogramElement();
-		//TODO: clean up commented code
-		// if (pe instanceof ContainerShape) {
-		// ContainerShape containerShape = (ContainerShape) pe;
-		// // array instead of an unmodifiable list is necessary
-		// Shape shapes[] = (Shape[]) containerShape.getChildren().toArray(new
-		// Shape[0]);
-		// for (Shape shape : shapes) {
-		// if (shape.isActive()) {
-		// IRemoveContext removeContext = new RemoveContext(shape);
-		// IRemoveFeature removeFeature =
-		// getFeatureProvider().getRemoveFeature(removeContext);
-		// if (removeFeature != null) {
-		// removeFeature.remove(removeContext);
-		// }
-		// }
-		// }
-		// }
 
 		if (pe instanceof Shape) {
 			Shape shape = (Shape) pe;
@@ -83,18 +66,6 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 		}
 
 		Graphiti.getPeService().deletePictogramElement(pe);
-
-		// IJAMFeatureProvider jamFp = getJamFeatureProvider();
-		// if (jamFp != null) {
-		// Link link = jamFp.getLinkForPictogramElement(pe);
-		// if (link != null) {
-		// link.refDelete();
-		// }
-		// }
-		//
-		// if (pe != null && MoinHelper.isObjectAlive(pe)) {
-		// pe.refDelete();
-		// }
 
 		postRemove(context);
 	}
