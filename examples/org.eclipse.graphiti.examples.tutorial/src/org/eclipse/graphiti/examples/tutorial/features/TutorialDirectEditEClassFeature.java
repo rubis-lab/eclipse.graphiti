@@ -80,7 +80,7 @@ public class TutorialDirectEditEClassFeature extends AbstractDirectEditingFeatur
 		eClass.setName(value);
 
 		// Explicitly update the shape to display the new value in the diagram
-		// Note, that this might not be necessary in future versions of the GFW
+		// Note, that this might not be necessary in future versions of Graphiti
 		// (currently in discussion)
 
 		// we know, that pe is the Shape of the Text, so its container is the
