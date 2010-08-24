@@ -37,8 +37,8 @@ public class Messages extends NLS {
 	public static String DeleteAction_0_xmsg;
 	public static String DeleteAction_1_xfld;
 	public static String DiagramEditor_0_xmsg;
-	public static String GFWCommandStack_0_xfld;
-	public static String GfwPanningSelectionToolEntry_0_xmsg;
+	public static String GFCommandStack_0_xfld;
+	public static String GFPanningSelectionToolEntry_0_xmsg;
 	public static String GraphicsActionBarContributor_0_xmen;
 	public static String GraphicsContextMenuProvider_0_xmen;
 	public static String GraphicsContextMenuProvider_1_xmen;

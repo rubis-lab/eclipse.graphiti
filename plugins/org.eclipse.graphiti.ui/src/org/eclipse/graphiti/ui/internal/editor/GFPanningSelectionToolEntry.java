@@ -58,7 +58,7 @@ public class GFPanningSelectionToolEntry extends PanningSelectionToolEntry {
 			setLabel(GEFMessages.SelectionTool_Label);
 		}
 		if (shortDesc == null || shortDesc.length() == 0) {
-			setDescription(Messages.GfwPanningSelectionToolEntry_0_xmsg);
+			setDescription(Messages.GFPanningSelectionToolEntry_0_xmsg);
 		}
 		setToolClass(GFPanningSelectionTool.class);
 	}
