@@ -129,7 +129,7 @@ public class GFPackageTests extends AbstractGFTests {
 		// test canAdd
 		AreaContext areaContext = new AreaContext();
 		areaContext.setLocation(10, 20);
-		final Diagram diagram = createDiagram("testPackageOrgEclipseMiGfwFeatures");
+		final Diagram diagram = createDiagram("testPackageOrgEclipseGraphitiFeatures");
 		Object value = new Object();
 		AddContext addContext = new AddContext(areaContext, value);
 		addContext.setTargetContainer(diagram);

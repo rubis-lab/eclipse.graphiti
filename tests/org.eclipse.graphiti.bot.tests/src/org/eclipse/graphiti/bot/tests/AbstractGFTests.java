@@ -373,7 +373,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 			// do nothing
 		}
 
-		openGfwTestPerspective();
+		openGraphitiTestPerspective();
 	}
 
 	@Override
@@ -436,7 +436,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return this.project;
 	}
 
-	private void openGfwTestPerspective() {
+	private void openGraphitiTestPerspective() {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -513,8 +513,8 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 		Canvas canvas = gfCanvas.widget;
 		if (!(canvas instanceof GFFigureCanvas))
 			return null;
-		GFFigureCanvas gfwFigureCanvas = (GFFigureCanvas) canvas;
-		return gfwFigureCanvas;
+		GFFigureCanvas gfFigureCanvas = (GFFigureCanvas) canvas;
+		return gfFigureCanvas;
 	}
 
 	protected Canvas getCanvas(final GFSWTBotGefEditor ed) {

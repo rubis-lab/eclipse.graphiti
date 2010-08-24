@@ -148,7 +148,7 @@ public class GFOtherTests extends AbstractGFTests {
 	}
 
 	@Test
-	public void testGfwExtensionManager() {
+	public void testExtensionManager() {
 		IExtensionManager em = GraphitiUi.getExtensionManager();
 
 		IDiagramType sketchDiagramType = null;
@@ -782,7 +782,7 @@ public class GFOtherTests extends AbstractGFTests {
 	}
 
 	@Test
-	public void testGfwFigureUtil() {
+	public void testFigureUtil() {
 		class RegistryHolder implements IResourceRegistryHolder {
 			IResourceRegistry resourceRegistry = new ResourceRegistry();
 

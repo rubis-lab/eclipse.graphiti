@@ -224,9 +224,9 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				GFFigureCanvas gfwFigureCanvas = getGFCanvas(ed);
+				GFFigureCanvas gfFigureCanvas = getGFCanvas(ed);
 				// regain space
-				gfwFigureCanvas.regainSpace();
+				gfFigureCanvas.regainSpace();
 			}
 		});
 		Thread.sleep(500);
@@ -277,8 +277,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			@Override
 			public void run() {
 				// get instance of GFFigureCanvas
-				GFFigureCanvas gfwFigureCanvas = getGFCanvas(ed);
-				if (gfwFigureCanvas == null)
+				GFFigureCanvas gfFigureCanvas = getGFCanvas(ed);
+				if (gfFigureCanvas == null)
 					return;
 				// scroll shape into visible region
 				Event e = new Event();
@@ -286,8 +286,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				e.stateMask = 0;
 
 				e.detail = SWT.ARROW_UP;
-				gfwFigureCanvas.getHorizontalBar().notifyListeners(SWT.Selection, e);
-				gfwFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
+				gfFigureCanvas.getHorizontalBar().notifyListeners(SWT.Selection, e);
+				gfFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
 			}
 		});
 		Thread.sleep(1000);
