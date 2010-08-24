@@ -27,7 +27,7 @@ import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 /////////////////////////////////////////////////////////////////////////
 
 /**
- * A GFW Polygon Rotatable Decoration.
+ * A Graphiti Polygon Rotatable Decoration.
  * <p>
  * Idea: a decorator-template defines the form of the shape. Whenever the
  * decorator-location or decorator-reference-point is set, the

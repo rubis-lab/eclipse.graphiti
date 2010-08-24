@@ -48,7 +48,7 @@ import org.eclipse.swt.widgets.Display;
  * This is a copy of class org.eclipse.gef.tools.MarqueeSelectionTool. In this
  * GEF class there are too many methods declared as private. Hence overriding of
  * this class does not make sense. Only the implementation of
- * calculateNewSelection() has been changed. In this case the insets of the GFW
+ * calculateNewSelection() has been changed. In this case the insets of the GF
  * figures will be considered.
  * <p>
  * A Tool which selects multiple objects inside a rectangular area of a
@@ -207,14 +207,14 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 					|| !figure.isShowing())
 				continue;
 
-			// GFW: start change
+			// Graphiti: start change
 			Rectangle r;
 			if (figure instanceof HandleBounds) {
 				r = ((HandleBounds) figure).getHandleBounds().getCopy();
 			} else {
 				r = figure.getBounds().getCopy();
 			}
-			// GFW: end change
+			// Graphiti: end change
 			figure.translateToAbsolute(r);
 			boolean included = false;
 			if (child instanceof ConnectionEditPart && marqueeRect.intersects(r)) {

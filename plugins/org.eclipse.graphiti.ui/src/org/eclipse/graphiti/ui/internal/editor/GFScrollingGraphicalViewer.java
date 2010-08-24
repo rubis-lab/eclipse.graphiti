@@ -63,7 +63,7 @@ public class GFScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer
 	}
 
 	/**
-	 * Creates the gfw control.
+	 * Creates the gf control.
 	 * 
 	 * @param parent
 	 *            the parent
@@ -87,9 +87,9 @@ public class GFScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer
 	}
 
 	/**
-	 * Gets the gFW figure canvas.
+	 * Gets the figure canvas.
 	 * 
-	 * @return the gFW figure canvas
+	 * @return the figure canvas
 	 */
 	protected GFFigureCanvas getGFFigureCanvas() {
 		return (GFFigureCanvas) getControl();

@@ -25,8 +25,8 @@ import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.swt.graphics.Path;
 
 /**
- * This class is an abstract super-class for all RotatableDecorations in the
- * GFW. The main idea is, that the outline and fill-area of a
+ * This class is an abstract super-class for all RotatableDecorations in
+ * Graphiti. The main idea is, that the outline and fill-area of a
  * RotatableDecoration is defined by a Path. Sub-classes usually only have to
  * implement the abstract methods
  * {@link #createPath(Rectangle, Graphics, boolean)} and

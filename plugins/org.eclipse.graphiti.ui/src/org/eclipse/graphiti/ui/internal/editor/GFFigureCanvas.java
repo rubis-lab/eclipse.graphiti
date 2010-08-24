@@ -985,14 +985,14 @@ public class GFFigureCanvas extends Canvas {
 	}
 
 	/**
-	 * The listener interface for receiving GFWUpdate events. The class that is
-	 * interested in processing a GFWUpdate event implements this interface, and
+	 * The listener interface for receiving GFUpdate events. The class that is
+	 * interested in processing a GFUpdate event implements this interface, and
 	 * the object created with that class is registered with a component using
-	 * the component's <code>addGFWUpdateListener<code> method. When
-	 * the GFWUpdate event occurs, that object's appropriate
+	 * the component's <code>addGFUpdateListener<code> method. When
+	 * the GFUpdate event occurs, that object's appropriate
 	 * method is invoked.
 	 * 
-	 * @see GFWUpdateEvent
+	 * @see GFUpdateEvent
 	 */
 	class GFUpdateListener implements UpdateListener {
 

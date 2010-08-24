@@ -22,7 +22,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 
 /**
- * An abstract class for those GFW Shapes, which are based on a list of points,
+ * An abstract class for those Graphiti Shapes, which are based on a list of points,
  * e.g. polyline and polygon.
  * <p>
  * This abstract class only adds the point-list and the setter/getter methods

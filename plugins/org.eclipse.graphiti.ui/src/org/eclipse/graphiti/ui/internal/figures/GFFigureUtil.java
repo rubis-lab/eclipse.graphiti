@@ -33,7 +33,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Path;
 
 /**
- * A utility class containing static helper-methods for GFW figures.
+ * A utility class containing static helper-methods for Graphiti figures.
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.

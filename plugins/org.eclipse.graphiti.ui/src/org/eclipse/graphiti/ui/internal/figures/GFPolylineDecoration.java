@@ -27,7 +27,7 @@ import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 /////////////////////////////////////////////////////////////////////////
 
 /**
- * A GFW Polyline Rotatable Decoration.
+ * A Graphiti Polyline Rotatable Decoration.
  * <p>
  * Idea: a decorator-template defines the form of the shape. Whenever the
  * decorator-location or decorator-reference-point is set, the

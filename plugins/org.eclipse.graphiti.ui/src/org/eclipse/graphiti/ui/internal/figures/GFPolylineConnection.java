@@ -36,7 +36,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 
 /**
- * A GFW Polyline Connection. The "polyline functionality" is inherited from the
+ * A Graphiti Polyline Connection. The "polyline functionality" is inherited from the
  * super-class, the "connection functionality" is added in this class.
  * <p>
  * Important difference: The super-class denotes a polyline-shape. There the

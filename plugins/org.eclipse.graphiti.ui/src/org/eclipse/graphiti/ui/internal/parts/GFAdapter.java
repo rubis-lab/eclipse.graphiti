@@ -31,7 +31,7 @@ public class GFAdapter extends WorkbenchAdapter implements IGFAdapter {
 	private static final EObject[] NO_REF_OBJECTS = new EObject[0];
 
 	/**
-	 * Instantiates a new gfw adapter.
+	 * Creates a new {@link GFAdapter}.
 	 */
 	public GFAdapter() {
 		super();

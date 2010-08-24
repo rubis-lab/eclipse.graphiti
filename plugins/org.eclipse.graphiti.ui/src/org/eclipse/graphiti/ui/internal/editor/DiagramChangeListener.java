@@ -277,7 +277,6 @@ public class DiagramChangeListener implements ResourceSetListener {
 //import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm;
 //import org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer;
 //import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-//import org.eclipse.graphiti.GfwTestConfiguration;
 //import org.eclipse.graphiti.ui.Messages;
 //import org.eclipse.graphiti.util.PeUtil;
 //import org.eclipse.graphiti.util.T;

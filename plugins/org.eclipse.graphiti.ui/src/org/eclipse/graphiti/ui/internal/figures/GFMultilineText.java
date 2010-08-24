@@ -35,9 +35,6 @@ public class GFMultilineText extends Figure {
 	public GFMultilineText() {
 		setBorder(new MarginBorder(2));
 
-		// textFlow = new GfwTextFlow();
-		// textFlow.setLayoutManager(new GfwParagraphTextLayout(textFlow,
-		// ParagraphTextLayout.WORD_WRAP_SOFT));
 		textFlow = new TextFlow();
 		textFlow.setLayoutManager(new ParagraphTextLayout(textFlow, ParagraphTextLayout.WORD_WRAP_SOFT));
 

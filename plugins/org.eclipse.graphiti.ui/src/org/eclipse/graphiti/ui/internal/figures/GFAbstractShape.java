@@ -51,7 +51,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Path;
 
 /**
- * This class is an abstract super-class for all Shapes in the GFW. The main
+ * This class is an abstract super-class for all Shapes in Graphiti. The main
  * idea is, that the outline and fill-area of a Shape is defined by a Path.
  * Sub-classes usually only have to implement the abstract method
  * {@link #createPath(Rectangle, Graphics, boolean)}
@@ -148,12 +148,10 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	}
 
 	/**
-	 * Returns the IConfigurationProvider, which can be used to access the GFW
-	 * configuration. This is just a convenience for
+	 * Returns the IConfigurationProvider. This is just a convenience for
 	 * <code>getPictogramElementDelegate().getConfigurationProvider()</code>.
 	 * 
-	 * @return The IConfigurationProvider, which can be used to access the GFW
-	 *         configuration.
+	 * @return The IConfigurationProvider.
 	 */
 	protected IConfigurationProvider getConfigurationProvider() {
 		return getPictogramElementDelegate().getConfigurationProvider();
@@ -272,7 +270,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 		if (gas != null) {
 			for (int i = 0; i < gas.length; i++) {
 				IFigure figure = getPictogramElementDelegate().getFigureForGraphicsAlgorithm(gas[i]);
-				if (figure != null && !this.equals(figure)) { // don't check the figure
+				if (figure != null && !this.equals(figure)) { // don't check the
+																// figure
 					if (figure.containsPoint(x, y)) {
 						return Boolean.TRUE;
 					}
@@ -320,28 +319,32 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			if (renderingStyle != null) {
 				graphics.pushState();
 				try {
-					//do not use getZoomLevel(), which returns wrong scales
+					// do not use getZoomLevel(), which returns wrong scales
 					Rectangle pathBounds = GFFigureUtil.getPathBounds(path);
 					graphics.clipPath(path);
 					int styleAdaptation = getStyleAdaptation();
 					AdaptedGradientColoredAreas adaptedGradientColoredAreas = renderingStyle.getAdaptedGradientColoredAreas();
-					EList<GradientColoredAreas> gradientColoredAreas = (EList<GradientColoredAreas>) adaptedGradientColoredAreas.getAdaptedGradientColoredAreas();
+					EList<GradientColoredAreas> gradientColoredAreas = (EList<GradientColoredAreas>) adaptedGradientColoredAreas
+							.getAdaptedGradientColoredAreas();
 					EList<GradientColoredArea> gradienColoredAreaList = null;
-					//get the style adaption or use the default style
-					if (gradientColoredAreas != null && gradientColoredAreas.size() > 0 && gradientColoredAreas.size() -1 >= styleAdaptation) {
+					// get the style adaption or use the default style
+					if (gradientColoredAreas != null && gradientColoredAreas.size() > 0
+							&& gradientColoredAreas.size() - 1 >= styleAdaptation) {
 						gradienColoredAreaList = gradientColoredAreas.get(styleAdaptation).getGradientColor();
 					} else {
-						gradienColoredAreaList = gradientColoredAreas.get(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT).getGradientColor();
+						gradienColoredAreaList = gradientColoredAreas.get(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT)
+								.getGradientColor();
 					}
 					boolean isVertical = true;
 					if (adaptedGradientColoredAreas.getGradientType() != null) {
 						if (adaptedGradientColoredAreas.getGradientType().equals(IGradientType.HORIZONTAL)) {
 							isVertical = false;
 						}
-					} 
+					}
 					for (Iterator<GradientColoredArea> iterator = gradienColoredAreaList.iterator(); iterator.hasNext();) {
 						GradientColoredArea gradientColoredArea = (GradientColoredArea) iterator.next();
-						GFFigureUtil.paintColorFlow(getConfigurationProvider(), pathBounds, graphics, gradientColoredArea, getZoomLevel(graphics), isVertical);
+						GFFigureUtil.paintColorFlow(getConfigurationProvider(), pathBounds, graphics, gradientColoredArea,
+								getZoomLevel(graphics), isVertical);
 					}
 				} finally {
 					graphics.popState();
@@ -352,7 +355,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			}
 		}
 	}
-	
+
 	private void setBackgroundWithoutStyle(Graphics graphics, Path path) {
 		Color oldBackground = graphics.getBackgroundColor();
 		// fill area
@@ -362,23 +365,27 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	}
 
 	private int getStyleAdaptation() {
-			int styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT;
-			int selectionFeedback = getVisualState().getSelectionFeedback();
-			if (selectionFeedback == IVisualState.SELECTION_PRIMARY)
-				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED;
-			else if (selectionFeedback == IVisualState.SELECTION_SECONDARY)
-				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
+		int styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT;
+		int selectionFeedback = getVisualState().getSelectionFeedback();
+		if (selectionFeedback == IVisualState.SELECTION_PRIMARY)
+			styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_PRIMARY_SELECTED;
+		else if (selectionFeedback == IVisualState.SELECTION_SECONDARY)
+			styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
 
-			int actionTargetFeedback = getVisualState().getActionTargetFeedback();
-//			if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
-//				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED;
-//			else if (actionTargetFeedback == IVisualState.ACTION_TARGET_FORBIDDEN)
-//				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN;
-			
-//			TODO why is every actionTargetFeedback folded to STYLE_ADAPTATION_SECONDARY_SELECTED?
-			//
-			if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
-				styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
+		int actionTargetFeedback = getVisualState().getActionTargetFeedback();
+		// if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
+		// styleAdaptation =
+		// IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED;
+		// else if (actionTargetFeedback ==
+		// IVisualState.ACTION_TARGET_FORBIDDEN)
+		// styleAdaptation =
+		// IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN;
+
+		// TODO why is every actionTargetFeedback folded to
+		// STYLE_ADAPTATION_SECONDARY_SELECTED?
+		//
+		if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
+			styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
 		return styleAdaptation;
 	}
 
@@ -519,11 +526,15 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	public final boolean containsPoint(int x, int y) {
 		Boolean ret = containsPointInArea(x, y);
 		if (ret != null) {
-			// If a selection area is available, but the mouse is not inside this selection area
-			// and mouse is inside this figure (e.g. the ghost figure) then check the main figures 
+			// If a selection area is available, but the mouse is not inside
+			// this selection area
+			// and mouse is inside this figure (e.g. the ghost figure) then
+			// check the main figures
 			// of all child edit parts.
-			// It could be possible that one of these child figures is rendered outside and the mouse is inside this 
-			// child figure. In this case return true, otherwise the child edit part will never be selectable (the contains
+			// It could be possible that one of these child figures is rendered
+			// outside and the mouse is inside this
+			// child figure. In this case return true, otherwise the child edit
+			// part will never be selectable (the contains
 			// method of child edit part figure will never be called).
 			if (ret.booleanValue() == false && getSelectionArea() != null && containsPointInFigure(x, y)) {
 				List<IFigure> fList = getPictogramElementDelegate().getMainFiguresFromChildEditparts();

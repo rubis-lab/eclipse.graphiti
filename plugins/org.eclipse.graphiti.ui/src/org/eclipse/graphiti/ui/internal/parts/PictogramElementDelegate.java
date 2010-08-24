@@ -580,7 +580,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		GraphicsAlgorithm selectionGraphicsAlgorithm = toolBehaviorProvider.getSelectionGraphicsAlgorithm(pe);
 		IFigure selectionFigure = getFigureForGraphicsAlgorithm(selectionGraphicsAlgorithm);
 		if (selectionFigure == null) {
-			// Retreat to gfw behavior.
+			// Retreat to graphiti behavior.
 			selectionFigure = figure;
 		}
 		boolean indicatedNeededUpdates = false;
@@ -787,12 +787,12 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 		if (specialSelectionHandlingForOuterGaFigures) {
 			if (ret instanceof GFAbstractShape) {
-				GFAbstractShape gfwAbstractShape = (GFAbstractShape) ret;
+				GFAbstractShape gfAbstractShape = (GFAbstractShape) ret;
 				IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
 						.getCurrentToolBehaviorProvider();
-				gfwAbstractShape.setSelectionGraphicsAlgorithm(currentToolBehaviorProvider
+				gfAbstractShape.setSelectionGraphicsAlgorithm(currentToolBehaviorProvider
 						.getSelectionGraphicsAlgorithm(getPictogramElement()));
-				gfwAbstractShape.setSelectionArea(currentToolBehaviorProvider.getSelectionArea(getPictogramElement()));
+				gfAbstractShape.setSelectionArea(currentToolBehaviorProvider.getSelectionArea(getPictogramElement()));
 			}
 		}
 

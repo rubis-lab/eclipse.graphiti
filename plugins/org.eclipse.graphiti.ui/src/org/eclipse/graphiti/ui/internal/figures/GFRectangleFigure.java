@@ -22,7 +22,7 @@ import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.swt.graphics.Path;
 
 /**
- * A GFW Rectangle Figure. Most functionality is handled in the super-class.
+ * A Graphiti Rectangle Figure. Most functionality is handled in the super-class.
  * This class only has to define the outline-path and fill-path for the
  * figure-specific painting.
  * 

@@ -43,7 +43,7 @@ import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
 /**
- * The Class GFWCommandStack.
+ * The Class GFCommandStack.
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
@@ -89,7 +89,7 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		}
 
 		org.eclipse.emf.common.command.Command emfCommand = transformFromGefToEmfCommand(gefCommand);
-		org.eclipse.emf.common.command.Command gfwPreparableCommand = new GFPreparableCommand2(getTransactionalEditingDomain(), emfCommand);
+		org.eclipse.emf.common.command.Command gfPreparableCommand = new GFPreparableCommand2(getTransactionalEditingDomain(), emfCommand);
 
 		IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 
@@ -103,7 +103,7 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		//		}
 
 		tbp.preExecute(executionInfo);
-		getEmfCommandStack().execute(gfwPreparableCommand);
+		getEmfCommandStack().execute(gfPreparableCommand);
 		tbp.postExecute(executionInfo);
 
 		// Check if the executed feature has really done changes (indicated by IFeature.hasDoneChanges). If
@@ -117,12 +117,12 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 			if (command instanceof FeatureCommand) {
 				if (!((FeatureCommand) command).getFeature().hasDoneChanges()) {
 					// Use the default context and retrieve the last operation
-					WorkspaceCommandStackImpl gfWorkspaceCommandStackImpl = (WorkspaceCommandStackImpl) getEmfCommandStack();
-					IUndoContext context = gfWorkspaceCommandStackImpl.getDefaultUndoContext();
-					IUndoableOperation operation = gfWorkspaceCommandStackImpl.getOperationHistory().getUndoOperation(context);
+					WorkspaceCommandStackImpl workspaceCommandStackImpl = (WorkspaceCommandStackImpl) getEmfCommandStack();
+					IUndoContext context = workspaceCommandStackImpl.getDefaultUndoContext();
+					IUndoableOperation operation = workspaceCommandStackImpl.getOperationHistory().getUndoOperation(context);
 
 					// Replace the found operation with an empty set
-					gfWorkspaceCommandStackImpl.getOperationHistory().replaceOperation(operation, new IUndoableOperation[0]);
+					workspaceCommandStackImpl.getOperationHistory().replaceOperation(operation, new IUndoableOperation[0]);
 
 					// Update the editor actions bars, especially Edit --> Undo
 					notifyListeners(gefCommand, CommandStack.POST_MASK);
@@ -230,16 +230,16 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 			completeExecutionInfo(executionInfo, graphitiCommand);
 		}
 		if (gefCommand instanceof GFCommand) {
-			final GFCommand gfwCommand = (GFCommand) gefCommand;
-			executionInfo.addFeatureAndContext(new DefaultFeatureAndContext(gfwCommand.getFeature(), gfwCommand.getContext()));
+			final GFCommand gfCommand = (GFCommand) gefCommand;
+			executionInfo.addFeatureAndContext(new DefaultFeatureAndContext(gfCommand.getFeature(), gfCommand.getContext()));
 		}
 
 		return executionInfo;
 	}
 
-	private static DefaultExecutionInfo completeExecutionInfo(DefaultExecutionInfo executionInfo, ICommand gfwCommand) {
-		if (gfwCommand instanceof CommandContainer) {
-			CommandContainer cc = (CommandContainer) gfwCommand;
+	private static DefaultExecutionInfo completeExecutionInfo(DefaultExecutionInfo executionInfo, ICommand gfCommand) {
+		if (gfCommand instanceof CommandContainer) {
+			CommandContainer cc = (CommandContainer) gfCommand;
 			final ICommand[] childCommands = cc.getCommands();
 			for (int i = 0; i < childCommands.length; i++) {
 				ICommand childCommand = childCommands[i];
@@ -250,12 +250,12 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		else {
 			IContext context = null;
 			IFeature feature = null;
-			if (gfwCommand instanceof IFeatureHolder) {
-				IFeatureHolder featureHolder = (IFeatureHolder) gfwCommand;
+			if (gfCommand instanceof IFeatureHolder) {
+				IFeatureHolder featureHolder = (IFeatureHolder) gfCommand;
 				feature = featureHolder.getFeature();
 			}
-			if (gfwCommand instanceof IContextHolder) {
-				IContextHolder contextHolder = (IContextHolder) gfwCommand;
+			if (gfCommand instanceof IContextHolder) {
+				IContextHolder contextHolder = (IContextHolder) gfCommand;
 				context = contextHolder.getContext();
 			}
 			executionInfo.addFeatureAndContext(new DefaultFeatureAndContext(feature, context));

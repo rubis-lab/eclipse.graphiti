@@ -75,10 +75,10 @@ public class ZoomManagerWithAnimation extends ZoomManager {
 		if (viewer != null) {
 			Control control = viewer.getControl();
 			if (control instanceof GFFigureCanvas) {
-				GFFigureCanvas gfwFigureCanvas = (GFFigureCanvas) control;
-				gfwFigureCanvas.removeCornerPixels();
-				zoomLevel = getFitXZoomLevel(2, gfwFigureCanvas);
-				gfwFigureCanvas.setCornerPixels();
+				GFFigureCanvas gfFigureCanvas = (GFFigureCanvas) control;
+				gfFigureCanvas.removeCornerPixels();
+				zoomLevel = getFitXZoomLevel(2, gfFigureCanvas);
+				gfFigureCanvas.setCornerPixels();
 				return zoomLevel;
 			} else {
 				return super.getFitPageZoomLevel();
@@ -145,10 +145,10 @@ public class ZoomManagerWithAnimation extends ZoomManager {
 		if (viewer != null) {
 			Control control = viewer.getControl();
 			if (control instanceof GFFigureCanvas) {
-				GFFigureCanvas gfwFigureCanvas = (GFFigureCanvas) control;
-				gfwFigureCanvas.removeCornerPixels();
-				zoomLevel = getFitXZoomLevel(0, gfwFigureCanvas);
-				gfwFigureCanvas.setCornerPixels();
+				GFFigureCanvas gfFigureCanvas = (GFFigureCanvas) control;
+				gfFigureCanvas.removeCornerPixels();
+				zoomLevel = getFitXZoomLevel(0, gfFigureCanvas);
+				gfFigureCanvas.setCornerPixels();
 				return zoomLevel;
 			} else {
 				return super.getFitWidthZoomLevel();
@@ -173,10 +173,10 @@ public class ZoomManagerWithAnimation extends ZoomManager {
 		if (viewer != null) {
 			Control control = viewer.getControl();
 			if (control instanceof GFFigureCanvas) {
-				GFFigureCanvas gfwFigureCanvas = (GFFigureCanvas) control;
-				gfwFigureCanvas.removeCornerPixels();
-				zoomLevel = getFitXZoomLevel(1, gfwFigureCanvas);
-				gfwFigureCanvas.setCornerPixels();
+				GFFigureCanvas gfFigureCanvas = (GFFigureCanvas) control;
+				gfFigureCanvas.removeCornerPixels();
+				zoomLevel = getFitXZoomLevel(1, gfFigureCanvas);
+				gfFigureCanvas.setCornerPixels();
 				return zoomLevel;
 			} else {
 				return super.getFitHeightZoomLevel();
@@ -185,9 +185,9 @@ public class ZoomManagerWithAnimation extends ZoomManager {
 		return super.getFitHeightZoomLevel();
 	}
 
-	private double getFitXZoomLevel(int which, GFFigureCanvas gfwFigureCanvas) {
+	private double getFitXZoomLevel(int which, GFFigureCanvas gfFigureCanvas) {
 		Dimension available = getViewport().getClientArea().getSize();
-		Dimension desired = gfwFigureCanvas.getDiagramBoundsFromEditPartChildren().getSize();
+		Dimension desired = gfFigureCanvas.getDiagramBoundsFromEditPartChildren().getSize();
 
 		double scaleX = Math.min((double) available.width / (double) desired.width, getMaxZoom());
 		double scaleY = Math.min((double) available.height / (double) desired.height, getMaxZoom());

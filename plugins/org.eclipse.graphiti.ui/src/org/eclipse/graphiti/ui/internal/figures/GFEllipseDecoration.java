@@ -24,7 +24,7 @@ import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.swt.graphics.Path;
 
 /**
- * A GFW Ellipse Rotatable Decoration. Most functionality is handled in the
+ * A Graphiti Ellipse Rotatable Decoration. Most functionality is handled in the
  * super-class. This class only has to define the path and the touch-point for
  * the figure-specific painting.
  * 

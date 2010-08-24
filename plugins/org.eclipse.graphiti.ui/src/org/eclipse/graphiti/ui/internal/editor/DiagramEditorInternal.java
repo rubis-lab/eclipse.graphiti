@@ -284,7 +284,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		Point viewLocation;
 		// view location depends on the current scroll bar position
 		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-			viewLocation = getGFWFigureCanvas().getViewport().getViewLocation();
+			viewLocation = getGFFigureCanvas().getViewport().getViewLocation();
 		} else {
 			viewLocation = getFigureCanvas().getViewport().getViewLocation();
 		}
@@ -378,7 +378,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 		/* sw: make scroll bars always visible */
 		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-			GFFigureCanvas figureCanvas = getGFWFigureCanvas();
+			GFFigureCanvas figureCanvas = getGFFigureCanvas();
 			if (figureCanvas != null) {
 				figureCanvas.setScrollBarVisibility(FigureCanvas.ALWAYS);
 			}
@@ -743,7 +743,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	public IDimension getCurrentSize() {
 
 		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-			GFFigureCanvas canvas = getGFWFigureCanvas();
+			GFFigureCanvas canvas = getGFFigureCanvas();
 			// if this method is called during editor opening, it can fail, so
 			// we return "default size".
 			if (canvas != null) {
@@ -821,12 +821,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return null;
 	}
 
-	/**
-	 * Gets the gFW figure canvas.
-	 * 
-	 * @return the gFW figure canvas
-	 */
-	private GFFigureCanvas getGFWFigureCanvas() {
+	private GFFigureCanvas getGFFigureCanvas() {
 		GraphicalViewer viewer = getGraphicalViewer();
 		if (viewer != null)
 			return (GFFigureCanvas) viewer.getControl();

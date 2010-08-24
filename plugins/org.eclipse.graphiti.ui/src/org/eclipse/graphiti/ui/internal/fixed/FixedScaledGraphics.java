@@ -22,7 +22,7 @@ import org.eclipse.swt.graphics.Path;
 /**
  * This class is a subclass of ScaledGraphics, which only purpose is to fix bugs
  * in ScaledGraphics or implement previously not implemented methods. This class
- * does not add any GFW specific coding.
+ * does not add any Graphiti specific coding.
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.

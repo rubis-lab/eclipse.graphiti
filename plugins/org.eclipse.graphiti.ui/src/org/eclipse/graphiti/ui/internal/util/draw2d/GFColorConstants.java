@@ -86,7 +86,7 @@ public interface GFColorConstants extends ColorConstants {
 
 	public static final Color DARK_GREYISH_BLUE = new Color(null, 113, 131, 152);
 
-	// === GFW System Colors ===
+	// === Graphiti System Colors ===
 
 	public static final Color TOOLTIP_FG = tooltipBackground; // LIGHT_BEIGE;
 
