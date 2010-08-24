@@ -187,12 +187,12 @@ public class GefService implements IGefService {
 	 * @seeorg.eclipse.graphiti.ui.internal.util.gef.IGefService#
 	 * getConnectionsContainedInEditPart(org.eclipse.gef.EditPart)
 	 */
-	public List getConnectionsContainedInEditPart(EditPart ep) {
+	public List<EditPart> getConnectionsContainedInEditPart(EditPart ep) {
 		// Compute connections whose start and target are somewhere in the editpart sub hierarchy of ep
-		List childEditParts = getChildEditParts(ep);
+		List<EditPart> childEditParts = getChildEditParts(ep);
 		List<Connection> sourceConnections = new ArrayList<Connection>();
 		List<Connection> targetConnections = new ArrayList<Connection>();
-		for (Object cep : childEditParts) {
+		for (EditPart cep : childEditParts) {
 			if (cep instanceof ShapeEditPart) {
 				ShapeEditPart sep = (ShapeEditPart) cep;
 				sourceConnections.addAll(sep.getModelSourceConnections());
@@ -202,26 +202,26 @@ public class GefService implements IGefService {
 		sourceConnections.retainAll(targetConnections);
 
 		// Extract edit parts and decorators from the connections
-		List result = new ArrayList();
+		List<EditPart> result = new ArrayList<EditPart>();
 		for (Connection connection : sourceConnections) {
 			Object connectionEditPart = ep.getRoot().getViewer().getEditPartRegistry().get(connection);
-			result.add(connectionEditPart);
+			result.add((EditPart) connectionEditPart);
 			EList<ConnectionDecorator> connectionDecorators = connection.getConnectionDecorators();
 			for (ConnectionDecorator decorator : connectionDecorators) {
 				Object decoratorEditPart = ep.getRoot().getViewer().getEditPartRegistry().get(decorator);
-				result.add(decoratorEditPart);
+				result.add((EditPart) decoratorEditPart);
 			}
 		}
 		return result;
 
 	}
 
-	private List getChildEditParts(EditPart ep) {
-		List res = new ArrayList();
-		List children = ep.getChildren();
+	private List<EditPart> getChildEditParts(EditPart ep) {
+		List<EditPart> res = new ArrayList<EditPart>();
+		List<Object> children = ep.getChildren();
 		for (Object editPart : children) {
 			if (editPart instanceof EditPart) {
-				res.add(editPart);
+				res.add((EditPart)editPart);
 				res.addAll(getChildEditParts((EditPart) editPart));
 			}
 		}

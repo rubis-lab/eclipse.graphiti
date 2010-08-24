@@ -80,7 +80,7 @@ public interface IGefService {
 	 * @returns List of EditParts (connection and Decorator) which live in
 	 *          EditPart
 	 */
-	public abstract List getConnectionsContainedInEditPart(EditPart ep);
+	public abstract List<EditPart> getConnectionsContainedInEditPart(EditPart ep);
 
 	/**
 	 * @param c
