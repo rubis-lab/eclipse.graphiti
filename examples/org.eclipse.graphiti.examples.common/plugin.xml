@@ -35,7 +35,7 @@
             contentProvider="org.eclipse.graphiti.examples.common.navigator.GFEmfTreeContentProvider"
             id="org.eclipse.graphiti.examples.navigatorContent"
             labelProvider="org.eclipse.graphiti.examples.common.navigator.GFEmfLabelProvider"
-            name="GFW EMF Navigator Content"
+            name="Graphiti Navigator Content"
             priority="higher">
          <triggerPoints>
             <or>
@@ -73,7 +73,7 @@
                   type="org.eclipse.core.resources.IProject">
                   <test
                         property="org.eclipse.core.resources.projectNature"
-                        value="org.eclipse.graphiti.examples.gfwsamplenature"/>
+                        value="org.eclipse.graphiti.examples.common.ExampleProjectNature"/>
             </adapt>
          </enablement>
       </commonWizard>
