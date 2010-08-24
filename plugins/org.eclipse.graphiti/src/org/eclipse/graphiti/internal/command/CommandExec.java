@@ -70,9 +70,9 @@ public class CommandExec {
 		CommandStack commandStack = editingDomain.getCommandStack();
 
 		try {
-			GFPreparableCommand gfwRecordingCommand = new GFPreparableCommand(editingDomain, command);
-			commandStack.execute(gfwRecordingCommand); // gfwRecordingCommand.execute();
-			ret = gfwRecordingCommand.getExecutionResult();
+			GFPreparableCommand gfRecordingCommand = new GFPreparableCommand(editingDomain, command);
+			commandStack.execute(gfRecordingCommand); // gfRecordingCommand.execute();
+			ret = gfRecordingCommand.getExecutionResult();
 		} catch (Exception ex) {
 			T.racer().error("CommandExec.executeCommand() " + ex, ex); //$NON-NLS-1$
 			commandStack.undo();

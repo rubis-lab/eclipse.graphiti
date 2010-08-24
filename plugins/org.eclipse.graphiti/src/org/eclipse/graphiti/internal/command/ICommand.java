@@ -19,7 +19,7 @@ import org.eclipse.graphiti.IDescription;
 import org.eclipse.graphiti.features.IFeatureProviderHolder;
 
 /**
- * The Interface ICommand. Defines the general GFW Command
+ * The Interface ICommand. Defines the general GF Command
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This class is not intended to be subclassed by clients.
