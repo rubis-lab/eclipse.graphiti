@@ -348,15 +348,17 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 			return new LayoutPoolFeature(this);
 		} else {
 			boolean check = context.getPictogramElement() instanceof ContainerShape;
-			ContainerShape cs = (ContainerShape) pe;
-			List<Shape> children = cs.getChildren();
-			if (!children.isEmpty()) {
-				Shape firstChild = children.get(0);
-				if (firstChild != null) {
-					GraphicsAlgorithm ga = firstChild.getGraphicsAlgorithm();
-					check = check && ga instanceof Ellipse;
-					if (check) {
-						return new LayoutContainerShapeGhostAndInnerShapeFeature(this);
+			if (check) {
+				ContainerShape cs = (ContainerShape) pe;
+				List<Shape> children = cs.getChildren();
+				if (!children.isEmpty()) {
+					Shape firstChild = children.get(0);
+					if (firstChild != null) {
+						GraphicsAlgorithm ga = firstChild.getGraphicsAlgorithm();
+						check = check && ga instanceof Ellipse;
+						if (check) {
+							return new LayoutContainerShapeGhostAndInnerShapeFeature(this);
+						}
 					}
 				}
 			}
