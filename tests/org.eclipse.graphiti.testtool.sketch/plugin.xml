@@ -23,7 +23,7 @@
             typeMapper="org.eclipse.graphiti.examples.common.property.TypeMapper"
             contributorId="testtool.sketch.PropertyContributor"
             labelProvider="org.eclipse.graphiti.examples.common.property.PropertiesLabelProvider">
-        <propertyCategory category="gfw-legacy" />
+        <propertyCategory category="graphiti-legacy" />
       </propertyContributor>
    </extension>
    <extension
@@ -31,7 +31,7 @@
       <propertyTabs
             contributorId="testtool.sketch.PropertyContributor">
           <propertyTab
-               label="Advanced" category="gfw-legacy"
+               label="Advanced" category="graphiti-legacy"
                id="org.eclipse.graphiti.properties.legacytab">
          </propertyTab>
       </propertyTabs>
