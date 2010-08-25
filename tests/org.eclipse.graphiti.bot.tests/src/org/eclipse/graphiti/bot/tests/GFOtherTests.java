@@ -474,7 +474,10 @@ public class GFOtherTests extends AbstractGFTests {
 				}
 
 				EditPart diagramEditPart = (EditPart) rootEditPart.getChildren().get(0);
+
+				@SuppressWarnings("unchecked")
 				List<EditPart> children = diagramEditPart.getChildren();
+
 				EditPart tmp = null;
 				for (EditPart child : children) {
 					Object modelElement = child.getModel();
