@@ -73,7 +73,7 @@
                   type="org.eclipse.core.resources.IProject">
                   <test
                         property="org.eclipse.core.resources.projectNature"
-                        value="org.eclipse.graphiti.examples.common.ExampleProjectNature"/>
+                        value="org.eclipse.graphiti.examples.examplesnature"/>
             </adapt>
          </enablement>
       </commonWizard>
@@ -116,7 +116,7 @@
 <extension
       point="org.eclipse.core.resources.natures"
       id="org.eclipse.graphiti.examples.examplesnature"
-      name="Graphiti Examples Nature">
+      name="Graphiti Example Nature">
       <runtime>
          <run class="org.eclipse.graphiti.examples.common.ExampleProjectNature">
          </run>
