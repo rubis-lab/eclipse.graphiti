@@ -22,7 +22,6 @@ import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**
  * The Class AddDiagramFeature.
@@ -37,7 +36,6 @@ public class AddDiagramFeature extends AbstractAddShapeFeature {
 	 */
 	public AddDiagramFeature(IFeatureProvider fp) {
 		super(fp);
-		// TODO Auto-generated constructor stub
 	}
 
 	public PictogramElement add(IAddContext context) {
