@@ -42,7 +42,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.datatypes.IInsets;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.datatypes.IRectangle;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -87,7 +86,6 @@ import org.eclipse.graphiti.internal.command.ICommand;
 import org.eclipse.graphiti.internal.command.MoveShapeFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ResizeShapeFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
-import org.eclipse.graphiti.internal.datatypes.impl.InsetsImpl;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.internal.datatypes.impl.RectangleImpl;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
@@ -262,23 +260,6 @@ public class PackageTest extends GFAbstractTestCase {
 
 	@Test
 	public void testDatatypesImpl() throws Exception {
-		// test InsetImpl
-		final int LEFT = 1;
-		final int RIGHT = 2;
-		final int TOP = 3;
-		final int BOTTOM = 4;
-
-		InsetsImpl myInsetsImpl = new InsetsImpl(LEFT, RIGHT, TOP, BOTTOM);
-
-		assertEquals(BOTTOM, myInsetsImpl.getBottom());
-
-		assertEquals(LEFT, myInsetsImpl.getLeft());
-
-		assertEquals(RIGHT, myInsetsImpl.getRight());
-
-		assertEquals(TOP, myInsetsImpl.getTop());
-
-		// #########################################################
 
 		// test DimensionImpl
 		final int WIDTH = 30;
@@ -535,13 +516,6 @@ public class PackageTest extends GFAbstractTestCase {
 		points.add(pointMock);
 
 		DataTypeTransformation.toDraw2dPointList(points);
-
-		IInsets insetsMock = createNiceMock(IInsets.class);
-		replay(insetsMock);
-
-		DataTypeTransformation.toGfwInsets(DataTypeTransformation.toDraw2dInsets(insetsMock));
-		DataTypeTransformation.toDraw2dInsets(null);
-		DataTypeTransformation.toGfwInsets(null);
 
 		Color colorMock = createNiceMock(Color.class);
 		replay(colorMock);
