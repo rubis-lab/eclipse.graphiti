@@ -27,19 +27,5 @@ package org.eclipse.graphiti.features.context;
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
  */
-public interface IResizeContext extends ILocationContext {
-
-	/**
-	 * Gets the width.
-	 * 
-	 * @return the width
-	 */
-	int getWidth();
-
-	/**
-	 * Gets the height.
-	 * 
-	 * @return the height
-	 */
-	int getHeight();
+public interface IResizeContext extends IAreaContext {
 }
