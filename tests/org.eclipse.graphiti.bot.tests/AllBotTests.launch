@@ -9,6 +9,12 @@
 <booleanAttribute key="clearConfig" value="true"/>
 <booleanAttribute key="clearws" value="true"/>
 <booleanAttribute key="clearwslog" value="false"/>
+<listAttribute key="com.mountainminds.eclemma.core.INSTRUMENTATION_PATHS">
+<listEntry value="/org.eclipse.graphiti.mm/bin"/>
+<listEntry value="/org.eclipse.graphiti/bin"/>
+<listEntry value="/org.eclipse.graphiti.ui/bin"/>
+<listEntry value="/org.eclipse.graphiti.pattern/bin"/>
+</listAttribute>
 <stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/pde-junit"/>
 <booleanAttribute key="default" value="true"/>
 <booleanAttribute key="includeOptional" value="true"/>
