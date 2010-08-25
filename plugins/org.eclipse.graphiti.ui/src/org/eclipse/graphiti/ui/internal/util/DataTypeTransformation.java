@@ -21,10 +21,7 @@ import java.util.Iterator;
 import org.eclipse.draw2d.AbsoluteBendpoint;
 import org.eclipse.draw2d.Bendpoint;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.PointList;
-import org.eclipse.graphiti.datatypes.IInsets;
-import org.eclipse.graphiti.internal.datatypes.impl.InsetsImpl;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
@@ -210,21 +207,5 @@ public class DataTypeTransformation {
 			draw2dLineStyle = Graphics.LINE_SOLID;
 		}
 		return draw2dLineStyle;
-	}
-
-	public static IInsets toGfwInsets(Insets draw2dInsets) {
-		if (draw2dInsets != null) {
-			return new InsetsImpl(draw2dInsets.left, draw2dInsets.right, draw2dInsets.top, draw2dInsets.bottom);
-		} else {
-			return new InsetsImpl(0, 0, 0, 0);
-		}
-	}
-
-	public static Insets toDraw2dInsets(IInsets gfwInsets) {
-		if (gfwInsets != null) {
-			return new Insets(gfwInsets.getTop(), gfwInsets.getLeft(), gfwInsets.getBottom(), gfwInsets.getRight());
-		} else {
-			return new Insets(0);
-		}
 	}
 }
