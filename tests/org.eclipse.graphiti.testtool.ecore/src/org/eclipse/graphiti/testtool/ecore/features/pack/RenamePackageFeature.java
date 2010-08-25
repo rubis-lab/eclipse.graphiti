@@ -16,7 +16,7 @@
 package org.eclipse.graphiti.testtool.ecore.features.pack;
 
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.graphiti.examples.common.SampleUtil;
+import org.eclipse.graphiti.examples.common.ExampleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
@@ -74,7 +74,7 @@ public class RenamePackageFeature extends AbstractCustomFeature {
 				EPackage p = (EPackage) bo;
 				String currentPackageName = p.getName();
 				// ask user for a new package name
-				String newPackageName = SampleUtil.askString(NAME, DESCRIPTION, currentPackageName);
+				String newPackageName = ExampleUtil.askString(NAME, DESCRIPTION, currentPackageName);
 				if (newPackageName != null) {
 					p.setName(newPackageName);
 				}

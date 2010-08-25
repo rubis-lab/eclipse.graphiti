@@ -17,7 +17,7 @@ package org.eclipse.graphiti.testtool.ecore.features.pack;
 
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.graphiti.examples.common.SampleUtil;
+import org.eclipse.graphiti.examples.common.ExampleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
@@ -49,7 +49,7 @@ public class TestCreatePackageFeature extends AbstractCreateFeature {
 
 	public Object[] create(ICreateContext context) {
 		// ask user for package name
-		String newPackageName = SampleUtil.askString(TITLE, USER_QUESTION, "");
+		String newPackageName = ExampleUtil.askString(TITLE, USER_QUESTION, "");
 		if (newPackageName == null || newPackageName.trim().length() == 0) {
 			return EMPTY;
 		}
