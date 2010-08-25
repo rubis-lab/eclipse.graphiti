@@ -255,7 +255,6 @@
 			<cmdargs>
 				<arg value="-l" />
 				<arg value="org.eclipse.graphiti.tests/AllJunitTests.launch" />
-				<arg value="-m" />
 				<arg value="-o" />
 				<arg value="${result}/testReportJunitGraphiti.xml" />
 				<arg value="--terseXML" />
@@ -274,7 +273,6 @@
 			<cmdargs>
 				<arg value="-l" />
 				<arg value="org.eclipse.graphiti.ui.tests/AllJunitUiTests.launch" />
-				<arg value="-m" />
 				<arg value="-o" />
 				<arg value="${result}/testReportJunitGraphitiUi.xml" />
 				<arg value="--terseXML" />
@@ -293,7 +291,6 @@
 			<cmdargs>
 				<arg value="-l" />
 				<arg value="org.eclipse.graphiti.bot.tests/AllBotTests.launch" />
-				<arg value="-m" />
 				<arg value="-o" />
 				<arg value="${result}/testReportSwtBotGraphiti.xml" />
 				<arg value="--terseXML" />
