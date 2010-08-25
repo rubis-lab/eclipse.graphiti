@@ -93,7 +93,7 @@ public class PopupMenu {
 	/**
 	 * The content of this menu. Each entry in the list becomes a menu item.
 	 */
-	private List content;
+	private List<?> content;
 
 	/**
 	 * Provides the text and icon for each menu item.
@@ -104,7 +104,7 @@ public class PopupMenu {
 	 * The object from the content list that the user selected. In the case of
 	 * cascading menus, this will have multiple objects.
 	 */
-	private List resultList = new ArrayList();
+	private List<Object> resultList = new ArrayList<Object>();
 
 	private Menu menu;
 
@@ -118,7 +118,7 @@ public class PopupMenu {
 	 *            the label provider used to provide the text for each object in
 	 *            the content list
 	 */
-	public PopupMenu(List aContent, ILabelProvider aLabelProvider) {
+	public PopupMenu(List<?> aContent, ILabelProvider aLabelProvider) {
 		setContent(aContent);
 		setLabelProvider(aLabelProvider);
 	}
@@ -133,7 +133,7 @@ public class PopupMenu {
 	 */
 	public boolean show(Control parent) {
 		menu = new Menu(parent);
-		createMenuItems(menu, this, new ArrayList());
+		createMenuItems(menu, this, new ArrayList<Object>());
 
 		menu.setVisible(true);
 
@@ -163,11 +163,11 @@ public class PopupMenu {
 	 * @param resultThusFar
 	 *            List of content objects, e.g. CascadingMenu objects
 	 */
-	protected void createMenuItems(Menu parentMenu, final PopupMenu rootMenu, final List resultThusFar) {
+	protected void createMenuItems(Menu parentMenu, final PopupMenu rootMenu, final List<Object> resultThusFar) {
 		Assert.isNotNull(getContent());
 		Assert.isNotNull(getLabelProvider());
 
-		for (Iterator iter = getContent().iterator(); iter.hasNext();) {
+		for (Iterator<?> iter = getContent().iterator(); iter.hasNext();) {
 			Object contentObject = iter.next();
 
 			MenuItem menuItem;
@@ -175,7 +175,7 @@ public class PopupMenu {
 			if (contentObject instanceof CascadingMenu) {
 				PopupMenu subMenu = ((CascadingMenu) contentObject).getSubMenu();
 				contentObject = ((CascadingMenu) contentObject).getParentMenuItem();
-				List thisResult = new ArrayList(resultThusFar);
+				List<Object> thisResult = new ArrayList<Object>(resultThusFar);
 				thisResult.add(contentObject);
 				menuItem = new MenuItem(parentMenu, SWT.CASCADE);
 				menuItem.setMenu(new Menu(parentMenu));
@@ -208,7 +208,7 @@ public class PopupMenu {
 	 * 
 	 * @return Returns the content.
 	 */
-	protected List getContent() {
+	protected List<?> getContent() {
 		return content;
 	}
 
@@ -219,7 +219,7 @@ public class PopupMenu {
 	 *            The content of this menu. Each entry in the list becomes a
 	 *            menu item.
 	 */
-	public void setContent(List aContent) {
+	public void setContent(List<?> aContent) {
 		this.content = aContent;
 	}
 
@@ -264,7 +264,7 @@ public class PopupMenu {
 	 * @param aResultList
 	 *            The resultList to set.
 	 */
-	protected void setResult(List aResultList) {
+	protected void setResult(List<Object> aResultList) {
 		this.resultList = aResultList;
 	}
 
