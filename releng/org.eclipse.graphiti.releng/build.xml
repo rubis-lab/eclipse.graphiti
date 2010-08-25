@@ -220,6 +220,8 @@
 			<cmdargs>
 				<arg value="-P" />
 				<arg value="${basedir}/${properties.file}" />
+				<arg value="-B" />
+				<arg value="${result}/Graphiti.bom" />
 				<arg value="${basedir}/${mspec.file}" />
 			</cmdargs>
 		</buckminster>
