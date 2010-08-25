@@ -252,6 +252,7 @@
 		<buckminster command="emma">
 			<cmdargs>
 				<arg value="-l" />
+				<arg value="-m" />
 				<arg value="org.eclipse.graphiti.tests/AllJunitTests.launch" />
 				<arg value="-o" />
 				<arg value="${result}/testReportJunitGraphiti.xml" />
@@ -270,6 +271,7 @@
 		<buckminster command="emma">
 			<cmdargs>
 				<arg value="-l" />
+				<arg value="-m" />
 				<arg value="org.eclipse.graphiti.ui.tests/AllJunitUiTests.launch" />
 				<arg value="-o" />
 				<arg value="${result}/testReportJunitGraphitiUi.xml" />
@@ -288,6 +290,7 @@
 		<buckminster command="emma">
 			<cmdargs>
 				<arg value="-l" />
+				<arg value="-m" />
 				<arg value="org.eclipse.graphiti.bot.tests/AllBotTests.launch" />
 				<arg value="-o" />
 				<arg value="${result}/testReportSwtBotGraphiti.xml" />
