@@ -16,7 +16,7 @@
 package org.eclipse.graphiti.examples.tutorial.features;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.graphiti.examples.common.SampleUtil;
+import org.eclipse.graphiti.examples.common.ExampleUtil;
 import org.eclipse.graphiti.examples.tutorial.StyleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
@@ -77,7 +77,7 @@ public class TutorialChangeColorEClassFeature extends AbstractCustomFeature {
 		} else {
 			currentColor = style.getForeground();
 		}
-		Color newColor = SampleUtil.editColor(currentColor);
+		Color newColor = ExampleUtil.editColor(currentColor);
 		if (newColor == null) { // user did not choose new color
 			return;
 		}

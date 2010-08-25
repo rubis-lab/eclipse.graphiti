@@ -16,7 +16,7 @@
 package org.eclipse.graphiti.examples.tutorial.features;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.graphiti.examples.common.SampleUtil;
+import org.eclipse.graphiti.examples.common.ExampleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
@@ -61,7 +61,7 @@ public class TutorialRenameEClassFeature extends AbstractCustomFeature {
 				EClass eClass = (EClass) bo;
 				String currentName = eClass.getName();
 				// ask user for a new class name
-				String newName = SampleUtil.askString(getName(), getDescription(), currentName);
+				String newName = ExampleUtil.askString(getName(), getDescription(), currentName);
 				if (newName != null) {
 					eClass.setName(newName);
 				}
