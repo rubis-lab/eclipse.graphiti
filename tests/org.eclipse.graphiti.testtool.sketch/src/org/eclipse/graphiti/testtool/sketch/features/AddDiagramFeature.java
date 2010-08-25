@@ -15,13 +15,12 @@
  *******************************************************************************/
 package org.eclipse.graphiti.testtool.sketch.features;
 
-import java.util.Collection;
-
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**
  * The Class AddDiagramFeature.
@@ -39,7 +38,10 @@ public class AddDiagramFeature extends AbstractAddShapeFeature {
 	}
 
 	public PictogramElement add(IAddContext context) {
-		((Collection) context.getTargetContainer().getChildren()).add(context.getNewObject());
+		if (context.getNewObject() instanceof Shape) {
+			Shape shape = (Shape) context.getNewObject();
+			context.getTargetContainer().getChildren().add(shape);
+		}
 		return null;
 	}
 

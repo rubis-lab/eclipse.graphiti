@@ -23,6 +23,7 @@ import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.testtool.sketch.SketchUtil;
 
@@ -53,7 +54,7 @@ public class LayoutPoolFeature extends AbstractLayoutFeature {
 		PictogramElement pe = context.getPictogramElement();
 		if (pe instanceof ContainerShape) {
 			ContainerShape poolCs = (ContainerShape) pe;
-			List lanePes = poolCs.getChildren();
+			List<Shape> lanePes = poolCs.getChildren();
 			int laneCount = lanePes.size();
 			GraphicsAlgorithm poolGa = poolCs.getGraphicsAlgorithm();
 			int poolHeight = poolGa.getHeight();

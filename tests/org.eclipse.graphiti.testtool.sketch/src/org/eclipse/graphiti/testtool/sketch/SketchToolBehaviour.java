@@ -113,7 +113,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 
 	private static final double[] ZOOM_LEVELS = new double[] { 0.05, 0.1, 0.5, 1, 1.5, 2, 3, 4 };
 
-	private static final boolean TEST_SHOW_WARNING_DECORATORS = false;
+	private static boolean TEST_SHOW_WARNING_DECORATORS = false;
 
 	private final ISelectionInfo selectionInfo = new SelectionInfoImpl(IColorConstant.BLUE, IColorConstant.LIGHT_BLUE, IColorConstant.RED,
 			LineStyle.DOT);

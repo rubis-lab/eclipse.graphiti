@@ -47,6 +47,7 @@ abstract class AbstractSketchCreateSimpleConnectionFeature extends AbstractSketc
 		super(fp, name, description);
 	}
 
+	@SuppressWarnings("unused")
 	public Connection create(ICreateConnectionContext context) {
 
 		Anchor startAnchor = context.getSourceAnchor();
