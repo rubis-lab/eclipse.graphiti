@@ -113,36 +113,6 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 	}
 
 	/**
-	 * A convenient method for the color handling which simply calls
-	 * <code>Graphiti.getGaService().manageColor(...)</code>.
-	 * 
-	 * @param colorConstant
-	 *            the color constant
-	 * 
-	 * @return the color
-	 */
-	protected Color manageColor(IColorConstant colorConstant) {
-		return Graphiti.getGaService().manageColor(getFeatureProvider().getDiagramTypeProvider().getDiagram(), colorConstant);
-	}
-
-	/**
-	 * A convenient method for the color handling which simply calls
-	 * <code>Graphiti.getGaService().manageColor(...)</code>.
-	 * 
-	 * @param red
-	 *            the red
-	 * @param green
-	 *            the green
-	 * @param blue
-	 *            the blue
-	 * 
-	 * @return the color
-	 */
-	protected Color manageColor(int red, int green, int blue) {
-		return Graphiti.getGaService().manageColor(getFeatureProvider().getDiagramTypeProvider().getDiagram(), red, green, blue);
-	}
-
-	/**
 	 * Update pictogram element.
 	 * 
 	 * @param pe

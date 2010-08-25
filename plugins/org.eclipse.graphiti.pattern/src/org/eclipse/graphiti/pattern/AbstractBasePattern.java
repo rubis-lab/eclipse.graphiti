@@ -19,8 +19,12 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IFeatureProviderHolder;
 import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.util.IColorConstant;
 
 /**
  * The Class AbstractBasePattern.
@@ -124,5 +128,44 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	 */
 	protected void link(PictogramElement pe, Object businessObjects[]) {
 		getMappingProvider().link(pe, businessObjects);
+	}
+
+	/**
+	 * Gets the diagram.
+	 * 
+	 * @return the diagram
+	 */
+	protected Diagram getDiagram() {
+		return getFeatureProvider().getDiagramTypeProvider().getDiagram();
+	}
+
+	/**
+	 * A convenient method for the color handling which simply calls
+	 * <code>Graphiti.getGaService().manageColor(...)</code>.
+	 * 
+	 * @param colorConstant
+	 *            the color constant
+	 * 
+	 * @return the color
+	 */
+	protected Color manageColor(IColorConstant colorConstant) {
+		return Graphiti.getGaService().manageColor(getDiagram(), colorConstant);
+	}
+
+	/**
+	 * A convenient method for the color handling which simply calls
+	 * <code>Graphiti.getGaService().manageColor(...)</code>.
+	 * 
+	 * @param red
+	 *            the red
+	 * @param green
+	 *            the green
+	 * @param blue
+	 *            the blue
+	 * 
+	 * @return the color
+	 */
+	protected Color manageColor(int red, int green, int blue) {
+		return Graphiti.getGaService().manageColor(getDiagram(), red, green, blue);
 	}
 }

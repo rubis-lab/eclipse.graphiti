@@ -282,15 +282,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	}
 
 	/**
-	 * Gets the diagram.
-	 * 
-	 * @return the diagram
-	 */
-	protected Diagram getDiagram() {
-		return getFeatureProvider().getDiagramTypeProvider().getDiagram();
-	}
-
-	/**
 	 * Gets the image.
 	 * 
 	 * @param structureMapping
@@ -384,32 +375,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 */
 	protected IPatternConfiguration getPatternConfiguration() {
 		return patternConfiguration;
-	}
-
-	/**
-	 * Manage color.
-	 * 
-	 * @param red
-	 *            the red
-	 * @param green
-	 *            the green
-	 * @param blue
-	 *            the blue
-	 * @return the color
-	 */
-	protected Color manageColor(int red, int green, int blue) {
-		return Graphiti.getGaService().manageColor(getDiagram(), red, green, blue);
-	}
-
-	/**
-	 * Manage color.
-	 * 
-	 * @param colorConstant
-	 *            the color constant
-	 * @return the color
-	 */
-	protected Color manageColor(IColorConstant colorConstant) {
-		return Graphiti.getGaService().manageColor(getDiagram(), colorConstant);
 	}
 
 	public void completeInfo(IDirectEditingInfo info, Object bo) {
