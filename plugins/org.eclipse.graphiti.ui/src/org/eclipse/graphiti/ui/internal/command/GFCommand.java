@@ -31,12 +31,10 @@ public class GFCommand extends AbstractCommand {
 
 	public GFCommand(IConfigurationProvider configurationProvider) {
 		super(configurationProvider);
-		// TODO Auto-generated constructor stub
 	}
 
 	public GFCommand(IConfigurationProvider configurationProvider, String label) {
 		super(configurationProvider, label);
-		// TODO Auto-generated constructor stub
 	}
 
 	public IContext getContext() {
