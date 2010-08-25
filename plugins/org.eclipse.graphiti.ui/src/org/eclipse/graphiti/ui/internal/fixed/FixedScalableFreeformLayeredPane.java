@@ -33,6 +33,7 @@ public class FixedScalableFreeformLayeredPane extends ScalableFreeformLayeredPan
 	 * 
 	 * @see org.eclipse.draw2d.Figure#paintClientArea(Graphics)
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	protected void paintClientArea(Graphics graphics) {
 		if (getChildren().isEmpty())

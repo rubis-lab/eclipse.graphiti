@@ -295,6 +295,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	/**
 	 * Paints the context button (lines, filling, image, ...).
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	protected void paintFigure(Graphics graphics) {
 		int lw = ((int) (getPositionedContextButton().getLineWidth() * getZoomLevel()));
@@ -355,8 +356,8 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 
 		// TODO: currently switched off. Discuss if and how to continue this functionality.
 		if (false) {
-			List<IFeature> dragFeatures = getEntry().getDragAndDropFeatures();
-			boolean isDragButton = dragFeatures != null && dragFeatures.size() > 0;
+			final List<IFeature> dragFeatures = getEntry().getDragAndDropFeatures();
+			final boolean isDragButton = dragFeatures != null && dragFeatures.size() > 0;
 			if (isDragButton && getEntry().getFeature() != null) {
 				paintDragOrClickIndicator(graphics, newRect);
 			} else if (isDragButton) {
