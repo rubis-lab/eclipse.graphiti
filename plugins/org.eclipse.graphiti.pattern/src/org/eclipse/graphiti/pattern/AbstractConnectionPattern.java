@@ -20,15 +20,12 @@ import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
-import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.pattern.mapping.IStructureMapping;
 import org.eclipse.graphiti.pattern.mapping.data.IDataMapping;
 import org.eclipse.graphiti.pattern.mapping.data.ITextDataMapping;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.util.IColorConstant;
 
 /**
  * The Class AbstractConnectionPattern.

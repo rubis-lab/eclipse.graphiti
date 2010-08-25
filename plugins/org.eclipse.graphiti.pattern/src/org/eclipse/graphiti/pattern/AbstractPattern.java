@@ -33,12 +33,10 @@ import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
-import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.PictogramLink;
@@ -49,7 +47,6 @@ import org.eclipse.graphiti.pattern.mapping.data.IDataMapping;
 import org.eclipse.graphiti.pattern.mapping.data.IImageDataMapping;
 import org.eclipse.graphiti.pattern.mapping.data.ITextDataMapping;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.util.IColorConstant;
 
 /**
  * The Class AbstractPattern.
