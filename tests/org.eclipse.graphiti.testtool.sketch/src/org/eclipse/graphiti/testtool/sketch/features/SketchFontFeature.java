@@ -27,7 +27,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.testtool.sketch.SketchUtil;
-import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.FontDialog;
@@ -129,7 +129,7 @@ public class SketchFontFeature extends AbstractCustomFeature {
 
 		Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 		FontDialog fontDialog = new FontDialog(shell);
-		FontData fontData = DataTypeTransformation.toFontData(inputFont);
+		FontData fontData = toFontData(inputFont);
 
 		fontDialog.setFontList(new FontData[] { fontData });
 		RGB rgb = new RGB(inputColor.getRed(), inputColor.getGreen(), inputColor.getBlue());
@@ -141,12 +141,44 @@ public class SketchFontFeature extends AbstractCustomFeature {
 			return null;
 		}
 
-		Font retFont = DataTypeTransformation.toPictogramsFont(text, retFontData);
+		Font retFont = toPictogramsFont(text, retFontData);
 		RGB retRgb = fontDialog.getRGB();
-		Color retColor = DataTypeTransformation.toPictogramsColor(retRgb, diagram);
+		Color retColor = Graphiti.getGaService().manageColor(diagram, retRgb.red, retRgb.green, retRgb.blue);
 
 		ColoredFont ret = new ColoredFont(retFont, retColor);
 
 		return ret;
+	}
+
+	private Font toPictogramsFont(AbstractText text, FontData fontData) {
+		if (fontData == null) {
+			return null;
+		}
+		Font ret;
+		String name = fontData.getName();
+		int height = fontData.getHeight();
+		boolean italic = (fontData.getStyle() & SWT.ITALIC) != 0;
+		boolean bold = (fontData.getStyle() & SWT.BOLD) != 0;
+		ret = Graphiti.getGaCreateService().createFont(text, name, height, italic, bold);
+		return ret;
+	}
+
+	private FontData toFontData(Font pictogramFont) {
+		FontData fontData;
+		if (pictogramFont != null) {
+			int style = SWT.NORMAL;
+			if (pictogramFont.isItalic()) {
+				style |= SWT.ITALIC;
+			}
+			if (pictogramFont.isBold()) {
+				style |= SWT.BOLD;
+			}
+			int size = pictogramFont.getSize();
+			String name = pictogramFont.getName();
+			fontData = new FontData(name, size, style);
+		} else {
+			fontData = new FontData();
+		}
+		return fontData;
 	}
 }
