@@ -829,11 +829,11 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testPopupMenu() {
-		List content = new ArrayList();
+		List<Object> content = new ArrayList<Object>();
 		content.add("One");
 		content.add("Two");
 		ILabelProvider labelProvider = new LabelProvider();
-		List subContent = new ArrayList();
+		List<Object> subContent = new ArrayList<Object>();
 		subContent.add("More1");
 		subContent.add("More2");
 		subContent.add("More3");
