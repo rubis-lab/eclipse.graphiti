@@ -16,7 +16,6 @@
 package org.eclipse.graphiti.ui.internal.editor;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -229,6 +228,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 
 					if (updateProblemIndication) {
 						getShell().getDisplay().asyncExec(new Runnable() {
+							@Override
 							public void run() {
 								updateProblemIndication();
 							}
@@ -272,6 +272,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 						final IEditorPart activeEditor = editorPart.getSite().getPage().getActiveEditor();
 						if (activeEditor == editorPart) {
 							getShell().getDisplay().asyncExec(new Runnable() {
+								@Override
 								public void run() {
 									handleActivate();
 								}
@@ -302,6 +303,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 							final IEditorPart activeEditor = editorPart.getSite().getPage().getActiveEditor();
 							if (activeEditor == editorPart) {
 								getShell().getDisplay().asyncExec(new Runnable() {
+									@Override
 									public void run() {
 										handleActivate();
 									}
@@ -316,6 +318,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 
 		private void startCloseEditorJob() {
 			Display.getDefault().asyncExec(new Runnable() {
+				@Override
 				public void run() {
 					closeEd();
 				}
@@ -433,6 +436,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * @return The {@link TransactionalEditingDomain} that is used within this
 	 *         editor
 	 */
+	@Override
 	public TransactionalEditingDomain getEditingDomain() {
 		return editingDomain;
 	}
@@ -587,42 +591,32 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	public void dispose() {
-		this.updateProblemIndication = false;
+		updateProblemIndication = false;
 
+		// Remove all the registered listeners
 		editingDomain.getResourceSet().eAdapters().remove(resourceSetUpdateAdapter);
 		getOperationHistory().removeOperationHistoryListener(this);
 
-		for (final Resource r : editingDomain.getResourceSet().getResources()) {
+		for (Resource r : editingDomain.getResourceSet().getResources()) {
 			r.eAdapters().remove(updateAdapter);
 		}
 
-		final EObject object = (EObject) editorPart.getEditorInput().getAdapter(EObject.class);
+		EObject object = (EObject) editorPart.getEditorInput().getAdapter(EObject.class);
 		if (object != null) {
 			object.eAdapters().remove(elementDeleteListener);
 		}
 
-		// Clear the editing domain of all resources with potentially unsaved changes 
-		try {
-			editingDomain.runExclusive(new Runnable() {
+		workspaceSynchronizer.dispose();
 
-				@Override
-				public void run() {
-					editingDomain.getResourceSet().getResources().retainAll(Collections.EMPTY_LIST);
-				}
-			});
-		} catch (final InterruptedException e) {
-			T.racer().error(e.getMessage(), e);
-		}
-		editingDomain = null;
-
-		final IEditorInput editorInput = editorPart.getEditorInput();
+		// Clean up editor input
+		IEditorInput editorInput = editorPart.getEditorInput();
 		if (editorInput instanceof DiagramEditorInput) {
 			((DiagramEditorInput) editorInput).dispose();
 		}
 
+		// Remove references
+		editingDomain = null;
 		editorPart = null;
-
-		workspaceSynchronizer.dispose();
 	}
 
 	/**
@@ -688,6 +682,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 				// closing, asynchronous to not block this listener longer than necessary,
 				// which may provoke deadlocks.
 				shell.getDisplay().asyncExec(new Runnable() {
+					@Override
 					public void run() {
 						if (editorPart == null) {
 							return; // disposed
@@ -724,6 +719,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		this.handleActivate();
 	}
 
+	@Override
 	public void historyNotification(OperationHistoryEvent event) {
 		switch (event.getEventType()) {
 		case OperationHistoryEvent.DONE:

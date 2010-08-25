@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
+import java.util.Collections;
+
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
@@ -350,6 +352,21 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 
 	public void dispose() {
 		if (this.disposeEditingDomain && this.editingDomain != null) {
+			// Clear the editing domain of all resources with potentially
+			// unsaved changes
+			try {
+				editingDomain.runExclusive(new Runnable() {
+
+					@Override
+					public void run() {
+						editingDomain.getResourceSet().getResources().retainAll(Collections.EMPTY_LIST);
+					}
+				});
+			} catch (final InterruptedException e) {
+				T.racer().error(e.getMessage(), e);
+			}
+
+			// And dispose the editing domain
 			this.editingDomain.dispose();
 			this.editingDomain = null;
 		}
@@ -494,7 +511,8 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 			try {
 				eObject = getEObject(adapter);
 			} catch (final Exception e) {
-				// Not able to adapt to eObject, object has been deleted, file was deleted...
+				// Not able to adapt to eObject, object has been deleted, file
+				// was deleted...
 				// adapt must deliver null
 				T.racer().debug(e.getMessage());
 				return null;
@@ -603,7 +621,8 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		try {
 			eObject = getEObject();
 		} catch (final Exception e) {
-			// The object cannot be resolved --> it does not exist (prevent to appear in navigation history)
+			// The object cannot be resolved --> it does not exist (prevent to
+			// appear in navigation history)
 			return false;
 		}
 		return eObject != null;
@@ -623,7 +642,8 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		}
 		if (obj != null) {
 			// The input is only persistable in case an EObject can be retrieved
-			// (this is e.g. relevant for removing entries from the editor navigation history for deleted objects)
+			// (this is e.g. relevant for removing entries from the editor
+			// navigation history for deleted objects)
 			element = this;
 		}
 		return element;
@@ -644,9 +664,12 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		if (uri != null) {
 			final TransactionalEditingDomain editingDomain = getEditingDomain();
 			if (editingDomain != null) {
-				// First try the URI resolution without loading not yet loaded resources
-				// because calling with loadOnDemand will _always_ create a new Resource
-				// instance for newly created and not yet saved Resources, no matter if
+				// First try the URI resolution without loading not yet loaded
+				// resources
+				// because calling with loadOnDemand will _always_ create a new
+				// Resource
+				// instance for newly created and not yet saved Resources, no
+				// matter if
 				// they already exist within the ResourceSet or not
 				EObject modelElement = editingDomain.getResourceSet().getEObject(uri, false);
 				if (modelElement == null) {
@@ -659,7 +682,8 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 				modelElement.eResource().setTrackingModification(true);
 
 				// Climb up the chain of composition. Also uses a counter to
-				// prevent infinite loops in case refImmediateComposite does not return null
+				// prevent infinite loops in case refImmediateComposite does not
+				// return null
 				int i = 0;
 				EObject o = modelElement;
 				do {
