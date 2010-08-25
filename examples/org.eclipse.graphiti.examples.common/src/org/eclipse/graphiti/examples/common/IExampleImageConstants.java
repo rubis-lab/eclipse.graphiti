@@ -21,7 +21,7 @@ package org.eclipse.graphiti.examples.common;
 /**
  * The Interface IMofImageConstants.
  */
-public interface ISampleImageConstants {
+public interface IExampleImageConstants {
 
 	/**
 	 * The Constant PRE.

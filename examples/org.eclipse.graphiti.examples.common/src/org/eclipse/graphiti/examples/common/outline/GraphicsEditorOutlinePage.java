@@ -32,7 +32,7 @@ import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.parts.ContentOutlinePage;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
-import org.eclipse.graphiti.examples.common.ISampleImageConstants;
+import org.eclipse.graphiti.examples.common.IExampleImageConstants;
 import org.eclipse.graphiti.examples.common.outline.tree.PictogramsTreeEditPartFactory;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
@@ -298,7 +298,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 				showPage(ID_OUTLINE);
 			}
 		};
-		_showOutlineAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(ISampleImageConstants.IMG_OUTLINE_TREE));
+		_showOutlineAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(IExampleImageConstants.IMG_OUTLINE_TREE));
 		tbm.add(_showOutlineAction);
 		_showOverviewAction = new Action() {
 
@@ -308,7 +308,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 			}
 		};
 		_showOverviewAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
-				ISampleImageConstants.IMG_OUTLINE_THUMBNAIL));
+				IExampleImageConstants.IMG_OUTLINE_THUMBNAIL));
 		tbm.add(_showOverviewAction);
 
 		// by default show the outline-page
