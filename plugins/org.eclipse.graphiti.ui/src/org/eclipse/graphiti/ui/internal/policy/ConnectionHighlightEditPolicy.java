@@ -27,6 +27,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -191,8 +192,8 @@ public class ConnectionHighlightEditPolicy extends ConnectionEndpointEditPolicy 
 	}
 
 	@Override
-	protected List createSelectionHandles() {
-		List list = new ArrayList();
+	protected List<Handle> createSelectionHandles() {
+		List<Handle> list = new ArrayList<Handle>();
 		list.add(new GFConnectionEndpointHandle((ConnectionEditPart) getHost(), ConnectionLocator.SOURCE));
 		list.add(new GFConnectionEndpointHandle((ConnectionEditPart) getHost(), ConnectionLocator.TARGET));
 		return list;

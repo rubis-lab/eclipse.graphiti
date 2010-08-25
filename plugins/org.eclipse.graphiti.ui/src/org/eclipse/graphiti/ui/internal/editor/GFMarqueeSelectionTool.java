@@ -108,7 +108,7 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 
 	private Set allChildren = new HashSet();
 
-	private Collection selectedEditParts;
+	private Collection<EditPart> selectedEditParts;
 
 	private Request targetRequest;
 
@@ -148,30 +148,30 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 		super.applyProperty(key, value);
 	}
 
-	private void calculateConnections(Collection newSelections, Collection deselections) {
+	private void calculateConnections(Collection<EditPart> newSelections, Collection<EditPart> deselections) {
 		// determine the currently selected nodes minus the ones that are to be
 		// deselected
-		Collection currentNodes = new HashSet();
+		Collection<EditPart> currentNodes = new HashSet<EditPart>();
 		if (getSelectionMode() != DEFAULT_MODE) { // everything is deselected
 			// in default mode
-			Iterator iter = getCurrentViewer().getSelectedEditParts().iterator();
+			Iterator<EditPart> iter = getCurrentViewer().getSelectedEditParts().iterator();
 			while (iter.hasNext()) {
-				EditPart selected = (EditPart) iter.next();
+				EditPart selected = iter.next();
 				if (!(selected instanceof ConnectionEditPart) && !deselections.contains(selected))
 					currentNodes.add(selected);
 			}
 		}
 		// add new connections to be selected to newSelections
-		Collection connections = new ArrayList();
-		for (Iterator nodes = newSelections.iterator(); nodes.hasNext();) {
+		Collection<EditPart> connections = new ArrayList<EditPart>();
+		for (Iterator<EditPart> nodes = newSelections.iterator(); nodes.hasNext();) {
 			GraphicalEditPart node = (GraphicalEditPart) nodes.next();
-			for (Iterator itr = node.getSourceConnections().iterator(); itr.hasNext();) {
+			for (Iterator<?> itr = node.getSourceConnections().iterator(); itr.hasNext();) {
 				ConnectionEditPart sourceConn = (ConnectionEditPart) itr.next();
 				if (sourceConn.getSelected() == EditPart.SELECTED_NONE
 						&& (newSelections.contains(sourceConn.getTarget()) || currentNodes.contains(sourceConn.getTarget())))
 					connections.add(sourceConn);
 			}
-			for (Iterator itr = node.getTargetConnections().iterator(); itr.hasNext();) {
+			for (Iterator<?> itr = node.getTargetConnections().iterator(); itr.hasNext();) {
 				ConnectionEditPart targetConn = (ConnectionEditPart) itr.next();
 				if (targetConn.getSelected() == EditPart.SELECTED_NONE
 						&& (newSelections.contains(targetConn.getSource()) || currentNodes.contains(targetConn.getSource())))
@@ -181,15 +181,15 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 		newSelections.addAll(connections);
 		// add currently selected connections that are to be deselected to
 		// deselections
-		connections = new HashSet();
-		for (Iterator nodes = deselections.iterator(); nodes.hasNext();) {
+		connections = new HashSet<EditPart>();
+		for (Iterator<EditPart> nodes = deselections.iterator(); nodes.hasNext();) {
 			GraphicalEditPart node = (GraphicalEditPart) nodes.next();
-			for (Iterator itr = node.getSourceConnections().iterator(); itr.hasNext();) {
+			for (Iterator<?> itr = node.getSourceConnections().iterator(); itr.hasNext();) {
 				ConnectionEditPart sourceConn = (ConnectionEditPart) itr.next();
 				if (sourceConn.getSelected() != EditPart.SELECTED_NONE)
 					connections.add(sourceConn);
 			}
-			for (Iterator itr = node.getTargetConnections().iterator(); itr.hasNext();) {
+			for (Iterator<?> itr = node.getTargetConnections().iterator(); itr.hasNext();) {
 				ConnectionEditPart targetConn = (ConnectionEditPart) itr.next();
 				if (targetConn.getSelected() != EditPart.SELECTED_NONE)
 					connections.add(targetConn);
@@ -198,7 +198,7 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 		deselections.addAll(connections);
 	}
 
-	private void calculateNewSelection(Collection newSelections, Collection deselections) {
+	private void calculateNewSelection(Collection<EditPart> newSelections, Collection<EditPart> deselections) {
 		Rectangle marqueeRect = getMarqueeSelectionRectangle();
 		for (Iterator itr = getAllChildren().iterator(); itr.hasNext();) {
 			GraphicalEditPart child = (GraphicalEditPart) itr.next();
@@ -264,9 +264,9 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 	private void eraseTargetFeedback() {
 		if (selectedEditParts == null)
 			return;
-		Iterator oldEditParts = selectedEditParts.iterator();
+		Iterator<EditPart> oldEditParts = selectedEditParts.iterator();
 		while (oldEditParts.hasNext()) {
-			EditPart editPart = (EditPart) oldEditParts.next();
+			EditPart editPart = oldEditParts.next();
 			editPart.eraseTargetFeedback(getTargetRequest());
 		}
 	}
@@ -399,7 +399,7 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 		if (isInState(STATE_DRAG | STATE_DRAG_IN_PROGRESS)) {
 			showMarqueeFeedback();
 			eraseTargetFeedback();
-			calculateNewSelection(selectedEditParts = new ArrayList(), new ArrayList());
+			calculateNewSelection(selectedEditParts = new ArrayList<EditPart>(), new ArrayList<EditPart>());
 			showTargetFeedback();
 		}
 		return true;
@@ -488,7 +488,7 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 
 	private void performMarqueeSelect() {
 		EditPartViewer viewer = getCurrentViewer();
-		Collection newSelections = new LinkedHashSet(), deselections = new HashSet();
+		Collection<EditPart> newSelections = new LinkedHashSet<EditPart>(), deselections = new HashSet<EditPart>();
 		calculateNewSelection(newSelections, deselections);
 		if (getSelectionMode() != DEFAULT_MODE) {
 			newSelections.addAll(viewer.getSelectedEditParts());
@@ -564,8 +564,8 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 	}
 
 	private void showTargetFeedback() {
-		for (Iterator itr = selectedEditParts.iterator(); itr.hasNext();) {
-			EditPart editPart = (EditPart) itr.next();
+		for (Iterator<EditPart> itr = selectedEditParts.iterator(); itr.hasNext();) {
+			EditPart editPart = itr.next();
 			editPart.showTargetFeedback(getTargetRequest());
 		}
 	}

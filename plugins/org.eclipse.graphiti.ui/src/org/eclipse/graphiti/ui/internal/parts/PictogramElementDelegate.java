@@ -264,7 +264,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 			IPictogramElementEditPart peep = (IPictogramElementEditPart) ep;
 
-			List<PictogramElement> peList = new ArrayList();
+			List<PictogramElement> peList = new ArrayList<PictogramElement>();
 			peList.addAll(peep.getModelChildren());
 			peList.addAll(peep.getModelSourceConnections());
 			// peList.addAll(peep.getModelTargetConnections());
@@ -565,8 +565,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		setFigureConstraint(figure, graphicsAlgorithm, pe);
 
 		// refresh child GAs
-		Collection graphicsAlgorithmChildren = graphicsAlgorithm.getGraphicsAlgorithmChildren();
-		for (Iterator iter = graphicsAlgorithmChildren.iterator(); iter.hasNext();) {
+		Collection<GraphicsAlgorithm> graphicsAlgorithmChildren = graphicsAlgorithm.getGraphicsAlgorithmChildren();
+		for (Iterator<GraphicsAlgorithm> iter = graphicsAlgorithmChildren.iterator(); iter.hasNext();) {
 			GraphicsAlgorithm childGA = (GraphicsAlgorithm) iter.next();
 			refreshFigureForGraphicsAlgorithm(childGA, pe, Reason.createFalseReason());
 		}
@@ -666,9 +666,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			if (ret == null) {
 				return false;
 			}
-			Collection children = graphicsAlgorithm.getGraphicsAlgorithmChildren();
-			for (Iterator iter = children.iterator(); iter.hasNext();) {
-				GraphicsAlgorithm childGraphicsAlgorithm = (GraphicsAlgorithm) iter.next();
+			Collection<GraphicsAlgorithm> children = graphicsAlgorithm.getGraphicsAlgorithmChildren();
+			for (Iterator<GraphicsAlgorithm> iter = children.iterator(); iter.hasNext();) {
+				GraphicsAlgorithm childGraphicsAlgorithm = iter.next();
 				if (!checkGA(childGraphicsAlgorithm)) {
 					return false;
 				}
