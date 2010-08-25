@@ -41,7 +41,6 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.impl.MoveBendpointContext;
 import org.eclipse.graphiti.features.context.impl.RemoveContext;
-import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 import org.eclipse.graphiti.internal.command.DefaultExecutionInfo;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
@@ -85,7 +84,10 @@ public class PeServiceTest extends GFAbstractTestCase {
 	public static void prepareClass() {
 		fpMock = createNiceMock(IFeatureProvider.class);
 		IDiagramTypeProvider dtpMock = createMock(IDiagramTypeProvider.class);
-		IDiagramEditor editorMock = createNiceMock(IDiagramEditor.class); // nice mock returns defaults
+		IDiagramEditor editorMock = createNiceMock(IDiagramEditor.class); // nice
+																			// mock
+																			// returns
+																			// defaults
 		expect(fpMock.getDiagramTypeProvider()).andReturn(dtpMock).anyTimes();
 		expect(fpMock.getRemoveFeature(isA(RemoveContext.class))).andReturn(new DefaultRemoveFeature(fpMock));
 		expect(dtpMock.getDiagramEditor()).andReturn(editorMock).anyTimes();
@@ -252,7 +254,6 @@ public class PeServiceTest extends GFAbstractTestCase {
 		IExecutionInfo executionInfo1 = new DefaultExecutionInfo();
 		MoveBendpointContext moveBendpointContext1 = new MoveBendpointContext(bendpoint);
 		moveBendpointContext1.setLocation(200, 200);
-		DefaultMoveShapeFeature moveShapeFeature = new DefaultMoveShapeFeature(fpMock);
 		IPeService peService = Graphiti.getPeService();
 		peService.moveBendpoints(executionInfo1);
 		assertEquals(new LocationImpl(200, 200), layoutService.getConnectionMidpoint(connection1, 0.5));
