@@ -69,7 +69,7 @@ import org.eclipse.graphiti.testtool.sketch.features.SketchFontFeature;
 import org.eclipse.graphiti.testtool.sketch.features.TransparencyFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCanFigureFeature;
 import org.eclipse.graphiti.testtool.sketch.features.style.SetStyleFeature;
-import org.eclipse.graphiti.ui.internal.editor.IEclipseImageDescriptor;
+import org.eclipse.graphiti.ui.editor.IEclipseImageDescriptor;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
