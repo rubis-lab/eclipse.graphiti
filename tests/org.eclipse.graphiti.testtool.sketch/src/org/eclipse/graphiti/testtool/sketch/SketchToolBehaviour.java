@@ -22,7 +22,7 @@ import java.util.List;
 import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.IName;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.examples.common.ISampleImageConstants;
+import org.eclipse.graphiti.examples.common.IExampleImageConstants;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeature;
@@ -203,7 +203,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 							lineWidthFeatureButton = new ContextButtonEntry(null, null);
 							lineWidthFeatureButton.setText("Line width");
 							lineWidthFeatureButton.setDescription("Change line width");
-							lineWidthFeatureButton.setIconId(ISampleImageConstants.IMG_TREE_LEFT);
+							lineWidthFeatureButton.setIconId(IExampleImageConstants.IMG_TREE_LEFT);
 							specificContextButtons.add(lineWidthFeatureButton);
 						}
 						lineWidthFeatureButton.getContextButtonMenuEntries().add(contextButtonEntry);
@@ -212,7 +212,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 							lineStyleFeatureButton = new ContextButtonEntry(null, null);
 							lineStyleFeatureButton.setText("Line style");
 							lineStyleFeatureButton.setDescription("Change line style");
-							lineStyleFeatureButton.setIconId(ISampleImageConstants.IMG_TREE_LEFT);
+							lineStyleFeatureButton.setIconId(IExampleImageConstants.IMG_TREE_LEFT);
 							specificContextButtons.add(lineStyleFeatureButton);
 						}
 						lineStyleFeatureButton.getContextButtonMenuEntries().add(contextButtonEntry);
@@ -221,7 +221,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 							transparencyFeatureButton = new ContextButtonEntry(null, null);
 							transparencyFeatureButton.setText("Transparency");
 							transparencyFeatureButton.setDescription("Change transparency");
-							transparencyFeatureButton.setIconId(ISampleImageConstants.IMG_TREE_RIGHT);
+							transparencyFeatureButton.setIconId(IExampleImageConstants.IMG_TREE_RIGHT);
 							specificContextButtons.add(transparencyFeatureButton);
 						}
 						transparencyFeatureButton.getContextButtonMenuEntries().add(contextButtonEntry);
