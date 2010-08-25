@@ -188,9 +188,9 @@ public class GFNodeEditPolicy extends GraphicalNodeEditPolicy {
 		if (connectionTarget instanceof Anchor) {
 			return (Anchor) connectionTarget;
 		} else if (connectionTarget instanceof AnchorContainer) {
-			Collection existingAnchors = ((AnchorContainer) connectionTarget).getAnchors();
-			for (Iterator iter = existingAnchors.iterator(); iter.hasNext();) {
-				Anchor anchor = (Anchor) iter.next();
+			Collection<Anchor> existingAnchors = ((AnchorContainer) connectionTarget).getAnchors();
+			for (Iterator<Anchor> iter = existingAnchors.iterator(); iter.hasNext();) {
+				Anchor anchor = iter.next();
 				if (anchor instanceof ChopboxAnchor) {
 					return anchor;
 				}
