@@ -167,7 +167,7 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 	 * ()
 	 */
 	@Override
-	public List getModelSourceConnections() {
+	public List<Connection> getModelSourceConnections() {
 		return super.getModelSourceConnections();
 	}
 
@@ -179,7 +179,7 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 	 * ()
 	 */
 	@Override
-	public List getModelTargetConnections() {
+	public List<Connection> getModelTargetConnections() {
 		return super.getModelTargetConnections();
 	}
 

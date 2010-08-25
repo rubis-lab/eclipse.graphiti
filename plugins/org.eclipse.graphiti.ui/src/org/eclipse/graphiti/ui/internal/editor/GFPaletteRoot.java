@@ -83,9 +83,9 @@ public class GFPaletteRoot extends PaletteRoot {
 	public void updatePaletteEntries() {
 		// remove old entries
 		setDefaultEntry(null);
-		List allEntries = new ArrayList(getChildren()); // MUST make a copy
-		for (Iterator iter = allEntries.iterator(); iter.hasNext();) {
-			PaletteEntry entry = (PaletteEntry) iter.next();
+		List<PaletteEntry> allEntries = new ArrayList<PaletteEntry>(getChildren()); // MUST make a copy
+		for (Iterator<PaletteEntry> iter = allEntries.iterator(); iter.hasNext();) {
+			PaletteEntry entry = iter.next();
 			remove(entry);
 		}
 

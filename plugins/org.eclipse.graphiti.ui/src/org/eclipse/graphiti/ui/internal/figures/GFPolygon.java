@@ -76,7 +76,7 @@ public class GFPolygon extends GFPolyline {
 			return inFigure.booleanValue();
 
 		// check if point inside children (if existing)
-		List children = getChildren();
+		List<?> children = getChildren();
 		for (int i = 0; i < children.size(); i++) {
 			if (((IFigure) children.get(i)).containsPoint(x, y)) {
 				return true;
