@@ -175,7 +175,7 @@ public class ContainerShapeEditPart extends ShapeEditPart implements IContainerS
 	@Override
 	public Object getAdapter(Class adapter) {
 		if (adapter == SnapToHelper.class) {
-			List snapStrategies = new ArrayList();
+			List<SnapToHelper> snapStrategies = new ArrayList<SnapToHelper>();
 			Boolean val = (Boolean) getViewer().getProperty(RulerProvider.PROPERTY_RULER_VISIBILITY);
 			if (val != null && val.booleanValue())
 				snapStrategies.add(new SnapToGuides(this));
