@@ -18,7 +18,7 @@
  */
 package org.eclipse.graphiti.testtool.sketch.features;
 
-import org.eclipse.graphiti.examples.common.SampleUtil;
+import org.eclipse.graphiti.examples.common.ExampleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -86,7 +86,7 @@ public class ForegroundColorFeature extends AbstractColorFeature {
 				Color newColor;
 				{
 					Color oldForeground = Graphiti.getGaService().getForegroundColor(ga, true);
-					newColor = SampleUtil.editColor(oldForeground);
+					newColor = ExampleUtil.editColor(oldForeground);
 					if (newColor == null) {
 						return;
 					}

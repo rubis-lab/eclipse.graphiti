@@ -21,7 +21,7 @@ package org.eclipse.graphiti.testtool.sketch.features;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.graphiti.examples.common.SampleUtil;
+import org.eclipse.graphiti.examples.common.ExampleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -87,7 +87,7 @@ public class GradientColorFeature extends AbstractColorFeature {
 								IPredefinedRenderingStyle.BLUE_WHITE_ID, IPredefinedRenderingStyle.COPPER_WHITE_GLOSS_ID,
 								IPredefinedRenderingStyle.LIGHT_GRAY_ID, IPredefinedRenderingStyle.LIGHT_YELLOW_ID,
 								IPredefinedRenderingStyle.SILVER_WHITE_GLOSS_ID);
-						String askString = SampleUtil.askString("Enter gradient values",
+						String askString = ExampleUtil.askString("Enter gradient values",
 								"Enter the predefined style ID here. The following IDs are supported: " + allIDs, id);
 						if (askString == null) {
 							return;

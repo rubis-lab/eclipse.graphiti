@@ -18,7 +18,7 @@
  */
 package org.eclipse.graphiti.testtool.sketch.features;
 
-import org.eclipse.graphiti.examples.common.SampleUtil;
+import org.eclipse.graphiti.examples.common.ExampleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
@@ -81,7 +81,7 @@ public class FontColorFeature extends AbstractColorFeature {
 			oldColor = ga.getForeground();
 		}
 
-		Color newColor = SampleUtil.editColor(oldColor);
+		Color newColor = ExampleUtil.editColor(oldColor);
 		if (newColor != null) {
 			for (PictogramElement pe : pes) {
 				AbstractText ga = SketchUtil.getLabelGa(pe);
