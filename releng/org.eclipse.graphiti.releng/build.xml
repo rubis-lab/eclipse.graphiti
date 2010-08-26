@@ -294,7 +294,7 @@
 		</buckminsterDirect>
 	</target>
 
-	<target name="promote.sites" depends="init.build.properties,import">
+	<target name="promote.sites" depends="init.build.properties">
 		<echo message="Deleting old update site from downloads area" />
 		<delete dir="${graphiti.download.area}/updates/nightly/" failonerror="true" />
 		
