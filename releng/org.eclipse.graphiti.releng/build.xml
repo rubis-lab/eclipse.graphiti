@@ -259,7 +259,7 @@
 
 	<target name="test" depends="site.p2">
 		<echo message="Running JUnit tests for Graphiti" />
-		<buckminster command="buckminster">
+		<buckminster>
 			<cmdargs>
 				<arg value="--script" />
 				<arg value="emma.script" />
