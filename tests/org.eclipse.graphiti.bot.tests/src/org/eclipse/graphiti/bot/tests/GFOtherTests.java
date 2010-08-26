@@ -474,7 +474,7 @@ public class GFOtherTests extends AbstractGFTests {
 					// getAbbotFactory().delay(500);
 				}
 
-				EditPart diagramEditPart = (EditPart) rootEditPart.getChildren().get(0);
+				EditPart diagramEditPart = GraphitiUiInternal.getGefService().getEditPartChildren(rootEditPart).get(0);
 
 				@SuppressWarnings("unchecked")
 				List<EditPart> children = diagramEditPart.getChildren();
