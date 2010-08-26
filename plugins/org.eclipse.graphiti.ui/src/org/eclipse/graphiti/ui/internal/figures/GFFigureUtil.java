@@ -22,8 +22,8 @@ import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
-import org.eclipse.draw2d.geometry.Ray;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.geometry.Vector;
 import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
@@ -474,17 +474,28 @@ public class GFFigureUtil {
 			// Afterwards the bezier-curve through the points is drawn as usual,
 			// except that the first line and the last line are not drawn.
 
-			// Adjust point-list if closing is needed: add the first two points again at the end
+			// Adjust point-list if closing is needed: add the first two points
+			// again at the end
 			if (isClosed) {
-				if (!points.get(points.size() - 1).equals(points.get(0))) { // first != last => only then double first point
+				if (!points.get(points.size() - 1).equals(points.get(0))) { // first
+																			// !=
+																			// last
+																			// =>
+																			// only
+																			// then
+																			// double
+																			// first
+																			// point
 					points.add(points.get(0));
 				}
 				points.add(points.get(1));
 			}
 
 			// Initialize the points for calculation
-			Point c = points.get(0).createDraw2dPoint(); // the current control-point
-			Point q = points.get(1).createDraw2dPoint(); // the point following the current
+			Point c = points.get(0).createDraw2dPoint(); // the current
+															// control-point
+			Point q = points.get(1).createDraw2dPoint(); // the point following
+															// the current
 			// control-point
 			Point r = new Point();
 			Point s = new Point();
@@ -574,35 +585,38 @@ public class GFFigureUtil {
 	 */
 	private static void determineBezierPoints(Point c, Point q, Point r, Point s, int distanceAfterCurrent, int distanceBeforeNext) {
 		// Determine v and m
-		Ray v = new Ray();
-		v.x = q.x - c.x;
-		v.y = q.y - c.y;
-		double absV = v.length();
-		Ray m = new Ray();
-		m.x = Math.round(c.x + v.x / 2);
-		m.y = Math.round(c.y + v.y / 2);
+		// Ray v = new Ray();
+		int vx = q.x - c.x;
+		int vy = q.y - c.y;
+		Vector v = new Vector(vx, vy);
+		double absV = v.getLength();
+		// Ray m = new Ray();
+		int mx = Math.round(c.x + vx / 2);
+		int my = Math.round(c.y + vy / 2);
 
 		// Determine tolerance
 		// Idea:
 		// The vector v is the line after the current control-point c.
-		// If the sum of the bezier-distances is greater than the half line-length of v,
-		// then a simplified calculation for the bezier-points r and s must be done.
+		// If the sum of the bezier-distances is greater than the half
+		// line-length of v,
+		// then a simplified calculation for the bezier-points r and s must be
+		// done.
 		int tolerance = distanceAfterCurrent + distanceBeforeNext;
 
 		// Determine the "results" r and s
 		if (absV < tolerance) {
 			// use the the midpoint m for r and s
-			r.x = m.x;
-			r.y = m.y;
-			s.x = m.x;
-			s.y = m.y;
+			r.x = mx;
+			r.y = my;
+			s.x = mx;
+			s.y = my;
 		} else {
 			double x = (absV - distanceBeforeNext) / absV;
-			r.x = Math.round(c.x + (float) x * v.x);
-			r.y = Math.round(c.y + (float) x * v.y);
+			r.x = Math.round(c.x + (float) x * vx);
+			r.y = Math.round(c.y + (float) x * vy);
 			double y = distanceAfterCurrent / absV;
-			s.x = Math.round(c.x + (float) y * v.x);
-			s.y = Math.round(c.y + (float) y * v.y);
+			s.x = Math.round(c.x + (float) y * vx);
+			s.y = Math.round(c.y + (float) y * vy);
 		}
 	}
 }

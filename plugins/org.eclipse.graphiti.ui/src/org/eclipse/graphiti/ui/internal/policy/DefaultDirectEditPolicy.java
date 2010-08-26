@@ -34,7 +34,6 @@ import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.parts.directedit.IDirectEditHolder;
 import org.eclipse.graphiti.ui.internal.requests.GFDirectEditRequest;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
-import org.eclipse.graphiti.ui.internal.services.impl.UiService;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.jface.dialogs.MessageDialog;
