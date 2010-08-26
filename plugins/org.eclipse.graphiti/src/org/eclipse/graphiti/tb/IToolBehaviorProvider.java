@@ -152,9 +152,9 @@ public interface IToolBehaviorProvider {
 	 * DiagramScrollingBehavior.SCROLLBARS_PERMANENTLY_VISIBLE.
 	 * 
 	 * @return The DiagramScrollingBehavior
-	 * @deprecated Scroll bar based infinite canvas is a workaround for Bug
-	 *             195527 and can be harmed by GEF modifications. It will be
-	 *             removed then
+	 * @deprecated Scroll bar based infinite canvas is a workaround for GEF
+	 *             limitations.
+	 * 
 	 * @see DefaultToolBehaviorProvider#getDiagramScrollingBehavior()
 	 */
 	@Deprecated
