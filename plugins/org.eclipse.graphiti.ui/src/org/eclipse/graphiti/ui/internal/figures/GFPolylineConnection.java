@@ -464,7 +464,7 @@ public class GFPolylineConnection extends GFPolyline implements Connection, Anch
 
 		ConnectionRouter realRouter;
 
-		List listeners = new ArrayList(1);
+		List<RoutingListener> listeners = new ArrayList<RoutingListener>(1);
 
 		RoutingNotifier(ConnectionRouter router, RoutingListener listener) {
 			realRouter = router;

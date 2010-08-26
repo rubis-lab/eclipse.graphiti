@@ -108,7 +108,7 @@ public class TraceService implements ITraceService {
 		}
 		System.out.println(indentString + getClassName(editPart, FULL_QUALIFIED) + additional);
 
-		List ch = editPart.getChildren();
+		List<?> ch = editPart.getChildren();
 		for (Object o : ch) {
 			if (o instanceof EditPart) {
 				EditPart epChild = (EditPart) o;
