@@ -55,6 +55,7 @@ public class TransparentGhostFigure extends ImageFigure {
 	 * 
 	 * @return the ghost image.
 	 */
+	@SuppressWarnings("unused")
 	private Image generateImage() {
 		if (figure == null)
 			return null;

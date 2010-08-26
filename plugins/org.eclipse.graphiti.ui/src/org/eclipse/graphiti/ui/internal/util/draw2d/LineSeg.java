@@ -17,9 +17,10 @@ package org.eclipse.graphiti.ui.internal.util.draw2d;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
-import org.eclipse.draw2d.geometry.Ray;
+import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
+import org.eclipse.draw2d.geometry.Vector;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -581,11 +582,11 @@ public class LineSeg implements java.io.Serializable, Translatable {
 	 *         values for the angle of the passed in <code>Ray</code> relative
 	 *         to <code>this</code> or null if calculation is not possible,
 	 */
-	public TrigValues getTrigValues(final Ray ptToVector) {
+	public TrigValues getTrigValues(final Vector ptToVector) {
 		double dFromLength = length();
-		double dToLength = ptToVector.length();
+		double dToLength = ptToVector.getLength();
 
-		Ray ptFromVector = new Ray(getOrigin(), getTerminus());
+		Vector ptFromVector = new Vector(new PrecisionPoint(getOrigin()), new PrecisionPoint(getTerminus()));
 
 		if (dFromLength <= 0 || dToLength <= 0) {
 			return null;
@@ -886,7 +887,7 @@ public class LineSeg implements java.io.Serializable, Translatable {
 	 *         given point.
 	 */
 	public final Sign positionRelativeTo(Point rel) {
-		Ray ptRelRay = new Ray(getOrigin(), rel);
+		Vector ptRelRay = new Vector(new PrecisionPoint(getOrigin()), new PrecisionPoint(rel));
 
 		TrigValues val = getTrigValues(ptRelRay);
 		double dNewAngle = Math.atan2(-val.sinTheta, -val.cosTheta);
