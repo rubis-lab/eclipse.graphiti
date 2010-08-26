@@ -231,7 +231,7 @@
 		</echoproperties>
 	</target>
 
-	<target name="provision" depends="init.checks,init.workspace,install.buckminster,init.build.properties">
+	<target name="import">
 		<echo message="Importing projects into workspace ${workspace} and binaries into target platform ${targetPlatformPath}" />
 		<buckminster command="setpref">
 			<cmdargs>
@@ -248,6 +248,10 @@
 				<arg value="${basedir}/${mspec.file}" />
 			</cmdargs>
 		</buckminster>
+	</target>
+
+	<target name="provision" depends="init.checks,init.workspace,install.buckminster,init.build.properties,import">
+		<echo message="Do the provisioning" />
 	</target>
 
 	<target name="site.p2" depends="provision">
@@ -290,16 +294,18 @@
 		</buckminsterDirect>
 	</target>
 
-	<target name="promote.sites" depends="provision">
-		<echo message="Building all projects in workspace ${workspace}" />
-		<buckminster command="build" />
-
-		<echo message="Performing org.eclipse.graphiti.releng#promote" />
-		<buckminster command="perform">
-			<cmdargs>
-				<arg value="org.eclipse.graphiti.releng#promote" />
-			</cmdargs>
-		</buckminster>
+	<target name="promote.sites" depends="init.build.properties,import">
+		<echo message="Deleting old update site from downloads area" />
+		<delete dir="${graphiti.download.area}/updates/nightly/" failonerror="true" />
+		
+		<echo message="Promoting site.p2" />
+		<copydir dest="${graphiti.download.area}/updates/nightly/" src="${result}/site.p2" />
+		
+		<echo message="Deleting old ZIP archive from downloads area" />
+		<delete dir="${graphiti.download.area}/archives/nightly/" failonerror="true" />
+		
+		<echo message="Promoting site.p2.zip" />
+		<copydir dest="${graphiti.download.area}/archives/nightly/" src="${result}/site.p2.zip" />
 	</target>
 
 	<target name="clean.tools">
