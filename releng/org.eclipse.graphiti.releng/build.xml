@@ -285,7 +285,7 @@
 		<buckminsterDirect>
 			<cmdargs>
 				<arg value="--script" />
-				<arg value="emma.script" />
+				<arg value="${basedir}/emma.script" />
 			</cmdargs>
 		</buckminsterDirect>
 	</target>
