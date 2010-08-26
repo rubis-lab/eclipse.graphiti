@@ -114,6 +114,29 @@
 			</eclipse.launch>
 		</sequential>
 	</macrodef>
+	
+	<macrodef name="buckminsterDirect">
+			<attribute name="workspace" default="${workspace}" />
+			<element name="globargs" optional="true" />
+			<element name="cmdargs" optional="true" />
+			<sequential>
+				<eclipse.launch app="buckminster">
+					<args>
+						<jvmarg value="-Dbugfix.288796=true" />
+						<jvmarg value="-Xmx4096m" />
+						<arg value="-data" />
+						<arg value="@{workspace}" />
+						<arg value="--loglevel" />
+						<arg value="${buckminster.loglevel}" />
+						<arg value="--displaystacktrace" />
+						<globargs />
+						<arg value="-P" />
+						<arg value="${properties.tmp}" />
+						<cmdargs />
+					</args>
+				</eclipse.launch>
+			</sequential>
+		</macrodef>
 
 	<target name="init.clean.tools" if="clean.tools">
 		<antcall target="clean.tools" />
@@ -259,12 +282,12 @@
 
 	<target name="test" depends="site.p2">
 		<echo message="Running JUnit tests for Graphiti" />
-		<buckminster>
+		<buckminsterDirect>
 			<cmdargs>
 				<arg value="--script" />
 				<arg value="emma.script" />
 			</cmdargs>
-		</buckminster>
+		</buckminsterDirect>
 	</target>
 
 	<target name="promote.sites" depends="provision">
