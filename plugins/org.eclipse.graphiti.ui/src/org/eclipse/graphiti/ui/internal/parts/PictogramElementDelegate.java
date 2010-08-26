@@ -1443,10 +1443,10 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	@Override
 	public List<IFigure> getMainFiguresFromChildEditparts() {
 		List<IFigure> ret = new ArrayList<IFigure>();
-		List children = getContainerEditPart().getChildren();
-		for (Object object : children) {
-			if (object instanceof ShapeEditPart || object instanceof AnchorEditPart) {
-				GraphicalEditPart gep = (GraphicalEditPart) object;
+		List<EditPart> children = GraphitiUiInternal.getGefService().getEditPartChildren(getContainerEditPart());
+		for (EditPart ep : children) {
+			if (ep instanceof ShapeEditPart || ep instanceof AnchorEditPart) {
+				GraphicalEditPart gep = (GraphicalEditPart) ep;
 				ret.add(gep.getFigure());
 			}
 		}

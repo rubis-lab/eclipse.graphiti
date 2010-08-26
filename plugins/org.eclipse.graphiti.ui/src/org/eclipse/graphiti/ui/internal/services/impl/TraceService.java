@@ -28,6 +28,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.internal.figures.GFMultilineText;
+import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.services.ITraceService;
 
 /**
@@ -108,12 +109,9 @@ public class TraceService implements ITraceService {
 		}
 		System.out.println(indentString + getClassName(editPart, FULL_QUALIFIED) + additional);
 
-		List<?> ch = editPart.getChildren();
-		for (Object o : ch) {
-			if (o instanceof EditPart) {
-				EditPart epChild = (EditPart) o;
-				dumpEditPartTree(epChild, indent + 2);
-			}
+		List<EditPart> ch = GraphitiUiInternal.getGefService().getEditPartChildren(editPart);
+		for (EditPart epChild : ch) {
+			dumpEditPartTree(epChild, indent + 2);
 		}
 	}
 
