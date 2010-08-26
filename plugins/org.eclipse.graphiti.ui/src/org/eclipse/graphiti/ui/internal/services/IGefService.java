@@ -40,7 +40,7 @@ public interface IGefService {
 	 * @param modelObject
 	 *            The model Object, which EditPart to select.
 	 */
-	public abstract void selectEditPart(EditPartViewer viewer, Object modelObject);
+	void selectEditPart(EditPartViewer viewer, Object modelObject);
 
 	/**
 	 * Returns the translation between the coordinate-systems of EditParts. It
@@ -55,7 +55,7 @@ public interface IGefService {
 	 * @return Returns the translation between the coordinate-systems of
 	 *         EditParts.
 	 */
-	public abstract Point calculateTranslation(EditPart source, EditPart target);
+	Point calculateTranslation(EditPart source, EditPart target);
 
 	/**
 	 * Returns the layout constraint for the given EditPart. It returns null, if
@@ -66,9 +66,9 @@ public interface IGefService {
 	 *            The EditPart for which to return the layout constraint.
 	 * @return Returns the layout constraint for the given EditPart.
 	 */
-	public abstract Object getLayoutConstraint(EditPart editPart);
+	Object getLayoutConstraint(EditPart editPart);
 
-	public abstract EditPart findEditPartAt(EditPartViewer viewer, Point location, boolean includeConnections);
+	EditPart findEditPartAt(EditPartViewer viewer, Point location, boolean includeConnections);
 
 	/**
 	 * Computes EditParts of the connections and related ConnectionDecorators
@@ -80,20 +80,20 @@ public interface IGefService {
 	 * @returns List of EditParts (connection and Decorator) which live in
 	 *          EditPart
 	 */
-	public abstract List<EditPart> getConnectionsContainedInEditPart(EditPart ep);
+	List<EditPart> getConnectionsContainedInEditPart(EditPart ep);
 
 	/**
 	 * @param c
 	 * @param d
 	 * @return
 	 */
-	public abstract Point getConnectionPointAt(Connection c, double d);
+	Point getConnectionPointAt(Connection c, double d);
 
 	/**
 	 * This method has to be kept in sync with
 	 * {@link ChopboxAnchorFixed#getLocation(Point)}.
 	 */
-	public abstract Point getChopboxLocationOnBox(Point reference, Rectangle box);
+	Point getChopboxLocationOnBox(Point reference, Rectangle box);
 
 	/**
 	 * @param c
@@ -102,11 +102,11 @@ public interface IGefService {
 	 *            means distance from connection end.
 	 * @return
 	 */
-	public abstract Point getAbsolutePointOnConnection(Connection c, double distance);
+	Point getAbsolutePointOnConnection(Connection c, double distance);
 
-	public abstract Point getDistantPoint(Point start, Point end, double distance);
+	Point getDistantPoint(Point start, Point end, double distance);
 
-	public abstract Point getDistantPoint(int startX, int startY, int endX, int endY, double distance);
+	Point getDistantPoint(int startX, int startY, int endX, int endY, double distance);
 
 	/**
 	 * @param startX
@@ -116,11 +116,11 @@ public interface IGefService {
 	 * @param d
 	 * @return
 	 */
-	public abstract Point getPointAt(int startX, int startY, int endX, int endY, double d);
+	Point getPointAt(int startX, int startY, int endX, int endY, double d);
 
-	public abstract Point getPointAt(Point start, Point end, double d);
+	Point getPointAt(Point start, Point end, double d);
 
-	public abstract double getDistance(Point[] points);
+	double getDistance(Point[] points);
 
 	/**
 	 * Calculates and returns the size of the text.
@@ -130,11 +130,18 @@ public interface IGefService {
 	 * 
 	 * @return the size of the text
 	 */
-	public IDimension calculateTextSize(String text, Font font);
+	IDimension calculateTextSize(String text, Font font);
 
 	/**
 	 * @param draw2dPoints
 	 */
-	public abstract void mirrorArray(Point[] draw2dPoints);
+	void mirrorArray(Point[] draw2dPoints);
 
+	/**
+	 * Provides the direct children of the edit part.
+	 * 
+	 * @param editPart
+	 * @return the direct child edit parts
+	 */
+	public List<EditPart> getEditPartChildren(EditPart editPart);
 }

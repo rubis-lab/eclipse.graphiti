@@ -60,13 +60,6 @@ public class GefService implements IGefService {
 
 	protected static final String PE = "*PE* "; //$NON-NLS-1$
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#selectEditPart(
-	 * org.eclipse.gef.EditPartViewer, java.lang.Object)
-	 */
 	public void selectEditPart(EditPartViewer viewer, Object modelObject) {
 		if (modelObject == null)
 			return;
@@ -79,13 +72,6 @@ public class GefService implements IGefService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#calculateTranslation
-	 * (org.eclipse.gef.EditPart, org.eclipse.gef.EditPart)
-	 */
 	public Point calculateTranslation(EditPart source, EditPart target) {
 		if (!(source instanceof GraphicalEditPart && target instanceof GraphicalEditPart))
 			throw new RuntimeException("Both EditParts must be an instance of GraphicalEditPart: " + source + " " + target); //$NON-NLS-1$ //$NON-NLS-2$
@@ -99,13 +85,6 @@ public class GefService implements IGefService {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#getLayoutConstraint
-	 * (org.eclipse.gef.EditPart)
-	 */
 	public Object getLayoutConstraint(EditPart editPart) {
 		if (editPart instanceof GraphicalEditPart) {
 			IFigure childFigure = ((GraphicalEditPart) editPart).getFigure();
@@ -120,20 +99,12 @@ public class GefService implements IGefService {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#findEditPartAt(
-	 * org.eclipse.gef.EditPartViewer, org.eclipse.draw2d.geometry.Point,
-	 * boolean)
-	 */
 	public EditPart findEditPartAt(EditPartViewer viewer, Point location, boolean includeConnections) {
 
 		EditPart editPart = findObjectAt(viewer, location, includeConnections);
 
 		if (editPart instanceof ScalableRootEditPartAnimated) {
-			List<EditPart> children = editPart.getChildren();
+			List<EditPart> children = getEditPartChildren(editPart);
 			if (children.size() > 0) {
 				editPart = children.get(0);
 			}
@@ -143,7 +114,7 @@ public class GefService implements IGefService {
 
 	private EditPart findObjectAt(final EditPartViewer viewer, Point pt, boolean includeConnections) {
 		class ConditionalTreeSearch extends ExclusionSearch {
-			ConditionalTreeSearch(Collection coll) {
+			ConditionalTreeSearch(Collection<?> coll) {
 				super(coll);
 			}
 
@@ -165,7 +136,8 @@ public class GefService implements IGefService {
 			IFigure connectionLayer = rootEditPart.getLayer(LayerConstants.CONNECTION_LAYER);
 			figure = connectionLayer.findFigureAt(pt.x, pt.y, new ConditionalTreeSearch(Collections.EMPTY_LIST));
 		}
-		// if figure not searched or not found on connection layer try to find a figure on the primary layer
+		// if figure not searched or not found on connection layer try to find a
+		// figure on the primary layer
 		if (figure == null) {
 			IFigure primaryLayer = rootEditPart.getLayer(LayerConstants.PRIMARY_LAYER);
 			figure = primaryLayer.findFigureAt(pt.x, pt.y, new ConditionalTreeSearch(Collections.EMPTY_LIST));
@@ -181,15 +153,10 @@ public class GefService implements IGefService {
 		return part;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.ui.internal.util.gef.IGefService#
-	 * getConnectionsContainedInEditPart(org.eclipse.gef.EditPart)
-	 */
 	public List<EditPart> getConnectionsContainedInEditPart(EditPart ep) {
-		// Compute connections whose start and target are somewhere in the editpart sub hierarchy of ep
-		List<EditPart> childEditParts = getChildEditParts(ep);
+		// Compute connections whose start and target are somewhere in the
+		// editpart sub hierarchy of ep
+		List<EditPart> childEditParts = getAllEditPartChildren(ep);
 		List<Connection> sourceConnections = new ArrayList<Connection>();
 		List<Connection> targetConnections = new ArrayList<Connection>();
 		for (EditPart cep : childEditParts) {
@@ -216,25 +183,18 @@ public class GefService implements IGefService {
 
 	}
 
-	private List<EditPart> getChildEditParts(EditPart ep) {
+	private List<EditPart> getAllEditPartChildren(EditPart ep) {
 		List<EditPart> res = new ArrayList<EditPart>();
-		List<Object> children = ep.getChildren();
-		for (Object editPart : children) {
+		List<EditPart> children = getEditPartChildren(ep);
+		for (EditPart editPart : children) {
 			if (editPart instanceof EditPart) {
-				res.add((EditPart)editPart);
-				res.addAll(getChildEditParts((EditPart) editPart));
+				res.add((EditPart) editPart);
+				res.addAll(getAllEditPartChildren(editPart));
 			}
 		}
 		return res;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#getConnectionPointAt
-	 * (org.eclipse.graphiti.mm.pictograms.Connection, double)
-	 */
 	public Point getConnectionPointAt(Connection c, double d) {
 		Point ret = null;
 
@@ -318,7 +278,8 @@ public class GefService implements IGefService {
 				Point currentPoint = draw2dPoints[i];
 				Point nextPoint = draw2dPoints[i + 1];
 				// no need to check both points
-				// actually this would lead to division-by-zero in the following calculation
+				// actually this would lead to division-by-zero in the following
+				// calculation
 				if (currentPoint.equals(nextPoint))
 					continue;
 
@@ -337,14 +298,6 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#getChopboxLocationOnBox
-	 * (org.eclipse.draw2d.geometry.Point,
-	 * org.eclipse.draw2d.geometry.Rectangle)
-	 */
 	public Point getChopboxLocationOnBox(Point reference, Rectangle box) {
 		Rectangle r = Rectangle.SINGLETON;
 		r.setBounds(box);
@@ -387,13 +340,6 @@ public class GefService implements IGefService {
 		return new Point(Math.round(centerX), Math.round(centerY));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.ui.internal.util.gef.IGefService#
-	 * getAbsolutePointOnConnection
-	 * (org.eclipse.graphiti.mm.pictograms.Connection, double)
-	 */
 	public Point getAbsolutePointOnConnection(Connection c, double distance) {
 		Point ret = null;
 
@@ -496,26 +442,11 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#getDistantPoint
-	 * (org.eclipse.draw2d.geometry.Point, org.eclipse.draw2d.geometry.Point,
-	 * double)
-	 */
 	public Point getDistantPoint(Point start, Point end, double distance) {
 		Point ret = getDistantPoint(start.x, start.y, end.x, end.y, distance);
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#getDistantPoint
-	 * (int, int, int, int, double)
-	 */
 	public Point getDistantPoint(int startX, int startY, int endX, int endY, double distance) {
 		Point ret;
 		double completeDistance = Math.sqrt(((endX - startX) * (endX - startX)) + ((endY - startY) * (endY - startY)));
@@ -531,13 +462,6 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#getPointAt(int,
-	 * int, int, int, double)
-	 */
 	public Point getPointAt(int startX, int startY, int endX, int endY, double d) {
 		Point ret;
 		int midX = (int) Math.round((startX + d * (endX - startX)));
@@ -546,13 +470,6 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#getPointAt(org.
-	 * eclipse.draw2d.geometry.Point, org.eclipse.draw2d.geometry.Point, double)
-	 */
 	public Point getPointAt(Point start, Point end, double d) {
 		Point ret = getPointAt(start.x, start.y, end.x, end.y, d);
 		return ret;
@@ -601,13 +518,6 @@ public class GefService implements IGefService {
 		return dimension;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#mirrorArray(org
-	 * .eclipse.draw2d.geometry.Point[])
-	 */
 	public void mirrorArray(Point[] draw2dPoints) {
 		int length = draw2dPoints.length;
 		for (int i = 0; i < length / 2; i++) {
@@ -617,4 +527,9 @@ public class GefService implements IGefService {
 		}
 	}
 
+	public List<EditPart> getEditPartChildren(EditPart editPart) {
+		@SuppressWarnings("unchecked")
+		List<EditPart> ret = editPart.getChildren();
+		return ret;
+	}
 }
