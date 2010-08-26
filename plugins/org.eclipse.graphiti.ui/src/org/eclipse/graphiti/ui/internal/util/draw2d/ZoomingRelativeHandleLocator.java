@@ -47,11 +47,6 @@ public class ZoomingRelativeHandleLocator extends RelativeLocator implements Loc
 	private IConfigurationProvider configurationProvider;
 	private Dimension handleDimension;
 
-	private double relativeX;
-	private double relativeY;
-	private int absoluteX;
-	private int absoluteY;
-
 	/**
 	 * Creates a new ZoomingInsetsHandleLocator.
 	 * 
@@ -84,30 +79,18 @@ public class ZoomingRelativeHandleLocator extends RelativeLocator implements Loc
 		this.reference = reference;
 		switch (location & PositionConstants.NORTH_SOUTH) {
 		case PositionConstants.NORTH:
-			relativeY = 0;
-			absoluteY = -handleInsets.height;
 			break;
 		case PositionConstants.SOUTH:
-			relativeY = 1.0;
-			absoluteY = handleInsets.height;
 			break;
 		default:
-			relativeY = 0.5;
-			absoluteY = 0;
 		}
 
 		switch (location & PositionConstants.EAST_WEST) {
 		case PositionConstants.WEST:
-			relativeX = 0;
-			absoluteX = -handleInsets.width;
 			break;
 		case PositionConstants.EAST:
-			relativeX = 1.0;
-			absoluteX = handleInsets.width;
 			break;
 		default:
-			relativeX = 0.5;
-			absoluteX = 0;
 		}
 	}
 
