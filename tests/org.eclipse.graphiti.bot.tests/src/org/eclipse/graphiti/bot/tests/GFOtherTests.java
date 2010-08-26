@@ -35,8 +35,9 @@ import org.eclipse.draw2d.Polygon;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
-import org.eclipse.draw2d.geometry.Ray;
+import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.geometry.Vector;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -179,7 +180,8 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testInstallation() throws Exception {
 
-		//		assertNotNull("resource set not available", getTransactionalEditingDomain());
+		// assertNotNull("resource set not available",
+		// getTransactionalEditingDomain());
 
 		PictogramsPackage pictogramsPackage = PictogramsPackage.eINSTANCE;
 		assertNotNull("pictograms package not available", pictogramsPackage);
@@ -226,12 +228,12 @@ public class GFOtherTests extends AbstractGFTests {
 						.getConnections().toArray()[0];
 				assertEquals("unexpected number of connection decorators", 3, c.getConnectionDecorators().size());
 
-				//				waitForRefresh();
+				// waitForRefresh();
 
 				// change background color of GA
 				final Shape shape = findShapeForEClass(currentDiagram, "Connection");
 
-				//				waitForRefresh();
+				// waitForRefresh();
 
 				diagramEditor.selectPictogramElements(new PictogramElement[] { shape });
 
@@ -380,7 +382,6 @@ public class GFOtherTests extends AbstractGFTests {
 
 	}
 
-
 	@Test
 	public void testThumbnailView() throws Exception {
 		syncExec(new VoidResult() {
@@ -468,9 +469,9 @@ public class GFOtherTests extends AbstractGFTests {
 				if (rootEditPart instanceof ScalableFreeformRootEditPart) {
 					ZoomManager zoomManager = ((ScalableFreeformRootEditPart) rootEditPart).getZoomManager();
 					zoomManager.setZoom(0.5);
-					//					getAbbotFactory().delay(500);
+					// getAbbotFactory().delay(500);
 					zoomManager.setZoom(2.0);
-					//					getAbbotFactory().delay(500);
+					// getAbbotFactory().delay(500);
 				}
 
 				EditPart diagramEditPart = (EditPart) rootEditPart.getChildren().get(0);
@@ -569,7 +570,7 @@ public class GFOtherTests extends AbstractGFTests {
 		lineSeg.getParallelLineSegThroughPoint(test);
 		lineSeg.getSupremum();
 		lineSeg.getTerminus();
-		lineSeg.getTrigValues(new Ray(origin, test));
+		lineSeg.getTrigValues(new Vector(new PrecisionPoint(origin), new PrecisionPoint(test)));
 		lineSeg.intersect(lineSeg, 0);
 		lineSeg.isHorizontal();
 		lineSeg.isVertical();
@@ -795,7 +796,7 @@ public class GFOtherTests extends AbstractGFTests {
 			}
 
 		}
-		//IConfigurationProvider xx = new 
+		// IConfigurationProvider xx = new
 		Image image = new Image(Display.getCurrent(), 22, 22);
 		GC gc = new GC(image);
 		SWTGraphics graphics = new SWTGraphics(gc);
@@ -889,7 +890,7 @@ public class GFOtherTests extends AbstractGFTests {
 			IMemento memento = createNiceMock(IMemento.class);
 			expect(memento.getString(DiagramEditorInput.KEY_URI)).andStubReturn(diagramUri);
 			expect(memento.getString(DiagramEditorInput.KEY_PROVIDER_ID)).andStubReturn("myProviderId");
-			//			expect(memento.getString(ModelObjectElementFactory.KEY_PROJECTNAME)).andStubReturn(getProject().getName());
+			// expect(memento.getString(ModelObjectElementFactory.KEY_PROJECTNAME)).andStubReturn(getProject().getName());
 			replay(memento);
 			IAdaptable element = new DiagramEditorFactory().createElement(memento);
 			assertNotNull(element);
@@ -913,15 +914,16 @@ public class GFOtherTests extends AbstractGFTests {
 		editorCount = openDiagramEditorFromFile(diagFile1);
 		assertEquals("No new editor must have opened for " + diagFile1, 1, editorCount);
 
-		//		{
-		//			// This is mainly for test coverage: DiagramEditorFactory creates a
-		//			// default connection if it's not there. Close it now so that this
-		//			// path can be covered.
-		//			Connection defaultConnection = ConnectionManager.getInstance().getExistingDefaultConnection(getProject());
-		//			if (defaultConnection != null) {
-		//				defaultConnection.close();
-		//			}
-		//		}
+		// {
+		// // This is mainly for test coverage: DiagramEditorFactory creates a
+		// // default connection if it's not there. Close it now so that this
+		// // path can be covered.
+		// Connection defaultConnection =
+		// ConnectionManager.getInstance().getExistingDefaultConnection(getProject());
+		// if (defaultConnection != null) {
+		// defaultConnection.close();
+		// }
+		// }
 
 		// open editor on second file
 		editorCount = openDiagramEditorFromFile(diagFile2);
