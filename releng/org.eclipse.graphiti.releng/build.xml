@@ -259,56 +259,10 @@
 
 	<target name="test" depends="site.p2">
 		<echo message="Running JUnit tests for Graphiti" />
-		<buckminster command="emma">
+		<buckminster command="buckminster">
 			<cmdargs>
-				<arg value="-l" />
-				<arg value="org.eclipse.graphiti.tests/AllJunitTests.launch" />
-				<arg value="-o" />
-				<arg value="${result}/testReportJunitGraphiti.xml" />
-				<arg value="--terseXML" />
-				<arg value="--flatXML" />
-				<arg value="--xml" />
-				<arg value="${result}/coverageReportJunitGraphiti.xml" />
-				<arg value="--stderr" />
-				<arg value="${result}/ErrorLogJunitGraphiti.log" />
-				<arg value="--stdout" />
-				<arg value="${result}/OutputLogJunitGraphiti.log" />
-			</cmdargs>
-		</buckminster>
-
-		<echo message="Running JUnit tests for GraphitiUI" />
-		<buckminster command="emma">
-			<cmdargs>
-				<arg value="-l" />
-				<arg value="org.eclipse.graphiti.ui.tests/AllJunitUiTests.launch" />
-				<arg value="-o" />
-				<arg value="${result}/testReportJunitGraphitiUi.xml" />
-				<arg value="--terseXML" />
-				<arg value="--flatXML" />
-				<arg value="--xml" />
-				<arg value="${result}/coverageReportJunitGraphitiUi.xml" />
-				<arg value="--stderr" />
-				<arg value="${result}/ErrorLogJunitGraphitiUi.log" />
-				<arg value="--stdout" />
-				<arg value="${result}/OutputLogJunitGraphitiUi.log" />
-			</cmdargs>
-		</buckminster>
-
-		<echo message="Running SWT Bot tests for Graphiti" />
-		<buckminster command="emma">
-			<cmdargs>
-				<arg value="-l" />
-				<arg value="org.eclipse.graphiti.bot.tests/AllBotTests.launch" />
-				<arg value="-o" />
-				<arg value="${result}/testReportSwtBotGraphiti.xml" />
-				<arg value="--terseXML" />
-				<arg value="--flatXML" />
-				<arg value="--xml" />
-				<arg value="${result}/coverageReportSwtBotGraphiti.xml" />
-				<arg value="--stderr" />
-				<arg value="${result}/ErrorLogSwtBotGraphiti.log" />
-				<arg value="--stdout" />
-				<arg value="${result}/OutputLogSwtBotGraphiti.log" />
+				<arg value="--script" />
+				<arg value="emma.script" />
 			</cmdargs>
 		</buckminster>
 	</target>
