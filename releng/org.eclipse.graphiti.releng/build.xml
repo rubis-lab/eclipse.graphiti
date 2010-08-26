@@ -247,6 +247,14 @@
 		<xslt style="xsl/content2html.xsl" in="${site.p2.dir}/content.xml" out="${site.p2.dir}/index.html" />
 		<xslt style="xsl/content2xml.xsl" in="${site.p2.dir}/content.xml" out="${site.p2.dir}/index.xml" />
 		<delete file="${site.p2.dir}/content.xml" />
+
+		<echo message="Performing org.eclipse.graphiti.site#site.p2.zip" />
+		<buckminster command="perform">
+			<cmdargs>
+				<arg value="org.eclipse.graphiti.site#site.p2.zip" />
+			</cmdargs>
+		</buckminster>
+
 	</target>
 
 	<target name="test" depends="site.p2">
