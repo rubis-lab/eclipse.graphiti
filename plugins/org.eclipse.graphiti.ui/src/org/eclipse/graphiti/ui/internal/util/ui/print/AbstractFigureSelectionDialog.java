@@ -228,7 +228,9 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 		_allFigure = rootFigure;
 
 		// determine _selectionFigure
-		for (EditPart selectedEditPart : (List<EditPart>) viewer.getSelectedEditParts()) {
+		@SuppressWarnings("unchecked")
+		List<EditPart> selectedEditParts = (List<EditPart>) viewer.getSelectedEditParts();
+		for (EditPart selectedEditPart : selectedEditParts) {
 			if (!(selectedEditPart instanceof GraphicalEditPart) || (selectedEditPart == getGraphicalViewer().getContents())) {
 				_selectionFigure = null;
 				break;
@@ -381,7 +383,7 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 	}
 
 	private void addRelatedEditParts(Graphics graphics, GraphicalEditPart ep) {
-		List connectionsConatinedInEditPart = GraphitiUiInternal.getGefService().getConnectionsContainedInEditPart(ep);
+		List<EditPart> connectionsConatinedInEditPart = GraphitiUiInternal.getGefService().getConnectionsContainedInEditPart(ep);
 		for (Object conn : connectionsConatinedInEditPart) {
 			if (conn instanceof GraphicalEditPart) {
 				IFigure figure = ((GraphicalEditPart) conn).getFigure();

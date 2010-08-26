@@ -789,7 +789,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	}
 
 	public GraphicalEditPart getEditPartForPictogramElement(PictogramElement pe) {
-		Map editPartRegistry = getGraphicalViewer().getEditPartRegistry();
+		Map<?, ?> editPartRegistry = getGraphicalViewer().getEditPartRegistry();
 		if (editPartRegistry != null) {
 			Object obj = editPartRegistry.get(pe);
 			if (obj instanceof GraphicalEditPart) {
@@ -942,7 +942,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			if (s instanceof IStructuredSelection) {
 				IStructuredSelection sel = (IStructuredSelection) s;
 				List<PictogramElement> list = new ArrayList<PictogramElement>();
-				for (Iterator iter = sel.iterator(); iter.hasNext();) {
+				for (Iterator<?> iter = sel.iterator(); iter.hasNext();) {
 					Object o = iter.next();
 					if (o instanceof EditPart) {
 						EditPart editPart = (EditPart) o;
@@ -951,7 +951,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 						}
 					}
 				}
-				pe = (PictogramElement[]) list.toArray(new PictogramElement[0]);
+				pe = list.toArray(new PictogramElement[0]);
 			}
 		}
 		return pe;
@@ -1067,7 +1067,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 */
 	protected void initActionRegistry() {
 		final ActionRegistry actionRegistry = getActionRegistry();
-		final List selectionActions = getSelectionActions();
+		final List<String> selectionActions = getSelectionActions();
 
 		// register predefined actions (e.g. update, remove, delete, ...)
 		IAction action = new UpdateAction(this, getConfigurationProvider());
@@ -1397,7 +1397,8 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			if (selection instanceof IStructuredSelection) {
 				IStructuredSelection structuredSelection = (IStructuredSelection) selection;
 				List<EObject> selectedList = new ArrayList<EObject>();
-				for (Iterator iterator = structuredSelection.iterator(); iterator.hasNext();) {
+				for (@SuppressWarnings("unchecked")
+				Iterator<EObject> iterator = structuredSelection.iterator(); iterator.hasNext();) {
 					Object nextElement = iterator.next();
 					EObject eObject = null;
 					if (nextElement instanceof EObject) {
@@ -1433,7 +1434,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	public void selectPictogramElements(PictogramElement[] pictogramElements) {
 		List<EditPart> editParts = new ArrayList<EditPart>();
-		Map editPartRegistry = getGraphicalViewer().getEditPartRegistry();
+		Map<?, ?> editPartRegistry = getGraphicalViewer().getEditPartRegistry();
 		if (editPartRegistry != null) {
 			for (int i = 0; i < pictogramElements.length; i++) {
 				PictogramElement pe = pictogramElements[i];
