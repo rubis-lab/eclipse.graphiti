@@ -150,16 +150,16 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 		refreshConnectionBendpoints();
 
 		org.eclipse.draw2d.geometry.Point p = new org.eclipse.draw2d.geometry.Point(request.getLocation());
-		List constraint;
+		List<Bendpoint> constraint;
 		getConnection().translateToRelative(p);
 		Bendpoint bp = new AbsoluteBendpoint(p);
 
 		if (originalConstraint == null) {
 			saveOriginalConstraint();
-			constraint = (List) getConnection().getRoutingConstraint();
+			constraint = getConnectionRoutingConstraint();
 			constraint.add(request.getIndex(), bp);
 		} else {
-			constraint = (List) getConnection().getRoutingConstraint();
+			constraint = getConnectionRoutingConstraint();
 		}
 
 		// ADDED: enable snap-to adjacent bendpoints.
@@ -204,7 +204,7 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 		List<BendpointHandle> list = new ArrayList<BendpointHandle>();
 		ConnectionEditPart connEP = (ConnectionEditPart) getHost();
 		PointList points = getConnection().getPoints();
-		List bendPoints = (List) getConnection().getRoutingConstraint();
+		List<Bendpoint> bendPoints = getConnectionRoutingConstraint();
 		int bendPointIndex = 0;
 		org.eclipse.draw2d.geometry.Point currBendPoint = null;
 

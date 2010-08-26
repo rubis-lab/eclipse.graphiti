@@ -127,7 +127,10 @@ public class GFNodeEditPolicy extends GraphicalNodeEditPolicy {
 
 		else if ((getHost().getModel() instanceof PictogramElement) && (request.getNewObject() instanceof List)) {
 
-			List<IFeature> features = (List<IFeature>) request.getNewObject();
+			Object newObject = request.getNewObject();
+
+			@SuppressWarnings("unchecked")
+			List<IFeature> features = (List<IFeature>) newObject;
 
 			CreateConnectionCommand cmd = new CreateConnectionCommand(configurationProvider, (PictogramElement) getHost().getModel(),
 					features);

@@ -71,7 +71,7 @@ import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
  */
 public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolicy implements PropertyChangeListener {
 
-	protected static final List<?> NULL_CONSTRAINT = new ArrayList<Object>();
+	protected static final List<Bendpoint> NULL_CONSTRAINT = new ArrayList<Bendpoint>();
 
 	// CHANGED: make fields protected
 	protected List<?> originalConstraint;
@@ -371,10 +371,10 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 		Bendpoint bp = new AbsoluteBendpoint(p);
 		if (originalConstraint == null) {
 			saveOriginalConstraint();
-			constraint = (List) getConnection().getRoutingConstraint();
+			constraint = getConnectionRoutingConstraint();
 			constraint.add(request.getIndex(), bp);
 		} else {
-			constraint = (List) getConnection().getRoutingConstraint();
+			constraint = getConnectionRoutingConstraint();
 		}
 		constraint.set(request.getIndex(), bp);
 		getConnection().setRoutingConstraint(constraint);
@@ -427,7 +427,7 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 		}
 		if (originalConstraint == null)
 			saveOriginalConstraint();
-		List<Bendpoint> constraint = (List) getConnection().getRoutingConstraint();
+		List<Bendpoint> constraint = getConnectionRoutingConstraint();
 		getConnection().translateToRelative(p);
 		Bendpoint bp = new AbsoluteBendpoint(p);
 		constraint.set(request.getIndex(), bp);
@@ -496,4 +496,15 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 		ret = (null != getFeatureProvider().getMoveBendpointFeature(new MoveBendpointContext(null)));
 		return ret;
 	}
+	
+	protected List<Bendpoint> getConnectionRoutingConstraint() {
+		Object rawRoutingConstraint = getConnection().getRoutingConstraint();
+		
+		@SuppressWarnings("unchecked")
+		List<Bendpoint> ret = (List<Bendpoint>) rawRoutingConstraint;
+
+		return ret;
+	}
+
+
 }
