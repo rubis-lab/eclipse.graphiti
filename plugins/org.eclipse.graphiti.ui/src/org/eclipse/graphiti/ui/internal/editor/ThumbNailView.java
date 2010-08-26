@@ -24,6 +24,7 @@ import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.editparts.SimpleRootEditPart;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScrollableThumbnail;
+import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
@@ -31,7 +32,6 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.part.ViewPart;
 
 /**
@@ -58,18 +58,10 @@ public class ThumbNailView extends ViewPart implements IPartListener {
 	 * active WorkbenchWindow.
 	 */
 	public ThumbNailView() {
-		Workbench.getInstance().getActiveWorkbenchWindow().getPartService().addPartListener(this);
+		IWorkbenchWindow workbenchWindow = GraphitiUiInternal.getWorkbenchService().getActiveOrFirstWorkbenchWindow();
+		workbenchWindow.getPartService().addPartListener(this);
 	}
 
-	// ====================== overwritten methods of ViewPart =================
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets
-	 * .Composite)
-	 */
 	@Override
 	public void createPartControl(Composite parent) {
 		Canvas overview = new Canvas(parent, SWT.NONE);
@@ -77,36 +69,19 @@ public class ThumbNailView extends ViewPart implements IPartListener {
 		refreshThumbnailViewer();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
-	 */
 	@Override
 	public void setFocus() {
 		// nothing to do
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.part.WorkbenchPart#dispose()
-	 */
 	@Override
 	public void dispose() {
-		Workbench.getInstance().getActiveWorkbenchWindow().getPartService().removePartListener(this);
+		IWorkbenchWindow workbenchWindow = GraphitiUiInternal.getWorkbenchService().getActiveOrFirstWorkbenchWindow();
+		workbenchWindow.getPartService().removePartListener(this);
 		super.dispose();
 		clearThumbnail();
 	}
 
-	// =================== interface IPartListener ============================
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.IPartListener#partActivated(org.eclipse.ui.IWorkbenchPart)
-	 */
 	public void partActivated(IWorkbenchPart part) {
 		if (!part.equals(_workbenchPart)) {
 			GraphicalViewer viewer = (GraphicalViewer) part.getAdapter(GraphicalViewer.class);
@@ -116,36 +91,16 @@ public class ThumbNailView extends ViewPart implements IPartListener {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.IPartListener#partBroughtToTop(org.eclipse.ui.IWorkbenchPart
-	 * )
-	 */
 	public void partBroughtToTop(IWorkbenchPart part) {
 		// nothing to do
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.IPartListener#partClosed(org.eclipse.ui.IWorkbenchPart)
-	 */
 	public void partClosed(IWorkbenchPart part) {
 		if (part.equals(_workbenchPart)) {
 			refreshThumbnailViewer();
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.IPartListener#partDeactivated(org.eclipse.ui.IWorkbenchPart
-	 * )
-	 */
 	public void partDeactivated(IWorkbenchPart part) {
 		// clearThumbnail();
 	}
@@ -157,12 +112,6 @@ public class ThumbNailView extends ViewPart implements IPartListener {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.IPartListener#partOpened(org.eclipse.ui.IWorkbenchPart)
-	 */
 	public void partOpened(IWorkbenchPart part) {
 		GraphicalViewer viewer = (GraphicalViewer) part.getAdapter(GraphicalViewer.class);
 		if (viewer != null) {
@@ -170,15 +119,13 @@ public class ThumbNailView extends ViewPart implements IPartListener {
 		}
 	}
 
-	// ===================== private helper methods ===========================
-
 	private void refreshThumbnailViewer() {
 		IWorkbenchPart part = findGraphicalViewerAdaptable();
 		createThumbNailViewer(part);
 	}
 
 	private IWorkbenchPart findGraphicalViewerAdaptable() {
-		IWorkbenchWindow window = Workbench.getInstance().getActiveWorkbenchWindow();
+		IWorkbenchWindow window = GraphitiUiInternal.getWorkbenchService().getActiveOrFirstWorkbenchWindow();
 		if (window == null)
 			return null;
 		IWorkbenchPage page = window.getActivePage();

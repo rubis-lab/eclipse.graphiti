@@ -109,7 +109,7 @@ import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.internal.WorkbenchImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.model.IWorkbenchAdapter;
 import org.eclipse.ui.model.IWorkbenchAdapter2;
 import org.eclipse.ui.views.properties.IPropertySource;
@@ -169,7 +169,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * #activate ()
 	 */
 	public void activate() {
-		// register listener for changes in the bo model -> will be done globally in the DiagramEditorInternal
+		// register listener for changes in the bo model -> will be done
+		// globally in the DiagramEditorInternal
 	}
 
 	/*
@@ -272,7 +273,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			if (ep.getParent() != null) {
 				EditPartViewer viewer = ep.getViewer();
 				if (viewer != null) {
-					Map editPartRegistry = viewer.getEditPartRegistry();
+					Map<?, ?> editPartRegistry = viewer.getEditPartRegistry();
 					if (editPartRegistry != null) {
 						for (PictogramElement childPe : peList) {
 							Object object = editPartRegistry.get(childPe);
@@ -449,8 +450,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		// refresh figure colors only if it is not a customer figure (e.g. CoDe)
 		if (!(figure instanceof IGraphicsAlgorithmRenderer)) {
 			if (selectedConnection) {
-				Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService().getBackgroundColor(
-						graphicsAlgorithm, true));
+				Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(),
+						Graphiti.getGaService().getBackgroundColor(graphicsAlgorithm, true));
 				figure.setBackgroundColor(bg);
 			} else {
 				refreshFigureColors(figure, graphicsAlgorithm);
@@ -584,7 +585,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			selectionFigure = figure;
 		}
 		boolean indicatedNeededUpdates = false;
-		// indicate needed updates onselectionFigure (using figure would cause problems
+		// indicate needed updates onselectionFigure (using figure would cause
+		// problems
 		// with invisible rectangles)
 		if (selectionFigure != null) {
 			indicatedNeededUpdates = indicateNeededUpdates(selectionFigure, updateNeeded);
@@ -694,15 +696,11 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		if (shape instanceof ContainerShape) {
 			ContainerShape containerShape = (ContainerShape) shape;
-			Collection children = containerShape.getChildren();
-			for (Iterator iter = children.iterator(); iter.hasNext();) {
-				Object obj = iter.next();
-				if (obj instanceof org.eclipse.graphiti.mm.pictograms.Shape) {
-					org.eclipse.graphiti.mm.pictograms.Shape childShape = (org.eclipse.graphiti.mm.pictograms.Shape) obj;
-					if (!childShape.isActive()) {
-						if (!checkGAs(childShape)) {
-							return false;
-						}
+			List<org.eclipse.graphiti.mm.pictograms.Shape> children = containerShape.getChildren();
+			for (org.eclipse.graphiti.mm.pictograms.Shape childShape : children) {
+				if (!childShape.isActive()) {
+					if (!checkGAs(childShape)) {
+						return false;
 					}
 				}
 			}
@@ -778,9 +776,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 				addGraphicsAlgorithmForFigure(ret, graphicsAlgorithm);
 
-				Collection graphicsAlgorithmChildren = graphicsAlgorithm.getGraphicsAlgorithmChildren();
-				for (Iterator iter = graphicsAlgorithmChildren.iterator(); iter.hasNext();) {
-					GraphicsAlgorithm childGa = (GraphicsAlgorithm) iter.next();
+				List<GraphicsAlgorithm> graphicsAlgorithmChildren = graphicsAlgorithm.getGraphicsAlgorithmChildren();
+				for (GraphicsAlgorithm childGa : graphicsAlgorithmChildren) {
 					ret.add(createFigureForGraphicsAlgorithm(null, childGa));
 				}
 			}
@@ -815,15 +812,11 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		if (pe instanceof ContainerShape) {
 			ret.setLayoutManager(new XYLayout());
 			ContainerShape containerShape = (ContainerShape) pe;
-			Collection containersChildren = containerShape.getChildren();
-			for (Iterator iter = containersChildren.iterator(); iter.hasNext();) {
-				Object obj = iter.next();
-				if (obj instanceof PictogramElement) {
-					PictogramElement childPe = (PictogramElement) obj;
-					if (!childPe.isActive()) {
-						IFigure f = createFigureForPictogramElement(childPe);
-						ret.add(f);
-					}
+			List<org.eclipse.graphiti.mm.pictograms.Shape> containersChildren = containerShape.getChildren();
+			for (org.eclipse.graphiti.mm.pictograms.Shape shape : containersChildren) {
+				if (!shape.isActive()) {
+					IFigure f = createFigureForPictogramElement(shape);
+					ret.add(f);
 				}
 			}
 		} else if (pe instanceof Connection) {
@@ -932,7 +925,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 					if (updateNeededText != null && updateNeededText.length() > 0) {
 						Label toolTipFigure = new Label();
 						toolTipFigure.setText(updateNeededText);
-						toolTipFigure.setIcon(WorkbenchImages.getImage(ISharedImages.IMG_OBJS_WARN_TSK));
+						org.eclipse.swt.graphics.Image image = PlatformUI.getWorkbench().getSharedImages()
+								.getImage(ISharedImages.IMG_OBJS_WARN_TSK);
+						toolTipFigure.setIcon(image);
 						draw2dShape.setToolTip(toolTipFigure);
 						ret = true;
 					}
@@ -1012,20 +1007,25 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @param graphicsAlgorithm
 	 */
 	private void refreshFigureColors(IFigure figure, GraphicsAlgorithm graphicsAlgorithm) {
-		Color fg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService().getForegroundColor(
-				graphicsAlgorithm, true));
-		Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService().getBackgroundColor(
-				graphicsAlgorithm, true));
+		Color fg = DataTypeTransformation.toSwtColor(getConfigurationProvider(),
+				Graphiti.getGaService().getForegroundColor(graphicsAlgorithm, true));
+		Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(),
+				Graphiti.getGaService().getBackgroundColor(graphicsAlgorithm, true));
 		figure.setBackgroundColor(bg);
 		figure.setForegroundColor(fg);
 	}
 
-	// private void refreshFigureColors(IFigure figure, GraphicsAlgorithm graphicsAlgorithm, int redShift) {
+	// private void refreshFigureColors(IFigure figure, GraphicsAlgorithm
+	// graphicsAlgorithm, int redShift) {
 	// if (redShift == 0) {
 	// refreshFigureColors(figure, graphicsAlgorithm);
 	// } else {
-	// Color fg = toSwtColor(Graphiti.getGaService()Internal.getForegroundColor(graphicsAlgorithm, true), redShift);
-	// Color bg = toSwtColor(Graphiti.getGaService()Internal.getBackgroundColor(graphicsAlgorithm, true), redShift);
+	// Color fg =
+	// toSwtColor(Graphiti.getGaService()Internal.getForegroundColor(graphicsAlgorithm,
+	// true), redShift);
+	// Color bg =
+	// toSwtColor(Graphiti.getGaService()Internal.getBackgroundColor(graphicsAlgorithm,
+	// true), redShift);
 	// figure.setBackgroundColor(bg);
 	// figure.setForegroundColor(fg);
 	// }
@@ -1045,13 +1045,10 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 			if (pe instanceof ContainerShape) {
 				ContainerShape containerShape = (ContainerShape) pe;
-				for (Iterator iter = containerShape.getChildren().iterator(); iter.hasNext();) {
-					Object obj = iter.next();
-					if (obj instanceof PictogramElement) {
-						PictogramElement childPe = (PictogramElement) obj;
-						if (!childPe.isActive()) {
-							refreshFigureForPictogramElement(childPe);
-						}
+				List<org.eclipse.graphiti.mm.pictograms.Shape> children = containerShape.getChildren();
+				for (org.eclipse.graphiti.mm.pictograms.Shape shape : children) {
+					if (!shape.isActive()) {
+						refreshFigureForPictogramElement(shape);
 					}
 				}
 			} else if (pe instanceof Connection) {
@@ -1157,38 +1154,42 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		label.setVerticalAligment(draw2dOrientation);
 	}
 
-	//	private void registerBusinessChangeListenersForPictogramElement(PictogramElement pe) {
-	//		if (businessChangeListeners != null) {
-	//			return; // throw new IllegalStateException("Listeners already
-	//			// registered");
-	//		}
-	//		EventRegistry eventRegistry = getEventRegistry();
-	//		if (eventRegistry != null) {
-	//			IFeatureProvider featureProvider = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
-	//			if (featureProvider != null) {
-	//				Object[] businessObjects = featureProvider.getAllBusinessObjectsForPictogramElement(pe);
+	// private void
+	// registerBusinessChangeListenersForPictogramElement(PictogramElement pe) {
+	// if (businessChangeListeners != null) {
+	// return; // throw new IllegalStateException("Listeners already
+	// // registered");
+	// }
+	// EventRegistry eventRegistry = getEventRegistry();
+	// if (eventRegistry != null) {
+	// IFeatureProvider featureProvider =
+	// getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
+	// if (featureProvider != null) {
+	// Object[] businessObjects =
+	// featureProvider.getAllBusinessObjectsForPictogramElement(pe);
 	//
-	//				int boCount = businessObjects.length;
-	//				businessChangeListeners = new BusinessChangeListener[boCount];
-	//				for (int i = 0; i < boCount; i++) {
-	//					Object bo = businessObjects[i];
-	//					if (bo instanceof EObject) {
-	//						EObject rbo = (EObject) bo;
-	//						EventFilter filter = new CompositionHierarchyFilter(rbo);
-	//						businessChangeListeners[i] = new BusinessChangeListener();
-	//						eventRegistry.registerUpdateListener(businessChangeListeners[i], filter);
-	//						// register a partition change listener as well
-	//						if (bo instanceof Partitionable) {
-	//							Partitionable partitionlable = (Partitionable) bo;
-	//							ModelPartition partition = partitionlable.get___Partition();
-	//							eventRegistry.registerUpdateListener(businessChangeListeners[i], new AndFilter(new EventTypeFilter(
-	//									PartitionChangeEvent.class), new PartitionFilter(partition)));
-	//						}
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
+	// int boCount = businessObjects.length;
+	// businessChangeListeners = new BusinessChangeListener[boCount];
+	// for (int i = 0; i < boCount; i++) {
+	// Object bo = businessObjects[i];
+	// if (bo instanceof EObject) {
+	// EObject rbo = (EObject) bo;
+	// EventFilter filter = new CompositionHierarchyFilter(rbo);
+	// businessChangeListeners[i] = new BusinessChangeListener();
+	// eventRegistry.registerUpdateListener(businessChangeListeners[i], filter);
+	// // register a partition change listener as well
+	// if (bo instanceof Partitionable) {
+	// Partitionable partitionlable = (Partitionable) bo;
+	// ModelPartition partition = partitionlable.get___Partition();
+	// eventRegistry.registerUpdateListener(businessChangeListeners[i], new
+	// AndFilter(new EventTypeFilter(
+	// PartitionChangeEvent.class), new PartitionFilter(partition)));
+	// }
+	// }
+	// }
+	// }
+	// }
+	// }
 
 	/**
 	 * @param configurationProvider
@@ -1303,7 +1304,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		this.pictogramElement = pictogramElement;
 	}
 
-	private PointList toAbsoluteDraw2dPoints(Collection points, ILocation location) {
+	private PointList toAbsoluteDraw2dPoints(Collection<org.eclipse.graphiti.mm.algorithms.styles.Point> points, ILocation location) {
 		int deltaX = 0;
 		int deltaY = 0;
 		if (location != null) {
@@ -1311,8 +1312,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			deltaY = location.getY();
 		}
 		PointList pointList = new PointList();
-		for (Iterator iter = points.iterator(); iter.hasNext();) {
-			org.eclipse.graphiti.mm.algorithms.styles.Point dtp = (org.eclipse.graphiti.mm.algorithms.styles.Point) iter.next();
+		for (org.eclipse.graphiti.mm.algorithms.styles.Point dtp : points) {
 			pointList.addPoint(dtp.getX() + deltaX, dtp.getY() + deltaY);
 		}
 		return pointList;
@@ -1328,16 +1328,17 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @return The bezier-distances (distance-before and distance-after), which
 	 *         are calculated from the radius of the given points.
 	 */
-	private int[] getBezierDistances(Collection points) {
+	private int[] getBezierDistances(Collection<org.eclipse.graphiti.mm.algorithms.styles.Point> points) {
 		if (getPreferences().getPolylineRounding() == 0 || getPreferences().getPolylineRounding() == 2) {
 			int i = 0;
 			int bezierDistances[] = new int[points.size() * 2];
-			for (Iterator iter = points.iterator(); iter.hasNext();) {
-				org.eclipse.graphiti.mm.algorithms.styles.Point dtp = (org.eclipse.graphiti.mm.algorithms.styles.Point) iter.next();
-				if (getPreferences().getPolylineRounding() == 0) { // rounding on
+			for (org.eclipse.graphiti.mm.algorithms.styles.Point dtp : points) {
+				if (getPreferences().getPolylineRounding() == 0) { // rounding
+																	// on
 					bezierDistances[i++] = dtp.getBefore(); // bezierDistancesBefore
 					bezierDistances[i++] = dtp.getAfter(); // bezierDistancesAfter
-				} else if (getPreferences().getPolylineRounding() == 2) { // rounding always
+				} else if (getPreferences().getPolylineRounding() == 2) { // rounding
+																			// always
 					bezierDistances[i++] = 15; // bezierDistancesBefore
 					bezierDistances[i++] = 15; // bezierDistancesAfter
 				}
