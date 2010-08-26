@@ -26,12 +26,9 @@ import org.eclipse.graphiti.internal.command.ICommand;
 public class GefCommandWrapper extends Command {
 	private ICommand command;
 
-	private TransactionalEditingDomain editingDomain;
-
 	public GefCommandWrapper(ICommand command, TransactionalEditingDomain editingDomain) {
 		super();
 		setCommand(command);
-		this.editingDomain = editingDomain;
 	}
 
 	@Override
