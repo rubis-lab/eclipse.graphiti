@@ -39,6 +39,7 @@ import org.eclipse.gef.handles.HandleBounds;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.graphiti.ui.internal.parts.AnchorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionDecoratorEditPart;
+import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -106,7 +107,7 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 
 	private Figure marqueeRectangleFigure;
 
-	private Set allChildren = new HashSet();
+	private Set<?> allChildren = new HashSet<Object>();
 
 	private Collection<EditPart> selectedEditParts;
 
@@ -278,7 +279,7 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 	}
 
 	private void getAllChildren(EditPart editPart, Set allChildren) {
-		List children = editPart.getChildren();
+		List<EditPart> children = GraphitiUiInternal.getGefService().getEditPartChildren(editPart);
 		for (int i = 0; i < children.size(); i++) {
 			GraphicalEditPart child = (GraphicalEditPart) children.get(i);
 			if (marqueeBehavior == BEHAVIOR_NODES_CONTAINED || marqueeBehavior == BEHAVIOR_NODES_AND_CONNECTIONS)
