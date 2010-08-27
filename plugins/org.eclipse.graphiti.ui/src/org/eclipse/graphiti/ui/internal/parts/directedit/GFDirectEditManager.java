@@ -75,6 +75,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 	private double cachedZoom = -1.0;
 
 	private ZoomListener zoomListener = new ZoomListener() {
+		@Override
 		public void zoomChanged(double newZoom) {
 			updateScaledFont();
 		}
@@ -86,10 +87,12 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 		diagramEditor = part.getConfigurationProvider().getDiagramEditor();
 	}
 
+	@Override
 	public IDirectEditingContext getDirectEditingContext() {
 		return directEditingContext;
 	}
 
+	@Override
 	public IDirectEditingFeature getDirectEditingFeature() {
 		return directEditingFeature;
 	}
@@ -191,7 +194,9 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 		String initialValue = directEditingFeature.getInitialValue(directEditingContext);
 
 		if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_MULTILINETEXT) {
-			getCellEditor().setValue(initialValue);
+			if (initialValue != null) {
+				getCellEditor().setValue(initialValue);
+			}
 		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_DROPDOWN
 				|| directEditingFeature.getEditingType() == IDirectEditing.TYPE_DROPDOWN_READ_ONLY) {
 			ComboBoxCellEditor comboBoxCellEditor = (ComboBoxCellEditor) getCellEditor();
@@ -231,8 +236,10 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 						controlContentAdapter, contentProposalProvider, keyStroke, null);
 				contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
 
-				// <sw03072008> removed to avoid direct closing of cell editor after value selection from value help
-				// contentProposalAdapter.addContentProposalListener(new IContentProposalListener() {
+				// <sw03072008> removed to avoid direct closing of cell editor
+				// after value selection from value help
+				// contentProposalAdapter.addContentProposalListener(new
+				// IContentProposalListener() {
 				// public void proposalAccepted(IContentProposal proposal) {
 				// commit();
 				// }
