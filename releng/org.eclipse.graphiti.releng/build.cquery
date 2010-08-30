@@ -3,4 +3,5 @@
     <cq:rootRequest name="org.eclipse.graphiti.releng" componentType="buckminster"/>
     <cq:advisorNode namePattern="^org\.eclipse\.graphiti(\..+)?\.source*" skipComponent="true"/>
     <cq:advisorNode namePattern=".*" useMaterialization="false" useTargetPlatform="false"/>
+    <cq:advisorNode namePattern="org.eclipse.graphiti*test*" skipComponent="true"/>
 </cq:componentQuery>
