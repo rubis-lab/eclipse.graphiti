@@ -40,8 +40,4 @@
          id="org.eclipse.graphiti.feature.examples"
          version="0.0.0"/>
 
-   <includes
-         id="org.eclipse.graphiti.sdk.feature"
-         version="0.0.0"/>
-
 </feature>
