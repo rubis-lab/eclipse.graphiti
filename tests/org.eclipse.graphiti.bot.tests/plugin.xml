@@ -15,7 +15,7 @@
    
  -->
 
-<fragment>
+<plugin>
 
    <extension
          point="org.eclipse.ui.perspectives">
@@ -26,4 +26,4 @@
             name="Test Graphiti"/>
    </extension>
 
-</fragment>
+</plugin>
