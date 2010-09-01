@@ -157,6 +157,7 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		viewMenu.add(getAction(GEFActionConstants.ZOOM_OUT));
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY));
+
 		menubar.insertAfter(IWorkbenchActionConstants.M_EDIT, viewMenu);
 	}
 
