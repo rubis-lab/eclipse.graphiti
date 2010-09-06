@@ -300,9 +300,10 @@ public class GFPolyline extends GFAbstractPointListShape {
 			return inFigure.booleanValue();
 
 		// check if point inside children (if existing)
-		List children = getChildren();
+		@SuppressWarnings("unchecked")
+		List<IFigure> children = getChildren();
 		for (int i = 0; i < children.size(); i++) {
-			if (((IFigure) children.get(i)).containsPoint(x, y)) {
+			if (children.get(i).containsPoint(x, y)) {
 				return true;
 			}
 		}

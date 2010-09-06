@@ -18,7 +18,6 @@ package org.eclipse.graphiti.ui.internal.figures;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Shape;
@@ -257,8 +256,9 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 *         selection-area GraphicsAlgorithms.
 	 */
 	protected Boolean containsPointInArea(int x, int y) {
-		List<Figure> children2 = getChildren();
-		for (Figure figure : children2) {
+		@SuppressWarnings("unchecked")
+		List<IFigure> children2 = getChildren();
+		for (IFigure figure : children2) {
 			if (figure instanceof RenderingImageFigure) {
 				if (figure.containsPoint(x, y)) {
 					return Boolean.TRUE;

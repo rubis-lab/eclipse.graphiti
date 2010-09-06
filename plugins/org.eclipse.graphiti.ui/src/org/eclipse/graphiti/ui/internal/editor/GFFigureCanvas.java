@@ -714,6 +714,7 @@ public class GFFigureCanvas extends Canvas {
 			return new Rectangle();
 		}
 		DiagramEditPart diagramEditPart = ((DiagramEditPart) ep);
+		@SuppressWarnings("unchecked")
 		List<IFigure> children = diagramEditPart.getFigure().getChildren();
 		if (children.size() == 0)
 			return null;

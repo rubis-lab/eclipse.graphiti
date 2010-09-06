@@ -78,11 +78,10 @@ public class TraceService implements ITraceService {
 
 		System.out.println(indentString + getClassName(figure, FULL_QUALIFIED) + additional);
 
-		List ch = figure.getChildren();
-		for (Object o : ch) {
-			if (o instanceof IFigure) {
-				dumpFigureTree((IFigure) o, indent + 2);
-			}
+		@SuppressWarnings("unchecked")
+		List<IFigure> children = figure.getChildren();
+		for (IFigure childFigure : children) {
+			dumpFigureTree(childFigure, indent + 2);
 		}
 	}
 
