@@ -13,13 +13,9 @@
  * </copyright>
  *
  *******************************************************************************/
-/*
- * Created on 27.09.2005
- */
 package org.eclipse.graphiti.ui.internal.parts;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.draw2d.Bendpoint;
@@ -27,6 +23,7 @@ import org.eclipse.draw2d.BendpointConnectionRouter;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
@@ -75,8 +72,8 @@ public class FreeFormConnectionEditPart extends ConnectionEditPart {
 		}
 
 		List<Bendpoint> pointList = new ArrayList<Bendpoint>();
-		for (Iterator iter = ffc.getBendpoints().iterator(); iter.hasNext();) {
-			org.eclipse.graphiti.mm.algorithms.styles.Point point = (org.eclipse.graphiti.mm.algorithms.styles.Point) iter.next();
+		List<Point> bendpoints = ffc.getBendpoints();
+		for (Point point : bendpoints) {
 			Bendpoint draw2dBendPoint = DataTypeTransformation.toDraw2dBendPoint(point);
 			pointList.add(draw2dBendPoint);
 		}

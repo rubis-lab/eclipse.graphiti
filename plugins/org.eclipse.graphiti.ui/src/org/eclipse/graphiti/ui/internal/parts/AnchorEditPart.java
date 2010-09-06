@@ -229,8 +229,8 @@ public abstract class AnchorEditPart extends AbstractGraphicalEditPart implement
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#getModelChildren()
 	 */
 	@Override
-	public List getModelChildren() {
-		return super.getModelChildren();
+	public List<PictogramElement> getModelChildren() {
+		return new ArrayList<PictogramElement>();
 	}
 
 	/*

@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.parts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
@@ -57,13 +58,6 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		delegate.activate();
 	}
 
-	// ======================= overwriteable behaviour ========================
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.editparts.AbstractEditPart#createEditPolicies()
-	 */
 	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, getConfigurationProvider().getEditPolicyFactory()
@@ -74,11 +68,6 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
-	 */
 	@Override
 	protected IFigure createFigure() {
 		IFigure ret = delegate.createFigure();
@@ -116,12 +105,6 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart#
-	 * getPictogramElement()
-	 */
 	public PictogramElement getPictogramElement() {
 		return delegate.getPictogramElement();
 	}
@@ -148,48 +131,21 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		delegate.refreshFigureForEditPart();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.editparts.AbstractEditPart#getModelChildren()
-	 */
 	@Override
-	public List getModelChildren() {
-		List list = super.getModelChildren();
-		return list;
+	public List<PictogramElement> getModelChildren() {
+		return new ArrayList<PictogramElement>();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.gef.editparts.AbstractGraphicalEditPart#getModelSourceConnections
-	 * ()
-	 */
 	@Override
 	public List<Connection> getModelSourceConnections() {
-		return super.getModelSourceConnections();
+		return new ArrayList<Connection>();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.gef.editparts.AbstractGraphicalEditPart#getModelTargetConnections
-	 * ()
-	 */
 	@Override
 	public List<Connection> getModelTargetConnections() {
-		return super.getModelTargetConnections();
+		return new ArrayList<Connection>();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.gef.editparts.AbstractConnectionEditPart#getAdapter(java.
-	 * lang.Class)
-	 */
 	@Override
 	public Object getAdapter(Class key) {
 		Object ret = delegate.getAdapter(key);
@@ -200,12 +156,6 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.features.IFeatureProviderHolder#getFeatureProvider()
-	 */
 	public IFeatureProvider getFeatureProvider() {
 		IFeatureProvider ret = null;
 		if (delegate != null) {
@@ -214,12 +164,6 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seeorg.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart#
-	 * getPictogramElementDelegate()
-	 */
 	public IPictogramElementDelegate getPictogramElementDelegate() {
 		return delegate;
 	}
