@@ -56,9 +56,9 @@ public class GFNonResizableEditPolicy extends NonResizableEditPolicy {
 	}
 
 	@Override
-	protected List createSelectionHandles() {
+	protected List<?> createSelectionHandles() {
 		GraphicalEditPart owner = (GraphicalEditPart) getHost();
-		List list = GFHandleHelper.createShapeHandles(owner, getConfigurationProvider(), 0, isDragAllowed());
+		List<?> list = GFHandleHelper.createShapeHandles(owner, getConfigurationProvider(), 0, isDragAllowed());
 		return list;
 	}
 
@@ -101,6 +101,7 @@ public class GFNonResizableEditPolicy extends NonResizableEditPolicy {
 	@Override
 	public void eraseSourceFeedback(Request request) {
 		/* dispose ghosts */
+		@SuppressWarnings("unchecked")
 		List<IFigure> children = getFeedbackLayer().getChildren();
 		for (IFigure child : children) {
 			if (child instanceof TransparentGhostFigure) {

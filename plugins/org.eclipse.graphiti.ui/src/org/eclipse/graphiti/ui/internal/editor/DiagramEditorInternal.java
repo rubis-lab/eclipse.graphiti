@@ -1067,6 +1067,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 */
 	protected void initActionRegistry() {
 		final ActionRegistry actionRegistry = getActionRegistry();
+		@SuppressWarnings("unchecked")
 		final List<String> selectionActions = getSelectionActions();
 
 		// register predefined actions (e.g. update, remove, delete, ...)
@@ -1334,7 +1335,9 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			hs.activateHandler(action.getActionDefinitionId(), new ActionHandler(action));
 		}
 
-		getSelectionActions().add(action.getId());
+		@SuppressWarnings("unchecked")
+		List<String> selectionActions = getSelectionActions();
+		selectionActions.add(action.getId());
 	}
 
 	/**

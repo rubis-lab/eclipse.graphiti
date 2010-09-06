@@ -57,19 +57,20 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 	}
 
 	@Override
-	protected List createSelectionHandles() {
+	protected List<?> createSelectionHandles() {
 		if (getResizeShapeFeature() == null || !getResizeShapeFeature().canResizeShape(getResizeShapeContext())) {
 			return Collections.EMPTY_LIST;
 		}
 
 		GraphicalEditPart owner = (GraphicalEditPart) getHost();
-		List list = GFHandleHelper.createShapeHandles(owner, getConfigurationProvider(), getResizeDirections(), isDragAllowed());
+		List<?> list = GFHandleHelper.createShapeHandles(owner, getConfigurationProvider(), getResizeDirections(), isDragAllowed());
 		return list;
 	}
 
 	@Override
 	public void eraseSourceFeedback(Request request) {
 		/* dispose ghosts */
+		@SuppressWarnings("unchecked")
 		List<IFigure> children = getFeedbackLayer().getChildren();
 		for (IFigure child : children) {
 			if (child instanceof TransparentGhostFigure) {

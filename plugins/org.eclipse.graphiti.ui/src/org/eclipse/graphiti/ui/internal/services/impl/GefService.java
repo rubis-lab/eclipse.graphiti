@@ -532,4 +532,25 @@ public class GefService implements IGefService {
 		List<EditPart> ret = editPart.getChildren();
 		return ret;
 	}
+
+	@Override
+	public List<GraphicalEditPart> getSourceConnections(GraphicalEditPart graphicalEditPart) {
+		@SuppressWarnings("unchecked")
+		List<GraphicalEditPart> sourceConnections = graphicalEditPart.getSourceConnections();
+		return sourceConnections;
+	}
+
+	@Override
+	public List<GraphicalEditPart> getTargetConnections(GraphicalEditPart graphicalEditPart) {
+		@SuppressWarnings("unchecked")
+		List<GraphicalEditPart> targetConnections = graphicalEditPart.getTargetConnections();
+		return targetConnections;
+	}
+
+	@Override
+	public List<EditPart> getSelectedEditParts(EditPartViewer editPartViewer) {
+		@SuppressWarnings("unchecked")
+		List<EditPart> selectedEditParts = editPartViewer.getSelectedEditParts();
+		return selectedEditParts;
+	}
 }

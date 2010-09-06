@@ -107,7 +107,7 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 
 	private Figure marqueeRectangleFigure;
 
-	private Set<?> allChildren = new HashSet<Object>();
+	private Set<GraphicalEditPart> allChildren = new HashSet<GraphicalEditPart>();
 
 	private Collection<EditPart> selectedEditParts;
 
@@ -155,7 +155,8 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 		Collection<EditPart> currentNodes = new HashSet<EditPart>();
 		if (getSelectionMode() != DEFAULT_MODE) { // everything is deselected
 			// in default mode
-			Iterator<EditPart> iter = getCurrentViewer().getSelectedEditParts().iterator();
+			List<EditPart> selectedEditParts2 = GraphitiUiInternal.getGefService().getSelectedEditParts(getCurrentViewer());
+			Iterator<EditPart> iter = selectedEditParts2.iterator();
 			while (iter.hasNext()) {
 				EditPart selected = iter.next();
 				if (!(selected instanceof ConnectionEditPart) && !deselections.contains(selected))
@@ -201,8 +202,8 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 
 	private void calculateNewSelection(Collection<EditPart> newSelections, Collection<EditPart> deselections) {
 		Rectangle marqueeRect = getMarqueeSelectionRectangle();
-		for (Iterator itr = getAllChildren().iterator(); itr.hasNext();) {
-			GraphicalEditPart child = (GraphicalEditPart) itr.next();
+		for (Iterator<GraphicalEditPart> itr = getAllChildren().iterator(); itr.hasNext();) {
+			GraphicalEditPart child = itr.next();
 			IFigure figure = child.getFigure();
 			if (!child.isSelectable() || child.getTargetEditPart(MARQUEE_REQUEST) != child || !isFigureVisible(figure)
 					|| !figure.isShowing())
@@ -272,21 +273,21 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 		}
 	}
 
-	private Set getAllChildren() {
+	private Set<GraphicalEditPart> getAllChildren() {
 		if (allChildren.isEmpty())
 			getAllChildren(getCurrentViewer().getRootEditPart(), allChildren);
 		return allChildren;
 	}
 
-	private void getAllChildren(EditPart editPart, Set allChildren) {
+	private void getAllChildren(EditPart editPart, Set<GraphicalEditPart> allChildren) {
 		List<EditPart> children = GraphitiUiInternal.getGefService().getEditPartChildren(editPart);
 		for (int i = 0; i < children.size(); i++) {
 			GraphicalEditPart child = (GraphicalEditPart) children.get(i);
 			if (marqueeBehavior == BEHAVIOR_NODES_CONTAINED || marqueeBehavior == BEHAVIOR_NODES_AND_CONNECTIONS)
 				allChildren.add(child);
 			if (marqueeBehavior == BEHAVIOR_CONNECTIONS_TOUCHED) {
-				allChildren.addAll(child.getSourceConnections());
-				allChildren.addAll(child.getTargetConnections());
+				allChildren.addAll(GraphitiUiInternal.getGefService().getSourceConnections(child));
+				allChildren.addAll(GraphitiUiInternal.getGefService().getTargetConnections(child));
 			}
 			getAllChildren(child, allChildren);
 		}
@@ -492,7 +493,8 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 		Collection<EditPart> newSelections = new LinkedHashSet<EditPart>(), deselections = new HashSet<EditPart>();
 		calculateNewSelection(newSelections, deselections);
 		if (getSelectionMode() != DEFAULT_MODE) {
-			newSelections.addAll(viewer.getSelectedEditParts());
+			List<EditPart> selectedEditParts2 = GraphitiUiInternal.getGefService().getSelectedEditParts(viewer);
+			newSelections.addAll(selectedEditParts2);
 			newSelections.removeAll(deselections);
 		}
 

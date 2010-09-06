@@ -21,6 +21,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -144,4 +145,28 @@ public interface IGefService {
 	 * @return the direct child edit parts
 	 */
 	public List<EditPart> getEditPartChildren(EditPart editPart);
+
+	/**
+	 * Provides the source connections of the graphical edit part.
+	 * 
+	 * @param graphicalEditPart
+	 * @return the source connections of the graphical edit part
+	 */
+	public List<GraphicalEditPart> getSourceConnections(GraphicalEditPart graphicalEditPart);
+
+	/**
+	 * Provides the target connections of the graphical edit part.
+	 * 
+	 * @param graphicalEditPart
+	 * @return the target connections of the graphical edit part
+	 */
+	public List<GraphicalEditPart> getTargetConnections(GraphicalEditPart graphicalEditPart);
+
+	/**
+	 * Provides the selected edit parts of the viewer.
+	 * 
+	 * @param editPartViewer
+	 * @return the selected edit parts of the viewer
+	 */
+	public List<EditPart> getSelectedEditParts(EditPartViewer editPartViewer);
 }

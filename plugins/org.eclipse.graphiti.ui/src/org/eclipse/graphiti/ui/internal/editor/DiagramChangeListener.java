@@ -121,7 +121,7 @@ public class DiagramChangeListener implements ResourceSetListener {
 					// Compute editpart for eo and add it to job's editpart list.
 					PictogramElement activeContainerPe = calculateActiveContainerPe(eo);
 					if (activeContainerPe != null) {
-						Map editPartRegistry = graphicalViewer.getEditPartRegistry();
+						Map<?, ?> editPartRegistry = graphicalViewer.getEditPartRegistry();
 						Object o = editPartRegistry.get(activeContainerPe);
 						if (o instanceof EditPart) {
 							EditPart affectedEditPart = (EditPart) o;
@@ -144,7 +144,7 @@ public class DiagramChangeListener implements ResourceSetListener {
 	}
 
 	private void addRelevantChildEditPartsToRefreshJob(PictogramElement pe) {
-		Map editPartRegistry = ed.getGraphicalViewer().getEditPartRegistry();
+		Map<?, ?> editPartRegistry = ed.getGraphicalViewer().getEditPartRegistry();
 		DiagramRefreshJob refreshJob = getRefreshDiagramJob();
 
 		if (pe instanceof AnchorContainer) {
