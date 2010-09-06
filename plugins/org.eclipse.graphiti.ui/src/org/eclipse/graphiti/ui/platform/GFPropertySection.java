@@ -23,6 +23,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -73,8 +74,7 @@ public abstract class GFPropertySection extends AbstractPropertySection implemen
 	 *            the context
 	 */
 	public void execute(IFeature feature, IContext context) {
-		GenericFeatureCommandWithContext c = new GenericFeatureCommandWithContext(feature, context);
-		c.execute();
+		CommandExec.executeFeatureWithContext(feature, context);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
