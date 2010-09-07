@@ -96,21 +96,27 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		DefaultExecutionInfo executionInfo = new DefaultExecutionInfo();
 		completeExecutionInfo(executionInfo, gefCommand);
 
-		//		IStatus prepareExecutionStatus = PreparableCommand.prepareExecution(modelConnector.getEditingDomain(),
-		//				getConfigurationProvider().getFeatureProvider().getAffectedResourcesForModification());
-		//		if (!prepareExecutionStatus.isOK()) {
-		//			return;
-		//		}
+		// IStatus prepareExecutionStatus =
+		// PreparableCommand.prepareExecution(modelConnector.getEditingDomain(),
+		// getConfigurationProvider().getFeatureProvider().getAffectedResourcesForModification());
+		// if (!prepareExecutionStatus.isOK()) {
+		// return;
+		// }
 
 		tbp.preExecute(executionInfo);
 		getEmfCommandStack().execute(gfPreparableCommand);
 		tbp.postExecute(executionInfo);
 
-		// Check if the executed feature has really done changes (indicated by IFeature.hasDoneChanges). If
-		// not, remove the operation of the command used to execute the feature from the command stack. It
-		// will then also no longer appear as an entry in the undo stack. This is especially necessary for
-		// direct editing in a pattern environment when e.g. a new object is created and directly offered
-		// for direct editing (handled internally as two different commands because of EMF restrictions).
+		// Check if the executed feature has really done changes (indicated by
+		// IFeature.hasDoneChanges). If
+		// not, remove the operation of the command used to execute the feature
+		// from the command stack. It
+		// will then also no longer appear as an entry in the undo stack. This
+		// is especially necessary for
+		// direct editing in a pattern environment when e.g. a new object is
+		// created and directly offered
+		// for direct editing (handled internally as two different commands
+		// because of EMF restrictions).
 		if (gefCommand instanceof GefCommandWrapper) {
 			GefCommandWrapper gefCommandWrapper = (GefCommandWrapper) gefCommand;
 			ICommand command = gefCommandWrapper.getCommand();
@@ -209,12 +215,10 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 	private static DefaultExecutionInfo completeExecutionInfo(DefaultExecutionInfo executionInfo, Command gefCommand) {
 		if (gefCommand instanceof CompoundCommand) {
 			CompoundCommand compoundCommand = (CompoundCommand) gefCommand;
-			final List commands = compoundCommand.getCommands();
-			for (Object o : commands) {
-				if (o instanceof Command) {
-					Command childCommand = (Command) o;
-					completeExecutionInfo(executionInfo, childCommand);
-				}
+			@SuppressWarnings("unchecked")
+			final List<Command> commands = compoundCommand.getCommands();
+			for (Command childCommand : commands) {
+				completeExecutionInfo(executionInfo, childCommand);
 			}
 		}
 		if (gefCommand instanceof CreateConnectionCommand) {

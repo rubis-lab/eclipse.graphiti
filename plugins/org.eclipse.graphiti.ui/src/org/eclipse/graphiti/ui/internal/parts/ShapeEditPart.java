@@ -17,7 +17,6 @@ package org.eclipse.graphiti.ui.internal.parts;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -57,6 +56,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
+import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -206,7 +206,6 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	@Override
 	public List<PictogramElement> getModelChildren() {
 		List<PictogramElement> ret = new ArrayList<PictogramElement>();
-		ret.addAll(super.getModelChildren());
 		ret.addAll(delegate.getModelChildren());
 		return ret;
 	}
@@ -501,8 +500,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 
 			if (locationInfo != null) {
 
-				DirectEditingContext directEditingContext = new DirectEditingContext(locationInfo.getShape(), locationInfo
-						.getGraphicsAlgorithm());
+				DirectEditingContext directEditingContext = new DirectEditingContext(locationInfo.getShape(),
+						locationInfo.getGraphicsAlgorithm());
 
 				IFeatureProvider featureProvider = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
 
@@ -519,8 +518,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 		} else if (request.getType().equals(REQ_OPEN)) {
 
 			if (locationInfo != null) {
-				DoubleClickContext dcc = new DoubleClickContext(getPictogramElement(), locationInfo.getShape(), locationInfo
-						.getGraphicsAlgorithm());
+				DoubleClickContext dcc = new DoubleClickContext(getPictogramElement(), locationInfo.getShape(),
+						locationInfo.getGraphicsAlgorithm());
 
 				IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
 						.getCurrentToolBehaviorProvider();
@@ -599,8 +598,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 				.createShapeHighlightEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, getConfigurationProvider().getEditPolicyFactory().createShapeForbidLayoutEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, getConfigurationProvider().getEditPolicyFactory().createDirectEditPolicy());
-		installEditPolicy(EditPolicy.COMPONENT_ROLE, getConfigurationProvider().getEditPolicyFactory().createModelObjectDeleteEditPolicy(
-				getConfigurationProvider()));
+		installEditPolicy(EditPolicy.COMPONENT_ROLE,
+				getConfigurationProvider().getEditPolicyFactory().createModelObjectDeleteEditPolicy(getConfigurationProvider()));
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, getConfigurationProvider().getEditPolicyFactory().createConnectionEditPolicy());
 		installEditPolicy(DefaultEditPolicyFactory.HOVER_POLICY_KEY, getConfigurationProvider().getEditPolicyFactory()
 				.createShapeHoverEditPolicy());
@@ -667,7 +666,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 			IFigure figure) {
 		TextCellLocator cellEditorLocator = new TextCellLocator(figure, directEditingFeature);
 
-		Class uiElementClass = null;
+		Class<?> uiElementClass = null;
 		switch (directEditingFeature.getEditingType()) {
 		case IDirectEditing.TYPE_TEXT:
 			uiElementClass = TextCellEditor.class;
@@ -703,10 +702,9 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 
 	private Anchor getChopboxAnchor(AnchorContainer anchorContainer) {
 		if (GraphitiInternal.getEmfService().isObjectAlive(anchorContainer)) {
-			Collection existingAnchors = anchorContainer.getAnchors();
-			for (Iterator iter = existingAnchors.iterator(); iter.hasNext();) {
-				Anchor anchor = (Anchor) iter.next();
-				if (anchor instanceof org.eclipse.graphiti.mm.pictograms.ChopboxAnchor) {
+			List<Anchor> existingAnchors = anchorContainer.getAnchors();
+			for (Anchor anchor : existingAnchors) {
+				if (anchor instanceof ChopboxAnchor) {
 					return anchor;
 				}
 			}
