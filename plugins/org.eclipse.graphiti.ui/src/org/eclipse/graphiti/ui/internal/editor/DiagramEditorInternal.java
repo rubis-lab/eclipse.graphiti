@@ -93,6 +93,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
+import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
@@ -647,7 +648,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#getAdapter(Class)
 	 */
 	@Override
-	public Object getAdapter(Class type) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
 		IConfigurationProvider cfgProvider = getConfigurationProvider();
 
 		if (cfgProvider != null) {
@@ -767,7 +768,12 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * Gets the diagram scrolling behavior.
 	 * 
 	 * @return the diagram scrolling behavior
+	 * @deprecated Scroll bar based infinite canvas is a workaround for GEF
+	 *             limitations.
+	 * 
+	 * @see DefaultToolBehaviorProvider#getDiagramScrollingBehavior()
 	 */
+	@Deprecated
 	public DiagramScrollingBehavior getDiagramScrollingBehavior() {
 		if (this.diagramScrollingBehavior == null) {
 			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
