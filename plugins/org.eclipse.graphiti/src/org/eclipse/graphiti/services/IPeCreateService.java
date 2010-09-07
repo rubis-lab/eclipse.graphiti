@@ -24,6 +24,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**
@@ -75,8 +76,21 @@ public interface IPeCreateService {
 	 * @param parentContainerShape
 	 *            the parent container shape
 	 * @param active
-	 *            true if container shape should be active (means selectable in
-	 *            editor)
+	 *            <code>true</code>, if the created shape should be active,
+	 *            <code>false</code> otherwise. An active shape can be selected
+	 *            in the diagram editor and it is also relevant for layouting:
+	 *            an active shape opens a coordinate system which can be used
+	 *            for layouting its {@link PictogramElement} children, while an
+	 *            inactive one does not provide one but uses the coordinate
+	 *            system of its next active parent for layouting its children.
+	 *            <p>
+	 *            By default all shapes should be active, inactive shapes should
+	 *            be used for grouping purposes or for linking a group of
+	 *            graphical objects to the domain world only.
+	 *            <p>
+	 *            For those familiar with GEF: only for active shapes a GEF
+	 *            EditPart will be created by the Graphiti framework, not for
+	 *            inactive ones.
 	 * @return the new container shape
 	 */
 	ContainerShape createContainerShape(ContainerShape parentContainerShape, boolean active);
@@ -135,8 +149,21 @@ public interface IPeCreateService {
 	 * @param parentContainerShape
 	 *            the parent container shape
 	 * @param active
-	 *            TRUE, if shape should be active (means selectable in the
-	 *            editor)
+	 *            <code>true</code>, if the created shape should be active,
+	 *            <code>false</code> otherwise. An active shape can be selected
+	 *            in the diagram editor and it is also relevant for layouting:
+	 *            an active shape opens a coordinate system which can be used
+	 *            for layouting its {@link PictogramElement} children, while an
+	 *            inactive one does not provide one but uses the coordinate
+	 *            system of its next active parent for layouting its children.
+	 *            <p>
+	 *            By default all shapes should be active, inactive shapes should
+	 *            be used for grouping purposes or for linking a group of
+	 *            graphical objects to the domain world only.
+	 *            <p>
+	 *            For those familiar with GEF: only for active shapes a GEF
+	 *            EditPart will be created by the Graphiti framework, not for
+	 *            inactive ones.
 	 * @return the new shape
 	 */
 	Shape createShape(ContainerShape parentContainerShape, boolean active);
