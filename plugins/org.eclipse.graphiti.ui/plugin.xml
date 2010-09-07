@@ -41,7 +41,7 @@
           contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
           default="true"
           extensions="diagram"
-          icon="icons/lazy.gif"
+          icon="icons/diagram.gif"
           id="org.eclipse.graphiti.ui.editor.DiagramEditor"
           matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorFactory$DiagramEditorMatchingStrategy"
           name="%_diagram_editor_name">

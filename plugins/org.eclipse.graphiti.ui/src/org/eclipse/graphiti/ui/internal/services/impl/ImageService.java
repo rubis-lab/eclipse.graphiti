@@ -56,8 +56,9 @@ public class ImageService implements IImageService {
 		// if image already available take it
 		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
 		Image result = imageRegistry.get(imageId);
-		if (result != null)
+		if (result != null && !result.isDisposed()) {
 			return result;
+		}
 
 		createImageDescriptorForId(imageId);
 		Image image = imageRegistry.get(imageId); // now there is an image

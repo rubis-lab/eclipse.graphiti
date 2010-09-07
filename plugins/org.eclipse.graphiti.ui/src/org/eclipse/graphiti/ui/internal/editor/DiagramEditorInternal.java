@@ -65,10 +65,10 @@ import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.DefaultPaletteViewerPreferences;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
+import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
-import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
@@ -133,7 +133,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
@@ -155,12 +154,16 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		ITabbedPropertySheetPageContributor, IResourceRegistryHolder, IEditingDomainProvider {
 
 	private final CommandStackEventListener cmdStackListener = new CommandStackEventListener() {
+		@Override
 		public void stackChanged(CommandStackEvent event) {
-			if (Display.getCurrent() != null) { // Only fire if triggered from UI thread
+			if (Display.getCurrent() != null) { // Only fire if triggered from
+												// UI thread
 				DiagramEditorInternal.this.firePropertyChange(IEditorPart.PROP_DIRTY);
 
-				// Promote the changes to the command stack also to the action bars and registered actions to
-				// correctly reflect e.g. undo/redo in the menu (introduced to enable removing NOP commands from
+				// Promote the changes to the command stack also to the action
+				// bars and registered actions to
+				// correctly reflect e.g. undo/redo in the menu (introduced to
+				// enable removing NOP commands from
 				// the command stack
 				commandStackChanged(event);
 			}
@@ -172,6 +175,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		@Override
 		public void commandStackChanged(EventObject event) {
 			getEditorSite().getShell().getDisplay().asyncExec(new Runnable() {
+				@Override
 				public void run() {
 					firePropertyChange(IEditorPart.PROP_DIRTY);
 				}
@@ -183,6 +187,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * Updates the editor's dirty toggle.
 	 */
 	final class DirtyFlagUpdater implements Runnable {
+		@Override
 		public void run() {
 			firePropertyChange(IEditorPart.PROP_DIRTY);
 		}
@@ -581,7 +586,8 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 			String providerId = diagramEditorInput.getProviderId();
 
-			// if provider is null then take the first installed provider for this diagram type
+			// if provider is null then take the first installed provider for
+			// this diagram type
 			if (providerId == null) {
 				providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
 				diagramEditorInput.setProviderId(providerId);
@@ -604,20 +610,11 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			// set title
 			refreshTitle();
 
-			// override title image if the diagram type provider provides an
-			// image
-			String imageId = diagramTypeProvider.getDiagramTitleImage();
-			if (imageId != null) {
-				Image image = GraphitiUi.getImageService().getImageForId(imageId);
-				if (image != null) {
-					setTitleImage(image);
-				}
-			}
-
 		} catch (final Exception e) {
 
 			// report exception async as UI may not be there yet
 			getSite().getShell().getDisplay().asyncExec(new Runnable() {
+				@Override
 				public void run() {
 					String message = "Can not open the modifier. Details " + e.getMessage(); //$NON-NLS-1$
 					T.racer().error(message, e);
@@ -699,6 +696,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return keyHandler;
 	}
 
+	@Override
 	public IConfigurationProvider getConfigurationProvider() {
 		return configurationProvider;
 	}
@@ -730,6 +728,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * 
 	 * @return the contributor id
 	 */
+	@Override
 	public String getContributorId() {
 
 		if (contributorId == null) {
@@ -741,6 +740,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return contributorId;
 	}
 
+	@Override
 	public IDimension getCurrentSize() {
 
 		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
@@ -782,6 +782,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return this.diagramScrollingBehavior;
 	}
 
+	@Override
 	public IDiagramTypeProvider getDiagramTypeProvider() {
 		IConfigurationProvider cfgProvider = getConfigurationProvider();
 		if (cfgProvider != null)
@@ -861,26 +862,32 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	@Override
 	protected FlyoutPreferences getPalettePreferences() {
 		return new FlyoutPreferences() {
+			@Override
 			public int getDockLocation() {
 				return getPreferenceStore().getInt(PALETTE_DOCK_LOCATION);
 			}
 
+			@Override
 			public int getPaletteState() {
 				return getPreferenceStore().getInt(PALETTE_STATE);
 			}
 
+			@Override
 			public int getPaletteWidth() {
 				return getPreferenceStore().getInt(PALETTE_SIZE);
 			}
 
+			@Override
 			public void setDockLocation(int location) {
 				getPreferenceStore().setValue(PALETTE_DOCK_LOCATION, location);
 			}
 
+			@Override
 			public void setPaletteState(int state) {
 				getPreferenceStore().setValue(PALETTE_STATE, state);
 			}
 
+			@Override
 			public void setPaletteWidth(int width) {
 				getPreferenceStore().setValue(PALETTE_SIZE, width);
 			}
@@ -936,10 +943,12 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return refreshedFigure4PE;
 	}
 
+	@Override
 	public IResourceRegistry getResourceRegistry() {
 		return resourceRegistry;
 	}
 
+	@Override
 	public PictogramElement[] getSelectedPictogramElements() {
 		PictogramElement pe[] = new PictogramElement[0];
 		ISelectionProvider selectionProvider = getSite().getSelectionProvider();
@@ -1156,6 +1165,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		}
 
 		getGraphicalViewer().getControl().addMouseMoveListener(new MouseMoveListener() {
+			@Override
 			public void mouseMove(MouseEvent e) {
 				setMouseLocation(e.x, e.y);
 			}
@@ -1176,6 +1186,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	void internalRefreshEditPart(final EditPart editPart) {
 		if (Display.getCurrent() == null) {
 			Display.getDefault().syncExec(new Runnable() {
+				@Override
 				public void run() {
 					internalRefreshEditPart(editPart);
 					// refreshOutline();
@@ -1238,6 +1249,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		refreshedFigure4PE = new HashSet<PictogramElement>();
 	}
 
+	@Override
 	public void refresh() {
 
 		if (!isAlive()) {
@@ -1252,6 +1264,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 		if (Display.getCurrent() == null) {
 			Display.getDefault().asyncExec(new Runnable() {
+				@Override
 				public void run() {
 					refresh();
 				}
@@ -1297,6 +1310,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		selectBufferedPictogramElements();
 	}
 
+	@Override
 	public void refreshPalette() {
 		PaletteRoot pr = getPaletteRoot();
 		if (pr instanceof GFPaletteRoot) {
@@ -1305,6 +1319,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		}
 	}
 
+	@Override
 	public void refreshRenderingDecorators(PictogramElement pe) {
 		GraphicalEditPart ep = getEditPartForPictogramElement(pe);
 		if (ep instanceof IShapeEditPart) {
@@ -1321,6 +1336,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		setPartName(name);
 	}
 
+	@Override
 	public void refreshTitleToolTip() {
 		setTitleToolTip(getTitleToolTip());
 	}
@@ -1441,6 +1457,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		super.selectionChanged(part, selection);
 	}
 
+	@Override
 	public void selectPictogramElements(PictogramElement[] pictogramElements) {
 		List<EditPart> editParts = new ArrayList<EditPart>();
 		Map<?, ?> editPartRegistry = getGraphicalViewer().getEditPartRegistry();
@@ -1456,11 +1473,15 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			if (editParts.size() > 0) {
 				final EditPart editpart = editParts.get(0);
 				if (!(editpart instanceof IConnectionEditPart)) {
-					// if the editPart is newly created it is possible that his figure 
-					// has not a valid bounds. Hence we have to wait for the UI update 
-					// (for the validation of the figure tree). Otherwise the reveal 
+					// if the editPart is newly created it is possible that his
+					// figure
+					// has not a valid bounds. Hence we have to wait for the UI
+					// update
+					// (for the validation of the figure tree). Otherwise the
+					// reveal
 					// method can't work correctly.
 					Display.getDefault().asyncExec(new Runnable() {
+						@Override
 						public void run() {
 							getGraphicalViewer().reveal(editpart);
 						}
@@ -1520,6 +1541,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		getMouseLocation().setLocation(x, y);
 	}
 
+	@Override
 	public void setPictogramElementForSelection(PictogramElement pictogramElementForSelection) {
 		if (pictogramElementForSelection == null)
 			this.pictogramElementsForSelection = null;
@@ -1527,6 +1549,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			this.pictogramElementsForSelection = new PictogramElement[] { pictogramElementForSelection };
 	}
 
+	@Override
 	public void setPictogramElementsForSelection(PictogramElement pictogramElementsForSelection[]) {
 		this.pictogramElementsForSelection = pictogramElementsForSelection;
 	}
@@ -1537,10 +1560,14 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			refresh();
 		} else {
 			DiagramEditorInput diagramEditorInput = (DiagramEditorInput) getEditorInput();
-			Diagram diagram = diagramEditorInput.getDiagram(); // resolve diagram in reloaded resource
+			Diagram diagram = diagramEditorInput.getDiagram(); // resolve
+																// diagram in
+																// reloaded
+																// resource
 			IDiagramTypeProvider diagramTypeProvider = getConfigurationProvider().getDiagramTypeProvider();
 			diagramTypeProvider.resourceReloaded(diagram);
-			initRefresh(); // clean performance hashtables which have references to old proxies
+			initRefresh(); // clean performance hashtables which have references
+							// to old proxies
 			setPictogramElementsForSelection(null);
 			getGraphicalViewer().setContents(diagram); // create new edit parts
 			handleAutoUpdateAtReset(diagram, diagramTypeProvider);
@@ -1578,6 +1605,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * 
 	 * @return the resource set
 	 */
+	@Override
 	public ResourceSet getResourceSet() {
 		ResourceSet ret = null;
 		TransactionalEditingDomain editingDomain = getEditingDomain();
