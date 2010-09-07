@@ -474,8 +474,8 @@ public class FixedThumbnail extends Figure implements UpdateListener {
 	 * 
 	 * @see org.eclipse.draw2d.UpdateListener#notifyPainting(Rectangle, Map)
 	 */
-	public void notifyPainting(Rectangle damage, Map dirtyRegions) {
-		Iterator dirtyFigures = dirtyRegions.keySet().iterator();
+	public void notifyPainting(Rectangle damage, @SuppressWarnings("rawtypes") Map dirtyRegions) {
+		Iterator<?> dirtyFigures = dirtyRegions.keySet().iterator();
 		while (dirtyFigures.hasNext()) {
 			IFigure current = (IFigure) dirtyFigures.next();
 			while (current != null) {
