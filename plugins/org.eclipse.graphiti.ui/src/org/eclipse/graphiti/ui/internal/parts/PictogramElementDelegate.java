@@ -205,7 +205,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * 
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
-	public Object getAdapter(Class key) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class key) {
 		Object ret = null;
 		if (key == IGFAdapter.class || key == IWorkbenchAdapter.class || key == IWorkbenchAdapter2.class) {
 			ret = new GFAdapter();
