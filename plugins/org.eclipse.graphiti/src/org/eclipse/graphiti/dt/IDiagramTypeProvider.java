@@ -88,13 +88,6 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	String getDiagramTitle();
 
 	/**
-	 * Returns the image id for the title bar of the diagram.
-	 * 
-	 * @return the image id or null if default image should be used.
-	 */
-	String getDiagramTitleImage();
-
-	/**
 	 * Returns the editor's update behaviour at startup.
 	 * 
 	 * @return true if diagram should be updated (if needed) immediately after

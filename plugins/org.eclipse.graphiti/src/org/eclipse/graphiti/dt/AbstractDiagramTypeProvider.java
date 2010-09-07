@@ -22,7 +22,6 @@ import org.eclipse.graphiti.notification.DefaultNotificationService;
 import org.eclipse.graphiti.notification.INotificationService;
 import org.eclipse.graphiti.platform.AbstractExtension;
 import org.eclipse.graphiti.platform.IDiagramEditor;
-import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
@@ -160,11 +159,6 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	@Override
 	public boolean isAutoUpdateAtReset() {
 		return true;
-	}
-
-	@Override
-	public String getDiagramTitleImage() {
-		return IPlatformImageConstants.IMG_DIAGRAM;
 	}
 
 	@Override
