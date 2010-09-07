@@ -81,7 +81,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 		}
 	};
 
-	public GFDirectEditManager(ShapeEditPart part, Class uiElementClass, TextCellLocator cellEditorLocator) {
+	public GFDirectEditManager(ShapeEditPart part, Class<?> uiElementClass, TextCellLocator cellEditorLocator) {
 		super(part, uiElementClass, cellEditorLocator);
 		locator = cellEditorLocator;
 		diagramEditor = part.getConfigurationProvider().getDiagramEditor();
