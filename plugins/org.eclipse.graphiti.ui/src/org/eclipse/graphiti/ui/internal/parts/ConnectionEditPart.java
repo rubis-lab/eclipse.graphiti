@@ -147,7 +147,7 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 	}
 
 	@Override
-	public Object getAdapter(Class key) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class key) {
 		Object ret = delegate.getAdapter(key);
 		if (ret == null) {
 			ret = super.getAdapter(key);

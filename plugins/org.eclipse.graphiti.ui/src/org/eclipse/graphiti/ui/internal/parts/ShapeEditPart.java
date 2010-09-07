@@ -149,7 +149,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	 * .Class)
 	 */
 	@Override
-	public Object getAdapter(Class key) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class key) {
 		Object ret = delegate.getAdapter(key);
 		if (ret == null) {
 			ret = super.getAdapter(key);
@@ -183,9 +183,9 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 		return new DragEditPartsTracker(this) {
 
 			@Override
-			protected Collection getExclusionSet() {
+			protected Collection<?> getExclusionSet() {
 
-				Collection exclusionSet2 = super.getExclusionSet();
+				Collection<?> exclusionSet2 = super.getExclusionSet();
 
 				LayerManager layerManager = (LayerManager) getCurrentViewer().getEditPartRegistry().get(LayerManager.ID);
 				if (layerManager != null) {
@@ -198,11 +198,6 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 		};
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.editparts.AbstractEditPart#getModelChildren()
-	 */
 	@Override
 	public List<PictogramElement> getModelChildren() {
 		List<PictogramElement> ret = new ArrayList<PictogramElement>();
@@ -500,8 +495,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 
 			if (locationInfo != null) {
 
-				DirectEditingContext directEditingContext = new DirectEditingContext(locationInfo.getShape(),
-						locationInfo.getGraphicsAlgorithm());
+				DirectEditingContext directEditingContext = new DirectEditingContext(locationInfo.getShape(), locationInfo
+						.getGraphicsAlgorithm());
 
 				IFeatureProvider featureProvider = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
 
@@ -518,8 +513,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 		} else if (request.getType().equals(REQ_OPEN)) {
 
 			if (locationInfo != null) {
-				DoubleClickContext dcc = new DoubleClickContext(getPictogramElement(), locationInfo.getShape(),
-						locationInfo.getGraphicsAlgorithm());
+				DoubleClickContext dcc = new DoubleClickContext(getPictogramElement(), locationInfo.getShape(), locationInfo
+						.getGraphicsAlgorithm());
 
 				IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
 						.getCurrentToolBehaviorProvider();
