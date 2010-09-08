@@ -159,13 +159,13 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 	}
 
 	@Override
-	public GraphicsAlgorithm getChopboxAnchorGraphicsAlgorithm(PictogramElement pe) {
+	public GraphicsAlgorithm getChopboxAnchorArea(PictogramElement pe) {
 		GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
 		IGaService gaService = Graphiti.getGaService();
 		if (!gaService.isFilled(ga, true) && !gaService.isLineVisible(ga, true)) {
 			return ga.getGraphicsAlgorithmChildren().get(0);
 		} else
-			return super.getChopboxAnchorGraphicsAlgorithm(pe);
+			return super.getChopboxAnchorArea(pe);
 	}
 
 	@Override
