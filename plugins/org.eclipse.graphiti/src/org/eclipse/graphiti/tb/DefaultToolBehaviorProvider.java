@@ -471,10 +471,6 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return null;
 	}
 
-	public Collection<IToolbarEntry> getToolbarEntries() {
-		return Collections.<IToolbarEntry> emptyList();
-	}
-
 	public boolean isShowGuides() {
 		return true;
 	}

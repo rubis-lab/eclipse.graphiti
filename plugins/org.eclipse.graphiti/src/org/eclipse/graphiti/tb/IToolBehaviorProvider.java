@@ -68,13 +68,6 @@ public interface IToolBehaviorProvider {
 	IContextMenuEntry[] getContextMenu(ICustomContext context);
 
 	/**
-	 * Gets the tool specific toolbar entries
-	 * 
-	 * @return the additional entries for the toolbar
-	 */
-	Collection<IToolbarEntry> getToolbarEntries();
-
-	/**
 	 * Gets the palette compartments.
 	 * 
 	 * @return the palette compartments
