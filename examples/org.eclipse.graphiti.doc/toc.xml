@@ -21,6 +21,22 @@
     </topic>
 
     <topic label="Reference">
+       <topic href="javadoc/overview-summary.html" label="API Reference">
+          <topic href="javadoc/org/eclipse/graphiti/package-summary.html" label="org.eclipse.graphiti">
+          </topic>
+          <topic href="javadoc/org/eclipse/graphiti/mm/package-summary.html" label="org.eclipse.graphiti.mm">
+          </topic>
+          <topic href="javadoc/org/eclipse/graphiti/pattern/package-summary.html" label="org.eclipse.graphiti.pattern">
+          </topic>
+          <topic href="javadoc/org/eclipse/graphiti/ui/editor/package-summary.html" label="org.eclipse.graphiti.ui.editor">
+          </topic>
+          <topic href="javadoc/org/eclipse/graphiti/ui/features/package-summary.html" label="org.eclipse.graphiti.ui.features">
+          </topic>
+          <topic href="javadoc/org/eclipse/graphiti/ui/platform/package-summary.html" label="org.eclipse.graphiti.ui.platform">
+          </topic>
+          <topic href="javadoc/org/eclipse/graphiti/ui/services/package-summary.html" label="org.eclipse.graphiti.ui.services">
+          </topic>
+       </topic>
 		<topic label="Extension Points Reference" href="resources/docu/extension-points/index.html">
 			<topic label="diagramTypeProviders" href="resources/docu/extension-points/diagramTypeProviders.html" />
 			<topic label="diagramTypes" href="resources/docu/extension-points/diagramTypes.html" />
