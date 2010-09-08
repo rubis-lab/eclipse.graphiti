@@ -58,7 +58,7 @@ import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.ISelectionInfo;
-import org.eclipse.graphiti.tb.ImageRenderingDecorator;
+import org.eclipse.graphiti.tb.ImageDecorator;
 import org.eclipse.graphiti.tb.SelectionInfoImpl;
 import org.eclipse.graphiti.testtool.sketch.features.ChangeAlignmentFeature;
 import org.eclipse.graphiti.testtool.sketch.features.CornerDimensionFeature;
@@ -417,7 +417,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 		if (!TEST_SHOW_WARNING_DECORATORS) {
 			return super.getDecorators(pe);
 		}
-		ImageRenderingDecorator rd = new ImageRenderingDecorator(IPlatformImageConstants.IMG_ECLIPSE_WARNING);
+		ImageDecorator rd = new ImageDecorator(IPlatformImageConstants.IMG_ECLIPSE_WARNING);
 		int x = 22;
 		int y = 33;
 		rd.setX(x);
