@@ -50,7 +50,7 @@ import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
-import org.eclipse.graphiti.tb.IRenderingDecorator;
+import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.ImageRenderingDecorator;
 
 public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
@@ -187,16 +187,16 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 
 	@Override
-	public IRenderingDecorator[] getDecorators(PictogramElement pe) {
+	public IDecorator[] getDecorators(PictogramElement pe) {
 		IFeatureProvider featureProvider = getFeatureProvider();
 		Object bo = featureProvider.getBusinessObjectForPictogramElement(pe);
 		if (bo instanceof EClass) {
 			EClass eClass = (EClass) bo;
 			String name = eClass.getName();
 			if (name != null && name.length() > 0 && !(name.charAt(0) >= 'A' && name.charAt(0) <= 'Z')) {
-				IRenderingDecorator imageRenderingDecorator = new ImageRenderingDecorator(IPlatformImageConstants.IMG_ECLIPSE_WARNING_TSK);
+				IDecorator imageRenderingDecorator = new ImageRenderingDecorator(IPlatformImageConstants.IMG_ECLIPSE_WARNING_TSK);
 				imageRenderingDecorator.setMessage("Name should start with upper case letter"); //$NON-NLS-1$
-				return new IRenderingDecorator[] { imageRenderingDecorator };
+				return new IDecorator[] { imageRenderingDecorator };
 			}
 		}
 
