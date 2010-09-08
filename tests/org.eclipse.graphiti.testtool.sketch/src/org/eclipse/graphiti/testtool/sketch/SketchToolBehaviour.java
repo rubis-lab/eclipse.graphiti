@@ -169,11 +169,11 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 	}
 
 	@Override
-	public ISelectionInfo getConnectionSelectionInfo(Connection connection) {
+	public ISelectionInfo getSelectionInfoForConnection(Connection connection) {
 		if (connection instanceof FreeFormConnection) {
 			return selectionInfo;
 		}
-		return super.getConnectionSelectionInfo(connection);
+		return super.getSelectionInfoForConnection(connection);
 	}
 
 	@Override
