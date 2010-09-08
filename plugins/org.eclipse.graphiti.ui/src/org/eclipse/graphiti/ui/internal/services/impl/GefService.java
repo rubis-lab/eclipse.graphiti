@@ -187,10 +187,8 @@ public class GefService implements IGefService {
 		List<EditPart> res = new ArrayList<EditPart>();
 		List<EditPart> children = getEditPartChildren(ep);
 		for (EditPart editPart : children) {
-			if (editPart instanceof EditPart) {
-				res.add((EditPart) editPart);
-				res.addAll(getAllEditPartChildren(editPart));
-			}
+			res.add(editPart);
+			res.addAll(getAllEditPartChildren(editPart));
 		}
 		return res;
 	}

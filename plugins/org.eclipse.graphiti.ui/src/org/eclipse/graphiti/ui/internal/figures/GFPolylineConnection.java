@@ -477,7 +477,7 @@ public class GFPolylineConnection extends GFPolyline implements Connection, Anch
 
 		public void invalidate(Connection connection) {
 			for (int i = 0; i < listeners.size(); i++)
-				((RoutingListener) listeners.get(i)).invalidate(connection);
+				listeners.get(i).invalidate(connection);
 
 			realRouter.invalidate(connection);
 		}
@@ -485,24 +485,24 @@ public class GFPolylineConnection extends GFPolyline implements Connection, Anch
 		public void route(Connection connection) {
 			boolean consumed = false;
 			for (int i = 0; i < listeners.size(); i++)
-				consumed |= ((RoutingListener) listeners.get(i)).route(connection);
+				consumed |= listeners.get(i).route(connection);
 
 			if (!consumed)
 				realRouter.route(connection);
 
 			for (int i = 0; i < listeners.size(); i++)
-				((RoutingListener) listeners.get(i)).postRoute(connection);
+				listeners.get(i).postRoute(connection);
 		}
 
 		public void remove(Connection connection) {
 			for (int i = 0; i < listeners.size(); i++)
-				((RoutingListener) listeners.get(i)).remove(connection);
+				listeners.get(i).remove(connection);
 			realRouter.remove(connection);
 		}
 
 		public void setConstraint(Connection connection, Object constraint) {
 			for (int i = 0; i < listeners.size(); i++)
-				((RoutingListener) listeners.get(i)).setConstraint(connection, constraint);
+				listeners.get(i).setConstraint(connection, constraint);
 			realRouter.setConstraint(connection, constraint);
 		}
 
