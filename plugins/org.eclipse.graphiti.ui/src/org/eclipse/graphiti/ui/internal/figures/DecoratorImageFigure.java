@@ -21,12 +21,12 @@ import org.eclipse.swt.graphics.Image;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class RenderingImageFigure extends ImageFigureAntialias {
+public class DecoratorImageFigure extends ImageFigureAntialias {
 
-	public RenderingImageFigure() {
+	public DecoratorImageFigure() {
 	}
 
-	public RenderingImageFigure(Image image) {
+	public DecoratorImageFigure(Image image) {
 		super(image);
 	}
 }

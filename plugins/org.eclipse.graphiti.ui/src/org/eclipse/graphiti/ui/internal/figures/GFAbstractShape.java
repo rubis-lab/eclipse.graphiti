@@ -263,7 +263,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds,
 		@SuppressWarnings("unchecked")
 		List<IFigure> children2 = getChildren();
 		for (IFigure figure : children2) {
-			if (figure instanceof RenderingImageFigure) {
+			if (figure instanceof DecoratorImageFigure) {
 				if (figure.containsPoint(x, y)) {
 					return Boolean.TRUE;
 				}

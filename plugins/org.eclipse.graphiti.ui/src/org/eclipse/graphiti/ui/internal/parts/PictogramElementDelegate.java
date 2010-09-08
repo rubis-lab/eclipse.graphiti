@@ -102,7 +102,7 @@ import org.eclipse.graphiti.ui.internal.figures.GFPolylineDecoration;
 import org.eclipse.graphiti.ui.internal.figures.GFRectangleFigure;
 import org.eclipse.graphiti.ui.internal.figures.GFRoundedRectangle;
 import org.eclipse.graphiti.ui.internal.figures.GFText;
-import org.eclipse.graphiti.ui.internal.figures.RenderingImageFigure;
+import org.eclipse.graphiti.ui.internal.figures.DecoratorImageFigure;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
@@ -866,7 +866,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		if (decorator instanceof IImageDecorator) {
 			IImageDecorator imageDecorator = (IImageDecorator) decorator;
 			org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(imageDecorator.getImageId());
-			ImageFigure imageFigure = new RenderingImageFigure(imageForId);
+			ImageFigure imageFigure = new DecoratorImageFigure(imageForId);
 			decoratorFigure = imageFigure;
 			org.eclipse.swt.graphics.Rectangle imageBounds = imageFigure.getImage().getBounds();
 			boundsForDecoratorFigure.setSize(imageBounds.width, imageBounds.height);
