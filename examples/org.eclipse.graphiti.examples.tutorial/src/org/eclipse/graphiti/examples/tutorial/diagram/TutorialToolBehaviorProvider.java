@@ -204,7 +204,7 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 
 	@Override
-	public GraphicsAlgorithm[] getSelectionArea(PictogramElement pe) {
+	public GraphicsAlgorithm[] getClickArea(PictogramElement pe) {
 		IFeatureProvider featureProvider = getFeatureProvider();
 		Object bo = featureProvider.getBusinessObjectForPictogramElement(pe);
 		if (bo instanceof EClass) {
@@ -212,7 +212,7 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			GraphicsAlgorithm rectangle = invisible.getGraphicsAlgorithmChildren().get(0);
 			return new GraphicsAlgorithm[] { rectangle };
 		}
-		return super.getSelectionArea(pe);
+		return super.getClickArea(pe);
 	}
 
 	@Override
