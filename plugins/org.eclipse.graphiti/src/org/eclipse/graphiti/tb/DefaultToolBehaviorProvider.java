@@ -113,7 +113,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return null;
 	}
 
-	public ISelectionInfo getConnectionSelectionInfo(Connection connection) {
+	public ISelectionInfo getSelectionInfoForConnection(Connection connection) {
 		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.CONNECTION_SELECTION_FG, IColorConstant.HANDLE_FG,
 				IColorConstant.HANDLE_BG, LineStyle.DASH);
 		return si;

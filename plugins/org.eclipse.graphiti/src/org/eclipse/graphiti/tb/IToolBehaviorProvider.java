@@ -170,7 +170,7 @@ public interface IToolBehaviorProvider {
 	 *            the connection
 	 * @return the connection selection info
 	 */
-	ISelectionInfo getConnectionSelectionInfo(Connection connection);
+	ISelectionInfo getSelectionInfoForConnection(Connection connection);
 
 	/**
 	 * Returns the location info which should be used for direct editing if the
