@@ -109,7 +109,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return null;
 	}
 
-	public PictogramElement getCustomSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
+	public PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
 		return null;
 	}
 

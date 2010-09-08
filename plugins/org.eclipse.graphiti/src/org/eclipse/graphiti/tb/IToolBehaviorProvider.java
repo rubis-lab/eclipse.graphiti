@@ -121,7 +121,7 @@ public interface IToolBehaviorProvider {
 	 *         not be a special selection behavior; if there should not be a
 	 *         selection return the diagram
 	 */
-	PictogramElement getCustomSelection(PictogramElement originalPe, PictogramElement[] oldSelection);
+	PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection);
 
 	/**
 	 * Override this method if you want to change the default scrolling behavior
