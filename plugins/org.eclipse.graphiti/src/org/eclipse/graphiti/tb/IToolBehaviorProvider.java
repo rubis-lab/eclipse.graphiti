@@ -13,9 +13,6 @@
  * </copyright>
  *
  *******************************************************************************/
-/*
- * Created on 28.06.2005
- */
 package org.eclipse.graphiti.tb;
 
 import org.eclipse.graphiti.DiagramScrollingBehavior;
@@ -203,41 +200,43 @@ public interface IToolBehaviorProvider {
 	void postExecute(IExecutionInfo executionInfo);
 
 	/**
-	 * Returns tooltip to be attached to graphics algorithm.
+	 * Returns the tooltip to be attached to the graphics algorithm.
 	 * 
 	 * @param graphicsAlgorithm
 	 *            the graphics algorithm
-	 * @return tooltip to be attached to GA
+	 * @return the tooltip
 	 */
 	String getToolTip(GraphicsAlgorithm graphicsAlgorithm);
 
 	/**
-	 * The provided graphics algorithm will define the selection border and the
+	 * The returned graphics algorithm defines the selection border and the
 	 * rectangle where the context buttons appear at.
 	 * 
 	 * @param pe
 	 *            the pictogram element
-	 * @return the selection graphics algorithm
+	 * @return the graphics algorithm which defines the selection border
 	 */
 	GraphicsAlgorithm getSelectionBorder(PictogramElement pe);
 
 	/**
-	 * The provided GA will define the technical container for children.
-	 * Currently implementers have to secure to deliver (Rounded)Rectangle. Does
-	 * not make sense for other types of GAs.
+	 * The returned graphics algorithm defines the technical container for
+	 * active children. Currently implementers have to secure to deliver a
+	 * (Rounded)Rectangle. Does not make sense for other types of graphics
+	 * algorithm.
 	 * 
-	 * @param pe
-	 *            the pictogram element
+	 * @param cs
+	 *            the container shape
 	 * @return the graphics algorithm acting as technical container
 	 */
 	GraphicsAlgorithm getContentArea(ContainerShape cs);
 
 	/**
-	 * Provides GAs that can be clicked to make the shape selected.
+	 * The returned graphics algorithm's define the area where the user can
+	 * click to select the shape.
 	 * 
 	 * @param pe
 	 *            the pictogram element
-	 * @return the selection area
+	 * @return the click area
 	 */
 	GraphicsAlgorithm[] getClickArea(PictogramElement pe);
 
