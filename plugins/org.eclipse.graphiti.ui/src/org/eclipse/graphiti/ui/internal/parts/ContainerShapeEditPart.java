@@ -213,7 +213,7 @@ public class ContainerShapeEditPart extends ShapeEditPart implements IContainerS
 		PictogramElement pe = getPictogramElement();
 		if (pe instanceof ContainerShape && !(this instanceof DiagramEditPart)) {
 			ContainerShape cs = (ContainerShape) pe;
-			GraphicsAlgorithm contentGa = tbp.getContentGraphicsAlgorithm(cs);
+			GraphicsAlgorithm contentGa = tbp.getContentArea(cs);
 			if (contentGa != null) {
 				setConentPaneFigureCache(getPictogramElementDelegate().getFigureForGraphicsAlgorithm(contentGa));
 				if (getContentPaneFigureCache() != null) {

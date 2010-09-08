@@ -254,7 +254,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	// }
 
 	/**
-	 * Returns the _target-connections of this EditPart.
+	 * Returns the target-connections of this EditPart.
 	 * 
 	 * @return the model target connections
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#getModelTargetConnections()
