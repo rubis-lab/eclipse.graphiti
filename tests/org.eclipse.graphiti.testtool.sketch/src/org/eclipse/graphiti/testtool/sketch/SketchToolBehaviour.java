@@ -178,8 +178,8 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 	}
 
 	@Override
-	public IContextButtonPadData getContextButtonPadData(IPictogramElementContext context) {
-		IContextButtonPadData ret = super.getContextButtonPadData(context);
+	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
+		IContextButtonPadData ret = super.getContextButtonPad(context);
 		PictogramElement pictogramElement = context.getPictogramElement();
 		if (!SketchUtil.isLanePe(pictogramElement)) {
 			List<IContextButtonEntry> specificContextButtons = ret.getDomainSpecificContextButtons();
@@ -354,7 +354,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 	}
 
 	@Override
-	public IPaletteCompartmentEntry[] getPaletteCompartments() {
+	public IPaletteCompartmentEntry[] getPalette() {
 		List<IPaletteCompartmentEntry> compartments = new ArrayList<IPaletteCompartmentEntry>();
 
 		{

@@ -21,7 +21,7 @@ public class SketchViewerModeToolBehavior extends SketchToolBehaviour implements
 	}
 
 	@Override
-	public IPaletteCompartmentEntry[] getPaletteCompartments() {
+	public IPaletteCompartmentEntry[] getPalette() {
 		return new IPaletteCompartmentEntry[0];
 	}
 
