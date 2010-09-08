@@ -240,7 +240,7 @@ public interface IToolBehaviorProvider {
 	 *            the pictogram element
 	 * @return the selection area
 	 */
-	GraphicsAlgorithm[] getSelectionArea(PictogramElement pe);
+	GraphicsAlgorithm[] getClickArea(PictogramElement pe);
 
 	/**
 	 * Provides the GA that defines the outline for the given pictogram

@@ -447,9 +447,9 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * @param pe
 	 *            the pictogram element
 	 * @return the selection area
-	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getSelectionArea(org.eclipse.graphiti.mm.pictograms.PictogramElement)
+	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getClickArea(org.eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
-	public GraphicsAlgorithm[] getSelectionArea(PictogramElement pe) {
+	public GraphicsAlgorithm[] getClickArea(PictogramElement pe) {
 		GraphicsAlgorithm graphicsAlgorithm = pe.getGraphicsAlgorithm();
 		if (graphicsAlgorithm != null) {
 			return new GraphicsAlgorithm[] { graphicsAlgorithm };
