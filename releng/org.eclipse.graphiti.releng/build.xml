@@ -281,10 +281,55 @@
 				<arg value="org.eclipse.graphiti.site#site.p2.zip" />
 			</cmdargs>
 		</buckminster>
-
+	</target>
+	
+	<target name="create.javadoc" depends="site.p2" description="Generate the JavaDoc for the sources">
+		<echo message="Generate the JavaDoc for the sources"></echo>
+		<echo message="javadoc source ${workspace}" />
+		
+		<!-- set targetPlatformPath as classpath --> 
+		<path id="files-classpath">  
+			<fileset dir="${targetPlatformPath}">   
+				<include name="*.jar"/>  
+			</fileset> 
+		</path>
+		
+		 <!-- clean and create output location --> 
+		<delete dir="${workspace}/plugins/org.eclipse.graphiti.doc/javadoc"/>
+		<mkdir dir="${workspace}/plugins/org.eclipse.graphiti.doc/javadoc"/>
+		
+		<!-- generate the javadoc -->
+		<javadoc  destdir="${workspace}/plugins/org.eclipse.graphiti.doc/javadoc"  
+			classpathref="files-classpath"
+			author="true"
+			version="true"
+			nodeprecated="false"
+			nodeprecatedlist="false"
+			access="public"
+			maxmemory="4096m"  
+			useexternalfile="true"
+			sourcepath="src"
+			verbose="true"
+			use="true"
+			noindex="false"
+			nonavbar="false" 
+			notree="false"
+			splitindex="true"
+			windowtitle="Graphiti Documentation">
+			
+			 <!-- Graphiti sources -->   
+			<fileset dir="${workspace}/plugins/" defaultexcludes="true">    
+				<include name="**/*.java"/>    
+				<exclude name="**/internal/**"/>    
+				<exclude name="**/tests/**"/>
+				<exclude name="**/examples/**"/>
+				<exclude name="**/testtool/**"/> 
+			</fileset>
+			<bottom><![CDATA[ <a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>]]></bottom>
+		</javadoc>
 	</target>
 
-	<target name="test" depends="site.p2">
+	<target name="test" depends="create.javadoc">
 		<echo message="Running JUnit tests for Graphiti" />
 		<buckminsterDirect>
 			<cmdargs>
