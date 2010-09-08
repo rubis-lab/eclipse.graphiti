@@ -51,7 +51,7 @@ import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.eclipse.graphiti.tb.IDecorator;
-import org.eclipse.graphiti.tb.ImageRenderingDecorator;
+import org.eclipse.graphiti.tb.ImageDecorator;
 
 public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 
@@ -194,7 +194,7 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			EClass eClass = (EClass) bo;
 			String name = eClass.getName();
 			if (name != null && name.length() > 0 && !(name.charAt(0) >= 'A' && name.charAt(0) <= 'Z')) {
-				IDecorator imageRenderingDecorator = new ImageRenderingDecorator(IPlatformImageConstants.IMG_ECLIPSE_WARNING_TSK);
+				IDecorator imageRenderingDecorator = new ImageDecorator(IPlatformImageConstants.IMG_ECLIPSE_WARNING_TSK);
 				imageRenderingDecorator.setMessage("Name should start with upper case letter"); //$NON-NLS-1$
 				return new IDecorator[] { imageRenderingDecorator };
 			}
