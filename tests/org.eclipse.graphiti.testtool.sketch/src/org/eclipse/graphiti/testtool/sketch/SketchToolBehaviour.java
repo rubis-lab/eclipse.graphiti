@@ -429,12 +429,12 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 	}
 
 	@Override
-	public GraphicsAlgorithm[] getSelectionArea(PictogramElement pe) {
+	public GraphicsAlgorithm[] getClickArea(PictogramElement pe) {
 		GraphicsAlgorithm ghostGa = SketchUtil.getGhostGa(pe);
 		if (ghostGa != null) {
 			return ghostGa.getGraphicsAlgorithmChildren().toArray(new GraphicsAlgorithm[0]);
 		}
-		return super.getSelectionArea(pe);
+		return super.getClickArea(pe);
 	}
 
 	@Override
