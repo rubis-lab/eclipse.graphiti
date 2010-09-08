@@ -519,7 +519,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 				IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
 						.getCurrentToolBehaviorProvider();
 
-				IFeature doubleClickFeature = currentToolBehaviorProvider.getDoubleClickFeature(dcc);
+				IFeature doubleClickFeature = currentToolBehaviorProvider.getDoubleClickBehavior(dcc);
 
 				if (doubleClickFeature != null && doubleClickFeature.canExecute(dcc)) {
 					CommandExec.executeFeatureWithContext(doubleClickFeature, dcc);
