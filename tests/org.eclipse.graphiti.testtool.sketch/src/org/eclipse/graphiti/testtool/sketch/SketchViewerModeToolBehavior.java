@@ -6,7 +6,7 @@ import org.eclipse.graphiti.features.IFeatureChecker;
 import org.eclipse.graphiti.features.IFeatureCheckerHolder;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 
-public class SketchViewerModeToolBehavior extends SketchToolBehaviour implements IFeatureCheckerHolder {
+public class SketchViewerModeToolBehavior extends SketchToolBehavior implements IFeatureCheckerHolder {
 
 	private static final double[] ZOOM_LEVELS = new double[] { 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 1.5, 2, 3, 4, 5 };
 	private IFeatureChecker featureChecker;

@@ -40,7 +40,7 @@ public class SketchDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	@Override
 	public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
 		if (availableToolBehaviorProviders == null) {
-			availableToolBehaviorProviders = new IToolBehaviorProvider[] { new SketchToolBehaviour(this),
+			availableToolBehaviorProviders = new IToolBehaviorProvider[] { new SketchToolBehavior(this),
 					new SketchViewerModeToolBehavior(this) };
 		}
 		return availableToolBehaviorProviders;
