@@ -27,7 +27,6 @@ import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
@@ -264,7 +263,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 	}
 
 	@Override
-	public IContextMenuEntry[] getContextMenu(IContext context) {
+	public IContextMenuEntry[] getContextMenu(ICustomContext context) {
 		IContextMenuEntry[] ret = NO_CONTEXT_MENU_ENTRIES;
 		List<IContextMenuEntry> retList = new ArrayList<IContextMenuEntry>();
 		for (int i = 0; i < ret.length; i++) {
