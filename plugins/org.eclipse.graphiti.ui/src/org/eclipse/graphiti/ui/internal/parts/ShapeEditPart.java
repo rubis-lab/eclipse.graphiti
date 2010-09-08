@@ -491,7 +491,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 			// pressed F2 outside the current shape edit part
 			// location for direct editing is still unknown
 			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-			locationInfo = tbp.getCustomLocationInfo(shape, locationInfo);
+			locationInfo = tbp.getLocationInfo(shape, locationInfo);
 
 			if (locationInfo != null) {
 
