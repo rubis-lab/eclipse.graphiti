@@ -413,9 +413,9 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 	}
 
 	@Override
-	public IRenderingDecorator[] getRenderingDecorators(PictogramElement pe) {
+	public IRenderingDecorator[] getDecorators(PictogramElement pe) {
 		if (!TEST_SHOW_WARNING_DECORATORS) {
-			return super.getRenderingDecorators(pe);
+			return super.getDecorators(pe);
 		}
 		ImageRenderingDecorator rd = new ImageRenderingDecorator(IPlatformImageConstants.IMG_ECLIPSE_WARNING);
 		int x = 22;
