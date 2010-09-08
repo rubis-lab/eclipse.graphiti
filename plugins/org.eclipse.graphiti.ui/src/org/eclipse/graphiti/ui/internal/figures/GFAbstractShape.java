@@ -406,7 +406,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			if (!(pe instanceof org.eclipse.graphiti.mm.pictograms.Shape))
 				return false;
 			org.eclipse.graphiti.mm.pictograms.Shape s = (org.eclipse.graphiti.mm.pictograms.Shape) pe;
-			ISelectionInfo selectionInfo = tbp.getShapeSelectionInfo(s);
+			ISelectionInfo selectionInfo = tbp.getSelectionInfoForShape(s);
 			IColorConstant hoverColor = null;
 			hoverColor = selectionInfo.getHoverColor();
 			if (parentSelected)
