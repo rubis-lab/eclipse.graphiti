@@ -42,7 +42,7 @@ public class TestDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	@Override
 	public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
 		if (availableToolBehaviorProviders == null) {
-			availableToolBehaviorProviders = new IToolBehaviorProvider[] { new TestToolBehaviour(this) };
+			availableToolBehaviorProviders = new IToolBehaviorProvider[] { new TestToolBehavior(this) };
 		}
 		return availableToolBehaviorProviders;
 	}

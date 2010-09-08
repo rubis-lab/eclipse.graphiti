@@ -31,17 +31,17 @@ import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 
 /**
- * The Class TestToolBehaviour.
+ * The Class TestToolBehavior.
  */
-public class TestToolBehaviour extends DefaultToolBehaviorProvider {
+public class TestToolBehavior extends DefaultToolBehaviorProvider {
 
 	/**
-	 * Instantiates a new test tool behaviour.
+	 * Instantiates a new test tool behavior.
 	 * 
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
 	 */
-	public TestToolBehaviour(IDiagramTypeProvider diagramTypeProvider) {
+	public TestToolBehavior(IDiagramTypeProvider diagramTypeProvider) {
 		super(diagramTypeProvider);
 	}
 
