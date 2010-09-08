@@ -84,7 +84,7 @@ import org.eclipse.graphiti.platform.ga.RendererContext;
 import org.eclipse.graphiti.platform.ga.VisualState;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
-import org.eclipse.graphiti.tb.IRenderingDecorator;
+import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.tb.ImageRenderingDecorator;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
@@ -855,7 +855,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 	}
 
-	private IFigure decorateFigure(final IFigure figure, final IRenderingDecorator renderingDecorator) {
+	private IFigure decorateFigure(final IFigure figure, final IDecorator renderingDecorator) {
 		String messageText = renderingDecorator.getMessage();
 
 		IFigure decoratorFigure = null;
@@ -1398,13 +1398,13 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				renderingDecoratorMap.remove(figure);
 			}
 
-			IRenderingDecorator[] decorators = toolBehaviorProvider.getDecorators(pe);
+			IDecorator[] decorators = toolBehaviorProvider.getDecorators(pe);
 
 			if (decorators.length > 0) {
 				List<IFigure> decList = new ArrayList<IFigure>();
 				renderingDecoratorMap.put(figure, decList);
 				for (int i = 0; i < decorators.length; i++) {
-					IRenderingDecorator renderingDecorator = decorators[i];
+					IDecorator renderingDecorator = decorators[i];
 					IFigure decorateFigure = decorateFigure(figure, renderingDecorator);
 					decList.add(decorateFigure);
 				}
