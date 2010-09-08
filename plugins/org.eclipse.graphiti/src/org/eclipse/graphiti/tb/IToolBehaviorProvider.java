@@ -23,7 +23,7 @@ import java.util.Collection;
 import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.features.IFeature;
-import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -65,7 +65,7 @@ public interface IToolBehaviorProvider {
 	 *            the context
 	 * @return the context menu
 	 */
-	IContextMenuEntry[] getContextMenu(IContext context);
+	IContextMenuEntry[] getContextMenu(ICustomContext context);
 
 	/**
 	 * Gets the tool specific toolbar entries
