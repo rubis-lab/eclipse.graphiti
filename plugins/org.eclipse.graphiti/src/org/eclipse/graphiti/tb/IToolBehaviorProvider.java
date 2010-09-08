@@ -113,7 +113,8 @@ public interface IToolBehaviorProvider {
 	Object getAdapter(Class<?> type);
 
 	/**
-	 * Override this method if you want to change the selection on mouse click.
+	 * Override this method if you want to change the default selection on mouse
+	 * click.
 	 * 
 	 * @param originalPe
 	 *            the original pictogram element
@@ -123,7 +124,7 @@ public interface IToolBehaviorProvider {
 	 *         not be a special selection behavior; if there should not be a
 	 *         selection return the diagram
 	 */
-	PictogramElement getAlternativeSelection(PictogramElement originalPe, PictogramElement[] oldSelection);
+	PictogramElement getCustomSelection(PictogramElement originalPe, PictogramElement[] oldSelection);
 
 	/**
 	 * Override this method if you want to change the default scrolling behavior
