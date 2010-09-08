@@ -85,8 +85,8 @@ import org.eclipse.graphiti.platform.ga.VisualState;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IDecorator;
+import org.eclipse.graphiti.tb.IImageDecorator;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.tb.ImageDecorator;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFAbstractShape;
@@ -568,14 +568,14 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		// refresh child GAs
 		Collection<GraphicsAlgorithm> graphicsAlgorithmChildren = graphicsAlgorithm.getGraphicsAlgorithmChildren();
 		for (Iterator<GraphicsAlgorithm> iter = graphicsAlgorithmChildren.iterator(); iter.hasNext();) {
-			GraphicsAlgorithm childGA = (GraphicsAlgorithm) iter.next();
+			GraphicsAlgorithm childGA = iter.next();
 			refreshFigureForGraphicsAlgorithm(childGA, pe, Reason.createFalseReason());
 		}
 
 		IDiagramTypeProvider diagramTypeProvider = getConfigurationProvider().getDiagramTypeProvider();
 		IToolBehaviorProvider toolBehaviorProvider = diagramTypeProvider.getCurrentToolBehaviorProvider();
 
-		// rendering decorators
+		// decorators
 		addRenderingDecorators(graphicsAlgorithm, pe, figure, toolBehaviorProvider);
 
 		GraphicsAlgorithm selectionGraphicsAlgorithm = toolBehaviorProvider.getSelectionGraphicsAlgorithm(pe);
@@ -855,15 +855,15 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 	}
 
-	private IFigure decorateFigure(final IFigure figure, final IDecorator renderingDecorator) {
-		String messageText = renderingDecorator.getMessage();
+	private IFigure decorateFigure(final IFigure figure, final IDecorator decorator) {
+		String messageText = decorator.getMessage();
 
 		IFigure decoratorFigure = null;
 		org.eclipse.draw2d.geometry.Rectangle boundsForDecoratorFigure = new org.eclipse.draw2d.geometry.Rectangle(0, 0, 16, 16);
 
-		if (renderingDecorator instanceof ImageDecorator) {
-			ImageDecorator imageRenderingDecorator = (ImageDecorator) renderingDecorator;
-			org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(imageRenderingDecorator.getImageId());
+		if (decorator instanceof IImageDecorator) {
+			IImageDecorator imageDecorator = (IImageDecorator) decorator;
+			org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(imageDecorator.getImageId());
 			ImageFigure imageFigure = new RenderingImageFigure(imageForId);
 			decoratorFigure = imageFigure;
 			org.eclipse.swt.graphics.Rectangle imageBounds = imageFigure.getImage().getBounds();
@@ -871,8 +871,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 
 		if (decoratorFigure != null) {
-			if (renderingDecorator instanceof ILocation) {
-				ILocation location = (ILocation) renderingDecorator;
+			if (decorator instanceof ILocation) {
+				ILocation location = (ILocation) decorator;
 				boundsForDecoratorFigure.setLocation(location.getX(), location.getY());
 			}
 
