@@ -176,14 +176,14 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 
 	@Override
-	public ICustomFeature getDoubleClickBehavior(IDoubleClickContext context) {
+	public ICustomFeature getDoubleClickFeature(IDoubleClickContext context) {
 		ICustomFeature customFeature = new TutorialRenameEClassFeature(getFeatureProvider());
 		// canExecute() tests especially if the context contains a EClass
 		if (customFeature.canExecute(context)) {
 			return customFeature;
 		}
 
-		return super.getDoubleClickBehavior(context);
+		return super.getDoubleClickFeature(context);
 	}
 
 	@Override
