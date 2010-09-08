@@ -216,7 +216,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 * if no special selection-area GraphicsAlgorithms exists.
 	 * <p>
 	 * By default this method returns
-	 * {@link IToolBehaviorProvider#getSelectionArea(PictogramElement)}
+	 * {@link IToolBehaviorProvider#getClickArea(PictogramElement)}
 	 * 
 	 * @see #getSelectionGraphicsAlgorithm()
 	 * @return The selection-area GraphicsAlgorithms of this Shape. Can be null.

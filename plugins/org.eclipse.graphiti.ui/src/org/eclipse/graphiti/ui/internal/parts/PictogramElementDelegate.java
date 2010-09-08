@@ -789,7 +789,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 						.getCurrentToolBehaviorProvider();
 				gfAbstractShape.setSelectionGraphicsAlgorithm(currentToolBehaviorProvider
 						.getSelectionBorder(getPictogramElement()));
-				gfAbstractShape.setSelectionArea(currentToolBehaviorProvider.getSelectionArea(getPictogramElement()));
+				gfAbstractShape.setSelectionArea(currentToolBehaviorProvider.getClickArea(getPictogramElement()));
 			}
 		}
 
