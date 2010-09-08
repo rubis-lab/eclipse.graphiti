@@ -76,10 +76,10 @@ public class AnchorContainerDelegate extends PictogramElementDelegate implements
 		return result;
 	}
 
-	public void refreshRenderingDecorators() {
+	public void refreshDecorators() {
 		PictogramElement pe = getPictogramElement();
 		GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
 		IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-		addRenderingDecorators(ga, pe, getFigureForGraphicsAlgorithm(ga), tbp);
+		addDecorators(ga, pe, getFigureForGraphicsAlgorithm(ga), tbp);
 	}
 }

@@ -34,5 +34,5 @@ public interface IAnchorContainerDelegate extends IPictogramElementDelegate {
 	 */
 	List<PictogramElement> getModelChildren();
 
-	void refreshRenderingDecorators();
+	void refreshDecorators();
 }

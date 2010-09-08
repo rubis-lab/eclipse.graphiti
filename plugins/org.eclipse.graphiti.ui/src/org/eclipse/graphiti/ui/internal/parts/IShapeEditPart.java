@@ -39,5 +39,5 @@ public interface IShapeEditPart extends IAnchorContainerEditPart {
 	/**
 	 * 
 	 */
-	void refreshRenderingDecorators();
+	void refreshDecorators();
 }

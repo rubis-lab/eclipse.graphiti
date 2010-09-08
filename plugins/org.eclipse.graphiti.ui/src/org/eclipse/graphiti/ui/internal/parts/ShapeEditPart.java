@@ -823,8 +823,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 		return getClass().getName() + "@" + Integer.toHexString(hashCode()); //$NON-NLS-1$
 	}
 
-	public void refreshRenderingDecorators() {
-		delegate.refreshRenderingDecorators();
+	public void refreshDecorators() {
+		delegate.refreshDecorators();
 	}
 
 }

@@ -137,6 +137,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 	private PictogramElement pictogramElement;
 
+	private final HashMap<IFigure, List<IFigure>> decoratorMap = new HashMap<IFigure, List<IFigure>>();
+
 	// edit part which holds the instance of this delegate
 	private EditPart containerEditPart;
 
@@ -576,7 +578,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		IToolBehaviorProvider toolBehaviorProvider = diagramTypeProvider.getCurrentToolBehaviorProvider();
 
 		// decorators
-		addRenderingDecorators(graphicsAlgorithm, pe, figure, toolBehaviorProvider);
+		addDecorators(graphicsAlgorithm, pe, figure, toolBehaviorProvider);
 
 		GraphicsAlgorithm selectionGraphicsAlgorithm = toolBehaviorProvider.getSelectionBorder(pe);
 		IFigure selectionFigure = getFigureForGraphicsAlgorithm(selectionGraphicsAlgorithm);
@@ -886,8 +888,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		return decoratorFigure;
 	}
-
-	private final HashMap<IFigure, List<IFigure>> renderingDecoratorMap = new HashMap<IFigure, List<IFigure>>();
 
 	/*
 	 * must be called from the edit-part if this edit-part is de-activated
@@ -1382,11 +1382,11 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		return getConfigurationProvider().getDiagramEditor();
 	}
 
-	protected void addRenderingDecorators(final GraphicsAlgorithm graphicsAlgorithm, final PictogramElement pe, final IFigure figure,
+	protected void addDecorators(final GraphicsAlgorithm graphicsAlgorithm, final PictogramElement pe, final IFigure figure,
 			IToolBehaviorProvider toolBehaviorProvider) {
 		if (pe.isActive() && !(pe instanceof Anchor) && !(pe instanceof Connection) && graphicsAlgorithm.equals(pe.getGraphicsAlgorithm())) {
 
-			List<IFigure> decFigureList = renderingDecoratorMap.get(figure);
+			List<IFigure> decFigureList = decoratorMap.get(figure);
 			if (decFigureList != null) {
 				for (IFigure decFigure : decFigureList) {
 					IFigure parent = decFigure.getParent();
@@ -1395,17 +1395,17 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 					}
 				}
 				decFigureList.clear();
-				renderingDecoratorMap.remove(figure);
+				decoratorMap.remove(figure);
 			}
 
 			IDecorator[] decorators = toolBehaviorProvider.getDecorators(pe);
 
 			if (decorators.length > 0) {
 				List<IFigure> decList = new ArrayList<IFigure>();
-				renderingDecoratorMap.put(figure, decList);
+				decoratorMap.put(figure, decList);
 				for (int i = 0; i < decorators.length; i++) {
-					IDecorator renderingDecorator = decorators[i];
-					IFigure decorateFigure = decorateFigure(figure, renderingDecorator);
+					IDecorator decorator = decorators[i];
+					IFigure decorateFigure = decorateFigure(figure, decorator);
 					decList.add(decorateFigure);
 				}
 			}

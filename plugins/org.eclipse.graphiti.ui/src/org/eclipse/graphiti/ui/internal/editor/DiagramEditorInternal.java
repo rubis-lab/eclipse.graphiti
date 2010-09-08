@@ -1324,7 +1324,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		GraphicalEditPart ep = getEditPartForPictogramElement(pe);
 		if (ep instanceof IShapeEditPart) {
 			IShapeEditPart sep = (IShapeEditPart) ep;
-			sep.refreshRenderingDecorators();
+			sep.refreshDecorators();
 		}
 	}
 
