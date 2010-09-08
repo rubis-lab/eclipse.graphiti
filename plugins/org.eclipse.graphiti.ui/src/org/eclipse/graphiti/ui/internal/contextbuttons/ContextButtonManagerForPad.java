@@ -329,7 +329,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 			// retrieve context button pad data
 			IToolBehaviorProvider toolBehaviorProvider = getEditor().getConfigurationProvider().getDiagramTypeProvider()
 					.getCurrentToolBehaviorProvider();
-			IContextButtonPadData contextButtonPadData = toolBehaviorProvider.getContextButtonPadData(context);
+			IContextButtonPadData contextButtonPadData = toolBehaviorProvider.getContextButtonPad(context);
 			if (contextButtonPadData == null) {
 				return; // no context buttons to show
 			}

@@ -94,7 +94,7 @@ public class GFPaletteRoot extends PaletteRoot {
 
 		IToolBehaviorProvider currentToolBehaviorProvider = cfgProvider.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 
-		IPaletteCompartmentEntry[] paletteCompartments = currentToolBehaviorProvider.getPaletteCompartments();
+		IPaletteCompartmentEntry[] paletteCompartments = currentToolBehaviorProvider.getPalette();
 
 		for (IPaletteCompartmentEntry compartmentEntry : paletteCompartments) {
 			PaletteDrawer drawer = new PaletteDrawer(compartmentEntry.getLabel(), getImageDescriptor(compartmentEntry));
