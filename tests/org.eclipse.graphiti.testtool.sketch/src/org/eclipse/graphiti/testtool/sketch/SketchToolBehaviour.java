@@ -493,7 +493,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 	}
 
 	@Override
-	public GraphicsAlgorithm getContentGraphicsAlgorithm(ContainerShape cs) {
+	public GraphicsAlgorithm getContentArea(ContainerShape cs) {
 		if (cs != null && cs.getGraphicsAlgorithm() != null && SketchUtil.isContainer(cs) && SketchUtil.isGhost(cs)) {
 			if (SketchUtil.isRectangle(cs) || SketchUtil.isRoundedRectangle(cs)) {
 				List<GraphicsAlgorithm> gaChildren = cs.getGraphicsAlgorithm().getGraphicsAlgorithmChildren();
@@ -505,7 +505,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 				}
 			}
 		}
-		return super.getContentGraphicsAlgorithm(cs);
+		return super.getContentArea(cs);
 	}
 
 	public String getName() {
