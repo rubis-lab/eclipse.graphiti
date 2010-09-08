@@ -473,7 +473,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * Default implementation returns null which is interpreted by framework as
 	 * the master graphics algorithm for the container shape
 	 */
-	public GraphicsAlgorithm getContentGraphicsAlgorithm(ContainerShape cs) {
+	public GraphicsAlgorithm getContentArea(ContainerShape cs) {
 		return null;
 	}
 

@@ -230,7 +230,7 @@ public interface IToolBehaviorProvider {
 	 *            the pictogram element
 	 * @return the graphics algorithm acting as technical container
 	 */
-	GraphicsAlgorithm getContentGraphicsAlgorithm(ContainerShape cs);
+	GraphicsAlgorithm getContentArea(ContainerShape cs);
 
 	/**
 	 * Provides GAs that can be clicked to make the shape selected.
