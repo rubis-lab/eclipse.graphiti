@@ -447,11 +447,11 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 	}
 
 	@Override
-	public ISelectionInfo getShapeSelectionInfo(Shape shape) {
+	public ISelectionInfo getSelectionInfoForShape(Shape shape) {
 		if (shape instanceof ContainerShape) {
 			return selectionInfo;
 		}
-		return super.getShapeSelectionInfo(shape);
+		return super.getSelectionInfoForShape(shape);
 	}
 
 	@Override
