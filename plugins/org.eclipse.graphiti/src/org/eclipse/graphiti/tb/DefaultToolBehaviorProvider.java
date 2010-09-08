@@ -260,26 +260,25 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		final String SIGNATURE = "getContextMenu(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
 		if (info) {
-			T.racer().entering(DefaultToolBehaviorProvider.class, SIGNATURE, new Object[] { context });
+			T.racer().entering(DefaultToolBehaviorProvider.class, SIGNATURE,
+					new Object[] { context });
 		}
 		IContextMenuEntry[] ret = NO_CONTEXT_MENU_ENTRIES;
 		List<IContextMenuEntry> retList = new ArrayList<IContextMenuEntry>();
 
-		// custom features
-		if (context instanceof ICustomContext) {
-			ICustomContext customContext = (ICustomContext) context;
-			ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customContext);
-			for (int i = 0; i < customFeatures.length; i++) {
-				ICustomFeature customFeature = customFeatures[i];
-				if (isContextMenuApplicable(customFeature)) {
-					retList.add(new ContextMenuEntry(customFeature, context));
-				}
+		ICustomFeature[] customFeatures = getFeatureProvider()
+				.getCustomFeatures(context);
+		for (int i = 0; i < customFeatures.length; i++) {
+			ICustomFeature customFeature = customFeatures[i];
+			if (isContextMenuApplicable(customFeature)) {
+				retList.add(new ContextMenuEntry(customFeature, context));
 			}
 		}
 
 		ret = retList.toArray(NO_CONTEXT_MENU_ENTRIES);
 		if (info) {
-			T.racer().exiting(DefaultToolBehaviorProvider.class, SIGNATURE, ret);
+			T.racer()
+					.exiting(DefaultToolBehaviorProvider.class, SIGNATURE, ret);
 		}
 		return ret;
 	}
