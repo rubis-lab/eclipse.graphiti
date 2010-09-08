@@ -57,7 +57,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 
 	protected int THRESHOLD_FOR_LONG_RUNNING_OPERATION = 20;
 
-	private static final IRenderingDecorator[] NO_RENDERING_DECORATORS = new IRenderingDecorator[0];
+	private static final IDecorator[] NO_RENDERING_DECORATORS = new IDecorator[0];
 
 	private static double[] ZOOM_LEVELS = { 0.01, 0.1, 0.2, 0.5, 0.75, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 10.0 };
 
@@ -350,7 +350,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return res;
 	}
 
-	public IRenderingDecorator[] getDecorators(PictogramElement pe) {
+	public IDecorator[] getDecorators(PictogramElement pe) {
 		return NO_RENDERING_DECORATORS;
 	}
 

@@ -18,7 +18,7 @@ package org.eclipse.graphiti.tb;
 /**
  * The Class AbstractRenderingDecorator.
  */
-public abstract class AbstractRenderingDecorator implements IRenderingDecorator {
+public abstract class AbstractRenderingDecorator implements IDecorator {
 
 	private String message;
 

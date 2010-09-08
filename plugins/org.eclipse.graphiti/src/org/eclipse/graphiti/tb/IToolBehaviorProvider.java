@@ -101,7 +101,7 @@ public interface IToolBehaviorProvider {
 	 *            the pictogram element
 	 * @return the decorators
 	 */
-	IRenderingDecorator[] getDecorators(PictogramElement pe);
+	IDecorator[] getDecorators(PictogramElement pe);
 
 	/**
 	 * Gets the adapter.

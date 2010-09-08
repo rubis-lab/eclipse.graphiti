@@ -16,12 +16,12 @@
 package org.eclipse.graphiti.tb;
 
 /**
- * The Interface IRenderingDecorator.
+ * The Interface IDecorator.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
  */
-public interface IRenderingDecorator {
+public interface IDecorator {
 
 	/**
 	 * Gets the message.
