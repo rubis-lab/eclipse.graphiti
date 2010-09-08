@@ -71,7 +71,6 @@ import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.features.AbstractPasteFeature;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.editor.GFMarqueeSelectionTool;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.clipboard.ModelClipboard;
@@ -142,7 +141,7 @@ public class GFPackageTests extends AbstractGFTests {
 		assertNotNull(myConfigurableFeatureProviderWrapper.getAddFeature(addContext));
 
 		//test canLayout
-		DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		PictogramElement pe = getPictogramElement(diagramEditor);
 		LayoutContext layoutContext = new LayoutContext(pe);
 		assertFalse(myConfigurableFeatureProviderWrapper.canLayout(layoutContext).toBoolean());
@@ -196,7 +195,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 		String s = null;
 		TestDiagramTypeProvider myDiagramTypeProvider = new TestDiagramTypeProvider();
-		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 		myDiagramTypeProvider.init(diagram, diagramEditor);
 		PictogramElement pe = getPictogramElement(diagramEditor);
@@ -345,7 +344,7 @@ public class GFPackageTests extends AbstractGFTests {
 		closeEditor(diagramEditor);
 	}
 
-	private PictogramElement getPictogramElement(DiagramEditorInternal diagramEditor) {
+	private PictogramElement getPictogramElement(DiagramEditor diagramEditor) {
 
 		Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 		addClassesAndReferencesToDiagram(diagramEditor);
@@ -357,7 +356,7 @@ public class GFPackageTests extends AbstractGFTests {
 		return pe;
 	}
 
-	private void addClassesAndReferencesToDiagram(final DiagramEditorInternal diagramEditor) {
+	private void addClassesAndReferencesToDiagram(final DiagramEditor diagramEditor) {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -475,7 +474,7 @@ public class GFPackageTests extends AbstractGFTests {
 		expect(diagramMock.getConnections()).andReturn(connections).anyTimes();
 		replay(diagramMock);
 
-		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 
 		syncExec(new VoidResult() {

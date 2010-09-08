@@ -23,9 +23,9 @@ import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IPrintFeature;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.PrintGraphicalViewerAction;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
@@ -42,7 +42,7 @@ public class GFDialogTests extends AbstractGFTests {
 
 	@Test
 	public void testPrintDialog() throws Exception {
-		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final boolean[] enabled = new boolean[1];
 		final CountDownLatch signal = new CountDownLatch(1);
 		asyncExec(new VoidResult() {
@@ -79,7 +79,7 @@ public class GFDialogTests extends AbstractGFTests {
 
 	@Test
 	public void testSaveDialog() throws Exception {
-		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		asyncExec(new VoidResult() {
 			@Override

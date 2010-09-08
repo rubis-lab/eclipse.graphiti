@@ -101,7 +101,6 @@ import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
 import org.eclipse.graphiti.ui.internal.ResourceRegistry;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.policy.ShapeXYLayoutEditPolicy;
@@ -202,7 +201,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testOnEcoreDiagram() throws Exception {
-		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -260,7 +259,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testUndoRedo() throws Exception {
-		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -306,7 +305,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testAbstractDrillDownFeature() throws Exception {
-		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		Object rootModelObject = diagramEditor.getGraphicalViewer().getContents().getModel();
 		assertTrue(rootModelObject instanceof Diagram);
 		Diagram diagram = (Diagram) rootModelObject;
@@ -406,12 +405,12 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testPlatformUtil() throws Exception {
-		final DiagramEditorInternal ed = syncExec(new Result<DiagramEditorInternal>() {
+		final DiagramEditor ed = syncExec(new Result<DiagramEditor>() {
 			@Override
-			public DiagramEditorInternal run() {
+			public DiagramEditor run() {
 				final Diagram newDiagram = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 				assertTrue("create diagram does not work", newDiagram != null);
-				return (DiagramEditorInternal) GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram,
+				return (DiagramEditor) GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram,
 						getTransactionalEditingDomain(), false);
 			}
 		});
@@ -428,7 +427,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testOnSketchDiagram() throws Exception {
-		final DiagramEditorInternal diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -995,7 +994,7 @@ public class GFOtherTests extends AbstractGFTests {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				try {
 					IEditorPart ed = IDE.openEditor(page, diagFile, DiagramEditor.DIAGRAM_EDITOR_ID);
-					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditorInternal);
+					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditor);
 				} catch (PartInitException e) {
 					fail(e.getMessage());
 				}
@@ -1016,7 +1015,7 @@ public class GFOtherTests extends AbstractGFTests {
 					IEditorInput input = DiagramEditorInput.createEditorInput(diagram, domain, GraphitiUi.getExtensionManager()
 							.getDiagramTypeProviderId(diagram.getDiagramTypeId()), false);
 					IEditorPart ed = IDE.openEditor(page, input, DiagramEditor.DIAGRAM_EDITOR_ID);
-					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditorInternal);
+					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditor);
 				} catch (PartInitException e) {
 					fail(e.getMessage());
 				}
