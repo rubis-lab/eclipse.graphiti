@@ -54,27 +54,28 @@ public interface IToolBehaviorProvider {
 	IContextButtonPadData getContextButtonPad(IPictogramElementContext context);
 
 	/**
-	 * Gets the context menu.
+	 * Returns the context menu for the current mouse location.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the custom context which contains the info about the location
+	 *            where the context menu appears.
 	 * @return the context menu
 	 */
 	IContextMenuEntry[] getContextMenu(ICustomContext context);
 
 	/**
-	 * Gets the palette compartments.
+	 * Return the palette entries.
 	 * 
-	 * @return the palette compartments
+	 * @return the palette entries
 	 */
 	IPaletteCompartmentEntry[] getPalette();
 
 	/**
-	 * Checks if is palette applicable.
+	 * Checks if a feature should appear in the palette.
 	 * 
 	 * @param feature
 	 *            the feature
-	 * @return true, if checks if is palette applicable
+	 * @return <code>true</code>, if the feature should appear in the palette
 	 */
 	boolean isPaletteApplicable(IFeature feature);
 
@@ -121,8 +122,7 @@ public interface IToolBehaviorProvider {
 	 *         not be a special selection behavior; if there should not be a
 	 *         selection return the diagram
 	 */
-	PictogramElement getSelection(PictogramElement originalPe,
-			PictogramElement[] oldSelection);
+	PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection);
 
 	/**
 	 * Override this method if you want to change the default scrolling behavior
@@ -182,8 +182,7 @@ public interface IToolBehaviorProvider {
 	 *            the current location info determined by the framework
 	 * @return the location info for the given selected pictogram element
 	 */
-	ILocationInfo getLocationInfo(PictogramElement pe,
-			ILocationInfo currentLocationInfo);
+	ILocationInfo getLocationInfo(PictogramElement pe, ILocationInfo currentLocationInfo);
 
 	/**
 	 * Called before execution on stack. Overriding this method can be necessary
