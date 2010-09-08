@@ -123,7 +123,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * Returns the context button pad data for the given pictogram element
 	 * context. This default implementation sets the pad-location to the bounds
 	 * to the selection graphics algorithm or the pictogram element (see
-	 * {@link #getSelectionGraphicsAlgorithm(PictogramElement)}) or if not
+	 * {@link #getSelectionBorder(PictogramElement)}) or if not
 	 * defined to the graphics algorithm associated directly the pictogram
 	 * element.
 	 * 
@@ -145,7 +145,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		IContextButtonPadData ret = new DefaultContextButtonPadData();
 
 		PictogramElement pe = context.getPictogramElement();
-		GraphicsAlgorithm ga = getSelectionGraphicsAlgorithm(pe);
+		GraphicsAlgorithm ga = getSelectionBorder(pe);
 		if (ga == null) {
 			ga = pe.getGraphicsAlgorithm();
 		}
@@ -435,9 +435,9 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * @param pe
 	 *            the pictogram element
 	 * @return the selection graphics algorithm
-	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getSelectionGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.PictogramElement)
+	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getSelectionBorder(org.eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
-	public GraphicsAlgorithm getSelectionGraphicsAlgorithm(PictogramElement pe) {
+	public GraphicsAlgorithm getSelectionBorder(PictogramElement pe) {
 		return null;
 	}
 

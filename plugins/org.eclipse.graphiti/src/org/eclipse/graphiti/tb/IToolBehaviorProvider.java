@@ -214,13 +214,13 @@ public interface IToolBehaviorProvider {
 
 	/**
 	 * The provided graphics algorithm will define the selection border and the
-	 * rectangle the context buttons appear at.
+	 * rectangle where the context buttons appear at.
 	 * 
 	 * @param pe
 	 *            the pictogram element
 	 * @return the selection graphics algorithm
 	 */
-	GraphicsAlgorithm getSelectionGraphicsAlgorithm(PictogramElement pe);
+	GraphicsAlgorithm getSelectionBorder(PictogramElement pe);
 
 	/**
 	 * The provided GA will define the technical container for children.
