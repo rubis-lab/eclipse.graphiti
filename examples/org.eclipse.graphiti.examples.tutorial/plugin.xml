@@ -40,6 +40,9 @@
          <imageProvider
                id="org.eclipse.graphiti.examples.tutorial.TutorialImageProvider">
          </imageProvider>
+         <imageProvider
+               id="org.eclipse.graphiti.examples.common.ExampleImageProvider">
+         </imageProvider>
       </diagramTypeProvider>
    </extension>
    
