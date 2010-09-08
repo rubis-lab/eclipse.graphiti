@@ -121,7 +121,8 @@ public interface IToolBehaviorProvider {
 	 *         not be a special selection behavior; if there should not be a
 	 *         selection return the diagram
 	 */
-	PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection);
+	PictogramElement getSelection(PictogramElement originalPe,
+			PictogramElement[] oldSelection);
 
 	/**
 	 * Override this method if you want to change the default scrolling behavior
@@ -181,10 +182,14 @@ public interface IToolBehaviorProvider {
 	 *            the current location info determined by the framework
 	 * @return the location info for the given selected pictogram element
 	 */
-	ILocationInfo getLocationInfo(PictogramElement pe, ILocationInfo currentLocationInfo);
+	ILocationInfo getLocationInfo(PictogramElement pe,
+			ILocationInfo currentLocationInfo);
 
 	/**
 	 * Called before execution on stack.
+	 * Overriding this method can be necessary
+	 * if any additional actions have to be processed before the stack will be
+	 * executed.
 	 * 
 	 * @param executionInfo
 	 *            info about content to be executed
