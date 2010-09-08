@@ -216,7 +216,7 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 
 	@Override
-	public GraphicsAlgorithm getSelectionGraphicsAlgorithm(PictogramElement pe) {
+	public GraphicsAlgorithm getSelectionBorder(PictogramElement pe) {
 		IFeatureProvider featureProvider = getFeatureProvider();
 		Object bo = featureProvider.getBusinessObjectForPictogramElement(pe);
 		if (bo instanceof EClass) {
@@ -226,6 +226,6 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 				return graphicsAlgorithmChildren.get(0);
 			}
 		}
-		return super.getSelectionGraphicsAlgorithm(pe);
+		return super.getSelectionBorder(pe);
 	}
 }
