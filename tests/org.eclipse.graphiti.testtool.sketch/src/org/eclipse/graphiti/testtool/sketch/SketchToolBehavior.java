@@ -74,7 +74,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
- * The Class SketchToolBehaviour.
+ * The Class SketchToolBehavior.
  */
 public class SketchToolBehavior extends DefaultToolBehaviorProvider implements IName {
 	private class MyObjectCreationToolEntry extends ObjectCreationToolEntry implements IEclipseImageDescriptor {
