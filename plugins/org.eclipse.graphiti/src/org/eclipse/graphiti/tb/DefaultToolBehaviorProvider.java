@@ -281,7 +281,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return ret;
 	}
 
-	public ILocationInfo getDefaultLocationInfoForDirectEditing(PictogramElement pe, ILocationInfo locationInfo) {
+	public ILocationInfo getCustomLocationInfo(PictogramElement pe, ILocationInfo locationInfo) {
 		return locationInfo;
 	}
 

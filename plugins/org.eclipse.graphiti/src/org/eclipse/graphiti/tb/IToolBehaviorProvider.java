@@ -174,17 +174,18 @@ public interface IToolBehaviorProvider {
 	ISelectionInfo getSelectionInfoForConnection(Connection connection);
 
 	/**
-	 * Returns the location info which should be used for direct editing if the
-	 * framework cannot decide this.
+	 * Returns the location info which will be used for direct editing if the
+	 * framework cannot decide this. E.g. a shape is selected and the user
+	 * presses F2 but the mouse is outside the shape.
 	 * 
 	 * @param pe
 	 *            the active and selected pictogram element
-	 * @param locationInfo
-	 *            the location info
-	 * @return the default location info for the given selected pictogram
+	 * @param currentLocationInfo
+	 *            the current location info determined by the framework
+	 * @return the custom location info for the given selected pictogram
 	 *         element
 	 */
-	ILocationInfo getDefaultLocationInfoForDirectEditing(PictogramElement pe, ILocationInfo locationInfo);
+	ILocationInfo getCustomLocationInfo(PictogramElement pe, ILocationInfo currentLocationInfo);
 
 	/**
 	 * Called before execution on stack.
