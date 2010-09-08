@@ -115,7 +115,7 @@ import org.eclipse.graphiti.tb.ContextEntryHelper;
 import org.eclipse.graphiti.tb.ContextMenuEntry;
 import org.eclipse.graphiti.tb.DynamicContextMenuEntry;
 import org.eclipse.graphiti.tb.IContextEntry;
-import org.eclipse.graphiti.tb.ImageRenderingDecorator;
+import org.eclipse.graphiti.tb.ImageDecorator;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.internal.command.AddModelObjectCommand;
@@ -392,7 +392,7 @@ public class PackageTest extends GFAbstractTestCase {
 		final int X = 10;
 		final int Y = 20;
 
-		ImageRenderingDecorator rd = new ImageRenderingDecorator(IPlatformImageConstants.IMG_ECLIPSE_ERROR);
+		ImageDecorator rd = new ImageDecorator(IPlatformImageConstants.IMG_ECLIPSE_ERROR);
 		rd.setX(X);
 		rd.setY(Y);
 		rd.setMessage(DUMMY);
