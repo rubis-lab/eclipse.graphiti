@@ -22,7 +22,7 @@ public interface IImageDecorator extends IDecorator, ILocation {
 	/**
 	 * Gets the image id.
 	 * 
-	 * @return the image  id
+	 * @return the image id
 	 */
 	public String getImageId();
 
