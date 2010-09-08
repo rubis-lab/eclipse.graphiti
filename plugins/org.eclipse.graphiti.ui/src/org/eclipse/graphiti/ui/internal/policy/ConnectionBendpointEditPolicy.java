@@ -211,7 +211,7 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 		if (bendPoints == null)
 			bendPoints = NULL_CONSTRAINT;
 		else if (!bendPoints.isEmpty())
-			currBendPoint = ((Bendpoint) bendPoints.get(0)).getLocation();
+			currBendPoint = bendPoints.get(0).getLocation();
 
 		for (int i = 0; i < points.size() - 1; i++) {
 			// Put a create handle on the middle of every segment
@@ -227,7 +227,7 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 				// Go to the next user bendpoint
 				bendPointIndex++;
 				if (bendPointIndex < bendPoints.size())
-					currBendPoint = ((Bendpoint) bendPoints.get(bendPointIndex)).getLocation();
+					currBendPoint = bendPoints.get(bendPointIndex).getLocation();
 			}
 		}
 
