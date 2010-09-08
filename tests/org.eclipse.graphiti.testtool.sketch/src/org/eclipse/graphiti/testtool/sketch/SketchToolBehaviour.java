@@ -147,7 +147,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 	}
 
 	@Override
-	public PictogramElement getCustomSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
+	public PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
 		if (SketchUtil.isLonelyLanePe(originalPe)) {
 			if (originalPe instanceof ContainerShape) {
 				ContainerShape cs = (ContainerShape) originalPe;
@@ -155,7 +155,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 			}
 		}
 
-		return super.getCustomSelection(originalPe, oldSelection);
+		return super.getSelection(originalPe, oldSelection);
 	}
 
 	@Override
