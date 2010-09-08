@@ -53,8 +53,8 @@ public class TestToolBehaviour extends DefaultToolBehaviorProvider {
 	}
 
 	@Override
-	public IContextButtonPadData getContextButtonPadData(IPictogramElementContext context) {
-		IContextButtonPadData data = super.getContextButtonPadData(context);
+	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
+		IContextButtonPadData data = super.getContextButtonPad(context);
 
 		ICustomContext cc = getCustomContext(context);
 		IFeatureProvider featureProvider = getFeatureProvider();
