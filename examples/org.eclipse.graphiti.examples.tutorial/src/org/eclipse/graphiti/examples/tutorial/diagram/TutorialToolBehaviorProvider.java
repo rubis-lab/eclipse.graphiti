@@ -61,8 +61,8 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 
 	@Override
-	public IContextButtonPadData getContextButtonPadData(IPictogramElementContext context) {
-		IContextButtonPadData data = super.getContextButtonPadData(context);
+	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
+		IContextButtonPadData data = super.getContextButtonPad(context);
 		PictogramElement pe = context.getPictogramElement();
 
 		// 1. set the generic context buttons
@@ -138,11 +138,11 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 
 	@Override
-	public IPaletteCompartmentEntry[] getPaletteCompartments() {
+	public IPaletteCompartmentEntry[] getPalette() {
 		List<IPaletteCompartmentEntry> ret = new ArrayList<IPaletteCompartmentEntry>();
 
 		// add compartments from super class
-		IPaletteCompartmentEntry[] superCompartments = super.getPaletteCompartments();
+		IPaletteCompartmentEntry[] superCompartments = super.getPalette();
 		for (int i = 0; i < superCompartments.length; i++)
 			ret.add(superCompartments[i]);
 
