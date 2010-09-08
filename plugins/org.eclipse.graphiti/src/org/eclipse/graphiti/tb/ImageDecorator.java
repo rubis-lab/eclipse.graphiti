@@ -15,12 +15,10 @@
  *******************************************************************************/
 package org.eclipse.graphiti.tb;
 
-import org.eclipse.graphiti.datatypes.ILocation;
-
 /**
  * The Class ImageDecorator.
  */
-public class ImageDecorator extends AbstractDecorator implements ILocation {
+public class ImageDecorator extends AbstractDecorator implements IImageDecorator {
 
 	private static final int DEFAULT_LOCATION = 4;
 
@@ -41,11 +39,6 @@ public class ImageDecorator extends AbstractDecorator implements ILocation {
 		setImageId(imageId);
 	}
 
-	/**
-	 * Gets the image id.
-	 * 
-	 * @return the image id
-	 */
 	public String getImageId() {
 		return this.imageId;
 	}
