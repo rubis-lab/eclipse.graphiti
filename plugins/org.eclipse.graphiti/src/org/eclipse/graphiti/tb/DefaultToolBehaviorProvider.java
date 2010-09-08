@@ -354,7 +354,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return NO_RENDERING_DECORATORS;
 	}
 
-	public ISelectionInfo getShapeSelectionInfo(Shape shape) {
+	public ISelectionInfo getSelectionInfoForShape(Shape shape) {
 		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.SHAPE_SELECTION_FG, IColorConstant.HANDLE_FG, IColorConstant.HANDLE_BG,
 				LineStyle.DASH);
 		return si;

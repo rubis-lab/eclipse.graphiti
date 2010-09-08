@@ -161,7 +161,7 @@ public interface IToolBehaviorProvider {
 	 *            the shape
 	 * @return the shape selection info
 	 */
-	ISelectionInfo getShapeSelectionInfo(Shape shape);
+	ISelectionInfo getSelectionInfoForShape(Shape shape);
 
 	/**
 	 * Return the selection info for the given connection.
