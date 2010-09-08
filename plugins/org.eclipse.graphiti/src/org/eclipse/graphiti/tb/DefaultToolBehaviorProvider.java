@@ -457,7 +457,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return new GraphicsAlgorithm[0];
 	}
 
-	public GraphicsAlgorithm getChopboxAnchorGraphicsAlgorithm(PictogramElement pe) {
+	public GraphicsAlgorithm getChopboxAnchorArea(PictogramElement pe) {
 		return pe.getGraphicsAlgorithm();
 	}
 

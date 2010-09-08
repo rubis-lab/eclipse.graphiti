@@ -250,7 +250,7 @@ public interface IToolBehaviorProvider {
 	 * @return the GA that defines the outline for connections from or to the
 	 *         shape's chopbox anchor
 	 */
-	GraphicsAlgorithm getChopboxAnchorGraphicsAlgorithm(PictogramElement pe);
+	GraphicsAlgorithm getChopboxAnchorArea(PictogramElement pe);
 
 	/**
 	 * Returns a tooltip for the workbench titlebar for the given diagram
