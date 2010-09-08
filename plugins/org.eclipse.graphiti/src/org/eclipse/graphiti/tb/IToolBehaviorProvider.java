@@ -195,7 +195,10 @@ public interface IToolBehaviorProvider {
 	void preExecute(IExecutionInfo executionInfo);
 
 	/**
-	 * Called after execution on stack.
+	 * Called after execution on stack. Overriding this method can be necessary
+	 * if any additional actions have to be processed after the stack will be
+	 * executed. As example a tool could process an automatic layout of the
+	 * diagram after each diagram modification.
 	 * 
 	 * @param executionInfo
 	 *            info about content to be executed
@@ -265,21 +268,23 @@ public interface IToolBehaviorProvider {
 	/**
 	 * Indicates whether guides will be shown or not.
 	 * 
-	 * @return TRUE, if guides should be shown
+	 * @return <code>true</code>, if guides should be shown
 	 */
 	boolean isShowGuides();
 
 	/**
-	 * Indicates if the selection of multiple elements is enabled.
+	 * Indicates if the selection of multiple elements is enabled. Override this
+	 * method and return <code>false</code> if an editor with single selection
+	 * behavior is needed.
 	 * 
-	 * @return FALSE, if single selection is enforced
+	 * @return <code>false</code>, if single selection is enforced
 	 */
 	boolean isMultiSelectionEnabled();
 
 	/**
 	 * Indicates if the selection of connections is enabled.
 	 * 
-	 * @return TRUE, if selection of connections is enabled
+	 * @return <code>true</code>, if selection of connections is enabled
 	 */
 	boolean isConnectionSelectionEnabled();
 
