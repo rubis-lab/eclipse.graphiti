@@ -58,7 +58,8 @@ import org.eclipse.swt.graphics.Path;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public abstract class GFAbstractShape extends Shape implements HandleBounds, IVisualStateHolder, IVisualStateChangeListener {
+public abstract class GFAbstractShape extends Shape implements HandleBounds,
+		IVisualStateHolder, IVisualStateChangeListener {
 
 	/**
 	 * The {@link IPictogramElementDelegate} given in the constructor.
@@ -95,7 +96,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 *            PictogramElementDelegate or a child of that immediate
 	 *            GraphicsAlgorithm. It must not be null.
 	 */
-	public GFAbstractShape(IPictogramElementDelegate pictogramElementDelegate, GraphicsAlgorithm graphicsAlgorithm) {
+	public GFAbstractShape(IPictogramElementDelegate pictogramElementDelegate,
+			GraphicsAlgorithm graphicsAlgorithm) {
 		this.pictogramElementDelegate = pictogramElementDelegate;
 		this.graphicsAlgorithm = graphicsAlgorithm;
 
@@ -124,7 +126,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 * @return The Path which shall be painted in
 	 *         {@link #paintShape(Graphics, boolean)}.
 	 */
-	abstract protected Path createPath(Rectangle outerBounds, Graphics graphics, boolean isFill);
+	abstract protected Path createPath(Rectangle outerBounds,
+			Graphics graphics, boolean isFill);
 
 	// ========================= new public methods ===========================
 
@@ -197,7 +200,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 * @param graphics
 	 *            The Graphics used to calculate the bounds.
 	 */
-	protected void transformToFillBounds(Rectangle outlineBounds, Graphics graphics) {
+	protected void transformToFillBounds(Rectangle outlineBounds,
+			Graphics graphics) {
 		// shrink the bounds by half line-width because there the outline is
 		// painted
 		int lineWidth = getLineWidth(graphics);
@@ -269,7 +273,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 		GraphicsAlgorithm[] gas = getSelectionArea();
 		if (gas != null) {
 			for (int i = 0; i < gas.length; i++) {
-				IFigure figure = getPictogramElementDelegate().getFigureForGraphicsAlgorithm(gas[i]);
+				IFigure figure = getPictogramElementDelegate()
+						.getFigureForGraphicsAlgorithm(gas[i]);
 				if (figure != null && !this.equals(figure)) { // don't check the
 																// figure
 					if (figure.containsPoint(x, y)) {
@@ -310,7 +315,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 *            The Path which to fill.
 	 */
 	protected void fillPath(Graphics graphics, Path path) {
-		RenderingStyle renderingStyle = Graphiti.getGaService().getRenderingStyle(graphicsAlgorithm, true);
+		RenderingStyle renderingStyle = Graphiti.getGaService()
+				.getRenderingStyle(graphicsAlgorithm, true);
 
 		if (adaptBackgroundToHover(graphics)) {
 			// fill area
@@ -323,27 +329,35 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 					Rectangle pathBounds = GFFigureUtil.getPathBounds(path);
 					graphics.clipPath(path);
 					int styleAdaptation = getStyleAdaptation();
-					AdaptedGradientColoredAreas adaptedGradientColoredAreas = renderingStyle.getAdaptedGradientColoredAreas();
-					EList<GradientColoredAreas> gradientColoredAreas = (EList<GradientColoredAreas>) adaptedGradientColoredAreas
+					AdaptedGradientColoredAreas adaptedGradientColoredAreas = renderingStyle
+							.getAdaptedGradientColoredAreas();
+					EList<GradientColoredAreas> gradientColoredAreas = adaptedGradientColoredAreas
 							.getAdaptedGradientColoredAreas();
 					EList<GradientColoredArea> gradienColoredAreaList = null;
 					// get the style adaption or use the default style
-					if (gradientColoredAreas != null && gradientColoredAreas.size() > 0
+					if (gradientColoredAreas != null
+							&& gradientColoredAreas.size() > 0
 							&& gradientColoredAreas.size() - 1 >= styleAdaptation) {
-						gradienColoredAreaList = gradientColoredAreas.get(styleAdaptation).getGradientColor();
+						gradienColoredAreaList = gradientColoredAreas.get(
+								styleAdaptation).getGradientColor();
 					} else {
-						gradienColoredAreaList = gradientColoredAreas.get(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT)
+						gradienColoredAreaList = gradientColoredAreas
+								.get(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT)
 								.getGradientColor();
 					}
 					boolean isVertical = true;
 					if (adaptedGradientColoredAreas.getGradientType() != null) {
-						if (adaptedGradientColoredAreas.getGradientType().equals(IGradientType.HORIZONTAL)) {
+						if (adaptedGradientColoredAreas.getGradientType()
+								.equals(IGradientType.HORIZONTAL)) {
 							isVertical = false;
 						}
 					}
-					for (Iterator<GradientColoredArea> iterator = gradienColoredAreaList.iterator(); iterator.hasNext();) {
-						GradientColoredArea gradientColoredArea = iterator.next();
-						GFFigureUtil.paintColorFlow(getConfigurationProvider(), pathBounds, graphics, gradientColoredArea,
+					for (Iterator<GradientColoredArea> iterator = gradienColoredAreaList
+							.iterator(); iterator.hasNext();) {
+						GradientColoredArea gradientColoredArea = iterator
+								.next();
+						GFFigureUtil.paintColorFlow(getConfigurationProvider(),
+								pathBounds, graphics, gradientColoredArea,
 								getZoomLevel(graphics), isVertical);
 					}
 				} finally {
@@ -394,7 +408,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 		// We distinguish the state where we hover over a figure
 		// without the parent being slected and with the parent being selected.
 		if (getVisualState().getHoverFeedback() == IVisualState.HOVER_ON) {
-			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+			IToolBehaviorProvider tbp = getConfigurationProvider()
+					.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 			IFigure parent = getParent();
 			boolean parentSelected = false;
 			if (parent instanceof GFAbstractShape) {
@@ -402,7 +417,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 				IVisualState visualState = gfa.getVisualState();
 				parentSelected = visualState.getSelectionFeedback() == IVisualState.SELECTION_PRIMARY;
 			}
-			PictogramElement pe = getPictogramElementDelegate().getPictogramElement();
+			PictogramElement pe = getPictogramElementDelegate()
+					.getPictogramElement();
 			if (!(pe instanceof org.eclipse.graphiti.mm.pictograms.Shape))
 				return false;
 			org.eclipse.graphiti.mm.pictograms.Shape s = (org.eclipse.graphiti.mm.pictograms.Shape) pe;
@@ -412,7 +428,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			if (parentSelected)
 				hoverColor = selectionInfo.getHoverColorParentSelected();
 			if (hoverColor != null) {
-				Color hoverColorSwt = DataTypeTransformation.toSwtColor(getConfigurationProvider(), hoverColor);
+				Color hoverColorSwt = DataTypeTransformation.toSwtColor(
+						getConfigurationProvider(), hoverColor);
 				graphics.setBackgroundColor(hoverColorSwt);
 				return true;
 			}
@@ -441,7 +458,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 		// get Path
 		double zoom = getZoomLevel(graphics);
 		int lw = getLineWidth(graphics);
-		Rectangle pathbounds = GFFigureUtil.getAdjustedRectangle(getBounds(), zoom, lw);
+		Rectangle pathbounds = GFFigureUtil.getAdjustedRectangle(getBounds(),
+				zoom, lw);
 		if (isFill) {
 			transformToFillBounds(pathbounds, graphics);
 		}
@@ -473,7 +491,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	@Override
 	public void paintFigure(Graphics graphics) {
 		if (GraphitiInternal.getEmfService().isObjectAlive(graphicsAlgorithm)) {
-			double transparency = Graphiti.getGaService().getTransparency(graphicsAlgorithm, true);
+			double transparency = Graphiti.getGaService().getTransparency(
+					graphicsAlgorithm, true);
 			int alpha = (int) ((1.0 - transparency) * 255.0);
 			graphics.setAlpha(alpha);
 
@@ -536,8 +555,10 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			// child figure. In this case return true, otherwise the child edit
 			// part will never be selectable (the contains
 			// method of child edit part figure will never be called).
-			if (ret.booleanValue() == false && getSelectionArea() != null && containsPointInFigure(x, y)) {
-				List<IFigure> fList = getPictogramElementDelegate().getMainFiguresFromChildEditparts();
+			if (ret.booleanValue() == false && getSelectionArea() != null
+					&& containsPointInFigure(x, y)) {
+				List<IFigure> fList = getPictogramElementDelegate()
+						.getMainFiguresFromChildEditparts();
 				for (IFigure figure : fList) {
 					if (figure.containsPoint(x, y)) {
 						return true;
@@ -563,7 +584,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 		Rectangle ret = null;
 		final GraphicsAlgorithm selectionGa = getSelectionGraphicsAlgorithm();
 		if (selectionGa != null) {
-			IFigure selectionFigure = getPictogramElementDelegate().getFigureForGraphicsAlgorithm(selectionGa);
+			IFigure selectionFigure = getPictogramElementDelegate()
+					.getFigureForGraphicsAlgorithm(selectionGa);
 			if (selectionFigure != null) {
 				ret = selectionFigure.getBounds();
 			}
@@ -601,7 +623,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 * @param selectionGraphicsAlgorithm
 	 *            the selectionGraphicsAlgorithm to set
 	 */
-	public void setSelectionGraphicsAlgorithm(GraphicsAlgorithm selectionGraphicsAlgorithm) {
+	public void setSelectionGraphicsAlgorithm(
+			GraphicsAlgorithm selectionGraphicsAlgorithm) {
 		this.selectionGraphicsAlgorithm = selectionGraphicsAlgorithm;
 	}
 
