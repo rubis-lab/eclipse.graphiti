@@ -182,8 +182,7 @@ public interface IToolBehaviorProvider {
 	 *            the active and selected pictogram element
 	 * @param currentLocationInfo
 	 *            the current location info determined by the framework
-	 * @return the custom location info for the given selected pictogram
-	 *         element
+	 * @return the custom location info for the given selected pictogram element
 	 */
 	ILocationInfo getCustomLocationInfo(PictogramElement pe, ILocationInfo currentLocationInfo);
 
@@ -249,12 +248,12 @@ public interface IToolBehaviorProvider {
 	 * @param pe
 	 *            the given pictogram element
 	 * @return the GA that defines the outline for connections from or to the
-	 *         sahpe's chopbox anchor
+	 *         shape's chopbox anchor
 	 */
-	GraphicsAlgorithm getChopboxAnchorGraphicsAlgorithm(PictogramElement pe);
+	GraphicsAlgorithm getChopboxAnchorArea(PictogramElement pe);
 
 	/**
-	 * Returns a tooltip for the NWDS titlebar for the given diagram
+	 * Returns a tooltip for the workbench titlebar for the given diagram
 	 * 
 	 * @return a tooltip or <code>null</code> to indicate that the default from
 	 *         the graphics framework will be used
