@@ -24,5 +24,4 @@ package org.eclipse.graphiti.services;
  */
 public interface ILayoutService extends IPeLayoutService, IGaLayoutService {
 
-	
 }
