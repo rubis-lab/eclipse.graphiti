@@ -42,6 +42,7 @@ public class TutorialEClassSection extends GFPropertySection implements ITabbedP
 		FormData data;
 
 		nameText = factory.createText(composite, ""); //$NON-NLS-1$
+		nameText.setEditable(false);
 		data = new FormData();
 		data.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		data.right = new FormAttachment(100, 0);
