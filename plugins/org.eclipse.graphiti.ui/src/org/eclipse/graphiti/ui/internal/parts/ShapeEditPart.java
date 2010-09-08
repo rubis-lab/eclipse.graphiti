@@ -745,7 +745,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 		IConfigurationProvider configurationProvider = getConfigurationProvider();
 
 		PictogramElement alternativeSelection = configurationProvider.getDiagramTypeProvider().getCurrentToolBehaviorProvider()
-				.getCustomSelection(getPictogramElement(), configurationProvider.getDiagramEditor().getSelectedPictogramElements());
+				.getSelection(getPictogramElement(), configurationProvider.getDiagramEditor().getSelectedPictogramElements());
 		if (alternativeSelection != null && request instanceof SelectionRequest) {
 			Object object = configurationProvider.getDiagramEditor().getGraphicalViewer().getEditPartRegistry().get(alternativeSelection);
 			if (object instanceof EditPart) {
