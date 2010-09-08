@@ -285,7 +285,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return locationInfo;
 	}
 
-	public ICustomFeature getDoubleClickBehavior(IDoubleClickContext context) {
+	public ICustomFeature getDoubleClickFeature(IDoubleClickContext context) {
 		return null;
 	}
 
