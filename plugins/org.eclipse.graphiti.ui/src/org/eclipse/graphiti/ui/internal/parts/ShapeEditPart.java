@@ -422,7 +422,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	private GFChopboxAnchor createGFChopboxAnchor() {
 		IDiagramTypeProvider dtp = getConfigurationProvider().getDiagramTypeProvider();
 		IToolBehaviorProvider tbp = dtp.getCurrentToolBehaviorProvider();
-		GraphicsAlgorithm ga = tbp.getChopboxAnchorGraphicsAlgorithm(getPictogramElement());
+		GraphicsAlgorithm ga = tbp.getChopboxAnchorArea(getPictogramElement());
 		IFigure f = delegate.getFigureForGraphicsAlgorithm(ga);
 		if (f == null) {
 			f = getFigure();
