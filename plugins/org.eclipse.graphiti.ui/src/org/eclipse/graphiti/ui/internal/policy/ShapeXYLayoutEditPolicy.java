@@ -466,7 +466,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	 * @return
 	 */
 	private boolean isDifferentSize(Shape shape, Rectangle constraint) {
-		Rectangle rect = (Rectangle) constraint;
+		Rectangle rect = constraint;
 		IDimension sizeOfGA = Graphiti.getGaService().calculateSize(shape.getGraphicsAlgorithm(), false);
 		return rect.width != sizeOfGA.getWidth() || rect.height != sizeOfGA.getHeight();
 

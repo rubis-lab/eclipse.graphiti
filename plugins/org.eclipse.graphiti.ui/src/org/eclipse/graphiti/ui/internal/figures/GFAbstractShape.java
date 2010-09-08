@@ -342,7 +342,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 						}
 					}
 					for (Iterator<GradientColoredArea> iterator = gradienColoredAreaList.iterator(); iterator.hasNext();) {
-						GradientColoredArea gradientColoredArea = (GradientColoredArea) iterator.next();
+						GradientColoredArea gradientColoredArea = iterator.next();
 						GFFigureUtil.paintColorFlow(getConfigurationProvider(), pathBounds, graphics, gradientColoredArea,
 								getZoomLevel(graphics), isVertical);
 					}

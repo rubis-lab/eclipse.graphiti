@@ -229,7 +229,7 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 
 		// determine _selectionFigure
 		@SuppressWarnings("unchecked")
-		List<EditPart> selectedEditParts = (List<EditPart>) viewer.getSelectedEditParts();
+		List<EditPart> selectedEditParts = viewer.getSelectedEditParts();
 		for (EditPart selectedEditPart : selectedEditParts) {
 			if (!(selectedEditPart instanceof GraphicalEditPart) || (selectedEditPart == getGraphicalViewer().getContents())) {
 				_selectionFigure = null;

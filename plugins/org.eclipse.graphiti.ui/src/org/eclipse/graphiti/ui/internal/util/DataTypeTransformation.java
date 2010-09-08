@@ -111,7 +111,7 @@ public class DataTypeTransformation {
 	public static PointList toDraw2dPointList(Collection<Point> points) {
 		PointList pointList = new PointList();
 		for (Iterator<Point> iter = points.iterator(); iter.hasNext();) {
-			Point dtp = (Point) iter.next();
+			Point dtp = iter.next();
 			pointList.addPoint(dtp.getX(), dtp.getY());
 		}
 		return pointList;
