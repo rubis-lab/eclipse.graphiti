@@ -56,7 +56,7 @@ public interface IToolBehaviorProvider {
 	 * @return The context button pad data for the given pictogram element
 	 *         context.
 	 */
-	IContextButtonPadData getContextButtonPadData(IPictogramElementContext context);
+	IContextButtonPadData getContextButtonPad(IPictogramElementContext context);
 
 	/**
 	 * Gets the context menu.
@@ -79,7 +79,7 @@ public interface IToolBehaviorProvider {
 	 * 
 	 * @return the palette compartments
 	 */
-	IPaletteCompartmentEntry[] getPaletteCompartments();
+	IPaletteCompartmentEntry[] getPalette();
 
 	/**
 	 * Checks if is palette applicable.

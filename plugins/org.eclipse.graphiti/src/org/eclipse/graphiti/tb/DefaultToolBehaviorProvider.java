@@ -138,7 +138,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * @return The context button pad data for the given pictogram element
 	 *         context.
 	 */
-	public IContextButtonPadData getContextButtonPadData(IPictogramElementContext context) {
+	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
 		final String SIGNATURE = "getContextButtonPadData(IPictogramElementContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
 		if (info) {
@@ -299,7 +299,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * 
 	 * @return the palette compartments
 	 */
-	public IPaletteCompartmentEntry[] getPaletteCompartments() {
+	public IPaletteCompartmentEntry[] getPalette() {
 		final String SIGNATURE = "getPaletteCompartments()"; //$NON-NLS-1$
 		boolean info = T.racer().info();
 		if (info) {
