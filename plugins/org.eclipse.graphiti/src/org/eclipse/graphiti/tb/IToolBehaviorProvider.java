@@ -186,8 +186,7 @@ public interface IToolBehaviorProvider {
 			ILocationInfo currentLocationInfo);
 
 	/**
-	 * Called before execution on stack.
-	 * Overriding this method can be necessary
+	 * Called before execution on stack. Overriding this method can be necessary
 	 * if any additional actions have to be processed before the stack will be
 	 * executed.
 	 * 
