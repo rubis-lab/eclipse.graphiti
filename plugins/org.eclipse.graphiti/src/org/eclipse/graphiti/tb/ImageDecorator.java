@@ -18,9 +18,9 @@ package org.eclipse.graphiti.tb;
 import org.eclipse.graphiti.datatypes.ILocation;
 
 /**
- * The Class ImageRenderingDecorator.
+ * The Class ImageDecorator.
  */
-public class ImageRenderingDecorator extends AbstractRenderingDecorator implements ILocation {
+public class ImageDecorator extends AbstractDecorator implements ILocation {
 
 	private static final int DEFAULT_LOCATION = 4;
 
@@ -31,12 +31,12 @@ public class ImageRenderingDecorator extends AbstractRenderingDecorator implemen
 	private int x = DEFAULT_LOCATION;
 
 	/**
-	 * Creates a new {@link ImageRenderingDecorator}.
+	 * Creates a new {@link ImageDecorator}.
 	 * 
 	 * @param imageId
 	 *            the image id
 	 */
-	public ImageRenderingDecorator(String imageId) {
+	public ImageDecorator(String imageId) {
 		super();
 		setImageId(imageId);
 	}
