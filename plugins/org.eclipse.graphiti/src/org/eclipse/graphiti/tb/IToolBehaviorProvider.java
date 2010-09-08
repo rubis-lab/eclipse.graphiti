@@ -110,7 +110,7 @@ public interface IToolBehaviorProvider {
 	 *            happened
 	 * @return the feature to execute
 	 */
-	ICustomFeature getDoubleClickFeature(IDoubleClickContext context);
+	ICustomFeature getDoubleClickBehavior(IDoubleClickContext context);
 
 	/**
 	 * Gets the rendering decorators.
