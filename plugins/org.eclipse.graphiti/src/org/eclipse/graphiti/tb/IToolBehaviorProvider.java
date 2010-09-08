@@ -18,8 +18,6 @@
  */
 package org.eclipse.graphiti.tb;
 
-import java.util.Collection;
-
 import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.features.IFeature;
@@ -82,15 +80,6 @@ public interface IToolBehaviorProvider {
 	 * @return true, if checks if is palette applicable
 	 */
 	boolean isPaletteApplicable(IFeature feature);
-
-	/**
-	 * Checks if is toolbar applicable.
-	 * 
-	 * @param feature
-	 *            the feature
-	 * @return true, if checks if is toolbar applicable
-	 */
-	boolean isToolbarApplicable(IFeature feature);
 
 	/**
 	 * Decides about the feature to execute if a double click is triggered. We

@@ -19,8 +19,6 @@
 package org.eclipse.graphiti.tb;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.graphiti.DiagramScrollingBehavior;
@@ -378,10 +376,6 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 
 	public boolean isPaletteApplicable(IFeature feature) {
 		return feature instanceof ICreateFeature;
-	}
-
-	public boolean isToolbarApplicable(IFeature feature) {
-		return false;
 	}
 
 	private void setDiagramTypeProvider(IDiagramTypeProvider diagramTypeProvider) {
