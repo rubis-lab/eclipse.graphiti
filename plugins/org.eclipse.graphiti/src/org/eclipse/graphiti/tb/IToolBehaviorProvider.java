@@ -179,9 +179,9 @@ public interface IToolBehaviorProvider {
 	 *            the active and selected pictogram element
 	 * @param currentLocationInfo
 	 *            the current location info determined by the framework
-	 * @return the custom location info for the given selected pictogram element
+	 * @return the location info for the given selected pictogram element
 	 */
-	ILocationInfo getCustomLocationInfo(PictogramElement pe, ILocationInfo currentLocationInfo);
+	ILocationInfo getLocationInfo(PictogramElement pe, ILocationInfo currentLocationInfo);
 
 	/**
 	 * Called before execution on stack.
