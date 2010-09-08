@@ -36,11 +36,6 @@ public class SketchViewerModeToolBehavior extends SketchToolBehaviour implements
 	}
 
 	@Override
-	public boolean isToolbarApplicable(IFeature feature) {
-		return false;
-	}
-
-	@Override
 	public String getName() {
 		return "Viewer Mode";
 	}
