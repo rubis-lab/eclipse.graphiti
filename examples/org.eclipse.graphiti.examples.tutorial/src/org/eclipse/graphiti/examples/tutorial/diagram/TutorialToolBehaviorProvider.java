@@ -187,7 +187,7 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 
 	@Override
-	public IRenderingDecorator[] getRenderingDecorators(PictogramElement pe) {
+	public IRenderingDecorator[] getDecorators(PictogramElement pe) {
 		IFeatureProvider featureProvider = getFeatureProvider();
 		Object bo = featureProvider.getBusinessObjectForPictogramElement(pe);
 		if (bo instanceof EClass) {
@@ -200,7 +200,7 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			}
 		}
 
-		return super.getRenderingDecorators(pe);
+		return super.getDecorators(pe);
 	}
 
 	@Override
