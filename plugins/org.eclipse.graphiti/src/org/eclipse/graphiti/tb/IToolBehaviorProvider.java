@@ -95,13 +95,13 @@ public interface IToolBehaviorProvider {
 	ICustomFeature getDoubleClickBehavior(IDoubleClickContext context);
 
 	/**
-	 * Gets the rendering decorators.
+	 * Gets the decorators.
 	 * 
 	 * @param pe
 	 *            the pictogram element
-	 * @return the rendering decorators
+	 * @return the decorators
 	 */
-	IRenderingDecorator[] getRenderingDecorators(PictogramElement pe);
+	IRenderingDecorator[] getDecorators(PictogramElement pe);
 
 	/**
 	 * Gets the adapter.

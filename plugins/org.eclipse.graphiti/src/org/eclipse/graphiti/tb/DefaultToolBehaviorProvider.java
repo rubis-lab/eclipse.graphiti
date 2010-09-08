@@ -350,7 +350,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return res;
 	}
 
-	public IRenderingDecorator[] getRenderingDecorators(PictogramElement pe) {
+	public IRenderingDecorator[] getDecorators(PictogramElement pe) {
 		return NO_RENDERING_DECORATORS;
 	}
 
