@@ -56,7 +56,7 @@ import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
-import org.eclipse.graphiti.tb.IRenderingDecorator;
+import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.ISelectionInfo;
 import org.eclipse.graphiti.tb.ImageRenderingDecorator;
 import org.eclipse.graphiti.tb.SelectionInfoImpl;
@@ -413,7 +413,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 	}
 
 	@Override
-	public IRenderingDecorator[] getDecorators(PictogramElement pe) {
+	public IDecorator[] getDecorators(PictogramElement pe) {
 		if (!TEST_SHOW_WARNING_DECORATORS) {
 			return super.getDecorators(pe);
 		}
@@ -424,7 +424,7 @@ public class SketchToolBehaviour extends DefaultToolBehaviorProvider implements 
 		rd.setY(y);
 		rd.setMessage("Warning (x=" + x + " y=" + y + ")");
 
-		IRenderingDecorator[] ret = new IRenderingDecorator[] { rd };
+		IDecorator[] ret = new IDecorator[] { rd };
 		return ret;
 	}
 
