@@ -118,7 +118,7 @@ public class ConnectionHighlightEditPolicy extends ConnectionEndpointEditPolicy 
 		if (getHost() != null && getHost().getModel() instanceof Connection) {
 			Connection connection = (Connection) getHost().getModel();
 			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-			ISelectionInfo selectionInfo = tbp.getConnectionSelectionInfo(connection);
+			ISelectionInfo selectionInfo = tbp.getSelectionInfoForConnection(connection);
 			if (selectionInfo != null) {
 				IColorConstant selectionColor = selectionInfo.getColor();
 				if (selectionColor != null) {
