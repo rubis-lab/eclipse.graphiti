@@ -578,7 +578,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		// decorators
 		addRenderingDecorators(graphicsAlgorithm, pe, figure, toolBehaviorProvider);
 
-		GraphicsAlgorithm selectionGraphicsAlgorithm = toolBehaviorProvider.getSelectionGraphicsAlgorithm(pe);
+		GraphicsAlgorithm selectionGraphicsAlgorithm = toolBehaviorProvider.getSelectionBorder(pe);
 		IFigure selectionFigure = getFigureForGraphicsAlgorithm(selectionGraphicsAlgorithm);
 		if (selectionFigure == null) {
 			// Retreat to graphiti behavior.
@@ -788,7 +788,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
 						.getCurrentToolBehaviorProvider();
 				gfAbstractShape.setSelectionGraphicsAlgorithm(currentToolBehaviorProvider
-						.getSelectionGraphicsAlgorithm(getPictogramElement()));
+						.getSelectionBorder(getPictogramElement()));
 				gfAbstractShape.setSelectionArea(currentToolBehaviorProvider.getSelectionArea(getPictogramElement()));
 			}
 		}
