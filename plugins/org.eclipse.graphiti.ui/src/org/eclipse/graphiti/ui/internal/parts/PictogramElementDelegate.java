@@ -1398,13 +1398,13 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				renderingDecoratorMap.remove(figure);
 			}
 
-			IRenderingDecorator[] renderingDecorators = toolBehaviorProvider.getRenderingDecorators(pe);
+			IRenderingDecorator[] decorators = toolBehaviorProvider.getDecorators(pe);
 
-			if (renderingDecorators.length > 0) {
+			if (decorators.length > 0) {
 				List<IFigure> decList = new ArrayList<IFigure>();
 				renderingDecoratorMap.put(figure, decList);
-				for (int i = 0; i < renderingDecorators.length; i++) {
-					IRenderingDecorator renderingDecorator = renderingDecorators[i];
+				for (int i = 0; i < decorators.length; i++) {
+					IRenderingDecorator renderingDecorator = decorators[i];
 					IFigure decorateFigure = decorateFigure(figure, renderingDecorator);
 					decList.add(decorateFigure);
 				}
