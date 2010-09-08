@@ -86,7 +86,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.tb.ImageRenderingDecorator;
+import org.eclipse.graphiti.tb.ImageDecorator;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFAbstractShape;
@@ -861,8 +861,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		IFigure decoratorFigure = null;
 		org.eclipse.draw2d.geometry.Rectangle boundsForDecoratorFigure = new org.eclipse.draw2d.geometry.Rectangle(0, 0, 16, 16);
 
-		if (renderingDecorator instanceof ImageRenderingDecorator) {
-			ImageRenderingDecorator imageRenderingDecorator = (ImageRenderingDecorator) renderingDecorator;
+		if (renderingDecorator instanceof ImageDecorator) {
+			ImageDecorator imageRenderingDecorator = (ImageDecorator) renderingDecorator;
 			org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(imageRenderingDecorator.getImageId());
 			ImageFigure imageFigure = new RenderingImageFigure(imageForId);
 			decoratorFigure = imageFigure;
