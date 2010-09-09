@@ -789,9 +789,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				GFAbstractShape gfAbstractShape = (GFAbstractShape) ret;
 				IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
 						.getCurrentToolBehaviorProvider();
-				gfAbstractShape.setSelectionGraphicsAlgorithm(currentToolBehaviorProvider
+				gfAbstractShape.setSelectionBorder(currentToolBehaviorProvider
 						.getSelectionBorder(getPictogramElement()));
-				gfAbstractShape.setSelectionArea(currentToolBehaviorProvider.getClickArea(getPictogramElement()));
+				gfAbstractShape.setClickArea(currentToolBehaviorProvider.getClickArea(getPictogramElement()));
 			}
 		}
 
