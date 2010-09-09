@@ -106,7 +106,8 @@ public interface IToolBehaviorProvider {
 	IDecorator[] getDecorators(PictogramElement pe);
 
 	/**
-	 * Gets the adapter.
+	 * Returns the adapter for the specified key. This method will be called in the
+	 * getAdapter() method of the graphical editor. 
 	 * 
 	 * @param type
 	 *            the type
