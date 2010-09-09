@@ -305,7 +305,7 @@
 			version="true"
 			nodeprecated="false"
 			nodeprecatedlist="false"
-			access="public"
+			access="private"
 			maxmemory="4096m"  
 			useexternalfile="true"
 			sourcepath="src"
