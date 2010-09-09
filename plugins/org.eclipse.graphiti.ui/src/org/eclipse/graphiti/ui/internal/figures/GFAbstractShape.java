@@ -71,8 +71,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	private final GraphicsAlgorithm graphicsAlgorithm;
 
 	/**
-	 * The selection GraphicsAlgorithm. See
-	 * {@link #getSelectionBorder()}.
+	 * The selection GraphicsAlgorithm. See {@link #getSelectionBorder()}.
 	 */
 	private GraphicsAlgorithm selectionBorder;
 
@@ -553,8 +552,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	/**
 	 * Returns the selection handle bounds of this Shape. First it checks, if a
 	 * special selection GraphicsAlgorithm is defined for this Shape (see
-	 * {@link #getSelectionBorder()}. Otherwise it just returns the
-	 * bounds of this Shape.
+	 * {@link #getSelectionBorder()}. Otherwise it just returns the bounds of
+	 * this Shape.
 	 * 
 	 * @return The selection handle bounds of this Shape.
 	 */
