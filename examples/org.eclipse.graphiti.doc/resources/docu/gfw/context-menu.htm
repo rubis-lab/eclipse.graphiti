@@ -147,9 +147,9 @@ diagram type provider as described <a href="tool-behavior-provider.htm">here</a>
 the tool behavior provider to overwrite: </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/IToolBehaviorProvider.html#getContextMenu(com.sap.tc.emf.gfw.features.context.IContext)">getContextMenu</a>
+href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getContextMenu(org.eclipse.graphiti.features.context.IContext)">getContextMenu</a>
 has to return the context menu entries for the given context (which implement <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/IContextMenuEntry.html">IContextMenuEntry</a>)</span></p>
+href="../../../javadoc/org/eclipse/graphiti/tb/IContextMenuEntry.html">IContextMenuEntry</a>)</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
@@ -161,7 +161,7 @@ create a context menu entry with “children”, which build a group of other
 context menu entries. Such a group can be shown in the context menu either as a
 sub-menu or as a flat list separated by separator-lines. This behaviour can be
 switched with a simple flag. You can also use the <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/DynamicContextMenuEntry.html">DynamicContextMenuEntry</a>,
+href="../../../javadoc/org/eclipse/graphiti/tb/DynamicContextMenuEntry.html">DynamicContextMenuEntry</a>,
 which will automatically create a sub-menu, if there are more than a predefined
 number of children, and a flat list otherwise.</span></p>
 
@@ -314,14 +314,14 @@ complete implementation of the context menu here:</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Note, that our
 implementation overwrites the standard behavior in the DefaultToolBehaviorProvider,
 which used <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/DefaultToolBehaviorProvider.html#isContextMenuApplicable(com.sap.tc.emf.gfw.features.IFeature)">isContextMenuApplicable</a>
+href="../../../javadoc/org/eclipse/graphiti/tb/DefaultToolBehaviorProvider.html#isContextMenuApplicable(com.sap.tc.emf.gfw.features.IFeature)">isContextMenuApplicable</a>
 to decide which features to add to the context menu. We based on this standard
 behavior when the <a href="custom-feature.htm">custom feature</a> was initially
 implemented and added to the context menu.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>In our overwriting
 implementation we no longer use <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/DefaultToolBehaviorProvider.html#isContextMenuApplicable(com.sap.tc.emf.gfw.features.IFeature)">isContextMenuApplicable</a>,
+href="../../../javadoc/org/eclipse/graphiti/tb/DefaultToolBehaviorProvider.html#isContextMenuApplicable(org.eclipse.graphiti.features.IFeature)">isContextMenuApplicable</a>,
 so that this method can be deleted now.</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>

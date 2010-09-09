@@ -163,22 +163,22 @@ diagram type provider as described <a href="tool-behavior-provider.htm">here</a>
 the tool behavior provider to overwrite: </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/IToolBehaviorProvider.html#getRenderingDecorators(PictogramElement)">getRenderingDecorators</a>
+href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getRenderingDecorators(org.eclipse.graphiti.mm.pictograms.PictogramElement)">getRenderingDecorators</a>
 has to return the rendering decorators for the given pictogram element. A
 rendering decorator must implement the interface <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/IRenderingDecorator.html">IRenderingDecorator</a>
+href="../../../javadoc/org/eclipse/graphiti/tb/IRenderingDecorator.html">IRenderingDecorator</a>
 and may also implement <a
-href="../../../javadoc/com/sap/tc/emf/gfw/datatypes/ILocation.html">ILocation</a>,
+href="../../../javadoc/org/eclipse/graphiti/datatypes/ILocation.html">ILocation</a>,
 which provides the decorator location relative to the pictogram element.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Currently only the <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/ImageRenderingDecorator.html">ImageRenderingDecorator</a>
+href="../../../javadoc/org/eclipse/graphiti/tb/ImageRenderingDecorator.html">ImageRenderingDecorator</a>
 is supported, which renders an image at the defined location and can show a
 text message as tooltip.&nbsp;&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal>The class <span class="code2"><a href="../../../javadoc/com/sap/tc/emf/gfw/tb/AdvancedDecoratingToolBehaviorProvider.html"><span style="font-style:normal">DefaultDecoratingToolBehaviorProvider</span></a></span>
+<p class=MsoNormal>The class <span class="code2"><a href="../../../javadoc/org/eclipse/graphiti/tb/AdvancedDecoratingToolBehaviorProvider.html"><span style="font-style:normal">DefaultDecoratingToolBehaviorProvider</span></a></span>
 provides a default implementation, which decorates shapes with the problem
 markers (error/warning/info icons) assigned to the corresponding business
 object of the given pictogram element</p>

@@ -210,7 +210,7 @@ entries available in the palette:</span></p>
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-US><a
-href="../../../javadoc/com/sap/tc/emf/gfw/palette/impl/PaletteCompartmentEntry.html">PaletteCompartmentEntry</a></span></p>
+href="../../../javadoc/org/eclipse/graphiti/palette/impl/PaletteCompartmentEntry.html">PaletteCompartmentEntry</a></span></p>
 
 <p class=MsoNormal><span lang=EN-US>This is a container which allows
 structuring the tools into different compartments, which can be collapsed and
@@ -224,7 +224,7 @@ src="visio/palette-compartment.png"></p>
 creation tools</span></p>
 
 <p class=MsoNormal><span lang=EN-US><a
-href="../../../javadoc/com/sap/tc/emf/gfw/palette/impl/ConnectionCreationToolEntry.html">ConnectionCreationToolEntry</a></span></p>
+href="../../../javadoc/org/eclipse/graphiti/palette/impl/ConnectionCreationToolEntry.html">ConnectionCreationToolEntry</a></span></p>
 
 <p class=MsoNormal><span lang=EN-US>This tool lets the user create a connection
 between two objects by starting the connection on a source object dropping it
@@ -241,7 +241,7 @@ select the one to execute.</span></p>
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-US><a
-href="../../../javadoc/com/sap/tc/emf/gfw/palette/impl/ObjectCreationToolEntry.html">ObjectCreationToolEntry</a></span></p>
+href="../../../javadoc/org/eclipse/graphiti/palette/impl/ObjectCreationToolEntry.html">ObjectCreationToolEntry</a></span></p>
 
 <p class=MsoNormal><span lang=EN-US>This tool lets the user create objects in
 the diagram using one <a href="create-feature.htm">create feature</a>.</span></p>
@@ -249,7 +249,7 @@ the diagram using one <a href="create-feature.htm">create feature</a>.</span></p
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-US><a
-href="../../../javadoc/com/sap/tc/emf/gfw/palette/impl/StackEntry.html">StackEntry</a></span></p>
+href="../../../javadoc/org/eclipse/graphiti/palette/impl/StackEntry.html">StackEntry</a></span></p>
 
 <p class=MsoNormal><span lang=EN-US>A stack can contain an arbitrary number of
 creation tools (not directly create features) which belong semantically
@@ -281,16 +281,16 @@ the tool behavior provider to overwrite: </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
 lang=EN-US><a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/IToolBehaviorProvider.html#getPaletteCompartments()">getPaletteCompartments</a><b>
+href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getPaletteCompartments()">getPaletteCompartments</a><b>
 </b></span><span lang=EN-GB style='color:black'>has to return the palette
 entries (which implement <a
-href="../../../javadoc/com/sap/tc/emf/gfw/palette/IPaletteCompartmentEntry.html">IPaletteCompartmentEntry</a>)</span></p>
+href="../../../javadoc/org/eclipse/graphiti/palette/IPaletteCompartmentEntry.html">IPaletteCompartmentEntry</a>)</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-US>The default implementation of this method
 in the class <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/DefaultToolBehaviorProvider.html">DefaultToolBehaviorProvider</a>
+href="../../../javadoc/org/eclipse/graphiti/tb/DefaultToolBehaviorProvider.html">DefaultToolBehaviorProvider</a>
 builds a palette with two compartments. The first compartment contains a
 connection creation tool for each <a href="create-connection-feature.htm">create
 connection feature</a> and the second compartment contains a creation tool for

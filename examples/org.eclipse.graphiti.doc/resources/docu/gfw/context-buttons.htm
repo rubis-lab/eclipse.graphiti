@@ -302,9 +302,9 @@ diagram type provider as described <a href="tool-behavior-provider.htm">here</a>
 the tool behavior provider to overwrite: </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/IToolBehaviorProvider.html#getContextButtonPadData(com.sap.tc.emf.gfw.features.context.IPictogramElementContext)">getContextButtonPadData</a>
+href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getContextButtonPadData(org.eclipse.graphiti.features.context.IPictogramElementContext)">getContextButtonPadData</a>
 has to return the context buttons for the given context (which implement <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/IContextButtonEntry.html">IContextButtonEntry</a>).
+href="../../../javadoc/org/eclipse/graphiti/tb/IContextButtonEntry.html">IContextButtonEntry</a>).
 </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
@@ -327,7 +327,7 @@ of context buttons:</span></p>
      button: the look and position for the collapse context button is
      standardized for all tools. A specific tool must define the behavior of
      the collapse context button by defining the feature to call (see <a
-     href="../../../javadoc/com/sap/tc/emf/gfw/tb/ContextEntryHelper.html#createCollapseContextButton(boolean, com.sap.tc.emf.gfw.features.IFeature, com.sap.tc.emf.gfw.features.context.IContext">createCollapseContextButton</a>).</span></li>
+     href="../../../javadoc/org/eclipse/graphiti/tb/ContextEntryHelper.html#createCollapseContextButton(boolean, org.eclipse.graphiti.features.IFeature, org.eclipse.graphiti.features.context.IContext)">createCollapseContextButton</a>).</span></li>
 </ul>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
@@ -632,7 +632,7 @@ information about icon, display text and tooltip description.</span></p>
 <p class=MsoNormal><span lang=EN-US>The positioning of the context buttons can
 be influenced by changing the rectangle around which the context buttons are
 placed (see <a
-href="../../../javadoc/com/sap/tc/emf/gfw/tb/IContextButtonPadData.html#getPadLocation()">getPadLocation</a>).
+href="../../../javadoc/org/eclipse/graphiti/tb/IContextButtonPadData.html#getPadLocation()">getPadLocation</a>).
 By default the selection area is used (see <a href="selection-behavior.htm">selection
 behavior</a>) if defined, or otherwise the bounds of the pictogram elements
 main graphics algorithm are used.</span></p>
