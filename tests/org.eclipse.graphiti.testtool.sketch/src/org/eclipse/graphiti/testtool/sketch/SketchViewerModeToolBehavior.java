@@ -1,7 +1,6 @@
 package org.eclipse.graphiti.testtool.sketch;
 
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureChecker;
 import org.eclipse.graphiti.features.IFeatureCheckerHolder;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
@@ -28,11 +27,6 @@ public class SketchViewerModeToolBehavior extends SketchToolBehavior implements 
 	@Override
 	public double[] getZoomLevels() {
 		return ZOOM_LEVELS;
-	}
-
-	@Override
-	public boolean isPaletteApplicable(IFeature feature) {
-		return false;
 	}
 
 	@Override
