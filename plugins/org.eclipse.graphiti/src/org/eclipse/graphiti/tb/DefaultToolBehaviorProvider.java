@@ -358,10 +358,6 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return DiagramScrollingBehavior.GEF_DEFAULT;
 	}
 
-	public boolean isPaletteApplicable(IFeature feature) {
-		return feature instanceof ICreateFeature;
-	}
-
 	private void setDiagramTypeProvider(IDiagramTypeProvider diagramTypeProvider) {
 		this.diagramTypeProvider = diagramTypeProvider;
 	}

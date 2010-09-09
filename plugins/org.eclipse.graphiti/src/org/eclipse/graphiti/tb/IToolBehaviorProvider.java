@@ -17,7 +17,6 @@ package org.eclipse.graphiti.tb;
 
 import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.IExecutionInfo;
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
@@ -73,15 +72,6 @@ public interface IToolBehaviorProvider {
 	IPaletteCompartmentEntry[] getPalette();
 
 	/**
-	 * Checks if a feature should appear in the palette.
-	 * 
-	 * @param feature
-	 *            the feature
-	 * @return <code>true</code>, if the feature should appear in the palette
-	 */
-	boolean isPaletteApplicable(IFeature feature);
-
-	/**
 	 * Returns a feature which will be executed at at double click. For that
 	 * purpose a custom feature is used, because custom features appear in the
 	 * context menu and the double click feature should also appear in the
@@ -106,8 +96,8 @@ public interface IToolBehaviorProvider {
 	IDecorator[] getDecorators(PictogramElement pe);
 
 	/**
-	 * Returns the adapter for the specified key. This method will be called in the
-	 * getAdapter() method of the graphical editor. 
+	 * Returns the adapter for the specified key. This method will be called in
+	 * the getAdapter() method of the graphical editor.
 	 * 
 	 * @param type
 	 *            the type
