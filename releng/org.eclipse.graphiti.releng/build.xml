@@ -329,7 +329,7 @@
 		</javadoc>
 	</target>
 
-	<target name="test">
+	<target name="test" depends="site.p2">
 		<echo message="Running JUnit tests for Graphiti" />
 		<buckminsterDirect>
 			<cmdargs>
