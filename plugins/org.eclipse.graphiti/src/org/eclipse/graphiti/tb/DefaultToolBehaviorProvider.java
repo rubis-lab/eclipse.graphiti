@@ -119,22 +119,6 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return si;
 	}
 
-	/**
-	 * Returns the context button pad data for the given pictogram element
-	 * context. This default implementation sets the pad-location to the bounds
-	 * to the selection graphics algorithm or the pictogram element (see
-	 * {@link #getSelectionBorder(PictogramElement)}) or if not
-	 * defined to the graphics algorithm associated directly the pictogram
-	 * element.
-	 * 
-	 * Note, that the pad-location must be given in absolute coordinates, which
-	 * can be calculated using {@link #getAbsoluteLocation(GraphicsAlgorithm)}.
-	 * 
-	 * @param pe
-	 *            the given pictogram element
-	 * @return The context button pad data for the given pictogram element
-	 *         context.
-	 */
 	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
 		final String SIGNATURE = "getContextButtonPadData(IPictogramElementContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -293,7 +277,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * Default implementation: creates a connection and an object compartment.
 	 * Adds all connection creation features and creation features.
 	 * 
-	 * @return the palette compartments
+	 * @return the palette entries
 	 */
 	public IPaletteCompartmentEntry[] getPalette() {
 		final String SIGNATURE = "getPaletteCompartments()"; //$NON-NLS-1$
@@ -417,38 +401,14 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	public void postExecute(IExecutionInfo executionInfo) {
 	}
 
-	/**
-	 * Gets the tool tip.
-	 * 
-	 * @param ga
-	 *            the graphics algorithm
-	 * @return the tool tip
-	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getToolTip(org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm)
-	 */
 	public String getToolTip(GraphicsAlgorithm ga) {
 		return null;
 	}
 
-	/**
-	 * Gets the selection graphics algorithm.
-	 * 
-	 * @param pe
-	 *            the pictogram element
-	 * @return the selection graphics algorithm
-	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getSelectionBorder(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	public GraphicsAlgorithm getSelectionBorder(PictogramElement pe) {
 		return null;
 	}
 
-	/**
-	 * Gets the selection area.
-	 * 
-	 * @param pe
-	 *            the pictogram element
-	 * @return the selection area
-	 * @see org.eclipse.graphiti.tb.IToolBehaviorProvider#getClickArea(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	public GraphicsAlgorithm[] getClickArea(PictogramElement pe) {
 		GraphicsAlgorithm graphicsAlgorithm = pe.getGraphicsAlgorithm();
 		if (graphicsAlgorithm != null) {
@@ -469,10 +429,6 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return true;
 	}
 
-	/**
-	 * Default implementation returns null which is interpreted by framework as
-	 * the master graphics algorithm for the container shape
-	 */
 	public GraphicsAlgorithm getContentArea(ContainerShape cs) {
 		return null;
 	}
