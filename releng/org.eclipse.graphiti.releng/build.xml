@@ -254,7 +254,7 @@
 		<echo message="Do the provisioning" />
 	</target>
 
-	<target name="site.p2" depends="provision">
+	<target name="site.p2" depends="provision, create.javadoc">
 		<echo message="Building all projects in workspace ${workspace}" />
 		<buckminster command="build">
 			<cmdargs>
@@ -283,7 +283,7 @@
 		</buckminster>
 	</target>
 	
-	<target name="create.javadoc" depends="site.p2" description="Generate the JavaDoc for the sources">
+	<target name="create.javadoc" description="Generate the JavaDoc for the sources">
 		<echo message="Generate the JavaDoc for the sources"></echo>
 		<echo message="javadoc source ${workspace}" />
 		
