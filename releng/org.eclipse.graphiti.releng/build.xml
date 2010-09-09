@@ -254,7 +254,7 @@
 		<echo message="Do the provisioning" />
 	</target>
 
-	<target name="site.p2" depends="provision, create.javadoc">
+	<target name="site.p2" depends="provision">
 		<echo message="Building all projects in workspace ${workspace}" />
 		<buckminster command="build">
 			<cmdargs>
@@ -262,6 +262,8 @@
 			</cmdargs>
 		</buckminster>
 
+		<antcall target="create.javadoc" />
+		
 		<echo message="Performing org.eclipse.graphiti.site#site.p2" />
 		<buckminster command="perform">
 			<cmdargs>
