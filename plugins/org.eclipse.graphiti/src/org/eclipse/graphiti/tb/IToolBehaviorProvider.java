@@ -64,7 +64,9 @@ public interface IToolBehaviorProvider {
 	IContextMenuEntry[] getContextMenu(ICustomContext context);
 
 	/**
-	 * Return the palette entries.
+	 * Return the palette entries for the palette of the graphical editor.
+	 * Typically these entries are a subset of CreateFeatures and
+	 * CreateConnectionFeatures which are provided by the feature provider.
 	 * 
 	 * @return the palette entries
 	 */
@@ -80,9 +82,9 @@ public interface IToolBehaviorProvider {
 	boolean isPaletteApplicable(IFeature feature);
 
 	/**
-	 * Decides about the feature to execute if a double click is triggered. We
-	 * decided to return a custom feature, because custom features appear in the
-	 * context menu an the double click feature should also appear in the
+	 * Returns a feature which will be executed at at double click. For that
+	 * purpose a custom feature is used, because custom features appear in the
+	 * context menu and the double click feature should also appear in the
 	 * context menu (usual UI guideline).
 	 * 
 	 * @param context
@@ -93,7 +95,9 @@ public interface IToolBehaviorProvider {
 	ICustomFeature getDoubleClickFeature(IDoubleClickContext context);
 
 	/**
-	 * Gets the decorators.
+	 * Returns decorators which will be used at rendering time to decorate the
+	 * graphical representation of the given pictogram element.<br>
+	 * Currently only decorators of type {@link IImageDecorator} are supported.
 	 * 
 	 * @param pe
 	 *            the pictogram element
@@ -118,9 +122,10 @@ public interface IToolBehaviorProvider {
 	 *            the original pictogram element
 	 * @param oldSelection
 	 *            the old selection
-	 * @return the active PE to be selected instead; return null if there should
-	 *         not be a special selection behavior; if there should not be a
-	 *         selection return the diagram
+	 * @return an active pictogram element to be selected instead; return
+	 *         <code>null</code> if there should not be a special selection
+	 *         behavior; if there should not be a selection simply return the
+	 *         diagram
 	 */
 	PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection);
 
@@ -206,7 +211,8 @@ public interface IToolBehaviorProvider {
 	void postExecute(IExecutionInfo executionInfo);
 
 	/**
-	 * Returns the tooltip to be attached to the graphics algorithm.
+	 * Returns the tooltip to be attached to the graphical representation of the
+	 * given graphics algorithm.
 	 * 
 	 * @param graphicsAlgorithm
 	 *            the graphics algorithm
@@ -247,18 +253,18 @@ public interface IToolBehaviorProvider {
 	GraphicsAlgorithm[] getClickArea(PictogramElement pe);
 
 	/**
-	 * Provides the GA that defines the outline for the given pictogram
-	 * element's chopbox Anchor.
+	 * Provides the graphics algorithm that defines the outline for the given
+	 * pictogram element's chopbox Anchor.
 	 * 
 	 * @param pe
 	 *            the given pictogram element
-	 * @return the GA that defines the outline for connections from or to the
-	 *         shape's chopbox anchor
+	 * @return the graphics algorithm that defines the outline for connections
+	 *         from or to the shape's chopbox anchor
 	 */
 	GraphicsAlgorithm getChopboxAnchorArea(PictogramElement pe);
 
 	/**
-	 * Returns a tooltip for the workbench titlebar for the given diagram
+	 * Returns a tooltip for the workbench titlebar.
 	 * 
 	 * @return a tooltip or <code>null</code> to indicate that the default from
 	 *         the graphics framework will be used
