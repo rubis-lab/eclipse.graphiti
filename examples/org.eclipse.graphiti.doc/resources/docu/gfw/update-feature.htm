@@ -194,19 +194,20 @@ manually</span></p>
 <p class=MsoNormal><span lang=EN-US style='color:black'>By default the
 automatic update is inactive, but this can be configured by overwriting the
 following methods in the <a
-href="../../../javadoc/com/sap/tc/emf/gfw/dt/IDiagramTypeProvider.html">IDiagramTypeProvider</a>:</span></p>
+href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html">IDiagramTypeProvider</a>:</span></p>
 
 <ul style='margin-top:0cm' type=disc>
  <li class=MsoNormal style='color:black'><span lang=EN-US>If <a
-     href="../../../javadoc/com/sap/tc/emf/gfw/dt/IDiagramTypeProvider.html#isAutoUpdateAtStartup()">isAutoUpdateAtStartup</a>
+     href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtStartup()">isAutoUpdateAtStartup</a>
      returns true, then the diagram will be updated, when it is initially
      opened in the graphical editor. This will make the editor dirty. </span></li>
  <li class=MsoNormal style='color:black'><span lang=EN-US>If <a
-     href="../../../javadoc/com/sap/tc/emf/gfw/dt/IDiagramTypeProvider.html#isAutoUpdateAtRuntime()">isAutoUpdateAtRuntime</a>
+     href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtRuntime()">isAutoUpdateAtRuntime</a>
      returns true, then the diagram will be updated, when it is already open in
      the graphical editor, but only if the editor is already dirty.</span></li>
 	<li class=MsoNormal style='color:black'><span lang="en-us">If
-	<font color="#0000FF">isAutoUpdateAtReset</font> returns true, then the 
+	<a
+     href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtReset()">isAutoUpdateAtReset</a> returns true, then the 
 	diagram will be updated, if the editor is already dirty and the user chooses 
 	to discard his changes (reset the diagram), when a change from outside the 
 	diagram occurs.</span></li>
@@ -220,13 +221,13 @@ href="../../../javadoc/com/sap/tc/emf/gfw/dt/IDiagramTypeProvider.html">IDiagram
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>An update feature has to
 implement the interface <span class=code1><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IUpdateFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/IUpdateFeature.html"><span
 style='font-style:normal'>IUpdateFeature</span></a>.</span> </span><span
 lang=EN-GB style='color:black'>Instead of implementing it directly it should
 extend one of the available base classes. In this example we extend the base
 class<span class=code1> </span></span><span class=code1><span lang=EN-US
 style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/impl/AbstractUpdateFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractUpdateFeature.html"><span
 style='font-style:normal'>AbstractUpdateFeature</span></a></span></span><span
 lang=EN-GB style='color:black'>.</span></p>
 
@@ -236,20 +237,20 @@ lang=EN-GB style='color:black'>.</span></p>
 implement/overwrite 3 methods:</span></p>
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/IUpdate.html#canUpdate(com.sap.tc.emf.gfw.features.context.IUpdateContext)">canUpdate</a>
+href="../../../javadoc/org/eclipse/graphiti/func/IUpdate.html#canUpdate(org.eclipse.graphiti.features.context.IUpdateContext)">canUpdate</a>
 has to check whether the values of the current pictogram element of the given
 context can be updated.</span></p>
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>The method <span
 class=code1><a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/IUpdate.html#update(com.sap.tc.emf.gfw.features.context.IUpdateContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/func/IUpdate.html#update(org.eclipse.graphiti.features.context.IUpdateContext)"><span
 style='font-style:normal'>update</span></a></span> has to update this pictogram
 element. &nbsp;It has to copy the latest values from the business objects to
 the graphics algorithm of this pictogram element.</span></p>
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>The method <span
 class=code1><a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/IUpdate.html#updateNeeded(com.sap.tc.emf.gfw.features.context.IUpdateContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/func/IUpdate.html#updateNeeded(org.eclipse.graphiti.features.context.IUpdateContext)"><span
 style='font-style:normal'>updateNeeded</span></a></span> has to check whether
 the values in the pictogram element are up to date, that means whether the
 graphics algorithm of this pictogram element contain the latest values from the
@@ -604,7 +605,7 @@ can see the complete implementation of the update feature here:</span></p>
 <p class=MsoNormal><span lang=EN-US style='color:black'>Additionally the
 feature provider has to deliver our newly created feature (overwrite the method
 <span class=code1><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getUpdateFeature(com.sap.tc.emf.gfw.features.context.IUpdateContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getUpdateFeature(org.eclipse.graphiti.features.context.IUpdateContext)"><span
 style='font-style:normal'>getUpdateFeature</span></a></span><span class=code1><span
 style='font-style:normal'>)</span></span><i>. </i></span></p>
 

@@ -121,7 +121,7 @@ we want to additionally restrict the resize. </span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>A resize feature has to
 implement the interface </span><span class=code1><span lang=EN-US
 style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IResizeShapeFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/IResizeShapeFeature.html"><span
 style='font-style:normal'>IResizeShapeFeature</span></a></span></span><span
 lang=EN-GB style='color:black'>. Instead of implementing this directly you
 should extend one of the available base classes.</span></p>
@@ -129,7 +129,7 @@ should extend one of the available base classes.</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>In this example we
 extend the base class<span class=code1> </span></span><span class=code1><span
 lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/impl/DefaultResizeShapeFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/impl/DefaultResizeShapeFeature.html"><span
 style='font-style:normal'>DefaultResizeShapeFeature</span></a></span></span><span
 lang=EN-GB style='color:black'>. </span></p>
 
@@ -137,14 +137,14 @@ lang=EN-GB style='color:black'>. </span></p>
 to overwrite: </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/IResizeShape.html#canResizeShape(com.sap.mi.gfw.features.context.IResizeShapeContext)">canResizeShape</a>
+href="../../../javadoc/org/eclipse/graphiti/func/IResizeShape.html#canResizeShape(org.eclipse.graphiti.features.context.IResizeShapeContext)">canResizeShape</a>
 has to check if this feature can do the resize corresponding to the given
 context. </span><span lang=EN-US style='color:black'>In this case the location
 information contained in the context consists of the shape to be resized.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
 class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/IResizeShape.html#resizeShape(com.sap.tc.emf.gfw.features.context.IResizeShapeContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/func/IResizeShape.html#resizeShape(org.eclipse.graphiti.features.context.IResizeShapeContext)"><span
 style='font-style:normal'>resizeShape</span></a></span></span><span lang=EN-GB
 style='color:black'> does the final resize. </span></p>
 
@@ -280,7 +280,7 @@ complete implementation of the resize feature here:</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
 feature provider has to deliver our newly created feature (overwrite the method
 </span><span class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getResizeShapeFeature(com.sap.tc.emf.gfw.features.context.IResizeShapeContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getResizeShapeFeature(org.eclipse.graphiti.features.context.IResizeShapeContext)"><span
 style='font-style:normal'>getResizeShapeFeature</span></a></span></span><span
 class=code1><span lang=EN-US style='color:black;font-style:normal'>).</span></span></p>
 

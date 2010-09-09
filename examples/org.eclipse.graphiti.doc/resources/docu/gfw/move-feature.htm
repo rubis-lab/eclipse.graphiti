@@ -139,17 +139,17 @@ feature.</span></p>
 need a special move feature which is used by the editor if a move gesture (a
 drag) is received as interaction. A move feature has to implement the interface
 <span class=code1><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IMoveFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/IMoveFeature.html"><span
 style='font-style:normal'>IMoveFeature</span></a></span> or one of the more
 specialized interfaces. </span><span lang=EN-GB style='color:black'>Instead of
 implementing them directly you should extend one of the available base classes.
 In this example we extend the base class<span class=code1> </span></span><span
 class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/jam/DefaultMoveShapeFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/impl/DefaultMoveShapeFeature.html"><span
 style='font-style:normal'>DefaultMoveShapeFeature</span></a></span></span><span
 class=code1><span lang=EN-US style='color:black;font-style:normal'> which
 implements the interface</span></span><span lang=EN-US style='color:black'> <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IMoveShapeFeature.html">IMoveShapeFeature</a></span><span
+href="../../../javadoc/org/eclipse/graphiti/features/IMoveShapeFeature.html">IMoveShapeFeature</a></span><span
 lang=EN-GB style='color:black'>.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
@@ -159,7 +159,7 @@ have to overwrite/implement one method:</span></p>
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>The method <span
 class=code1><a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/IMoveShape.html#canMoveShape(com.sap.tc.emf.gfw.features.context.IMoveShapeContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/func/IMoveShape.html#canMoveShape(org.eclipse.graphiti.features.context.IMoveShapeContext)"><span
 style='font-style:normal'>canMoveShape</span></a></span> has to check whether
 the current pictogram element of the given context can be moved to the given
 location. In this case the location information contained in the context
@@ -311,7 +311,7 @@ complete implementation of the move feature here:</span></p>
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>Additionally the feature
 provider has to deliver our newly created feature (overwrite the method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getMoveShapeFeature(com.sap.tc.emf.gfw.features.context.IMoveShapeContext)">getMoveShapeFeature</a><span
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getMoveShapeFeature(org.eclipse.graphiti.features.context.IMoveShapeContext)">getMoveShapeFeature</a><span
 class=code1>)</span>. </span></p>
 
 <p class=MsoNormal><span lang=EN-US style='color:black'>This implementation can

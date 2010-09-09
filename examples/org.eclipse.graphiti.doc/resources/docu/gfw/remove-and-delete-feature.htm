@@ -104,18 +104,18 @@ pictogram element.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB>A remove feature has to implement the
 interface </span><span class=code><span lang=EN-US><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IRemoveFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/IRemoveFeature.html"><span
 style='font-style:normal'>IRemoveFeature</span></a></span></span><span
 lang=EN-GB>. Instead of implementing this directly you should extend the
 available default implementation </span><span class=code><span lang=EN-US><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/jam/DefaultRemoveFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/impl/DefaultRemoveFeature.html"><span
 style='font-style:normal'>DefaultRemoveFeature</span></a></span></span><span
 lang=EN-GB>. </span></p>
 
 <p class=MsoNormal><span lang=EN-GB>Own implementations of remove features have
 to be provided by the corresponding feature provider through its </span><span
 class=Code0><span lang=EN-US><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getRemoveFeature(com.sap.tc.emf.gfw.features.context.IRemoveContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getRemoveFeature(org.eclipse.graphiti.features.context.IRemoveContext)"><span
 style='font-style:normal'>getRemoveFeature</span></a></span></span><span
 lang=EN-GB> method. Note, that in most cases it is not necessary to provide an
 own implementation of the remove feature, because the graphics framework has
@@ -135,18 +135,18 @@ called inner elements, you have to <a href="custom-feature.htm">provide custom f
 
 <p class=MsoNormal><span lang=EN-GB>A delete feature has to implement the
 interface </span><span class=code><span lang=EN-US><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IDeleteFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/IDeleteFeature.html"><span
 style='font-style:normal'>IDeleteFeature</span></a></span></span><span
 lang=EN-GB>. Instead of implementing this directly you should extend the
 available default implementation </span><span class=code><span lang=EN-US><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/jam/DefaultDeleteFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/ui/features/DefaultDeleteFeature.html"><span
 style='font-style:normal'>DefaultDeleteFeature</span></a></span></span><span
 lang=EN-GB>. </span></p>
 
 <p class=MsoNormal><span lang=EN-GB>Own implementations of delete features have
 to be provided by the corresponding feature provider through its </span><span
 class=Code0><span lang=EN-US style='font-style:normal'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getDeleteFeature(com.sap.tc.emf.gfw.features.context.IDeleteContext)">getDeleteFeature</a></span></span><span
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getDeleteFeature(org.eclipse.graphiti.features.context.IDeleteContext)">getDeleteFeature</a></span></span><span
 lang=EN-GB> method. Note, that in most cases it is not necessary to provide an
 own implementation of the delete feature, because the graphics framework has
 enough knowledge to provide a good default implementation. </span></p>

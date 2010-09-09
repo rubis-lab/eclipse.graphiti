@@ -221,13 +221,13 @@ rename, change color, check out, …</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>A custom feature has to
 implement the interface </span><span class=code1><span lang=EN-US
 style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/custom/ICustomFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/custom/ICustomFeature.html"><span
 style='font-style:normal'>ICustomFeature</span></a>.</span></span><span
 lang=EN-US style='color:black'> </span><span lang=EN-GB style='color:black'>Instead
 of implementing it directly it should extend one of the available base classes.
 In this example we extend the base class<span class=code1> </span></span><span
 class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/custom/AbstractCustomFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/custom/AbstractCustomFeature.html"><span
 style='font-style:normal'>AbstractCustomFeature</span></a></span></span><span
 lang=EN-GB style='color:black'>.</span></p>
 
@@ -237,13 +237,13 @@ lang=EN-GB style='color:black'>.</span></p>
 implement/overwrite 4 methods:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/custom/ICustomFeature.html#canExecute(com.sap.tc.emf.gfw.features.context.ICustomContext)">c<span
+href="../../../javadoc/org/eclipse/graphiti/features/custom/ICustomFeature.html#canExecute(org.eclipse.graphiti.features.context.ICustomContext)">c<span
 lang=EN-US>anExecute</span></a> has to check whether the custom feature can be
 executed on the current pictogram element of the given context.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
 class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/custom/ICustomFeature.html#execute(com.sap.tc.emf.gfw.features.context.ICustomContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/features/custom/ICustomFeature.html#execute(org.eclipse.graphiti.features.context.ICustomContext)"><span
 style='font-style:normal'>execute</span></a></span></span><span lang=EN-US
 style='color:black'> </span><span lang=EN-GB style='color:black'>has to perform
 the custom specific stuff.</span></p>
@@ -251,7 +251,7 @@ the custom specific stuff.</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>These two methods
 receive a custom context as parameter. Interface </span><span class=code1><span
 lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/context/ICustomContext.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/context/ICustomContext.html"><span
 style='font-style:normal'>ICustomContext</span></a></span></span><span
 lang=EN-GB style='color:black'> provides the inner pictogram element and the
 inner graphics algorithm additionally to the (selected) pictogram element.
@@ -263,9 +263,9 @@ selected/selectable ones. </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The methods </span><span
 class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/custom/ICustomFeature.html#getName()"><span
+href="../../../javadoc/org/eclipse/graphiti/IName.html#getName()"><span
 style='font-style:normal'>getName</span></a> / <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/custom/ICustomFeature.html#getDescription()"><span
+href="../../../javadoc/org/eclipse/graphiti/IDescription.html#getDescription()"><span
 style='font-style:normal'>getDescription</span></a></span></span><span
 lang=EN-GB style='color:black'> have to return the information for the UI
 representation. &nbsp;</span></p>
@@ -520,7 +520,7 @@ complete implementation of the custom feature here:</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
 feature provider has to deliver our newly created custom feature (overwrite the
 method </span><span class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getCustomFeatures(com.sap.tc.emf.gfw.features.context.ICustomContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCustomFeatures(org.eclipse.graphiti.features.context.ICustomContext)"><span
 style='font-style:normal'>getCustomFeatures</span></a></span></span><span
 class=code1><span lang=EN-US style='color:black;font-style:normal'>)</span></span><i><span
 lang=EN-GB style='color:black'>. </span></i></p>

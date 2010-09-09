@@ -204,13 +204,13 @@ the framework.</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>A create feature has to
 implement the interface </span><span class=code1><span lang=EN-US
 style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/ICreateFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/ICreateFeature.html"><span
 style='font-style:normal'>ICreateFeature</span></a>.</span></span><span
 lang=EN-US style='color:black'> </span><span lang=EN-GB style='color:black'>Instead
 of implementing it directly it should extend one of the available base classes.
 In this example we extend the base class<span class=code1> </span></span><span
 class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/impl/AbstractCreateFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractCreateFeature.html"><span
 style='font-style:normal'>AbstractCreateFeature</span></a></span></span><span
 lang=EN-GB style='color:black'>.</span></p>
 
@@ -220,13 +220,13 @@ lang=EN-GB style='color:black'>.</span></p>
 implement/overwrite two methods:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/ICreate.html#canCreate(com.sap.tc.emf.gfw.features.context.ICreateContext)">c<span
+href="../../../javadoc/org/eclipse/graphiti/func/ICreate.html#canCreate(org.eclipse.graphiti.features.context.ICreateContext)">c<span
 lang=EN-US>anCreate</span></a> has to check whether the business object can be
 created for the given context. </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
 class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/ICreate.html#create(com.sap.tc.emf.gfw.features.context.ICreateContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/func/ICreate.html#create(org.eclipse.graphiti.features.context.ICreateContext)"><span
 style='font-style:normal'>create</span></a></span></span><span lang=EN-GB
 style='color:black'> has to create the business object and also has to add the
 graphical representation of the newly created business object to the diagram.
@@ -442,7 +442,7 @@ complete implementation of the create feature here: </span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
 feature provider has to deliver our newly created feature (overwrite the method
 </span><span class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getCreateFeatures()"><span
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCreateFeatures()"><span
 style='font-style:normal'>getCreateFeatures</span></a>)</span></span><span
 lang=EN-GB style='color:black'>. </span></p>
 

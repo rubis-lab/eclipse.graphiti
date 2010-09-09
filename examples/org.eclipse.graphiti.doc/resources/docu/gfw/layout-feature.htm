@@ -308,13 +308,13 @@ recommended solution.</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>A layout feature has to
 implement the interface </span><span class=code1><span lang=EN-US
 style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/ILayoutFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/ILayoutFeature.html"><span
 style='font-style:normal'>ILayoutFeature</span></a>.</span></span><span
 lang=EN-US style='color:black'> </span><span lang=EN-GB style='color:black'>Instead
 of implementing it directly you should extend one of the available base
 classes. In this example we extend the base class<span class=code1> </span></span><span
 class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/impl/AbstractLayoutFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractLayoutFeature.html"><span
 style='font-style:normal'>AbstractLayoutFeature</span></a></span></span><span
 lang=EN-GB style='color:black'>.</span></p>
 
@@ -324,13 +324,13 @@ lang=EN-GB style='color:black'>.</span></p>
 implement/overwrite two methods:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/ILayout.html#canLayout(com.sap.tc.emf.gfw.features.context.ILayoutContext)">c<span
+href="../../../javadoc/org/eclipse/graphiti/func/ILayout.html#canLayout(org.eclipse.graphiti.features.context.ILayoutContext)">c<span
 lang=EN-US>anLayout</span></a> has to check whether the pictogram element of
 the given context can be layouted. </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
 class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/ILayout.html#layout(com.sap.tc.emf.gfw.features.context.ILayoutContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/func/ILayout.html#layout(org.eclipse.graphiti.features.context.ILayoutContext)"><span
 style='font-style:normal'>layout</span></a></span></span><span lang=EN-GB
 style='color:black'> has to recalculate and modify everything needed to layout
 the pictogram element given with the context. </span></p>
@@ -640,7 +640,7 @@ complete implementation of the move feature here:</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
 feature provider has to deliver our newly created feature (overwrite the method
 </span><span class=code1><span lang=EN-US style='color:black;font-style:normal'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getLayoutFeature(com.sap.tc.emf.gfw.features.context.ILayoutContext)">getLayoutFeature</a>)</span></span><i><span
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getLayoutFeature(org.eclipse.graphiti.features.context.ILayoutContext)">getLayoutFeature</a>)</span></span><i><span
 lang=EN-GB style='color:black'>.</span></i><span lang=EN-GB style='color:black'>
 </span></p>
 
