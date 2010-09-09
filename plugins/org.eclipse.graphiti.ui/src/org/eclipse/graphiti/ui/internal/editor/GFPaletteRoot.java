@@ -229,9 +229,7 @@ public class GFPaletteRoot extends PaletteRoot {
 
 			ICreateFeature feat = objectCreationToolEntry.getCreateFeature();
 
-			boolean paletteApplicable = cfgProvider.getDiagramTypeProvider().getCurrentToolBehaviorProvider().isPaletteApplicable(feat);
-
-			if (paletteApplicable) {
+			if (feat instanceof ICreateFeature) {
 				DefaultCreationFactory cf = new DefaultCreationFactory(feat, ICreateFeature.class);
 				Object template = (DND_FROM_PALETTE == true) ? cf : null;
 
