@@ -331,13 +331,13 @@ is done by the framework.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>A create connection
 feature has to implement the interface <i><a
-href="file:///\\wdfd00184898a\..\javadoc\com\sap\tc\emf\gfw\features\ICreateConnectionFeature.html">ICreateConnectionFeature</a></i></span><span
+href="../../../javadoc/org/eclipse/graphiti/features/ICreateConnectionFeature.html">ICreateConnectionFeature</a></i></span><span
 class=code1><span lang=EN-US style='color:black'>.</span></span><span
 lang=EN-US style='color:black'> </span><span lang=EN-GB style='color:black'>Instead
 of implementing it directly it should extend one of the available base classes.
 In this example we extend the base class<span class=code1> </span></span><i><span
 style='color:black'><a
-href="file:///\\wdfd00184898a\..\javadoc\com\sap\tc\emf\gfw\features\jam\AbstractCreateConnectionFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractCreateConnectionFeature.html"><span
 lang=EN-GB>AbstractCreateConnectionFeature</span></a></span></i><span
 lang=EN-GB style='color:black'>.</span></p>
 
@@ -347,21 +347,21 @@ lang=EN-GB style='color:black'>.</span></p>
 implement/overwrite 3 methods:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="file:///\\wdfd00184898a\..\javadoc\com\sap\tc\emf\gfw\func\ICreateConnection.html#canCreate(com.sap.tc.emf.gfw.features.context.ICreateConnectionContext)">c<span
+href="../../../javadoc/org/eclipse/graphiti/func/ICreateConnection.html#canCreate(org.eclipse.graphiti.features.context.ICreateConnectionContext)">c<span
 lang=EN-US>anCreate</span></a> has to check whether the connection can be
 created for the given context. It has to check the business objects which are
 behind the source and the target anchors.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
 class=code1><span lang=EN-US style='color:black'><a
-href="file:///\\wdfd00184898a\..\javadoc\com\sap\tc\emf\gfw\func\ICreateConnection.html#canStartConnection(com.sap.tc.emf.gfw.features.context.ICreateConnectionContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/func/ICreateConnection.html#canStartConnection(org.eclipse.graphiti.features.context.ICreateConnectionContext)"><span
 style='font-style:normal'>canStartConnection</span></a></span></span><span
 lang=EN-US style='color:black'> </span><span lang=EN-GB style='color:black'>has
 to check whether the connection can be started at the given source anchor.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
 class=code1><span lang=EN-US style='color:black'><a
-href="file:///\\wdfd00184898a\..\javadoc\com\sap\tc\emf\gfw\func\ICreateConnection.html#create(com.sap.tc.emf.gfw.features.context.ICreateConnectionContext)"><span
+href="../../../javadoc/org/eclipse/graphiti/func/ICreateConnection.html#create(org.eclipse.graphiti.features.context.ICreateConnectionContext)"><span
 style='font-style:normal'>create</span></a></span></span><span lang=EN-GB
 style='color:black'> has to create the business object for the connection and
 also has to add the graphical representation of the newly created business
@@ -748,7 +748,7 @@ complete implementation of the create connection feature here:</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
 feature provider has to deliver our newly created feature (overwrite the method
 </span><span class=code0><span lang=EN-US style='color:black;font-style:normal'><a
-href="file:///\\wdfd00184898a\..\javadoc\com\sap\tc\emf\gfw\features\IFeatureProvider.html#getCreateConnectionFeatures()">getCreateConnectionFeatures</a>)</span></span><span
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCreateConnectionFeatures()">getCreateConnectionFeatures</a>)</span></span><span
 class=code1><span lang=EN-US style='color:black;font-style:normal'>.</span></span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>This implementation can
