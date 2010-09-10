@@ -170,13 +170,13 @@ the feature provider.</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>A direct editing
 feature has to implement the interface </span><span class=code1><span
 lang=EN-US style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IDirectEditingFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/IDirectEditingFeature.html"><span
 style='font-style:normal'>IDirectEditingFeature</span></a>.</span></span><span
 lang=EN-GB style='color:black'> Instead of implementing it directly it should
 extend one of the available base classes. In this example we extend the base
 class<span class=code1> </span></span><span class=code1><span lang=EN-US
 style='color:black'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/impl/AbstractDirectEditingFeature.html"><span
+href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractDirectEditingFeature.html"><span
 style='font-style:normal'>AbstractDirectEditingFeature</span></a></span></span><span
 lang=EN-GB style='color:black'>.</span></p>
 
@@ -186,28 +186,28 @@ lang=EN-GB style='color:black'>.</span></p>
 implement/overwrite several methods:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/IDirectEditing.html#getEditingType()">getEditingType</a>
+href="../../../javadoc/org/eclipse/graphiti/func/IDirectEditing.html#getEditingType()">getEditingType</a>
 has to return the editor type which shall be used to edit the value, in this
 example a text editor.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
 class=code1><span lang=EN-US style='color:black;font-style:normal'><a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/IDirectEditing.html#canDirectEdit(com.sap.tc.emf.gfw.features.context.IDirectEditingContext)">canDirectEdit</a></span></span><span
+href="../../../javadoc/org/eclipse/graphiti/func/IDirectEditing.html#canDirectEdit(org.eclipse.graphiti.features.context.IDirectEditingContext)">canDirectEdit</a></span></span><span
 lang=EN-US style='color:black'> </span><span lang=EN-GB style='color:black'>has
 to check the given context and therefore it decides if direct editing is
 supported.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/IDirectEditing.html#getInitialValue(com.sap.tc.emf.gfw.features.context.IDirectEditingContext)">getInitialValue</a>
+href="../../../javadoc/org/eclipse/graphiti/func/IDirectEditing.html#getInitialValue(org.eclipse.graphiti.features.context.IDirectEditingContext)">getInitialValue</a>
 has to return the initial value with which the editor is initialized, which is
 usually the currently displayed value.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/IDirectEditing.html#checkValueValid(java.lang.String, com.sap.tc.emf.gfw.features.context.IDirectEditingContext)">checkValueValid</a>
+href="../../../javadoc/org/eclipse/graphiti/func/IDirectEditing.html#checkValueValid(java.lang.String, org.eclipse.graphiti.features.context.IDirectEditingContext)">checkValueValid</a>
 performs a check of the current editor value on each value change.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/func/IDirectEditing.html#setValue(java.lang.String, com.sap.tc.emf.gfw.features.context.IDirectEditingContext)">setValue</a>
+href="../../../javadoc/org/eclipse/graphiti/func/IDirectEditing.html#setValue(java.lang.String, org.eclipse.graphitti.features.context.IDirectEditingContext)">setValue</a>
 has to set the edited value to the model at the end of the editing process.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
@@ -491,7 +491,7 @@ complete implementation of the direct editing feature here:</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
 feature provider has to deliver our newly created feature (overwrite the method
 <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getDirectEditingFeature(com.sap.tc.emf.gfw.features.context.IDirectEditingContext)">getDirectEditingFeature</a>).
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getDirectEditingFeature(org.eclipse.graphiti.features.context.IDirectEditingContext)">getDirectEditingFeature</a>).
 </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>This implementation can
