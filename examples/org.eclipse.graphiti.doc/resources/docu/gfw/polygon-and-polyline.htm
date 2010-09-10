@@ -1,424 +1,508 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
+
 <head>
-<meta name="generator" content=
-"HTML Tidy for Windows (vers 25 March 2009), see www.w3.org">
-<meta http-equiv="Content-Type" content=
-"text/html; charset=us-ascii">
-<meta name="Generator" content="Microsoft Word 12 (filtered)">
+<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
 <title>Polygon and polyline</title>
-<link rel="Stylesheet" type="text/css" media="all" href=
-"../book.css">
-<style type="text/css">
+<link rel=Stylesheet type="text/css" media=all href="../book.css">
+<style>
 <!--
  /* Font Definitions */
  @font-face
-  {font-family:"Cambria Math";
-  panose-1:2 4 5 3 5 4 6 3 2 4;}
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-  {font-family:Tahoma;
-  panose-1:2 11 6 4 3 5 4 4 2 4;}
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-  {font-family:Consolas;
-  panose-1:2 11 6 9 2 2 4 3 2 4;}
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
-  {margin:0cm;
-  margin-bottom:.0001pt;
-  font-size:12.0pt;
-  font-family:"Times New Roman","serif";}
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
 h1
-  {mso-style-link:"Überschrift 1 Zchn";
-  margin-top:12.0pt;
-  margin-right:0cm;
-  margin-bottom:3.0pt;
-  margin-left:0cm;
-  page-break-after:avoid;
-  font-size:16.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;}
+	{mso-style-link:"\00DCberschrift 1 Zchn";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 h2
-  {mso-style-link:"Überschrift 2 Zchn";
-  margin-top:12.0pt;
-  margin-right:0cm;
-  margin-bottom:3.0pt;
-  margin-left:0cm;
-  page-break-after:avoid;
-  font-size:14.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;
-  font-style:italic;}
+	{mso-style-link:"\00DCberschrift 2 Zchn";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;
+	font-style:italic;}
 h3
-  {mso-style-link:"Überschrift 3 Zchn";
-  margin-top:12.0pt;
-  margin-right:0cm;
-  margin-bottom:3.0pt;
-  margin-left:0cm;
-  page-break-after:avoid;
-  font-size:13.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;}
+	{mso-style-link:"\00DCberschrift 3 Zchn";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 h4
-  {mso-style-link:"Überschrift 4 Zchn";
-  margin-top:11.25pt;
-  margin-right:0cm;
-  margin-bottom:1.7pt;
-  margin-left:0cm;
-  font-size:12.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;
-  font-style:italic;}
+	{mso-style-link:"\00DCberschrift 4 Zchn";
+	margin-top:11.25pt;
+	margin-right:0cm;
+	margin-bottom:1.7pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;
+	font-style:italic;}
 h5
-  {mso-style-link:"Überschrift 5 Zchn";
-  margin-right:0cm;
-  margin-left:0cm;
-  font-size:10.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;}
+	{mso-style-link:"\00DCberschrift 5 Zchn";
+	margin-right:0cm;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 h6
-  {mso-style-link:"Überschrift 6 Zchn";
-  margin-right:0cm;
-  margin-left:0cm;
-  font-size:7.5pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;}
+	{mso-style-link:"\00DCberschrift 6 Zchn";
+	margin-right:0cm;
+	margin-left:0cm;
+	font-size:7.5pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 p.MsoCaption, li.MsoCaption, div.MsoCaption
-  {margin-top:6.0pt;
-  margin-right:0cm;
-  margin-bottom:24.0pt;
-  margin-left:0cm;
-  text-align:justify;
-  font-size:10.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;}
+	{margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:24.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 a:link, span.MsoHyperlink
-  {color:blue;
-  text-decoration:underline;}
+	{color:blue;
+	text-decoration:underline;}
 a:visited, span.MsoHyperlinkFollowed
-  {color:purple;
-  text-decoration:underline;}
+	{color:purple;
+	text-decoration:underline;}
 p
-  {margin-top:5.65pt;
-  margin-right:0cm;
-  margin-bottom:5.65pt;
-  margin-left:0cm;
-  font-size:12.0pt;
-  font-family:"Times New Roman","serif";}
+	{margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
 pre
-  {mso-style-link:"HTML Vorformatiert Zchn";
-  margin-top:0cm;
-  margin-right:0cm;
-  margin-bottom:0cm;
-  margin-left:3.4pt;
-  margin-bottom:.0001pt;
-  font-size:11.0pt;
-  font-family:"Courier New";}
+	{mso-style-link:"HTML Vorformatiert Zchn";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:3.4pt;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Courier New";}
 p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-  {mso-style-link:"Sprechblasentext Zchn";
-  margin:0cm;
-  margin-bottom:.0001pt;
-  font-size:8.0pt;
-  font-family:"Tahoma","sans-serif";}
+	{mso-style-link:"Sprechblasentext Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
 span.berschrift1Zchn
-  {mso-style-name:"Überschrift 1 Zchn";
-  mso-style-link:"Überschrift 1";
-  font-family:"Cambria","serif";
-  color:#365F91;
-  font-weight:bold;}
+	{mso-style-name:"\00DCberschrift 1 Zchn";
+	mso-style-link:"\00DCberschrift 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
 span.berschrift2Zchn
-  {mso-style-name:"Überschrift 2 Zchn";
-  mso-style-link:"Überschrift 2";
-  font-family:"Cambria","serif";
-  color:#4F81BD;
-  font-weight:bold;}
+	{mso-style-name:"\00DCberschrift 2 Zchn";
+	mso-style-link:"\00DCberschrift 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
 span.berschrift3Zchn
-  {mso-style-name:"Überschrift 3 Zchn";
-  mso-style-link:"Überschrift 3";
-  font-family:"Cambria","serif";
-  color:#4F81BD;
-  font-weight:bold;}
+	{mso-style-name:"\00DCberschrift 3 Zchn";
+	mso-style-link:"\00DCberschrift 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
 span.berschrift4Zchn
-  {mso-style-name:"Überschrift 4 Zchn";
-  mso-style-link:"Überschrift 4";
-  font-family:"Cambria","serif";
-  color:#4F81BD;
-  font-weight:bold;
-  font-style:italic;}
+	{mso-style-name:"\00DCberschrift 4 Zchn";
+	mso-style-link:"\00DCberschrift 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
 span.berschrift5Zchn
-  {mso-style-name:"Überschrift 5 Zchn";
-  mso-style-link:"Überschrift 5";
-  font-family:"Cambria","serif";
-  color:#243F60;}
+	{mso-style-name:"\00DCberschrift 5 Zchn";
+	mso-style-link:"\00DCberschrift 5";
+	font-family:"Cambria","serif";
+	color:#243F60;}
 span.berschrift6Zchn
-  {mso-style-name:"Überschrift 6 Zchn";
-  mso-style-link:"Überschrift 6";
-  font-family:"Cambria","serif";
-  color:#243F60;
-  font-style:italic;}
+	{mso-style-name:"\00DCberschrift 6 Zchn";
+	mso-style-link:"\00DCberschrift 6";
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-style:italic;}
 span.HTMLVorformatiertZchn
-  {mso-style-name:"HTML Vorformatiert Zchn";
-  mso-style-link:"HTML Vorformatiert";
-  font-family:Consolas;}
+	{mso-style-name:"HTML Vorformatiert Zchn";
+	mso-style-link:"HTML Vorformatiert";
+	font-family:Consolas;}
 span.SprechblasentextZchn
-  {mso-style-name:"Sprechblasentext Zchn";
-  mso-style-link:Sprechblasentext;
-  font-family:"Tahoma","sans-serif";}
+	{mso-style-name:"Sprechblasentext Zchn";
+	mso-style-link:Sprechblasentext;
+	font-family:"Tahoma","sans-serif";}
 p.code, li.code, div.code
-  {mso-style-name:code;
-  margin-top:0cm;
-  margin-right:0cm;
-  margin-bottom:0cm;
-  margin-left:15.0pt;
-  margin-bottom:.0001pt;
-  font-size:12.0pt;
-  font-family:"Times New Roman","serif";}
+	{mso-style-name:code;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:15.0pt;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
 p.note, li.note, div.note
-  {mso-style-name:note;
-  margin-top:19.5pt;
-  margin-right:0cm;
-  margin-bottom:19.5pt;
-  margin-left:30.0pt;
-  font-size:13.0pt;
-  font-family:"Times New Roman","serif";
-  font-style:italic;}
+	{mso-style-name:note;
+	margin-top:19.5pt;
+	margin-right:0cm;
+	margin-bottom:19.5pt;
+	margin-left:30.0pt;
+	font-size:13.0pt;
+	font-family:"Times New Roman","serif";
+	font-style:italic;}
 p.comment, li.comment, div.comment
-  {mso-style-name:comment;
-  margin-top:5.65pt;
-  margin-right:0cm;
-  margin-bottom:5.65pt;
-  margin-left:0cm;
-  font-size:12.0pt;
-  font-family:"Times New Roman","serif";
-  font-weight:bold;}
+	{mso-style-name:comment;
+	margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.rschrift1, li.rschrift1, div.rschrift1
+	{mso-style-name:"\00BErschrift 1";
+	mso-style-link:"\00BErschrift 1 Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.rschrift1Zchn
+	{mso-style-name:"\00BErschrift 1 Zchn";
+	mso-style-link:"\00BErschrift 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+p.rschrift2, li.rschrift2, div.rschrift2
+	{mso-style-name:"\00BErschrift 2";
+	mso-style-link:"\00BErschrift 2 Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.rschrift2Zchn
+	{mso-style-name:"\00BErschrift 2 Zchn";
+	mso-style-link:"\00BErschrift 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+p.rschrift3, li.rschrift3, div.rschrift3
+	{mso-style-name:"\00BErschrift 3";
+	mso-style-link:"\00BErschrift 3 Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.rschrift3Zchn
+	{mso-style-name:"\00BErschrift 3 Zchn";
+	mso-style-link:"\00BErschrift 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+p.rschrift4, li.rschrift4, div.rschrift4
+	{mso-style-name:"\00BErschrift 4";
+	mso-style-link:"\00BErschrift 4 Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.rschrift4Zchn
+	{mso-style-name:"\00BErschrift 4 Zchn";
+	mso-style-link:"\00BErschrift 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+p.rschrift5, li.rschrift5, div.rschrift5
+	{mso-style-name:"\00BErschrift 5";
+	mso-style-link:"\00BErschrift 5 Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.rschrift5Zchn
+	{mso-style-name:"\00BErschrift 5 Zchn";
+	mso-style-link:"\00BErschrift 5";
+	font-family:"Cambria","serif";
+	color:#243F60;}
+p.rschrift6, li.rschrift6, div.rschrift6
+	{mso-style-name:"\00BErschrift 6";
+	mso-style-link:"\00BErschrift 6 Zchn";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.rschrift6Zchn
+	{mso-style-name:"\00BErschrift 6 Zchn";
+	mso-style-link:"\00BErschrift 6";
+	font-family:"Cambria","serif";
+	color:#243F60;
+	font-style:italic;}
 span.code1
-  {mso-style-name:code1;
-  font-style:italic;}
+	{mso-style-name:code1;
+	font-style:italic;}
 .MsoChpDefault
-  {font-size:10.0pt;}
-@page Section1
-  {size:595.45pt 841.7pt;
-  margin:72.0pt 89.85pt 72.0pt 89.85pt;}
-div.Section1
-  {page:Section1;}
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:595.45pt 841.7pt;
+	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
+div.WordSection1
+	{page:WordSection1;}
  /* List Definitions */
  ol
-  {margin-bottom:0cm;}
+	{margin-bottom:0cm;}
 ul
-  {margin-bottom:0cm;}
+	{margin-bottom:0cm;}
 -->
 </style>
+
 </head>
-<body bgcolor="white" lang="DE" link="blue" vlink="purple" style=
-'margin-bottom:12.0pt'>
-<div class="Section1">
-<h1><span lang="EN-US">Polygon and Polyline</span></h1>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>One
-of the most flexible graphics algorithms are polygon and
-polyline. Both are defined by a list of points, through which the
-a line is drawn. The differences between polygon and polyline
-are:</span></p>
-<ul style='margin-top:0cm' type="disc">
-<li class="MsoNormal" style='color:black'><span lang="EN-US">A
-polygon is always closed, meaning that there is a line from the
-last point of the first point. A polyline can be
-open.</span></li>
-<li class="MsoNormal" style='color:black'><span lang="EN-US">A
-polygon is filled by default, but can also be not filled. A
-polyline can never be filled.</span></li>
+
+<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+
+<div class=WordSection1>
+
+<h1><span lang=EN-US>Polygon and Polyline</span></h1>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>One of the most
+flexible graphics algorithms are polygon and polyline. Both are defined by a
+list of points, through which the a line is drawn. The differences between
+polygon and polyline are:</span></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal style='color:black'><span lang=EN-US>A polygon is always
+     closed, meaning that there is a line from the last point of the first
+     point. A polyline can be open.</span></li>
+ <li class=MsoNormal style='color:black'><span lang=EN-US>A polygon is filled
+     by default, but can also be not filled. A polyline can never be filled.</span></li>
 </ul>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>Use
-one of the methods in <a href=
-"../../../javadoc/com/sap/tc/emf/gfw/util/GaUtil.html">IGaService</a>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>Use one of the methods
+in <a href="../../../javadoc/org/eclipse/graphiti/services/IGaService.html">IGaService</a>
 to create a polygon or polyline.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>Please avoid using polygon and polyline if you can
-use simple shapes like rectangle or rounded-rectangle. The reason
-is that simple shapes can be optimized regarding memory
-consumption and performance.</span></p>
-<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style='color:black'>You
-can see an example implementation of creating a triangle polygon
-here:</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style=
-'color:black'>&nbsp;</span></p>
-<table class="MsoNormalTable" border="0" cellspacing="0"
-cellpadding="0" width="851" style=
-'width:18.0cm;border-collapse:collapse'>
-<tr>
-<td width="851" valign="top" style=
-'width:18.0cm;border:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt'>
-<p class="MsoNormal" style='text-autospace:none'><b><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-triangle through points: top-middle, bottom-right,
-bottom-left</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>int</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>xy[]
-=</span> <b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>int</span></b><span lang="EN-US"
-style='font-size:10.0pt;font-family:"Courier New";color:black'>[]
-{ 50, 0, 100, 100, 0, 100 };</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-IGaService gaService = Graphiti.getGaService();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Polygon p =</span> <span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.createPolygon(container,
-xy);</span></span></p>
-<p class="MsoNormal" style='text-align:justify'><span lang=
-"EN-GB" style='font-size:10.0pt;color:black'>&nbsp;</span></p>
-</td>
-</tr>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>Please avoid using
+polygon and polyline if you can use simple shapes like rectangle or
+rounded-rectangle. The reason is that simple shapes can be optimized regarding
+memory consumption and performance.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see an example
+implementation of creating a triangle polygon here:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// triangle through points: top-middle, bottom-right,
+  bottom-left</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>int</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>xy[]
+  =</span><span lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>new</span></b><span lang=EN-US> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>int</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>[]
+  { 50, 0, 100, 100, 0, 100 };</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  IGaService gaService = Graphiti.getGaService();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Polygon p =</span><span lang=EN-US> </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.createPolygon(container,
+  xy);</span></span></p>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
 </table>
-<p class="MsoNormal"><span lang="EN-GB" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style='color:black'>The
-result will look like this:</span></p>
-<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style=
-'color:black'>&nbsp;</span><span style='color:black'><img border=
-"0" width="126" height="126" src="visio/polygon.gif" alt=
-""></span></p>
-<p class="MsoCaption"><span lang="EN-US">Figure: Example
-screenshot of a triangle polygon</span></p>
-<h2><span lang="EN-GB">Rounded Edges</span></h2>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US" style='color:black'>The
-edges of a polygon and polyline can be rounded. For each edge a
-different rounding can be defined.</span></p>
-<p class="MsoNormal"><span lang="EN-US" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style='color:black'>Let
-us first have a look at the result, before going into the
-details. You can see an example implementation of creating a
-partly rounded triangle polygon here:</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style=
-'color:black'>&nbsp;</span></p>
-<table class="MsoNormalTable" border="0" cellspacing="0"
-cellpadding="0" width="851" style=
-'width:18.0cm;border-collapse:collapse'>
-<tr>
-<td width="851" valign="top" style=
-'width:18.0cm;border:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt'>
-<p class="MsoNormal" style='text-autospace:none'><b><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#3F7F5F'>//
-triangle through points: top-middle, bottom-right,
-bottom-left</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>int</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>xy[]
-=</span> <b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>int</span></b><span lang="EN-US"
-style='font-size:10.0pt;font-family:"Courier New";color:black'>[]
-{ 50, 0, 100, 100, 0, 100 };</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"; color:#7F0055'>int</span></b>
-<span lang="EN-US" style=
-'font-size:10.0pt; font-family:"Courier New";color:black'>beforeAfter[]
-=</span> <b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b>
-<b><span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:#7F0055'>int</span></b><span lang="EN-US"
-style='font-size:10.0pt;font-family:"Courier New";color:black'>[]
-{ 0, 0, 40, 20, 20, 40 };</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-IGaService gaService = Graphiti.getGaService();</span></p>
-<p class="MsoNormal" style='text-autospace:none'><span lang=
-"EN-US" style=
-'font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Polygon p =</span> <span lang="EN-US" style=
-'font-size:10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.createPolygon(container,
-xy, beforeAfter);</span></span></p>
-<p class="MsoNormal" style='text-align:justify'><span lang=
-"EN-GB" style='font-size:10.0pt;color:black'>&nbsp;</span></p>
-</td>
-</tr>
-</table>
-<p class="MsoNormal"><span lang="EN-GB" style=
-'color:black'>&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style=
-'color:black'>&nbsp;</span><span style='color:black'><img border=
-"0" width="127" height="126" src="visio/polygon-rounded.gif" alt=
-""></span></p>
-<p class="MsoCaption"><a name="_Ref136666137"></a><a name=
-"_Toc176747803"></a><a name="_Ref136407489"></a><span lang=
-"EN-US">Figure: Example screenshot of a partly rounded triangle
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The result will look
+like this:</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span><span
+style='color:black'><img border=0 width=126 height=126 src="visio/polygon.gif"></span></p>
+
+<p class=MsoCaption><span lang=EN-US>Figure: Example screenshot of a triangle
 polygon</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style='color:black'>The
-idea for defining the rounding is, that for each point you define
-the distance on the line before the point where the rounding
-begins and the distance on the line after the point where the
-rounding ends. In our example we defined, that 40 pixels before
-the bottom-right point the rounding starts and 20 pixels after
-the bottom-right point the rounding ends. You can see this best
-by comparing the results you get with and without
-rounding:</span></p>
-<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style=
-'color:black'>&nbsp;</span><span style='color:black'><img border=
-"0" width="278" height="264" src=
-"visio/polygon-rounded-explained.gif" alt=""></span></p>
-<p class="MsoCaption"><span lang="EN-US">Figure: Explanation of
-the rounding parameters for polygon and polyline</span></p>
-<p class="MsoNormal"><span lang="EN-GB" style='color:black'>When
-you use rounded polygons or polylines you have to keep the
-following issues in mind:</span></p>
-<ul style='margin-top:0cm' type="disc">
-<li class="MsoNormal"><span lang="EN-GB">The attributes
-before/after are actually part of the class <a href=
-"../../../javadoc/com/sap/mi/gfw/mm/datatypes/Point.html">Point</a>
-and not of polygon or polyline. However, if a <a href=
-"../../../javadoc/com/sap/mi/gfw/mm/datatypes/Point.html">Point</a>
-is used outside polygon or polyline those attributes are
-ignored.</span></li>
-<li class="MsoNormal"><span lang="EN-GB">The rounding can only be
-specified for shapes (polygon or polyline). For connections the
-rounding can not be specified, because connections are always
-rounded using standard values.</span></li>
+
+<h2><span lang=EN-GB>Rounded Edges</span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>The edges of a polygon
+and polyline can be rounded. For each edge a different rounding can be defined.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Let us first have a
+look at the result, before going into the details. You can see an example
+implementation of creating a partly rounded triangle polygon here:</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
+ style='width:18.0cm;border-collapse:collapse'>
+ <tr>
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// triangle through points: top-middle, bottom-right,
+  bottom-left</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>int</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>xy[]
+  =</span><span lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>new</span></b><span lang=EN-US> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>int</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>[]
+  { 50, 0, 100, 100, 0, 100 };</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>int</span></b><span lang=EN-US> </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>beforeAfter[]
+  =</span><span lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>new</span></b><span lang=EN-US> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>int</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>[]
+  { 0, 0, 40, 20, 20, 40 };</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  IGaService gaService = Graphiti.getGaService();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Polygon p =</span><span lang=EN-US> </span><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.createPolygon(container,
+  xy, beforeAfter);</span></span></p>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span><span
+style='color:black'><img border=0 width=127 height=126
+src="visio/polygon-rounded.gif"></span></p>
+
+<p class=MsoCaption><a name="_Ref136666137"></a><a name="_Toc176747803"></a><a
+name="_Ref136407489"></a><span lang=EN-US>Figure: Example screenshot of a
+partly rounded triangle polygon</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The idea for defining
+the rounding is, that for each point you define the distance on the line before
+the point where the rounding begins and the distance on the line after the
+point where the rounding ends. In our example we defined, that 40 pixels before
+the bottom-right point the rounding starts and 20 pixels after the bottom-right
+point the rounding ends. You can see this best by comparing the results you get
+with and without rounding:</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span><span
+style='color:black'><img border=0 width=278 height=264
+src="visio/polygon-rounded-explained.gif"></span></p>
+
+<p class=MsoCaption><span lang=EN-US>Figure: Explanation of the rounding
+parameters for polygon and polyline</span></p>
+
+<p class=MsoNormal><span lang=EN-GB style='color:black'>When you use rounded
+polygons or polylines you have to keep the following issues in mind:</span></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><span lang=EN-GB>The attributes before/after are actually
+     part of the class <a
+     href="../../../javadoc/org/eclipse/graphiti/mm/algorithms/styles/Point.html">Point</a>
+     and not of polygon or polyline. However, if a <a
+     href="../../../javadoc/org/eclipse/graphiti/mm/algorithms/styles/Point.html">Point</a>
+     is used outside polygon or polyline those attributes are ignored.</span></li>
+ <li class=MsoNormal><span lang=EN-GB>The rounding can only be specified for
+     shapes (polygon or polyline). For connections the rounding can not be
+     specified, because connections are always rounded using standard values.</span></li>
 </ul>
-<p class="MsoNormal"><span lang="EN-US">&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
 </div>
-<hr>
-	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+
+<p class=MsoNormal><a href="http://www.eclipse.org/legal/epl-v10.html"
+shape=rect>Copyright (c) SAP AG 2005, 2010.</a> </p>
+
+</div>
+
 </body>
+
 </html>
