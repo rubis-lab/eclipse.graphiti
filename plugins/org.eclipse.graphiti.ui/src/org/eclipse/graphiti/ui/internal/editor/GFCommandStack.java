@@ -38,8 +38,10 @@ import org.eclipse.graphiti.internal.command.DefaultExecutionInfo;
 import org.eclipse.graphiti.internal.command.FeatureCommand;
 import org.eclipse.graphiti.internal.command.GFPreparableCommand2;
 import org.eclipse.graphiti.internal.command.ICommand;
+import org.eclipse.graphiti.tb.IContextEntry;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProviderPrototype;
+import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.graphiti.ui.internal.command.GFCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
@@ -291,6 +293,11 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		if (gefCommand instanceof GFCommand) {
 			final GFCommand gfCommand = (GFCommand) gefCommand;
 			executionInfo.addFeatureAndContext(new DefaultFeatureAndContext(gfCommand.getFeature(), gfCommand.getContext()));
+		}
+		if (gefCommand instanceof ContextEntryCommand) {
+			ContextEntryCommand cec = (ContextEntryCommand) gefCommand;
+			IContextEntry contextEntry = cec.getContextEntry();
+			executionInfo.addFeatureAndContext(new DefaultFeatureAndContext(contextEntry.getFeature(), contextEntry.getContext()));
 		}
 
 		return executionInfo;

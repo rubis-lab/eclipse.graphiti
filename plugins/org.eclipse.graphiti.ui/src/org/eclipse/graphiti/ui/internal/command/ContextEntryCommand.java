@@ -40,7 +40,7 @@ public class ContextEntryCommand extends Command {
 		this.contextEntry = contextEntry;
 	}
 
-	private IContextEntry getContextEntry() {
+	public IContextEntry getContextEntry() {
 		return contextEntry;
 	}
 
