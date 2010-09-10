@@ -176,10 +176,10 @@ a copy feature and make it available in the feature provider.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>A copy feature has to
 implement the interface <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/ICopyFeature.html">ICopyFeature</a>.
+href="../../../javadoc/org/eclipse/graphiti/features/ICopyFeature.html">ICopyFeature</a>.
 Instead of implementing it directly it should extend one of the available base
 classes. In this example we extend the base class <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/jam/AbstractCopyFeature.html">AbstractCopyFeature</a>,
+href="../../../javadoc/org/eclipse/graphiti/ui/features/AbstractCopyFeature.html">AbstractCopyFeature</a>,
 which offers methods to easily access the clipboard. </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
@@ -188,12 +188,12 @@ which offers methods to easily access the clipboard. </span></p>
 implement/overwrite two methods:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/ICopyFeature.html#canCopy(com.sap.tc.emf.gfw.features.context.ICopyContext)">canCopy</a>
+href="../../../javadoc/org/eclipse/graphiti/features/ICopyFeature.html#canCopy(org.eclipse.graphiti.features.context.ICopyContext)">canCopy</a>
 has to check if the given context (containing the selected elements) can be
 copied to the clipboard.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/ICopyFeature.html#copy(com.sap.tc.emf.gfw.features.context.ICopyContext)">copy</a>
+href="../../../javadoc/org/eclipse/graphiti/features/ICopyFeature.html#copy(org.eclipse.graphiti.features.context.ICopyContext)">copy</a>
 finally has to copy the given context to the clipboard. </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
@@ -380,7 +380,7 @@ complete implementation of the copy feature here:</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
 feature provider has to deliver our newly created feature (overwrite the method
 <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getCopyFeature(com.sap.tc.emf.gfw.features.context.ICopyContext)">getCopyFeature</a>).
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCopyFeature(org.eclipse.graphiti.features.context.ICopyContext)">getCopyFeature</a>).
 </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>This implementation can
@@ -434,10 +434,10 @@ and make it available in the feature provider.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>A paste feature has to implement
 the interface <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IPasteFeature.html">IPasteFeature</a>.
+href="../../../javadoc/org/eclipse/graphiti/features/IPasteFeature.html">IPasteFeature</a>.
 Instead of implementing it directly it should extend one of the available base
 classes. In this example we extend the base class <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/jam/AbstractPasteFeature.html">AbstractPasteFeature</a>,
+href="../../../javadoc/org/eclipse/graphiti/ui/features/AbstractPasteFeature.html">AbstractPasteFeature</a>,
 which offers methods to easily access the clipboard. </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
@@ -446,12 +446,12 @@ which offers methods to easily access the clipboard. </span></p>
 implement/overwrite two methods:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IPasteFeature.html#canPaste(com.sap.tc.emf.gfw.features.context.IPasteContext)">canPaste</a>
+href="../../../javadoc/org/eclipse/graphiti/features/IPasteFeature.html#canPaste(org.eclipse.graphiti.features.context.IPasteContext)">canPaste</a>
 has to check if the current clipboard contents can be pasted on the given
 context (containing the target object).</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IPasteFeature.html#paste(com.sap.tc.emf.gfw.features.context.IPasteContext)">paste</a>
+href="../../../javadoc/org/eclipse/graphiti/features/IPasteFeature.html#paste(org.eclipse.graphiti.features.context.IPasteContext)">paste</a>
 finally has to paste the current clipboard contents on the given context.
 &nbsp;</span></p>
 
@@ -661,7 +661,7 @@ complete implementation of the paste feature here:</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
 feature provider has to deliver our newly created feature (overwrite the method
 <a
-href="../../../javadoc/com/sap/tc/emf/gfw/features/IFeatureProvider.html#getPasteFeature(com.sap.tc.emf.gfw.features.context.IPasteContext)">getPasteFeature</a>).
+href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getPasteFeature(org.eclipse.graphiti.features.context.IPasteContext)">getPasteFeature</a>).
 </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>This implementation can
