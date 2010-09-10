@@ -291,5 +291,4 @@ public interface IToolBehaviorProvider {
 	 * @return the contributor ID for the tabbed property sheet page.
 	 */
 	public String getContributorId();
-
 }
