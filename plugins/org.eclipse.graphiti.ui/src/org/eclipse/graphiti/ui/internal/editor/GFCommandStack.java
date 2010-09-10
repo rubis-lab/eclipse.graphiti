@@ -40,7 +40,6 @@ import org.eclipse.graphiti.internal.command.GFPreparableCommand2;
 import org.eclipse.graphiti.internal.command.ICommand;
 import org.eclipse.graphiti.tb.IContextEntry;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.tb.IToolBehaviorProviderPrototype;
 import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.graphiti.ui.internal.command.GFCommand;
@@ -208,42 +207,15 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 
 	@Override
 	public void redo() {
-		IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 		IExecutionInfo ei = getRedoStackForExecutionInfo().pop();
-
-		IToolBehaviorProviderPrototype pp = null;
-		if (tbp instanceof IToolBehaviorProviderPrototype) {
-			pp = (IToolBehaviorProviderPrototype) tbp;
-		}
-		if (pp != null) {
-			pp.preRedo(ei);
-		}
-
 		getEmfCommandStack().redo();
-
-		if (pp != null) {
-			pp.postRedo(ei);
-		}
 		getUndoStackForExecutionInfo().push(ei);
 	}
 
 	@Override
 	public void undo() {
-		IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 		IExecutionInfo ei = getUndoStackForExecutionInfo().pop();
-		IToolBehaviorProviderPrototype pp = null;
-		if (tbp instanceof IToolBehaviorProviderPrototype) {
-			pp = (IToolBehaviorProviderPrototype) tbp;
-		}
-		if (pp != null) {
-			pp.preUndo(ei);
-		}
-
 		getEmfCommandStack().undo();
-
-		if (pp != null) {
-			pp.postUndo(ei);
-		}
 		getRedoStackForExecutionInfo().push(ei);
 	}
 
