@@ -99,7 +99,7 @@
 			<eclipse.launch app="buckminster">
 				<args>
 					<jvmarg value="-Dbugfix.288796=true" />
-					<jvmarg value="-Xms1024m -Xmx2048m" />
+					<jvmarg value="-Xmx2048m" />
 					<arg value="-data" />
 					<arg value="@{workspace}" />
 					<arg value="--loglevel" />
