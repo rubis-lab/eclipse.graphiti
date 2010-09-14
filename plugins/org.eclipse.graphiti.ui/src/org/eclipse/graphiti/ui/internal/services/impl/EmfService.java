@@ -227,7 +227,7 @@ public class EmfService implements IEmfService {
 							do {
 								if (!parentTx.isReadOnly()) {
 									throw new IllegalStateException(
-											"saveInWorkspaceRunnable() called from within a command (likely to produce deadlock)");
+											"saveInWorkspaceRunnable() called from within a command (likely to produce deadlock)"); //$NON-NLS-1$
 								}
 							} while ((parentTx = ((TransactionalEditingDomainImpl) editingDomain).getActiveTransaction().getParent()) != null);
 						}
@@ -282,9 +282,9 @@ public class EmfService implements IEmfService {
 	}
 
 	private String createMessage(Map<URI, Throwable> failedSaves) {
-		final StringBuilder buf = new StringBuilder("The following resources could not be saved:");
+		final StringBuilder buf = new StringBuilder("The following resources could not be saved:"); //$NON-NLS-1$
 		for (final Entry<URI, Throwable> entry : failedSaves.entrySet()) {
-			buf.append("\nURI: ").append(entry.getKey().toString()).append(", cause: \n").append(getExceptionAsString(entry.getValue()));
+			buf.append("\nURI: ").append(entry.getKey().toString()).append(", cause: \n").append(getExceptionAsString(entry.getValue())); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		return buf.toString();
 	}

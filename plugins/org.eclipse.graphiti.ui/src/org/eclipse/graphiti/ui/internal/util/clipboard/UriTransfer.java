@@ -82,7 +82,7 @@ public class UriTransfer extends ByteArrayTransfer {
 			dataOut.write(bytes);
 			super.javaToNative(out.toByteArray(), transferData);
 		} catch (final IOException e) {
-			T.racer().error("Error when writing transfer data", e);
+			T.racer().error("Error when writing transfer data", e); //$NON-NLS-1$
 		} finally {
 			try {
 				dataOut.close();
@@ -110,7 +110,7 @@ public class UriTransfer extends ByteArrayTransfer {
 			final List<String> uriStrings = fromTransferBytes(uriBytes);
 			return new UriTransferData(uriStrings);
 		} catch (final IOException e) {
-			T.racer().error("Error when writing transfer data", e);
+			T.racer().error("Error when writing transfer data", e); //$NON-NLS-1$
 			return null;
 		} finally {
 			try {

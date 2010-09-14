@@ -45,6 +45,7 @@ public class Messages extends NLS {
 	public static String GraphicsPaletteRoot_0_xmen;
 	public static String DiscardChangesDialog_0_xmsg;
 	public static String DiscardChangesDialog_1_xmsg;
+	public static String ModelClipBoardPasteAction_0_xfld;
 	public static String PasteAction_0_xfld;
 	public static String PictogramElementDelegate_0_xmsg;
 	public static String PrintFigureDialog_0_xfld;
@@ -68,6 +69,7 @@ public class Messages extends NLS {
 	public static String PrintFigureDialog_32_xfld;
 	public static String PrintFigureDialog_34_xfld;
 	public static String PrintFigureDialog_38_xfld;
+	public static String PrintFigureDialog_39_xmsg;
 	public static String PrintFigureDialog_4_xfld;
 	public static String PrintFigureDialog_5_xfld;
 	public static String PrintFigureDialog_6_xfld;

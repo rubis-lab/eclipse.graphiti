@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
+import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.util.LocalSelectionTransfer;
@@ -96,7 +97,7 @@ public final class ModelClipboard {
 	 */
 	public synchronized void setContent(EObject[] objects) throws IllegalStateException {
 		if (objects == null) {
-			throw new IllegalArgumentException("EObject[] objects must not be null");
+			throw new IllegalArgumentException("EObject[] objects must not be null"); //$NON-NLS-1$
 		}
 		if (objects.length == 0) {
 			return;
@@ -120,7 +121,7 @@ public final class ModelClipboard {
 	 */
 	public synchronized EObject[] getContentAsEObjects(ResourceSet resourceSet) throws IllegalStateException {
 		if (resourceSet == null) {
-			throw new IllegalArgumentException("ResourceSet resourceSet must not be null");
+			throw new IllegalArgumentException("ResourceSet resourceSet must not be null"); //$NON-NLS-1$
 		}
 		final List<String> uriStrings;
 		if (canUseNative()) {
@@ -244,10 +245,10 @@ public final class ModelClipboard {
 	@SuppressWarnings("unchecked")
 	private Collection<EObject> deepCopy(final EObject[] srcObjects) {
 		if (srcObjects == null) {
-			throw new IllegalArgumentException("EObject[] srcObjects must not be null");
+			throw new IllegalArgumentException("EObject[] srcObjects must not be null"); //$NON-NLS-1$
 		}
 		if (srcObjects.length == 0) {
-			throw new IllegalArgumentException("EObject[] srcObjects.length must not be 0");
+			throw new IllegalArgumentException("EObject[] srcObjects.length must not be 0"); //$NON-NLS-1$
 		}
 		final Collection<EObject>[] result = new Collection[1];
 		// in the case of a UI
@@ -590,7 +591,7 @@ public final class ModelClipboard {
 	private synchronized boolean canUseNative() {
 		final boolean result = canUseUI();
 		if (!result) {
-			throw new IllegalStateException("ModelClipboard must be called from UI thread.");
+			throw new IllegalStateException("ModelClipboard must be called from UI thread."); //$NON-NLS-1$
 		}
 		return result;
 	}
@@ -616,7 +617,7 @@ public final class ModelClipboard {
 
 		@Override
 		public String getLabel() {
-			return "Paste objects";
+			return Messages.ModelClipBoardPasteAction_0_xfld;
 		}
 
 		@Override

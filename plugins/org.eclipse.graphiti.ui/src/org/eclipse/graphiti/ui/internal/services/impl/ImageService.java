@@ -64,7 +64,7 @@ public class ImageService implements IImageService {
 		Image image = imageRegistry.get(imageId); // now there is an image
 													// registered
 		if (image == null) {
-			throw new IllegalStateException("No image could be retrieved for imageId '" + imageId + "'");
+			throw new IllegalStateException("No image could be retrieved for imageId '" + imageId + "'"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		return image;
 	}

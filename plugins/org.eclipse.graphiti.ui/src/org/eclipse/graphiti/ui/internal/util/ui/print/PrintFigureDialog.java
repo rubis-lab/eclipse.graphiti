@@ -236,6 +236,7 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 		}
 	}
 
+	@Override
 	public void paintControl(PaintEvent e) {
 		Rectangle printRegion = getPrintRegion();
 		org.eclipse.swt.graphics.Rectangle previewRegion = _preview.getClientArea();
@@ -245,7 +246,7 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 			e.gc.drawImage(_image, 0, 0, _image.getBounds().width, _image.getBounds().height, margins.x, margins.y, size.x, size.y);
 			e.gc.drawRectangle(margins.x, margins.y, size.x - 1, size.y - 1);
 		} else {
-			e.gc.drawText("No preview: \n Image too large", 1, 1);
+			e.gc.drawText(Messages.PrintFigureDialog_39_xmsg, 1, 1);
 		}
 		adjustPrinterValuesUsingPreview(margins.x, margins.y, size.x, size.y, printRegion, previewRegion);
 	}
@@ -461,6 +462,7 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 		}
 	}
 
+	@Override
 	public void modifyText(ModifyEvent e) {
 		if (_insideInternalModify) // avoid endless-loops
 			return;

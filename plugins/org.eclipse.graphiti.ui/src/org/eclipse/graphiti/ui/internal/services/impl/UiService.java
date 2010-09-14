@@ -73,8 +73,8 @@ public class UiService implements IUiService {
 			try {
 				imageLoader.save(result, format);
 			} catch (SWTException e) {
-				String error = "Depth: " + Integer.toString(image.getImageData().depth) + "\n" + "X: "
-						+ Integer.toString(image.getImageData().x) + "\n" + "Y: " + Integer.toString(image.getImageData().y);
+				String error = "Depth: " + Integer.toString(image.getImageData().depth) + "\n" + "X: " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						+ Integer.toString(image.getImageData().x) + "\n" + "Y: " + Integer.toString(image.getImageData().y); //$NON-NLS-1$ //$NON-NLS-2$
 				throw new IllegalStateException(error, e);
 			}
 

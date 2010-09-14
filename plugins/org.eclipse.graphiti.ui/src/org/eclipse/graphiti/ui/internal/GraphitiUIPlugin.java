@@ -27,7 +27,7 @@ import org.osgi.framework.BundleContext;
  */
 public class GraphitiUIPlugin extends AbstractUIPlugin {
 
-	public static final String PLUGIN_ID = "org.eclipse.graphiti.ui";
+	public static final String PLUGIN_ID = "org.eclipse.graphiti.ui"; //$NON-NLS-1$
 
 	private static GraphitiUIPlugin _plugin;
 

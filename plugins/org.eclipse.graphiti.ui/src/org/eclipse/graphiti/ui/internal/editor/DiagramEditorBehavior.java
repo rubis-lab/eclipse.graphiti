@@ -448,7 +448,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	public Diagnostic analyzeResourceProblems(Resource resource, Exception exception) {
 		if ((!resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty()) && editingDomain != null) {
 			final IFile file = GraphitiUiInternal.getEmfService().getFile(resource.getURI(), editingDomain);
-			final String fileName = file != null ? file.getFullPath().toString() : "unknown name";
+			final String fileName = file != null ? file.getFullPath().toString() : "unknown name"; //$NON-NLS-1$
 			final BasicDiagnostic basicDiagnostic = new BasicDiagnostic(Diagnostic.ERROR, GraphitiUIPlugin.PLUGIN_ID, 0,
 					"Problems encountered in file " + fileName, new Object[] { exception == null ? (Object) resource : exception }); //$NON-NLS-1$
 			basicDiagnostic.merge(EcoreUtil.computeDiagnostic(resource, true));
@@ -668,7 +668,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 			if (T.racer().debug()) {
 				final String editorName = part.getTitle();
 				T.racer().debug("Delete listener called of editor " //$NON-NLS-1$
-						+ editorName + " with events " + msg.toString());
+						+ editorName + " with events " + msg.toString()); //$NON-NLS-1$
 			}
 
 			final IEditorInput in = part.getEditorInput();
@@ -701,7 +701,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 							final IWorkbenchPage page = site.getPage();
 							if (T.racer().debug()) {
 								final String editorName = part.getTitle();
-								T.racer().debug("Closing editor " + editorName);
+								T.racer().debug("Closing editor " + editorName); //$NON-NLS-1$
 							}
 							page.closeEditor(part, false);
 						}

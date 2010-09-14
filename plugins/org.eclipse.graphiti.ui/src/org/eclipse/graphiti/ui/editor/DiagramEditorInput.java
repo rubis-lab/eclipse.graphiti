@@ -768,7 +768,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 */
 	@Override
 	public String toString() {
-		final String s = super.toString() + " uriName: " + this.uriName + " on TransactionalEditingDomain " //$NON-NLS-1$ 
+		final String s = super.toString() + " uriName: " + this.uriName + " on TransactionalEditingDomain " //$NON-NLS-1$ $NON-//$NON-NLS-2$
 				+ String.valueOf(getEditingDomain()) + " (null=OK)"; //$NON-NLS-1$
 		return s;
 	}

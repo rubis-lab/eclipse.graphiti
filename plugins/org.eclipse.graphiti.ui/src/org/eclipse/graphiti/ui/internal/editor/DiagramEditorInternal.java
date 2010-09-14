@@ -576,7 +576,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 			// can happen if editor is started with invalid URI
 			if (diagram == null) {
-				throw new IllegalStateException("Cannot open diagram '" + diagramEditorInput.getName() //$NON-NLS-2$
+				throw new IllegalStateException("Cannot open diagram '" + diagramEditorInput.getName() //$NON-NLS-1$
 						+ "'. Might have been deleted. See the error log for details."); //$NON-NLS-1$
 			}
 
