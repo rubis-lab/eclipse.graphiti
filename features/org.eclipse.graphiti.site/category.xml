@@ -9,5 +9,11 @@
    <feature url="features/org.eclipse.graphiti.sdk.feature_0.7.0.qualifier.jar" id="org.eclipse.graphiti.sdk.feature" version="0.7.0.qualifier">
       <category name="org.eclipse.graphiti"/>
    </feature>
-   <category-def name="org.eclipse.graphiti" label="Graphiti"/>
+   <category-def name="org.eclipse.graphiti" label="Graphiti">
+      <description>
+         Graphiti supports the fast and easy creation of unified graphical
+tools, which can graphically display and edit underlying domain
+models using a tool-defined notation.
+      </description>
+   </category-def>
 </site>
