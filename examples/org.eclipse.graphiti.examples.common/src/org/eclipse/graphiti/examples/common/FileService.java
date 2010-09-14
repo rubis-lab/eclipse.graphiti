@@ -87,7 +87,7 @@ public class FileService {
 							do {
 								if (!parentTx.isReadOnly()) {
 									throw new IllegalStateException(
-											"FileService.save() called from within a command (likely produces a deadlock)");
+											"FileService.save() called from within a command (likely produces a deadlock)"); //$NON-NLS-1$
 								}
 							} while ((parentTx = ((TransactionalEditingDomainImpl) editingDomain).getActiveTransaction().getParent()) != null);
 						}

@@ -58,7 +58,7 @@ public class DiagramNameWizardPage extends AbstractInputFieldWizardPage {
 	 */
 	@Override
 	String getInitialTextFieldValue() {
-		return "new diagram";
+		return "new diagram"; //$NON-NLS-1$
 	}
 
 	/*

@@ -49,7 +49,7 @@ public class GraphicsTestPreferencePage extends FieldEditorPreferencePage implem
 	@Override
 	public void createFieldEditors() {
 
-		addLabel("");
+		addLabel(""); //$NON-NLS-1$
 		addLabel("Visual playing around");
 		addField(new IntegerFieldEditor(GFPreferences.VISUAL_STATE_RENDERING,
 				"&Visual state rendering (e.g. selection handling): 0=default, 1=special", getFieldEditorParent()));
@@ -62,7 +62,7 @@ public class GraphicsTestPreferencePage extends FieldEditorPreferencePage implem
 		addField(new IntegerFieldEditor(GFPreferences.POLYLINE_ROUNDING, "P&olyline rounding: 0=on, 1=never, 2=always.",
 				getFieldEditorParent()));
 
-		addLabel("");
+		addLabel(""); //$NON-NLS-1$
 		addLabel("Debugging");
 		addField(new BooleanFieldEditor(GFPreferences.DEBUG_ACTIONS_ACTIVE, "Add de&bug actions to the context-menu of each shape",
 				getFieldEditorParent()));
@@ -73,7 +73,7 @@ public class GraphicsTestPreferencePage extends FieldEditorPreferencePage implem
 		addField(new BooleanFieldEditor(GFPreferences.GENERIC_OUTLINE_ACTIVE, "&Use generic outline view", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(GFPreferences.GENERIC_PROPERTY_SHEET_ACTIVE, "U&se generic property sheet", getFieldEditorParent()));
 
-		addLabel("");
+		addLabel(""); //$NON-NLS-1$
 		addLabel("Graphiti internal (do not change)");
 		addField(new BooleanFieldEditor(GFPreferences.RECURSIVE_CHECK_FOR_UPDATE_ACTIVE, "Check for a needed updates &recursively",
 				getFieldEditorParent()));

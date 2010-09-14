@@ -118,10 +118,10 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 
 		Diagram diagram = Graphiti.getPeCreateService().createDiagram(diagramTypeId, diagramName, true);
 		if (diagramFolder == null) {
-			diagramFolder = project.getFolder("src/diagrams/");
+			diagramFolder = project.getFolder("src/diagrams/"); //$NON-NLS-1$
 		}
 
-		IFile diagramFile = diagramFolder.getFile(diagramName + ".diagram");
+		IFile diagramFile = diagramFolder.getFile(diagramName + ".diagram"); //$NON-NLS-1$
 		URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 
 		TransactionalEditingDomain domain = FileService.createEmfFileForDiagram(uri, diagram);
