@@ -33,6 +33,7 @@ import org.eclipse.ui.part.FileEditorInput;
  */
 public final class CreateDiagramWithAllClassesHandler extends AbstractHandler {
 
+	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 
 		// Get the current selection
@@ -79,7 +80,7 @@ public final class CreateDiagramWithAllClassesHandler extends AbstractHandler {
 		try {
 			operation.getCreatedResource().save(null);
 		} catch (IOException e) {
-			IStatus status = new Status(IStatus.ERROR, "org.eclipse.graphiti.examples.tutorial", e.getMessage(), e);
+			IStatus status = new Status(IStatus.ERROR, "org.eclipse.graphiti.examples.tutorial", e.getMessage(), e); //$NON-NLS-1$
 			ErrorDialog.openError(Display.getCurrent().getActiveShell(), "Error Occured", e.getMessage(), status);
 			return null;
 		}
@@ -94,7 +95,7 @@ public final class CreateDiagramWithAllClassesHandler extends AbstractHandler {
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, DiagramEditor.DIAGRAM_EDITOR_ID);
 		} catch (PartInitException e) {
-			IStatus status = new Status(IStatus.ERROR, "org.eclipse.graphiti.examples.tutorial", e.getMessage(), e);
+			IStatus status = new Status(IStatus.ERROR, "org.eclipse.graphiti.examples.tutorial", e.getMessage(), e); //$NON-NLS-1$
 			ErrorDialog.openError(Display.getCurrent().getActiveShell(), "Error Occured", e.getMessage(), status);
 			return null;
 		}

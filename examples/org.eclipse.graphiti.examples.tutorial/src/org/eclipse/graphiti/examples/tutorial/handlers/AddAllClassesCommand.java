@@ -45,7 +45,7 @@ public class AddAllClassesCommand extends RecordingCommand {
 		createdResource.getContents().add(diagram);
 
 		IDiagramTypeProvider dtp = GraphitiUi.getExtensionManager().createDiagramTypeProvider(diagram,
-				"org.eclipse.graphiti.examples.tutorial.diagram.TutorialDiagramTypeProvider");
+				"org.eclipse.graphiti.examples.tutorial.diagram.TutorialDiagramTypeProvider"); //$NON-NLS-1$
 		IFeatureProvider featureProvider = dtp.getFeatureProvider();
 
 		// Add all classes to diagram
