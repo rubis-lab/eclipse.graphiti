@@ -633,7 +633,7 @@ public final class PeServiceImpl implements IPeService {
 		}
 
 		if (diagram == null) {
-			throw new IllegalArgumentException("Diagram must not be null");
+			throw new IllegalArgumentException("Diagram must not be null"); //$NON-NLS-1$
 		}
 
 		Set<EObject> notLinkedPEs = new HashSet<EObject>(elements.length);
@@ -811,7 +811,7 @@ public final class PeServiceImpl implements IPeService {
 		}
 
 		if (diagram == null) {
-			throw new IllegalArgumentException("Diagram must not be null");
+			throw new IllegalArgumentException("Diagram must not be null"); //$NON-NLS-1$
 		}
 
 		Set<PictogramElement> linkedPEs = new HashSet<PictogramElement>();

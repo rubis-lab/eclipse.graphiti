@@ -39,13 +39,13 @@ public abstract class AbstractTracer {
 	private static boolean sIsDebugLogging = false;
 
 	static {
-		String logInfoProperty = System.getProperty("org.eclipse.graphiti.logging.info", "false");
-		if ("true".equals(logInfoProperty)) {
+		String logInfoProperty = System.getProperty("org.eclipse.graphiti.logging.info", "false"); //$NON-NLS-1$ //$NON-NLS-2$
+		if ("true".equals(logInfoProperty)) { //$NON-NLS-1$
 			sIsInfoLogging = true;
 		}
 
-		String logDebugProperty = System.getProperty("org.eclipse.graphiti.logging.debug", "false");
-		if ("true".equals(logDebugProperty)) {
+		String logDebugProperty = System.getProperty("org.eclipse.graphiti.logging.debug", "false"); //$NON-NLS-1$ //$NON-NLS-2$
+		if ("true".equals(logDebugProperty)) { //$NON-NLS-1$
 			sIsDebugLogging = true;
 		}
 	}
@@ -99,7 +99,7 @@ public abstract class AbstractTracer {
 	 *            Arguments as object references
 	 */
 	public void entering(Class<?> clazz, String signature, Object... args) {
-		log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "': "
+		log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "': " //$NON-NLS-1$ //$NON-NLS-2$
 				+ createTraceMsg(ENTERING_MSG + signature, args)));
 	}
 
@@ -112,7 +112,7 @@ public abstract class AbstractTracer {
 	 *            signature of the traced method
 	 */
 	public void exiting(Class<?> clazz, String signature) {
-		log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "':'"
+		log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "':'" //$NON-NLS-1$ //$NON-NLS-2$
 				+ FULL_EXITING_MSG.replaceFirst(SIGNATURE_PATTERN, signature)));
 	}
 
@@ -131,7 +131,7 @@ public abstract class AbstractTracer {
 		if (result == null) {
 			result = new String("<null>"); //$NON-NLS-1$
 		}
-		log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "':'"
+		log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "':'" //$NON-NLS-1$ //$NON-NLS-2$
 				+ createTraceMsg(EXITING_MSG + signature, new Object[] { result })));
 	}
 
@@ -181,7 +181,7 @@ public abstract class AbstractTracer {
 
 	public void debug(String msg) {
 		if (debug()) {
-			log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "DEBUG: " + msg));
+			log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "DEBUG: " + msg)); //$NON-NLS-1$
 		}
 	}
 
@@ -210,7 +210,7 @@ public abstract class AbstractTracer {
 	//	}
 
 	public void error(String methodName, String msg) {
-		log.log(new Status(IStatus.ERROR, log.getBundle().getSymbolicName(), "Method '" + methodName + "': " + msg));
+		log.log(new Status(IStatus.ERROR, log.getBundle().getSymbolicName(), "Method '" + methodName + "': " + msg)); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	public void error(String msg, Throwable throwable) {
@@ -275,7 +275,7 @@ public abstract class AbstractTracer {
 
 	public void info(String className, String methodName, String msg) {
 		if (info()) {
-			log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + className + "' method '" + methodName + "': "
+			log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + className + "' method '" + methodName + "': " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					+ msg));
 		}
 	}
@@ -386,7 +386,7 @@ public abstract class AbstractTracer {
 
 	public void warning(String methodName, String msg) {
 		if (info() || debug())
-			log.log(new Status(IStatus.WARNING, log.getBundle().getSymbolicName(), "Method '" + methodName + "': " + msg));
+			log.log(new Status(IStatus.WARNING, log.getBundle().getSymbolicName(), "Method '" + methodName + "': " + msg)); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	//	public void warning(String msg, Throwable throwable) {
