@@ -37,9 +37,9 @@ public class AddAllClassesCommand extends RecordingCommand {
 		EClass[] allClasses = Util.getAllClasses(project, editingDomain.getResourceSet());
 
 		// Create the diagram and its file
-		Diagram diagram = Graphiti.getPeCreateService().createDiagram("tutorial", diagramName, true);
-		IFolder diagramFolder = project.getFolder("src/diagrams/");
-		IFile diagramFile = diagramFolder.getFile(diagramName + ".diagram");
+		Diagram diagram = Graphiti.getPeCreateService().createDiagram("tutorial", diagramName, true); //$NON-NLS-1$
+		IFolder diagramFolder = project.getFolder("src/diagrams/"); //$NON-NLS-1$
+		IFile diagramFile = diagramFolder.getFile(diagramName + ".diagram"); //$NON-NLS-1$
 		URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 		createdResource = editingDomain.getResourceSet().createResource(uri);
 		createdResource.getContents().add(diagram);

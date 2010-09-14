@@ -56,7 +56,7 @@ public class TutorialUtil {
 		URI uri = d.eResource().getURI();
 		uri = uri.trimFragment();
 		uri = uri.trimFileExtension();
-		uri = uri.appendFileExtension("model");
+		uri = uri.appendFileExtension("model"); //$NON-NLS-1$
 		ResourceSet rSet = d.eResource().getResourceSet();
 		final IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		IResource file = workspaceRoot.findMember(uri.toPlatformString(true));
