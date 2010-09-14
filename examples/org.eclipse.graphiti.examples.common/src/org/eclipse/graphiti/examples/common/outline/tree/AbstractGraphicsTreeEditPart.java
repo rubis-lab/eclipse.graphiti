@@ -183,7 +183,7 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart {
 				if (eObject instanceof EClass && eObject.eResource() != null) {
 					EClass eClass = (EClass) eObject;
 					String className = eClass.getName();
-					return className + " (" + casted.toString() + ")";
+					return className + " (" + casted.toString() + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 				}
 			}
 		}

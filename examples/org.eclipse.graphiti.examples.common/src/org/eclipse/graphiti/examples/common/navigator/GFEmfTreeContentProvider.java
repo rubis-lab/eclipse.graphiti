@@ -137,7 +137,7 @@ public class GFEmfTreeContentProvider implements ITreeContentProvider, IResource
 						return true;
 					case IResource.FILE:
 						final IFile file = (IFile) resource;
-						if (file.getName().endsWith(".diagram") || file.getName().equals("Predefined.data")) { //$NON-NLS-1$
+						if (file.getName().endsWith(".diagram") || file.getName().equals("Predefined.data")) { //$NON-NLS-1$ //$NON-NLS-2$
 							UIJob job = new UIJob("Update Viewer") { //$NON-NLS-1$
 								@Override
 								public IStatus runInUIThread(IProgressMonitor monitor) {

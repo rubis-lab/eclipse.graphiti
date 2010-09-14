@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.CoreException;
 
 public class ExampleProjectNature implements IProjectNature {
 
-	public static final String NATURE_ID = "org.eclipse.graphiti.examples.examplesnature";
+	public static final String NATURE_ID = "org.eclipse.graphiti.examples.examplesnature"; //$NON-NLS-1$
 
 	IProject p;
 

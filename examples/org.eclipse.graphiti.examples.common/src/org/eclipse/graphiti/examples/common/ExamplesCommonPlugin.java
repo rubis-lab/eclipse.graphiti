@@ -90,7 +90,7 @@ public class ExamplesCommonPlugin extends AbstractUIPlugin {
 	 * @return The URL, which points to where this Plugin is installed.
 	 */
 	public static URL getInstallURL() {
-		return getDefault().getBundle().getEntry("/");
+		return getDefault().getBundle().getEntry("/"); //$NON-NLS-1$
 	}
 
 	/**

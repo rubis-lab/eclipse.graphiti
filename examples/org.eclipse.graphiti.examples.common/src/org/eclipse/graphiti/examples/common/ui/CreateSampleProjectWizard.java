@@ -54,15 +54,15 @@ public class CreateSampleProjectWizard extends BasicNewProjectResourceWizard {
 
 	private void createPredefinedContent(IProject newProject) throws CoreException {
 		EClass eclass = EcoreFactory.eINSTANCE.createEClass();
-		eclass.setName("PredefinedEClass");
+		eclass.setName("PredefinedEClass"); //$NON-NLS-1$
 		ResourceSet set = new ResourceSetImpl();
-		URI uri = URI.createPlatformResourceURI(newProject.getFolder("src").getFile("Predefined.data").getFullPath().toString(), true);
+		URI uri = URI.createPlatformResourceURI(newProject.getFolder("src").getFile("Predefined.data").getFullPath().toString(), true); //$NON-NLS-1$ //$NON-NLS-2$
 		Resource resource = set.createResource(uri);
 		resource.getContents().add(eclass);
 		try {
 			resource.save(Collections.EMPTY_MAP);
 		} catch (IOException e) {
-			IStatus status = new Status(IStatus.ERROR, "org.eclipse.tutorial.support", 0, e.getMessage(), e);
+			IStatus status = new Status(IStatus.ERROR, "org.eclipse.tutorial.support", 0, e.getMessage(), e); //$NON-NLS-1$
 			throw new CoreException(status);
 		}
 	}

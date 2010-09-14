@@ -94,8 +94,8 @@ public class Util {
 		for (Resource resource : resources) {
 			resource.unload();
 		}
-		IFolder folder = project.getFolder("src");
-		IFolder folderDiagrams = project.getFolder("src/diagrams");
+		IFolder folder = project.getFolder("src"); //$NON-NLS-1$
+		IFolder folderDiagrams = project.getFolder("src/diagrams"); //$NON-NLS-1$
 		Collection<Diagram> diagrams = new ArrayList<Diagram>();
 		Set<EClass> eClasses = new HashSet<EClass>();
 		if (folder.exists()) {
@@ -109,7 +109,7 @@ public class Util {
 			for (IResource resource : membersList) {
 				if (resource instanceof IFile) {
 					IFile file = (IFile) resource;
-					if ("diagram".equals(file.getFileExtension()) || file.getName().equals("Predefined.data")) {
+					if ("diagram".equals(file.getFileExtension()) || file.getName().equals("Predefined.data")) { //$NON-NLS-1$ //$NON-NLS-2$
 						// The following call extracts the diagram from the
 						// given file. For the Tutorial diagrams always reside
 						// in a file of their own and are the first root object.

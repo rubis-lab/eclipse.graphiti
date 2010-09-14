@@ -79,19 +79,19 @@ public class GFPerspective implements IPerspectiveFactory {
 		// Top left.
 		IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, (float) 0.26, editorArea);//$NON-NLS-1$
 		topLeft.addView(IPageLayout.ID_PROJECT_EXPLORER);
-		topLeft.addView("org.eclipse.jdt.ui.PackageExplorer");
+		topLeft.addView("org.eclipse.jdt.ui.PackageExplorer"); //$NON-NLS-1$
 		topLeft.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 
 		// Bottom left.
 		IFolderLayout bottomLeft = layout.createFolder("bottomLeft", IPageLayout.BOTTOM, (float) 0.50,//$NON-NLS-1$
 				"topLeft");//$NON-NLS-1$
 		bottomLeft.addView(IPageLayout.ID_OUTLINE);
-		bottomLeft.addView("org.eclipse.graphiti.ui.internal.editor.thumbnailview");
+		bottomLeft.addView("org.eclipse.graphiti.ui.internal.editor.thumbnailview"); //$NON-NLS-1$
 
 		// Bottom right.
 		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, (float) 0.66,//$NON-NLS-1$
 				editorArea);
-		bottomRight.addView("org.eclipse.pde.runtime.LogView");
+		bottomRight.addView("org.eclipse.pde.runtime.LogView"); //$NON-NLS-1$
 		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
 		bottomRight.addView(IPageLayout.ID_PROBLEM_VIEW);
 	}
