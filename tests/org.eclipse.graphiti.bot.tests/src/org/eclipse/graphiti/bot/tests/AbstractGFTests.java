@@ -440,7 +440,7 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				SWTBotPerspective p = bot.perspectiveById("org.eclipse.graphiti.tests.ui.GFTestPerspective");
+				SWTBotPerspective p = bot.perspectiveById("org.eclipse.graphiti.examples.common.perspective.GFPerspective");
 				p.activate();
 				bot.activeShell().widget.setMaximized(true);
 			}

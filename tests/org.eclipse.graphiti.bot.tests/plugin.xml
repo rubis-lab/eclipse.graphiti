@@ -19,11 +19,6 @@
 
    <extension
          point="org.eclipse.ui.perspectives">
-      <perspective
-            class="org.eclipse.graphiti.bot.tests.util.GFTestPerspective"
-            fixed="false"
-            id="org.eclipse.graphiti.tests.ui.GFTestPerspective"
-            name="Test Graphiti"/>
    </extension>
 
 </plugin>
