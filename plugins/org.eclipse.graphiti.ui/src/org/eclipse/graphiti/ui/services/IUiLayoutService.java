@@ -24,10 +24,19 @@ import org.eclipse.graphiti.services.ILayoutService;
  * depend on UI.
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
- * @noextend This class is not intended to be subclassed by clients.
+ * @noextend This class is not intended to be sub-classed by clients.
  */
 public interface IUiLayoutService extends ILayoutService {
 
+	/**
+	 * Calculates the width and height of the given text in the given font.
+	 * 
+	 * @param text
+	 *            the string to calculate the rendering size for
+	 * @param font
+	 *            the font which should be considered for the string
+	 * @return
+	 */
 	public IDimension calculateTextSize(String text, Font font);
 
 }
