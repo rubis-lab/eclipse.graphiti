@@ -1,136 +1,88 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html>
-<head>
-<meta name="generator" content=
-"HTML Tidy for Windows (vers 25 March 2009), see www.w3.org">
-<meta http-equiv="Content-Type" content=
-"text/html; charset=us-ascii">
+<HTML>
+<HEAD><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <title>Diagram Type Providers</title>
+<style type="text/css">@import ../../../book.css";</style>
+<style type="text/css">@import ../../../schema.css";</style>
+</HEAD>
+<BODY>
+<H1 style="text-align:center">Diagram Type Providers</H1>
+<p></p>
+<h6 class="CaptionFigColumn SchemaHeader">Identifier: </h6>org.eclipse.graphiti.ui.diagramTypeProviders<p></p>
+<h6 class="CaptionFigColumn SchemaHeader">Since: </h6>0.7.0
+<p></p>
 
-<style type="text/css">
-@import url("file:/C:/Eclipse/IDE/eclipse/configuration/org.eclipse.osgi/bundles/1059/1/.cp/book.css");
-</style>
-
-<style type="text/css">
-@import url("file:/C:/Eclipse/IDE/eclipse/configuration/org.eclipse.osgi/bundles/1070/1/.cp/schema.css");
-</style>
-</head>
-<body>
-<h1 style="text-align:center">Diagram Type Providers</h1>
-<h6 class="CaptionFigColumn SchemaHeader">Identifier:</h6>
-org.eclipse.graphiti.ui.diagramTypeProviders
-<h6 class="CaptionFigColumn SchemaHeader">Description:</h6>
-Customers of Graphiti can use this extension point to register
-their own diagram type providers.
-<h6 class="CaptionFigColumn SchemaHeader">Configuration
-Markup:</h6>
-<p class="code SchemaDtd">&lt;!ELEMENT <a name="e.extension" id=
-"e.extension">extension</a> (<a href=
-"#e.diagramTypeProvider">diagramTypeProvider</a>*)&gt;</p>
+<h6 class="CaptionFigColumn SchemaHeader">Description: </h6>Customers of Graphiti can use this extension point to register their own diagram type providers.<p></p>
+<h6 class="CaptionFigColumn SchemaHeader">Configuration Markup:</h6>
+<p></p>
+<p class="code SchemaDtd">&lt;!ELEMENT <a name="e.extension">extension</a> (<a href="#e.diagramTypeProvider">diagramTypeProvider</a>*)&gt;</p>
 <p class="code SchemaDtd">&lt;!ATTLIST extension</p>
-<p class="code SchemaDtdAttlist">point&nbsp;CDATA #REQUIRED</p>
-<p class="code SchemaDtdAttlist">id&nbsp;&nbsp;&nbsp;&nbsp;CDATA
-#IMPLIED</p>
-<p class="code SchemaDtdAttlist">name&nbsp;&nbsp;CDATA
-#IMPLIED</p>
-&gt;
-<ul class="ConfigMarkupAttlistDesc"></ul>
-<br>
-<p class="code SchemaDtd">&lt;!ELEMENT <a name=
-"e.diagramTypeProvider" id=
-"e.diagramTypeProvider">diagramTypeProvider</a> (<a href=
-"#e.diagramType">diagramType</a> , <a href=
-"#e.imageProvider">imageProvider</a>)*&gt;</p>
+<p class="code SchemaDtdAttlist">point&nbsp;CDATA #REQUIRED</p><p class="code SchemaDtdAttlist">id&nbsp;&nbsp;&nbsp;&nbsp;CDATA #IMPLIED</p><p class="code SchemaDtdAttlist">name&nbsp;&nbsp;CDATA #IMPLIED</p>&gt;</p>
+<p></p>
+<ul class="ConfigMarkupAttlistDesc">
+</ul>
+<br><p class="code SchemaDtd">&lt;!ELEMENT <a name="e.diagramTypeProvider">diagramTypeProvider</a> (<a href="#e.diagramType">diagramType</a> , <a href="#e.imageProvider">imageProvider</a>)*&gt;</p>
 <p class="code SchemaDtd">&lt;!ATTLIST diagramTypeProvider</p>
-<p class="code SchemaDtdAttlist">
-id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CDATA
-#REQUIRED</p>
-<p class="code SchemaDtdAttlist">
-name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CDATA
-#REQUIRED</p>
-<p class="code SchemaDtdAttlist">description&nbsp;CDATA
-#IMPLIED</p>
-<p class="code SchemaDtdAttlist">
-class&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CDATA
-#REQUIRED</p>
-&gt;
+<p class="code SchemaDtdAttlist">id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CDATA #REQUIRED</p><p class="code SchemaDtdAttlist">name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CDATA #REQUIRED</p><p class="code SchemaDtdAttlist">description&nbsp;CDATA #IMPLIED</p><p class="code SchemaDtdAttlist">class&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CDATA #REQUIRED</p>&gt;</p>
+<p></p>
 <ul class="ConfigMarkupAttlistDesc">
-<li><b>id</b> - a unique name in the NWDS environment that will
-be used to identify this diagram type provider</li>
-<li><b>name</b> - a name that will be used in the editor UI for
-this diagram type provider</li>
-<li><b>description</b> - an optional description that will be
-used in the editor UI for this diagram type provider</li>
-<li><b>class</b> - the name of a class that implements
-<samp>org.eclipse.graphiti.dt.IDiagramTypeProviderr</samp>.</li>
+<li><b>id</b> - a unique name in the Eclipse environment that will be used to identify this diagram type provider</li>
+<li><b>name</b> - a name that will be used in the editor UI for this diagram type provider</li>
+<li><b>description</b> - an optional description that will be used in the editor UI for this diagram type provider</li>
+<li><b>class</b> - the name of a class that implements <samp>org.eclipse.graphiti.dt.IDiagramTypeProviderr</samp>.</li>
 </ul>
-<br>
-<p class="code SchemaDtd">&lt;!ELEMENT <a name="e.diagramType"
-id="e.diagramType">diagramType</a> EMPTY&gt;</p>
+<br><p class="code SchemaDtd">&lt;!ELEMENT <a name="e.diagramType">diagramType</a> EMPTY&gt;</p>
 <p class="code SchemaDtd">&lt;!ATTLIST diagramType</p>
-<p class="code SchemaDtdAttlist">id&nbsp;IDREF #REQUIRED</p>
-&gt;
-<p class="ConfigMarkupElementDesc">Advertises that the containing
-diagram type provider understands the given diagram type and is
-suitable for editing/viewing diagrams of that type.</p>
+<p class="code SchemaDtdAttlist">id&nbsp;IDREF #REQUIRED</p>&gt;</p>
+<p></p>
+<p class="ConfigMarkupElementDesc">
+Advertises that the containing diagram type provider understands the given diagram type and is suitable for editing/viewing diagrams of that type.</p>
 <br>
 <ul class="ConfigMarkupAttlistDesc">
-<li><b>id</b> - The diagram type identifier. This is an ID
-defined by the 'org.eclipse.graphiti.ui.diagramTypes' extension
-point.</li>
+<li><b>id</b> - the diagram type identifier. This is an ID defined by the 'org.eclipse.graphiti.ui.diagramTypes' extension point.</li>
 </ul>
-<br>
-<p class="code SchemaDtd">&lt;!ELEMENT <a name="e.imageProvider"
-id="e.imageProvider">imageProvider</a> EMPTY&gt;</p>
+<br><p class="code SchemaDtd">&lt;!ELEMENT <a name="e.imageProvider">imageProvider</a> EMPTY&gt;</p>
 <p class="code SchemaDtd">&lt;!ATTLIST imageProvider</p>
-<p class="code SchemaDtdAttlist">id&nbsp;IDREF #REQUIRED</p>
-&gt;
-<p class="ConfigMarkupElementDesc">Advertises that the containing
-diagram type provider needs the given image provider for
-rendering purposes.</p>
+<p class="code SchemaDtdAttlist">id&nbsp;IDREF #REQUIRED</p>&gt;</p>
+<p></p>
+<p class="ConfigMarkupElementDesc">
+Advertises that the containing diagram type provider needs the given image provider for rendering purposes.</p>
 <br>
 <ul class="ConfigMarkupAttlistDesc">
-<li><b>id</b> - The image provider identifier. This is an ID
-defined by the 'org.eclipse.graphiti.ui.imageProviders' extension
-point.</li>
+<li><b>id</b> - the image provider identifier. This is an ID defined by the 'org.eclipse.graphiti.ui.imageProviders' extension point.</li>
 </ul>
-<br>
-<h6 class="CaptionFigColumn SchemaHeader">Examples:</h6>
-<pre class="Example">
-<span class="code SchemaTag">
+<br><h6 class="CaptionFigColumn SchemaHeader">Examples: </h6><p>
+<pre class="Example"><span class="code SchemaTag">
    &lt;extension
-         point=</span><span class=
-"code SchemaCstring">"org.eclipse.graphiti.ui.diagramTypeProviders"</span><span class="code SchemaTag">&gt;
+         point=</span><span class="code SchemaCstring">&quot;org.eclipse.graphiti.ui.diagramTypeProviders&quot;</span><span class="code SchemaTag">&gt;
       &lt;diagramTypeProvider
-            class=</span><span class=
-"code SchemaCstring">"org.eclipse.graphiti.examples.ecore.TestDiagramTypeProvider"</span><span class="code SchemaTag">
-            description=</span><span class=
-"code SchemaCstring">"This is a small Ecore test editor for the automated junit tests"</span><span class="code SchemaTag">
-            id=</span><span class=
-"code SchemaCstring">"org.eclipse.graphiti.examples.ecore.TestDiagramTypeProvider"</span><span class="code SchemaTag">
-            name=</span><span class=
-"code SchemaCstring">"Ecore example editor"</span><span class=
-"code SchemaTag">&gt;
+            class=</span><span class="code SchemaCstring">&quot;org.eclipse.graphiti.examples.ecore.TestDiagramTypeProvider&quot;</span><span class="code SchemaTag">
+            description=</span><span class="code SchemaCstring">&quot;This is a small Ecore test editor for the automated junit tests&quot;</span><span class="code SchemaTag">
+            id=</span><span class="code SchemaCstring">&quot;org.eclipse.graphiti.examples.ecore.TestDiagramTypeProvider&quot;</span><span class="code SchemaTag">
+            name=</span><span class="code SchemaCstring">&quot;Ecore example editor&quot;</span><span class="code SchemaTag">&gt;
          &lt;diagramType
-               id=</span><span class=
-"code SchemaCstring">"org.eclipse.graphiti.examples.ecore.EcoreDiagramType"</span><span class="code SchemaTag">&gt;
+               id=</span><span class="code SchemaCstring">&quot;org.eclipse.graphiti.examples.ecore.EcoreDiagramType&quot;</span><span class="code SchemaTag">&gt;
          &lt;/diagramType&gt;
          &lt;imageProvider
-               id=</span><span class=
-"code SchemaCstring">"org.eclipse.graphiti.examples.common.SampleImageProvider"</span><span class="code SchemaTag">&gt;
+               id=</span><span class="code SchemaCstring">&quot;org.eclipse.graphiti.examples.common.SampleImageProvider&quot;</span><span class="code SchemaTag">&gt;
          &lt;/imageProvider&gt;
       &lt;/diagramTypeProvider&gt;
    &lt;/extension&gt;
-</span>
-</pre>
-<h6 class="CaptionFigColumn SchemaHeader">API Information:</h6>
-Instead of implementing the interface
-<samp>"org.eclipse.graphiti.dt.IDiagramTypeProvider</samp>
-directly, the customer should extend the base class
-<samp>"org.eclipse.graphiti.dt.AbstractDiagramTypeProvider</samp>.<br>
+</span></pre>
+</p>
+<p></p>
 
-<hr>
-<a href="http://www.eclipse.org/legal/epl-v10.html" shape=
-"rect">Copyright (c) SAP AG 2005, 2010.</a>
-</body>
-</html>
+<h6 class="CaptionFigColumn SchemaHeader">API Information: </h6>Instead of implementing the interface <samp>"org.eclipse.graphiti.dt.IDiagramTypeProvider</samp> directly, the customer should extend the base class <samp>"org.eclipse.graphiti.dt.AbstractDiagramTypeProvider</samp>.
+<p></p>
+
+<br>
+<p class="note SchemaCopyright">
+Copyright (c) 2005, 2010 SAP AG.<br>
+All rights reserved. This program and the accompanying materials are made
+available under the terms of the Eclipse Public License v1.0 which accompanies
+this distribution, and is available at <a 
+href="http://www.eclipse.org/legal/epl-v10.html">http://www.eclipse.org/legal/epl-v10.html</a>
+
+</p>
+</BODY>
+</HTML>
