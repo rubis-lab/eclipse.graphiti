@@ -25,6 +25,7 @@ import org.eclipse.draw2d.UpdateListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -166,7 +167,13 @@ public class FixedThumbnail extends Figure implements UpdateListener {
 			thumbnailGraphics.pushState();
 			thumbnailGraphics.setClip(rect);
 			thumbnailGraphics.fillRectangle(rect);
-			sourceFigure.paint(thumbnailGraphics);
+			
+			try {
+				sourceFigure.paint(thumbnailGraphics);
+			} catch (SWTException e) {
+			} catch (IllegalArgumentException e) {
+			}
+			
 			thumbnailGraphics.popState();
 
 			if (getCurrentHTile() < (hTiles - 1))
