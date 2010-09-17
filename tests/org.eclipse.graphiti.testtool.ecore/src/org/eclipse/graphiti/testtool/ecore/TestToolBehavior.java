@@ -18,12 +18,10 @@ package org.eclipse.graphiti.testtool.ecore;
 import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
-import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
@@ -43,13 +41,6 @@ public class TestToolBehavior extends DefaultToolBehaviorProvider {
 	 */
 	public TestToolBehavior(IDiagramTypeProvider diagramTypeProvider) {
 		super(diagramTypeProvider);
-	}
-
-	@Override
-	protected boolean isContextMenuApplicable(IFeature feature) {
-		// consider all custom features as candidates for the context menu
-		boolean ret = (feature instanceof ICustomFeature);
-		return ret;
 	}
 
 	@Override
