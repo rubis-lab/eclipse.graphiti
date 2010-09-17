@@ -162,17 +162,19 @@ diagram type provider as described <a href="tool-behavior-provider.htm">here</a>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>There is one method of
 the tool behavior provider to overwrite: </span></p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getRenderingDecorators(org.eclipse.graphiti.mm.pictograms.PictogramElement)">getRenderingDecorators</a>
+<p class=MsoNormal><span lang=EN-GB style='color:black'>The method 
+<a href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getDecorators(org.eclipse.graphiti.mm.pictograms.PictogramElement)">
+getDecorators</a>
 has to return the rendering decorators for the given pictogram element. A
-rendering decorator must implement the interface <a
-href="../../../javadoc/org/eclipse/graphiti/tb/IRenderingDecorator.html">IRenderingDecorator</a>
+rendering decorator must implement the interface 
+<a href="../../../javadoc/org/eclipse/graphiti/tb/IDecorator.html">IDecorator</a>
 and may also implement <a
 href="../../../javadoc/org/eclipse/graphiti/datatypes/ILocation.html">ILocation</a>,
 which provides the decorator location relative to the pictogram element.</span></p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Currently only the <a
-href="../../../javadoc/org/eclipse/graphiti/tb/ImageRenderingDecorator.html">ImageRenderingDecorator</a>
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Currently only the 
+<a href="../../../javadoc/org/eclipse/graphiti/tb/ImageDecorator.html">
+ImageDecorator</a>
 is supported, which renders an image at the defined location and can show a
 text message as tooltip.</span></p>
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
@@ -208,7 +210,7 @@ complete implementation of the rendering decorators here:</span></p>
   font-family:"Courier New";color:black'>    </span><b><span style='font-size:
   10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
   style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  IRenderingDecorator[] getRenderingDecorators(PictogramElement pe) {</span></p>
+  IDecorator[] getDecorators(PictogramElement pe) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
   font-family:"Courier New";color:black'>        IFeatureProvider
   featureProvider = getFeatureProvider();</span></p>
@@ -241,13 +243,13 @@ complete implementation of the rendering decorators here:</span></p>
   10.0pt;font-family:"Courier New";color:#2A00FF'>'Z'</span><span
   style='font-size:10.0pt;font-family:"Courier New";color:black'>)) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>                IRenderingDecorator
+  font-family:"Courier New";color:black'>                IDecorator
   imageRenderingDecorator =</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
   font-family:"Courier New";color:black'>                    </span><b><span
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
   style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ImageRenderingDecorator(</span></p>
+  ImageDecorator(</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
   font-family:"Courier New";color:black'>                       
   IPlatformImageConstants.</span><i><span style='font-size:10.0pt;font-family:
@@ -266,7 +268,7 @@ complete implementation of the rendering decorators here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
   style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  IRenderingDecorator[] { imageRenderingDecorator };</span></p>
+  IDecorator[] { imageRenderingDecorator };</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
   font-family:"Courier New";color:black'>            }</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
@@ -278,7 +280,7 @@ complete implementation of the rendering decorators here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
   style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>.getRenderingDecorators(pe);</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>.getDecorators(pe);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
   font-family:"Courier New";color:black'>    }</span></p>
   <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
