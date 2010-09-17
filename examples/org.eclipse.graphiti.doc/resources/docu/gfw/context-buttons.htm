@@ -302,7 +302,7 @@ diagram type provider as described <a href="tool-behavior-provider.htm">here</a>
 the tool behavior provider to overwrite: </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getContextButtonPadData(org.eclipse.graphiti.features.context.IPictogramElementContext)">getContextButtonPadData</a>
+href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getContextButtonPad(org.eclipse.graphiti.features.context.IPictogramElementContext)">getContextButtonPad</a>
 has to return the context buttons for the given context (which implement <a
 href="../../../javadoc/org/eclipse/graphiti/tb/IContextButtonEntry.html">IContextButtonEntry</a>).
 </span></p>
@@ -391,7 +391,7 @@ complete implementation of the context button here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> IContextButtonPadData getContextButtonPadData(</span></p>
+  font-family:"Courier New";color:black'> IContextButtonPadData getContextButtonPad(</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   IPictogramElementContext context) {</span></p>
@@ -399,7 +399,7 @@ complete implementation of the context button here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   IContextButtonPadData data = </span><b><span lang=EN-US style='font-size:
   10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.getContextButtonPadData(context);</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.getContextButtonPad(context);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   PictogramElement pe = context.getPictogramElement();</span></p>
