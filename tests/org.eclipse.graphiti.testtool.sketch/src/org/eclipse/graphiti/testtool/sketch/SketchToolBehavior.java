@@ -25,7 +25,6 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.examples.common.IExampleImageConstants;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
@@ -284,66 +283,65 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 
 		for (int i = 0; i < customFeatures.length; i++) {
 			ICustomFeature customFeature = customFeatures[i];
-			if (isContextMenuApplicable(customFeature)) {
-				ContextMenuEntry contextMenuEntry = new ContextMenuEntry(customFeature, context);
-				if (customFeature instanceof ChangeAlignmentFeature) {
-					if (changeAlignmentEntry == null) {
-						changeAlignmentEntry = new ContextMenuEntry(null, null);
-						changeAlignmentEntry.setSubmenu(true);
-						changeAlignmentEntry.setText("Text Alignment");
-						changeAlignmentEntry.setDescription("Change Text Alignment");
-						retList.add(changeAlignmentEntry);
-					}
-					changeAlignmentEntry.add(contextMenuEntry);
-				} else if (customFeature instanceof TransparencyFeature) {
-					if (changetTransparencyEntry == null) {
-						changetTransparencyEntry = new ContextMenuEntry(null, null);
-						changetTransparencyEntry.setSubmenu(true);
-						changetTransparencyEntry.setText("Transparency");
-						changetTransparencyEntry.setDescription("Change Shape Transparency");
-						retList.add(changetTransparencyEntry);
-					}
-					changetTransparencyEntry.add(contextMenuEntry);
-				} else if (customFeature instanceof LineWidthFeature) {
-					if (changetLineWidthEntry == null) {
-						changetLineWidthEntry = new ContextMenuEntry(null, null);
-						changetLineWidthEntry.setSubmenu(true);
-						changetLineWidthEntry.setText("Line Width");
-						changetLineWidthEntry.setDescription("Change Line Width");
-						retList.add(changetLineWidthEntry);
-					}
-					changetLineWidthEntry.add(contextMenuEntry);
-				} else if (customFeature instanceof LineStyleFeature) {
-					if (changetLineStyleEntry == null) {
-						changetLineStyleEntry = new ContextMenuEntry(null, null);
-						changetLineStyleEntry.setSubmenu(true);
-						changetLineStyleEntry.setText("Line Style");
-						changetLineStyleEntry.setDescription("Change Line Style");
-						retList.add(changetLineStyleEntry);
-					}
-					changetLineStyleEntry.add(contextMenuEntry);
-				} else if (customFeature instanceof CornerDimensionFeature) {
-					if (changetCornerDimensionEntry == null) {
-						changetCornerDimensionEntry = new ContextMenuEntry(null, null);
-						changetCornerDimensionEntry.setSubmenu(true);
-						changetCornerDimensionEntry.setText("Corner Dimension");
-						changetCornerDimensionEntry.setDescription("Change Corner Dimension");
-						retList.add(changetCornerDimensionEntry);
-					}
-					changetCornerDimensionEntry.add(contextMenuEntry);
-				} else if (customFeature instanceof SetStyleFeature) {
-					if (setStyleEntry == null) {
-						setStyleEntry = new ContextMenuEntry(null, null);
-						setStyleEntry.setSubmenu(true);
-						setStyleEntry.setText("Set Style");
-						setStyleEntry.setDescription("Set Shape's Style");
-						retList.add(setStyleEntry);
-					}
-					setStyleEntry.add(contextMenuEntry);
-				} else {
-					retList.add(contextMenuEntry);
+			ContextMenuEntry contextMenuEntry = new ContextMenuEntry(customFeature, context);
+			if (customFeature instanceof ChangeAlignmentFeature) {
+				if (changeAlignmentEntry == null) {
+					changeAlignmentEntry = new ContextMenuEntry(null, null);
+					changeAlignmentEntry.setSubmenu(true);
+					changeAlignmentEntry.setText("Text Alignment");
+					changeAlignmentEntry.setDescription("Change Text Alignment");
+					retList.add(changeAlignmentEntry);
 				}
+				changeAlignmentEntry.add(contextMenuEntry);
+			} else if (customFeature instanceof TransparencyFeature) {
+				if (changetTransparencyEntry == null) {
+					changetTransparencyEntry = new ContextMenuEntry(null, null);
+					changetTransparencyEntry.setSubmenu(true);
+					changetTransparencyEntry.setText("Transparency");
+					changetTransparencyEntry.setDescription("Change Shape Transparency");
+					retList.add(changetTransparencyEntry);
+				}
+				changetTransparencyEntry.add(contextMenuEntry);
+			} else if (customFeature instanceof LineWidthFeature) {
+				if (changetLineWidthEntry == null) {
+					changetLineWidthEntry = new ContextMenuEntry(null, null);
+					changetLineWidthEntry.setSubmenu(true);
+					changetLineWidthEntry.setText("Line Width");
+					changetLineWidthEntry.setDescription("Change Line Width");
+					retList.add(changetLineWidthEntry);
+				}
+				changetLineWidthEntry.add(contextMenuEntry);
+			} else if (customFeature instanceof LineStyleFeature) {
+				if (changetLineStyleEntry == null) {
+					changetLineStyleEntry = new ContextMenuEntry(null, null);
+					changetLineStyleEntry.setSubmenu(true);
+					changetLineStyleEntry.setText("Line Style");
+					changetLineStyleEntry.setDescription("Change Line Style");
+					retList.add(changetLineStyleEntry);
+				}
+				changetLineStyleEntry.add(contextMenuEntry);
+			} else if (customFeature instanceof CornerDimensionFeature) {
+				if (changetCornerDimensionEntry == null) {
+					changetCornerDimensionEntry = new ContextMenuEntry(null, null);
+					changetCornerDimensionEntry.setSubmenu(true);
+					changetCornerDimensionEntry.setText("Corner Dimension");
+					changetCornerDimensionEntry.setDescription("Change Corner Dimension");
+					retList.add(changetCornerDimensionEntry);
+				}
+				changetCornerDimensionEntry.add(contextMenuEntry);
+			} else if (customFeature instanceof SetStyleFeature) {
+				if (setStyleEntry == null) {
+					setStyleEntry = new ContextMenuEntry(null, null);
+					setStyleEntry.setSubmenu(true);
+					setStyleEntry.setText("Set Style");
+					setStyleEntry.setDescription("Set Shape's Style");
+					retList.add(setStyleEntry);
+				}
+				setStyleEntry.add(contextMenuEntry);
+			} else {
+				retList.add(contextMenuEntry);
 			}
+
 		}
 
 		ret = retList.toArray(NO_CONTEXT_MENU_ENTRIES);
@@ -470,13 +468,6 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 	@Override
 	public double[] getZoomLevels() {
 		return ZOOM_LEVELS;
-	}
-
-	@Override
-	protected boolean isContextMenuApplicable(IFeature feature) {
-		// consider all custom features as candidates for the context menu
-		boolean ret = (feature instanceof ICustomFeature);
-		return ret;
 	}
 
 	@Override
