@@ -269,7 +269,7 @@ complete implementation of the context menu here:</span></p>
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'> IContextMenuEntry[]
-  getContextMenu(IContext context) {</span></p>
+  getContextMenu(ICustomContext context) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
@@ -384,20 +384,6 @@ complete implementation of the context menu here:</span></p>
 </table>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB>Note, that our implementation overwrites
-the standard behavior in the DefaultToolBehaviorProvider, which used <a
-href="../../../javadoc/org/eclipse/graphiti/tb/DefaultToolBehaviorProvider.html#isContextMenuApplicable(org.eclipse.graphiti.features.IFeature)">isContextMenuApplicable</a>
-to decide which features to add to the context menu. We based on this standard
-behavior when the <a href="custom-feature.htm">custom feature</a> was initially
-implemented and added to the context menu.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB>In our overwriting implementation we no
-longer use <a
-href="../../../javadoc/org/eclipse/graphiti/tb/DefaultToolBehaviorProvider.html#isContextMenuApplicable(org.eclipse.graphiti.features.IFeature)">isContextMenuApplicable</a>,
-so that this method can be deleted now.</span><span lang=EN-GB> </span></p>
 
 <h2><span lang=EN-GB>Test: Create a Connection by Drag&amp;Drop from a Context
 Button</span></h2>
