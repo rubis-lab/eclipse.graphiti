@@ -27,7 +27,6 @@ import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
@@ -242,25 +241,20 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		final String SIGNATURE = "getContextMenu(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
 		if (info) {
-			T.racer().entering(DefaultToolBehaviorProvider.class, SIGNATURE,
-					new Object[] { context });
+			T.racer().entering(DefaultToolBehaviorProvider.class, SIGNATURE, new Object[] { context });
 		}
 		IContextMenuEntry[] ret = NO_CONTEXT_MENU_ENTRIES;
 		List<IContextMenuEntry> retList = new ArrayList<IContextMenuEntry>();
 
-		ICustomFeature[] customFeatures = getFeatureProvider()
-				.getCustomFeatures(context);
+		ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(context);
 		for (int i = 0; i < customFeatures.length; i++) {
 			ICustomFeature customFeature = customFeatures[i];
-			if (isContextMenuApplicable(customFeature)) {
-				retList.add(new ContextMenuEntry(customFeature, context));
-			}
+			retList.add(new ContextMenuEntry(customFeature, context));
 		}
 
 		ret = retList.toArray(NO_CONTEXT_MENU_ENTRIES);
 		if (info) {
-			T.racer()
-					.exiting(DefaultToolBehaviorProvider.class, SIGNATURE, ret);
+			T.racer().exiting(DefaultToolBehaviorProvider.class, SIGNATURE, ret);
 		}
 		return ret;
 	}
@@ -303,8 +297,8 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 
 			for (ICreateConnectionFeature createConnectionFeature : createConnectionFeatures) {
 				ConnectionCreationToolEntry ccTool = new ConnectionCreationToolEntry(createConnectionFeature.getCreateName(),
-						createConnectionFeature.getCreateDescription(), createConnectionFeature.getCreateImageId(), createConnectionFeature
-								.getCreateLargeImageId());
+						createConnectionFeature.getCreateDescription(), createConnectionFeature.getCreateImageId(),
+						createConnectionFeature.getCreateLargeImageId());
 				ccTool.addCreateConnectionFeature(createConnectionFeature);
 				// if (multiTool != null) {
 				// multiTool.addCreateConnectionFeature(createConnectionFeature);
@@ -320,8 +314,9 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		ICreateFeature[] createFeatures = featureProvider.getCreateFeatures();
 
 		for (ICreateFeature createFeature : createFeatures) {
-			ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(createFeature.getCreateName(), createFeature
-					.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);
+			ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(createFeature.getCreateName(),
+					createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(),
+					createFeature);
 
 			compartmentEntry.addToolEntry(objectCreationToolEntry);
 
@@ -378,17 +373,6 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 */
 	protected IFeatureProvider getFeatureProvider() {
 		return getDiagramTypeProvider().getFeatureProvider();
-	}
-
-	/**
-	 * Checks if is context menu applicable.
-	 * 
-	 * @param feature
-	 *            the feature
-	 * @return true, if is context menu applicable
-	 */
-	protected boolean isContextMenuApplicable(IFeature feature) {
-		return false;
 	}
 
 	public void preExecute(IExecutionInfo executionInfo) {
