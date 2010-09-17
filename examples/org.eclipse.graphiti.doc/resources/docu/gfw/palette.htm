@@ -280,8 +280,9 @@ diagram type provider as described <a href="tool-behavior-provider.htm">here</a>
 the tool behavior provider to overwrite: </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
-lang=EN-US><a
-href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getPaletteCompartments()">getPaletteCompartments</a><b>
+lang=EN-US>
+<a href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getPalette()">
+getPalette</a><b>
 </b></span><span lang=EN-GB style='color:black'>has to return the palette
 entries (which implement <a
 href="../../../javadoc/org/eclipse/graphiti/palette/IPaletteCompartmentEntry.html">IPaletteCompartmentEntry</a>)</span></p>
@@ -327,7 +328,7 @@ complete implementation of the palette here:</span></p>
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'> IPaletteCompartmentEntry[]
-  getPaletteCompartments() {</span></p>
+  getPalette() {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   List&lt;IPaletteCompartmentEntry&gt; ret =</span></p>
@@ -350,7 +351,7 @@ complete implementation of the palette here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>super</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>.getPaletteCompartments();</span></p>
+  font-family:"Courier New";color:black'>.getPalette();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
