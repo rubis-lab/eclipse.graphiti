@@ -144,9 +144,12 @@ public final class LinkServiceImpl implements ILinkService {
 		if (eObject != null && GraphitiInternal.getEmfService().isObjectAlive(eObject)) {
 			Collection<PictogramLink> links = diagram.getPictogramLinks();
 			for (PictogramLink link : links) {
-				EObject bo = getBusinessObjectForLinkedPictogramElement(link.getPictogramElement());
-				if (EcoreUtil.equals(eObject, bo)) {
-					ret.add(link.getPictogramElement());
+				EObject bos[] = getAllBusinessObjectsForLinkedPictogramElement(link.getPictogramElement());
+				for (EObject bo : bos) {
+					if (EcoreUtil.equals(eObject, bo)) {
+						ret.add(link.getPictogramElement());
+						break;
+					}
 				}
 			}
 		}
