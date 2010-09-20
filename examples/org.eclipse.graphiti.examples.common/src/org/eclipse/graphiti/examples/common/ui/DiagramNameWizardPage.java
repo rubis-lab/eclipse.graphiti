@@ -170,7 +170,7 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 	}
 
 	private String getInitialTextFieldValue() {
-		return "new diagram"; //$NON-NLS-1$
+		return "newDiagram"; //$NON-NLS-1$
 	}
 
 	private IStatus doWorkspaceValidation(IWorkspace workspace, String text) {
@@ -178,4 +178,12 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 		return ret;
 	}
 
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		if (visible) {
+			textField.setFocus();
+			textField.selectAll();
+		}
+	}
 }
