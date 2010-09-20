@@ -134,6 +134,9 @@ public class LinkServiceTest extends GFAbstractTestCase {
 		EClass bo2 = EcoreFactory.eINSTANCE.createEClass();
 		bo2.setName("bo2");
 		d.eResource().getContents().add(bo2);
+		EClass bo3 = EcoreFactory.eINSTANCE.createEClass();
+		bo3.setName("bo3");
+		d.eResource().getContents().add(bo3);
 
 		List<EObject> boList = new ArrayList<EObject>();
 		boList.add(bo1);
@@ -150,6 +153,7 @@ public class LinkServiceTest extends GFAbstractTestCase {
 
 		link(s1a, bo1);
 		link(s2a, bo2);
+		link(s2a, bo3);
 		pes = linkService.getPictogramElements(d, boList, true);
 		assertFalse(pes.isEmpty());
 		assertEquals(s1a, pes.get(0));
@@ -158,6 +162,10 @@ public class LinkServiceTest extends GFAbstractTestCase {
 		assertTrue(pes.size() == 2);
 		assertTrue(pes.contains(s1a));
 		assertTrue(pes.contains(s3i));
+
+		pes = linkService.getPictogramElements(d, bo3);
+		assertTrue(pes.size() == 1);
+		assertTrue(pes.contains(s2a));
 	}
 
 	private PictogramLink createOrGetPictogramLink(PictogramElement pe) {
