@@ -15,12 +15,18 @@
  *******************************************************************************/
 package org.eclipse.graphiti.examples.common.ui;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.graphiti.dt.IDiagramType;
+import org.eclipse.graphiti.examples.common.ExamplesCommonPlugin;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
@@ -32,8 +38,14 @@ import org.eclipse.swt.widgets.Label;
  */
 public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextProvider {
 
+	/**
+	 * 
+	 */
+	private static final String DEFAULT_TYPE = "tutorial";
 	private static final String PAGE_DESC = "Select diagram type";
 	private static final String PAGE_TITLE = "Diagram";
+
+	private static final String SELECTED_TYPE = "selectedtype";
 	// widget
 	/**
 	 * The combo box.
@@ -87,6 +99,14 @@ public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextPr
 		comboBox.setLayoutData(data);
 		comboBox.setFont(parent.getFont());
 		comboBox.setVisibleItemCount(12);
+		comboBox.addSelectionListener(new SelectionAdapter() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				IDialogSettings dialogSettings = ExamplesCommonPlugin.getDefault().getDialogSettings();
+				dialogSettings.put(SELECTED_TYPE, comboBox.getText());
+			}
+		});
 
 		// set the contents of the Combo-widget
 		comboBox.setItems(getAllAvailableDiagramTypes());
@@ -115,6 +135,15 @@ public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextPr
 	 * @return the initial value
 	 */
 	protected String getInitialValue() {
+		// Get last choice
+		IDialogSettings dialogSettings = ExamplesCommonPlugin.getDefault().getDialogSettings();
+		String selType = dialogSettings.get(SELECTED_TYPE);
+		List<String> asList = Arrays.asList(comboBox.getItems());
+		if (asList.contains(selType)) {
+			return selType;
+		} else if (asList.contains(DEFAULT_TYPE)) {
+			return DEFAULT_TYPE;
+		}
 		return null;
 	}
 
