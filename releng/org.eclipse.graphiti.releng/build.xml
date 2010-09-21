@@ -227,6 +227,8 @@
 				<propertyref name="path.separator" />
 				<propertyref prefix="ant." />
 				<propertyref prefix="file." />
+				<propertyref prefix="http."/>
+				<propertyref prefix="https."/>
 				<propertyref prefix="java." />
 				<propertyref prefix="sun." />
 				<propertyref prefix="user." />
