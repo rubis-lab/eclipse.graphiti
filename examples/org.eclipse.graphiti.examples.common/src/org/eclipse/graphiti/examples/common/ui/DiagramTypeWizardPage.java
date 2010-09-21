@@ -33,9 +33,6 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-/**
- * The Class DiagramTypeWizardPage.
- */
 public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextProvider {
 
 	private static final String PAGE_DESC = "Select diagram type";
@@ -43,32 +40,13 @@ public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextPr
 
 	private static final String DEFAULT_TYPE = "tutorial";
 	private static final String SELECTED_TYPE = "selectedtype";
-	// widget
-	/**
-	 * The combo box.
-	 */
+
 	Combo comboBox;
 
-	/**
-	 * The Constructor.
-	 * 
-	 * @param pageName
-	 *            the page name
-	 * @param title
-	 *            the title
-	 * @param titleImage
-	 *            the title image
-	 */
 	public DiagramTypeWizardPage(String pageName, String title, ImageDescriptor titleImage) {
 		super(pageName, title, titleImage);
 	}
 
-	/**
-	 * Instantiates a new diagram type wizard page.
-	 * 
-	 * @param pageName
-	 *            the page name
-	 */
 	protected DiagramTypeWizardPage(String pageName) {
 		super(pageName);
 		setTitle(PAGE_TITLE);
@@ -112,11 +90,6 @@ public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextPr
 		}
 	}
 
-	/**
-	 * Gets the all available diagram types.
-	 * 
-	 * @return the all available diagram types
-	 */
 	protected String[] getAllAvailableDiagramTypes() {
 		Vector<String> diagramIds = new Vector<String>();
 		for (IDiagramType diagramType : GraphitiUi.getExtensionManager().getDiagramTypes()) {
@@ -126,11 +99,6 @@ public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextPr
 		return diagramIds.toArray(new String[] {});
 	}
 
-	/**
-	 * Gets the initial value.
-	 * 
-	 * @return the initial value
-	 */
 	protected String getInitialValue() {
 		// Get last choice
 		IDialogSettings dialogSettings = ExamplesCommonPlugin.getDefault().getDialogSettings();
@@ -144,12 +112,6 @@ public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextPr
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.examples.testview.wizard.ITextProvider#getText()
-	 */
 	@Override
 	public String getText() {
 		return comboBox.getText();
