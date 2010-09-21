@@ -207,6 +207,8 @@
 	</target>
 
 	<target name="init.build.properties">
+		<property name="http.noProxyHosts" value=":pserver:anonymous@dev.eclipse.org:"/>
+		<property name="https.noProxyHosts" value=":pserver:anonymous@dev.eclipse.org:"/>
 		<echo message="List of all set properties" />
 		<echoproperties>
 		</echoproperties>
