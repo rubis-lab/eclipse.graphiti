@@ -207,6 +207,9 @@
 	</target>
 
 	<target name="init.build.properties">
+		<echo message="List of all set properties" />
+		<echoproperties>
+		</echoproperties>
 		<!-- Echo relevant properties to a temporary file so that Buckminster can read them -->
 		<tempfile destdir="${java.io.tmpdir}"
 		          prefix="build-"
