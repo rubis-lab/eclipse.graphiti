@@ -248,6 +248,12 @@
 			<cmdargs>
 				<arg value="-P" />
 				<arg value="${basedir}/${properties.file}" />
+				<arg value="-Dhttp.proxyHost=206.191.52.34" />
+				<arg value="-Dhttp.proxyPort=9898" />
+				<arg value="-Dhttps.proxyHost=206.191.52.34" />
+				<arg value="-Dhttps.proxyPort=9898" />
+				<arg value="-Dhttp.nonProxyHosts=*.eclipse.org" />
+				<arg value="-Dhttps.nonProxyHosts=*.eclipse.org" />
 				<arg value="-B" />
 				<arg value="${result}/Graphiti.bom" />
 				<arg value="${basedir}/${mspec.file}" />
