@@ -38,13 +38,10 @@ import org.eclipse.swt.widgets.Label;
  */
 public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextProvider {
 
-	/**
-	 * 
-	 */
-	private static final String DEFAULT_TYPE = "tutorial";
 	private static final String PAGE_DESC = "Select diagram type";
 	private static final String PAGE_TITLE = "Diagram";
 
+	private static final String DEFAULT_TYPE = "tutorial";
 	private static final String SELECTED_TYPE = "selectedtype";
 	// widget
 	/**
