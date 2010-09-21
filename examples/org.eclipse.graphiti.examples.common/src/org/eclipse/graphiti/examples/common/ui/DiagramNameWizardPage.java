@@ -29,9 +29,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
-/**
- * The Class DiagramNameWizardPage.
- */
 public class DiagramNameWizardPage extends AbstractWizardPage {
 
 	private static final String PAGE_DESC = "Enter diagram name";
@@ -39,9 +36,6 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 
 	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
 
-	/**
-	 * The text field.
-	 */
 	Text textField;
 
 	private Listener nameModifyListener = new Listener() {
@@ -53,27 +47,11 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 		}
 	};
 
-	/**
-	 * The Constructor.
-	 * 
-	 * @param pageName
-	 *            the page name
-	 * @param title
-	 *            the title
-	 * @param titleImage
-	 *            the title image
-	 */
 	public DiagramNameWizardPage(String pageName, String title, ImageDescriptor titleImage) {
 		super(pageName, title, titleImage);
 	}
 
 
-	/**
-	 * Instantiates a new diagram name wizard page.
-	 * 
-	 * @param pageName
-	 *            the page name
-	 */
 	protected DiagramNameWizardPage(String pageName) {
 		super(pageName);
 		setTitle(PAGE_TITLE);
@@ -109,11 +87,6 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 		return getTextFieldValue();
 	}
 
-	/**
-	 * Validate page.
-	 * 
-	 * @return true, if successful
-	 */
 	protected boolean validatePage() {
 		String text = getTextFieldValue();
 		if (text.equals("")) { //$NON-NLS-1$

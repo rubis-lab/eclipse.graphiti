@@ -27,37 +27,15 @@ import org.eclipse.swt.widgets.Composite;
  */
 public abstract class AbstractWizardPage extends WizardPage implements ITextProvider {
 
-	/**
-	 * The Constructor.
-	 * 
-	 * @param pageName
-	 *            the page name
-	 * @param title
-	 *            the title
-	 * @param titleImage
-	 *            the title image
-	 */
 	public AbstractWizardPage(String pageName, String title, ImageDescriptor titleImage) {
 		super(pageName, title, titleImage);
 	}
 
-	/**
-	 * Instantiates a new abstract wizard page.
-	 * 
-	 * @param pageName
-	 *            the page name
-	 */
 	protected AbstractWizardPage(String pageName) {
 		super(pageName);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets
-	 * .Composite)
-	 */
+	@Override
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
 		composite.setFont(parent.getFont());
@@ -74,12 +52,6 @@ public abstract class AbstractWizardPage extends WizardPage implements ITextProv
 		setControl(composite);
 	}
 
-	/**
-	 * Creates the wizard contents.
-	 * 
-	 * @param parent
-	 *            the parent
-	 */
 	abstract protected void createWizardContents(Composite parent);
 
 }

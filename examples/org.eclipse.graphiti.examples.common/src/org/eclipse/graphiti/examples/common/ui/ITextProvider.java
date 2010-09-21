@@ -15,15 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.examples.common.ui;
 
-/**
- * The Interface ITextProvider.
- */
 interface ITextProvider {
 
-	/**
-	 * Gets the text.
-	 * 
-	 * @return the text
-	 */
 	String getText();
 }

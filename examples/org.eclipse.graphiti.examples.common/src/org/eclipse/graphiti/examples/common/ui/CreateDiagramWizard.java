@@ -49,11 +49,6 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 
 	private Diagram diagram;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.wizard.Wizard#addPages()
-	 */
 	@Override
 	public void addPages() {
 		super.addPages();
@@ -61,34 +56,17 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 		addPage(new DiagramNameWizardPage(PAGE_NAME_DIAGRAM_NAME));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.wizard.Wizard#canFinish()
-	 */
 	@Override
 	public boolean canFinish() {
 		return super.canFinish();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.wizards.newresource.BasicNewResourceWizard#init(org.eclipse
-	 * .ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
-	 */
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection currentSelection) {
 		super.init(workbench, currentSelection);
 		setWindowTitle(WIZARD_WINDOW_TITLE);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
-	 */
 	@Override
 	public boolean performFinish() {
 		ITextProvider typePage = (ITextProvider) getPage(PAGE_NAME_DIAGRAM_TYPE);
@@ -142,11 +120,6 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 		return true;
 	}
 
-	/**
-	 * Gets the diagram.
-	 * 
-	 * @return the diagram
-	 */
 	public Diagram getDiagram() {
 		return diagram;
 	}
