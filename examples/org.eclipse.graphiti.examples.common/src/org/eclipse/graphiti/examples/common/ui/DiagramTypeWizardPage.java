@@ -32,6 +32,8 @@ import org.eclipse.swt.widgets.Label;
  */
 public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextProvider {
 
+	private static final String PAGE_DESC = "Select diagram type";
+	private static final String PAGE_TITLE = "Diagram";
 	// widget
 	/**
 	 * The combo box.
@@ -60,6 +62,8 @@ public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextPr
 	 */
 	protected DiagramTypeWizardPage(String pageName) {
 		super(pageName);
+		setTitle(PAGE_TITLE);
+		setDescription(PAGE_DESC);
 	}
 
 	@Override
@@ -120,6 +124,7 @@ public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextPr
 	 * @see
 	 * org.eclipse.graphiti.examples.testview.wizard.ITextProvider#getText()
 	 */
+	@Override
 	public String getText() {
 		return comboBox.getText();
 	}

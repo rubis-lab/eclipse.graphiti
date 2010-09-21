@@ -34,16 +34,18 @@ import org.eclipse.swt.widgets.Text;
  */
 public class DiagramNameWizardPage extends AbstractWizardPage {
 
-	// constants
+	private static final String PAGE_DESC = "Enter diagram name";
+	private static final String PAGE_TITLE = "Diagram";
+
 	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
 
-	// widgets
 	/**
 	 * The text field.
 	 */
 	Text textField;
 
 	private Listener nameModifyListener = new Listener() {
+		@Override
 		public void handleEvent(Event e) {
 			boolean valid = validatePage();
 			setPageComplete(valid);
@@ -65,6 +67,7 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 		super(pageName, title, titleImage);
 	}
 
+
 	/**
 	 * Instantiates a new diagram name wizard page.
 	 * 
@@ -73,6 +76,8 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 	 */
 	protected DiagramNameWizardPage(String pageName) {
 		super(pageName);
+		setTitle(PAGE_TITLE);
+		setDescription(PAGE_DESC);
 	}
 
 	@Override
@@ -95,6 +100,7 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 		setControl(composite);
 	}
 
+	@Override
 	public String getText() {
 		if (textField == null) {
 			return getInitialTextFieldValue();

@@ -42,9 +42,10 @@ import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
  * The Class CreateDiagramWizard.
  */
 public class CreateDiagramWizard extends BasicNewResourceWizard {
-	private static final String PAGE_NAME_DIAGRAM_TYPE = "Diagram Type";
 
+	private static final String PAGE_NAME_DIAGRAM_TYPE = "Diagram Type";
 	private static final String PAGE_NAME_DIAGRAM_NAME = "Diagram Name";
+	private static final String WIZARD_WINDOW_TITLE = "New Diagram";
 
 	private Diagram diagram;
 
@@ -80,6 +81,7 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection currentSelection) {
 		super.init(workbench, currentSelection);
+		setWindowTitle(WIZARD_WINDOW_TITLE);
 	}
 
 	/*
