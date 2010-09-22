@@ -207,8 +207,6 @@
 	</target>
 
 	<target name="init.build.properties">
-		<property name="http.noProxyHosts" value=":pserver:anonymous@dev.eclipse.org:"/>
-		<property name="https.noProxyHosts" value=":pserver:anonymous@dev.eclipse.org:"/>
 		<echo message="List of all set properties" />
 		<echoproperties>
 		</echoproperties>
@@ -237,23 +235,32 @@
 	</target>
 
 	<target name="import">
-		<echo message="Importing projects into workspace ${workspace} and binaries into target platform ${targetPlatformPath}" />
+		<echo message="Setting target platform location"/>
 		<buckminster command="setpref">
 			<cmdargs>
 				<arg value="targetPlatformPath=${targetPlatformPath}" />
 			</cmdargs>
 		</buckminster>
 
+		<echo message="Setting maximum parallel materializations"/>
+		<buckminster command="setpref">
+			<cmdargs>
+				<arg value="org.eclipse.buckminster.core.maxParallelMaterializations=1" />
+			</cmdargs>
+		</buckminster>
+
+		<echo message="Setting maximum parallel resolutions"/>
+		<buckminster command="setpref">
+			<cmdargs>
+				<arg value="org.eclipse.buckminster.core.maxParallelResolutions=1" />
+			</cmdargs>
+		</buckminster>
+
+		<echo message="Importing projects into workspace ${workspace} and binaries into target platform ${targetPlatformPath}" />
 		<buckminster command="import">
 			<cmdargs>
 				<arg value="-P" />
 				<arg value="${basedir}/${properties.file}" />
-				<arg value="-Dhttp.proxyHost=206.191.52.34" />
-				<arg value="-Dhttp.proxyPort=9898" />
-				<arg value="-Dhttps.proxyHost=206.191.52.34" />
-				<arg value="-Dhttps.proxyPort=9898" />
-				<arg value="-Dhttp.nonProxyHosts=*.eclipse.org" />
-				<arg value="-Dhttps.nonProxyHosts=*.eclipse.org" />
 				<arg value="-B" />
 				<arg value="${result}/Graphiti.bom" />
 				<arg value="${basedir}/${mspec.file}" />
