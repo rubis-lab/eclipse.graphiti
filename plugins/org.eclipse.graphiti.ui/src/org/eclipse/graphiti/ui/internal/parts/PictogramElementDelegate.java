@@ -789,8 +789,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				GFAbstractShape gfAbstractShape = (GFAbstractShape) ret;
 				IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
 						.getCurrentToolBehaviorProvider();
-				gfAbstractShape.setSelectionBorder(currentToolBehaviorProvider
-						.getSelectionBorder(getPictogramElement()));
+				gfAbstractShape.setSelectionBorder(currentToolBehaviorProvider.getSelectionBorder(getPictogramElement()));
 				gfAbstractShape.setClickArea(currentToolBehaviorProvider.getClickArea(getPictogramElement()));
 			}
 		}
@@ -881,6 +880,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			decoratorFigure.setVisible(true);
 			if (messageText != null && messageText.length() > 0) {
 				decoratorFigure.setToolTip(new Label(messageText));
+			}
+			if (figure.getLayoutManager() == null) {
+				figure.setLayoutManager(new XYLayout());
 			}
 			figure.add(decoratorFigure);
 			figure.setConstraint(decoratorFigure, boundsForDecoratorFigure);
