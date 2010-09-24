@@ -3,7 +3,6 @@
     <cs:dependencies>
         <cs:dependency name="com.thoughtworks.qdox" componentType="osgi.bundle"/>
         <cs:dependency name="org.eclipse.draw2d" componentType="eclipse.feature"/>
-        <cs:dependency name="org.eclipse.graphiti.sdk.feature" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.graphiti.site" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.graphiti.tests-feature" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.pde" componentType="eclipse.feature"/>
@@ -15,6 +14,7 @@
         <cs:dependency name="org.eclipse.swtbot.eclipse.gef" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.swtbot.eclipse.test.junit4" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.swtbot.ide" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.graphiti.sdk.feature" componentType="eclipse.feature"/>
     </cs:dependencies>
     <cs:actions>
         <cs:public name="create.javadoc" actor="ant">
