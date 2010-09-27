@@ -19,7 +19,7 @@
     <cs:actions>
         <cs:public name="create.javadoc" actor="ant">
             <cs:actorProperties>
-                <cs:property key="buildFileId" value="buckminster.ant"/>
+                <cs:property key="buildFile" value="buckminster.ant"/>
                 <cs:property key="targets" value="create.javadoc"/>
             </cs:actorProperties>
             <cs:products>
@@ -28,7 +28,7 @@
         </cs:public>
         <cs:public name="create.site.index" actor="ant">
             <cs:actorProperties>
-                <cs:property key="buildFileId" value="buckminster.ant"/>
+                <cs:property key="buildFile" value="buckminster.ant"/>
                 <cs:property key="targets" value="create.site.index"/>
             </cs:actorProperties>
             <cs:products>
@@ -37,7 +37,7 @@
         </cs:public>
         <cs:public name="promote.sites" actor="ant">
             <cs:actorProperties>
-                <cs:property key="buildFileId" value="buckminster.ant"/>
+                <cs:property key="buildFile" value="buckminster.ant"/>
                 <cs:property key="targets" value="promote.sites"/>
             </cs:actorProperties>
             <cs:products alias="action.output" base="${graphiti.download.area}/updates/nightly/"/>
