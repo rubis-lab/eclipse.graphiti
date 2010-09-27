@@ -3,21 +3,21 @@
 	
 	<target name="create.javadoc" description="Generate the JavaDoc for the sources">
 		<echo message="Generate the JavaDoc for the sources"></echo>
-		<echo message="javadoc source ${WORKSPACE}/buildroot/buckminster.workspace" />
+		<echo message="javadoc source ${root}/buildroot/buckminster.workspace" />
 		
 		<!-- set targetPlatformPath as classpath --> 
 		<path id="files-classpath">  
-			<fileset dir="${targetPlatformPath}">   
+			<fileset dir="${root}/buildroot/target.platform">   
 				<include name="*.jar"/>  
 			</fileset> 
 		</path>
 		
 		 <!-- clean and create output location --> 
-		<delete dir="${WORKSPACE}/buildroot/buckminster.workspace/plugins/org.eclipse.graphiti.doc/javadoc"/>
-		<mkdir dir="${WORKSPACE}/buildroot/buckminster.workspace/plugins/org.eclipse.graphiti.doc/javadoc"/>
+		<delete dir="${root}/buildroot/buckminster.workspace/plugins/org.eclipse.graphiti.doc/javadoc"/>
+		<mkdir dir="${root}/buildroot/buckminster.workspace/plugins/org.eclipse.graphiti.doc/javadoc"/>
 		
 		<!-- generate the javadoc -->
-		<javadoc  destdir="${WORKSPACE}/buildroot/buckminster.workspace/plugins/org.eclipse.graphiti.doc/javadoc"  
+		<javadoc  destdir="${root}/buildroot/buckminster.workspace/plugins/org.eclipse.graphiti.doc/javadoc"  
 			classpathref="files-classpath"
 			author="true"
 			version="true"
@@ -41,7 +41,7 @@
 			<link href="http://download.eclipse.org/modeling/emf/transaction/javadoc/workspace/1.4.0/"/>
 			
 			<!-- Graphiti sources -->   
-			<fileset dir="${WORKSPACE}/buildroot/buckminster.workspace/plugins/" defaultexcludes="true">    
+			<fileset dir="${root}/buildroot/buckminster.workspace/plugins/" defaultexcludes="true">    
 				<include name="**/*.java"/>    
 				<exclude name="**/internal/**"/>    
 				<exclude name="**/tests/**"/>
@@ -54,29 +54,29 @@
 	
 	<target name="create.site.index">
 		<echo message="Creating human readable index.html" />
-		<unzip src="${WORKSPACE}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/content.jar"
-			dest="${WORKSPACE}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2" />
+		<unzip src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/content.jar"
+			dest="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2" />
 		<xslt style="xsl/content2html.xsl"
-			in="${WORKSPACE}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/content.xml"
-			out="${WORKSPACE}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/index.html" />
+			in="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/content.xml"
+			out="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/index.html" />
 		<xslt style="xsl/content2xml.xsl"
-			in="${WORKSPACE}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/content.xml"
-			out="${WORKSPACE}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/index.xml" />
-		<delete file="${WORKSPACE}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/content.xml" />
+			in="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/content.xml"
+			out="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/index.xml" />
+		<delete file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/content.xml" />
 	</target>
 
 	<target name="promote.sites" >
 		<echo message="Deleting old update site from downloads area" />
-		<delete dir="${graphiti.download.area}/updates/nightly/" failonerror="true" />
+		<delete dir="${download.area}/updates/nightly/" failonerror="true" />
 		
 		<echo message="Promoting site.p2" />
-		<copydir dest="${graphiti.download.area}/updates/nightly/" src="${WORKSPACE}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2" />
+		<copydir dest="${download.area}/updates/nightly/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2" />
 		
 		<echo message="Deleting old ZIP archive from downloads area" />
-		<delete dir="${graphiti.download.area}/archives/nightly/" failonerror="true" />
+		<delete dir="${download.area}/archives/nightly/" failonerror="true" />
 		
 		<echo message="Promoting site.p2.zip" />
-		<copydir dest="${graphiti.download.area}/archives/nightly/" src="${WORKSPACE}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2.zip" />
+		<copydir dest="${download.area}/archives/nightly/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2.zip" />
 	</target>
 
 </project>

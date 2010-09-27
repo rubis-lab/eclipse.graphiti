@@ -3,6 +3,7 @@
     <cs:dependencies>
         <cs:dependency name="com.thoughtworks.qdox" componentType="osgi.bundle"/>
         <cs:dependency name="org.eclipse.draw2d" componentType="eclipse.feature"/>
+        <cs:dependency name="org.eclipse.graphiti.sdk.feature" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.graphiti.site" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.graphiti.tests-feature" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.pde" componentType="eclipse.feature"/>
@@ -14,7 +15,6 @@
         <cs:dependency name="org.eclipse.swtbot.eclipse.gef" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.swtbot.eclipse.test.junit4" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.swtbot.ide" componentType="eclipse.feature"/>
-        <cs:dependency name="org.eclipse.graphiti.sdk.feature" componentType="eclipse.feature"/>
     </cs:dependencies>
     <cs:actions>
         <cs:public name="create.javadoc" actor="ant">
@@ -22,6 +22,9 @@
                 <cs:property key="buildFile" value="buckminster.ant"/>
                 <cs:property key="targets" value="create.javadoc"/>
             </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="root" value="${WORKSPACE}"/>
+            </cs:properties>
             <cs:products>
                 <cs:public name="javadoc.output" base="plugins/org.eclipse.graphiti.doc/javadoc/"/>
             </cs:products>
@@ -31,6 +34,9 @@
                 <cs:property key="buildFile" value="buckminster.ant"/>
                 <cs:property key="targets" value="create.site.index"/>
             </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="root" value="${WORKSPACE}"/>
+            </cs:properties>
             <cs:products>
                 <cs:public name="readable.index" base="site/"/>
             </cs:products>
@@ -40,6 +46,10 @@
                 <cs:property key="buildFile" value="buckminster.ant"/>
                 <cs:property key="targets" value="promote.sites"/>
             </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="download.area" value="${graphiti.download.area}"/>
+                <cs:property key="root" value="${WORKSPACE}"/>
+            </cs:properties>
             <cs:products alias="action.output" base="${graphiti.download.area}/updates/nightly/"/>
         </cs:public>
     </cs:actions>
