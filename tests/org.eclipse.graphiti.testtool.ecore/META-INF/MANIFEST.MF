@@ -6,9 +6,9 @@ Bundle-Version: 0.7.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.emf.transaction,
- org.eclipse.graphiti,
- org.eclipse.graphiti.ui,
+Require-Bundle: org.eclipse.emf.transaction;bundle-version="[1.4.0,2.0.0)",
+ org.eclipse.graphiti;bundle-version="0.7.0",
+ org.eclipse.graphiti.ui;bundle-version="0.7.0",
  org.eclipse.graphiti.examples.common;bundle-version="0.7.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.graphiti.testtool.ecore,
