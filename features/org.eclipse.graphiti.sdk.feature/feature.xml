@@ -45,17 +45,13 @@ http://www.eclipse.org/legal/epl-v10.html
    <includes
          id="org.eclipse.graphiti.feature"
          version="0.0.0"/>
-<!--
    <includes
          id="org.eclipse.graphiti.source.feature"
          version="0.0.0"/>
--->         
    <includes
          id="org.eclipse.graphiti.feature.examples"
          version="0.0.0"/>
-<!--
    <includes
          id="org.eclipse.graphiti.feature.examples.source"
          version="0.0.0"/>
--->
 </feature>
