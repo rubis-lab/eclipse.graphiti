@@ -17,11 +17,16 @@
       image="eclipse_update_120.jpg">
 
    <description>
-      %description
+      The Graphiti update site contains the Graphiti framework and all additional features. For developing with the framework installing the SDK feature is the recommended choice, it will install the framework, the examples and documentation and the sources. Installting separate features with the framework runtime or the examples and documentation is also possible of course.
    </description>
 
-   <copyright url="%copyrightURL">
-      %copyright
+   <copyright url="Graphiti Site contains the Graphiti framework and all additional features.">
+      (c) 2005, 2010 SAP AG.
+All rights reserved.   This program and the accompanying materials
+are made available under the terms of the Eclipse Public License
+v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
    </copyright>
 
    <license url="%licenseURL">
@@ -29,7 +34,7 @@
    </license>
 
    <url>
-      <update url="http://www.eclipse.org/downloads/download.php?file=/modeling/graphiti/updates/0.7.0-releases/&amp;protocol=http&amp;format=xml"/>
+      <update url="http://www.eclipse.org/downloads/download.php?file=/graphiti/updates/0.7.0/&amp;protocol=http&amp;format=xml"/>
    </url>
 
    <includes
