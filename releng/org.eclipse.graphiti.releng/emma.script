@@ -1,5 +1,0 @@
-emma -l org.eclipse.graphiti.tests/AllJunitTests.launch -o ${result}/testReportJunitGraphiti.xml --terseXML --flatXML --xml ${result}/coverageReportJunitGraphiti.xml --stderr ${result}/ErrorLogJunitGraphiti.log --stdout ${result}/OutputLogJunitGraphiti.log
-emma -m -l org.eclipse.graphiti.ui.tests/AllJunitUiTests.launch -o ${result}/testReportJunitGraphitiUi.xml --terseXML --flatXML --xml ${result}/coverageReportJunitGraphitiUi.xml --stderr ${result}/ErrorLogJunitGraphitiUi.log --stdout ${result}/OutputLogJunitGraphitiUi.log
-emma -m -l org.eclipse.graphiti.bot.tests/AllBotTests.launch -o ${result}/testReportSwtBotGraphiti.xml --terseXML --flatXML --xml ${result}/coverageReportSwtBotGraphiti.xml --stderr ${result}/ErrorLogSwtBotGraphiti.log --stdout ${result}/OutputLogSwtBotGraphiti.log
-
-
