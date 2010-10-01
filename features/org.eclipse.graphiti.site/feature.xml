@@ -17,7 +17,9 @@
       image="eclipse_update_120.jpg">
 
    <description>
-      The Graphiti update site contains the Graphiti framework and all additional features. For developing with the framework installing the SDK feature is the recommended choice, it will install the framework, the examples and documentation and the sources. Installting separate features with the framework runtime or the examples and documentation is also possible of course.
+      Graphiti supports the fast and easy creation of unified graphical
+tools, which can graphically display and edit underlying domain
+models using a tool-defined notation.
    </description>
 
    <copyright url="Graphiti Site contains the Graphiti framework and all additional features.">

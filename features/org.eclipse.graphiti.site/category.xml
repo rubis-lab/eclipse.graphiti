@@ -11,9 +11,8 @@
    </feature>
    <category-def name="org.eclipse.graphiti" label="Graphiti">
       <description>
-         Graphiti supports the fast and easy creation of unified graphical
-tools, which can graphically display and edit underlying domain
-models using a tool-defined notation.
+         The Graphiti update site provides access to the Graphiti framework and all additional features. For developing with the framework installing the SDK feature is the recommended choice, it will install the
+framework, the examples and documentation and the sources. Installing the separate features like the framework runtime or the examples and documentation is also possible of course.
       </description>
    </category-def>
 </site>
