@@ -26,6 +26,7 @@ import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.palette.PaletteSeparator;
 import org.eclipse.gef.palette.PaletteStack;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.CreationFactory;
@@ -34,6 +35,7 @@ import org.eclipse.graphiti.palette.IConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.ICreationToolEntry;
 import org.eclipse.graphiti.palette.IObjectCreationToolEntry;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
+import org.eclipse.graphiti.palette.IPaletteSeparatorEntry;
 import org.eclipse.graphiti.palette.IStackToolEntry;
 import org.eclipse.graphiti.palette.IToolEntry;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
@@ -59,7 +61,9 @@ public class GFPaletteRoot extends PaletteRoot {
 	 * later we can make this configurable in the toolbehaviour provider, so
 	 * that the dtp developer can influence the creation style from palette
 	 */
-	private static boolean DND_FROM_PALETTE = true; // if true then drag&drop from the palette is possible
+	private static boolean DND_FROM_PALETTE = true; // if true then drag&drop
+													// from the palette is
+													// possible
 
 	private IConfigurationProvider cfgProvider;
 
@@ -83,7 +87,10 @@ public class GFPaletteRoot extends PaletteRoot {
 	public void updatePaletteEntries() {
 		// remove old entries
 		setDefaultEntry(null);
-		List<PaletteEntry> allEntries = new ArrayList<PaletteEntry>(getChildren()); // MUST make a copy
+		List<PaletteEntry> allEntries = new ArrayList<PaletteEntry>(getChildren()); // MUST
+																					// make
+																					// a
+																					// copy
 		for (Iterator<PaletteEntry> iter = allEntries.iterator(); iter.hasNext();) {
 			PaletteEntry entry = iter.next();
 			remove(entry);
@@ -127,6 +134,8 @@ public class GFPaletteRoot extends PaletteRoot {
 							stack.add(createTool);
 						}
 					}
+				} else if (toolEntry instanceof IPaletteSeparatorEntry) {
+					drawer.add(new PaletteSeparator());
 				}
 
 			}
@@ -245,9 +254,9 @@ public class GFPaletteRoot extends PaletteRoot {
 
 			MultiCreationFactory multiCreationFactory = new MultiCreationFactory(connectionCreationToolEntry.getCreateConnectionFeatures());
 
-			ConnectionCreationToolEntry pe = new ConnectionCreationToolEntry(creationToolEntry.getLabel(), creationToolEntry
-					.getDescription(), multiCreationFactory, getImageDescriptor(creationToolEntry, true), getImageDescriptor(
-					creationToolEntry, false));
+			ConnectionCreationToolEntry pe = new ConnectionCreationToolEntry(creationToolEntry.getLabel(),
+					creationToolEntry.getDescription(), multiCreationFactory, getImageDescriptor(creationToolEntry, true),
+					getImageDescriptor(creationToolEntry, false));
 			pe.setToolClass(GFConnectionCreationTool.class);
 
 			return pe;
