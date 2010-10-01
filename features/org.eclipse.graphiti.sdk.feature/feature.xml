@@ -21,12 +21,7 @@
       provider-name="%providerName">
 
    <description>
-      Graphiti supports the fast and easy creation of unified graphical
-tools, which can graphically display and edit underlying domain
-models using a tool-defined notation. This is the full blown
-SDK
-feature containing the framework itself plus the source code,
-documentation and examples with their source code.
+      This is the full blown SDK feature of the Graphiti framework containing the framework itself plus the source code, documentation and the tutorial with its source code. Install this feature if you would like to start using Graphiti. Graphiti supports the fast and easy creation of unified graphical tools, which can graphically display and edit underlying domain models using a tool-defined notation.
    </description>
 
    <copyright url="http://www.eclipse.org/legal/epl-v10.html">
