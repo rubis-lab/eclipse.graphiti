@@ -17,8 +17,6 @@ package org.eclipse.graphiti.ui.internal.editor;
 
 import java.util.EventObject;
 import java.util.List;
-import java.util.Stack;
-
 import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.commands.operations.IUndoableOperation;
 import org.eclipse.emf.common.command.CommandStackListener;
@@ -27,7 +25,6 @@ import org.eclipse.emf.workspace.impl.WorkspaceCommandStackImpl;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.features.IContextHolder;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureHolder;
@@ -59,24 +56,6 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 	private IConfigurationProvider configurationProvider;
 
 	private TransactionalEditingDomain editingDomain;
-
-	private Stack<IExecutionInfo> undoStackForExecutionInfo;
-
-	protected Stack<IExecutionInfo> getUndoStackForExecutionInfo() {
-		if (undoStackForExecutionInfo == null) {
-			undoStackForExecutionInfo = new Stack<IExecutionInfo>();
-		}
-		return undoStackForExecutionInfo;
-	}
-
-	private Stack<IExecutionInfo> redoStackForExecutionInfo;
-
-	protected Stack<IExecutionInfo> getRedoStackForExecutionInfo() {
-		if (redoStackForExecutionInfo == null) {
-			redoStackForExecutionInfo = new Stack<IExecutionInfo>();
-		}
-		return redoStackForExecutionInfo;
-	}
 
 	public GFCommandStack(IConfigurationProvider configurationProvider, TransactionalEditingDomain editingDomain) {
 		emfCommandStack = editingDomain.getCommandStack();
@@ -127,7 +106,6 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 
 		tbp.preExecute(executionInfo);
 		getEmfCommandStack().execute(gfPreparableCommand);
-		getUndoStackForExecutionInfo().push(executionInfo);
 		tbp.postExecute(executionInfo);
 
 		// Check if the executed feature has really done changes (indicated by
@@ -163,8 +141,6 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 	@Override
 	public void flush() {
 		super.flush();
-		getUndoStackForExecutionInfo().clear();
-		getRedoStackForExecutionInfo().clear();
 	}
 
 	@Override
@@ -207,16 +183,12 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 
 	@Override
 	public void redo() {
-		IExecutionInfo ei = getRedoStackForExecutionInfo().pop();
 		getEmfCommandStack().redo();
-		getUndoStackForExecutionInfo().push(ei);
 	}
 
 	@Override
 	public void undo() {
-		IExecutionInfo ei = getUndoStackForExecutionInfo().pop();
 		getEmfCommandStack().undo();
-		getRedoStackForExecutionInfo().push(ei);
 	}
 
 	private org.eclipse.emf.common.command.CommandStack getEmfCommandStack() {
