@@ -130,7 +130,7 @@ public class UriTransfer extends ByteArrayTransfer {
 			final String s = iter.next();
 			b.append(s);
 			if (iter.hasNext()) {
-				//b.append(UriTransfer.URI_SEP);
+				b.append(UriTransfer.URI_SEP);
 			}
 		}
 		return b.toString().getBytes(UriTransfer.CHARSET);
