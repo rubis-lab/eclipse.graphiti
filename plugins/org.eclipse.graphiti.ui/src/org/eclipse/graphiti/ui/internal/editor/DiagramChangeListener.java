@@ -41,6 +41,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.services.Graphiti;
@@ -205,6 +206,10 @@ public class DiagramChangeListener implements ResourceSetListener {
 			PictogramElement pe = (PictogramElement) affectedElement;
 			if (pe instanceof org.eclipse.graphiti.mm.pictograms.ChopboxAnchor) {
 				pe = ((Anchor) pe).getParent();
+			}
+			if (pe instanceof Connection){
+				Diagram diagram = ((Connection)pe).getParent();
+				return diagram;
 			}
 			if (pe.isActive()) {
 				return pe;
