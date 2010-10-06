@@ -41,6 +41,16 @@
                 <cs:public name="readable.index" base="site/"/>
             </cs:products>
         </cs:public>
+        <cs:public name="copy.sites" actor="ant">
+            <cs:actorProperties>
+                <cs:property key="buildFile" value="buckminster.ant"/>
+                <cs:property key="targets" value="copy.sites"/>
+            </cs:actorProperties>
+            <cs:properties>
+                <cs:property key="root" value="${WORKSPACE}"/>
+            </cs:properties>
+            <cs:products alias="action.output" base="${graphiti.download.area}/updates/nightly/"/>
+        </cs:public>
         <cs:public name="promote.sites" actor="ant">
             <cs:actorProperties>
                 <cs:property key="buildFile" value="buckminster.ant"/>
