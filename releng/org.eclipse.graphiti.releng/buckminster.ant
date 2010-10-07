@@ -81,16 +81,16 @@
 
 	<target name="promote.sites" >
 		<echo message="Deleting old update site from downloads area" />
-		<delete dir="${download.area}/updates/nightly/" failonerror="true" />
+		<delete dir="/home/data/httpd/download.eclipse.org/graphiti/updates/nightly/" failonerror="true" />
 		
 		<echo message="Promoting site.p2" />
-		<copydir dest="${download.area}/updates/nightly/" src="${root}/last_success/site.p2" />
+		<copydir dest="/home/data/httpd/download.eclipse.org/graphiti/updates/nightly/" src="/opt/public/jobs/gmp-graphiti-nightly/workspace/last_success/site.p2" />
 		
 		<echo message="Deleting old ZIP archive from downloads area" />
-		<delete dir="${download.area}/archives/nightly/" failonerror="true" />
+		<delete dir="/home/data/httpd/download.eclipse.org/graphiti/archives/nightly/" failonerror="true" />
 		
 		<echo message="Promoting site.p2.zip" />
-		<copydir dest="${download.area}/archives/nightly/" src="${root}/last_success/site.p2.zip" />
+		<copydir dest="/home/data/httpd/download.eclipse.org/graphiti/archives/nightly/" src="/opt/public/jobs/gmp-graphiti-nightly/workspace/last_success/site.p2.zip" />
 	</target>
 
 </project>
