@@ -49,7 +49,7 @@
             <cs:properties>
                 <cs:property key="root" value="${WORKSPACE}"/>
             </cs:properties>
-            <cs:products alias="action.output" base="${graphiti.download.area}/updates/nightly/"/>
+            <cs:products alias="action.output" base="${WORKSPACE}/last_success/"/>
         </cs:public>
         <cs:public name="promote.sites" actor="ant">
             <cs:actorProperties>
