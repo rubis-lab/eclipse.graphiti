@@ -16,14 +16,6 @@
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src/org/eclipse/graphiti/ui/features/DefaultDeleteFeature.java" type="org.eclipse.graphiti.ui.features.DefaultDeleteFeature">
-        <filter id="574619656">
-            <message_arguments>
-                <message_argument value="IDeleteFeature"/>
-                <message_argument value="DefaultDeleteFeature"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src/org/eclipse/graphiti/ui/internal/command/EclipseProgress.java" type="org.eclipse.graphiti.ui.internal.command.EclipseProgress">
         <filter id="574619656">
             <message_arguments>
