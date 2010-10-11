@@ -35,6 +35,7 @@ import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
+import org.eclipse.graphiti.features.impl.DefaultFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -54,7 +55,6 @@ import org.eclipse.graphiti.testtool.ecore.features.pack.TestLayoutPackageFeatur
 import org.eclipse.graphiti.testtool.ecore.features.pack.TestMovePackageFeature;
 import org.eclipse.graphiti.testtool.ecore.features.pack.TestResizePackageFeature;
 import org.eclipse.graphiti.testtool.ecore.features.pack.TestUpdatePackageFeature;
-import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
 /**
  * The Class TestFeatureProvider.
