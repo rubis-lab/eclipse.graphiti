@@ -24,7 +24,9 @@ import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 
 /**
@@ -80,7 +82,11 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 
 	@Override
 	public void run() {
-		genericRun(this);
+		boolean userAgree = MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+				Messages.AbstractFeature_0_xhed,
+				Messages.DefaultDeleteFeature_0_xmsg);
+		if (userAgree)
+			genericRun(this);
 	}
 
 	@Override

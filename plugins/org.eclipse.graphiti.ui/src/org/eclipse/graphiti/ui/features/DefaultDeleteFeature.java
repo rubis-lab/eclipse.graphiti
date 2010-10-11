@@ -30,8 +30,6 @@ import org.eclipse.graphiti.features.context.impl.RemoveContext;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.Messages;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.PlatformUI;
 
 /**
  * The Class DefaultDeleteFeature.
@@ -48,6 +46,7 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		super(fp);
 	}
 
+	@Override
 	public boolean canDelete(IDeleteContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		IRemoveContext rc = new RemoveContext(pictogramElement);
@@ -56,6 +55,7 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		return ret;
 	}
 
+	@Override
 	public void delete(IDeleteContext context) {
 		PictogramElement pe = context.getPictogramElement();
 		Object[] businessObjectsForPictogramElement = getAllBusinessObjectsForPictogramElement(pe);
@@ -105,18 +105,16 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		}
 	}
 
-	@Override
-	protected boolean getUserDecision() {
-		return MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Messages.AbstractFeature_0_xhed,
-				Messages.DefaultDeleteFeature_0_xmsg);
-	}
 
+	@Override
 	public void preDelete(IDeleteContext context) {
 	}
 
+	@Override
 	public void postDelete(IDeleteContext context) {
 	}
 
+	@Override
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IDeleteContext) {
@@ -125,6 +123,7 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		return ret;
 	}
 
+	@Override
 	public void execute(IContext context) {
 		if (context instanceof IDeleteContext) {
 			delete((IDeleteContext) context);
