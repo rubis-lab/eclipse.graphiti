@@ -1128,8 +1128,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			}
 		}
 
-		initActionRegistry();
-
 		buildNewObjectActions();
 
 		// this will cause the ActionBarContributor to refresh with the

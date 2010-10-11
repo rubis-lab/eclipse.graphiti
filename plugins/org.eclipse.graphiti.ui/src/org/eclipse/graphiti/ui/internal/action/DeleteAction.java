@@ -25,6 +25,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.actions.ActionFactory;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -36,7 +37,7 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 
 	private static final String TEXT = Messages.DeleteAction_1_xfld;
 
-	public static final String ACTION_ID = "predefined delete action"; //$NON-NLS-1$
+	public static final String ACTION_ID = ActionFactory.DELETE.getId();
 
 	public DeleteAction(IWorkbenchPart part, IConfigurationProvider configurationProvider) {
 		super(part, configurationProvider);
@@ -45,6 +46,7 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 		setToolTipText(TOOL_TIP);
 	}
 
+	@Override
 	public boolean isAvailable() {
 		PictogramElement pe[] = getSelectedPictogramElements();
 		for (int i = 0; i < pe.length; i++) {
@@ -81,10 +83,12 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 		genericRun(this);
 	}
 
+	@Override
 	public IContext createContext(PictogramElement pe) {
 		return new DeleteContext(pe);
 	}
 
+	@Override
 	public IFeature provideFeatureForContext(IContext context) {
 		return getFeatureProvider().getDeleteFeature((IDeleteContext) context);
 	}
