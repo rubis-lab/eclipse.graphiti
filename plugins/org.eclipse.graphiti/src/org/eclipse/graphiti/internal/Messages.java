@@ -63,6 +63,7 @@ public class Messages extends NLS {
 	public static String DataBinder_1_xmsg;
 	public static String DataMapping_0_xmsg;
 	public static String DefaultAddBendpointFeature_0_xfld;
+	public static String DefaultDeleteFeature_1_xfld;
 	public static String DefaultMoveAnchorFeature_0_xfld;
 	public static String DefaultMoveBendpointFeature_0_xfld;
 	public static String DefaultMoveConnectionDecoratorFeature_0_xfld;
