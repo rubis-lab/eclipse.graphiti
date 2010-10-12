@@ -220,14 +220,11 @@ public class DiagramChangeListener implements ResourceSetListener {
 		if (affectedElement instanceof GraphicsAlgorithmContainer) {
 			gac = (GraphicsAlgorithmContainer) affectedElement;
 		} else if (affectedElement instanceof org.eclipse.graphiti.mm.algorithms.styles.Point) {
-			// org.eclipse.graphiti.mm.datatypes.Point p =
-			// (org.eclipse.graphiti.mm.datatypes.Point) affectedElement;
-			// RefFeatured refImmediateComposite =
-			// p.refImmediateComposite();
-			// if (refImmediateComposite instanceof
-			// GraphicsAlgorithmContainer) {
-			// gac = (GraphicsAlgorithmContainer) refImmediateComposite;
-			// }
+			org.eclipse.graphiti.mm.algorithms.styles.Point p = (org.eclipse.graphiti.mm.algorithms.styles.Point) affectedElement;
+			EObject eContainer = p.eContainer();
+			if (eContainer instanceof GraphicsAlgorithmContainer) {
+				gac = (GraphicsAlgorithmContainer) eContainer;
+			}
 		}
 
 		PictogramElement ret = null;
