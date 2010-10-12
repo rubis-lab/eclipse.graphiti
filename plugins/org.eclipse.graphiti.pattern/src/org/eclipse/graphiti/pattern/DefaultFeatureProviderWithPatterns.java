@@ -34,9 +34,9 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.impl.DefaultFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.internal.T;
+import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
 /**
  * The Class DefaultFeatureProviderWithPatterns.
