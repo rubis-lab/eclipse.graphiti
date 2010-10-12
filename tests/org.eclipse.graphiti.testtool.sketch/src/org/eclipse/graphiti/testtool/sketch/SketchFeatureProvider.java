@@ -41,7 +41,6 @@ import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IPasteContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
-import org.eclipse.graphiti.features.impl.DefaultFeatureProvider;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -99,6 +98,7 @@ import org.eclipse.graphiti.testtool.sketch.features.style.IgnoreAllFeature;
 import org.eclipse.graphiti.testtool.sketch.features.style.MakeStyleFeature;
 import org.eclipse.graphiti.testtool.sketch.features.style.SetStyleFeature;
 import org.eclipse.graphiti.testtool.sketch.features.style.UnsetStyleFeature;
+import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
 /**
  * The Class SketchFeatureProvider.

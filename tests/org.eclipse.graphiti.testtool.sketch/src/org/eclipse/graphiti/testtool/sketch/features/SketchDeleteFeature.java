@@ -17,8 +17,8 @@ package org.eclipse.graphiti.testtool.sketch.features;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDeleteContext;
-import org.eclipse.graphiti.features.impl.DefaultDeleteFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 
 /**
  * The Class SketchDeleteFeature.
