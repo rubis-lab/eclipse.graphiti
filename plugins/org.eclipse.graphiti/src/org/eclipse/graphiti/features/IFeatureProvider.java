@@ -36,7 +36,6 @@ import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeatureProvider;
-import org.eclipse.graphiti.features.impl.DefaultFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
