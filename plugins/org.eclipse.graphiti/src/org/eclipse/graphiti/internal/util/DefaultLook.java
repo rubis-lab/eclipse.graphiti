@@ -31,6 +31,8 @@ public class DefaultLook implements ILook {
 
 	private IColorConstant fieldErrorBackgroundColor;
 
+	private IColorConstant fieldErrorForegroundColor;
+
 	private IColorConstant gridBackgroundColor;
 
 	private IColorConstant majorGridLineColor;
@@ -39,12 +41,17 @@ public class DefaultLook implements ILook {
 
 	public IColorConstant getFieldErrorBackgroundColor() {
 		if (fieldErrorBackgroundColor == null) {
-			// final Color decode = Color.decode("#FFFFFF");
-			// fieldErrorBackgroundColor = new ColorConstant(decode.getRed(),
-			// decode.getGreen(), decode.getBlue());
-			fieldErrorBackgroundColor = IColorConstant.YELLOW;
+			fieldErrorBackgroundColor = new ColorConstant("FBE9EB"); //$NON-NLS-1$
 		}
 		return fieldErrorBackgroundColor;
+	}
+
+	@Override
+	public IColorConstant getFieldErrorForegroundColor() {
+		if (fieldErrorForegroundColor == null) {
+			fieldErrorForegroundColor = new ColorConstant("B00017"); //$NON-NLS-1$
+		}
+		return fieldErrorForegroundColor;
 	}
 
 	/*

@@ -33,6 +33,11 @@ public class DynamicLook implements ILook {
 		return randomColorConstant();
 	}
 
+	@Override
+	public IColorConstant getFieldErrorForegroundColor() {
+		return randomColorConstant();
+	}
+
 	public IColorConstant getGridBackgroundColor() {
 		return randomColorConstant();
 	}
