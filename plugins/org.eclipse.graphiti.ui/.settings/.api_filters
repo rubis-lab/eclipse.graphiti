@@ -73,14 +73,6 @@
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src/org/eclipse/graphiti/ui/internal/parts/directedit/TextCellEditor.java" type="org.eclipse.graphiti.ui.internal.parts.directedit.TextCellEditor">
-        <filter id="571473929">
-            <message_arguments>
-                <message_argument value="TextCellEditor"/>
-                <message_argument value="TextCellEditor"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src/org/eclipse/graphiti/ui/internal/platform/DiagramTypeImpl.java" type="org.eclipse.graphiti.ui.internal.platform.DiagramTypeImpl">
         <filter id="574619656">
             <message_arguments>
