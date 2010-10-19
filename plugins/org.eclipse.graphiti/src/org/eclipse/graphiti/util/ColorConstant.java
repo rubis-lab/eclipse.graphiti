@@ -44,6 +44,19 @@ public class ColorConstant implements IColorConstant {
 		this.blue = blue;
 	}
 
+	/**
+	 * Creates a new {@link ColorConstant} for for a given String, which defines
+	 * the RGB values in hexadecimal format. This means, that the String must
+	 * have a length of 6 characters. Example: <code>getColor("FF0000")</code>
+	 * returns a red color.
+	 * 
+	 * @param hexRGBString
+	 *            The RGB values in hexadecimal format.
+	 */
+	public ColorConstant(String hexRGBString) {
+		this(ColorUtil.getRedFromHex(hexRGBString), ColorUtil.getGreenFromHex(hexRGBString), ColorUtil.getBlueFromHex(hexRGBString));
+	}
+
 	public int getRed() {
 		return red;
 	}
