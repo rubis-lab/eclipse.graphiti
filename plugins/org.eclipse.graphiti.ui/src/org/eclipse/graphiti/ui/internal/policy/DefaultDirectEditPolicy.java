@@ -143,13 +143,14 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 		final Control control = request.getCellEditor().getControl();
 		if (errorMessage == null) {
 			control.setBackground(ColorConstants.listBackground);
+			control.setForeground(ColorConstants.listForeground);
 		} else {
-			final IColorConstant cc = LookManager.getLook().getFieldErrorBackgroundColor();
-			final int r = cc.getRed();
-			final int g = cc.getGreen();
-			final int b = cc.getBlue();
-			final Color errorColor = DataTypeTransformation.toSwtColor(this.configurationProvider, r, g, b);
-			control.setBackground(errorColor);
+			IColorConstant errorBgColorConstant = LookManager.getLook().getFieldErrorBackgroundColor();
+			Color errorBgColor = DataTypeTransformation.toSwtColor(this.configurationProvider, errorBgColorConstant);
+			control.setBackground(errorBgColor);
+			IColorConstant errorFgColorConstant = LookManager.getLook().getFieldErrorForegroundColor();
+			Color errorfgColor = DataTypeTransformation.toSwtColor(this.configurationProvider, errorFgColorConstant);
+			control.setForeground(errorfgColor);
 		}
 
 		// set status line message
