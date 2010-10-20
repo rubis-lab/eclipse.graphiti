@@ -34,7 +34,6 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.RGB;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -76,35 +75,8 @@ public class DataTypeTransformation {
 			return rr.getSwtColor(100, 100, 100);
 	}
 
-	public static Color toSwtColor(IResourceRegistryHolder rrh, int red, int green, int blue) {
-		IResourceRegistry rr = rrh.getResourceRegistry();
-		return rr.getSwtColor(red, green, blue);
-	}
-
-	// public static Color toSwtColor(org.eclipse.graphiti.mm.datatypes.Color
-	// pictogramsColor) {
-	// if (pictogramsColor != null)
-	// return new Color(null, pictogramsColor.getRed(),
-	// pictogramsColor.getGreen(), pictogramsColor.getBlue());
-	// else
-	// return new Color(null, 100, 100, 100);
-	// }
-	//
-	// public static Color toSwtColor(IColorConstant color) {
-	// if (color != null)
-	// return new Color(null, color.getRed(), color.getGreen(),
-	// color.getBlue());
-	// else
-	// return new Color(null, 100, 100, 100);
-	// }
-	//
 	public static org.eclipse.graphiti.mm.algorithms.styles.Color toPictogramsColor(Color swtColor, Diagram diagram) {
 		return Graphiti.getGaService().manageColor(diagram, swtColor.getRed(), swtColor.getGreen(), swtColor.getBlue());
-
-	}
-
-	public static org.eclipse.graphiti.mm.algorithms.styles.Color toPictogramsColor(RGB rgb, Diagram diagram) {
-		return Graphiti.getGaService().manageColor(diagram, rgb.red, rgb.green, rgb.blue);
 
 	}
 
