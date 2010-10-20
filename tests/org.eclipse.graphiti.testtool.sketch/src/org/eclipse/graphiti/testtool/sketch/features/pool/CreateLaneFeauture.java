@@ -32,7 +32,7 @@ import org.eclipse.graphiti.util.IColorConstant;
  */
 public class CreateLaneFeauture extends AbstractCustomFeature {
 
-	private static final String NAME = "Add Lane";
+	private static final String NAME = "Add Lane"; //$NON-NLS-1$
 
 	/**
 	 * Instantiates a new creates the lane feauture.
@@ -63,11 +63,11 @@ public class CreateLaneFeauture extends AbstractCustomFeature {
 		final IPeService peService = Graphiti.getPeService();
 		IGaService gaService = Graphiti.getGaService();
 		ContainerShape lanePe = peService.createContainerShape(poolPe, true);
-		peService.setPropertyValue(lanePe, SketchUtil.LANE_TAG, "");
+		peService.setPropertyValue(lanePe, SketchUtil.LANE_TAG, ""); //$NON-NLS-1$
 		peService.createChopboxAnchor(lanePe);
 		GraphicsAlgorithm laneGa = gaService.createRectangle(lanePe);
-		laneGa.setBackground(gaService.manageColor(diagram, IColorConstant.VC_LIGHT_ORANGE));
-		laneGa.setForeground(gaService.manageColor(diagram, IColorConstant.VC_DARK_ORANGE));
+		laneGa.setBackground(gaService.manageColor(diagram, IColorConstant.LIGHT_ORANGE));
+		laneGa.setForeground(gaService.manageColor(diagram, IColorConstant.DARK_ORANGE));
 	}
 
 	@Override
