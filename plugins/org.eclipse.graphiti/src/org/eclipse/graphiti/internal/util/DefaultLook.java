@@ -15,8 +15,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.internal.util;
 
-import java.awt.Color;
-
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.graphiti.util.ILook;
@@ -61,8 +59,7 @@ public class DefaultLook implements ILook {
 	 */
 	public IColorConstant getGridBackgroundColor() {
 		if (gridBackgroundColor == null) {
-			final Color decode = Color.decode("#FFFFFF"); //$NON-NLS-1$
-			gridBackgroundColor = new ColorConstant(decode.getRed(), decode.getGreen(), decode.getBlue());
+			gridBackgroundColor = new ColorConstant("FFFFFF"); //$NON-NLS-1$
 		}
 		return gridBackgroundColor;
 	}
@@ -83,8 +80,7 @@ public class DefaultLook implements ILook {
 	 */
 	public IColorConstant getMajorGridLineColor() {
 		if (majorGridLineColor == null) {
-			final Color decode = Color.decode("#CEE0F2"); //$NON-NLS-1$
-			majorGridLineColor = new ColorConstant(decode.getRed(), decode.getGreen(), decode.getBlue());
+			majorGridLineColor = new ColorConstant("CEE0F2"); //$NON-NLS-1$
 		}
 		return majorGridLineColor;
 	}
@@ -105,8 +101,7 @@ public class DefaultLook implements ILook {
 	 */
 	public IColorConstant getMinorGridLineColor() {
 		if (minorGridLineColor == null) {
-			final Color decode = Color.decode("#E3EEF9"); //$NON-NLS-1$
-			minorGridLineColor = new ColorConstant(decode.getRed(), decode.getGreen(), decode.getBlue());
+			minorGridLineColor = new ColorConstant("E3EEF9"); //$NON-NLS-1$
 		}
 		return minorGridLineColor;
 	}
