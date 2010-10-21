@@ -45,6 +45,8 @@ import org.eclipse.ui.part.ViewPart;
  */
 public class ThumbNailView extends ViewPart implements IPartListener {
 
+	public static final String VIEW_ID = "org.eclipse.graphiti.ui.internal.editor.thumbnailview";
+
 	private FixedScrollableThumbnail _thumbnail;
 
 	private LightweightSystem _lws;
@@ -82,6 +84,7 @@ public class ThumbNailView extends ViewPart implements IPartListener {
 		clearThumbnail();
 	}
 
+	@Override
 	public void partActivated(IWorkbenchPart part) {
 		if (!part.equals(_workbenchPart)) {
 			GraphicalViewer viewer = (GraphicalViewer) part.getAdapter(GraphicalViewer.class);
@@ -91,16 +94,19 @@ public class ThumbNailView extends ViewPart implements IPartListener {
 		}
 	}
 
+	@Override
 	public void partBroughtToTop(IWorkbenchPart part) {
 		// nothing to do
 	}
 
+	@Override
 	public void partClosed(IWorkbenchPart part) {
 		if (part.equals(_workbenchPart)) {
 			refreshThumbnailViewer();
 		}
 	}
 
+	@Override
 	public void partDeactivated(IWorkbenchPart part) {
 		// clearThumbnail();
 	}
@@ -112,6 +118,7 @@ public class ThumbNailView extends ViewPart implements IPartListener {
 		}
 	}
 
+	@Override
 	public void partOpened(IWorkbenchPart part) {
 		GraphicalViewer viewer = (GraphicalViewer) part.getAdapter(GraphicalViewer.class);
 		if (viewer != null) {
