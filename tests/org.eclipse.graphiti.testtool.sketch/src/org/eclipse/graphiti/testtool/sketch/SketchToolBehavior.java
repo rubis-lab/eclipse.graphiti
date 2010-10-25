@@ -85,6 +85,7 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 			this.imageFilePath = imageFilePath;
 		}
 
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			return AbstractUIPlugin.imageDescriptorFromPlugin(SketchPlugin.getID(), imageFilePath);
 		}
@@ -100,6 +101,7 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 			this.imageFilePath = imageFilePath;
 		}
 
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			return AbstractUIPlugin.imageDescriptorFromPlugin(SketchPlugin.getID(), imageFilePath);
 		}
@@ -115,6 +117,10 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 
 	private final ISelectionInfo selectionInfo = new SelectionInfoImpl(IColorConstant.BLUE, IColorConstant.LIGHT_BLUE, IColorConstant.RED,
 			LineStyle.DOT);
+	{
+		selectionInfo.setPrimarySelectionBackgroundColor(IColorConstant.LIGHT_BLUE);
+		selectionInfo.setSecondarySelectionBackgroundColor(IColorConstant.LIGHT_ORANGE);
+	}
 
 	/**
 	 * Instantiates a new sketch tool behaviour.
@@ -270,7 +276,7 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 		}
 
 		// custom features
-		ICustomContext customContext = (ICustomContext) context;
+		ICustomContext customContext = context;
 		ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customContext);
 
 		// menu groups
@@ -498,6 +504,7 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 		return super.getContentArea(cs);
 	}
 
+	@Override
 	public String getName() {
 		return "Edit Mode";
 	}
