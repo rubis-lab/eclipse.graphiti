@@ -77,8 +77,6 @@ public class GraphicsTestPreferencePage extends FieldEditorPreferencePage implem
 		addLabel("Graphiti internal (do not change)");
 		addField(new BooleanFieldEditor(GFPreferences.RECURSIVE_CHECK_FOR_UPDATE_ACTIVE, "Check for a needed updates &recursively",
 				getFieldEditorParent()));
-		addField(new BooleanFieldEditor(GFPreferences.MOF_EXAMPLE_SHOWING_ALL_PROPERTIES, "MO&F example shows all properties",
-				getFieldEditorParent()));
 	}
 
 	private void addLabel(String message) {
