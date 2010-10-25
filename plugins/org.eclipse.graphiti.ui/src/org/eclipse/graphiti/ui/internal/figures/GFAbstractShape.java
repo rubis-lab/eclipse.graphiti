@@ -356,7 +356,30 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 
 	private void setBackgroundWithoutStyle(Graphics graphics, Path path) {
 		Color oldBackground = graphics.getBackgroundColor();
-		// fill area
+		int selectionFeedback = getVisualState().getSelectionFeedback();
+		if (selectionFeedback == IVisualState.SELECTION_PRIMARY || selectionFeedback == IVisualState.SELECTION_SECONDARY) {
+			// fill area
+			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+			PictogramElement pe = getPictogramElementDelegate().getPictogramElement();
+			if (!(pe instanceof org.eclipse.graphiti.mm.pictograms.Shape))
+				return;
+			org.eclipse.graphiti.mm.pictograms.Shape s = (org.eclipse.graphiti.mm.pictograms.Shape) pe;
+			ISelectionInfo selectionInfo = tbp.getSelectionInfoForShape(s);
+			if (selectionFeedback == IVisualState.SELECTION_PRIMARY) {
+				IColorConstant primarySelectionBackGroundColor = selectionInfo.getPrimarySelectionBackGroundColor();
+				if (primarySelectionBackGroundColor != null) {
+					graphics.setBackgroundColor(DataTypeTransformation.toSwtColor(getConfigurationProvider(),
+							primarySelectionBackGroundColor));
+				}
+			} else if (selectionFeedback == IVisualState.SELECTION_SECONDARY) {
+				IColorConstant secondarySelectionBackGroundColor = selectionInfo.getSecondarySelectionBackGroundColor();
+				if (secondarySelectionBackGroundColor != null) {
+					graphics.setBackgroundColor(DataTypeTransformation.toSwtColor(getConfigurationProvider(),
+							secondarySelectionBackGroundColor));
+				}
+
+			}
+		}
 		graphics.fillPath(path);
 		// revert to old background color
 		graphics.setBackgroundColor(oldBackground);
@@ -387,10 +410,15 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 		return styleAdaptation;
 	}
 
+	/**
+	 * Compute hover state and adapt background color accordingly We distinguish
+	 * the state where we hover over a figure without the parent being selected
+	 * and with the parent being selected.
+	 * 
+	 * @param graphics
+	 * @return
+	 */
 	private boolean adaptBackgroundToHover(Graphics graphics) {
-		// Compute hover state and adapt background color accordingly
-		// We distinguish the state where we hover over a figure
-		// without the parent being slected and with the parent being selected.
 		if (getVisualState().getHoverFeedback() == IVisualState.HOVER_ON) {
 			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 			IFigure parent = getParent();
@@ -557,6 +585,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 * 
 	 * @return The selection handle bounds of this Shape.
 	 */
+	@Override
 	public Rectangle getHandleBounds() {
 		Rectangle ret = null;
 		final GraphicsAlgorithm selectionGa = getSelectionBorder();
@@ -581,6 +610,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 * 
 	 * @return The visual state of this shape.
 	 */
+	@Override
 	public IVisualState getVisualState() {
 		return getPictogramElementDelegate().getVisualState();
 	}
@@ -588,6 +618,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	/**
 	 * Is called after the visual state changed.
 	 */
+	@Override
 	public void visualStateChanged(VisualStateChangedEvent e) {
 		// The colors might have changed, so force a repaint()
 		repaint();
