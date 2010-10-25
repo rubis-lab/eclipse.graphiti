@@ -35,7 +35,6 @@ public class GFPreferences {
 	public static final String CONTEXT_BUTTON_PAD_DECLARATION = "CONTEXT_BUTTON_PAD_DECLARATION"; //$NON-NLS-1$
 	public static final String ZOOM_ANIMATION_STEPS = "ZOOM_ANIMATION_STEPS"; //$NON-NLS-1$
 	public static final String DEBUG_ACTIONS_ACTIVE = "DEBUG_ACTIONS_ACTIVE"; //$NON-NLS-1$
-	public static final String MOF_EXAMPLE_SHOWING_ALL_PROPERTIES = "MOF_EXAMPLE_SHOWING_ALL_PROPERTIES"; //$NON-NLS-1$
 	public static final String GENERIC_PROPERTY_SHEET_ACTIVE = "GENERIC_PROPERTY_SHEET_ACTIVE"; //$NON-NLS-1$
 	public static final String GENERIC_OUTLINE_ACTIVE = "GENERIC_OUTLINE_ACTIVE"; //$NON-NLS-1$
 	public static final String POLYLINE_ROUNDING = "POLYLINE_ROUNDING"; //$NON-NLS-1$
@@ -87,10 +86,6 @@ public class GFPreferences {
 
 	public boolean isGenericPropertySheetActive() {
 		return getNode().getBoolean(GENERIC_PROPERTY_SHEET_ACTIVE, false);
-	}
-
-	public boolean isMofExampleShowingAllProperties() {
-		return getNode().getBoolean(MOF_EXAMPLE_SHOWING_ALL_PROPERTIES, false);
 	}
 
 	public boolean isProgressDialogActive() {

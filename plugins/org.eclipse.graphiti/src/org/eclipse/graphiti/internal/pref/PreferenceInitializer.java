@@ -45,7 +45,6 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		node.putBoolean(GFPreferences.DEBUG_ACTIONS_ACTIVE, false);
 		node.putBoolean(GFPreferences.GENERIC_OUTLINE_ACTIVE, false);
 		node.putBoolean(GFPreferences.GENERIC_PROPERTY_SHEET_ACTIVE, false);
-		node.putBoolean(GFPreferences.MOF_EXAMPLE_SHOWING_ALL_PROPERTIES, false);
 		node.putInt(GFPreferences.POLYLINE_ROUNDING, 0);
 
 	}
