@@ -24,6 +24,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 public class TutorialRenameEClassFeature extends AbstractCustomFeature {
 
+	private boolean hasDoneChanges = false;
+
 	public TutorialRenameEClassFeature(IFeatureProvider fp) {
 		super(fp);
 	}
@@ -53,6 +55,7 @@ public class TutorialRenameEClassFeature extends AbstractCustomFeature {
 		return ret;
 	}
 
+	@Override
 	public void execute(ICustomContext context) {
 		PictogramElement[] pes = context.getPictogramElements();
 		if (pes != null && pes.length == 1) {
@@ -62,10 +65,16 @@ public class TutorialRenameEClassFeature extends AbstractCustomFeature {
 				String currentName = eClass.getName();
 				// ask user for a new class name
 				String newName = ExampleUtil.askString(getName(), getDescription(), currentName);
-				if (newName != null) {
+				if (newName != null && !newName.equals(currentName)) {
+					this.hasDoneChanges = true;
 					eClass.setName(newName);
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean hasDoneChanges() {
+		return this.hasDoneChanges;
 	}
 }
