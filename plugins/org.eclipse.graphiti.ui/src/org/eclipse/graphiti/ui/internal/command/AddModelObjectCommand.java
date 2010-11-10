@@ -117,4 +117,22 @@ public class AddModelObjectCommand extends AbstractCommand {
 	public boolean canUndo() {
 		return false;
 	}
+
+	public IAddFeature[] getAddFeatures() {
+		List<IAddFeature> features = new ArrayList<IAddFeature>();
+
+		IFeatureProvider featureProvider = getFeatureProvider();
+		if (featureProvider != null && contextList.size() > 0) {
+			// try to find an add-feature for each object in the selection
+			for (Iterator<AddContext> iter = contextList.iterator(); iter.hasNext();) {
+				IAddContext ctx = iter.next();
+				IAddFeature f = featureProvider.getAddFeature(ctx);
+				if (f != null && f.canAdd(ctx)) {
+					features.add(f);
+				}
+			}
+		}
+
+		return features.toArray(new IAddFeature[features.size()]);
+	}
 }
