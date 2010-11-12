@@ -458,15 +458,13 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			}
 		}
 
-		// refresh figure colors only if it is not a customer figure (e.g. CoDe)
-		if (!(figure instanceof IGraphicsAlgorithmRenderer)) {
-			if (selectedConnection) {
-				Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(),
-						Graphiti.getGaService().getBackgroundColor(graphicsAlgorithm, true));
-				figure.setBackgroundColor(bg);
-			} else {
-				refreshFigureColors(figure, graphicsAlgorithm);
-			}
+		// refresh figure colors
+		if (selectedConnection) {
+			Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(),
+					Graphiti.getGaService().getBackgroundColor(graphicsAlgorithm, true));
+			figure.setBackgroundColor(bg);
+		} else {
+			refreshFigureColors(figure, graphicsAlgorithm);
 		}
 
 		// refresh specific figure-data
