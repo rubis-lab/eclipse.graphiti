@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.graphiti.feature.tests"
       label="%featureName"
-      version="0.7.0.qualifier"
+      version="0.8.0.qualifier"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
@@ -27,35 +27,35 @@
          id="org.eclipse.graphiti.tests"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.8.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.ui.tests"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.8.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.bot.tests"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.8.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.testtool.ecore"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.8.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.testtool.sketch"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.8.0.qualifier"
          unpack="false"/>
 
 </feature>
