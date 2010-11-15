@@ -34,6 +34,7 @@ import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.MmPackage;
+import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
@@ -224,6 +225,14 @@ public class DiagramChangeListener implements ResourceSetListener {
 			EObject eContainer = p.eContainer();
 			if (eContainer instanceof GraphicsAlgorithmContainer) {
 				gac = (GraphicsAlgorithmContainer) eContainer;
+			}
+		} else if (affectedElement instanceof Property) {
+			// Bugzilla 326733: a property has been changed -> update its parent
+			// GraphicsAlgorithm
+			Property property = (Property) affectedElement;
+			EObject container = property.eContainer();
+			if (container instanceof GraphicsAlgorithmContainer) {
+				gac = (GraphicsAlgorithmContainer) container;
 			}
 		}
 
