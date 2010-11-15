@@ -17,7 +17,7 @@
 <feature
       id="org.eclipse.graphiti.feature"
       label="%featureName"
-      version="0.7.0.qualifier"
+      version="0.8.0.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -41,28 +41,28 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.graphiti"
          download-size="0"
          install-size="0"
-         version="0.7.0.qualifier"
+         version="0.8.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.ui"
          download-size="0"
          install-size="0"
-         version="0.7.0.qualifier"
+         version="0.8.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.mm"
          download-size="0"
          install-size="0"
-         version="0.7.0.qualifier"
+         version="0.8.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.pattern"
          download-size="0"
          install-size="0"
-         version="0.7.0.qualifier"
+         version="0.8.0.qualifier"
          unpack="false"/>
 
 </feature>
