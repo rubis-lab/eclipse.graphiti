@@ -3,8 +3,8 @@
   <rm:property key="build.type" mutable="true" value="N"/>
   <rm:locator pattern="^org\.eclipse\.graphiti\.releng.*" searchPathRef="releng"/>
   <rm:locator pattern="^org\.eclipse\.graphiti\.*" searchPathRef="sources"/>
-  <rm:locator searchPathRef="orbit" failOnError="false"/>
   <rm:locator searchPathRef="platform.binaries"/>
+  <rm:locator searchPathRef="orbit" failOnError="false"/>
   <rm:searchPath name="releng">
     <rm:provider componentTypes="buckminster,osgi.bundle" readerType="cvs">
       <rm:uri format="{0},org.eclipse.gmp/org.eclipse.gmp.graphiti/releng/{1}">
@@ -58,7 +58,7 @@
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false" resolutionFilter="">
       <rm:uri format="{0}/tools/gef/updates/milestones/">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
