@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-SymbolicName: org.eclipse.graphiti.diagram.exporter.svg;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.apache.batik.svggen;bundle-version="[1.6.0,2.0.0)",
+ org.apache.batik.ext.awt;bundle-version="[1.6.0,2.0.0)",
+ org.apache.batik.util;bundle-version="[1.6.0,2.0.0)",
+ org.apache.batik.dom;bundle-version="[1.6.0,2.0.0)",
+ org.apache.batik.pdf;bundle-version="[1.6.0,2.0.0)",
+ org.apache.batik.transcoder;bundle-version="[1.6.0,2.0.0)",
+ org.eclipse.draw2d;bundle-version="[3.6.0,4.0.0)",
+ org.eclipse.graphiti.ui;bundle-version="0.8.0"
+Bundle-ActivationPolicy: lazy
