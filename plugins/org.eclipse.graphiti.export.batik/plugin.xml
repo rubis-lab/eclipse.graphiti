@@ -21,7 +21,7 @@
          name="SVG Exporter"
          point="org.eclipse.graphiti.ui.diagramExporters">
       <diagramexporter
-            class="org.eclipse.graphiti.diagram.exporter.svg.SVGExporter"
+            class="org.eclipse.graphiti.export.batik.SVGExporter"
             type="SVG">
       </diagramexporter>
    </extension>

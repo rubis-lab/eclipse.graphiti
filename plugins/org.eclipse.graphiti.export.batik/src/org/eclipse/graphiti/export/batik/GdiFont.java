@@ -10,7 +10,7 @@
  *    SAP AG - copied the class from GMF runtime since Graphiti can not have a dependency to GMF 
  ****************************************************************************/
 
-package org.eclipse.graphiti.diagram.exporter.svg;
+package org.eclipse.graphiti.export.batik;
 
 import java.awt.Font;
 

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
-Bundle-SymbolicName: org.eclipse.graphiti.diagram.exporter.svg;singleton:=true
+Bundle-SymbolicName: org.eclipse.graphiti.export.batik;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.apache.batik.svggen;bundle-version="[1.6.0,2.0.0)",

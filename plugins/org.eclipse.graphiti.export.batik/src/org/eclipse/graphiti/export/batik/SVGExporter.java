@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.diagram.exporter.svg;
+package org.eclipse.graphiti.export.batik;
 
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;

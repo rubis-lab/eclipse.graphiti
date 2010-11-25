@@ -12,7 +12,7 @@
  *    		   GMF's DisplayUtils			
  ****************************************************************************/
 
-package org.eclipse.graphiti.diagram.exporter.svg;
+package org.eclipse.graphiti.export.batik;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
