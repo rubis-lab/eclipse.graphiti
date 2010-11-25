@@ -127,6 +127,12 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 		return composite;
 	}
 
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText(Messages.SaveFigureAsImageDialog_5_xtxt);
+	}
+
 	// ======================== private helper methods ========================
 
 	private void createFormatGroup(Composite composite) {

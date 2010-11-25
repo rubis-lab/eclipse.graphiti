@@ -83,6 +83,7 @@ public class Messages extends NLS {
 	public static String SaveFigureAsImageDialog_2_xfld;
 	public static String SaveFigureAsImageDialog_3_xfld;
 	public static String SaveFigureAsImageDialog_4_xfld;
+	public static String SaveFigureAsImageDialog_5_xtxt;
 	public static String SaveImageAction_0_xmsg;
 	public static String SaveImageAction_1_xmsg;
 	public static String UpdateAction_0_xmsg;
