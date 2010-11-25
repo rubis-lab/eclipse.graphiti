@@ -20,6 +20,7 @@
    <extension-point id="imageProviders" name="%_extension_point_image_providers" schema="schema/imageProviders.exsd"/>
    <extension-point id="diagramTypeProviders" name="%_extension_point_diagram_type_providers" schema="schema/diagramTypeProviders.exsd"/>
    <extension-point id="diagramTypes" name="%_extension_point_diagram_types" schema="schema/diagramTypes.exsd"/>
+   <extension-point id="diagramExporters" name="%_extension_point_diagram_exporters" schema="schema/diagramExporters.exsd"/>
 
    <extension
          point="org.eclipse.ui.views">
@@ -55,7 +56,7 @@
          point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-extensions="diagram"
-            id="org.eclipse.graphiti.content.diagram"
+            id="org.eclipse.graphiti.content.diagram" 
             name="%_contenttype_diagram">
       </content-type>
    </extension>
@@ -72,4 +73,6 @@
             id="org.eclipse.graphiti.ui.platform.PlatformImageProvider">
       </imageProvider>
    </extension>
+   
+   
 </plugin>

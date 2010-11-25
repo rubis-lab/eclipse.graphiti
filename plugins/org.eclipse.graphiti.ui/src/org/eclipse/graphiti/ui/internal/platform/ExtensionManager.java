@@ -34,6 +34,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorDummy;
+import org.eclipse.graphiti.ui.internal.util.ui.print.IDiagramsExporter;
 import org.eclipse.graphiti.ui.platform.IImageProvider;
 import org.eclipse.graphiti.ui.platform.PlatformImageProvider;
 import org.eclipse.graphiti.ui.services.IExtensionManager;
@@ -51,6 +52,10 @@ public class ExtensionManager implements IExtensionManager {
 	private static String EP_IMAGE_PROVIDERS = "org.eclipse.graphiti.ui.imageProviders"; //$NON-NLS-1$
 
 	private static String EP_DIAGRAM_TYPE_PROVIDERS = "org.eclipse.graphiti.ui.diagramTypeProviders"; //$NON-NLS-1$
+
+	private static String EP_DIAGRAM_EXPORTERS = "org.eclipse.graphiti.ui.diagramExporters"; //$NON-NLS-1$
+
+	private static final String EP_CHILD_NODE_DIAGRAM_EXPORTER = "diagramexporter"; //$NON-NLS-1$
 
 	private static final String EP_CHILD_NODE_IMAGE_PROVIDER = "imageProvider"; //$NON-NLS-1$
 
@@ -128,9 +133,66 @@ public class ExtensionManager implements IExtensionManager {
 		return ret;
 	}
 
+	public String[] getDiagramExporterTypes() {
+		String ret[] = new String[0];
+		List<String> retList = new ArrayList<String>();
+
+		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(EP_DIAGRAM_EXPORTERS);
+		IExtension[] extensions = extensionPoint.getExtensions();
+		for (int i = 0; i < extensions.length; i++) {
+			IExtension extension = extensions[i];
+			IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+			for (int j = 0; j < configurationElements.length; j++) {
+				IConfigurationElement element = configurationElements[j];
+				String name = element.getName();
+				String type = element.getAttribute(EP_ATTRIBUTE_TYPE);
+				if (name != null && type != null) {
+					if (EP_CHILD_NODE_DIAGRAM_EXPORTER.equals(name)) {
+						retList.add(type);
+						break;
+					}
+				}
+			}
+		}
+
+		ret = retList.toArray(ret);
+		return ret;
+	}
+
+	public IDiagramsExporter getDiagramExporterForType(String type) {
+		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(EP_DIAGRAM_EXPORTERS);
+		IExtension[] extensions = extensionPoint.getExtensions();
+		for (int i = 0; i < extensions.length; i++) {
+			IExtension extension = extensions[i];
+			IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+			for (int j = 0; j < configurationElements.length; j++) {
+				IConfigurationElement element = configurationElements[j];
+				String name = element.getName();
+				String currType = element.getAttribute(EP_ATTRIBUTE_TYPE);
+				if (name != null && type != null) {
+					if (EP_CHILD_NODE_DIAGRAM_EXPORTER.equals(name) && type.equals(currType)) {
+						try {
+							Object executableExtension = element.createExecutableExtension(EP_ATTRIBUTE_CLASS);
+							if (executableExtension instanceof IDiagramsExporter) {
+								return (IDiagramsExporter) executableExtension;
+							}
+						} catch (CoreException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
 	private void searchForExtensions() {
 
-		// read and store all diagram types which are registered with the extension point
+		// read and store all diagram types which are registered with the
+		// extension point
 		List<IDiagramType> diagramTypeList = createDiagramTypes();
 		diagramTypes = diagramTypeList.toArray(new IDiagramType[0]);
 

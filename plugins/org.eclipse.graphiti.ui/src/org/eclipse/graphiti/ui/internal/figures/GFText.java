@@ -17,6 +17,7 @@ package org.eclipse.graphiti.ui.internal.figures;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.ScaledGraphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -38,6 +39,7 @@ public class GFText extends Label {
 		this.graphicsAlgorithm = graphicsAlgorithm;
 	}
 
+	@Override
 	public int getLabelAlignment() {
 		return labelAlignment;
 	}
@@ -49,7 +51,10 @@ public class GFText extends Label {
 			int alpha = (int) ((1.0 - transparency) * 255.0);
 			graphics.setAlpha(alpha);
 
-			graphics.setTextAntialias(SWT.ON);
+			// Only use antialias for draw 2d rendering, for svg rendering we do
+			// not support this option
+			if (graphics instanceof ScaledGraphics)
+				graphics.setTextAntialias(SWT.ON);
 
 			int angle = 0;
 			if (graphicsAlgorithm instanceof Text) {

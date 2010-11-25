@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.util.ui.print;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import org.eclipse.gef.GraphicalViewer;
@@ -40,11 +42,11 @@ import org.eclipse.swt.widgets.Shell;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class SaveFigureAsImageDialog extends AbstractFigureSelectionDialog implements ModifyListener {
+public class ExportDiagramDialog extends AbstractFigureSelectionDialog implements ModifyListener {
 
-	public static final String[] IMAGE_FILE_EXTENSIONS = new String[] { "BMP", "GIF", "JPG", "RLE" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+	private String[] IMAGE_FILE_EXTENSIONS = new String[] { "BMP", "GIF", "JPG", "RLE" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-	public static final int[] IMAGE_FILE_TYPES = new int[] { SWT.IMAGE_BMP, SWT.IMAGE_GIF, SWT.IMAGE_JPEG, SWT.IMAGE_BMP_RLE };
+	private int[] IMAGE_FILE_TYPES = new int[] { SWT.IMAGE_BMP, SWT.IMAGE_GIF, SWT.IMAGE_JPEG, SWT.IMAGE_BMP_RLE };
 
 	public static final String[] WIDTHS = new String[] { "320", "640", "800", "1024", "1280", "1600" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
@@ -54,6 +56,7 @@ public class SaveFigureAsImageDialog extends AbstractFigureSelectionDialog imple
 
 	// controls
 	private Combo _formatCombo;
+
 
 	private Combo _widthCombo;
 
@@ -65,15 +68,28 @@ public class SaveFigureAsImageDialog extends AbstractFigureSelectionDialog imple
 	private int _formatIndex = 0;
 
 	/**
-	 * Creates a new SaveFigureAsImageDialog.
+	 * Creates a new ExportDiagramDialog.
 	 * 
 	 * @param shell
 	 *            The Shell of this dialog.
 	 * @param graphicalViewer
 	 *            The GraphicalViewer, which to save.
 	 */
-	public SaveFigureAsImageDialog(Shell shell, GraphicalViewer graphicalViewer) {
+	public ExportDiagramDialog(Shell shell, GraphicalViewer graphicalViewer) {
 		super(shell, graphicalViewer);
+	}
+	
+	
+	public void addExporters(String[] exporterTypes) {
+		List<String> asList = new ArrayList<String>();
+		for (String string : IMAGE_FILE_EXTENSIONS) {
+			asList.add(string);
+		}
+		for (String string : exporterTypes) {
+			asList.add(string);
+		}
+		IMAGE_FILE_EXTENSIONS = asList.toArray(new String[] {});
+		
 	}
 
 	// ======================= overwritten methods ============================
@@ -158,6 +174,7 @@ public class SaveFigureAsImageDialog extends AbstractFigureSelectionDialog imple
 	 * org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events
 	 * .ModifyEvent)
 	 */
+	@Override
 	public void modifyText(ModifyEvent e) {
 		if (_insideInternalModify) // avoid endless-loops
 			return;
@@ -166,6 +183,7 @@ public class SaveFigureAsImageDialog extends AbstractFigureSelectionDialog imple
 
 		if (e.getSource() == _formatCombo) {
 			_formatIndex = _formatCombo.getSelectionIndex();
+			// setControlsEnabled(getImageFormat() != SVG);
 		} else if (e.getSource() == _widthCombo) {
 			try {
 				String text = _widthCombo.getText();
@@ -197,6 +215,16 @@ public class SaveFigureAsImageDialog extends AbstractFigureSelectionDialog imple
 
 		} else
 			updateControls();
+
+	}
+
+	/**
+	 * @param b
+	 */
+	private void setControlsEnabled(boolean b) {
+		_heightCombo.setEnabled(b);
+		_widthCombo.setEnabled(b);
+		_scaleFactorText.setEnabled(b);
 
 	}
 
@@ -240,8 +268,12 @@ public class SaveFigureAsImageDialog extends AbstractFigureSelectionDialog imple
 		return IMAGE_FILE_TYPES[_formatIndex];
 	}
 
-	public final String getFileExtensionForImageFormat() {
+	public final String getFormattedFileExtension() {
 		return IMAGE_FILE_EXTENSIONS[_formatIndex].toLowerCase(Locale.ENGLISH);
+	}
+
+	public final String getFileExtension() {
+		return IMAGE_FILE_EXTENSIONS[_formatIndex];
 	}
 
 	public double getImageScaleFactor() {

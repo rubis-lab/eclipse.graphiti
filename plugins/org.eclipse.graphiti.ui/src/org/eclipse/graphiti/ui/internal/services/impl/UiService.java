@@ -18,7 +18,9 @@ package org.eclipse.graphiti.ui.internal.services.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -28,9 +30,11 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
+import org.eclipse.graphiti.ui.internal.platform.ExtensionManager;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.services.IUiService;
-import org.eclipse.graphiti.ui.internal.util.ui.print.SaveFigureAsImageDialog;
+import org.eclipse.graphiti.ui.internal.util.ui.print.ExportDiagramDialog;
+import org.eclipse.graphiti.ui.internal.util.ui.print.IDiagramsExporter;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.window.Window;
@@ -138,16 +142,20 @@ public class UiService implements IUiService {
 	public void startSaveAsImageDialog(GraphicalViewer graphicalViewer) {
 		String METHOD = "startSaveAsImageDialog(graphicalViewer)"; //$NON-NLS-1$
 
+		// check extension point for exporters
+		String[] diagramExporterTypes = ExtensionManager.getSingleton().getDiagramExporterTypes();
+
+		// configure dialog with exporters and open dialog
 		Shell shell = GraphitiUiInternal.getWorkbenchService().getShell();
-		// select image-format and scale-factor
-		SaveFigureAsImageDialog saveAsImageDialog = new SaveFigureAsImageDialog(shell, graphicalViewer);
+		ExportDiagramDialog saveAsImageDialog = new ExportDiagramDialog(shell, graphicalViewer);
+		saveAsImageDialog.addExporters(diagramExporterTypes);
 		saveAsImageDialog.open();
 		if (saveAsImageDialog.getReturnCode() == Window.CANCEL)
 			return;
 
 		// select filename with file-dialog
 		FileDialog fileDialog = new FileDialog(shell, SWT.SAVE);
-		String fileExtensions[] = new String[] { "*." + saveAsImageDialog.getFileExtensionForImageFormat() }; //$NON-NLS-1$
+		String fileExtensions[] = new String[] { "*." + saveAsImageDialog.getFormattedFileExtension() }; //$NON-NLS-1$
 		fileDialog.setFilterExtensions(fileExtensions);
 		String filename = fileDialog.open();
 		if (filename != null) {
@@ -155,13 +163,22 @@ public class UiService implements IUiService {
 				// add extension to filename (if none exists)
 				IPath path = new Path(filename);
 				if (path.getFileExtension() == null)
-					filename = filename + "." + saveAsImageDialog.getFileExtensionForImageFormat(); //$NON-NLS-1$
-				// create image-data
-				byte image[] = createImage(saveAsImageDialog.getScaledImage(), saveAsImageDialog.getImageFormat());
+					filename = filename + "." + saveAsImageDialog.getFormattedFileExtension(); //$NON-NLS-1$
 
-				// save image as file
-				WorkspaceModifyOperation saveOperation = saveContentsToFile(filename, image);
-				new ProgressMonitorDialog(shell).run(false, false, saveOperation);
+				Image im = saveAsImageDialog.getScaledImage();
+				String imageExtension = saveAsImageDialog.getFileExtension();
+				// if the exporter is non-standard, i.e. registered via
+				// extension point, we need to call the registered exporter.
+				if (Arrays.asList(diagramExporterTypes).contains(imageExtension)) {
+					IDiagramsExporter exporter = ExtensionManager.getSingleton().getDiagramExporterForType(imageExtension);
+					Assert.isNotNull(exporter);
+					exporter.export(im, saveAsImageDialog.getFigure(), filename);
+				} else {
+					int imageFormat = saveAsImageDialog.getImageFormat();
+					byte image[] = createImage(im, imageFormat);
+					WorkspaceModifyOperation saveOperation = saveContentsToFile(filename, image);
+					new ProgressMonitorDialog(shell).run(false, false, saveOperation);
+				}
 			} catch (Exception e) {
 				String message = "Can not save image: "; //$NON-NLS-1$
 				MessageDialog.openError(shell, "Can not save image", message + e.getMessage()); //$NON-NLS-1$
