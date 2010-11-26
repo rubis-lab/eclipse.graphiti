@@ -88,8 +88,8 @@ public class GFDialogTests extends AbstractGFTests {
 			}
 		});
 
-		bot.waitUntil(Conditions.shellIsActive(Messages.AbstractFigureSelectionDialog_0_xtxt));
-		SWTBotShell shell = bot.shell(Messages.AbstractFigureSelectionDialog_0_xtxt);
+		bot.waitUntil(Conditions.shellIsActive(Messages.SaveFigureAsImageDialog_5_xtxt));
+		SWTBotShell shell = bot.shell(Messages.SaveFigureAsImageDialog_5_xtxt);
 		Thread.sleep(2000);
 		shell.bot().button("Cancel").click();
 		Thread.sleep(300);
