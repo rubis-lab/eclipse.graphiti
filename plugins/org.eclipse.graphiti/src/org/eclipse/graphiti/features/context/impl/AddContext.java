@@ -24,6 +24,7 @@ import org.eclipse.graphiti.features.context.ITargetConnectionContext;
 import org.eclipse.graphiti.features.context.ITargetContext;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 
 /**
@@ -34,6 +35,8 @@ public class AddContext extends AreaContext implements IAddContext {
 	private ContainerShape targetContainer;
 
 	private Connection targetConnection;
+
+	private ConnectionDecorator targetConnectionDecorator;
 
 	private Object newObject;
 
@@ -83,6 +86,10 @@ public class AddContext extends AreaContext implements IAddContext {
 		return this.targetConnection;
 	}
 
+	public ConnectionDecorator getTargetConnectionDecorator() {
+		return this.targetConnectionDecorator;
+	}
+
 	public ContainerShape getTargetContainer() {
 		return this.targetContainer;
 	}
@@ -117,10 +124,21 @@ public class AddContext extends AreaContext implements IAddContext {
 		this.targetConnection = targetConnection;
 	}
 
+	/**
+	 * Sets the target connection decorator.
+	 * 
+	 * @param targetConnectionDecorator
+	 *            The target connection decorator to set.
+	 */
+	public void setTargetConnectionDecorator(ConnectionDecorator targetConnectionDecorator) {
+		this.targetConnectionDecorator = targetConnectionDecorator;
+	}
+
 	@Override
 	public String toString() {
 		String ret = super.toString();
-		ret = ret + " newObject: " + getNewObject() + " targetConnection: " + getTargetConnection() + " targetContainer: " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		ret = ret
+				+ " newObject: " + getNewObject() + " targetConnection: " + getTargetConnection() + " targetConnectionDecorator: " + getTargetConnectionDecorator() + " targetContainer: " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				+ getTargetContainer();
 		return ret;
 	}

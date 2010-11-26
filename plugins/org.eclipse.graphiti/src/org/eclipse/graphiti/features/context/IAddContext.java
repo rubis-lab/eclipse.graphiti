@@ -27,7 +27,7 @@ package org.eclipse.graphiti.features.context;
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
  */
-public interface IAddContext extends IAreaContext, ITargetContext, ITargetConnectionContext {
+public interface IAddContext extends IAreaContext, ITargetContext, ITargetConnectionContext, ITargetConnectionDecoratorContext {
 
 	/**
 	 * A pictogram element has to be added. This pictogram element has to link
