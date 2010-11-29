@@ -56,6 +56,14 @@
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="enableScaling" type="boolean">
+            <annotation>
+               <documentation>
+                  If and only if true, the diagram export ui will offer
+controls to enable scaling.
+               </documentation>
+            </annotation>
+         </attribute>
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>

@@ -18,7 +18,7 @@ package org.eclipse.graphiti.ui.internal.services.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Map;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -143,7 +143,7 @@ public class UiService implements IUiService {
 		String METHOD = "startSaveAsImageDialog(graphicalViewer)"; //$NON-NLS-1$
 
 		// check extension point for exporters
-		String[] diagramExporterTypes = ExtensionManager.getSingleton().getDiagramExporterTypes();
+		Map<String, Boolean> diagramExporterTypes = ExtensionManager.getSingleton().getDiagramExporterTypes();
 
 		// configure dialog with exporters and open dialog
 		Shell shell = GraphitiUiInternal.getWorkbenchService().getShell();
@@ -169,10 +169,10 @@ public class UiService implements IUiService {
 				String imageExtension = saveAsImageDialog.getFileExtension();
 				// if the exporter is non-standard, i.e. registered via
 				// extension point, we need to call the registered exporter.
-				if (Arrays.asList(diagramExporterTypes).contains(imageExtension)) {
+				if (diagramExporterTypes.containsKey(imageExtension)) {
 					IDiagramsExporter exporter = ExtensionManager.getSingleton().getDiagramExporterForType(imageExtension);
 					Assert.isNotNull(exporter);
-					exporter.export(im, saveAsImageDialog.getFigure(), filename);
+					exporter.export(im, saveAsImageDialog.getFigure(), filename, saveAsImageDialog.getImageScaleFactor());
 				} else {
 					int imageFormat = saveAsImageDialog.getImageFormat();
 					byte image[] = createImage(im, imageFormat);

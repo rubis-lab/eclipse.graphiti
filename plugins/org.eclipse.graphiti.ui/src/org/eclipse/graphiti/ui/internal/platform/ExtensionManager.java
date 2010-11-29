@@ -16,7 +16,9 @@
 package org.eclipse.graphiti.ui.internal.platform;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -66,6 +68,8 @@ public class ExtensionManager implements IExtensionManager {
 	private static final String EP_ATTRIBUTE_ID = "id"; //$NON-NLS-1$
 
 	private static final String EP_ATTRIBUTE_TYPE = "type"; //$NON-NLS-1$
+
+	private static final String EP_ATTRIBUTE_ENABLEUI = "enableScaling"; //$NON-NLS-1$
 
 	private static final String EP_ATTRIBUTE_NAME = "name"; //$NON-NLS-1$
 
@@ -133,10 +137,8 @@ public class ExtensionManager implements IExtensionManager {
 		return ret;
 	}
 
-	public String[] getDiagramExporterTypes() {
-		String ret[] = new String[0];
-		List<String> retList = new ArrayList<String>();
-
+	public Map<String, Boolean> getDiagramExporterTypes() {
+		Map<String, Boolean> ret = new HashMap<String, Boolean>();
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(EP_DIAGRAM_EXPORTERS);
 		IExtension[] extensions = extensionPoint.getExtensions();
@@ -149,14 +151,13 @@ public class ExtensionManager implements IExtensionManager {
 				String type = element.getAttribute(EP_ATTRIBUTE_TYPE);
 				if (name != null && type != null) {
 					if (EP_CHILD_NODE_DIAGRAM_EXPORTER.equals(name)) {
-						retList.add(type);
+						String enableScaling = element.getAttribute(EP_ATTRIBUTE_ENABLEUI);
+						ret.put(type, Boolean.valueOf(enableScaling));
 						break;
 					}
 				}
 			}
 		}
-
-		ret = retList.toArray(ret);
 		return ret;
 	}
 

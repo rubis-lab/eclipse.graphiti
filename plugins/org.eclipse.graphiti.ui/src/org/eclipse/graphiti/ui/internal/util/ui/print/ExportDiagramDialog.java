@@ -18,6 +18,7 @@ package org.eclipse.graphiti.ui.internal.util.ui.print;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.internal.util.T;
@@ -67,6 +68,8 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 	// selected values
 	private int _formatIndex = 0;
 
+	private Map<String, Boolean> additionalExporterTypes;
+
 	/**
 	 * Creates a new ExportDiagramDialog.
 	 * 
@@ -80,12 +83,13 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 	}
 	
 	
-	public void addExporters(String[] exporterTypes) {
+	public void addExporters(Map<String, Boolean> diagramExporterTypes) {
+		additionalExporterTypes = diagramExporterTypes;
 		List<String> asList = new ArrayList<String>();
 		for (String string : IMAGE_FILE_EXTENSIONS) {
 			asList.add(string);
 		}
-		for (String string : exporterTypes) {
+		for (String string : diagramExporterTypes.keySet()) {
 			asList.add(string);
 		}
 		IMAGE_FILE_EXTENSIONS = asList.toArray(new String[] {});
@@ -189,7 +193,9 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 
 		if (e.getSource() == _formatCombo) {
 			_formatIndex = _formatCombo.getSelectionIndex();
-			// setControlsEnabled(getImageFormat() != SVG);
+			String format = _formatCombo.getText();
+			Boolean b = !additionalExporterTypes.containsKey(format) || additionalExporterTypes.get(format);
+			setControlsEnabled(b);
 		} else if (e.getSource() == _widthCombo) {
 			try {
 				String text = _widthCombo.getText();

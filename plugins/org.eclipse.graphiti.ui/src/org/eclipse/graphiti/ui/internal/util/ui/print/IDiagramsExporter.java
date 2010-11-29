@@ -20,7 +20,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Exports the content of a graphical viewer provided as image and as figure.
- * The usual usecase is exporting to a file. But exports could in principal go
+ * The usual use-case is exporting to a file. But exports could in principal go
  * anywhere.
  * 
  * @since 0.8.0
@@ -33,12 +33,14 @@ public interface IDiagramsExporter {
 	 * if something goes wrong.
 	 * 
 	 * @param im
-	 *            the image to be exported
+	 *            the image to be exported, the image is already scaled
 	 * @param figure
 	 *            the figure to be exported
 	 * @param fileName
 	 *            null or an filename
+	 * @param scaleFactor
+	 *            the scale factor, can be used to scale the figure
 	 */
-	public void export(Image im, IFigure figure, String fileName) throws Exception;
+	public void export(Image im, IFigure figure, String fileName, Double scaleFactor) throws Exception;
 
 }
