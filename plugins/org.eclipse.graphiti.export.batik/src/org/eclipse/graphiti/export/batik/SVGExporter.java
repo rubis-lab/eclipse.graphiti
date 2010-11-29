@@ -30,12 +30,12 @@ import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
 /**
- * Extending the Graphiti framework with a export to SVG.
+ * Extending the Graphiti framework with an export option for SVG.
  */
 public class SVGExporter implements IDiagramsExporter {
 
 	@Override
-	public void export(Image im, IFigure figure, String fileName) throws Exception {
+	public void export(Image im, IFigure figure, String fileName, Double scaleFactor) throws Exception {
 		// Get a DOMImplementation.
 		DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 

@@ -22,17 +22,18 @@
          point="org.eclipse.graphiti.ui.diagramExporters">
       <diagramexporter
             class="org.eclipse.graphiti.export.batik.SVGExporter"
+            enableScaling="false"
             type="SVG">
       </diagramexporter>
    </extension>
    
-   <!--
+  <!--
    <extension
          id="org.eclipse.graphiti.export.pdf"
          name="PDF Exporter"
          point="org.eclipse.graphiti.ui.diagramExporters">
       <diagramexporter
-            class="org.eclipse.graphiti.diagram.exporter.svg.PDFExporter"
+            class="org.eclipse.graphiti.export.batik.PDFExporter"
             type="PDF">
       </diagramexporter>
    </extension>
