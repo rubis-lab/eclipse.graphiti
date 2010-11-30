@@ -9,6 +9,9 @@
    <feature url="features/org.eclipse.graphiti.sdk.feature_0.8.0.qualifier.jar" id="org.eclipse.graphiti.sdk.feature" version="0.8.0.qualifier">
       <category name="org.eclipse.graphiti"/>
    </feature>
+   <feature url="features/org.eclipse.graphiti.sdk.plus.feature_0.8.0.qualifier.jar" id="org.eclipse.graphiti.sdk.plus.feature" version="0.8.0.qualifier">
+      <category name="org.eclipse.graphiti"/>
+   </feature>
    <category-def name="org.eclipse.graphiti" label="Graphiti">
       <description>
          The Graphiti update site provides access to the Graphiti framework and all additional features. For developing with the framework installing the SDK feature is the recommended choice, it will install the
