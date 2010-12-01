@@ -140,14 +140,14 @@ public class UiService implements IUiService {
 
 	@Override
 	public void startSaveAsImageDialog(GraphicalViewer graphicalViewer) {
-		String METHOD = "startSaveAsImageDialog(graphicalViewer)"; //$NON-NLS-1$
+		final String METHOD = "startSaveAsImageDialog(graphicalViewer)"; //$NON-NLS-1$
 
 		// check extension point for exporters
 		Map<String, Boolean> diagramExporterTypes = ExtensionManager.getSingleton().getDiagramExporterTypes();
 
 		// configure dialog with exporters and open dialog
-		Shell shell = GraphitiUiInternal.getWorkbenchService().getShell();
-		ExportDiagramDialog saveAsImageDialog = new ExportDiagramDialog(shell, graphicalViewer);
+		final Shell shell = GraphitiUiInternal.getWorkbenchService().getShell();
+		final ExportDiagramDialog saveAsImageDialog = new ExportDiagramDialog(shell, graphicalViewer);
 		saveAsImageDialog.addExporters(diagramExporterTypes);
 		saveAsImageDialog.open();
 		if (saveAsImageDialog.getReturnCode() == Window.CANCEL)
@@ -165,20 +165,24 @@ public class UiService implements IUiService {
 				if (path.getFileExtension() == null)
 					filename = filename + "." + saveAsImageDialog.getFormattedFileExtension(); //$NON-NLS-1$
 
-				Image im = saveAsImageDialog.getScaledImage();
+				final String file = filename;
+				final Image im = saveAsImageDialog.getScaledImage();
 				String imageExtension = saveAsImageDialog.getFileExtension();
+				WorkspaceModifyOperation operation;
 				// if the exporter is non-standard, i.e. registered via
 				// extension point, we need to call the registered exporter.
 				if (diagramExporterTypes.containsKey(imageExtension)) {
-					IDiagramsExporter exporter = ExtensionManager.getSingleton().getDiagramExporterForType(imageExtension);
+					final IDiagramsExporter exporter = ExtensionManager.getSingleton().getDiagramExporterForType(imageExtension);
 					Assert.isNotNull(exporter);
-					exporter.export(im, saveAsImageDialog.getFigure(), filename, saveAsImageDialog.getImageScaleFactor());
+					operation = getExportOp(METHOD, shell, saveAsImageDialog, file, im, exporter);
+					new ProgressMonitorDialog(shell).run(false, false, operation);
+
 				} else {
 					int imageFormat = saveAsImageDialog.getImageFormat();
 					byte image[] = createImage(im, imageFormat);
-					WorkspaceModifyOperation saveOperation = saveContentsToFile(filename, image);
-					new ProgressMonitorDialog(shell).run(false, false, saveOperation);
+					operation = getSaveToFileOp(file, image);
 				}
+				new ProgressMonitorDialog(shell).run(false, false, operation);
 			} catch (Exception e) {
 				String message = "Can not save image: "; //$NON-NLS-1$
 				MessageDialog.openError(shell, "Can not save image", message + e.getMessage()); //$NON-NLS-1$
@@ -186,6 +190,25 @@ public class UiService implements IUiService {
 				e.printStackTrace();
 			}
 		}
+	}
+
+
+	private WorkspaceModifyOperation getExportOp(final String METHOD, final Shell shell, final ExportDiagramDialog saveAsImageDialog,
+			final String file, final Image im, final IDiagramsExporter exporter) {
+		WorkspaceModifyOperation operation;
+		operation = new WorkspaceModifyOperation() {
+			@Override
+			protected void execute(IProgressMonitor monitor) throws CoreException {
+				try {
+					exporter.export(im, saveAsImageDialog.getFigure(), file, saveAsImageDialog.getImageScaleFactor());
+				} catch (Exception e) {
+					String message = "Can not export diagram: "; //$NON-NLS-1$
+					MessageDialog.openError(shell, "Can not export diagram", message + e.getMessage()); //$NON-NLS-1$
+					e.printStackTrace();
+				}
+			}
+		};
+		return operation;
 	}
 
 	/**
@@ -199,7 +222,7 @@ public class UiService implements IUiService {
 	 * @throws Exception
 	 *             On any errors that occur.
 	 */
-	private WorkspaceModifyOperation saveContentsToFile(final String filename, final byte contents[]) throws Exception {
+	private WorkspaceModifyOperation getSaveToFileOp(final String filename, final byte contents[]) throws Exception {
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 			@Override
 			protected void execute(IProgressMonitor monitor) throws CoreException {
