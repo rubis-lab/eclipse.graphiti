@@ -14,6 +14,7 @@
  */
 package org.eclipse.graphiti.mm;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -25,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.graphiti.mm.Property#getKey <em>Key</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.Property#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.Property#getValues <em>Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,29 +62,19 @@ public interface Property extends EObject {
 	void setKey(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Value</b></em>' attribute.
+	 * Returns the value of the '<em><b>Values</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Values</em>' attribute list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(String)
-	 * @see org.eclipse.graphiti.mm.MmPackage#getProperty_Value()
-	 * @model required="true"
+	 * @return the value of the '<em>Values</em>' attribute list.
+	 * @see org.eclipse.graphiti.mm.MmPackage#getProperty_Values()
+	 * @model
 	 * @generated
 	 */
-	String getValue();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.Property#getValue <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value</em>' attribute.
-	 * @see #getValue()
-	 * @generated
-	 */
-	void setValue(String value);
+	EList<String> getValues();
 
 } // Property

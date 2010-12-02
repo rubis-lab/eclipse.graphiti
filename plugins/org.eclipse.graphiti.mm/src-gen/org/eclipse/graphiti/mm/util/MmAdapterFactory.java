@@ -84,12 +84,12 @@ public class MmAdapterFactory extends AdapterFactoryImpl {
 				return createPropertyAdapter();
 			}
 			@Override
-			public Adapter caseGraphicsAlgorithmContainer(GraphicsAlgorithmContainer object) {
-				return createGraphicsAlgorithmContainerAdapter();
-			}
-			@Override
 			public Adapter casePropertyContainer(PropertyContainer object) {
 				return createPropertyContainerAdapter();
+			}
+			@Override
+			public Adapter caseGraphicsAlgorithmContainer(GraphicsAlgorithmContainer object) {
+				return createGraphicsAlgorithmContainerAdapter();
 			}
 			@Override
 			public Adapter caseStyleContainer(StyleContainer object) {

@@ -101,16 +101,16 @@ public class MmSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case MmPackage.PROPERTY_CONTAINER: {
+				PropertyContainer propertyContainer = (PropertyContainer)theEObject;
+				T result = casePropertyContainer(propertyContainer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case MmPackage.GRAPHICS_ALGORITHM_CONTAINER: {
 				GraphicsAlgorithmContainer graphicsAlgorithmContainer = (GraphicsAlgorithmContainer)theEObject;
 				T result = caseGraphicsAlgorithmContainer(graphicsAlgorithmContainer);
 				if (result == null) result = casePropertyContainer(graphicsAlgorithmContainer);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case MmPackage.PROPERTY_CONTAINER: {
-				PropertyContainer propertyContainer = (PropertyContainer)theEObject;
-				T result = casePropertyContainer(propertyContainer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

@@ -87,13 +87,13 @@ public interface MmPackage extends EPackage {
 	int PROPERTY__KEY = 0;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * The feature id for the '<em><b>Values</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__VALUE = 1;
+	int PROPERTY__VALUES = 1;
 
 	/**
 	 * The number of structural features of the '<em>Property</em>' class.
@@ -112,7 +112,7 @@ public interface MmPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.impl.MmPackageImpl#getPropertyContainer()
 	 * @generated
 	 */
-	int PROPERTY_CONTAINER = 2;
+	int PROPERTY_CONTAINER = 1;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -140,7 +140,7 @@ public interface MmPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.impl.MmPackageImpl#getGraphicsAlgorithmContainer()
 	 * @generated
 	 */
-	int GRAPHICS_ALGORITHM_CONTAINER = 1;
+	int GRAPHICS_ALGORITHM_CONTAINER = 2;
 
 	/**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -211,15 +211,15 @@ public interface MmPackage extends EPackage {
 	EAttribute getProperty_Key();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.Property#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.eclipse.graphiti.mm.Property#getValues <em>Values</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.eclipse.graphiti.mm.Property#getValue()
+	 * @return the meta object for the attribute list '<em>Values</em>'.
+	 * @see org.eclipse.graphiti.mm.Property#getValues()
 	 * @see #getProperty()
 	 * @generated
 	 */
-	EAttribute getProperty_Value();
+	EAttribute getProperty_Values();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.GraphicsAlgorithmContainer <em>Graphics Algorithm Container</em>}'.
@@ -314,12 +314,12 @@ public interface MmPackage extends EPackage {
 		EAttribute PROPERTY__KEY = eINSTANCE.getProperty_Key();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Values</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute PROPERTY__VALUE = eINSTANCE.getProperty_Value();
+		EAttribute PROPERTY__VALUES = eINSTANCE.getProperty_Values();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.impl.GraphicsAlgorithmContainerImpl <em>Graphics Algorithm Container</em>}' class.

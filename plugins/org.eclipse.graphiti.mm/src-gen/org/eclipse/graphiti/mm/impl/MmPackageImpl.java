@@ -170,7 +170,7 @@ public class MmPackageImpl extends EPackageImpl implements MmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProperty_Value() {
+	public EAttribute getProperty_Values() {
 		return (EAttribute)propertyEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -249,12 +249,12 @@ public class MmPackageImpl extends EPackageImpl implements MmPackage {
 		// Create classes and their features
 		propertyEClass = createEClass(PROPERTY);
 		createEAttribute(propertyEClass, PROPERTY__KEY);
-		createEAttribute(propertyEClass, PROPERTY__VALUE);
-
-		graphicsAlgorithmContainerEClass = createEClass(GRAPHICS_ALGORITHM_CONTAINER);
+		createEAttribute(propertyEClass, PROPERTY__VALUES);
 
 		propertyContainerEClass = createEClass(PROPERTY_CONTAINER);
 		createEReference(propertyContainerEClass, PROPERTY_CONTAINER__PROPERTIES);
+
+		graphicsAlgorithmContainerEClass = createEClass(GRAPHICS_ALGORITHM_CONTAINER);
 
 		styleContainerEClass = createEClass(STYLE_CONTAINER);
 		createEReference(styleContainerEClass, STYLE_CONTAINER__STYLES);
@@ -302,12 +302,12 @@ public class MmPackageImpl extends EPackageImpl implements MmPackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getProperty_Key(), ecorePackage.getEString(), "key", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProperty_Value(), ecorePackage.getEString(), "value", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(graphicsAlgorithmContainerEClass, GraphicsAlgorithmContainer.class, "GraphicsAlgorithmContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getProperty_Values(), ecorePackage.getEString(), "values", null, 0, -1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propertyContainerEClass, PropertyContainer.class, "PropertyContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPropertyContainer_Properties(), this.getProperty(), null, "properties", null, 0, -1, PropertyContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(graphicsAlgorithmContainerEClass, GraphicsAlgorithmContainer.class, "GraphicsAlgorithmContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(styleContainerEClass, StyleContainer.class, "StyleContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStyleContainer_Styles(), theStylesPackage.getStyle(), theStylesPackage.getStyle_StyleContainer(), "styles", null, 0, -1, StyleContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
