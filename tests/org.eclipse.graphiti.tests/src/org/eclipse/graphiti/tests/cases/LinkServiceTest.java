@@ -117,7 +117,7 @@ public class LinkServiceTest extends GFAbstractTestCase {
 		linkProperty = linkService.getLinkProperty(s1);
 		assertNotNull(linkProperty);
 
-		String value = linkProperty.getValue();
+		String value = linkProperty.getValues().get(0);
 		assertEquals(PROPERTY_VALUE_1, value);
 	}
 
