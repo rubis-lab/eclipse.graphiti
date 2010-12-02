@@ -183,13 +183,13 @@ public interface IPeService extends IPeCreateService, IPeLayoutService {
 	 */
 	List<Connection> getOutgoingConnections(AnchorContainer anchorContainer);
 
-	//	private static ModelPartition getPartition(RefObject object) {
-	//		ModelPartition partition = null;
-	//		if (object != null) {
-	//			partition = object.get___Partition();
-	//		}
-	//		return partition;
-	//	}
+	// private static ModelPartition getPartition(RefObject object) {
+	// ModelPartition partition = null;
+	// if (object != null) {
+	// partition = object.get___Partition();
+	// }
+	// return partition;
+	// }
 
 	/**
 	 * Returns a pictogram element's children. <br>
@@ -225,7 +225,20 @@ public interface IPeService extends IPeCreateService, IPeLayoutService {
 	Property getProperty(PropertyContainer propertyContainer, String key);
 
 	/**
-	 * Returns the property value of a given property container for a specific
+	 * Returns the first element of the property values of a given property
+	 * container for a specific key.
+	 * 
+	 * @param propertyContainer
+	 *            The property container (e.g. PictogramElement or
+	 *            GraphicsAlgorithm)
+	 * @param key
+	 *            The property key
+	 * @return The fist value of the property values for the key
+	 */
+	String getPropertyValue(PropertyContainer propertyContainer, String key);
+
+	/**
+	 * Returns the property values of a given property container for a specific
 	 * key.
 	 * 
 	 * @param propertyContainer
@@ -233,9 +246,9 @@ public interface IPeService extends IPeCreateService, IPeLayoutService {
 	 *            GraphicsAlgorithm)
 	 * @param key
 	 *            The property key
-	 * @return The value of the property for the key
+	 * @return The values of the property for the key
 	 */
-	String getPropertyValue(PropertyContainer propertyContainer, String key);
+	String[] getPropertyValues(PropertyContainer propertyContainer, String key);
 
 	/**
 	 * Move bendpoints.
@@ -296,4 +309,18 @@ public interface IPeService extends IPeCreateService, IPeLayoutService {
 	 */
 	void setPropertyValue(PropertyContainer propertyContainer, String key, String value);
 
+	/**
+	 * Sets/modifies the property's values of a given property container for a
+	 * specific key. <br>
+	 * The property object will be created if it does not exist.
+	 * 
+	 * @param propertyContainer
+	 *            The property container (e.g. PictogramElement or
+	 *            GraphicsAlgorithm)
+	 * @param key
+	 *            The property key
+	 * @param values
+	 *            The new property values
+	 */
+	void setPropertyValues(PropertyContainer propertyContainer, String key, String values[]);
 }

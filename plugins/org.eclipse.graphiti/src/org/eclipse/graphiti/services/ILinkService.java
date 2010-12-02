@@ -123,6 +123,18 @@ public interface ILinkService {
 	void setLinkProperty(PictogramElement pictogramElement, String propertyValue);
 
 	/**
+	 * Adds or modifies the link property to a given pictogram element. It is
+	 * intended to use this property to be able to distinguish multiple
+	 * pictogram elements linked to same domain model object.
+	 * 
+	 * @param pictogramElement
+	 *            the pictogram element
+	 * @param propertyValues
+	 *            the new values for the link property
+	 */
+	public void setLinkProperty(PictogramElement pictogramElement, String propertyValues[]);
+
+	/**
 	 * Gets the link property to a given pictogram element.
 	 * 
 	 * @param pictogramElement

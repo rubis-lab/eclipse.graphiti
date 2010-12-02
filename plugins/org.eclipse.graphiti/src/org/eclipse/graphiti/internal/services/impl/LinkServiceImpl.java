@@ -192,22 +192,27 @@ public final class LinkServiceImpl implements ILinkService {
 
 	/**
 	 * Checks existence and value of the link property to a given pictogram
-	 * element. It is intended to use this property to be able to disinguish
+	 * element. It is intended to use this property to be able to distinguish
 	 * multiple pictogram elements linked to same domain model object.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
 	 * @param propertyValue
 	 *            the value to check against the property
-	 * @return true if link property exists an has the given value; false if not
+	 * @return true if link property exists and has the given value; false if
+	 *         not
 	 */
 	public boolean hasLinkProperty(PictogramElement pictogramElement, String propertyValue) {
 		boolean ret = false;
 		if (pictogramElement != null && propertyValue != null) {
 			Property property = getLinkProperty(pictogramElement);
 			if (property != null) {
-				if (propertyValue.equals(property.getValue())) {
-					ret = true;
+				List<String> values = property.getValues();
+				for (String value : values) {
+					if (propertyValue.equals(value)) {
+						ret = true;
+						break;
+					}
 				}
 			}
 		}
@@ -216,8 +221,8 @@ public final class LinkServiceImpl implements ILinkService {
 
 	/**
 	 * Adds or modifies the link property to a given pictogram element. It is
-	 * intended to use this property to be able to disinguish multiple pictogram
-	 * elements linked to same domain model object.
+	 * intended to use this property to be able to distinguish multiple
+	 * pictogram elements linked to same domain model object.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
@@ -225,7 +230,21 @@ public final class LinkServiceImpl implements ILinkService {
 	 *            the new value for the link property
 	 */
 	public void setLinkProperty(PictogramElement pictogramElement, String propertyValue) {
-		Graphiti.getPeService().setPropertyValue(pictogramElement, KEY_LINK_PROPERTY, propertyValue);
+		setLinkProperty(pictogramElement, new String[] { propertyValue });
+	}
+
+	/**
+	 * Adds or modifies the link property to a given pictogram element. It is
+	 * intended to use this property to be able to distinguish multiple
+	 * pictogram elements linked to same domain model object.
+	 * 
+	 * @param pictogramElement
+	 *            the pictogram element
+	 * @param propertyValues
+	 *            the new values for the link property
+	 */
+	public void setLinkProperty(PictogramElement pictogramElement, String propertyValues[]) {
+		Graphiti.getPeService().setPropertyValues(pictogramElement, KEY_LINK_PROPERTY, propertyValues);
 	}
 
 	/**

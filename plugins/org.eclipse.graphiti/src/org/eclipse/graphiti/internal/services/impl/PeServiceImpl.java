@@ -451,8 +451,8 @@ public final class PeServiceImpl implements IPeService {
 				GraphicsAlgorithm parentGa = cbStartAnchor.getParent().getGraphicsAlgorithm();
 				Shape shape = (Shape) cbStartAnchor.getParent();
 				ILocation location = getLocationRelativeToDiagram(shape);
-				java.awt.Rectangle parentRect = new java.awt.Rectangle(location.getX(), location.getY(), parentGa.getWidth(), parentGa
-						.getHeight());
+				java.awt.Rectangle parentRect = new java.awt.Rectangle(location.getX(), location.getY(), parentGa.getWidth(),
+						parentGa.getHeight());
 
 				java.awt.Point pointNextToStartAnchor = new java.awt.Point(startPoint.x, startPoint.y);
 
@@ -475,8 +475,8 @@ public final class PeServiceImpl implements IPeService {
 				GraphicsAlgorithm parentGa = cbEndAnchor.getParent().getGraphicsAlgorithm();
 				Shape shape = (Shape) cbEndAnchor.getParent();
 				ILocation location = getLocationRelativeToDiagram(shape);
-				java.awt.Rectangle parentRect = new java.awt.Rectangle(location.getX(), location.getY(), parentGa.getWidth(), parentGa
-						.getHeight());
+				java.awt.Rectangle parentRect = new java.awt.Rectangle(location.getX(), location.getY(), parentGa.getWidth(),
+						parentGa.getHeight());
 
 				java.awt.Point pointNextToEndAnchor = new java.awt.Point(endPoint.x, endPoint.y);
 
@@ -669,49 +669,55 @@ public final class PeServiceImpl implements IPeService {
 		result = notLinkedPEs.toArray(result);
 		return result;
 
-		//		// get current development component
-		//		ResourceSet resourceSet = diagram.eResource().getResourceSet();
-		//		IProject project = ResourceSetManager.getProjectForResourceSet(resourceSet);
-		//		IDevelopmentComponent dc = DiiLibAPI.getResourceService().getDevelopmentComponent(project);
+		// // get current development component
+		// ResourceSet resourceSet = diagram.eResource().getResourceSet();
+		// IProject project =
+		// ResourceSetManager.getProjectForResourceSet(resourceSet);
+		// IDevelopmentComponent dc =
+		// DiiLibAPI.getResourceService().getDevelopmentComponent(project);
 		//
-		//		final Index index = OxActivator.getDefault().getOxUtil().getIndex(
-		//				dc.getContainingSoftwareComponent().getContainingDevelopmentConfiguration());
+		// final Index index = OxActivator.getDefault().getOxUtil().getIndex(
+		// dc.getContainingSoftwareComponent().getContainingDevelopmentConfiguration());
 		//
-		//		QueryProcessor processor = new QueryProcessorImpl(index);
-		//		TypeScopeProvider diagramScope = processor.getInclusivePartitionScopeProvider(diagram.eResource().getURI());
+		// QueryProcessor processor = new QueryProcessorImpl(index);
+		// TypeScopeProvider diagramScope =
+		// processor.getInclusivePartitionScopeProvider(diagram.eResource().getURI());
 		//
-		//		List<URI> elementUriList = new ArrayList<URI>();
-		//		for (int i = 0; i < elements.length; i++) {
-		//			URI elementUri = EcoreUtil.getURI(elements[i]);
-		//			elementUriList.add(elementUri);
-		//		}
-		//		URI[] elementUris = elementUriList.toArray(new URI[0]);
+		// List<URI> elementUriList = new ArrayList<URI>();
+		// for (int i = 0; i < elements.length; i++) {
+		// URI elementUri = EcoreUtil.getURI(elements[i]);
+		// elementUriList.add(elementUri);
+		// }
+		// URI[] elementUris = elementUriList.toArray(new URI[0]);
 		//
 		//		SelectEntry[] selectEntries = new SelectEntry[] { new SelectAlias("el") }; //$NON-NLS-1$
 		//		FromType pl = new FromType("pl", EcoreUtil.getURI(LinksPackage.Literals.PICTOGRAM_LINK), false, diagramScope); //$NON-NLS-1$
 		//		FromFixedSet el = new FromFixedSet("el", EcoreUtil.getURI(EcorePackage.Literals.EOBJECT), elementUris); //$NON-NLS-1$
 		//
-		//		FromEntry[] fromEntries = new FromEntry[] { pl, el };
+		// FromEntry[] fromEntries = new FromEntry[] { pl, el };
 		//		WhereRelationReference pictogramLinkPred = new WhereRelationReference("pl", "businessObjects", "el"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		//		WhereEntry[] whereEntries = new WhereEntry[] { pictogramLinkPred };
+		// WhereEntry[] whereEntries = new WhereEntry[] { pictogramLinkPred };
 		//
-		//		Query queryAst = new Query(selectEntries, fromEntries, whereEntries);
+		// Query queryAst = new Query(selectEntries, fromEntries, whereEntries);
 		//
-		//		// get nwdi scope for query
-		//		OxUtil util = OxActivator.getDefault().getOxUtil();
-		//		QueryContext scopeProvider = util.getQueryContextFactory().createInnerQueryContext(resourceSet, Collections.singletonList(dc));
+		// // get nwdi scope for query
+		// OxUtil util = OxActivator.getDefault().getOxUtil();
+		// QueryContext scopeProvider =
+		// util.getQueryContextFactory().createInnerQueryContext(resourceSet,
+		// Collections.singletonList(dc));
 		//
-		//		ResultSet resultSetFromAst = processor.execute(queryAst, scopeProvider);
+		// ResultSet resultSetFromAst = processor.execute(queryAst,
+		// scopeProvider);
 		//
 		//		URI[] uris = resultSetFromAst.getUris("el"); //$NON-NLS-1$
-		//		List<URI> linkedUris = Arrays.asList(uris);
-		//		elementUriList.removeAll(linkedUris);
+		// List<URI> linkedUris = Arrays.asList(uris);
+		// elementUriList.removeAll(linkedUris);
 		//
-		//		EObject ret[] = new EObject[elementUriList.size()];
-		//		for (int i = 0; i < ret.length; i++) {
-		//			ret[i] = resourceSet.getEObject(elementUriList.get(i), true);
-		//		}
-		//		return ret;
+		// EObject ret[] = new EObject[elementUriList.size()];
+		// for (int i = 0; i < ret.length; i++) {
+		// ret[i] = resourceSet.getEObject(elementUriList.get(i), true);
+		// }
+		// return ret;
 	}
 
 	/*
@@ -995,19 +1001,24 @@ public final class PeServiceImpl implements IPeService {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.services.IPeService#getPropertyValue(org.eclipse
-	 * .graphiti.mm.pictograms.PropertyContainer, java.lang.String)
-	 */
+	@Override
 	public String getPropertyValue(PropertyContainer propertyContainer, String key) {
-		Property property = getProperty(propertyContainer, key);
-		if (property != null) {
-			return property.getValue();
+		String[] values = getPropertyValues(propertyContainer, key);
+		if (values.length > 0) {
+			return values[0];
 		}
 		return null;
+	}
+
+	@Override
+	public String[] getPropertyValues(PropertyContainer propertyContainer, String key) {
+		String ret[] = new String[0];
+		Property property = getProperty(propertyContainer, key);
+		if (property != null) {
+			List<String> values = property.getValues();
+			ret = values.toArray(new String[0]);
+		}
+		return ret;
 	}
 
 	/**
@@ -1299,15 +1310,13 @@ public final class PeServiceImpl implements IPeService {
 		brotherAndSisterList.add(shape);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.services.IPeService#setPropertyValue(org.eclipse
-	 * .graphiti.mm.pictograms.PropertyContainer, java.lang.String,
-	 * java.lang.String)
-	 */
+	@Override
 	public void setPropertyValue(PropertyContainer propertyContainer, String key, String value) {
+		setPropertyValues(propertyContainer, key, new String[] { value });
+	}
+
+	@Override
+	public void setPropertyValues(PropertyContainer propertyContainer, String key, String[] values) {
 		if (propertyContainer == null) {
 			throw new InvalidParameterException("propertyContainer must not be null"); //$NON-NLS-1$
 		}
@@ -1318,8 +1327,9 @@ public final class PeServiceImpl implements IPeService {
 		}
 		property = MmFactory.eINSTANCE.createProperty();
 		property.setKey(key);
-		property.setValue(value);
+		for (String value : values) {
+			property.getValues().add(value);
+		}
 		propertyContainer.getProperties().add(property);
 	}
-
 }
