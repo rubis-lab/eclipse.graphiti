@@ -405,10 +405,10 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 
 		if (getIndependenceSolver() != null) {
 			Property property = Graphiti.getPeService().getProperty(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY);
-			if (property != null && property.getValue() != null) {
-				// TODO currently only a single linked business object is
-				// supported
-				retList.add(getIndependenceSolver().getBusinessObjectForKey(property.getValue()));
+			if (property != null && property.getValues() != null) {
+				for (String value : property.getValues()) {
+					retList.add(getIndependenceSolver().getBusinessObjectForKey(value));
+				}
 			}
 		}
 		EObject[] allBusinessObjectsForLinkedPictogramElement = getLinkService().getAllBusinessObjectsForLinkedPictogramElement(
@@ -433,8 +433,8 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 
 		if (getIndependenceSolver() != null) {
 			Property property = Graphiti.getPeService().getProperty(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY);
-			if (property != null && property.getValue() != null) {
-				ret = getIndependenceSolver().getBusinessObjectForKey(property.getValue());
+			if (property != null && property.getValues() != null) {
+				ret = getIndependenceSolver().getBusinessObjectForKey(property.getValues().get(0));
 				if (ret != null) {
 					if (info) {
 						T.racer().exiting(AbstractFeatureProvider.class, SIGNATURE, ret);
@@ -468,7 +468,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 						getDiagramTypeProvider().getDiagram());
 				for (PictogramElement pe : allContainedPictogramElements) {
 					Property property = Graphiti.getPeService().getProperty(pe, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY);
-					if (property != null && keyForBusinessObject.equals(property.getValue())) {
+					if (property != null && property.getValues().contains(keyForBusinessObject)) {
 						retList.add(pe);
 					}
 				}
@@ -548,7 +548,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 							getDiagramTypeProvider().getDiagram());
 					for (PictogramElement pe : allContainedPictogramElements) {
 						Property property = Graphiti.getPeService().getProperty(pe, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY);
-						if (property != null && keyForBusinessObject.equals(property.getValue())) {
+						if (property != null && property.getValues().contains(keyForBusinessObject)) {
 							result = pe;
 							break;
 						}
@@ -596,7 +596,6 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 				if (businessObjects != null) {
 					for (int i = 0; i < businessObjects.length; i++) {
 						EObject bo = (EObject) businessObjects[i];
-
 						ResourceSet resourceSet = bo.eResource().getResourceSet();
 						TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
 						ResourceSet editorResourceSet = editingDomain.getResourceSet();
@@ -604,7 +603,6 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 							URI boUri = EcoreUtil.getURI(bo);
 							bo = editorResourceSet.getEObject(boUri, true);
 						}
-
 						if (bo != null) {
 							link.getBusinessObjects().add(bo);
 						}
@@ -612,9 +610,13 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 				}
 			}
 		} else {
-			// TODO currently only a single linked business object is supported
-			String propertyValue = is.getKeyForBusinessObject(businessObjects[0]);
-			Graphiti.getPeService().setPropertyValue(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY, propertyValue);
+			List<String> values = new ArrayList<String>();
+			for (Object bo : businessObjects) {
+				String propertyValue = is.getKeyForBusinessObject(bo);
+				values.add(propertyValue);
+			}
+			Graphiti.getPeService().setPropertyValues(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY,
+					values.toArray(new String[] {}));
 		}
 		if (info) {
 			T.racer().exiting(AbstractFeatureProvider.class, SIGNATURE);
