@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Patch 184530 from Bug 331829 contributed by Henrik Rentz-Reichert
  *
  * </copyright>
  *
@@ -24,6 +25,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
+import org.eclipse.graphiti.mm.pictograms.ManhattanConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
@@ -142,6 +144,15 @@ public interface IPeCreateService {
 	 * @return the new free form connection
 	 */
 	FreeFormConnection createFreeFormConnection(Diagram diagram);
+
+	/**
+	 * Creates a manhattan connection inside the given diagram.
+	 * 
+	 * @param diagram
+	 *            the diagram
+	 * @return the new free form connection
+	 */
+	ManhattanConnection createManhattanConnection(Diagram diagram);
 
 	/**
 	 * Creates a shape inside the given parent container shape.
