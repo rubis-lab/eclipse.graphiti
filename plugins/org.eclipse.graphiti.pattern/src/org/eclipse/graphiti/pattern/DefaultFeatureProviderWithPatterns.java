@@ -61,7 +61,7 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		if (pattern == null) {
 			throw new IllegalArgumentException("Argument pattern must not be null."); //$NON-NLS-1$
 		}
-		
+
 		pattern.setFeatureProvider(this);
 		getPatterns().add(pattern);
 	}
@@ -103,7 +103,7 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		}
 		return this.connectionPatters;
 	}
-	
+
 	/**
 	 * Check feature and context.
 	 * 
@@ -170,7 +170,7 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	}
 
 	@Override
-	public final ICreateFeature[] getCreateFeatures() {
+	public ICreateFeature[] getCreateFeatures() {
 		ICreateFeature[] ret = new ICreateFeature[0];
 		List<ICreateFeature> retList = new ArrayList<ICreateFeature>();
 
@@ -189,7 +189,7 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	/**
 	 * Gets the additional create features.
 	 * 
-	 * @return the additional create features 
+	 * @return the additional create features
 	 */
 	protected ICreateFeature[] getCreateFeaturesAdditional() {
 		ICreateFeature[] ret = new ICreateFeature[0];
@@ -436,7 +436,7 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	protected ICreateConnectionFeature[] getCreateConnectionFeaturesAdditional() {
 		return super.getCreateConnectionFeatures();
 	}
-	
+
 	/**
 	 * Trace warning.
 	 * 
