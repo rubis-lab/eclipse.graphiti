@@ -54,6 +54,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
+import org.eclipse.graphiti.mm.pictograms.ManhattanConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.platform.IDiagramEditor;
@@ -257,6 +258,50 @@ public class PeServiceTest extends GFAbstractTestCase {
 		IPeService peService = Graphiti.getPeService();
 		peService.moveBendpoints(executionInfo1);
 		assertEquals(new LocationImpl(200, 200), layoutService.getConnectionMidpoint(connection1, 0.5));
+
+		Diagram diagramForAnchor = peService.getDiagramForAnchor(anchor1);
+		assertEquals(d, diagramForAnchor);
+
+		Collection<Connection> allConnections1 = peService.getAllConnections(anchor1);
+		assertTrue((allConnections1.size() == 1) && (allConnections1.contains(connection1)));
+
+		Collection<Connection> allConnections2 = peService.getAllConnections(s1);
+		assertTrue(allConnections2.size() == 1 && allConnections2.contains(connection1));
+
+		Collection<Connection> outgoingConnections = peService.getOutgoingConnections(s1);
+		assertTrue(outgoingConnections.size() == 1 && outgoingConnections.contains(connection1));
+
+		Collection<Connection> incomingConnections = peService.getIncomingConnections(s2);
+		assertTrue(incomingConnections.size() == 1 && incomingConnections.contains(connection1));
+	}
+
+	@Test
+	public void checkManhattanConnection() {
+		ICreateService createService = Graphiti.getCreateService();
+		Shape s1 = createService.createShape(d, true);
+		assertNotNull(s1);
+		Rectangle r1 = createService.createRectangle(s1);
+		assertNotNull(r1);
+		Shape s2 = createService.createShape(d, true);
+		assertNotNull(s2);
+		Rectangle r2 = createService.createRectangle(s2);
+		assertNotNull(r2);
+
+		ILayoutService layoutService = Graphiti.getLayoutService();
+		layoutService.setLocationAndSize(r1, 0, 0, 100, 100);
+		layoutService.setLocationAndSize(r2, 300, 300, 100, 100);
+
+		FixPointAnchor anchor1 = createService.createFixPointAnchor(s1);
+		anchor1.setLocation(createService.createPoint(50, 50));
+		FixPointAnchor anchor2 = createService.createFixPointAnchor(s2);
+		anchor2.setLocation(createService.createPoint(50, 50));
+
+		ManhattanConnection connection1 = createService.createManhattanConnection(d);
+		assertNotNull(connection1);
+		connection1.setStart(anchor1);
+		connection1.setEnd(anchor2);
+
+		IPeService peService = Graphiti.getPeService();
 
 		Diagram diagramForAnchor = peService.getDiagramForAnchor(anchor1);
 		assertEquals(d, diagramForAnchor);
