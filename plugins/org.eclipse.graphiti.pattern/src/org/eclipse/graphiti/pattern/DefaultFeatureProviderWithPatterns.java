@@ -34,8 +34,10 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.internal.T;
+import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
 /**
@@ -451,4 +453,17 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		T.racer().warning(string + ": " + "Pattern " + pattern + " is executable additionally to pattern " + choosenPattern + "."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
+	@Override
+	public Object getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
+		Object ret = super.getBusinessObjectForPictogramElement(pictogramElement);
+		if (ret == null) {
+			Property linkProperty = Graphiti.getLinkService().getLinkProperty(pictogramElement);
+			if (linkProperty != null) {
+				if (linkProperty.getValues().size() > 0) {
+					ret = linkProperty.getValues().get(0);
+				}
+			}
+		}
+		return ret;
+	}
 }
