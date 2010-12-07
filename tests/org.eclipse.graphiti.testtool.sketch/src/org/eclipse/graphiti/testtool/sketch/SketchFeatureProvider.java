@@ -90,6 +90,7 @@ import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaContai
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaContainerFeatureWithGhost;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaShapeFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaShapeFeatureWithGhost;
+import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateManhattanConnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.pool.CreateLaneFeauture;
 import org.eclipse.graphiti.testtool.sketch.features.pool.CreatePoolFeature;
 import org.eclipse.graphiti.testtool.sketch.features.pool.LayoutPoolFeature;
@@ -255,6 +256,7 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		List<ICreateConnectionFeature> retList = new ArrayList<ICreateConnectionFeature>();
 
 		retList.add(new SketchCreateFreeformConnectionFeature(this, "free", "freeform connection"));
+		retList.add(new SketchCreateManhattanConnectionFeature(this, "manhattan", "manhattan connection"));
 		retList.add(new CreateChannelFeature(this, "channel", "channel connection"));
 
 		return retList.toArray(new ICreateConnectionFeature[0]);
