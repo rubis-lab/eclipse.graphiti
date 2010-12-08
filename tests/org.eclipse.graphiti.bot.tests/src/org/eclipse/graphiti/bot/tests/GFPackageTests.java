@@ -517,7 +517,7 @@ public class GFPackageTests extends AbstractGFTests {
 					}
 				});
 				Property property = getPeService().getProperty(diagram, "Test");
-				assertTrue("test".equals(property.getValues().get(0)));
+				assertTrue("test".equals(property.getValue()));
 			}
 		});
 
