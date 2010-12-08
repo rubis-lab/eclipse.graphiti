@@ -459,9 +459,7 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		if (ret == null) {
 			Property linkProperty = Graphiti.getLinkService().getLinkProperty(pictogramElement);
 			if (linkProperty != null) {
-				if (linkProperty.getValues().size() > 0) {
-					ret = linkProperty.getValues().get(0);
-				}
+				ret = linkProperty.getValue();
 			}
 		}
 		return ret;
