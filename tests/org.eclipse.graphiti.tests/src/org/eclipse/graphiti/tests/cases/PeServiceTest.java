@@ -385,7 +385,7 @@ public class PeServiceTest extends GFAbstractTestCase {
 		Property property = peService.getProperty(s1, KEY);
 		assertNotNull(property);
 		if (property != null) {
-			assertEquals(VALUE, property.getValues().get(0));
+			assertEquals(VALUE, property.getValue());
 		}
 
 		peService.removeProperty(s1, KEY);
