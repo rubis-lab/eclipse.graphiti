@@ -395,7 +395,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	}
 	
 	private class StringTransformer{
-		private final static String marker= "__independentN";
+		private final static String marker = "__independentN"; //$NON-NLS-1$
 		
 		String[] decode(String value) {
 			if (!value.startsWith(marker)) {
