@@ -226,7 +226,7 @@ public final class PeServiceImpl implements IPeService {
 		return ret;
 	}
 
-	/* 
+	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
@@ -1053,22 +1053,11 @@ public final class PeServiceImpl implements IPeService {
 
 	@Override
 	public String getPropertyValue(PropertyContainer propertyContainer, String key) {
-		String[] values = getPropertyValues(propertyContainer, key);
-		if (values.length > 0) {
-			return values[0];
-		}
-		return null;
-	}
-
-	@Override
-	public String[] getPropertyValues(PropertyContainer propertyContainer, String key) {
-		String ret[] = new String[0];
 		Property property = getProperty(propertyContainer, key);
 		if (property != null) {
-			List<String> values = property.getValues();
-			ret = values.toArray(new String[0]);
+			return property.getValue();
 		}
-		return ret;
+		return null;
 	}
 
 	/**
@@ -1366,11 +1355,6 @@ public final class PeServiceImpl implements IPeService {
 
 	@Override
 	public void setPropertyValue(PropertyContainer propertyContainer, String key, String value) {
-		setPropertyValues(propertyContainer, key, new String[] { value });
-	}
-
-	@Override
-	public void setPropertyValues(PropertyContainer propertyContainer, String key, String[] values) {
 		if (propertyContainer == null) {
 			throw new InvalidParameterException("propertyContainer must not be null"); //$NON-NLS-1$
 		}
@@ -1381,9 +1365,7 @@ public final class PeServiceImpl implements IPeService {
 		}
 		property = MmFactory.eINSTANCE.createProperty();
 		property.setKey(key);
-		for (String value : values) {
-			property.getValues().add(value);
-		}
+		property.setValue(value);
 		propertyContainer.getProperties().add(property);
 	}
 }

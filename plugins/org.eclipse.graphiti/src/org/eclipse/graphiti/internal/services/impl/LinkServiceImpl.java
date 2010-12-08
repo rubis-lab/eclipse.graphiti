@@ -207,12 +207,8 @@ public final class LinkServiceImpl implements ILinkService {
 		if (pictogramElement != null && propertyValue != null) {
 			Property property = getLinkProperty(pictogramElement);
 			if (property != null) {
-				List<String> values = property.getValues();
-				for (String value : values) {
-					if (propertyValue.equals(value)) {
-						ret = true;
-						break;
-					}
+				if (propertyValue.equals(property.getValue())) {
+					ret = true;
 				}
 			}
 		}
@@ -230,21 +226,7 @@ public final class LinkServiceImpl implements ILinkService {
 	 *            the new value for the link property
 	 */
 	public void setLinkProperty(PictogramElement pictogramElement, String propertyValue) {
-		setLinkProperty(pictogramElement, new String[] { propertyValue });
-	}
-
-	/**
-	 * Adds or modifies the link property to a given pictogram element. It is
-	 * intended to use this property to be able to distinguish multiple
-	 * pictogram elements linked to same domain model object.
-	 * 
-	 * @param pictogramElement
-	 *            the pictogram element
-	 * @param propertyValues
-	 *            the new values for the link property
-	 */
-	public void setLinkProperty(PictogramElement pictogramElement, String propertyValues[]) {
-		Graphiti.getPeService().setPropertyValues(pictogramElement, KEY_LINK_PROPERTY, propertyValues);
+		Graphiti.getPeService().setPropertyValue(pictogramElement, KEY_LINK_PROPERTY, propertyValue);
 	}
 
 	/**

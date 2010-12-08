@@ -238,19 +238,6 @@ public interface IPeService extends IPeCreateService, IPeLayoutService {
 	String getPropertyValue(PropertyContainer propertyContainer, String key);
 
 	/**
-	 * Returns the property values of a given property container for a specific
-	 * key.
-	 * 
-	 * @param propertyContainer
-	 *            The property container (e.g. PictogramElement or
-	 *            GraphicsAlgorithm)
-	 * @param key
-	 *            The property key
-	 * @return The values of the property for the key
-	 */
-	String[] getPropertyValues(PropertyContainer propertyContainer, String key);
-
-	/**
 	 * Move bendpoints.
 	 * 
 	 * @param executionInfo
@@ -308,19 +295,4 @@ public interface IPeService extends IPeCreateService, IPeLayoutService {
 	 *            The new property value
 	 */
 	void setPropertyValue(PropertyContainer propertyContainer, String key, String value);
-
-	/**
-	 * Sets/modifies the property's values of a given property container for a
-	 * specific key. <br>
-	 * The property object will be created if it does not exist.
-	 * 
-	 * @param propertyContainer
-	 *            The property container (e.g. PictogramElement or
-	 *            GraphicsAlgorithm)
-	 * @param key
-	 *            The property key
-	 * @param values
-	 *            The new property values
-	 */
-	void setPropertyValues(PropertyContainer propertyContainer, String key, String values[]);
 }
