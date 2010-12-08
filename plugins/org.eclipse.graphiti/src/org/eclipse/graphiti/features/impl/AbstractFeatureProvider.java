@@ -16,6 +16,7 @@
 package org.eclipse.graphiti.features.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -392,6 +393,33 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	public IFeature[] getDragAndDropFeatures(IPictogramElementContext context) {
 		return new IFeature[0];
 	}
+	
+	private class StringTransformer{
+		private final static String marker= "__independentN";
+		
+		String[] decode(String value) {
+			if (!value.startsWith(marker)) {
+				return new String[] { value };
+			} else {
+				value = value.substring(marker.length(), value.length());
+				return value.split(marker);
+			}
+		}
+
+		String encode(String[] segments) {
+			if (segments.length == 1) {
+				return segments[0];
+			}
+			StringBuffer sb = new StringBuffer();
+			for (String string : segments) {
+				sb.append(marker);
+				sb.append(string);
+			}
+			return sb.toString();
+		}
+	}
+
+	StringTransformer st = new StringTransformer();
 
 	@Override
 	public Object[] getAllBusinessObjectsForPictogramElement(PictogramElement pictogramElement) {
@@ -405,9 +433,11 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 
 		if (getIndependenceSolver() != null) {
 			Property property = Graphiti.getPeService().getProperty(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY);
-			if (property != null && property.getValues() != null) {
-				for (String value : property.getValues()) {
-					retList.add(getIndependenceSolver().getBusinessObjectForKey(value));
+			if (property != null && property.getValue() != null) {
+				String value = property.getValue();
+				String[] values = getValues(value);
+				for (String v : values) {
+					retList.add(getIndependenceSolver().getBusinessObjectForKey(v));
 				}
 			}
 		}
@@ -422,6 +452,12 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return retList.toArray(ret);
 	}
 
+	private String[] getValues(String value) {
+		String[] result;
+		result = st.decode(value);
+		return result;
+	}
+
 	@Override
 	public Object getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
 		final String SIGNATURE = "getBusinessObjectForPictogramElement(PictogramElement)"; //$NON-NLS-1$
@@ -433,8 +469,9 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 
 		if (getIndependenceSolver() != null) {
 			Property property = Graphiti.getPeService().getProperty(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY);
-			if (property != null && property.getValues() != null) {
-				ret = getIndependenceSolver().getBusinessObjectForKey(property.getValues().get(0));
+			if (property != null && property.getValue() != null) {
+				String[] values = getValues(property.getValue());
+				ret = getIndependenceSolver().getBusinessObjectForKey(values[0]);
 				if (ret != null) {
 					if (info) {
 						T.racer().exiting(AbstractFeatureProvider.class, SIGNATURE, ret);
@@ -468,7 +505,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 						getDiagramTypeProvider().getDiagram());
 				for (PictogramElement pe : allContainedPictogramElements) {
 					Property property = Graphiti.getPeService().getProperty(pe, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY);
-					if (property != null && property.getValues().contains(keyForBusinessObject)) {
+					if (property != null && Arrays.asList(getValues(property.getValue())).contains(keyForBusinessObject)) {
 						retList.add(pe);
 					}
 				}
@@ -548,7 +585,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 							getDiagramTypeProvider().getDiagram());
 					for (PictogramElement pe : allContainedPictogramElements) {
 						Property property = Graphiti.getPeService().getProperty(pe, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY);
-						if (property != null && property.getValues().contains(keyForBusinessObject)) {
+						if (property != null && Arrays.asList(getValues(property.getValue())).contains(keyForBusinessObject)) {
 							result = pe;
 							break;
 						}
@@ -615,8 +652,8 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 				String propertyValue = is.getKeyForBusinessObject(bo);
 				values.add(propertyValue);
 			}
-			Graphiti.getPeService().setPropertyValues(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY,
-					values.toArray(new String[] {}));
+			String encodedValues = st.encode(values.toArray(new String[] {}));
+			Graphiti.getPeService().setPropertyValue(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY, encodedValues);
 		}
 		if (info) {
 			T.racer().exiting(AbstractFeatureProvider.class, SIGNATURE);
