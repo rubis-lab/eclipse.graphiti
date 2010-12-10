@@ -650,7 +650,8 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 			List<String> values = new ArrayList<String>();
 			for (Object bo : businessObjects) {
 				String propertyValue = is.getKeyForBusinessObject(bo);
-				values.add(propertyValue);
+				if (propertyValue != null)
+					values.add(propertyValue);
 			}
 			String encodedValues = st.encode(values.toArray(new String[] {}));
 			Graphiti.getPeService().setPropertyValue(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY, encodedValues);
