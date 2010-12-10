@@ -433,7 +433,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 
 		if (getIndependenceSolver() != null) {
 			Property property = Graphiti.getPeService().getProperty(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY);
-			if (property != null && property.getValue() != null) {
+			if (property != null && property.getValue() != null && !property.getValue().isEmpty()) {
 				String value = property.getValue();
 				String[] values = getValues(value);
 				for (String v : values) {
