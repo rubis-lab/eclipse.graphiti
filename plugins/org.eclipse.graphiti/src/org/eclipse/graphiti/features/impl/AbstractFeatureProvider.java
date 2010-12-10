@@ -433,7 +433,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 
 		if (getIndependenceSolver() != null) {
 			Property property = Graphiti.getPeService().getProperty(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY);
-			if (property != null && property.getValue() != null && !property.getValue().isEmpty()) {
+			if (property != null && property.getValue() != null) {
 				String value = property.getValue();
 				String[] values = getValues(value);
 				for (String v : values) {
@@ -453,9 +453,11 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	}
 
 	private String[] getValues(String value) {
-		String[] result;
-		result = st.decode(value);
-		return result;
+		if (value.isEmpty()) {
+			return new String[0];
+		}else {
+			return st.decode(value);
+		}
 	}
 
 	@Override
@@ -471,7 +473,8 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 			Property property = Graphiti.getPeService().getProperty(pictogramElement, ExternalPictogramLink.KEY_INDEPENDENT_PROPERTY);
 			if (property != null && property.getValue() != null) {
 				String[] values = getValues(property.getValue());
-				ret = getIndependenceSolver().getBusinessObjectForKey(values[0]);
+				if (values.length > 0)
+					ret = getIndependenceSolver().getBusinessObjectForKey(values[0]);
 				if (ret != null) {
 					if (info) {
 						T.racer().exiting(AbstractFeatureProvider.class, SIGNATURE, ret);
