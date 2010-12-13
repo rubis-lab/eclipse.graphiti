@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 331715: Support for rectangular grids in diagrams
  *
  * </copyright>
  *
@@ -58,7 +59,12 @@ public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
 
 		Color minorLineColor = getMinorLineColor();
 
-		gridX = gridY = getDiagram().getGridUnit();
+		gridX = getDiagram().getGridUnit();
+		gridY = getDiagram().getVerticalGridUnit();
+		if (gridY == -1) {
+			// No vertical grid unit set (or old diagram before 0.8): use vertical grid unit
+			gridY = gridX;
+		}
 
 		g.setBackgroundColor(getBackgroundColor());
 		g.fillRectangle(clip);

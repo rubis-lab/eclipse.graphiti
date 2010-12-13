@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 331715: Support for rectangular grids in diagrams
  *
  * </copyright>
  *
@@ -371,12 +372,17 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		Diagram diagram = getConfigurationProvider().getDiagram();
 
 		boolean snapToGrid = diagram.isSnapToGrid();
-		int gridUnit = diagram.getGridUnit();
-		boolean gridVisisble = gridUnit > 0;
+		int horizontalGridUnit = diagram.getGridUnit();
+		int verticalGridUnit = diagram.getVerticalGridUnit();
+		if (verticalGridUnit == -1) {
+			// No vertical grid unit set (or old diagram before 0.8): use vertical grid unit
+			verticalGridUnit = horizontalGridUnit;
+		}
+		boolean gridVisisble = (horizontalGridUnit > 0) && (verticalGridUnit > 0);
 
 		viewer.setProperty(SnapToGrid.PROPERTY_GRID_VISIBLE, new Boolean(gridVisisble));
 		viewer.setProperty(SnapToGrid.PROPERTY_GRID_ENABLED, new Boolean(snapToGrid));
-		viewer.setProperty(SnapToGrid.PROPERTY_GRID_SPACING, new Dimension(gridUnit, gridUnit));
+		viewer.setProperty(SnapToGrid.PROPERTY_GRID_SPACING, new Dimension(horizontalGridUnit, verticalGridUnit));
 		viewer.setProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED, toolBehaviorProvider.isShowGuides());
 
 		// context button manager
