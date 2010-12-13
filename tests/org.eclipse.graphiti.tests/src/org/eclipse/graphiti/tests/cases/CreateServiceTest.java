@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 331715: Support for rectangular grids in diagrams
  *
  * </copyright>
  *
@@ -347,4 +348,29 @@ public class CreateServiceTest extends GFAbstractCreateTestCase {
 		assertEquals(VALUE, style.getId());
 		assertEquals(1, d.getStyles().size());
 	}
+
+	@Test
+	public void createDiagram() {
+		Diagram d0 = Graphiti.getCreateService().createDiagram("tutorial", "D0", 0, true);
+		assertNotNull(d0);
+		assertEquals("gridUnit must be 0, was: " + d0.getGridUnit(), 0, d0.getGridUnit());
+		assertEquals("verticalGridUnit must be -1, was: " + d0.getGridUnit(), -1, d0.getVerticalGridUnit());
+
+		Diagram d1 = Graphiti.getCreateService().createDiagram("tutorial", "D1", true);
+		assertNotNull(d1);
+		assertEquals("gridUnit must be 10 when not set explicitly, was: " + d1.getGridUnit(), 10, d1.getGridUnit());
+		assertEquals("verticalGridUnit must be -1 when not set explicitly set, was: " + d1.getGridUnit(), -1, d1.getVerticalGridUnit());
+
+		Diagram d2 = Graphiti.getCreateService().createDiagram("tutorial", "D2", 20, true);
+		assertNotNull(d2);
+		assertEquals("gridUnit must be set, was: " + d2.getGridUnit(), 20, d2.getGridUnit());
+		assertEquals("verticalGridUnit must be -1 when not set explicitly set, was: " + d2.getVerticalGridUnit(), -1,
+				d2.getVerticalGridUnit());
+
+		Diagram d3 = Graphiti.getCreateService().createDiagram("tutorial", "D3", 20, 10, true);
+		assertNotNull(d3);
+		assertEquals("gridUnit must be set, was: " + d3.getGridUnit(), 20, d3.getGridUnit());
+		assertEquals("verticalGridUnit must be set, was: " + d3.getVerticalGridUnit(), 10, d3.getVerticalGridUnit());
+	}
+
 }
