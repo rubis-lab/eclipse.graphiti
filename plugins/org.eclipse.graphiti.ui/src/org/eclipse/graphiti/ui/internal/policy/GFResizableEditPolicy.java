@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Patch 185019 from Bug 332360 contributed by Volker Wegert
  *
  * </copyright>
  *
@@ -91,8 +92,8 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 	@Override
 	public int getResizeDirections() {
 		int ret = 0;
-		IResizeConfiguration resizeConfiguration = getResizeShapeFeature().getResizeConfiguration();
-		if (resizeConfiguration.isHorizantalResizeAllowed()) {
+		IResizeConfiguration resizeConfiguration = getResizeShapeFeature().getResizeConfiguration(getResizeShapeContext());
+		if (resizeConfiguration.isHorizontalResizeAllowed()) {
 			ret = ret | PositionConstants.EAST_WEST;
 		}
 		if (resizeConfiguration.isVerticalResizeAllowed()) {
