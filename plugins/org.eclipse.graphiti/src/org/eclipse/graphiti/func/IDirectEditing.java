@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Volker Wegert - Bug 332363 - Direct Editing: enable automatic resizing for combo boxes
  *
  * </copyright>
  *
@@ -148,13 +149,12 @@ public interface IDirectEditing {
 	boolean isAutoCompletionEnabled();
 
 	/**
-	 * Stretch textfield to fit text. This functionality only applies to
-	 * TYPE_TEXT.
+	 * Stretch input field to fit its contents. This functionality applies to
+	 * TYPE_TEXT, TYPE_DROPDOWN and TYPE_DROPDOWN_READ_ONLY.
 	 * 
-	 * @return true if the text field should exactly fit the inserted text
+	 * @return true if the field should exactly fit the contents
 	 */
-
-	boolean stretchTextfieldToFitText();
+	boolean stretchFieldToFitText();
 
 	/**
 	 * This method will be called by clients many times to see if current value
