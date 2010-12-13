@@ -42,7 +42,8 @@ public class GFHandleHelper {
 	 * @return The current zoom-level of the given configuration provider.
 	 */
 	public static double getZoomLevel(IConfigurationProvider configurationProvider) {
-		// double zoom = configurationProvider.getDiagramEditor().getZoomLevel();
+		// double zoom =
+		// configurationProvider.getDiagramEditor().getZoomLevel();
 		double zoom = 1.0;
 		return zoom;
 	}
@@ -67,7 +68,7 @@ public class GFHandleHelper {
 			int supportedResizeDirections, boolean movable) {
 		List<AbstractHandle> list = new ArrayList<AbstractHandle>();
 
-		list.add(new GFSurroundingHandle(owner, cp, supportedResizeDirections, movable));
+		list.add(new GFSurroundingHandle(owner, cp, PositionConstants.NSEW, movable));
 
 		if ((PositionConstants.NORTH_EAST & supportedResizeDirections) != 0)
 			list.add(new GFCornerHandle(owner, cp, PositionConstants.NORTH_EAST, supportedResizeDirections, movable));
