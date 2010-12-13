@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Enabled sub classes of Graphiti metamodel objects to trigger a refresh
+ *    			(for Bug 330035 - Notational metamodel extension)
  *
  * </copyright>
  *
@@ -23,6 +25,8 @@ import java.util.Map;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.transaction.NotificationFilter;
@@ -47,6 +51,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.internal.Messages;
+import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionEditPart;
 import org.eclipse.swt.widgets.Display;
 
@@ -116,8 +121,14 @@ public class DiagramChangeListener implements ResourceSetListener {
 					if (refreshDiagramJob.isRefreshAll())
 						break;
 					// Filter non-pictogram model element changes, these are handled by the framework
-					EPackage p = eo.eClass().getEPackage();
-					if (!(p instanceof PictogramsPackage || p instanceof AlgorithmsPackage || p instanceof StylesPackage || p instanceof MmPackage)) {
+					EClass eClass = eo.eClass();
+					long time = System.currentTimeMillis();
+					boolean isRelevant = isGraphitiMmObject(eClass) || superClassIsGraphitiMmObject(eClass);
+					if (T.racer().info()) {
+						time = System.currentTimeMillis() - time;
+						T.racer().info(getClass().getName(), "resourceSetChanged", "Relevance check took " + time + "ms."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					}
+					if (!(isRelevant)) {
 						continue;
 					}
 					// Compute editpart for eo and add it to job's editpart list.
@@ -143,6 +154,42 @@ public class DiagramChangeListener implements ResourceSetListener {
 				refreshDiagramJob.schedule();
 			}
 		}
+	}
+
+	/**
+	 * Checks if the given {@link EClass} belongs to one of the metamodel
+	 * packages of the Graphiti metamodel
+	 * 
+	 * @param eClass
+	 * @return
+	 */
+	private boolean isGraphitiMmObject(EClass eClass) {
+		EPackage p = eClass.getEPackage();
+		return p instanceof PictogramsPackage || p instanceof AlgorithmsPackage || p instanceof StylesPackage || p instanceof MmPackage;
+	}
+
+	/**
+	 * Checks if one of the super classes of the given {@link EClass} belongs to
+	 * one of the metamodel packages of the Graphiti metamodel
+	 * 
+	 * @param eClass
+	 * @return
+	 */
+	private boolean superClassIsGraphitiMmObject(EClass eClass) {
+		EList<EClass> superTypes = eClass.getESuperTypes();
+		for (Iterator<EClass> iterator = superTypes.iterator(); iterator.hasNext();) {
+			EClass eSuperClass = iterator.next();
+			if (isGraphitiMmObject(eSuperClass)) {
+				return true;
+			}
+		}
+		for (Iterator<EClass> iterator = superTypes.iterator(); iterator.hasNext();) {
+			EClass eSuperClass = iterator.next();
+			if (superClassIsGraphitiMmObject(eSuperClass)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void addRelevantChildEditPartsToRefreshJob(PictogramElement pe) {
