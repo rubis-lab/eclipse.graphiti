@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Volker Wegert - Bug 332363 - Direct Editing: enable automatic resizing for combo boxes
  *
  * </copyright>
  *
@@ -23,6 +24,7 @@ import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.func.IDirectEditing;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
@@ -47,6 +49,7 @@ public class TextCellLocator implements CellEditorLocator {
 
 	}
 
+	@Override
 	public void relocate(CellEditor celleditor) {
 
 		Control control = celleditor.getControl();
@@ -80,7 +83,7 @@ public class TextCellLocator implements CellEditorLocator {
 
 			figure.translateToAbsolute(rect);
 
-			if (directEditingFeature.stretchTextfieldToFitText()) {
+			if (directEditingFeature.stretchFieldToFitText()) {
 
 				Text text = (Text) control;
 				Point pref = text.computeSize(-1, -1);
@@ -110,6 +113,14 @@ public class TextCellLocator implements CellEditorLocator {
 			if (rect.width > minWidth) {
 				minWidth = rect.width;
 			}
+			
+			if (directEditingFeature.stretchFieldToFitText()) {
+				CCombo combo = (CCombo) control;
+				Point pref = combo.computeSize(-1, -1);
+				if (minWidth < pref.x) 
+					minWidth = pref.x;
+			}			
+			
 			control.setBounds(rect.x, rect.y, minWidth, 14);
 
 		}
