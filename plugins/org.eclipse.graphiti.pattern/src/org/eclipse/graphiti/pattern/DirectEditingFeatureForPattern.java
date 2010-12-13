@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Volker Wegert - Bug 332363 - Direct Editing: enable automatic resizing for combo boxes
  *
  * </copyright>
  *
@@ -75,8 +76,8 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	}
 
 	@Override
-	public boolean stretchTextfieldToFitText() {
-		return delegate.stretchTextfieldToFitText();
+	public boolean stretchFieldToFitText() {
+		return delegate.stretchFieldToFitText();
 	}
 
 	public int getEditingType() {
