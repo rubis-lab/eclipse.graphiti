@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Patch 185019 from Bug 332360 contributed by Volker Wegert
  *
  * </copyright>
  *
@@ -19,6 +20,7 @@ import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IResizeConfiguration;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.func.IAdd;
 import org.eclipse.graphiti.func.ICreate;
 import org.eclipse.graphiti.func.ILayout;
@@ -102,7 +104,8 @@ public interface IPattern extends ICreate, IAdd, IUpdate, ILayout, IResizeShape,
 	/**
 	 * Provides configuration object, which describes the resize behavior.
 	 * 
+	 * @param context the resizing context
 	 * @return the resize configuration object
 	 */
-	IResizeConfiguration getResizeConfiguration();
+	IResizeConfiguration getResizeConfiguration(IResizeShapeContext context);
 }

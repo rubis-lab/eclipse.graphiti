@@ -380,7 +380,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	public void completeInfo(IDirectEditingInfo info, Object bo, String keyProperty) {
 	}
 
-	public IResizeConfiguration getResizeConfiguration() {
+	public IResizeConfiguration getResizeConfiguration(IResizeShapeContext context) {
 		return new DefaultResizeConfiguration();
 	}
 }

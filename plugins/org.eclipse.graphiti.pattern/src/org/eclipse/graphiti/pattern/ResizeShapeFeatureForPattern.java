@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Patch 185019 from Bug 332360 contributed by Volker Wegert
  *
  * </copyright>
  *
@@ -52,12 +53,12 @@ public class ResizeShapeFeatureForPattern extends DefaultResizeShapeFeature {
 	}
 
 	@Override
-	public IResizeConfiguration getResizeConfiguration() {
+	public IResizeConfiguration getResizeConfiguration(IResizeShapeContext context) {
 		IPattern pattern = delegate.getPattern();
-		IResizeConfiguration resizeConfiguration = pattern.getResizeConfiguration();
+		IResizeConfiguration resizeConfiguration = pattern.getResizeConfiguration(context);
 		if (resizeConfiguration != null) {
 			return resizeConfiguration;
 		}
-		return super.getResizeConfiguration();
+		return super.getResizeConfiguration(context);
 	}
 }
