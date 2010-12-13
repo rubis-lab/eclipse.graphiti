@@ -383,6 +383,7 @@ public final class GaServiceImpl implements IGaService {
 	 * calculateSizeOfGraphicsAlgorithm
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm)
 	 */
+	@Override
 	public IDimension calculateSize(GraphicsAlgorithm ga) {
 		IDimension ret = null;
 		if (ga instanceof Polyline) {
@@ -401,6 +402,7 @@ public final class GaServiceImpl implements IGaService {
 	 * calculateSizeOfGraphicsAlgorithm
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm, boolean)
 	 */
+	@Override
 	public IDimension calculateSize(GraphicsAlgorithm ga, boolean considerLineWidth) {
 		IDimension ret = calculateSize(ga);
 		if (considerLineWidth) {
@@ -421,6 +423,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createDefaultMultiText
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
+	@Override
 	public MultiText createDefaultMultiText(GraphicsAlgorithmContainer gaContainer) {
 		return createDefaultMultiText(gaContainer, ""); //$NON-NLS-1$
 	}
@@ -433,6 +436,7 @@ public final class GaServiceImpl implements IGaService {
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer,
 	 * java.lang.String)
 	 */
+	@Override
 	public MultiText createDefaultMultiText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return (MultiText) createText(gaContainer, true, value, true);
 	}
@@ -444,6 +448,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createDefaultText(org.
 	 * eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
+	@Override
 	public Text createDefaultText(GraphicsAlgorithmContainer gaContainer) {
 		return createDefaultText(gaContainer, ""); //$NON-NLS-1$
 	}
@@ -456,6 +461,7 @@ public final class GaServiceImpl implements IGaService {
 	 * eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer,
 	 * java.lang.String)
 	 */
+	@Override
 	public Text createDefaultText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return (Text) createText(gaContainer, false, value, true);
 	}
@@ -467,6 +473,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createEllipse(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
+	@Override
 	public Ellipse createEllipse(GraphicsAlgorithmContainer gaContainer) {
 		Ellipse ret = AlgorithmsFactory.eINSTANCE.createEllipse();
 		setDefaultGraphicsAlgorithmValues(ret);
@@ -481,6 +488,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createFont(org.eclipse
 	 * .graphiti.mm.pictograms.AbstractText, java.lang.String, int)
 	 */
+	@Override
 	public Font createFont(AbstractText text, String name, int size) {
 		return createFont(text, name, size, false, false);
 	}
@@ -493,6 +501,7 @@ public final class GaServiceImpl implements IGaService {
 	 * .graphiti.mm.pictograms.AbstractText, java.lang.String, int, boolean,
 	 * boolean)
 	 */
+	@Override
 	public Font createFont(AbstractText text, String name, int size, boolean isItalic, boolean isBold) {
 		Font ret = createFontInternal(name, size, isItalic, isBold);
 		Font oldFont = text.getFont();
@@ -511,6 +520,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createFont(org.eclipse
 	 * .graphiti.mm.pictograms.Style, java.lang.String, int)
 	 */
+	@Override
 	public Font createFont(Style style, String name, int size) {
 		return createFont(style, name, size, false, false);
 	}
@@ -522,6 +532,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createFont(org.eclipse
 	 * .graphiti.mm.pictograms.Style, java.lang.String, int, boolean, boolean)
 	 */
+	@Override
 	public Font createFont(Style style, String name, int size, boolean isItalic, boolean isBold) {
 		Font ret = createFontInternal(name, size, isItalic, isBold);
 		Font oldFont = style.getFont();
@@ -540,6 +551,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createImage(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, java.lang.String)
 	 */
+	@Override
 	public Image createImage(GraphicsAlgorithmContainer gaContainer, String imageId) {
 		Image ret = AlgorithmsFactory.eINSTANCE.createImage();
 		setDefaultGraphicsAlgorithmValues(ret);
@@ -558,6 +570,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createInvisibleRectangle
 	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
+	@Override
 	public Rectangle createInvisibleRectangle(PictogramElement pe) {
 		final Rectangle ret = createRectangle(pe);
 		if (GFPreferences.getInstance().areInvisibleRectanglesShown()) {
@@ -582,6 +595,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createMultiText(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
+	@Override
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer) {
 		return createMultiText(gaContainer, ""); //$NON-NLS-1$
 	}
@@ -593,6 +607,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createMultiText(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, java.lang.String)
 	 */
+	@Override
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return (MultiText) createText(gaContainer, true, value, false);
 	}
@@ -605,6 +620,7 @@ public final class GaServiceImpl implements IGaService {
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer,
 	 * java.lang.String)
 	 */
+	@Override
 	public PlatformGraphicsAlgorithm createPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id) {
 		PlatformGraphicsAlgorithm ret = AlgorithmsFactory.eINSTANCE.createPlatformGraphicsAlgorithm();
 		setDefaultGraphicsAlgorithmValues(ret);
@@ -620,6 +636,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPoint(org.eclipse
 	 * .emf.ecore.EObject, int, int)
 	 */
+	@Override
 	public Point createPoint(int x, int y) {
 		return createPoint(x, y, 0, 0);
 	}
@@ -631,6 +648,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPoint(org.eclipse
 	 * .emf.ecore.EObject, int, int, int, int)
 	 */
+	@Override
 	public Point createPoint(int x, int y, int before, int after) {
 		// StructureFieldContainer<Point> container = new StructureFieldContainer<Point>();
 		// container.put(Point.DESCRIPTORS.X(), x);
@@ -652,6 +670,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPointList(org.eclipse
 	 * .emf.ecore.EObject, int[])
 	 */
+	@Override
 	public List<Point> createPointList(int[] xy) {
 		assert (xy != null && xy.length % 2 == 0);
 		List<Point> points = new ArrayList<Point>(xy.length / 2);
@@ -668,6 +687,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPointList(org.eclipse
 	 * .emf.ecore.EObject, int[], int[])
 	 */
+	@Override
 	public List<Point> createPointList(int[] xy, int beforeAfter[]) {
 		assert (xy != null && xy.length % 2 == 0);
 		assert (beforeAfter != null && beforeAfter.length == xy.length);
@@ -685,6 +705,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolygon(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
+	@Override
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer) {
 		Polygon ret = AlgorithmsFactory.eINSTANCE.createPolygon();
 		setDefaultGraphicsAlgorithmValues(ret);
@@ -700,6 +721,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolygon(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, java.util.Collection)
 	 */
+	@Override
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
 		Polygon ret = createPolygon(gaContainer);
 		ret.getPoints().addAll(points);
@@ -713,6 +735,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolygon(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, int[])
 	 */
+	@Override
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy) {
 		List<Point> points = createPointList(xy);
 		Polygon ret = createPolygon(gaContainer, points);
@@ -726,6 +749,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolygon(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, int[], int[])
 	 */
+	@Override
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]) {
 		List<Point> points = createPointList(xy, beforeAfter);
 		Polygon ret = createPolygon(gaContainer, points);
@@ -739,6 +763,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolyline(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
+	@Override
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer) {
 		Polyline ret = AlgorithmsFactory.eINSTANCE.createPolyline();
 		setDefaultGraphicsAlgorithmValues(ret);
@@ -754,6 +779,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolyline(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, java.util.Collection)
 	 */
+	@Override
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
 		Polyline ret = createPolyline(gaContainer);
 		ret.getPoints().addAll(points);
@@ -767,6 +793,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolyline(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, int[])
 	 */
+	@Override
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy) {
 		List<Point> points = createPointList(xy);
 		Polyline ret = createPolyline(gaContainer, points);
@@ -780,6 +807,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolyline(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, int[], int[])
 	 */
+	@Override
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]) {
 		List<Point> points = createPointList(xy, beforeAfter);
 		Polyline ret = createPolyline(gaContainer, points);
@@ -793,6 +821,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createRectangle(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
+	@Override
 	public Rectangle createRectangle(GraphicsAlgorithmContainer gaContainer) {
 		Rectangle ret = AlgorithmsFactory.eINSTANCE.createRectangle();
 		setDefaultGraphicsAlgorithmValues(ret);
@@ -807,6 +836,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createRoundedRectangle
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer, int, int)
 	 */
+	@Override
 	public RoundedRectangle createRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight) {
 		RoundedRectangle ret = AlgorithmsFactory.eINSTANCE.createRoundedRectangle();
 		setDefaultGraphicsAlgorithmValues(ret);
@@ -824,6 +854,7 @@ public final class GaServiceImpl implements IGaService {
 	 * .eclipse.graphiti.mm.datatypes.Color, int,
 	 * org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */
+	@Override
 	public Color createShiftedColor(Color color, int shift, Diagram diagram) {
 		if (color == null) {
 			throw new IllegalArgumentException("color must not be null"); //$NON-NLS-1$
@@ -847,6 +878,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createShiftedColor(org
 	 * .eclipse.graphiti.util.IColorConstant, int)
 	 */
+	@Override
 	public IColorConstant createShiftedColor(IColorConstant colorConstant, int shift) {
 		int red = colorConstant.getRed();
 		int green = colorConstant.getGreen();
@@ -867,6 +899,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createStyle(org.eclipse
 	 * .graphiti.mm.pictograms.StyleContainer, java.lang.String)
 	 */
+	@Override
 	public Style createStyle(StyleContainer styleContainer, String id) {
 		Style ret = StylesFactory.eINSTANCE.createStyle();
 		ret.setId(id);
@@ -881,6 +914,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createText(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
+	@Override
 	public Text createText(GraphicsAlgorithmContainer gaContainer) {
 		return createText(gaContainer, ""); //$NON-NLS-1$
 	}
@@ -899,6 +933,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaCreateService#createText(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, java.lang.String)
 	 */
+	@Override
 	public Text createText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return (Text) createText(gaContainer, false, value, false);
 	}
@@ -910,6 +945,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#deleteFont(org.eclipse.graphiti
 	 * .mm.pictograms.AbstractText)
 	 */
+	@Override
 	public void deleteFont(AbstractText abstractText) {
 		final Font oldFont = abstractText.getFont();
 		if (oldFont != null) {
@@ -924,6 +960,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#deleteRenderingStyle(org.eclipse
 	 * .graphiti.mm.pictograms.AbstractStyle)
 	 */
+	@Override
 	public void deleteRenderingStyle(AbstractStyle abstractStyle) {
 		// it is not sufficient to call abstractStyle.setRenderingStyle(null),
 		// because then the old RenderingStyle would be left as garbage in the
@@ -940,6 +977,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#findStyle(org.eclipse.graphiti
 	 * .mm.pictograms.StyleContainer, java.lang.String)
 	 */
+	@Override
 	public Style findStyle(StyleContainer styleContainer, String id) {
 		Collection<Style> styles = styleContainer.getStyles();
 		for (Style childStyle : styles) {
@@ -961,6 +999,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#getAngle(org.eclipse.graphiti
 	 * .mm.pictograms.AbstractText, boolean)
 	 */
+	@Override
 	public int getAngle(AbstractText at, boolean checkStyles) {
 		Integer angle = at.getAngle();
 		if (angle == null) {
@@ -985,6 +1024,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#getBackgroundColor(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithm, boolean)
 	 */
+	@Override
 	public Color getBackgroundColor(GraphicsAlgorithm ga, boolean checkStyles) {
 		Color bc = ga.getBackground();
 		if (bc == null) {
@@ -1009,6 +1049,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#getFont(org.eclipse.graphiti
 	 * .mm.pictograms.AbstractText, boolean)
 	 */
+	@Override
 	public Font getFont(AbstractText at, boolean checkStyles) {
 		Font font = at.getFont();
 		if (font == null) {
@@ -1033,6 +1074,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#getForegroundColor(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithm, boolean)
 	 */
+	@Override
 	public Color getForegroundColor(GraphicsAlgorithm ga, boolean checkStyles) {
 		Color fc = ga.getForeground();
 		if (fc == null) {
@@ -1057,6 +1099,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#getHorizontalAlignment(org.eclipse
 	 * .graphiti.mm.pictograms.AbstractText, boolean)
 	 */
+	@Override
 	public Orientation getHorizontalAlignment(AbstractText at, boolean checkStyles) {
 		Orientation ha = at.getHorizontalAlignment();
 		if (ha == Orientation.UNSPECIFIED) {
@@ -1081,6 +1124,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#getLineStyle(org.eclipse.graphiti
 	 * .mm.pictograms.GraphicsAlgorithm, boolean)
 	 */
+	@Override
 	public LineStyle getLineStyle(GraphicsAlgorithm ga, boolean checkStyles) {
 		LineStyle ls = ga.getLineStyle();
 		if (ls == LineStyle.UNSPECIFIED) {
@@ -1105,6 +1149,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#getLineWidth(org.eclipse.graphiti
 	 * .mm.pictograms.GraphicsAlgorithm, boolean)
 	 */
+	@Override
 	public int getLineWidth(GraphicsAlgorithm ga, boolean checkStyles) {
 		Integer lw = ga.getLineWidth();
 		if (lw == null) {
@@ -1129,6 +1174,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#getRenderingStyle(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithm, boolean)
 	 */
+	@Override
 	public RenderingStyle getRenderingStyle(GraphicsAlgorithm ga, boolean checkStyles) {
 		RenderingStyle rs = ga.getRenderingStyle();
 		if (rs == null) {
@@ -1153,6 +1199,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#getTransparency(org.eclipse.
 	 * graphiti.mm.pictograms.GraphicsAlgorithm, boolean)
 	 */
+	@Override
 	public double getTransparency(GraphicsAlgorithm ga, boolean checkStyles) {
 		Double transparency = ga.getTransparency();
 		if (transparency == null) {
@@ -1177,6 +1224,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#getVerticalAlignment(org.eclipse
 	 * .graphiti.mm.pictograms.AbstractText, boolean)
 	 */
+	@Override
 	public Orientation getVerticalAlignment(AbstractText at, boolean checkStyles) {
 		Orientation va = at.getVerticalAlignment();
 		if (va == Orientation.UNSPECIFIED) {
@@ -1201,6 +1249,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#ignoreAll(org.eclipse.graphiti
 	 * .mm.pictograms.AbstractStyle)
 	 */
+	@Override
 	public void ignoreAll(AbstractStyle abstractStyle) {
 		abstractStyle.setBackground(null);
 		//abstractStyle.unsetFilled();
@@ -1231,6 +1280,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#isFilled(org.eclipse.graphiti
 	 * .mm.pictograms.GraphicsAlgorithm, boolean)
 	 */
+	@Override
 	public boolean isFilled(GraphicsAlgorithm ga, boolean checkStyles) {
 		Boolean filled = ga.getFilled();
 		if (filled == null) {
@@ -1255,6 +1305,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#isLineVisible(org.eclipse.graphiti
 	 * .mm.pictograms.GraphicsAlgorithm, boolean)
 	 */
+	@Override
 	public boolean isLineVisible(GraphicsAlgorithm ga, boolean checkStyles) {
 		Boolean lv = ga.getLineVisible();
 		if (lv == null) {
@@ -1279,6 +1330,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#isProportional(org.eclipse.graphiti
 	 * .mm.pictograms.Image, boolean)
 	 */
+	@Override
 	public boolean isProportional(Image image, boolean checkStyles) {
 		Boolean prop = image.getProportional();
 		if (prop == null) {
@@ -1303,6 +1355,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#isStretchH(org.eclipse.graphiti
 	 * .mm.pictograms.Image, boolean)
 	 */
+	@Override
 	public boolean isStretchH(Image image, boolean checkStyles) {
 		Boolean sh = image.getStretchH();
 		if (sh == null) {
@@ -1327,6 +1380,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#isStretchV(org.eclipse.graphiti
 	 * .mm.pictograms.Image, boolean)
 	 */
+	@Override
 	public boolean isStretchV(Image image, boolean checkStyles) {
 		Boolean sv = image.getStretchV();
 		if (sv == null) {
@@ -1351,6 +1405,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#manageColor(org.eclipse.graphiti
 	 * .mm.pictograms.Diagram, org.eclipse.graphiti.util.IColorConstant)
 	 */
+	@Override
 	public Color manageColor(Diagram diagram, IColorConstant colorConstant) {
 		return manageColor(diagram, colorConstant.getRed(), colorConstant.getGreen(), colorConstant.getBlue());
 	}
@@ -1362,6 +1417,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#manageColor(org.eclipse.graphiti
 	 * .mm.pictograms.Diagram, int, int, int)
 	 */
+	@Override
 	public Color manageColor(Diagram diagram, int red, int green, int blue) {
 		Collection<Color> colors = diagram.getColors();
 		for (Color existingColor : colors) {
@@ -1385,6 +1441,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#movePolylinePoint(org.eclipse
 	 * .graphiti.mm.pictograms.Polyline, int, int, int)
 	 */
+	@Override
 	public void movePolylinePoint(Polyline polyline, int index, int deltaX, int deltaY) {
 		Point point = polyline.getPoints().get(index);
 		int oldX = point.getX();
@@ -1396,7 +1453,11 @@ public final class GaServiceImpl implements IGaService {
 	private void setDefaultGraphicsAlgorithmValues(GraphicsAlgorithm graphicsAlgorithm) {
 		setLocationAndSize(graphicsAlgorithm, 0, 0, 0, 0);
 		// graphicsAlgorithm.unsetLineVisible();
+		graphicsAlgorithm.setLineStyle(LineStyle.SOLID);
+		graphicsAlgorithm.setLineWidth(1);
+		graphicsAlgorithm.setTransparency(0d);
 	}
+
 
 	private void setDefaultTextAttributes(AbstractText ret, String value, boolean createFont) {
 		setDefaultGraphicsAlgorithmValues(ret);
@@ -1413,6 +1474,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaLayoutService#setHeightOfGraphicsAlgorithm
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm, int)
 	 */
+	@Override
 	public void setHeight(GraphicsAlgorithm ga, int height) {
 		ga.setHeight(height);
 	}
@@ -1425,6 +1487,7 @@ public final class GaServiceImpl implements IGaService {
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm, int, int, int,
 	 * int)
 	 */
+	@Override
 	public void setLocationAndSize(GraphicsAlgorithm ga, int x, int y, int width, int height) {
 		setLocationAndSize(ga, x, y, width, height, false);
 	}
@@ -1437,6 +1500,7 @@ public final class GaServiceImpl implements IGaService {
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm, int, int, int,
 	 * int, boolean)
 	 */
+	@Override
 	public void setLocationAndSize(GraphicsAlgorithm ga, int x, int y, int width, int height, boolean avoidNegativeCoordinates) {
 		setLocation(ga, x, y, avoidNegativeCoordinates);
 		setSize(ga, width, height);
@@ -1449,6 +1513,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaLayoutService#setLocationOfGraphicsAlgorithm
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm, int, int)
 	 */
+	@Override
 	public void setLocation(GraphicsAlgorithm ga, int x, int y) {
 		setLocation(ga, x, y, false);
 	}
@@ -1460,6 +1525,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaLayoutService#setLocationOfGraphicsAlgorithm
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm, int, int, boolean)
 	 */
+	@Override
 	public void setLocation(GraphicsAlgorithm ga, int x, int y, boolean avoidNegativeCoordinates) {
 
 		if (ga == null) {
@@ -1489,6 +1555,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaLayoutService#setSizeOfGraphicsAlgorithm
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm, int, int)
 	 */
+	@Override
 	public void setSize(GraphicsAlgorithm ga, int width, int height) {
 		setWidth(ga, width);
 		setHeight(ga, height);
@@ -1501,6 +1568,7 @@ public final class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaLayoutService#setWidthOfGraphicsAlgorithm
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithm, int)
 	 */
+	@Override
 	public void setWidth(GraphicsAlgorithm ga, int width) {
 		ga.setWidth(width);
 	}
@@ -1513,6 +1581,7 @@ public final class GaServiceImpl implements IGaService {
 	 * .graphiti.mm.pictograms.AbstractStyle,
 	 * org.eclipse.graphiti.mm.pictograms.AdaptedGradientColoredAreas)
 	 */
+	@Override
 	public void setRenderingStyle(AbstractStyle abstractStyle, AdaptedGradientColoredAreas adaptedGradientColoredAreas) {
 		if (adaptedGradientColoredAreas != null && adaptedGradientColoredAreas.getAdaptedGradientColoredAreas() != null
 				&& !adaptedGradientColoredAreas.getAdaptedGradientColoredAreas().isEmpty()
