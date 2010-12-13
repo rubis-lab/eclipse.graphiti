@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Patch 185019 from Bug 332360 contributed by Volker Wegert
  *
  * </copyright>
  *
@@ -17,6 +18,8 @@
  * Created on 16.11.2005
  */
 package org.eclipse.graphiti.features;
+
+import org.eclipse.graphiti.features.context.IResizeShapeContext;
 
 /**
  * The Interface IResizeFeature.
@@ -29,7 +32,8 @@ public interface IResizeFeature extends IFeature {
 	/**
 	 * Provides configuration object, which describes the resize behavior
 	 * 
+	 * @param context the resizing context
 	 * @return configuration object
 	 */
-	IResizeConfiguration getResizeConfiguration();
+	IResizeConfiguration getResizeConfiguration(IResizeShapeContext context);
 }

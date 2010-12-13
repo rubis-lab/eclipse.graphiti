@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Patch 185019 from Bug 332360 contributed by Volker Wegert
  *
  * </copyright>
  *
@@ -20,7 +21,7 @@ package org.eclipse.graphiti.features;
  */
 public class DefaultResizeConfiguration implements IResizeConfiguration {
 
-	public boolean isHorizantalResizeAllowed() {
+	public boolean isHorizontalResizeAllowed() {
 		return true;
 	}
 

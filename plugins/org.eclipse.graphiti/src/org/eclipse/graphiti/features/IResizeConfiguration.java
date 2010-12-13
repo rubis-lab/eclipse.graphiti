@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Patch 185019 from Bug 332360 contributed by Volker Wegert
  *
  * </copyright>
  *
@@ -34,5 +35,5 @@ public interface IResizeConfiguration {
 	 * 
 	 * @return true if element can be resized in horizontal direction
 	 */
-	boolean isHorizantalResizeAllowed();
+	boolean isHorizontalResizeAllowed();
 }

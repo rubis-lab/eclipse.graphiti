@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Patch 185019 from Bug 332360 contributed by Volker Wegert
  *
  * </copyright>
  *
@@ -96,7 +97,7 @@ public class DefaultResizeShapeFeature extends AbstractFeature implements IResiz
 
 	private static final String NAME = Messages.DefaultResizeShapeFeature_0_xfld;
 
-	public IResizeConfiguration getResizeConfiguration() {
+	public IResizeConfiguration getResizeConfiguration(IResizeShapeContext context) {
 		return new DefaultResizeConfiguration();
 	}
 }
