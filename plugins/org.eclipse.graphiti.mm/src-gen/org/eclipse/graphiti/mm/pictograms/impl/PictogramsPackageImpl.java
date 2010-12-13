@@ -349,6 +349,15 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getDiagram_VerticalGridUnit() {
+		return (EAttribute)diagramEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPictogramElement() {
 		return pictogramElementEClass;
 	}
@@ -684,6 +693,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		createEAttribute(diagramEClass, DIAGRAM__SHOW_GUIDES);
 		createEReference(diagramEClass, DIAGRAM__COLORS);
 		createEReference(diagramEClass, DIAGRAM__PICTOGRAM_LINKS);
+		createEAttribute(diagramEClass, DIAGRAM__VERTICAL_GRID_UNIT);
 
 		pictogramElementEClass = createEClass(PICTOGRAM_ELEMENT);
 		createEAttribute(pictogramElementEClass, PICTOGRAM_ELEMENT__VISIBLE);
@@ -795,6 +805,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEAttribute(getDiagram_ShowGuides(), ecorePackage.getEBoolean(), "showGuides", null, 1, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getDiagram_Colors(), theStylesPackage.getColor(), null, "colors", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getDiagram_PictogramLinks(), this.getPictogramLink(), null, "pictogramLinks", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getDiagram_VerticalGridUnit(), ecorePackage.getEInt(), "verticalGridUnit", "-1", 0, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pictogramElementEClass, PictogramElement.class, "PictogramElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPictogramElement_Visible(), ecorePackage.getEBoolean(), "visible", null, 1, 1, PictogramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);

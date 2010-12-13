@@ -36,6 +36,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Color;
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#isShowGuides <em>Show Guides</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getColors <em>Colors</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getPictogramLinks <em>Pictogram Links</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getVerticalGridUnit <em>Vertical Grid Unit</em>}</li>
  * </ul>
  * </p>
  *
@@ -223,5 +224,32 @@ public interface Diagram extends ContainerShape, StyleContainer {
 	 * @generated
 	 */
 	EList<PictogramLink> getPictogramLinks();
+
+	/**
+	 * Returns the value of the '<em><b>Vertical Grid Unit</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Vertical Grid Unit</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Vertical Grid Unit</em>' attribute.
+	 * @see #setVerticalGridUnit(int)
+	 * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getDiagram_VerticalGridUnit()
+	 * @model default="-1"
+	 * @generated
+	 */
+	int getVerticalGridUnit();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.graphiti.mm.pictograms.Diagram#getVerticalGridUnit <em>Vertical Grid Unit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Vertical Grid Unit</em>' attribute.
+	 * @see #getVerticalGridUnit()
+	 * @generated
+	 */
+	void setVerticalGridUnit(int value);
 
 } // Diagram

@@ -59,6 +59,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#isShowGuides <em>Show Guides</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getColors <em>Colors</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getPictogramLinks <em>Pictogram Links</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getVerticalGridUnit <em>Vertical Grid Unit</em>}</li>
  * </ul>
  * </p>
  *
@@ -204,6 +205,26 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	 * @ordered
 	 */
 	protected EList<PictogramLink> pictogramLinks;
+
+	/**
+	 * The default value of the '{@link #getVerticalGridUnit() <em>Vertical Grid Unit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVerticalGridUnit()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int VERTICAL_GRID_UNIT_EDEFAULT = -1;
+
+	/**
+	 * The cached value of the '{@link #getVerticalGridUnit() <em>Vertical Grid Unit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVerticalGridUnit()
+	 * @generated
+	 * @ordered
+	 */
+	protected int verticalGridUnit = VERTICAL_GRID_UNIT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -382,6 +403,27 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getVerticalGridUnit() {
+		return verticalGridUnit;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setVerticalGridUnit(int newVerticalGridUnit) {
+		int oldVerticalGridUnit = verticalGridUnit;
+		verticalGridUnit = newVerticalGridUnit;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PictogramsPackage.DIAGRAM__VERTICAL_GRID_UNIT, oldVerticalGridUnit, verticalGridUnit));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -438,6 +480,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				return getColors();
 			case PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS:
 				return getPictogramLinks();
+			case PictogramsPackage.DIAGRAM__VERTICAL_GRID_UNIT:
+				return getVerticalGridUnit();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -482,6 +526,9 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				getPictogramLinks().clear();
 				getPictogramLinks().addAll((Collection<? extends PictogramLink>)newValue);
 				return;
+			case PictogramsPackage.DIAGRAM__VERTICAL_GRID_UNIT:
+				setVerticalGridUnit((Integer)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -521,6 +568,9 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 			case PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS:
 				getPictogramLinks().clear();
 				return;
+			case PictogramsPackage.DIAGRAM__VERTICAL_GRID_UNIT:
+				setVerticalGridUnit(VERTICAL_GRID_UNIT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -551,6 +601,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				return colors != null && !colors.isEmpty();
 			case PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS:
 				return pictogramLinks != null && !pictogramLinks.isEmpty();
+			case PictogramsPackage.DIAGRAM__VERTICAL_GRID_UNIT:
+				return verticalGridUnit != VERTICAL_GRID_UNIT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -607,6 +659,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 		result.append(snapToGrid);
 		result.append(", showGuides: ");
 		result.append(showGuides);
+		result.append(", verticalGridUnit: ");
+		result.append(verticalGridUnit);
 		result.append(')');
 		return result.toString();
 	}

@@ -543,13 +543,22 @@ public interface PictogramsPackage extends EPackage {
 	int DIAGRAM__PICTOGRAM_LINKS = CONTAINER_SHAPE_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Vertical Grid Unit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIAGRAM__VERTICAL_GRID_UNIT = CONTAINER_SHAPE_FEATURE_COUNT + 9;
+
+	/**
 	 * The number of structural features of the '<em>Diagram</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM_FEATURE_COUNT = CONTAINER_SHAPE_FEATURE_COUNT + 9;
+	int DIAGRAM_FEATURE_COUNT = CONTAINER_SHAPE_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.ConnectionImpl <em>Connection</em>}' class.
@@ -1611,6 +1620,17 @@ public interface PictogramsPackage extends EPackage {
 	EReference getDiagram_PictogramLinks();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.pictograms.Diagram#getVerticalGridUnit <em>Vertical Grid Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Vertical Grid Unit</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.Diagram#getVerticalGridUnit()
+	 * @see #getDiagram()
+	 * @generated
+	 */
+	EAttribute getDiagram_VerticalGridUnit();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.PictogramElement <em>Pictogram Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2093,6 +2113,14 @@ public interface PictogramsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DIAGRAM__PICTOGRAM_LINKS = eINSTANCE.getDiagram_PictogramLinks();
+
+		/**
+		 * The meta object literal for the '<em><b>Vertical Grid Unit</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DIAGRAM__VERTICAL_GRID_UNIT = eINSTANCE.getDiagram_VerticalGridUnit();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.PictogramElementImpl <em>Pictogram Element</em>}' class.
