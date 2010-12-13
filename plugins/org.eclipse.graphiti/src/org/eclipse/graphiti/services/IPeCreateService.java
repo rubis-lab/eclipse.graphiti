@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Patch 184530 from Bug 331829 contributed by Henrik Rentz-Reichert
+ *    mwenz - Bug 331715: Support for rectangular grids in diagrams
  *
  * </copyright>
  *
@@ -120,12 +121,32 @@ public interface IPeCreateService {
 	 * @param diagramName
 	 *            the name of the diagram
 	 * @param gridUnit
-	 *            grid size in pixel; if 0 then no grid will be drawn
+	 *            grid size (in both directions) in pixel; if 0 then no grid
+	 *            will be drawn
 	 * @param snap
 	 *            TRUE enables snap to grid
 	 * @return the new diagram
 	 */
 	Diagram createDiagram(String diagramTypeId, String diagramName, int gridUnit, boolean snap);
+
+	/**
+	 * Creates a diagram.
+	 * 
+	 * @param diagramTypeId
+	 *            the type id of the diagram
+	 * @param diagramName
+	 *            the name of the diagram
+	 * @param horizontalGridUnit
+	 *            horizontal grid size in pixel; if 0 then no grid will be drawn
+	 * @param verticalGridUnit
+	 *            vertical grid size in pixel; if 0 then no grid will be drawn
+	 * 
+	 * @param snap
+	 *            TRUE enables snap to grid
+	 * @return the new diagram
+	 * @since 0.8.0
+	 */
+	Diagram createDiagram(String diagramTypeId, String diagramName, int horizontalGridUnit, int verticalGridUnit, boolean snap);
 
 	/**
 	 * Creates a fix point anchor inside the given anchor container.

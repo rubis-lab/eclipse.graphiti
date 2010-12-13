@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Patch 184530 from Bug 331829 contributed by Henrik Rentz-Reichert
+ *    mwenz - Bug 331715: Support for rectangular grids in diagrams
  *
  * </copyright>
  *
@@ -56,7 +57,7 @@ import org.eclipse.graphiti.util.IColorConstant;
  */
 /**
  * @author hrentz
- *
+ * 
  */
 public final class CreateServiceImpl extends AbstractServiceHolder implements ICreateService {
 	/*
@@ -536,6 +537,18 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * (non-Javadoc)
 	 * 
 	 * @see
+	 * org.eclipse.graphiti.services.IPeCreateService#createDiagram(java.lang
+	 * .String, java.lang.String, int, boolean)
+	 */
+	@Override
+	public Diagram createDiagram(String diagramTypeId, String diagramName, int horizontalGridUnit, int verticalGridUint, boolean snap) {
+		return getPeService().createDiagram(diagramTypeId, diagramName, horizontalGridUnit, verticalGridUint, snap);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
 	 * org.eclipse.graphiti.services.IPeCreateService#createFixPointAnchor(org
 	 * .eclipse.graphiti.mm.pictograms.AnchorContainer)
 	 */
@@ -556,7 +569,7 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 		return getPeService().createFreeFormConnection(diagram);
 	}
 
-	/* 
+	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see

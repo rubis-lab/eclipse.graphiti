@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Patch 184530 from Bug 331829 contributed by Henrik Rentz-Reichert
+ *    mwenz - Bug 331715: Support for rectangular grids in diagrams
  *
  * </copyright>
  *
@@ -168,6 +169,19 @@ public final class PeServiceImpl implements IPeService {
 	 */
 	@Override
 	public Diagram createDiagram(String diagramTypeId, String diagramName, int gridUnit, boolean snap) {
+		// Reduce file footprint: use default -1 to avoid storing of verticalGridUnit attribute
+		return createDiagram(diagramTypeId, diagramName, gridUnit, -1, snap);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IPeService#createDiagram(java.lang.String,
+	 * java.lang.String, int, boolean)
+	 */
+	@Override
+	public Diagram createDiagram(String diagramTypeId, String diagramName, int horizontalGridUnit, int verticalGridUnit, boolean snap) {
 
 		if (diagramTypeId == null || diagramName == null) {
 			return null;
@@ -177,7 +191,10 @@ public final class PeServiceImpl implements IPeService {
 
 		Diagram ret = PictogramsFactory.eINSTANCE.createDiagram();
 		ret.setDiagramTypeId(diagramTypeId);
-		ret.setGridUnit(gridUnit);
+		ret.setGridUnit(horizontalGridUnit);
+		if (verticalGridUnit != -1) {
+			ret.setVerticalGridUnit(verticalGridUnit);
+		}
 		ret.setSnapToGrid(snap);
 		ret.setVisible(true);
 		ret.setShowGuides(true);
