@@ -102,7 +102,7 @@ public abstract class GraphicsAlgorithmImpl extends GraphicsAlgorithmContainerIm
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer LINE_WIDTH_EDEFAULT = new Integer(1);
+	protected static final Integer LINE_WIDTH_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getLineWidth() <em>Line Width</em>}' attribute.
@@ -192,7 +192,7 @@ public abstract class GraphicsAlgorithmImpl extends GraphicsAlgorithmContainerIm
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Double TRANSPARENCY_EDEFAULT = new Double(0.0);
+	protected static final Double TRANSPARENCY_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getTransparency() <em>Transparency</em>}' attribute.

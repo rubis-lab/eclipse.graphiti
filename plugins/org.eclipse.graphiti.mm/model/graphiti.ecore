@@ -234,10 +234,9 @@
         <eStructuralFeatures xsi:type="ecore:EReference" name="foreground" ordered="false"
             unique="false" eType="#//algorithms/styles/Color"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineWidth" ordered="false"
-            unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-            defaultValueLiteral="1"/>
+            unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineStyle" ordered="false"
-            unique="false" eType="#//algorithms/styles/LineStyle" defaultValueLiteral="SOLID"/>
+            unique="false" eType="#//algorithms/styles/LineStyle"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="filled" ordered="false"
             unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
             defaultValueLiteral="true"/>
@@ -247,8 +246,7 @@
         <eStructuralFeatures xsi:type="ecore:EReference" name="renderingStyle" ordered="false"
             unique="false" eType="#//algorithms/styles/RenderingStyle" containment="true"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="transparency" ordered="false"
-            unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"
-            defaultValueLiteral="0"/>
+            unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="GradientColoredLocation">
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="locationType" lowerBound="1"

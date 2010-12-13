@@ -94,7 +94,6 @@ public interface AbstractStyle extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Line Width</b></em>' attribute.
-	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Line Width</em>' attribute isn't clear,
@@ -104,7 +103,7 @@ public interface AbstractStyle extends EObject {
 	 * @return the value of the '<em>Line Width</em>' attribute.
 	 * @see #setLineWidth(Integer)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getAbstractStyle_LineWidth()
-	 * @model default="1" unique="false" ordered="false"
+	 * @model unique="false" ordered="false"
 	 * @generated
 	 */
 	Integer getLineWidth();
@@ -121,7 +120,6 @@ public interface AbstractStyle extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Line Style</b></em>' attribute.
-	 * The default value is <code>"SOLID"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.graphiti.mm.algorithms.styles.LineStyle}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -133,7 +131,7 @@ public interface AbstractStyle extends EObject {
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.LineStyle
 	 * @see #setLineStyle(LineStyle)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getAbstractStyle_LineStyle()
-	 * @model default="SOLID" unique="false" ordered="false"
+	 * @model unique="false" ordered="false"
 	 * @generated
 	 */
 	LineStyle getLineStyle();
@@ -231,7 +229,6 @@ public interface AbstractStyle extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Transparency</b></em>' attribute.
-	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Transparency</em>' attribute isn't clear,
@@ -241,7 +238,7 @@ public interface AbstractStyle extends EObject {
 	 * @return the value of the '<em>Transparency</em>' attribute.
 	 * @see #setTransparency(Double)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getAbstractStyle_Transparency()
-	 * @model default="0" unique="false" ordered="false"
+	 * @model unique="false" ordered="false"
 	 * @generated
 	 */
 	Double getTransparency();
