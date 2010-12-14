@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.graphiti;bundle-version="0.8.0",
  org.eclipse.core.resources;bundle-version="[3.6.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.6.0,4.0.0)",
  org.eclipse.emf.transaction;bundle-version="[1.4.0,2.0.0)",
- org.eclipse.ui.views.properties.tabbed,
+ org.eclipse.ui.views.properties.tabbed;bundle-version="[3.5.0,4.0.0)",
  org.eclipse.ui.ide;bundle-version="[3.5.2,4.0.0)"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.graphiti.examples.tutorial,
