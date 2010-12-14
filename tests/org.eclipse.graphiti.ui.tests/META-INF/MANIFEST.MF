@@ -9,7 +9,7 @@ Require-Bundle: org.easymock;bundle-version="2.4.0",
  org.eclipse.graphiti.tests;bundle-version="0.8.0",
  org.eclipse.graphiti.ui;bundle-version="0.8.0",
  org.eclipse.graphiti;bundle-version="0.8.0",
- org.eclipse.emf.transaction;bundle-version="1.4.0",
- org.eclipse.jface;bundle-version="3.6.0",
- org.eclipse.gef;bundle-version="3.7.0"
+ org.eclipse.emf.transaction;bundle-version="[1.4.0,2.0.0)",
+ org.eclipse.jface;bundle-version="[3.6.0,4.0.0)",
+ org.eclipse.gef;bundle-version="[3.7.0,4.0.0)"
 Bundle-Vendor: %providerName
