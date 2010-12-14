@@ -78,12 +78,12 @@ public class GFMarqueeToolEntry extends ToolEntry {
 		Object value = getToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR);
 		if (value instanceof Integer) {
 			int selectionType = ((Integer) value).intValue();
-			if (selectionType == MarqueeSelectionTool.BEHAVIOR_NODES_AND_CONNECTIONS)
-				return GEFMessages.MarqueeTool_Desc;
+			if (selectionType == MarqueeSelectionTool.BEHAVIOR_NODES_CONTAINED_AND_RELATED_CONNECTIONS)
+				return GEFMessages.MarqueeTool_Nodes_Contained_And_Related_Connections_Desc;
 			if (selectionType == MarqueeSelectionTool.BEHAVIOR_CONNECTIONS_TOUCHED)
-				return GEFMessages.MarqueeTool_Connections_Desc;
+				return GEFMessages.MarqueeTool_Connections_Touched_Desc;
 		}
-		return GEFMessages.MarqueeTool_Nodes_Desc;
+		return GEFMessages.MarqueeTool_Nodes_Touched_Desc;
 	}
 
 }
