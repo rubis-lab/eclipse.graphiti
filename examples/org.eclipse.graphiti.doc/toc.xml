@@ -45,5 +45,7 @@
 			<topic label="imageProviders" href="resources/docu/extension-points/imageProviders.html" />
 		</topic>
 	</topic>
+    <topic href="resources/docu/whats-new.html" label="What&apos;s New">
+    </topic>
 	<topic label="Legal" href="resources/docu/Legal.html" />
 </toc>
