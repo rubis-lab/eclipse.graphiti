@@ -15,6 +15,9 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.fixed;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.ScaledGraphics;
 import org.eclipse.swt.graphics.Path;
@@ -30,6 +33,22 @@ import org.eclipse.swt.graphics.Path;
 public class FixedScaledGraphics extends ScaledGraphics {
 
 	private Graphics graphics;
+
+	/**
+	 * If draw2d in an appropriate version is installed we use the new clipPath
+	 * method. Otherwise we fall back to setClip. To avoid compile and runtime
+	 * problems we use reflection.
+	 */
+	private static Method clipMethod = null;
+	static {
+		try {
+			clipMethod = Graphics.class.getMethod("clipPath", Path.class); //$NON-NLS-1$
+		} catch (SecurityException e) {
+			// do nothing
+		} catch (NoSuchMethodException e) {
+			// do nothing
+		}
+	}
 
 	/**
 	 * Instantiates a new fixed scaled graphics.
@@ -87,11 +106,27 @@ public class FixedScaledGraphics extends ScaledGraphics {
 	}
 
 
-	@Override
 	public void clipPath(Path path) {
-			graphics.clipPath(path);
+		if (clipMethod != null) {
+			try {
+				clipMethod.invoke(graphics, path);
+			} catch (IllegalArgumentException e) {
+				fallBack(path);
+			} catch (IllegalAccessException e) {
+				fallBack(path);
+			} catch (InvocationTargetException e) {
+				fallBack(path);
+			}
+		} else {
+			setClip(path);
+		}
 	}
 
+
+	private void fallBack(Path path) {
+		clipMethod = null;
+		setClip(path);
+	}
 
 	@Override
 	// Just forward to the wrapped Graphics

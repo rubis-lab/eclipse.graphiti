@@ -40,6 +40,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.ISelectionInfo;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.fixed.FixedScaledGraphics;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.util.IColorConstant;
@@ -79,6 +80,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 * The selection-area GraphicsAlgorithms. See {@link #getClickArea()}.
 	 */
 	private GraphicsAlgorithm clickArea[];
+
 
 	// ============================ constructors ==============================
 
@@ -320,7 +322,13 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 				try {
 					// do not use getZoomLevel(), which returns wrong scales
 					Rectangle pathBounds = GFFigureUtil.getPathBounds(path);
-					graphics.clipPath(path);
+
+					if (graphics instanceof FixedScaledGraphics) {
+						FixedScaledGraphics g = (FixedScaledGraphics) graphics;
+						g.clipPath(path);
+					} else {
+						graphics.setClip(path);
+					}
 					int styleAdaptation = getStyleAdaptation();
 					AdaptedGradientColoredAreas adaptedGradientColoredAreas = renderingStyle.getAdaptedGradientColoredAreas();
 					EList<GradientColoredAreas> gradientColoredAreas = adaptedGradientColoredAreas.getAdaptedGradientColoredAreas();
@@ -557,6 +565,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 * 
 	 * @return The selection handle bounds of this Shape.
 	 */
+	@Override
 	public Rectangle getHandleBounds() {
 		Rectangle ret = null;
 		final GraphicsAlgorithm selectionGa = getSelectionBorder();
@@ -581,6 +590,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 * 
 	 * @return The visual state of this shape.
 	 */
+	@Override
 	public IVisualState getVisualState() {
 		return getPictogramElementDelegate().getVisualState();
 	}
@@ -588,6 +598,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	/**
 	 * Is called after the visual state changed.
 	 */
+	@Override
 	public void visualStateChanged(VisualStateChangedEvent e) {
 		// The colors might have changed, so force a repaint()
 		repaint();
