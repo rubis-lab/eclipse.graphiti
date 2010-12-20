@@ -251,10 +251,16 @@ public class GFCornerHandle extends AbstractHandle {
 			fg = getFG_COLOR_NOT_RESIZABLE();
 			bg = getBG_COLOR_SECONDARY_NOT_RESIZABLE();
 		}
-		if (fg != null)
-			g.setForegroundColor(fg);
-		if (bg != null)
-			g.setBackgroundColor(bg);
+		if (fg != null) {
+			// It is necessary to set the color. This ensures the support for the high contrast mode.
+			setForegroundColor(fg);
+			g.setForegroundColor(getForegroundColor());
+		}
+		if (bg != null) {
+			// It is necessary to set the color. This ensures the support for the high contrast mode.
+			setBackgroundColor(bg);
+			g.setBackgroundColor(getBackgroundColor());
+		}
 
 		Rectangle r = GFFigureUtil.getAdjustedRectangle(getBounds(), 1.0, getLineWidth());
 		g.fillRectangle(r);

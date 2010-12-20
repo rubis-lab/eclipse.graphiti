@@ -48,6 +48,7 @@ import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Path;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * This class is an abstract super-class for all Shapes in Graphiti. The main
@@ -315,7 +316,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			// fill area
 			graphics.fillPath(path);
 		} else {
-			if (renderingStyle != null) {
+			if (renderingStyle != null && !isHighContrastMode()) {
 				graphics.pushState();
 				try {
 					// do not use getZoomLevel(), which returns wrong scales
@@ -644,5 +645,17 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 
 	protected GFPreferences getPreferences() {
 		return GFPreferences.getInstance();
+	}
+
+	private boolean isHighContrastMode() {
+		boolean ret = false;
+		Display display = Display.getCurrent();
+		if (display == null) {
+			display = Display.getDefault();
+		}
+		if (display != null) {
+			ret = display.getHighContrast();
+		}
+		return ret;
 	}
 }

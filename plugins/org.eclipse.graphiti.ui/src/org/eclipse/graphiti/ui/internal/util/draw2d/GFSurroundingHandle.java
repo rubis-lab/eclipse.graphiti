@@ -240,7 +240,9 @@ public class GFSurroundingHandle extends AbstractHandle {
 
 		g.setLineStyle(Graphics.LINE_CUSTOM);
 		g.setLineDash(dashZoomed);
-		g.setForegroundColor(fg);
+		// It is necessary to set the color. This ensures the support for the high contrast mode.
+		setForegroundColor(fg);
+		g.setForegroundColor(getForegroundColor());
 	}
 
 	/**
