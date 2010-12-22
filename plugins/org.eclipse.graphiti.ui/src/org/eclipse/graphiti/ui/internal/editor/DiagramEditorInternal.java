@@ -10,6 +10,8 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 331715: Support for rectangular grids in diagrams
+ *    mwenz - Bug 332964: Enable setting selection for non-EMF domain models and
+ *                        when embedded into a multi-page editor
  *
  * </copyright>
  *
@@ -24,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.commands.operations.IUndoContext;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
@@ -93,7 +94,6 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.ILinkService;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
@@ -375,7 +375,8 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		int horizontalGridUnit = diagram.getGridUnit();
 		int verticalGridUnit = diagram.getVerticalGridUnit();
 		if (verticalGridUnit == -1) {
-			// No vertical grid unit set (or old diagram before 0.8): use vertical grid unit
+			// No vertical grid unit set (or old diagram before 0.8): use
+			// vertical grid unit
 			verticalGridUnit = horizontalGridUnit;
 		}
 		boolean gridVisisble = (horizontalGridUnit > 0) && (verticalGridUnit > 0);
@@ -1408,9 +1409,17 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		// If not the active editor, ignore selection changed.
-		// or should we check for isVisible ???
-		// if (this.equals(getSite().getPage().getActiveEditor())) {
-		if (getSite().getPage().isPartVisible(this)) {
+		boolean editorIsActive = getSite().getPage().isPartVisible(this);
+		if (!editorIsActive) {
+			// Check if we are a page of the active multipage editor
+			IEditorPart activeEditor = getSite().getPage().getActiveEditor();
+			if (activeEditor != null) {
+				// Open: unfortunately it seems not to be possible to check if
+				// we are the currently active page of that multipage editor
+				editorIsActive = getSite().getPage().isPartVisible(activeEditor);
+			}
+		}
+		if (editorIsActive) {
 
 			// long start = System.nanoTime();
 			// this is where we should check the selection source (part)
@@ -1425,37 +1434,40 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			// useful selection ??
 			if (selection instanceof IStructuredSelection) {
 				IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-				List<EObject> selectedList = new ArrayList<EObject>();
-				for (@SuppressWarnings("unchecked")
-				Iterator<EObject> iterator = structuredSelection.iterator(); iterator.hasNext();) {
-					Object nextElement = iterator.next();
-					EObject eObject = null;
-					if (nextElement instanceof EObject) {
-						eObject = (EObject) nextElement;
-					} else if (nextElement instanceof IAdaptable) {
-						eObject = (EObject) ((IAdaptable) nextElement).getAdapter(EObject.class);
-					}
-					if (eObject != null) {
-						selectedList.add(eObject);
-					}
-				}
-
-				if (selectedList.size() > 0) {
-					List<PictogramElement> peList = new ArrayList<PictogramElement>();
-					Diagram diagram = getDiagramTypeProvider().getDiagram();
-					ILinkService linkService = Graphiti.getLinkService();
-					for (EObject eObject : selectedList) {
-						List<PictogramElement> referencingPes = linkService.getPictogramElements(diagram, eObject);
+				List<PictogramElement> peList = new ArrayList<PictogramElement>();
+				// Collect all Pictogram Elements for all selected domain
+				// objects into one list
+				for (Iterator<?> iterator = structuredSelection.iterator(); iterator.hasNext();) {
+					Object object = iterator.next();
+					if (object instanceof EObject) {
+						// Find the Pictogram Elements for the given domain
+						// object via the standard link service
+						List<PictogramElement> referencingPes = Graphiti.getLinkService().getPictogramElements(
+								getDiagramTypeProvider().getDiagram(), (EObject) object);
 						if (referencingPes.size() > 0) {
 							peList.addAll(referencingPes);
 						}
-					}
-
-					if (peList.size() > 0) {
-						PictogramElement[] pes = peList.toArray(new PictogramElement[peList.size()]);
-						selectPictogramElements(pes);
+					} else {
+						// For non-EMF domain objects use the registered
+						// notification service for finding
+						PictogramElement[] relatedPictogramElements = getDiagramTypeProvider().getNotificationService()
+								.calculateRelatedPictogramElements(new Object[] { object });
+						for (int i = 0; i < relatedPictogramElements.length; i++) {
+							peList.add(relatedPictogramElements[i]);
+						}
 					}
 				}
+
+				// Do the selection in the diagram (in case there is something
+				// to select)
+				PictogramElement[] pes = null;
+				if (peList.size() > 0) {
+					pes = peList.toArray(new PictogramElement[peList.size()]);
+				}
+				if (pes != null && pes.length > 0) {
+					selectPictogramElements(pes);
+				}
+
 			}
 		}
 		super.selectionChanged(part, selection);
