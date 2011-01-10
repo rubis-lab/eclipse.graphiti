@@ -79,7 +79,7 @@
       </rm:uri>
     </rm:provider>
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
-      <rm:uri format="{0}/technology/swtbot/helios/dev-build/update-site">
+      <rm:uri format="{0}/technology/swtbot/archives/2.0.0.595-dev/helios/dev-build/update-site">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
