@@ -36,6 +36,7 @@ import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
+import org.eclipse.draw2d.geometry.Ray;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Vector;
 import org.eclipse.emf.common.util.EList;
@@ -569,7 +570,7 @@ public class GFOtherTests extends AbstractGFTests {
 		lineSeg.getParallelLineSegThroughPoint(test);
 		lineSeg.getSupremum();
 		lineSeg.getTerminus();
-		lineSeg.getTrigValues(new Vector(new PrecisionPoint(origin), new PrecisionPoint(test)));
+		lineSeg.getTrigValues(new Ray(new PrecisionPoint(origin), new PrecisionPoint(test)));
 		lineSeg.intersect(lineSeg, 0);
 		lineSeg.isHorizontal();
 		lineSeg.isVertical();
