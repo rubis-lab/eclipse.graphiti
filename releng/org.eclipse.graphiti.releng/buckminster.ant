@@ -67,16 +67,16 @@
 
 	<target name="promote.sites" >
 		<echo message="Deleting old update site from downloads area" />
-		<delete dir="${download.area}/updates/0.7.0/" failonerror="true" />
+		<delete dir="${download.area}/updates/0.7.1/" failonerror="true" />
 		
 		<echo message="Promoting site.p2" />
-		<copydir dest="${download.area}/updates/0.7.0/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2" />
+		<copydir dest="${download.area}/updates/0.7.1/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2" />
 		
 		<echo message="Deleting old ZIP archive from downloads area" />
-		<delete dir="${download.area}/archives/0.7.0/" failonerror="true" />
+		<delete dir="${download.area}/archives/0.7.1/" failonerror="true" />
 		
 		<echo message="Promoting site.p2.zip" />
-		<copydir dest="${download.area}/archives/0.7.0/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2.zip" />
+		<copydir dest="${download.area}/archives/0.7.1/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2.zip" />
 	</target>
 
 </project>
