@@ -9,13 +9,13 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 327669 - removed dependencies to GEF internal stuff
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.editor;
 
-import org.eclipse.gef.internal.GEFMessages;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.graphiti.ui.internal.Messages;
 
@@ -55,7 +55,7 @@ public class GFPanningSelectionToolEntry extends PanningSelectionToolEntry {
 	public GFPanningSelectionToolEntry(String label, String shortDesc) {
 		super(label, shortDesc);
 		if (label == null || label.length() == 0) {
-			setLabel(GEFMessages.SelectionTool_Label);
+			setLabel(Messages.GFPanningSelectionToolEntry_Select);
 		}
 		if (shortDesc == null || shortDesc.length() == 0) {
 			setDescription(Messages.GFPanningSelectionToolEntry_0_xmsg);

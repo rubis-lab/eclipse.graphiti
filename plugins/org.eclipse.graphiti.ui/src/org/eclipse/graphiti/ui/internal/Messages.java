@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 327669 - removed dependencies to GEF internal stuff
  *
  * </copyright>
  *
@@ -37,8 +38,15 @@ public class Messages extends NLS {
 	public static String DeleteAction_0_xmsg;
 	public static String DeleteAction_1_xfld;
 	public static String DiagramEditor_0_xmsg;
+	public static String DiagramEditorActionBarContributor_Grid;
+	public static String DiagramEditorActionBarContributor_SnapGeometry;
 	public static String GFCommandStack_0_xfld;
+	public static String GFMarqueeToolEntry_Marquee;
+	public static String GFMarqueeToolEntry_MarqueeBothNodesAndRelatedConnections;
+	public static String GFMarqueeToolEntry_MarqueeNodesTouched;
+	public static String GFMarqueeToolEntry_MarqueeSelectionTouched;
 	public static String GFPanningSelectionToolEntry_0_xmsg;
+	public static String GFPanningSelectionToolEntry_Select;
 	public static String GraphicsActionBarContributor_0_xmen;
 	public static String GraphicsContextMenuProvider_0_xmen;
 	public static String GraphicsContextMenuProvider_1_xmen;

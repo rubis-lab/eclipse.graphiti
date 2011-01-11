@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 327669 - removed dependencies to GEF internal stuff
  *
  * </copyright>
  *
@@ -16,9 +17,9 @@
 package org.eclipse.graphiti.ui.internal.editor;
 
 import org.eclipse.gef.SharedImages;
-import org.eclipse.gef.internal.GEFMessages;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.tools.MarqueeSelectionTool;
+import org.eclipse.graphiti.ui.internal.Messages;
 
 /**
  * A palette ToolEntry for a {@link org.eclipse.gef.tools.MarqueeSelectionTool}.
@@ -58,7 +59,7 @@ public class GFMarqueeToolEntry extends ToolEntry {
 	public GFMarqueeToolEntry(String label, String description) {
 		super(label, description, SharedImages.DESC_MARQUEE_TOOL_16, SharedImages.DESC_MARQUEE_TOOL_24, GFMarqueeSelectionTool.class);
 		if (label == null || label.length() == 0)
-			setLabel(GEFMessages.MarqueeTool_Label);
+			setLabel(Messages.GFMarqueeToolEntry_Marquee);
 		setUserModificationPermission(PERMISSION_NO_MODIFICATION);
 	}
 
@@ -79,11 +80,11 @@ public class GFMarqueeToolEntry extends ToolEntry {
 		if (value instanceof Integer) {
 			int selectionType = ((Integer) value).intValue();
 			if (selectionType == MarqueeSelectionTool.BEHAVIOR_NODES_CONTAINED_AND_RELATED_CONNECTIONS)
-				return GEFMessages.MarqueeTool_Nodes_Contained_And_Related_Connections_Desc;
+				return Messages.GFMarqueeToolEntry_MarqueeBothNodesAndRelatedConnections;
 			if (selectionType == MarqueeSelectionTool.BEHAVIOR_CONNECTIONS_TOUCHED)
-				return GEFMessages.MarqueeTool_Connections_Touched_Desc;
+				return Messages.GFMarqueeToolEntry_MarqueeSelectionTouched;
 		}
-		return GEFMessages.MarqueeTool_Nodes_Touched_Desc;
+		return Messages.GFMarqueeToolEntry_MarqueeNodesTouched;
 	}
 
 }

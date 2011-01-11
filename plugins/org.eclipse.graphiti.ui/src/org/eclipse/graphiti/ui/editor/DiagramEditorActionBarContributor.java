@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 327669 - removed dependencies to GEF internal stuff
  *
  * </copyright>
  *
@@ -16,7 +17,6 @@
 package org.eclipse.graphiti.ui.editor;
 
 import org.eclipse.draw2d.PositionConstants;
-import org.eclipse.gef.internal.GEFMessages;
 import org.eclipse.gef.ui.actions.ActionBarContributor;
 import org.eclipse.gef.ui.actions.AlignmentRetargetAction;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
@@ -75,9 +75,9 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 		// addRetargetAction(new ConfigureAutoLayoutRetargetAction());
 		// addRetargetAction(new PerformAutoLayoutRetargetAction());
-		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY, GEFMessages.ToggleGrid_Label, IAction.AS_CHECK_BOX));
+		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY, Messages.DiagramEditorActionBarContributor_Grid, IAction.AS_CHECK_BOX));
 
-		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY, GEFMessages.ToggleSnapToGeometry_Label,
+		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY, Messages.DiagramEditorActionBarContributor_SnapGeometry,
 				IAction.AS_CHECK_BOX));
 	}
 
