@@ -79,7 +79,9 @@ public class GFMarqueeToolEntry extends ToolEntry {
 		Object value = getToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR);
 		if (value instanceof Integer) {
 			int selectionType = ((Integer) value).intValue();
-			if (selectionType == MarqueeSelectionTool.BEHAVIOR_NODES_CONTAINED_AND_RELATED_CONNECTIONS)
+			// TODO Replace after 0.8.0 (in 0.8.0 Indigo we need to be
+			// compatible with GEF 3.6 and 3.7)
+			if (selectionType == MarqueeSelectionTool.BEHAVIOR_NODES_AND_CONNECTIONS)
 				return Messages.GFMarqueeToolEntry_MarqueeBothNodesAndRelatedConnections;
 			if (selectionType == MarqueeSelectionTool.BEHAVIOR_CONNECTIONS_TOUCHED)
 				return Messages.GFMarqueeToolEntry_MarqueeSelectionTouched;
