@@ -144,6 +144,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.navigator.CommonNavigator;
+import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
@@ -1414,9 +1415,16 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			// Check if we are a page of the active multipage editor
 			IEditorPart activeEditor = getSite().getPage().getActiveEditor();
 			if (activeEditor != null) {
-				// Open: unfortunately it seems not to be possible to check if
-				// we are the currently active page of that multipage editor
+				// Check if the top level editor if it is active
 				editorIsActive = getSite().getPage().isPartVisible(activeEditor);
+				if (activeEditor instanceof MultiPageEditorPart) {
+					Object selectedPage = ((MultiPageEditorPart) activeEditor).getSelectedPage();
+					if (!(selectedPage instanceof DiagramEditorInternal)) {
+						// Editor is active but the diagram sub editor is not
+						// its active page
+						editorIsActive = false;
+					}
+				}
 			}
 		}
 		if (editorIsActive) {
