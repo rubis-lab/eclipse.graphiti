@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 334233 - Fixed issue with zooming of diagrams when object in diagram is selected
  *
  * </copyright>
  *
@@ -29,7 +30,9 @@ import org.eclipse.gef.tools.ResizeTracker;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * A rectangular handle which is placed at a corner or at a side of a shape
@@ -252,19 +255,53 @@ public class GFCornerHandle extends AbstractHandle {
 			bg = getBG_COLOR_SECONDARY_NOT_RESIZABLE();
 		}
 		if (fg != null) {
-			// It is necessary to set the color. This ensures the support for the high contrast mode.
-			setForegroundColor(fg);
-			g.setForegroundColor(getForegroundColor());
+			// It is necessary to adapt the color. This ensures the support for
+			// the high contrast mode.
+			g.setForegroundColor(convertColorForHighContrastMode(fg, SWT.COLOR_WIDGET_FOREGROUND));
 		}
 		if (bg != null) {
-			// It is necessary to set the color. This ensures the support for the high contrast mode.
-			setBackgroundColor(bg);
-			g.setBackgroundColor(getBackgroundColor());
+			// It is necessary to adapt the color. This ensures the support for
+			// the high contrast mode.
+			g.setBackgroundColor(convertColorForHighContrastMode(bg, SWT.COLOR_WIDGET_BACKGROUND));
 		}
 
 		Rectangle r = GFFigureUtil.getAdjustedRectangle(getBounds(), 1.0, getLineWidth());
 		g.fillRectangle(r);
 		g.drawRectangle(r);
+	}
+
+	/**
+	 * Converts the given color according to the high contrast mode settings. If
+	 * the system is not in high contrast mode the given value is simply
+	 * returned.
+	 * 
+	 * @param color
+	 *            The color to convert
+	 * @param colorType
+	 *            can be SWT.COLOR_WIDGET_BACKGROUND for the background color or
+	 *            SWT.COLOR_WIDGET_FOREGROUND for the foreground color in high
+	 *            contrast mode
+	 * @return The converted color if in high contrast mode, otherwise the given
+	 *         color
+	 */
+	private Color convertColorForHighContrastMode(Color color, int colorType) {
+		Color result = null;
+		// Set background color to bg unless in high contrast mode.
+		// In that case, get the color from system
+		Display display = Display.getCurrent();
+		if (display == null) {
+			display = Display.getDefault();
+		}
+		Color highContrastClr = null;
+		try {
+			if (display.getHighContrast()) {
+				highContrastClr = display.getSystemColor(SWT.COLOR_WIDGET_BACKGROUND);
+			}
+		} catch (SWTException e) {
+			highContrastClr = null;
+		}
+		result = highContrastClr == null ? color : highContrastClr;
+		return result;
 	}
 
 	/**
