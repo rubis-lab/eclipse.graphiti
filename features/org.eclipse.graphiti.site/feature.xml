@@ -11,15 +11,13 @@
 -->
 <feature
       id="org.eclipse.graphiti.site"
-      label="Graphiti Site"
+      label="%featureName"
       version="0.8.0.qualifier"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
    <description>
-      Graphiti supports the fast and easy creation of unified graphical
-tools, which can graphically display and edit underlying domain
-models using a tool-defined notation.
+      %description
    </description>
 
    <copyright url="Graphiti Site contains the Graphiti framework and all additional features.">
