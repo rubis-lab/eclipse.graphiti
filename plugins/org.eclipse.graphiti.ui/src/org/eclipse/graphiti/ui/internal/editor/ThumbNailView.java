@@ -45,7 +45,7 @@ import org.eclipse.ui.part.ViewPart;
  */
 public class ThumbNailView extends ViewPart implements IPartListener {
 
-	public static final String VIEW_ID = "org.eclipse.graphiti.ui.internal.editor.thumbnailview";
+	public static final String VIEW_ID = "org.eclipse.graphiti.ui.internal.editor.thumbnailview"; //$NON-NLS-1$
 
 	private FixedScrollableThumbnail _thumbnail;
 
