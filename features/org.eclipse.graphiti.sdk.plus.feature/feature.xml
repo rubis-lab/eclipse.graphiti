@@ -21,13 +21,7 @@
       provider-name="%providerName">
 
    <description>
-      This is the SDK Plus feature of the Graphiti framework
-containing the SDK feature plus all available add-ons. 
-Install this feature if you want to develop on top of Graphiti and if
-you need at least one of the add-ons. Graphiti supports the
-fast and easy creation of unified graphical tools, which can
-graphically display and edit underlying domain models using a
-tool-defined notation.
+      %description
    </description>
 
    <copyright url="http://www.eclipse.org/legal/epl-v10.html">
