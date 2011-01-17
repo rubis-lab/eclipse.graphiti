@@ -21,7 +21,7 @@
       provider-name="%providerName">
 
    <description>
-      This feature contains the tutorial and the documentation for the Graphiti framework. Graphiti supports the fast and easy creation of unified graphical tools, which can graphically display and edit underlying domain models using a tool-defined notation.
+      %description
    </description>
 
    <copyright url="http://www.eclipse.org/legal/epl-v10.html">
