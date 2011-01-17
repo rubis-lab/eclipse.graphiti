@@ -138,7 +138,7 @@ public class AddContext extends AreaContext implements IAddContext {
 	public String toString() {
 		String ret = super.toString();
 		ret = ret
-				+ " newObject: " + getNewObject() + " targetConnection: " + getTargetConnection() + " targetConnectionDecorator: " + getTargetConnectionDecorator() + " targetContainer: " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				+ " newObject: " + getNewObject() + " targetConnection: " + getTargetConnection() + " targetConnectionDecorator: " + getTargetConnectionDecorator() + " targetContainer: " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				+ getTargetContainer();
 		return ret;
 	}
