@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.examples.common.ExamplesCommonPlugin;
+import org.eclipse.graphiti.examples.common.Messages;
 import org.eclipse.graphiti.examples.common.navigator.nodes.EClassesNode;
 import org.eclipse.graphiti.examples.common.navigator.nodes.base.IContainerNode;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -32,11 +33,11 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 public class GFEmfLabelProvider extends LabelProvider {
-	private static final String IMPL = "Impl";
+	private static final String IMPL = "Impl"; //$NON-NLS-1$
 
 	@Override
 	public String getText(Object element) {
-		String ret = "";
+		String ret = ""; //$NON-NLS-1$
 		if (element instanceof IContainerNode) {
 			IContainerNode icn = (IContainerNode) element;
 			ret = icn.getText();
@@ -54,7 +55,7 @@ public class GFEmfLabelProvider extends LabelProvider {
 		if (element instanceof EClass) {
 			String name = ((EClass) element).getName();
 			if (name == null) {
-				name = "name not available";
+				name = Messages.GFEmfLabelProvider_NameNotAvailable;
 			}
 			return name;
 		}
@@ -66,14 +67,14 @@ public class GFEmfLabelProvider extends LabelProvider {
 			}
 		}
 		if (element instanceof GraphicsAlgorithm && ret.length() > 0) {
-			ret = ret + "   -   ";
+			ret = ret + "   -   "; //$NON-NLS-1$
 			ret = ret + super.getText(element);
 		}
 		return ret;
 	}
 
 	private String createTextForDiagram(Diagram diagram) {
-		return "Diagram";
+		return Messages.GFEmfLabelProvider_DiagramText;
 	}
 
 	//	private String createTextForDiagramFile(Diagram diagram) {
@@ -111,7 +112,7 @@ public class GFEmfLabelProvider extends LabelProvider {
 		String key = "icons/full/obj16/EClass.gif"; //$NON-NLS-1$
 		Image image = registry.get(key);
 		if (image == null) {
-			ImageDescriptor desc = ExamplesCommonPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key);
+			ImageDescriptor desc = ExamplesCommonPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key); //$NON-NLS-1$
 			registry.put(key, desc);
 			image = registry.get(key);
 		}
@@ -123,7 +124,7 @@ public class GFEmfLabelProvider extends LabelProvider {
 		String key = "icons/full/obj16/EObject.gif"; //$NON-NLS-1$
 		Image image = registry.get(key);
 		if (image == null) {
-			ImageDescriptor desc = ExamplesCommonPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key);
+			ImageDescriptor desc = ExamplesCommonPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key); //$NON-NLS-1$
 			registry.put(key, desc);
 			image = registry.get(key);
 		}
@@ -135,7 +136,7 @@ public class GFEmfLabelProvider extends LabelProvider {
 		String key = "icons/full/obj16/EPackage.gif"; //$NON-NLS-1$
 		Image image = registry.get(key);
 		if (image == null) {
-			ImageDescriptor desc = ExamplesCommonPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key);
+			ImageDescriptor desc = ExamplesCommonPlugin.imageDescriptorFromPlugin("org.eclipse.emf.ecore.edit", key); //$NON-NLS-1$
 			registry.put(key, desc);
 			image = registry.get(key);
 		}

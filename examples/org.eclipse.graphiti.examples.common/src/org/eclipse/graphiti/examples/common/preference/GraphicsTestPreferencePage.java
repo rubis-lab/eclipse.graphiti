@@ -17,6 +17,7 @@ package org.eclipse.graphiti.examples.common.preference;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.graphiti.examples.common.Messages;
 import org.eclipse.graphiti.internal.GraphitiPlugin;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.jface.preference.BooleanFieldEditor;
@@ -42,7 +43,7 @@ public class GraphicsTestPreferencePage extends FieldEditorPreferencePage implem
 	 */
 	public GraphicsTestPreferencePage() {
 		super(GRID);
-		setDescription("Graphics Framework Test Preferences. You might need to re-open the diagrams to see the changes.");
+		setDescription(Messages.GraphicsTestPreferencePage_PageDescription);
 		setPreferenceStore(new ScopedPreferenceStore(new InstanceScope(), GraphitiPlugin.PLUGIN_ID));
 	}
 
@@ -50,32 +51,32 @@ public class GraphicsTestPreferencePage extends FieldEditorPreferencePage implem
 	public void createFieldEditors() {
 
 		addLabel(""); //$NON-NLS-1$
-		addLabel("Visual playing around");
+		addLabel(Messages.GraphicsTestPreferencePage_VisualPlayingTitle);
 		addField(new IntegerFieldEditor(GFPreferences.VISUAL_STATE_RENDERING,
-				"&Visual state rendering (e.g. selection handling): 0=default, 1=special", getFieldEditorParent()));
+				Messages.GraphicsTestPreferencePage_VisualStateRenderingField, getFieldEditorParent()));
 		addField(new IntegerFieldEditor(GFPreferences.CONTEXT_BUTTON_PAD_DECLARATION,
-				"Context bu&tton pad declaration: 0=default, 1=special", getFieldEditorParent()));
-		addField(new IntegerFieldEditor(GFPreferences.ZOOM_ANIMATION_STEPS, "A&nimation steps to perform when zooming",
+				Messages.GraphicsTestPreferencePage_ContextButtonPadField, getFieldEditorParent()));
+		addField(new IntegerFieldEditor(GFPreferences.ZOOM_ANIMATION_STEPS, Messages.GraphicsTestPreferencePage_AnimationStepsField,
 				getFieldEditorParent()));
-		addField(new BooleanFieldEditor(GFPreferences.PROGRESS_DIALOG_ACTIVE, "Show &progress dialog when commands are executed.",
+		addField(new BooleanFieldEditor(GFPreferences.PROGRESS_DIALOG_ACTIVE, Messages.GraphicsTestPreferencePage_ProgressDialogField,
 				getFieldEditorParent()));
-		addField(new IntegerFieldEditor(GFPreferences.POLYLINE_ROUNDING, "P&olyline rounding: 0=on, 1=never, 2=always.",
+		addField(new IntegerFieldEditor(GFPreferences.POLYLINE_ROUNDING, Messages.GraphicsTestPreferencePage_PolylineRoundingField,
 				getFieldEditorParent()));
 
 		addLabel(""); //$NON-NLS-1$
-		addLabel("Debugging");
-		addField(new BooleanFieldEditor(GFPreferences.DEBUG_ACTIONS_ACTIVE, "Add de&bug actions to the context-menu of each shape",
+		addLabel(Messages.GraphicsTestPreferencePage_DebuggingTitle);
+		addField(new BooleanFieldEditor(GFPreferences.DEBUG_ACTIONS_ACTIVE, Messages.GraphicsTestPreferencePage_DebugActionsField,
 				getFieldEditorParent()));
 		addField(new BooleanFieldEditor(GFPreferences.CPU_PROFILING_TRACE_ACTIVE,
-				"Activate &CPU profiling trace (write CPU durations into the log-file)", getFieldEditorParent()));
-		addField(new BooleanFieldEditor(GFPreferences.INVISIBLE_RECTANGLES_SHOWN, "Show &invisible rectangles (make them visible)",
+				Messages.GraphicsTestPreferencePage_CpuDurationField, getFieldEditorParent()));
+		addField(new BooleanFieldEditor(GFPreferences.INVISIBLE_RECTANGLES_SHOWN, Messages.GraphicsTestPreferencePage_InvisibleRectangleField,
 				getFieldEditorParent()));
-		addField(new BooleanFieldEditor(GFPreferences.GENERIC_OUTLINE_ACTIVE, "&Use generic outline view", getFieldEditorParent()));
-		addField(new BooleanFieldEditor(GFPreferences.GENERIC_PROPERTY_SHEET_ACTIVE, "U&se generic property sheet", getFieldEditorParent()));
+		addField(new BooleanFieldEditor(GFPreferences.GENERIC_OUTLINE_ACTIVE, Messages.GraphicsTestPreferencePage_GenericOutlineField, getFieldEditorParent()));
+		addField(new BooleanFieldEditor(GFPreferences.GENERIC_PROPERTY_SHEET_ACTIVE, Messages.GraphicsTestPreferencePage_GenericPropertyField, getFieldEditorParent()));
 
 		addLabel(""); //$NON-NLS-1$
-		addLabel("Graphiti internal (do not change)");
-		addField(new BooleanFieldEditor(GFPreferences.RECURSIVE_CHECK_FOR_UPDATE_ACTIVE, "Check for a needed updates &recursively",
+		addLabel(Messages.GraphicsTestPreferencePage_InternalTitle);
+		addField(new BooleanFieldEditor(GFPreferences.RECURSIVE_CHECK_FOR_UPDATE_ACTIVE, Messages.GraphicsTestPreferencePage_RecursiveUpdateCheckField,
 				getFieldEditorParent()));
 	}
 

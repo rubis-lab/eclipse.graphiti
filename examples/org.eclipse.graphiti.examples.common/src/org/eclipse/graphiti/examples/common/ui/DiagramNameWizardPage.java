@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.graphiti.examples.common.Messages;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -31,8 +32,8 @@ import org.eclipse.swt.widgets.Text;
 
 public class DiagramNameWizardPage extends AbstractWizardPage {
 
-	private static final String PAGE_DESC = "Enter diagram name";
-	private static final String PAGE_TITLE = "Diagram";
+	private static final String PAGE_DESC = Messages.DiagramNameWizardPage_PageDescription;
+	private static final String PAGE_TITLE = Messages.DiagramNameWizardPage_PageTitle;
 
 	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
 

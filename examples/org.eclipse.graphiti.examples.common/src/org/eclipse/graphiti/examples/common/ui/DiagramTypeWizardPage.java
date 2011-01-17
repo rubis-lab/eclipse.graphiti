@@ -21,6 +21,7 @@ import java.util.Vector;
 
 import org.eclipse.graphiti.dt.IDiagramType;
 import org.eclipse.graphiti.examples.common.ExamplesCommonPlugin;
+import org.eclipse.graphiti.examples.common.Messages;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -35,11 +36,11 @@ import org.eclipse.swt.widgets.Label;
 
 public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextProvider {
 
-	private static final String PAGE_DESC = "Select diagram type";
-	private static final String PAGE_TITLE = "Diagram";
+	private static final String PAGE_DESC = Messages.DiagramTypeWizardPage_PageDescription;
+	private static final String PAGE_TITLE = Messages.DiagramTypeWizardPage_PageTitle;
 
-	private static final String DEFAULT_TYPE = "tutorial";
-	private static final String SELECTED_TYPE = "selectedtype";
+	private static final String DEFAULT_TYPE = "tutorial"; //$NON-NLS-1$
+	private static final String SELECTED_TYPE = "selectedtype"; //$NON-NLS-1$
 
 	Combo comboBox;
 
@@ -65,7 +66,7 @@ public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextPr
 		// new project label
 		Label projectLabel = new Label(projectGroup, SWT.NONE);
 		projectLabel.setFont(parent.getFont());
-		projectLabel.setText("Diagram Type");
+		projectLabel.setText(Messages.DiagramTypeWizardPage_DiagramTypeField);
 
 		// new project name entry field
 		comboBox = new Combo(projectGroup, SWT.READ_ONLY | SWT.BORDER);

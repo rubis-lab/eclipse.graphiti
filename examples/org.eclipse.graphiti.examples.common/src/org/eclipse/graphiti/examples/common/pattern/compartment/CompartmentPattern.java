@@ -17,6 +17,7 @@ package org.eclipse.graphiti.examples.common.pattern.compartment;
 
 import java.util.List;
 
+import org.eclipse.graphiti.examples.common.Messages;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -527,7 +528,7 @@ public abstract class CompartmentPattern extends AbstractPattern {
 		int childShapeCount = childShapes.size();
 		if (linkCreationInfos.size() != childShapeCount) {
 			// structural change inside the compartment
-			return Reason.createTrueReason("compartment changes");
+			return Reason.createTrueReason(Messages.CompartmentPattern_CompartmentChangesText);
 		} else {
 			// check whether compartment content has changed
 			for (Shape shape : childShapes) {

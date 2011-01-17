@@ -18,6 +18,7 @@ package org.eclipse.graphiti.examples.common.navigator.nodes;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.graphiti.examples.common.Messages;
 import org.eclipse.graphiti.examples.common.navigator.nodes.base.AbstractInstancesOfTypeContainerNode;
 import org.eclipse.graphiti.examples.common.util.Util;
 import org.eclipse.jface.viewers.Viewer;
@@ -29,7 +30,7 @@ import org.eclipse.swt.graphics.Image;
  * 
  */
 public class EClassesNode extends AbstractInstancesOfTypeContainerNode {
-	private static final String NAME = "EClasses";
+	private static final String NAME = Messages.EClassesNode_EClassesNodeName;
 
 	private ResourceSetImpl rSet;
 

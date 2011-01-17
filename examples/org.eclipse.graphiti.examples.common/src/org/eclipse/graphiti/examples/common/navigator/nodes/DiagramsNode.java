@@ -25,13 +25,14 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.graphiti.examples.common.Messages;
 import org.eclipse.graphiti.examples.common.navigator.nodes.base.AbstractInstancesOfTypeContainerNode;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 
 
 public class DiagramsNode extends AbstractInstancesOfTypeContainerNode {
 
-	private static final String NAME = "Diagrams";
+	private static final String NAME = Messages.DiagramsNode_DiagramNodeTitle;
 
 	public DiagramsNode(Object parent, IProject project) {
 		super(parent, project);

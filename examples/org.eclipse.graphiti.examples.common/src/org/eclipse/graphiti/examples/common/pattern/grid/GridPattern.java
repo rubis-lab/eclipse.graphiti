@@ -312,7 +312,7 @@ public abstract class GridPattern extends AbstractPattern {
 			text.getFont().setBold(false);
 			text.getFont().setItalic(true);
 			text.getFont().setSize(10);
-			text.getFont().setName("Baskerville Old Face");
+			text.getFont().setName("Baskerville Old Face"); //$NON-NLS-1$
 
 			// create link and wire it
 			link(shape, linkCreationInfo.getBusinessObjects());

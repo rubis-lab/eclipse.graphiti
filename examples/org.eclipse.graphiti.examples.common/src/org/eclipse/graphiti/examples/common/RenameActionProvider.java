@@ -86,7 +86,7 @@ public class RenameActionProvider extends CommonActionProvider {
 
 		@Override
 		public void run() {
-			InputDialog inputDialog = new InputDialog(null, "Provide String", "Provide a new Name for the EClass", eclass.getName(), null);
+			InputDialog inputDialog = new InputDialog(null, Messages.RenameActionProvider_ProvideNameTitle, Messages.RenameActionProvider_ProvideNameDescription, eclass.getName(), null);
 			int open = inputDialog.open();
 			if (open == Dialog.OK) {
 				String newName = inputDialog.getValue();
@@ -112,7 +112,7 @@ public class RenameActionProvider extends CommonActionProvider {
 
 		@Override
 		public String getText() {
-			return "Rename EClass";
+			return Messages.RenameActionProvider_RenameEClassText;
 		}
 	}
 

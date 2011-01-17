@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.examples.common.ExamplesCommonPlugin;
 import org.eclipse.graphiti.examples.common.FileService;
+import org.eclipse.graphiti.examples.common.Messages;
 import org.eclipse.graphiti.examples.common.navigator.nodes.base.AbstractInstancesOfTypeContainerNode;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
@@ -43,9 +44,9 @@ import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
  */
 public class CreateDiagramWizard extends BasicNewResourceWizard {
 
-	private static final String PAGE_NAME_DIAGRAM_TYPE = "Diagram Type";
-	private static final String PAGE_NAME_DIAGRAM_NAME = "Diagram Name";
-	private static final String WIZARD_WINDOW_TITLE = "New Diagram";
+	private static final String PAGE_NAME_DIAGRAM_TYPE = Messages.CreateDiagramWizard_DiagramTypeField;
+	private static final String PAGE_NAME_DIAGRAM_NAME = Messages.CreateDiagramWizard_DiagramNameField;
+	private static final String WIZARD_WINDOW_TITLE = "New Diagram"; //$NON-NLS-1$
 
 	private Diagram diagram;
 
@@ -90,9 +91,9 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 		}
 
 		if (project == null || !project.isAccessible()) {
-			String error = "No open project was found for the current selection. Select a project and restart the wizard.";
+			String error = Messages.CreateDiagramWizard_NoProjectFoundError;
 			IStatus status = new Status(IStatus.ERROR, ExamplesCommonPlugin.getID(), error);
-			ErrorDialog.openError(getShell(), "No Project Found", null, status);
+			ErrorDialog.openError(getShell(), Messages.CreateDiagramWizard_NoProjectFoundErrorTitle, null, status);
 			return false;
 		}
 
@@ -111,9 +112,9 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, DiagramEditor.DIAGRAM_EDITOR_ID);
 		} catch (PartInitException e) {
-			String error = "Error while opening diagram editor";
+			String error = Messages.CreateDiagramWizard_OpeningEditorError;
 			IStatus status = new Status(IStatus.ERROR, ExamplesCommonPlugin.getID(), error, e);
-			ErrorDialog.openError(getShell(), "An error occured", null, status);
+			ErrorDialog.openError(getShell(), Messages.CreateDiagramWizard_ErrorOccuredTitle, null, status);
 			return false;
 		}
 

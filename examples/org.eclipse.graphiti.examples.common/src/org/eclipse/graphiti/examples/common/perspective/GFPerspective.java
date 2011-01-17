@@ -86,7 +86,7 @@ public class GFPerspective implements IPerspectiveFactory {
 		if (isViewAvailable(IPageLayout.ID_PROJECT_EXPLORER)) {
 			topLeft.addView(IPageLayout.ID_PROJECT_EXPLORER);
 		}
-		if (isViewAvailable("org.eclipse.jdt.ui.PackageExplorer")) {
+		if (isViewAvailable("org.eclipse.jdt.ui.PackageExplorer")) { //$NON-NLS-1$
 			topLeft.addView("org.eclipse.jdt.ui.PackageExplorer"); //$NON-NLS-1$
 		}
 		topLeft.addPlaceholder(IPageLayout.ID_BOOKMARKS);
@@ -104,7 +104,7 @@ public class GFPerspective implements IPerspectiveFactory {
 		// Bottom right.
 		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, (float) 0.66,//$NON-NLS-1$
 				editorArea);
-		if (isViewAvailable("org.eclipse.pde.runtime.LogView")) {
+		if (isViewAvailable("org.eclipse.pde.runtime.LogView")) { //$NON-NLS-1$
 			bottomRight.addView("org.eclipse.pde.runtime.LogView"); //$NON-NLS-1$
 		}
 		if (isViewAvailable(IPageLayout.ID_PROP_SHEET)) {

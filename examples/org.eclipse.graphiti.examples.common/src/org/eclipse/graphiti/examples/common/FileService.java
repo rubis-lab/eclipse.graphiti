@@ -141,9 +141,9 @@ public class FileService {
 	}
 
 	private static String createMessage(Map<URI, Throwable> failedSaves) {
-		final StringBuilder buf = new StringBuilder("The following resources could not be saved:");
+		final StringBuilder buf = new StringBuilder(Messages.FileService_ErrorMessageStart);
 		for (final Entry<URI, Throwable> entry : failedSaves.entrySet()) {
-			buf.append("\nURI: ").append(entry.getKey().toString()).append(", cause: \n").append(getExceptionAsString(entry.getValue()));
+			buf.append(Messages.FileService_ErrorMessageUri).append(entry.getKey().toString()).append(Messages.FileService_ErrorMessageCause).append(getExceptionAsString(entry.getValue()));
 		}
 		return buf.toString();
 	}
