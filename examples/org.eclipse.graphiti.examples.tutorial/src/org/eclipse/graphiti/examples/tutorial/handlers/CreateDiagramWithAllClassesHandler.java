@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.examples.common.navigator.nodes.EClassesNode;
+import org.eclipse.graphiti.examples.tutorial.Messages;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -56,7 +57,7 @@ public final class CreateDiagramWithAllClassesHandler extends AbstractHandler {
 		}
 
 		// Ask for the name of the new diagram
-		InputDialog dialog = new InputDialog(Display.getCurrent().getActiveShell(), "New Diagram", "Enter the name for the new diagram",
+		InputDialog dialog = new InputDialog(Display.getCurrent().getActiveShell(), Messages.CreateDiagramWithAllClassesHandler_NewDiagramTitle, Messages.CreateDiagramWithAllClassesHandler_NewDiagramDescription,
 				null, null);
 		if (dialog.open() != Dialog.OK) {
 			return null;
@@ -81,7 +82,7 @@ public final class CreateDiagramWithAllClassesHandler extends AbstractHandler {
 			operation.getCreatedResource().save(null);
 		} catch (IOException e) {
 			IStatus status = new Status(IStatus.ERROR, "org.eclipse.graphiti.examples.tutorial", e.getMessage(), e); //$NON-NLS-1$
-			ErrorDialog.openError(Display.getCurrent().getActiveShell(), "Error Occured", e.getMessage(), status);
+			ErrorDialog.openError(Display.getCurrent().getActiveShell(), Messages.CreateDiagramWithAllClassesHandler_ErrorTitle, e.getMessage(), status);
 			return null;
 		}
 
@@ -96,7 +97,7 @@ public final class CreateDiagramWithAllClassesHandler extends AbstractHandler {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(input, DiagramEditor.DIAGRAM_EDITOR_ID);
 		} catch (PartInitException e) {
 			IStatus status = new Status(IStatus.ERROR, "org.eclipse.graphiti.examples.tutorial", e.getMessage(), e); //$NON-NLS-1$
-			ErrorDialog.openError(Display.getCurrent().getActiveShell(), "Error Occured", e.getMessage(), status);
+			ErrorDialog.openError(Display.getCurrent().getActiveShell(), Messages.CreateDiagramWithAllClassesHandler_ErrorTitle, e.getMessage(), status);
 			return null;
 		}
 
