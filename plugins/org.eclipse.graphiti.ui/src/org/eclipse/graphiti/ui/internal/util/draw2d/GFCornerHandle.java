@@ -295,7 +295,7 @@ public class GFCornerHandle extends AbstractHandle {
 		Color highContrastClr = null;
 		try {
 			if (display.getHighContrast()) {
-				highContrastClr = display.getSystemColor(SWT.COLOR_WIDGET_BACKGROUND);
+				highContrastClr = display.getSystemColor(colorType);
 			}
 		} catch (SWTException e) {
 			highContrastClr = null;
