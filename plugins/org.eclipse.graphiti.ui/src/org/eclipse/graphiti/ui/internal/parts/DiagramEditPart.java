@@ -23,6 +23,7 @@ import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.DragTracker;
@@ -86,6 +87,7 @@ public class DiagramEditPart extends ContainerShapeEditPart implements IDiagramE
 		GraphicsAlgorithm graphicsAlgorithm = getPictogramElement().getGraphicsAlgorithm();
 		f.setBackgroundColor(DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService().getBackgroundColor(
 				graphicsAlgorithm, true)));
+		f.setBorder(new MarginBorder(5));
 		f.setLayoutManager(new XYLayout() {
 
 			/**
