@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323359 Avoid usage of java.lang.text, ICU4J etc.
  *
  * </copyright>
  *
@@ -19,7 +20,6 @@
 package org.eclipse.graphiti.examples.common.outline.tree;
 
 import java.lang.reflect.Array;
-import java.text.DateFormat;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -60,21 +60,6 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart {
 	 * The Constant ARRAY_TEXT_SEPARATOR.
 	 */
 	public static final String ARRAY_TEXT_SEPARATOR = "; "; //$NON-NLS-1$
-
-	/**
-	 * The Constant FORMAT_JAVA_SQL_DATE.
-	 */
-	public static final DateFormat FORMAT_JAVA_SQL_DATE = DateFormat.getDateInstance(DateFormat.SHORT);
-
-	/**
-	 * The Constant FORMAT_JAVA_SQL_TIME.
-	 */
-	public static final DateFormat FORMAT_JAVA_SQL_TIME = DateFormat.getTimeInstance(DateFormat.SHORT);
-
-	/**
-	 * The Constant FORMAT_JAVA_UTIL_DATE.
-	 */
-	public static final DateFormat FORMAT_JAVA_UTIL_DATE = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
 
 	/**
 	 * The Constant TUPLE_TEXT_END.
@@ -214,16 +199,6 @@ public class AbstractGraphicsTreeEditPart extends AbstractTreeEditPart {
 			result.append(ARRAY_TEXT_END);
 			return result.toString();
 		}
-
-		// Date/Time: use DateFormatter
-		if (element instanceof java.sql.Date)
-			return FORMAT_JAVA_SQL_DATE.format((java.sql.Date) element);
-		if (element instanceof java.sql.Time)
-			return FORMAT_JAVA_SQL_TIME.format((java.sql.Time) element);
-		if (element instanceof java.util.Date) // java.uti.Date must be the
-			// last, because the java.sql.*
-			// extend this class
-			return FORMAT_JAVA_UTIL_DATE.format((java.util.Date) element);
 
 		// Rectangle/Point
 		if (element instanceof Rectangle) {
