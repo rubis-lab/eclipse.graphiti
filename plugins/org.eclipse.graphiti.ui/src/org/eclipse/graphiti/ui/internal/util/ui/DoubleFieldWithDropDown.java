@@ -9,14 +9,12 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323359 Avoid usage of java.lang.text, ICU4J etc.
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.util.ui;
-
-import java.text.DecimalFormat;
-import java.text.ParseException;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -38,7 +36,6 @@ import org.eclipse.swt.widgets.Composite;
 public class DoubleFieldWithDropDown extends Composite implements ModifyListener, SelectionListener {
 
 	public static final String decimalNumberFormat = "###0.00"; //$NON-NLS-1$
-	public static final DecimalFormat decimalNumberFormatter = new DecimalFormat(decimalNumberFormat);
 
 	private DefaultPreferences _preferences;
 	private int _index;
@@ -57,7 +54,7 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 		setLayout(fill);
 		_text = new Combo(this, SWT.DROP_DOWN | SWT.BORDER);
 		for (int i = 0; i < defaults.length; i++) {
-			_text.add(decimalNumberFormatter.format(defaults[i]));
+			_text.add(Double.toString(defaults[i]));
 		}
 		updateControl();
 
@@ -89,16 +86,16 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 			if (_text.getText().length() != 0) {
 				double oldValue = Double.valueOf(_text.getText()).doubleValue();
 				if (newValue != oldValue) {
-					_text.setText(decimalNumberFormatter.format(newValue));
+					_text.setText(Double.toString(newValue));
 				}
 			} else {
 				if (_initialUpdate) {
-					_text.setText(decimalNumberFormatter.format(newValue));
+					_text.setText(Double.toString(newValue));
 				}
 			}
 		} catch (NumberFormatException e) {
 			// $JL-EXC$
-			_text.setText(decimalNumberFormatter.format(newValue));
+			_text.setText(Double.toString(newValue));
 		} finally {
 			_internalModify = false;
 		}
@@ -115,6 +112,7 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 		_text.addModifyListener(listener);
 	}
 
+	@Override
 	public void modifyText(ModifyEvent e) {
 		if (_internalModify)
 			return;
@@ -122,31 +120,33 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 			String text = _text.getText();
 			double value;
 			if (text.length() == 0) {
-				value = decimalNumberFormatter.parse("0").doubleValue(); //$NON-NLS-1$
+				value = new Double(0);
 			} else {
-				value = decimalNumberFormatter.parse(text).doubleValue();
+				value = new Double(text);
 			}
 			_preferences.setDoublePreference(_index, value);
-		} catch (ParseException x) {
+		} catch (NumberFormatException x) {
 			// $JL-EXC$ do nothing, reset after the conversion anyway
 			updateControl();
 		}
 	}
 
+	@Override
 	public void widgetSelected(SelectionEvent e) {
 		if (_internalModify)
 			return;
 
 		try {
 			String text = _text.getItem(_text.getSelectionIndex());
-			double value = decimalNumberFormatter.parse(text).doubleValue();
+			double value = new Double(text);
 			_preferences.setDoublePreference(_index, value);
-		} catch (ParseException x) {
+		} catch (NumberFormatException x) {
 			// $JL-EXC$ do nothing, reset after the conversion anyway
 			updateControl();
 		}
 	}
 
+	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
 		widgetSelected(e);
 	}

@@ -9,14 +9,12 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323359 Avoid usage of java.lang.text, ICU4J etc.
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.util.ui.print;
-
-import java.text.DecimalFormat;
-import java.text.MessageFormat;
 
 import org.eclipse.draw2d.PrintFigureOperation;
 import org.eclipse.draw2d.geometry.Point;
@@ -68,8 +66,6 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 	private static final int CUSTOM_SIZE = 4;
 
 	public static final String decimalNumberFormat = "###0.00"; //$NON-NLS-1$
-
-	public static final DecimalFormat decimalNumberFormatter = new DecimalFormat(decimalNumberFormat);
 
 	private static final int PREVIEW_SIZE = 220;
 
@@ -313,7 +309,7 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 	}
 
 	private void refreshOutputPagesInfo() {
-		String text = MessageFormat.format(Messages.PrintFigureDialog_9_xmsg, new Object[] { getNumberOfPages() });
+		String text = Messages.PrintFigureDialog_9_xmsg + " " + getNumberOfPages();
 		_numberOfPagesInfo.setText(text);
 		_numberOfPagesInfo.getParent().layout();
 	}
@@ -544,7 +540,7 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 		int numOfPages = getNumberOfPages();
 		boolean proceed = true;
 		if (numOfPages > WARNING_IF_MOREPAGES_THAN) {
-			String pagesText = MessageFormat.format(Messages.PrintFigureDialog_10_xmsg, new Object[] { numOfPages });
+			String pagesText = Messages.PrintFigureDialog_10_xmsg + " " + numOfPages;
 			proceed = MessageDialog.openQuestion(this.getShell(), Messages.PrintFigureDialog_22_xfld, pagesText + " \n" //$NON-NLS-1$
 					+ Messages.PrintFigureDialog_25_xfld);
 		}
