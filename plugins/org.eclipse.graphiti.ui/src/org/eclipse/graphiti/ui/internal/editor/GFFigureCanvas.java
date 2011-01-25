@@ -19,6 +19,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
@@ -49,7 +50,7 @@ import org.eclipse.swt.widgets.Control;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class GFFigureCanvas extends Canvas {
+public class GFFigureCanvas extends Canvas implements IAdaptable {
 
 	/**
 	 * Never show scrollbar.
@@ -94,6 +95,7 @@ public class GFFigureCanvas extends Canvas {
 
 		double OldZoomlevel = 1D;
 
+		@Override
 		public void propertyChange(PropertyChangeEvent event) {
 
 			/*
@@ -130,6 +132,7 @@ public class GFFigureCanvas extends Canvas {
 
 		double OldZoomlevel = 1D;
 
+		@Override
 		public void propertyChange(PropertyChangeEvent event) {
 
 			/*
@@ -1004,6 +1007,7 @@ public class GFFigureCanvas extends Canvas {
 		 * org.eclipse.draw2d.UpdateListener#notifyPainting(org.eclipse.draw2d
 		 * .geometry.Rectangle, java.util.Map)
 		 */
+		@Override
 		public void notifyPainting(Rectangle damage, java.util.Map dirtyRegions) {
 		}
 
@@ -1012,6 +1016,7 @@ public class GFFigureCanvas extends Canvas {
 		 * 
 		 * @see org.eclipse.draw2d.UpdateListener#notifyValidating()
 		 */
+		@Override
 		public void notifyValidating() {
 			if (!isDisposed()) {
 				layoutViewport();
@@ -1019,6 +1024,14 @@ public class GFFigureCanvas extends Canvas {
 
 		}
 
+	}
+
+	@Override
+	public Object getAdapter(Class adapter) {
+		if (LightweightSystem.class == adapter) {
+			return getLightweightSystem();
+		}
+		return null;
 	}
 
 }
