@@ -59,8 +59,6 @@ public class Messages extends NLS {
 	public static String ContextEntryHelper_7_xfld;
 	public static String ContextEntryHelper_8_xfld;
 	public static String ContextEntryHelper_9_xfld;
-	public static String DataBinder_0_xmsg;
-	public static String DataBinder_1_xmsg;
 	public static String DataMapping_0_xmsg;
 	public static String DefaultAddBendpointFeature_0_xfld;
 	public static String DefaultMoveAnchorFeature_0_xfld;
@@ -75,8 +73,5 @@ public class Messages extends NLS {
 	public static String DefaultToolBehaviorProvider_0_xfld;
 	public static String DefaultToolBehaviorProvider_1_xfld;
 	public static String FeatureCommand_0_xmsg;
-	public static String QuickFixFeature_0_xfld;
 	public static String ReconnectionFeatureForPattern_0_xfld;
-	public static String TemplatePattern_0_xmsg;
-	public static String TemplatePattern_1_xmsg;
 }
