@@ -40,7 +40,6 @@ public class Messages extends NLS {
 	public static String DiagramEditor_0_xmsg;
 	public static String DiagramEditorActionBarContributor_Grid;
 	public static String DiagramEditorActionBarContributor_SnapGeometry;
-	public static String GFCommandStack_0_xfld;
 	public static String GFMarqueeToolEntry_Marquee;
 	public static String GFMarqueeToolEntry_MarqueeBothNodesAndRelatedConnections;
 	public static String GFMarqueeToolEntry_MarqueeNodesTouched;
@@ -49,13 +48,11 @@ public class Messages extends NLS {
 	public static String GFPanningSelectionToolEntry_Select;
 	public static String GraphicsActionBarContributor_0_xmen;
 	public static String GraphicsContextMenuProvider_0_xmen;
-	public static String GraphicsContextMenuProvider_1_xmen;
 	public static String GraphicsPaletteRoot_0_xmen;
 	public static String DiscardChangesDialog_0_xmsg;
 	public static String DiscardChangesDialog_1_xmsg;
 	public static String ModelClipBoardPasteAction_0_xfld;
 	public static String PasteAction_0_xfld;
-	public static String PictogramElementDelegate_0_xmsg;
 	public static String PrintFigureDialog_0_xfld;
 	public static String PrintFigureDialog_1_xfld;
 	public static String PrintFigureDialog_10_xmsg;
