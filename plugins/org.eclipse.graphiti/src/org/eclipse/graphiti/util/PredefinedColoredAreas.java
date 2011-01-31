@@ -49,7 +49,7 @@ import org.eclipse.graphiti.services.IGaService;
  * Clients may create their own gradient definition by overriding
  * {@link PredefinedColoredAreas} for gradient definitions and
  * {@link IPredefinedRenderingStyle} for corresponding ID's. Simply follow
- * straightforward the example {@link #getBlueWhiteGlossAdaptions(). It is
+ * straightforward the example {@link #getBlueWhiteGlossAdaptions()}. It is
  * recommended to support at least {@link #STYLE_ADAPTATION_DEFAULT},
  * {@link #STYLE_ADAPTATION_PRIMARY_SELECTED},
  * {@link #STYLE_ADAPTATION_SECONDARY_SELECTED} as visual states.
