@@ -16,6 +16,7 @@
 package org.eclipse.graphiti.internal.util;
 
 import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
@@ -72,8 +73,44 @@ public abstract class AbstractTracer {
 	private boolean infoAlwaysTrue = false;
 
 	public AbstractTracer(String location) {
-		Bundle bundle = Platform.getBundle(location);
-		log = Platform.getLog(bundle);
+		if (Platform.isRunning()) {
+			// The Eclipse platform is running, this should be the standard case for Graphiti being executed inside Eclipse
+			Bundle bundle = Platform.getBundle(location);
+			log = Platform.getLog(bundle);
+		} else {
+			// Graphiti is not run within the Eclipse platform. This happens e.g. while running Unit tests
+
+			// Warn user (in case this happens in other cases than Unit testing)
+			System.err.println("================================================================================================");
+			System.err.println("Logging is disabled because the platform is not running! (This message is OK for Unit test runs)");
+			System.err.println("================================================================================================");
+
+			// Create a log for internal usages within this class (avoid checks for null each time the log is accessed)
+			log = new ILog() {
+
+				@Override
+				public void removeLogListener(ILogListener listener) {
+					// do nothing
+				}
+
+				@Override
+				public void log(IStatus status) {
+					// do nothing
+				}
+
+				@Override
+				public Bundle getBundle() {
+					// do nothing
+					return null;
+				}
+
+				@Override
+				public void addLogListener(ILogListener listener) {
+					// do nothing
+				}
+			};
+		}
+
 	}
 
 	//	/**
