@@ -20,7 +20,9 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IMultiDeleteInfo;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
+import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
@@ -38,6 +40,8 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 	private static final String TEXT = Messages.DeleteAction_1_xfld;
 
 	public static final String ACTION_ID = ActionFactory.DELETE.getId();
+
+	private IMultiDeleteInfo multiDeleteInfo = null;
 
 	public DeleteAction(IWorkbenchPart part, IConfigurationProvider configurationProvider) {
 		super(part, configurationProvider);
@@ -80,16 +84,40 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 
 	@Override
 	public void run() {
+		if (getSelectedPictogramElements().length > 1) {
+			setMultiDeleteInfo(new MultiDeleteInfo(true, false));
+		} else {
+			setMultiDeleteInfo(null);
+		}
 		genericRun(this);
 	}
 
 	@Override
 	public IContext createContext(PictogramElement pe) {
-		return new DeleteContext(pe);
+		DeleteContext deleteContext = new DeleteContext(pe);
+		if (getMultiDeleteInfo() != null) {
+			deleteContext.setMultiDeleteInfo(getMultiDeleteInfo());
+		}
+		return deleteContext;
 	}
 
 	@Override
 	public IFeature provideFeatureForContext(IContext context) {
 		return getFeatureProvider().getDeleteFeature((IDeleteContext) context);
+	}
+
+	/**
+	 * @return the multiDeleteInfo
+	 */
+	private IMultiDeleteInfo getMultiDeleteInfo() {
+		return multiDeleteInfo;
+	}
+
+	/**
+	 * @param multiDeleteInfo
+	 *            the multiDeleteInfo to set
+	 */
+	private void setMultiDeleteInfo(IMultiDeleteInfo multiDeleteInfo) {
+		this.multiDeleteInfo = multiDeleteInfo;
 	}
 }

@@ -25,6 +25,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IMultiDeleteInfo;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.impl.RemoveContext;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
@@ -37,6 +38,8 @@ import org.eclipse.ui.PlatformUI;
  * The Class DefaultDeleteFeature.
  */
 public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeature {
+
+	private boolean doneChanges = false;
 
 	/**
 	 * Creates a new {@link DefaultDeleteFeature}.
@@ -57,13 +60,32 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 	}
 
 	public void delete(IDeleteContext context) {
+		IMultiDeleteInfo multiDeleteInfo = context.getMultiDeleteInfo();
+		if (multiDeleteInfo != null && multiDeleteInfo.isDeleteCanceled()) {
+			return;
+		}
 		PictogramElement pe = context.getPictogramElement();
 		Object[] businessObjectsForPictogramElement = getAllBusinessObjectsForPictogramElement(pe);
 		if (businessObjectsForPictogramElement != null && businessObjectsForPictogramElement.length > 0) {
-			if (!getUserDecision()) {
-				return;
+			if (multiDeleteInfo == null) {
+				if (!getUserDecision()) {
+					return;
+				}
+			} else {
+				if (multiDeleteInfo.isShowDialog()) {
+					boolean okPressed = getUserDecision();
+					if (okPressed) {
+						// don't show further dialogs
+						multiDeleteInfo.setShowDialog(false);
+					} else {
+						multiDeleteInfo.setDeleteCanceled(true);
+						return;
+					}
+				}
 			}
 		}
+
+		setDoneChanges(true);
 
 		preDelete(context);
 
@@ -137,4 +159,13 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 	}
 
 	private static final String NAME = Messages.DefaultDeleteFeature_1_xfld;
+
+	@Override
+	public boolean hasDoneChanges() {
+		return doneChanges;
+	}
+
+	private void setDoneChanges(boolean doneChanges) {
+		this.doneChanges = doneChanges;
+	}
 }
