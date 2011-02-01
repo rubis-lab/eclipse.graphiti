@@ -13,15 +13,10 @@
  * </copyright>
  *
  *******************************************************************************/
-/*
- * Created on 17.11.2005
- *
-
-
- */
 package org.eclipse.graphiti.features.context.impl;
 
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IMultiDeleteInfo;
 import org.eclipse.graphiti.internal.features.context.impl.base.PictogramElementContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
@@ -29,6 +24,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  * The Class DeleteContext.
  */
 public class DeleteContext extends PictogramElementContext implements IDeleteContext {
+
+	private IMultiDeleteInfo multiDeleteInfo = null;
 
 	/**
 	 * Creates a new {@link DeleteContext}.
@@ -39,5 +36,14 @@ public class DeleteContext extends PictogramElementContext implements IDeleteCon
 	public DeleteContext(PictogramElement pictogramElement) {
 		super();
 		setPictogramElement(pictogramElement);
+	}
+
+	public void setMultiDeleteInfo(IMultiDeleteInfo multiDeleteInfo) {
+		this.multiDeleteInfo = multiDeleteInfo;
+	}
+
+	@Override
+	public IMultiDeleteInfo getMultiDeleteInfo() {
+		return multiDeleteInfo;
 	}
 }

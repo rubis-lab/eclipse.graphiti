@@ -13,9 +13,6 @@
  * </copyright>
  *
  *******************************************************************************/
-/*
- * Created on 17.11.2005
- */
 package org.eclipse.graphiti.features.context;
 
 /**
@@ -25,4 +22,13 @@ package org.eclipse.graphiti.features.context;
  * @noextend This interface is not intended to be extended by clients.
  */
 public interface IDeleteContext extends IPictogramElementContext {
+
+	/**
+	 * Returns the multiple delete information.
+	 * 
+	 * @return IMultiDeleteInfo in case of a multiple delete operation and null
+	 *         in all other cases.
+	 */
+	IMultiDeleteInfo getMultiDeleteInfo();
+
 }
