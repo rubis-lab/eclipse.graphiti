@@ -71,14 +71,33 @@
 		
 		<echo message="Deleting old ZIP archive from last_success area" />
 		<delete dir="${root}/last_success/site.p2.zip/" failonerror="true" />
+
+		<echo message="Deleting old signed update site from last_success area" />
+		<available file="${root}/last_success/site.signed/" property="site.signed.exists"/>
+		<antcall target="sub.delete.last_success.site.signed"/>
 		
 		<echo message="Copying site.p2 to last_success area" />
 		<copydir dest="${root}/last_success/site.p2/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2" />
-		
+
+		<echo message="Copying site.signed to last_success area" />
+		<available file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.signed" property="site.signed.created"/>
+		<antcall target="sub.copy.last_success.site.signed"/>
+
 		<echo message="Copying site.p2.zip to last_success area" />
 		<copydir dest="${root}/last_success/site.p2.zip/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2.zip" />
 	</target>
+	
+	<!-- Sub targets for copy.sites -->
+	<target name="sub.delete.last_success.site.signed" if="site.signed.exists">
+		<delete dir="${root}/last_success/site.signed/" failonerror="true" />
+	</target>
 
+	<target name="sub.copy.last_success.site.signed" if="site.signed.created">
+		<copydir dest="${root}/last_success/site.signed/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.signed" />
+	</target>
+	<!-- End sub targets -->
+
+	<!-- This target promotes the last_success folder to the download area for the nightly build. It is triggered via a cron job running each evening -->
 	<target name="promote.sites" >
 		<echo message="Deleting old update site from downloads area" />
 		<delete dir="/home/data/httpd/download.eclipse.org/graphiti/updates/nightly/" failonerror="true" />
