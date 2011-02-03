@@ -24,7 +24,6 @@ import org.eclipse.osgi.util.NLS;
  */
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "org.eclipse.graphiti.ui.internal.messages"; //$NON-NLS-1$
-	public static String AbstractFeature_0_xhed;
 	public static String AbstractFigureSelectionDialog_0_xtxt;
 	public static String AbstractFigureSelectionDialog_1_xtxt;
 	public static String AbstractFigureSelectionDialog_2_xbut;
@@ -32,8 +31,11 @@ public class Messages extends NLS {
 	public static String CopyAction_0_xmsg;
 	public static String CopyAction_1_xfld;
 	public static String CreateConnectionCommand_0_xmsg;
-	public static String DefaultDeleteFeature_0_xmsg;
 	public static String DefaultDeleteFeature_1_xfld;
+	public static String DefaultDeleteFeature_2_xmsg;
+	public static String DefaultDeleteFeature_3_xmsg;
+	public static String DefaultDeleteFeature_4_xmsg;
+	public static String DefaultDeleteFeature_5_xfld;
 	public static String DefaultDirectEditPolicy_0_xmsg;
 	public static String DeleteAction_0_xmsg;
 	public static String DeleteAction_1_xfld;

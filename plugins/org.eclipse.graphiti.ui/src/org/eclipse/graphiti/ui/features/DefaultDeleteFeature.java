@@ -13,10 +13,9 @@
  * </copyright>
  *
  *******************************************************************************/
-/*
- * Created on 06.07.2005
- */
 package org.eclipse.graphiti.ui.features;
+
+import java.text.MessageFormat;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -68,12 +67,12 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		Object[] businessObjectsForPictogramElement = getAllBusinessObjectsForPictogramElement(pe);
 		if (businessObjectsForPictogramElement != null && businessObjectsForPictogramElement.length > 0) {
 			if (multiDeleteInfo == null) {
-				if (!getUserDecision()) {
+				if (!getUserDecision(context)) {
 					return;
 				}
 			} else {
 				if (multiDeleteInfo.isShowDialog()) {
-					boolean okPressed = getUserDecision();
+					boolean okPressed = getUserDecision(context);
 					if (okPressed) {
 						// don't show further dialogs
 						multiDeleteInfo.setShowDialog(false);
@@ -127,12 +126,6 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		}
 	}
 
-	@Override
-	protected boolean getUserDecision() {
-		return MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Messages.AbstractFeature_0_xhed,
-				Messages.DefaultDeleteFeature_0_xmsg);
-	}
-
 	public void preDelete(IDeleteContext context) {
 	}
 
@@ -167,5 +160,42 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 
 	private void setDoneChanges(boolean doneChanges) {
 		this.doneChanges = doneChanges;
+	}
+
+	/**
+	 * Shows a dialog which asks the user to confirm the deletion of one or more
+	 * elements.
+	 * 
+	 * @param context
+	 *            delete context
+	 * @return TRUE, delete element(s); FALSE cancel delete
+	 */
+	protected boolean getUserDecision(IDeleteContext context) {
+		String msg;
+		IMultiDeleteInfo multiDeleteInfo = context.getMultiDeleteInfo();
+		if (multiDeleteInfo != null) {
+			msg = MessageFormat.format(Messages.DefaultDeleteFeature_2_xmsg, multiDeleteInfo.getNumber());
+		} else {
+			String deleteName = getDeleteName(context);
+			if (deleteName != null && deleteName.length() > 0) {
+				msg = MessageFormat.format(Messages.DefaultDeleteFeature_3_xmsg, deleteName);
+			} else {
+				msg = Messages.DefaultDeleteFeature_4_xmsg;
+			}
+		}
+		return MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+				Messages.DefaultDeleteFeature_5_xfld, msg);
+	}
+
+	/**
+	 * Returns the delete name which will be used for the delete dialog. E.g.
+	 * "file test.java"
+	 * 
+	 * @param context
+	 *            the delete context
+	 * @return the delete name
+	 */
+	protected String getDeleteName(IDeleteContext context) {
+		return null;
 	}
 }

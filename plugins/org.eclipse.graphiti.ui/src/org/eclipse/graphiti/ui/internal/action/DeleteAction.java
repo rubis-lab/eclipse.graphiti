@@ -84,8 +84,9 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 
 	@Override
 	public void run() {
-		if (getSelectedPictogramElements().length > 1) {
-			setMultiDeleteInfo(new MultiDeleteInfo(true, false));
+		int number = getSelectedPictogramElements().length;
+		if (number > 1) {
+			setMultiDeleteInfo(new MultiDeleteInfo(true, false, number));
 		} else {
 			setMultiDeleteInfo(null);
 		}
