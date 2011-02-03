@@ -53,4 +53,10 @@ public interface IMultiDeleteInfo {
 	 */
 	void setDeleteCanceled(boolean deleteCanceled);
 
+	/**
+	 * Returns the number of elements which are selected for deletion.
+	 * 
+	 * @return the number of selected elements
+	 */
+	int getNumber();
 }

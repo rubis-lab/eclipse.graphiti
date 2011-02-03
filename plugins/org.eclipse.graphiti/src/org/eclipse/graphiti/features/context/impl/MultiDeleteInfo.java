@@ -27,14 +27,18 @@ public class MultiDeleteInfo implements IMultiDeleteInfo {
 
 	private boolean deleteCanceled;
 
+	private int number;
+
 	/**
 	 * @param showDialog
 	 * @param deleteCanceled
+	 * @param number
 	 */
-	public MultiDeleteInfo(boolean showDialog, boolean deleteCanceled) {
+	public MultiDeleteInfo(boolean showDialog, boolean deleteCanceled, int number) {
 		super();
 		setShowDialog(showDialog);
 		setDeleteCanceled(deleteCanceled);
+		this.number = number;
 	}
 
 	public boolean isShowDialog() {
@@ -51,5 +55,9 @@ public class MultiDeleteInfo implements IMultiDeleteInfo {
 
 	public void setDeleteCanceled(boolean deleteCanceled) {
 		this.deleteCanceled = deleteCanceled;
+	}
+
+	public int getNumber() {
+		return number;
 	}
 }
