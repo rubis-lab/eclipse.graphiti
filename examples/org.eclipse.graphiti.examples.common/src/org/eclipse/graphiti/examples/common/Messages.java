@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
  *
  * </copyright>
  *
@@ -57,6 +58,8 @@ public class Messages extends NLS {
 	public static String GraphicsTestPreferencePage_RecursiveUpdateCheckField;
 	public static String GraphicsTestPreferencePage_VisualPlayingTitle;
 	public static String GraphicsTestPreferencePage_VisualStateRenderingField;
+	public static String OpenDiagramFromFileHandler_DialogTitle;
+	public static String OpenDiagramFromFileHandler_OpenEditorError;
 	public static String RenameActionProvider_ProvideNameDescription;
 	public static String RenameActionProvider_ProvideNameTitle;
 	public static String RenameActionProvider_RenameEClassText;

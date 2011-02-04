@@ -10,6 +10,7 @@
    
     Contributors:
        SAP AG - initial API, implementation and documentation
+       mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
    
     </copyright>
    
@@ -35,7 +36,7 @@
             contentProvider="org.eclipse.graphiti.examples.common.navigator.GFEmfTreeContentProvider"
             id="org.eclipse.graphiti.examples.navigatorContent"
             labelProvider="org.eclipse.graphiti.examples.common.navigator.GFEmfLabelProvider"
-            name="Graphiti Navigator Content"
+            name="%navigatorContent.name"
             priority="higher">
          <triggerPoints>
             <or>
@@ -84,7 +85,7 @@
 		<category
 			id = "org.eclipse.graphiti.examples.project.category"
 			parentCategory="org.eclipse.ui.Examples"
-			name="Graphiti">
+			name="%category.name">
 		</category>
 		<wizard
         category="org.eclipse.ui.Examples/org.eclipse.graphiti.examples.project.category"
@@ -92,9 +93,9 @@
         finalPerspective="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
         icon="icons/rialto16.gif"
         id="org.eclipse.graphiti.examples.ui.CreateSampleProjectWizard"
-        name="Graphiti Sample Project"
+        name="%wizard.name"
         project="true">
-			<description>Create a Graphiti Example Project</description>
+			<description>%wizard.description</description>
 			<selection class="org.eclipse.core.resources.IResource"/>
 		</wizard>
 		<wizard
@@ -103,9 +104,9 @@
         finalPerspective="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
         icon="icons/pid16.gif"
         id="org.eclipse.graphiti.examples.ui.CreateDiagramWizard"
-        name="Graphiti Diagram">
+        name="%wizard.name.0">
      <description>
-        Creates a new Graphiti diagram (the type of the new diagram can be chosen among all existing types)
+        %wizard.description.0
      </description>
      <selection
            class="org.eclipse.core.resources.IContainer">
@@ -116,7 +117,7 @@
 <extension
       point="org.eclipse.core.resources.natures"
       id="org.eclipse.graphiti.examples.examplesnature"
-      name="Graphiti Example Nature">
+      name="%nature.name">
       <runtime>
          <run class="org.eclipse.graphiti.examples.common.ExampleProjectNature">
          </run>
@@ -147,7 +148,47 @@
             fixed="false"
             icon="icons/rialto16.gif"
             id="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
-            name="Graphiti"/>
+            name="%perspective.name"/>
    </extension>
+
+	<extension point="org.eclipse.ui.commands">
+		<command id="org.eclipse.graphiti.examples.common.commands.openDiagramFromFile" name="%openDiagramFromFilecommand.name" /> 
+	</extension>
+
+	<extension point="org.eclipse.ui.handlers">
+		<handler commandId="org.eclipse.graphiti.examples.common.commands.openDiagramFromFile" class="org.eclipse.graphiti.examples.common.handler.OpenDiagramFromFileHandler">
+			<enabledWhen>
+				<reference definitionId="org.eclipse.graphiti.examples.common.definitions.OneProjectSelected" /> 
+			</enabledWhen>
+			<activeWhen>
+				<reference definitionId="org.eclipse.graphiti.examples.common.definitions.OneProjectSelected" /> 
+			</activeWhen>
+		</handler>
+	</extension>
+
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+			<command commandId="org.eclipse.graphiti.examples.common.commands.openDiagramFromFile">
+					id="org.eclipse.graphiti.examples.common.menu.openDiagramFromFile"> 
+				<visibleWhen>
+					<reference definitionId="org.eclipse.graphiti.examples.common.definitions.OneProjectSelected" /> 
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+
+	<extension point="org.eclipse.core.expressions.definitions">
+		<definition id="org.eclipse.graphiti.examples.common.definitions.OneProjectSelected">
+			<and>
+				<count value="1" /> 
+				<iterate ifEmpty="false" operator="and">
+					<adapt type="org.eclipse.core.resources.IProject">
+          				<test property="org.eclipse.core.resources.projectNature" 
+                			value="org.eclipse.graphiti.examples.examplesnature"/>
+					</adapt>
+				</iterate>
+			</and>
+		</definition>
+	</extension>
 
 </plugin>
