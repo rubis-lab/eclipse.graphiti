@@ -12,6 +12,7 @@
  *    mwenz - Bug 331715: Support for rectangular grids in diagrams
  *    mwenz - Bug 332964: Enable setting selection for non-EMF domain models and
  *                        when embedded into a multi-page editor
+ *    mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
  *
  * </copyright>
  *
@@ -1071,7 +1072,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			IEditorInput newInput = new DiagramEditorFactory().createEditorInput(input);
 			if (!(newInput instanceof DiagramEditorInput)) {
 				// give up
-				throw new PartInitException("Unknown editor input: " + newInput); //$NON-NLS-1$
+				throw new PartInitException("Unknown editor input: " + input); //$NON-NLS-1$
 			}
 			input = newInput;
 		}

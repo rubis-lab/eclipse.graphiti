@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
  *
  * </copyright>
  *
@@ -18,6 +19,7 @@ package org.eclipse.graphiti.ui.editor;
 import org.eclipse.core.commands.operations.DefaultOperationHistory;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -52,14 +54,16 @@ public class DiagramEditorFactory implements IElementFactory {
 
 	/**
 	 * Creates a new {@link DiagramEditorInput} with a self created
-	 * {@link TransactionalEditingDomain} or returns otherInput, if it is a
+	 * {@link TransactionalEditingDomain} in case the passed
+	 * {@link IEditorInput} is either a {@link IFileEditorInput} or a
+	 * {@link URIEditorInput}. It returns otherInput, if it is a
 	 * {@link DiagramEditorInput}. The created editor input object will care
 	 * about the disposal of the editing domain.
 	 * 
 	 * @param otherInput
 	 *            an {@link IEditorInput} editor input
-	 * @return a {@link DiagramEditorInput} editor input or a
-	 *         {@link DiagramEditorInputDisposingTED}
+	 * @return a {@link DiagramEditorInput} editor input if the conversion is
+	 *         supported and succeeded, otherwise <code>null</code>.
 	 */
 	public DiagramEditorInput createEditorInput(IEditorInput otherInput) {
 		if (otherInput instanceof DiagramEditorInput) {
@@ -70,6 +74,16 @@ public class DiagramEditorFactory implements IElementFactory {
 			final IFile file = fileInput.getFile();
 			final TransactionalEditingDomain domain = createResourceSetAndEditingDomain();
 			URI diagramFileUri = GraphitiUiInternal.getEmfService().getFileURI(file, domain.getResourceSet());
+			if (diagramFileUri != null) {
+				// the file has to contain one base node which has to be a diagram
+				diagramFileUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri);
+				return new DiagramEditorInput(diagramFileUri, domain, null, true);
+			}
+		}
+		if (otherInput instanceof URIEditorInput) {
+			final URIEditorInput uriInput = (URIEditorInput) otherInput;
+			final TransactionalEditingDomain domain = createResourceSetAndEditingDomain();
+			URI diagramFileUri = uriInput.getURI();
 			if (diagramFileUri != null) {
 				// the file has to contain one base node which has to be a diagram
 				diagramFileUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri);
@@ -115,6 +129,30 @@ public class DiagramEditorFactory implements IElementFactory {
 								if (uri.equals(diagramUri)) {
 									return true;
 								}
+							}
+						}
+					}
+				} else if (input instanceof URIEditorInput) {
+					final URIEditorInput uriInput = (URIEditorInput) input;
+					URI uri = uriInput.getURI();
+					uri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(uri);
+
+					// Check whether the given file contains a diagram as its
+					// root element. If yes, compare it with the given editor's
+					// diagram.
+					final IEditorInput editorInput = editorRef.getEditorInput();
+					if (editorInput instanceof DiagramEditorInput) {
+						final DiagramEditorInput diagInput = (DiagramEditorInput) editorInput;
+
+						// We do not compare diagram object but diagram files only.
+						// Reason is that if editorRef points to a not yet
+						// realized editor, its input's diagram is null (not yet
+						// created), thus we can only get its diagram file.
+						final String uriString = diagInput.getUriString();
+						final URI diagramUri = URI.createURI(uriString);
+						if (diagramUri != null) {
+							if (uri.equals(diagramUri)) {
+								return true;
 							}
 						}
 					}
