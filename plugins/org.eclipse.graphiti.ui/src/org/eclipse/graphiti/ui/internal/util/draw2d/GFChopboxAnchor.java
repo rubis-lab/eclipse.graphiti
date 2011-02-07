@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 336516 - Anchors with polyline GA caused NPE
  *
  * </copyright>
  *
@@ -171,7 +172,7 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 	 *         through ownReference and foreignReference points
 	 */
 	protected PointList getIntersectionPoints(Point ownReference, Point foreignReference) {
-		final PointList polygon = getPolygonPoints();
+		final PointList polygon = getPolylinePoints();
 		return (new LineSeg(ownReference, foreignReference)).getLineIntersectionsWithLineSegs(polygon);
 	}
 
@@ -183,9 +184,9 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 	 * @return the <code>PointList</code> list of all the vertices of the
 	 *         figure.
 	 */
-	protected PointList getPolygonPoints() {
-		if (getOwner() instanceof GFPolygon) {
-			PointList polyList = ((GFPolygon) getOwner()).getPoints().getCopy();
+	protected PointList getPolylinePoints() {
+		if (getOwner() instanceof GFPolyline) {
+			PointList polyList = ((GFPolyline) getOwner()).getPoints().getCopy();
 			polyList.addPoint(polyList.getFirstPoint());
 			getOwner().translateToAbsolute(polyList);
 			return polyList;
