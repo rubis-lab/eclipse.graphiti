@@ -8,13 +8,17 @@
 
 	Contributors:
 	  SAP AG - initial API and implementation
+	  mwenz - Use central Eclipse license feature
 -->
+
 <feature
       id="org.eclipse.graphiti.site"
       label="%featureName"
       version="0.8.0.qualifier"
       provider-name="%providerName"
-      image="eclipse_update_120.jpg">
+      image="eclipse_update_120.jpg"
+      license-feature="org.eclipse.license"
+      license-feature-version="1.0.0.qualifier">
 
    <description>
       %description
@@ -28,10 +32,6 @@ v1.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v10.html
    </copyright>
-
-   <license url="%licenseURL">
-      %license
-   </license>
 
    <url>
       <update url="http://www.eclipse.org/downloads/download.php?file=/graphiti/updates/0.8.0/&amp;protocol=http&amp;format=xml"/>
