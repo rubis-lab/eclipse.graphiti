@@ -3,6 +3,7 @@
   <rm:property key="build.type" mutable="true" value="N"/>
   <rm:locator pattern="^org\.eclipse\.graphiti\.releng.*" searchPathRef="releng"/>
   <rm:locator pattern="^org\.eclipse\.graphiti\.*" searchPathRef="sources"/>
+  <rm:locator pattern="^org\.eclipse\.license\.*" searchPathRef="eclipse.license"/>
   <rm:locator searchPathRef="platform.binaries" failOnError="false"/>
   <rm:locator searchPathRef="orbit"/>
   <rm:searchPath name="releng">
@@ -81,6 +82,14 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:uri format="{0}/technology/swtbot/archives/2.0.0.595-dev/helios/dev-build/update-site">
         <bc:propertyRef key="eclipse.downloads"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="eclipse.license">
+    <rm:provider componentTypes="eclipse.feature" readerType="cvs" resolutionFilter="">
+      <rm:uri format="{0},org.eclipse.sdk-feature/features/{1}">
+        <bc:propertyRef key="cvs.repository"/>
+        <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
     </rm:provider>
   </rm:searchPath>
