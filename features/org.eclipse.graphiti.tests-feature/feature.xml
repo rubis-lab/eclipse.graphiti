@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	Copyright (c) 2005 - 2010 SAP AG.
+	Copyright (c) 2005 - 2011 SAP AG.
 	All rights reserved. This program and the accompanying materials
 	are made available under the terms of the Eclipse Public License v1.0
 	which accompanies this distribution, and is available at
@@ -8,16 +8,14 @@
 
 	Contributors:
 	  SAP AG - initial API and implementation
-	  mwenz - Use central Eclipse license feature
+	  mwenz - Update of Eclipse license
 -->
 <feature
       id="org.eclipse.graphiti.feature.tests"
       label="%featureName"
       version="0.8.0.qualifier"
       provider-name="%providerName"
-      image="eclipse_update_120.jpg"
-      license-feature="org.eclipse.license"
-      license-feature-version="1.0.0.qualifier">
+      image="eclipse_update_120.jpg">
 
    <description>
       %description
@@ -26,6 +24,10 @@
    <copyright url="%copyrightURL">
       %copyright
    </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
 
    <url>
       <update label="%graphitiTestUpdateSiteName" url="http://download.eclipse.org/modeling/graphiti/updates/"/>
