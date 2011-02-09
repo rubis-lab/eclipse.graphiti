@@ -11,6 +11,7 @@
     Contributors:
        SAP AG - initial API, implementation and documentation
        mwenz - Update of Eclipse license
+       mwenz - Added capabilities plugin
    
     </copyright>
    
@@ -54,6 +55,13 @@ http://www.eclipse.org/legal/epl-v10.html
 
    <plugin
          id="org.eclipse.graphiti.examples.tutorial"
+         download-size="0"
+         install-size="0"
+         version="0.8.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.graphiti.ui.capabilities"
          download-size="0"
          install-size="0"
          version="0.8.0.qualifier"
