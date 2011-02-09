@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.activities">
+         
+      <!-- The activity for the framework contributions -->
+      <activity
+            description="%activity.description.framework"
+            id="org.eclipse.graphiti.ui.capabilities.framework"
+            name="%activity.name.framework">
+      </activity>
+      <defaultEnablement
+            id="org.eclipse.graphiti.ui.capabilities.framework">
+      </defaultEnablement>
+      
+      <!-- The activity for the example contributions (requires framework contributions) -->
+      <activity
+            description="%activity.description.examples"
+            id="org.eclipse.graphiti.ui.capabilities.examples"
+            name="%activity.name.examples">
+      </activity>
+      <activityRequirementBinding
+            activityId="org.eclipse.graphiti.ui.capabilities.examples"
+            requiredActivityId="org.eclipse.graphiti.ui.capabilities.framework">
+      </activityRequirementBinding>
+      <defaultEnablement
+            id="org.eclipse.graphiti.ui.capabilities.examples">
+      </defaultEnablement>
+      
+      <!-- The category for the Graphiti capabilities -->
+      <category
+            description="%category.description"
+            id="org.eclipse.graphiti.ui.capabilities.category"
+            name="%category.name">
+      </category>
+      <categoryActivityBinding
+            activityId="org.eclipse.graphiti.ui.capabilities.framework"
+            categoryId="org.eclipse.graphiti.ui.capabilities.category">
+      </categoryActivityBinding>
+      <categoryActivityBinding
+            activityId="org.eclipse.graphiti.ui.capabilities.examples"
+            categoryId="org.eclipse.graphiti.ui.capabilities.category">
+      </categoryActivityBinding>
+      
+      <!-- Bind export to Batik extensions to framework capability -->
+      <activityPatternBinding
+            activityId="org.eclipse.graphiti.ui.capabilities.framework"
+            pattern="org\.eclipse\.graphiti\.export\.batik\..*/.*">
+      </activityPatternBinding>
+
+      <!-- Bind UI extensions to framework capability -->
+      <activityPatternBinding
+            activityId="org.eclipse.graphiti.ui.capabilities.framework"
+            pattern="org\.eclipse\.graphiti\.ui\..*/.*">
+      </activityPatternBinding>
+
+      <!-- Bind examples extensions to examples capability -->
+      <activityPatternBinding
+            activityId="org.eclipse.graphiti.ui.capabilities.examples"
+            pattern="org\.eclipse\.graphiti\.examples\..*/.*">
+      </activityPatternBinding>
+
+      <!-- Bind sample tools extensions to examples capability -->
+      <activityPatternBinding
+            activityId="org.eclipse.graphiti.ui.capabilities.examples"
+            pattern="org\.eclipse\.graphiti\.sample\..*/.*">
+      </activityPatternBinding>
+   </extension>
+
+</plugin>
