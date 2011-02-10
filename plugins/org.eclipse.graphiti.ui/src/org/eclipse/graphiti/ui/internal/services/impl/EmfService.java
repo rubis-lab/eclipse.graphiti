@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *
  * </copyright>
  *
@@ -202,17 +203,17 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-
 	@Override
 	@SuppressWarnings("unchecked")
-	public void save(TransactionalEditingDomain editingDomain) throws WrappedException {
-		save(editingDomain, Collections.EMPTY_MAP);
+	public Set<Resource> save(TransactionalEditingDomain editingDomain) throws WrappedException {
+		return save(editingDomain, Collections.EMPTY_MAP);
 	}
 
 	@Override
-	public void save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options) {
+	public Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options) {
 
 		final Map<URI, Throwable> failedSaves = new HashMap<URI, Throwable>();
+		final Set<Resource> savedResources = new HashSet<Resource>();
 		final IWorkspaceRunnable wsRunnable = new IWorkspaceRunnable() {
 			@Override
 			public void run(final IProgressMonitor monitor) throws CoreException {
@@ -237,7 +238,6 @@ public class EmfService implements IEmfService {
 						// during the saving of the dirty resources
 						Resource[] resourcesArray = new Resource[resources.size()];
 						resourcesArray = resources.toArray(resourcesArray);
-						final Set<Resource> savedResources = new HashSet<Resource>();
 						for (int i = 0; i < resourcesArray.length; i++) {
 							// In case resource modification tracking is switched on, 
 							// we can check if a resource has been modified, so that we only need to save
@@ -279,6 +279,8 @@ public class EmfService implements IEmfService {
 			}
 			throw new RuntimeException(e);
 		}
+
+		return savedResources;
 	}
 
 	private String createMessage(Map<URI, Throwable> failedSaves) {

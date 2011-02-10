@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *
  * </copyright>
  *
@@ -17,6 +18,7 @@ package org.eclipse.graphiti.ui.internal.editor;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -425,8 +427,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 */
 	private boolean handleDirtyConflict() {
 		return MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-				Messages.DiscardChangesDialog_0_xmsg,
-				Messages.DiscardChangesDialog_1_xmsg);
+				Messages.DiscardChangesDialog_0_xmsg, Messages.DiscardChangesDialog_1_xmsg);
 	}
 
 	/**
@@ -482,10 +483,11 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * @param progressMonitor
 	 *            The {@link IProgressMonitor} progress monitor
 	 */
-	public void doSave(IProgressMonitor progressMonitor) {
+	public Resource[] doSave(IProgressMonitor progressMonitor) {
 		// Save only resources that have actually changed.
 		final Map<Object, Object> saveOptions = new HashMap<Object, Object>();
 		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		final Set<Resource> savedResources = new HashSet<Resource>();
 
 		// Do the work within an operation because this is a long running activity that modifies the workbench.
 		final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
@@ -494,7 +496,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 			public void execute(IProgressMonitor monitor) {
 				// Save the resources to the file system.
 				try {
-					GraphitiUiInternal.getEmfService().save(editingDomain);
+					savedResources.addAll(GraphitiUiInternal.getEmfService().save(editingDomain));
 				} catch (final WrappedException e) {
 					final MultiStatus errorStatus = new MultiStatus(GraphitiUIPlugin.PLUGIN_ID, 0, e.getMessage(), e.exception());
 					GraphitiUIPlugin.getDefault().getLog().log(errorStatus);
@@ -519,6 +521,8 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		}
 		this.updateProblemIndication = true;
 		updateProblemIndication();
+
+		return savedResources.toArray(new Resource[savedResources.size()]);
 	}
 
 	private IOperationHistory getOperationHistory() {

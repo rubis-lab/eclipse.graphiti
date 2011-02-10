@@ -13,6 +13,7 @@
  *    mwenz - Bug 332964: Enable setting selection for non-EMF domain models and
  *                        when embedded into a multi-page editor
  *    mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
+ *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *
  * </copyright>
  *
@@ -35,6 +36,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -564,8 +566,12 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		getBehavior().doSave(monitor);
+		Resource[] savedResources = getBehavior().doSave(monitor);
 		commandStackChanged(null);
+
+		IDiagramTypeProvider provider = getConfigurationProvider().getDiagramTypeProvider();
+		provider.resourcesSaved(getDiagramTypeProvider().getDiagram(), savedResources);
+
 	}
 
 	@Override

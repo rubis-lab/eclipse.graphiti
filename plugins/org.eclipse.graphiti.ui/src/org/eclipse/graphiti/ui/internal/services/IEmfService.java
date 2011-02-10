@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *
  * </copyright>
  *
@@ -16,6 +17,7 @@
 package org.eclipse.graphiti.ui.internal.services;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -67,7 +69,6 @@ public interface IEmfService {
 	 * @see #getEObject(Object)
 	 */
 	public abstract EObject getEObject(Object object);
-
 
 	/**
 	 * Returns the Eclipse file for the given {@link EObject}'s {@link Resource}
@@ -135,17 +136,16 @@ public interface IEmfService {
 	 */
 	public abstract IFile getFile(URI uri, ResourceSet resourceSet);
 
-
 	/**
 	 * Saves the given {@link TransactionalEditingDomain} by saving all its
 	 * dirty {@link Resource}s.
 	 * 
 	 * @param editingDomain
 	 *            The {@link TransactionalEditingDomain} to be saved.
+	 * @return
 	 */
-	public abstract void save(TransactionalEditingDomain editingDomain) throws WrappedException;
-	
-	
+	public abstract Set<Resource> save(TransactionalEditingDomain editingDomain) throws WrappedException;
+
 	/**
 	 * Saves the given {@link TransactionalEditingDomain} by saving all its
 	 * dirty {@link Resource}s.
@@ -154,8 +154,9 @@ public interface IEmfService {
 	 *            The {@link TransactionalEditingDomain} to be saved.
 	 * @param options
 	 *            Save options for each of the {@link Resource}s to save.
+	 * @return
 	 */
-	public abstract void save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options);
+	public abstract Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options);
 
 	/**
 	 * Creates an extended string presentation of the given {@link EObject},
