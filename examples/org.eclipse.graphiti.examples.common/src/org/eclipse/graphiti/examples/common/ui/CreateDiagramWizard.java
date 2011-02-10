@@ -34,6 +34,7 @@ import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -108,9 +109,18 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 		TransactionalEditingDomain domain = FileService.createEmfFileForDiagram(uri, diagram);
 		String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
 		DiagramEditorInput editorInput = new DiagramEditorInput(EcoreUtil.getURI(diagram), domain, providerId);
+		
+		// Check if editor exists with the following id: diagramtype +
+		// ".editor", if so open specific editor
+		String editorID = DiagramEditor.DIAGRAM_EDITOR_ID;
+		String namingConventionID = providerId + ".editor";
+		IEditorDescriptor specificEditor = PlatformUI.getWorkbench().getEditorRegistry().findEditor(namingConventionID);
+		if (specificEditor != null) {
+			editorID = namingConventionID;
+		}
 
 		try {
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, DiagramEditor.DIAGRAM_EDITOR_ID);
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, editorID);
 		} catch (PartInitException e) {
 			String error = Messages.CreateDiagramWizard_OpeningEditorError;
 			IStatus status = new Status(IStatus.ERROR, ExamplesCommonPlugin.getID(), error, e);
