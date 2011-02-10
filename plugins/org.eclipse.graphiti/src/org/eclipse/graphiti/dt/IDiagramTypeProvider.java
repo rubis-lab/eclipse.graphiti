@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *
  * </copyright>
  *
@@ -18,6 +19,7 @@
  */
 package org.eclipse.graphiti.dt;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProviderHolder;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.notification.INotificationService;
@@ -160,4 +162,15 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 * @param diagram
 	 */
 	void resourceReloaded(Diagram diagram);
+
+	/**
+	 * This method will be called by the DiagramEditor when a diagram has been
+	 * saved.
+	 * 
+	 * @param diagram
+	 *            The diagram for which the editor has been saved
+	 * @param savedResources
+	 *            The resources that have been saved
+	 */
+	void resourcesSaved(Diagram diagram, Resource[] savedResources);
 }

@@ -9,12 +9,14 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.dt;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -196,5 +198,9 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	@Override
 	public void resourceReloaded(Diagram diagram) {
 		setDiagram(diagram);
+	}
+
+	@Override
+	public void resourcesSaved(Diagram diagram, Resource[] savedResources) {
 	}
 }
