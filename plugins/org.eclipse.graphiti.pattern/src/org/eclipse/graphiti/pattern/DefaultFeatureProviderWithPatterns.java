@@ -9,6 +9,9 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Volker Wegert - Bug 336828: patterns should support delete,
+ *                    remove, direct editing and conditional palette
+ *                    creation entry
  *
  * </copyright>
  *
@@ -22,16 +25,22 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
+import org.eclipse.graphiti.features.IDeleteFeature;
+import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
+import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
+import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.Property;
@@ -177,7 +186,9 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 		List<ICreateFeature> retList = new ArrayList<ICreateFeature>();
 
 		for (IPattern pattern : getPatterns()) {
-			retList.add(new CreateFeatureForPattern(this, pattern));
+			if (pattern.isPaletteApplicable()) {
+				retList.add(new CreateFeatureForPattern(this, pattern));
+			}
 		}
 
 		ICreateFeature[] a = getCreateFeaturesAdditional();
@@ -201,6 +212,86 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 			retList.add(element);
 		}
 		return retList.toArray(ret);
+	}
+
+	@Override
+	public IDeleteFeature getDeleteFeature(IDeleteContext context) {
+		if (context == null) {
+			throw new IllegalArgumentException("Argument context must not be null."); //$NON-NLS-1$
+		}
+		IDeleteFeature ret = null;
+		for (IPattern pattern : getPatterns()) {
+			if (checkPattern(pattern, getBusinessObjectForPictogramElement(context.getPictogramElement()))) {
+				IPattern choosenPattern = null;
+				IDeleteFeature f = new DeleteFeatureForPattern(this, pattern);
+				if (checkFeatureAndContext(f, context)) {
+					if (ret == null) {
+						ret = f;
+						choosenPattern = pattern;
+					} else {
+						traceWarning("getDeleteFeature", pattern, choosenPattern); //$NON-NLS-1$
+					}
+				}
+			}
+		}
+
+		if (ret == null) {
+			ret = getDeleteFeatureAdditional(context);
+		}
+
+		return ret;
+	}
+
+	/**
+	 * Gets the additional delete feature.
+	 * 
+	 * @param context
+	 *            the delete context
+	 * 
+	 * @return the additional delete feature
+	 */
+	protected IDeleteFeature getDeleteFeatureAdditional(IDeleteContext context) {
+		return super.getDeleteFeature(context);
+	}
+
+	@Override
+	public IRemoveFeature getRemoveFeature(IRemoveContext context) {
+		if (context == null) {
+			throw new IllegalArgumentException("Argument context must not be null."); //$NON-NLS-1$
+		}
+		IRemoveFeature ret = null;
+		for (IPattern pattern : getPatterns()) {
+			if (checkPattern(pattern, getBusinessObjectForPictogramElement(context.getPictogramElement()))) {
+				IPattern choosenPattern = null;
+				IRemoveFeature f = new RemoveFeatureForPattern(this, pattern);
+				if (checkFeatureAndContext(f, context)) {
+					if (ret == null) {
+						ret = f;
+						choosenPattern = pattern;
+					} else {
+						traceWarning("getRemoveFeature", pattern, choosenPattern); //$NON-NLS-1$
+					}
+				}
+			}
+		}
+
+		if (ret == null) {
+			ret = getRemoveFeatureAdditional(context);
+		}
+
+		return ret;
+	}
+
+	/**
+	 * Gets the additional remove feature.
+	 * 
+	 * @param context
+	 *            the remove context
+	 * 
+	 * @return the additional remove feature
+	 */
+	protected IRemoveFeature getRemoveFeatureAdditional(IRemoveContext context) {
+		return super.getRemoveFeature(context);
 	}
 
 	@Override
@@ -437,6 +528,46 @@ public class DefaultFeatureProviderWithPatterns extends DefaultFeatureProvider i
 	 */
 	protected ICreateConnectionFeature[] getCreateConnectionFeaturesAdditional() {
 		return super.getCreateConnectionFeatures();
+	}
+
+	@Override
+	public IDirectEditingFeature getDirectEditingFeature(IDirectEditingContext context) {
+		if (context == null) {
+			throw new IllegalArgumentException("Argument context must not be null."); //$NON-NLS-1$
+		}
+		IDirectEditingFeature ret = null;
+		for (IPattern pattern : getPatterns()) {
+			if (checkPattern(pattern, getBusinessObjectForPictogramElement(context.getPictogramElement()))) {
+				IPattern choosenPattern = null;
+				IDirectEditingFeature f = new DirectEditingFeatureForPattern(this, pattern);
+				if (checkFeatureAndContext(f, context)) {
+					if (ret == null) {
+						ret = f;
+						choosenPattern = pattern;
+					} else {
+						traceWarning("getLayoutFeature", pattern, choosenPattern); //$NON-NLS-1$
+					}
+				}
+			}
+		}
+
+		if (ret == null) {
+			ret = getDirectEditingFeatureAdditional(context);
+		}
+
+		return ret;
+	}
+
+	/**
+	 * Gets the additional direct editing feature.
+	 * 
+	 * @param context
+	 *            the direct editing context
+	 * 
+	 * @return the additional direct editing feature
+	 */
+	protected IDirectEditingFeature getDirectEditingFeatureAdditional(IDirectEditingContext context) {
+		return super.getDirectEditingFeature(context);
 	}
 
 	/**

@@ -43,12 +43,6 @@
     <resource path="src/org/eclipse/graphiti/pattern/IPattern.java" type="org.eclipse.graphiti.pattern.IPattern">
         <filter id="571473929">
             <message_arguments>
-                <message_argument value="ILayout"/>
-                <message_argument value="IPattern"/>
-            </message_arguments>
-        </filter>
-        <filter id="571473929">
-            <message_arguments>
                 <message_argument value="IAdd"/>
                 <message_argument value="IPattern"/>
             </message_arguments>
@@ -61,13 +55,37 @@
         </filter>
         <filter id="571473929">
             <message_arguments>
-                <message_argument value="IResizeShape"/>
+                <message_argument value="IDelete"/>
+                <message_argument value="IPattern"/>
+            </message_arguments>
+        </filter>
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IDirectEditing"/>
+                <message_argument value="IPattern"/>
+            </message_arguments>
+        </filter>
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="ILayout"/>
                 <message_argument value="IPattern"/>
             </message_arguments>
         </filter>
         <filter id="571473929">
             <message_arguments>
                 <message_argument value="IMoveShape"/>
+                <message_argument value="IPattern"/>
+            </message_arguments>
+        </filter>
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IRemove"/>
+                <message_argument value="IPattern"/>
+            </message_arguments>
+        </filter>
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IResizeShape"/>
                 <message_argument value="IPattern"/>
             </message_arguments>
         </filter>

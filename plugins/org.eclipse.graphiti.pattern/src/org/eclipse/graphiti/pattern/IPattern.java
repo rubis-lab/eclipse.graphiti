@@ -10,6 +10,9 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Patch 185019 from Bug 332360 contributed by Volker Wegert
+ *    Volker Wegert - Bug 336828: patterns should support delete,
+ *                    remove, direct editing and conditional palette
+ *                    creation entry
  *
  * </copyright>
  *
@@ -23,8 +26,11 @@ import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.func.IAdd;
 import org.eclipse.graphiti.func.ICreate;
+import org.eclipse.graphiti.func.IDelete;
+import org.eclipse.graphiti.func.IDirectEditing;
 import org.eclipse.graphiti.func.ILayout;
 import org.eclipse.graphiti.func.IMoveShape;
+import org.eclipse.graphiti.func.IRemove;
 import org.eclipse.graphiti.func.IResizeShape;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -36,7 +42,17 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  * @noextend This interface is not intended to be extended by clients. Extend
  *           {@link AbstractPattern} instead
  */
-public interface IPattern extends ICreate, IAdd, IUpdate, ILayout, IResizeShape, IMoveShape {
+public interface IPattern extends ICreate, IAdd, IDelete, IRemove, IUpdate, ILayout, IResizeShape, IMoveShape, IDirectEditing {
+
+	/**
+	 * Determines whether the pattern supports the creation of new business
+	 * objects from the palette. Setting this to <code>false</code> will
+	 * suppress the creation of a palette item for this pattern.
+	 * 
+	 * @return <code>true</code> if the pattern supports the {@link ICreate}
+	 *         methods and a palette item should be generated
+	 */
+	boolean isPaletteApplicable();
 
 	/**
 	 * Gets the create name.
@@ -104,7 +120,8 @@ public interface IPattern extends ICreate, IAdd, IUpdate, ILayout, IResizeShape,
 	/**
 	 * Provides configuration object, which describes the resize behavior.
 	 * 
-	 * @param context the resizing context
+	 * @param context
+	 *            the resizing context
 	 * @return the resize configuration object
 	 */
 	IResizeConfiguration getResizeConfiguration(IResizeShapeContext context);
