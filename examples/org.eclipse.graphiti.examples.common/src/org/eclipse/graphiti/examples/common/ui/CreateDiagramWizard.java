@@ -114,7 +114,7 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 		String namingConventionID = diagramTypeProviderId + ".editor"; //$NON-NLS-1$
 		IEditorDescriptor specificEditor = PlatformUI.getWorkbench().getEditorRegistry().findEditor(namingConventionID);
 
-		// If it is a specific editor get the file extension
+		// If there is a specific editor get the file extension
 		if (specificEditor != null) {
 			editorID = namingConventionID;
 			IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
