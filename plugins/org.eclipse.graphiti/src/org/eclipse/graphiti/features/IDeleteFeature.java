@@ -9,6 +9,9 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Volker Wegert - Bug 336828: patterns should support delete,
+ *                    remove, direct editing and conditional palette
+ *                    creation entry
  *
  * </copyright>
  *
@@ -18,7 +21,7 @@
  */
 package org.eclipse.graphiti.features;
 
-import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.func.IDelete;
 
 /**
  * The Interface IDeleteFeature.
@@ -27,39 +30,5 @@ import org.eclipse.graphiti.features.context.IDeleteContext;
  * @noimplement This interface is not intended to be implemented by clients,
  *              extend {@link DefaultDeleteFeature} instead.
  */
-public interface IDeleteFeature extends IFeature {
-
-	/**
-	 * Delete.
-	 * 
-	 * @param context
-	 *            the context
-	 */
-	void delete(IDeleteContext context);
-
-	/**
-	 * Can delete.
-	 * 
-	 * @param context
-	 *            the context
-	 * 
-	 * @return true, if successful
-	 */
-	boolean canDelete(IDeleteContext context);
-
-	/**
-	 * Pre delete.
-	 * 
-	 * @param context
-	 *            the context
-	 */
-	void preDelete(IDeleteContext context);
-
-	/**
-	 * Post delete.
-	 * 
-	 * @param context
-	 *            the context
-	 */
-	void postDelete(IDeleteContext context);
+public interface IDeleteFeature extends IFeature, IDelete {
 }
