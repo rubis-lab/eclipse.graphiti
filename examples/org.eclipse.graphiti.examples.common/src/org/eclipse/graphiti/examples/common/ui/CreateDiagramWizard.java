@@ -123,7 +123,6 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 			for (IExtension ext : extensions) {
 				IConfigurationElement[] configurationElements = ext.getConfigurationElements();
 				for (IConfigurationElement ce : configurationElements) {
-					System.out.println(ce);
 					String id = ce.getAttribute("id"); //$NON-NLS-1$
 					if (editorID.equals(id)) {
 						String fileExt = ce.getAttribute("extensions"); //$NON-NLS-1$
