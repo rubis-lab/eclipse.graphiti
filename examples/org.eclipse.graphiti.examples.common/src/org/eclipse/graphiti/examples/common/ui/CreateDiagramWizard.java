@@ -18,7 +18,12 @@ package org.eclipse.graphiti.examples.common.ui;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -103,22 +108,42 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 			diagramFolder = project.getFolder("src/diagrams/"); //$NON-NLS-1$
 		}
 
-		IFile diagramFile = diagramFolder.getFile(diagramName + ".diagram"); //$NON-NLS-1$
+		String editorID = DiagramEditor.DIAGRAM_EDITOR_ID;
+		String editorExtension = "diagram"; //$NON-NLS-1$
+		String diagramTypeProviderId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagramTypeId);
+		String namingConventionID = diagramTypeProviderId + ".editor"; //$NON-NLS-1$
+		IEditorDescriptor specificEditor = PlatformUI.getWorkbench().getEditorRegistry().findEditor(namingConventionID);
+
+		// If it is a specific editor get the file extension
+		if (specificEditor != null) {
+			editorID = namingConventionID;
+			IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+			IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint("org.eclipse.ui.editors"); //$NON-NLS-1$
+			IExtension[] extensions = extensionPoint.getExtensions();
+			for (IExtension ext : extensions) {
+				IConfigurationElement[] configurationElements = ext.getConfigurationElements();
+				for (IConfigurationElement ce : configurationElements) {
+					System.out.println(ce);
+					String id = ce.getAttribute("id"); //$NON-NLS-1$
+					if (editorID.equals(id)) {
+						String fileExt = ce.getAttribute("extensions"); //$NON-NLS-1$
+						if (fileExt != null) {
+							editorExtension = fileExt;
+							break;
+						}
+					}
+
+				}
+			}
+		}
+
+		IFile diagramFile = diagramFolder.getFile(diagramName + "." + editorExtension); //$NON-NLS-1$
 		URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 
 		TransactionalEditingDomain domain = FileService.createEmfFileForDiagram(uri, diagram);
 		String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
 		DiagramEditorInput editorInput = new DiagramEditorInput(EcoreUtil.getURI(diagram), domain, providerId);
 		
-		// Check if editor exists with the following id: diagramtype +
-		// ".editor", if so open specific editor
-		String editorID = DiagramEditor.DIAGRAM_EDITOR_ID;
-		String namingConventionID = providerId + ".editor";
-		IEditorDescriptor specificEditor = PlatformUI.getWorkbench().getEditorRegistry().findEditor(namingConventionID);
-		if (specificEditor != null) {
-			editorID = namingConventionID;
-		}
-
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, editorID);
 		} catch (PartInitException e) {
