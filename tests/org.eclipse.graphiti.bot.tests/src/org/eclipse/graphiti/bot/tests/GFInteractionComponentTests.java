@@ -32,7 +32,6 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.graphiti.bot.tests.swtbot.GFSWTBotGefEditor;
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateFeature;
@@ -52,14 +51,12 @@ import org.eclipse.graphiti.ui.internal.policy.ShapeXYLayoutEditPolicy;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swtbot.eclipse.gef.finder.finders.PaletteFinder;
 import org.eclipse.swtbot.eclipse.gef.finder.matchers.AbstractToolEntryMatcher;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.hamcrest.Description;
 import org.junit.Test;
@@ -130,7 +127,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -165,11 +162,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			@Override
 			public void run() {
 				// get instance of GFFigureCanvas
-				SWTBotGefFigureCanvas gfCanvas = ed.getGFCanvas();
-				Canvas canvas = gfCanvas.widget;
-				if (!(canvas instanceof GFFigureCanvas))
-					return;
-				GFFigureCanvas gfFigureCanvas = (GFFigureCanvas) canvas;
+				GFFigureCanvas gfFigureCanvas = getGFCanvas();
 
 				// do some scrolling
 				Event e = new Event();
@@ -241,7 +234,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -328,7 +321,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -445,7 +438,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int DIL = 30;
 
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -534,7 +527,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -590,7 +583,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -649,7 +642,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -702,7 +695,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int containerSize = 100;
 		final int rectangleSize = 60;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -804,7 +797,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -903,7 +896,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -953,7 +946,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	@Test
 	public void testSketchAll() throws Exception {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final GFSWTBotGefEditor ed = (GFSWTBotGefEditor) getGefEditor();
+		final SWTBotGefEditor ed = getGefEditor();
 		PaletteFinder paletteFinder = new PaletteFinder(diagramEditor.getEditDomain());
 		List<PaletteEntry> objectCreationTools = paletteFinder.findEntries(new AbstractToolEntryMatcher() {
 

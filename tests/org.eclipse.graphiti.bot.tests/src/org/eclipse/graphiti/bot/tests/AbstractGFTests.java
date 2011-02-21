@@ -38,8 +38,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.graphiti.bot.tests.swtbot.GFSWTBotGefEditor;
-import org.eclipse.graphiti.bot.tests.swtbot.GFSWTGefBot;
+import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.examples.common.ExampleProjectNature;
 import org.eclipse.graphiti.examples.common.FileService;
@@ -65,23 +64,23 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotPerspective;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefFigureCanvas;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
 abstract class AbstractGFTests extends SWTBotGefTestCase {
-
-	protected GFSWTGefBot bot = new GFSWTGefBot();
 
 	private static final String PROJECT_NAME = "GraphitiTestProject";
 
@@ -507,29 +506,32 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 	 * @param ed
 	 * @return
 	 */
-	protected GFFigureCanvas getGFCanvas(final GFSWTBotGefEditor ed) {
+	protected GFFigureCanvas getGFCanvas(final SWTBotGefEditor ed) {
 		// get instance of GFFigureCanvas
-		SWTBotGefFigureCanvas gfCanvas = ed.getGFCanvas();
-		Canvas canvas = gfCanvas.widget;
-		if (!(canvas instanceof GFFigureCanvas))
-			return null;
-		GFFigureCanvas gfFigureCanvas = (GFFigureCanvas) canvas;
+		GFFigureCanvas gfFigureCanvas = getGFCanvas();
 		return gfFigureCanvas;
 	}
 
-	protected Canvas getCanvas(final GFSWTBotGefEditor ed) {
-		// get instance of GFFigureCanvas
-		SWTBotGefFigureCanvas gfCanvas = ed.getGFCanvas();
-		return gfCanvas.widget;
-	}
 
 	/**
 	 * @param ed
 	 * @return
 	 */
-	protected Point getOrigin(final GFSWTBotGefEditor ed) {
-		Canvas c = getCanvas(ed);
+	protected Point getOrigin(final SWTBotGefEditor ed) {
+		Canvas c = getGFCanvas();
 		Point p = c.toDisplay(0, 0);
 		return p;
+	}
+
+	protected GFFigureCanvas getGFCanvas() {
+		IEditorReference reference = getGefEditor().getReference();
+		final IEditorPart editor = reference.getEditor(true);
+		GraphicalViewer graphicalViewer = (GraphicalViewer) editor.getAdapter(GraphicalViewer.class);
+		final Control control = graphicalViewer.getControl();
+		if (control instanceof GFFigureCanvas) {
+			GFFigureCanvas c = (GFFigureCanvas) control;
+			return c;
+		}
+		return null;
 	}
 }
