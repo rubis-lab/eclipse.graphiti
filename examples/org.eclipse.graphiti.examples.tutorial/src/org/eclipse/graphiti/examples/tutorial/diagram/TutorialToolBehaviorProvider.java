@@ -228,4 +228,18 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		}
 		return super.getSelectionBorder(pe);
 	}
+
+	@Override
+	public String getToolTip(GraphicsAlgorithm ga) {
+		PictogramElement pe = ga.getPictogramElement();
+		Object bo = getFeatureProvider().getBusinessObjectForPictogramElement(pe);
+		if (bo instanceof EClass) {
+			String name = ((EClass) bo).getName();
+			if (!name.isEmpty()) {
+				return name;
+			}
+		}
+		return super.getToolTip(ga);
+	}
+	
 }
