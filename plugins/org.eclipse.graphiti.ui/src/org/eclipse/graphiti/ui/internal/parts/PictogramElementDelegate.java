@@ -603,7 +603,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		// set tool tips
 		if (!indicatedNeededUpdates) {
 			final String toolTip = toolBehaviorProvider.getToolTip(graphicsAlgorithm);
-			if (toolTip != null) {
+			//do not show empty tool tips
+			if (toolTip != null && !toolTip.isEmpty()) {
 				Label ttf = new Label(toolTip);
 				figure.setToolTip(ttf);
 			}
