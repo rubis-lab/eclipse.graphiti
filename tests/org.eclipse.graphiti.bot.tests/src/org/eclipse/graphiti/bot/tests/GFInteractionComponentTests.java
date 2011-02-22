@@ -122,7 +122,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(1000);
 		SWTBotGefEditPart editPart = ed.getEditPart(SHAPE_NAME);
 		IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
-		assertEquals(x + 150, figure.getBounds().x);
+		// Drag might not be accurate, add tolerance +-1
+		assertTrue((x + 149 <= figure.getBounds().x) && (figure.getBounds().x <= x + 151));
 		shutdownEditor(diagramEditor);
 	}
 
