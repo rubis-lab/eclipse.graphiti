@@ -286,99 +286,36 @@ complete implementation of the rendering decorators here:</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='color:black'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#646464'>@Override</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  String getToolTip(GraphicsAlgorithm ga) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>    PictogramElement
+  pe = ga.getPictogramElement();<br>
+      Object bo =
+  getFeatureProvider().getBusinessObjectForPictogramElement(pe);<br>
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> IDecorator[]
-  getDecorators(PictogramElement pe) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  IFeatureProvider featureProvider = getFeatureProvider();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Object bo = featureProvider.getBusinessObjectForPictogramElement(pe);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
+  color:#7F0055'>    if</span></b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'> (bo </span><b><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  EClass) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  EClass eClass = (EClass) bo;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  String name = eClass.getName();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  EClass) {<br>
+          String name = ((EClass) bo).getName();<br>
+          </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (name != </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  &amp;&amp; name.length() &gt; 0</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &amp;&amp; !(name.charAt(0) &gt;= </span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:#2A00FF'>'A'</span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> &amp;&amp;
-  name.charAt(0) &lt;= </span><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#2A00FF'>'Z'</span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>)) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  IDecorator imageRenderingDecorator =</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> ImageDecorator(</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  IPlatformImageConstants.</span><i><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#0000C0'>IMG_ECLIPSE_WARNING_TSK</span></i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  imageRenderingDecorator</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  .setMessage(</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#2A00FF'>&quot;Name should start with upper case letter&quot;</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  IDecorator[] { imageRenderingDecorator };</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.getDecorators(pe);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;
-  &nbsp;</span><span style='font-size:10.0pt;font-family:"Courier New";
-  color:black'>}</span></p>
+  font-family:"Courier New";color:black'> (!name.isEmpty()) {<br>
+              </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>return</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> name;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'><br>
+          <span style='color:black'>}</span><br>
+      <span style='color:black'>}</span><br>
+      <b><span style='color:#7F0055'>return</span></b><span style='color:black'>
+  </span><b><span style='color:#7F0055'>super</span></b><span style='color:
+  black'>.getToolTip(ga);</span><br>
+  <span style='color:black'>}</span></span></p>
   <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
   </td>
  </tr>
