@@ -95,32 +95,36 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		shutdownEditor(diagramEditor);
 	}
 
-	// @Test
-	// public void testMarqueeTool() throws Exception {
-	// final int x = 100;
-	// final int y = 100;
-	// final DiagramEditor diagramEditor =
-	// openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-	// final SWTBotGefEditor ed = getGefEditor();
-	// createClassesAndConnection(x, y, diagramEditor, ed, "Marquee");
-	// Thread.sleep(1000);
-	// // Select the newly added shapes with the marquee tool.
-	// syncExec(new VoidResult() {
-	// public void run() {
-	// ed.drag(x - 10, y - 10, x + 500, y + 500);
-	// }
-	// });
-	// Thread.sleep(1000);
-	//
-	// syncExec(new VoidResult() {
-	// public void run() {
-	// ed.activateTool("Select");
-	// ed.drag(x + 50, y + 50, x + 200, y + 50);
-	// }
-	// });
-	// Thread.sleep(1000);
-	// shutdownEditor(diagramEditor);
-	// }
+	@Test
+	public void testMarqueeTool() throws Exception {
+		final int x = 100;
+		final int y = 100;
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final SWTBotGefEditor ed = getGefEditor();
+		createClassesAndConnection(x, y, diagramEditor, ed, "Marquee");
+		Thread.sleep(1000);
+		// Select the newly added shapes with the marquee tool.
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				ed.drag(x - 10, y - 10, x + 500, y + 500);
+			}
+		});
+		Thread.sleep(1000);
+
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				ed.activateTool("Select");
+				ed.drag(x + 50, y + 50, x + 200, y + 50);
+			}
+		});
+		Thread.sleep(1000);
+		SWTBotGefEditPart editPart = ed.getEditPart(SHAPE_NAME);
+		IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
+		assertEquals(x + 150, figure.getBounds().x);
+		shutdownEditor(diagramEditor);
+	}
 
 	@Test
 	public void testGFFigureCanvas() throws Exception {
@@ -315,6 +319,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(500);
 		shutdownEditor(diagramEditor);
 	}
+
 
 	@Test
 	public void testContextButtons() throws Exception {
@@ -985,6 +990,59 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		assertEquals(objectCreationTools.size(), ed.mainEditPart().children().size());
 		shutdownEditor(diagramEditor);
 	}
+
+	// @Test
+	// public void testEventing() throws Exception {
+	// final int x = 100;
+	// final int y = 100;
+	// final DiagramEditor diagramEditor =
+	// openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+	// final SWTBotGefEditor ed = getGefEditor();
+	// syncExec(new VoidResult() {
+	// @Override
+	// public void run() {
+	// IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
+	// IFeatureProvider fp = dtp.getFeatureProvider();
+	//
+	// CommandStack commandStack =
+	// diagramEditor.getEditDomain().getCommandStack();
+	//
+	// ICreateFeature[] createFeatures = fp.getCreateFeatures();
+	// for (ICreateFeature createFeature : createFeatures) {
+	// if ("Rectangle".equals(createFeature.getName())) {
+	// Rectangle rectangle = new Rectangle(x, y, 100, 100);
+	// ICreateContext createContext =
+	// ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+	// Command createCommand = new
+	// CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+	// createFeature,
+	// createContext, rectangle);
+	// commandStack.execute(createCommand);
+	// } else if ("Rectangle Container".equals(createFeature.getName())) {
+	// Rectangle rectangle = new Rectangle(x + 300, y - 50, 200, 200);
+	// ICreateContext createContext =
+	// ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+	// Command createCommand = new
+	// CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+	// createFeature,
+	// createContext, rectangle);
+	// commandStack.execute(createCommand);
+	// }
+	// }
+	// }
+	//
+	// });
+	// Thread.sleep(1000);
+	//
+	// syncExec(new VoidResult() {
+	// @Override
+	// public void run() {
+	// ed.drag(x + 50, y + 50, x + 300 + 100, y + 50);
+	// }
+	// });
+	// Thread.sleep(1000);
+	// assertTrue(ed.mainEditPart().children().size() == 1);
+	// }
 
 	private void createClassesAndConnection(final int x, final int y, final DiagramEditor diagramEditor, final SWTBotGefEditor ed,
 			final String toolToActivate) {
