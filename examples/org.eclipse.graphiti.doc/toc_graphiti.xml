@@ -48,7 +48,9 @@
 		<topic label="Context Menus" href="resources/docu/gfw/context-menu.htm"/> 
 		<topic label="Palette" href="resources/docu/gfw/palette.htm"/> 
 		<topic label="Double-Click" href="resources/docu/gfw/double-click.htm"/> 
-		<topic label="Rendering Decorators" href="resources/docu/gfw/rendering-decorators.htm"/> 
+		<topic label="Rendering Decorators" href="resources/docu/gfw/rendering-decorators.htm"/>
+  <topic href="resources/docu/gfw/tool-tips.htm" label="Tool Tips">
+  </topic> 
 		<topic label="Selection Behavior" href="resources/docu/gfw/selection-behavior.htm"/> 
 	</topic>
 	<topic label="Property Sheet" href="resources/docu/gfw/property-sheet.htm"/>
