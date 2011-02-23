@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * Enhances the default ZoomManager by animating the change of the zoom. This is
- * done by implicitely replacing every change of the zoom by a sequence of
+ * done by implicitly replacing every change of the zoom by a sequence of
  * changes, which range from the old zoom to the new zoom.
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
