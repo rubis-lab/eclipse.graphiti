@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug  338067 - Drill down features should not use current diagram type provider
+ *                          for opening diagram of other type
  *
  * </copyright>
  *
@@ -64,12 +66,12 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 		final PictogramElement pe = context.getPictogramElements()[0];
 		final Collection<Diagram> possibleDiagramsList = getLinkedDiagrams(pe);
 
+		Diagram diagram = null;
+
 		if (!possibleDiagramsList.isEmpty()) {
 			final Diagram[] possibleDiagrams = possibleDiagramsList.toArray(new Diagram[0]);
 			if (possibleDiagramsList.size() == 1) {
-				final Diagram diagram = possibleDiagrams[0];
-				GraphitiUiInternal.getWorkbenchService().openDiagramEditor(diagram, getTransActionalEditingDomainForNewDiagram(),
-						getFeatureProvider().getDiagramTypeProvider().getProviderId(), true);
+				diagram = possibleDiagrams[0];
 			} else {
 				ListDialog dialog = new ListDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
 				dialog.setContentProvider(new IStructuredContentProvider() {
@@ -98,11 +100,16 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 				Object[] result = dialog.getResult();
 				if (result != null) {
 					for (int i = 0; i < result.length; i++) {
-						Diagram diagram = (Diagram) result[i];
-						GraphitiUiInternal.getWorkbenchService().openDiagramEditor(diagram, getTransActionalEditingDomainForNewDiagram(),
-								getFeatureProvider().getDiagramTypeProvider().getProviderId(), true);
+						diagram = (Diagram) result[i];
 					}
 				}
+			}
+
+			if (diagram != null) {
+				// Found a diagram to open
+				String diagramTypeProviderId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
+				GraphitiUiInternal.getWorkbenchService().openDiagramEditor(diagram, getTransActionalEditingDomainForNewDiagram(),
+						diagramTypeProviderId, true);
 			}
 		}
 	}
@@ -116,6 +123,16 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 
 			return possibleDiagramsList.size() >= 1;
 		}
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#hasDoneChanges()
+	 */
+	@Override
+	public boolean hasDoneChanges() {
 		return false;
 	}
 
