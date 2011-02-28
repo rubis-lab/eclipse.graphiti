@@ -22,7 +22,6 @@ import org.eclipse.draw2d.AbsoluteBendpoint;
 import org.eclipse.draw2d.Bendpoint;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
-import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
@@ -106,11 +105,11 @@ public class DataTypeTransformation {
 	 * @param swtFont
 	 * @return
 	 */
-	public static Font toPictogramsFont(AbstractText text, org.eclipse.swt.graphics.Font swtFont) {
+	public static Font toPictogramsFont(Diagram diagram, org.eclipse.swt.graphics.Font swtFont) {
 		Font ret;
 
 		FontData fontData = swtFont.getFontData()[0];
-		ret = toPictogramsFont(text, fontData);
+		ret = toPictogramsFont(diagram, fontData);
 
 		return ret;
 	}
@@ -119,7 +118,7 @@ public class DataTypeTransformation {
 	 * @param fontData
 	 * @return
 	 */
-	public static Font toPictogramsFont(AbstractText text, FontData fontData) {
+	public static Font toPictogramsFont(Diagram diagram, FontData fontData) {
 		if (fontData == null) {
 			return null;
 		}
@@ -128,7 +127,7 @@ public class DataTypeTransformation {
 		int height = fontData.getHeight();
 		boolean italic = (fontData.getStyle() & SWT.ITALIC) != 0;
 		boolean bold = (fontData.getStyle() & SWT.BOLD) != 0;
-		ret = Graphiti.getGaCreateService().createFont(text, name, height, italic, bold);
+		ret = Graphiti.getGaService().manageFont(diagram, name, height, italic, bold);
 		return ret;
 	}
 
