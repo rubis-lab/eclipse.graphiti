@@ -428,7 +428,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		Font font = gas.manageFont(d, FONTNAME, 10);
 		text.setFont(font);
 		assertEquals(font, text.getFont());
-		gas.deleteFont(text);
+		gas.deleteFont(font);
 		assertNull(text.getFont());
 	}
 
