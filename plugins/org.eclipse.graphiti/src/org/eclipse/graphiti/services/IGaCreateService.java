@@ -163,7 +163,11 @@ public interface IGaCreateService {
 	 * @param size
 	 *            the size
 	 * @return the new font
+	 * 
+	 * @deprecated As of release 0.8.0, replaced by
+	 *             {@link IGaService#manageFont(Diagram, String, int)}
 	 */
+	@Deprecated
 	public Font createFont(AbstractText text, String name, int size);
 
 	/**
@@ -180,7 +184,11 @@ public interface IGaCreateService {
 	 * @param isBold
 	 *            the is bold
 	 * @return the new font
+	 * 
+	 * @deprecated As of release 0.8.0, replaced by
+	 *             {@link IGaService#manageFont(Diagram, String, int, boolean, boolean)}
 	 */
+	@Deprecated
 	public Font createFont(AbstractText text, String name, int size, boolean isItalic, boolean isBold);
 
 	/**
@@ -193,7 +201,11 @@ public interface IGaCreateService {
 	 * @param size
 	 *            the size
 	 * @return the new font
+	 * 
+	 * @deprecated As of release 0.8.0, replaced by
+	 *             {@link IGaService#manageFont(Diagram, String, int)}
 	 */
+	@Deprecated
 	public Font createFont(Style style, String name, int size);
 
 	/**
@@ -210,7 +222,11 @@ public interface IGaCreateService {
 	 * @param isBold
 	 *            the is bold
 	 * @return the new font
+	 * 
+	 * @deprecated As of release 0.8.0, replaced by
+	 *             {@link IGaService#manageFont(Diagram, String, int, boolean, boolean)}
 	 */
+	@Deprecated
 	public Font createFont(Style style, String name, int size, boolean isItalic, boolean isBold);
 
 	/**

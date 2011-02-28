@@ -245,12 +245,12 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	public boolean isStretchV(Image image, boolean checkStyles);
 
 	/**
-	 * Provides a color instance with the given given color constant by either
+	 * Provides a color instance with the given color constant by either
 	 * creating a new one and aggregating it to the diagram or finding it in the
 	 * diagrams palette of colors.
 	 * 
 	 * @param diagram
-	 *            the diagram that aggregates and the colors
+	 *            the diagram that aggregates the colors
 	 * @param colorConstant
 	 *            which contains the RGB values.
 	 * @return the color instance
@@ -263,7 +263,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * palette of colors.
 	 * 
 	 * @param diagram
-	 *            the diagram that aggregates and the colors
+	 *            the diagram that aggregates the colors
 	 * @param red
 	 *            the red
 	 * @param green
@@ -273,6 +273,42 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * @return the color instance
 	 */
 	public Color manageColor(Diagram diagram, int red, int green, int blue);
+
+	/**
+	 * Provides a font instance by either creating a new one and aggregating it
+	 * to the diagram or finding it in the diagrams list of fonts.
+	 * 
+	 * @param diagram
+	 *            the diagram that aggregates the fonts
+	 * @param name
+	 *            the name of the font
+	 * @param size
+	 *            the size of the font
+	 * @return the font instance
+	 * 
+	 * @since 0.8.0
+	 */
+	public Font manageFont(Diagram diagram, String name, int size);
+
+	/**
+	 * Provides a font instance by either creating a new one and aggregating it
+	 * to the diagram or finding it in the diagrams list of fonts.
+	 * 
+	 * @param diagram
+	 *            the diagram that aggregates the fonts
+	 * @param name
+	 *            the name of the font
+	 * @param size
+	 *            the size of the font
+	 * @param isItalic
+	 *            the is italic
+	 * @param isBold
+	 *            the is bold
+	 * @return the font instance
+	 * 
+	 * @since 0.8.0
+	 */
+	public Font manageFont(Diagram diagram, String name, int size, boolean isItalic, boolean isBold);
 
 	/**
 	 * Move polyline point.

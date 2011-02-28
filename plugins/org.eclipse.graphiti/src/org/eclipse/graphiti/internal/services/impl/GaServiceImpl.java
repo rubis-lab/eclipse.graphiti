@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
@@ -1434,6 +1435,27 @@ public final class GaServiceImpl implements IGaService {
 		return newColor;
 	}
 
+	@Override
+	public Font manageFont(Diagram diagram, String name, int size) {
+		return manageFont(diagram, name, size, false, false);
+	}
+
+	@Override
+	public Font manageFont(Diagram diagram, String name, int size, boolean isItalic, boolean isBold) {
+		EList<Font> fonts = diagram.getFonts();
+		for (Font font : fonts) {
+			if (font.getName().equals(name) && font.getSize() == size && font.isBold() == isBold && font.isItalic() == isItalic)
+				return font;
+		}
+		Font newFont = StylesFactory.eINSTANCE.createFont();
+		newFont.setName(name);
+		newFont.setSize(size);
+		newFont.setItalic(isItalic);
+		newFont.setBold(isBold);
+		fonts.add(newFont);
+		return newFont;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1597,4 +1619,5 @@ public final class GaServiceImpl implements IGaService {
 			throw new IllegalArgumentException("Object AdaptedGradientColoredAreas or its attributes must not be null or empty"); //$NON-NLS-1$
 		}
 	}
+
 }
