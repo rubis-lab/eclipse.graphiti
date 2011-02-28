@@ -95,26 +95,26 @@ public interface Style extends StyleContainer, AbstractStyle {
 	void setDescription(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Font</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Font</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Font</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Font</em>' containment reference.
+	 * @return the value of the '<em>Font</em>' reference.
 	 * @see #setFont(Font)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getStyle_Font()
-	 * @model containment="true" resolveProxies="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	Font getFont();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getFont <em>Font</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getFont <em>Font</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Font</em>' containment reference.
+	 * @param value the new value of the '<em>Font</em>' reference.
 	 * @see #getFont()
 	 * @generated
 	 */

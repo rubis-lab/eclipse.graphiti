@@ -292,6 +292,22 @@
     </eAnnotations>
     <children xmi:type="notation:Node" xmi:id="_wLZZI54SEd-eq6jOc35ksA" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_wLZZJJ4SEd-eq6jOc35ksA" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_Cg-DcD9PEeC6Cofe-M-JgQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="../model/graphiti.ecore#//algorithms/styles/Font/name"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Cg-DcT9PEeC6Cofe-M-JgQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_Cg-Dcj9PEeC6Cofe-M-JgQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="../model/graphiti.ecore#//algorithms/styles/Font/size"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Cg-Dcz9PEeC6Cofe-M-JgQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_Cg-DdD9PEeC6Cofe-M-JgQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="../model/graphiti.ecore#//algorithms/styles/Font/italic"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Cg-DdT9PEeC6Cofe-M-JgQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_Cg-Ddj9PEeC6Cofe-M-JgQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="../model/graphiti.ecore#//algorithms/styles/Font/bold"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Cg-Ddz9PEeC6Cofe-M-JgQ"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_wLZZJZ4SEd-eq6jOc35ksA"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_wLZZJp4SEd-eq6jOc35ksA"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_wLZZJ54SEd-eq6jOc35ksA"/>
@@ -303,7 +319,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_wLZZIZ4SEd-eq6jOc35ksA" fontColor="4210752" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="../model/graphiti.ecore#//algorithms/styles/Font"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wLZZIp4SEd-eq6jOc35ksA" x="100" y="375"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wLZZIp4SEd-eq6jOc35ksA" x="24" y="354"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_6x1zYJ4SEd-eq6jOc35ksA" type="1001">
     <children xmi:type="notation:Node" xmi:id="_6x1zY54SEd-eq6jOc35ksA" type="4001"/>

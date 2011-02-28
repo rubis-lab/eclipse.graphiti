@@ -758,7 +758,7 @@ public interface AlgorithmsPackage extends EPackage {
 	int ABSTRACT_TEXT__STYLE = GRAPHICS_ALGORITHM__STYLE;
 
 	/**
-	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * The feature id for the '<em><b>Font</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -975,7 +975,7 @@ public interface AlgorithmsPackage extends EPackage {
 	int TEXT__STYLE = ABSTRACT_TEXT__STYLE;
 
 	/**
-	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * The feature id for the '<em><b>Font</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2124,7 +2124,7 @@ public interface AlgorithmsPackage extends EPackage {
 	int MULTI_TEXT__STYLE = ABSTRACT_TEXT__STYLE;
 
 	/**
-	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * The feature id for the '<em><b>Font</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2455,10 +2455,10 @@ public interface AlgorithmsPackage extends EPackage {
 	EClass getAbstractText();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getFont <em>Font</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getFont <em>Font</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Font</em>'.
+	 * @return the meta object for the reference '<em>Font</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.AbstractText#getFont()
 	 * @see #getAbstractText()
 	 * @generated
@@ -2770,7 +2770,7 @@ public interface AlgorithmsPackage extends EPackage {
 		EClass ABSTRACT_TEXT = eINSTANCE.getAbstractText();
 
 		/**
-		 * The meta object literal for the '<em><b>Font</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Font</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

@@ -534,13 +534,22 @@ public interface PictogramsPackage extends EPackage {
 	int DIAGRAM__COLORS = CONTAINER_SHAPE_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>Fonts</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIAGRAM__FONTS = CONTAINER_SHAPE_FEATURE_COUNT + 8;
+
+	/**
 	 * The feature id for the '<em><b>Pictogram Links</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM__PICTOGRAM_LINKS = CONTAINER_SHAPE_FEATURE_COUNT + 8;
+	int DIAGRAM__PICTOGRAM_LINKS = CONTAINER_SHAPE_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Vertical Grid Unit</b></em>' attribute.
@@ -549,7 +558,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM__VERTICAL_GRID_UNIT = CONTAINER_SHAPE_FEATURE_COUNT + 9;
+	int DIAGRAM__VERTICAL_GRID_UNIT = CONTAINER_SHAPE_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of structural features of the '<em>Diagram</em>' class.
@@ -558,7 +567,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM_FEATURE_COUNT = CONTAINER_SHAPE_FEATURE_COUNT + 10;
+	int DIAGRAM_FEATURE_COUNT = CONTAINER_SHAPE_FEATURE_COUNT + 11;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.ConnectionImpl <em>Connection</em>}' class.
@@ -1609,6 +1618,17 @@ public interface PictogramsPackage extends EPackage {
 	EReference getDiagram_Colors();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.graphiti.mm.pictograms.Diagram#getFonts <em>Fonts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Fonts</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.Diagram#getFonts()
+	 * @see #getDiagram()
+	 * @generated
+	 */
+	EReference getDiagram_Fonts();
+
+	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.graphiti.mm.pictograms.Diagram#getPictogramLinks <em>Pictogram Links</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2105,6 +2125,14 @@ public interface PictogramsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DIAGRAM__COLORS = eINSTANCE.getDiagram_Colors();
+
+		/**
+		 * The meta object literal for the '<em><b>Fonts</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DIAGRAM__FONTS = eINSTANCE.getDiagram_Fonts();
 
 		/**
 		 * The meta object literal for the '<em><b>Pictogram Links</b></em>' reference list feature.

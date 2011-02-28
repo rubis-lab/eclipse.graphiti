@@ -35,6 +35,7 @@ import org.eclipse.graphiti.mm.MmPackage;
 import org.eclipse.graphiti.mm.StyleContainer;
 
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
 
@@ -58,6 +59,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#isSnapToGrid <em>Snap To Grid</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#isShowGuides <em>Show Guides</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getColors <em>Colors</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getFonts <em>Fonts</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getPictogramLinks <em>Pictogram Links</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getVerticalGridUnit <em>Vertical Grid Unit</em>}</li>
  * </ul>
@@ -195,6 +197,16 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	 * @ordered
 	 */
 	protected EList<Color> colors;
+
+	/**
+	 * The cached value of the '{@link #getFonts() <em>Fonts</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFonts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Font> fonts;
 
 	/**
 	 * The cached value of the '{@link #getPictogramLinks() <em>Pictogram Links</em>}' reference list.
@@ -391,6 +403,18 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Font> getFonts() {
+		if (fonts == null) {
+			fonts = new EObjectContainmentEList.Resolving<Font>(Font.class, this, PictogramsPackage.DIAGRAM__FONTS);
+		}
+		return fonts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<PictogramLink> getPictogramLinks() {
 		if (pictogramLinks == null) {
 			pictogramLinks = new EObjectResolvingEList<PictogramLink>(PictogramLink.class, this, PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS);
@@ -450,6 +474,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				return ((InternalEList<?>)getConnections()).basicRemove(otherEnd, msgs);
 			case PictogramsPackage.DIAGRAM__COLORS:
 				return ((InternalEList<?>)getColors()).basicRemove(otherEnd, msgs);
+			case PictogramsPackage.DIAGRAM__FONTS:
+				return ((InternalEList<?>)getFonts()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -478,6 +504,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				return isShowGuides();
 			case PictogramsPackage.DIAGRAM__COLORS:
 				return getColors();
+			case PictogramsPackage.DIAGRAM__FONTS:
+				return getFonts();
 			case PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS:
 				return getPictogramLinks();
 			case PictogramsPackage.DIAGRAM__VERTICAL_GRID_UNIT:
@@ -522,6 +550,10 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				getColors().clear();
 				getColors().addAll((Collection<? extends Color>)newValue);
 				return;
+			case PictogramsPackage.DIAGRAM__FONTS:
+				getFonts().clear();
+				getFonts().addAll((Collection<? extends Font>)newValue);
+				return;
 			case PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS:
 				getPictogramLinks().clear();
 				getPictogramLinks().addAll((Collection<? extends PictogramLink>)newValue);
@@ -565,6 +597,9 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 			case PictogramsPackage.DIAGRAM__COLORS:
 				getColors().clear();
 				return;
+			case PictogramsPackage.DIAGRAM__FONTS:
+				getFonts().clear();
+				return;
 			case PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS:
 				getPictogramLinks().clear();
 				return;
@@ -599,6 +634,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				return showGuides != SHOW_GUIDES_EDEFAULT;
 			case PictogramsPackage.DIAGRAM__COLORS:
 				return colors != null && !colors.isEmpty();
+			case PictogramsPackage.DIAGRAM__FONTS:
+				return fonts != null && !fonts.isEmpty();
 			case PictogramsPackage.DIAGRAM__PICTOGRAM_LINKS:
 				return pictogramLinks != null && !pictogramLinks.isEmpty();
 			case PictogramsPackage.DIAGRAM__VERTICAL_GRID_UNIT:

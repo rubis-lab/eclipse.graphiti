@@ -648,7 +648,7 @@ public class AlgorithmsPackageImpl extends EPackageImpl implements AlgorithmsPac
 		initEAttribute(getPlatformGraphicsAlgorithm_Id(), ecorePackage.getEString(), "id", null, 1, 1, PlatformGraphicsAlgorithm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(abstractTextEClass, AbstractText.class, "AbstractText", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAbstractText_Font(), theStylesPackage.getFont(), null, "font", null, 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getAbstractText_Font(), theStylesPackage.getFont(), null, "font", null, 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getAbstractText_HorizontalAlignment(), theStylesPackage.getOrientation(), "horizontalAlignment", "ALIGNMENT_LEFT", 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getAbstractText_VerticalAlignment(), theStylesPackage.getOrientation(), "verticalAlignment", "ALIGNMENT_CENTER", 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getAbstractText_Angle(), ecorePackage.getEIntegerObject(), "angle", "0", 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);

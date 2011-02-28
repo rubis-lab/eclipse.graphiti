@@ -340,7 +340,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDiagram_PictogramLinks() {
+	public EReference getDiagram_Fonts() {
 		return (EReference)diagramEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -349,8 +349,17 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getDiagram_PictogramLinks() {
+		return (EReference)diagramEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getDiagram_VerticalGridUnit() {
-		return (EAttribute)diagramEClass.getEStructuralFeatures().get(8);
+		return (EAttribute)diagramEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -692,6 +701,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		createEAttribute(diagramEClass, DIAGRAM__SNAP_TO_GRID);
 		createEAttribute(diagramEClass, DIAGRAM__SHOW_GUIDES);
 		createEReference(diagramEClass, DIAGRAM__COLORS);
+		createEReference(diagramEClass, DIAGRAM__FONTS);
 		createEReference(diagramEClass, DIAGRAM__PICTOGRAM_LINKS);
 		createEAttribute(diagramEClass, DIAGRAM__VERTICAL_GRID_UNIT);
 
@@ -804,6 +814,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEAttribute(getDiagram_SnapToGrid(), ecorePackage.getEBoolean(), "snapToGrid", null, 1, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getDiagram_ShowGuides(), ecorePackage.getEBoolean(), "showGuides", null, 1, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getDiagram_Colors(), theStylesPackage.getColor(), null, "colors", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getDiagram_Fonts(), theStylesPackage.getFont(), null, "fonts", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getDiagram_PictogramLinks(), this.getPictogramLink(), null, "pictogramLinks", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getDiagram_VerticalGridUnit(), ecorePackage.getEInt(), "verticalGridUnit", "-1", 0, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

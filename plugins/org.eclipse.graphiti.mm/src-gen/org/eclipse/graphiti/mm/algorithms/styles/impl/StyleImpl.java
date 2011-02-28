@@ -240,7 +240,7 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getFont() <em>Font</em>}' containment reference.
+	 * The cached value of the '{@link #getFont() <em>Font</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getFont()
@@ -687,12 +687,6 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 			InternalEObject oldFont = (InternalEObject)font;
 			font = (Font)eResolveProxy(oldFont);
 			if (font != oldFont) {
-				InternalEObject newFont = (InternalEObject)font;
-				NotificationChain msgs = oldFont.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StylesPackage.STYLE__FONT, null, null);
-				if (newFont.eInternalContainer() == null) {
-					msgs = newFont.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StylesPackage.STYLE__FONT, null, msgs);
-				}
-				if (msgs != null) msgs.dispatch();
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, StylesPackage.STYLE__FONT, oldFont, font));
 			}
@@ -714,33 +708,11 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFont(Font newFont, NotificationChain msgs) {
+	public void setFont(Font newFont) {
 		Font oldFont = font;
 		font = newFont;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StylesPackage.STYLE__FONT, oldFont, newFont);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setFont(Font newFont) {
-		if (newFont != font) {
-			NotificationChain msgs = null;
-			if (font != null)
-				msgs = ((InternalEObject)font).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StylesPackage.STYLE__FONT, null, msgs);
-			if (newFont != null)
-				msgs = ((InternalEObject)newFont).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StylesPackage.STYLE__FONT, null, msgs);
-			msgs = basicSetFont(newFont, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, StylesPackage.STYLE__FONT, newFont, newFont));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StylesPackage.STYLE__FONT, oldFont, font));
 	}
 
 	/**
@@ -946,8 +918,6 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 		switch (featureID) {
 			case StylesPackage.STYLE__RENDERING_STYLE:
 				return basicSetRenderingStyle(null, msgs);
-			case StylesPackage.STYLE__FONT:
-				return basicSetFont(null, msgs);
 			case StylesPackage.STYLE__STYLE_CONTAINER:
 				return basicSetStyleContainer(null, msgs);
 		}

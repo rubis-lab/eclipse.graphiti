@@ -47,7 +47,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
  */
 public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements AbstractText {
 	/**
-	 * The cached value of the '{@link #getFont() <em>Font</em>}' containment reference.
+	 * The cached value of the '{@link #getFont() <em>Font</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getFont()
@@ -165,12 +165,6 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 			InternalEObject oldFont = (InternalEObject)font;
 			font = (Font)eResolveProxy(oldFont);
 			if (font != oldFont) {
-				InternalEObject newFont = (InternalEObject)font;
-				NotificationChain msgs = oldFont.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlgorithmsPackage.ABSTRACT_TEXT__FONT, null, null);
-				if (newFont.eInternalContainer() == null) {
-					msgs = newFont.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlgorithmsPackage.ABSTRACT_TEXT__FONT, null, msgs);
-				}
-				if (msgs != null) msgs.dispatch();
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AlgorithmsPackage.ABSTRACT_TEXT__FONT, oldFont, font));
 			}
@@ -192,33 +186,11 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFont(Font newFont, NotificationChain msgs) {
+	public void setFont(Font newFont) {
 		Font oldFont = font;
 		font = newFont;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.ABSTRACT_TEXT__FONT, oldFont, newFont);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setFont(Font newFont) {
-		if (newFont != font) {
-			NotificationChain msgs = null;
-			if (font != null)
-				msgs = ((InternalEObject)font).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlgorithmsPackage.ABSTRACT_TEXT__FONT, null, msgs);
-			if (newFont != null)
-				msgs = ((InternalEObject)newFont).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlgorithmsPackage.ABSTRACT_TEXT__FONT, null, msgs);
-			msgs = basicSetFont(newFont, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.ABSTRACT_TEXT__FONT, newFont, newFont));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.ABSTRACT_TEXT__FONT, oldFont, font));
 	}
 
 	/**
@@ -303,20 +275,6 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 		value = newValue;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.ABSTRACT_TEXT__VALUE, oldValue, value));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case AlgorithmsPackage.ABSTRACT_TEXT__FONT:
-				return basicSetFont(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

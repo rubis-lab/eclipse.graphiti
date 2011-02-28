@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.mm.StyleContainer;
 
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,6 +36,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Color;
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#isSnapToGrid <em>Snap To Grid</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#isShowGuides <em>Show Guides</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getColors <em>Colors</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getFonts <em>Fonts</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getPictogramLinks <em>Pictogram Links</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getVerticalGridUnit <em>Vertical Grid Unit</em>}</li>
  * </ul>
@@ -208,6 +210,22 @@ public interface Diagram extends ContainerShape, StyleContainer {
 	 * @generated
 	 */
 	EList<Color> getColors();
+
+	/**
+	 * Returns the value of the '<em><b>Fonts</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.graphiti.mm.algorithms.styles.Font}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Fonts</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Fonts</em>' containment reference list.
+	 * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getDiagram_Fonts()
+	 * @model containment="true" resolveProxies="true" ordered="false"
+	 * @generated
+	 */
+	EList<Font> getFonts();
 
 	/**
 	 * Returns the value of the '<em><b>Pictogram Links</b></em>' reference list.

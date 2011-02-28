@@ -208,7 +208,7 @@ public interface StylesPackage extends EPackage {
 	int STYLE__DESCRIPTION = MmPackage.STYLE_CONTAINER_FEATURE_COUNT + 9;
 
 	/**
-	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * The feature id for the '<em><b>Font</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -786,10 +786,10 @@ public interface StylesPackage extends EPackage {
 	EAttribute getStyle_Description();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getFont <em>Font</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getFont <em>Font</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Font</em>'.
+	 * @return the meta object for the reference '<em>Font</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.Style#getFont()
 	 * @see #getStyle()
 	 * @generated
@@ -1369,7 +1369,7 @@ public interface StylesPackage extends EPackage {
 		EAttribute STYLE__DESCRIPTION = eINSTANCE.getStyle_Description();
 
 		/**
-		 * The meta object literal for the '<em><b>Font</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Font</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
