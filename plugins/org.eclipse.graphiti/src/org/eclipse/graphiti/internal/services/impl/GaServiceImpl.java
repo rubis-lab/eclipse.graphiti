@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
@@ -949,8 +950,22 @@ public final class GaServiceImpl implements IGaService {
 	@Override
 	public void deleteFont(AbstractText abstractText) {
 		final Font oldFont = abstractText.getFont();
-		if (oldFont != null) {
-			EcoreUtil.delete(oldFont, true);
+		deleteEObject(oldFont);
+	}
+
+	@Override
+	public void deleteFont(Font font) {
+		deleteEObject(font);
+	}
+
+	@Override
+	public void deleteColor(Color color) {
+		deleteEObject(color);
+	}
+
+	private void deleteEObject(EObject eo) {
+		if (eo != null) {
+			EcoreUtil.delete(eo, true);
 		}
 	}
 
@@ -966,9 +981,7 @@ public final class GaServiceImpl implements IGaService {
 		// it is not sufficient to call abstractStyle.setRenderingStyle(null),
 		// because then the old RenderingStyle would be left as garbage in the
 		// model.
-		if (abstractStyle.getRenderingStyle() != null) {
-			EcoreUtil.delete(abstractStyle.getRenderingStyle(), true);
-		}
+		deleteEObject(abstractStyle.getRenderingStyle());
 	}
 
 	/*

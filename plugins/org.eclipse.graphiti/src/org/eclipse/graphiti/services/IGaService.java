@@ -45,8 +45,32 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * 
 	 * @param abstractText
 	 *            the abstract text
+	 * 
+	 * @deprecated As of release 0.8.0, replaced by
+	 *             {@link #deleteFont(Font font)}
 	 */
+	@Deprecated
 	public void deleteFont(AbstractText abstractText);
+
+	/**
+	 * Delete font.
+	 * 
+	 * @param font
+	 *            the font to delete
+	 * 
+	 * @since 0.8.0
+	 */
+	public void deleteFont(Font font);
+
+	/**
+	 * Delete color.
+	 * 
+	 * @param color
+	 *            the color to delete
+	 * 
+	 * @since 0.8.0
+	 */
+	public void deleteColor(Color color);
 
 	/**
 	 * Deletes the RenderingStyle from the given AbstractStyle.
