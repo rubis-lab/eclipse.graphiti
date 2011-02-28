@@ -1281,7 +1281,7 @@ public final class GaServiceImpl implements IGaService {
 			AbstractText text = (AbstractText) abstractStyle;
 			//text.unsetAngle();
 			text.setAngle(null);
-			deleteFont(text);
+			text.setFont(null);
 			text.setHorizontalAlignment(Orientation.UNSPECIFIED);
 			text.setVerticalAlignment(Orientation.UNSPECIFIED);
 		}

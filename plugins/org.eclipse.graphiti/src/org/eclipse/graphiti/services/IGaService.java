@@ -53,7 +53,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	public void deleteFont(AbstractText abstractText);
 
 	/**
-	 * Delete font.
+	 * Deletes the given font from the diagram.
 	 * 
 	 * @param font
 	 *            the font to delete
@@ -63,7 +63,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	public void deleteFont(Font font);
 
 	/**
-	 * Delete color.
+	 * Deletes the given color from the diagram.
 	 * 
 	 * @param color
 	 *            the color to delete
