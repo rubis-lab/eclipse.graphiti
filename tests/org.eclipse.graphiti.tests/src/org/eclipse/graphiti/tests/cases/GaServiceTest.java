@@ -202,6 +202,21 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 	}
 
 	@Test
+	public void manageFont() {
+		Text text = gas.createDefaultText(s1);
+		Font font = gas.manageFont(d, FONTNAME, 10);
+		assertNotNull(font);
+		assertEquals(10, font.getSize());
+		assertEquals(FONTNAME, font.getName());
+		text.setFont(font);
+		assertNotNull(text.getFont());
+		// Check if aggregation on diagram level works-> no additional font
+		// object should be created
+		Font font2 = gas.manageFont(d, FONTNAME, 10);
+		assertEquals(font, font2);
+	}
+
+	@Test
 	public void createImage() {
 		Image im = gas.createImage(d, VALUE);
 		checkGraphicsAlgorithmDefaults(im);
@@ -410,7 +425,8 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 	@Test
 	public void deleteFont() {
 		Text text = gas.createDefaultText(s1);
-		Font font = gas.createFont(text, FONTNAME, 10);
+		Font font = gas.manageFont(d, FONTNAME, 10);
+		text.setFont(font);
 		assertEquals(font, text.getFont());
 		gas.deleteFont(text);
 		assertNull(text.getFont());
@@ -470,7 +486,8 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		style.setLineStyle(LineStyle.DASH);
 		style.setBackground(gas.manageColor(d, IColorConstant.BLACK));
 		style.setForeground(gas.manageColor(d, IColorConstant.BLUE));
-		Font font = gas.createFont(text, FONTNAME, 10);
+		Font font = gas.manageFont(d, FONTNAME, 10);
+
 		style.setFont(font);
 		style.setHorizontalAlignment(Orientation.ALIGNMENT_BOTTOM);
 		style.setVerticalAlignment(Orientation.ALIGNMENT_TOP);
@@ -500,7 +517,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		assertEquals(Orientation.ALIGNMENT_BOTTOM, gas.getHorizontalAlignment(text, true));
 		assertEquals(Orientation.ALIGNMENT_TOP, gas.getVerticalAlignment(text, true));
 		assertEquals(gradient, gas.getRenderingStyle(text, true).getAdaptedGradientColoredAreas());
-		assertEquals(4.0, (double) gas.getTransparency(text, true), 0);
+		assertEquals(4.0, gas.getTransparency(text, true), 0);
 		assertEquals(gas.manageColor(d, IColorConstant.BLUE), gas.getForegroundColor(text, true));
 		assertEquals(gas.manageColor(d, IColorConstant.BLACK), gas.getBackgroundColor(text, true));
 		assertFalse(gas.isFilled(text, true));
