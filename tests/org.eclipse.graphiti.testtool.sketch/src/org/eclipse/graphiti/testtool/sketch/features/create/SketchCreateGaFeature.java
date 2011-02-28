@@ -26,6 +26,7 @@ import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
@@ -66,6 +67,7 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 		setGaType(gaType);
 	}
 
+	@Override
 	public boolean canCreate(ICreateContext context) {
 		boolean ret = false;
 		ContainerShape targetContainer = context.getTargetContainer();
@@ -75,6 +77,7 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 		return ret;
 	}
 
+	@Override
 	public Object[] create(ICreateContext context) {
 		ContainerShape targetContainer = context.getTargetContainer();
 		AnchorContainer newAc = createAnchorContainer(targetContainer);
@@ -95,7 +98,8 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 		} else {
 			label = gaService.createText(newGa, NEW_ELEMENT);
 		}
-		gaService.createFont(label, "Comic Sans MS", 14);
+		Font font = gaService.manageFont(getDiagram(), "Comic Sans MS", 14);
+		label.setFont(font);
 		label.setForeground(manageColor(IColorConstant.BLUE));
 		label.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 		label.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);

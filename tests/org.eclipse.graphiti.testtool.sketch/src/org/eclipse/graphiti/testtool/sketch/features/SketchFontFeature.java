@@ -77,7 +77,7 @@ public class SketchFontFeature extends AbstractCustomFeature {
 			if (pe != null) {
 				textGa = SketchUtil.getLabelGa(pe);
 				if (textGa != null) {
-					Font clonedFont = Graphiti.getGaCreateService().createFont(textGa, f.getName(), f.getSize(), f.isItalic(), f.isBold());
+					Font clonedFont = Graphiti.getGaService().manageFont(getDiagram(), f.getName(), f.getSize(), f.isItalic(), f.isBold());
 					textGa.setFont(clonedFont);
 					textGa.setForeground(coloredFont.getColor());
 				}
@@ -159,7 +159,7 @@ public class SketchFontFeature extends AbstractCustomFeature {
 		int height = fontData.getHeight();
 		boolean italic = (fontData.getStyle() & SWT.ITALIC) != 0;
 		boolean bold = (fontData.getStyle() & SWT.BOLD) != 0;
-		ret = Graphiti.getGaCreateService().createFont(text, name, height, italic, bold);
+		ret = Graphiti.getGaService().manageFont(getDiagram(), name, height, italic, bold);
 		return ret;
 	}
 
