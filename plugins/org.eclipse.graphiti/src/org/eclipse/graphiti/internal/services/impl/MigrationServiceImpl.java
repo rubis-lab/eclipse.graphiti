@@ -27,9 +27,6 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IMigrationService;
 
-/**
- *
- */
 public class MigrationServiceImpl implements IMigrationService {
 
 
