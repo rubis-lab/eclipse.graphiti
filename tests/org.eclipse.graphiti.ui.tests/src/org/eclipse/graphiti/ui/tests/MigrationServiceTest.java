@@ -53,14 +53,14 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("diagram", new XMIResourceFactoryImpl());
 
-		// Register the packages of our model with EMF
+		// Register the packages of our model with EMF.
 		{
 			Object o = PictogramsPackage.eINSTANCE;
 			o = AlgorithmsPackage.eINSTANCE;
 			o = StylesPackage.eINSTANCE;
 		}
 
-		// Use classloader to acess diagram file
+		// Load diagram file.
 		URL resource = getClass().getClassLoader().getResource("org/eclipse/graphiti/ui/tests/testUtil.diagram");
 		URI createFileURI = URI.createFileURI(resource.getFile());
 		Resource diagramResource = resourceSet.getResource(createFileURI, true);
