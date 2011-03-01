@@ -19,6 +19,7 @@ import org.eclipse.graphiti.internal.services.impl.CreateServiceImpl;
 import org.eclipse.graphiti.internal.services.impl.GaServiceImpl;
 import org.eclipse.graphiti.internal.services.impl.LayoutServiceImpl;
 import org.eclipse.graphiti.internal.services.impl.LinkServiceImpl;
+import org.eclipse.graphiti.internal.services.impl.MigrationServiceImpl;
 import org.eclipse.graphiti.internal.services.impl.PeServiceImpl;
 
 /**
@@ -39,6 +40,8 @@ public class Graphiti {
 	private static ICreateService createService;
 
 	private static ILinkService linkService;
+
+	private static IMigrationService migService;
 
 	/**
 	 * 
@@ -127,5 +130,18 @@ public class Graphiti {
 			linkService = new LinkServiceImpl();
 		}
 		return linkService;
+	}
+
+	/**
+	 * 
+	 * @return the migration service
+	 * 
+	 * @since 0.8.0
+	 */
+	public static IMigrationService getMigrationService() {
+		if (migService == null) {
+			migService = new MigrationServiceImpl();
+		}
+		return migService;
 	}
 }
