@@ -34,6 +34,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -41,15 +43,11 @@ import org.junit.Test;
  */
 public class MigrationServiceTest extends GFAbstractTestCase {
 
-	/**
-	 * The diagram file contains two identical fonts. These fonts should be
-	 * aggregated at the diagram level, resulting in only one font.
-	 */
-	@Test
-	public void testMig070To080() {
+	private static TransactionalEditingDomain editingDomain;
 
-		// Setup EMF.
-		TransactionalEditingDomain editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
+	@BeforeClass
+	public static void before() {
+		editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("diagram", new XMIResourceFactoryImpl());
 
@@ -59,10 +57,50 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 			o = AlgorithmsPackage.eINSTANCE;
 			o = StylesPackage.eINSTANCE;
 		}
+	}
+
+	@AfterClass
+	public static void after() {
+		editingDomain.dispose();
+	}
+
+	/**
+	 * The diagram file contains two identical fonts for two Abstract Texts.
+	 * These fonts should be aggregated at the diagram level, resulting in only
+	 * one font.
+	 */
+	@Test
+	public void testMig070To080() {
 
 		// Load diagram file.
 		URL resource = getClass().getClassLoader().getResource("org/eclipse/graphiti/ui/tests/testUtil.diagram");
 		URI createFileURI = URI.createFileURI(resource.getFile());
+		ResourceSet resourceSet = editingDomain.getResourceSet();
+		Resource diagramResource = resourceSet.getResource(createFileURI, true);
+
+		final Diagram diagram = (Diagram) diagramResource.getEObject("/0");
+		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+
+			@Override
+			protected void doExecute() {
+				Graphiti.getMigrationService().migrate070To080(diagram);
+			}
+		});
+		EList<Font> fonts = diagram.getFonts();
+		assertTrue(fonts.size() == 1);
+	}
+
+	/**
+	 * The diagram file contains two styles with identical fonts. These fonts
+	 * should be aggregated at the diagram level, resulting in only one font.
+	 */
+	@Test
+	public void testMig070To0802() {
+
+		// Load diagram file.
+		URL resource = getClass().getClassLoader().getResource("org/eclipse/graphiti/ui/tests/tut.diagram");
+		URI createFileURI = URI.createFileURI(resource.getFile());
+		ResourceSet resourceSet = editingDomain.getResourceSet();
 		Resource diagramResource = resourceSet.getResource(createFileURI, true);
 
 		final Diagram diagram = (Diagram) diagramResource.getEObject("/0");
