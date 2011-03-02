@@ -42,11 +42,13 @@ public class MigrationServiceImpl implements IMigrationService {
 			if (next instanceof AbstractText) {
 				AbstractText t = (AbstractText) next;
 				Font font = t.getFont();
-				fonts.add(font);
+				if (font != null)
+					fonts.add(font);
 			} else if (next instanceof Style) {
 				Style s = (Style) next;
 				Font font = s.getFont();
-				fonts.add(font);
+				if (font != null)
+					fonts.add(font);
 			}
 		}
 
