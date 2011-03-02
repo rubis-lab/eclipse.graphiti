@@ -691,7 +691,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 				GraphitiUiInternal.getTraceService().dumpPictogramModelTree(diagram);
 				org.eclipse.graphiti.mm.algorithms.Rectangle rectangle = Graphiti.getGaCreateService().createRectangle(diagram);
-				Graphiti.getGaCreateService().createDefaultText(rectangle);
+				Graphiti.getGaCreateService().createDefaultText(diagram, rectangle);
 				GraphitiUiInternal.getTraceService().dumpGATree(rectangle);
 				Ellipse ellipse = new Ellipse();
 				ellipse.add(new Ellipse());
