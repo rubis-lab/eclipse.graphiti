@@ -235,7 +235,7 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		Object bo = getFeatureProvider().getBusinessObjectForPictogramElement(pe);
 		if (bo instanceof EClass) {
 			String name = ((EClass) bo).getName();
-			if (!name.isEmpty()) {
+			if (name != null && !name.isEmpty()) {
 				return name;
 			}
 		}
