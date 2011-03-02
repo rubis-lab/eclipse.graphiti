@@ -305,7 +305,7 @@ public abstract class GridPattern extends AbstractPattern {
 
 			Shape shape = Graphiti.getPeCreateService().createShape(containerShape, false);
 
-			Text text = Graphiti.getGaService().createDefaultText(shape);
+			Text text = Graphiti.getGaService().createDefaultText(getDiagram(), shape);
 			text.setForeground(manageColor(getConfiguration().getTextColor()));
 			text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 			text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);

@@ -112,7 +112,7 @@ public abstract class CompartmentPattern extends AbstractPattern {
 
 				gaCreateService.createImage(rectangle, IPlatformImageConstants.IMG_EDIT_EXPANDALL);
 
-				text = gaCreateService.createDefaultText(rectangle);
+				text = gaCreateService.createDefaultText(getDiagram(), rectangle);
 				text.setForeground(manageColor(getConfiguration().getTextColor()));
 				text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
 				text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
@@ -120,7 +120,7 @@ public abstract class CompartmentPattern extends AbstractPattern {
 
 			} else { // just a text data mapping
 
-				text = gaCreateService.createDefaultText(shape);
+				text = gaCreateService.createDefaultText(getDiagram(), shape);
 				text.setForeground(manageColor(getConfiguration().getTextColor()));
 				text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 				text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
@@ -369,7 +369,7 @@ public abstract class CompartmentPattern extends AbstractPattern {
 
 			gaCreateService.createImage(rectangle, IPlatformImageConstants.IMG_EDIT_EXPANDALL);
 
-			Text text = gaCreateService.createDefaultText(rectangle);
+			Text text = gaCreateService.createDefaultText(getDiagram(), rectangle);
 			text.setForeground(manageColor(getConfiguration().getTextColor()));
 			text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
 			text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
