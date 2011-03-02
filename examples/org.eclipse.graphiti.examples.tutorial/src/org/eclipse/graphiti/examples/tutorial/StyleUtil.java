@@ -32,6 +32,8 @@ public class StyleUtil {
 
 	private static final IColorConstant E_CLASS_FOREGROUND = new ColorConstant(255, 102, 0);
 
+	private static String DEFAULT_FONT = "Arial";
+
 	public static Style getStyleForEClass(Diagram diagram) {
 		final String styleId = "E-CLASS"; //$NON-NLS-1$
 
@@ -57,9 +59,10 @@ public class StyleUtil {
 
 		if (style == null) { // style not found - create new style
 			IGaService gaService = Graphiti.getGaService();
-			style = gaService.createStyle(diagram, styleId);
+			style = gaService.createStyle(getStyleForEClass(diagram), styleId);
 			// "overwrites" values from parent style
 			style.setForeground(gaService.manageColor(diagram, E_CLASS_TEXT_FOREGROUND));
+			style.setFont(gaService.manageFont(diagram, DEFAULT_FONT, 8, false, true));
 		}
 		return style;
 	}
