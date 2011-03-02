@@ -37,6 +37,7 @@ public class TutorialAddEReferenceFeature extends AbstractAddFeature {
 		super(fp);
 	}
 
+	@Override
 	public PictogramElement add(IAddContext context) {
 		IAddConnectionContext addConContext = (IAddConnectionContext) context;
 		EReference addedEReference = (EReference) context.getNewObject();
@@ -56,7 +57,7 @@ public class TutorialAddEReferenceFeature extends AbstractAddFeature {
 
 		// add dynamic text decorator for the reference name
 		ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
-		Text text = gaService.createDefaultText(textDecorator);
+		Text text = gaService.createDefaultText(getDiagram(), textDecorator);
 		text.setStyle(StyleUtil.getStyleForEClassText((getDiagram())));
 		gaService.setLocation(text, 10, 0);
 		// set reference name in the text decorator
@@ -73,6 +74,7 @@ public class TutorialAddEReferenceFeature extends AbstractAddFeature {
 		return connection;
 	}
 
+	@Override
 	public boolean canAdd(IAddContext context) {
 		// return true if given business object is an EReference
 		// note, that the context must be an instance of IAddConnectionContext

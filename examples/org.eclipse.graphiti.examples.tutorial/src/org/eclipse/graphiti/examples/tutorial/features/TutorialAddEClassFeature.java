@@ -46,6 +46,7 @@ public class TutorialAddEClassFeature extends AbstractAddShapeFeature {
 		super(fp);
 	}
 
+	@Override
 	public boolean canAdd(IAddContext context) {
 		// check if user wants to add a EClass
 		final Object newObject = context.getNewObject();
@@ -58,6 +59,7 @@ public class TutorialAddEClassFeature extends AbstractAddShapeFeature {
 		return false;
 	}
 
+	@Override
 	public PictogramElement add(IAddContext context) {
 		final EClass addedClass = (EClass) context.getNewObject();
 		final Diagram targetDiagram = (Diagram) context.getTargetContainer();
@@ -111,11 +113,10 @@ public class TutorialAddEClassFeature extends AbstractAddShapeFeature {
 			final Shape shape = peCreateService.createShape(containerShape, false);
 
 			// create and set text graphics algorithm
-			final Text text = gaService.createDefaultText(shape, addedClass.getName());
+			final Text text = gaService.createText(shape, addedClass.getName());
 			text.setStyle(StyleUtil.getStyleForEClassText(getDiagram()));
 			text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 			text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-			text.getFont().setBold(true);
 			gaService.setLocationAndSize(text, 0, 0, width, 20);
 
 			// create link and wire it
