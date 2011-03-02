@@ -630,10 +630,11 @@ public class GFOtherTests extends AbstractGFTests {
 				gaService.createStyle(diagram, "s");
 				gaService.findStyle(diagram, "s");
 				gaService.createShiftedColor(IColorConstant.BLUE, 5);
-				gaService.deleteFont(multiText2);
+				gaService.deleteFont(multiText2.getFont());
 			}
 		});
 	}
+
 
 	@Test
 	public void testUtils() throws Exception {
