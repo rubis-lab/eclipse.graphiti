@@ -54,6 +54,7 @@ public class TestAddPackageFeature extends AbstractAddShapeFeature {
 		super(fp);
 	}
 
+	@Override
 	public boolean canAdd(IAddContext context) {
 		// check if user wants to add a package
 		if (context.getNewObject() instanceof EPackage) {
@@ -66,6 +67,7 @@ public class TestAddPackageFeature extends AbstractAddShapeFeature {
 		return false;
 	}
 
+	@Override
 	public PictogramElement add(IAddContext context) {
 		EPackage addedPackage = (EPackage) context.getNewObject();
 		Diagram targetDiagram = (Diagram) context.getTargetContainer();
@@ -109,7 +111,7 @@ public class TestAddPackageFeature extends AbstractAddShapeFeature {
 			Shape shape = pecService.createShape(containerShape, false);
 
 			// create and set text graphics algorithm
-			Text text = gaService.createDefaultText(shape, addedPackage.getName());
+			Text text = gaService.createDefaultText(getDiagram(), shape, addedPackage.getName());
 			text.setForeground(manageColor(PACKAGE_TEXT_FOREGROUND));
 			text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 			text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);

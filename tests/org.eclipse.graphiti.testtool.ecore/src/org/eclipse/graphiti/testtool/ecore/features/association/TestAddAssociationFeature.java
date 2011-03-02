@@ -48,6 +48,7 @@ public class TestAddAssociationFeature extends AbstractAddFeature {
 		super(fp);
 	}
 
+	@Override
 	public PictogramElement add(IAddContext context) {
 
 		IAddConnectionContext addConnectionContext = (IAddConnectionContext) context;
@@ -64,7 +65,7 @@ public class TestAddAssociationFeature extends AbstractAddFeature {
 
 		// add dynamic text decorator for the association name
 		ConnectionDecorator labelDecorator = pecService.createConnectionDecorator(newConnection, true, 0.5, true);
-		Text text = gaService.createDefaultText(labelDecorator);
+		Text text = gaService.createDefaultText(getDiagram(), labelDecorator);
 		text.setForeground(manageColor(IColorConstant.BLACK));
 		gaService.setLocationAndSize(text, 30, 20, 50, 12);
 
@@ -82,6 +83,7 @@ public class TestAddAssociationFeature extends AbstractAddFeature {
 		return newConnection;
 	}
 
+	@Override
 	public boolean canAdd(IAddContext context) {
 		// return true if given business object is of instance association
 		if (context instanceof IAddConnectionContext && context.getNewObject() instanceof EReference) {

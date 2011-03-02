@@ -64,6 +64,7 @@ public class TestAddClassFeature extends AbstractAddShapeFeature {
 		super(fp);
 	}
 
+	@Override
 	public boolean canAdd(IAddContext context) {
 		// check if user wants to add a EClass
 		if (context.getNewObject() instanceof EClass) {
@@ -81,6 +82,7 @@ public class TestAddClassFeature extends AbstractAddShapeFeature {
 		return false;
 	}
 
+	@Override
 	public PictogramElement add(IAddContext context) {
 		EClass addedClass = (EClass) context.getNewObject();
 		ContainerShape targetContainer = context.getTargetContainer();
@@ -124,7 +126,7 @@ public class TestAddClassFeature extends AbstractAddShapeFeature {
 			Shape shape = pecService.createShape(containerShape, false);
 
 			// create and set text graphics algorithm
-			Text text = gaService.createDefaultText(shape, addedClass.getName());
+			Text text = gaService.createDefaultText(getDiagram(), shape, addedClass.getName());
 			text.setForeground(manageColor(CLASS_TEXT_FOREGROUND));
 			text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 			text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
