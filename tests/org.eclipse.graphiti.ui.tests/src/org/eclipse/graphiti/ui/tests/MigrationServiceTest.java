@@ -79,6 +79,7 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 		Resource diagramResource = resourceSet.getResource(createFileURI, true);
 
 		final Diagram diagram = (Diagram) diagramResource.getEObject("/0");
+		assertTrue(diagram.getFonts().isEmpty());
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 			@Override
@@ -104,6 +105,7 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 		Resource diagramResource = resourceSet.getResource(createFileURI, true);
 
 		final Diagram diagram = (Diagram) diagramResource.getEObject("/0");
+		assertTrue(diagram.getFonts().isEmpty());
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 			@Override
