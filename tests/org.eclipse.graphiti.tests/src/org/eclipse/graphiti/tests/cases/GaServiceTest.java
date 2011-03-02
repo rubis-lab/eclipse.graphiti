@@ -80,7 +80,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 
 	@Test
 	public void createDefaultMultiText() {
-		MultiText multiText = gas.createDefaultMultiText(s1);
+		MultiText multiText = gas.createDefaultMultiText(d, s1);
 		assertNotNull(multiText);
 		assertEquals(DEFAULT_FONT, multiText.getFont().getName());
 		checkTextDefaults(multiText, "");
@@ -88,7 +88,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 
 	@Test
 	public void createDefaultMultiText2() {
-		MultiText multiText = gas.createDefaultMultiText(s1, VALUE);
+		MultiText multiText = gas.createDefaultMultiText(d, s1, VALUE);
 		assertNotNull(multiText);
 		assertEquals(DEFAULT_FONT, multiText.getFont().getName());
 		checkTextDefaults(multiText, VALUE);
@@ -112,7 +112,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 
 	@Test
 	public void createDefaultText() {
-		Text text = gas.createDefaultText(s1);
+		Text text = gas.createDefaultText(d, s1);
 		assertNotNull(text);
 		assertEquals(DEFAULT_FONT, text.getFont().getName());
 		checkTextDefaults(text, "");
@@ -120,7 +120,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 
 	@Test
 	public void createDefaultText2() {
-		Text text = gas.createDefaultText(s1, VALUE);
+		Text text = gas.createDefaultText(d, s1, VALUE);
 		assertNotNull(text);
 		assertEquals(DEFAULT_FONT, text.getFont().getName());
 		checkTextDefaults(text, VALUE);
@@ -134,76 +134,35 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 	}
 
 	@Test
-	public void createFont() {
-		Text text = gas.createDefaultText(s1);
-		Font font = gas.createFont(text, FONTNAME, 10);
-		assertNotNull(font);
-		assertEquals(10, font.getSize());
-		assertEquals(FONTNAME, font.getName());
-	}
-
-	@Test
-	public void createFont2() {
-		Text text = gas.createDefaultText(s1);
-		Font font = gas.createFont(text, FONTNAME, 10, true, true);
-		assertNotNull(font);
-		assertEquals(10, font.getSize());
-		assertEquals(FONTNAME, font.getName());
-		assertTrue(font.isItalic());
-		assertTrue(font.isBold());
-		font = gas.createFont(text, FONTNAME, 10, true, false);
-		assertTrue(font.isItalic());
-		assertFalse(font.isBold());
-		font = gas.createFont(text, FONTNAME, 10, false, true);
-		assertFalse(font.isItalic());
-		assertTrue(font.isBold());
-		font = gas.createFont(text, FONTNAME, 10, false, false);
-		assertFalse(font.isItalic());
-		assertFalse(font.isBold());
-	}
-
-	@Test
-	public void createStyle() {
-		Style style = gas.createStyle(d, VALUE);
-		assertEquals(VALUE, style.getId());
-		assertEquals(1, d.getStyles().size());
-
-	}
-
-	@Test
-	public void createFont3() {
-		Style style = gas.createStyle(d, VALUE);
-		Font font = gas.createFont(style, FONTNAME, 10);
-		assertNotNull(font);
-		assertEquals(10, font.getSize());
-		assertEquals(FONTNAME, font.getName());
-		assertFalse(font.isItalic());
-		assertFalse(font.isBold());
-		assertEquals(font, style.getFont());
-
-	}
-
-	@Test
-	public void createFont4() {
-		Style style = gas.createStyle(d, VALUE);
-		Font font = gas.createFont(style, FONTNAME, 10, true, true);
-		assertNotNull(font);
-		assertEquals(10, font.getSize());
-		assertEquals(FONTNAME, font.getName());
-		assertTrue(font.isItalic());
-		assertTrue(font.isBold());
-		assertEquals(font, style.getFont());
-		assertTrue(font.isBold());
-		assertTrue(font.isItalic());
-		font = gas.createFont(style, FONTNAME, 10, true, false);
-		assertTrue(font.isItalic());
-		assertFalse(font.isBold());
-
-	}
-
-	@Test
 	public void manageFont() {
-		Text text = gas.createDefaultText(s1);
+		Font font = gas.manageFont(d, FONTNAME, 10);
+		assertNotNull(font);
+		assertEquals(10, font.getSize());
+		assertEquals(FONTNAME, font.getName());
+	}
+
+	@Test
+	public void manageFont2() {
+		Font font = gas.manageFont(d, FONTNAME, 10, true, true);
+		assertNotNull(font);
+		assertEquals(10, font.getSize());
+		assertEquals(FONTNAME, font.getName());
+		assertTrue(font.isItalic());
+		assertTrue(font.isBold());
+		font = gas.manageFont(d, FONTNAME, 10, true, false);
+		assertTrue(font.isItalic());
+		assertFalse(font.isBold());
+		font = gas.manageFont(d, FONTNAME, 10, false, true);
+		assertFalse(font.isItalic());
+		assertTrue(font.isBold());
+		font = gas.manageFont(d, FONTNAME, 10, false, false);
+		assertFalse(font.isItalic());
+		assertFalse(font.isBold());
+	}
+
+	@Test
+	public void manageFont3() {
+		Text text = gas.createDefaultText(d, s1);
 		Font font = gas.manageFont(d, FONTNAME, 10);
 		assertNotNull(font);
 		assertEquals(10, font.getSize());
@@ -214,6 +173,14 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		// object should be created
 		Font font2 = gas.manageFont(d, FONTNAME, 10);
 		assertEquals(font, font2);
+	}
+
+	@Test
+	public void createStyle() {
+		Style style = gas.createStyle(d, VALUE);
+		assertEquals(VALUE, style.getId());
+		assertEquals(1, d.getStyles().size());
+
 	}
 
 	@Test
@@ -424,7 +391,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 
 	@Test
 	public void deleteFont() {
-		Text text = gas.createDefaultText(s1);
+		Text text = gas.createDefaultText(d, s1);
 		Font font = gas.manageFont(d, FONTNAME, 10);
 		text.setFont(font);
 		assertEquals(font, text.getFont());
@@ -455,7 +422,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 
 	@Test
 	public void getter() {
-		Text text = gas.createDefaultText(s1);
+		Text text = gas.createDefaultText(d, s1);
 		assertNotNull(text);
 		assertNotNull(gas.getAngle(text, false));
 		assertNotNull(gas.getLineWidth(text, false));
@@ -474,7 +441,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 
 	@Test
 	public void getterWithCheckStyles() {
-		Text text = gas.createDefaultText(s1);
+		Text text = gas.createDefaultText(d, s1);
 		Style style = gas.createStyle(d, VALUE);
 		assertEquals(VALUE, style.getId());
 		assertEquals(1, d.getStyles().size());

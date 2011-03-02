@@ -237,7 +237,7 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 	@Test
 	public void moveConnectionDecorator() {
 		ConnectionDecorator dec = Graphiti.getPeCreateService().createConnectionDecorator(c, true, 0.5, true);
-		Graphiti.getGaCreateService().createDefaultText(dec, "TEST");
+		Graphiti.getGaCreateService().createDefaultText(d, dec, "TEST");
 		DefaultMoveConnectionDecoratorFeature feature = new DefaultMoveConnectionDecoratorFeature(fpMock);
 		MoveConnectionDecoratorContext context = new MoveConnectionDecoratorContext(dec, 5, 5, true);
 		assertTrue(feature.canExecute(context));

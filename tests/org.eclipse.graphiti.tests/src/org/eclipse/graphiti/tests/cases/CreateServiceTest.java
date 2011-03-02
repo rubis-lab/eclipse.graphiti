@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -35,7 +34,6 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
-import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -52,7 +50,6 @@ public class CreateServiceTest extends GFAbstractCreateTestCase {
 	public static ICreateService crs = Graphiti.getCreateService();
 	private Diagram d;
 	private Shape s1;
-	private static final String FONTNAME = "Baskerville Old Face";
 
 	@BeforeClass
 	public static void prepareClass() {
@@ -71,7 +68,7 @@ public class CreateServiceTest extends GFAbstractCreateTestCase {
 
 	@Test
 	public void createDefaultMultiText() {
-		MultiText multiText = crs.createDefaultMultiText(s1);
+		MultiText multiText = crs.createDefaultMultiText(d, s1);
 		assertNotNull(multiText);
 		assertEquals(DEFAULT_FONT, multiText.getFont().getName());
 		checkTextDefaults(multiText, "");
@@ -79,7 +76,7 @@ public class CreateServiceTest extends GFAbstractCreateTestCase {
 
 	@Test
 	public void createDefaultMultiText2() {
-		MultiText multiText = crs.createDefaultMultiText(s1, VALUE);
+		MultiText multiText = crs.createDefaultMultiText(d, s1, VALUE);
 		assertNotNull(multiText);
 		assertEquals(DEFAULT_FONT, multiText.getFont().getName());
 		checkTextDefaults(multiText, VALUE);
@@ -87,7 +84,7 @@ public class CreateServiceTest extends GFAbstractCreateTestCase {
 
 	@Test
 	public void createDefaultText() {
-		Text text = crs.createDefaultText(s1);
+		Text text = crs.createDefaultText(d, s1);
 		assertNotNull(text);
 		assertEquals(DEFAULT_FONT, text.getFont().getName());
 		checkTextDefaults(text, "");
@@ -95,7 +92,7 @@ public class CreateServiceTest extends GFAbstractCreateTestCase {
 
 	@Test
 	public void createDefaultText2() {
-		Text text = crs.createDefaultText(s1, VALUE);
+		Text text = crs.createDefaultText(d, s1, VALUE);
 		assertNotNull(text);
 		assertEquals(DEFAULT_FONT, text.getFont().getName());
 		checkTextDefaults(text, VALUE);
@@ -108,65 +105,6 @@ public class CreateServiceTest extends GFAbstractCreateTestCase {
 		checkGraphicsAlgorithmDefaults(ellipse);
 	}
 
-	@Test
-	public void createFont() {
-		Text text = crs.createDefaultText(s1);
-		Font font = crs.createFont(text, FONTNAME, 10);
-		assertNotNull(font);
-		assertEquals(10, font.getSize());
-		assertEquals(FONTNAME, font.getName());
-	}
-
-	@Test
-	public void createFont2() {
-		Text text = crs.createDefaultText(s1);
-		Font font = crs.createFont(text, FONTNAME, 10, true, true);
-		assertNotNull(font);
-		assertEquals(10, font.getSize());
-		assertEquals(FONTNAME, font.getName());
-		assertTrue(font.isItalic());
-		assertTrue(font.isBold());
-		font = crs.createFont(text, FONTNAME, 10, true, false);
-		assertTrue(font.isItalic());
-		assertFalse(font.isBold());
-		font = crs.createFont(text, FONTNAME, 10, false, true);
-		assertFalse(font.isItalic());
-		assertTrue(font.isBold());
-		font = crs.createFont(text, FONTNAME, 10, false, false);
-		assertFalse(font.isItalic());
-		assertFalse(font.isBold());
-	}
-
-	@Test
-	public void createFont3() {
-		Style style = crs.createStyle(d, VALUE);
-		Font font = crs.createFont(style, FONTNAME, 10);
-		assertNotNull(font);
-		assertEquals(10, font.getSize());
-		assertEquals(FONTNAME, font.getName());
-		assertFalse(font.isItalic());
-		assertFalse(font.isBold());
-		assertEquals(font, style.getFont());
-
-	}
-
-	@Test
-	public void createFont4() {
-		Style style = crs.createStyle(d, VALUE);
-		Font font = crs.createFont(style, FONTNAME, 10, true, true);
-		assertNotNull(font);
-		assertEquals(10, font.getSize());
-		assertEquals(FONTNAME, font.getName());
-		assertTrue(font.isItalic());
-		assertTrue(font.isBold());
-		assertEquals(font, style.getFont());
-		assertTrue(font.isBold());
-		assertTrue(font.isItalic());
-		font = crs.createFont(style, FONTNAME, 10, true, false);
-		assertTrue(font.isItalic());
-		assertFalse(font.isBold());
-
-	}
 
 	@Test
 	public void createImage() {
