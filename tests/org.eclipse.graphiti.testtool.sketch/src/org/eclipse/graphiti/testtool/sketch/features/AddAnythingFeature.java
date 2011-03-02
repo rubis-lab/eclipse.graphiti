@@ -41,6 +41,7 @@ public class AddAnythingFeature extends AbstractAddFeature {
 		super(fp);
 	}
 
+	@Override
 	public PictogramElement add(IAddContext context) {
 		Object newObject = context.getNewObject();
 		Shape shape = Graphiti.getPeCreateService().createShape(context.getTargetContainer(), true);
@@ -51,13 +52,14 @@ public class AddAnythingFeature extends AbstractAddFeature {
 		r.setBackground(gaService.manageColor(getDiagram(), IColorConstant.WHITE));
 
 		String text = newObject.getClass().getName() + " - " + newObject.toString();
-		Text textGa = gaService.createDefaultText(r, text);
+		Text textGa = gaService.createDefaultText(getDiagram(), r, text);
 		gaService.setLocationAndSize(textGa, 0, 0, 400, 100);
 		textGa.setAngle(-1);
 
 		return shape;
 	}
 
+	@Override
 	public boolean canAdd(IAddContext context) {
 		return context.getTargetContainer() != null;
 	}

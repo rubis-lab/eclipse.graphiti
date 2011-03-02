@@ -94,7 +94,7 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 
 		AbstractText label;
 		if (isMultiLineText()) {
-			label = gaService.createDefaultMultiText(newGa, NEW_ELEMENT);
+			label = gaService.createDefaultMultiText(getDiagram(), newGa, NEW_ELEMENT);
 		} else {
 			label = gaService.createText(newGa, NEW_ELEMENT);
 		}
