@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.StyleContainer;
-import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.Image;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
@@ -31,7 +30,6 @@ import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
-import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -57,16 +55,18 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
 	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setFont(createFont(DEFAULT_FONT, 8));<br>
+	 * text.setFont(DEFAULT_FONT);<br>
 	 * text.setAngle(0);<br>
 	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
+	 * @param diagram
+	 *            the diagram to manage the font
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
 	 * @return the new multiline text
 	 */
-	public MultiText createDefaultMultiText(GraphicsAlgorithmContainer gaContainer);
+	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer);
 
 	/**
 	 * Creates a multitext graphics algorithm with the given text.
@@ -78,18 +78,20 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
 	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setFont(createFont(DEFAULT_FONT, 8));<br>
+	 * text.setFont(DEFAULT_FONT);<br>
 	 * text.setAngle(0);<br>
 	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
+	 * @param diagram
+	 *            the diagram to manage the font
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
 	 * @param value
 	 *            initial text
 	 * @return the new multiline text
 	 */
-	public MultiText createDefaultMultiText(GraphicsAlgorithmContainer gaContainer, String value);
+	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value);
 
 	/**
 	 * Creates a text graphics algorithm with the default font (Arial, size 8).
@@ -101,16 +103,20 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
 	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setFont(createFont(DEFAULT_FONT, 8));<br>
+	 * text.setFont(DEFAULT_FONT);<br>
 	 * text.setAngle(0);<br>
 	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
+	 * @param diagram
+	 *            the diagram to manage the font
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
 	 * @return the new text
+	 * 
 	 */
-	public Text createDefaultText(GraphicsAlgorithmContainer gaContainer);
+	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer);
+
 
 	/**
 	 * Creates a text graphics algorithm with the default font (Arial, size 8)
@@ -123,143 +129,20 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
 	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setFont(createFont(DEFAULT_FONT, 8));<br>
+	 * text.setFont(DEFAULT_FONT);<br>
 	 * text.setAngle(0);<br>
 	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
 	 * 
+	 * @param diagram
+	 *            the diagram to manage the font
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
 	 * @param value
 	 *            initial text
 	 * @return the new text
 	 */
-	public Text createDefaultText(GraphicsAlgorithmContainer gaContainer, String value);
-
-	/**
-	 * Creates an ellipse graphics algorithm.
-	 * <p>
-	 * The following values are set by default:
-	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * 
-	 * @param gaContainer
-	 *            the container for the new graphics algorithm
-	 * @return the new ellipse
-	 */
-	public Ellipse createEllipse(GraphicsAlgorithmContainer gaContainer);
-
-	/**
-	 * Creates a font datatype.
-	 * 
-	 * @param text
-	 *            the text
-	 * @param name
-	 *            the name
-	 * @param size
-	 *            the size
-	 * @return the new font
-	 * 
-	 * @deprecated As of release 0.8.0, replaced by
-	 *             {@link IGaService#manageFont(Diagram, String, int)}
-	 */
-	@Deprecated
-	public Font createFont(AbstractText text, String name, int size);
-
-	/**
-	 * Creates a font datatype.
-	 * 
-	 * @param text
-	 *            the text
-	 * @param name
-	 *            the name
-	 * @param size
-	 *            the size
-	 * @param isItalic
-	 *            the is italic
-	 * @param isBold
-	 *            the is bold
-	 * @return the new font
-	 * 
-	 * @deprecated As of release 0.8.0, replaced by
-	 *             {@link IGaService#manageFont(Diagram, String, int, boolean, boolean)}
-	 */
-	@Deprecated
-	public Font createFont(AbstractText text, String name, int size, boolean isItalic, boolean isBold);
-
-	/**
-	 * Creates a font datatype.
-	 * 
-	 * @param style
-	 *            the style
-	 * @param name
-	 *            the name
-	 * @param size
-	 *            the size
-	 * @return the new font
-	 * 
-	 * @deprecated As of release 0.8.0, replaced by
-	 *             {@link IGaService#manageFont(Diagram, String, int)}
-	 */
-	@Deprecated
-	public Font createFont(Style style, String name, int size);
-
-	/**
-	 * Creates a font datatype.
-	 * 
-	 * @param style
-	 *            the style
-	 * @param name
-	 *            the name
-	 * @param size
-	 *            the size
-	 * @param isItalic
-	 *            the is italic
-	 * @param isBold
-	 *            the is bold
-	 * @return the new font
-	 * 
-	 * @deprecated As of release 0.8.0, replaced by
-	 *             {@link IGaService#manageFont(Diagram, String, int, boolean, boolean)}
-	 */
-	@Deprecated
-	public Font createFont(Style style, String name, int size, boolean isItalic, boolean isBold);
-
-	/**
-	 * Creates a image graphics algorithm with the given image id.
-	 * <p>
-	 * The following values are set by default:
-	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * image.setId(imageId);<br>
-	 * image.setProportional(false);<br>
-	 * image.setStretchH(false);<br>
-	 * image.setStretchV(false);<br>
-	 * 
-	 * @param gaContainer
-	 *            the container for the new graphics algorithm
-	 * @param imageId
-	 *            the image id
-	 * @return the new image
-	 */
-	public Image createImage(GraphicsAlgorithmContainer gaContainer, String imageId);
-
-	/**
-	 * Create an invisible rectangle.
-	 * 
-	 * @param pe
-	 *            the pictogram element to create the rectangle
-	 * @return the rectangle
-	 */
-	public Rectangle createInvisibleRectangle(PictogramElement pe);
+	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value);
 
 	/**
 	 * Creates a multitext graphics algorithm.
@@ -302,6 +185,97 @@ public interface IGaCreateService {
 	 * @return the new multiline text
 	 */
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer, String value);
+
+	/**
+	 * Creates a text graphics algorithm.
+	 * <p>
+	 * The following values are set by default:
+	 * <p>
+	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
+	 * graphicsAlgorithm.setLineVisible(true); <br>
+	 * graphicsAlgorithm.setLineWidth(1);<br>
+	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * text.setAngle(0);<br>
+	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
+	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @return the new text
+	 */
+	public Text createText(GraphicsAlgorithmContainer gaContainer);
+
+	/**
+	 * Creates a text graphics algorithm with the given text.
+	 * <p>
+	 * The following values are set by default:
+	 * <p>
+	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
+	 * graphicsAlgorithm.setLineVisible(true); <br>
+	 * graphicsAlgorithm.setLineWidth(1);<br>
+	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * text.setAngle(0);<br>
+	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
+	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param value
+	 *            initial text
+	 * @return the new text
+	 */
+	public Text createText(GraphicsAlgorithmContainer gaContainer, String value);
+
+	/**
+	 * Creates an ellipse graphics algorithm.
+	 * <p>
+	 * The following values are set by default:
+	 * <p>
+	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
+	 * graphicsAlgorithm.setLineVisible(true); <br>
+	 * graphicsAlgorithm.setLineWidth(1);<br>
+	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @return the new ellipse
+	 */
+	public Ellipse createEllipse(GraphicsAlgorithmContainer gaContainer);
+
+	/**
+	 * Creates a image graphics algorithm with the given image id.
+	 * <p>
+	 * The following values are set by default:
+	 * <p>
+	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
+	 * graphicsAlgorithm.setLineVisible(true); <br>
+	 * graphicsAlgorithm.setLineWidth(1);<br>
+	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * image.setId(imageId);<br>
+	 * image.setProportional(false);<br>
+	 * image.setStretchH(false);<br>
+	 * image.setStretchV(false);<br>
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param imageId
+	 *            the image id
+	 * @return the new image
+	 */
+	public Image createImage(GraphicsAlgorithmContainer gaContainer, String imageId);
+
+	/**
+	 * Create an invisible rectangle.
+	 * 
+	 * @param pe
+	 *            the pictogram element to create the rectangle
+	 * @return the rectangle
+	 */
+	public Rectangle createInvisibleRectangle(PictogramElement pe);
 
 	/**
 	 * Creates the platform graphics algorithm.
@@ -599,47 +573,5 @@ public interface IGaCreateService {
 	 * @return the newly created style
 	 */
 	public Style createStyle(StyleContainer styleContainer, String id);
-
-	/**
-	 * Creates a text graphics algorithm.
-	 * <p>
-	 * The following values are set by default:
-	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
-	 * 
-	 * @param gaContainer
-	 *            the container for the new graphics algorithm
-	 * @return the new text
-	 */
-	public Text createText(GraphicsAlgorithmContainer gaContainer);
-
-	/**
-	 * Creates a text graphics algorithm with the given text.
-	 * <p>
-	 * The following values are set by default:
-	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
-	 * 
-	 * @param gaContainer
-	 *            the container for the new graphics algorithm
-	 * @param value
-	 *            initial text
-	 * @return the new text
-	 */
-	public Text createText(GraphicsAlgorithmContainer gaContainer, String value);
 
 }

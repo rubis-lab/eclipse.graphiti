@@ -86,14 +86,6 @@ public final class GaServiceImpl implements IGaService {
 		return new DimensionImpl(Math.abs(maxX - minX) + 1, Math.abs(maxY - minY) + 1);
 	}
 
-	private static Font createFontInternal(String name, int size, boolean isItalic, boolean isBold) {
-		Font ret = StylesFactory.eINSTANCE.createFont();
-		ret.setName(name);
-		ret.setSize(size);
-		ret.setItalic(isItalic);
-		ret.setBold(isBold);
-		return ret;
-	}
 
 	private static int fitColorInt(int c) {
 		c = Math.max(0, c);
@@ -426,8 +418,8 @@ public final class GaServiceImpl implements IGaService {
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
 	@Override
-	public MultiText createDefaultMultiText(GraphicsAlgorithmContainer gaContainer) {
-		return createDefaultMultiText(gaContainer, ""); //$NON-NLS-1$
+	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer) {
+		return createDefaultMultiText(diagram, gaContainer, ""); //$NON-NLS-1$
 	}
 
 	/*
@@ -439,8 +431,8 @@ public final class GaServiceImpl implements IGaService {
 	 * java.lang.String)
 	 */
 	@Override
-	public MultiText createDefaultMultiText(GraphicsAlgorithmContainer gaContainer, String value) {
-		return (MultiText) createText(gaContainer, true, value, true);
+	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value) {
+		return (MultiText) createText(diagram, gaContainer, true, value, true);
 	}
 
 	/*
@@ -451,8 +443,8 @@ public final class GaServiceImpl implements IGaService {
 	 * eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
 	@Override
-	public Text createDefaultText(GraphicsAlgorithmContainer gaContainer) {
-		return createDefaultText(gaContainer, ""); //$NON-NLS-1$
+	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer) {
+		return createDefaultText(diagram, gaContainer, ""); //$NON-NLS-1$
 	}
 
 	/*
@@ -464,8 +456,8 @@ public final class GaServiceImpl implements IGaService {
 	 * java.lang.String)
 	 */
 	@Override
-	public Text createDefaultText(GraphicsAlgorithmContainer gaContainer, String value) {
-		return (Text) createText(gaContainer, false, value, true);
+	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value) {
+		return (Text) createText(diagram, gaContainer, false, value, true);
 	}
 
 	/*
@@ -483,68 +475,6 @@ public final class GaServiceImpl implements IGaService {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.services.IGaCreateService#createFont(org.eclipse
-	 * .graphiti.mm.pictograms.AbstractText, java.lang.String, int)
-	 */
-	@Override
-	public Font createFont(AbstractText text, String name, int size) {
-		return createFont(text, name, size, false, false);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.services.IGaCreateService#createFont(org.eclipse
-	 * .graphiti.mm.pictograms.AbstractText, java.lang.String, int, boolean,
-	 * boolean)
-	 */
-	@Override
-	public Font createFont(AbstractText text, String name, int size, boolean isItalic, boolean isBold) {
-		Font ret = createFontInternal(name, size, isItalic, isBold);
-		Font oldFont = text.getFont();
-		text.setFont(ret);
-		if (oldFont != null) {// remove old font from the transient partition
-			EcoreUtil.delete(oldFont, true);
-		}
-
-		return ret;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.services.IGaCreateService#createFont(org.eclipse
-	 * .graphiti.mm.pictograms.Style, java.lang.String, int)
-	 */
-	@Override
-	public Font createFont(Style style, String name, int size) {
-		return createFont(style, name, size, false, false);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.services.IGaCreateService#createFont(org.eclipse
-	 * .graphiti.mm.pictograms.Style, java.lang.String, int, boolean, boolean)
-	 */
-	@Override
-	public Font createFont(Style style, String name, int size, boolean isItalic, boolean isBold) {
-		Font ret = createFontInternal(name, size, isItalic, isBold);
-		Font oldFont = style.getFont();
-		style.setFont(ret);
-		if (oldFont != null) {// remove old font from the transient partition
-			EcoreUtil.delete(oldFont, true);
-		}
-
-		return ret;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -611,7 +541,7 @@ public final class GaServiceImpl implements IGaService {
 	 */
 	@Override
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer, String value) {
-		return (MultiText) createText(gaContainer, true, value, false);
+		return (MultiText) createText(null, gaContainer, true, value, false);
 	}
 
 	/*
@@ -921,9 +851,10 @@ public final class GaServiceImpl implements IGaService {
 		return createText(gaContainer, ""); //$NON-NLS-1$
 	}
 
-	private AbstractText createText(GraphicsAlgorithmContainer gaContainer, boolean multiText, String value, boolean createFont) {
+	private AbstractText createText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, boolean multiText, String value,
+			boolean createFont) {
 		AbstractText ret = multiText ? AlgorithmsFactory.eINSTANCE.createMultiText() : AlgorithmsFactory.eINSTANCE.createText();
-		setDefaultTextAttributes(ret, value, createFont);
+		setDefaultTextAttributes(diagram, ret, value, createFont);
 		setContainer(ret, gaContainer);
 		return ret;
 	}
@@ -937,7 +868,7 @@ public final class GaServiceImpl implements IGaService {
 	 */
 	@Override
 	public Text createText(GraphicsAlgorithmContainer gaContainer, String value) {
-		return (Text) createText(gaContainer, false, value, false);
+		return (Text) createText(null, gaContainer, false, value, false);
 	}
 
 	/*
@@ -1494,11 +1425,12 @@ public final class GaServiceImpl implements IGaService {
 	}
 
 
-	private void setDefaultTextAttributes(AbstractText ret, String value, boolean createFont) {
+	private void setDefaultTextAttributes(Diagram diagram, AbstractText ret, String value, boolean createFont) {
 		setDefaultGraphicsAlgorithmValues(ret);
 		ret.setValue(value);
-		if (createFont) {
-			createFont(ret, DEFAULT_FONT, 8);
+		if (createFont && diagram != null) {
+			Font font = manageFont(diagram, DEFAULT_FONT, 8);
+			ret.setFont(font);
 		}
 	}
 

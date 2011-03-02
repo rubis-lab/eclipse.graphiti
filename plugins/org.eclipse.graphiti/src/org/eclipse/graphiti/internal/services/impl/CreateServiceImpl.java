@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.StyleContainer;
-import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.Image;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
@@ -33,7 +32,6 @@ import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
-import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
@@ -69,8 +67,8 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * java.lang.String)
 	 */
 	@Override
-	public MultiText createDefaultMultiText(GraphicsAlgorithmContainer gaContainer, String value) {
-		return getGaService().createDefaultMultiText(gaContainer, value);
+	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value) {
+		return getGaService().createDefaultMultiText(diagram, gaContainer, value);
 	}
 
 	/*
@@ -81,8 +79,8 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
 	@Override
-	public MultiText createDefaultMultiText(GraphicsAlgorithmContainer gaContainer) {
-		return getGaService().createDefaultMultiText(gaContainer);
+	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer) {
+		return getGaService().createDefaultMultiText(diagram, gaContainer);
 	}
 
 	/*
@@ -94,8 +92,8 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * java.lang.String)
 	 */
 	@Override
-	public Text createDefaultText(GraphicsAlgorithmContainer gaContainer, String value) {
-		return getGaService().createDefaultText(gaContainer, value);
+	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value) {
+		return getGaService().createDefaultText(diagram, gaContainer, value);
 	}
 
 	/*
@@ -106,8 +104,8 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
 	@Override
-	public Text createDefaultText(GraphicsAlgorithmContainer gaContainer) {
-		return getGaService().createDefaultText(gaContainer);
+	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer) {
+		return getGaService().createDefaultText(diagram, gaContainer);
 	}
 
 	/*
@@ -120,55 +118,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	@Override
 	public Ellipse createEllipse(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createEllipse(gaContainer);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.services.IGaCreateService#createFont(org.eclipse
-	 * .graphiti.mm.pictograms.AbstractText, java.lang.String, int, boolean,
-	 * boolean)
-	 */
-	@Override
-	public Font createFont(AbstractText text, String name, int size, boolean isItalic, boolean isBold) {
-		return getGaService().createFont(text, name, size, isItalic, isBold);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.services.IGaCreateService#createFont(org.eclipse
-	 * .graphiti.mm.pictograms.AbstractText, java.lang.String, int)
-	 */
-	@Override
-	public Font createFont(AbstractText text, String name, int size) {
-		return getGaService().createFont(text, name, size);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.services.IGaCreateService#createFont(org.eclipse
-	 * .graphiti.mm.pictograms.Style, java.lang.String, int, boolean, boolean)
-	 */
-	@Override
-	public Font createFont(Style style, String name, int size, boolean isItalic, boolean isBold) {
-		return getGaService().createFont(style, name, size, isItalic, isBold);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.graphiti.services.IGaCreateService#createFont(org.eclipse
-	 * .graphiti.mm.pictograms.Style, java.lang.String, int)
-	 */
-	@Override
-	public Font createFont(Style style, String name, int size) {
-		return getGaService().createFont(style, name, size);
 	}
 
 	/*
