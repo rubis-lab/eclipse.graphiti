@@ -79,7 +79,7 @@ import org.eclipse.graphiti.testtool.sketch.features.SketchGhostLayoutFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchLabelDirectEditingFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchLayoutFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchMoveShapeFeature;
-import org.eclipse.graphiti.testtool.sketch.features.SketchReconnectFeature;
+import org.eclipse.graphiti.testtool.sketch.features.SketchReconnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchResizeShapeFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchTextDirectEditingFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SwitchModeFeature;
@@ -434,6 +434,6 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public IReconnectionFeature getReconnectionFeature(IReconnectionContext context) {
-		return new SketchReconnectFeature(this);
+		return new SketchReconnectionFeature(this);
 	}
 }

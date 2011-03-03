@@ -17,11 +17,11 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ICreateService;
 import org.eclipse.graphiti.util.IColorConstant;
 
-public class SketchReconnectFeature extends DefaultReconnectionFeature {
+public class SketchReconnectionFeature extends DefaultReconnectionFeature {
 
 	private static final int POINT_SIZE = 10;
 
-	public SketchReconnectFeature(IFeatureProvider fp) {
+	public SketchReconnectionFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
