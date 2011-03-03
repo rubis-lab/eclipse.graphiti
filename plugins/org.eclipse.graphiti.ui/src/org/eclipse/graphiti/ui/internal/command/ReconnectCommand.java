@@ -30,6 +30,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -54,7 +55,12 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 			PictogramElement newTargetPictogramElement, String reconnectType, Point location) {
 		super(configurationProvider);
 
-		ILocation targetLocation = (location != null) ? new LocationImpl(location.x, location.y) : null;
+		ILocation targetLocation = null;
+		if (location != null) {
+			DiagramEditorInternal diagramEditor = (DiagramEditorInternal) getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
+			Point realLocation = diagramEditor.calculateRealMouseLocation(location);
+			targetLocation = new LocationImpl(realLocation.x, realLocation.y);
+		}
 		this.ctx = new ReconnectionContext(connection, oldAnchor, newAnchor, targetLocation);
 		ctx.setTargetPictogramElement(newTargetPictogramElement);
 		((ReconnectionContext) ctx).setReconnectType(reconnectType);

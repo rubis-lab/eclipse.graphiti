@@ -321,9 +321,9 @@ public class CreateConnectionCommand extends AbstractCommand {
 		if (location == null) {
 			return null;
 		}
-
-		// TODO calculate correct location
-		ILocation currentLocation = new LocationImpl(location.x, location.y);
+		DiagramEditorInternal diagramEditor = (DiagramEditorInternal) getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
+		Point realLocation = diagramEditor.calculateRealMouseLocation(location);
+		ILocation currentLocation = new LocationImpl(realLocation.x, realLocation.y);
 		return currentLocation;
 	}
 }
