@@ -134,10 +134,10 @@ public class GFNodeEditPolicy extends GraphicalNodeEditPolicy {
 
 			CreateConnectionCommand cmd = new CreateConnectionCommand(configurationProvider, (PictogramElement) getHost().getModel(),
 					features);
+			cmd.setLocation(request.getLocation());
 			if (!cmd.canStartConnection()) {
 				return null;
 			}
-			cmd.setLocation(request.getLocation());
 			request.setStartCommand(cmd);
 			return cmd;
 
