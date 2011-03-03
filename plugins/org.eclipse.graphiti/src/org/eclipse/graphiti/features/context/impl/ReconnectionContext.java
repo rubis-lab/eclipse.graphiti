@@ -64,11 +64,12 @@ public class ReconnectionContext extends DefaultContext implements IReconnection
 	 * @param newAnchor
 	 *            the new anchor
 	 */
-	public ReconnectionContext(Connection connection, Anchor oldAnchor, Anchor newAnchor) {
+	public ReconnectionContext(Connection connection, Anchor oldAnchor, Anchor newAnchor, ILocation targetLocation) {
 		super();
 		setConnection(connection);
 		setOldAnchor(oldAnchor);
 		setNewAnchor(newAnchor);
+		setTargetLocation(targetLocation);
 	}
 
 	/**
