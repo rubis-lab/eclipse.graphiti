@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
@@ -28,6 +29,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.func.ICreateInfo;
 import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
+import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -55,6 +57,9 @@ public class CreateConnectionCommand extends AbstractCommand {
 
 	// the location when connection is dropped on canvas
 	private Point location;
+
+	// the location where new connection starts
+	private ILocation sourceLocation;
 
 	/** Start endpoint for the connection. */
 	private final PictogramElement sourceObject;
@@ -96,6 +101,8 @@ public class CreateConnectionCommand extends AbstractCommand {
 		connectionContext.setTargetAnchor(targetAnchor);
 		connectionContext.setSourcePictogramElement(sourceObject);
 		connectionContext.setTargetPictogramElement(targetObject);
+		connectionContext.setTargetLocation(getCurrentLocation());
+		connectionContext.setSourceLocation(sourceLocation);
 
 		CustomContext customContext = new CustomContext();
 		customContext.setPictogramElements(new PictogramElement[] { sourceObject, targetObject });
@@ -133,6 +140,8 @@ public class CreateConnectionCommand extends AbstractCommand {
 		connectionContext.setTargetAnchor(targetAnchor);
 		connectionContext.setSourcePictogramElement(sourceObject);
 		connectionContext.setTargetPictogramElement(targetObject);
+		connectionContext.setTargetLocation(getCurrentLocation());
+		connectionContext.setSourceLocation(sourceLocation);
 
 		CustomContext customContext = new CustomContext();
 		customContext.setPictogramElements(new PictogramElement[] { sourceObject, targetObject });
@@ -192,6 +201,10 @@ public class CreateConnectionCommand extends AbstractCommand {
 		connectionContext.setTargetAnchor(targetAnchor);
 		connectionContext.setSourcePictogramElement(sourceObject);
 		connectionContext.setTargetPictogramElement(null);
+		connectionContext.setTargetLocation(null);
+
+		sourceLocation = getCurrentLocation(); // store location for later usage
+		connectionContext.setSourceLocation(sourceLocation);
 
 		for (IFeature feature : features) {
 
@@ -302,5 +315,15 @@ public class CreateConnectionCommand extends AbstractCommand {
 
 	public IFeature[] getFeatures() {
 		return features.toArray(new IFeature[0]);
+	}
+
+	private ILocation getCurrentLocation() {
+		if (location == null) {
+			return null;
+		}
+
+		// TODO calculate correct location
+		ILocation currentLocation = new LocationImpl(location.x, location.y);
+		return currentLocation;
 	}
 }
