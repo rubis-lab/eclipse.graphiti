@@ -66,11 +66,12 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 		if (!getUserDecision()) {
 			return;
 		}
+
+		preReconnect(context);
+		
 		Connection connection = context.getConnection();
 		Anchor newAnchor = context.getNewAnchor();
 		Anchor oldAnchor = context.getOldAnchor();
-
-		preReconnect(context);
 
 		if (connection.getStart().equals(oldAnchor)) {
 			connection.setStart(newAnchor);
