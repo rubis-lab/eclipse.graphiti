@@ -82,7 +82,10 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 	public static void prepareClass() {
 		fpMock = createNiceMock(IFeatureProvider.class);
 		IDiagramTypeProvider dtpMock = createMock(IDiagramTypeProvider.class);
-		IDiagramEditor editorMock = createNiceMock(IDiagramEditor.class); // nice mock returns defaults
+		IDiagramEditor editorMock = createNiceMock(IDiagramEditor.class); // nice
+																			// mock
+																			// returns
+																			// defaults
 		expect(fpMock.getDiagramTypeProvider()).andReturn(dtpMock).anyTimes();
 		expect(fpMock.getRemoveFeature(isA(RemoveContext.class))).andReturn(new DefaultRemoveFeature(fpMock));
 		expect(dtpMock.getDiagramEditor()).andReturn(editorMock).anyTimes();
@@ -144,7 +147,8 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 		moveShapeContext.setY(0);
 		moveShapeContext.setSourceContainer(d);
 		moveShapeContext.setTargetContainer(s3);
-		// canExecute() would fail in default implementation, since source and target container differ
+		// canExecute() would fail in default implementation, since source and
+		// target container differ
 		moveFeature.execute(moveShapeContext);
 		assertEquals(50, s1.getGraphicsAlgorithm().getX());
 		assertEquals(s3, s1.getContainer());
@@ -154,7 +158,7 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 	@Test
 	public void reconnect() {
 		DefaultReconnectionFeature reconnectionFeature = new DefaultReconnectionFeature(fpMock);
-		ReconnectionContext context = new ReconnectionContext(c, a2, a3);
+		ReconnectionContext context = new ReconnectionContext(c, a2, a3, null);
 		assertTrue(reconnectionFeature.canExecute(context));
 		assertTrue(reconnectionFeature.canReconnect(context));
 		reconnectionFeature.execute(context);
@@ -215,7 +219,8 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 		feature.execute(context);
 		// Check if Shape got removed
 		assertFalse(d.getChildren().contains(s1));
-		// Connection should be removed as well, since it is connected to the shape
+		// Connection should be removed as well, since it is connected to the
+		// shape
 		assertTrue(d.getConnections().isEmpty());
 	}
 
