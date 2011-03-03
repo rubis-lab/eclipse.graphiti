@@ -667,7 +667,7 @@ public class PackageTest extends GFAbstractTestCase {
 		assertTrue(!("".equals(s)));
 
 		// test ReconnectionContext
-		ReconnectionContext myReconnectionContext = new ReconnectionContext(connectionMock, anchorMock, anchorMock);
+		ReconnectionContext myReconnectionContext = new ReconnectionContext(connectionMock, anchorMock, anchorMock, null);
 
 		con = myReconnectionContext.getConnection();
 		assertNotNull(con);
