@@ -30,6 +30,7 @@ import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.IPasteFeature;
+import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICopyContext;
@@ -39,6 +40,7 @@ import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IPasteContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
@@ -77,6 +79,7 @@ import org.eclipse.graphiti.testtool.sketch.features.SketchGhostLayoutFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchLabelDirectEditingFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchLayoutFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchMoveShapeFeature;
+import org.eclipse.graphiti.testtool.sketch.features.SketchReconnectFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchResizeShapeFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchTextDirectEditingFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SwitchModeFeature;
@@ -118,7 +121,8 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 
 	private final int LINE_WIDTH_STEP_SIZE = 1;
 
-	private boolean testMode = false; // if true, then this feature provider is used in the test suite 
+	private boolean testMode = false; // if true, then this feature provider is
+										// used in the test suite
 
 	private final Dimension CORNER_DIMENSION[] = new Dimension[] { new Dimension(0, 0), new Dimension(4, 4), new Dimension(8, 8),
 			new Dimension(20, 20), new Dimension(21, 21), new Dimension(100, 100), new Dimension(101, 101), new Dimension(200, 200),
@@ -156,12 +160,10 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		features.add(createCreateGaShapeFeature("Line", "draw line", Polyline.class));
 
 		features.add(createCreateGaShapeFeatureWithGhost("Rectangle Ghost", "rectangle with ghost", Rectangle.class));
-		features
-				.add(createCreateGaShapeFeatureWithGhost("Rounded Rectangle Ghost", "rounded rectangle with ghost", RoundedRectangle.class));
+		features.add(createCreateGaShapeFeatureWithGhost("Rounded Rectangle Ghost", "rounded rectangle with ghost", RoundedRectangle.class));
 		features.add(createCreateGaShapeFeatureWithGhost("Ellipse Ghost", "ellipse with ghost", Ellipse.class));
 
-		features
-				.add(createCreateGaContainerFeatureWithGhost("Rectangle Container Ghost", "rectangle container with ghost", Rectangle.class));
+		features.add(createCreateGaContainerFeatureWithGhost("Rectangle Container Ghost", "rectangle container with ghost", Rectangle.class));
 		features.add(createCreateGaContainerFeatureWithGhost("Rounded Container Rectangle Ghost", "rounded rectangle container with ghost",
 				RoundedRectangle.class));
 		features.add(createCreateGaContainerFeatureWithGhost("Ellipse Container Ghost", "ellipse container with ghost", Ellipse.class));
@@ -285,7 +287,8 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		return createFeature;
 	}
 
-	private ICreateFeature createCreateGaContainerFeatureWithGhost(String name, String description, Class<? extends GraphicsAlgorithm> gaType) {
+	private ICreateFeature createCreateGaContainerFeatureWithGhost(String name, String description,
+			Class<? extends GraphicsAlgorithm> gaType) {
 		// breaks the build: ICreateFeature createFeature = new
 		// SketchCreateGaShapeFeatureWithGhost(this, name, description,
 		// gaType);
@@ -330,7 +333,8 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		if (newObject instanceof Diagram) {
 			ret = new AddDiagramFeature(this);
 		} else if (!(context.getTargetContainer() instanceof Diagram) && !(newObject instanceof PictogramElement)) {
-			// works only container shapes, because drop is only allowed on container shapes
+			// works only container shapes, because drop is only allowed on
+			// container shapes
 			ret = new AddLinkFeature(this);
 		} else {
 			return new AddAnythingFeature(this);
@@ -403,13 +407,13 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public ICopyFeature getCopyFeature(ICopyContext context) {
-		//return new DefaultCopyFeature(this);
+		// return new DefaultCopyFeature(this);
 		return null;
 	}
 
 	@Override
 	public IPasteFeature getPasteFeature(IPasteContext context) {
-		//return new DefaultPasteFeature(this);
+		// return new DefaultPasteFeature(this);
 		return null;
 	}
 
@@ -426,5 +430,10 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 
 	public boolean isTestMode() {
 		return testMode;
+	}
+
+	@Override
+	public IReconnectionFeature getReconnectionFeature(IReconnectionContext context) {
+		return new SketchReconnectFeature(this);
 	}
 }
