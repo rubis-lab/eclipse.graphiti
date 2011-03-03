@@ -136,11 +136,11 @@ public class GFPackageTests extends AbstractGFTests {
 		addContext.setTargetContainer(null);
 		assertFalse(myConfigurableFeatureProviderWrapper.canAdd(addContext).toBoolean());
 
-		//test getAddFeature
+		// test getAddFeature
 		addContext.setTargetContainer(diagram);
 		assertNotNull(myConfigurableFeatureProviderWrapper.getAddFeature(addContext));
 
-		//test canLayout
+		// test canLayout
 		DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		PictogramElement pe = getPictogramElement(diagramEditor);
 		LayoutContext layoutContext = new LayoutContext(pe);
@@ -228,7 +228,8 @@ public class GFPackageTests extends AbstractGFTests {
 
 				myPasteFeature.execute(pasteContext);
 				diagramEditor.doSave(null);
-				//duplicated and pasted objects are not equal with original objects
+				// duplicated and pasted objects are not equal with original
+				// objects
 				assertFalse(myPasteFeature.isEqual());
 			}
 		});
@@ -298,7 +299,7 @@ public class GFPackageTests extends AbstractGFTests {
 		expect(connectionMock.getStart()).andReturn(anchorMock).anyTimes();
 		replay(connectionMock);
 
-		IReconnectionContext myReconnectionContext = new ReconnectionContext(connectionMock, anchorMock, anchorMock);
+		IReconnectionContext myReconnectionContext = new ReconnectionContext(connectionMock, anchorMock, anchorMock, null);
 		myReconnectionContext.setTargetPictogramElement(pe);
 
 		assertTrue(myDefaultReconnectionFeature.canExecute(myReconnectionContext));
