@@ -18,6 +18,7 @@
  */
 package org.eclipse.graphiti.features.context.impl;
 
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.internal.features.context.impl.base.DefaultContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -35,6 +36,10 @@ public class CreateConnectionContext extends DefaultContext implements ICreateCo
 	private PictogramElement sourcePictogramElement;
 
 	private PictogramElement targetPictogramElement;
+
+	private ILocation sourceLocation;
+
+	private ILocation targetLocation;
 
 	/**
 	 * Creates a new {@link CreateConnectionContext}.
@@ -106,4 +111,33 @@ public class CreateConnectionContext extends DefaultContext implements ICreateCo
 				+ getSourcePictogramElement();
 	}
 
+	/**
+	 * @return the sourceLocation
+	 */
+	public ILocation getSourceLocation() {
+		return sourceLocation;
+	}
+
+	/**
+	 * @param sourceLocation
+	 *            the sourceLocation to set
+	 */
+	public void setSourceLocation(ILocation sourceLocation) {
+		this.sourceLocation = sourceLocation;
+	}
+
+	/**
+	 * @return the targetLocation
+	 */
+	public ILocation getTargetLocation() {
+		return targetLocation;
+	}
+
+	/**
+	 * @param targetLocation
+	 *            the targetLocation to set
+	 */
+	public void setTargetLocation(ILocation targetLocation) {
+		this.targetLocation = targetLocation;
+	}
 }

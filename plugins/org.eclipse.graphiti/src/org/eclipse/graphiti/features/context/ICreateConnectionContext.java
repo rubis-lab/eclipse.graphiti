@@ -18,6 +18,7 @@
  */
 package org.eclipse.graphiti.features.context;
 
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
@@ -42,4 +43,13 @@ public interface ICreateConnectionContext extends IContext, IConnectionContext {
 	 */
 	PictogramElement getTargetPictogramElement();
 
+	/**
+	 * @return the sourceLocation
+	 */
+	ILocation getSourceLocation();
+
+	/**
+	 * @return the targetLocation
+	 */
+	ILocation getTargetLocation();
 }
