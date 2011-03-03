@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.command;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureAndContext;
@@ -24,6 +25,7 @@ import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
+import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -49,9 +51,10 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 	 *             if conn is null
 	 */
 	public ReconnectCommand(IConfigurationProvider configurationProvider, Connection connection, Anchor oldAnchor, Anchor newAnchor,
-			PictogramElement newTargetPictogramElement, String reconnectType, ILocation targetLocation) {
+			PictogramElement newTargetPictogramElement, String reconnectType, Point location) {
 		super(configurationProvider);
 
+		ILocation targetLocation = (location != null) ? new LocationImpl(location.x, location.y) : null;
 		this.ctx = new ReconnectionContext(connection, oldAnchor, newAnchor, targetLocation);
 		ctx.setTargetPictogramElement(newTargetPictogramElement);
 		((ReconnectionContext) ctx).setReconnectType(reconnectType);

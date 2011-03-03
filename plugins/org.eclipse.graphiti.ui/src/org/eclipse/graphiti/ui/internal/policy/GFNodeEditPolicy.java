@@ -29,10 +29,8 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
-import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
-import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
@@ -188,9 +186,8 @@ public class GFNodeEditPolicy extends GraphicalNodeEditPolicy {
 	private ReconnectCommand getReconnectCommand(Connection conn, Anchor oldAnchor, String reconnectType, Point location) {
 		PictogramElement newTarget = (PictogramElement) getHost().getModel();
 		Anchor newAnchor = getAnchorForPictogramElement(newTarget);
-		ILocation targetLocation = new LocationImpl(location.x, location.y);
 		ReconnectCommand cmd = new ReconnectCommand(getConfigurationProvider(), conn, oldAnchor, newAnchor, newTarget, reconnectType,
-				targetLocation);
+				location);
 		return cmd;
 	}
 
