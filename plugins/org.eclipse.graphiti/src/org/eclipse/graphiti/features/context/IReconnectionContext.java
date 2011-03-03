@@ -18,6 +18,7 @@
  */
 package org.eclipse.graphiti.features.context;
 
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -75,4 +76,9 @@ public interface IReconnectionContext extends IContext {
 	 *         {@link ReconnectionContext#RECONNECT_SOURCE}
 	 */
 	String getReconnectType();
+
+	/**
+	 * @return the targetLocation
+	 */
+	ILocation getTargetLocation();
 }

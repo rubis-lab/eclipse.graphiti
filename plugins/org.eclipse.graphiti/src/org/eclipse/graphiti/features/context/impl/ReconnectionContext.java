@@ -18,6 +18,7 @@
  */
 package org.eclipse.graphiti.features.context.impl;
 
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.internal.features.context.impl.base.DefaultContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -50,6 +51,8 @@ public class ReconnectionContext extends DefaultContext implements IReconnection
 	private PictogramElement targetPictogramElement;
 
 	private String reconnectType = ""; //$NON-NLS-1$
+
+	private ILocation targetLocation;
 
 	/**
 	 * Creates a new {@link ReconnectionContext}.
@@ -161,4 +164,18 @@ public class ReconnectionContext extends DefaultContext implements IReconnection
 		this.reconnectType = reconnectType;
 	}
 
+	/**
+	 * @return the targetLocation
+	 */
+	public ILocation getTargetLocation() {
+		return targetLocation;
+	}
+
+	/**
+	 * @param targetLocation
+	 *            the targetLocation to set
+	 */
+	public void setTargetLocation(ILocation targetLocation) {
+		this.targetLocation = targetLocation;
+	}
 }
