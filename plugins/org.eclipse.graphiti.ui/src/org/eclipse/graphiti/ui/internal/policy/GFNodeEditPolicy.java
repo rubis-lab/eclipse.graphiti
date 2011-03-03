@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.PolylineConnection;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -28,8 +29,10 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
+import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
@@ -171,19 +174,23 @@ public class GFNodeEditPolicy extends GraphicalNodeEditPolicy {
 	@Override
 	protected Command getReconnectTargetCommand(ReconnectRequest request) {
 		Connection conn = (Connection) request.getConnectionEditPart().getModel();
-		return getReconnectCommand(conn, conn.getEnd(), ReconnectionContext.RECONNECT_TARGET);
+		Point location = request.getLocation();
+		return getReconnectCommand(conn, conn.getEnd(), ReconnectionContext.RECONNECT_TARGET, location);
 	}
 
 	@Override
 	protected Command getReconnectSourceCommand(ReconnectRequest request) {
 		Connection conn = (Connection) request.getConnectionEditPart().getModel();
-		return getReconnectCommand(conn, conn.getStart(), ReconnectionContext.RECONNECT_SOURCE);
+		Point location = request.getLocation();
+		return getReconnectCommand(conn, conn.getStart(), ReconnectionContext.RECONNECT_SOURCE, location);
 	}
 
-	private ReconnectCommand getReconnectCommand(Connection conn, Anchor oldAnchor, String reconnectType) {
+	private ReconnectCommand getReconnectCommand(Connection conn, Anchor oldAnchor, String reconnectType, Point location) {
 		PictogramElement newTarget = (PictogramElement) getHost().getModel();
 		Anchor newAnchor = getAnchorForPictogramElement(newTarget);
-		ReconnectCommand cmd = new ReconnectCommand(getConfigurationProvider(), conn, oldAnchor, newAnchor, newTarget, reconnectType);
+		ILocation targetLocation = new LocationImpl(location.x, location.y);
+		ReconnectCommand cmd = new ReconnectCommand(getConfigurationProvider(), conn, oldAnchor, newAnchor, newTarget, reconnectType,
+				targetLocation);
 		return cmd;
 	}
 

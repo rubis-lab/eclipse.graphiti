@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.command;
 
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureAndContext;
 import org.eclipse.graphiti.features.IReconnectionFeature;
@@ -48,10 +49,10 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 	 *             if conn is null
 	 */
 	public ReconnectCommand(IConfigurationProvider configurationProvider, Connection connection, Anchor oldAnchor, Anchor newAnchor,
-			PictogramElement newTargetPictogramElement, String reconnectType) {
+			PictogramElement newTargetPictogramElement, String reconnectType, ILocation targetLocation) {
 		super(configurationProvider);
 
-		this.ctx = new ReconnectionContext(connection, oldAnchor, newAnchor);
+		this.ctx = new ReconnectionContext(connection, oldAnchor, newAnchor, targetLocation);
 		ctx.setTargetPictogramElement(newTargetPictogramElement);
 		((ReconnectionContext) ctx).setReconnectType(reconnectType);
 		this.feature = getFeatureProvider().getReconnectionFeature(ctx);
