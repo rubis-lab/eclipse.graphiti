@@ -24,6 +24,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 
@@ -44,6 +45,16 @@ public class SketchMoveShapeFeature extends DefaultMoveShapeFeature {
 
 	@Override
 	public boolean canMoveShape(IMoveShapeContext context) {
+		Connection targetConnection = context.getTargetConnection();
+		if (targetConnection!=null) {
+			PictogramElement pictogramElement = context.getPictogramElement();
+			if(targetConnection.getStart().getParent().equals(pictogramElement)){
+				return false;
+			}
+			if(targetConnection.getEnd().getParent().equals(pictogramElement)){
+				return false;
+			}
+		}
 		return true;
 	}
 
