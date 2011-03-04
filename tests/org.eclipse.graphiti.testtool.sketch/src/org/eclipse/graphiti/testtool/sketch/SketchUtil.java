@@ -2,12 +2,20 @@ package org.eclipse.graphiti.testtool.sketch;
 
 import java.util.List;
 
+import org.eclipse.graphiti.datatypes.ILocation;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
+import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.ICreateService;
+import org.eclipse.graphiti.services.IPeService;
+import org.eclipse.graphiti.util.IColorConstant;
 
 /**
  * The Class SketchUtil.
@@ -32,6 +40,10 @@ public class SketchUtil {
 	public static final String GA_RECTANGLE = "GA_RECTANGLE"; //$NON-NLS-1$
 	public static final String GA_ROUNDED_RECTANGLE = "GA_ROUNDED_RECTANGLE"; //$NON-NLS-1$
 	public static final String GA_ELLIPSE = "GA_ELLIPSE"; //$NON-NLS-1$
+
+	// values for connection point
+	public static final String CONNECTION_POINT = "CONNECTION_POINT"; //$NON-NLS-1$
+	public static final String CONNECTION_POINT_KEY = "CONNECTION_POINT_TAG"; //$NON-NLS-1$
 
 	/**
 	 * Gets the current label value.
@@ -177,5 +189,29 @@ public class SketchUtil {
 
 	public static boolean isRoundedRectangle(PictogramElement pe) {
 		return GA_ROUNDED_RECTANGLE.equals(Graphiti.getPeService().getPropertyValue(pe, GA_TAG));
+	}
+
+	public static boolean isConnectionPoint(PictogramElement pe) {
+		return CONNECTION_POINT.equals(Graphiti.getPeService().getPropertyValue(pe, CONNECTION_POINT_KEY));
+	}
+
+	public static Shape createConnectionPoint(IReconnectionContext context, ContainerShape cs) {
+		final int POINT_SIZE = 15;
+		ICreateService createService = Graphiti.getCreateService();
+		IPeService peService = Graphiti.getPeService();
+		Shape ret = createService.createShape(cs, true);
+		peService.setPropertyValue(ret, CONNECTION_POINT_KEY, CONNECTION_POINT);
+		Ellipse ellipse = createService.createEllipse(ret);
+		int x = 0, y = 0;
+		if (context instanceof ReconnectionContext) {
+			ILocation targetLocation = ((ReconnectionContext) context).getTargetLocation();
+			x = targetLocation.getX();
+			y = targetLocation.getY();
+		}
+		Graphiti.getLayoutService().setLocationAndSize(ellipse, x - POINT_SIZE / 2, y - POINT_SIZE / 2, POINT_SIZE, POINT_SIZE);
+		ellipse.setFilled(true);
+		Diagram diagram = peService.getDiagramForPictogramElement(ret);
+		ellipse.setForeground(Graphiti.getGaService().manageColor(diagram, IColorConstant.LIGHT_BLUE));
+		return ret;
 	}
 }
