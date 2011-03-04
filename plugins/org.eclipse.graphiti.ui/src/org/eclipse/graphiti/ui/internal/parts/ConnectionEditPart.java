@@ -18,9 +18,14 @@ package org.eclipse.graphiti.ui.internal.parts;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.XYAnchor;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.NodeEditPart;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
+import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -32,7 +37,7 @@ import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public abstract class ConnectionEditPart extends AbstractConnectionEditPart implements IConnectionEditPart {
+public abstract class ConnectionEditPart extends AbstractConnectionEditPart implements IConnectionEditPart, NodeEditPart {
 
 	private final IAnchorContainerDelegate delegate;
 
@@ -63,9 +68,9 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, getConfigurationProvider().getEditPolicyFactory()
 				.createConnectionHighlightEditPolicy());
 
-		installEditPolicy(EditPolicy.CONNECTION_ROLE, getConfigurationProvider().getEditPolicyFactory().createConnectionDeleteEditPolicy(
-				getConfigurationProvider()));
-		
+		installEditPolicy(EditPolicy.CONNECTION_ROLE,
+				getConfigurationProvider().getEditPolicyFactory().createConnectionDeleteEditPolicy(getConfigurationProvider()));
+
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, getConfigurationProvider().getEditPolicyFactory().createConnectionEditPolicy());
 
 	}
@@ -179,5 +184,29 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 	@Override
 	public String toString() {
 		return getClass().getName() + "@" + Integer.toHexString(hashCode()); //$NON-NLS-1$
+	}
+
+	@Override
+	public ConnectionAnchor getSourceConnectionAnchor(org.eclipse.gef.ConnectionEditPart connection) {
+		return null;
+	}
+
+	@Override
+	public ConnectionAnchor getTargetConnectionAnchor(org.eclipse.gef.ConnectionEditPart connection) {
+		return null;
+	}
+
+	@Override
+	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
+		if (request instanceof CreateConnectionRequest) {
+			CreateConnectionRequest r = (CreateConnectionRequest) request;
+			return new XYAnchor(r.getLocation());
+		}
+		return null;
+	}
+
+	@Override
+	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
+		return null;
 	}
 }
