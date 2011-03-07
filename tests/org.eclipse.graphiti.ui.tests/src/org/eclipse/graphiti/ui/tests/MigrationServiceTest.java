@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.tests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
@@ -80,6 +81,7 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 
 		final Diagram diagram = (Diagram) diagramResource.getEObject("/0");
 		assertTrue(diagram.getFonts().isEmpty());
+		assertTrue(Graphiti.getMigrationService().shouldMigrate070To080(diagram));
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 			@Override
@@ -89,6 +91,7 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 		});
 		EList<Font> fonts = diagram.getFonts();
 		assertTrue(fonts.size() == 1);
+		assertFalse(Graphiti.getMigrationService().shouldMigrate070To080(diagram));
 	}
 
 	/**
@@ -106,6 +109,7 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 
 		final Diagram diagram = (Diagram) diagramResource.getEObject("/0");
 		assertTrue(diagram.getFonts().isEmpty());
+		assertTrue(Graphiti.getMigrationService().shouldMigrate070To080(diagram));
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 			@Override
@@ -115,6 +119,7 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 		});
 		EList<Font> fonts = diagram.getFonts();
 		assertTrue(fonts.size() == 1);
+		assertFalse(Graphiti.getMigrationService().shouldMigrate070To080(diagram));
 	}
 
 }
