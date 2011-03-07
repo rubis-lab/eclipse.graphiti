@@ -72,7 +72,8 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 				getConfigurationProvider().getEditPolicyFactory().createConnectionDeleteEditPolicy(getConfigurationProvider()));
 
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, getConfigurationProvider().getEditPolicyFactory().createConnectionEditPolicy());
-
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, getConfigurationProvider().getEditPolicyFactory()
+				.createShapeHighlightEditPolicy());
 	}
 
 	@Override
