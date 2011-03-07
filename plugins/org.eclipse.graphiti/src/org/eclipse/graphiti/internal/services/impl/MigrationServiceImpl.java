@@ -17,6 +17,7 @@ package org.eclipse.graphiti.internal.services.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.TreeIterator;
@@ -75,6 +76,35 @@ public class MigrationServiceImpl implements IMigrationService {
 			}
 			fonts.get(font).add(next);
 		}
+	}
+
+	@Override
+	public boolean shouldMigrate070To080(Diagram d) {
+		// Traverse model and collect fonts
+		HashSet<Font> fonts = new HashSet<Font>();
+		Resource eResource = d.eResource();
+		TreeIterator<EObject> allContents = eResource.getAllContents();
+		while (allContents.hasNext()) {
+			EObject next = allContents.next();
+			if (next instanceof AbstractText) {
+				AbstractText t = (AbstractText) next;
+				Font font = t.getFont();
+				if (font != null)
+					fonts.add(font);
+
+			} else if (next instanceof Style) {
+				Style s = (Style) next;
+				Font font = s.getFont();
+				if (font != null)
+					fonts.add(font);
+			}
+		}
+		for (Font font : fonts) {
+
+			if (!d.getFonts().contains(font))
+				return true;
+		}
+		return false;
 	}
 
 }
