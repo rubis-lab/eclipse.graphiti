@@ -193,7 +193,7 @@ public class SketchUtil {
 		return CONNECTION_POINT.equals(Graphiti.getPeService().getPropertyValue(pe, CONNECTION_POINT_KEY));
 	}
 
-	public static Shape createConnectionPoint(ILocation targetLocation, ContainerShape cs) {
+	public static Shape createConnectionPoint(ILocation location, ContainerShape cs) {
 		final int POINT_SIZE = 15;
 		ICreateService createService = Graphiti.getCreateService();
 		IPeService peService = Graphiti.getPeService();
@@ -201,9 +201,9 @@ public class SketchUtil {
 		peService.setPropertyValue(ret, CONNECTION_POINT_KEY, CONNECTION_POINT);
 		Ellipse ellipse = createService.createEllipse(ret);
 		int x = 0, y = 0;
-		if (targetLocation != null) {
-			x = targetLocation.getX();
-			y = targetLocation.getY();
+		if (location != null) {
+			x = location.getX();
+			y = location.getY();
 		}
 		Graphiti.getLayoutService().setLocationAndSize(ellipse, x - POINT_SIZE / 2, y - POINT_SIZE / 2, POINT_SIZE, POINT_SIZE);
 		ellipse.setFilled(true);
