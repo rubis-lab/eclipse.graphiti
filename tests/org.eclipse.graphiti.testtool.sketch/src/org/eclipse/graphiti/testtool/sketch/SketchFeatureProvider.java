@@ -391,6 +391,9 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 	@Override
 	public IResizeShapeFeature getResizeShapeFeature(IResizeShapeContext context) {
 		final PictogramElement pe = context.getPictogramElement();
+		if (SketchUtil.isConnectionPoint(pe)) {
+			return null;
+		}
 		if (pe instanceof ConnectionDecorator) {
 			return null;
 		}

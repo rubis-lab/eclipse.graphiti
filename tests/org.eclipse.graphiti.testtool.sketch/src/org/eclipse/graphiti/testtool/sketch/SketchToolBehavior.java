@@ -183,6 +183,9 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 
 	@Override
 	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
+		if (SketchUtil.isConnectionPoint(context.getPictogramElement())) {
+			return null;
+		}
 		IContextButtonPadData ret = super.getContextButtonPad(context);
 		PictogramElement pictogramElement = context.getPictogramElement();
 		if (!SketchUtil.isLanePe(pictogramElement)) {
