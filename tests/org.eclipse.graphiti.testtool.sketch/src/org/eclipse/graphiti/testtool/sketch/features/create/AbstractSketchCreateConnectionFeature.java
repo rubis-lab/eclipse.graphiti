@@ -21,6 +21,7 @@ import org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
  * The Class AbstractSketchCreateConnectionFeature.
@@ -42,7 +43,7 @@ public abstract class AbstractSketchCreateConnectionFeature extends AbstractCrea
 	}
 
 	public boolean canCreate(ICreateConnectionContext context) {
-		boolean ret = true;
+		boolean ret = false;
 
 		// allow connection creation only if anchors do not belong to the same
 		// container
@@ -53,6 +54,15 @@ public abstract class AbstractSketchCreateConnectionFeature extends AbstractCrea
 			if (sourceParent != null && !sourceParent.equals(targetAnchor.getParent())) {
 				ret = true;
 			}
+		}
+		PictogramElement sourcePe = context.getSourcePictogramElement();
+		PictogramElement targetPe = context.getTargetPictogramElement();
+		if (sourcePe != null && sourcePe.equals(targetPe)) {
+			return false;
+		}
+
+		if (sourcePe instanceof Connection || targetPe instanceof Connection) {
+			return true;
 		}
 
 		return ret;
