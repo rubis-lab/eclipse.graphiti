@@ -15,16 +15,22 @@
  *******************************************************************************/
 package org.eclipse.graphiti.testtool.sketch.features.create;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.ICreateService;
 import org.eclipse.graphiti.services.IGaCreateService;
 import org.eclipse.graphiti.util.IColorConstant;
 
@@ -50,8 +56,42 @@ abstract class AbstractSketchCreateSimpleConnectionFeature extends AbstractSketc
 	@SuppressWarnings("unused")
 	public Connection create(ICreateConnectionContext context) {
 
+		ICreateService cs = Graphiti.getCreateService();
+
 		Anchor startAnchor = context.getSourceAnchor();
 		Anchor endAnchor = context.getTargetAnchor();
+
+		if (startAnchor == null && (context.getSourcePictogramElement() instanceof Connection)) {
+			Shape s = cs.createShape(getDiagram(), true);
+			startAnchor = cs.createChopboxAnchor(s);
+			Rectangle r = cs.createRectangle(s);
+			ILocation sourceLocation = context.getSourceLocation();
+			Graphiti.getLayoutService().setLocationAndSize(r, sourceLocation.getX() - 5, sourceLocation.getY() - 5, 11, 11);
+
+			Connection splitConnection = (Connection) context.getSourcePictogramElement();
+			createConnection(splitConnection.getStart(), startAnchor);
+			createConnection(splitConnection.getEnd(), startAnchor);
+
+			EcoreUtil.delete(splitConnection);
+		}
+
+		if (endAnchor == null && (context.getTargetPictogramElement() instanceof Connection)) {
+			Shape s = cs.createShape(getDiagram(), true);
+			ChopboxAnchor ca = cs.createChopboxAnchor(s);
+			Rectangle r = cs.createRectangle(s);
+			ILocation targetLocation = context.getTargetLocation();
+			Graphiti.getLayoutService().setLocationAndSize(r, targetLocation.getX() - 5, targetLocation.getY() - 5, 11, 11);
+
+			createConnection(startAnchor, ca);
+
+			Connection splitConnection = (Connection) context.getTargetPictogramElement();
+			createConnection(splitConnection.getStart(), ca);
+			createConnection(splitConnection.getEnd(), ca);
+
+			EcoreUtil.delete(splitConnection);
+
+			return null;
+		}
 
 		if (startAnchor == null || endAnchor == null) {
 			return null;
@@ -89,4 +129,17 @@ abstract class AbstractSketchCreateSimpleConnectionFeature extends AbstractSketc
 	 * @return the connection
 	 */
 	protected abstract Connection createConnection();
+
+	private Connection createConnection(Anchor startAnchor, Anchor endAnchor) {
+		Connection connection = createConnection();
+		Polyline p = Graphiti.getCreateService().createPolyline(connection);
+		p.setLineWidth(3);
+		p.setForeground(manageColor(IColorConstant.LIGHT_BLUE));
+		p.setLineStyle(LineStyle.DASHDOT);
+
+		connection.setStart(startAnchor);
+		connection.setEnd(endAnchor);
+
+		return connection;
+	}
 }
