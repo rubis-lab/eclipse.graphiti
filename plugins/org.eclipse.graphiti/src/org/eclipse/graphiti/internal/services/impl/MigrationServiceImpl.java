@@ -36,29 +36,29 @@ public class MigrationServiceImpl implements IMigrationService {
 	public void migrate070To080(Diagram d) {
 
 		// Traverse model and collect fonts
-		Map<Font, ArrayList<EObject>> fonts = new HashMap<Font, ArrayList<EObject>>();
+		Map<Font, ArrayList<EObject>> fontToUser = new HashMap<Font, ArrayList<EObject>>();
 		Resource eResource = d.eResource();
 		TreeIterator<EObject> allContents = eResource.getAllContents();
 		while (allContents.hasNext()) {
-			EObject next = allContents.next();
-			if (next instanceof AbstractText) {
-				AbstractText t = (AbstractText) next;
+			EObject eObject = allContents.next();
+			if (eObject instanceof AbstractText) {
+				AbstractText t = (AbstractText) eObject;
 				Font font = t.getFont();
-				addFontUser(fonts, next, font);
-			} else if (next instanceof Style) {
-				Style s = (Style) next;
+				addFontUser(fontToUser, eObject, font);
+			} else if (eObject instanceof Style) {
+				Style s = (Style) eObject;
 				Font font = s.getFont();
-				addFontUser(fonts, next, font);
+				addFontUser(fontToUser, eObject, font);
 			}
 		}
 
 		// Manage collected fonts and set the new font on the respective
 		// elements. Includes possibly a write.
 		// The caller has to use a write transaction.
-		for (Font font : fonts.keySet()) {
+		for (Font font : fontToUser.keySet()) {
 			Font newFont = Graphiti.getGaService().manageFont(d, font.getName(), font.getSize(), font.isItalic(), font.isBold());
-			ArrayList<EObject> arrayList = fonts.get(font);
-			for (EObject eObject : arrayList) {
+			ArrayList<EObject> fontUser = fontToUser.get(font);
+			for (EObject eObject : fontUser) {
 				if (eObject instanceof AbstractText) {
 					((AbstractText) eObject).setFont(newFont);
 				} else {
@@ -69,12 +69,12 @@ public class MigrationServiceImpl implements IMigrationService {
 	}
 
 
-	private void addFontUser(Map<Font, ArrayList<EObject>> fonts, EObject next, Font font) {
+	private void addFontUser(Map<Font, ArrayList<EObject>> fontToUser, EObject next, Font font) {
 		if (font != null) {
-			if (fonts.get(font) == null) {
-				fonts.put(font, new ArrayList<EObject>());
+			if (fontToUser.get(font) == null) {
+				fontToUser.put(font, new ArrayList<EObject>());
 			}
-			fonts.get(font).add(next);
+			fontToUser.get(font).add(next);
 		}
 	}
 
