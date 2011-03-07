@@ -48,7 +48,7 @@
   </rm:searchPath>
   <rm:searchPath name="orbit">
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
-      <rm:uri format="{0}/tools/orbit/downloads/drops/S20110124210048/repository">
+      <rm:uri format="{0}/tools/orbit/downloads/drops/S20110304120314/repository">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
@@ -85,6 +85,7 @@
       </rm:uri>
     </rm:provider>
   </rm:searchPath>
+  <!-- currently not used: for future change to central Eclipse license feature (needs at least Indigo M5 build time)
   <rm:searchPath name="eclipse.license">
     <rm:provider componentTypes="eclipse.feature" readerType="cvs" resolutionFilter="">
       <rm:uri format="{0},org.eclipse.sdk-feature/features/{1}">
