@@ -50,10 +50,11 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 	public static void before() {
 		editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("diagram", new XMIResourceFactoryImpl());
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("diagram", new XMIResourceFactoryImpl()); //$NON-NLS-1$
 
 		// Register the packages of our model with EMF.
 		{
+			@SuppressWarnings("unused")
 			Object o = PictogramsPackage.eINSTANCE;
 			o = AlgorithmsPackage.eINSTANCE;
 			o = StylesPackage.eINSTANCE;
@@ -74,12 +75,12 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 	public void testMig070To080() {
 
 		// Load diagram file.
-		URL resource = getClass().getClassLoader().getResource("org/eclipse/graphiti/ui/tests/testUtil.diagram");
+		URL resource = getClass().getClassLoader().getResource("org/eclipse/graphiti/ui/tests/testUtil.diagram"); //$NON-NLS-1$
 		URI createFileURI = URI.createFileURI(resource.getFile());
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		Resource diagramResource = resourceSet.getResource(createFileURI, true);
 
-		final Diagram diagram = (Diagram) diagramResource.getEObject("/0");
+		final Diagram diagram = (Diagram) diagramResource.getEObject("/0"); //$NON-NLS-1$
 		assertTrue(diagram.getFonts().isEmpty());
 		assertTrue(Graphiti.getMigrationService().shouldMigrate070To080(diagram));
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
@@ -102,12 +103,12 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 	public void testMig070To0802() {
 
 		// Load diagram file.
-		URL resource = getClass().getClassLoader().getResource("org/eclipse/graphiti/ui/tests/tut.diagram");
+		URL resource = getClass().getClassLoader().getResource("org/eclipse/graphiti/ui/tests/tut.diagram"); //$NON-NLS-1$
 		URI createFileURI = URI.createFileURI(resource.getFile());
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		Resource diagramResource = resourceSet.getResource(createFileURI, true);
 
-		final Diagram diagram = (Diagram) diagramResource.getEObject("/0");
+		final Diagram diagram = (Diagram) diagramResource.getEObject("/0"); //$NON-NLS-1$
 		assertTrue(diagram.getFonts().isEmpty());
 		assertTrue(Graphiti.getMigrationService().shouldMigrate070To080(diagram));
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
