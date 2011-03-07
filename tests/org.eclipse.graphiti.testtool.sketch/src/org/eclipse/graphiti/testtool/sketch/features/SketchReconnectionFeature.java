@@ -49,7 +49,7 @@ public class SketchReconnectionFeature extends DefaultReconnectionFeature {
 			Connection targetConnection = (Connection) targetPictogramElement;
 			ICreateService createService = Graphiti.getCreateService();
 
-			Shape connectionPointShape = SketchUtil.createConnectionPoint(context, getDiagram());
+			Shape connectionPointShape = SketchUtil.createConnectionPoint(context.getTargetLocation(), getDiagram());
 			Anchor newAnchor = createService.createChopboxAnchor(connectionPointShape);
 
 			Anchor targetStart = targetConnection.getStart();

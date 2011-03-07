@@ -3,8 +3,6 @@ package org.eclipse.graphiti.testtool.sketch;
 import java.util.List;
 
 import org.eclipse.graphiti.datatypes.ILocation;
-import org.eclipse.graphiti.features.context.IReconnectionContext;
-import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -195,7 +193,7 @@ public class SketchUtil {
 		return CONNECTION_POINT.equals(Graphiti.getPeService().getPropertyValue(pe, CONNECTION_POINT_KEY));
 	}
 
-	public static Shape createConnectionPoint(IReconnectionContext context, ContainerShape cs) {
+	public static Shape createConnectionPoint(ILocation targetLocation, ContainerShape cs) {
 		final int POINT_SIZE = 15;
 		ICreateService createService = Graphiti.getCreateService();
 		IPeService peService = Graphiti.getPeService();
@@ -203,8 +201,7 @@ public class SketchUtil {
 		peService.setPropertyValue(ret, CONNECTION_POINT_KEY, CONNECTION_POINT);
 		Ellipse ellipse = createService.createEllipse(ret);
 		int x = 0, y = 0;
-		if (context instanceof ReconnectionContext) {
-			ILocation targetLocation = ((ReconnectionContext) context).getTargetLocation();
+		if (targetLocation != null) {
 			x = targetLocation.getX();
 			y = targetLocation.getY();
 		}
