@@ -36,7 +36,7 @@ public interface IMigrationService {
 	 * 
 	 * @param diagram
 	 *            the diagram to be migrated
-	 * 
+	 * @see {@link #shouldMigrate070To080(Diagram)}
 	 */
 	public abstract void migrate070To080(Diagram diagram);
 
@@ -47,6 +47,9 @@ public interface IMigrationService {
 	 * 
 	 * @param diagram
 	 *            the diagram under consideration
+	 * @return true if the diagram should be migrated, false otherwise
+	 * 
+	 * @see {@link #migrate070To080(Diagram)}
 	 * 
 	 */
 	public abstract boolean shouldMigrate070To080(Diagram diagram);
