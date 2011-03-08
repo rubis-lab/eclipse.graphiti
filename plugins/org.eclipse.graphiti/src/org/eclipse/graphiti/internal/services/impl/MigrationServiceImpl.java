@@ -57,24 +57,24 @@ public class MigrationServiceImpl implements IMigrationService {
 		// The caller has to use a write transaction.
 		for (Font font : fontToUser.keySet()) {
 			Font newFont = Graphiti.getGaService().manageFont(d, font.getName(), font.getSize(), font.isItalic(), font.isBold());
-			ArrayList<EObject> fontUser = fontToUser.get(font);
-			for (EObject eObject : fontUser) {
-				if (eObject instanceof AbstractText) {
-					((AbstractText) eObject).setFont(newFont);
+			ArrayList<EObject> fontUsers = fontToUser.get(font);
+			for (EObject fontUser : fontUsers) {
+				if (fontUser instanceof AbstractText) {
+					((AbstractText) fontUser).setFont(newFont);
 				} else {
-					((Style) eObject).setFont(newFont);
+					((Style) fontUser).setFont(newFont);
 				}
 			}
 		}
 	}
 
 
-	private void addFontUser(Map<Font, ArrayList<EObject>> fontToUser, EObject next, Font font) {
+	private void addFontUser(Map<Font, ArrayList<EObject>> fontToUser, EObject fontUser, Font font) {
 		if (font != null) {
 			if (fontToUser.get(font) == null) {
 				fontToUser.put(font, new ArrayList<EObject>());
 			}
-			fontToUser.get(font).add(next);
+			fontToUser.get(font).add(fontUser);
 		}
 	}
 
