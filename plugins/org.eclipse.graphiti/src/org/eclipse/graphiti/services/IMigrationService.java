@@ -20,6 +20,9 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 /**
  * Migration support for converting models from older to newer versions.
  * 
+ * @noimplement This interface is not intended to be implemented by clients.
+ * @noextend This interface is not intended to be extended by clients.
+ * 
  * @since 0.8.0
  */
 public interface IMigrationService {
