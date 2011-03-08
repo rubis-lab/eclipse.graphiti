@@ -180,6 +180,11 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 
 		List<ICustomFeature> retList = new ArrayList<ICustomFeature>();
 
+		boolean isCp = SketchUtil.isConnectionPoint(context.getPictogramElements()[0]);
+		if (isCp) {
+			return retList.toArray(new ICustomFeature[0]);
+		}
+		
 		for (int i = 0; i <= 10; i += LINE_WIDTH_STEP_SIZE) {
 			retList.add(new LineWidthFeature(this, i));
 		}
