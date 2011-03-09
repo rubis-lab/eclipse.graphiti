@@ -462,6 +462,10 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 
 	@Override
 	public String getToolTip(GraphicsAlgorithm ga) {
+		if (SketchUtil.isConnectionPoint(ga.getPictogramElement())) {
+			return null;
+		}
+		
 		if (ga instanceof AbstractText && ga.getParentGraphicsAlgorithm() != null) {
 			return getToolTip(ga.getParentGraphicsAlgorithm());
 		} else {
