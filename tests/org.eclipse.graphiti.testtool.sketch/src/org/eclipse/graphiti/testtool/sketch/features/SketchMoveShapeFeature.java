@@ -27,6 +27,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.testtool.sketch.SketchUtil;
 
 /**
  * The Class SketchMoveShapeFeature.
@@ -45,13 +46,14 @@ public class SketchMoveShapeFeature extends DefaultMoveShapeFeature {
 
 	@Override
 	public boolean canMoveShape(IMoveShapeContext context) {
+		PictogramElement pe = context.getPictogramElement();
 		Connection targetConnection = context.getTargetConnection();
-		if (targetConnection!=null) {
-			PictogramElement pictogramElement = context.getPictogramElement();
-			if(targetConnection.getStart().getParent().equals(pictogramElement)){
+		
+		if (targetConnection!=null && !SketchUtil.isConnectionPoint(pe)) {
+			if(targetConnection.getStart().getParent().equals(pe)){
 				return false;
 			}
-			if(targetConnection.getEnd().getParent().equals(pictogramElement)){
+			if(targetConnection.getEnd().getParent().equals(pe)){
 				return false;
 			}
 		}
