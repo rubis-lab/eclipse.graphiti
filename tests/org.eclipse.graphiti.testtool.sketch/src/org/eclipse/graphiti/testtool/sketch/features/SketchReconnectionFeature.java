@@ -1,12 +1,16 @@
 package org.eclipse.graphiti.testtool.sketch.features;
 
+import java.util.List;
+
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
+import org.eclipse.graphiti.features.context.impl.RemoveContext;
 import org.eclipse.graphiti.features.impl.DefaultReconnectionFeature;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -74,6 +78,30 @@ public class SketchReconnectionFeature extends DefaultReconnectionFeature {
 			}
 		}
 		super.preReconnect(context);
+	}
+
+	@Override
+	public void postReconnect(IReconnectionContext context) {
+		Anchor oldAnchor = context.getOldAnchor();
+		AnchorContainer oldAnchorContainer = oldAnchor.getParent();
+		if (SketchUtil.isConnectionPoint(oldAnchorContainer)) {
+			List<Connection> allConnections = Graphiti.getPeService().getAllConnections(oldAnchor);
+			if (allConnections.size() == 2) {
+				Connection c = allConnections.get(0);
+				Anchor start = oldAnchor.equals(c.getStart()) ? c.getEnd() : c.getStart();
+				c = allConnections.get(1);
+				Anchor end = oldAnchor.equals(c.getStart()) ? c.getEnd() : c.getStart();
+
+				FreeFormConnection newConn = Graphiti.getPeCreateService().createFreeFormConnection(getDiagram());
+				newConn.setStart(start);
+				newConn.setEnd(end);
+				initConnection(newConn);
+
+				RemoveContext ctx = new RemoveContext(oldAnchorContainer);
+				getFeatureProvider().getRemoveFeature(ctx).remove(ctx);
+			}
+		}
+		super.postReconnect(context);
 	}
 
 	private void initConnection(Connection connection) {
