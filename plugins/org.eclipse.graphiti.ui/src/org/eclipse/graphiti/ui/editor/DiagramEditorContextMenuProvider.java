@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
+ *            DefaultSaveImageFeature
  *
  * </copyright>
  *
@@ -23,6 +25,7 @@ import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.ISaveImageContext;
@@ -140,8 +143,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 			ISaveImageFeature sf = fp.getSaveImageFeature();
 
 			if (sf != null) {
-				PictogramElement pe[] = getEditor().getSelectedPictogramElements();
-				ISaveImageContext context = new SaveImageContext(pe);
+				ISaveImageContext context = new SaveImageContext();
 				IAction action = new SaveImageAction(sf, context, getEditor());
 				manager.appendToGroup(GEFActionConstants.GROUP_SAVE, action);
 			}
@@ -166,7 +168,14 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            the manager
 	 */
 	protected void addDefaultMenuGroupPrint(IMenuManager manager) {
-		addActionToMenu(manager, ActionFactory.PRINT.getId(), GEFActionConstants.GROUP_PRINT);
+		IFeatureProvider fp = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
+		if (fp != null) {
+			IPrintFeature pf = fp.getPrintFeature();
+
+			if (pf != null) {
+				addActionToMenu(manager, ActionFactory.PRINT.getId(), GEFActionConstants.GROUP_PRINT);
+			}
+		}
 	}
 
 	/**
