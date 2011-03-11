@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
+ *            DefaultSaveImageFeature
  *
  * </copyright>
  *
@@ -22,9 +24,12 @@ import org.eclipse.graphiti.features.context.ISaveImageContext;
 import org.eclipse.graphiti.internal.Messages;
 
 /**
- * The Class DefaultSaveImageFeature.
+ * The Class DefaultSaveImageFeature. It is planned to use this for save as
+ * image support. Not yet supported perfectly.
  */
 public class DefaultSaveImageFeature extends AbstractFeature implements ISaveImageFeature {
+
+	private static final String NAME = Messages.DefaultSaveImageFeature_0_xfld;
 
 	/**
 	 * Creates a new {@link DefaultSaveImageFeature}.
@@ -36,16 +41,20 @@ public class DefaultSaveImageFeature extends AbstractFeature implements ISaveIma
 		super(fp);
 	}
 
+	@Override
 	public boolean canSave(ISaveImageContext context) {
 		return true;
 	}
 
+	@Override
 	public void postSave(ISaveImageContext context) {
 	}
 
+	@Override
 	public void preSave(ISaveImageContext context) {
 	}
 
+	@Override
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof ISaveImageContext) {
@@ -54,14 +63,13 @@ public class DefaultSaveImageFeature extends AbstractFeature implements ISaveIma
 		return ret;
 	}
 
-	public void execute(IContext context) {
-		// TODO: not possible yet
+	@Override
+	public final void execute(IContext context) {
+		// not relevant (actual work is done in SaveImageAction)
 	}
 
 	@Override
 	public String getName() {
 		return NAME;
 	}
-
-	private static final String NAME = Messages.DefaultSaveImageFeature_0_xfld;
 }

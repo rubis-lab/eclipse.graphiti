@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
+ *            DefaultSaveImageFeature
  *
  * </copyright>
  *
@@ -24,10 +26,9 @@ import org.eclipse.graphiti.internal.features.context.impl.base.DefaultContext;
 public class PrintContext extends DefaultContext implements IPrintContext {
 
 	/**
-	 * Creates a new {@link PasteContext}.
+	 * Creates a new {@link PrintContext}.
 	 */
 	public PrintContext() {
 		super();
 	}
-
 }

@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
+ *            DefaultSaveImageFeature
  *
  * </copyright>
  *
@@ -19,7 +21,8 @@ import org.eclipse.graphiti.features.context.ISaveImageContext;
 import org.eclipse.graphiti.features.impl.DefaultSaveImageFeature;
 
 /**
- * The Interface ISaveImageFeature.
+ * The Interface ISaveImageFeature. It is planned to use this for save as image
+ * support. Not yet supported perfectly.
  * 
  * @noextend This interface is not intended to be extended by clients.
  * @noimplement This interface is not intended to be implemented by clients,
@@ -38,7 +41,8 @@ public interface ISaveImageFeature extends IFeature {
 	boolean canSave(ISaveImageContext context);
 
 	/**
-	 * Pre save.
+	 * Pre-save hook. Called before the actual save process starts. You may use
+	 * this hook to influence the current state of the diagram or the selection.
 	 * 
 	 * @param context
 	 *            the context
@@ -46,7 +50,8 @@ public interface ISaveImageFeature extends IFeature {
 	void preSave(ISaveImageContext context);
 
 	/**
-	 * Post save.
+	 * Post-save hook. Called after the actual save process. You may use this
+	 * hook to set back the changes done in the preSave method.
 	 * 
 	 * @param context
 	 *            the context

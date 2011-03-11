@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
+ *            DefaultSaveImageFeature
  *
  * </copyright>
  *
@@ -36,6 +38,8 @@ import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeatureProvider;
+import org.eclipse.graphiti.features.impl.DefaultPrintFeature;
+import org.eclipse.graphiti.features.impl.DefaultSaveImageFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
@@ -201,18 +205,27 @@ public interface IFeatureProvider extends IMappingProvider {
 
 	/**
 	 * It is planned to use this for printing support. Not yet supported
-	 * perfectly.
+	 * perfectly. The default implementation in {@link AbstractFeatureProvider}
+	 * returns the an instance of {@link DefaultPrintFeature} which could be
+	 * overridden to influence the standard behaviour.<br>
+	 * Return <code>null</code> to disable printing.
 	 * 
-	 * @return print feature
+	 * @return The print feature to use or <code>null</code> to disable
+	 *         printing.
 	 * 
 	 * @see IPrintFeature
 	 */
 	IPrintFeature getPrintFeature();
 
 	/**
-	 * It is planned to use this for save support. Not yet supported perfectly.
+	 * It is planned to use this for save as image support. Not yet supported
+	 * perfectly. The default implementation in {@link AbstractFeatureProvider}
+	 * returns the an instance of {@link DefaultSaveImageFeature} which could be
+	 * overridden to influence the standard behaviour.<br>
+	 * Return <code>null</code> to disable save as image.
 	 * 
-	 * @return save feature
+	 * @return The save feature to use or <code>null</code> to disable save as
+	 *         image.
 	 */
 	ISaveImageFeature getSaveImageFeature();
 

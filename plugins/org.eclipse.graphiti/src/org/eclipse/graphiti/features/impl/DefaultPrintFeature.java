@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
+ *            DefaultSaveImageFeature
  *
  * </copyright>
  *
@@ -22,9 +24,12 @@ import org.eclipse.graphiti.features.context.IPrintContext;
 import org.eclipse.graphiti.internal.Messages;
 
 /**
- * The Class DefaultPrintFeature.
+ * The Class DefaultPrintFeature. It is planned to use this for print support.
+ * Not yet supported perfectly.
  */
 public class DefaultPrintFeature extends AbstractFeature implements IPrintFeature {
+
+	private static final String NAME = Messages.DefaultPrintFeature_0_xfld;
 
 	/**
 	 * Creates a new {@link DefaultPrintFeature}.
@@ -36,16 +41,20 @@ public class DefaultPrintFeature extends AbstractFeature implements IPrintFeatur
 		super(fp);
 	}
 
+	@Override
 	public boolean canPrint(IPrintContext context) {
 		return true;
 	}
 
+	@Override
 	public void postPrint(IPrintContext context) {
 	}
 
+	@Override
 	public void prePrint(IPrintContext context) {
 	}
 
+	@Override
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IPrintContext) {
@@ -54,14 +63,13 @@ public class DefaultPrintFeature extends AbstractFeature implements IPrintFeatur
 		return ret;
 	}
 
-	public void execute(IContext context) {
-		//TODO: not possible yet
+	@Override
+	final public void execute(IContext context) {
+		// not relevant (actual work is done in PrintGraphicalViewerAction)
 	}
 
 	@Override
 	public String getName() {
 		return NAME;
 	}
-
-	private static final String NAME = Messages.DefaultPrintFeature_0_xfld;
 }

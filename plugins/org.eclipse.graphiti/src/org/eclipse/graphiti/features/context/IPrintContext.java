@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
+ *            DefaultSaveImageFeature
  *
  * </copyright>
  *
@@ -16,11 +18,11 @@
 package org.eclipse.graphiti.features.context;
 
 /**
- * The Interface IPrintContext.
+ * The Interface IPrintContext. It is planned to use this for print support. Not
+ * yet supported perfectly.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
  */
 public interface IPrintContext extends IContext {
-
 }

@@ -9,26 +9,20 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
+ *            DefaultSaveImageFeature
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.features.context;
 
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-
 /**
- * The Interface ISaveImageContext.
+ * The Interface ISaveImageContext. It is planned to use this for save as image
+ * support. Not yet supported perfectly.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
  */
 public interface ISaveImageContext extends IContext {
-
-	/**
-	 * Gets the pictogram elements.
-	 * 
-	 * @return the pictogram elements
-	 */
-	PictogramElement[] getPictogramElements();
 }
