@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
+ *            DefaultSaveImageFeature
  *
  * </copyright>
  *
@@ -546,6 +548,7 @@ public class PackageTest extends GFAbstractTestCase {
 		DataTypeTransformation.toFontData(null);
 	}
 
+	@SuppressWarnings("restriction")
 	@Test
 	public void testFeaturesContextImpl() throws Exception {
 		String s = null;
@@ -747,12 +750,7 @@ public class PackageTest extends GFAbstractTestCase {
 		// test SaveImageContext
 		SaveImageContext mySaveImageContext = new SaveImageContext();
 
-		PictogramElement[] pictogramElements1 = new PictogramElement[] { peMock };
-		mySaveImageContext = new SaveImageContext(pictogramElements1);
-
-		PictogramElement[] pictogramElements2 = mySaveImageContext.getPictogramElements();
-		assertNotNull(pictogramElements2);
-		assertArrayEquals(pictogramElements1, pictogramElements2);
+		mySaveImageContext = new SaveImageContext();
 
 		s = null;
 		s = mySaveImageContext.toString();
@@ -891,9 +889,10 @@ public class PackageTest extends GFAbstractTestCase {
 		assertEquals(anchorMock, anchor);
 
 		// test CustomContext
+		PictogramElement[] pictogramElements1 = new PictogramElement[] { peMock };
 		CustomContext myCustomContext = new CustomContext(pictogramElements1);
 
-		pictogramElements2 = myCustomContext.getPictogramElements();
+		PictogramElement[] pictogramElements2 = myCustomContext.getPictogramElements();
 		assertNotNull(pictogramElements2);
 		assertArrayEquals(pictogramElements1, pictogramElements2);
 
