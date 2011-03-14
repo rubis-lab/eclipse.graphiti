@@ -94,7 +94,6 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 				}
 			}
 		} catch (NumberFormatException e) {
-			// $JL-EXC$
 			_text.setText(Double.toString(newValue));
 		} finally {
 			_internalModify = false;
@@ -123,6 +122,9 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 				value = new Double(0);
 			} else {
 				value = new Double(text);
+				if (value < 0) {
+					throw new NumberFormatException("Scale factor is negative:" + value);
+				}
 			}
 			_preferences.setDoublePreference(_index, value);
 		} catch (NumberFormatException x) {

@@ -202,11 +202,12 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 				if (text.length() == 0)
 					text = "0"; //$NON-NLS-1$
 				int width = Integer.parseInt(text);
+				if (width < 0) {
+					throw new NumberFormatException("Width value is negative: " + width);
+				}
 				_preferences.setDoublePreference(DefaultPrintPreferences.SCALE_FACTOR, (double) width / (double) _figure.getBounds().width);
 			} catch (NumberFormatException x) {
-				// $JL-EXC$
-				// do nothing, reset after the conversion anyway
-				T.racer().error("illegal number format", x); //$NON-NLS-1$
+				T.racer().debug(x.getMessage());
 			}
 			updateControls();
 		} else if (e.getSource() == _heightCombo) {
@@ -215,13 +216,14 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 				if (text.length() == 0)
 					text = "0"; //$NON-NLS-1$
 				int height = Integer.parseInt(text);
+				if (height < 0) {
+					throw new NumberFormatException("Height value is negative: " + height);
+				}
 				_preferences.setDoublePreference(DefaultPrintPreferences.SCALE_FACTOR,
 						((double) height / (double) _figure.getBounds().height));
 
 			} catch (NumberFormatException x) {
-				// $JL-EXC$
-				// do nothing, reset after the conversion anyway
-				T.racer().error("illegal number format", x); //$NON-NLS-1$
+				T.racer().debug(x.getMessage());
 			}
 			updateControls();
 
@@ -248,18 +250,14 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 		try {
 			double scaleFactor = _preferences.getDoublePreference(DefaultPrintPreferences.SCALE_FACTOR);
 			String newText = Long.toString(Math.round((scaleFactor * _figure.getBounds().width)));
-			if (!newText.equals(_widthCombo.getText())) // don't update if
-				// identical, otherwise
-				// cursor will move to
-				// the
+			if (!newText.equals(_widthCombo.getText()))
+				// don't update if identical, otherwise cursor will move to the
 				// first character
 				_widthCombo.setText(newText);
 			newText = Long.toString(Math.round((scaleFactor * _figure.getBounds().height)));
-			if (!newText.equals(_heightCombo.getText())) // don't update if
-				// identical,
-				// otherwise cursor
-				// will move to
-				// the first character
+			if (!newText.equals(_heightCombo.getText()))
+				// don't update if identical, otherwise cursor will move to the
+				// first character
 				_heightCombo.setText(newText);
 
 			_scaleFactorText.updateControl();
