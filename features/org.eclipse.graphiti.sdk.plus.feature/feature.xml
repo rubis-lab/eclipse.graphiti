@@ -42,11 +42,12 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.graphiti.sdk.feature"
          version="0.0.0"/>
 
+<!-- Temporarily removed because of build issues
    <plugin
          id="org.eclipse.graphiti.export.batik"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
+-->
 </feature>
