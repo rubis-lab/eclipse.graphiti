@@ -9,12 +9,135 @@
 </head>
 <body>
 <h1>Graphiti &quot;New and Noteworthy&quot; for Indigo</h1>
-<p>Last revised February 01, 2011</p>
+<p>Last revised March 14, 2011</p>
 <p>This document describes the new development topics that were
 adressed during a milestone towards the release 0.8.0 within the Indigo
 release train.</p>
 
 <table border="0" width="80%" cellpadding="10" cellspacing="0">
+	<tr>
+		<td colspan="2">
+		<hr style="color: grey; height: 5px" />
+		<h2><b>M6</b></h2>
+		<hr />
+		</td>
+	</tr>
+	<tr id="bug 326396">
+		<td width="30%" valign="top" align="left"><b>Connections on
+		Connections</b></td>
+		<td width="70%" valign="top">It is now possible to attach
+		connections to other connections. The Graphiti metamodel offered this
+		possibility already but the framework support for this was still
+		lacking. Now, one can define so-called connection points to actually
+		split existing connections. Technically these connection points are
+		possibly active shapes that can be selected, moved or deleted as any
+		other shape. As a tool builder you need to allow this new behavior
+		when the user tries to drop a connection either via a <i>CreateConnectionFeature</i>
+		or a <i>ReconnectConnectionFeature</i>. Example implementations are
+		available in the Sketch testtool in the examples folder in the
+		Graphiti CVS. <img src="images/NaNW-Indigo-M6-Connection.jpg" /></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<hr />
+		</td>
+	</tr>
+	<tr id="bug 323358">
+		<td width="30%" valign="top" align="left"><b>Font Management</b></td>
+		<td width="70%" valign="top">Graphiti now manages the fonts that
+		are used inside a diagram just the way it was already done for colors.
+		This feature was introduced in order to improve the graphics handles
+		usage and number of classes instantiated; multiple uses of the same
+		font will now lead to only one instance of that font existing inside
+		the diagram. Just as the colors fonts are now managed at Diagram level
+		and no longer on the individual graphical elements. <b>Note: this
+		is an minor incompatible change in the Graphiti API you will need to
+		adapt to!</b> There are no font creation methods any more, instead you
+		will need to call manageFont on the diagram. <b>Besides diagrams
+		that were created using Graphiti versions before 0.8.0 M6 will need a
+		migration</b> if tool defined fonts are used. The Graphiti framework
+		provides a small migration utility that can be triggered at an
+		appropriate time by the tool. We decided explictly against triggering
+		the migration from the framework, because there will definatly by
+		different requirements on the time of triggering in the various tool
+		scenarios. Besides there will be tools that will need no migration at
+		all and would be only suffer a time penalty from that check and
+		migration being done in the framework. More details on the API change
+		and the migrator can be found in the Bugzilla <a
+			href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=323358">323358</a>.</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<hr />
+		</td>
+	</tr>
+	<tr id="bug 336075">
+		<td width="30%" valign="top" align="left"><b>URIEditorInput</b></td>
+		<td width="70%" valign="top">The Graphiti DiagramEditor now
+		accepts <i>URIEditorInput</i> objects. They can be created outside the editor
+		and the editor will care about opening the corresponding diagram.</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<hr />
+		</td>
+	</tr>
+	<tr id="bug 329523">
+		<td width="30%" valign="top" align="left"><b>Resource Saved
+		Hook</b></td>
+		<td width="70%" valign="top">A new hook <i>resourcesSaved()</i>
+		has been introduced in the diagram type provider. It will be called by
+		the framework right after a diagram has been saved.</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<hr />
+		</td>
+	</tr>
+	<tr id="bug 336828">
+		<td width="30%" valign="top" align="left"><b>Pattern
+		Enhancements</b></td>
+		<td width="70%" valign="top">Graphiti patterns now allow the
+		integration of delete, remove and direct editing features. These
+		functionalities before had to be implemented within separate features.
+		Besides the patterns now easily allow to prevent that a creation tool
+		entry in created for them in the editor palette.</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<hr />
+		</td>
+	</tr>
+	<tr id="bug 323155">
+		<td width="30%" valign="top" align="left"><b>Printing and
+		Saving as Image</b></td>
+		<td width="70%" valign="top">Graphiti supports printing and
+		saving a diagram to an image. There have always been hooks were the
+		user can influence the default behaviors for these operations.
+		Nevertheless it was not clear if the way this was enabled was really
+		feasible. An investigation of the two features that exist for those
+		purposes (<i>DefaultPrintFeature</i> and <i>DefaultSaveImageFeature</i>)
+		showed that tool builders can rudimentary implement behavioral changes
+		to those features (like changing the selection in the editor), so it
+		makes sense to keep the implementations available. The existing state
+		was documented in the JavaDoc at the appropriate classes and methods
+		and a not used property in the save context was removed. This
+		functionality might be subject to further enhancement request as tools
+		need more possibilities to influence the behavior.</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<hr />
+		</td>
+	</tr>
+	<tr id="bugfixing">
+		<td width="30%" valign="top" align="left"><b>Fixing of Bugs</b></td>
+		<td width="70%" valign="top">Some bugs in the area of anchor
+		handling and drill down features were fixed. Also, the used SUA was
+		updated to the newest Indigo version.</td>
+	</tr>
+
+
 	<tr>
 		<td colspan="2">
 		<hr style="color: grey; height: 5px" />
@@ -73,6 +196,8 @@ release train.</p>
 		the zoom animation, ContextButtonPadData and grid alignment were
 		fixed.</td>
 	</tr>
+
+
 	<tr>
 		<td colspan="2">
 		<hr style="color: grey; height: 5px" />
