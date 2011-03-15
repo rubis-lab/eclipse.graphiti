@@ -15,7 +15,6 @@
         <cs:dependency name="org.eclipse.swtbot.eclipse.gef" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.swtbot.eclipse.test.junit4" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.swtbot.ide" componentType="eclipse.feature"/>
-        <cs:dependency name="org.w3c.doc.events" componentType="osgi.bundle"/>
     </cs:dependencies>
     <cs:actions>
         <cs:public name="copy.sites" actor="ant">
