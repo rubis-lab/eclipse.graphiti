@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 340403 - Fixed NPE when adding graphical representations from 
+ *                         a progress monitor job
  *
  * </copyright>
  *
@@ -106,7 +108,7 @@ public class DomainModelChangeListener implements ResourceSetListener {
 		}
 
 		// Do an asynchronous update in the UI thread.
-		Display.getCurrent().asyncExec(new Runnable() {
+		Display.getDefault().asyncExec(new Runnable() {
 
 			@Override
 			public void run() {
