@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2010, 2011 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Torkild U. Resheim - Allow double-click handling, bug 340708
  *
  * </copyright>
  *
@@ -24,12 +25,19 @@ import org.eclipse.draw2d.XYAnchor;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.requests.CreateConnectionRequest;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
+import org.eclipse.graphiti.internal.features.context.impl.base.DoubleClickContext;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 
 /**
  * A ConnectionEditPart, which model is of the type Connection.
@@ -96,6 +104,7 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 	 * 
 	 * @return The IConfigurationProvider of this EditPart
 	 */
+	@Override
 	public IConfigurationProvider getConfigurationProvider() {
 		return delegate.getConfigurationProvider();
 	}
@@ -113,6 +122,7 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		return ret;
 	}
 
+	@Override
 	public PictogramElement getPictogramElement() {
 		return delegate.getPictogramElement();
 	}
@@ -164,6 +174,7 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		return ret;
 	}
 
+	@Override
 	public IFeatureProvider getFeatureProvider() {
 		IFeatureProvider ret = null;
 		if (delegate != null) {
@@ -172,10 +183,12 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		return ret;
 	}
 
+	@Override
 	public IPictogramElementDelegate getPictogramElementDelegate() {
 		return delegate;
 	}
 
+	@Override
 	public void forceVisualRefresh() {
 		getPictogramElementDelegate().setForceRefresh(true);
 		refreshVisuals();
@@ -210,4 +223,40 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
 		return null;
 	}
+
+	/**
+	 * This method tries to perform a direct-editing with the given request (see
+	 * getLabels()). Additionaly it tries to forward certain requests to this
+	 * EditPart (e.g. RequestConstants.REQ_OPEN). If this is not possbile, it
+	 * forwards the request to super.performRequest(request).
+	 * 
+	 * @param request
+	 *            the request
+	 * @see org.eclipse.gef.EditPart#performRequest(Request)
+	 */
+
+	@Override
+	public void performRequest(Request request) {
+
+		Connection shape = (Connection) getModel();
+
+		if (request.getType().equals(REQ_OPEN)) {
+
+			DoubleClickContext dcc = new DoubleClickContext(getPictogramElement(), shape, shape.getGraphicsAlgorithm());
+			IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
+					.getCurrentToolBehaviorProvider();
+
+			IFeature doubleClickFeature = currentToolBehaviorProvider.getDoubleClickFeature(dcc);
+
+			if (doubleClickFeature != null && doubleClickFeature.canExecute(dcc)) {
+				GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(doubleClickFeature, dcc);
+				DiagramEditorInternal diagramEditor = getConfigurationProvider().getDiagramEditor();
+				CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
+				commandStack.execute(new GefCommandWrapper(commandWithContext, diagramEditor.getEditingDomain()));
+			}
+		}
+
+		super.performRequest(request);
+	}
+
 }
