@@ -114,7 +114,7 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	public IContextMenuEntry[] getContextMenu(ICustomContext context) {
 		// create a sub-menu for all custom features
 		ContextMenuEntry subMenu = new ContextMenuEntry(null, context);
-		subMenu.setText("C&ustom"); //$NON-NLS-1$
+		subMenu.setText("Cu&stom"); //$NON-NLS-1$
 		subMenu.setDescription("Custom features submenu"); //$NON-NLS-1$
 		// display sub-menu hierarchical or flat
 		subMenu.setSubmenu(true);
