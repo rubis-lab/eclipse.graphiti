@@ -31,6 +31,10 @@ public class StyleUtil {
 	private static final IColorConstant E_CLASS_TEXT_FOREGROUND = new ColorConstant(51, 51, 153);
 
 	private static final IColorConstant E_CLASS_FOREGROUND = new ColorConstant(255, 102, 0);
+	
+	private static final IColorConstant E_CLASS_BACKGROUND = new ColorConstant(255, 204, 153);
+
+
 
 	private static String DEFAULT_FONT = "Arial";
 
@@ -43,6 +47,7 @@ public class StyleUtil {
 		if (style == null) { // style not found - create new style
 			style = gaService.createStyle(diagram, styleId);
 			style.setForeground(gaService.manageColor(diagram, E_CLASS_FOREGROUND));
+			style.setBackground(gaService.manageColor(diagram, E_CLASS_BACKGROUND));
 			//gaService.setRenderingStyle(style, TutorialColoredAreas.getLimeWhiteAdaptions());
 			gaService.setRenderingStyle(style, PredefinedColoredAreas.getBlueWhiteGlossAdaptions());
 			style.setLineWidth(2);
