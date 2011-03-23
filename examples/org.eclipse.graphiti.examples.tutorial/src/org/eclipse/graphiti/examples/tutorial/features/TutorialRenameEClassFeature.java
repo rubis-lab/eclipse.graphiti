@@ -64,7 +64,7 @@ public class TutorialRenameEClassFeature extends AbstractCustomFeature {
 				EClass eClass = (EClass) bo;
 				String currentName = eClass.getName();
 				// ask user for a new class name
-				String newName = ExampleUtil.askString(getName(), getDescription(), currentName);
+				String newName = ExampleUtil.askString("Rename EClass", getDescription(), currentName); //$NON-NLS-1$
 				if (newName != null && !newName.equals(currentName)) {
 					this.hasDoneChanges = true;
 					eClass.setName(newName);
