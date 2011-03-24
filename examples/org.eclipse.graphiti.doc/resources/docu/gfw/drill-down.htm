@@ -12,6 +12,9 @@
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
 	{font-family:Tahoma;
 	panose-1:2 11 6 4 3 5 4 4 2 4;}
 @font-face
@@ -168,6 +171,23 @@ p.note, li.note, div.note
 	font-size:13.0pt;
 	font-family:"Times New Roman","serif";
 	font-style:italic;}
+p.comment, li.comment, div.comment
+	{mso-style-name:comment;
+	margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
 span.heading2char
 	{mso-style-name:heading2char;
 	font-family:"Arial","sans-serif";
@@ -182,11 +202,11 @@ span.code0
 	font-style:italic;}
 .MsoChpDefault
 	{font-size:10.0pt;}
-@page Section1
+@page WordSection1
 	{size:595.45pt 841.7pt;
 	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
-div.Section1
-	{page:Section1;}
+div.WordSection1
+	{page:WordSection1;}
  /* List Definitions */
  ol
 	{margin-bottom:0cm;}
@@ -199,7 +219,7 @@ ul
 
 <body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
 
-<div class=Section1>
+<div class=WordSection1>
 
 <h1><a name="_Toc179099520"><span lang=EN-GB>Providing </span></a><span
 lang=EN-GB>Drill-Down Behavior</span></h1>
@@ -208,10 +228,10 @@ lang=EN-GB>Drill-Down Behavior</span></h1>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Often the information
 which is shown in a diagram has a certain abstraction level, and the further
-details are shown in a separate diagram. For example if a workflow connects
-several sub-workflows, then one overview-diagram might show the complete
-workflow without the inner details of the sub-workflows, and several
-detail-diagrams show the inner details of each sub-workflow.</span></p>
+details are shown in a separate diagram. For example if a workflow connects several
+sub-workflows, then one overview-diagram might show the complete workflow
+without the inner details of the sub-workflows, and several detail-diagrams
+show the inner details of each sub-workflow.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>In this case the user
 wants to have an easy possibility to navigate from the overview-diagram into
@@ -259,12 +279,10 @@ href="../../../javadoc/org/eclipse/graphiti/ui/features/AbstractDrillDownFeature
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>The functionality of
-the AbstractDrillDownFeature is not tool-independent, so the method <i>
-getDiagrams()</i> can be implemented </span>
-<span lang=EN-GB style='color:black'>only</span><span lang=EN-GB style='color:black'> 
-by the tool </span><span lang=EN-GB style='color:black'>efficiently</span><span lang=EN-GB style='color:black'>. 
-Furthermore we just overwrite the <i>canExecute</i>() method,
-so that the feature is only enabled if exactly one EClass is selected.</span></p>
+the AbstractDrillDownFeature is not tool-independent, so the method <i>getDiagrams()</i>
+can be implemented only by the tool efficiently. Furthermore we just overwrite
+the <i>canExecute</i>() method, so that the feature is only enabled if exactly
+one EClass is selected.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
@@ -273,10 +291,10 @@ complete implementation of the drill-down feature here:</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='color:black'>&nbsp;</span></p>
@@ -301,8 +319,8 @@ complete implementation of the drill-down feature here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>
-  TutorialDrillDownEClassFeature(IFeatureProvider fp) {</span></p>
+  font-family:"Courier New";color:black'> TutorialDrillDownEClassFeature(IFeatureProvider
+  fp) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
@@ -427,8 +445,8 @@ complete implementation of the drill-down feature here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal style='text-autospace:none'>&nbsp;</p>
+  }</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US>&nbsp;</span></p>
   <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#646464'>&nbsp;&nbsp;&nbsp; @Override</span></p>
   <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
@@ -485,21 +503,19 @@ can be seen here:</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
   </span></p>
-  <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>package </span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>org.eclipse.graphiti.examples.tutorial<b>;<br>
-  <br>
-  </b></span></p>
+  <p class=MsoNormal style='margin-bottom:12.0pt'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package </span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>org.eclipse.graphiti.examples.tutorial<b>;</b></span></p>
   <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#7F0055'>public</span></b><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'> <b><span
@@ -516,8 +532,8 @@ can be seen here:</span></p>
   List&lt;IFile&gt; files = <i>getDiagramFiles</i>(p);</span></p>
   <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> List&lt;Diagram&gt;
-  diagramList = <b><span style='color:#7F0055'>new</span></b>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>
+  List&lt;Diagram&gt; diagramList = <b><span style='color:#7F0055'>new</span></b>
   ArrayList&lt;Diagram&gt;();</span></p>
   <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final</span></b><span
@@ -550,8 +566,8 @@ can be seen here:</span></p>
   <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp; private</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <b><span
-  style='color:#7F0055'>static</span></b> List&lt;IFile&gt;
-  getDiagramFiles(IContainer folder) {</span></p>
+  style='color:#7F0055'>static</span></b> List&lt;IFile&gt; getDiagramFiles(IContainer
+  folder) {</span></p>
   <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>
@@ -715,10 +731,10 @@ complete implementation of this custom feature here:</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='color:black'>&nbsp;</span></p>
@@ -810,8 +826,8 @@ complete implementation of this custom feature here:</span></p>
   color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'> </span><b><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  canExecute(ICustomContext context) {</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> canExecute(ICustomContext
+  context) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
@@ -939,9 +955,9 @@ complete implementation of this custom feature here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Finally the feature
-provider has to deliver our newly created custom features (overwrite the method
-</span><span class=code1><span lang=EN-US style='color:black'><a
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Finally the feature provider
+has to deliver our newly created custom features (overwrite the method </span><span
+class=code1><span lang=EN-US style='color:black'><a
 href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCustomFeatures(org.eclipse.graphiti.features.context.ICustomContext)"><span
 style='font-style:normal'>getCustomFeatures</span></a></span></span><span
 class=code1><span lang=EN-US style='color:black;font-style:normal'>)</span></span><i><span
@@ -952,55 +968,57 @@ be seen here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#646464'>@Override</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>      </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> ICustomFeature[]
-  getCustomFeatures(ICustomContext context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>      </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ICustomFeature[] { </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>new</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  TutorialRenameEClassFeature(</span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>this</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>),</span></p>
+  ICustomFeature[] getCustomFeatures(ICustomContext context) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>             </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  ICustomFeature[] </span><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New"'><br>
+                    <span style='color:black'>{ </span><b><span
+  style='color:#7F0055'>new</span></b><span style='color:black'>
+  TutorialRenameEClassFeature(</span><b><span style='color:#7F0055'>this</span></b><span
+  style='color:black'>),</span></span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>                   
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'> TutorialDrillDownEClassFeature(</span><b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>), </span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>),</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>                   
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'>
   TutorialAssociateDiagramEClassFeature(</span><b><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>)
-  };</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>),</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>                   
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> TutorialCollapseDummyFeature(</span><b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>)};</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>      }</span></p>
   <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
   </td>
  </tr>
