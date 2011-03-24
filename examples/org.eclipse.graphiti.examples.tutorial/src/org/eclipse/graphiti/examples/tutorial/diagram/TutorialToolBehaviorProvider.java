@@ -22,6 +22,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.examples.tutorial.TutorialImageProvider;
+import org.eclipse.graphiti.examples.tutorial.features.TutorialCollapseDummyFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialRenameEClassFeature;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
@@ -69,12 +70,18 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		setGenericContextButtons(data, pe, CONTEXT_BUTTON_DELETE | CONTEXT_BUTTON_UPDATE);
 
 		// 2. set the collapse button
-		// simply use the first custom feature (senseless example)
+		// simply use a dummy custom feature (senseless example)
 		CustomContext cc = new CustomContext(new PictogramElement[] { pe });
 		ICustomFeature[] cf = getFeatureProvider().getCustomFeatures(cc);
 		if (cf.length >= 1) {
-			IContextButtonEntry collapseButton = ContextEntryHelper.createCollapseContextButton(true, cf[0], cc);
-			data.setCollapseContextButton(collapseButton);
+			for (int i = 0; i < cf.length; i++) {
+				ICustomFeature iCustomFeature = cf[i];
+				if (iCustomFeature instanceof TutorialCollapseDummyFeature) {
+					IContextButtonEntry collapseButton = ContextEntryHelper.createCollapseContextButton(true, iCustomFeature, cc);
+					data.setCollapseContextButton(collapseButton);
+					break;
+				}
+			}
 		}
 
 		// 3. add one domain specific context-button, which offers all
