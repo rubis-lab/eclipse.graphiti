@@ -228,10 +228,10 @@ lang=EN-GB>Drill-Down Behavior</span></h1>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Often the information
 which is shown in a diagram has a certain abstraction level, and the further
-details are shown in a separate diagram. For example if a workflow connects several
-sub-workflows, then one overview-diagram might show the complete workflow
-without the inner details of the sub-workflows, and several detail-diagrams
-show the inner details of each sub-workflow.</span></p>
+details are shown in a separate diagram. For example if a workflow connects
+several sub-workflows, then one overview-diagram might show the complete
+workflow without the inner details of the sub-workflows, and several
+detail-diagrams show the inner details of each sub-workflow.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>In this case the user
 wants to have an easy possibility to navigate from the overview-diagram into
@@ -566,8 +566,8 @@ can be seen here:</span></p>
   <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp; private</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <b><span
-  style='color:#7F0055'>static</span></b> List&lt;IFile&gt; getDiagramFiles(IContainer
-  folder) {</span></p>
+  style='color:#7F0055'>static</span></b> List&lt;IFile&gt;
+  getDiagramFiles(IContainer folder) {</span></p>
   <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>
@@ -955,9 +955,9 @@ complete implementation of this custom feature here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Finally the feature provider
-has to deliver our newly created custom features (overwrite the method </span><span
-class=code1><span lang=EN-US style='color:black'><a
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Finally the feature
+provider has to deliver our newly created custom features (overwrite the method
+</span><span class=code1><span lang=EN-US style='color:black'><a
 href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCustomFeatures(org.eclipse.graphiti.features.context.ICustomContext)"><span
 style='font-style:normal'>getCustomFeatures</span></a></span></span><span
 class=code1><span lang=EN-US style='color:black;font-style:normal'>)</span></span><i><span
@@ -976,49 +976,46 @@ be seen here:</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>      </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#646464'>@Override</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#646464'>@Override</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>      </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ICustomFeature[] getCustomFeatures(ICustomContext context) {</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> ICustomFeature[]
+  getCustomFeatures(ICustomContext context) {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>             </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
   ICustomFeature[] </span><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New"'><br>
-                    <span style='color:black'>{ </span><b><span
-  style='color:#7F0055'>new</span></b><span style='color:black'>
-  TutorialRenameEClassFeature(</span><b><span style='color:#7F0055'>this</span></b><span
-  style='color:black'>),</span></span></p>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <span style='color:black'>{ </span><b><span style='color:#7F0055'>new</span></b><span
+  style='color:black'> TutorialRenameEClassFeature(</span><b><span
+  style='color:#7F0055'>this</span></b><span style='color:black'>),</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>                   
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'> TutorialDrillDownEClassFeature(</span><b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>),</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>                   
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'>
   TutorialAssociateDiagramEClassFeature(</span><b><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>),</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>                   
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> TutorialCollapseDummyFeature(</span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>)};</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>      }</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  }</span></p>
   <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
   </td>
  </tr>
