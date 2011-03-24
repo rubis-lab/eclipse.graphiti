@@ -73,14 +73,12 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		// simply use a dummy custom feature (senseless example)
 		CustomContext cc = new CustomContext(new PictogramElement[] { pe });
 		ICustomFeature[] cf = getFeatureProvider().getCustomFeatures(cc);
-		if (cf.length >= 1) {
-			for (int i = 0; i < cf.length; i++) {
-				ICustomFeature iCustomFeature = cf[i];
-				if (iCustomFeature instanceof TutorialCollapseDummyFeature) {
-					IContextButtonEntry collapseButton = ContextEntryHelper.createCollapseContextButton(true, iCustomFeature, cc);
-					data.setCollapseContextButton(collapseButton);
-					break;
-				}
+		for (int i = 0; i < cf.length; i++) {
+			ICustomFeature iCustomFeature = cf[i];
+			if (iCustomFeature instanceof TutorialCollapseDummyFeature) {
+				IContextButtonEntry collapseButton = ContextEntryHelper.createCollapseContextButton(true, iCustomFeature, cc);
+				data.setCollapseContextButton(collapseButton);
+				break;
 			}
 		}
 
@@ -248,5 +246,5 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		}
 		return super.getToolTip(ga);
 	}
-	
+
 }
