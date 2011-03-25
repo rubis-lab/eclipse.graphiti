@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Ali Akar, mwenz - Bug 348420 - Opening a user contributed editor
  *
  * </copyright>
  *
@@ -18,6 +19,7 @@ package org.eclipse.graphiti.ui.internal.services;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.swt.widgets.Shell;
@@ -69,6 +71,24 @@ public interface IWorkbenchService {
 	 * @return the editor instance
 	 */
 	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, String providerId,
+			boolean disposeEditingDomain);
+
+	/**
+	 * Opens the given diagram in the diagram editor with the given id.
+	 * 
+	 * @param diagram
+	 *            which should be opened
+	 * @param domain
+	 * @param providerId
+	 *            the unique provider id of a diagram type provider which will
+	 *            be used by the editor.
+	 * @param editorId
+	 *            the unique Eclipse editor id of the diagram editor to open.
+	 *            This id must belong to a subclass of {@link DiagramEditor} .
+	 * @return the editor instance
+	 * @since 0.8.0
+	 */
+	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, String providerId, String editorId,
 			boolean disposeEditingDomain);
 
 	/**

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Ali Akar, mwenz - Bug 348420 - Opening a user contributed editor
  *
  * </copyright>
  *
@@ -44,7 +45,7 @@ import org.eclipse.ui.part.EditorActionBarContributor;
  */
 public class WorkbenchService implements IWorkbenchService {
 
-
+	@Override
 	public IStatusLineManager getActiveStatusLineManager() {
 		final IWorkbenchPart activePart = getActiveOrFirstWorkbenchWindow().getActivePage().getActivePart();
 		if (activePart instanceof IViewPart) {
@@ -63,7 +64,7 @@ public class WorkbenchService implements IWorkbenchService {
 		return new StatusLineManager();
 	}
 
-
+	@Override
 	public IWorkbenchWindow getActiveOrFirstWorkbenchWindow() {
 		IWorkbenchWindow result = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if (result == null) {
@@ -83,6 +84,7 @@ public class WorkbenchService implements IWorkbenchService {
 	 * @param domain
 	 * @return the editor instance
 	 */
+	@Override
 	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, boolean disposeEditingDomain) {
 		IDiagramEditor ret = null;
 
@@ -103,13 +105,35 @@ public class WorkbenchService implements IWorkbenchService {
 	 *            be used by the editor.
 	 * @return the editor instance
 	 */
+	@Override
 	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, String providerId,
+			boolean disposeEditingDomain) {
+		return openDiagramEditor(diagram, domain, providerId, DiagramEditor.DIAGRAM_EDITOR_ID, disposeEditingDomain);
+	}
+
+	/**
+	 * Opens the given diagram in the diagram editor with the given id.
+	 * 
+	 * @param diagram
+	 *            which should be opened
+	 * @param domain
+	 * @param providerId
+	 *            the unique provider id of a diagram type provider which will
+	 *            be used by the editor.
+	 * @param editorId
+	 *            the unique Eclipse editor id of the diagram editor to open.
+	 *            This id must belong to a subclass of {@link DiagramEditor} .
+	 * @return the editor instance
+	 * @since 0.8.0
+	 */
+	@Override
+	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, String providerId, String editorId,
 			boolean disposeEditingDomain) {
 		IDiagramEditor ret = null;
 		DiagramEditorInput diagramEditorInput = DiagramEditorInput.createEditorInput(diagram, domain, providerId, disposeEditingDomain);
 		IWorkbenchPage workbenchPage = getActivePage();
 		try {
-			IEditorPart editorPart = IDE.openEditor(workbenchPage, diagramEditorInput, DiagramEditor.DIAGRAM_EDITOR_ID);
+			IEditorPart editorPart = IDE.openEditor(workbenchPage, diagramEditorInput, editorId);
 			if (editorPart instanceof IDiagramEditor) {
 				ret = (IDiagramEditor) editorPart;
 			}
@@ -132,7 +156,6 @@ public class WorkbenchService implements IWorkbenchService {
 			return workbenchWindow.getActivePage();
 		return null;
 	}
-
 
 	@Override
 	public Shell getShell() {

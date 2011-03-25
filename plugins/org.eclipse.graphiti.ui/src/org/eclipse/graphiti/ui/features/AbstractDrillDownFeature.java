@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug  338067 - Drill down features should not use current diagram type provider
  *                          for opening diagram of other type
+ *    Ali Akar, mwenz - Bug 348420 - Opening a user contributed editor
  *
  * </copyright>
  *
@@ -30,6 +31,7 @@ import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
@@ -106,12 +108,38 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 			}
 
 			if (diagram != null) {
-				// Found a diagram to open
-				String diagramTypeProviderId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
-				GraphitiUiInternal.getWorkbenchService().openDiagramEditor(diagram, getTransActionalEditingDomainForNewDiagram(),
-						diagramTypeProviderId, true);
+				openDiagramEditor(diagram);
 			}
 		}
+	}
+
+	/**
+	 * Opens the diagram editor for the drill down. Users can override this
+	 * method in order to open different editors, open editors in different
+	 * windows or do completely different stuff for the drill down.
+	 * 
+	 * @param diagram
+	 *            the diagram for which the editor will be opened.
+	 */
+	protected void openDiagramEditor(Diagram diagram) {
+		// Found a diagram to open
+		String diagramTypeProviderId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
+		GraphitiUiInternal.getWorkbenchService().openDiagramEditor(diagram, getTransActionalEditingDomainForNewDiagram(),
+				diagramTypeProviderId, getDiagramEditorId(diagram), true);
+	}
+
+	/**
+	 * Returns the editor id of the diagram editor to open by default
+	 * {@link DiagramEditor#DIAGRAM_EDITOR_ID}. Users can override and return a
+	 * different editor id, must be the id of a subclass of
+	 * {@link DiagramEditor}.
+	 * 
+	 * @param diagram
+	 *            the diagram for which the editor will be opened
+	 * @return the editor id of the diagram editor to open
+	 */
+	protected String getDiagramEditorId(Diagram diagram) {
+		return DiagramEditor.DIAGRAM_EDITOR_ID;
 	}
 
 	@Override
