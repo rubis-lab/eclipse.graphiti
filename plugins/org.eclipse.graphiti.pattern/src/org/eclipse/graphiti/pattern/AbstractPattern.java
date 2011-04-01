@@ -94,7 +94,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * removal behavior. Subclasses may decide to either override
 	 * {@link #createRemoveFeature(IRemoveContext)} to provide another
 	 * {@link IRemoveFeature} implementation or override and extend the
-	 * individual {@link IRemove} methods or  return a {@link IRemoveFeature} by
+	 * individual {@link IRemove} methods or return a {@link IRemoveFeature} by
 	 * overriding the method
 	 * {@link DefaultFeatureProviderWithPatterns#getRemoveFeature(IRemoveContext)}
 	 * .
@@ -719,22 +719,14 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	@Override
 	public IProposal[] getPossibleValuesAsProposal(IDirectEditingContext context) {
 		String[] possibleValues = getPossibleValues(context);
-		Proposal[] ret = textToProposals(possibleValues);
-		return ret;
-	}
-
-	private static Proposal[] textToProposals(String[] possibleValues) {
-		Proposal[] ret = new Proposal[possibleValues.length];
-		for (int i = 0; i < ret.length; i++) {
-			ret[i].setText(possibleValues[i]);
-		}
+		Proposal[] ret = Proposal.textToProposals(possibleValues);
 		return ret;
 	}
 
 	@Override
 	public IProposal[] getValueProposalsAsProposal(String value, int caretPosition, IDirectEditingContext context) {
 		String[] possibleValues = getValueProposals(value, caretPosition, context);
-		Proposal[] ret = textToProposals(possibleValues);
+		Proposal[] ret = Proposal.textToProposals(possibleValues);
 		return ret;
 	}
 
@@ -745,7 +737,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 
 	@Override
 	public void setValueAsProposal(IProposal value, IDirectEditingContext context) {
-		setValue(value.getText(), context);	
+		setValue(value.getText(), context);
 	}
 
 	@Override
