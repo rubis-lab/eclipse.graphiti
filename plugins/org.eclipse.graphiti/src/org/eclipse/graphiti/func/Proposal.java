@@ -13,7 +13,7 @@ public class Proposal implements IProposal {
 
 	public Proposal(String text, Object object) {
 		this(text);
-		this.object = object;
+		setObject(object);
 	}
 
 	@Override
@@ -33,5 +33,14 @@ public class Proposal implements IProposal {
 	public void setText(String text) {
 		this.text = text;
 	}
+	
+	public static Proposal[] textToProposals(String[] possibleValues) {
+		Proposal[] ret = new Proposal[possibleValues.length];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i].setText(possibleValues[i]);
+		}
+		return ret;
+	}
+
 
 }
