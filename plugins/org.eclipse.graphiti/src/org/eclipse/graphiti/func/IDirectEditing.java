@@ -103,6 +103,8 @@ public interface IDirectEditing {
 	 */
 	String[] getPossibleValues(IDirectEditingContext context);
 
+	IProposal[] getPossibleValuesAsProposal(IDirectEditingContext context);
+
 	/**
 	 * This proposals will be used for the completion list of a simple text cell
 	 * editor. This functionality only applies to TYPE_TEXT.
@@ -116,6 +118,8 @@ public interface IDirectEditing {
 	 * @return the proposed values
 	 */
 	String[] getValueProposals(String value, int caretPosition, IDirectEditingContext context);
+
+	IProposal[] getValueProposalsAsProposal(String value, int caretPosition, IDirectEditingContext context);
 
 	/**
 	 * Framework calls this method to let the feature calculate the new value.
@@ -131,6 +135,8 @@ public interface IDirectEditing {
 	 * @return the new value
 	 */
 	String completeValue(String value, int caretPosition, String choosenValue, IDirectEditingContext context);
+
+	String completeValueFromProposal(String value, int caretPosition, IProposal choosenValue, IDirectEditingContext context);
 
 	/**
 	 * Checks if completion is available. This functionality only applies to
@@ -178,4 +184,6 @@ public interface IDirectEditing {
 	 *            the context
 	 */
 	void setValue(String value, IDirectEditingContext context);
+
+	void setValueAsProposal(IProposal value, IDirectEditingContext context);
 }
