@@ -20,6 +20,8 @@ import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.func.IProposal;
+import org.eclipse.graphiti.func.Proposal;
 import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.internal.util.T;
 
@@ -130,4 +132,36 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	}
 
 	private static final String NAME = Messages.AbstractDirectEditingFeature_0_xfld;
+
+	@Override
+	public IProposal[] getPossibleValuesAsProposal(IDirectEditingContext context) {
+		String[] possibleValues = getPossibleValues(context);
+		Proposal[] ret = textToProposals(possibleValues);
+		return ret;
+	}
+
+	private static Proposal[] textToProposals(String[] possibleValues) {
+		Proposal[] ret = new Proposal[possibleValues.length];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i].setText(possibleValues[i]);
+		}
+		return ret;
+	}
+
+	@Override
+	public IProposal[] getValueProposalsAsProposal(String value, int caretPosition, IDirectEditingContext context) {
+		String[] possibleValues = getValueProposals(value, caretPosition, context);
+		Proposal[] ret = textToProposals(possibleValues);
+		return ret;
+	}
+
+	@Override
+	public String completeValueFromProposal(String value, int caretPosition, IProposal choosenValue, IDirectEditingContext context) {
+		return completeValue(value, caretPosition, choosenValue.getText(), context);
+	}
+
+	@Override
+	public void setValueAsProposal(IProposal value, IDirectEditingContext context) {
+		setValue(value.getText(), context);	
+	}
 }
