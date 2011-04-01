@@ -29,7 +29,7 @@ import org.eclipse.graphiti.internal.util.T;
  * The Class AbstractDirectEditingFeature.
  */
 public abstract class AbstractDirectEditingFeature extends AbstractFeature implements IDirectEditingFeature {
-
+ 
 	/**
 	 * The Constant EMPTY_STRING_ARRAY.
 	 */
@@ -163,5 +163,17 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	@Override
 	public void setValueAsProposal(IProposal value, IDirectEditingContext context) {
 		setValue(value.getText(), context);	
+	}
+
+	@Override
+	public IProposal getInitialValueAsProposal(IDirectEditingContext context) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String checkValueValidAsProposal(IProposal value, IDirectEditingContext context) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

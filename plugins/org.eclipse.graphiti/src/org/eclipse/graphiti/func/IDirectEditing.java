@@ -93,6 +93,8 @@ public interface IDirectEditing {
 	 */
 	String getInitialValue(IDirectEditingContext context);
 
+	IProposal getInitialValueAsProposal(IDirectEditingContext context);
+
 	/**
 	 * This value will be used if the cell editor is a combo box. This
 	 * functionality only applies to TYPE_DROPDOWN.
@@ -174,6 +176,8 @@ public interface IDirectEditing {
 	 *         not valid; text is reason for invalidality
 	 */
 	String checkValueValid(String value, IDirectEditingContext context);
+
+	String checkValueValidAsProposal(IProposal value, IDirectEditingContext context);
 
 	/**
 	 * Set the new value. The value comes from the text editing UI component.
