@@ -44,7 +44,9 @@ import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IDirectEditing;
+import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.graphiti.func.IRemove;
+import org.eclipse.graphiti.func.Proposal;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -714,4 +716,35 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		throw new UnsupportedOperationException("Subclasses must override this method if they want to provide direct editing."); //$NON-NLS-1$ 
 	}
 
+	@Override
+	public IProposal[] getPossibleValuesAsProposal(IDirectEditingContext context) {
+		String[] possibleValues = getPossibleValues(context);
+		Proposal[] ret = textToProposals(possibleValues);
+		return ret;
+	}
+
+	private static Proposal[] textToProposals(String[] possibleValues) {
+		Proposal[] ret = new Proposal[possibleValues.length];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i].setText(possibleValues[i]);
+		}
+		return ret;
+	}
+
+	@Override
+	public IProposal[] getValueProposalsAsProposal(String value, int caretPosition, IDirectEditingContext context) {
+		String[] possibleValues = getValueProposals(value, caretPosition, context);
+		Proposal[] ret = textToProposals(possibleValues);
+		return ret;
+	}
+
+	@Override
+	public String completeValueFromProposal(String value, int caretPosition, IProposal choosenValue, IDirectEditingContext context) {
+		return completeValue(value, caretPosition, choosenValue.getText(), context);
+	}
+
+	@Override
+	public void setValueAsProposal(IProposal value, IDirectEditingContext context) {
+		setValue(value.getText(), context);	
+	}
 }
