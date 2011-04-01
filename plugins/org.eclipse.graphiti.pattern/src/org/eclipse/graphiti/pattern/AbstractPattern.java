@@ -750,13 +750,11 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 
 	@Override
 	public IProposal getInitialValueAsProposal(IDirectEditingContext context) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Proposal(getInitialValue(context));
 	}
 
 	@Override
 	public String checkValueValidAsProposal(IProposal value, IDirectEditingContext context) {
-		// TODO Auto-generated method stub
-		return null;
+		return checkValueValid(value.getText(), context);
 	}
 }
