@@ -747,4 +747,16 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	public void setValueAsProposal(IProposal value, IDirectEditingContext context) {
 		setValue(value.getText(), context);	
 	}
+
+	@Override
+	public IProposal getInitialValueAsProposal(IDirectEditingContext context) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String checkValueValidAsProposal(IProposal value, IDirectEditingContext context) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
