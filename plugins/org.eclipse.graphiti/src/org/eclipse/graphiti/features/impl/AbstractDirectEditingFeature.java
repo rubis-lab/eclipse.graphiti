@@ -165,15 +165,14 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 		setValue(value.getText(), context);	
 	}
 
+
 	@Override
 	public IProposal getInitialValueAsProposal(IDirectEditingContext context) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Proposal(getInitialValue(context));
 	}
 
 	@Override
 	public String checkValueValidAsProposal(IProposal value, IDirectEditingContext context) {
-		// TODO Auto-generated method stub
-		return null;
+		return checkValueValid(value.getText(), context);
 	}
 }
