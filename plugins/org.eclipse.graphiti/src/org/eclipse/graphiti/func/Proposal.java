@@ -33,14 +33,13 @@ public class Proposal implements IProposal {
 	public void setText(String text) {
 		this.text = text;
 	}
-	
+
 	public static Proposal[] textToProposals(String[] possibleValues) {
 		Proposal[] ret = new Proposal[possibleValues.length];
 		for (int i = 0; i < ret.length; i++) {
-			ret[i].setText(possibleValues[i]);
+			ret[i] = new Proposal(possibleValues[i]);
 		}
 		return ret;
 	}
-
 
 }
