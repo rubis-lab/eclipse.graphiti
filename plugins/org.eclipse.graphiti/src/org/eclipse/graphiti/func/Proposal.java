@@ -42,7 +42,7 @@ public class Proposal implements IProposal {
 		return ret;
 	}
 
-	public static String[] ProposalsToTexts(IProposal[] proposals) {
+	public static String[] proposalsToTexts(IProposal[] proposals) {
 		String[] ret = new String[proposals.length];
 		for (int i = 0; i < ret.length; i++) {
 			ret[i] = proposals[i].getText();
