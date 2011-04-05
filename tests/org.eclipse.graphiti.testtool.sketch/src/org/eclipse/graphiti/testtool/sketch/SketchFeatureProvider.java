@@ -387,7 +387,7 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 			if (labelGa instanceof MultiText) {
 				ret = new SketchLabelDirectEditingFeature(this);
 			} else {
-				if (labelGa.getValue().startsWith("p")) {
+				if (labelGa.getValue().startsWith("p")) { //$NON-NLS-1$
 					ret = new SketchTextProposalDirectEditingFeature(this);
 				} else {
 					ret = new SketchTextDirectEditingFeature(this);

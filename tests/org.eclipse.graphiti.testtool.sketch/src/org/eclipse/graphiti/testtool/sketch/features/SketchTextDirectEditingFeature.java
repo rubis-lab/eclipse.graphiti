@@ -59,7 +59,7 @@ public class SketchTextDirectEditingFeature extends AbstractDirectEditingFeature
 
 	@Override
 	public String[] getValueProposals(String value, int caretPos, IDirectEditingContext context) {
-		return new String[] { "value1", "value2" };
+		return new String[] { "value1", "value2" };  //$NON-NLS-1$//$NON-NLS-2$
 	}
 
 }
