@@ -46,7 +46,7 @@ public class Proposal implements IProposal {
 		String[] ret = new String[proposals.length];
 		for (int i = 0; i < ret.length; i++) {
 			IProposal iProposal = proposals[i];
-			ret[i] = iProposal.getText()+" - " + iProposal.getObject(); // remove second part
+			ret[i] = iProposal.getText(); // + " - " + iProposal.getObject();
 		}
 		return ret;
 	}
