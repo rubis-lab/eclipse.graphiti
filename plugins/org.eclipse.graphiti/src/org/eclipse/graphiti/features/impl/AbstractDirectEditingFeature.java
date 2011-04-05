@@ -136,14 +136,14 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	@Override
 	public IProposal[] getPossibleValuesAsProposal(IDirectEditingContext context) {
 		String[] possibleValues = getPossibleValues(context);
-		Proposal[] ret = Proposal.textToProposals(possibleValues);
+		Proposal[] ret = Proposal.textsToProposals(possibleValues);
 		return ret;
 	}
 
 	@Override
 	public IProposal[] getValueProposalsAsProposal(String value, int caretPosition, IDirectEditingContext context) {
 		String[] possibleValues = getValueProposals(value, caretPosition, context);
-		Proposal[] ret = Proposal.textToProposals(possibleValues);
+		Proposal[] ret = Proposal.textsToProposals(possibleValues);
 		return ret;
 	}
 
