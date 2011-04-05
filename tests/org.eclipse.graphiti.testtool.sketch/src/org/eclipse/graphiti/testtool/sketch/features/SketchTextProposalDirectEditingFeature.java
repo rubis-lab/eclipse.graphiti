@@ -63,6 +63,6 @@ public class SketchTextProposalDirectEditingFeature extends AbstractDirectEditin
 
 	@Override
 	public IProposal[] getValueProposalsAsProposal(String value, int caretPos, IDirectEditingContext context) {
-		return new IProposal[] { new Proposal("value1", context.getPictogramElement()), new Proposal("value2", context.getGraphicsAlgorithm()) }; //$NON-NLS-1$ //$NON-NLS-2$
+		return new IProposal[] { new Proposal("proposal_1", context.getPictogramElement()), new Proposal("proposal_2", context.getGraphicsAlgorithm()) }; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 }
