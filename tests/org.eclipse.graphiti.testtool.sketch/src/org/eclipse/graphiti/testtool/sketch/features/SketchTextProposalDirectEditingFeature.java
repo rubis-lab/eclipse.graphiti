@@ -47,7 +47,7 @@ public class SketchTextProposalDirectEditingFeature extends AbstractDirectEditin
 
 	@Override
 	public void setValueAsProposal(IProposal value, IDirectEditingContext context) {
-		String newValue = value.getText()+" - "+value.getObject().toString();
+		String newValue = value.getText();
 		SketchUtil.setCurrentLabelValue(context.getPictogramElement(), newValue);
 	}
 
