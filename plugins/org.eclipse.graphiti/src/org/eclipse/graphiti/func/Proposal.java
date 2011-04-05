@@ -23,7 +23,7 @@ public class Proposal implements IProposal {
 
 	@Override
 	public String getText() {
-		return text;
+		return text; // + " - " + getObject(); // for tests
 	}
 
 	public void setObject(Object object) {
@@ -45,8 +45,7 @@ public class Proposal implements IProposal {
 	public static String[] proposalsToTexts(IProposal[] proposals) {
 		String[] ret = new String[proposals.length];
 		for (int i = 0; i < ret.length; i++) {
-			IProposal iProposal = proposals[i];
-			ret[i] = iProposal.getText(); // + " - " + iProposal.getObject();
+			ret[i] = proposals[i].getText();
 		}
 		return ret;
 	}
