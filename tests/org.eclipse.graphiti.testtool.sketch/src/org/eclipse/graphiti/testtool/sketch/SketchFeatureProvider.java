@@ -82,6 +82,7 @@ import org.eclipse.graphiti.testtool.sketch.features.SketchMoveShapeFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchReconnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchResizeShapeFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchTextDirectEditingFeature;
+import org.eclipse.graphiti.testtool.sketch.features.SketchTextProposalDirectEditingFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SwitchModeFeature;
 import org.eclipse.graphiti.testtool.sketch.features.ToggleDecorator;
 import org.eclipse.graphiti.testtool.sketch.features.TransparencyFeature;
@@ -386,7 +387,11 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 			if (labelGa instanceof MultiText) {
 				ret = new SketchLabelDirectEditingFeature(this);
 			} else {
-				ret = new SketchTextDirectEditingFeature(this);
+				if (labelGa.getValue().startsWith("p")) {
+					ret = new SketchTextProposalDirectEditingFeature(this);
+				} else {
+					ret = new SketchTextDirectEditingFeature(this);
+				}
 			}
 		}
 
