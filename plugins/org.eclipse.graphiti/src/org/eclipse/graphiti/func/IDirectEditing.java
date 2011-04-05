@@ -93,8 +93,6 @@ public interface IDirectEditing {
 	 */
 	String getInitialValue(IDirectEditingContext context);
 
-	IProposal getInitialValueAsProposal(IDirectEditingContext context);
-
 	/**
 	 * This value will be used if the cell editor is a combo box. This
 	 * functionality only applies to TYPE_DROPDOWN.
