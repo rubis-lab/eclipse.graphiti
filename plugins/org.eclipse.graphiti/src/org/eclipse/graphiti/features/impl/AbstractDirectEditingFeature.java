@@ -162,4 +162,8 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	public String checkValueValidAsProposal(IProposal value, IDirectEditingContext context) {
 		return checkValueValid(value.getText(), context);
 	}
+	
+	@Override
+	public void setValue(String value, IDirectEditingContext context) {
+	}
 }
