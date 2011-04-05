@@ -34,10 +34,18 @@ public class Proposal implements IProposal {
 		this.text = text;
 	}
 
-	public static Proposal[] textToProposals(String[] possibleValues) {
-		Proposal[] ret = new Proposal[possibleValues.length];
+	public static Proposal[] textToProposals(String[] texts) {
+		Proposal[] ret = new Proposal[texts.length];
 		for (int i = 0; i < ret.length; i++) {
-			ret[i] = new Proposal(possibleValues[i]);
+			ret[i] = new Proposal(texts[i]);
+		}
+		return ret;
+	}
+
+	public static String[] ProposalsToTexts(IProposal[] proposals) {
+		String[] ret = new String[proposals.length];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = proposals[i].getText();
 		}
 		return ret;
 	}
