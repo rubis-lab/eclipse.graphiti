@@ -40,6 +40,7 @@ public class Messages extends NLS {
 	public static String DeleteAction_0_xmsg;
 	public static String DeleteAction_1_xfld;
 	public static String DiagramEditor_0_xmsg;
+	public static String DiagramEditorActionBarContributor_0_xmen;
 	public static String DiagramEditorActionBarContributor_Grid;
 	public static String DiagramEditorActionBarContributor_SnapGeometry;
 	public static String GFMarqueeToolEntry_Marquee;

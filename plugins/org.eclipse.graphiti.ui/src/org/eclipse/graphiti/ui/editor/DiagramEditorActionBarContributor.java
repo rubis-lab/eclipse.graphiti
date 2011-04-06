@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 327669 - removed dependencies to GEF internal stuff
+ *    jpasch - Bug 323025 ActionBarContributor cleanup
  *
  * </copyright>
  *
@@ -72,13 +73,11 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 		addRetargetAction(new ZoomInRetargetAction());
 		addRetargetAction(new ZoomOutRetargetAction());
-
-		// addRetargetAction(new ConfigureAutoLayoutRetargetAction());
-		// addRetargetAction(new PerformAutoLayoutRetargetAction());
-		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY, Messages.DiagramEditorActionBarContributor_Grid, IAction.AS_CHECK_BOX));
-
-		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY, Messages.DiagramEditorActionBarContributor_SnapGeometry,
+		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY, Messages.DiagramEditorActionBarContributor_Grid,
 				IAction.AS_CHECK_BOX));
+
+		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY,
+				Messages.DiagramEditorActionBarContributor_SnapGeometry, IAction.AS_CHECK_BOX));
 	}
 
 	/**
@@ -110,11 +109,7 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 	public void contributeToToolBar(IToolBarManager tbm) {
 		tbm.add(getAction(ActionFactory.UNDO.getId()));
 		tbm.add(getAction(ActionFactory.REDO.getId()));
-
-		// tbm.add(new Separator());
-		// tbm.add(getAction(ActionFactory.PRINT.getId()));
-		// tbm.add(getAction(ActionFactory.SAVE_AS.getId()));
-
+		
 		tbm.add(new Separator());
 		tbm.add(getAction(ActionFactory.COPY.getId()));
 		tbm.add(getAction(ActionFactory.PASTE.getId()));
@@ -152,12 +147,27 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 	@Override
 	public void contributeToMenu(IMenuManager menubar) {
 		super.contributeToMenu(menubar);
+		IMenuManager editMenu = menubar.findMenuUsingPath(IWorkbenchActionConstants.M_EDIT);
+		
+		if (editMenu != null) {
+			MenuManager alignments = new MenuManager(Messages.DiagramEditorActionBarContributor_0_xmen);
+			editMenu.insertAfter(ActionFactory.SELECT_ALL.getId(), alignments);
+			alignments.add(getAction(GEFActionConstants.ALIGN_CENTER));
+			alignments.add(getAction(GEFActionConstants.ALIGN_RIGHT));
+			alignments.add(new Separator());
+			alignments.add(getAction(GEFActionConstants.ALIGN_TOP));
+			alignments.add(getAction(GEFActionConstants.ALIGN_MIDDLE));
+			alignments.add(getAction(GEFActionConstants.ALIGN_BOTTOM));
+			alignments.add(new Separator());
+			alignments.add(getAction(GEFActionConstants.MATCH_WIDTH));
+			alignments.add(getAction(GEFActionConstants.MATCH_HEIGHT));
+		}
+		
 		MenuManager viewMenu = new MenuManager(Messages.GraphicsActionBarContributor_0_xmen);
 		viewMenu.add(getAction(GEFActionConstants.ZOOM_IN));
 		viewMenu.add(getAction(GEFActionConstants.ZOOM_OUT));
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY));
-
 		menubar.insertAfter(IWorkbenchActionConstants.M_EDIT, viewMenu);
 	}
 
