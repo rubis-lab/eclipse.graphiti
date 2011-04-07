@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,13 +17,19 @@ package org.eclipse.graphiti.testtool.sketch.features;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
-import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
+import org.eclipse.graphiti.func.IProposal;
+import org.eclipse.graphiti.func.IProposalSupport;
+import org.eclipse.graphiti.func.Proposal;
 import org.eclipse.graphiti.testtool.sketch.SketchUtil;
 
 /**
  * The Class SketchLabelDirectEditingFeature.
  */
-public class SketchTextProposalDirectEditingFeature extends AbstractDirectEditingFeature {
+public class SketchTextProposalDirectEditingFeature extends SketchTextDirectEditingFeature {
+
+	protected static final IProposal[] EMPTY_PROPOSAL_ARRAY = new IProposal[0];
+
+	private IProposalSupport proposalSupport = null;
 
 	/**
 	 * Instantiates a new sketch label direct editing feature.
@@ -35,37 +41,38 @@ public class SketchTextProposalDirectEditingFeature extends AbstractDirectEditin
 		super(fp);
 	}
 
-	public int getEditingType() {
-		return TYPE_TEXT;
-	}
-
-	public String getInitialValue(IDirectEditingContext context) {
-		return SketchUtil.getCurrentLabelValue(context.getPictogramElement());
-	}
-
-	// @Override
-	// public void setValueAsProposal(IProposal value, IDirectEditingContext
-	// context) {
-	// String newValue = value.getText();
-	// SketchUtil.setCurrentLabelValue(context.getPictogramElement(), newValue);
-	// }
-
 	@Override
-	public boolean isCompletionAvailable() {
-		return true;
-	}
+	public IProposalSupport getProposalSupport() {
+		if (proposalSupport == null) {
+			proposalSupport = new IProposalSupport() {
 
-	@Override
-	public boolean isAutoCompletionEnabled() {
-		return false;
-	}
+				public void setValue(IProposal value, IDirectEditingContext context) {
+					SketchUtil.setCurrentLabelValue(context.getPictogramElement(), value.getText());
+				}
 
-	@Override
-	public void setValue(String value, IDirectEditingContext context) {
+				@Override
+				public IProposal[] getValueProposals(String value, int caretPos, IDirectEditingContext context) {
+					return new IProposal[] {
+							new Proposal("proposal_1", context.getPictogramElement()), new Proposal("proposal_2", context.getGraphicsAlgorithm()) }; //$NON-NLS-1$ //$NON-NLS-2$
+				}
+
+				@Override
+				public IProposal[] getPossibleValues(IDirectEditingContext context) {
+					return EMPTY_PROPOSAL_ARRAY;
+				}
+
+				@Override
+				public String completeValue(String value, int caretPosition, IProposal choosenValue, IDirectEditingContext context) {
+					return choosenValue.getText();
+				}
+
+				@Override
+				public String checkValueValid(IProposal value, IDirectEditingContext context) {
+					return null;
+				}
+			};
+		}
+
+		return proposalSupport;
 	}
-	// @Override
-	// public IProposal[] getValueProposalsAsProposal(String value, int
-	// caretPos, IDirectEditingContext context) {
-	//		return new IProposal[] { new Proposal("proposal_1", context.getPictogramElement()), new Proposal("proposal_2", context.getGraphicsAlgorithm()) }; //$NON-NLS-1$ //$NON-NLS-2$
-	// }
 }
