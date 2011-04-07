@@ -86,7 +86,8 @@ public class CommandStackTest extends GFAbstractTestCase {
 		IDirectEditingContext context = EasyMock.createNiceMock(IDirectEditingContext.class);
 		EasyMock.replay(context);
 
-		DirectEditingFeatureCommandWithContext featureCommand = new DirectEditingFeatureCommandWithContext(feature, context, "Initial");
+		DirectEditingFeatureCommandWithContext featureCommand = new DirectEditingFeatureCommandWithContext(feature, context, "Initial",
+				null);
 
 		executeAndCheck(featureCommand, commandStack, editingDomain);
 	}

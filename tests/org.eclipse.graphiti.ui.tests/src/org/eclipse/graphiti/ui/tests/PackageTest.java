@@ -255,7 +255,7 @@ public class PackageTest extends GFAbstractTestCase {
 		replay(directEditingFeatureMock);
 
 		DirectEditingFeatureCommandWithContext myDirectEditingFeatureCommandWithContext = new DirectEditingFeatureCommandWithContext(
-				directEditingFeatureMock, directEditingContextMock, new String("Value"));
+				directEditingFeatureMock, directEditingContextMock, new String("Value"),null);
 
 		myDirectEditingFeatureCommandWithContext.execute();
 	}
