@@ -246,6 +246,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 				ContentProposalAdapter contentProposalAdapter = new ContentProposalAdapter(getCellEditor().getControl(),
 						controlContentAdapter, contentProposalProvider, keyStroke, null);
 				contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
+				contentProposalAdapter.addContentProposalListener(new ContentProposalListener((TextCellEditor) getCellEditor()));
 
 				// <sw03072008> removed to avoid direct closing of cell editor
 				// after value selection from value help
