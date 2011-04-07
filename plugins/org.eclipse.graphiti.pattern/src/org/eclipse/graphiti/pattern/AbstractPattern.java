@@ -702,7 +702,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * graphiti.features.context.IDirectEditingContext)
 	 */
 	public String getInitialValue(IDirectEditingContext context) {
-		throw new UnsupportedOperationException("Subclasses must override this method if they want to provide direct editing."); //$NON-NLS-1$ 
+		return ""; //$NON-NLS-1$
 	}
 
 	/*
@@ -712,7 +712,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
 	 */
 	public void setValue(String value, IDirectEditingContext context) {
-		throw new UnsupportedOperationException("Subclasses must override this method if they want to provide direct editing."); //$NON-NLS-1$ 
 	}
 
 	@Override
