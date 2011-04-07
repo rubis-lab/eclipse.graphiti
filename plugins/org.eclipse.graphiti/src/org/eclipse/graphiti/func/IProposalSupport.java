@@ -79,12 +79,12 @@ public interface IProposalSupport {
 	/**
 	 * Set the new value. The value comes from the text editing UI component.
 	 * 
-	 * @param value
+	 * @param text
 	 *            the value
 	 * @param proposal
 	 *            the choosen proposal
 	 * @param context
 	 *            the context
 	 */
-	void setValue(String value, IProposal proposal, IDirectEditingContext context);
+	void setValue(String text, IProposal proposal, IDirectEditingContext context);
 }
