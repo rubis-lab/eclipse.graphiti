@@ -178,4 +178,6 @@ public interface IDirectEditing {
 	 *            the context
 	 */
 	void setValue(String value, IDirectEditingContext context);
+
+	IProposalSupport getProposalSupport();
 }

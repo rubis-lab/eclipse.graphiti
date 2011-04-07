@@ -20,6 +20,7 @@ import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.func.IProposalSupport;
 import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.internal.util.T;
 
@@ -127,6 +128,11 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	@Override
 	public String getName() {
 		return NAME;
+	}
+
+	@Override
+	public IProposalSupport getProposalSupport() {
+		return null;
 	}
 
 	private static final String NAME = Messages.AbstractDirectEditingFeature_0_xfld;
