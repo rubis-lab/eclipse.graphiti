@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.parts.directedit;
 
+import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.jface.fieldassist.IContentProposal;
 
 /**
@@ -27,6 +28,8 @@ public class ContentProposal implements IContentProposal {
 
 	private String proposalText;
 
+	private IProposal proposal;
+
 	private String currentText;
 
 	private String description;
@@ -34,11 +37,12 @@ public class ContentProposal implements IContentProposal {
 	private int cursorPosition;
 
 	public ContentProposal(IDirectEditHolder directEditHolder, int cursorPosition, String currentText, String proposalText,
-			String description) {
+			IProposal proposal, String description) {
 		this.directEditHolder = directEditHolder;
 		this.cursorPosition = cursorPosition;
 		this.currentText = currentText;
 		this.proposalText = proposalText;
+		this.proposal = proposal;
 		this.description = description;
 	}
 
@@ -58,5 +62,12 @@ public class ContentProposal implements IContentProposal {
 
 	public String getLabel() {
 		return proposalText;
+	}
+
+	/**
+	 * @return the proposel
+	 */
+	public IProposal getProposal() {
+		return proposal;
 	}
 }

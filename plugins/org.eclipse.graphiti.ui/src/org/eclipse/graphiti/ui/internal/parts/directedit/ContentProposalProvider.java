@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.parts.directedit;
 
+import org.eclipse.graphiti.features.IDirectEditingFeature;
+import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
 
@@ -35,15 +37,29 @@ public class ContentProposalProvider implements IContentProposalProvider {
 
 		IContentProposal[] proposals = new IContentProposal[0];
 
-		String[] proposalStrings = directEditHolder.getDirectEditingFeature().getValueProposals(contents, position,
-				directEditHolder.getDirectEditingContext());
+		IDirectEditingFeature def = directEditHolder.getDirectEditingFeature();
+		if (directEditHolder.isSimpleMode()) {
+			String[] proposalStrings = def.getValueProposals(contents, position, directEditHolder.getDirectEditingContext());
 
-		if (proposalStrings != null) {
-			proposals = new IContentProposal[proposalStrings.length];
+			if (proposalStrings != null) {
+				proposals = new IContentProposal[proposalStrings.length];
 
-			for (int i = 0; i < proposalStrings.length; i++) {
-				proposals[i] = new ContentProposal(directEditHolder, position, contents, proposalStrings[i], null);
+				for (int i = 0; i < proposalStrings.length; i++) {
+					proposals[i] = new ContentProposal(directEditHolder, position, contents, proposalStrings[i], null, null);
+				}
 			}
+		} else {
+			IProposal[] valueProposals = def.getProposalSupport().getValueProposals(contents, position,
+					directEditHolder.getDirectEditingContext());
+
+			if (valueProposals != null) {
+				proposals = new IContentProposal[valueProposals.length];
+
+				for (int i = 0; i < valueProposals.length; i++) {
+					proposals[i] = new ContentProposal(directEditHolder, position, contents, null, valueProposals[i], null);
+				}
+			}
+
 		}
 
 		return proposals;
