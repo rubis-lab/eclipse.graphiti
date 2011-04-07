@@ -46,8 +46,13 @@ public class SketchTextProposalDirectEditingFeature extends SketchTextDirectEdit
 		if (proposalSupport == null) {
 			proposalSupport = new IProposalSupport() {
 
-				public void setValue(IProposal value, IDirectEditingContext context) {
-					SketchUtil.setCurrentLabelValue(context.getPictogramElement(), value.getText());
+				@Override
+				public void setValue(String value, IProposal proposal, IDirectEditingContext context) {
+					String text = value;
+					if (proposal != null && proposal.getText() != null) {
+						text = proposal.getText();
+					}
+					SketchUtil.setCurrentLabelValue(context.getPictogramElement(), text);
 				}
 
 				@Override
