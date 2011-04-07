@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.parts.directedit;
 
+import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.fieldassist.ContentProposalAdapter;
 import org.eclipse.swt.SWT;
@@ -51,6 +52,7 @@ public class TextCellEditor extends org.eclipse.jface.viewers.TextCellEditor {
 	private static final int defaultStyle = SWT.SINGLE;
 
 	private ModifyListener modifyListener;
+	private IProposal acceptedProposal = null;
 
 	/**
 	 * State information for updating action enablement
@@ -221,5 +223,20 @@ public class TextCellEditor extends org.eclipse.jface.viewers.TextCellEditor {
 			};
 		}
 		return modifyListener;
+	}
+
+	/**
+	 * @return the acceptedProposal
+	 */
+	public IProposal getAcceptedProposal() {
+		return acceptedProposal;
+	}
+
+	/**
+	 * @param acceptedProposal
+	 *            the acceptedProposal to set
+	 */
+	public void setAcceptedProposal(IProposal acceptedProposal) {
+		this.acceptedProposal = acceptedProposal;
 	}
 }

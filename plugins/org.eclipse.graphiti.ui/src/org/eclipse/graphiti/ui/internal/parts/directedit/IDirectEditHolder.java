@@ -26,4 +26,6 @@ public interface IDirectEditHolder {
 	IDirectEditingContext getDirectEditingContext();
 
 	IDirectEditingFeature getDirectEditingFeature();
+
+	boolean isSimpleMode();
 }

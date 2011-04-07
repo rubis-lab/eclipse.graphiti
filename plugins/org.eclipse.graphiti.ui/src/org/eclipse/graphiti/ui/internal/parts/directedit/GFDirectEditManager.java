@@ -106,6 +106,17 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 	}
 
 	@Override
+	public boolean isSimpleMode() {
+		boolean ret = true;
+		if (getDirectEditingFeature() != null) {
+			if (getDirectEditingFeature().getProposalSupport() != null) {
+				ret = false;
+			}
+		}
+		return ret;
+	}
+
+	@Override
 	protected CellEditor createCellEditorOn(Composite composite) {
 		CellEditor ret;
 
