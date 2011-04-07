@@ -24,6 +24,8 @@ import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.func.IDirectEditing;
+import org.eclipse.graphiti.func.IProposal;
+import org.eclipse.graphiti.func.Proposal;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFMultilineText;
 import org.eclipse.graphiti.ui.internal.figures.GFText;
@@ -148,7 +150,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 			ret = new TextCellEditor(composite, horizontalAlignment);
 		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_DROPDOWN
 				|| directEditingFeature.getEditingType() == IDirectEditing.TYPE_DROPDOWN_READ_ONLY) {
-			String[] possibleValues = directEditingFeature.getPossibleValues(directEditingContext);
+			String[] possibleValues = getPossibleValues();
 			ret = new ComboBoxCellEditor(composite, possibleValues);
 			// return new ComboBoxCellEditorFixed(composite, possibleValues,
 			// SWT.NONE);
@@ -159,6 +161,17 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 		ret.setValidator(new GFCellEditorValidator(this, ret));
 
 		return ret;
+	}
+
+	private String[] getPossibleValues() {
+		String[] possibleValues;
+		if (isSimpleMode()) {
+			possibleValues = directEditingFeature.getPossibleValues(directEditingContext);
+		} else {
+			IProposal[] proposals = directEditingFeature.getProposalSupport().getPossibleValues(directEditingContext);
+			possibleValues = Proposal.proposalsToTexts(proposals);
+		}
+		return possibleValues;
 	}
 
 	private void disposeCellEditorFont() {
@@ -219,7 +232,8 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 				cc.setEditable(false);
 			}
 
-			String[] possibleValues = directEditingFeature.getPossibleValues(directEditingContext);
+			String[] possibleValues = getPossibleValues();
+			comboBoxCellEditor.setValue(0);
 			for (int x = 0; x < possibleValues.length; x++) {
 				if (possibleValues[x].equals(initialValue))
 					comboBoxCellEditor.setValue(x);
