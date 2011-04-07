@@ -67,7 +67,7 @@ public class SketchTextProposalDirectEditingFeature extends SketchTextDirectEdit
 				}
 
 				@Override
-				public String checkValueValid(IProposal value, IDirectEditingContext context) {
+				public String checkValueValid(String text, IProposal proposal, IDirectEditingContext context) {
 					return null;
 				}
 			};
