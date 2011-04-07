@@ -47,8 +47,14 @@ public class ContentProposal implements IContentProposal {
 	}
 
 	public String getContent() {
-		String ret = directEditHolder.getDirectEditingFeature().completeValue(currentText, getCursorPosition(), proposalText,
-				directEditHolder.getDirectEditingContext());
+		String ret = ""; //$NON-NLS-1$
+		if (directEditHolder.isSimpleMode()) {
+			ret = directEditHolder.getDirectEditingFeature().completeValue(currentText, getCursorPosition(), proposalText,
+					directEditHolder.getDirectEditingContext());
+		} else {
+			ret = directEditHolder.getDirectEditingFeature().getProposalSupport()
+					.completeValue(currentText, getCursorPosition(), proposal, directEditHolder.getDirectEditingContext());
+		}
 		return ret;
 	}
 
