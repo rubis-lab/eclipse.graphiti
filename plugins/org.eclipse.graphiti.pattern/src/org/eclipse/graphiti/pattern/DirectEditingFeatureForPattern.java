@@ -20,6 +20,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
 import org.eclipse.graphiti.func.IDirectEditing;
+import org.eclipse.graphiti.func.IProposalSupport;
 
 /**
  * The Class DirectEditingFeatureForPattern.
@@ -90,5 +91,10 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 
 	public void setValue(String value, IDirectEditingContext context) {
 		delegate.setValue(value, context);
+	}
+
+	@Override
+	public IProposalSupport getProposalSupport() {
+		return delegate.getProposalSupport();
 	}
 }

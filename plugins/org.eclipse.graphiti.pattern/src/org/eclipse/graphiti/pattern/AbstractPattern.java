@@ -44,6 +44,7 @@ import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IDirectEditing;
+import org.eclipse.graphiti.func.IProposalSupport;
 import org.eclipse.graphiti.func.IRemove;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -92,7 +93,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * removal behavior. Subclasses may decide to either override
 	 * {@link #createRemoveFeature(IRemoveContext)} to provide another
 	 * {@link IRemoveFeature} implementation or override and extend the
-	 * individual {@link IRemove} methods or  return a {@link IRemoveFeature} by
+	 * individual {@link IRemove} methods or return a {@link IRemoveFeature} by
 	 * overriding the method
 	 * {@link DefaultFeatureProviderWithPatterns#getRemoveFeature(IRemoveContext)}
 	 * .
@@ -714,4 +715,8 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		throw new UnsupportedOperationException("Subclasses must override this method if they want to provide direct editing."); //$NON-NLS-1$ 
 	}
 
+	@Override
+	public IProposalSupport getProposalSupport() {
+		return null;
+	}
 }
