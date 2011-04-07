@@ -44,9 +44,7 @@ import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IDirectEditing;
-import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.graphiti.func.IRemove;
-import org.eclipse.graphiti.func.Proposal;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -94,7 +92,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * removal behavior. Subclasses may decide to either override
 	 * {@link #createRemoveFeature(IRemoveContext)} to provide another
 	 * {@link IRemoveFeature} implementation or override and extend the
-	 * individual {@link IRemove} methods or return a {@link IRemoveFeature} by
+	 * individual {@link IRemove} methods or  return a {@link IRemoveFeature} by
 	 * overriding the method
 	 * {@link DefaultFeatureProviderWithPatterns#getRemoveFeature(IRemoveContext)}
 	 * .
@@ -703,7 +701,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * graphiti.features.context.IDirectEditingContext)
 	 */
 	public String getInitialValue(IDirectEditingContext context) {
-		return ""; //$NON-NLS-1$
+		throw new UnsupportedOperationException("Subclasses must override this method if they want to provide direct editing."); //$NON-NLS-1$ 
 	}
 
 	/*
@@ -713,34 +711,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
 	 */
 	public void setValue(String value, IDirectEditingContext context) {
+		throw new UnsupportedOperationException("Subclasses must override this method if they want to provide direct editing."); //$NON-NLS-1$ 
 	}
 
-	@Override
-	public IProposal[] getPossibleValuesAsProposal(IDirectEditingContext context) {
-		String[] possibleValues = getPossibleValues(context);
-		Proposal[] ret = Proposal.textsToProposals(possibleValues);
-		return ret;
-	}
-
-	@Override
-	public IProposal[] getValueProposalsAsProposal(String value, int caretPosition, IDirectEditingContext context) {
-		String[] possibleValues = getValueProposals(value, caretPosition, context);
-		Proposal[] ret = Proposal.textsToProposals(possibleValues);
-		return ret;
-	}
-
-	@Override
-	public String completeValueFromProposal(String value, int caretPosition, IProposal choosenValue, IDirectEditingContext context) {
-		return completeValue(value, caretPosition, choosenValue.getText(), context);
-	}
-
-	@Override
-	public void setValueAsProposal(IProposal value, IDirectEditingContext context) {
-		setValue(value.getText(), context);
-	}
-
-	@Override
-	public String checkValueValidAsProposal(IProposal value, IDirectEditingContext context) {
-		return checkValueValid(value.getText(), context);
-	}
 }

@@ -20,7 +20,6 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
 import org.eclipse.graphiti.func.IDirectEditing;
-import org.eclipse.graphiti.func.IProposal;
 
 /**
  * The Class DirectEditingFeatureForPattern.
@@ -92,46 +91,4 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	public void setValue(String value, IDirectEditingContext context) {
 		delegate.setValue(value, context);
 	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature#getPossibleValuesAsProposal(org.eclipse.graphiti.features.context.IDirectEditingContext)
-	 */
-	@Override
-	public IProposal[] getPossibleValuesAsProposal(IDirectEditingContext context) {
-		return delegate.getPossibleValuesAsProposal(context);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature#getValueProposalsAsProposal(java.lang.String, int, org.eclipse.graphiti.features.context.IDirectEditingContext)
-	 */
-	@Override
-	public IProposal[] getValueProposalsAsProposal(String value, int caretPosition, IDirectEditingContext context) {
-		return delegate.getValueProposalsAsProposal(value, caretPosition, context);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature#completeValueFromProposal(java.lang.String, int, org.eclipse.graphiti.func.IProposal, org.eclipse.graphiti.features.context.IDirectEditingContext)
-	 */
-	@Override
-	public String completeValueFromProposal(String value, int caretPosition, IProposal choosenValue, IDirectEditingContext context) {
-		return delegate.completeValueFromProposal(value, caretPosition, choosenValue, context);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature#setValueAsProposal(org.eclipse.graphiti.func.IProposal, org.eclipse.graphiti.features.context.IDirectEditingContext)
-	 */
-	@Override
-	public void setValueAsProposal(IProposal value, IDirectEditingContext context) {
-		delegate.setValueAsProposal(value, context);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature#checkValueValidAsProposal(org.eclipse.graphiti.func.IProposal, org.eclipse.graphiti.features.context.IDirectEditingContext)
-	 */
-	@Override
-	public String checkValueValidAsProposal(IProposal value, IDirectEditingContext context) {
-		return delegate.checkValueValidAsProposal(value, context);
-	}
-	
-	
 }
