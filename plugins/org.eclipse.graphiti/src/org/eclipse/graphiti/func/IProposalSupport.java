@@ -81,8 +81,10 @@ public interface IProposalSupport {
 	 * 
 	 * @param value
 	 *            the value
+	 * @param proposal
+	 *            the choosen proposal
 	 * @param context
 	 *            the context
 	 */
-	void setValue(IProposal value, IDirectEditingContext context);
+	void setValue(String value, IProposal proposal, IDirectEditingContext context);
 }
