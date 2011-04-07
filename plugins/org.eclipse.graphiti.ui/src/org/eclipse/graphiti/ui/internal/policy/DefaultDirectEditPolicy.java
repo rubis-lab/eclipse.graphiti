@@ -23,7 +23,7 @@ import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
-import org.eclipse.graphiti.func.IDirectEditing;
+import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.graphiti.internal.command.DirectEditingFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ICommand;
 import org.eclipse.graphiti.internal.util.LookManager;
@@ -32,11 +32,14 @@ import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.parts.directedit.IDirectEditHolder;
+import org.eclipse.graphiti.ui.internal.parts.directedit.TextCellEditor;
 import org.eclipse.graphiti.ui.internal.requests.GFDirectEditRequest;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Control;
@@ -71,7 +74,8 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 			return null;
 		}
 
-		final String message = request.getCellEditor().getErrorMessage();
+		CellEditor cellEditor = request.getCellEditor();
+		final String message = cellEditor.getErrorMessage();
 		if (message != null && message.length() != 0) {
 			MessageDialog.openError(GraphitiUiInternal.getWorkbenchService().getShell(), Messages.DefaultDirectEditPolicy_0_xmsg, message);
 			return null;
@@ -81,28 +85,40 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 		final IDirectEditingFeature directEditingFeature = directEditHolder.getDirectEditingFeature();
 		final IDirectEditingContext directEditingContext = directEditHolder.getDirectEditingContext();
 
-		Object valueObject = request.getCellEditor().getValue();
+		String value = null;
+		IProposal acceptedProposal = null;
 
-		if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_DROPDOWN
-				|| directEditingFeature.getEditingType() == IDirectEditing.TYPE_DROPDOWN_READ_ONLY) {
-			final int index = ((Integer) valueObject).intValue();
+		if (cellEditor instanceof TextCellEditor) {
+			TextCellEditor tce = (TextCellEditor) cellEditor;
+			value = (String) tce.getValue();
+			acceptedProposal = tce.getAcceptedProposal();
+		} else if (cellEditor instanceof ComboBoxCellEditor) {
+			final int index = ((Integer) cellEditor.getValue()).intValue();
 
 			// TODO: user inserted free value, what to do here?
 			if (index < 0) {
-				final Control control = request.getCellEditor().getControl();
+				final Control control = cellEditor.getControl();
 				if (control instanceof CCombo) {
 					final CCombo cc = (CCombo) control;
-					valueObject = cc.getText();
+					value = cc.getText();
 				} else {
 					return null;
 				}
 			} else {
-				valueObject = directEditingFeature.getPossibleValues(directEditingContext)[index];
+				if (directEditHolder.isSimpleMode()) {
+					value = directEditingFeature.getPossibleValues(directEditingContext)[index];
+				} else {
+					acceptedProposal = directEditingFeature.getProposalSupport().getPossibleValues(directEditingContext)[index];
+				}
 			}
 
 		}
 
-		final ICommand cmd = new DirectEditingFeatureCommandWithContext(directEditingFeature, directEditingContext, (String) valueObject);
+		if (value == null && acceptedProposal == null) {
+			return null;
+		}
+
+		final ICommand cmd = new DirectEditingFeatureCommandWithContext(directEditingFeature, directEditingContext, value, acceptedProposal);
 
 		final IFeatureProvider fp = directEditingFeature.getFeatureProvider();
 		final DiagramEditorInternal diagramEditor = (DiagramEditorInternal) fp.getDiagramTypeProvider().getDiagramEditor();
