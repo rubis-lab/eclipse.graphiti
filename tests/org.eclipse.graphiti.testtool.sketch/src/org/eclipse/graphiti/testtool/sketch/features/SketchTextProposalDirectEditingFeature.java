@@ -18,8 +18,6 @@ package org.eclipse.graphiti.testtool.sketch.features;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
-import org.eclipse.graphiti.func.IProposal;
-import org.eclipse.graphiti.func.Proposal;
 import org.eclipse.graphiti.testtool.sketch.SketchUtil;
 
 /**
@@ -45,11 +43,12 @@ public class SketchTextProposalDirectEditingFeature extends AbstractDirectEditin
 		return SketchUtil.getCurrentLabelValue(context.getPictogramElement());
 	}
 
-	@Override
-	public void setValueAsProposal(IProposal value, IDirectEditingContext context) {
-		String newValue = value.getText();
-		SketchUtil.setCurrentLabelValue(context.getPictogramElement(), newValue);
-	}
+	// @Override
+	// public void setValueAsProposal(IProposal value, IDirectEditingContext
+	// context) {
+	// String newValue = value.getText();
+	// SketchUtil.setCurrentLabelValue(context.getPictogramElement(), newValue);
+	// }
 
 	@Override
 	public boolean isCompletionAvailable() {
@@ -62,7 +61,11 @@ public class SketchTextProposalDirectEditingFeature extends AbstractDirectEditin
 	}
 
 	@Override
-	public IProposal[] getValueProposalsAsProposal(String value, int caretPos, IDirectEditingContext context) {
-		return new IProposal[] { new Proposal("proposal_1", context.getPictogramElement()), new Proposal("proposal_2", context.getGraphicsAlgorithm()) }; //$NON-NLS-1$ //$NON-NLS-2$
+	public void setValue(String value, IDirectEditingContext context) {
 	}
+	// @Override
+	// public IProposal[] getValueProposalsAsProposal(String value, int
+	// caretPos, IDirectEditingContext context) {
+	//		return new IProposal[] { new Proposal("proposal_1", context.getPictogramElement()), new Proposal("proposal_2", context.getGraphicsAlgorithm()) }; //$NON-NLS-1$ //$NON-NLS-2$
+	// }
 }
