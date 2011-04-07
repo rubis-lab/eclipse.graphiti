@@ -65,14 +65,16 @@ public interface IProposalSupport {
 	 * This method will be called by clients many times to see if current value
 	 * is valid and could be set.
 	 * 
-	 * @param value
-	 *            the value
+	 * @param text
+	 *            the value as text
+	 * @param proposal
+	 *            the value as proposal
 	 * @param context
 	 *            the context
 	 * @return null if value is okay and could be set; any text means value is
 	 *         not valid; text is reason for invalidality
 	 */
-	String checkValueValid(IProposal value, IDirectEditingContext context);
+	String checkValueValid(String text, IProposal proposal, IDirectEditingContext context);
 
 	/**
 	 * Set the new value. The value comes from the text editing UI component.
