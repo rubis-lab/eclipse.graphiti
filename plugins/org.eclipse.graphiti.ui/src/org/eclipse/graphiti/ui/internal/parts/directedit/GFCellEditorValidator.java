@@ -15,6 +15,10 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.parts.directedit;
 
+import org.eclipse.graphiti.features.IDirectEditingFeature;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.func.IProposal;
+import org.eclipse.graphiti.func.IProposalSupport;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
@@ -35,6 +39,10 @@ public class GFCellEditorValidator implements ICellEditorValidator {
 	}
 
 	public String isValid(Object value) {
+		if (!directEditHolder.isSimpleMode()) {
+			return isValidProposal(value);
+		}
+		
 		String ret = null;
 
 		if (value instanceof String) {
@@ -60,6 +68,37 @@ public class GFCellEditorValidator implements ICellEditorValidator {
 			}
 		}
 		return ret;
+	}
+
+	public String isValidProposal(Object value) {
+		IProposal proposal = null;
+		String text = null;
+
+		IDirectEditingFeature directEditingFeature = directEditHolder.getDirectEditingFeature();
+		IDirectEditingContext directEditingContext = directEditHolder.getDirectEditingContext();
+		IProposalSupport proposalSupport = directEditingFeature.getProposalSupport();
+
+		if (getCellEditor() instanceof TextCellEditor) {
+			TextCellEditor tce = (TextCellEditor) getCellEditor();
+			proposal = tce.getAcceptedProposal();
+		}
+		if (value instanceof String) {
+			text = (String) value;
+		} 
+		if (value instanceof Integer && getCellEditor() instanceof ComboBoxCellEditor){
+			ComboBoxCellEditor cb = (ComboBoxCellEditor) getCellEditor();
+			int index = (Integer) value;
+			if (index < 0) { // -1 if user inserted a new value
+				Control control = cb.getControl();
+				if (control instanceof CCombo) {
+					CCombo cc = (CCombo) control;
+					text = cc.getText();
+				}
+			} else {
+				proposal = proposalSupport.getPossibleValues(directEditingContext)[index];
+			}
+		}
+		return proposalSupport.checkValueValid(text, proposal, directEditingContext);
 	}
 
 	private CellEditor getCellEditor() {
