@@ -136,4 +136,8 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	}
 
 	private static final String NAME = Messages.AbstractDirectEditingFeature_0_xfld;
+	
+	@Override
+	public void setValue(String value, IDirectEditingContext context) {
+	}
 }
