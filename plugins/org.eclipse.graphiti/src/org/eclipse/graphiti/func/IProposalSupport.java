@@ -30,7 +30,7 @@ public interface IProposalSupport {
 	 *            the context
 	 * @return the possible values for the combo box.
 	 */
-	IProposal[] getPossibleValuesAsProposal(IDirectEditingContext context);
+	IProposal[] getPossibleValues(IDirectEditingContext context);
 
 	/**
 	 * This proposals will be used for the completion list of a simple text cell
@@ -44,7 +44,7 @@ public interface IProposalSupport {
 	 *            the context
 	 * @return the proposed values
 	 */
-	IProposal[] getValueProposalsAsProposal(String value, int caretPosition, IDirectEditingContext context);
+	IProposal[] getValueProposals(String value, int caretPosition, IDirectEditingContext context);
 
 	/**
 	 * Framework calls this method to let the feature calculate the new value.
@@ -59,7 +59,7 @@ public interface IProposalSupport {
 	 *            the context
 	 * @return the new value
 	 */
-	String completeValueFromProposal(String value, int caretPosition, IProposal choosenValue, IDirectEditingContext context);
+	String completeValue(String value, int caretPosition, IProposal choosenValue, IDirectEditingContext context);
 
 	/**
 	 * This method will be called by clients many times to see if current value
@@ -72,7 +72,7 @@ public interface IProposalSupport {
 	 * @return null if value is okay and could be set; any text means value is
 	 *         not valid; text is reason for invalidality
 	 */
-	String checkValueValidAsProposal(IProposal value, IDirectEditingContext context);
+	String checkValueValid(IProposal value, IDirectEditingContext context);
 
 	/**
 	 * Set the new value. The value comes from the text editing UI component.
@@ -82,5 +82,5 @@ public interface IProposalSupport {
 	 * @param context
 	 *            the context
 	 */
-	void setValueAsProposal(IProposal value, IDirectEditingContext context);
+	void setValue(IProposal value, IDirectEditingContext context);
 }
