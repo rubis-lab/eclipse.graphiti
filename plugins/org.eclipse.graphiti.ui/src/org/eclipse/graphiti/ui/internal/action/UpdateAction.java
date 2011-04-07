@@ -33,9 +33,9 @@ import org.eclipse.ui.IWorkbenchPart;
  */
 public class UpdateAction extends AbstractPreDefinedAction implements IContextAndFeatureProvider {
 
-	private static final String TOOL_TIP = Messages.UpdateAction_0_xmsg;
+	public static final String TOOL_TIP = Messages.UpdateAction_0_xmsg;
 
-	private static final String TEXT = Messages.UpdateAction_1_xfld;
+	public static final String TEXT = Messages.UpdateAction_1_xfld;
 
 	public static final String ACTION_ID = "predefined update action"; //$NON-NLS-1$
 

@@ -26,7 +26,11 @@ import org.eclipse.gef.ui.actions.MatchWidthRetargetAction;
 import org.eclipse.gef.ui.actions.ZoomComboContributionItem;
 import org.eclipse.gef.ui.actions.ZoomInRetargetAction;
 import org.eclipse.gef.ui.actions.ZoomOutRetargetAction;
+import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.ui.internal.Messages;
+import org.eclipse.graphiti.ui.internal.action.RemoveAction;
+import org.eclipse.graphiti.ui.internal.action.UpdateAction;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -49,7 +53,7 @@ import org.eclipse.ui.actions.RetargetAction;
 public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 	/**
-	 * Creates and initializes all Actions.
+	 * Creates and initialises all Actions.
 	 * 
 	 * @see org.eclipse.gef.ui.actions.ActionBarContributor#buildActions()
 	 */
@@ -78,6 +82,15 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY,
 				Messages.DiagramEditorActionBarContributor_SnapGeometry, IAction.AS_CHECK_BOX));
+
+		RetargetAction removeRetargetAction = new RetargetAction(RemoveAction.ACTION_ID, RemoveAction.TEXT);
+		removeRetargetAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
+				IPlatformImageConstants.IMG_EDIT_REMOVE));
+		addRetargetAction(removeRetargetAction);
+		RetargetAction updateRetargetAction = new RetargetAction(UpdateAction.ACTION_ID, UpdateAction.TEXT);
+		updateRetargetAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
+				IPlatformImageConstants.IMG_EDIT_REFRESH));
+		addRetargetAction(updateRetargetAction);
 	}
 
 	/**
@@ -109,7 +122,7 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 	public void contributeToToolBar(IToolBarManager tbm) {
 		tbm.add(getAction(ActionFactory.UNDO.getId()));
 		tbm.add(getAction(ActionFactory.REDO.getId()));
-		
+
 		tbm.add(new Separator());
 		tbm.add(getAction(ActionFactory.COPY.getId()));
 		tbm.add(getAction(ActionFactory.PASTE.getId()));
@@ -148,10 +161,9 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 	public void contributeToMenu(IMenuManager menubar) {
 		super.contributeToMenu(menubar);
 		IMenuManager editMenu = menubar.findMenuUsingPath(IWorkbenchActionConstants.M_EDIT);
-		
+
 		if (editMenu != null) {
 			MenuManager alignments = new MenuManager(Messages.DiagramEditorActionBarContributor_0_xmen);
-			editMenu.insertAfter(ActionFactory.SELECT_ALL.getId(), alignments);
 			alignments.add(getAction(GEFActionConstants.ALIGN_CENTER));
 			alignments.add(getAction(GEFActionConstants.ALIGN_RIGHT));
 			alignments.add(new Separator());
@@ -161,8 +173,12 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 			alignments.add(new Separator());
 			alignments.add(getAction(GEFActionConstants.MATCH_WIDTH));
 			alignments.add(getAction(GEFActionConstants.MATCH_HEIGHT));
+			editMenu.insertAfter(ActionFactory.SELECT_ALL.getId(), alignments);
+
+			editMenu.insertAfter(ActionFactory.DELETE.getId(), getAction(RemoveAction.ACTION_ID));
+			editMenu.insertAfter(RemoveAction.ACTION_ID, getAction(UpdateAction.ACTION_ID));
 		}
-		
+
 		MenuManager viewMenu = new MenuManager(Messages.GraphicsActionBarContributor_0_xmen);
 		viewMenu.add(getAction(GEFActionConstants.ZOOM_IN));
 		viewMenu.add(getAction(GEFActionConstants.ZOOM_OUT));

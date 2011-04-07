@@ -33,9 +33,9 @@ import org.eclipse.ui.IWorkbenchPart;
  * @noextend This class is not intended to be subclassed by clients.
  */
 public class RemoveAction extends AbstractPreDefinedAction implements IContextAndFeatureProvider {
-	private static final String TOOL_TIP = Messages.RemoveAction_0_xmsg;
+	public static final String TOOL_TIP = Messages.RemoveAction_0_xmsg;
 
-	private static final String TEXT = Messages.RemoveAction_1_xfld;
+	public static final String TEXT = Messages.RemoveAction_1_xfld;
 
 	public static final String ACTION_ID = "predefined remove action"; //$NON-NLS-1$
 
