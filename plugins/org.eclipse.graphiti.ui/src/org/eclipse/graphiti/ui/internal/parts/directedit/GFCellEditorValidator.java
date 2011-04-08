@@ -42,7 +42,7 @@ public class GFCellEditorValidator implements ICellEditorValidator {
 		if (!directEditHolder.isSimpleMode()) {
 			return isValidProposal(value);
 		}
-		
+
 		String ret = null;
 
 		if (value instanceof String) {
@@ -78,14 +78,11 @@ public class GFCellEditorValidator implements ICellEditorValidator {
 		IDirectEditingContext directEditingContext = directEditHolder.getDirectEditingContext();
 		IProposalSupport proposalSupport = directEditingFeature.getProposalSupport();
 
-		if (getCellEditor() instanceof TextCellEditor) {
+		if (value instanceof String && getCellEditor() instanceof TextCellEditor) {
+			text = (String) value;
 			TextCellEditor tce = (TextCellEditor) getCellEditor();
 			proposal = tce.getAcceptedProposal();
-		}
-		if (value instanceof String) {
-			text = (String) value;
-		} 
-		if (value instanceof Integer && getCellEditor() instanceof ComboBoxCellEditor){
+		} else if (value instanceof Integer && getCellEditor() instanceof ComboBoxCellEditor) {
 			ComboBoxCellEditor cb = (ComboBoxCellEditor) getCellEditor();
 			int index = (Integer) value;
 			if (index < 0) { // -1 if user inserted a new value
