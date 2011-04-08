@@ -179,5 +179,25 @@ public interface IDirectEditing {
 	 */
 	void setValue(String value, IDirectEditingContext context);
 
+	/**
+	 * The direct editing mode contains controls for code completion and the
+	 * selection from a combo box. In both cases the standard implementation
+	 * supports only strings.
+	 * <p>
+	 * If the customer wants to work with Objects he must provide an
+	 * implementation of {@link IProposalSupport}. In this case the following
+	 * methods of {@link IDirectEditing} are ignored:
+	 * <p>
+	 * <code>
+	 * <br>* String checkValueValid(String value, IDirectEditingContext context);
+	 * <br>* String completeValue(String value, int caretPosition, String choosenValue, IDirectEditingContext context);
+	 * <br>* String[] getPossibleValues(IDirectEditingContext context);
+	 * <br>* String[] getValueProposals(String value, int caretPosition, IDirectEditingContext context);
+	 * <br>* void setValue(String value, IDirectEditingContext context);  
+	 * </code>
+	 * 
+	 * @return the special implementation to support Objects in code completion
+	 *         and combo box
+	 */
 	IProposalSupport getProposalSupport();
 }

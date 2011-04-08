@@ -18,7 +18,11 @@ package org.eclipse.graphiti.func;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 
 /**
- *
+ * The Interface IProposalSupport.
+ * 
+ * @noextend This interface is not intended to be extended by clients.
+ * @noimplement This interface is not intended to be implemented by clients,
+ *              extend {@link AbstractProposalSupport} instead.
  */
 public interface IProposalSupport {
 
@@ -82,7 +86,7 @@ public interface IProposalSupport {
 	 * @param text
 	 *            the value
 	 * @param proposal
-	 *            the choosen proposal
+	 *            the selected proposal
 	 * @param context
 	 *            the context
 	 */
