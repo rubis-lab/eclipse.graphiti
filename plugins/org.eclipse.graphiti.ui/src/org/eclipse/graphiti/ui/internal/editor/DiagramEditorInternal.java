@@ -14,6 +14,7 @@
  *                        when embedded into a multi-page editor
  *    mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
+ *    jpasch - Bug 323025 ActionBarContributor cleanup
  *
  * </copyright>
  *
@@ -263,8 +264,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	private IResourceRegistry resourceRegistry = new ResourceRegistry();
 
-	private RemoveAction removeAction;
-
 	private boolean autoRefresh = true;
 
 	private TransactionalEditingDomain editingDomain = null;
@@ -349,29 +348,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		IToolBehaviorProvider toolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 		zoomManager.setZoomLevels(toolBehaviorProvider.getZoomLevels());
 
-		// register actions
-		registerAction(new ZoomInAction(zoomManager));
-		registerAction(new ZoomOutAction(zoomManager));
-		registerAction(new DirectEditAction((IWorkbenchPart) this));
-
-		registerAction(ActionFactory.SAVE_AS.create(((IWorkbenchPart) this).getSite().getWorkbenchWindow()));
-
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.LEFT));
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.RIGHT));
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.TOP));
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.BOTTOM));
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.CENTER));
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.MIDDLE));
-		registerAction(new MatchWidthAction(this));
-		registerAction(new MatchHeightAction(this));
-		IAction showGrid = new ToggleGridAction(getGraphicalViewer());
-		getActionRegistry().registerAction(showGrid);
-
-		// if (getDiagramTypeProvider().getDiagram().isShowGuides())
-		// getActionRegistry().registerAction(new
-		// ToggleSnapToGeometryAction(getGraphicalViewer()));
-
-		initActionRegistry();
+		initActionRegistry(zoomManager);
 
 		// set the keyhandler.
 		viewer.setKeyHandler((new GraphicalViewerKeyHandler(viewer)).setParent(getCommonKeyHandler()));
@@ -1099,7 +1076,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	/**
 	 * Inits the action regsitry.
 	 */
-	protected void initActionRegistry() {
+	protected void initActionRegistry(ZoomManager zoomManager) {
 		final ActionRegistry actionRegistry = getActionRegistry();
 		@SuppressWarnings("unchecked")
 		final List<String> selectionActions = getSelectionActions();
@@ -1109,12 +1086,9 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
-		if (removeAction == null) {
-			removeAction = new RemoveAction(this, getConfigurationProvider());
-			action = removeAction;
-			actionRegistry.registerAction(action);
-			selectionActions.add(action.getId());
-		}
+		action = new RemoveAction(this, getConfigurationProvider());
+		actionRegistry.registerAction(action);
+		selectionActions.add(action.getId());
 
 		action = new DeleteAction(this, getConfigurationProvider());
 		actionRegistry.registerAction(action);
@@ -1139,6 +1113,21 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 				selectionActions.add(action.getId());
 			}
 		}
+		
+		registerAction(new ZoomInAction(zoomManager));
+		registerAction(new ZoomOutAction(zoomManager));
+		registerAction(new DirectEditAction((IWorkbenchPart) this));
+
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.LEFT));
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.RIGHT));
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.TOP));
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.BOTTOM));
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.CENTER));
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.MIDDLE));
+		registerAction(new MatchWidthAction(this));
+		registerAction(new MatchHeightAction(this));
+		IAction showGrid = new ToggleGridAction(getGraphicalViewer());
+		getActionRegistry().registerAction(showGrid);
 	}
 
 	/**

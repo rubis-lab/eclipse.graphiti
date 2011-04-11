@@ -39,7 +39,7 @@ public class SaveImageAction extends Action {
 	
 	public static final String TEXT = Messages.SaveImageAction_0_xmsg;
 	
-	public static final String ACTION_ID = " org.eclipse.graphiti.ui.internal.save_image_action"; //$NON-NLS-1$
+	public static final String ACTION_ID = " org.eclipse.graphiti.ui.internal.export_diagram_action"; //$NON-NLS-1$
 
 	public SaveImageAction(ISaveImageFeature saveImageFeature, ISaveImageContext context, DiagramEditorInternal graphicsEditor) {
 		super();
