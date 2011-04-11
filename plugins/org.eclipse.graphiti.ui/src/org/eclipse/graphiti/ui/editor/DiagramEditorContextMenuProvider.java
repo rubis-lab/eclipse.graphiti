@@ -26,11 +26,8 @@ import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IPrintFeature;
-import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.features.context.ISaveImageContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
-import org.eclipse.graphiti.features.context.impl.SaveImageContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -138,16 +135,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            the manager
 	 */
 	protected void addDefaultMenuGroupSave(IMenuManager manager) {
-		IFeatureProvider fp = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
-		if (fp != null) {
-			ISaveImageFeature sf = fp.getSaveImageFeature();
-
-			if (sf != null) {
-				ISaveImageContext context = new SaveImageContext();
-				IAction action = new SaveImageAction(sf, context, getEditor());
-				manager.appendToGroup(GEFActionConstants.GROUP_SAVE, action);
-			}
-		}
+		addActionToMenu(manager, SaveImageAction.ACTION_ID, GEFActionConstants.GROUP_SAVE);
 	}
 
 	/**

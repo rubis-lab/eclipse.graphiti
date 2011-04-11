@@ -70,10 +70,10 @@ import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.DefaultPaletteViewerPreferences;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
-import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
+import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
@@ -85,7 +85,10 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IPrintFeature;
+import org.eclipse.graphiti.features.ISaveImageFeature;
+import org.eclipse.graphiti.features.context.ISaveImageContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.SaveImageContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
@@ -111,6 +114,7 @@ import org.eclipse.graphiti.ui.internal.action.DeleteAction;
 import org.eclipse.graphiti.ui.internal.action.PasteAction;
 import org.eclipse.graphiti.ui.internal.action.PrintGraphicalViewerAction;
 import org.eclipse.graphiti.ui.internal.action.RemoveAction;
+import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.internal.config.ConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
@@ -1123,6 +1127,18 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		action = new PasteAction(this, getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
+		
+		IFeatureProvider fp = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
+		if (fp != null) {
+			ISaveImageFeature sf = fp.getSaveImageFeature();
+
+			if (sf != null) {
+				ISaveImageContext context = new SaveImageContext();
+				action = new SaveImageAction(sf, context, this);
+				actionRegistry.registerAction(action);
+				selectionActions.add(action.getId());
+			}
+		}
 	}
 
 	/**

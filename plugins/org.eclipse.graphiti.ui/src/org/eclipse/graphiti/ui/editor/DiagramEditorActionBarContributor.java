@@ -29,6 +29,7 @@ import org.eclipse.gef.ui.actions.ZoomOutRetargetAction;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.RemoveAction;
+import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IAction;
@@ -65,7 +66,8 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		addRetargetAction((RetargetAction) ActionFactory.COPY.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
 		addRetargetAction((RetargetAction) ActionFactory.PASTE.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
 		addRetargetAction((RetargetAction) ActionFactory.PRINT.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
-
+		//addRetargetAction((RetargetAction) ActionFactory.SELECT_ALL.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
+		
 		addRetargetAction(new AlignmentRetargetAction(PositionConstants.LEFT));
 		addRetargetAction(new AlignmentRetargetAction(PositionConstants.CENTER));
 		addRetargetAction(new AlignmentRetargetAction(PositionConstants.RIGHT));
@@ -91,6 +93,7 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		updateRetargetAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
 				IPlatformImageConstants.IMG_EDIT_REFRESH));
 		addRetargetAction(updateRetargetAction);
+		addRetargetAction(new RetargetAction(SaveImageAction.ACTION_ID, SaveImageAction.TEXT));
 	}
 
 	/**
@@ -185,6 +188,9 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY));
 		menubar.insertAfter(IWorkbenchActionConstants.M_EDIT, viewMenu);
+		
+		IMenuManager fileMenu = menubar.findMenuUsingPath(IWorkbenchActionConstants.M_FILE);
+		fileMenu.insertAfter(ActionFactory.SAVE_AS.getId(), getAction(SaveImageAction.ACTION_ID));
 	}
 
 }

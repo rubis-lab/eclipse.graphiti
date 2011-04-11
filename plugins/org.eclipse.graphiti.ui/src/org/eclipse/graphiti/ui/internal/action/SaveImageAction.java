@@ -34,14 +34,21 @@ public class SaveImageAction extends Action {
 	private ISaveImageContext context;
 
 	private DiagramEditorInternal graphicsEditor;
+	
+	public static final String TOOL_TIP = Messages.SaveImageAction_1_xmsg;
+	
+	public static final String TEXT = Messages.SaveImageAction_0_xmsg;
+	
+	public static final String ACTION_ID = " org.eclipse.graphiti.ui.internal.save_image_action"; //$NON-NLS-1$
 
 	public SaveImageAction(ISaveImageFeature saveImageFeature, ISaveImageContext context, DiagramEditorInternal graphicsEditor) {
 		super();
 		this.saveImageFeature = saveImageFeature;
 		this.context = context;
 		this.graphicsEditor = graphicsEditor;
-		setText(Messages.SaveImageAction_0_xmsg);
-		setToolTipText(Messages.SaveImageAction_1_xmsg);
+		setText(TEXT);
+		setToolTipText(TOOL_TIP);
+		setId(ACTION_ID);
 	}
 
 	@Override
