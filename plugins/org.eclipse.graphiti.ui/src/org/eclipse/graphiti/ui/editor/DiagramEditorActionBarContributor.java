@@ -66,7 +66,7 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		addRetargetAction((RetargetAction) ActionFactory.COPY.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
 		addRetargetAction((RetargetAction) ActionFactory.PASTE.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
 		addRetargetAction((RetargetAction) ActionFactory.PRINT.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
-		//addRetargetAction((RetargetAction) ActionFactory.SELECT_ALL.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
+		addRetargetAction((RetargetAction) ActionFactory.SELECT_ALL.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
 		
 		addRetargetAction(new AlignmentRetargetAction(PositionConstants.LEFT));
 		addRetargetAction(new AlignmentRetargetAction(PositionConstants.CENTER));
@@ -97,19 +97,13 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 	}
 
 	/**
-	 * Declare global action keys.
+	 * Global action keys are already declared with {@link #addRetargetAction(RetargetAction)}.
 	 * 
 	 * @see org.eclipse.gef.ui.actions.ActionBarContributor#declareGlobalActionKeys()
 	 */
 	@Override
 	protected void declareGlobalActionKeys() {
-		addGlobalActionKey(ActionFactory.UNDO.getId());
-		addGlobalActionKey(ActionFactory.REDO.getId());
-		addGlobalActionKey(ActionFactory.COPY.getId());
-		addGlobalActionKey(ActionFactory.PASTE.getId());
-		addGlobalActionKey(ActionFactory.PRINT.getId());
-		addGlobalActionKey(ActionFactory.SAVE_AS.getId());
-		addGlobalActionKey(ActionFactory.SELECT_ALL.getId());
+		
 	}
 
 	/**
@@ -190,7 +184,7 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		menubar.insertAfter(IWorkbenchActionConstants.M_EDIT, viewMenu);
 		
 		IMenuManager fileMenu = menubar.findMenuUsingPath(IWorkbenchActionConstants.M_FILE);
-		fileMenu.insertAfter(ActionFactory.SAVE_AS.getId(), getAction(SaveImageAction.ACTION_ID));
+		fileMenu.insertAfter(ActionFactory.EXPORT.getId(), getAction(SaveImageAction.ACTION_ID));
 	}
 
 }
