@@ -63,10 +63,9 @@ public class RemoveAction extends AbstractPreDefinedAction implements IContextAn
 	protected boolean calculateEnabled() {
 		PictogramElement pe[] = getSelectedPictogramElements();
 		IFeatureProvider featureProvider = getFeatureProvider();
-		if (featureProvider == null) {
+		if (pe.length == 0 || featureProvider == null) {
 			return false;
 		}
-
 		for (int i = 0; i < pe.length; i++) {
 			if (GraphitiInternal.getEmfService().isObjectAlive(pe[i])) {
 

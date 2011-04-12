@@ -58,6 +58,9 @@ public class CopyAction extends AbstractPreDefinedAction {
 	@Override
 	protected boolean calculateEnabled() {
 		PictogramElement[] pes = getSelectedPictogramElements();
+		if (pes.length == 0) {
+			return false;
+		}
 		ICopyContext context = new CopyContext(pes);
 		IFeatureProvider featureProvider = getFeatureProvider();
 		if (featureProvider == null) {

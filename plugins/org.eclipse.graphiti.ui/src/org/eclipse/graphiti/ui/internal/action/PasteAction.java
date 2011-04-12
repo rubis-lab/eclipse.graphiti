@@ -59,6 +59,9 @@ public class PasteAction extends AbstractPreDefinedAction {
 	@Override
 	protected boolean calculateEnabled() {
 		PictogramElement[] pes = getSelectedPictogramElements();
+		if (pes.length == 0) {
+			return false;
+		}
 		IPasteContext context = new PasteContext(pes);
 		IFeatureProvider featureProvider = getFeatureProvider();
 		if (featureProvider == null) {

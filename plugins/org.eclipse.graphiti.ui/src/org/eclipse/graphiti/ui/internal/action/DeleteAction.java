@@ -67,6 +67,9 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 	@Override
 	protected boolean calculateEnabled() {
 		PictogramElement pe[] = getSelectedPictogramElements();
+		if (pe.length == 0) {
+			return false;
+		}
 		for (int i = 0; i < pe.length; i++) {
 			IDeleteContext context = new DeleteContext(pe[i]);
 			IFeatureProvider featureProvider = getFeatureProvider();
