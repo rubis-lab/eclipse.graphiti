@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *
  * </copyright>
  *
@@ -23,9 +24,11 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IAddFeature;
+import org.eclipse.graphiti.features.IFeatureAndContext;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
+import org.eclipse.graphiti.internal.DefaultFeatureAndContext;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
@@ -118,8 +121,8 @@ public class AddModelObjectCommand extends AbstractCommand {
 		return false;
 	}
 
-	public IAddFeature[] getAddFeatures() {
-		List<IAddFeature> features = new ArrayList<IAddFeature>();
+	public IFeatureAndContext[] getFeaturesAndContexts() {
+		List<IFeatureAndContext> features = new ArrayList<IFeatureAndContext>();
 
 		IFeatureProvider featureProvider = getFeatureProvider();
 		if (featureProvider != null && contextList.size() > 0) {
@@ -128,11 +131,12 @@ public class AddModelObjectCommand extends AbstractCommand {
 				IAddContext ctx = iter.next();
 				IAddFeature f = featureProvider.getAddFeature(ctx);
 				if (f != null && f.canAdd(ctx)) {
-					features.add(f);
+					DefaultFeatureAndContext dfac = new DefaultFeatureAndContext(f, ctx);
+					features.add(dfac);
 				}
 			}
 		}
 
-		return features.toArray(new IAddFeature[features.size()]);
+		return features.toArray(new IFeatureAndContext[features.size()]);
 	}
 }

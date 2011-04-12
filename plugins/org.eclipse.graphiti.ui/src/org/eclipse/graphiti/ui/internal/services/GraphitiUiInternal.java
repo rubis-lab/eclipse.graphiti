@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,12 +9,14 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.services;
 
+import org.eclipse.graphiti.ui.internal.services.impl.CommandService;
 import org.eclipse.graphiti.ui.internal.services.impl.EmfService;
 import org.eclipse.graphiti.ui.internal.services.impl.GefService;
 import org.eclipse.graphiti.ui.internal.services.impl.TraceService;
@@ -32,6 +34,7 @@ public class GraphitiUiInternal {
 	final private static ITraceService traceService = new TraceService();
 	final private static IGefService gefService = new GefService();
 	final private static IWorkbenchService workbenchService = new WorkbenchService();
+	final private static ICommandService commandService = new CommandService();
 
 	public static IEmfService getEmfService() {
 		return emfService;
@@ -53,4 +56,7 @@ public class GraphitiUiInternal {
 		return workbenchService;
 	}
 
+	public static ICommandService getCommandService() {
+		return commandService;
+	}
 }

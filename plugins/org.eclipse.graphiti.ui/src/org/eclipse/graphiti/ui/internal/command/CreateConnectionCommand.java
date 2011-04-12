@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *
  * </copyright>
  *
@@ -16,17 +17,20 @@
 package org.eclipse.graphiti.ui.internal.command;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.features.IFeatureAndContext;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.impl.CreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.func.ICreateInfo;
+import org.eclipse.graphiti.internal.DefaultFeatureAndContext;
 import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
@@ -190,21 +194,8 @@ public class CreateConnectionCommand extends AbstractCommand {
 
 	public boolean canStartConnection() {
 		// allow connections only from anchor to anchor
-		Anchor sourceAnchor = getAnchor(sourceObject);
-		Anchor targetAnchor = null;
 
-		// if (sourceAnchor == null){
-		// return false;
-
-		CreateConnectionContext connectionContext = new CreateConnectionContext();
-		connectionContext.setSourceAnchor(sourceAnchor);
-		connectionContext.setTargetAnchor(targetAnchor);
-		connectionContext.setSourcePictogramElement(sourceObject);
-		connectionContext.setTargetPictogramElement(null);
-		connectionContext.setTargetLocation(null);
-
-		sourceLocation = getCurrentLocation(); // store location for later usage
-		connectionContext.setSourceLocation(sourceLocation);
+		CreateConnectionContext connectionContext = createContext();
 
 		for (IFeature feature : features) {
 
@@ -218,6 +209,21 @@ public class CreateConnectionCommand extends AbstractCommand {
 		}
 
 		return false;
+	}
+
+	private CreateConnectionContext createContext() {
+		Anchor sourceAnchor = getAnchor(sourceObject);
+		Anchor targetAnchor = null;
+
+		CreateConnectionContext connectionContext = new CreateConnectionContext();
+		connectionContext.setSourceAnchor(sourceAnchor);
+		connectionContext.setTargetAnchor(targetAnchor);
+		connectionContext.setSourcePictogramElement(sourceObject);
+		connectionContext.setTargetPictogramElement(null);
+		connectionContext.setTargetLocation(null);
+		sourceLocation = getCurrentLocation(); // store location for later usage
+		connectionContext.setSourceLocation(sourceLocation);
+		return connectionContext;
 	}
 
 	@Override
@@ -313,8 +319,17 @@ public class CreateConnectionCommand extends AbstractCommand {
 
 	};
 
-	public IFeature[] getFeatures() {
-		return features.toArray(new IFeature[0]);
+	public IFeatureAndContext[] getFeaturesAndContexts() {
+		List<IFeatureAndContext> featureList = new ArrayList<IFeatureAndContext>(features.size());
+
+		CreateConnectionContext context = createContext();
+
+		for (Iterator<IFeature> iterator = features.iterator(); iterator.hasNext();) {
+			IFeature feature = iterator.next();
+			featureList.add(new DefaultFeatureAndContext(feature, context));
+		}
+
+		return featureList.toArray(new IFeatureAndContext[featureList.size()]);
 	}
 
 	private ILocation getCurrentLocation() {

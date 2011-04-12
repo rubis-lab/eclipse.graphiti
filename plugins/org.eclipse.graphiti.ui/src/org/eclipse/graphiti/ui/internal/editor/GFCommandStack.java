@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *
  * </copyright>
  *
@@ -23,24 +24,20 @@ import java.util.List;
 import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.commands.operations.IUndoableOperation;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.impl.WorkspaceCommandStackImpl;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.graphiti.features.IAddFeature;
-import org.eclipse.graphiti.features.IContextHolder;
 import org.eclipse.graphiti.features.IFeature;
-import org.eclipse.graphiti.features.IFeatureHolder;
-import org.eclipse.graphiti.features.context.IContext;
-import org.eclipse.graphiti.internal.DefaultFeatureAndContext;
+import org.eclipse.graphiti.features.IFeatureAndContext;
 import org.eclipse.graphiti.internal.command.CommandContainer;
 import org.eclipse.graphiti.internal.command.DefaultExecutionInfo;
 import org.eclipse.graphiti.internal.command.FeatureCommand;
 import org.eclipse.graphiti.internal.command.GFPreparableCommand2;
 import org.eclipse.graphiti.internal.command.ICommand;
-import org.eclipse.graphiti.tb.IContextEntry;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.command.AddModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
@@ -48,6 +45,7 @@ import org.eclipse.graphiti.ui.internal.command.GFCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.command.ReconnectCommand;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 
 /**
  * The Class GFCommandStack.
@@ -57,14 +55,14 @@ import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
  */
 public class GFCommandStack extends CommandStack implements CommandStackListener {
 
-	private org.eclipse.emf.common.command.CommandStack emfCommandStack;
+	private GFWorkspaceCommandStackImpl emfCommandStack;
 
 	private IConfigurationProvider configurationProvider;
 
 	private TransactionalEditingDomain editingDomain;
 
 	public GFCommandStack(IConfigurationProvider configurationProvider, TransactionalEditingDomain editingDomain) {
-		emfCommandStack = editingDomain.getCommandStack();
+		emfCommandStack = (GFWorkspaceCommandStackImpl) editingDomain.getCommandStack();
 		emfCommandStack.addCommandStackListener(this);
 		setConfigurationProvider(configurationProvider);
 		this.editingDomain = editingDomain;
@@ -95,16 +93,24 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 			return;
 		}
 
-		org.eclipse.emf.common.command.Command emfCommand = transformFromGefToEmfCommand(gefCommand);
+		org.eclipse.emf.common.command.Command emfCommand = GraphitiUiInternal.getCommandService().transformFromGefToEmfCommand(gefCommand);
 		org.eclipse.emf.common.command.Command gfPreparableCommand = new GFPreparableCommand2(getTransactionalEditingDomain(), emfCommand);
 
 		IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 
 		DefaultExecutionInfo executionInfo = new DefaultExecutionInfo();
-		completeExecutionInfo(executionInfo, gefCommand);
+		GraphitiUiInternal.getCommandService().completeExecutionInfo(executionInfo, gefCommand);
 
 		tbp.preExecute(executionInfo);
-		getEmfCommandStack().execute(gfPreparableCommand);
+		try {
+			getEmfCommandStack().execute(gfPreparableCommand, null, executionInfo);
+		} catch (InterruptedException e) {
+			// Just log it
+			T.racer().info(e.getLocalizedMessage());
+		} catch (RollbackException e) {
+			// Just log it
+			T.racer().info(e.getLocalizedMessage());
+		}
 		tbp.postExecute(executionInfo);
 
 		// Check if the executed feature has really done changes (indicated by
@@ -180,15 +186,15 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 			features.add(((ContextEntryCommand) command).getContextEntry().getFeature());
 		} else if (command instanceof AddModelObjectCommand) {
 			// Used for add features
-			IAddFeature[] innerFeatures = ((AddModelObjectCommand) command).getAddFeatures();
+			IFeatureAndContext[] innerFeatures = ((AddModelObjectCommand) command).getFeaturesAndContexts();
 			for (int i = 0; i < innerFeatures.length; i++) {
-				features.add(innerFeatures[i]);
+				features.add(innerFeatures[i].getFeature());
 			}
 		} else if (command instanceof CreateConnectionCommand) {
 			// Used for connection creation
-			IFeature[] innerFeatures = ((CreateConnectionCommand) command).getFeatures();
+			IFeatureAndContext[] innerFeatures = ((CreateConnectionCommand) command).getFeaturesAndContexts();
 			for (int i = 0; i < innerFeatures.length; i++) {
-				features.add(innerFeatures[i]);
+				features.add(innerFeatures[i].getFeature());
 			}
 		} else if (command instanceof GFCommand) {
 			// Used for object creation
@@ -218,29 +224,13 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 	@Override
 	public Command getRedoCommand() {
 		org.eclipse.emf.common.command.Command emfCommand = getEmfCommandStack().getRedoCommand();
-		return emfCommand != null ? transformFromEmfToGefCommand(emfCommand) : null;
-	}
-
-	private Command transformFromEmfToGefCommand(org.eclipse.emf.common.command.Command emfCommand) {
-		if (emfCommand instanceof EmfOnGefCommand) {
-			EmfOnGefCommand emfOnGefCommand = (EmfOnGefCommand) emfCommand;
-			return emfOnGefCommand.getGefCommand();
-		}
-		return new GefOnEmfCommand(emfCommand);
-	}
-
-	private org.eclipse.emf.common.command.Command transformFromGefToEmfCommand(Command gefCommand) {
-		if (gefCommand instanceof GefOnEmfCommand) {
-			GefOnEmfCommand gefOnEmfCommand = (GefOnEmfCommand) gefCommand;
-			return gefOnEmfCommand.getEmfCommand();
-		}
-		return new EmfOnGefCommand(gefCommand);
+		return emfCommand != null ? GraphitiUiInternal.getCommandService().transformFromEmfToGefCommand(emfCommand) : null;
 	}
 
 	@Override
 	public Command getUndoCommand() {
 		org.eclipse.emf.common.command.Command emfCommand = getEmfCommandStack().getUndoCommand();
-		return emfCommand != null ? transformFromEmfToGefCommand(emfCommand) : null;
+		return emfCommand != null ? GraphitiUiInternal.getCommandService().transformFromEmfToGefCommand(emfCommand) : null;
 	}
 
 	@Override
@@ -258,7 +248,7 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		getEmfCommandStack().undo();
 	}
 
-	private org.eclipse.emf.common.command.CommandStack getEmfCommandStack() {
+	private GFWorkspaceCommandStackImpl getEmfCommandStack() {
 		return emfCommandStack;
 	}
 
@@ -280,64 +270,4 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		this.configurationProvider = configurationProvider;
 	}
 
-	private static DefaultExecutionInfo completeExecutionInfo(DefaultExecutionInfo executionInfo, Command gefCommand) {
-		if (gefCommand instanceof CompoundCommand) {
-			CompoundCommand compoundCommand = (CompoundCommand) gefCommand;
-			@SuppressWarnings("unchecked")
-			final List<Command> commands = compoundCommand.getCommands();
-			for (Command childCommand : commands) {
-				completeExecutionInfo(executionInfo, childCommand);
-			}
-		}
-		if (gefCommand instanceof CreateConnectionCommand) {
-			CreateConnectionCommand createConnectionCommand = (CreateConnectionCommand) gefCommand;
-			final IFeature[] features = createConnectionCommand.getFeatures();
-			for (IFeature feature : features) {
-				executionInfo.addFeatureAndContext(new DefaultFeatureAndContext(feature, null));
-			}
-		}
-		if (gefCommand instanceof GefCommandWrapper) {
-			GefCommandWrapper gefCommandWrapper = (GefCommandWrapper) gefCommand;
-			final ICommand graphitiCommand = gefCommandWrapper.getCommand();
-			completeExecutionInfo(executionInfo, graphitiCommand);
-		}
-		if (gefCommand instanceof GFCommand) {
-			final GFCommand gfCommand = (GFCommand) gefCommand;
-			executionInfo.addFeatureAndContext(new DefaultFeatureAndContext(gfCommand.getFeature(), gfCommand.getContext()));
-		}
-		if (gefCommand instanceof ContextEntryCommand) {
-			ContextEntryCommand cec = (ContextEntryCommand) gefCommand;
-			IContextEntry contextEntry = cec.getContextEntry();
-			executionInfo.addFeatureAndContext(new DefaultFeatureAndContext(contextEntry.getFeature(), contextEntry.getContext()));
-		}
-
-		return executionInfo;
-	}
-
-	private static DefaultExecutionInfo completeExecutionInfo(DefaultExecutionInfo executionInfo, ICommand gfCommand) {
-		if (gfCommand instanceof CommandContainer) {
-			CommandContainer cc = (CommandContainer) gfCommand;
-			final ICommand[] childCommands = cc.getCommands();
-			for (int i = 0; i < childCommands.length; i++) {
-				ICommand childCommand = childCommands[i];
-				completeExecutionInfo(executionInfo, childCommand);
-			}
-		}
-
-		else {
-			IContext context = null;
-			IFeature feature = null;
-			if (gfCommand instanceof IFeatureHolder) {
-				IFeatureHolder featureHolder = (IFeatureHolder) gfCommand;
-				feature = featureHolder.getFeature();
-			}
-			if (gfCommand instanceof IContextHolder) {
-				IContextHolder contextHolder = (IContextHolder) gfCommand;
-				context = contextHolder.getContext();
-			}
-			executionInfo.addFeatureAndContext(new DefaultFeatureAndContext(feature, context));
-		}
-
-		return executionInfo;
-	}
 }
