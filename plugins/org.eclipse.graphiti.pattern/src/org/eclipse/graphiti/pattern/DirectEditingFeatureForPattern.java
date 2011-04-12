@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,16 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Volker Wegert - Bug 332363 - Direct Editing: enable automatic resizing for combo boxes
+ *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.pattern;
 
+import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
 import org.eclipse.graphiti.func.IDirectEditing;
@@ -25,7 +28,7 @@ import org.eclipse.graphiti.func.IProposalSupport;
 /**
  * The Class DirectEditingFeatureForPattern.
  */
-public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature {
+public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature implements ICustomUndoableFeature {
 	private IDirectEditing delegate;
 
 	/**
@@ -96,5 +99,35 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	@Override
 	public IProposalSupport getProposalSupport() {
 		return delegate.getProposalSupport();
+	}
+
+	@Override
+	public boolean canUndo(IContext context) {
+		if (delegate instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) delegate).canUndo(this, context);
+		}
+		return super.canUndo(context);
+	}
+
+	@Override
+	public void undo(IContext context) {
+		if (delegate instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) delegate).undo(this, context);
+		}
+	}
+
+	@Override
+	public boolean canRedo(IContext context) {
+		if (delegate instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) delegate).canRedo(this, context);
+		}
+		return true;
+	}
+
+	@Override
+	public void redo(IContext context) {
+		if (delegate instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) delegate).redo(this, context);
+		}
 	}
 }

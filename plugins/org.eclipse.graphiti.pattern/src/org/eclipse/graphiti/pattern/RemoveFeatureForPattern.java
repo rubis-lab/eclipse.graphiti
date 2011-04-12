@@ -12,14 +12,17 @@
  *                    Bug 336828: patterns should support delete,
  *                    remove, direct editing and conditional palette
  *                    creation entry
+ *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.pattern;
 
+import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IRemoveFeature;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 
@@ -30,7 +33,7 @@ import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
  * 
  * @since 0.8.0
  */
-public class RemoveFeatureForPattern extends DefaultRemoveFeature {
+public class RemoveFeatureForPattern extends DefaultRemoveFeature implements ICustomUndoableFeature {
 
 	private IFeatureForPattern delegate;
 
@@ -65,4 +68,37 @@ public class RemoveFeatureForPattern extends DefaultRemoveFeature {
 		delegate.getPattern().postRemove(context);
 	}
 
+	@Override
+	public boolean canUndo(IContext context) {
+		IPattern pattern = delegate.getPattern();
+		if (pattern instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) pattern).canUndo(this, context);
+		}
+		return super.canUndo(context);
+	}
+
+	@Override
+	public void undo(IContext context) {
+		IPattern pattern = delegate.getPattern();
+		if (pattern instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) pattern).undo(this, context);
+		}
+	}
+
+	@Override
+	public boolean canRedo(IContext context) {
+		IPattern pattern = delegate.getPattern();
+		if (pattern instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) pattern).canRedo(this, context);
+		}
+		return true;
+	}
+
+	@Override
+	public void redo(IContext context) {
+		IPattern pattern = delegate.getPattern();
+		if (pattern instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) pattern).redo(this, context);
+		}
+	}
 }

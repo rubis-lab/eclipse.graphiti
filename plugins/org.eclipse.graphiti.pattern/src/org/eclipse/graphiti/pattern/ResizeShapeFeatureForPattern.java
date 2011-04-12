@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,21 +10,24 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Patch 185019 from Bug 332360 contributed by Volker Wegert
+ *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.pattern;
 
+import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IResizeConfiguration;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
 
 /**
  * The Class ResizeShapeFeatureForPattern.
  */
-public class ResizeShapeFeatureForPattern extends DefaultResizeShapeFeature {
+public class ResizeShapeFeatureForPattern extends DefaultResizeShapeFeature implements ICustomUndoableFeature {
 
 	private IFeatureForPattern delegate;
 
@@ -60,5 +63,39 @@ public class ResizeShapeFeatureForPattern extends DefaultResizeShapeFeature {
 			return resizeConfiguration;
 		}
 		return super.getResizeConfiguration(context);
+	}
+
+	@Override
+	public boolean canUndo(IContext context) {
+		IPattern pattern = delegate.getPattern();
+		if (pattern instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) pattern).canUndo(this, context);
+		}
+		return super.canUndo(context);
+	}
+
+	@Override
+	public void undo(IContext context) {
+		IPattern pattern = delegate.getPattern();
+		if (pattern instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) pattern).undo(this, context);
+		}
+	}
+
+	@Override
+	public boolean canRedo(IContext context) {
+		IPattern pattern = delegate.getPattern();
+		if (pattern instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) pattern).canRedo(this, context);
+		}
+		return true;
+	}
+
+	@Override
+	public void redo(IContext context) {
+		IPattern pattern = delegate.getPattern();
+		if (pattern instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) pattern).redo(this, context);
+		}
 	}
 }

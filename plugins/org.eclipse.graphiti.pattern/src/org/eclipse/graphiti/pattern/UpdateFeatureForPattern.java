@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,14 +9,17 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.pattern;
 
+import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.func.IUpdate;
@@ -25,7 +28,7 @@ import org.eclipse.graphiti.internal.util.T;
 /**
  * The Class UpdateFeatureForPattern.
  */
-public class UpdateFeatureForPattern extends AbstractUpdateFeature {
+public class UpdateFeatureForPattern extends AbstractUpdateFeature implements ICustomUndoableFeature {
 
 	private IUpdate pattern;
 
@@ -60,5 +63,35 @@ public class UpdateFeatureForPattern extends AbstractUpdateFeature {
 
 	public boolean update(IUpdateContext context) {
 		return pattern.update(context);
+	}
+
+	@Override
+	public boolean canUndo(IContext context) {
+		if (pattern instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) pattern).canUndo(this, context);
+		}
+		return super.canUndo(context);
+	}
+
+	@Override
+	public void undo(IContext context) {
+		if (pattern instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) pattern).undo(this, context);
+		}
+	}
+
+	@Override
+	public boolean canRedo(IContext context) {
+		if (pattern instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) pattern).canRedo(this, context);
+		}
+		return true;
+	}
+
+	@Override
+	public void redo(IContext context) {
+		if (pattern instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) pattern).redo(this, context);
+		}
 	}
 }
