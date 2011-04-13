@@ -487,7 +487,7 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 	public void postExecute(IExecutionInfo executionInfo) {
 		super.postExecute(executionInfo);
 
-		Graphiti.getPeService().moveBendpoints(executionInfo);
+		//Graphiti.getPeService().moveBendpoints(executionInfo);
 	}
 
 	@Override
