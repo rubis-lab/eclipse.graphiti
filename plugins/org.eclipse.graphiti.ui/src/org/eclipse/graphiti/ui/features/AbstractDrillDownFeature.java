@@ -11,7 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug  338067 - Drill down features should not use current diagram type provider
  *                          for opening diagram of other type
- *    Ali Akar, mwenz - Bug 348420 - Opening a user contributed editor
+ *    Ali Akar, mwenz - Bug 340842 - Opening a user contributed editor
  *
  * </copyright>
  *
