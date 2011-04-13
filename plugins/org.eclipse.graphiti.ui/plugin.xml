@@ -73,6 +73,24 @@
             id="org.eclipse.graphiti.ui.platform.PlatformImageProvider">
       </imageProvider>
    </extension>
-   
-   
+   <extension
+		point="org.eclipse.ui.commands">
+		<category
+				name="%_key_binding_category"
+				description="%_diagram_editor_name"
+				id="org.eclipse.graphiti.ui.Graphiti_Category">
+		</category>
+ 		<command
+			name="%_command_name_update"
+			description="%_command_description_update"
+			categoryId="org.eclipse.graphiti.ui.Graphiti_Category"
+			id="org.eclipse.graphiti.ui.internal.action.UpdateAction">
+		</command>
+	</extension>
+   <extension point="org.eclipse.ui.bindings">
+		<key
+			sequence="M1+F5"
+			commandId="org.eclipse.graphiti.ui.internal.action.UpdateAction"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+	</extension>
 </plugin>

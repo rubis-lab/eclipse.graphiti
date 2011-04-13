@@ -39,11 +39,14 @@ public class UpdateAction extends AbstractPreDefinedAction implements IContextAn
 
 	public static final String ACTION_ID = "predefined update action"; //$NON-NLS-1$
 
+	public static final String ACTION_DEFINITION_ID = "org.eclipse.graphiti.ui.internal.action.UpdateAction"; //$NON-NLS-1$
+	
 	public UpdateAction(IWorkbenchPart part, IConfigurationProvider configurationProvider) {
 		super(part, configurationProvider);
 		setId(ACTION_ID);
 		setText(TEXT);
 		setToolTipText(TOOL_TIP);
+		setActionDefinitionId(ACTION_DEFINITION_ID);
 		setLazyEnablementCalculation(true);
 	}
 
