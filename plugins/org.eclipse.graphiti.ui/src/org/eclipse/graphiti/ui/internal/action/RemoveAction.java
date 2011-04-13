@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    jpasch - Bug 323025 ActionBarContributor clean up
  *
  * </copyright>
  *
@@ -38,10 +39,13 @@ public class RemoveAction extends AbstractPreDefinedAction implements IContextAn
 	public static final String TEXT = Messages.RemoveAction_1_xfld;
 
 	public static final String ACTION_ID = "predefined remove action"; //$NON-NLS-1$
+	
+	public static final String ACTION_DEFINITION_ID = "org.eclipse.graphiti.ui.internal.action.RemoveAction"; //$NON-NLS-1$
 
 	public RemoveAction(IWorkbenchPart part, IConfigurationProvider configurationProvider) {
 		super(part, configurationProvider);
 		setId(ACTION_ID);
+		setActionDefinitionId(ACTION_DEFINITION_ID);
 		setText(TEXT);
 		setToolTipText(TOOL_TIP);
 	}

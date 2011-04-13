@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    jpasch - Bug 323025 ActionBarContributor clean up
  *
  * </copyright>
  *

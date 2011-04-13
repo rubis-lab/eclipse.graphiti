@@ -32,7 +32,6 @@ import org.eclipse.graphiti.ui.internal.action.RemoveAction;
 import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -89,6 +88,7 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		RetargetAction removeRetargetAction = new RetargetAction(RemoveAction.ACTION_ID, RemoveAction.TEXT);
 		removeRetargetAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
 				IPlatformImageConstants.IMG_EDIT_REMOVE));
+		removeRetargetAction.setActionDefinitionId(RemoveAction.ACTION_DEFINITION_ID);
 		addRetargetAction(removeRetargetAction);
 		RetargetAction updateRetargetAction = new RetargetAction(UpdateAction.ACTION_ID, UpdateAction.TEXT);
 		updateRetargetAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(

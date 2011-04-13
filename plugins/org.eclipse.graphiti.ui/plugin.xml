@@ -86,11 +86,21 @@
 			categoryId="org.eclipse.graphiti.ui.Graphiti_Category"
 			id="org.eclipse.graphiti.ui.internal.action.UpdateAction">
 		</command>
+		<command
+			name="%_command_name_remove"
+			description="%_command_description_remove"
+			categoryId="org.eclipse.graphiti.ui.Graphiti_Category"
+			id="org.eclipse.graphiti.ui.internal.action.RemoveAction">
+		</command>
 	</extension>
    <extension point="org.eclipse.ui.bindings">
 		<key
 			sequence="M1+F5"
 			commandId="org.eclipse.graphiti.ui.internal.action.UpdateAction"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+		<key
+			sequence="M1+Delete"
+			commandId="org.eclipse.graphiti.ui.internal.action.RemoveAction"
 			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
 	</extension>
 </plugin>
