@@ -163,6 +163,7 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 		if (editMenu != null) {
 			MenuManager alignments = new MenuManager(Messages.DiagramEditorActionBarContributor_0_xmen);
+			alignments.add(getAction(GEFActionConstants.ALIGN_LEFT));
 			alignments.add(getAction(GEFActionConstants.ALIGN_CENTER));
 			alignments.add(getAction(GEFActionConstants.ALIGN_RIGHT));
 			alignments.add(new Separator());
