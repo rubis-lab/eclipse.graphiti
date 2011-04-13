@@ -95,7 +95,9 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 				IPlatformImageConstants.IMG_EDIT_REFRESH));
 		updateRetargetAction.setActionDefinitionId(UpdateAction.ACTION_DEFINITION_ID);
 		addRetargetAction(updateRetargetAction);
-		addRetargetAction(new RetargetAction(SaveImageAction.ACTION_ID, SaveImageAction.TEXT));
+		RetargetAction saveImageRetargetAction = new RetargetAction(SaveImageAction.ACTION_ID, SaveImageAction.TEXT);
+		saveImageRetargetAction.setActionDefinitionId(SaveImageAction.ACTION_DEFINITION_ID);
+		addRetargetAction(saveImageRetargetAction);
 	}
 
 	/**

@@ -92,6 +92,12 @@
 			categoryId="org.eclipse.graphiti.ui.Graphiti_Category"
 			id="org.eclipse.graphiti.ui.internal.action.RemoveAction">
 		</command>
+		<command
+			name="%_command_name_export_diagram"
+			description="%_command_description_export_diagram"
+			categoryId="org.eclipse.graphiti.ui.Graphiti_Category"
+			id="org.eclipse.graphiti.ui.internal.action.SaveImageAction">
+		</command>
 	</extension>
    <extension point="org.eclipse.ui.bindings">
 		<key
@@ -101,6 +107,10 @@
 		<key
 			sequence="M1+Delete"
 			commandId="org.eclipse.graphiti.ui.internal.action.RemoveAction"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+		<key
+			sequence="M1+O"
+			commandId="org.eclipse.graphiti.ui.internal.action.SaveImageAction"
 			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
 	</extension>
 </plugin>

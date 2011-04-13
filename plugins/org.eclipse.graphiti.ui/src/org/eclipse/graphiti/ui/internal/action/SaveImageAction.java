@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    jpasch - Bug 323025 ActionBarContributor cleanup
  *
  * </copyright>
  *
@@ -39,7 +40,9 @@ public class SaveImageAction extends Action {
 	
 	public static final String TEXT = Messages.SaveImageAction_0_xmsg;
 	
-	public static final String ACTION_ID = " org.eclipse.graphiti.ui.internal.export_diagram_action"; //$NON-NLS-1$
+	public static final String ACTION_ID = "export_diagram_action"; //$NON-NLS-1$
+	
+	public static final String ACTION_DEFINITION_ID = "org.eclipse.graphiti.ui.internal.action.SaveImageAction"; //$NON-NLS-1$
 
 	public SaveImageAction(ISaveImageFeature saveImageFeature, ISaveImageContext context, DiagramEditorInternal graphicsEditor) {
 		super();
@@ -49,6 +52,7 @@ public class SaveImageAction extends Action {
 		setText(TEXT);
 		setToolTipText(TOOL_TIP);
 		setId(ACTION_ID);
+		setActionDefinitionId(ACTION_DEFINITION_ID);
 	}
 
 	@Override
