@@ -75,7 +75,8 @@ public class DiagramEditorFactory implements IElementFactory {
 			final TransactionalEditingDomain domain = createResourceSetAndEditingDomain();
 			URI diagramFileUri = GraphitiUiInternal.getEmfService().getFileURI(file, domain.getResourceSet());
 			if (diagramFileUri != null) {
-				// the file has to contain one base node which has to be a diagram
+				// the file has to contain one base node which has to be a
+				// diagram
 				diagramFileUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri);
 				return new DiagramEditorInput(diagramFileUri, domain, null, true);
 			}
@@ -85,7 +86,8 @@ public class DiagramEditorFactory implements IElementFactory {
 			final TransactionalEditingDomain domain = createResourceSetAndEditingDomain();
 			URI diagramFileUri = uriInput.getURI();
 			if (diagramFileUri != null) {
-				// the file has to contain one base node which has to be a diagram
+				// the file has to contain one base node which has to be a
+				// diagram
 				diagramFileUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri);
 				return new DiagramEditorInput(diagramFileUri, domain, null, true);
 			}
@@ -115,7 +117,8 @@ public class DiagramEditorFactory implements IElementFactory {
 					if (editorInput instanceof DiagramEditorInput) {
 						final DiagramEditorInput diagInput = (DiagramEditorInput) editorInput;
 
-						// We do not compare diagram object but diagram files only.
+						// We do not compare diagram object but diagram files
+						// only.
 						// Reason is that if editorRef points to a not yet
 						// realized editor, its input's diagram is null (not yet
 						// created), thus we can only get its diagram file.
@@ -126,15 +129,18 @@ public class DiagramEditorFactory implements IElementFactory {
 							final Diagram diagram = GraphitiUiInternal.getEmfService().getDiagramFromFile(file, rSet);
 							if (diagram != null) {
 								final URI diagramUri = EcoreUtil.getURI(diagram);
-								// Trim fragments, in some cases for the first
-								// root object
-								// just a slash is used, in other cases it is /0
+								// Trim fragmentssince in some cases for the
+								// first root object just a slash is used, in
+								// other cases it is /0
 								// (if more than one root object is present).
-								// since we only allow one diagram per file,
-								// this is no restriction. we have:
-								// one input a diagramfileinput, the other
+								// If we would compare the full diagram URI
+								// we could get false even if we have the same
+								// referent.
+								// since we only allow one diagram per file
+								// comparing file URI is ok:
+								// "one input a diagramfileinput, the other
 								// contains a diagram, and the files are the
-								// same.
+								// same" implies "same diagram".
 								URI diagramUriTrimFragment = diagramUri.trimFragment();
 								URI uriTrimFragment = uri.trimFragment();
 								if (uriTrimFragment.equals(diagramUriTrimFragment)) {
@@ -155,7 +161,8 @@ public class DiagramEditorFactory implements IElementFactory {
 					if (editorInput instanceof DiagramEditorInput) {
 						final DiagramEditorInput diagInput = (DiagramEditorInput) editorInput;
 
-						// We do not compare diagram object but diagram files only.
+						// We do not compare diagram object but diagram files
+						// only.
 						// Reason is that if editorRef points to a not yet
 						// realized editor, its input's diagram is null (not yet
 						// created), thus we can only get its diagram file.
@@ -191,8 +198,8 @@ public class DiagramEditorFactory implements IElementFactory {
 
 		// get diagram type provider id
 		final String providerID = memento.getString(DiagramEditorInput.KEY_PROVIDER_ID);
-		//TODO		if (providerID == null)
-		//			return null;
+		// TODO if (providerID == null)
+		// return null;
 
 		final TransactionalEditingDomain domain = createResourceSetAndEditingDomain();
 		return new DiagramEditorInput(diagramUriString, domain, providerID, true);
