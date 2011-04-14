@@ -126,7 +126,18 @@ public class DiagramEditorFactory implements IElementFactory {
 							final Diagram diagram = GraphitiUiInternal.getEmfService().getDiagramFromFile(file, rSet);
 							if (diagram != null) {
 								final URI diagramUri = EcoreUtil.getURI(diagram);
-								if (uri.equals(diagramUri)) {
+								// Trim fragments, in some cases for the first
+								// root object
+								// just a slash is used, in other cases it is /0
+								// (if more than one root object is present).
+								// since we only allow one diagram per file,
+								// this is no restriction. we have:
+								// one input a diagramfileinput, the other
+								// contains a diagram, and the files are the
+								// same.
+								URI diagramUriTrimFragment = diagramUri.trimFragment();
+								URI uriTrimFragment = uri.trimFragment();
+								if (uriTrimFragment.equals(diagramUriTrimFragment)) {
 									return true;
 								}
 							}
