@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *    mwenz - Bug 320635 - Could not open an existing diagram
+ *    tkaiser - Bug 340939 - Only one instance of an Graphiti editor may exist, for each editor input
  *
  * </copyright>
  *
@@ -380,6 +381,6 @@ public class EmfService implements IEmfService {
 
 	@Override
 	public URI mapDiagramFileUriToDiagramUri(URI diagramFileUri) {
-		return diagramFileUri.appendFragment("/"); //$NON-NLS-1$
+		return diagramFileUri.appendFragment("/0"); //$NON-NLS-1$
 	}
 }
