@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -69,10 +69,12 @@ public class TextCellLocator implements CellEditorLocator {
 
 			Text text = (Text) celleditor.getControl();
 			Dimension d = FigureUtilities.getTextExtents(text.getText(), text.getFont());
-			rect.x += (rect.width - d.width - correction) / 2;
+
+			int widthToSet = Math.min(rect.width, d.width + correction);
+			rect.x += (rect.width - widthToSet) / 2;
 			rect.y += (rect.height - d.height) / 2;
 
-			text.setBounds(rect.x, rect.y, d.width + correction, d.height);
+			text.setBounds(rect.x, rect.y, widthToSet, d.height);
 
 		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_TEXT) {
 
