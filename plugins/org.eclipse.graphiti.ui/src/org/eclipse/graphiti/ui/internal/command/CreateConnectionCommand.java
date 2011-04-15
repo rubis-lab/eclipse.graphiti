@@ -9,7 +9,9 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
- *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
+ *    mwenz - Bug 324859 Need Undo/Redo support for Non-EMF based domain objects
+ *    mwenz - Bug 342874 CreateConnectionCommand overwriting "sourceLocation" with
+ *            "targetLocation" on creation of a Connection
  *
  * </copyright>
  *
@@ -196,6 +198,7 @@ public class CreateConnectionCommand extends AbstractCommand {
 		// allow connections only from anchor to anchor
 
 		CreateConnectionContext connectionContext = createContext();
+		sourceLocation = connectionContext.getSourceLocation(); // store location for later usage
 
 		for (IFeature feature : features) {
 
@@ -221,8 +224,8 @@ public class CreateConnectionCommand extends AbstractCommand {
 		connectionContext.setSourcePictogramElement(sourceObject);
 		connectionContext.setTargetPictogramElement(null);
 		connectionContext.setTargetLocation(null);
-		sourceLocation = getCurrentLocation(); // store location for later usage
-		connectionContext.setSourceLocation(sourceLocation);
+		ILocation currentLocation = getCurrentLocation();
+		connectionContext.setSourceLocation(currentLocation);
 		return connectionContext;
 	}
 
