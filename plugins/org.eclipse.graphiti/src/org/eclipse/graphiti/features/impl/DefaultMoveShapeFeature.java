@@ -61,12 +61,18 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 
 	final public void moveShape(IMoveShapeContext context) {
 		preMoveShape(context);
-		moveBendpointsAutomatically(context);
+		moveAllBendpoints(context);
 		internalMove(context);
 		postMoveShape(context);
 	}
 
-	private void moveBendpointsAutomatically(IMoveShapeContext context) {
+	/**
+	 * Move all bendpoints. Move bendpoints within a container shape.
+	 * 
+	 * @param context
+	 *            the context
+	 */
+	protected void moveAllBendpoints(IMoveShapeContext context) {
 		Shape shapeToMove = context.getShape();
 
 		int x = context.getX();
@@ -158,16 +164,6 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
 			}
 		}
-	}
-
-	/**
-	 * Move all bendpoints. Move bendpoints within a container shape.
-	 * 
-	 * @param context
-	 *            the context
-	 */
-	protected void moveAllBendpoints(IMoveShapeContext context) {
-		moveBendpointsAutomatically(context);
 	}
 
 	private FreeFormConnection[] calculateContainerConnections(IMoveShapeContext context) {
