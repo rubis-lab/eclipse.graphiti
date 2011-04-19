@@ -21,6 +21,8 @@ package org.eclipse.graphiti.tb;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.datatypes.ILocation;
@@ -101,23 +103,28 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		setDiagramTypeProvider(diagramTypeProvider);
 	}
 
+	@Override
 	public void dispose() {
 	}
 
+	@Override
 	public Object getAdapter(Class<?> type) {
 		return null;
 	}
 
+	@Override
 	public PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
 		return null;
 	}
 
+	@Override
 	public ISelectionInfo getSelectionInfoForConnection(Connection connection) {
 		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.CONNECTION_SELECTION_FG, IColorConstant.HANDLE_FG,
 				IColorConstant.HANDLE_BG, LineStyle.DASH);
 		return si;
 	}
 
+	@Override
 	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
 		final String SIGNATURE = "getContextButtonPadData(IPictogramElementContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -237,6 +244,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return ret;
 	}
 
+	@Override
 	public IContextMenuEntry[] getContextMenu(ICustomContext context) {
 		final String SIGNATURE = "getContextMenu(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -259,10 +267,12 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return ret;
 	}
 
+	@Override
 	public ILocationInfo getLocationInfo(PictogramElement pe, ILocationInfo locationInfo) {
 		return locationInfo;
 	}
 
+	@Override
 	public ICustomFeature getDoubleClickFeature(IDoubleClickContext context) {
 		return null;
 	}
@@ -273,6 +283,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * 
 	 * @return the palette entries
 	 */
+	@Override
 	public IPaletteCompartmentEntry[] getPalette() {
 		final String SIGNATURE = "getPaletteCompartments()"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -329,16 +340,19 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return res;
 	}
 
+	@Override
 	public IDecorator[] getDecorators(PictogramElement pe) {
 		return NO_RENDERING_DECORATORS;
 	}
 
+	@Override
 	public ISelectionInfo getSelectionInfoForShape(Shape shape) {
 		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.SHAPE_SELECTION_FG, IColorConstant.HANDLE_FG, IColorConstant.HANDLE_BG,
 				LineStyle.DASH);
 		return si;
 	}
 
+	@Override
 	public double[] getZoomLevels() {
 		return ZOOM_LEVELS;
 	}
@@ -348,6 +362,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 *             195527 and can be harmed by GEF modifications. It will be
 	 *             removed then
 	 */
+	@Override
 	@Deprecated
 	public DiagramScrollingBehavior getDiagramScrollingBehavior() {
 		return DiagramScrollingBehavior.GEF_DEFAULT;
@@ -375,20 +390,25 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return getDiagramTypeProvider().getFeatureProvider();
 	}
 
+	@Override
 	public void preExecute(IExecutionInfo executionInfo) {
 	}
 
+	@Override
 	public void postExecute(IExecutionInfo executionInfo) {
 	}
 
+	@Override
 	public String getToolTip(GraphicsAlgorithm ga) {
 		return null;
 	}
 
+	@Override
 	public GraphicsAlgorithm getSelectionBorder(PictogramElement pe) {
 		return null;
 	}
 
+	@Override
 	public GraphicsAlgorithm[] getClickArea(PictogramElement pe) {
 		GraphicsAlgorithm graphicsAlgorithm = pe.getGraphicsAlgorithm();
 		if (graphicsAlgorithm != null) {
@@ -397,22 +417,27 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return new GraphicsAlgorithm[0];
 	}
 
+	@Override
 	public GraphicsAlgorithm getChopboxAnchorArea(PictogramElement pe) {
 		return pe.getGraphicsAlgorithm();
 	}
 
+	@Override
 	public String getTitleToolTip() {
 		return null;
 	}
 
+	@Override
 	public boolean isShowGuides() {
 		return true;
 	}
 
+	@Override
 	public GraphicsAlgorithm getContentArea(ContainerShape cs) {
 		return null;
 	}
 
+	@Override
 	public String getContributorId() {
 		String diagramTypeId = getDiagramTypeProvider().getDiagram().getDiagramTypeId();
 		return diagramTypeId + DIAGRAM_PROPERTY_CONTRIBUTOR_SUFFIX;
@@ -430,5 +455,19 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	@Override
 	public boolean isConnectionSelectionEnabled() {
 		return true;
+	}
+
+	/**
+	 * Default Implementation. Customers requested the possibility to plug in
+	 * equality decision based on object identity.
+	 */
+	@Override
+	public boolean equalsBusinessObjects(Object o1, Object o2) {
+		if (o1 instanceof EObject && o2 instanceof EObject) {
+			return EcoreUtil.equals((EObject) o1, (EObject) o2);
+		}
+		// Both BOs have to be EMF objects. Otherwise the IndependenceSolver
+		// does the job.
+		return false;
 	}
 }

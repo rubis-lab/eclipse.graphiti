@@ -21,6 +21,7 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
+import org.eclipse.graphiti.features.impl.IIndependenceSolver;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -291,4 +292,13 @@ public interface IToolBehaviorProvider {
 	 * @return the contributor ID for the tabbed property sheet page.
 	 */
 	public String getContributorId();
+
+	/**
+	 * Decides if business objects are equal. The framework uses this method
+	 * only for EMF business objects. For the non-EMF case,
+	 * {@link IIndependenceSolver} is responsible.
+	 * 
+	 * @return true if the business objects are deemed equal, false otherwise.
+	 */
+	public boolean equalsBusinessObjects(Object o1, Object o2);
 }

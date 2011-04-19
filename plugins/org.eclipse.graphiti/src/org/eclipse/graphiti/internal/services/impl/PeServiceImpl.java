@@ -710,7 +710,8 @@ public final class PeServiceImpl implements IPeService {
 						EObject toRemove = null;
 						for (Iterator<EObject> iterator3 = notLinkedPEs.iterator(); iterator3.hasNext();) {
 							EObject notLinkedObject = iterator3.next();
-							if (EcoreUtil.equals(notLinkedObject, businessObject)) {
+							if (GraphitiInternal.getEmfService().getDTPForDiagram(diagram).getCurrentToolBehaviorProvider()
+									.equalsBusinessObjects(notLinkedObject, businessObject)) {
 								toRemove = notLinkedObject;
 							}
 						}
@@ -892,7 +893,8 @@ public final class PeServiceImpl implements IPeService {
 					for (Iterator<EObject> iterator2 = businessObjects.iterator(); iterator2.hasNext();) {
 						EObject eObject = iterator2.next();
 						for (int i = 0; i < elements.length; i++) {
-							if (EcoreUtil.equals(elements[i], eObject)) {
+							if (GraphitiInternal.getEmfService().getDTPForDiagram(diagram).getCurrentToolBehaviorProvider()
+									.equalsBusinessObjects(elements[i], eObject)) {
 								linkedPEs.add(link.getPictogramElement());
 							}
 						}

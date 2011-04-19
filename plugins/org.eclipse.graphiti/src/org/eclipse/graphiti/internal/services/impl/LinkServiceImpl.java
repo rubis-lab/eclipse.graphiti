@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.internal.ExternalPictogramLink;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
@@ -150,7 +149,8 @@ public final class LinkServiceImpl implements ILinkService {
 			for (PictogramLink link : links) {
 				EObject bos[] = getAllBusinessObjectsForLinkedPictogramElement(link.getPictogramElement());
 				for (EObject bo : bos) {
-					if (EcoreUtil.equals(eObject, bo)) {
+					if (GraphitiInternal.getEmfService().getDTPForDiagram(diagram).getCurrentToolBehaviorProvider()
+							.equalsBusinessObjects(eObject, bo)) {
 						ret.add(link.getPictogramElement());
 						break;
 					}

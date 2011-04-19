@@ -16,6 +16,8 @@
 package org.eclipse.graphiti.internal.services;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 
 /**
  * @noimplement This interface is not intended to be implemented by clients.
@@ -24,5 +26,9 @@ import org.eclipse.emf.ecore.EObject;
 public interface IEmfService {
 
 	public boolean isObjectAlive(EObject obj);
+
+	public IDiagramTypeProvider getDTPForDiagram(Diagram d);
+
+	public void wireDTPToDiagram(Diagram d, IDiagramTypeProvider provider);
 
 }

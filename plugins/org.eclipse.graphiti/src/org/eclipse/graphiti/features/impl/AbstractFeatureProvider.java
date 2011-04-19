@@ -522,7 +522,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 				for (PictogramLink pictogramLink : pictogramLinks) {
 					List<EObject> businessObjects = pictogramLink.getBusinessObjects();
 					for (EObject obj : businessObjects) {
-						if (EcoreUtil.equals((EObject) businessObject, obj)) {
+						if (getDiagramTypeProvider().getCurrentToolBehaviorProvider().equalsBusinessObjects(businessObject, obj)) {
 							PictogramElement pe = pictogramLink.getPictogramElement();
 							if (pe != null) {
 								retList.add(pe);
@@ -566,7 +566,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 				for (PictogramLink pictogramLink : pictogramLinks) {
 					List<EObject> businessObjects = pictogramLink.getBusinessObjects();
 					for (EObject obj : businessObjects) {
-						if (EcoreUtil.equals((EObject) businessObject, obj)) {
+						if (getDiagramTypeProvider().getCurrentToolBehaviorProvider().equalsBusinessObjects(businessObject, obj)) {
 							PictogramElement pe = pictogramLink.getPictogramElement();
 							if (pe != null) {
 								result = pe;

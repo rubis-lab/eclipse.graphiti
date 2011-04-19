@@ -18,6 +18,7 @@ package org.eclipse.graphiti.dt;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.notification.DefaultNotificationService;
@@ -123,6 +124,7 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	@Override
 	public void init(Diagram diagram, IDiagramEditor diagramEditor) {
 		setDiagram(diagram);
+		GraphitiInternal.getEmfService().wireDTPToDiagram(diagram, this);
 		setDiagramEditor(diagramEditor);
 	}
 
