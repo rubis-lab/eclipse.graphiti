@@ -21,7 +21,6 @@ package org.eclipse.graphiti.ui.features;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -64,6 +63,7 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 		return NAME;
 	}
 
+	@Override
 	public void execute(ICustomContext context) {
 		final PictogramElement pe = context.getPictogramElements()[0];
 		final Collection<Diagram> possibleDiagramsList = getLinkedDiagrams(pe);
@@ -183,14 +183,16 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 		final Collection<Diagram> allDiagrams = getDiagrams();
 		for (final Diagram d : allDiagrams) {
 			final Diagram currentDiagram = getDiagram();
-			if (!EcoreUtil.equals(currentDiagram, d)) { // always filter out the current
+			if (!EcoreUtil.equals(currentDiagram, d)) { // always filter out the
+														// current
 				// diagram
 				final Object[] businessObjectsForDiagram = getAllBusinessObjectsForPictogramElement(d);
 				for (int i = 0; i < businessObjectsForDiagram.length; i++) {
 					final Object diagramBo = businessObjectsForDiagram[i];
 					for (int j = 0; j < businessObjectsForPictogramElement.length; j++) {
 						final Object currentBo = businessObjectsForPictogramElement[j];
-						if (EcoreUtil.equals((EObject) currentBo, (EObject) diagramBo)) {
+						if (getFeatureProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider()
+								.equalsBusinessObjects(currentBo, diagramBo)) {
 							ret.add(d);
 						}
 					}

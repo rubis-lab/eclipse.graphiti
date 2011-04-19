@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -353,19 +354,16 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	public void dispose() {
 		if (this.disposeEditingDomain && this.editingDomain != null) {
 			// Clear the editing domain of all resources with potentially
-			// unsaved changes
-			try {
-				editingDomain.runExclusive(new Runnable() {
+			// unsaved changes (since the editor input is referenced
+			// by the navigation history, retained resources cause
+			// the referenced diagrams to remain in memory
+			editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
-					@Override
-					public void run() {
-						editingDomain.getResourceSet().getResources().retainAll(Collections.EMPTY_LIST);
-					}
-				});
-			} catch (final InterruptedException e) {
-				T.racer().error(e.getMessage(), e);
-			}
-
+				@Override
+				protected void doExecute() {
+					editingDomain.getResourceSet().getResources().retainAll(Collections.EMPTY_LIST);
+				}
+			});
 			// And dispose the editing domain
 			this.editingDomain.dispose();
 			this.editingDomain = null;
