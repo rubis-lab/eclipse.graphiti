@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
@@ -60,9 +61,43 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 
 	final public void moveShape(IMoveShapeContext context) {
 		preMoveShape(context);
-		moveAllBendpoints(context);
+		moveBendpointsAutomatically(context);
 		internalMove(context);
 		postMoveShape(context);
+	}
+
+	private void moveBendpointsAutomatically(IMoveShapeContext context) {
+		Shape shapeToMove = context.getShape();
+
+		int x = context.getX();
+		int y = context.getY();
+
+		int deltaX = x - shapeToMove.getGraphicsAlgorithm().getX();
+		int deltaY = y - shapeToMove.getGraphicsAlgorithm().getY();
+
+		if (deltaX != 0 || deltaY != 0) {
+			List<FreeFormConnection> connectionList = new ArrayList<FreeFormConnection>();
+
+			FreeFormConnection[] containerConnections = calculateContainerConnections(context);
+			for (int i = 0; i < containerConnections.length; i++) {
+				FreeFormConnection cc = containerConnections[i];
+				if (!connectionList.contains(cc)) {
+					connectionList.add(cc);
+				}
+			}
+
+			FreeFormConnection[] connectedConnections = calculateConnectedConnections(context);
+			for (int i = 0; i < connectedConnections.length; i++) {
+				FreeFormConnection cc = connectedConnections[i];
+				if (!connectionList.contains(cc)) {
+					connectionList.add(cc);
+				}
+			}
+
+			for (FreeFormConnection conn : connectionList) {
+				moveAllBendpointsOnFFConnection((FreeFormConnection) conn, deltaX, deltaY);
+			}
+		}
 	}
 
 	/**
@@ -101,7 +136,8 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 		int y = context.getY();
 
 		if (oldContainerShape != newContainerShape) {
-			// remember selection, because it is lost when temporarily removing the shapes.
+			// remember selection, because it is lost when temporarily removing
+			// the shapes.
 			PictogramElement[] currentSelection = getDiagramEditor().getSelectedPictogramElements();
 			// the following is a workaround due to an MMR bug
 			if (oldContainerShape != null) {
@@ -131,12 +167,19 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 	 *            the context
 	 */
 	protected void moveAllBendpoints(IMoveShapeContext context) {
+		moveBendpointsAutomatically(context);
+	}
+
+	private FreeFormConnection[] calculateContainerConnections(IMoveShapeContext context) {
+		FreeFormConnection[] ret = new FreeFormConnection[0];
 
 		if (!(context.getShape() instanceof ContainerShape)) {
-			return;
+			return ret;
 		}
 
-		ContainerShape shapeToMove = (ContainerShape) context.getShape();
+		List<FreeFormConnection> retList = new ArrayList<FreeFormConnection>();
+
+		Shape shapeToMove = context.getShape();
 
 		int x = context.getX();
 		int y = context.getY();
@@ -159,13 +202,41 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 						Collection<Connection> incomingConnections = anchorTo.getIncomingConnections();
 						if (incomingConnections.contains(connection)) {
 							if (connection instanceof FreeFormConnection) {
-								FreeFormConnection ffc = (FreeFormConnection) connection;
-								List<Point> points = ffc.getBendpoints();
-								for (int i = 0; i < points.size(); i++) {
-									Point point = points.get(i);
-									int oldX = point.getX();
-									int oldY = point.getY();
-									points.set(i, Graphiti.getGaCreateService().createPoint(oldX + deltaX, oldY + deltaY));
+								retList.add((FreeFormConnection) connection);
+							}
+						}
+					}
+				}
+			}
+		}
+		return retList.toArray(ret);
+	}
+
+	private FreeFormConnection[] calculateConnectedConnections(IMoveShapeContext context) {
+		List<FreeFormConnection> retList = new ArrayList<FreeFormConnection>();
+		Shape shapeToMove = context.getShape();
+
+		int x = context.getX();
+		int y = context.getY();
+
+		int deltaX = x - shapeToMove.getGraphicsAlgorithm().getX();
+		int deltaY = y - shapeToMove.getGraphicsAlgorithm().getY();
+
+		if (deltaX != 0 || deltaY != 0) {
+			List<Anchor> anchors = getAnchors(shapeToMove);
+
+			PictogramElement[] selectedPictogramElements = getDiagramEditor().getSelectedPictogramElements();
+			for (int i = 0; i < selectedPictogramElements.length; i++) {
+				PictogramElement selPe = selectedPictogramElements[i];
+				if (selPe instanceof Shape) {
+					Shape selShape = (Shape) selPe;
+					for (Anchor toAnchor : getAnchors(selShape)) {
+						EList<Connection> incomingConnections = toAnchor.getIncomingConnections();
+						for (Connection inConn : incomingConnections) {
+							if (inConn instanceof FreeFormConnection) {
+								Anchor startAnchor = inConn.getStart();
+								if (anchors.contains(startAnchor)) {
+									retList.add((FreeFormConnection) inConn);
 								}
 							}
 						}
@@ -173,18 +244,32 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 				}
 			}
 		}
+		return retList.toArray(new FreeFormConnection[0]);
 	}
 
-	private List<Anchor> getAnchors(ContainerShape containerShape) {
-		List<Anchor> ret = new ArrayList<Anchor>();
-		ret.addAll(containerShape.getAnchors());
+	private void moveAllBendpointsOnFFConnection(FreeFormConnection connection, int deltaX, int deltaY) {
+		List<Point> points = connection.getBendpoints();
+		for (int i = 0; i < points.size(); i++) {
+			Point point = points.get(i);
+			int oldX = point.getX();
+			int oldY = point.getY();
+			points.set(i, Graphiti.getGaCreateService().createPoint(oldX + deltaX, oldY + deltaY));
+		}
+	}
 
-		List<Shape> children = containerShape.getChildren();
-		for (Shape shape : children) {
-			if (shape instanceof ContainerShape) {
-				ret.addAll(getAnchors((ContainerShape) shape));
-			} else {
-				ret.addAll(shape.getAnchors());
+	private List<Anchor> getAnchors(Shape theShape) {
+		List<Anchor> ret = new ArrayList<Anchor>();
+		ret.addAll(theShape.getAnchors());
+
+		if (theShape instanceof ContainerShape) {
+			ContainerShape containerShape = (ContainerShape) theShape;
+			List<Shape> children = containerShape.getChildren();
+			for (Shape shape : children) {
+				if (shape instanceof ContainerShape) {
+					ret.addAll(getAnchors((ContainerShape) shape));
+				} else {
+					ret.addAll(shape.getAnchors());
+				}
 			}
 		}
 		return ret;
