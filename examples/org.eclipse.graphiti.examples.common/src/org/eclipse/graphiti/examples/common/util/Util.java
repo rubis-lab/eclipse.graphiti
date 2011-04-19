@@ -147,13 +147,15 @@ public class Util {
 		for (Diagram diagram : diagrams) {
 			Resource resource = diagram.eResource();
 			if (resource == null)
-				return new EClass[0];
+				continue;
 			EList<EObject> contents = resource.getContents();
 			for (EObject object : contents) {
 				if (object instanceof EClass && !(object instanceof PictogramElement)) {
 					eClasses.add((EClass) object);
 				}
 			}
+			resource.unload();
+			rSet.getResources().remove(resource);
 		}
 		return eClasses.toArray(new EClass[eClasses.size()]);
 	}

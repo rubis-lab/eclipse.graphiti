@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.graphiti.examples.common.Messages;
@@ -87,6 +88,9 @@ public class DiagramsNode extends AbstractInstancesOfTypeContainerNode {
 			@SuppressWarnings("restriction")
 			Diagram diagram = org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal.getEmfService().getDiagramFromFile(file, rSet);
 			if (diagram != null) {
+				Resource eResource = diagram.eResource();
+				eResource.unload();
+				rSet.getResources().remove(eResource);
 				ret.add(file);
 			}
 		}

@@ -141,7 +141,7 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 
 		TransactionalEditingDomain domain = FileService.createEmfFileForDiagram(uri, diagram);
 		String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
-		DiagramEditorInput editorInput = new DiagramEditorInput(EcoreUtil.getURI(diagram), domain, providerId);
+		DiagramEditorInput editorInput = new DiagramEditorInput(EcoreUtil.getURI(diagram), domain, providerId, true);
 		
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, editorID);
