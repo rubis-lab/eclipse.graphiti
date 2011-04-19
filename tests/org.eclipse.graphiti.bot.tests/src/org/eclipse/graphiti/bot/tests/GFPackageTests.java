@@ -25,7 +25,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.bot.tests.features.DefaultCopyFeature;
@@ -187,7 +186,8 @@ public class GFPackageTests extends AbstractGFTests {
 			public boolean isEqual() {
 				boolean res = false;
 				if (this.copy != null && this.fromClipboard != null) {
-					res = EcoreUtil.equals(this.copy[0], this.fromClipboard[0]);
+					res = getFeatureProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider()
+							.equalsBusinessObjects(this.copy[0], this.fromClipboard[0]);
 				}
 				return res;
 			}
