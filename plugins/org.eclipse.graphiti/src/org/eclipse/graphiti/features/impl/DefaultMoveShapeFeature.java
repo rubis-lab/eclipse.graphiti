@@ -222,17 +222,19 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 			List<Anchor> anchors = getAnchors(shapeToMove);
 
 			PictogramElement[] selectedPictogramElements = getDiagramEditor().getSelectedPictogramElements();
-			for (int i = 0; i < selectedPictogramElements.length; i++) {
-				PictogramElement selPe = selectedPictogramElements[i];
-				if (selPe instanceof Shape) {
-					Shape selShape = (Shape) selPe;
-					for (Anchor toAnchor : getAnchors(selShape)) {
-						EList<Connection> incomingConnections = toAnchor.getIncomingConnections();
-						for (Connection inConn : incomingConnections) {
-							if (inConn instanceof FreeFormConnection) {
-								Anchor startAnchor = inConn.getStart();
-								if (anchors.contains(startAnchor)) {
-									retList.add((FreeFormConnection) inConn);
+			if (selectedPictogramElements != null) {
+				for (int i = 0; i < selectedPictogramElements.length; i++) {
+					PictogramElement selPe = selectedPictogramElements[i];
+					if (selPe instanceof Shape) {
+						Shape selShape = (Shape) selPe;
+						for (Anchor toAnchor : getAnchors(selShape)) {
+							EList<Connection> incomingConnections = toAnchor.getIncomingConnections();
+							for (Connection inConn : incomingConnections) {
+								if (inConn instanceof FreeFormConnection) {
+									Anchor startAnchor = inConn.getStart();
+									if (anchors.contains(startAnchor)) {
+										retList.add((FreeFormConnection) inConn);
+									}
 								}
 							}
 						}
