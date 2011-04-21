@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 327669 - removed dependencies to GEF internal stuff
  *    jpasch - Bug 323025 ActionBarContributor cleanup
+ *    mwenz - Fixed NPE in RCP usecase
  *
  * </copyright>
  *
@@ -67,7 +68,7 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		addRetargetAction((RetargetAction) ActionFactory.PASTE.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
 		addRetargetAction((RetargetAction) ActionFactory.PRINT.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
 		addRetargetAction((RetargetAction) ActionFactory.SELECT_ALL.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
-		
+
 		addRetargetAction(new AlignmentRetargetAction(PositionConstants.LEFT));
 		addRetargetAction(new AlignmentRetargetAction(PositionConstants.CENTER));
 		addRetargetAction(new AlignmentRetargetAction(PositionConstants.RIGHT));
@@ -101,13 +102,14 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 	}
 
 	/**
-	 * Global action keys are already declared with {@link #addRetargetAction(RetargetAction)}.
+	 * Global action keys are already declared with
+	 * {@link #addRetargetAction(RetargetAction)}.
 	 * 
 	 * @see org.eclipse.gef.ui.actions.ActionBarContributor#declareGlobalActionKeys()
 	 */
 	@Override
 	protected void declareGlobalActionKeys() {
-		
+
 	}
 
 	/**
@@ -187,9 +189,12 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY));
 		menubar.insertAfter(IWorkbenchActionConstants.M_EDIT, viewMenu);
-		
+
 		IMenuManager fileMenu = menubar.findMenuUsingPath(IWorkbenchActionConstants.M_FILE);
-		fileMenu.insertAfter(ActionFactory.EXPORT.getId(), getAction(SaveImageAction.ACTION_ID));
+		if (fileMenu != null) {
+			// Might not be available in RCP case
+			fileMenu.insertAfter(ActionFactory.EXPORT.getId(), getAction(SaveImageAction.ACTION_ID));
+		}
 	}
 
 }
