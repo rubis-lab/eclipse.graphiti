@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    jpasch - BUG 341180: Graphiti fails to handle resize after custom feature addition in the tutorial
  *
  * </copyright>
  *
@@ -145,26 +146,12 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 	@Override
 	protected EditPolicy createChildEditPolicy(EditPart child) {
-		if (!(child instanceof ShapeEditPart))
+		if (!(child instanceof ShapeEditPart)) {
 			return new NonResizableEditPolicy();
-
+		}
 		PictogramElement pictogramElement = ((ShapeEditPart) child).getPictogramElement();
-
-		if (!(pictogramElement instanceof Shape)) {
-			return new GFNonResizableEditPolicy(getConfigurationProvider());
-		}
-
 		Shape shape = (Shape) pictogramElement;
-
 		ResizeShapeContext resizeShapeContext = new ResizeShapeContext(shape);
-
-		IResizeShapeFeature resizeShapeFeature = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider()
-				.getResizeShapeFeature(resizeShapeContext);
-
-		if (resizeShapeFeature == null || !resizeShapeFeature.canResizeShape(resizeShapeContext)) {
-			return new GFNonResizableEditPolicy(getConfigurationProvider());
-		}
-
 		return new GFResizableEditPolicy(getConfigurationProvider(), resizeShapeContext);
 	}
 

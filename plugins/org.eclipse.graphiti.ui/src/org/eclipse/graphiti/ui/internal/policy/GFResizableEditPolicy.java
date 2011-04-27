@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    jpasch - BUG 341180: Graphiti fails to handle resize after custom feature addition in the tutorial
  *    Patch 185019 from Bug 332360 contributed by Volker Wegert
  *
  * </copyright>
@@ -86,24 +87,26 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 	}
 
 	private GFEditPolicyDelegate getDelegate() {
-		return delegate;
+		return this.delegate;
 	}
 
 	@Override
 	public int getResizeDirections() {
 		int ret = 0;
-		IResizeConfiguration resizeConfiguration = getResizeShapeFeature().getResizeConfiguration(getResizeShapeContext());
-		if (resizeConfiguration.isHorizontalResizeAllowed()) {
-			ret = ret | PositionConstants.EAST_WEST;
-		}
-		if (resizeConfiguration.isVerticalResizeAllowed()) {
-			ret = ret | PositionConstants.NORTH_SOUTH;
+		if (!(getResizeShapeContext() == null)) {
+			IResizeConfiguration resizeConfiguration = getResizeShapeFeature().getResizeConfiguration(getResizeShapeContext());
+			if (resizeConfiguration.isHorizontalResizeAllowed()) {
+				ret = ret | PositionConstants.EAST_WEST;
+			}
+			if (resizeConfiguration.isVerticalResizeAllowed()) {
+				ret = ret | PositionConstants.NORTH_SOUTH;
+			}
 		}
 		return ret;
 	}
 
 	private IResizeShapeContext getResizeShapeContext() {
-		return resizeShapeContext;
+		return this.resizeShapeContext;
 	}
 
 	private IResizeShapeFeature getResizeShapeFeature() {
