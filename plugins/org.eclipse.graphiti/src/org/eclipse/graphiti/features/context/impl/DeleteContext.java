@@ -38,10 +38,16 @@ public class DeleteContext extends PictogramElementContext implements IDeleteCon
 		setPictogramElement(pictogramElement);
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	public void setMultiDeleteInfo(IMultiDeleteInfo multiDeleteInfo) {
 		this.multiDeleteInfo = multiDeleteInfo;
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public IMultiDeleteInfo getMultiDeleteInfo() {
 		return multiDeleteInfo;

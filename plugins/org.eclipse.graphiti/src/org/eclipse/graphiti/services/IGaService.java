@@ -58,7 +58,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * @param font
 	 *            the font to delete
 	 * 
-	 * @since 0.8.0
+	 * @since 0.8
 	 */
 	public void deleteFont(Font font);
 
@@ -68,7 +68,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * @param color
 	 *            the color to delete
 	 * 
-	 * @since 0.8.0
+	 * @since 0.8
 	 */
 	public void deleteColor(Color color);
 
@@ -310,7 +310,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 *            the size of the font
 	 * @return the font instance
 	 * 
-	 * @since 0.8.0
+	 * @since 0.8
 	 */
 	public Font manageFont(Diagram diagram, String name, int size);
 
@@ -330,7 +330,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 *            the is bold
 	 * @return the font instance
 	 * 
-	 * @since 0.8.0
+	 * @since 0.8
 	 */
 	public Font manageFont(Diagram diagram, String name, int size, boolean isItalic, boolean isBold);
 

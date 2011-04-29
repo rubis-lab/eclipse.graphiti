@@ -113,6 +113,7 @@ public class CreateConnectionContext extends DefaultContext implements ICreateCo
 
 	/**
 	 * @return the sourceLocation
+	 * @since 0.8
 	 */
 	public ILocation getSourceLocation() {
 		return sourceLocation;
@@ -121,6 +122,7 @@ public class CreateConnectionContext extends DefaultContext implements ICreateCo
 	/**
 	 * @param sourceLocation
 	 *            the sourceLocation to set
+	 * @since 0.8
 	 */
 	public void setSourceLocation(ILocation sourceLocation) {
 		this.sourceLocation = sourceLocation;
@@ -128,6 +130,7 @@ public class CreateConnectionContext extends DefaultContext implements ICreateCo
 
 	/**
 	 * @return the targetLocation
+	 * @since 0.8
 	 */
 	public ILocation getTargetLocation() {
 		return targetLocation;
@@ -136,6 +139,7 @@ public class CreateConnectionContext extends DefaultContext implements ICreateCo
 	/**
 	 * @param targetLocation
 	 *            the targetLocation to set
+	 * @since 0.8
 	 */
 	public void setTargetLocation(ILocation targetLocation) {
 		this.targetLocation = targetLocation;

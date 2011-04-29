@@ -52,6 +52,7 @@ public class ColorConstant implements IColorConstant {
 	 * 
 	 * @param hexRGBString
 	 *            The RGB values in hexadecimal format.
+	 * @since 0.8
 	 */
 	public ColorConstant(String hexRGBString) {
 		this(ColorUtil.getRedFromHex(hexRGBString), ColorUtil.getGreenFromHex(hexRGBString), ColorUtil.getBlueFromHex(hexRGBString));

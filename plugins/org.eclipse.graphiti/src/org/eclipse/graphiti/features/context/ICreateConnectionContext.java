@@ -45,11 +45,13 @@ public interface ICreateConnectionContext extends IContext, IConnectionContext {
 
 	/**
 	 * @return the sourceLocation
+	 * @since 0.8
 	 */
 	ILocation getSourceLocation();
 
 	/**
 	 * @return the targetLocation
+	 * @since 0.8
 	 */
 	ILocation getTargetLocation();
 }

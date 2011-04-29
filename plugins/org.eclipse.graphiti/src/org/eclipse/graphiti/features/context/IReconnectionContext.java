@@ -79,6 +79,7 @@ public interface IReconnectionContext extends IContext {
 
 	/**
 	 * @return the targetLocation
+	 * @since 0.8
 	 */
 	ILocation getTargetLocation();
 }

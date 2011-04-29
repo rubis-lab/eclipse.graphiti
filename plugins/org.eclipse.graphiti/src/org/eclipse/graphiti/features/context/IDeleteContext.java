@@ -28,6 +28,7 @@ public interface IDeleteContext extends IPictogramElementContext {
 	 * 
 	 * @return IMultiDeleteInfo in case of a multiple delete operation and null
 	 *         in all other cases.
+	 * @since 0.8
 	 */
 	IMultiDeleteInfo getMultiDeleteInfo();
 

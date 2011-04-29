@@ -61,6 +61,7 @@ public interface ISelectionInfo {
 	 * 
 	 * @param color
 	 *            the on hover color
+	 * @since 0.8
 	 */
 	IColorConstant getPrimarySelectionBackGroundColor();
 
@@ -70,6 +71,7 @@ public interface ISelectionInfo {
 	 * 
 	 * @param color
 	 *            the on hover color
+	 * @since 0.8
 	 */
 	IColorConstant getSecondarySelectionBackGroundColor();
 
@@ -110,6 +112,7 @@ public interface ISelectionInfo {
 	 * 
 	 * @param color
 	 *            the color
+	 * @since 0.8
 	 */
 	void setPrimarySelectionBackgroundColor(IColorConstant color);
 
@@ -119,6 +122,7 @@ public interface ISelectionInfo {
 	 * 
 	 * @param color
 	 *            the color
+	 * @since 0.8
 	 */
 	void setSecondarySelectionBackgroundColor(IColorConstant color);
 

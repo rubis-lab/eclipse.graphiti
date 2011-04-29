@@ -130,13 +130,19 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 		return NAME;
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public IProposalSupport getProposalSupport() {
 		return null;
 	}
 
 	private static final String NAME = Messages.AbstractDirectEditingFeature_0_xfld;
-	
+
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public void setValue(String value, IDirectEditingContext context) {
 	}

@@ -20,6 +20,7 @@ package org.eclipse.graphiti.features.context;
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
+ * @since 0.8
  */
 public interface IMultiDeleteInfo {
 

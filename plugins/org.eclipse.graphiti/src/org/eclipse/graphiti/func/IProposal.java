@@ -19,6 +19,8 @@ package org.eclipse.graphiti.func;
  * The Interface IProposal.
  * 
  * Clients can use/extend {@link Proposal}.
+ * 
+ * @since 0.8
  */
 public interface IProposal {
 	String getText();

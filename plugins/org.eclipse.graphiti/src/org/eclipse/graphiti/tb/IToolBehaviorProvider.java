@@ -299,6 +299,7 @@ public interface IToolBehaviorProvider {
 	 * {@link IIndependenceSolver} is responsible.
 	 * 
 	 * @return true if the business objects are deemed equal, false otherwise.
+	 * @since 0.8
 	 */
 	public boolean equalsBusinessObjects(Object o1, Object o2);
 }

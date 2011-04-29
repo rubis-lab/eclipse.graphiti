@@ -76,6 +76,7 @@ public interface ILook {
 	 * Gets the field error foreground color.
 	 * 
 	 * @return the field error foreground color
+	 * @since 0.8
 	 */
 	IColorConstant getFieldErrorForegroundColor();
 }

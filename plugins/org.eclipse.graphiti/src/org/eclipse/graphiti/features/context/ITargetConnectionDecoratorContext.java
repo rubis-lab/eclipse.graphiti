@@ -22,14 +22,15 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
+ * @since 0.8
  */
 public interface ITargetConnectionDecoratorContext extends IContext {
 
 	/**
 	 * Gets the target connection decorator.
 	 * 
-	 * @return the target connection decorator where the new pictogram element (currently
-	 *         this has to be a shape) has to be inserted
+	 * @return the target connection decorator where the new pictogram element
+	 *         (currently this has to be a shape) has to be inserted
 	 */
 	ConnectionDecorator getTargetConnectionDecorator();
 

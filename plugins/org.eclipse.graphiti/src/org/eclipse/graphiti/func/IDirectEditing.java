@@ -198,6 +198,7 @@ public interface IDirectEditing {
 	 * 
 	 * @return the special implementation to support Objects in code completion
 	 *         and combo box
+	 * @since 0.8
 	 */
 	IProposalSupport getProposalSupport();
 }

@@ -144,7 +144,7 @@ public interface IPeCreateService {
 	 * @param snap
 	 *            TRUE enables snap to grid
 	 * @return the new diagram
-	 * @since 0.8.0
+	 * @since 0.8
 	 */
 	Diagram createDiagram(String diagramTypeId, String diagramName, int horizontalGridUnit, int verticalGridUnit, boolean snap);
 
@@ -172,6 +172,7 @@ public interface IPeCreateService {
 	 * @param diagram
 	 *            the diagram
 	 * @return the new free form connection
+	 * @since 0.8
 	 */
 	ManhattanConnection createManhattanConnection(Diagram diagram);
 
