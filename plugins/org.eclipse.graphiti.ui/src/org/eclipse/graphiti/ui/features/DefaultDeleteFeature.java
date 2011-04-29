@@ -194,6 +194,7 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 	 * @param context
 	 *            the delete context
 	 * @return the delete name
+	 * @since 0.8
 	 */
 	protected String getDeleteName(IDeleteContext context) {
 		return null;
