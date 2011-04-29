@@ -263,16 +263,25 @@ p.BalloonText, li.BalloonText, div.BalloonText
 	margin-bottom:.0001pt;
 	font-size:12.0pt;
 	font-family:"Times New Roman","serif";}
+p.comment, li.comment, div.comment
+	{mso-style-name:comment;
+	margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 span.code1
 	{mso-style-name:code1;
 	font-style:italic;}
 .MsoChpDefault
 	{font-size:10.0pt;}
-@page Section1
+@page WordSection1
 	{size:595.45pt 841.7pt;
 	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
-div.Section1
-	{page:Section1;}
+div.WordSection1
+	{page:WordSection1;}
 -->
 </style>
 
@@ -280,7 +289,7 @@ div.Section1
 
 <body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
 
-<div class=Section1>
+<div class=WordSection1>
 
 <h1><span lang=EN-GB>Providing Layout Functionality</span></h1>
 
@@ -292,8 +301,8 @@ lang=EN-GB>&nbsp;</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-GB>If you already enlarged a EClass in the
-diagram, you may have observed that the shapes inside the rectangle kept their
-size (EClass name is not longer in the centre and the line separator is too short).
+diagram, you may have observed that the shapes inside the rectangle kept their size
+(EClass name is not longer in the centre and the line separator is too short).
 Graphiti<span style='color:black'> provides the concept of layout features,
 which mainly supports the recalculation of positions and sizes inside the
 pictogram model. </span></span></p>
@@ -342,10 +351,10 @@ complete implementation of the move feature here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
@@ -359,11 +368,10 @@ complete implementation of the move feature here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  TutorialLayoutEClassFeature </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>extends</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  AbstractLayoutFeature {</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> TutorialLayoutEClassFeature
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#7F0055'>extends</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'> AbstractLayoutFeature {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
@@ -536,15 +544,13 @@ complete implementation of the move feature here:</span></p>
   containerGa.getWidth();</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Iterator&lt;Shape&gt; iter = containerShape.getChildren().iterator();</span></p>
+  </span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>while</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (iter.hasNext()) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Shape shape = (Shape) iter.next();</span></p>
+  color:#7F0055'>for </span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New"'>(Shape shape : containerShape.getChildren())</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>{</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();</span><span
@@ -637,9 +643,9 @@ complete implementation of the move feature here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
-feature provider has to deliver our newly created feature (overwrite the method
-</span><span class=code1><span lang=EN-US style='color:black;font-style:normal'><a
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the feature
+provider has to deliver our newly created feature (overwrite the method </span><span
+class=code1><span lang=EN-US style='color:black;font-style:normal'><a
 href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getLayoutFeature(org.eclipse.graphiti.features.context.ILayoutContext)">getLayoutFeature</a>)</span></span><i><span
 lang=EN-GB style='color:black'>.</span></i><span lang=EN-GB style='color:black'>
 </span></p>
@@ -649,10 +655,10 @@ be seen here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
@@ -711,8 +717,8 @@ be seen here:</span></p>
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Finally we have to call
 the layout feature at the end of the add method of the </span><span
 class=code1><span lang=EN-US style='color:black'>TutorialAddEClassFeature</span></span><span
-class=code1><span lang=EN-US style='color:black;font-style:normal'>, as shown in
-the following code snippet.</span></span></p>
+class=code1><span lang=EN-US style='color:black;font-style:normal'>, as shown
+in the following code snippet.</span></span></p>
 
 <p class=MsoNormal><span class=code1><span lang=EN-US style='color:black;
 font-style:normal'>This causes that the layout (especially the layout
@@ -720,10 +726,10 @@ restrictions like minimum size) are applied after adding a EClass.</span></span>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
@@ -779,9 +785,9 @@ restrictions like minimum size) are applied after adding a EClass.</span></span>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Now start the editor again
-and test it: Try to resize a EClass. You see that the class name stays in the
-centre and the line separator will be automatically extended.</span></p>
+<p class=MsoNormal><span lang=EN-GB style='color:black'>Now start the editor
+again and test it: Try to resize a EClass. You see that the class name stays in
+the centre and the line separator will be automatically extended.</span></p>
 
 <div class=MsoNormal align=center style='text-align:center'>
 
