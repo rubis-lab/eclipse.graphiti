@@ -59,6 +59,9 @@ public class AddFeatureForPattern extends AbstractAddFeature implements ICustomU
 		return super.canUndo(context);
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public void undo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {
@@ -66,6 +69,9 @@ public class AddFeatureForPattern extends AbstractAddFeature implements ICustomU
 		}
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public boolean canRedo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {
@@ -74,6 +80,9 @@ public class AddFeatureForPattern extends AbstractAddFeature implements ICustomU
 		return true;
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public void redo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {

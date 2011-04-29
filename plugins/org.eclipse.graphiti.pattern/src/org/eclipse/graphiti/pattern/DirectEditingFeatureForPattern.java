@@ -109,6 +109,9 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 		return super.canUndo(context);
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public void undo(IContext context) {
 		if (delegate instanceof ICustomUndoablePattern) {
@@ -116,6 +119,9 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 		}
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public boolean canRedo(IContext context) {
 		if (delegate instanceof ICustomUndoablePattern) {
@@ -124,6 +130,9 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 		return true;
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public void redo(IContext context) {
 		if (delegate instanceof ICustomUndoablePattern) {

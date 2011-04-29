@@ -73,6 +73,9 @@ public class UpdateFeatureForPattern extends AbstractUpdateFeature implements IC
 		return super.canUndo(context);
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public void undo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {
@@ -80,6 +83,9 @@ public class UpdateFeatureForPattern extends AbstractUpdateFeature implements IC
 		}
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public boolean canRedo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {
@@ -88,6 +94,9 @@ public class UpdateFeatureForPattern extends AbstractUpdateFeature implements IC
 		return true;
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public void redo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {

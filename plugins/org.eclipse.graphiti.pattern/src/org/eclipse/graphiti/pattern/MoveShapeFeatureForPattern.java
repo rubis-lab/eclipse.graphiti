@@ -59,6 +59,9 @@ public class MoveShapeFeatureForPattern extends AbstractMoveShapeFeature impleme
 		return super.canUndo(context);
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public void undo(IContext context) {
 		IPattern pattern = delegate.getPattern();
@@ -67,6 +70,9 @@ public class MoveShapeFeatureForPattern extends AbstractMoveShapeFeature impleme
 		}
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public boolean canRedo(IContext context) {
 		IPattern pattern = delegate.getPattern();
@@ -76,6 +82,9 @@ public class MoveShapeFeatureForPattern extends AbstractMoveShapeFeature impleme
 		return true;
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public void redo(IContext context) {
 		IPattern pattern = delegate.getPattern();

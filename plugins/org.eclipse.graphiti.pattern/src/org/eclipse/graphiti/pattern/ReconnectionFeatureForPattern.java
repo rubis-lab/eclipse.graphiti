@@ -89,6 +89,9 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 		return super.canUndo(context);
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public void undo(IContext context) {
 		if (deletegate instanceof ICustomUndoablePattern) {
@@ -96,6 +99,9 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 		}
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public boolean canRedo(IContext context) {
 		if (deletegate instanceof ICustomUndoablePattern) {
@@ -104,6 +110,9 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 		return true;
 	}
 
+	/**
+	 * @since 0.8
+	 */
 	@Override
 	public void redo(IContext context) {
 		if (deletegate instanceof ICustomUndoablePattern) {
