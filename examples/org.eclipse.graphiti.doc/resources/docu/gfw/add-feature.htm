@@ -205,16 +205,25 @@ p.msochpdefault, li.msochpdefault, div.msochpdefault
 	margin-left:0cm;
 	font-size:10.0pt;
 	font-family:"Times New Roman","serif";}
+p.comment, li.comment, div.comment
+	{mso-style-name:comment;
+	margin-top:5.65pt;
+	margin-right:0cm;
+	margin-bottom:5.65pt;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
 span.code1
 	{mso-style-name:code1;
 	font-style:italic;}
 .MsoChpDefault
 	{font-size:10.0pt;}
-@page Section1
+@page WordSection1
 	{size:595.45pt 841.7pt;
 	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
-div.Section1
-	{page:Section1;}
+div.WordSection1
+	{page:WordSection1;}
 -->
 </style>
 
@@ -222,7 +231,7 @@ div.Section1
 
 <body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
 
-<div class=Section1>
+<div class=WordSection1>
 
 <h1><a name="_Toc179099517"><span lang=EN-GB>Providing Add Functionality</span></a></h1>
 
@@ -233,9 +242,9 @@ div.Section1
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>In the terms of&nbsp;
-Graphiti “add” means to add a graphical representation of an existing domain
-model object (= business object) to the diagram. What kinds of business objects
-can be added to a diagram of a specific type is decided by the add features
+Graphiti “add” means to add a graphical representation of an existing domain model
+object (= business object) to the diagram. What kinds of business objects can
+be added to a diagram of a specific type is decided by the add features
 delivered by the feature provider.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>For our example the
@@ -264,10 +273,10 @@ the graphical representation of exactly one EClass. A container shape
 aggregates two child shapes (a container shape itself can be aggregated in
 another container shape or in a diagram). All three shapes themselves aggregate
 specific graphics algorithms, providing the complete information to allow the
-rendering on a screen. Examples for this information are background color,
-foreground color, size, position, visibility and line width. In our example we
-have a rounded rectangle providing an additional corner radius, a polyline
-having defined end- and bendpoints and a text label containing a text value.</span></p>
+rendering on a screen. Examples for this information are background color, foreground
+color, size, position, visibility and line width. In our example we have a
+rounded rectangle providing an additional corner radius, a polyline having
+defined end- and bendpoints and a text label containing a text value.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
@@ -326,8 +335,8 @@ href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#add(org.eclipse.graph
 style='font-style:normal'>add</span></a></span></span><span lang=EN-US
 style='color:black'> </span><span lang=EN-GB style='color:black'>finally has to
 create the pictogram structure described above and has to establish the linkage
-to the business object. Additionally we have to create graphics algorithms and
-place them at the appropriate location (get location from given context).
+to the business object. Additionally we have to create graphics algorithms and place
+them at the appropriate location (get location from given context).
 Additionally, the name of the EClass has to be set as the text label’s value. </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
@@ -337,17 +346,16 @@ complete implementation of the add feature here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
   <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  org.eclipse.graphiti.examples.tutorial.features;</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> org.eclipse.graphiti.examples.tutorial.features;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
@@ -357,8 +365,8 @@ complete implementation of the add feature here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
   TutorialAddEClassFeature </span><b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:#7F0055'>extends</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> AbstractAddShapeFeature
-  {</span></p>
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  AbstractAddShapeFeature {</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
@@ -388,10 +396,10 @@ complete implementation of the add feature here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  IColorConstant </span><i><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#0000C0'>CLASS_FOREGROUND</span></i><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> =</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> IColorConstant
+  </span><i><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#0000C0'>CLASS_FOREGROUND</span></i><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:black'> =</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
@@ -673,8 +681,8 @@ complete implementation of the add feature here:</span></p>
   color:#3F7F5F'>// create and set text graphics algorithm</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Text text = </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService<span
-  style='color:black'>.<i>createDefaultText</i>(shape, addedClass.getName());</span></span></p>
+  Text text = gaService.createDefaultText(getDiagram(), shape,<br>
+                          addedClass.getName());</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   text.setForeground(manageColor(</span><i><span lang=EN-US style='font-size:
@@ -742,10 +750,10 @@ be seen here: </span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
@@ -777,9 +785,10 @@ be seen here: </span></p>
   color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
   font-family:"Courier New";color:black'> </span><b><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> TutorialAddEClassFeature(</span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
+  TutorialAddEClassFeature(</span><b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:#7F0055'>this</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   }</span></p>
@@ -830,8 +839,8 @@ src="visio/predefined-eclass.png"></p>
 lang=EN-US>Figure: Add PredefinedEClass to the editor</span></a></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>Without any further
-implementations it should be possible to move the EClass shapes around, resize them,
-remove them (context menu) and even delete them.</span></p>
+implementations it should be possible to move the EClass shapes around, resize
+them, remove them (context menu) and even delete them.</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
