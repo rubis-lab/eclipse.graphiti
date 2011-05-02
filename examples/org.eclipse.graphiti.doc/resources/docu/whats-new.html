@@ -18,6 +18,84 @@ release train.</p>
 	<tr>
 		<td colspan="2">
 		<hr style="color: grey; height: 5px" />
+		<h2><b>M7</b></h2>
+		<hr />
+		</td>
+	</tr>
+	<tr id="bug 324859">
+		<td width="30%" valign="top" align="left"><b>Undo/Redo
+		support for Non-EMF domain models</b></td>
+		<td width="70%" valign="top">It is now possible to provide
+		undo/redo functionality for operations onnon-EMF domain models. In
+		order to implement this, users of the Graphiti framework can implement
+		the new interface <i>ICustomUndoableFeature</i> with their features or
+		the new interface <i>ICustomUndoablePattern</i> with their patterns.
+		If they do so, the feature or pattern will be called as soon as an
+		undo or redo is performed for this feature. For details on this new
+		possibility see <a
+			href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=324859">Bugzilla
+		324859</a>.</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<hr />
+		</td>
+	</tr>
+	<tr id="bug 324058">
+		<td width="30%" valign="top" align="left"><b>User selection
+		context in IDirectEditing APIs</b></td>
+		<td width="70%" valign="top">So far the direct editing
+		functionality in Graphiti was purely String-based. Entries in the drop
+		down or for code completion could only be indentified by the String
+		they were also represented in the UI to the user. Now it is possible
+		to define and provide a proposal support class based on the new
+		interface <i>IProposalSupport</i> based on additional information, e.g
+		placed in the direct editing context. This can serve e.g. tool
+		builders having to deal with different objects that have the name,
+		like classes with the same name residing in different packages. For
+		details on this new possibility see <a
+			href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=324058">Bugzilla
+		324058</a>.</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<hr />
+		</td>
+	</tr>
+	<tr id="bug 340708">
+		<td width="30%" valign="top" align="left"><b>Double click for
+		connections</b></td>
+		<td width="70%" valign="top">It is now possible to register A
+		feature that will be executed on double click on a connection. This
+		was so far only possible for shapes.</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<hr />
+		</td>
+	</tr>
+	<tr id="bugfixing and round-offs">
+		<td width="30%" valign="top" align="left"><b>Round-offs and
+		bugfixes</b></td>
+		<td width="70%" valign="top">Several smaller round-offs have been
+		implemented:
+		<ul>
+			<li>Visualization during direct editing now completely fulfills
+			the usability specification.</li>
+			<li>Opening a user-contributed editor within <i>AbstractDrillDownFeature</i>
+			has been made easier by providing a protected method to open and a
+			specific editor for a given diagram.</li>
+			<li>The framework is now prepared for users to deal with EMF
+			objects that are equal in the sense of <i>EMFUtil.equals</i> but are
+			not identical. For details on this new possibility see <a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=335828">Bugzilla
+			335828</a>.</li>
+		</ul>
+		Besides several bugs within the framework have been fixed.</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<hr style="color: grey; height: 5px" />
 		<h2><b>M6</b></h2>
 		<hr />
 		</td>
@@ -74,8 +152,9 @@ release train.</p>
 	<tr id="bug 336075">
 		<td width="30%" valign="top" align="left"><b>URIEditorInput</b></td>
 		<td width="70%" valign="top">The Graphiti DiagramEditor now
-		accepts <i>URIEditorInput</i> objects. They can be created outside the editor
-		and the editor will care about opening the corresponding diagram.</td>
+		accepts <i>URIEditorInput</i> objects. They can be created outside the
+		editor and the editor will care about opening the corresponding
+		diagram.</td>
 	</tr>
 	<tr>
 		<td colspan="2">
