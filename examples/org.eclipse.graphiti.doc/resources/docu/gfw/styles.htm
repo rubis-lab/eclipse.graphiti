@@ -280,11 +280,11 @@ span.code0
 	font-style:italic;}
 .MsoChpDefault
 	{font-size:10.0pt;}
-@page Section1
+@page WordSection1
 	{size:595.45pt 841.7pt;
 	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
-div.Section1
-	{page:Section1;}
+div.WordSection1
+	{page:WordSection1;}
  /* List Definitions */
  ol
 	{margin-bottom:0cm;}
@@ -297,7 +297,7 @@ ul
 
 <body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
 
-<div class=Section1>
+<div class=WordSection1>
 
 <h1><span lang=EN-GB>Using Styles</span></h1>
 
@@ -308,10 +308,10 @@ possibility to freely change the graphical attributes to paint each shape
 (color, line-width, &#8230;). &nbsp;But more often all shapes of the same kind
 shall be painted in the same way.</span></p>
 
-<p class=MsoNormal>For example in a Ecore editor it makes
+<p class=MsoNormal><span lang=EN-US>For example in a Ecore editor it makes
 sense, that all EClasses look identical. The user might still have the
 possibility to change the color of a EClass, but then the color of all other
-EClasses should be changed, too</p>
+EClasses should be changed, too</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -388,10 +388,10 @@ complete implementation of the style utility class here:</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='color:black'>&nbsp;</span></p>
@@ -466,6 +466,18 @@ complete implementation of the style utility class here:</span></p>
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>ColorConstant(255,
   204, 153);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp;
+  private</span></b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:black'> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
+  "Courier New";color:#7F0055'>static</span></b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'> String </span><i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>DEFAULT_FONT</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> = </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Arial&quot;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;</span><span
@@ -487,23 +499,22 @@ complete implementation of the style utility class here:</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   Style style = findStyle(diagram, styleId);</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US>&nbsp;</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>if</span></b><span lang=EN-US> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>(style
-  ==</span><span lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>) {</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// style not found - create new style</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>IGaService</span><span
+  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;<span
+  style='color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>IGaService</span><span
   lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>gaService
   = Graphiti.getGaService();</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US>&nbsp;</span><b><span lang=EN-US style='font-size:
+  10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>(style ==</span><span lang=EN-US> </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>) {</span><span
+  lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#3F7F5F'>// style not found - create new style</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   style =</span><span lang=EN-US> </span><span lang=EN-US style='font-size:
@@ -532,7 +543,7 @@ complete implementation of the style utility class here:</span></p>
   style.setLineWidth(2);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
+  &nbsp;}</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
   lang=EN-US> </span><b><span lang=EN-US style='font-size:10.0pt;font-family:
@@ -588,7 +599,7 @@ complete implementation of the style utility class here:</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   style =</span><span lang=EN-US> </span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.createStyle(diagram,
+  10.0pt;font-family:"Courier New"'>gaService<span style='color:black'>.createStyle(<i>getStyleForEClass</i>(diagram),
   styleId);</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
@@ -602,6 +613,15 @@ complete implementation of the style utility class here:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
   lang=EN-US> </span><i><span lang=EN-US style='font-size:10.0pt;font-family:
   "Courier New";color:#0000C0'>E_CLASS_TEXT_FOREGROUND</span></i><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>));</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  style.setFont(gaService.manageFont(diagram, <i>DEFAULT_FONT</i>, 8,<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:#C00000'>false</span></b><span lang=EN-US style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>, </span><b><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#C00000'>true</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>));</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -703,10 +723,10 @@ style='color:black'>:</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='color:black'>&nbsp;</span></p>
@@ -864,8 +884,7 @@ style='color:black'>:</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   Text text =</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>
-  gaService<span style='color:black'>.createDefaultText(shape,
-  addedClass.getName());</span></span></p>
+  gaService<span style='color:black'>.createText(shape, addedClass.getName());</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   text.setStyle(StyleUtil.getStyleForEClassText(getDiagram()));</span></p>
@@ -878,11 +897,6 @@ style='color:black'>:</span></p>
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   text.setVerticalAlignment(Orientation.</span><i><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>ALIGNMENT_CENTER</span></i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;text.getFont().setBold(</span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
@@ -907,8 +921,7 @@ style='color:black'>:</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
-  style='color:#3F7F5F'>// after object creation (must be activated
-  additionally)</span></span></p>
+  style='color:#3F7F5F'>// after object creation (must be activated additionally)</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   IDirectEditingInfo directEditingInfo =</span></p>
@@ -941,21 +954,31 @@ style='color:black'>:</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
+  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; </span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
+  add a <u>chopbox</u> anchor to the shape</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
   lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <span
   style='color:#3F7F5F'>// ... EXISTING CODING ...</span></span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-  style='font-size:10.0pt;font-family:"Courier New"'> <b><span
+  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
+  color:black'>rectangle.setStyle(StyleUtil.getStyleForEClass(getDiagram()));</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  // ... EXISTING CODING ...</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
+  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> <b><span
   style='color:#7F0055'>return</span></b> <span style='color:black'>containerShape;</span></span></p>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
+  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
   color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
-  <p class=MsoNormal>&nbsp;</p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
 </table>
@@ -974,10 +997,10 @@ be seen here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
@@ -1160,7 +1183,8 @@ be seen here:</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
   lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// so theoretically it would be possible that canExecute() always</span></p>
+  color:#3F7F5F'>// so theoretically it would be possible that canExecute()
+  always</span></p>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
   style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
   lang=EN-US> </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
@@ -1327,10 +1351,10 @@ be seen here:</span></p>
 
 <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
  style='width:18.0cm;border-collapse:collapse'>
  <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
+  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
   style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>&nbsp;</span></p>
