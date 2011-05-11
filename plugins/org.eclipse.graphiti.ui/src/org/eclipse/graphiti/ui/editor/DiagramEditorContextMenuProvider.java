@@ -103,7 +103,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 * 
 	 * @param manager
 	 *            the manager
-	 * @see org.eclipse.gef.ContextMenuProvider#buildContextMenu(IMenuManager)
+	 * @see ContextMenuProvider#buildContextMenu(IMenuManager)
 	 */
 	@Override
 	public void buildContextMenu(IMenuManager manager) {

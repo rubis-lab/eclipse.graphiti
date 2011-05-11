@@ -55,9 +55,10 @@ import org.eclipse.ui.actions.RetargetAction;
 public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 	/**
-	 * Creates and initialises all Actions.
+	 * Creates and initialises all Actions. See the corresponding method in the
+	 * super class.
 	 * 
-	 * @see org.eclipse.gef.ui.actions.ActionBarContributor#buildActions()
+	 * @see org.eclipse.gef.ui.actions.ActionBarContributor
 	 */
 	@Override
 	protected void buildActions() {
@@ -103,9 +104,10 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 	/**
 	 * Global action keys are already declared with
-	 * {@link #addRetargetAction(RetargetAction)}.
+	 * {@link #addRetargetAction(RetargetAction)}. See the corresponding method
+	 * in the super class.
 	 * 
-	 * @see org.eclipse.gef.ui.actions.ActionBarContributor#declareGlobalActionKeys()
+	 * @see org.eclipse.gef.ui.actions.ActionBarContributor
 	 */
 	@Override
 	protected void declareGlobalActionKeys() {
@@ -114,12 +116,12 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 	/**
 	 * Adds Actions to the given IToolBarManager, which is displayed above the
-	 * editor.
+	 * editor. See the corresponding method in the super class.
 	 * 
 	 * @param tbm
-	 *            the tbm
+	 *            the {@link IToolBarManager}
 	 * 
-	 * @see org.eclipse.ui.part.EditorActionBarContributor#contributeToToolBar(IToolBarManager)
+	 * @see org.eclipse.ui.part.EditorActionBarContributor
 	 */
 	@Override
 	public void contributeToToolBar(IToolBarManager tbm) {
@@ -153,12 +155,12 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 	/**
 	 * Adds Actions to the given IMenuManager, which is displayed as the
-	 * main-menu of Eclipse.
+	 * main-menu of Eclipse. See the corresponding method in the super class.
 	 * 
 	 * @param menubar
 	 *            the menubar
 	 * 
-	 * @see org.eclipse.ui.part.EditorActionBarContributor#contributeToMenu(IMenuManager)
+	 * @see org.eclipse.ui.part.EditorActionBarContributor
 	 */
 	@Override
 	public void contributeToMenu(IMenuManager menubar) {

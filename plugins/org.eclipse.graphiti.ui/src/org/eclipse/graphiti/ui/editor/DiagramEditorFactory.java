@@ -46,7 +46,6 @@ import org.eclipse.ui.PartInitException;
  * 
  * A factory for creating DiagramEditorInternal objects.
  * 
- * @see {@link DiagramEditorInputBase}
  * @see {@link DiagramEditorFactory}
  * @see {@link DiagramEditorInput}
  */
