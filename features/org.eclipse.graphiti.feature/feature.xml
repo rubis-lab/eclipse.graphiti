@@ -19,7 +19,8 @@
       id="org.eclipse.graphiti.feature"
       label="%featureName"
       version="0.8.0.qualifier"
-      provider-name="%providerName">
+      provider-name="%providerName"
+      plugin="org.eclipse.graphiti.ui">
 
    <description>
       %description
