@@ -35,6 +35,9 @@
 			splitindex="true"
 			windowtitle="Graphiti Documentation">
 			
+			<arg value="-J-Dhttp.proxyHost=proxy.eclipse.org"/>
+			<arg value="-J-Dhttp.proxyPort=9898"/>
+
 			<!-- link external APIs -->   
 			<link href="http://download.oracle.com/javase/6/docs/api/"/>
 			<link href="http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/"/>
