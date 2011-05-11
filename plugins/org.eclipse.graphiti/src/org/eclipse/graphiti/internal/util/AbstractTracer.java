@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 340443 - Fixed AbstractTracer must not implement ILog warning
  *
  * </copyright>
  *
@@ -16,7 +17,6 @@
 package org.eclipse.graphiti.internal.util;
 
 import org.eclipse.core.runtime.ILog;
-import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
@@ -85,30 +85,7 @@ public abstract class AbstractTracer {
 			System.err.println("Logging is disabled because the platform is not running! (This message is OK for Unit test runs)");
 			System.err.println("================================================================================================");
 
-			// Create a log for internal usages within this class (avoid checks for null each time the log is accessed)
-			log = new ILog() {
-
-				@Override
-				public void removeLogListener(ILogListener listener) {
-					// do nothing
-				}
-
-				@Override
-				public void log(IStatus status) {
-					// do nothing
-				}
-
-				@Override
-				public Bundle getBundle() {
-					// do nothing
-					return null;
-				}
-
-				@Override
-				public void addLogListener(ILogListener listener) {
-					// do nothing
-				}
-			};
+			log = null;
 		}
 
 	}
@@ -136,8 +113,10 @@ public abstract class AbstractTracer {
 	 *            Arguments as object references
 	 */
 	public void entering(Class<?> clazz, String signature, Object... args) {
-		log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "': " //$NON-NLS-1$ //$NON-NLS-2$
-				+ createTraceMsg(ENTERING_MSG + signature, args)));
+		if (log != null) {
+			log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "': " //$NON-NLS-1$ //$NON-NLS-2$
+					+ createTraceMsg(ENTERING_MSG + signature, args)));
+		}
 	}
 
 	/**
@@ -149,8 +128,10 @@ public abstract class AbstractTracer {
 	 *            signature of the traced method
 	 */
 	public void exiting(Class<?> clazz, String signature) {
-		log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "':'" //$NON-NLS-1$ //$NON-NLS-2$
-				+ FULL_EXITING_MSG.replaceFirst(SIGNATURE_PATTERN, signature)));
+		if (log != null) {
+			log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "':'" //$NON-NLS-1$ //$NON-NLS-2$
+					+ FULL_EXITING_MSG.replaceFirst(SIGNATURE_PATTERN, signature)));
+		}
 	}
 
 	/**
@@ -168,8 +149,10 @@ public abstract class AbstractTracer {
 		if (result == null) {
 			result = new String("<null>"); //$NON-NLS-1$
 		}
-		log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "':'" //$NON-NLS-1$ //$NON-NLS-2$
-				+ createTraceMsg(EXITING_MSG + signature, new Object[] { result })));
+		if (log != null) {
+			log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + clazz.getName() + "':'" //$NON-NLS-1$ //$NON-NLS-2$
+					+ createTraceMsg(EXITING_MSG + signature, new Object[] { result })));
+		}
 	}
 
 	//	/**
@@ -217,7 +200,7 @@ public abstract class AbstractTracer {
 	//	}
 
 	public void debug(String msg) {
-		if (debug()) {
+		if (debug() && log != null) {
 			log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "DEBUG: " + msg)); //$NON-NLS-1$
 		}
 	}
@@ -247,15 +230,21 @@ public abstract class AbstractTracer {
 	//	}
 
 	public void error(String methodName, String msg) {
-		log.log(new Status(IStatus.ERROR, log.getBundle().getSymbolicName(), "Method '" + methodName + "': " + msg)); //$NON-NLS-1$ //$NON-NLS-2$
+		if (log != null) {
+			log.log(new Status(IStatus.ERROR, log.getBundle().getSymbolicName(), "Method '" + methodName + "': " + msg)); //$NON-NLS-1$ //$NON-NLS-2$
+		}
 	}
 
 	public void error(String msg, Throwable throwable) {
-		log.log(new Status(IStatus.ERROR, log.getBundle().getSymbolicName(), msg, throwable));
+		if (log != null) {
+			log.log(new Status(IStatus.ERROR, log.getBundle().getSymbolicName(), msg, throwable));
+		}
 	}
 
 	public void error(String msg) {
-		log.log(new Status(IStatus.ERROR, log.getBundle().getSymbolicName(), msg));
+		if (log != null) {
+			log.log(new Status(IStatus.ERROR, log.getBundle().getSymbolicName(), msg));
+		}
 	}
 
 	//	public boolean fatal() {
@@ -311,7 +300,7 @@ public abstract class AbstractTracer {
 	//	}
 
 	public void info(String className, String methodName, String msg) {
-		if (info()) {
+		if (info() && log != null) {
 			log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "Class '" + className + "' method '" + methodName + "': " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					+ msg));
 		}
@@ -322,7 +311,7 @@ public abstract class AbstractTracer {
 	//	}
 
 	public void info(String msg) {
-		if (info()) {
+		if (info() && log != null) {
 			log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), msg));
 		}
 	}
@@ -353,7 +342,9 @@ public abstract class AbstractTracer {
 
 	public void log(int level, String msg) {
 		if (((level == IStatus.INFO) && info()) || (level == IStatus.WARNING) || (level == IStatus.ERROR)) {
-			log.log(new Status(level, log.getBundle().getSymbolicName(), msg));
+			if (log != null) {
+				log.log(new Status(level, log.getBundle().getSymbolicName(), msg));
+			}
 		}
 	}
 
@@ -422,8 +413,11 @@ public abstract class AbstractTracer {
 	//	}
 
 	public void warning(String methodName, String msg) {
-		if (info() || debug())
-			log.log(new Status(IStatus.WARNING, log.getBundle().getSymbolicName(), "Method '" + methodName + "': " + msg)); //$NON-NLS-1$ //$NON-NLS-2$
+		if (info() || debug()) {
+			if (log != null) {
+				log.log(new Status(IStatus.WARNING, log.getBundle().getSymbolicName(), "Method '" + methodName + "': " + msg)); //$NON-NLS-1$ //$NON-NLS-2$
+			}
+		}
 	}
 
 	//	public void warning(String msg, Throwable throwable) {
@@ -431,8 +425,11 @@ public abstract class AbstractTracer {
 	//	}
 
 	public void warning(String msg) {
-		if (info() || debug())
-			log.log(new Status(IStatus.WARNING, log.getBundle().getSymbolicName(), msg));
+		if (info() || debug()) {
+			if (log != null) {
+				log.log(new Status(IStatus.WARNING, log.getBundle().getSymbolicName(), msg));
+			}
+		}
 	}
 
 	//	@SuppressWarnings("deprecation")
