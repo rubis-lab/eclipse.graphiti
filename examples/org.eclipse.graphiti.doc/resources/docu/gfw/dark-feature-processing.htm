@@ -161,6 +161,20 @@ editor running.</span></p>
 <p class=MsoNormal><span lang=EN-US>So eventually you have to prepare your
 features to fit that needs.</span></p>
 
+<h1><a name="_Example:"></a><span lang=EN-US>Example</span></h1>
+
+<p class=MsoNormal><span lang=EN-US>An example for dark feature procession can be found
+in the final version of this tutorial plugin as it is contained in the SDK download of
+Graphiti. The <i>AddAllClassesCommand</i> uses this method to add all existing classes
+of the current project to a new diagram. The functionality is triggered from a context
+menu entry on the <i>All Classes</i> node in the project explorer. For the complete
+functionality please also have a look into the class <i>CreateDiagramWithAllClassesHandler</i>
+and the registration of the handler and the command in <i>plugin.xml</i>. Besides an additional
+reference to the plugin <i>org.eclipse.emf.transaction</i> is needed to make the extension
+compile. The coding can be found in the SDK download of Graphiti or in the 
+<a href="http://dev.eclipse.org/viewcvs/viewvc.cgi/org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.examples.tutorial/src/org/eclipse/graphiti/examples/tutorial/handlers/?root=Modeling_Project">Eclipse CVS</a>.
+The two classes can be found in the package <i>org.eclipse.graphiti.examples.tutorial.handlers</i></span></p>
+
 <p class=MsoNormal>&nbsp;</p>
 
 </div>
