@@ -36,7 +36,7 @@ import org.eclipse.graphiti.platform.IPlatformImageConstants;
  * context button entries.
  */
 public class ContextEntryHelper {
-	
+
 	/**
 	 * Creates an default update context button entry.
 	 * 
@@ -113,7 +113,7 @@ public class ContextEntryHelper {
 	 *            the custom feature
 	 * @param customContext
 	 *            the custom context
-	 * @return
+	 * @return the created collapse button
 	 */
 	public static IContextButtonEntry createCollapseContextButton(boolean collapse, IFeature customFeature, IContext customContext) {
 		IContextButtonEntry ret = null;

@@ -80,7 +80,7 @@ public interface IMappingProvider {
 	 * 
 	 * @param pictogramElement
 	 *            The pictogram element which to link to new business objects.
-	 * @param businessObject
+	 * @param businessObjects
 	 *            The business objects to link. Can be null or empty to just
 	 *            delete previous links.
 	 */
@@ -97,13 +97,14 @@ public interface IMappingProvider {
 	boolean hasPictogramElementForBusinessObject(Object businessObject);
 
 	/**
-	 * This method is similar to.
+	 * This method is similar to the method
+	 * getAllPictogramElementsForBusinessObject, but only return the first
+	 * PictogramElement.
 	 * 
 	 * @param businessObject
 	 *            the business object
 	 * @return linked pictogram element
-	 * @see "getPictogramElementsForBusinessObject(Object businessObject)", but
-	 *      only return the first PictogramElement.
+	 * @see #getAllPictogramElementsForBusinessObject(Object)
 	 */
 	PictogramElement getPictogramElementForBusinessObject(Object businessObject);
 

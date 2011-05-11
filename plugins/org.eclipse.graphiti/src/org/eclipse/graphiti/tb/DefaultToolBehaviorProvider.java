@@ -66,21 +66,21 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 
 	/**
 	 * Identifier for a generic context button, used in
-	 * {@link #addGenericContextButtons(IContextButtonPadData, PictogramElement)}
+	 * {@link DefaultToolBehaviorProvider#setGenericContextButtons(IContextButtonPadData, PictogramElement, int)}
 	 * .
 	 */
 	protected static int CONTEXT_BUTTON_UPDATE = 1 << 1;
 
 	/**
 	 * Identifier for a generic context button, used in
-	 * {@link #addGenericContextButtons(IContextButtonPadData, PictogramElement)}
+	 * {@link DefaultToolBehaviorProvider#setGenericContextButtons(IContextButtonPadData, PictogramElement, int)}
 	 * .
 	 */
 	protected static int CONTEXT_BUTTON_REMOVE = 1 << 2;
 
 	/**
 	 * Identifier for a generic context button, used in
-	 * {@link #addGenericContextButtons(IContextButtonPadData, PictogramElement)}
+	 * {@link DefaultToolBehaviorProvider#setGenericContextButtons(IContextButtonPadData, PictogramElement, int)}
 	 * .
 	 */
 	protected static int CONTEXT_BUTTON_DELETE = 1 << 3;

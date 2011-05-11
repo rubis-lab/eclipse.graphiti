@@ -393,10 +393,10 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	public IFeature[] getDragAndDropFeatures(IPictogramElementContext context) {
 		return new IFeature[0];
 	}
-	
-	private class StringTransformer{
+
+	private class StringTransformer {
 		private final static String marker = "__independentN"; //$NON-NLS-1$
-		
+
 		String[] decode(String value) {
 			if (!value.startsWith(marker)) {
 				return new String[] { value };
@@ -455,7 +455,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	private String[] getValues(String value) {
 		if (value.isEmpty()) {
 			return new String[0];
-		}else {
+		} else {
 			return st.decode(value);
 		}
 	}
@@ -542,13 +542,12 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	}
 
 	/**
-	 * This method is similar to.
+	 * Provides the first pictogram element which represents the given business
+	 * object.
 	 * 
 	 * @param businessObject
 	 *            the business object
 	 * @return the pictogram element for business object
-	 * @see "getPictogramElementsForBusinessObject()", but only return the first
-	 *      PictogramElement.
 	 */
 	@Override
 	public PictogramElement getPictogramElementForBusinessObject(Object businessObject) {

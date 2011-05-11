@@ -25,7 +25,7 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
  * Graphiti model. If a user of Graphiti needs to display custom draw 2d figures
  * these figures need to implement this interface.
  * 
- * @see IGraphicsAlgorithmRendererFactory,
+ * @see IGraphicsAlgorithmRendererFactory
  * @see IDiagramTypeProvider#getGraphicsAlgorithmRendererFactory
  */
 public interface IGraphicsAlgorithmRenderer {

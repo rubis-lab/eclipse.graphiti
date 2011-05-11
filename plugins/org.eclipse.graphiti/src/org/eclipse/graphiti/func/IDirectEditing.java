@@ -16,6 +16,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.func;
 
+import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 
 /**
@@ -80,7 +81,7 @@ public interface IDirectEditing {
 	 * @param context
 	 *            the context
 	 * @return This method is equivalent to
-	 * @see IDirecEditingFeature.canExecute()
+	 * @see IDirectEditingFeature#canExecute(org.eclipse.graphiti.features.context.IContext)
 	 */
 	public boolean canDirectEdit(IDirectEditingContext context);
 

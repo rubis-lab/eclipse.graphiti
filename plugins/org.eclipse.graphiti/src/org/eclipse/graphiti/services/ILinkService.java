@@ -48,8 +48,8 @@ public interface ILinkService {
 	/**
 	 * Returns the first of possibly several business objects which are linked
 	 * to the given pictogram element. This is a convenience method for
-	 * {@link #getAllBusinessObjectsForPictogramElement(PictogramElement)},
-	 * because in many use cases only a single business object is linked.
+	 * {@link #getAllBusinessObjectsForLinkedPictogramElement(PictogramElement)}
+	 * , because in many use cases only a single business object is linked.
 	 * 
 	 * @param pictogramElement
 	 *            The pictogram element for which to return the business

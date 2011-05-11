@@ -15,6 +15,9 @@
  *******************************************************************************/
 package org.eclipse.graphiti.features.context;
 
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+
 /**
  * The Interface IAddContext.
  * 
@@ -22,8 +25,8 @@ package org.eclipse.graphiti.features.context;
  * pictogram element, which has to be linked to any domain model element, to a
  * container shape.
  * 
- * @see org.eclipse.graphiti.mm.pictograms.PictogramElement,
- *      org.eclipse.graphiti.mm.pictograms.ContainerShape
+ * @see PictogramElement
+ * @see ContainerShape
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
  */

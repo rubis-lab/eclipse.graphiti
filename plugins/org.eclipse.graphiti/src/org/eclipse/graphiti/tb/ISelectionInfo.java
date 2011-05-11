@@ -50,8 +50,7 @@ public interface ISelectionInfo {
 	/**
 	 * Gets the hover color.
 	 * 
-	 * @param color
-	 *            the on hover color
+	 * @return the on hover color
 	 */
 	IColorConstant getHoverColor();
 

@@ -36,8 +36,8 @@ import org.eclipse.graphiti.services.Graphiti;
  */
 public class DefaultMoveAnchorFeature extends AbstractFeature implements IMoveAnchorFeature {
 
-/**
-	 * Creates a new {@link DefaultMoveAnchorFeature.
+	/**
+	 * Creates a new {@link DefaultMoveAnchorFeature}.
 	 * 
 	 * @param fp
 	 *            the feature provider
