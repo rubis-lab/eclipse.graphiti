@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 345442 - Fixed NPE in RenameActionProvider.fillContextMenu (EClasses were proxies right after loading)
  *
  * </copyright>
  *
@@ -17,7 +18,7 @@ package org.eclipse.graphiti.examples.common.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +34,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
@@ -89,15 +89,18 @@ public class Util {
 	}
 
 	public static EClass[] getAllClasses(IProject project, ResourceSet rSet) {
-		// FIXME: always unload to have our resources refreshed, this is highly non-performant
+		// TODO: always unload to have our resources refreshed, this is highly non-performant
 		EList<Resource> resources = rSet.getResources();
 		for (Resource resource : resources) {
 			resource.unload();
 		}
+		rSet.getResources().retainAll(Collections.EMPTY_LIST);
+
+		Set<EClass> eClasses = new HashSet<EClass>();
+
+		// Check all resources in the src folder
 		IFolder folder = project.getFolder("src"); //$NON-NLS-1$
 		IFolder folderDiagrams = project.getFolder("src/diagrams"); //$NON-NLS-1$
-		Collection<Diagram> diagrams = new ArrayList<Diagram>();
-		Set<EClass> eClasses = new HashSet<EClass>();
 		if (folder.exists()) {
 			List<IResource> membersList = new ArrayList<IResource>();
 			try {
@@ -109,53 +112,30 @@ public class Util {
 			for (IResource resource : membersList) {
 				if (resource instanceof IFile) {
 					IFile file = (IFile) resource;
+
+					// Only check files with extension "diagram" or the file with the predefined data
 					if ("diagram".equals(file.getFileExtension()) || file.getName().equals("Predefined.data")) { //$NON-NLS-1$ //$NON-NLS-2$
-						// The following call extracts the diagram from the
-						// given file. For the Tutorial diagrams always reside
-						// in a file of their own and are the first root object.
-						// This may of course be different in a concrete tool
-						// implementation, so tool builders should use their own
-						// way of retrieval here
+
+						// The following call tries to retrieve a URI from
+						// any of the found files to check if there are any
+						// EClasses inside this file. Concrete tools should
+						// use their own logic to browse through their files
+						// (e.g. known by a special extension or residing in
+						// a special folder) instead of this generic logic.
 						@SuppressWarnings("restriction")
-						Diagram diag = org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal.getEmfService().getDiagramFromFile(
-								file, rSet);
-						if (diag != null) {
-							diagrams.add(diag);
-						} else {
-							// The following call tries to retrieve a URI from
-							// any of the found files to check if there are any
-							// EClasses inside this file. Concrete tools should
-							// use their own logic to browse through their files
-							// (e.g. known by a special extension or residing in
-							// a special folder) instead of this generic logic.
-							@SuppressWarnings("restriction")
-							URI uri = org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal.getEmfService().getFileURI(file, rSet);
-							Resource fileResource = rSet.getResource(uri, true);
-							if (fileResource != null) {
-								EList<EObject> contents = fileResource.getContents();
-								for (EObject object : contents) {
-									if (object instanceof EClass && !(object instanceof PictogramElement)) {
-										eClasses.add((EClass) object);
-									}
+						URI uri = org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal.getEmfService().getFileURI(file, rSet);
+						Resource fileResource = rSet.getResource(uri, true);
+						if (fileResource != null) {
+							EList<EObject> contents = fileResource.getContents();
+							for (EObject object : contents) {
+								if (object instanceof EClass && !(object instanceof PictogramElement)) {
+									eClasses.add((EClass) object);
 								}
 							}
 						}
 					}
 				}
 			}
-		}
-		for (Diagram diagram : diagrams) {
-			Resource resource = diagram.eResource();
-			if (resource == null)
-				continue;
-			EList<EObject> contents = resource.getContents();
-			for (EObject object : contents) {
-				if (object instanceof EClass && !(object instanceof PictogramElement)) {
-					eClasses.add((EClass) object);
-				}
-			}
-			resource.unload();
-			rSet.getResources().remove(resource);
 		}
 		return eClasses.toArray(new EClass[eClasses.size()]);
 	}
