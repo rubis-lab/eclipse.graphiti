@@ -15,6 +15,7 @@
  *    mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *    jpasch - Bug 323025 ActionBarContributor cleanup
+ *    mwenz - Bug 345347 - There should be a way to not allow other plugins to contribute to the diagram context menu 
  *
  * </copyright>
  *
@@ -71,10 +72,10 @@ import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.DefaultPaletteViewerPreferences;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
+import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
-import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
@@ -391,6 +392,23 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 */
 	protected ContextMenuProvider createContextMenuProvider() {
 		return new DiagramEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry(), getConfigurationProvider());
+	}
+
+	/**
+	 * Allows subclasses to prevent that the diagram context menu should be
+	 * registered for extensions at Eclipse. By default others can provide
+	 * extensions to the menu (default return value of this method is
+	 * <code>true</code>). By returning <code>false</code> any extension of the
+	 * context menu can be prevented.
+	 * <p>
+	 * For details see Bugzilla 345347
+	 * (https://bugs.eclipse.org/bugs/show_bug.cgi?id=345347).
+	 * 
+	 * @return <code>true</code> in case extensions shall be allowed (default),
+	 *         <code>false</code> otherwise.
+	 */
+	protected boolean shouldRegisterContextMenu() {
+		return true;
 	}
 
 	/**
@@ -1101,7 +1119,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		action = new PasteAction(this, getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
-		
+
 		IFeatureProvider fp = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
 		if (fp != null) {
 			ISaveImageFeature sf = fp.getSaveImageFeature();
@@ -1113,7 +1131,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 				selectionActions.add(action.getId());
 			}
 		}
-		
+
 		registerAction(new ZoomInAction(zoomManager));
 		registerAction(new ZoomOutAction(zoomManager));
 		registerAction(new DirectEditAction((IWorkbenchPart) this));
@@ -1161,7 +1179,9 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			getGraphicalViewer().setContextMenu(contextMenuProvider);
 			// the registration allows an extension of the context-menu by other
 			// plugins
-			getSite().registerContextMenu(contextMenuProvider, getGraphicalViewer());
+			if (shouldRegisterContextMenu()) {
+				getSite().registerContextMenu(contextMenuProvider, getGraphicalViewer());
+			}
 		}
 
 		// set contents
