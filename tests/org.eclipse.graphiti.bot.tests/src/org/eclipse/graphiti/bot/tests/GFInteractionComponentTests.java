@@ -460,25 +460,25 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						continue;
 
 					Rectangle rectangle = new Rectangle(xOfShape1, yOfShape1, width, height);
-					ICreateContext createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 							createContext, rectangle);
 					commandStack.execute(createCommand);
 
 					rectangle = new Rectangle(xOfShape2, yOfShape2, width, height);
-					createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+					createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature, createContext,
 							rectangle);
 					commandStack.execute(createCommand);
 
 					rectangle = new Rectangle(xOfShape3, yOfShape3, width, height);
-					createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+					createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature, createContext,
 							rectangle);
 					commandStack.execute(createCommand);
 
 					rectangle = new Rectangle(xOfShape4, yOfShape4, width, height);
-					createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+					createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature, createContext,
 							rectangle);
 					commandStack.execute(createCommand);
@@ -549,7 +549,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						continue;
 
 					Rectangle rectangle = new Rectangle(x, y, 100, 100);
-					ICreateContext createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 							createContext, rectangle);
 					commandStack.execute(createCommand);
@@ -603,7 +603,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				for (ICreateFeature createFeature : createFeatures) {
 					if (SketchFeatureProvider.CF_RECTANGLE_SINGLE_TEXT.equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(x, y, 100, 100);
-						ICreateContext createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 								createContext, rectangle);
 						commandStack.execute(createCommand);
@@ -662,13 +662,13 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				for (ICreateFeature createFeature : createFeatures) {
 					if ("Rectangle".equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(x, y, 100, 100);
-						ICreateContext createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 								createContext, rectangle);
 						commandStack.execute(createCommand);
 					} else if ("Rectangle Container".equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(x + 300, y - 50, 200, 200);
-						ICreateContext createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 								createContext, rectangle);
 						commandStack.execute(createCommand);
@@ -716,31 +716,31 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					if ("Rectangle".equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(xContainer1 + containerSize, yContainer1 + containerSize, rectangleSize,
 								rectangleSize);
-						ICreateContext createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 								createContext, rectangle);
 						commandStack.execute(createCommand);
 
 						rectangle = new Rectangle(xContainer2 + containerSize, yContainer2 + containerSize, rectangleSize, rectangleSize);
-						createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+						createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 								createContext, rectangle);
 						commandStack.execute(createCommand);
 					} else if ("Rectangle Container".equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(xContainer1, yContainer1, containerSize, containerSize);
-						ICreateContext createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 								createContext, rectangle);
 						commandStack.execute(createCommand);
 
 						rectangle = new Rectangle(xContainer2, yContainer2, containerSize, containerSize);
-						createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+						createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 								createContext, rectangle);
 						commandStack.execute(createCommand);
 
 						rectangle = new Rectangle(xContainer3, yContainer3, containerSize, containerSize);
-						createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+						createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 								createContext, rectangle);
 						commandStack.execute(createCommand);
@@ -815,12 +815,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				for (ICreateFeature createFeature : createFeatures) {
 					if ("Rectangle".equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(x, y, 100, 100);
-						ICreateContext createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 								createContext, rectangle);
 						commandStack.execute(createCommand);
 						rectangle = new Rectangle(x + 200, y, 100, 100);
-						createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+						createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 								createContext, rectangle);
 						commandStack.execute(createCommand);
@@ -1013,7 +1013,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	// if ("Rectangle".equals(createFeature.getName())) {
 	// Rectangle rectangle = new Rectangle(x, y, 100, 100);
 	// ICreateContext createContext =
-	// ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+	// createCreateContext(dtp.getDiagram(), rectangle);
 	// Command createCommand = new
 	// CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
 	// createFeature,
@@ -1022,7 +1022,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	// } else if ("Rectangle Container".equals(createFeature.getName())) {
 	// Rectangle rectangle = new Rectangle(x + 300, y - 50, 200, 200);
 	// ICreateContext createContext =
-	// ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+	// createCreateContext(dtp.getDiagram(), rectangle);
 	// Command createCommand = new
 	// CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
 	// createFeature,

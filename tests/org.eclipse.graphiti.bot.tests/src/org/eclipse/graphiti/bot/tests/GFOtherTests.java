@@ -103,7 +103,6 @@ import org.eclipse.graphiti.ui.internal.ResourceRegistry;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
-import org.eclipse.graphiti.ui.internal.policy.ShapeXYLayoutEditPolicy;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.draw2d.LineSeg;
 import org.eclipse.graphiti.ui.internal.util.draw2d.LineSeg.KeyPoint;
@@ -324,7 +323,7 @@ public class GFOtherTests extends AbstractGFTests {
 				ICreateFeature[] createFeatures = fp.getCreateFeatures();
 				for (ICreateFeature createFeature : createFeatures) {
 					Rectangle rectangle = new Rectangle(x, 50, 100, 100);
-					ICreateContext createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 							createContext, rectangle);
 					commandStack.execute(createCommand);
@@ -453,7 +452,7 @@ public class GFOtherTests extends AbstractGFTests {
 				ICreateFeature[] createFeatures = fp.getCreateFeatures();
 				for (ICreateFeature createFeature : createFeatures) {
 					Rectangle rectangle = new Rectangle(x, 50, 100, 100);
-					ICreateContext createContext = ShapeXYLayoutEditPolicy.createCreateContext(dtp.getDiagram(), rectangle);
+					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
 							createContext, rectangle);
 					commandStack.execute(createCommand);
