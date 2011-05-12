@@ -26,7 +26,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.SnapToGrid;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
@@ -211,9 +213,12 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 						IMoveShapeFeature moveShapeFeature = featureProvider.getMoveShapeFeature(context);
 						if (moveShapeFeature != null) {
 							if (child instanceof ShapeEditPart) {
-								// Check if size has changed. If yes we do a resize and no move. In this case do
-								// not add a move feature to the command because Move might not be allowed while
-								// Resize is allowed. Adding both Move and Resize leads to Resizing not possible.
+								// Check if size has changed. If yes we do a
+								// resize and no move. In this case do
+								// not add a move feature to the command because
+								// Move might not be allowed while
+								// Resize is allowed. Adding both Move and
+								// Resize leads to Resizing not possible.
 								if (!isDifferentSize(shape, rectangle)) {
 									// Not in resize
 									ret.add(new MoveShapeFeatureCommandWithContext(moveShapeFeature, context));
@@ -230,7 +235,9 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 							if (resizeShapeFeature != null) {
 								ret.add(new ResizeShapeFeatureCommandWithContext(resizeShapeFeature, context));
 								// } else if (child instanceof ShapeEditPart) {
-								// ret.add(new ResizeShapeFeatureCommandWithContext(resizeShapeFeature, context));
+								// ret.add(new
+								// ResizeShapeFeatureCommandWithContext(resizeShapeFeature,
+								// context));
 							}
 
 						}
@@ -375,6 +382,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 		if (request.getNewObjectType() == ICreateFeature.class) {
 			ICreateContext context = createCreateContext((ContainerShape) parentObject, rectangle);
+			updateCreateContext((CreateContext) context);
 			ICreateFeature createFeature = (ICreateFeature) createdObject;
 			cmd = new CreateModelObjectCommand(getConfigurationProvider(), createFeature, context, rectangle);
 			cmd.setLabel(createFeature.getDescription());
@@ -457,5 +465,27 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		IDimension sizeOfGA = Graphiti.getGaService().calculateSize(shape.getGraphicsAlgorithm(), false);
 		return rect.width != sizeOfGA.getWidth() || rect.height != sizeOfGA.getHeight();
 
+	}
+
+	private void updateCreateContext(CreateContext ctx) {
+		GraphicalViewer viewer = getConfigurationProvider().getDiagramEditor().getGraphicalViewer();
+		boolean gridVisible = (Boolean) viewer.getProperty(SnapToGrid.PROPERTY_GRID_VISIBLE);
+		boolean snapToGrid = (Boolean) viewer.getProperty(SnapToGrid.PROPERTY_GRID_ENABLED);
+		if (gridVisible && snapToGrid) {
+			Dimension dimension = (Dimension) viewer.getProperty(SnapToGrid.PROPERTY_GRID_SPACING);
+			int snappedX = getSnapValue(ctx.getX(), dimension.width());
+			int snappedY = getSnapValue(ctx.getY(), dimension.height());
+			ctx.setX(snappedX);
+			ctx.setY(snappedY);
+		}
+	}
+
+	private int getSnapValue(int currentValue, int gridUnit) {
+
+		int units = currentValue / gridUnit;
+		if ((currentValue % gridUnit) > (gridUnit / 2)) {
+			units++;
+		}
+		return gridUnit * units;
 	}
 }
