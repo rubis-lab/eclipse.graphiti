@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *
  * </copyright>
  *
@@ -47,7 +48,7 @@ public class CommandExec {
 	 *            the transactional editingDomain
 	 * @return true, if successful
 	 */
-	public boolean executeCommand(ICommand command, TransactionalEditingDomain editingDomain) {
+	public boolean executeCommand(ICommand command, TransactionalEditingDomain editingDomain) throws Exception {
 		commandExecutionDepth2++;
 		long start = System.currentTimeMillis();
 
@@ -74,9 +75,8 @@ public class CommandExec {
 			commandStack.execute(gfRecordingCommand); // gfRecordingCommand.execute();
 			ret = gfRecordingCommand.getExecutionResult();
 		} catch (Exception ex) {
-			T.racer().error("CommandExec.executeCommand() " + ex, ex); //$NON-NLS-1$
 			commandStack.undo();
-			ret = true;
+			throw ex;
 		}
 
 		long stop = System.currentTimeMillis();
@@ -113,7 +113,7 @@ public class CommandExec {
 	 * @param context
 	 *            the context
 	 */
-	public static void executeFeatureWithContext(IFeature feature, IContext context) {
+	public static void executeFeatureWithContext(IFeature feature, IContext context) throws Exception {
 		GenericFeatureCommandWithContext genericFeatureCommandWithContext = new GenericFeatureCommandWithContext(feature, context);
 		TransactionalEditingDomain editingDomain = feature.getFeatureProvider().getDiagramTypeProvider().getDiagramEditor()
 				.getEditingDomain();

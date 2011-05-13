@@ -9,18 +9,22 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.tb;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
+import org.eclipse.graphiti.internal.util.T;
 
 /**
  * The Class AbstractContextEntry.
@@ -64,7 +68,17 @@ public class AbstractContextEntry implements IContextEntry {
 		GenericFeatureCommandWithContext genericFeatureCommandWithContext = new GenericFeatureCommandWithContext(getFeature(), getContext());
 		TransactionalEditingDomain editingDomain = getFeature().getFeatureProvider().getDiagramTypeProvider().getDiagramEditor()
 				.getEditingDomain();
-		CommandExec.getSingleton().executeCommand(genericFeatureCommandWithContext, editingDomain);
+		try {
+			CommandExec.getSingleton().executeCommand(genericFeatureCommandWithContext, editingDomain);
+		} catch (Exception e) {
+			if (e instanceof RollbackException) {
+				// Just log it as info (operation was cancelled on purpose) 
+				T.racer().log(IStatus.INFO, "GFCommandStack.execute(Command) " + e, e); //$NON-NLS-1$
+			} else {
+				// Just log it as an error
+				T.racer().error("GFCommandStack.execute(Command) " + e, e); //$NON-NLS-1$
+			}
+		}
 	}
 
 	public IContext getContext() {

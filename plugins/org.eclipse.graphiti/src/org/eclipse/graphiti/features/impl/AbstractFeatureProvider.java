@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *
  * </copyright>
  *
@@ -252,7 +253,16 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 			// ret = updateSemanticsFeature.update(context);
 			// }
 			TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
-			b = CommandExec.getSingleton().executeCommand(new GenericFeatureCommandWithContext(updateFeature, context), editingDomain);
+			try {
+				b = CommandExec.getSingleton().executeCommand(new GenericFeatureCommandWithContext(updateFeature, context), editingDomain);
+			} catch (Exception e) {
+				// Wrap in RuintimeException (handled by all callers)
+				if (e instanceof RuntimeException) {
+					throw (RuntimeException) e;
+				} else {
+					throw new RuntimeException(e);
+				}
+			}
 		}
 		IReason reason = new Reason(b);
 		if (info) {
@@ -272,8 +282,17 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		ILayoutFeature layoutSemanticsFeature = getLayoutFeature(context);
 		if (layoutSemanticsFeature != null) {
 			TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
-			b = CommandExec.getSingleton().executeCommand(new GenericFeatureCommandWithContext(layoutSemanticsFeature, context),
-					editingDomain);
+			try {
+				b = CommandExec.getSingleton().executeCommand(new GenericFeatureCommandWithContext(layoutSemanticsFeature, context),
+						editingDomain);
+			} catch (Exception e) {
+				// Wrap in RuintimeException (handled by all callers)
+				if (e instanceof RuntimeException) {
+					throw (RuntimeException) e;
+				} else {
+					throw new RuntimeException(e);
+				}
+			}
 		}
 		IReason res = new Reason(b);
 		if (info) {
@@ -335,7 +354,17 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 			IAddFeature feature = getAddFeature(context);
 			AddFeatureCommandWithContext addFeatureCommandWithContext = new AddFeatureCommandWithContext(feature, context);
 			TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
-			boolean b = CommandExec.getSingleton().executeCommand(addFeatureCommandWithContext, editingDomain);
+			boolean b = false;
+			try {
+				b = CommandExec.getSingleton().executeCommand(addFeatureCommandWithContext, editingDomain);
+			} catch (Exception e) {
+				// Wrap in RuintimeException (handled by all callers)
+				if (e instanceof RuntimeException) {
+					throw (RuntimeException) e;
+				} else {
+					throw new RuntimeException(e);
+				}
+			}
 			if (b) {
 				ret = addFeatureCommandWithContext.getAddedPictogramElements();
 				IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();

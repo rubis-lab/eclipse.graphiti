@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 340443 - Fixed AbstractTracer must not implement ILog warning
+ *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *
  * </copyright>
  *
@@ -335,10 +336,10 @@ public abstract class AbstractTracer {
 	//	public void log(int level, String methodName, String msg) {
 	//		t.log(level, methodName, msg);
 	//	}
-	//
-	//	public void log(int level, String msg, Throwable throwable) {
-	//		t.log(level, msg, throwable);
-	//	}
+
+	public void log(int level, String msg, Throwable throwable) {
+		log.log(new Status(level, log.getBundle().getSymbolicName(), msg, throwable));
+	}
 
 	public void log(int level, String msg) {
 		if (((level == IStatus.INFO) && info()) || (level == IStatus.WARNING) || (level == IStatus.ERROR)) {
