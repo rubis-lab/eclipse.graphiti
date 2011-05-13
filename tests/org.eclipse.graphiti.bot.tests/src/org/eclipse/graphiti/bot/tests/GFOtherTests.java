@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *
  * </copyright>
  *
@@ -599,7 +600,11 @@ public class GFOtherTests extends AbstractGFTests {
 		assertNotNull("remove feature not available", removeFeature);
 
 		if (removeFeature.canRemove(removeContext)) {
-			CommandExec.executeFeatureWithContext(removeFeature, removeContext);
+			try {
+				CommandExec.executeFeatureWithContext(removeFeature, removeContext);
+			} catch (Exception e) {
+				fail(e.getMessage());
+			}
 		}
 	}
 
@@ -633,7 +638,6 @@ public class GFOtherTests extends AbstractGFTests {
 			}
 		});
 	}
-
 
 	@Test
 	public void testUtils() throws Exception {
