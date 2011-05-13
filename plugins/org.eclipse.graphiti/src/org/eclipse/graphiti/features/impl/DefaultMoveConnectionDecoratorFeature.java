@@ -28,6 +28,8 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
  */
 public class DefaultMoveConnectionDecoratorFeature extends AbstractFeature implements IMoveConnectionDecoratorFeature {
 
+	private static final String NAME = Messages.DefaultMoveConnectionDecoratorFeature_0_xfld;
+
 	/**
 	 * Creates a new {@link DefaultMoveConnectionDecoratorFeature}.
 	 * 
@@ -76,6 +78,4 @@ public class DefaultMoveConnectionDecoratorFeature extends AbstractFeature imple
 	public String getName() {
 		return NAME;
 	}
-
-	private static final String NAME = Messages.DefaultMoveConnectionDecoratorFeature_0_xfld;
 }
