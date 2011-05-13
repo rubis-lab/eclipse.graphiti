@@ -12,6 +12,7 @@
  *    mwenz - Bug 324859 Need Undo/Redo support for Non-EMF based domain objects
  *    mwenz - Bug 342874 CreateConnectionCommand overwriting "sourceLocation" with
  *            "targetLocation" on creation of a Connection
+ *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *
  * </copyright>
  *
@@ -178,7 +179,16 @@ public class CreateConnectionCommand extends AbstractCommand {
 
 		if (commands.size() == 1) {
 
-			CommandExec.getSingleton().executeCommand(commands.get(0), getTransactionalEditingDomain());
+			try {
+				CommandExec.getSingleton().executeCommand(commands.get(0), getTransactionalEditingDomain());
+			} catch (Exception e) {
+				// Wrap in runtime exception (handled outside)
+				if (e instanceof RuntimeException) {
+					throw (RuntimeException) e;
+				} else {
+					throw new RuntimeException(e);
+				}
+			}
 			return;
 		}
 
@@ -188,7 +198,16 @@ public class CreateConnectionCommand extends AbstractCommand {
 
 		if (b) {
 			GenericFeatureCommandWithContext result = (GenericFeatureCommandWithContext) popupMenu.getResult();
-			CommandExec.getSingleton().executeCommand(result, getTransactionalEditingDomain());
+			try {
+				CommandExec.getSingleton().executeCommand(result, getTransactionalEditingDomain());
+			} catch (Exception e) {
+				// Wrap in runtime exception (handled outside)
+				if (e instanceof RuntimeException) {
+					throw (RuntimeException) e;
+				} else {
+					throw new RuntimeException(e);
+				}
+			}
 
 		}
 

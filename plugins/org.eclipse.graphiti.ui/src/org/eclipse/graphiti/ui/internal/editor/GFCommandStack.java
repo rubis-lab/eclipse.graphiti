@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
+ *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *
  * </copyright>
  *
@@ -23,6 +24,7 @@ import java.util.List;
 
 import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.commands.operations.IUndoableOperation;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -104,12 +106,17 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		tbp.preExecute(executionInfo);
 		try {
 			getEmfCommandStack().execute(gfPreparableCommand, null, executionInfo);
-		} catch (InterruptedException e) {
-			// Just log it
-			T.racer().info(e.getLocalizedMessage());
 		} catch (RollbackException e) {
-			// Just log it
-			T.racer().info(e.getLocalizedMessage());
+			if (e.getStatus().getSeverity() == IStatus.CANCEL) {
+				// Just log it as info (operation was cancelled on purpose) 
+				T.racer().log(IStatus.INFO, "GFCommandStack.execute(Command) " + e, e); //$NON-NLS-1$
+			} else {
+				// Just log it as an error
+				T.racer().error("GFCommandStack.execute(Command) " + e, e); //$NON-NLS-1$
+			}
+		} catch (Exception e) {
+			// Just log it as an error
+			T.racer().error("GFCommandStack.execute(Command) " + e, e); //$NON-NLS-1$
 		}
 		tbp.postExecute(executionInfo);
 

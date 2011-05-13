@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
+ *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *
  * </copyright>
  *
@@ -116,17 +117,19 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 		super.redo();
 
 		// Check if non-EMF redo is needed and care about it
-		IExecutionInfo ei = redoStackForExecutionInfo.pop();
-		undoStackForExecutionInfo.push(ei);
-		IFeatureAndContext[] executionList = ei.getExecutionList();
-		// Traverse operation forwards
-		for (int i = 0; i < executionList.length; i++) {
-			IFeature feature = executionList[i].getFeature();
-			IContext context = executionList[i].getContext();
-			if (feature instanceof ICustomUndoableFeature) {
-				ICustomUndoableFeature undoableFeature = (ICustomUndoableFeature) feature;
-				if (undoableFeature.canRedo(context)) {
-					undoableFeature.redo(context);
+		if (!redoStackForExecutionInfo.isEmpty()) {
+			IExecutionInfo ei = redoStackForExecutionInfo.pop();
+			undoStackForExecutionInfo.push(ei);
+			IFeatureAndContext[] executionList = ei.getExecutionList();
+			// Traverse operation forwards
+			for (int i = 0; i < executionList.length; i++) {
+				IFeature feature = executionList[i].getFeature();
+				IContext context = executionList[i].getContext();
+				if (feature instanceof ICustomUndoableFeature) {
+					ICustomUndoableFeature undoableFeature = (ICustomUndoableFeature) feature;
+					if (undoableFeature.canRedo(context)) {
+						undoableFeature.redo(context);
+					}
 				}
 			}
 		}
@@ -138,17 +141,19 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 		super.undo();
 
 		// Check if non-EMF undo is needed and care about it
-		IExecutionInfo ei = undoStackForExecutionInfo.pop();
-		redoStackForExecutionInfo.push(ei);
-		IFeatureAndContext[] executionList = ei.getExecutionList();
-		// Traverse operations backwards
-		for (int i = executionList.length - 1; i >= 0; i--) {
-			IFeature feature = executionList[i].getFeature();
-			IContext context = executionList[i].getContext();
-			if (feature instanceof ICustomUndoableFeature) {
-				ICustomUndoableFeature undoableFeature = (ICustomUndoableFeature) feature;
-				if (undoableFeature.canUndo(context)) {
-					undoableFeature.undo(context);
+		if (!undoStackForExecutionInfo.isEmpty()) {
+			IExecutionInfo ei = undoStackForExecutionInfo.pop();
+			redoStackForExecutionInfo.push(ei);
+			IFeatureAndContext[] executionList = ei.getExecutionList();
+			// Traverse operations backwards
+			for (int i = executionList.length - 1; i >= 0; i--) {
+				IFeature feature = executionList[i].getFeature();
+				IContext context = executionList[i].getContext();
+				if (feature instanceof ICustomUndoableFeature) {
+					ICustomUndoableFeature undoableFeature = (ICustomUndoableFeature) feature;
+					if (undoableFeature.canUndo(context)) {
+						undoableFeature.undo(context);
+					}
 				}
 			}
 		}

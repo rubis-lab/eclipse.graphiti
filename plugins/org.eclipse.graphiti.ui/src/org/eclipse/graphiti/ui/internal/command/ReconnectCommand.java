@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *
  * </copyright>
  *
@@ -84,7 +85,16 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 		if (feature != null) {
 			// feature.reconnnect(ctx);
 			GenericFeatureCommandWithContext genericFeatureCommandWithContext = new GenericFeatureCommandWithContext(feature, ctx);
-			CommandExec.getSingleton().executeCommand(genericFeatureCommandWithContext, getTransactionalEditingDomain());
+			try {
+				CommandExec.getSingleton().executeCommand(genericFeatureCommandWithContext, getTransactionalEditingDomain());
+			} catch (Exception e) {
+				// Wrap in runtime exception (handled outside)
+				if (e instanceof RuntimeException) {
+					throw (RuntimeException) e;
+				} else {
+					throw new RuntimeException(e);
+				}
+			}
 		}
 	}
 

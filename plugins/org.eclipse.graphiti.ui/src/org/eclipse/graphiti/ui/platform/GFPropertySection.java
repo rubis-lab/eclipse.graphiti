@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *
  * </copyright>
  *
@@ -19,6 +20,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
@@ -27,6 +30,7 @@ import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
@@ -73,7 +77,17 @@ public abstract class GFPropertySection extends AbstractPropertySection implemen
 	 *            the context
 	 */
 	public void execute(IFeature feature, IContext context) {
-		CommandExec.executeFeatureWithContext(feature, context);
+		try {
+			CommandExec.executeFeatureWithContext(feature, context);
+		} catch (Exception e) {
+			if (e instanceof OperationCanceledException) {
+				// Just log it as info (operation was cancelled on purpose) 
+				T.racer().log(IStatus.INFO, "GFCommandStack.execute(Command) " + e, e); //$NON-NLS-1$
+			} else {
+				// Just log it as an error
+				T.racer().error("GFCommandStack.execute(Command) " + e, e); //$NON-NLS-1$
+			}
+		}
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {

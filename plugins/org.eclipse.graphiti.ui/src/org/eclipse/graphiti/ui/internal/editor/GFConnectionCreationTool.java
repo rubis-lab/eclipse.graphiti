@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *
  * </copyright>
  *
@@ -18,7 +19,9 @@ package org.eclipse.graphiti.ui.internal.editor;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.tools.ConnectionCreationTool;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -30,6 +33,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.swt.events.KeyEvent;
 
 /**
@@ -71,7 +75,17 @@ public class GFConnectionCreationTool extends ConnectionCreationTool {
 				context.setTargetPictogramElement(targetPictogramElement);
 				context.setTargetAnchor(targetAnchor);
 				if (createFeature.canExecute(context)) {
-					CommandExec.executeFeatureWithContext(createFeature, context);
+					try {
+						CommandExec.executeFeatureWithContext(createFeature, context);
+					} catch (Exception ex) {
+						if (ex instanceof RollbackException) {
+							// Just log it as info (operation was cancelled on purpose) 
+							T.racer().log(IStatus.INFO, "GFCommandStack.execute(Command) " + ex, ex); //$NON-NLS-1$
+						} else {
+							// Just log it as an error
+							T.racer().error("GFCommandStack.execute(Command) " + ex, ex); //$NON-NLS-1$
+						}
+					}
 				}
 			}
 		}
