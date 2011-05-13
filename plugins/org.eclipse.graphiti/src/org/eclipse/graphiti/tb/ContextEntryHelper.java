@@ -172,6 +172,8 @@ public class ContextEntryHelper {
 		}
 	}
 
+	public static final String NAME = Messages.ContextEntryHelper_5_xfld;
+
 	/**
 	 * Marks the given context entry with collapse or expand figure.
 	 * 
