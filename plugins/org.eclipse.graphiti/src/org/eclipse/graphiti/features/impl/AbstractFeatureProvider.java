@@ -627,7 +627,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 			T.racer().entering(AbstractFeatureProvider.class, SIGNATURE, new Object[] { pictogramElement, businessObjects });
 		}
 		IIndependenceSolver is = getIndependenceSolver();
-		if (getIndependenceSolver() == null) {
+		if (is == null) {
 			PictogramLink link = createOrGetPictogramLink(pictogramElement);
 			if (link != null) {
 				// remove currently linked BOs and add new BOs
