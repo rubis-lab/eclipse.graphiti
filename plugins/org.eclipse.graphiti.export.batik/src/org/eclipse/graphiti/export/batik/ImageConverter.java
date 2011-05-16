@@ -111,7 +111,7 @@ public class ImageConverter {
 	 * <code>BufferedImage.TYPE_INT_ARGB</code> regardless of the type of swt
 	 * image that is passed into the method.
 	 * 
-	 * @param srcImage
+	 * @param imageData
 	 *            the {@link org.eclipse.swt.graphics.Image} to be converted to
 	 *            a <code>BufferedImage</code>
 	 * @return a <code>BufferedImage</code> that represents the same image data
