@@ -56,7 +56,7 @@ import org.junit.Test;
 @SuppressWarnings("restriction")
 public class CommandStackTest extends GFAbstractTestCase {
 
-	private static TransactionalEditingDomain editingDomain;
+	private TransactionalEditingDomain editingDomain;
 	private GFCommandStack commandStack;
 	private IConfigurationProvider configurationProvider;
 
@@ -75,9 +75,6 @@ public class CommandStackTest extends GFAbstractTestCase {
 	@After
 	public void afterTest() {
 		editingDomain.dispose();
-		editingDomain = null;
-		configurationProvider = null;
-		commandStack = null;
 	}
 
 	/**
