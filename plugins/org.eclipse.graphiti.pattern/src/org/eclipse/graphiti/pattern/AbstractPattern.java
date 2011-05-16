@@ -531,7 +531,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * @return the {@link IRemoveFeature} instance to use for this pattern
 	 * @see #canRemove(IRemoveContext)
 	 * @see #preRemove(IRemoveContext)
-	 * @see #Remove(IRemoveContext)
+	 * @see #remove(IRemoveContext)
 	 * @see #postRemove(IRemoveContext)
 	 */
 	protected IRemoveFeature createRemoveFeature(IRemoveContext context) {
