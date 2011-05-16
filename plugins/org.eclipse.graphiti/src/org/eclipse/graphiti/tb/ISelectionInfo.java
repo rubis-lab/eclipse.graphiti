@@ -58,8 +58,8 @@ public interface ISelectionInfo {
 	 * Gets the primary selection background color. Only used for shapes and if
 	 * no Rendering style is set.
 	 * 
-	 * @param color
-	 *            the on hover color
+	 * @return the primary selection background color
+	 * 
 	 * @since 0.8
 	 */
 	IColorConstant getPrimarySelectionBackGroundColor();
@@ -68,8 +68,8 @@ public interface ISelectionInfo {
 	 * Gets the secondary selection background color. Only used for shapes and
 	 * if no Rendering style is set.
 	 * 
-	 * @param color
-	 *            the on hover color
+	 * @return the secondary selection background color
+	 * 
 	 * @since 0.8
 	 */
 	IColorConstant getSecondarySelectionBackGroundColor();
@@ -77,8 +77,7 @@ public interface ISelectionInfo {
 	/**
 	 * Gets the hover color for a shape whose parent is selected.
 	 * 
-	 * @param color
-	 *            the on hover color
+	 * @return the hover color
 	 */
 	IColorConstant getHoverColorParentSelected();
 
@@ -100,7 +99,7 @@ public interface ISelectionInfo {
 	/**
 	 * Sets the hover color.
 	 * 
-	 * @param color
+	 * @param hoverColor
 	 *            the color
 	 */
 	void setHoverColor(IColorConstant hoverColor);
@@ -128,7 +127,7 @@ public interface ISelectionInfo {
 	/**
 	 * Sets the hover color for shapes whose parent is selected.
 	 * 
-	 * @param color
+	 * @param hoverColor
 	 *            the color
 	 */
 	void setHoverColorParentSelected(IColorConstant hoverColor);
