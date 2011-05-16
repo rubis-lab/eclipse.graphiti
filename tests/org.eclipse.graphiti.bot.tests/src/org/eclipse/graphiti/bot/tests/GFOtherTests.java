@@ -31,6 +31,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.Polygon;
 import org.eclipse.draw2d.SWTGraphics;
@@ -296,6 +297,36 @@ public class GFOtherTests extends AbstractGFTests {
 				}
 				assertShapeCoordinates(diagramTypeProvider, "Shape", 0, 0);
 
+			}
+
+		});
+
+		shutdownEditor(diagramEditor);
+	}
+
+	@Test
+	public void testRollback() throws Exception {
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+
+				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+				final Diagram diagram = diagramTypeProvider.getDiagram();
+
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+
+					@Override
+					protected void doExecute() {
+						addClassToDiagram(fp, diagram, 500, 500, "Shape");
+						// enforce rollback
+						throw new OperationCanceledException();
+					}
+				});
+				assertEquals("Rollback of creation of shape failed", 0, diagram.getChildren().size());
 			}
 
 		});
