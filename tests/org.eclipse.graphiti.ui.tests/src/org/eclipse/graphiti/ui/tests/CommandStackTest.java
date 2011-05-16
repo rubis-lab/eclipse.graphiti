@@ -75,6 +75,7 @@ public class CommandStackTest extends GFAbstractTestCase {
 	@After
 	public void afterTest() {
 		editingDomain.dispose();
+		editingDomain = null;
 		configurationProvider = null;
 		commandStack = null;
 	}
