@@ -77,9 +77,7 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	/**
 	 * Returns true only if the direct editing feature really has changed
 	 * anything. This is indicated by the execution of the feature in the
-	 * DirectEditingFeatureCommandWithContext.execute method
-	 * 
-	 * @see org.eclipse.graphiti.features.impl.AbstractFeature#isUndoable()
+	 * DirectEditingFeatureCommandWithContext.execute method.
 	 */
 	@Override
 	public boolean hasDoneChanges() {
