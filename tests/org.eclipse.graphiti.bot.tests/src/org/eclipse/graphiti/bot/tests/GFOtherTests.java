@@ -304,6 +304,9 @@ public class GFOtherTests extends AbstractGFTests {
 		shutdownEditor(diagramEditor);
 	}
 
+	/**
+	 * @see org.eclipse.graphiti.ui.tests.RollbackTest
+	 */
 	@Test
 	public void testRollback() throws Exception {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
