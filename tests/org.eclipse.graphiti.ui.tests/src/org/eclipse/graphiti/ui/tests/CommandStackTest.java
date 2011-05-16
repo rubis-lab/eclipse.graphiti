@@ -47,22 +47,36 @@ import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.editor.GFCommandStack;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/**
- *
- */
+
 @SuppressWarnings("restriction")
 public class CommandStackTest extends GFAbstractTestCase {
+
+	private static TransactionalEditingDomain editingDomain;
+	private GFCommandStack commandStack;
+	private IConfigurationProvider configurationProvider;
 
 	@BeforeClass
 	public static void prepareClass() {
 	}
 
+
 	@Before
-	public void initializeTest() {
+	public void beforeTest() {
+		editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
+		configurationProvider = initConfigurationProviderForHasDoneChangesTests(editingDomain);
+		commandStack = new GFCommandStack(configurationProvider, editingDomain);
+	}
+
+	@After
+	public void afterTest() {
+		editingDomain.dispose();
+		configurationProvider = null;
+		commandStack = null;
 	}
 
 	/**
@@ -76,76 +90,52 @@ public class CommandStackTest extends GFAbstractTestCase {
 	 */
 	@Test
 	public void testHasDoneChangesForDirectEditing() {
-		TransactionalEditingDomain editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
-		IConfigurationProvider configurationProvider = initConfigurationProviderForHasDoneChangesTests(editingDomain);
-		GFCommandStack commandStack = new GFCommandStack(configurationProvider, editingDomain);
-		IFeatureProvider featureProvider = configurationProvider.getFeatureProvider();
-
-		TestDirectEditingFeature feature = new TestDirectEditingFeature(featureProvider);
-
+		TestDirectEditingFeature feature = new TestDirectEditingFeature(configurationProvider.getFeatureProvider());
 		IDirectEditingContext context = EasyMock.createNiceMock(IDirectEditingContext.class);
 		EasyMock.replay(context);
 
 		DirectEditingFeatureCommandWithContext featureCommand = new DirectEditingFeatureCommandWithContext(feature, context, "Initial",
 				null);
-
 		executeAndCheck(featureCommand, commandStack, editingDomain);
 	}
 
 	@Test
 	public void testHasDoneChangesForCustomFeature() {
-		TransactionalEditingDomain editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
-		IConfigurationProvider configurationProvider = initConfigurationProviderForHasDoneChangesTests(editingDomain);
-		GFCommandStack commandStack = new GFCommandStack(configurationProvider, editingDomain);
-		IFeatureProvider featureProvider = configurationProvider.getFeatureProvider();
-
-		TestCustomFeature feature = new TestCustomFeature(featureProvider);
-
+		TestCustomFeature feature = new TestCustomFeature(configurationProvider.getFeatureProvider());
 		ICustomContext context = EasyMock.createNiceMock(ICustomContext.class);
 		EasyMock.replay(context);
 
 		GenericFeatureCommandWithContext featureCommand = new GenericFeatureCommandWithContext(feature, context);
-
-		CommandContainer commandContainer = new CommandContainer(featureProvider);
+		CommandContainer commandContainer = new CommandContainer(configurationProvider.getFeatureProvider());
 		commandContainer.add(featureCommand);
-
 		executeAndCheck(commandContainer, commandStack, editingDomain);
 	}
 
 	@Test
 	public void testHasDoneChangesForAddObject() {
-		TransactionalEditingDomain editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
-		IConfigurationProvider configurationProvider = initConfigurationProviderForHasDoneChangesTests(editingDomain);
-		GFCommandStack commandStack = new GFCommandStack(configurationProvider, editingDomain);
-
 		IAddContext context = EasyMock.createNiceMock(IAddContext.class);
 		EasyMock.replay(context);
 
 		// Feature is set via EasyMock in init method
 		AddModelObjectCommand featureCommand = new AddModelObjectCommand(configurationProvider, null,
 				new StructuredSelection(new Object()), new Rectangle());
-
 		executeAndCheck(featureCommand, commandStack);
 	}
 
 	@Test
 	public void testHasDoneChangesForContextEntry() {
-		TransactionalEditingDomain editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
-		IConfigurationProvider configurationProvider = initConfigurationProviderForHasDoneChangesTests(editingDomain);
-		GFCommandStack commandStack = new GFCommandStack(configurationProvider, editingDomain);
-		IFeatureProvider featureProvider = configurationProvider.getFeatureProvider();
-
 		IContext context = EasyMock.createNiceMock(IContext.class);
 		EasyMock.replay(context);
 
 		IContextEntry contextEntry = EasyMock.createNiceMock(IContextEntry.class);
-		EasyMock.expect(contextEntry.getFeature()).andReturn(new TestDeleteFeature(featureProvider)).anyTimes();
+		EasyMock.expect(contextEntry.getFeature()).andReturn(new TestDeleteFeature(configurationProvider.getFeatureProvider())).anyTimes();
 		EasyMock.expect(contextEntry.getContext()).andReturn(context).anyTimes();
 		EasyMock.replay(contextEntry);
 
 		ContextEntryCommand featureCommand = new ContextEntryCommand(contextEntry);
 
 		executeAndCheck(featureCommand, commandStack);
+		editingDomain.dispose();
 	}
 
 	private IConfigurationProvider initConfigurationProviderForHasDoneChangesTests(TransactionalEditingDomain editingDomain) {
