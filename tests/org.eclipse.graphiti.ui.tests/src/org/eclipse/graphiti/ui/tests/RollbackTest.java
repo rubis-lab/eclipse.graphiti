@@ -145,6 +145,7 @@ public class RollbackTest extends GFAbstractTestCase {
 		public void execute(ICustomContext context) {
 			assertTrue(getDiagram().isShowGuides());
 			getDiagram().setShowGuides(false);
+			assertTrue(!getDiagram().isShowGuides());
 			// force rollback
 			throw new OperationCanceledException();
 		}
