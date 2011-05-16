@@ -1,5 +1,6 @@
 package org.eclipse.graphiti.ui.tests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Field;
@@ -127,6 +128,7 @@ public class RollbackTest extends GFAbstractTestCase {
 
 		// Check.
 		assertTrue("Rollback failed. ShowGuides is false. ", diagram.isShowGuides());
+		assertFalse(commandStack.isDirty());
 
 	}
 
