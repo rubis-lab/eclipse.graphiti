@@ -38,6 +38,7 @@ import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -45,7 +46,6 @@ import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILayoutService;
-import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.graphiti.ui.internal.services.IGefService;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.ui.internal.util.gef.ScalableRootEditPartAnimated;
@@ -60,6 +60,7 @@ public class GefService implements IGefService {
 
 	protected static final String PE = "*PE* "; //$NON-NLS-1$
 
+	@Override
 	public void selectEditPart(EditPartViewer viewer, Object modelObject) {
 		if (modelObject == null)
 			return;
@@ -72,6 +73,7 @@ public class GefService implements IGefService {
 		}
 	}
 
+	@Override
 	public Point calculateTranslation(EditPart source, EditPart target) {
 		if (!(source instanceof GraphicalEditPart && target instanceof GraphicalEditPart))
 			throw new RuntimeException("Both EditParts must be an instance of GraphicalEditPart: " + source + " " + target); //$NON-NLS-1$ //$NON-NLS-2$
@@ -85,6 +87,7 @@ public class GefService implements IGefService {
 		return result;
 	}
 
+	@Override
 	public Object getLayoutConstraint(EditPart editPart) {
 		if (editPart instanceof GraphicalEditPart) {
 			IFigure childFigure = ((GraphicalEditPart) editPart).getFigure();
@@ -99,6 +102,7 @@ public class GefService implements IGefService {
 		return null;
 	}
 
+	@Override
 	public EditPart findEditPartAt(EditPartViewer viewer, Point location, boolean includeConnections) {
 
 		EditPart editPart = findObjectAt(viewer, location, includeConnections);
@@ -153,6 +157,7 @@ public class GefService implements IGefService {
 		return part;
 	}
 
+	@Override
 	public List<EditPart> getConnectionsContainedInEditPart(EditPart ep) {
 		// Compute connections whose start and target are somewhere in the
 		// editpart sub hierarchy of ep
@@ -160,10 +165,13 @@ public class GefService implements IGefService {
 		List<Connection> sourceConnections = new ArrayList<Connection>();
 		List<Connection> targetConnections = new ArrayList<Connection>();
 		for (EditPart cep : childEditParts) {
-			if (cep instanceof ShapeEditPart) {
-				ShapeEditPart sep = (ShapeEditPart) cep;
-				sourceConnections.addAll(sep.getModelSourceConnections());
-				targetConnections.addAll(sep.getModelTargetConnections());
+			if (cep.getModel() instanceof AnchorContainer) {
+				AnchorContainer anchorContainer = (AnchorContainer) cep.getModel();
+				EList<Anchor> anchors = anchorContainer.getAnchors();
+				for (Anchor anchor : anchors) {
+					sourceConnections.addAll(anchor.getIncomingConnections());
+					targetConnections.addAll(anchor.getOutgoingConnections());
+				}
 			}
 		}
 		sourceConnections.retainAll(targetConnections);
@@ -193,6 +201,7 @@ public class GefService implements IGefService {
 		return res;
 	}
 
+	@Override
 	public Point getConnectionPointAt(Connection c, double d) {
 		Point ret = null;
 
@@ -296,6 +305,7 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
+	@Override
 	public Point getChopboxLocationOnBox(Point reference, Rectangle box) {
 		Rectangle r = Rectangle.SINGLETON;
 		r.setBounds(box);
@@ -338,6 +348,7 @@ public class GefService implements IGefService {
 		return new Point(Math.round(centerX), Math.round(centerY));
 	}
 
+	@Override
 	public Point getAbsolutePointOnConnection(Connection c, double distance) {
 		Point ret = null;
 
@@ -440,11 +451,13 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
+	@Override
 	public Point getDistantPoint(Point start, Point end, double distance) {
 		Point ret = getDistantPoint(start.x, start.y, end.x, end.y, distance);
 		return ret;
 	}
 
+	@Override
 	public Point getDistantPoint(int startX, int startY, int endX, int endY, double distance) {
 		Point ret;
 		double completeDistance = Math.sqrt(((endX - startX) * (endX - startX)) + ((endY - startY) * (endY - startY)));
@@ -460,6 +473,7 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
+	@Override
 	public Point getPointAt(int startX, int startY, int endX, int endY, double d) {
 		Point ret;
 		int midX = (int) Math.round((startX + d * (endX - startX)));
@@ -468,6 +482,7 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
+	@Override
 	public Point getPointAt(Point start, Point end, double d) {
 		Point ret = getPointAt(start.x, start.y, end.x, end.y, d);
 		return ret;
@@ -480,6 +495,7 @@ public class GefService implements IGefService {
 	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#getDistance(org
 	 * .eclipse.draw2d.geometry.Point[])
 	 */
+	@Override
 	public double getDistance(Point[] points) {
 		double ret = 0;
 		for (int i = 0; i < points.length - 1; i++) {
@@ -497,6 +513,7 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
+	@Override
 	public IDimension calculateTextSize(String text, Font font) {
 		IDimension dimension = null;
 		if (text == null || font == null || font.getName() == null) {
@@ -516,6 +533,7 @@ public class GefService implements IGefService {
 		return dimension;
 	}
 
+	@Override
 	public void mirrorArray(Point[] draw2dPoints) {
 		int length = draw2dPoints.length;
 		for (int i = 0; i < length / 2; i++) {
@@ -525,6 +543,7 @@ public class GefService implements IGefService {
 		}
 	}
 
+	@Override
 	public List<EditPart> getEditPartChildren(EditPart editPart) {
 		@SuppressWarnings("unchecked")
 		List<EditPart> ret = editPart.getChildren();
