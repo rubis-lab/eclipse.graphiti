@@ -21,8 +21,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -664,7 +666,10 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 				if (businessObjects != null) {
 					for (int i = 0; i < businessObjects.length; i++) {
 						EObject bo = (EObject) businessObjects[i];
-						ResourceSet resourceSet = bo.eResource().getResourceSet();
+						Resource resource = bo.eResource();
+						Assert.isNotNull(resource, " Business object " + bo + " is not contained in a resource"); //$NON-NLS-1$
+						ResourceSet resourceSet = resource.getResourceSet();
+						Assert.isNotNull(resourceSet, " Resource " + resource + " is not contained in a resource set"); //$NON-NLS-1$
 						TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
 						ResourceSet editorResourceSet = editingDomain.getResourceSet();
 						if (!resourceSet.equals(editorResourceSet)) {
