@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    jpasch - BUG 341180: Graphiti fails to handle resize after custom feature addition in the tutorial
+ *    mwenz - Bug 346067: Current Milestone Build does no longer build against Eclipse 3.6
  *
  * </copyright>
  *
@@ -473,8 +474,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		boolean snapToGrid = (Boolean) viewer.getProperty(SnapToGrid.PROPERTY_GRID_ENABLED);
 		if (gridVisible && snapToGrid) {
 			Dimension dimension = (Dimension) viewer.getProperty(SnapToGrid.PROPERTY_GRID_SPACING);
-			int snappedX = getSnapValue(ctx.getX(), dimension.width());
-			int snappedY = getSnapValue(ctx.getY(), dimension.height());
+			int snappedX = getSnapValue(ctx.getX(), dimension.width);
+			int snappedY = getSnapValue(ctx.getY(), dimension.height);
 			ctx.setX(snappedX);
 			ctx.setY(snappedY);
 		}
