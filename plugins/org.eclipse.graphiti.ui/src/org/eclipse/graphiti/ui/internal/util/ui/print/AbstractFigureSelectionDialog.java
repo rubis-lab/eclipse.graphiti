@@ -26,6 +26,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.LayerManager;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScaledGraphics;
@@ -383,11 +384,18 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 	}
 
 	private void addRelatedEditParts(Graphics graphics, GraphicalEditPart ep) {
-		List<EditPart> connectionsConatinedInEditPart = GraphitiUiInternal.getGefService().getConnectionsContainedInEditPart(ep);
-		for (Object conn : connectionsConatinedInEditPart) {
+		List<EditPart> relatedEditParts = GraphitiUiInternal.getGefService().getConnectionsContainedInEditPart(ep);
+		for (Object conn : relatedEditParts) {
 			if (conn instanceof GraphicalEditPart) {
-				IFigure figure = ((GraphicalEditPart) conn).getFigure();
-				figure.paint(graphics);
+				GraphicalEditPart conn2 = (GraphicalEditPart) conn;
+				if (conn2.getModel() instanceof PictogramElement) {
+					PictogramElement pe = (PictogramElement) conn2.getModel();
+					if (!pe.isVisible())
+						continue;
+
+					IFigure figure = conn2.getFigure();
+					figure.paint(graphics);
+				}
 			}
 		}
 	}
