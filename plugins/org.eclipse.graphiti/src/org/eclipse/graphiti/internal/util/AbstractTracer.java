@@ -82,9 +82,9 @@ public abstract class AbstractTracer {
 			// Graphiti is not run within the Eclipse platform. This happens e.g. while running Unit tests
 
 			// Warn user (in case this happens in other cases than Unit testing)
-			System.err.println("================================================================================================");
-			System.err.println("Logging is disabled because the platform is not running! (This message is OK for Unit test runs)");
-			System.err.println("================================================================================================");
+			System.err.println("================================================================================================"); //$NON-NLS-1$
+			System.err.println("Logging is disabled because the platform is not running! (This message is OK for Unit test runs)"); //$NON-NLS-1$
+			System.err.println("================================================================================================"); //$NON-NLS-1$
 
 			log = null;
 		}
