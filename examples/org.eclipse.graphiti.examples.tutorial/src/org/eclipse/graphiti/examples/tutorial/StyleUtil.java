@@ -32,9 +32,7 @@ public class StyleUtil {
 
 	private static final IColorConstant E_CLASS_FOREGROUND = new ColorConstant(255, 102, 0);
 
-
-
-	private static String DEFAULT_FONT = "Arial";
+	private static String DEFAULT_FONT = "Arial"; //$NON-NLS-1$
 
 	public static Style getStyleForEClass(Diagram diagram) {
 		final String styleId = "E-CLASS"; //$NON-NLS-1$
