@@ -667,9 +667,9 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 					for (int i = 0; i < businessObjects.length; i++) {
 						EObject bo = (EObject) businessObjects[i];
 						Resource resource = bo.eResource();
-						Assert.isNotNull(resource, " Business object " + bo + " is not contained in a resource"); //$NON-NLS-1$
+						Assert.isNotNull(resource, " Business object " + bo + " is not contained in a resource"); //$NON-NLS-1$ //$NON-NLS-2$
 						ResourceSet resourceSet = resource.getResourceSet();
-						Assert.isNotNull(resourceSet, " Resource " + resource + " is not contained in a resource set"); //$NON-NLS-1$
+						Assert.isNotNull(resourceSet, " Resource " + resource + " is not contained in a resource set"); //$NON-NLS-1$ //$NON-NLS-2$
 						TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
 						ResourceSet editorResourceSet = editingDomain.getResourceSet();
 						if (!resourceSet.equals(editorResourceSet)) {
