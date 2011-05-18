@@ -1212,7 +1212,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		getGraphicalViewer()
 				.addDropTargetListener((TransferDropTargetListener) new ObjectsTransferDropTargetListener(getGraphicalViewer()));
 
-		getGraphicalViewer().addDropTargetListener(new GFTemplateTransferDropTargetListener(getGraphicalViewer()));
+		getGraphicalViewer().addDropTargetListener(new GFTemplateTransferDropTargetListener(getGraphicalViewer(), this));
 	}
 
 	/**
