@@ -203,7 +203,7 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 					text = "0"; //$NON-NLS-1$
 				int width = Integer.parseInt(text);
 				if (width < 0) {
-					throw new NumberFormatException("Width value is negative: " + width);
+					throw new NumberFormatException(Messages.ExportDiagramDialog_0 + width);
 				}
 				_preferences.setDoublePreference(DefaultPrintPreferences.SCALE_FACTOR, (double) width / (double) _figure.getBounds().width);
 			} catch (NumberFormatException x) {
@@ -217,7 +217,7 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 					text = "0"; //$NON-NLS-1$
 				int height = Integer.parseInt(text);
 				if (height < 0) {
-					throw new NumberFormatException("Height value is negative: " + height);
+					throw new NumberFormatException(Messages.ExportDiagramDialog_1 + height);
 				}
 				_preferences.setDoublePreference(DefaultPrintPreferences.SCALE_FACTOR,
 						((double) height / (double) _figure.getBounds().height));

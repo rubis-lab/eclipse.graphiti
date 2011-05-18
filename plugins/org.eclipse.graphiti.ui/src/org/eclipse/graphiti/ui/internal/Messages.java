@@ -43,6 +43,9 @@ public class Messages extends NLS {
 	public static String DiagramEditorActionBarContributor_0_xmen;
 	public static String DiagramEditorActionBarContributor_Grid;
 	public static String DiagramEditorActionBarContributor_SnapGeometry;
+	public static String DoubleFieldWithDropDown_0;
+	public static String ExportDiagramDialog_0;
+	public static String ExportDiagramDialog_1;
 	public static String GFMarqueeToolEntry_Marquee;
 	public static String GFMarqueeToolEntry_MarqueeBothNodesAndRelatedConnections;
 	public static String GFMarqueeToolEntry_MarqueeNodesTouched;

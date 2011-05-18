@@ -309,7 +309,7 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 	}
 
 	private void refreshOutputPagesInfo() {
-		String text = Messages.PrintFigureDialog_9_xmsg + " " + getNumberOfPages();
+		String text = Messages.PrintFigureDialog_9_xmsg + " " + getNumberOfPages(); //$NON-NLS-1$
 		_numberOfPagesInfo.setText(text);
 		_numberOfPagesInfo.getParent().layout();
 	}
@@ -540,7 +540,7 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 		int numOfPages = getNumberOfPages();
 		boolean proceed = true;
 		if (numOfPages > WARNING_IF_MOREPAGES_THAN) {
-			String pagesText = Messages.PrintFigureDialog_10_xmsg + " " + numOfPages;
+			String pagesText = Messages.PrintFigureDialog_10_xmsg + " " + numOfPages; //$NON-NLS-1$
 			proceed = MessageDialog.openQuestion(this.getShell(), Messages.PrintFigureDialog_22_xfld, pagesText + " \n" //$NON-NLS-1$
 					+ Messages.PrintFigureDialog_25_xfld);
 		}

@@ -16,6 +16,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.util.ui;
 
+import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -123,7 +124,7 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 			} else {
 				value = new Double(text);
 				if (value < 0) {
-					throw new NumberFormatException("Scale factor is negative:" + value);
+					throw new NumberFormatException(Messages.DoubleFieldWithDropDown_0 + value);
 				}
 			}
 			_preferences.setDoublePreference(_index, value);
