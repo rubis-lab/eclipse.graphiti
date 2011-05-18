@@ -92,7 +92,7 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 		String text = getTextFieldValue();
 		if (text.equals("")) { //$NON-NLS-1$
 			setErrorMessage(null);
-			setMessage("Please enter diagram name");//$NON-NLS-1$
+			setMessage(Messages.DiagramNameWizardPage_Message);
 			return false;
 		}
 
@@ -123,7 +123,7 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 
 		// new project label
 		Label projectLabel = new Label(projectGroup, SWT.NONE);
-		projectLabel.setText("Diagram Name");//$NON-NLS-1$
+		projectLabel.setText(Messages.DiagramNameWizardPage_Label);
 		projectLabel.setFont(parent.getFont());
 
 		// new project name entry field

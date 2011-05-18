@@ -52,7 +52,7 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 
 	private static final String PAGE_NAME_DIAGRAM_TYPE = Messages.CreateDiagramWizard_DiagramTypeField;
 	private static final String PAGE_NAME_DIAGRAM_NAME = Messages.CreateDiagramWizard_DiagramNameField;
-	private static final String WIZARD_WINDOW_TITLE = "New Diagram"; //$NON-NLS-1$
+	private static final String WIZARD_WINDOW_TITLE = Messages.CreateDiagramWizard_WizardTitle;
 
 	private Diagram diagram;
 

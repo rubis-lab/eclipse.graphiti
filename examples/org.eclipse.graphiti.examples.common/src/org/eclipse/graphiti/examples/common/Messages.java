@@ -30,8 +30,11 @@ public class Messages extends NLS {
 	public static String CreateDiagramWizard_NoProjectFoundError;
 	public static String CreateDiagramWizard_NoProjectFoundErrorTitle;
 	public static String CreateDiagramWizard_OpeningEditorError;
+	public static String CreateDiagramWizard_WizardTitle;
 	public static String DiagramNameWizardPage_PageDescription;
 	public static String DiagramNameWizardPage_PageTitle;
+	public static String DiagramNameWizardPage_Message;
+	public static String DiagramNameWizardPage_Label;
 	public static String DiagramsNode_DiagramNodeTitle;
 	public static String DiagramTypeWizardPage_DiagramTypeField;
 	public static String DiagramTypeWizardPage_PageDescription;
