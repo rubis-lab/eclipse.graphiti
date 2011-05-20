@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 346487 - No selection feedback for non-resizable diagram nodes 
  *
  * </copyright>
  *
@@ -65,27 +66,29 @@ public class GFHandleHelper {
 	 * @return A list containing all handles for a given shape.
 	 */
 	public static List<AbstractHandle> createShapeHandles(GraphicalEditPart owner, IConfigurationProvider cp,
-			int supportedResizeDirections, boolean movable) {
+			int supportedResizeDirections, boolean movable, boolean resizeAllowed) {
 		List<AbstractHandle> list = new ArrayList<AbstractHandle>();
 
 		list.add(new GFSurroundingHandle(owner, cp, PositionConstants.NSEW, movable));
 
-		if ((PositionConstants.NORTH_EAST & supportedResizeDirections) != 0)
-			list.add(new GFCornerHandle(owner, cp, PositionConstants.NORTH_EAST, supportedResizeDirections, movable));
-		if ((PositionConstants.SOUTH_EAST & supportedResizeDirections) != 0)
-			list.add(new GFCornerHandle(owner, cp, PositionConstants.SOUTH_EAST, supportedResizeDirections, movable));
-		if ((PositionConstants.SOUTH_WEST & supportedResizeDirections) != 0)
-			list.add(new GFCornerHandle(owner, cp, PositionConstants.SOUTH_WEST, supportedResizeDirections, movable));
-		if ((PositionConstants.NORTH_WEST & supportedResizeDirections) != 0)
-			list.add(new GFCornerHandle(owner, cp, PositionConstants.NORTH_WEST, supportedResizeDirections, movable));
-		if ((PositionConstants.NORTH & supportedResizeDirections) != 0)
-			list.add(new GFCornerHandle(owner, cp, PositionConstants.NORTH, supportedResizeDirections, movable));
-		if ((PositionConstants.EAST & supportedResizeDirections) != 0)
-			list.add(new GFCornerHandle(owner, cp, PositionConstants.EAST, supportedResizeDirections, movable));
-		if ((PositionConstants.SOUTH & supportedResizeDirections) != 0)
-			list.add(new GFCornerHandle(owner, cp, PositionConstants.SOUTH, supportedResizeDirections, movable));
-		if ((PositionConstants.WEST & supportedResizeDirections) != 0)
-			list.add(new GFCornerHandle(owner, cp, PositionConstants.WEST, supportedResizeDirections, movable));
+		if (resizeAllowed) {
+			if ((PositionConstants.NORTH_EAST & supportedResizeDirections) != 0)
+				list.add(new GFCornerHandle(owner, cp, PositionConstants.NORTH_EAST, supportedResizeDirections, movable));
+			if ((PositionConstants.SOUTH_EAST & supportedResizeDirections) != 0)
+				list.add(new GFCornerHandle(owner, cp, PositionConstants.SOUTH_EAST, supportedResizeDirections, movable));
+			if ((PositionConstants.SOUTH_WEST & supportedResizeDirections) != 0)
+				list.add(new GFCornerHandle(owner, cp, PositionConstants.SOUTH_WEST, supportedResizeDirections, movable));
+			if ((PositionConstants.NORTH_WEST & supportedResizeDirections) != 0)
+				list.add(new GFCornerHandle(owner, cp, PositionConstants.NORTH_WEST, supportedResizeDirections, movable));
+			if ((PositionConstants.NORTH & supportedResizeDirections) != 0)
+				list.add(new GFCornerHandle(owner, cp, PositionConstants.NORTH, supportedResizeDirections, movable));
+			if ((PositionConstants.EAST & supportedResizeDirections) != 0)
+				list.add(new GFCornerHandle(owner, cp, PositionConstants.EAST, supportedResizeDirections, movable));
+			if ((PositionConstants.SOUTH & supportedResizeDirections) != 0)
+				list.add(new GFCornerHandle(owner, cp, PositionConstants.SOUTH, supportedResizeDirections, movable));
+			if ((PositionConstants.WEST & supportedResizeDirections) != 0)
+				list.add(new GFCornerHandle(owner, cp, PositionConstants.WEST, supportedResizeDirections, movable));
+		}
 
 		return list;
 	}

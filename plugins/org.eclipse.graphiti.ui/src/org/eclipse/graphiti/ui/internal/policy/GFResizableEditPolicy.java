@@ -11,13 +11,13 @@
  *    SAP AG - initial API, implementation and documentation
  *    jpasch - BUG 341180: Graphiti fails to handle resize after custom feature addition in the tutorial
  *    Patch 185019 from Bug 332360 contributed by Volker Wegert
+ *    mwenz - Bug 346487 - No selection feedback for non-resizable diagram nodes
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.policy;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
@@ -60,12 +60,11 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 
 	@Override
 	protected List<?> createSelectionHandles() {
-		if (getResizeShapeFeature() == null || !getResizeShapeFeature().canResizeShape(getResizeShapeContext())) {
-			return Collections.EMPTY_LIST;
-		}
+		boolean resizeAllowed = !(getResizeShapeFeature() == null || !getResizeShapeFeature().canResizeShape(getResizeShapeContext()));
 
 		GraphicalEditPart owner = (GraphicalEditPart) getHost();
-		List<?> list = GFHandleHelper.createShapeHandles(owner, getConfigurationProvider(), getResizeDirections(), isDragAllowed());
+		List<?> list = GFHandleHelper.createShapeHandles(owner, getConfigurationProvider(), getResizeDirections(), isDragAllowed(),
+				resizeAllowed);
 		return list;
 	}
 
@@ -94,12 +93,15 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 	public int getResizeDirections() {
 		int ret = 0;
 		if (!(getResizeShapeContext() == null)) {
-			IResizeConfiguration resizeConfiguration = getResizeShapeFeature().getResizeConfiguration(getResizeShapeContext());
-			if (resizeConfiguration.isHorizontalResizeAllowed()) {
-				ret = ret | PositionConstants.EAST_WEST;
-			}
-			if (resizeConfiguration.isVerticalResizeAllowed()) {
-				ret = ret | PositionConstants.NORTH_SOUTH;
+			IResizeShapeFeature resizeShapeFeature = getResizeShapeFeature();
+			if (resizeShapeFeature != null) {
+				IResizeConfiguration resizeConfiguration = resizeShapeFeature.getResizeConfiguration(getResizeShapeContext());
+				if (resizeConfiguration.isHorizontalResizeAllowed()) {
+					ret = ret | PositionConstants.EAST_WEST;
+				}
+				if (resizeConfiguration.isVerticalResizeAllowed()) {
+					ret = ret | PositionConstants.NORTH_SOUTH;
+				}
 			}
 		}
 		return ret;
