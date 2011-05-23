@@ -74,10 +74,9 @@ public class DiagramEditorFactory implements IElementFactory {
 			final TransactionalEditingDomain domain = createResourceSetAndEditingDomain();
 			URI diagramFileUri = GraphitiUiInternal.getEmfService().getFileURI(file, domain.getResourceSet());
 			if (diagramFileUri != null) {
-				// the file has to contain one base node which has to be a
-				// diagram
-				diagramFileUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri);
-				return new DiagramEditorInput(diagramFileUri, domain, null, true);
+				// the file's first base node has to be a diagram
+				URI diagramUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri);
+				return new DiagramEditorInput(diagramUri, domain, null, true);
 			}
 		}
 		if (otherInput instanceof URIEditorInput) {
@@ -85,10 +84,9 @@ public class DiagramEditorFactory implements IElementFactory {
 			final TransactionalEditingDomain domain = createResourceSetAndEditingDomain();
 			URI diagramFileUri = uriInput.getURI();
 			if (diagramFileUri != null) {
-				// the file has to contain one base node which has to be a
-				// diagram
-				diagramFileUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri);
-				return new DiagramEditorInput(diagramFileUri, domain, null, true);
+				// the file's first base node has to be a diagram
+				URI diagramUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri);
+				return new DiagramEditorInput(diagramUri, domain, null, true);
 			}
 		}
 

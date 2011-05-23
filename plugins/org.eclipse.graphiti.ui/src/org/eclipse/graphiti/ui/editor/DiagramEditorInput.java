@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
@@ -301,13 +302,12 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		if (resource == null) {
 			throw new IllegalArgumentException();
 		}
-		final String fragment = resource.getURIFragment(diagram);
-		final URI fragmentUri = resource.getURI().appendFragment(fragment);
+		URI diagramUri = EcoreUtil.getURI(diagram);
 		DiagramEditorInput diagramEditorInput;
 		if (disposeEditingDomain) {
-			diagramEditorInput = new DiagramEditorInput(fragmentUri, domain, providerId, true);
+			diagramEditorInput = new DiagramEditorInput(diagramUri, domain, providerId, true);
 		} else {
-			diagramEditorInput = new DiagramEditorInput(fragmentUri, domain, providerId);
+			diagramEditorInput = new DiagramEditorInput(diagramUri, domain, providerId);
 		}
 		return diagramEditorInput;
 	}
@@ -777,6 +777,14 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 			URIConverter uriConverter = getEditingDomain().getResourceSet().getURIConverter();
 			if (uriConverter != null) {
 				ret = uriConverter.normalize(this.getUri());
+				// Note that, for example, EcoreUtil.getURI(EObject) computes an
+				// URI whose fragment ("/" or "/0") depends on the existence of
+				// a Resource
+				// We have to enforce consistent URIs, otherwise the matching
+				// strategy can fail. Also we have to enforce consistency with
+				// DiagramEditorFactory#createEditorInput(IEditorInput)
+				URI trimFragment = ret.trimFragment();
+				ret = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(trimFragment);
 			}
 		}
 		return ret;
