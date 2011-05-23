@@ -46,6 +46,9 @@ public class Messages extends NLS {
 	public static String FileService_ErrorMessageUri;
 	public static String GFEmfLabelProvider_DiagramText;
 	public static String GFEmfLabelProvider_NameNotAvailable;
+	public static String GraphicsTestPreferencePage_ActivateDebugLevelField;
+	public static String GraphicsTestPreferencePage_ActivateInfoLevelField;
+	public static String GraphicsTestPreferencePage_GraphitiTracingTitle;
 	public static String GraphicsTestPreferencePage_AnimationStepsField;
 	public static String GraphicsTestPreferencePage_ContextButtonPadField;
 	public static String GraphicsTestPreferencePage_CpuDurationField;

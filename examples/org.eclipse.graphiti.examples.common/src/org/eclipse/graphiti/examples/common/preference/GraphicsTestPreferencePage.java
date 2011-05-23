@@ -20,6 +20,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.graphiti.examples.common.Messages;
 import org.eclipse.graphiti.internal.GraphitiPlugin;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
+import org.eclipse.graphiti.internal.util.AbstractTracer;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IntegerFieldEditor;
@@ -78,6 +79,21 @@ public class GraphicsTestPreferencePage extends FieldEditorPreferencePage implem
 		addLabel(Messages.GraphicsTestPreferencePage_InternalTitle);
 		addField(new BooleanFieldEditor(GFPreferences.RECURSIVE_CHECK_FOR_UPDATE_ACTIVE, Messages.GraphicsTestPreferencePage_RecursiveUpdateCheckField,
 				getFieldEditorParent()));
+		
+		addLabel(""); //$NON-NLS-1$
+		addLabel(Messages.GraphicsTestPreferencePage_GraphitiTracingTitle);
+		addField(new BooleanFieldEditor(GFPreferences.INFO_LEVEL_TRACING_ACTIVE, Messages.GraphicsTestPreferencePage_ActivateInfoLevelField, getFieldEditorParent()) {
+			@Override
+			protected void valueChanged(boolean oldValue, boolean newValue) {
+				AbstractTracer.setInfoLogging(newValue);
+			}
+		});
+		addField(new BooleanFieldEditor(GFPreferences.DEBUG__LEVEL_TRACING_ACTIVE, Messages.GraphicsTestPreferencePage_ActivateDebugLevelField, getFieldEditorParent()) {
+			@Override
+			protected void valueChanged(boolean oldValue, boolean newValue) {
+				AbstractTracer.setDebugLogging(newValue);
+			}
+		});
 	}
 
 	private void addLabel(String message) {
