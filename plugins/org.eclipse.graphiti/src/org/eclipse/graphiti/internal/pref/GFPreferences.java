@@ -38,6 +38,8 @@ public class GFPreferences {
 	public static final String GENERIC_PROPERTY_SHEET_ACTIVE = "GENERIC_PROPERTY_SHEET_ACTIVE"; //$NON-NLS-1$
 	public static final String GENERIC_OUTLINE_ACTIVE = "GENERIC_OUTLINE_ACTIVE"; //$NON-NLS-1$
 	public static final String POLYLINE_ROUNDING = "POLYLINE_ROUNDING"; //$NON-NLS-1$
+	public static final String INFO_LEVEL_TRACING_ACTIVE = "INFO_LEVEL__TRACING_ACTIVE"; //$NON-NLS-1$
+	public static final String DEBUG__LEVEL_TRACING_ACTIVE = "DEBUG__LEVEL_TRACING_ACTIVE"; //$NON-NLS-1$
 
 	IEclipsePreferences node;
 
@@ -94,6 +96,14 @@ public class GFPreferences {
 
 	public boolean isRecursiveCheckForUpdateActive() {
 		return getNode().getBoolean(RECURSIVE_CHECK_FOR_UPDATE_ACTIVE, false);
+	}
+	
+	public boolean isInfoLevelTracingActive() {
+		return getNode().getBoolean(INFO_LEVEL_TRACING_ACTIVE, false);
+	}
+	
+	public boolean isDebugLevelTracingActive() {
+		return getNode().getBoolean(DEBUG__LEVEL_TRACING_ACTIVE, false);
 	}
 
 	private IEclipsePreferences getNode() {

@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.osgi.framework.Bundle;
 
 /**
@@ -41,14 +42,21 @@ public abstract class AbstractTracer {
 	private static boolean sIsDebugLogging = false;
 
 	static {
-		String logInfoProperty = System.getProperty("org.eclipse.graphiti.logging.info", "false"); //$NON-NLS-1$ //$NON-NLS-2$
-		if ("true".equals(logInfoProperty)) { //$NON-NLS-1$
-			sIsInfoLogging = true;
-		}
+		if (Platform.getBundle("org.eclipse.graphiti.examples.common") != null) { //$NON-NLS-1$
+			// Graphiti preference page (from examples plug-in) is usable by user and preferred
+			GFPreferences prefs = GFPreferences.getInstance();
+			sIsInfoLogging = prefs.isInfoLevelTracingActive();
+			sIsDebugLogging = prefs.isDebugLevelTracingActive();
+		} else {
+			String logInfoProperty = System.getProperty("org.eclipse.graphiti.logging.info", "false"); //$NON-NLS-1$ //$NON-NLS-2$
+			if ("true".equals(logInfoProperty)) { //$NON-NLS-1$
+				sIsInfoLogging = true;
+			}
 
-		String logDebugProperty = System.getProperty("org.eclipse.graphiti.logging.debug", "false"); //$NON-NLS-1$ //$NON-NLS-2$
-		if ("true".equals(logDebugProperty)) { //$NON-NLS-1$
-			sIsDebugLogging = true;
+			String logDebugProperty = System.getProperty("org.eclipse.graphiti.logging.debug", "false"); //$NON-NLS-1$ //$NON-NLS-2$
+			if ("true".equals(logDebugProperty)) { //$NON-NLS-1$
+				sIsDebugLogging = true;
+			}
 		}
 	}
 
@@ -102,6 +110,20 @@ public abstract class AbstractTracer {
 	//	public void entering(Class clazz, String signature) {
 	//		t.info(clazz, signature, FULL_ENTERING_MSG.replaceFirst(SIGNATURE_PATTERN, signature));
 	//	}
+
+	/**
+	 * @param isInfoLogging the sIsInfoLogging to set
+	 */
+	public static void setInfoLogging(boolean isInfoLogging) {
+		AbstractTracer.sIsInfoLogging = isInfoLogging;
+	}
+
+	/**
+	 * @param isDebugLogging the sIsDebugLogging to set
+	 */
+	public static void setDebugLogging(boolean isDebugLogging) {
+		AbstractTracer.sIsDebugLogging = isDebugLogging;
+	}
 
 	/**
 	 * Writes a trace entry that the specified method was entered.
