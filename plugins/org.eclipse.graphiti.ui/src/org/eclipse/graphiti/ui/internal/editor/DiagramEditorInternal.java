@@ -15,7 +15,8 @@
  *    mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *    jpasch - Bug 323025 ActionBarContributor cleanup
- *    mwenz - Bug 345347 - There should be a way to not allow other plugins to contribute to the diagram context menu 
+ *    mwenz - Bug 345347 - There should be a way to not allow other plugins to contribute to the diagram context menu
+ *    mwenz - Bug 346932 - Navigation history broken
  *
  * </copyright>
  *
@@ -1071,9 +1072,11 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-		// Eclipse may call us with an IFileEditorInput when a file is to be
-		// opened. Try to convert this to a diagram input.
-		if (!(input instanceof DiagramEditorInput)) {
+		// Eclipse may call us with other inputs when a file is to be
+		// opened. Also a disposed DiagramEditorInput (no editing domain)
+		// may be handed in (see Bug 346932). Try to convert this to a
+		// valid diagram input.
+		if (!(input instanceof DiagramEditorInput) || ((DiagramEditorInput) input).getAdapter(TransactionalEditingDomain.class) == null) {
 			IEditorInput newInput = new DiagramEditorFactory().createEditorInput(input);
 			if (!(newInput instanceof DiagramEditorInput)) {
 				// give up

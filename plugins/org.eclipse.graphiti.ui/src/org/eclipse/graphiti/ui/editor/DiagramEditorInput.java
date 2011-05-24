@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 346932 - Navigation history broken
  *
  * </copyright>
  *
@@ -711,8 +712,25 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @return The current {@link TransactionalEditingDomain} or
 	 *         <code>null</code>
 	 */
-	private TransactionalEditingDomain getEditingDomain() {
+	final TransactionalEditingDomain getEditingDomain() {
 		return this.editingDomain;
+	}
+
+	/**
+	 * Sets the internally used editing domain after this DiagramEditorInput
+	 * object has been disposed (see Bug 346932).
+	 * <p>
+	 * Note: do not call, this method is intended for internal usage only.
+	 * @since 0.8
+	 */
+	final void setEditingDomain(TransactionalEditingDomain editingDomain) {
+		if (this.editingDomain != null) {
+			throw new IllegalStateException("This method may only be called in case the input's editing domain is null"); //$NON-NLS-1$
+		}
+		if (editingDomain == null) {
+			throw new IllegalArgumentException("This method may only be called with a valid editing domain"); //$NON-NLS-1$
+		}
+		this.editingDomain = editingDomain;
 	}
 
 	/**

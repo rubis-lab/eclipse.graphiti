@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
+ *    mwenz - Bug 346932 - Navigation history broken
  *
  * </copyright>
  *
@@ -66,7 +67,16 @@ public class DiagramEditorFactory implements IElementFactory {
 	 */
 	public DiagramEditorInput createEditorInput(IEditorInput otherInput) {
 		if (otherInput instanceof DiagramEditorInput) {
-			return (DiagramEditorInput) otherInput;
+			DiagramEditorInput input = (DiagramEditorInput) otherInput;
+			if (input.getAdapter(TransactionalEditingDomain.class) == null) {
+				// This might happen in case the editor input comes from the navigation history:
+				// there the editing domain is disposed and the diagram can no longer be resolved
+				// Simply create a new editor input
+				// See Bug 346932
+				TransactionalEditingDomain ed = DiagramEditorFactory.createResourceSetAndEditingDomain();
+				input.setEditingDomain(ed);
+			}
+			return input;
 		}
 		if (otherInput instanceof IFileEditorInput) {
 			final IFileEditorInput fileInput = (IFileEditorInput) otherInput;
