@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
+ *    mwenz - Bug 347152 - Do not log diagnostics errors as errors in the Eclipse error log
  *
  * </copyright>
  *
@@ -414,7 +415,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 			if (diagnostic.getSeverity() != Diagnostic.OK) {
 				try {
 					markerHelper.createMarkers(diagnostic);
-					T.racer().error(diagnostic.getMessage(), diagnostic.getException());
+					T.racer().info(diagnostic.toString());
 				} catch (final CoreException exception) {
 					T.racer().error(exception.getMessage(), exception);
 				}
