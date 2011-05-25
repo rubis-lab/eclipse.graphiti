@@ -21,6 +21,7 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -86,6 +87,8 @@ public class LineWidthFeature extends AbstractCustomFeature {
 			for (int i = 0; i < pes.length; i++) {
 				PictogramElement pe = pes[i];
 				if (pe instanceof Shape && pe.getGraphicsAlgorithm() != null && !(pe instanceof Diagram)) {
+					ret = true;
+				} else if (pe instanceof Connection && pe.getGraphicsAlgorithm() != null && !(pe instanceof Diagram)) {
 					ret = true;
 				} else {
 					return false;
