@@ -98,7 +98,7 @@ public abstract class AbstractStyleImpl extends EObjectImpl implements AbstractS
 	 * @generated
 	 * @ordered
 	 */
-	protected static final LineStyle LINE_STYLE_EDEFAULT = LineStyle.SOLID;
+	protected static final LineStyle LINE_STYLE_EDEFAULT = LineStyle.UNSPECIFIED;
 
 	/**
 	 * The cached value of the '{@link #getLineStyle() <em>Line Style</em>}' attribute.
