@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -39,6 +40,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.graphiti.ui.internal.command.ReconnectCommand;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.figures.GFPolylineConnection;
 import org.eclipse.graphiti.ui.internal.requests.ContextButtonDragRequest;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFColorConstants;
 import org.eclipse.swt.SWT;
@@ -75,18 +77,8 @@ public class GFNodeEditPolicy extends GraphicalNodeEditPolicy {
 	@Override
 	protected org.eclipse.draw2d.Connection createDummyConnection(Request req) {
 		identifySourceFigure(req);
-		PolylineConnection c = new PolylineConnection() {
-			@Override
-			public void paint(Graphics g) {
-				// We do not draw unless the target position of the
-				// dummy connection lies outside of the source figure's bounds.
-				if (rec != null && rec.contains(getPoints().getLastPoint())) {
-					return;
-				}
-				g.setAntialias(SWT.ON);
-				super.paint(g);
-			}
-		};
+		IFigure hostFigure = getHostFigure();
+		PolylineConnection c = new DummyPolylineConnection(hostFigure);
 
 		c.setLineWidth((int) (2 * configurationProvider.getDiagramEditor().getZoomLevel()));
 		c.setForegroundColor(GFColorConstants.HANDLE_BG);
@@ -210,4 +202,41 @@ public class GFNodeEditPolicy extends GraphicalNodeEditPolicy {
 		return configurationProvider;
 	}
 
+	private final class DummyPolylineConnection extends PolylineConnection {
+		private IFigure hostFigure;
+
+		DummyPolylineConnection(IFigure hostFigure) {
+			super();
+			setHostFigure(hostFigure);
+		}
+
+		@Override
+		public void paint(Graphics g) {
+			// We do not draw unless the target position of the
+			// dummy connection lies outside of the source figure's bounds.
+			// But we have to draw in polyline connections if a connection is
+			// created starting from an existing one.
+			if (rec != null && (!(getHostFigure() instanceof GFPolylineConnection)) && rec.contains(getPoints().getLastPoint())) {
+				return;
+			}
+
+			g.setAntialias(SWT.ON);
+			super.paint(g);
+		}
+
+		/**
+		 * @return the hostFigure
+		 */
+		private IFigure getHostFigure() {
+			return hostFigure;
+		}
+
+		/**
+		 * @param hostFigure
+		 *            the hostFigure to set
+		 */
+		private void setHostFigure(IFigure hostFigure) {
+			this.hostFigure = hostFigure;
+		}
+	}
 }
