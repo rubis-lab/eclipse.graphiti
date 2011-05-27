@@ -127,6 +127,8 @@ import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.dnd.GFTemplateTransferDropTargetListener;
 import org.eclipse.graphiti.ui.internal.dnd.ObjectsTransferDropTargetListener;
 import org.eclipse.graphiti.ui.internal.parts.IConnectionEditPart;
+import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
+import org.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart;
 import org.eclipse.graphiti.ui.internal.parts.IShapeEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
@@ -1349,6 +1351,21 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		}
 
 		selectBufferedPictogramElements();
+	}
+
+	@Override
+	public void refresh(PictogramElement pe) {
+		if (pe == null || !pe.isActive()) {
+			return;
+		}
+		GraphicalEditPart editPart = getEditPartForPictogramElement(pe);
+		if (editPart != null && editPart instanceof IPictogramElementEditPart) {
+			IPictogramElementEditPart ep = (IPictogramElementEditPart) editPart;
+			IPictogramElementDelegate delegate = ep.getPictogramElementDelegate();
+			delegate.setForceRefresh(true);
+			editPart.refresh();
+			delegate.setForceRefresh(false);
+		}
 	}
 
 	@Override

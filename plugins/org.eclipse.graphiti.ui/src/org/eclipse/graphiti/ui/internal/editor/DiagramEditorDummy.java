@@ -76,6 +76,10 @@ public class DiagramEditorDummy implements IDiagramEditor {
 	}
 
 	@Override
+	public void refresh(PictogramElement pe) {
+	}
+
+	@Override
 	public void refreshTitleToolTip() {
 	}
 
