@@ -17,7 +17,6 @@ package org.eclipse.graphiti.ui.editor;
 
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 
-
 /**
  * The class DiagramEditor is for extension by clients if they need their own
  * editor class.
