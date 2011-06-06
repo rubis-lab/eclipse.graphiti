@@ -38,6 +38,7 @@ public class GFCellEditorValidator implements ICellEditorValidator {
 		setCellEditor(cellEditor);
 	}
 
+	@Override
 	public String isValid(Object value) {
 		if (!directEditHolder.isSimpleMode()) {
 			return isValidProposal(value);
@@ -92,7 +93,10 @@ public class GFCellEditorValidator implements ICellEditorValidator {
 					text = cc.getText();
 				}
 			} else {
-				proposal = proposalSupport.getPossibleValues(directEditingContext)[index];
+				IProposal[] possibleValues = proposalSupport.getPossibleValues(directEditingContext);
+				if (possibleValues.length > index) {
+					proposal = possibleValues[index];
+				}
 			}
 		}
 		return proposalSupport.checkValueValid(text, proposal, directEditingContext);
