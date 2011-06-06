@@ -144,6 +144,7 @@ public class FixedThumbnail extends Figure implements UpdateListener {
 		 * {@link Display#timerExec(int, Runnable)}. If no more updating is
 		 * required, {@link #stop()} is called.
 		 */
+		@Override
 		public void run() {
 			if (!isActive() || !isRunning())
 				return;
@@ -300,13 +301,13 @@ public class FixedThumbnail extends Figure implements UpdateListener {
 		 */
 		public void stop() {
 			isRunning = false;
-			if (thumbnailGC != null) {
-				thumbnailGC.dispose();
-				thumbnailGC = null;
-			}
 			if (thumbnailGraphics != null) {
 				thumbnailGraphics.dispose();
 				thumbnailGraphics = null;
+			}
+			if (thumbnailGC != null) {
+				thumbnailGC.dispose();
+				thumbnailGC = null;
 			}
 			// Don't dispose of the thumbnail image since it is needed to paint
 			// the
@@ -481,6 +482,7 @@ public class FixedThumbnail extends Figure implements UpdateListener {
 	 * 
 	 * @see org.eclipse.draw2d.UpdateListener#notifyPainting(Rectangle, Map)
 	 */
+	@Override
 	public void notifyPainting(Rectangle damage, @SuppressWarnings("rawtypes") Map dirtyRegions) {
 		Iterator<?> dirtyFigures = dirtyRegions.keySet().iterator();
 		while (dirtyFigures.hasNext()) {
@@ -501,6 +503,7 @@ public class FixedThumbnail extends Figure implements UpdateListener {
 	 * 
 	 * @see org.eclipse.draw2d.UpdateListener#notifyValidating()
 	 */
+	@Override
 	public void notifyValidating() {
 		// setDirty(true);
 		// revalidate();
