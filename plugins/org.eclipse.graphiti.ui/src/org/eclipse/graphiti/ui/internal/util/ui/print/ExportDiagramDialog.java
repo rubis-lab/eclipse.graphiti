@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    jpasch - Bug 345315  Missing units for "Choose scale-factor
  *
  * </copyright>
  *
@@ -109,7 +110,7 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 		Group scaleGroup = createChooseScaleFactorGroup(composite);
 
 		Label widthComboText = new Label(scaleGroup, SWT.NONE);
-		widthComboText.setText(Messages.SaveFigureAsImageDialog_0_xfld);
+		widthComboText.setText(Messages.SaveFigureAsImageDialog_0_xfld + " (px)"); //$NON-NLS-1$
 		_widthCombo = new Combo(scaleGroup, SWT.DROP_DOWN);
 		_widthCombo.setItems(WIDTHS);
 		_widthCombo.addModifyListener(this);
@@ -117,7 +118,7 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 		_widthCombo.setLayoutData(data);
 
 		Label heightComboText = new Label(scaleGroup, SWT.NONE);
-		heightComboText.setText(Messages.SaveFigureAsImageDialog_1_xfld);
+		heightComboText.setText(Messages.SaveFigureAsImageDialog_1_xfld + " (px)"); //$NON-NLS-1$
 		_heightCombo = new Combo(scaleGroup, SWT.DROP_DOWN);
 		_heightCombo.setItems(HEIGHTS);
 		_heightCombo.addModifyListener(this);
