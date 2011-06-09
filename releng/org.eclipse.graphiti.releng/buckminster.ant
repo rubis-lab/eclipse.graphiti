@@ -108,16 +108,16 @@
 	<!-- This target promotes the last_success folder to the download area for the nightly build. It is triggered via a cron job running each evening -->
 	<target name="promote.sites" >
 		<echo message="Deleting old update site from downloads area" />
-		<delete dir="/home/data/httpd/download.eclipse.org/graphiti/updates/nightly/" failonerror="true" />
+		<delete dir="/home/data/httpd/download.eclipse.org/graphiti/updates/staging/0.8/" failonerror="true" />
 		
-		<echo message="Promoting site.p2" />
-		<copydir dest="/home/data/httpd/download.eclipse.org/graphiti/updates/nightly/" src="/opt/public/jobs/gmp-graphiti-nightly/workspace/last_success/site.p2" />
+		<echo message="Promoting site.signed" />
+		<copydir dest="/home/data/httpd/download.eclipse.org/graphiti/updates/staging/0.8/" src="/opt/public/jobs/gmp-graphiti-nightly/workspace/last_success/site.signed" />
 		
 		<echo message="Deleting old ZIP archive from downloads area" />
-		<delete dir="/home/data/httpd/download.eclipse.org/graphiti/archives/nightly/" failonerror="true" />
+		<delete dir="/home/data/httpd/download.eclipse.org/graphiti/archives/staging/0.8/" failonerror="true" />
 		
 		<echo message="Promoting site.p2.zip" />
-		<copydir dest="/home/data/httpd/download.eclipse.org/graphiti/archives/nightly/" src="/opt/public/jobs/gmp-graphiti-nightly/workspace/last_success/site.p2.zip" />
+		<copydir dest="/home/data/httpd/download.eclipse.org/graphiti/archives/staging/0.8/" src="/opt/public/jobs/gmp-graphiti-nightly/workspace/last_success/site.p2.zip" />
 	</target>
 
 </project>

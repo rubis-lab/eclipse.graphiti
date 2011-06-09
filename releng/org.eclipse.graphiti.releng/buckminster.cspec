@@ -60,7 +60,7 @@
                 <cs:property key="download.area" value="${graphiti.download.area}"/>
                 <cs:property key="root" value="${WORKSPACE}"/>
             </cs:properties>
-            <cs:products alias="action.output" base="${graphiti.download.area}/updates/nightly/"/>
+            <cs:products alias="action.output" base="${graphiti.download.area}/updates/staging/0.8/"/>
         </cs:public>
     </cs:actions>
 </cs:cspec>
