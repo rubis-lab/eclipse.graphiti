@@ -30,6 +30,7 @@ import org.eclipse.graphiti.examples.tutorial.features.TutorialDrillDownEClassFe
 import org.eclipse.graphiti.examples.tutorial.features.TutorialLayoutEClassFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialMoveEClassFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialPasteEClassFeature;
+import org.eclipse.graphiti.examples.tutorial.features.TutorialReconnectionFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialRenameEClassFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialResizeEClassFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialUpdateEClassFeature;
@@ -42,6 +43,7 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.IPasteFeature;
+import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -52,6 +54,7 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IPasteContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -164,4 +167,11 @@ public class TutorialFeatureProvider extends DefaultFeatureProvider {
 	public IPasteFeature getPasteFeature(IPasteContext context) {
 		return new TutorialPasteEClassFeature(this);
 	}
+
+	@Override
+	public IReconnectionFeature getReconnectionFeature(IReconnectionContext context) {
+		return new TutorialReconnectionFeature(this);
+	}
+	
+	
 }
