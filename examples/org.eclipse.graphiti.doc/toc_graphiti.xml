@@ -35,7 +35,9 @@
 		<topic label="Add Connection Feature" href="resources/docu/gfw/add-connection-feature.htm"> 
 		<topic label="Create Connection Feature" href="resources/docu/gfw/create-connection-feature.htm"/> 
 			<topic label="Anchors" href="resources/docu/gfw/anchors.htm"/> 
-			<topic label="Connection Visualization" href="resources/docu/gfw/connection-visualization.htm"/> 
+			<topic label="Connection Visualization" href="resources/docu/gfw/connection-visualization.htm"/>
+   <topic href="resources/docu/gfw/reconnection-feature.htm" label="Providing Reconnection Funcionality">
+   </topic> 
 		</topic>
 		<topic label="Direct Editing Feature" href="resources/docu/gfw/direct-editing-feature.htm"> 
 			<topic label="Direct Editing Activation" href="resources/docu/gfw/direct-editing-activation.htm"/> 
