@@ -24,6 +24,7 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
 import org.eclipse.graphiti.internal.Messages;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 
@@ -43,6 +44,9 @@ public class DefaultResizeShapeFeature extends AbstractFeature implements IResiz
 	}
 
 	public boolean canResizeShape(IResizeShapeContext context) {
+		if (context.getPictogramElement() instanceof ConnectionDecorator) {
+			return false;
+		}
 		return true;
 	}
 
