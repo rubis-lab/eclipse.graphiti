@@ -81,6 +81,7 @@ import org.eclipse.jface.viewers.ColorCellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * A GraphicalEditPart, which model is of the type Shape.
@@ -93,6 +94,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	private static final boolean TRACE_OUT = false;
 
 	private final IAnchorContainerDelegate delegate;
+
+	private boolean directEditingDelayed = false;
 
 	/**
 	 * Creates a new ShapeEditPart.
@@ -665,6 +668,11 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	 */
 	private void bringUpDirectEditField(IDirectEditingFeature directEditingFeature, IDirectEditingContext directEditingContext,
 			IFigure figure) {
+
+		if (isDirectEditingDelayed()) {
+			return;
+		}
+
 		TextCellLocator cellEditorLocator = new TextCellLocator(figure, directEditingFeature);
 
 		Class<?> uiElementClass = null;
@@ -833,4 +841,31 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 		delegate.refreshDecorators();
 	}
 
+	public void delayDirectEditing() {
+		setDirectEditingDelayed(true);
+		Runnable runnable = new Runnable() {
+
+			@Override
+			public void run() {
+				setDirectEditingDelayed(false);
+
+			}
+		};
+		Display.getCurrent().timerExec(600, runnable);
+	}
+
+	/**
+	 * @return the directEditingDelayed
+	 */
+	private boolean isDirectEditingDelayed() {
+		return directEditingDelayed;
+	}
+
+	/**
+	 * @param directEditingDelayed
+	 *            the directEditingDelayed to set
+	 */
+	private void setDirectEditingDelayed(boolean directEditingDelayed) {
+		this.directEditingDelayed = directEditingDelayed;
+	}
 }
