@@ -320,6 +320,8 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 			disposeCellEditorFont();
 			GraphitiUiInternal.getWorkbenchService().getActiveStatusLineManager().setErrorMessage(null);
 		}
+
+		((ShapeEditPart) getEditPart()).delayDirectEditing();
 	}
 
 	@Override
