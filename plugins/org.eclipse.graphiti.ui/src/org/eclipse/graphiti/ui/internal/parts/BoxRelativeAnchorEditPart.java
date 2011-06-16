@@ -25,6 +25,7 @@ import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.tools.ConnectionDragCreationTool;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -84,29 +85,29 @@ public class BoxRelativeAnchorEditPart extends AnchorEditPart implements IBoxRel
 		if (dragAndDropFeatures == null || dragAndDropFeatures.length == 0)
 			return super.getDragTracker(request);
 
-		ConnectionDragCreationTool tool = new ConnectionDragCreationTool() {
+		ConnectionDragCreationTool tool = null;
+		if (request instanceof CreateConnectionRequest) {
+			tool = new ConnectionDragCreationTool() {
 
-			/**
-			 * changed order: feedback gets deleted after command is executed
-			 * (popup!)
-			 */
-			@Override
-			protected boolean handleCreateConnection() {
+				/**
+				 * changed order: feedback gets deleted after command is executed
+				 * (popup!)
+				 */
+				@Override
+				protected boolean handleCreateConnection() {
 
-				Command endCommand = getCommand();
-				setCurrentCommand(endCommand);
-				executeCurrentCommand();
-				eraseSourceFeedback();
+					Command endCommand = getCommand();
+					setCurrentCommand(endCommand);
+					executeCurrentCommand();
+					eraseSourceFeedback();
 
-				return true;
-			}
+					return true;
+				}
 
-		};
-
-		tool.setFactory(new MultiCreationFactory(Arrays.asList(dragAndDropFeatures)));
-
+			};
+			tool.setFactory(new MultiCreationFactory(Arrays.asList(dragAndDropFeatures)));
+		}
 		return tool;
-
 	}
 
 	/**
