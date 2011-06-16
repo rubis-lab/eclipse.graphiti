@@ -56,7 +56,8 @@ public class ContentProposalProvider implements IContentProposalProvider {
 				proposals = new IContentProposal[valueProposals.length];
 
 				for (int i = 0; i < valueProposals.length; i++) {
-					proposals[i] = new ContentProposal(directEditHolder, position, contents, null, valueProposals[i], null);
+					proposals[i] = new ContentProposal(directEditHolder, position, contents, valueProposals[i].getText(),
+							valueProposals[i], null);
 				}
 			}
 
