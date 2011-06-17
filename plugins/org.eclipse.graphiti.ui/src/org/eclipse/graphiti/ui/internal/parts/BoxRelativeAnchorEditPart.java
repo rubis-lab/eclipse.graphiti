@@ -25,7 +25,6 @@ import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.tools.ConnectionDragCreationTool;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -86,7 +85,7 @@ public class BoxRelativeAnchorEditPart extends AnchorEditPart implements IBoxRel
 			return super.getDragTracker(request);
 
 		ConnectionDragCreationTool tool = null;
-		if (request instanceof CreateConnectionRequest) {
+		//if (request instanceof CreateConnectionRequest) {
 			tool = new ConnectionDragCreationTool() {
 
 				/**
@@ -106,7 +105,7 @@ public class BoxRelativeAnchorEditPart extends AnchorEditPart implements IBoxRel
 
 			};
 			tool.setFactory(new MultiCreationFactory(Arrays.asList(dragAndDropFeatures)));
-		}
+		//}
 		return tool;
 	}
 
