@@ -1,284 +1,125 @@
 <html>
 
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 12 (filtered)">
+<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
 <title>Plugin structure</title>
-<link rel=Stylesheet type="text/css" media=all href="../book.css">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Cambria;
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-h1
-	{mso-style-link:"Überschrift 1 Zchn";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:16.0pt;
-	font-family:"Arial","sans-serif";}
-h2
-	{mso-style-link:"Überschrift 2 Zchn";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:14.0pt;
-	font-family:"Arial","sans-serif";
-	font-style:italic;}
-h3
-	{mso-style-link:"Überschrift 3 Zchn";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:13.0pt;
-	font-family:"Arial","sans-serif";}
-p.MsoCaption, li.MsoCaption, div.MsoCaption
-	{margin-top:6.0pt;
-	margin-right:0cm;
-	margin-bottom:24.0pt;
-	margin-left:0cm;
-	text-align:justify;
-	font-size:10.0pt;
-	font-family:"Arial","sans-serif";
-	font-weight:bold;}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-link:"Sprechblasentext Zchn";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";}
-span.berschrift1Zchn
-	{mso-style-name:"Überschrift 1 Zchn";
-	mso-style-link:"Überschrift 1";
-	font-family:"Cambria","serif";
-	color:#365F91;
-	font-weight:bold;}
-span.berschrift2Zchn
-	{mso-style-name:"Überschrift 2 Zchn";
-	mso-style-link:"Überschrift 2";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.berschrift3Zchn
-	{mso-style-name:"Überschrift 3 Zchn";
-	mso-style-link:"Überschrift 3";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.SprechblasentextZchn
-	{mso-style-name:"Sprechblasentext Zchn";
-	mso-style-link:Sprechblasentext;
-	font-family:"Tahoma","sans-serif";}
-p.msochpdefault, li.msochpdefault, div.msochpdefault
-	{mso-style-name:msochpdefault;
-	margin-right:0cm;
-	margin-left:0cm;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";}
-p.Heading1, li.Heading1, div.Heading1
-	{mso-style-name:"Heading 1";
-	mso-style-link:"Heading 1 Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.Heading1Char
-	{mso-style-name:"Heading 1 Char";
-	mso-style-link:"Heading 1";
-	font-family:"Cambria","serif";
-	color:#365F91;
-	font-weight:bold;}
-p.Heading2, li.Heading2, div.Heading2
-	{mso-style-name:"Heading 2";
-	mso-style-link:"Heading 2 Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.Heading2Char
-	{mso-style-name:"Heading 2 Char";
-	mso-style-link:"Heading 2";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-p.Heading3, li.Heading3, div.Heading3
-	{mso-style-name:"Heading 3";
-	mso-style-link:"Heading 3 Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.Heading3Char
-	{mso-style-name:"Heading 3 Char";
-	mso-style-link:"Heading 3";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-p.BalloonText, li.BalloonText, div.BalloonText
-	{mso-style-name:"Balloon Text";
-	mso-style-link:"Balloon Text Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-link:"Balloon Text";
-	font-family:"Tahoma","sans-serif";}
-.MsoChpDefault
-	{font-size:10.0pt;}
-@page Section1
-	{size:595.45pt 841.7pt;
-	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
-div.Section1
-	{page:Section1;}
--->
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<style type="text/css">
+.auto-style1 {
+	border-collapse: collapse;
+}
 </style>
-
 </head>
 
-<body lang=DE link=blue vlink=purple>
+<body lang="DE" link="blue" vlink="purple">
 
-<div class=Section1>
-
-<h1><span lang=EN-GB>Plug-In Structure</span></h1>
-
-<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB>Graphiti consists of a UI platform
-independent and a UI platform dependent part. The other Plug-ins complete the
-list of Graphiti plug-ins in Eclipse and might be useful when working with the
-tutorial.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='width:733px;border-collapse:collapse'>
- <tr>
-  <td valign=top style='width:380px;border:1.0pt solid windowtext;
-  padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New"'>org.eclipse.graphiti</span></p>
-  </td>
-  <td valign=top style='border-right:1.0pt solid windowtext; border-top:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:311px;border-left:medium none;padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span lang=EN-GB style='font-size:10.0pt;font-family:"Courier New"'>Graphiti:
-  UI platform independent part</span></p>
-  </td>
- </tr>
- <tr>
-  <td valign=top style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:380px;border-top:medium none;padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New"'>org.eclipse.graphiti.ui</span></p>
-  </td>
-  <td valign=top style='width:311px;border-top:medium none;border-left:
-  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
-  padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>Graphiti:
-  UI platform dependent part</span></p>
-  </td>
- </tr>
- <tr>
-  <td valign=top style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:380px;border-top:medium none;padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New"'>org.eclipse.graphiti.mm</span></p>
-  </td>
-  <td valign=top style='width:311px;border-top:medium none;border-left:
-  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
-  padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span lang=EN-GB style='font-size:10.0pt;font-family:"Courier New"'>plug-in
-  for EMF pictogram model</span></p>
-  </td>
- </tr>
- <tr>
-  <td valign=top style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:380px;border-top:medium none;padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New"'>org.eclipse.graphiti.pattern</span></p>
-  </td>
-  <td valign=top style='width:311px;border-top:medium none;border-left:
-  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
-  padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>framework
-  for an alternative generic approach to combine all implementation aspects in
-  one pattern</span></p>
-  </td>
- </tr>
- <tr>
-  <td valign=top style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:380px;border-top:medium none;padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New"'>org.eclipse.graphiti.doc</span></p>
-  </td>
-  <td valign=top style='width:311px;border-top:medium none;border-left:
-  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
-  padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>Graphiti
-  tutorial in Eclipse help</span></p>
-  </td>
- </tr>
- <tr>
-  <td style='padding:0cm 0cm 0cm 0cm'></td>
-  <td style='padding:0cm 0cm 0cm 0cm'></td>
- </tr>
- <tr>
-  <td valign=top style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:380px;border-top:medium none;padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span lang=EN-GB style='font-size:10.0pt;font-family:"Courier New"'>org.eclipse.graphiti.examples.common</span></p>
-  </td>
-  <td valign=top style='width:311px;border-top:medium none;border-left:
-  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
-  padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span lang=EN-GB style='font-size:10.0pt;font-family:"Courier New"'>samples
-  and test tools for Graphiti; helper UIs, e.g. repository explorer <i>and
-  wizard(for Graphiti internal use; must not be used by the Graphiti customers)</i></span></p>
-  </td>
- </tr>
- <tr>
-  <td valign=top style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:380px;border-top:medium none;padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>org.eclipse.graphiti.examples.tutorial</span></p>
-  </td>
-  <td valign=top style='width:311px;border-top:medium none;border-left:
-  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
-  padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>implementation
-  of Graphiti tutorial in final stage</span></p>
-  </td>
- </tr>
- <tr>
-  <td valign=top style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:380px;border-top:medium none;padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New"'>org.eclipse.graphiti.tests</span></p>
-  </td>
-  <td valign=top style='width:311px;border-top:medium none;border-left:
-  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
-  padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New"'>Graphiti
-  internal tests</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
-
-<div class=MsoNormal align=center style='text-align:center'>
-
-<hr size=3 width="100%" align=center>
-
-</div>
-
-<p class=MsoNormal><a href="http://www.eclipse.org/legal/epl-v10.html"
-shape=rect>Copyright (c) SAP AG 2005, 2010.</a> </p>
-
+<div class="Section1">
+	<h1>Plug-In Structure</h1>
+	<p>Graphiti consists of a UI platform independent and a UI platform dependent 
+	part. The other Plug-ins complete the list of Graphiti plug-ins in Eclipse and 
+	might be useful when working with the tutorial.</p>
+	<p>&nbsp;</p>
+	<table border="0" cellpadding="0" class="auto-style1" style="width: 733; float: left;">
+		<tr>
+			<td style="width: 380px; border: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			org.eclipse.graphiti</span></p>
+			</td>
+			<td style="border-right: 1.0pt solid windowtext; border-top: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 311px; border-left: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span lang="EN-GB" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			Graphiti: UI platform independent part</span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			org.eclipse.graphiti.ui</span></p>
+			</td>
+			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span lang="EN-US" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			Graphiti: UI platform dependent part</span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			org.eclipse.graphiti.mm</span></p>
+			</td>
+			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span lang="EN-GB" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			plug-in for EMF pictogram model</span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			org.eclipse.graphiti.pattern</span></p>
+			</td>
+			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span lang="EN-US" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			framework for an alternative generic approach to combine all implementation 
+			aspects in one pattern</span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			org.eclipse.graphiti.doc</span></p>
+			</td>
+			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span lang="EN-US" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			Graphiti tutorial in Eclipse help</span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span lang="EN-GB" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			org.eclipse.graphiti.examples.common</span></p>
+			</td>
+			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span lang="EN-GB" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			samples and test tools for Graphiti; helper UIs, e.g. repository explorer
+			<i>and wizard(for Graphiti internal use; must not be used by the Graphiti 
+			customers)</i></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span lang="EN-US" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			org.eclipse.graphiti.examples.tutorial</span></p>
+			</td>
+			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span lang="EN-US" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			implementation of Graphiti tutorial in final stage</span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			org.eclipse.graphiti.tests</span></p>
+			</td>
+			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+			<p>
+			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
+			Graphiti internal tests</span></p>
+			</td>
+		</tr>
+	</table>
 </div>
 
 </body>
