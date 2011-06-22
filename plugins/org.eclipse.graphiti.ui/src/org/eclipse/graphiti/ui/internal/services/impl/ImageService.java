@@ -69,6 +69,12 @@ public class ImageService implements IImageService {
 		return image;
 	}
 
+	@Override
+	public void removeImageFromRegistry(String key) {
+		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
+		imageRegistry.remove(key);
+	}
+
 	/**
 	 * This method fixes a problem for ImageDescriptors. It returns a corrected
 	 * ImageDescriptor for problematic ImageDescriptors.

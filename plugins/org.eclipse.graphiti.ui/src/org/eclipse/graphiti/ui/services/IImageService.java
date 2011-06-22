@@ -55,4 +55,19 @@ public interface IImageService {
 	 * @see org.eclipse.swt.graphics.Image
 	 */
 	Image getImageForId(String imageId);
+
+	/**
+	 * Removes the corresponding image entry from the image registry and
+	 * disposes the corresponding image (if existent). The passed image id must
+	 * be supported by an graphiti image provider. The image registry of the
+	 * plugin <code>org.eclipse.graphiti.ui</code> is used. Only call this
+	 * method if you can guarantee that the image/image descriptor is no longer
+	 * in use.
+	 * 
+	 * @param imageId
+	 *            the image id which is supported by an graphiti image provider
+	 * 
+	 * @see org.eclipse.swt.graphics.Image
+	 */
+	public abstract void removeImageFromRegistry(String imageId);
 }
