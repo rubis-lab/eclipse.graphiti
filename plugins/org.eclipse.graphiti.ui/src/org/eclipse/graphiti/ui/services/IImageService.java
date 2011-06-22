@@ -69,5 +69,5 @@ public interface IImageService {
 	 * 
 	 * @see org.eclipse.swt.graphics.Image
 	 */
-	public abstract void removeImageFromRegistry(String imageId);
+	void removeImageFromRegistry(String imageId);
 }
