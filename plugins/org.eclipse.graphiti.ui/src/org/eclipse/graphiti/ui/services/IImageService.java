@@ -68,7 +68,7 @@ public interface IImageService {
 	 *            the image id which is supported by an graphiti image provider
 	 * 
 	 * @see org.eclipse.swt.graphics.Image
-	 * @since 0.8.100
+	 * @since 0.9
 	 */
 	void removeImageFromRegistry(String imageId);
 }
