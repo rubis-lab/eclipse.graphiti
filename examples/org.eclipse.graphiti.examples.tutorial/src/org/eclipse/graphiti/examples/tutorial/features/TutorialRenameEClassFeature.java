@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 327756 - canceled commands still mark editor dirty and appear
+ *                         in the command stack
  *
  * </copyright>
  *
@@ -23,6 +25,8 @@ import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 public class TutorialRenameEClassFeature extends AbstractCustomFeature {
+
+	private boolean hasDoneChanges = false;
 
 	public TutorialRenameEClassFeature(IFeatureProvider fp) {
 		super(fp);
@@ -62,10 +66,16 @@ public class TutorialRenameEClassFeature extends AbstractCustomFeature {
 				String currentName = eClass.getName();
 				// ask user for a new class name
 				String newName = ExampleUtil.askString(getName(), getDescription(), currentName);
-				if (newName != null) {
+				if (newName != null && !newName.equals(currentName)) {
+					this.hasDoneChanges = true;
 					eClass.setName(newName);
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean hasDoneChanges() {
+		return this.hasDoneChanges;
 	}
 }
