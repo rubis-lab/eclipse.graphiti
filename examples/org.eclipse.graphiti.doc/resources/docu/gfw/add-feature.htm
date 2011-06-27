@@ -74,33 +74,17 @@ Therefore we have to create an add feature and make it available in the feature
 provider.</p>
 
 <p>An add feature has to 
-implement the interface <span class=code1><span lang=EN-US
-style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/features/IAddFeature.html"><span
-style='font-style:normal'>IAddFeature</span></a>.</span></span><span
-lang=EN-GB style='color:black'> Instead of implementing it directly it should 
+implement the interface <a href="../../../javadoc/org/eclipse/graphiti/features/IAddFeature.html">IAddFeature</a>. Instead of implementing it directly it should 
 extend one of the available base classes. In this example we extend the base 
-class<span class=code1> </span></span><span class=code1><span lang=EN-US
-style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractAddShapeFeature.html"><span
-style='font-style:normal'>AbstractAddShapeFeature</span></a></span></span><span
-lang=EN-GB style='color:black'>.</span></p>
+class <a href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractAddShapeFeature.html">AbstractAddShapeFeature</a>.</p>
 
 <p>In this case we have to 
 implement/overwrite two methods:</p>
 
-<p>The method <span
-class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#canAdd(org.eclipse.graphiti.features.context.IAddContext)"><span
-style='font-style:normal'>canAdd</span></a></span></span><span lang=EN-US
-style='color:black'> </span>has to check 
+<p>The method <a href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#canAdd(org.eclipse.graphiti.features.context.IAddContext)">canAdd</a> has to check 
 the given context and therefore it decides if a business object can be added.</p>
 
-<p>The method <span
-class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#add(org.eclipse.graphiti.features.context.IAddContext)"><span
-style='font-style:normal'>add</span></a></span></span><span lang=EN-US
-style='color:black'> </span>finally has to 
+<p>The method <a href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#add(org.eclipse.graphiti.features.context.IAddContext)">add</a> finally has to 
 create the pictogram structure described above and has to establish the linkage 
 to the business object. Additionally we have to create graphics algorithms and 
 place them at the appropriate location (get location from given context). 
@@ -114,162 +98,162 @@ implementation of the add feature here:</p>
 <div class="incode">
 <p class="code">
 
-<span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br />
-&nbsp;<br />
+<span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br/>
+&nbsp;<br/>
 <span class="keyword">public class</span> TutorialAddEClassFeature 
-<span class="keyword">extends </span>AbstractAddShapeFeature {<br />
-&nbsp;<br />
+<span class="keyword">extends </span>AbstractAddShapeFeature {<br/>
+&nbsp;<br/>
 &nbsp;&nbsp;&nbsp; <span class="keyword">private static final</span> IColorConstant 
-<span class="string"><em>CLASS_TEXT_FOREGROUND</em></span> =<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">new </span>ColorConstant(51, 51, 153);<br />
-&nbsp;<br />
+<span class="string"><em>CLASS_TEXT_FOREGROUND</em></span> =<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">new </span>ColorConstant(51, 51, 153);<br/>
+&nbsp;<br/>
 &nbsp;&nbsp;&nbsp; <span class="keyword">private static final</span> IColorConstant
-<span class="string"><em>CLASS_FOREGROUND</em></span> =<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">new </span>ColorConstant(255, 102, 0);<br />
-&nbsp;<br />
+<span class="string"><em>CLASS_FOREGROUND</em></span> =<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">new </span>ColorConstant(255, 102, 0);<br/>
+&nbsp;<br/>
 &nbsp;&nbsp;&nbsp; <span class="keyword">private static final</span> IColorConstant
-<span class="string"><em>CLASS_BACKGROUND</em></span> =<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">new </span>ColorConstant(255, 204, 153);<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>TutorialAddEClassFeature(IFeatureProvider fp) {<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">super</span>(fp);<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>boolean canAdd(IAddContext context) {<br />
+<span class="string"><em>CLASS_BACKGROUND</em></span> =<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">new </span>ColorConstant(255, 204, 153);<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>TutorialAddEClassFeature(IFeatureProvider fp) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">super</span>(fp);<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>boolean canAdd(IAddContext context) {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// check if user wants to add a 
-EClass</span><br />
+EClass</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">if </span>(context.getNewObject() 
-<span class="keyword">instanceof </span>EClass) {<br />
+<span class="keyword">instanceof </span>EClass) {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <span class="comment">// check if 
-user wants to add to a diagram</span><br />
+user wants to add to a diagram</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <span class="keyword">if 
-(</span>context.getTargetContainer() <span class="keyword">instanceof </span>Diagram) {<br />
+(</span>context.getTargetContainer() <span class="keyword">instanceof </span>Diagram) {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword"> 
-return true</span>;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword"> return false</span>;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>PictogramElement add(IAddContext context) {<br />
+return true</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword"> return false</span>;<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>PictogramElement add(IAddContext context) {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EClass addedClass = (EClass) 
-context.getNewObject();<br />
+context.getNewObject();<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Diagram targetDiagram = (Diagram) 
-context.getTargetContainer();<br />
-&nbsp;<br />
+context.getTargetContainer();<br/>
+&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// CONTAINER SHAPE WITH ROUNDED 
-RECTANGLE</span><br />
+RECTANGLE</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IPeCreateService peCreateService = 
-Graphiti.getPeCreateService();<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ContainerShape containerShape =<br />
+Graphiti.getPeCreateService();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ContainerShape containerShape =<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-peCreateService.createContainerShape(targetDiagram, <span class="keyword">true</span>);<br />
-&nbsp;<br />
+peCreateService.createContainerShape(targetDiagram, <span class="keyword">true</span>);<br/>
+&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// define a default size for the 
-shape</span><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">int </span>width = 100;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">int </span>height = 50; <br />
+shape</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">int </span>width = 100;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">int </span>height = 50; <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IGaService gaService = 
-Graphiti.getGaService();<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />
+Graphiti.getGaService();<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <span class="comment">// create and 
-set graphics algorithm</span><br />
+set graphics algorithm</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-RoundedRectangle roundedRectangle =<br />
+RoundedRectangle roundedRectangle =<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-gaService.createRoundedRectangle(containerShape, 5, 5);<br />
+gaService.createRoundedRectangle(containerShape, 5, 5);<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-roundedRectangle.setForeground(manageColor(<em class="string">CLASS_FOREGROUND</em>));<br />
+roundedRectangle.setForeground(manageColor(<em class="string">CLASS_FOREGROUND</em>));<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-roundedRectangle.setBackground(manageColor(<span class="string"><em>CLASS_BACKGROUND</em></span>));<br />
+roundedRectangle.setBackground(manageColor(<span class="string"><em>CLASS_BACKGROUND</em></span>));<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-roundedRectangle.setLineWidth(2);<br />
+roundedRectangle.setLineWidth(2);<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-gaService.setLocationAndSize(roundedRectangle,<br />
+gaService.setLocationAndSize(roundedRectangle,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-context.getX(), context.getY(), width, height);<br />
-&nbsp;<br />
+context.getX(), context.getY(), width, height);<br/>
+&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <span class="comment">// if added 
-Class has no resource we add it to the resource <br />
+Class has no resource we add it to the resource <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // of the 
-diagram<br />
+diagram<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // in a real 
-scenario the business model would have its own resource</span><br />
+scenario the business model would have its own resource</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword"> if</span> 
-(addedClass.eResource() == <span class="keyword">null</span>) {<br />
+(addedClass.eResource() == <span class="keyword">null</span>) {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-getDiagram().eResource().getContents().add(addedClass);<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+getDiagram().eResource().getContents().add(addedClass);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <span class="comment">// create 
-link and wire it</span><br />
+link and wire it</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-link(containerShape, addedClass);<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// SHAPE WITH LINE</span><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />
+link(containerShape, addedClass);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// SHAPE WITH LINE</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <span class="comment">// create 
-shape for line</span><br />
+shape for line</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Shape shape = 
-peCreateService.createShape(containerShape, <span class="keyword">false</span>);<br />
-&nbsp;<br />
+peCreateService.createShape(containerShape, <span class="keyword">false</span>);<br/>
+&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <span class="comment">// create and 
-set graphics algorithm</span><br />
+set graphics algorithm</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Polyline 
-polyline =<br />
+polyline =<br/>
 &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gaService.createPolyline(shape, 
 <span class="keyword">new int</span>[] { 
-0, 20, width, 20 });<br />
+0, 20, width, 20 });<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-polyline.setForeground(manageColor(<span class="string"><em>CLASS_FOREGROUND</em></span>));<br />
+polyline.setForeground(manageColor(<span class="string"><em>CLASS_FOREGROUND</em></span>));<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-polyline.setLineWidth(2);<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// SHAPE WITH TEXT</span><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />
+polyline.setLineWidth(2);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// SHAPE WITH TEXT</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <span class="comment">// create 
-shape for text</span><br />
+shape for text</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Shape shape = 
-peCreateService.createShape(containerShape, <span class="keyword">false</span>);<br />
-&nbsp;<br />
+peCreateService.createShape(containerShape, <span class="keyword">false</span>);<br/>
+&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <span class="comment">// create and 
-set text graphics algorithm</span><br />
+set text graphics algorithm</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Text text = 
-gaService.createDefaultText(getDiagram(), shape,<br />
+gaService.createDefaultText(getDiagram(), shape,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-&nbsp;&nbsp;addedClass.getName());<br />
+&nbsp;&nbsp;addedClass.getName());<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-text.setForeground(manageColor(<span class="string"><em>CLASS_TEXT_FOREGROUND</em></span>));<br />
+text.setForeground(manageColor(<span class="string"><em>CLASS_TEXT_FOREGROUND</em></span>));<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-text.setHorizontalAlignment(Orientation.<span class="string"><em>ALIGNMENT_CENTER</em></span>);<br />
+text.setHorizontalAlignment(Orientation.<span class="string"><em>ALIGNMENT_CENTER</em></span>);<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-text.setVerticalAlignment(Orientation.<span class="string"><em>ALIGNMENT_CENTER</em></span>);<br />
+text.setVerticalAlignment(Orientation.<span class="string"><em>ALIGNMENT_CENTER</em></span>);<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-text.getFont().setBold(<span class="keyword">true</span>);<br />
+text.getFont().setBold(<span class="keyword">true</span>);<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-gaService.setLocationAndSize(text, 0, 0, width, 20);<br />
-&nbsp;<br />
+gaService.setLocationAndSize(text, 0, 0, width, 20);<br/>
+&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 <span class="comment">// create 
-link and wire it</span><br />
+link and wire it</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; link(shape, 
-addedClass);<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return </span>containerShape;<br />
-&nbsp;&nbsp;&nbsp; }<br />
-}<br />
+addedClass);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return </span>containerShape;<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+}<br/>
 &nbsp;
 
 </p>
