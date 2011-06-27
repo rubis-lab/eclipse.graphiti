@@ -1,622 +1,190 @@
-<html>
+ï»¿<html>
 
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 12 (filtered)">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 <title>Providing create functionality</title>
-<link rel=Stylesheet type="text/css" media=all href="../book.css">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-h1
-	{mso-style-link:"Heading 1 Char";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:16.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-h2
-	{mso-style-link:"Heading 2 Char";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:14.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;
-	font-style:italic;}
-h3
-	{mso-style-link:"Heading 3 Char";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:13.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-h4
-	{mso-style-link:"Heading 4 Char";
-	margin-top:11.25pt;
-	margin-right:0cm;
-	margin-bottom:1.7pt;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;
-	font-style:italic;}
-h5
-	{mso-style-link:"Heading 5 Char";
-	margin-right:0cm;
-	margin-left:0cm;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-h6
-	{mso-style-link:"Heading 6 Char";
-	margin-right:0cm;
-	margin-left:0cm;
-	font-size:7.5pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-a:link, span.MsoHyperlink
-	{color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{color:purple;
-	text-decoration:underline;}
-p
-	{margin-top:5.65pt;
-	margin-right:0cm;
-	margin-bottom:5.65pt;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-pre
-	{mso-style-link:"HTML Preformatted Char";
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:3.4pt;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Courier New";}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-link:"Balloon Text Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";}
-span.Heading1Char
-	{mso-style-name:"Heading 1 Char";
-	mso-style-link:"Heading 1";
-	font-family:"Cambria","serif";
-	color:#365F91;
-	font-weight:bold;}
-span.Heading2Char
-	{mso-style-name:"Heading 2 Char";
-	mso-style-link:"Heading 2";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.Heading3Char
-	{mso-style-name:"Heading 3 Char";
-	mso-style-link:"Heading 3";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.Heading4Char
-	{mso-style-name:"Heading 4 Char";
-	mso-style-link:"Heading 4";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;
-	font-style:italic;}
-span.Heading5Char
-	{mso-style-name:"Heading 5 Char";
-	mso-style-link:"Heading 5";
-	font-family:"Cambria","serif";
-	color:#243F60;}
-span.Heading6Char
-	{mso-style-name:"Heading 6 Char";
-	mso-style-link:"Heading 6";
-	font-family:"Cambria","serif";
-	color:#243F60;
-	font-style:italic;}
-span.HTMLPreformattedChar
-	{mso-style-name:"HTML Preformatted Char";
-	mso-style-link:"HTML Preformatted";
-	font-family:Consolas;}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-link:"Balloon Text";
-	font-family:"Tahoma","sans-serif";}
-p.code, li.code, div.code
-	{mso-style-name:code;
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:15.0pt;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.note, li.note, div.note
-	{mso-style-name:note;
-	margin-top:19.5pt;
-	margin-right:0cm;
-	margin-bottom:19.5pt;
-	margin-left:30.0pt;
-	font-size:13.0pt;
-	font-family:"Times New Roman","serif";
-	font-style:italic;}
-span.code1
-	{mso-style-name:code1;
-	font-style:italic;}
-.MsoChpDefault
-	{font-size:10.0pt;}
-@page Section1
-	{size:595.45pt 841.7pt;
-	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
-div.Section1
-	{page:Section1;}
--->
-</style>
-
+<link rel=Stylesheet type="text/css" href="../book.css">
+<link rel=Stylesheet type="text/css" href="../code.css">
 </head>
 
-<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+<body>
+<h1>Providing Create Functionality</h1>
 
-<div class=Section1>
+<h2>Creating a Create Feature</h2>
 
-<h1><a name="_Toc179099518"><span lang=EN-GB>Providing Create Functionality</span></a></h1>
+<p >Usually a new business object is created graphically by using the 
+corresponding creation tool from the editorâ€™s tool palette. When using Graphiti 
+you only have to provide a so called create feature. The integration into the 
+platformâ€™s UI is done by the framework.</p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+<p>A create feature has to implement the interface <a href="../../../javadoc/org/eclipse/graphiti/features/ICreateFeature.html">
+ICreateFeature</a>.Instead of implementing it directly it should extend one of 
+the available base classes. In this example we extend the base class<a href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractCreateFeature.html">AbstractCreateFeature</a>.</p>
 
-<h2><span lang=EN-GB>Creating a Create Feature</span></h2>
+<p>In this case we have to implement/overwrite two methods:</p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+<p>The method <a href="../../../javadoc/org/eclipse/graphiti/func/ICreate.html#canCreate(org.eclipse.graphiti.features.context.ICreateContext)">
+canCreate</a> has to check whether the business object can be created for the 
+given context. </p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Usually a new business 
-object is created graphically by using the corresponding creation tool from the 
-editor’s tool palette. When using Graphiti you only have to provide
-a so called create feature. The integration into the platform’s UI is done by
-the framework.</span></p>
+<p>The method
+<a href="../../../javadoc/org/eclipse/graphiti/func/ICreate.html#create(org.eclipse.graphiti.features.context.ICreateContext)">
+create</a> has to create the business object and also has to add the graphical 
+representation of the newly created business object to the diagram. The creation 
+of the business object must be implemented here. For adding the graphical 
+representation, the existing add feature should be used (see <a href="add-feature.htm">
+providing add functionality</a>). </p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>A create feature has to
-implement the interface </span><span class=code1><span lang=EN-US
-style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/features/ICreateFeature.html"><span
-style='font-style:normal'>ICreateFeature</span></a>.</span></span><span
-lang=EN-US style='color:black'> </span><span lang=EN-GB style='color:black'>Instead
-of implementing it directly it should extend one of the available base classes.
-In this example we extend the base class<span class=code1> </span></span><span
-class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractCreateFeature.html"><span
-style='font-style:normal'>AbstractCreateFeature</span></a></span></span><span
-lang=EN-GB style='color:black'>.</span></p>
+<p>In this example we want create a EClass via the palette. The creation should 
+be possible anywhere on the diagram. </p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
+<p>You can see the complete implementation of the create feature here: </p>
+<p>&nbsp;</p>
 
-<p class=MsoNormal><span lang=EN-GB style='color:black'>In this case we have to
-implement/overwrite two methods:</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/org/eclipse/graphiti/func/ICreate.html#canCreate(org.eclipse.graphiti.features.context.ICreateContext)">c<span
-lang=EN-US>anCreate</span></a> has to check whether the business object can be
-created for the given context. </span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
-class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/func/ICreate.html#create(org.eclipse.graphiti.features.context.ICreateContext)"><span
-style='font-style:normal'>create</span></a></span></span><span lang=EN-GB
-style='color:black'> has to create the business object and also has to add the
-graphical representation of the newly created business object to the diagram.
-The creation of the business object must be implemented here. For adding the
-graphical representation, the existing add feature should be used (see <a
-href="add-feature.htm">providing add functionality</a>). </span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>In this example we want
-create a EClass via the palette. The creation should be possible anywhere on
-the diagram. </span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
-complete implementation of the create feature here: </span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  org.eclipse.graphiti.examples.tutorial.features;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> TutorialCreateEClassFeature
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>extends</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> AbstractCreateFeature {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>private</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  String </span><i><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#0000C0'>TITLE</span></i><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> = </span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Create
-  class&quot;</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>private</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>static</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>final</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  String </span><i><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#0000C0'>USER_QUESTION</span></i><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'> = </span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Enter
-  new class name&quot;</span><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>
-  TutorialCreateEClassFeature(IFeatureProvider fp) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// set name and description of the creation feature</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>super</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>(fp, </span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;EClass&quot;</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>, </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Create
-  EClass&quot;</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  canCreate(ICreateContext context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> context.getTargetContainer() </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  Diagram;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> Object[] create(ICreateContext
-  context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// ask user for EClass name</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  String newClassName = ExampleUtil.askString(</span><i><span lang="EN-US" style="font-size:
-  10.0pt;font-family:&quot;Courier New&quot;;color:#0000C0">TITLE</span></i><font face="Courier New" size="2">,
-	</font><i>
-	<span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Courier New&quot;;color:#0000C0">
-	USER_QUESTION, &quot;&quot;);</span></i></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (newClassName == </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> ||
-  newClassName.trim().length() == 0) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><i><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#0000C0'>EMPTY</span></i><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-	<p class=MsoNormal style='text-autospace:none'>&nbsp;</p>
-  <p class=MsoNormal><font face="Courier New" size="2"><span lang=EN-US>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></font><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:green'>// create EClass</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  EClass newClass = EcoreFactory.<i><span style='color:#0000C0'>eINSTANCE</span></i>.createEClass();</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Add model
-  element to resource.</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // We add the model
-  element to the resource of the diagram for</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // simplicity's
-  sake. Normally, a customer would use its own</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // model
-  persistence layer for storing the business model separately.</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-family:"Courier New"'>
-	<font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>getDiagram().eResource().getContents().add(newClass);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  newClass.setName(newClassName);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// do the add</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  addGraphicalRepresentation(context, newClass);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// return newly created business object(s)</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> Object[] {
-  newClass };</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
-feature provider has to deliver our newly created feature (overwrite the method
-</span><span class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCreateFeatures()"><span
-style='font-style:normal'>getCreateFeatures</span></a>)</span></span><span
-lang=EN-GB style='color:black'>. </span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>This implementation can
-be seen here:</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#646464'>@Override</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> ICreateFeature[] getCreateFeatures()
-  {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ICreateFeature[] { </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>new</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  TutorialCreateEClassFeature(</span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>this</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>) };</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<h2><span lang=EN-GB>Test: Create a EClass</span></h2>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Now start the editor
-again. “EClass” should be available in the palette of the editor. It should be
-possible to create a EClass: Select the palette entry “EClass” and then take
-the mouse and create size and location of the new object in the diagram. Insert
-a name and press OK. The new EClass should be visible in the diagram.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<h2><span lang=EN-GB>Correct Size of Created EClass</span></h2>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>As you can see the size
-of the created EClass is not correct. To correct this it’s necessary to update
-the implementation of the add feature. The add method of the add feature must
-use the given size and location. </span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>The implementation of
-the changed add-method can be seen here:</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> PictogramElement add(IAddContext
-  context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  EClass addedClass = (EClass) context.getNewObject();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Diagram targetDiagram = (Diagram) context.getTargetContainer();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// CONTAINER SHAPE WITH ROUNDED RECTANGLE</span></p>
-	<p class=MsoNormal style='text-autospace:none'>
-	<span lang="EN-US" style="FONT-SIZE: 10pt; COLOR: black; FONT-FAMILY: 'Courier New'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-	IPeCreateService peCreateService = Graphiti.getPeCreateService();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-	ContainerShape containerShape =</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-	<span lang="EN-US" style="font-size: 10pt; color: black; font-family: Courier New">
-	peCreateService</span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>.createContainerShape(targetDiagram, </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// check whether the context has a size (e.g. from a create
-  feature)</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// otherwise define a default size for the shape</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>int</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> width = context.getWidth() &lt;= 0 ?
-  100 : context.getWidth();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>int</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> height = context.getHeight() &lt;= 0
-  ? 50 : context.getHeight();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// ... EXISTING CODING COMES HERE ...</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> containerShape;</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:black'>&nbsp;&nbsp;&nbsp; </span><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal>&nbsp;</p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Start the editor again
-and see if it works correctly.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
+<div class="literallayout">
+<div class="incode">
+<p class="code">
+<span class="keyword">package </span>
+org.eclipse.graphiti.examples.tutorial.features;<br/>
+&nbsp;<br/>
+<span class="keyword">public class</span> TutorialCreateEClassFeature 
+<span class="keyword">extends </span>AbstractCreateFeature {<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp; <span class="keyword">private static final</span> String 
+<span class="string"><em>TITLE</em> </span>= <span class="string">&quot;Create class&quot;</span>;<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;<span class="keyword"> private static final</span> String 
+<span class="string"><em>USER_QUESTION</em></span> = <span class="string">&quot;Enter 
+new class name&quot;</span>;<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>
+TutorialCreateEClassFeature(IFeatureProvider fp) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// set name and 
+description of the creation feature</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">super</span>(fp, 
+&quot;EClass&quot;, &quot;Create EClass&quot;);<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;<span class="keyword"> public boolean</span> canCreate(ICreateContext 
+context) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return </span>
+context.getTargetContainer() 
+<span class="keyword">instanceof </span>Diagram;<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>Object[] 
+create(ICreateContext context) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// ask user for 
+EClass name</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String newClassName = 
+ExampleUtil.askString(<span class="string"><em>TITLE</em></span>, 
+<span class="string"><em>USER_QUESTION</em></span>, <span class="string">&quot;&quot;</span>);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">if </span>
+(newClassName == null || newClassName.trim().length() == 0) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<span class="keyword">return </span><span class="string"><em>EMPTY</em></span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">&nbsp;// create EClass</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EClass newClass = EcoreFactory.<span class="string"><em>eINSTANCE</em></span>.createEClass();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// Add model 
+element to resource.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // We add the model element to the 
+resource of the diagram for<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // simplicity&#39;s sake. Normally, a 
+customer would use its own<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // model persistence layer for 
+storing the business model separately.</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+getDiagram().eResource().getContents().add(newClass);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; newClass.setName(newClassName);<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// do the add</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addGraphicalRepresentation(context, 
+newClass);<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// return newly 
+created business object(s)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return new</span> 
+Object[] { newClass };<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+}</p>
 </div>
-<hr>
-	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+</div>
 
-</body>
+<p >&nbsp;</p>
+<p >Additionally the feature provider has to deliver our newly created feature 
+(overwrite the method
+<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCreateFeatures()">
+getCreateFeatures</a>).</p>
+
+<p >This implementation can be seen here:</p>
+<p >&nbsp;</p>
+
+<div class="literallayout">
+<div class="incode">
+<p class="code">
+@Override<br/>
+<span class="keyword">public </span>ICreateFeature[] getCreateFeatures() {<br/>
+&nbsp;&nbsp;&nbsp;<span class="keyword">return new</span> ICreateFeature[] { 
+<span class="keyword">new </span>TutorialCreateEClassFeature(<span class="keyword">this</span>) 
+};<br/>
+}
+</p>
+</div>
+</div>
+
+
+<p>&nbsp;</p>
+<h2>Test: Create a EClass</h2>
+
+<p >Now start the editor again. â€œEClassâ€ should be available in the palette of 
+the editor. It should be possible to create a EClass: Select the palette entry 
+â€œEClassâ€ and then take the mouse and create size and location of the new object 
+in the diagram. Insert a name and press OK. The new EClass should be visible in 
+the diagram.</p>
+
+<h2>Correct Size of Created EClass</h2>
+
+<p >As you can see the size of the created EClass is not correct. To correct 
+this itâ€™s necessary to update the implementation of the add feature. The add 
+method of the add feature must use the given size and location. </p>
+
+<p >The implementation of the changed add-method can be seen here:</p>
+<p >&nbsp;</p>
+
+<div class="literallayout">
+<div class="incode">
+<p class="code">
+<span class="keyword">public </span>PictogramElement add(IAddContext context) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EClass addedClass = (EClass) context.getNewObject();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diagram targetDiagram = (Diagram) context.getTargetContainer();<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// CONTAINER SHAPE WITH ROUNDED RECTANGLE</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IPeCreateService peCreateService = Graphiti.getPeCreateService();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ContainerShape containerShape =<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;peCreateService.createContainerShape(targetDiagram,
+<span class="keyword">true</span>);<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// check whether the context has a size (e.g. from 
+a create feature)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// otherwise define a default size for the shape</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int </span>width = context.getWidth() &lt;= 0 ? 100 : 
+context.getWidth();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int </span>height = context.getHeight() &lt;= 0 ? 50 : 
+context.getHeight();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// ... EXISTING CODING COMES HERE ...</span><br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return </span>containerShape;<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;</p>
+</div>
+</div>
+
+
+<p >&nbsp;</p>
+<p >Start the editor again and see if it works correctly.</p>
+
 
 </html>
