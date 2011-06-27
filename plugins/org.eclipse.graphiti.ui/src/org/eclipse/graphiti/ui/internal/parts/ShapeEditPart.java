@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 327756 - canceled commands still mark editor dirty and appear
+ *                         in the command stack
  *
  * </copyright>
  *
@@ -32,6 +34,7 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.RootEditPart;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
@@ -48,7 +51,7 @@ import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.impl.DirectEditingContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.func.IDirectEditing;
-import org.eclipse.graphiti.internal.command.CommandExec;
+import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.features.context.impl.base.DoubleClickContext;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
@@ -64,6 +67,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
@@ -522,7 +526,10 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 				IFeature doubleClickFeature = currentToolBehaviorProvider.getDoubleClickFeature(dcc);
 
 				if (doubleClickFeature != null && doubleClickFeature.canExecute(dcc)) {
-					CommandExec.executeFeatureWithContext(doubleClickFeature, dcc);
+					GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(doubleClickFeature, dcc);
+					DiagramEditorInternal diagramEditor = getConfigurationProvider().getDiagramEditor();
+					CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
+					commandStack.execute(new GefCommandWrapper(commandWithContext, diagramEditor.getEditingDomain()));
 				}
 
 			}
