@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	Copyright (c) 2005 - 2010 SAP AG.
+	Copyright (c) 2005 - 2011 SAP AG.
 	All rights reserved. This program and the accompanying materials
 	are made available under the terms of the Eclipse Public License v1.0
 	which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@
 <feature
       id="org.eclipse.graphiti.site"
       label="Graphiti Site"
-      version="0.7.1.qualifier"
+      version="0.7.2.qualifier"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
@@ -23,7 +23,7 @@ models using a tool-defined notation.
    </description>
 
    <copyright url="Graphiti Site contains the Graphiti framework and all additional features.">
-      (c) 2005, 2010 SAP AG.
+      (c) 2005, 2011 SAP AG.
 All rights reserved.   This program and the accompanying materials
 are made available under the terms of the Eclipse Public License
 v1.0
@@ -36,7 +36,7 @@ http://www.eclipse.org/legal/epl-v10.html
    </license>
 
    <url>
-      <update url="http://www.eclipse.org/downloads/download.php?file=/graphiti/updates/0.7.1/&amp;protocol=http&amp;format=xml"/>
+      <update url="http://www.eclipse.org/downloads/download.php?file=/graphiti/updates/0.7.2/&amp;protocol=http&amp;format=xml"/>
    </url>
 
    <includes
