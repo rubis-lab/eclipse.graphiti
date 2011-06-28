@@ -1,753 +1,227 @@
-<html>
+ï»¿<html>
 
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 11 (filtered)">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>Providing update functionality</title>
-<link rel=Stylesheet type="text/css" media=all href="../book.css">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman";
-	color:windowtext;}
-h1
-	{margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:16.0pt;
-	font-weight:bold;}
-h2
-	{margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:14.0pt;
-	font-weight:bold;
-	font-style:italic;}
-h3
-	{margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:13.0pt;
-	font-weight:bold;}
-h4
-	{margin-top:11.25pt;
-	margin-right:0cm;
-	margin-bottom:1.7pt;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-weight:bold;
-	font-style:italic;}
-h5
-	{margin-right:0cm;
-	margin-left:0cm;
-	font-size:10.0pt;
-	font-weight:bold;}
-h6
-	{margin-right:0cm;
-	margin-left:0cm;
-	font-size:7.5pt;
-	font-weight:bold;}
-p.MsoCaption, li.MsoCaption, div.MsoCaption
-	{margin-top:6.0pt;
-	margin-right:0cm;
-	margin-bottom:24.0pt;
-	margin-left:0cm;
-	text-align:justify;
-	font-size:10.0pt;
-	font-weight:bold;}
-a:link, span.MsoHyperlink
-	{color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{color:purple;
-	text-decoration:underline;}
-p
-	{margin-top:5.65pt;
-	margin-right:0cm;
-	margin-bottom:5.65pt;
-	margin-left:0cm;
-	font-size:12.0pt;}
-pre
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:3.4pt;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:Tahoma;}
-p.code, li.code, div.code
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:15.0pt;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;}
-p.note, li.note, div.note
-	{margin-top:19.5pt;
-	margin-right:0cm;
-	margin-bottom:19.5pt;
-	margin-left:30.0pt;
-	font-size:13.0pt;
-	font-style:italic;}
-span.code1
-	{font-style:italic;}
-@page Section1
-	{size:595.45pt 841.7pt;
-	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
-div.Section1
-	{page:Section1;}
- /* List Definitions */
- ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
--->
-</style>
-
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
 </head>
 
-<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+<body>
 
-<div class=Section1>
-
-<h1><a name="_Toc179099519"><span lang=EN-GB>Providing Update Functionality</span></a></h1>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<h2><span lang=EN-GB>Strategies for Update</span></h2>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>As described in the
-chapter “<a href="add-feature.htm">providing add functionality</a>” the values of
-the business objects (e.g. the EClass name) are stored in the graphics
-algorithm of the pictogram elements. But this is done only once. If the
-business model changes the example editor does not realize the changes.</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>For that purpose we
-need an update feature which is used by the editor to react on business model
-changes.</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>The behavior of the
-update is straight forward, when the user is changing the domain model directly
-via the diagram. For example if the user changes a text in the diagram using
-direct-editing or the property-sheet, then this text should be changed in the
-diagram immediately. </span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>However, if the 
-domain-model is changed outside the diagram (e.g. in a separate editor, maybe 
-even by another user), then it is questionable, if the diagram should be updated 
-immediately. Often an immediate update would destroy a previously good layout or 
-hide previously important information. Therefore Graphiti supports two update-strategies:</span></p>
-
-<p class=MsoNormal style='margin-left:38.8pt;text-indent:-18.0pt'><span
-lang=EN-US style='color:black'>1.</span><span lang=EN-US style='font-size:7.0pt;
-color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US
-style='color:black'>If the <b>automatic update is active</b>, then a change in
-the business model will immediately update the diagram.</span></p>
-
-<p class=MsoNormal style='margin-left:38.8pt;text-indent:-18.0pt'><span
-lang=EN-US style='color:black'>2.</span><span lang=EN-US style='font-size:7.0pt;
-color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=EN-US
-style='color:black'>If the <b>automatic update is inactive</b>, then a change
-in the business model will only mark the changed diagram shapes as outdated.
-The user can then manually update the outdated shapes.</span><br> </p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'><img border=0
-width=264 height=114 src="visio/outdated-shape.gif"></span></p>
-
-<p class=MsoCaption><span lang=EN-US>Figure: Shape marked as outdated (tooltip
-shows reason)</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'><img border=0
-width=225 height=125 src="visio/outdated-shape-update.gif"></span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoCaption><span lang=EN-US>Figure: Outdated shape can be updated
-manually</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>By default the
-automatic update is inactive, but this can be configured by overwriting the
-following methods in the <a
-href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html">IDiagramTypeProvider</a>:</span></p>
-
-<ul style='margin-top:0cm' type=disc>
- <li class=MsoNormal style='color:black'><span lang=EN-US>If <a
-     href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtStartup()">isAutoUpdateAtStartup</a>
-     returns true, then the diagram will be updated, when it is initially
-     opened in the graphical editor. This will make the editor dirty. </span></li>
- <li class=MsoNormal style='color:black'><span lang=EN-US>If <a
-     href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtRuntime()">isAutoUpdateAtRuntime</a>
-     returns true, then the diagram will be updated, when it is already open in
-     the graphical editor, but only if the editor is already dirty.</span></li>
-	<li class=MsoNormal style='color:black'><span lang="en-us">If
-	<a
-     href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtReset()">isAutoUpdateAtReset</a> returns true, then the 
-	diagram will be updated, if the editor is already dirty and the user chooses 
-	to discard his changes (reset the diagram), when a change from outside the 
-	diagram occurs.</span></li>
-</ul>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<h2><span lang=EN-GB>Creating an Update Feature</span></h2>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>An update feature has to
-implement the interface <span class=code1><a
-href="../../../javadoc/org/eclipse/graphiti/features/IUpdateFeature.html"><span
-style='font-style:normal'>IUpdateFeature</span></a>.</span> </span><span
-lang=EN-GB style='color:black'>Instead of implementing it directly it should
-extend one of the available base classes. In this example we extend the base
-class<span class=code1> </span></span><span class=code1><span lang=EN-US
-style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractUpdateFeature.html"><span
-style='font-style:normal'>AbstractUpdateFeature</span></a></span></span><span
-lang=EN-GB style='color:black'>.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>In this case we have to
-implement/overwrite 3 methods:</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>The method <a
-href="../../../javadoc/org/eclipse/graphiti/func/IUpdate.html#canUpdate(org.eclipse.graphiti.features.context.IUpdateContext)">canUpdate</a>
-has to check whether the values of the current pictogram element of the given
-context can be updated.</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>The method <span
-class=code1><a
-href="../../../javadoc/org/eclipse/graphiti/func/IUpdate.html#update(org.eclipse.graphiti.features.context.IUpdateContext)"><span
-style='font-style:normal'>update</span></a></span> has to update this pictogram
-element. &nbsp;It has to copy the latest values from the business objects to
-the graphics algorithm of this pictogram element.</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>The method <span
-class=code1><a
-href="../../../javadoc/org/eclipse/graphiti/func/IUpdate.html#updateNeeded(org.eclipse.graphiti.features.context.IUpdateContext)"><span
-style='font-style:normal'>updateNeeded</span></a></span> has to check whether
-the values in the pictogram element are up to date, that means whether the
-graphics algorithm of this pictogram element contain the latest values from the
-business objects. </span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><b><u><span lang=EN-US style='color:black'>Hint:</span></u></b><span
-lang=EN-US style='color:black'> An update feature can and should also be used
-(called) if any functionality of the editor (e.g. any custom feature) modifies parts
-of the domain model. This works just like the model view controller pattern.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>In this example we want
-to update the EClass name. </span><span lang=EN-GB style='color:black'>You
-can see the complete implementation of the update feature here:</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  org.eclipse.graphiti.examples.tutorial.features;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  TutorialUpdateEClassFeature </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>extends</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  AbstractUpdateFeature {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>
-  TutorialUpdateEClassFeature(IFeatureProvider fp) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>super</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>(fp);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  canUpdate(IUpdateContext context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// return true, if linked business object is a EClass</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Object bo =</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  getBusinessObjectForPictogramElement(context.getPictogramElement());</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (bo </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  EClass);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;
-  &nbsp;}</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> IReason updateNeeded(IUpdateContext
-  context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// retrieve name from pictogram model</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  String pictogramName = </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  PictogramElement pictogramElement = context.getPictogramElement();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (pictogramElement </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ContainerShape) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  ContainerShape cs = (ContainerShape) pictogramElement;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>for</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (Shape shape : cs.getChildren()) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (shape.getGraphicsAlgorithm() </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  Text) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Text text = (Text) shape.getGraphicsAlgorithm();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  pictogramName = text.getValue();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// retrieve name from business model</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;String businessName = </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Object bo = getBusinessObjectForPictogramElement(pictogramElement);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (bo </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  EClass) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  EClass eClass = (EClass) bo;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  businessName = eClass.getName();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;</span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// update needed, if names are different</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>boolean</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> updateNameNeeded =</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  ((pictogramName == </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> &amp;&amp;
-  businessName != </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>) || </span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  (pictogramName != </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> &amp;&amp;
-  !pictogramName.equals(businessName)));</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (updateNameNeeded) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> Reason.<i>createTrueReason</i>(</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Name
-  is out of date&quot;</span><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  } </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>else</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> Reason.<i>createFalseReason</i>();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  update(IUpdateContext context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// retrieve name from business model</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  String businessName = </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  PictogramElement pictogramElement = context.getPictogramElement();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Object bo = getBusinessObjectForPictogramElement(pictogramElement);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (bo </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  EClass) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  EClass eClass = (EClass) bo;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  businessName = eClass.getName();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// Set name in pictogram model</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (pictogramElement </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ContainerShape) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  ContainerShape cs = (ContainerShape) pictogramElement;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>for</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (Shape shape : cs.getChildren()) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (shape.getGraphicsAlgorithm() </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  Text) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Text text = (Text) shape.getGraphicsAlgorithm();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;text.setValue(businessName);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  color:black'>&nbsp;</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>Additionally the
-feature provider has to deliver our newly created feature (overwrite the method
-<span class=code1><a
-href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getUpdateFeature(org.eclipse.graphiti.features.context.IUpdateContext)"><span
-style='font-style:normal'>getUpdateFeature</span></a></span><span class=code1><span
-style='font-style:normal'>)</span></span><i>. </i></span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>This implementation can
-be seen here:</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#646464'>@Override</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> IUpdateFeature getUpdateFeature(IUpdateContext
-  context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  PictogramElement pictogramElement = context.getPictogramElement();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (pictogramElement </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ContainerShape) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Object bo = getBusinessObjectForPictogramElement(pictogramElement);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (bo </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  EClass) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  TutorialUpdateEClassFeature(</span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>this</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.getUpdateFeature(context);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
-  style='color:black'>&nbsp;</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<h2><span lang=EN-GB>Test: Update a EClass Name</span></h2>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><i><span lang=EN-GB style='color:black'>Note: if the Graphiti </span><span lang=EN-GB style='color:black'>project wizard for a &quot;<a href="example-projects.htm">New Graphiti Sample Project</a>&quot;</span><span lang=EN-GB style='color:black'> does not work correctly and you can not test the update
-feature as described below, please continue with the next chapters and <a
-href="custom-feature.htm">provide custom functionality</a> to rename a EClass. That will allow testing the update feature by changing the same 
-EClass in two different diagrams.</span></i></p>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Now start the editor
-again and test it:</span></p>
-
-<ol style='margin-top:0cm' start=1 type=1>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>create
-     new diagram </span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>create
-     a EClass “A” </span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>save
-     current diagram</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>move
-     this new EClass to make the diagram editor dirty</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>go
-     to the Project Explorer</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>find
-     the new EClass under “EClasses&quot;</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>rename
-     this EClass via context menu to “B”</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'>when you activate 
-	the editor, you will receive a popup, choose yes and you will get the 
-	updated EClass (since <i>isAutoUpdateAtReset</i> is set to <b>true</b> by 
-	default)</li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>save
-     current diagram </span></li>
-	<li class=MsoNormal style='color:black;text-align:justify'>
-	<span lang="en-gb">close the editor</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>go
-     to the Project Explorer</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>rename
-     this EClass via context menu to “C”</span></li>
-	<li class=MsoNormal style='color:black;text-align:justify'>
-	<span lang="en-gb">reopen the diagram editor</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>the
-     diagram will not be updated automatically, instead the editor visualizes
-     dirty states, when the editor is activated (since <i>isAutoUpdateAtStartup</i> 
-	is set to <b>false</b> by default)</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>move
-     mouse on dirty EClass shape and hit appearing update button. The name &quot;C&quot; 
-	should appear.</span></li>
+<h1>Providing Update Functionality</h1>
+<h2>Strategies for Update</h2>
+<p>As described in the chapter â€œ<a href="add-feature.htm">providing add functionality</a>â€ 
+the values of the business objects (e.g. the EClass name) are stored in the graphics 
+algorithm of the pictogram elements. But this is done only once. If the business 
+model changes the example editor does not realize the changes.</p>
+<p>For that purpose we need an update feature which is used by the editor to react 
+on business model changes.</p>
+<p>&nbsp;</p>
+<p>The behavior of the update is straight forward, when the user is changing the 
+domain model directly via the diagram. For example if the user changes a text in 
+the diagram using direct-editing or the property-sheet, then this text should be 
+changed in the diagram immediately. </p>
+<p>However, if the domain-model is changed outside the diagram (e.g. in a separate 
+editor, maybe even by another user), then it is questionable, if the diagram should 
+be updated immediately. Often an immediate update would destroy a previously good 
+layout or hide previously important information. Therefore Graphiti supports two 
+update-strategies:</p>
+<ol>
+	<li>If the <b>automatic update is active</b>, then a change in the business 
+	model will immediately update the diagram.</li>
+	<li>If the <b>automatic update is inactive</b>, then a change in the business 
+	model will only mark the changed diagram shapes as outdated. The user can then 
+	manually update the outdated shapes.<br></li>
 </ol>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
+<p>&nbsp;</p>
+<p>
+<img alt="" border="0" height="114" src="visio/outdated-shape.gif" width="264"></p>
+<p><strong>Figure: Shape marked as outdated (tooltip shows reason)</strong></p>
+<p>&nbsp;</p>
+<p>
+<img alt="" border="0" height="125" src="visio/outdated-shape-update.gif" width="225"></p>
+<p><strong>Figure: Outdated shape can be updated manually</strong></p>
+<p>&nbsp;</p>
+<p>By default the automatic update is inactive, but this can be configured by overwriting 
+the following methods in the
+<a href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html">IDiagramTypeProvider</a>:</p>
+<ul>
+	<li>If
+	<a href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtStartup()">
+	isAutoUpdateAtStartup</a> returns true, then the diagram will be updated, when 
+	it is initially opened in the graphical editor. This will make the editor dirty.
+	</li>
+	<li>If
+	<a href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtRuntime()">
+	isAutoUpdateAtRuntime</a> returns true, then the diagram will be updated, when 
+	it is already open in the graphical editor, but only if the editor is already 
+	dirty.</li>
+	<li>If
+	<a href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtReset()">
+	isAutoUpdateAtReset</a> returns true, then the diagram will be updated, if the 
+	editor is already dirty and the user chooses to discard his changes (reset the 
+	diagram), when a change from outside the diagram occurs.</li>
+</ul>
+<h2>Creating an Update Feature</h2>
+<p>An update feature has to implement the interface
+<a href="../../../javadoc/org/eclipse/graphiti/features/IUpdateFeature.html">IUpdateFeature</a>. 
+Instead of implementing it directly it should extend one of the available base classes. 
+In this example we extend the base class
+<a href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractUpdateFeature.html">
+AbstractUpdateFeature</a></p>
+<p>In this case we have to implement/overwrite 3 methods:</p>
+<ul>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/func/IUpdate.html#canUpdate(org.eclipse.graphiti.features.context.IUpdateContext)">
+	canUpdate</a> has to check whether the values of the current pictogram element 
+	of the given context can be updated.</li>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/func/IUpdate.html#update(org.eclipse.graphiti.features.context.IUpdateContext)">
+	update</a> has to update this pictogram element.&nbsp; It has to copy the latest 
+	values from the business objects to the graphics algorithm of this pictogram 
+	element.</li>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/func/IUpdate.html#updateNeeded(org.eclipse.graphiti.features.context.IUpdateContext)">
+	updateNeeded</a> has to check whether the values in the pictogram element are 
+	up to date, that means whether the graphics algorithm of this pictogram element 
+	contain the latest values from the business objects. </li>
+</ul>
+<p><b><u>Hint:</u></b> An update feature can and should also be used (called) if 
+any functionality of the editor (e.g. any custom feature) modifies parts of the 
+domain model. This works just like the model view controller pattern.</p>
+<p>In this example we want to update the EClass name. You can see the complete implementation 
+of the update feature here:</p>
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code"><span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
+		<span class="keyword">public class</span> TutorialUpdateEClassFeature
+		<span class="keyword">extends </span>AbstractUpdateFeature {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public </span>TutorialUpdateEClassFeature(IFeatureProvider 
+		fp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">super</span>(fp);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public boolean</span> canUpdate(IUpdateContext context) 
+		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
+		return true, if linked business object is a EClass</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Object bo =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		getBusinessObjectForPictogramElement(context.getPictogramElement());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return </span>(bo <span class="keyword">instanceof
+		</span>EClass);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public </span>IReason updateNeeded(IUpdateContext 
+		context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// retrieve name from pictogram model</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		String pictogramName = <span class="keyword">null</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		PictogramElement pictogramElement = context.getPictogramElement();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(pictogramElement <span class="keyword">
+		instanceof </span>ContainerShape) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		ContainerShape cs = (ContainerShape) pictogramElement;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">for </span>(Shape shape : cs.getChildren()) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(shape.getGraphicsAlgorithm()
+		<span class="keyword">instanceof </span>Text) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Text text = (Text) shape.getGraphicsAlgorithm();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		pictogramName = text.getValue();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// retrieve name from business model</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		String businessName = <span class="keyword">null</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Object bo = getBusinessObjectForPictogramElement(pictogramElement);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(bo <span class="keyword">instanceof
+		</span>EClass) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EClass eClass = (EClass) bo;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		businessName = eClass.getName();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// update needed, if names are different</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">boolean </span>updateNameNeeded =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		((pictogramName == <span class="keyword">null </span>&amp;&amp; businessName !=
+		<span class="keyword">null</span>) || <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		(pictogramName != <span class="keyword">null </span>&amp;&amp; !pictogramName.equals(businessName)));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(updateNameNeeded) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return </span>Reason.createTrueReason(<span class="string">&quot;Name 
+		is out of date&quot;</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+		<span class="keyword">else </span>{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return </span>Reason.createFalseReason();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public boolean</span> update(IUpdateContext context) 
+		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
+		retrieve name from business model</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		String businessName = <span class="keyword">null</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		PictogramElement pictogramElement = context.getPictogramElement();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Object bo = getBusinessObjectForPictogramElement(pictogramElement);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(bo <span class="keyword">instanceof
+		</span>EClass) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EClass eClass = (EClass) bo;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		businessName = eClass.getName();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// Set name in pictogram model</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (pictogramElement instanceof ContainerShape) 
+		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		ContainerShape cs = (ContainerShape) pictogramElement;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">for</span> (Shape shape : cs.getChildren()) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (shape.getGraphicsAlgorithm()
+		<span class="keyword">instanceof </span>Text) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Text text = (Text) shape.getGraphicsAlgorithm();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		text.setValue(businessName);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return true</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp; }<br>}
+		</p>
+	</div>
 </div>
-<hr>
-	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+<p>&nbsp;</p>
+<p>Additionally the feature provider has to deliver our newly created feature (overwrite 
+the method
+<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getUpdateFeature(org.eclipse.graphiti.features.context.IUpdateContext)">
+getUpdateFeature</a>)<i>. </i></p>
+<p>This implementation can be seen here:</p>
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code">@Override<br><span class="keyword">public </span>IUpdateFeature 
+		getUpdateFeature(IUpdateContext context) {<br>&nbsp;&nbsp; PictogramElement 
+		pictogramElement = context.getPictogramElement();<br>&nbsp;&nbsp;
+		<span class="keyword">if</span> (pictogramElement <span class="keyword">
+		instanceof </span>ContainerShape) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Object bo = getBusinessObjectForPictogramElement(pictogramElement);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(bo <span class="keyword">instanceof
+		</span>EClass) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return new</span> TutorialUpdateEClassFeature(<span class="keyword">this</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp; }<br>&nbsp;&nbsp; <span class="keyword">return super</span>.getUpdateFeature(context);<br>
+		} </p>
+	</div>
+</div>
+<p>&nbsp;</p>
+<h2>Test: Update a EClass Name</h2>
+<p><strong>Note:</strong> if the Graphiti project wizard for a &quot;<a href="example-projects.htm">New 
+Graphiti Sample Project</a>&quot; does not work correctly and you can not test the update 
+feature as described below, please continue with the next chapters and
+<a href="custom-feature.htm">provide custom functionality</a> to rename a EClass. 
+That will allow testing the update feature by changing the same EClass in two different 
+diagrams.</p>
+<p>Now start the editor again and test it:</p>
+<ol>
+	<li>create new diagram</li>
+	<li>create a EClass â€œAâ€ </li>
+	<li>save current diagram</li>
+	<li>move this new EClass to make the diagram editor dirty</li>
+	<li>go to the Project Explorer</li>
+	<li>find the new EClass under &quot;EClasses&quot;</li>
+	<li>rename this EClass via context menu to â€œBâ€</li>
+	<li>when you activate the editor, you will receive a popup, choose yes and you 
+	will get the updated EClass (since <i>isAutoUpdateAtReset</i> is set to <b>true</b> 
+	by default)</li>
+	<li>save current diagram </li>
+	<li>close the editor</li>
+	<li>go to the Project Explorer</li>
+	<li>rename this EClass via context menu to â€œCâ€</li>
+	<li>reopen the diagram editor</li>
+	<li>the diagram will not be updated automatically, instead the editor visualizes 
+	dirty states, when the editor is activated (since <i>isAutoUpdateAtStartup</i> 
+	is set to <b>false</b> by default)</li>
+	<li>move mouse on dirty EClass shape and hit appearing update button. The name 
+	&quot;C&quot; should appear.</li>
+</ol>
 
 </body>
 
