@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 348662 - Setting tooptip to null in tool behavior provider doesn't clear up
+ *                         tooltip if the associated figure has a previous tooltip
  *
  * </copyright>
  *
@@ -24,10 +26,16 @@ public interface ITestConstants {
 	 */
 	public static final String DIAGRAM_TYPE_ID_SKETCH = "testtool.sketch";
 
-
 	/**
 	 * The Constant DIAGRAM_TYPE_ID_ECORE.
 	 */
 	public static final String DIAGRAM_TYPE_ID_ECORE = "testtool.ecore";
+
+	/**
+	 * The Constant DIAGRAM_TYPE_ID_TUTORIAL.
+	 * 
+	 * @since 0.9
+	 */
+	public static final String DIAGRAM_TYPE_ID_TUTORIAL = "tutorial";
 
 }
