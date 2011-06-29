@@ -35,7 +35,7 @@ public class SwitchModeFeature extends AbstractCustomFeature {
 		IDiagramTypeProvider dtp = getFeatureProvider().getDiagramTypeProvider();
 		IToolBehaviorProvider[] availableToolBehaviorProviders = dtp.getAvailableToolBehaviorProviders();
 		int providerCount = availableToolBehaviorProviders.length;
-		int newIndex = (dtp.getCurrentToolBahaviorIndex() + 1) % providerCount;
+		int newIndex = (dtp.getCurrentToolBehaviorIndex() + 1) % providerCount;
 		return newIndex;
 	}
 
@@ -53,7 +53,7 @@ public class SwitchModeFeature extends AbstractCustomFeature {
 	public void execute(ICustomContext context) {
 		IDiagramTypeProvider dtp = getFeatureProvider().getDiagramTypeProvider();
 		int newIndex = calculateNextTBPIndex();
-		dtp.setCurrentToolBahaviorIndex(newIndex);
+		dtp.setCurrentToolBehaviorIndex(newIndex);
 	}
 
 	@Override
