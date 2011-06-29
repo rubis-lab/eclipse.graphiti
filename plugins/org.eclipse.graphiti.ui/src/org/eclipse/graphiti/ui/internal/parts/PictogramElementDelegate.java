@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 348662 - Setting tooptip to null in tool behavior provider doesn't clear up
+ *                         tooltip if the associated figure has a previous tooltip
  *
  * </copyright>
  *
@@ -593,22 +595,32 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			// Retreat to graphiti behavior.
 			selectionFigure = figure;
 		}
-		boolean indicatedNeededUpdates = false;
-		// indicate needed updates onselectionFigure (using figure would cause
-		// problems with invisible rectangles)
+
+		// Create a tooltip label
+		Label tooltipLabel = null;
+
+		// First check the need for an update needed tooltip
+		Label indicateUpdateNeedeTooltipLabel = null;
 		if (selectionFigure != null) {
-			indicatedNeededUpdates = indicateNeededUpdates(selectionFigure, updateNeeded);
+			// Indicate needed updates on selectionFigure (using figure would cause problems with invisible rectangles)
+			indicateUpdateNeedeTooltipLabel = indicateNeededUpdates(selectionFigure, updateNeeded);
 		}
 
-		// set tool tips
-		if (!indicatedNeededUpdates) {
-			final String toolTip = toolBehaviorProvider.getToolTip(graphicsAlgorithm);
-			//do not show empty tool tips
+		// Use the update needed tooltip in case it exists...
+		if (indicateUpdateNeedeTooltipLabel != null) {
+			// Use update needed tooltip in any case (tool provided tooltip would be probably invalid)
+			tooltipLabel = indicateUpdateNeedeTooltipLabel;
+		} else {
+			// ... if not get the tool provided tooltip (for performance reasons only called in case no update needed tooltip exists)
+			String toolTip = toolBehaviorProvider.getToolTip(graphicsAlgorithm);
 			if (toolTip != null && !toolTip.isEmpty()) {
-				Label ttf = new Label(toolTip);
-				figure.setToolTip(ttf);
+				// null or empty string means no tooltip wanted
+				tooltipLabel = new Label(toolTip);
 			}
 		}
+
+		// Set the tooltip in any case, especially also when it's null to clean up a previously set tooltip (see Bugzilla 348662) 
+		figure.setToolTip(tooltipLabel);
 	}
 
 	private void refreshFont(AbstractText text, Figure label) {
@@ -912,34 +924,24 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @param figure
 	 * @param updateNeeded
 	 */
-	private boolean indicateNeededUpdates(IFigure figure, IReason updateNeeded) {
-		boolean ret = false;
-		if (figure != null && updateNeeded != null) {
+	private Label indicateNeededUpdates(IFigure figure, IReason updateNeeded) {
+		Label ret = null;
+		if (figure != null && updateNeeded != null && updateNeeded.toBoolean()) {
+			// The figure needs an update, we indicate that with a red border and a tooltip showing the reason for the update 
+			figure.setForegroundColor(ColorConstants.red);
 			if (figure instanceof Shape) {
 				Shape draw2dShape = (Shape) figure;
-				IFigure toolTip = draw2dShape.getToolTip();
-				if (toolTip != null) {
-					draw2dShape.setToolTip(null);
-				}
-			}
+				draw2dShape.setLineWidth(2);
+				draw2dShape.setLineStyle(Graphics.LINE_DOT);
 
-			if (updateNeeded.toBoolean()) {
-				figure.setForegroundColor(ColorConstants.red);
-				if (figure instanceof Shape) {
-					Shape draw2dShape = (Shape) figure;
-					draw2dShape.setLineWidth(2);
-					draw2dShape.setLineStyle(Graphics.LINE_DOT);
-
-					String updateNeededText = updateNeeded.getText();
-					if (updateNeededText != null && updateNeededText.length() > 0) {
-						Label toolTipFigure = new Label();
-						toolTipFigure.setText(updateNeededText);
-						org.eclipse.swt.graphics.Image image = PlatformUI.getWorkbench().getSharedImages()
-								.getImage(ISharedImages.IMG_OBJS_WARN_TSK);
-						toolTipFigure.setIcon(image);
-						draw2dShape.setToolTip(toolTipFigure);
-						ret = true;
-					}
+				String updateNeededText = updateNeeded.getText();
+				if (updateNeededText != null && updateNeededText.length() > 0) {
+					Label toolTipFigure = new Label();
+					toolTipFigure.setText(updateNeededText);
+					org.eclipse.swt.graphics.Image image = PlatformUI.getWorkbench().getSharedImages()
+							.getImage(ISharedImages.IMG_OBJS_WARN_TSK);
+					toolTipFigure.setIcon(image);
+					ret = toolTipFigure;
 				}
 			}
 		}
