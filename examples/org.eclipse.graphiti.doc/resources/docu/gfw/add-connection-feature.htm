@@ -23,15 +23,15 @@ In this example we extend the base class
 <a href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractAddFeature.html">
 AbstractAddFeature</a>.</p>
 <p>In this case we have to implement/overwrite two methods:</p>
-<p>The method
-<a href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#canAdd(org.eclipse.graphiti.features.context.IAddContext)">
-canAdd</a> has to check the given context and therefore it decides if a business 
-object can be added.</p>
-<p>The method
-<a href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#add(org.eclipse.graphiti.features.context.IAddContext)">
-add</a> finally has to create the pictogram element (connection) and has to establish 
+<ul>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#canAdd(org.eclipse.graphiti.features.context.IAddContext)">canAdd</a> has to check the given context and therefore it decides if a business 
+object can be added.</li>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#add(org.eclipse.graphiti.features.context.IAddContext)">add</a> finally has to create the pictogram element (connection) and has to establish 
 the linkage to the business object. Additionally we have to create the graphics 
-algorithm (polyline). </p>
+algorithm (polyline). </li>
+</ul>
 <p>You can see the complete implementation of the add connection feature here:</p>
 <div class="literallayout">
 	<div class="incode">
