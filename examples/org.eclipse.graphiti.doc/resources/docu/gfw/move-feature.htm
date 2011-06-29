@@ -1,400 +1,100 @@
-<html>
+﻿<html>
 
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 11 (filtered)">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>Providing move functionality</title>
-<link rel=Stylesheet type="text/css" media=all href="../book.css">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman";
-	color:windowtext;}
-h1
-	{margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:16.0pt;
-	font-weight:bold;}
-h2
-	{margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:14.0pt;
-	font-weight:bold;
-	font-style:italic;}
-h3
-	{margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:13.0pt;
-	font-weight:bold;}
-h4
-	{margin-top:11.25pt;
-	margin-right:0cm;
-	margin-bottom:1.7pt;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-weight:bold;
-	font-style:italic;}
-h5
-	{margin-right:0cm;
-	margin-left:0cm;
-	font-size:10.0pt;
-	font-weight:bold;}
-a:link, span.MsoHyperlink
-	{color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{color:purple;
-	text-decoration:underline;}
-p
-	{margin-top:5.65pt;
-	margin-right:0cm;
-	margin-bottom:5.65pt;
-	margin-left:0cm;
-	font-size:12.0pt;}
-pre
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:3.4pt;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:Tahoma;}
-p.code, li.code, div.code
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:15.0pt;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;}
-p.note, li.note, div.note
-	{margin-top:19.5pt;
-	margin-right:0cm;
-	margin-bottom:19.5pt;
-	margin-left:30.0pt;
-	font-size:13.0pt;
-	font-style:italic;}
-span.code1
-	{font-style:italic;}
-@page Section1
-	{size:595.45pt 841.7pt;
-	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
-div.Section1
-	{page:Section1;}
--->
-</style>
-
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
 </head>
 
-<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+<body>
 
-<div class=Section1>
-
-<h1><a name="_Toc179099520"><span lang=EN-GB>Providing Move Functionality</span></a></h1>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<h2><span lang=EN-GB>Create a Move Feature</span></h2>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>In our current editor
-the move functionality is already provided by the framework. Nevertheless this tutorial
-should explain how the move behavior can be customized. Therefore we
-constructed the following example behavior:</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>Moving EClasses
-should be restricted to EClasses whose name is longer than one character
-(just an example without logical reason).</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>Another possibility
-would be to allow, that a EClass can be moved onto another EClass (which
-is not allowed in the default implementation). This does not make sense in our
-example, but in other scenarios this is a quite typical usage for a move
-feature.</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>For that purpose we
-need a special move feature which is used by the editor if a move gesture (a
-drag) is received as interaction. A move feature has to implement the interface
-<span class=code1><a
-href="../../../javadoc/org/eclipse/graphiti/features/IMoveFeature.html"><span
-style='font-style:normal'>IMoveFeature</span></a></span> or one of the more
-specialized interfaces. </span><span lang=EN-GB style='color:black'>Instead of
-implementing them directly you should extend one of the available base classes.
-In this example we extend the base class<span class=code1> </span></span><span
-class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/features/impl/DefaultMoveShapeFeature.html"><span
-style='font-style:normal'>DefaultMoveShapeFeature</span></a></span></span><span
-class=code1><span lang=EN-US style='color:black;font-style:normal'> which
-implements the interface</span></span><span lang=EN-US style='color:black'> <a
-href="../../../javadoc/org/eclipse/graphiti/features/IMoveShapeFeature.html">IMoveShapeFeature</a></span><span
-lang=EN-GB style='color:black'>.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>In this case we only
-have to overwrite/implement one method:</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>The method <span
-class=code1><a
-href="../../../javadoc/org/eclipse/graphiti/func/IMoveShape.html#canMoveShape(org.eclipse.graphiti.features.context.IMoveShapeContext)"><span
-style='font-style:normal'>canMoveShape</span></a></span> has to check whether
-the current pictogram element of the given context can be moved to the given
-location. In this case the location information contained in the context
-consists of the coordinates and the target container. With this information it
-is also possible to realize a move behavior depending on the target the user
-wants to drag to. </span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
-complete implementation of the move feature here:</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-GB
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  org.eclipse.graphiti.examples.tutorial.features;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  TutorialMoveEClassFeature </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>extends</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  DefaultMoveShapeFeature {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>
-  TutorialMoveEClassFeature(IFeatureProvider fp) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>super</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>(fp);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#646464'>@Override</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  canMoveShape(IMoveShapeContext context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>boolean</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> canMove = </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>.canMoveShape(context);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// perform further check only if move allowed by default
-  feature</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (canMove) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// don't allow move if the class name has the length of 1</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Shape shape = context.getShape();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Object bo = getBusinessObjectForPictogramElement(shape);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (bo </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  EClass) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  EClass c = (EClass) bo;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (c.getName() != </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  &amp;&amp; c.getName().length() == 1) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>canMove
-  = </span><b><span style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>false</span></b><span style='font-size:10.0pt;font-family:
-  "Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> canMove;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
-  style='font-size:10.0pt;color:black'>&nbsp;</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>Additionally the feature
-provider has to deliver our newly created feature (overwrite the method <a
-href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getMoveShapeFeature(org.eclipse.graphiti.features.context.IMoveShapeContext)">getMoveShapeFeature</a><span
-class=code1>)</span>. </span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>This implementation can
-be seen here:</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=907
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=907 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#646464'>@Override</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> IMoveShapeFeature
-  getMoveShapeFeature(IMoveShapeContext context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Shape shape = context.getShape();</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Object bo = getBusinessObjectForPictogramElement(shape);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (bo </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> EClass)
-  {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> TutorialMoveEClassFeature(</span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>super</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>.getMoveShapeFeature(context);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
-  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
-  style='font-size:10.0pt;color:black'>&nbsp;</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<h2><span lang=EN-US>Test: Move EClass Is Restricted</span></h2>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Now start the editor again
-and test it: Just create a EClass whose name is only one character long.
-Moving this EClass should not be possible. Create another EClass whose
-name is longer than one character. Moving this EClass must still be
-possible. </span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
+<h1>Providing Move Functionality</h1>
+<h2>Create a Move Feature</h2>
+<p>In our current editor the move functionality is already provided by the framework. 
+Nevertheless this tutorial should explain how the move behavior can be customized. 
+Therefore we constructed the following example behavior:</p>
+<p>Moving EClasses should be restricted to EClasses whose name is longer than one 
+character (just an example without logical reason).</p>
+<p>Another possibility would be to allow, that a EClass can be moved onto another 
+EClass (which is not allowed in the default implementation). This does not make 
+sense in our example, but in other scenarios this is a quite typical usage for a 
+move feature.</p>
+<p>For that purpose we need a special move feature which is used by the editor if 
+a move gesture (a drag) is received as interaction. A move feature has to implement 
+the interface
+<a href="../../../javadoc/org/eclipse/graphiti/features/IMoveFeature.html">IMoveFeature</a> 
+or one of the more specialized interfaces. Instead of implementing them directly 
+you should extend one of the available base classes. In this example we extend the 
+base class<a href="../../../javadoc/org/eclipse/graphiti/features/impl/DefaultMoveShapeFeature.html">DefaultMoveShapeFeature</a> 
+which implements the interface
+<a href="../../../javadoc/org/eclipse/graphiti/features/IMoveShapeFeature.html">
+IMoveShapeFeature</a>.</p>
+<p>In this case we only have to overwrite/implement one method:</p>
+<p>The method
+<a href="../../../javadoc/org/eclipse/graphiti/func/IMoveShape.html#canMoveShape(org.eclipse.graphiti.features.context.IMoveShapeContext)">
+canMoveShape</a> has to check whether the current pictogram element of the given 
+context can be moved to the given location. In this case the location information 
+contained in the context consists of the coordinates and the target container. With 
+this information it is also possible to realize a move behavior depending on the 
+target the user wants to drag to.</p>
+<p>You can see the complete implementation of the move feature here:</p>
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code"><span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
+		<span class="keyword">public class</span> TutorialMoveEClassFeature
+		<span class="keyword">extends </span>DefaultMoveShapeFeature {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public </span>TutorialMoveEClassFeature(IFeatureProvider 
+		fp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">super</span>(fp);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; 
+		@Override<br>&nbsp;&nbsp; <span class="keyword">&nbsp;public boolean</span> 
+		canMoveShape(IMoveShapeContext context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">boolean </span>canMove = <span class="keyword">super</span>.canMoveShape(context);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// perform further check only if move allowed by default 
+		feature</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(canMove) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// don&#39;t allow move if the class name has the length 
+		of 1</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Shape shape = context.getShape();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Object bo = getBusinessObjectForPictogramElement(shape);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(bo <span class="keyword">instanceof
+		</span>EClass) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EClass c = (EClass) bo;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(c.getName() != <span class="keyword">null
+		</span>&amp;&amp; c.getName().length() == 1) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		canMove = <span class="keyword">false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">&nbsp;return</span> canMove;<br>&nbsp;&nbsp;&nbsp; 
+		}<br>}<br></p>
+	</div>
 </div>
-<hr>
-	<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>
+<p>&nbsp;</p>
+<p>Additionally the feature provider has to deliver our newly created feature (overwrite 
+the method
+<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getMoveShapeFeature(org.eclipse.graphiti.features.context.IMoveShapeContext)">
+getMoveShapeFeature</a>.</p>
+<p>This implementation can be seen here:</p>
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code">@Override<br><span class="keyword">public </span>IMoveShapeFeature 
+		getMoveShapeFeature(IMoveShapeContext context) {<br>&nbsp;&nbsp;&nbsp; Shape 
+		shape = context.getShape();<br>&nbsp;&nbsp;&nbsp; Object bo = getBusinessObjectForPictogramElement(shape);<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(bo <span class="keyword">instanceof
+		</span>EClass) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return new</span> TutorialMoveEClassFeature(this);<br>&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp; <span class="keyword">return super</span>.getMoveShapeFeature(context);<br>
+		} </p>
+	</div>
+</div>
+<p>&nbsp;</p>
+<h2>Test: Move EClass Is Restricted</h2>
+<p>Now start the editor again and test it: Just create a EClass whose name is only 
+one character long. Moving this EClass should not be possible. Create another EClass 
+whose name is longer than one character. Moving this EClass must still be possible.
+</p>
 
 </body>
 
