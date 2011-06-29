@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.graphiti" version="2">
+    <resource path="src/org/eclipse/graphiti/dt/AbstractDiagramTypeProvider.java" type="org.eclipse.graphiti.dt.AbstractDiagramTypeProvider">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.dt.AbstractDiagramTypeProvider"/>
+                <message_argument value="getCurrentToolBahaviorIndex()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.dt.AbstractDiagramTypeProvider"/>
+                <message_argument value="setCurrentToolBahaviorIndex(int)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getCurrentToolBehaviorIndex()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="setCurrentToolBehaviorIndex(int)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/dt/IDiagramTypeProvider.java" type="org.eclipse.graphiti.dt.IDiagramTypeProvider">
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.dt.IDiagramTypeProvider"/>
+                <message_argument value="getCurrentToolBahaviorIndex()"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.dt.IDiagramTypeProvider"/>
+                <message_argument value="setCurrentToolBahaviorIndex(int)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1209008130">
+            <message_arguments>
+                <message_argument value="1.0"/>
+                <message_argument value="0.8"/>
+                <message_argument value="getCurrentToolBehaviorIndex()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="getCurrentToolBehaviorIndex()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1211105284">
+            <message_arguments>
+                <message_argument value="setCurrentToolBehaviorIndex(int)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/features/context/impl/DeleteContext.java" type="org.eclipse.graphiti.features.context.impl.DeleteContext">
         <filter id="576720909">
             <message_arguments>

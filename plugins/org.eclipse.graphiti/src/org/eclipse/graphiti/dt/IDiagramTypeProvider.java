@@ -151,7 +151,9 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 */
 	void postInit();
 
+
 	int getCurrentToolBehaviorIndex();
+
 
 	void setCurrentToolBehaviorIndex(int index);
 
