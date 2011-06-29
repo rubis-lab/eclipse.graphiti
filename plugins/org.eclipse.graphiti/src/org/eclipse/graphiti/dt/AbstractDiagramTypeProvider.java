@@ -44,7 +44,7 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 
 	private INotificationService notificationService;
 
-	private int currentToolBahaviorIndex = 0;
+	private int currentToolBehaviorIndex = 0;
 
 	/**
 	 * Creates a new {@link AbstractDiagramTypeProvider}.
@@ -70,23 +70,23 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	public IToolBehaviorProvider getCurrentToolBehaviorProvider() {
 		IToolBehaviorProvider ret = null;
 		if (getAvailableToolBehaviorProviders().length > 0) {
-			ret = getAvailableToolBehaviorProviders()[getCurrentToolBahaviorIndex()];
+			ret = getAvailableToolBehaviorProviders()[getCurrentToolBehaviorIndex()];
 		}
 		return ret;
 	}
 
 	@Override
-	public int getCurrentToolBahaviorIndex() {
-		return this.currentToolBahaviorIndex;
+	public int getCurrentToolBehaviorIndex() {
+		return this.currentToolBehaviorIndex;
 	}
 
 	@Override
-	public void setCurrentToolBahaviorIndex(int index) {
-		if (this.currentToolBahaviorIndex != index) {
+	public void setCurrentToolBehaviorIndex(int index) {
+		if (this.currentToolBehaviorIndex != index) {
 			if (index < 0 || index >= getAvailableToolBehaviorProviders().length) {
 				throw new IllegalArgumentException("Index not valid"); //$NON-NLS-1$
 			}
-			this.currentToolBahaviorIndex = index;
+			this.currentToolBehaviorIndex = index;
 
 			IDiagramEditor de = getDiagramEditor();
 			de.refresh();
