@@ -50,14 +50,12 @@ algorithms for the static decorators:</p>
 <div class="literallayout">
 	<div class="incode">
 		<p class="code"><span class="keyword">private </span>Polyline createArrow(GraphicsAlgorithmContainer 
-		gaContainer) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IGaService 
-		gaService = Graphiti.getGaService();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Polyline polyline =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		gaService.createPolyline(gaContainer, <span class="keyword">new int</span>[] 
-		{ -15, 10, 0, 0, -15,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		-10 });<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; polyline.setForeground(manageColor(IColorConstant.<span class="string"><em>BLACK</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		polyline.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		return polyline;<br>} </p>
+		gaContainer) {<br>&nbsp;&nbsp;&nbsp; IGaService gaService = Graphiti.getGaService();<br>&nbsp;&nbsp;&nbsp; 
+		Polyline polyline =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gaService.createPolyline(gaContainer,
+		<span class="keyword">new int</span>[] { -15, 10, 0, 0, -15,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		-10 });<br>&nbsp;&nbsp;&nbsp; polyline.setForeground(manageColor(IColorConstant.<span class="string"><em>BLACK</em></span>));<br>&nbsp;&nbsp;&nbsp; 
+		polyline.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp; return polyline;<br>}
+		</p>
 	</div>
 </div>
 <p>&nbsp;</p>
@@ -67,26 +65,24 @@ connection feature, as explained in the following code snippet:</p>
 <div class="literallayout">
 	<div class="incode">
 		<p class="code"><span class="keyword">&nbsp;public </span>PictogramElement 
-		add(IAddContext context) {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// ... EXISTING CODING ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		add(IAddContext context) {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// ... EXISTING CODING ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// add dynamic text decorator for the association 
-		name </span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ConnectionDecorator 
-		textDecorator =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		peCreateService.createConnectionDecorator(connection,
-		<span class="keyword">true</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		0.5, <span class="keyword">true</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Text text = gaService.createDefaultText(textDecorator);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		text.setForeground(manageColor(IColorConstant.<span class="string"><em>BLACK</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		gaService.setLocation(text, 10, 0);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		name </span><br>&nbsp;&nbsp;&nbsp;&nbsp; ConnectionDecorator textDecorator 
+		=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; peCreateService.createConnectionDecorator(connection,
+		<span class="keyword">true</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		0.5, <span class="keyword">true</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp; Text 
+		text = gaService.createDefaultText(textDecorator);<br>&nbsp;&nbsp;&nbsp;&nbsp; 
+		text.setForeground(manageColor(IColorConstant.<span class="string"><em>BLACK</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp; 
+		gaService.setLocation(text, 10, 0);<br>&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// set reference name in the text decorator</span><br>
-		´&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EReference eReference = (EReference) 
-		context.getNewObject();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; text.setValue(eReference.getName());<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		´&nbsp;&nbsp;&nbsp; EReference eReference = (EReference) context.getNewObject();<br>&nbsp;&nbsp;&nbsp;&nbsp; 
+		text.setValue(eReference.getName());<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// add static graphical decorator (composition and 
-		navigable)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ConnectionDecorator 
-		cd;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cd = peCreateService<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		navigable)</span><br>&nbsp;&nbsp;&nbsp;&nbsp; ConnectionDecorator cd;<br>&nbsp;&nbsp;&nbsp;&nbsp; 
+		cd = peCreateService<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		.createConnectionDecorator(connection, <span class="keyword">false</span>, 
-		1.0, <span class="keyword">true</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		createArrow(cd);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		1.0, <span class="keyword">true</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp; createArrow(cd);<br>&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">return </span>connection;<br>&nbsp;}</p>
 	</div>
 </div>
