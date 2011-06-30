@@ -36,6 +36,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
@@ -125,15 +126,12 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		subMenu.setSubmenu(true);
 
 		// create a menu-entry in the sub-menu for each custom feature
-		if (context instanceof ICustomContext) {
-			ICustomContext customContext = (ICustomContext) context;
-			ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customContext);
-			for (int i = 0; i < customFeatures.length; i++) {
-				ICustomFeature customFeature = customFeatures[i];
-				if (customFeature.isAvailable(customContext)) {
-					ContextMenuEntry menuEntry = new ContextMenuEntry(customFeature, context);
-					subMenu.add(menuEntry);
-				}
+		ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(context);
+		for (int i = 0; i < customFeatures.length; i++) {
+			ICustomFeature customFeature = customFeatures[i];
+			if (customFeature.isAvailable(context)) {
+				ContextMenuEntry menuEntry = new ContextMenuEntry(customFeature, context);
+				subMenu.add(menuEntry);
 			}
 		}
 
@@ -162,8 +160,8 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		IFeatureProvider featureProvider = getFeatureProvider();
 		ICreateFeature[] createFeatures = featureProvider.getCreateFeatures();
 		for (ICreateFeature cf : createFeatures) {
-			ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(cf.getCreateName(), cf.getCreateDescription(), cf
-					.getCreateImageId(), cf.getCreateLargeImageId(), cf);
+			ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(cf.getCreateName(), cf.getCreateDescription(),
+					cf.getCreateImageId(), cf.getCreateLargeImageId(), cf);
 
 			stackEntry.addCreationToolEntry(objectCreationToolEntry);
 		}
@@ -171,8 +169,8 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		// add all create-connection-features to the new stack-entry
 		ICreateConnectionFeature[] createConnectionFeatures = featureProvider.getCreateConnectionFeatures();
 		for (ICreateConnectionFeature cf : createConnectionFeatures) {
-			ConnectionCreationToolEntry connectionCreationToolEntry = new ConnectionCreationToolEntry(cf.getCreateName(), cf
-					.getCreateDescription(), cf.getCreateImageId(), cf.getCreateLargeImageId());
+			ConnectionCreationToolEntry connectionCreationToolEntry = new ConnectionCreationToolEntry(cf.getCreateName(),
+					cf.getCreateDescription(), cf.getCreateImageId(), cf.getCreateLargeImageId());
 			connectionCreationToolEntry.addCreateConnectionFeature(cf);
 			stackEntry.addCreationToolEntry(connectionCreationToolEntry);
 		}
@@ -222,13 +220,13 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 
 	@Override
 	public GraphicsAlgorithm getSelectionBorder(PictogramElement pe) {
-		IFeatureProvider featureProvider = getFeatureProvider();
-		Object bo = featureProvider.getBusinessObjectForPictogramElement(pe);
-		if (bo instanceof EClass) {
+		if (pe instanceof ContainerShape) {
 			GraphicsAlgorithm invisible = pe.getGraphicsAlgorithm();
-			EList<GraphicsAlgorithm> graphicsAlgorithmChildren = invisible.getGraphicsAlgorithmChildren();
-			if (!graphicsAlgorithmChildren.isEmpty()) {
-				return graphicsAlgorithmChildren.get(0);
+			if (!invisible.getLineVisible()) {
+				EList<GraphicsAlgorithm> graphicsAlgorithmChildren = invisible.getGraphicsAlgorithmChildren();
+				if (!graphicsAlgorithmChildren.isEmpty()) {
+					return graphicsAlgorithmChildren.get(0);
+				}
 			}
 		}
 		return super.getSelectionBorder(pe);
