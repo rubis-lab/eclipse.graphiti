@@ -1,926 +1,182 @@
-<html>
+ï»¿<html>
 
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 12 (filtered)">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>Providing create connection functionality</title>
-<link rel=Stylesheet type="text/css" media=all href="../book.css">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Cambria;
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-h1
-	{mso-style-link:"Überschrift 1 Zchn";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:16.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-h2
-	{mso-style-link:"Überschrift 2 Zchn";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:14.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;
-	font-style:italic;}
-h3
-	{mso-style-link:"Überschrift 3 Zchn";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:13.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-h4
-	{mso-style-link:"Überschrift 4 Zchn";
-	margin-top:11.25pt;
-	margin-right:0cm;
-	margin-bottom:1.7pt;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;
-	font-style:italic;}
-h5
-	{mso-style-link:"Überschrift 5 Zchn";
-	margin-right:0cm;
-	margin-left:0cm;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-h6
-	{mso-style-link:"Überschrift 6 Zchn";
-	margin-right:0cm;
-	margin-left:0cm;
-	font-size:7.5pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-p.MsoCaption, li.MsoCaption, div.MsoCaption
-	{margin-top:6.0pt;
-	margin-right:0cm;
-	margin-bottom:24.0pt;
-	margin-left:0cm;
-	text-align:justify;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-a:link, span.MsoHyperlink
-	{color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{color:purple;
-	text-decoration:underline;}
-p
-	{margin-top:5.65pt;
-	margin-right:0cm;
-	margin-bottom:5.65pt;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-pre
-	{mso-style-link:"HTML Vorformatiert Zchn";
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:3.4pt;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Courier New";}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-link:"Sprechblasentext Zchn";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";}
-span.berschrift1Zchn
-	{mso-style-name:"Überschrift 1 Zchn";
-	mso-style-link:"Überschrift 1";
-	font-family:"Cambria","serif";
-	color:#365F91;
-	font-weight:bold;}
-span.berschrift2Zchn
-	{mso-style-name:"Überschrift 2 Zchn";
-	mso-style-link:"Überschrift 2";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.berschrift3Zchn
-	{mso-style-name:"Überschrift 3 Zchn";
-	mso-style-link:"Überschrift 3";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.berschrift4Zchn
-	{mso-style-name:"Überschrift 4 Zchn";
-	mso-style-link:"Überschrift 4";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;
-	font-style:italic;}
-span.berschrift5Zchn
-	{mso-style-name:"Überschrift 5 Zchn";
-	mso-style-link:"Überschrift 5";
-	font-family:"Cambria","serif";
-	color:#243F60;}
-span.berschrift6Zchn
-	{mso-style-name:"Überschrift 6 Zchn";
-	mso-style-link:"Überschrift 6";
-	font-family:"Cambria","serif";
-	color:#243F60;
-	font-style:italic;}
-span.HTMLVorformatiertZchn
-	{mso-style-name:"HTML Vorformatiert Zchn";
-	mso-style-link:"HTML Vorformatiert";
-	font-family:Consolas;}
-span.SprechblasentextZchn
-	{mso-style-name:"Sprechblasentext Zchn";
-	mso-style-link:Sprechblasentext;
-	font-family:"Tahoma","sans-serif";}
-p.code, li.code, div.code
-	{mso-style-name:code;
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:15.0pt;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.note, li.note, div.note
-	{mso-style-name:note;
-	margin-top:19.5pt;
-	margin-right:0cm;
-	margin-bottom:19.5pt;
-	margin-left:30.0pt;
-	font-size:13.0pt;
-	font-family:"Times New Roman","serif";
-	font-style:italic;}
-p.msochpdefault, li.msochpdefault, div.msochpdefault
-	{mso-style-name:msochpdefault;
-	margin-top:5.65pt;
-	margin-right:0cm;
-	margin-bottom:5.65pt;
-	margin-left:0cm;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";}
-span.Heading1Char
-	{mso-style-name:"Heading 1 Char";
-	mso-style-link:"Heading 1";
-	font-family:"Cambria","serif";
-	color:#365F91;
-	font-weight:bold;}
-p.Heading1, li.Heading1, div.Heading1
-	{mso-style-name:"Heading 1";
-	mso-style-link:"Heading 1 Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.Heading2Char
-	{mso-style-name:"Heading 2 Char";
-	mso-style-link:"Heading 2";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-p.Heading2, li.Heading2, div.Heading2
-	{mso-style-name:"Heading 2";
-	mso-style-link:"Heading 2 Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.Heading3Char
-	{mso-style-name:"Heading 3 Char";
-	mso-style-link:"Heading 3";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-p.Heading3, li.Heading3, div.Heading3
-	{mso-style-name:"Heading 3";
-	mso-style-link:"Heading 3 Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.Heading4Char
-	{mso-style-name:"Heading 4 Char";
-	mso-style-link:"Heading 4";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;
-	font-style:italic;}
-p.Heading4, li.Heading4, div.Heading4
-	{mso-style-name:"Heading 4";
-	mso-style-link:"Heading 4 Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.Heading5Char
-	{mso-style-name:"Heading 5 Char";
-	mso-style-link:"Heading 5";
-	font-family:"Cambria","serif";
-	color:#243F60;}
-p.Heading5, li.Heading5, div.Heading5
-	{mso-style-name:"Heading 5";
-	mso-style-link:"Heading 5 Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.Heading6Char
-	{mso-style-name:"Heading 6 Char";
-	mso-style-link:"Heading 6";
-	font-family:"Cambria","serif";
-	color:#243F60;
-	font-style:italic;}
-p.Heading6, li.Heading6, div.Heading6
-	{mso-style-name:"Heading 6";
-	mso-style-link:"Heading 6 Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.HTMLPreformattedChar
-	{mso-style-name:"HTML Preformatted Char";
-	mso-style-link:"HTML Preformatted";
-	font-family:Consolas;}
-p.HTMLPreformatted, li.HTMLPreformatted, div.HTMLPreformatted
-	{mso-style-name:"HTML Preformatted";
-	mso-style-link:"HTML Preformatted Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-link:"Balloon Text";
-	font-family:"Tahoma","sans-serif";}
-p.BalloonText, li.BalloonText, div.BalloonText
-	{mso-style-name:"Balloon Text";
-	mso-style-link:"Balloon Text Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.code1
-	{mso-style-name:code1;
-	font-style:italic;}
-span.code0
-	{mso-style-name:code0;
-	font-style:italic;}
-.MsoChpDefault
-	{font-size:10.0pt;}
-@page Section1
-	{size:595.45pt 841.7pt;
-	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
-div.Section1
-	{page:Section1;}
- /* List Definitions */
- ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
--->
-</style>
-
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
 </head>
 
-<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+<body>
 
-<div class=Section1>
-
-<h1><span lang=EN-GB>Providing Create Connection Functionality</span></h1>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;&nbsp;</span></p>
-
-<h2><span lang=EN-GB>Creating a Create Connection Feature</span></h2>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Usually a new
-connection object is created graphically by using the corresponding connection
-tool from the editor’s tool palette. When using Graphiti you only have to provide
-a so called create connection feature. The integration into the platform’s UI
-is done by the framework.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>A create connection
-feature has to implement the interface <i><a
-href="../../../javadoc/org/eclipse/graphiti/features/ICreateConnectionFeature.html">ICreateConnectionFeature</a></i></span><span
-class=code1><span lang=EN-US style='color:black'>.</span></span><span
-lang=EN-US style='color:black'> </span><span lang=EN-GB style='color:black'>Instead
-of implementing it directly it should extend one of the available base classes.
-In this example we extend the base class<span class=code1> </span></span><i><span
-style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractCreateConnectionFeature.html"><span
-lang=EN-GB>AbstractCreateConnectionFeature</span></a></span></i><span
-lang=EN-GB style='color:black'>.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>We have to
-implement/overwrite 3 methods:</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/org/eclipse/graphiti/func/ICreateConnection.html#canCreate(org.eclipse.graphiti.features.context.ICreateConnectionContext)">c<span
-lang=EN-US>anCreate</span></a> has to check whether the connection can be
-created for the given context. It has to check the business objects which are
-behind the source and the target anchors.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
-class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/func/ICreateConnection.html#canStartConnection(org.eclipse.graphiti.features.context.ICreateConnectionContext)"><span
-style='font-style:normal'>canStartConnection</span></a></span></span><span
-lang=EN-US style='color:black'> </span><span lang=EN-GB style='color:black'>has
-to check whether the connection can be started at the given source anchor.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>The method </span><span
-class=code1><span lang=EN-US style='color:black'><a
-href="../../../javadoc/org/eclipse/graphiti/func/ICreateConnection.html#create(org.eclipse.graphiti.features.context.ICreateConnectionContext)"><span
-style='font-style:normal'>create</span></a></span></span><span lang=EN-GB
-style='color:black'> has to create the business object for the connection and
-also has to add the graphical representation of the newly created business
-object to the diagram. The creation of the business object must be implemented
-here. To add the graphical representation, an <a
-href="add-connection-feature.htm">add connection feature</a> should be used.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>In this example we want
-create an EReference between EClasses via the connection tool from the palette.</span></p>
-<p class=MsoNormal>&nbsp;</p>
-<p class=MsoNormal>
-<img border="0" src="visio/connection-routing-direct.png" width="251" height="251"></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
-complete implementation of the create connection feature here:</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>&nbsp;</span></b></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>package</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> org.eclipse.graphiti.examples.tutorial.features;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>public</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>class</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  TutorialCreateEReferenceFeature </span><b><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:#7F0055'>extends<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>AbstractCreateConnectionFeature
-  {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> TutorialCreateEReferenceFeature
-  (IFeatureProvider fp) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// provide name and description for the UI, e.g. the palette</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>super</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>(fp, </span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;EReference&quot;</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>, </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#2A00FF'>&quot;Create
-  EReference&quot;</span><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  canCreate(ICreateConnectionContext context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#3F7F5F'>// return true if both anchors
-  belong to an EClass</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// and those EClasses are not identical</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  EClass source = getEClass(context.getSourceAnchor());</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  EClass target = getEClass(context.getTargetAnchor());</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (source != </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  &amp;&amp; target != </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> &amp;&amp;
-  source != target) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>boolean</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  canStartConnection(ICreateConnectionContext context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// return true if start anchor belongs to a EClass</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:#7F0055'>if</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  (getEClass(context.getSourceAnchor()) != </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>true</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> Connection
-  create(ICreateConnectionContext context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Connection newConnection = </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// get EClasses which should be connected</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  EClass source = getEClass(context.getSourceAnchor());</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  EClass target = getEClass(context.getTargetAnchor());</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (source != </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  &amp;&amp; target != </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// create new business object </span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>EReference eReference =
-  createEReference(source, target);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// add connection for business object</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  AddConnectionContext addContext =</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>
-  AddConnectionContext(context.getSourceAnchor(), context</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.getTargetAnchor());</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  addContext.setNewObject(</span><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New"'>eReference<span style='color:black'>);</span></span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  newConnection =</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  (Connection) getFeatureProvider().addIfPossible(addContext);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> newConnection;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F5FBF'>/**</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F5FBF'>*</span><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:black'> </span><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#3F5FBF'>Returns</span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F5FBF'>the</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F5FBF'>EClass</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F5FBF'>belonging</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F5FBF'>to</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F5FBF'>the</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F5FBF'>anchor,</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F5FBF'>or</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F5FBF'>null</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F5FBF'>if</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F5FBF'>not</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F5FBF'>available.</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F5FBF'>*/</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>private</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> EClass getEClass(Anchor anchor) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (anchor != </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Object object =</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  getBusinessObjectForPictogramElement(anchor.getParent());</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (object </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  EClass) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (EClass) object;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>null</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F5FBF'>/**</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F5FBF'>&nbsp;&nbsp;&nbsp; *</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New"'> <span style='color:#3F5FBF'>Creates</span>
-  <span style='color:#3F5FBF'>a</span> <span style='color:#3F5FBF'>EReference</span>
-  <span style='color:#3F5FBF'>between</span> <span style='color:#3F5FBF'>two</span>
-  <span style='color:#3F5FBF'>EClasses.</span></span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F5FBF'>&nbsp;&nbsp;&nbsp; */</span></p>
-  <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp; private</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'> EReference
-  createEReference(EClass source, EClass target) {</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  EReference eReference = EcoreFactory.<i><span style='color:#0000C0'>eINSTANCE</span></i>.createEReference();</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  eReference.setName(<span style='color:#2A00FF'>&quot;new EReference&quot;</span>);</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  eReference.setEType(target);</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  eReference.setLowerBound(0);</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  eReference.setUpperBound(1);</span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  source.getEStructuralFeatures().add(eReference);</span></p>
-  <p class=MsoNormal><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New"'> eReference;</span></p>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>}</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Additionally the
-feature provider has to deliver our newly created feature (overwrite the method
-</span><span class=code0><span lang=EN-US style='color:black;font-style:normal'><a
-href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCreateConnectionFeatures()">getCreateConnectionFeatures</a>)</span></span><span
-class=code1><span lang=EN-US style='color:black;font-style:normal'>.</span></span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>This implementation can
-be seen here:</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#646464'>@Override</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> ICreateConnectionFeature[]
-  getCreateConnectionFeatures() {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> </span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ICreateConnectionFeature[] { </span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>new</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>TutorialCreateEReferenceFeature
-  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>(</span><b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>this</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>) };</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>&nbsp;</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Before we can run the
-editor we have to add <a href="anchors.htm">anchors</a> to the container shapes
-of the EClasses. Anchors are explained later in detail. &nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>For now simply create
-an anchor at end of the add method of the </span><span class=code1><span
-lang=EN-US style='color:black'>TutorialAddEClassFeature</span></span><span
-class=code1><span lang=EN-US style='color:black;font-style:normal'>, as shown
-in the following code snippet:</span></span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=851
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=851 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> PictogramElement add(IAddContext
-  context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// ... EXiSTING CODING ...</span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'> </span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span></p>
-  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#3F7F5F'>//
-  add a chopbox anchor to the shape</span><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New"'> </span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New"'>peCreateService<span
-  style='color:black'>.createChopboxAnchor(containerShape);</span></span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt'>&nbsp;</span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// call the layout feature</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  layoutPictogramElement(containerShape);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>return</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> containerShape;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span style='font-size:10.0pt;font-family:"Courier New";color:black'>}</span><span
-  lang=EN-GB style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'>&nbsp;</p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<h2><span lang=EN-GB>Test: Create a Connection</span></h2>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;Now start the
-editor and test the create connection feature:</span></p>
-
-<ol style='margin-top:0cm' start=1 type=1>
- <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
-     lang=EN-GB>create or open a&nbsp; diagram </span></li>
- <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
-     lang=EN-GB>create two new EClasses (existing EClasses don’t work because
-     they have no anchor)</span></li>
- <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
-     lang=EN-GB>click on “EReference” which should be now available as
-     connection tool in the palette</span></li>
- <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
-     lang=EN-GB>move the mouse over the EClasses; you can see that it is
-     allowed to start the connection</span></li>
- <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
-     lang=EN-GB>click on one EClass</span></li>
- <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
-     lang=EN-GB>move mouse over the start EClass; you can see that it is not
-     allowed to end the connection on the same EClass</span></li>
- <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
-     lang=EN-GB>move the mouse over the other EClass and click </span></li>
- <li class=MsoNormal style='color:black;margin-top:6.0pt;text-align:justify'><span
-     lang=EN-GB>the new connection should be created</span></li>
+<h1>Providing Create Connection Functionality</h1>
+<h2>Creating a Create Connection Feature</h2>
+<p>Usually a new connection object is created graphically by using the corresponding 
+connection tool from the editorâ€™s tool palette. When using Graphiti you only have 
+to provide a so called create connection feature. The integration into the platformâ€™s 
+UI is done by the framework.</p>
+<p>A create connection feature has to implement the interface
+<a href="../../../javadoc/org/eclipse/graphiti/features/ICreateConnectionFeature.html">
+ICreateConnectionFeature</a>. Instead of implementing it directly it should extend 
+one of the available base classes. In this example we extend the base class
+<a href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractCreateConnectionFeature.html">
+AbstractCreateConnectionFeature</a>.</p>
+<p>We have to implement/overwrite 3 methods:</p>
+<ul>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/func/ICreateConnection.html#canCreate(org.eclipse.graphiti.features.context.ICreateConnectionContext)">canCreate</a> has to check whether the connection can be created for the given context. 
+It has to check the business objects which are behind the source and the target 
+anchors.</li>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/func/ICreateConnection.html#canStartConnection(org.eclipse.graphiti.features.context.ICreateConnectionContext)">canStartConnection</a> has to check whether the connection can be started at the 
+given source anchor.</li>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/func/ICreateConnection.html#create(org.eclipse.graphiti.features.context.ICreateConnectionContext)">create</a> has to create the business object for the connection and also has to 
+add the graphical representation of the newly created business object to the diagram. 
+The creation of the business object must be implemented here. To add the graphical 
+representation, an <a href="add-connection-feature.htm">add connection feature</a> 
+should be used.</li>
+</ul>
+<p>In this example we want create an EReference between EClasses via the connection 
+tool from the palette.</p>
+<p>&nbsp;</p>
+<p>
+<img alt="" border="0" height="251" src="visio/connection-routing-direct.png" width="251"></p>
+<p><strong>Figure: EReference between EClasses</strong></p>
+<p>&nbsp;</p>
+<p>You can see the complete implementation of the create connection feature here:</p>
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code"><span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
+		<span class="keyword">public class</span> TutorialCreateEReferenceFeature 
+		extends<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AbstractCreateConnectionFeature 
+		{<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>TutorialCreateEReferenceFeature 
+		(IFeatureProvider fp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// provide name and description for the UI, e.g. the 
+		palette</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">super</span>(fp, <span class="string">&quot;EReference&quot;</span>,
+		<span class="string">&quot;Create EReference&quot;</span>);<br>&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;<br>&nbsp;&nbsp; <span class="keyword">&nbsp;public boolean</span> 
+		canCreate(ICreateConnectionContext context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// return true if both anchors belong to an EClass<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		// and those EClasses are not identical</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EClass source = getEClass(context.getSourceAnchor());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EClass target = getEClass(context.getTargetAnchor());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (source != <span class="keyword">null
+		</span>&amp;&amp; target != <span class="keyword">null </span>&amp;&amp; source != target) 
+		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return true</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return 
+		false</span>;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public boolean</span> canStartConnection(ICreateConnectionContext 
+		context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// return true if start anchor belongs to a EClass</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(getEClass(context.getSourceAnchor()) !=
+		<span class="keyword">null</span>) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return true</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">&nbsp;return 
+		false</span>;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public </span>Connection create(ICreateConnectionContext 
+		context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Connection newConnection 
+		= <span class="keyword">null</span>;<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// get EClasses which should be connected</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EClass source = getEClass(context.getSourceAnchor());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EClass target = getEClass(context.getTargetAnchor());<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (source != <span class="keyword">null
+		</span>&amp;&amp; target != <span class="keyword">null</span>) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// create new business object </span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EReference eReference = createEReference(source, target);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// add connection for business object</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		AddConnectionContext addContext =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		new AddConnectionContext(context.getSourceAnchor(), context<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		.getTargetAnchor());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		addContext.setNewObject(eReference);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		newConnection =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		(Connection) getFeatureProvider().addIfPossible(addContext);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return </span>newConnection;<br>&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; <span class="string">/**<br>&nbsp;&nbsp;&nbsp;&nbsp; 
+		* Returns the EClass belonging to the anchor, or null if not available.<br>&nbsp;&nbsp;&nbsp;&nbsp; 
+		*/</span><br>&nbsp;&nbsp;&nbsp; <span class="keyword">private </span>EClass 
+		getEClass(Anchor anchor) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(anchor != <span class="keyword">null</span>) 
+		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Object object =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		getBusinessObjectForPictogramElement(anchor.getParent());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (object <span class="keyword">instanceof
+		</span>EClass) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return </span>(EClass) object;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return null</span>;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="string">/**<br>&nbsp;&nbsp;&nbsp; * Creates a EReference between 
+		two EClasses.<br>&nbsp;&nbsp;&nbsp; */</span><br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">private </span>EReference createEReference(EClass 
+		source, EClass target) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EReference 
+		eReference = EcoreFactory.eINSTANCE.createEReference();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		eReference.setName(<span class="string">&quot;new EReference&quot;</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		eReference.setEType(target);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		eReference.setLowerBound(0);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		eReference.setUpperBound(1);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		source.getEStructuralFeatures().add(eReference);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return </span>eReference;<br>&nbsp;&nbsp; }<br>}<br>
+		</p>
+	</div>
+</div>
+<p>&nbsp;</p>
+<p>Additionally the feature provider has to deliver our newly created feature (overwrite 
+the method
+<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCreateConnectionFeatures()">
+getCreateConnectionFeatures</a>).</p>
+<p>This implementation can be seen here:</p>
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code">&nbsp;@Override<br>&nbsp;<span class="keyword">public
+		</span>ICreateConnectionFeature[] getCreateConnectionFeatures() {<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return new</span> ICreateConnectionFeature[] { <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">new </span>TutorialCreateEReferenceFeature (<span class="keyword">this</span>) 
+		};<br>&nbsp;} </p>
+	</div>
+</div>
+<p>&nbsp;</p>
+<p>Before we can run the editor we have to add <a href="anchors.htm">anchors</a> 
+to the container shapes of the EClasses. Anchors are explained later in detail.</p>
+<p>For now simply create an anchor at end of the add method of the <em>TutorialAddEClassFeature</em>, 
+as shown in the following code snippet:</p>
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code">&nbsp;<span class="keyword">public </span>PictogramElement 
+		add(IAddContext context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
+		... EXISTING CODING ... <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // add a chopbox anchor to 
+		the shape </span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; peCreateService.createChopboxAnchor(containerShape);<br>&nbsp;
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
+		call the layout feature</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		layoutPictogramElement(containerShape);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return </span>containerShape;<br>&nbsp;&nbsp;&nbsp; 
+		} <br>&nbsp; </p>
+	</div>
+</div>
+<p>&nbsp;</p>
+<h2>Test: Create a Connection</h2>
+<p>Now start the editor and test the create connection feature:</p>
+<ol>
+	<li>create or open a diagram</li>
+	<li>create two new EClasses (existing EClasses donâ€™t work because they have 
+	no anchor</li>
+	<li>click on &quot;EReference&quot; which should be now available as connection tool in 
+	the palette</li>
+	<li>move the mouse over the EClasses; you can see that it is allowed to start 
+	the connection</li>
+	<li>click on one EClass</li>
+	<li>move mouse over the start EClass; you can see that it is not allowed to 
+	end the connection on the same EClass</li>
+	<li>move the mouse over the other EClass and click</li>
+	<li>the new connection should be created</li>
 </ol>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<div class=MsoNormal align=center style='text-align:center'>
-
-<hr size=3 width="100%" align=center>
-
-</div>
-
-<p class=MsoNormal><a href="http://www.eclipse.org/legal/epl-v10.html"
-shape=rect>Copyright (c) SAP AG 2005, 2010.</a> </p>
-
-</div>
 
 </body>
 
