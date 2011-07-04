@@ -3,7 +3,7 @@
   <rm:property key="build.type" value="N"/>
   <rm:locator pattern="^org\.eclipse\.graphiti\.releng.*" searchPathRef="releng"/>
   <rm:locator pattern="^org\.eclipse\.graphiti\.*" searchPathRef="sources"/>
-  <rm:locator pattern="^org\.eclipse\.license\.*" searchPathRef="eclipse.license"/>
+  <rm:locator pattern="^org\.eclipse\.license.*" searchPathRef="eclipse.license"/>
   <rm:locator searchPathRef="platform.binaries" failOnError="false"/>
   <rm:locator searchPathRef="orbit"/>
   <rm:searchPath name="releng">
