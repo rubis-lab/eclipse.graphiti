@@ -353,7 +353,11 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 	protected boolean handleButtonDown(int button) {
 		if (!isGraphicalViewer())
 			return true;
-		if (button != 1) {
+		// if ((button == 3 || button == 1) && isInState(STATE_INITIAL))
+		// performMarqueeSelect();
+
+		if (button != 1 && button != 3
+) {
 			setState(STATE_INVALID);
 			handleInvalidInput();
 		}
@@ -628,6 +632,7 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 
 			if (schedulePaint) {
 				Display.getCurrent().timerExec(DELAY, new Runnable() {
+					@Override
 					public void run() {
 						offset++;
 						if (offset > 5)
