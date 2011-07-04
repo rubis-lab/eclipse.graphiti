@@ -356,8 +356,7 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 		// if ((button == 3 || button == 1) && isInState(STATE_INITIAL))
 		// performMarqueeSelect();
 
-		if (button != 1 && button != 3
-) {
+		if (button != 1 && button != 3) {
 			setState(STATE_INVALID);
 			handleInvalidInput();
 		}
