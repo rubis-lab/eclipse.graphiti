@@ -9,13 +9,16 @@
 	Contributors:
 	  SAP AG - initial API and implementation
 	  mwenz - Update of Eclipse license
+	  mwenz - Use central Eclipse license feature
 -->
 <feature
       id="org.eclipse.graphiti.feature.tests"
       label="%featureName"
       version="0.9.0.qualifier"
       provider-name="%providerName"
-      image="eclipse_update_120.jpg">
+      image="eclipse_update_120.jpg"
+      license-feature="org.eclipse.license"
+      license-feature-version="1.0.0.qualifier">
 
    <description>
       %description
@@ -24,10 +27,6 @@
    <copyright url="%copyrightURL">
       %copyright
    </copyright>
-
-   <license url="%licenseURL">
-      %license
-   </license>
 
    <url>
       <update label="%graphitiTestUpdateSiteName" url="http://download.eclipse.org/modeling/graphiti/updates/"/>
