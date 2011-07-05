@@ -69,8 +69,11 @@
 	</target>
 
 	<target name="copy.sites" >
-		<echo message="Deleting old update site from last_success area" />
+		<echo message="Deleting old update site from last_success area (might be removed as no site.p2 is created any more)" />
 		<delete dir="${root}/last_success/site.p2/" failonerror="true" />
+		
+		<echo message="Deleting old packed update site from last_success area" />
+		<delete dir="${root}/last_success/site.packed/" failonerror="true" />
 		
 		<echo message="Deleting old ZIP archive from last_success area" />
 		<delete dir="${root}/last_success/site.p2.zip/" failonerror="true" />
@@ -78,8 +81,8 @@
 		<available file="${root}/last_success/site.signed/" property="site.signed.exists"/>
 		<antcall target="sub.delete.last_success.site.signed"/>
 		
-		<echo message="Copying site.p2 to last_success area" />
-		<copydir dest="${root}/last_success/site.p2/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2.packed" />
+		<echo message="Copying site.packed to last_success area" />
+		<copydir dest="${root}/last_success/site.packed/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.packed" />
 
 		<available file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.signed" property="site.signed.created"/>
 		<antcall target="sub.copy.last_success.site.signed"/>
@@ -110,8 +113,8 @@
 		<echo message="Deleting old update site from downloads area" />
 		<delete dir="/home/data/httpd/download.eclipse.org/graphiti/updates/nightly/" failonerror="true" />
 		
-		<echo message="Promoting site.p2" />
-		<copydir dest="/home/data/httpd/download.eclipse.org/graphiti/updates/nightly/" src="/opt/public/jobs/gmp-graphiti-nightly/workspace/last_success/site.p2" />
+		<echo message="Promoting site.packed" />
+		<copydir dest="/home/data/httpd/download.eclipse.org/graphiti/updates/nightly/" src="/opt/public/jobs/gmp-graphiti-nightly/workspace/last_success/site.packed" />
 		
 		<echo message="Deleting old ZIP archive from downloads area" />
 		<delete dir="/home/data/httpd/download.eclipse.org/graphiti/archives/nightly/" failonerror="true" />
