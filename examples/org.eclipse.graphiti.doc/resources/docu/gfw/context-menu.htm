@@ -1,437 +1,82 @@
-<html>
+ï»¿<html>
 
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 12 (filtered)">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>Providing a context menu</title>
-<link rel=Stylesheet type="text/css" media=all href="../book.css">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-h1
-	{mso-style-link:"Überschrift 1 Zchn";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:16.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-h2
-	{mso-style-link:"Überschrift 2 Zchn";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:14.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;
-	font-style:italic;}
-h3
-	{mso-style-link:"Überschrift 3 Zchn";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:0cm;
-	page-break-after:avoid;
-	font-size:13.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-h4
-	{mso-style-link:"Überschrift 4 Zchn";
-	margin-top:11.25pt;
-	margin-right:0cm;
-	margin-bottom:1.7pt;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;
-	font-style:italic;}
-h5
-	{mso-style-link:"Überschrift 5 Zchn";
-	margin-right:0cm;
-	margin-left:0cm;
-	font-size:10.0pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-h6
-	{mso-style-link:"Überschrift 6 Zchn";
-	margin-right:0cm;
-	margin-left:0cm;
-	font-size:7.5pt;
-	font-family:"Times New Roman","serif";
-	font-weight:bold;}
-a:link, span.MsoHyperlink
-	{color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{color:purple;
-	text-decoration:underline;}
-p
-	{margin-top:5.65pt;
-	margin-right:0cm;
-	margin-bottom:5.65pt;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-pre
-	{mso-style-link:"HTML Vorformatiert Zchn";
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:3.4pt;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Courier New";}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-link:"Sprechblasentext Zchn";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";}
-span.berschrift1Zchn
-	{mso-style-name:"Überschrift 1 Zchn";
-	mso-style-link:"Überschrift 1";
-	font-family:"Cambria","serif";
-	color:#365F91;
-	font-weight:bold;}
-span.berschrift2Zchn
-	{mso-style-name:"Überschrift 2 Zchn";
-	mso-style-link:"Überschrift 2";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.berschrift3Zchn
-	{mso-style-name:"Überschrift 3 Zchn";
-	mso-style-link:"Überschrift 3";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;}
-span.berschrift4Zchn
-	{mso-style-name:"Überschrift 4 Zchn";
-	mso-style-link:"Überschrift 4";
-	font-family:"Cambria","serif";
-	color:#4F81BD;
-	font-weight:bold;
-	font-style:italic;}
-span.berschrift5Zchn
-	{mso-style-name:"Überschrift 5 Zchn";
-	mso-style-link:"Überschrift 5";
-	font-family:"Cambria","serif";
-	color:#243F60;}
-span.berschrift6Zchn
-	{mso-style-name:"Überschrift 6 Zchn";
-	mso-style-link:"Überschrift 6";
-	font-family:"Cambria","serif";
-	color:#243F60;
-	font-style:italic;}
-span.HTMLVorformatiertZchn
-	{mso-style-name:"HTML Vorformatiert Zchn";
-	mso-style-link:"HTML Vorformatiert";
-	font-family:"Consolas","serif";}
-span.SprechblasentextZchn
-	{mso-style-name:"Sprechblasentext Zchn";
-	mso-style-link:Sprechblasentext;
-	font-family:"Tahoma","sans-serif";}
-p.code, li.code, div.code
-	{mso-style-name:code;
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:15.0pt;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.note, li.note, div.note
-	{mso-style-name:note;
-	margin-top:19.5pt;
-	margin-right:0cm;
-	margin-bottom:19.5pt;
-	margin-left:30.0pt;
-	font-size:13.0pt;
-	font-family:"Times New Roman","serif";
-	font-style:italic;}
-span.heading2char
-	{mso-style-name:heading2char;
-	font-family:"Arial","sans-serif";
-	color:black;
-	font-weight:bold;
-	font-style:italic;}
-span.code1
-	{mso-style-name:code1;
-	font-style:italic;}
-span.code0
-	{mso-style-name:code0;
-	font-style:italic;}
-.MsoChpDefault
-	{font-size:10.0pt;}
-@page WordSection1
-	{size:595.45pt 841.7pt;
-	margin:72.0pt 89.85pt 72.0pt 89.85pt;}
-div.WordSection1
-	{page:WordSection1;}
- /* List Definitions */
- ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
--->
-</style>
-
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
 </head>
 
-<body bgcolor=white lang=DE link=blue vlink=purple style='margin-bottom:12.0pt'>
+<body>
 
-<div class=WordSection1>
-
-<h1><a name="_Toc179099520"><span lang=EN-GB>Providing </span></a><span
-lang=EN-GB>a Context Menu</span></h1>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<h2><span lang=EN-GB>Enhancing the Tool Behavior Provider</span></h2>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Context menus are
-defined in the tool behavior provider.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>If you didn’t do so
-already you must <b>first create a tool behavior provider and add it to the
-diagram type provider as described <a href="tool-behavior-provider.htm">here</a>.</b></span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>There is one method of
-the tool behavior provider to overwrite: </span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>The method <a
-href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getContextMenu(org.eclipse.graphiti.features.context.ICustomContext)">getContextMenu</a>
-has to return the context menu entries for the given context (which implement <a
-href="../../../javadoc/org/eclipse/graphiti/tb/IContextMenuEntry.html">IContextMenuEntry</a>)</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>The functionality of
-the context menu entries is always provided by features. </span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>It is possible to
-create a context menu entry with “children”, which build a group of other
-context menu entries. Such a group can be shown in the context menu either as a
-sub-menu or as a flat list separated by separator-lines. This behaviour can be
-switched with a simple flag. You can also use the <a
-href="../../../javadoc/org/eclipse/graphiti/tb/DynamicContextMenuEntry.html">DynamicContextMenuEntry</a>,
-which will automatically create a sub-menu, if there are more than a predefined
-number of children, and a flat list otherwise.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>In this example we want
-to create one context menu entry, which offers all available <a
-href="custom-feature.htm">custom features</a> as menu entries in a new
-sub-menu. &nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>You can see the
-complete implementation of the context menu here:</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=680
- style='width:18.0cm;border-collapse:collapse'>
- <tr>
-  <td width=680 valign=top style='width:18.0cm;border:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-GB
-  style='color:black'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#646464'>@Override</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>public</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> IContextMenuEntry[]
-  getContextMenu(ICustomContext context) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// create a sub-menu for all custom features</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  ContextMenuEntry subMenu = </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>new</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ContextMenuEntry(</span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>null</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>, context);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  subMenu.setText(</span><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#2A00FF'>&quot;Custom&quot;</span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  subMenu.setDescription(</span><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#2A00FF'>&quot;Custom features submenu&quot;</span><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// display sub-menu hierarchical or flat</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  subMenu.setSubmenu(</span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>true</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#3F7F5F'>// create a menu-entry in the sub-menu for each custom feature</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;</span><b><span lang=EN-US style='font-size:10.0pt;font-family:
-  "Courier New";color:#7F0055'>if</span></b><span lang=EN-US style='font-size:
-  10.0pt;font-family:"Courier New";color:black'> (context </span><b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>instanceof</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  ICustomContext) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  ICustomContext customContext = (ICustomContext) context;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  ICustomFeature[] customFeatures =</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  getFeatureProvider().getCustomFeatures(customContext);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>for</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> (</span><b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>int</span></b><span
-  lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'> i
-  = 0; i &lt; customFeatures.</span><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#0000C0'>length</span><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>; i++) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  ICustomFeature customFeature = customFeatures[i];</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>if</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'>
-  (customFeature.isAvailable(customContext)) {</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  ContextMenuEntry menuEntry =</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span lang=EN-US style='font-size:10.0pt;font-family:"Courier New";
-  color:#7F0055'>new</span></b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:black'> ContextMenuEntry(customFeature,
-  context);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  subMenu.add(menuEntry);</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  }</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  IContextMenuEntry ret[] = </span><b><span lang=EN-US style='font-size:10.0pt;
-  font-family:"Courier New";color:#7F0055'>new</span></b><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>
-  IContextMenuEntry[] { subMenu };</span></p>
-  <p class=MsoNormal style='text-autospace:none'><span lang=EN-US
-  style='font-size:10.0pt;font-family:"Courier New";color:black'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span><b><span style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>return</span></b><span
-  style='font-size:10.0pt;font-family:"Courier New";color:black'> ret;</span></p>
-  <p class=MsoNormal><span style='font-size:10.0pt;font-family:"Courier New";
-  color:black'>&nbsp;&nbsp;&nbsp; }</span></p>
-  <p class=MsoNormal><span style='color:black'>&nbsp;</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<h2><span lang=EN-GB>Test: Create a Connection by Drag&amp;Drop from a Context
-Button</span></h2>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Note that previously we
-implemented one <a href="custom-feature.htm">”Rename EClass” feature</a> which
-allows renaming a EClass in a popup dialog.</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-GB style='color:black'>Now start the editor
-and test this new context menu:</span></p>
-
-<ol style='margin-top:0cm' start=1 type=1>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>Create
-     or open a&nbsp;diagram and create a EClass in the diagram.</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>Open
-     the context-menu on the diagram, and verify that the “Rename EClass”
-     feature is available but disabled in the custom sub-menu.</span></li>
- <li class=MsoNormal style='color:black;text-align:justify'><span lang=EN-GB>Open
-     the context-menu on the EClass, and verify that the “Rename EClass”
-     feature is available and enabled in the custom sub-menu.</span></li>
+<h1>Providing a Context Menu</h1>
+<h2>Enhancing the Tool Behavior Provider</h2>
+<p>Context menus are defined in the tool behavior provider.</p>
+<p>If you didnâ€™t do so already you must <strong>first create a tool behavior provider 
+and add it to the diagram type provider as described </strong>
+<a href="tool-behavior-provider.htm"><strong>here</strong></a>.</p>
+<p>There is one method of the tool behavior provider to overwrite: </p>
+<p>The method
+<a href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getContextMenu(org.eclipse.graphiti.features.context.ICustomContext)">
+getContextMenu</a> has to return the context menu entries for the given context 
+(which implement
+<a href="../../../javadoc/org/eclipse/graphiti/tb/IContextMenuEntry.html">IContextMenuEntry</a>)</p>
+<p>The functionality of the context menu entries is always provided by features.
+</p>
+<p>It is possible to create a context menu entry with â€œchildrenâ€, which build a 
+group of other context menu entries. Such a group can be shown in the context menu 
+either as a sub-menu or as a flat list separated by separator-lines. This behaviour 
+can be switched with a simple flag. You can also use the
+<a href="../../../javadoc/org/eclipse/graphiti/tb/DynamicContextMenuEntry.html">
+DynamicContextMenuEntry</a>, which will automatically create a sub-menu, if there 
+are more than a predefined number of children, and a flat list otherwise.</p>
+<p>In this example we want to create one context menu entry, which offers all available
+<a href="custom-feature.htm">custom features</a> as menu entries in a new sub-menu.&nbsp;
+</p>
+<p>You can see the complete implementation of the context menu here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code">@Override<br><span class="keyword">public</span> IContextMenuEntry[] 
+		getContextMenu(ICustomContext context) {<br>&nbsp;&nbsp;&nbsp;
+		<span class="comment">// create a sub-menu for all custom features</span><br>&nbsp;&nbsp;&nbsp; 
+		ContextMenuEntry subMenu = <span class="keyword">new</span> ContextMenuEntry(<span class="keyword">null</span>, 
+		context);<br>&nbsp;&nbsp;&nbsp; subMenu.setText(<span class="string">&quot;Custom&quot;</span>);<br>&nbsp;&nbsp;&nbsp; 
+		subMenu.setDescription(<span class="string">&quot;Custom features submenu&quot;</span>);<br>&nbsp;&nbsp;&nbsp;
+		<span class="comment">// display sub-menu hierarchical or flat</span><br>&nbsp;&nbsp;&nbsp; 
+		subMenu.setSubmenu(<span class="keyword">true</span>);<br><br>&nbsp;&nbsp;
+		<span class="comment">&nbsp;// create a menu-entry in the sub-menu for each 
+		custom feature</span><br>&nbsp;&nbsp;&nbsp; ICustomFeature[] customFeatures 
+		= getFeatureProvider().getCustomFeatures(context);<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">for</span> (<span class="keyword">int</span> i = 0; 
+		i &lt; customFeatures.<span class="string">length</span>; i++) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		ICustomFeature customFeature = customFeatures[i];<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (customFeature.isAvailable(context)) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		ContextMenuEntry menuEntry = <span class="keyword">new</span> ContextMenuEntry(customFeature, 
+		context);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		subMenu.add(menuEntry);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp; }<br><br>&nbsp;&nbsp;&nbsp;&nbsp; IContextMenuEntry 
+		ret[] =<span class="keyword"> new</span> IContextMenuEntry[] { subMenu };<br>&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return</span> ret;<br>}</p>
+	</div>
+</div>
+<p>&nbsp;</p>
+<!-- End code  -------------------------------------------------------------------------------  -->
+<h2>Test: Create a Connection by Drag &amp; Drop from a Context Button</h2>
+<p>Note that previously we implemented one &quot;<a href="custom-feature.htm">Rename 
+EClass&quot; feature</a> which allows renaming a EClass in a popup dialog.</p>
+<p>Now start the editor and test this new context menu:</p>
+<ol>
+	<li>Create or open a diagram and create a EClass in the diagram.</li>
+	<li>Open the context-menu on the diagram, and verify that the &quot;Rename EClass&quot; 
+	feature is available but disabled in the custom sub-menu.</li>
+	<li>Open the context-menu on the EClass, and verify that the &quot;Rename EClass&quot; 
+	feature is available and enabled in the custom sub-menu.</li>
 </ol>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>Next you may change the
-hierarchical sub-menu to a flat sub-menu (change the coding to </span><span
-lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>”subMenu.setSubmenu(</span><b><span
-lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:#7F0055'>false</span></b><span
-lang=EN-US style='font-size:10.0pt;font-family:"Courier New";color:black'>)”)</span><span
-lang=EN-US style='color:black'>. Start the editor and repeat the test to view
-the difference in the context-menu. </span></p>
-
-<p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
-
-<div class=MsoNormal align=center style='text-align:center'>
-
-<hr size=2 width="100%" align=center>
-
-</div>
-
-<p class=MsoNormal><a href="http://www.eclipse.org/legal/epl-v10.html"
-shape=rect>Copyright (c) SAP AG 2005, 2010.</a> </p>
-
-</div>
+<p>Next you may change the hierarchical sub-menu to a flat sub-menu (change the 
+coding to <em>&quot;subMenu.setSubmenu(false)</em>&quot;). Start the editor and repeat the 
+test to view the difference in the context-menu.</p>
 
 </body>
 
