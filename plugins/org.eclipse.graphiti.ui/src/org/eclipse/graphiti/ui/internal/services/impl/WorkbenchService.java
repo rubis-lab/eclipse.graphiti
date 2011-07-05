@@ -16,6 +16,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.services.impl;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -36,7 +37,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.EditorActionBarContributor;
 
 /**
@@ -133,7 +133,8 @@ public class WorkbenchService implements IWorkbenchService {
 		DiagramEditorInput diagramEditorInput = DiagramEditorInput.createEditorInput(diagram, domain, providerId, disposeEditingDomain);
 		IWorkbenchPage workbenchPage = getActivePage();
 		try {
-			IEditorPart editorPart = IDE.openEditor(workbenchPage, diagramEditorInput, editorId);
+			Assert.isNotNull(workbenchPage);
+			IEditorPart editorPart = workbenchPage.openEditor(diagramEditorInput, editorId);
 			if (editorPart instanceof IDiagramEditor) {
 				ret = (IDiagramEditor) editorPart;
 			}

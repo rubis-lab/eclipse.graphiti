@@ -21,15 +21,11 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.platform.ExtensionManager;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.services.IUiService;
@@ -37,6 +33,7 @@ import org.eclipse.graphiti.ui.internal.util.ui.print.ExportDiagramDialog;
 import org.eclipse.graphiti.ui.internal.util.ui.print.IDiagramsExporter;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -47,7 +44,6 @@ import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
  * A collection of static helper methods regarding Draw2d.
@@ -168,7 +164,7 @@ public class UiService implements IUiService {
 				final String file = filename;
 				final Image im = saveAsImageDialog.getScaledImage();
 				String imageExtension = saveAsImageDialog.getFileExtension();
-				WorkspaceModifyOperation operation;
+				IRunnableWithProgress operation;
 				// if the exporter is non-standard, i.e. registered via
 				// extension point, we need to call the registered exporter.
 				if (diagramExporterTypes.containsKey(imageExtension)) {
@@ -180,7 +176,7 @@ public class UiService implements IUiService {
 				} else {
 					int imageFormat = saveAsImageDialog.getImageFormat();
 					byte image[] = createImage(im, imageFormat);
-					operation = getSaveToFileOp(file, image);
+					operation = getSaveToFileOp(shell, file, image);
 				}
 				new ProgressMonitorDialog(shell).run(false, false, operation);
 			} catch (Exception e) {
@@ -193,27 +189,35 @@ public class UiService implements IUiService {
 	}
 
 
-	private WorkspaceModifyOperation getExportOp(final String METHOD, final Shell shell, final ExportDiagramDialog saveAsImageDialog,
+	private IRunnableWithProgress getExportOp(final String METHOD, final Shell shell, final ExportDiagramDialog saveAsImageDialog,
 			final String file, final Image im, final IDiagramsExporter exporter) {
-		WorkspaceModifyOperation operation;
-		operation = new WorkspaceModifyOperation() {
+		IRunnableWithProgress operation;
+		operation = new IRunnableWithProgress() {
 			@Override
-			protected void execute(IProgressMonitor monitor) throws CoreException {
+			public void run(IProgressMonitor monitor) {
 				try {
 					exporter.export(im, saveAsImageDialog.getFigure(), file, saveAsImageDialog.getImageScaleFactor());
 				} catch (Exception e) {
-					String message = "Can not export diagram: "; //$NON-NLS-1$
-					MessageDialog.openError(shell, "Can not export diagram", message + e.getMessage()); //$NON-NLS-1$
-					e.printStackTrace();
+					handleException(shell, e);
 				}
 			}
+
 		};
 		return operation;
 	}
 
+
+	private void handleException(final Shell shell, Exception e) {
+		String message = "Can not export diagram: "; //$NON-NLS-1$
+		MessageDialog.openError(shell, "Can not export diagram", message + e.getMessage()); //$NON-NLS-1$
+		e.printStackTrace();
+	}
+
 	/**
-	 * Returns a WorkspeceModifyOperation, which saves the given contents to a
+	 * Returns an IRunnableWithProgress, which saves the given contents to a
 	 * File with the given filename.
+	 * 
+	 * @param shell
 	 * 
 	 * @param filename
 	 *            The name of the file, where to save the contents.
@@ -222,19 +226,16 @@ public class UiService implements IUiService {
 	 * @throws Exception
 	 *             On any errors that occur.
 	 */
-	private WorkspaceModifyOperation getSaveToFileOp(final String filename, final byte contents[]) throws Exception {
-		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
+	private IRunnableWithProgress getSaveToFileOp(final Shell shell, final String filename, final byte contents[]) throws Exception {
+		IRunnableWithProgress operation = new IRunnableWithProgress() {
 			@Override
-			protected void execute(IProgressMonitor monitor) throws CoreException {
+			public void run(IProgressMonitor monitor) {
 				FileOutputStream outputStream = null;
 				try {
 					outputStream = new FileOutputStream(filename);
 					outputStream.write(contents);
 				} catch (Exception e) {
-					// convert exceptions to CoreExceptions
-					Status status = new Status(IStatus.ERROR, GraphitiUIPlugin.PLUGIN_ID, IStatus.ERROR, "Can not save image as file: " //$NON-NLS-1$
-							+ e.getMessage(), e);
-					throw new CoreException(status);
+					handleException(shell, e);
 				} finally {
 					try {
 						outputStream.close();

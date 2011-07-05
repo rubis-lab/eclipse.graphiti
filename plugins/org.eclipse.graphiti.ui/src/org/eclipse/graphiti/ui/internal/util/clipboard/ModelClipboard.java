@@ -46,6 +46,7 @@ import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.internal.util.ReflectionUtil;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.custom.BusyIndicator;
@@ -54,7 +55,6 @@ import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.part.ResourceTransfer;
 
 /**
  * Provides a clipboard-like storage of EMF-related data based on SWT
@@ -521,7 +521,15 @@ public final class ModelClipboard {
 		result.put(LocalSelectionTransfer.getTransfer(), new StructuredSelection(objects));
 		result.put(UriTransfer.getInstance(), data);
 		result.put(FileTransfer.getInstance(), filePaths.toArray(new String[filePaths.size()]));
-		result.put(ResourceTransfer.getInstance(), files.toArray(new IResource[files.size()]));
+		// Resource Transfer resides in org.eclipse.ui.ide. We need to support
+		// an RCP scenario without having this plug-in installed.
+		try {
+			Transfer resourceTransfer = ReflectionUtil.getResourceTransfer();
+			if (resourceTransfer != null)
+				result.put(resourceTransfer, files.toArray(new IResource[files.size()]));
+		} catch (Exception e) {
+			T.racer().debug(e.getMessage());
+		}
 		result.put(TextTransfer.getInstance(), toExtendedString(objects));
 		return result;
 	}

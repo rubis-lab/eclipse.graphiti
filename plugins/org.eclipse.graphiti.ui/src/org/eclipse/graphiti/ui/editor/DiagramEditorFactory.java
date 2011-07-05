@@ -34,11 +34,11 @@ import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.editor.GFWorkspaceCommandStackImpl;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.internal.util.ReflectionUtil;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorMatchingStrategy;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IElementFactory;
-import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.PartInitException;
 
@@ -51,6 +51,7 @@ import org.eclipse.ui.PartInitException;
  * @see {@link DiagramEditorInput}
  */
 public class DiagramEditorFactory implements IElementFactory {
+
 
 	/**
 	 * Creates a new {@link DiagramEditorInput} with a self created
@@ -69,8 +70,10 @@ public class DiagramEditorFactory implements IElementFactory {
 		if (otherInput instanceof DiagramEditorInput) {
 			DiagramEditorInput input = (DiagramEditorInput) otherInput;
 			if (input.getAdapter(TransactionalEditingDomain.class) == null) {
-				// This might happen in case the editor input comes from the navigation history:
-				// there the editing domain is disposed and the diagram can no longer be resolved
+				// This might happen in case the editor input comes from the
+				// navigation history:
+				// there the editing domain is disposed and the diagram can no
+				// longer be resolved
 				// Simply create a new editor input
 				// See Bug 346932
 				TransactionalEditingDomain ed = DiagramEditorFactory.createResourceSetAndEditingDomain();
@@ -78,9 +81,8 @@ public class DiagramEditorFactory implements IElementFactory {
 			}
 			return input;
 		}
-		if (otherInput instanceof IFileEditorInput) {
-			final IFileEditorInput fileInput = (IFileEditorInput) otherInput;
-			final IFile file = fileInput.getFile();
+		IFile file = ReflectionUtil.getFileFromEditorInput(otherInput);
+		if (file != null) {
 			final TransactionalEditingDomain domain = createResourceSetAndEditingDomain();
 			URI diagramFileUri = GraphitiUiInternal.getEmfService().getFileURI(file, domain.getResourceSet());
 			if (diagramFileUri != null) {
@@ -113,9 +115,8 @@ public class DiagramEditorFactory implements IElementFactory {
 		@Override
 		public boolean matches(IEditorReference editorRef, IEditorInput input) {
 			try {
-				if (input instanceof IFileEditorInput) {
-					final IFileEditorInput fileInput = (IFileEditorInput) input;
-					final IFile file = fileInput.getFile();
+				IFile file = ReflectionUtil.getFileFromEditorInput(input);
+				if (file != null) {
 
 					// Check whether the given file contains a diagram as its
 					// root element. If yes, compare it with the given editor's

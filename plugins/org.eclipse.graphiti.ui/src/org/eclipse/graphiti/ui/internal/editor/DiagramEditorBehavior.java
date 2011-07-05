@@ -61,6 +61,7 @@ import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
@@ -70,7 +71,6 @@ import org.eclipse.ui.ISaveablePart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -491,10 +491,10 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		final Set<Resource> savedResources = new HashSet<Resource>();
 
 		// Do the work within an operation because this is a long running activity that modifies the workbench.
-		final WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
+		final IRunnableWithProgress operation = new IRunnableWithProgress() {
 			// This is the method that gets invoked when the operation runs.
 			@Override
-			public void execute(IProgressMonitor monitor) {
+			public void run(IProgressMonitor monitor) {
 				// Save the resources to the file system.
 				try {
 					savedResources.addAll(GraphitiUiInternal.getEmfService().save(editingDomain));
