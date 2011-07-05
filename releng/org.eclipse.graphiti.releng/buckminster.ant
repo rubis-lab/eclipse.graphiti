@@ -79,7 +79,7 @@
 		<antcall target="sub.delete.last_success.site.signed"/>
 		
 		<echo message="Copying site.p2 to last_success area" />
-		<copydir dest="${root}/last_success/site.p2/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2" />
+		<copydir dest="${root}/last_success/site.p2/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2.packed" />
 
 		<available file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.signed" property="site.signed.created"/>
 		<antcall target="sub.copy.last_success.site.signed"/>
