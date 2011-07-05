@@ -69,8 +69,10 @@
 	</target>
 
 	<target name="copy.sites" >
-		<echo message="Deleting old update site from last_success area (might be removed as no site.p2 is created any more)" />
+		<!-- Not needed because no site.p2 is created any more
+		<echo message="Deleting old update site from last_success area" />
 		<delete dir="${root}/last_success/site.p2/" failonerror="true" />
+		-->
 		
 		<echo message="Deleting old packed update site from last_success area" />
 		<delete dir="${root}/last_success/site.packed/" failonerror="true" />
@@ -78,14 +80,17 @@
 		<echo message="Deleting old ZIP archive from last_success area" />
 		<delete dir="${root}/last_success/site.p2.zip/" failonerror="true" />
 
+		<!-- TODO: Can be removed with next change because site.signed is not needed (site.packed already contains signed version -->
 		<available file="${root}/last_success/site.signed/" property="site.signed.exists"/>
 		<antcall target="sub.delete.last_success.site.signed"/>
 		
 		<echo message="Copying site.packed to last_success area" />
 		<copydir dest="${root}/last_success/site.packed/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.packed" />
 
+		<!-- Not needed because site.packed already contains the signed version if signing happened 
 		<available file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.signed" property="site.signed.created"/>
 		<antcall target="sub.copy.last_success.site.signed"/>
+		-->
 
 		<echo message="Copying site.p2.zip to last_success area" />
 		<copydir dest="${root}/last_success/site.p2.zip/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2.zip" />
@@ -100,11 +105,11 @@
 	<target name="sub.copy.last_success.site.signed" if="site.signed.created">
 		<echo message="Copying site.signed to last_success area" />
 		<copydir dest="${root}/last_success/site.signed/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.signed" />
-		<echo message="Add update site stuff and user-readable description to signed folder (copy from site.p2 folder)" />
-		<copy todir="${root}/last_success/site.signed/" file="${root}/last_success/site.p2/artifacts.jar" />
-		<copy todir="${root}/last_success/site.signed/" file="${root}/last_success/site.p2/content.jar" />
-		<copy todir="${root}/last_success/site.signed/" file="${root}/last_success/site.p2/index.html" />
-		<copy todir="${root}/last_success/site.signed/" file="${root}/last_success/site.p2/index.xml" />
+		<echo message="Add update site stuff and user-readable description to signed folder (copy from site.packed folder)" />
+		<copy todir="${root}/last_success/site.signed/" file="${root}/last_success/site.packed/artifacts.jar" />
+		<copy todir="${root}/last_success/site.signed/" file="${root}/last_success/site.packed/content.jar" />
+		<copy todir="${root}/last_success/site.signed/" file="${root}/last_success/site.packed/index.html" />
+		<copy todir="${root}/last_success/site.signed/" file="${root}/last_success/site.packed/index.xml" />
 	</target>
 	<!-- End sub targets -->
 
