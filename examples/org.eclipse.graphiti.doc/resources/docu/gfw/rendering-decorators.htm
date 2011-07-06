@@ -34,14 +34,16 @@ diagram type provider as described </strong> <a href="tool-behavior-provider.htm
 <p>There is one method of 
 the tool behavior provider to overwrite: </p>
 
-<p>The method 
-<a href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getDecorators(org.eclipse.graphiti.mm.pictograms.PictogramElement)">
-getDecorators</a>
+<ul>
+	<li>The method 
+	<a href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getDecorators(org.eclipse.graphiti.mm.pictograms.PictogramElement)">getDecorators</a>
 has to return the rendering decorators for the given pictogram element. A 
 rendering decorator must implement the interface 
-<a href="../../../javadoc/org/eclipse/graphiti/tb/IDecorator.html">IDecorator</a>
-and may also implement <a href="../../../javadoc/org/eclipse/graphiti/datatypes/ILocation.html">ILocation</a>, 
-which provides the decorator location relative to the pictogram element.</p>
+	<a href="../../../javadoc/org/eclipse/graphiti/tb/IDecorator.html">IDecorator</a>
+and may also implement 
+	<a href="../../../javadoc/org/eclipse/graphiti/datatypes/ILocation.html">ILocation</a>, 
+which provides the decorator location relative to the pictogram element.</li>
+</ul>
 
 <p>Currently only the 
 <a href="../../../javadoc/org/eclipse/graphiti/tb/ImageDecorator.html">
