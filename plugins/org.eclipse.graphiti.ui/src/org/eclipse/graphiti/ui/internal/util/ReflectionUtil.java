@@ -24,7 +24,8 @@ import org.eclipse.swt.dnd.Transfer;
 /**
  * In this class, we combine all reflection code introduced to make Graphiti run
  * in a lean RCP setup, that is, for instance without org.eclipse.ui.ide
- * installed.
+ * installed. An alternative would be to use extension points which seems to be
+ * rather heavy-weight.
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class ReflectionUtil {
