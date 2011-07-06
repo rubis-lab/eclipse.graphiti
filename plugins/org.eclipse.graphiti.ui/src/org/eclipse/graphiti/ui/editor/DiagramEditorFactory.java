@@ -81,7 +81,7 @@ public class DiagramEditorFactory implements IElementFactory {
 			}
 			return input;
 		}
-		IFile file = ReflectionUtil.getFileFromEditorInput(otherInput);
+		IFile file = ReflectionUtil.getFile(otherInput);
 		if (file != null) {
 			final TransactionalEditingDomain domain = createResourceSetAndEditingDomain();
 			URI diagramFileUri = GraphitiUiInternal.getEmfService().getFileURI(file, domain.getResourceSet());
@@ -115,7 +115,7 @@ public class DiagramEditorFactory implements IElementFactory {
 		@Override
 		public boolean matches(IEditorReference editorRef, IEditorInput input) {
 			try {
-				IFile file = ReflectionUtil.getFileFromEditorInput(input);
+				IFile file = ReflectionUtil.getFile(input);
 				if (file != null) {
 
 					// Check whether the given file contains a diagram as its

@@ -40,7 +40,7 @@ public class ReflectionUtil {
 	 * scenario without having this plug-in installed. Therefore ashamed we use
 	 * dynamic class-loading and reflection .
 	 */
-	public static IFile getFileFromEditorInput(Object input) {
+	public static IFile getFile(Object input) {
 		Class[] genericInterfaces = input.getClass().getInterfaces();
 		for (Class interfaze : genericInterfaces) {
 			if (CLASSNAME_FILE_EDITOR_INPUT.equals(interfaze.getName())) {
