@@ -71,10 +71,9 @@ public class DiagramEditorFactory implements IElementFactory {
 			DiagramEditorInput input = (DiagramEditorInput) otherInput;
 			if (input.getAdapter(TransactionalEditingDomain.class) == null) {
 				// This might happen in case the editor input comes from the
-				// navigation history:
-				// there the editing domain is disposed and the diagram can no
-				// longer be resolved
-				// Simply create a new editor input
+				// navigation history: there the editing domain is disposed and
+				// the diagram can no longer be resolved. Simply create a new
+				// transactional editing domain
 				// See Bug 346932
 				TransactionalEditingDomain ed = DiagramEditorFactory.createResourceSetAndEditingDomain();
 				input.setEditingDomain(ed);
