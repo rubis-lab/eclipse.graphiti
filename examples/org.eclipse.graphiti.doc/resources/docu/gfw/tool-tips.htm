@@ -1,93 +1,61 @@
 ﻿<html>
 
 <head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>Providing tool tips</title>
-<link href="../book.css" rel="Stylesheet" type="text/css" />
-<link href="../code.css" rel="Stylesheet" type="text/css" />
-
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
 </head>
 
 <body>
 
 <h1>Providing Tooltips</h1>
-
 <h2>Enhancing the Tool Behavior Provider</h2>
-
-<p>Tooltips can be shown on top of active 
-pictogram elements. A typical use case is to show the name of pictogram elements 
-or anything else you can get from the business object.</p>
-
-<p>The tooltips are defined 
-in the tool behavior provider.</p>
-
-<p>If you didn’t do so 
-already you must <strong>first create a tool behavior provider and add it to the 
-diagram type provider as described </strong> <a href="tool-behavior-provider.htm">
-<strong>here</strong></a>.</p>
-
-<p>There is one method of 
-the tool behavior provider to overwrite: </p>
-
+<p>Tooltips can be shown on top of active pictogram elements. A typical use case 
+is to show the name of pictogram elements or anything else you can get from the 
+business object.</p>
+<p>The tooltips are defined in the tool behavior provider.</p>
+<p>If you didn’t do so already you must <strong>first create a tool behavior provider 
+and add it to the diagram type provider as described </strong>
+<a href="tool-behavior-provider.htm"><strong>here</strong></a>.</p>
+<p>There is one method of the tool behavior provider to overwrite: </p>
 <ul>
-	<li>The method 
-	<a href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getToolTip(org.eclipse.graphiti.mm.algorithms)">getToolTip</a> has to return the tooltip for 
-the given graphics algorithm, which is then attached to its graphical 
-representation.</li>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getToolTip(org.eclipse.graphiti.mm.algorithms)">
+	getToolTip</a> has to return the tooltip for the given graphics algorithm, which 
+	is then attached to its graphical representation.</li>
 </ul>
-
-<p>In this example we want 
-to show a tooltip for a EClass.</p>
-
+<p>In this example we want to show a tooltip for a EClass.</p>
 <p>&nbsp;</p>
-
-<p><img id="Bild 1" alt="" border="0" height="161" src="visio/tool-tip.png" width="158" /></p>
-
-<p><strong>Figure: Tooltip from EClass with name 
-&quot;Beton&quot;</strong></p>
-
-<p>You can see the complete 
-implementation of the tooltip here:</p>
-
+<p>
+<img id="Bild 1" alt="" border="0" height="161" src="visio/tool-tip.png" width="158"></p>
+<p><strong>Figure: Tooltip from EClass with name &quot;Beton&quot;</strong></p>
+<p>You can see the complete implementation of the tooltip here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
-<div class="incode">
-<p class="code">
-@Override<br />
-<span class="keyword">public</span> String getToolTip(GraphicsAlgorithm ga) {<br />
-&nbsp;&nbsp;&nbsp; PictogramElement pe = ga.getPictogramElement();<br />
-&nbsp;&nbsp; &nbsp;Object bo = 
-getFeatureProvider().getBusinessObjectForPictogramElement(pe);<br />
-&nbsp;&nbsp;&nbsp; <span class="keyword">if</span> (bo <span class="keyword">instanceof</span> EClass) {<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String name = ((EClass)bo).getName();<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">if</span> (name != 
-<span class="keyword">null</span> &amp;&amp; !name.isEmpty()) 
-{<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-<span class="keyword">return</span> name;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; <span class="keyword">return super</span>.getToolTip(ga);<br />
-}<br />
-</p>
-</div>
+	<div class="incode">
+		<p class="code">@Override<br><span class="keyword">public</span> String 
+		getToolTip(GraphicsAlgorithm ga) {<br>&nbsp;&nbsp;&nbsp; PictogramElement 
+		pe = ga.getPictogramElement();<br>&nbsp;&nbsp;&nbsp; Object bo = getFeatureProvider().getBusinessObjectForPictogramElement(pe);<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (bo <span class="keyword">instanceof</span> 
+		EClass) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String name = ((EClass)bo).getName();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (name != <span class="keyword">null</span> 
+		&amp;&amp; !name.isEmpty()) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return</span> name;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return super</span>.getToolTip(ga);<br>}<br></p>
+	</div>
 </div>
 <p>&nbsp;</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
-
-
-<p>Note: Because the tooltip is bound to a business object of the domain 
-model, every change of the business object will automatically update the 
-tooltip.</p>
-
+<p>Note: Because the tooltip is bound to a business object of the domain model, 
+every change of the business object will automatically update the tooltip.</p>
 <h2>Test: Show Tooltip for EClass</h2>
-
-<p>Remember, the name of 
-an EClass should start with a upper case letter. Start the editor and create a 
-new EClass named &quot;Anton&quot;. Hover over the shape and verify that the tooltip is 
-shown and the tooltip displays the name. Change the name of the EClass to 
-&quot;Beton&quot; and verify that it is displayed accordingly.</p>
+<p>Remember, the name of an EClass should start with a upper case letter. Start 
+the editor and create a new EClass named &quot;Anton&quot;. Hover over the shape and verify 
+that the tooltip is shown and the tooltip displays the name. Change the name of 
+the EClass to &quot;Beton&quot; and verify that it is displayed accordingly.</p>
 
 </body>
 
