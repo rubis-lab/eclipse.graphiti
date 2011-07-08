@@ -1,115 +1,80 @@
 ﻿<html>
 
 <head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>Providing rendering decorators</title>
-<link href="../book.css" rel="Stylesheet" type="text/css" />
-<link href="../code.css" rel="Stylesheet" type="text/css" />
-
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
 </head>
 
 <body>
 
 <h1>Providing Rendering Decorators</h1>
-
 <h2>Enhancing the Tool Behavior Provider</h2>
-
-<p>It is possible to draw 
-so called &quot;rendering decorators&quot; on top of active pictogram elements. These 
-rendering decorators are transiently determined and not 
-persisted in the diagram.</p>
-
-<p>A typical use case is the rendering of 
-error-markers on top of incorrect pictogram elements.</p>
-
-<p>The rendering decorators 
-are defined in the tool behavior provider.</p>
-
-<p>If you didn’t do so 
-already you must <strong>first create a tool behavior provider and add it to the 
-diagram type provider as described </strong> <a href="tool-behavior-provider.htm">
-<strong>here</strong></a>.</p>
-
-<p>There is one method of 
-the tool behavior provider to overwrite: </p>
-
+<p>It is possible to draw so called &quot;rendering decorators&quot; on top of active pictogram 
+elements. These rendering decorators are transiently determined and not persisted 
+in the diagram.</p>
+<p>A typical use case is the rendering of error-markers on top of incorrect pictogram 
+elements.</p>
+<p>The rendering decorators are defined in the tool behavior provider.</p>
+<p>If you didn’t do so already you must <strong>first create a tool behavior provider 
+and add it to the diagram type provider as described </strong>
+<a href="tool-behavior-provider.htm"><strong>here</strong></a>.</p>
+<p>There is one method of the tool behavior provider to overwrite: </p>
 <ul>
-	<li>The method 
-	<a href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getDecorators(org.eclipse.graphiti.mm.pictograms.PictogramElement)">getDecorators</a>
-has to return the rendering decorators for the given pictogram element. A 
-rendering decorator must implement the interface 
-	<a href="../../../javadoc/org/eclipse/graphiti/tb/IDecorator.html">IDecorator</a>
-and may also implement 
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getDecorators(org.eclipse.graphiti.mm.pictograms.PictogramElement)">
+	getDecorators</a> has to return the rendering decorators for the given pictogram 
+	element. A rendering decorator must implement the interface
+	<a href="../../../javadoc/org/eclipse/graphiti/tb/IDecorator.html">IDecorator</a> 
+	and may also implement
 	<a href="../../../javadoc/org/eclipse/graphiti/datatypes/ILocation.html">ILocation</a>, 
-which provides the decorator location relative to the pictogram element.</li>
+	which provides the decorator location relative to the pictogram element.</li>
 </ul>
-
-<p>Currently only the 
-<a href="../../../javadoc/org/eclipse/graphiti/tb/ImageDecorator.html">
-ImageDecorator</a>
+<p>Currently only the
+<a href="../../../javadoc/org/eclipse/graphiti/tb/ImageDecorator.html">ImageDecorator</a> 
 is supported, which renders an image at the defined location and can show a text 
 message as tooltip.</p>
-
-<p>In this example we want 
-to show an image decorator for a EClass, whenever the class name does not start 
-with an upper case letter.</p>
-
+<p>In this example we want to show an image decorator for a EClass, whenever the 
+class name does not start with an upper case letter.</p>
 <p>&nbsp;</p>
-
-<p><img alt="" border="0" height="100" src="visio/rendering-decorator.gif" width="321" /></p>
-
+<p>
+<img alt="" border="0" height="100" src="visio/rendering-decorator.gif" width="321"></p>
 <p><strong>Figure: Rendering decorator displaying a warning</strong></p>
 <p>&nbsp;</p>
-
-<p>You can see the complete 
-implementation of the rendering decorators here:</p>
-
+<p>You can see the complete implementation of the rendering decorators here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
-<div class="incode">
-<p class="code">
-@Override<br />
-<span class="keyword">public</span> IDecorator[] getDecorators(PictogramElement pe) {<br />
-&nbsp;&nbsp;&nbsp;&nbsp;IFeatureProvider featureProvider = 
-getFeatureProvider();<br />
-&nbsp;&nbsp;&nbsp;&nbsp;Object bo = 
-featureProvider.getBusinessObjectForPictogramElement(pe);<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (bo instanceof EClass) {<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EClass eClass 
-= (EClass) bo;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String name = 
-eClass.getName();<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (name != 
-<span class="keyword">null</span> &amp;&amp; name.length() &gt; 0<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp; !(name.charAt(0) &gt;= 
-<span class="string">'A'</span> &amp;&amp; name.charAt(0) &lt;= 
-<span class="string">'Z'</span>)) {<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IDecorator imageRenderingDecorator =<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">new</span> ImageDecorator(<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IPlatformImageConstants.<span class="string"><em>IMG_ECLIPSE_WARNING_TSK</em></span>);<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imageRenderingDecorator<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setMessage(<span class="string">&quot;Name should start with upper case letter&quot;</span>);<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return new</span> IDecorator[] { imageRenderingDecorator };<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;&nbsp;&nbsp; }<br />
-&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return super</span>.getDecorators(pe);<br />
-}<br />
-</p>
-</div>
+	<div class="incode">
+		<p class="code">@Override<br><span class="keyword">public</span> IDecorator[] 
+		getDecorators(PictogramElement pe) {<br>&nbsp;&nbsp;&nbsp; IFeatureProvider 
+		featureProvider = getFeatureProvider();<br>&nbsp;&nbsp;&nbsp; Object bo 
+		= featureProvider.getBusinessObjectForPictogramElement(pe);<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (bo instanceof EClass) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EClass eClass = (EClass) bo;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		String name = eClass.getName();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (name != <span class="keyword">null</span> 
+		&amp;&amp; name.length() &gt; 0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		&amp;&amp; !(name.charAt(0) &gt;= <span class="string">&#39;A&#39;</span> &amp;&amp; name.charAt(0) 
+		&lt;= <span class="string">&#39;Z&#39;</span>)) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		IDecorator imageRenderingDecorator =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">new</span> ImageDecorator(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		IPlatformImageConstants.<span class="string"><em>IMG_ECLIPSE_WARNING_TSK</em></span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		imageRenderingDecorator<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		.setMessage(<span class="string">&quot;Name should start with upper case letter&quot;</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return new</span> IDecorator[] { imageRenderingDecorator 
+		};<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; <span class="keyword">return super</span>.getDecorators(pe);<br>
+		}<br></p>
+	</div>
 </div>
 <p>&nbsp;</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
-
-
 <h2>Test: Show Warning Decorator for EClass</h2>
-
-<p>Now start the editor and 
-create a new EClass named “address”. Verify that the warning decorator is shown 
-and the tooltip displays the warning message. Create another EClass named 
-“Address” and verify that no warning decorator is displayed.</p>
+<p>Now start the editor and create a new EClass named “address”. Verify that the 
+warning decorator is shown and the tooltip displays the warning message. Create 
+another EClass named “Address” and verify that no warning decorator is displayed.</p>
 
 </body>
 
