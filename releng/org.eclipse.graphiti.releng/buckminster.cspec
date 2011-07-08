@@ -24,6 +24,7 @@
             </cs:actorProperties>
             <cs:properties>
                 <cs:property key="root" value="${WORKSPACE}"/>
+                <cs:property key="build_id" value="${build.id}"/>
             </cs:properties>
             <cs:products alias="action.output" base="${WORKSPACE}/last_success/"/>
         </cs:public>
