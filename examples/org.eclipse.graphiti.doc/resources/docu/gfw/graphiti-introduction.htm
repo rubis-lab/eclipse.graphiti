@@ -1,71 +1,64 @@
-<html>
+﻿<html>
 
 <head>
-<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>Graphics Framework introduction</title>
-<link href="../book.css" media="all" rel="Stylesheet" type="text/css">
+<link href="../book.css" rel="Stylesheet" type="text/css">
 <link href="../code.css" rel="stylesheet" type="text/css">
 </head>
 
-<body bgcolor="white" lang="DE" link="blue" style="margin-bottom: 12.0pt" vlink="blue">
+<body>
 
-<div>
-	<h1>Graphiti Introduction</h1>
-	<h2>Goal</h2>
-</div>
-<p><strong>The goal of Graphiti is to support the fast and easy creation of unified 
-	graphical editors, which can display and edit an underlying domain model using 
-	a defined graphical notation.</strong></p>
-<div>
-	<p>Typical examples are class diagram editors (using the UML notation) or process 
-	flow editors (using the BPMN notation).</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p><img height="379" src="visio/class-editor.gif" width="810"></p>
-	<p><strong>Figure: Example screenshot of a class diagram editor</strong></p>
-	<p>&nbsp;</p>
-	<p><img height="576" src="visio/process-editor.gif" width="739"></p>
-	<p><strong>Figure: Example screenshot of a process flow editor</strong></p>
-	<p>&nbsp;</p>
-	<h2>Architecture</h2>
-	<p>The graphical representation of the domain model itself is also a model, 
-	which contains model-elements like &quot;rectangle&quot;, &quot;text&quot; and &quot;connection&quot;. 
-	This allows separating each graphical editor into the following parts:</p>
-	<ol>
-		<li>The transformation from the domain model to the graphical model (for 
-		viewing) and vice versa (for editing). This includes the definition of a 
-		visualization-platform independent interaction behavior for the graphical 
-		model, e.g. the definition how to create and resize the figures and which 
-		context-menus and toolbars are available.<ul>
-			<li>This part is dependent on the specific domain model and graphical 
-			notation, so it has to be implemented by the customers of the Graphiti 
-			for each graphical editor. On the other hand, this part is independent 
-			from the visualization-platform, where the rendering of the graphical 
-			model is done.</li>
-		</ul>
-		</li>
-		<ul>
-			<li>Note, that the graphical model is based on EMF. Currently it works 
-			best, if the domain model is based on EMF, too, but it can also be based 
-			on other modeling technologies.</li>
-		</ul>
-		<li>The rendering of the graphical model on a specific visualization-platform 
-		and the mapping between the visualization-platform specific interaction 
-		(e.g. mouse-events) and the defined platform independent interaction.<ul>
-			<li>This part is dependent on the visualization-platform, but it is 
-			independent of the specific domain model and graphical notation. Therefore 
-			it can be completely provided by the Graphiti. The customers have the 
-			possibility to also add visualization-platform specific implementations 
-			at a few places, but this is not recommended, because it prevents the 
-			rendering of the same diagram on different platforms.</li>
-			<li>Note, that currently only the rendering for one visualization-platform 
-			is implemented by the Graphiti: Eclipse using Draw2D and GEF.</li>
-		</ul>
-		</li>
-	</ol>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-</div>
+<h1>Graphiti Introduction</h1>
+<h2>Goal</h2>
+<p>The goal of Graphiti is to support the fast and easy creation of unified graphical 
+editors, which can display and edit an underlying domain model using a defined graphical 
+notation.</p>
+<p>Typical examples are class diagram editors (using the UML notation) or process 
+flow editors (using the BPMN notation).</p>
+<p>&nbsp;</p>
+<p><img alt="" height="379" src="visio/class-editor.gif" width="810"></p>
+<p><strong>Figure: Example screenshot of a class diagram editor</strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img alt="" height="576" src="visio/process-editor.gif" width="739"></p>
+<p><strong>Figure: Example screenshot of a process flow editor</strong></p>
+<p>&nbsp;</p>
+<h2>Architecture</h2>
+<p>The graphical representation of the domain model itself is also a model, which 
+contains model-elements like &quot;rectangle&quot;, &quot;text&quot; and &quot;connection&quot;. This allows separating 
+each graphical editor into the following parts:</p>
+<ol>
+	<li>The transformation from the domain model to the graphical model (for viewing) 
+	and vice versa (for editing). This includes the definition of a visualization-platform 
+	independent interaction behavior for the graphical model, e.g. the definition 
+	how to create and resize the figures and which context-menus and toolbars are 
+	available.<ul>
+		<li>This part is dependent on the specific domain model and graphical notation, 
+		so it has to be implemented by the customers of the Graphiti for each graphical 
+		editor. On the other hand, this part is independent from the visualization-platform, 
+		where the rendering of the graphical model is done.</li>
+	</ul>
+	</li>
+	<ul>
+		<li>Note, that the graphical model is based on EMF. Currently it works best, 
+		if the domain model is based on EMF, too, but it can also be based on other 
+		modeling technologies.</li>
+	</ul>
+	<li>The rendering of the graphical model on a specific visualization-platform 
+	and the mapping between the visualization-platform specific interaction (e.g. 
+	mouse-events) and the defined platform independent interaction.<ul>
+		<li>This part is dependent on the visualization-platform, but it is independent 
+		of the specific domain model and graphical notation. Therefore it can be 
+		completely provided by the Graphiti. The customers have the possibility 
+		to also add visualization-platform specific implementations at a few places, 
+		but this is not recommended, because it prevents the rendering of the same 
+		diagram on different platforms.</li>
+		<li>Note, that currently only the rendering for one visualization-platform 
+		is implemented by the Graphiti: Eclipse using Draw2D and GEF.</li>
+	</ul>
+	</li>
+</ol>
 
 </body>
 
