@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,8 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
+ *    mwenz - Bug 348662 - Setting tooptip to null in tool behavior provider doesn't clear up
+ *                         tooltip if the associated figure has a previous tooltip
  *
  * </copyright>
  *
@@ -33,6 +35,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.draw2d.Ellipse;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.Polygon;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Point;
@@ -51,6 +55,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
@@ -80,6 +85,7 @@ import org.eclipse.graphiti.internal.util.LookManager;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
 import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
@@ -120,6 +126,8 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.results.IntResult;
 import org.eclipse.swtbot.swt.finder.results.Result;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
@@ -251,6 +259,183 @@ public class GFOtherTests extends AbstractGFTests {
 				diagramEditor.refreshPalette();
 				diagramEditor.refreshRenderingDecorators(shape);
 				diagramEditor.refreshTitleToolTip();
+			}
+
+		});
+
+		shutdownEditor(diagramEditor);
+	}
+
+	@Test
+	public void testTooltip() throws Exception {
+		/*
+		 * Tests if the tooltips displayed in a diagram are correctly updated.
+		 * The test uses the tutorial diagram type because there we had the
+		 * situation that setting a previously set tooltip to null did not
+		 * remove the tooltip from the figure. This was caused by the remove of
+		 * the tooltip happening in the method
+		 * PictogramElementDelegate.indicateNeededUpdates for the
+		 * selectionFigure which is in case of the tutorial different from the
+		 * figure holding the tooltip. See Bugzilla 348662 for details.
+		 */
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_TUTORIAL);
+
+		/*
+		 * Open a new diagram containing just one class
+		 */
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+
+				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+
+					@Override
+					protected void doExecute() {
+						/*
+						 * Reuse of functionality originally written to add
+						 * classes for the ECore test tool. Might need adaption
+						 * in case of future changes
+						 */
+						addClassToDiagram(fp, currentDiagram, 300, 300, "Shape");
+					}
+				});
+			}
+
+		});
+
+		/*
+		 * Check the correctness of the initial tooltip
+		 */
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+
+				// Get the figure to check the tooltip via SWTBot  
+				SWTBotGefEditor ed = getGefEditor();
+				SWTBotGefEditPart editPart = ed.getEditPart("Shape");
+				IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
+
+				// Check original tooltip
+				if (!"Shape".equals(((Label) figure.getToolTip()).getText())) {
+					fail("Tooltip must be 'Shape'");
+				}
+			}
+
+		});
+
+		/*
+		 * Change the name of the eClass (and the display name in the diagram to
+		 * avoid the need for calling the update feature)
+		 */
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+
+				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+
+				final ContainerShape tooltipShape = (ContainerShape) findShapeForEClass(currentDiagram, "Shape");
+
+				Object bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape);
+				if (bo instanceof EClass) {
+					final EClass eClass = (EClass) bo;
+
+					// Change the tooltip to something else and check it
+					editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+						@Override
+						protected void doExecute() {
+							eClass.setName("Changed");
+							Text text = (Text) tooltipShape.getChildren().get(1).getGraphicsAlgorithm();
+							text.setValue("Changed");
+						}
+					});
+				}
+			}
+
+		});
+
+		/*
+		 * Check that the tooltip of the figure has been updated
+		 */
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+
+				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+
+				// Get the figure to check the tooltip via SWTBot  
+				SWTBotGefEditor ed = getGefEditor();
+				SWTBotGefEditPart editPart = ed.getEditPart("Changed");
+				IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
+
+				final ContainerShape tooltipShape = (ContainerShape) findShapeForEClass(currentDiagram, "Changed");
+
+				Object bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape);
+				if (bo instanceof EClass) {
+					if (!"Changed".equals(((Label) figure.getToolTip()).getText())) {
+						fail("Tooltip must be 'Changed' but is '" + ((Label) figure.getToolTip()).getText() + "'");
+					}
+				}
+			}
+
+		});
+
+		/*
+		 * Change the name of the eClass to the empty string (and the display
+		 * name in the diagram to avoid the need for calling the update
+		 * feature), this will end up showing no tooltip.
+		 */
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+
+				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+
+				final ContainerShape tooltipShape = (ContainerShape) findShapeForEClass(currentDiagram, "Changed");
+
+				Object bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape);
+				if (bo instanceof EClass) {
+					final EClass eClass = (EClass) bo;
+
+					// Change the tooltip to null and check it
+					editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+						@Override
+						protected void doExecute() {
+							eClass.setName(""); // Empty name means no tooltip
+							Text text = (Text) tooltipShape.getChildren().get(1).getGraphicsAlgorithm();
+							text.setValue("Changed");
+						}
+					});
+				}
+			}
+
+		});
+
+		/*
+		 * Check that the tooltip of the figure has been removed
+		 */
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+
+				// Get the figure to check the tooltip via SWTBot  
+				SWTBotGefEditor ed = getGefEditor();
+				SWTBotGefEditPart editPart = ed.getEditPart("");
+				IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
+				if (figure.getToolTip() != null) {
+					fail("Tooltip must be null, but was '" + ((Label) figure.getToolTip()).getText() + "'");
+				}
 			}
 
 		});
