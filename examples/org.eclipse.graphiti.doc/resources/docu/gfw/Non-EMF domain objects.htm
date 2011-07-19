@@ -1,258 +1,93 @@
-<html>
+﻿<html>
 
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>Page Title</title>
-<link rel=Stylesheet type="text/css" media=all href="../book.css"">
-<style>
-/* Font Definitions */
-@font-face {
-	font-family: Tahoma;
-	panose-1: 2 11 6 4 3 5 4 4 2 4;
-}
-
-/* Style Definitions */
-p.MsoNormal,li.MsoNormal,div.MsoNormal {
-	margin: 0cm;
-	margin-bottom: .0001pt;
-	font-size: 12.0pt;
-	font-family: "Times New Roman";
-	color: windowtext;
-}
-
-h1 {
-	margin-top: 12.0pt;
-	margin-right: 0cm;
-	margin-bottom: 3.0pt;
-	margin-left: 0cm;
-	page-break-after: avoid;
-	font-size: 16.0pt;
-	font-weight: bold;
-}
-
-h2 {
-	margin-top: 12.0pt;
-	margin-right: 0cm;
-	margin-bottom: 3.0pt;
-	margin-left: 0cm;
-	page-break-after: avoid;
-	font-size: 14.0pt;
-	font-weight: bold;
-	font-style: italic;
-}
-
-h3 {
-	margin-top: 12.0pt;
-	margin-right: 0cm;
-	margin-bottom: 3.0pt;
-	margin-left: 0cm;
-	page-break-after: avoid;
-	font-size: 13.0pt;
-	font-weight: bold;
-}
-
-h4 {
-	margin-top: 11.25pt;
-	margin-right: 0cm;
-	margin-bottom: 1.7pt;
-	margin-left: 0cm;
-	font-size: 12.0pt;
-	font-weight: bold;
-	font-style: italic;
-}
-
-h5 {
-	margin-right: 0cm;
-	margin-left: 0cm;
-	font-size: 10.0pt;
-	font-weight: bold;
-}
-
-p.MsoCaption,li.MsoCaption,div.MsoCaption {
-	margin-top: 6.0pt;
-	margin-right: 0cm;
-	margin-bottom: 24.0pt;
-	margin-left: 0cm;
-	text-align: justify;
-	font-size: 10.0pt;
-	font-weight: bold;
-}
-
-a:link,span.MsoHyperlink {
-	color: blue;
-	text-decoration: underline;
-}
-
-a:visited,span.MsoHyperlinkFollowed {
-	color: purple;
-	text-decoration: underline;
-}
-
-p {
-	margin-top: 5.65pt;
-	margin-right: 0cm;
-	margin-bottom: 5.65pt;
-	margin-left: 0cm;
-	font-size: 12.0pt;
-}
-
-pre {
-	margin-top: 0cm;
-	margin-right: 0cm;
-	margin-bottom: 0cm;
-	margin-left: 3.4pt;
-	margin-bottom: .0001pt;
-	font-size: 11.0pt;
-}
-
-p.MsoAcetate,li.MsoAcetate,div.MsoAcetate {
-	margin: 0cm;
-	margin-bottom: .0001pt;
-	font-size: 8.0pt;
-	font-family: Tahoma;
-}
-
-p.code,li.code,div.code {
-	margin-top: 0cm;
-	margin-right: 0cm;
-	margin-bottom: 0cm;
-	margin-left: 15.0pt;
-	margin-bottom: .0001pt;
-	font-size: 12.0pt;
-}
-
-p.note,li.note,div.note {
-	margin-top: 19.5pt;
-	margin-right: 0cm;
-	margin-bottom: 19.5pt;
-	margin-left: 30.0pt;
-	font-size: 13.0pt;
-	font-style: italic;
-}
-
-p.comment,li.comment,div.comment {
-	margin-top: 5.65pt;
-	margin-right: 0cm;
-	margin-bottom: 5.65pt;
-	margin-left: 0cm;
-	font-size: 12.0pt;
-	font-weight: bold;
-}
-
-span.code1 {
-	font-style: italic;
-}
-
-@page Section1 {
-	size: 595.45pt 841.7pt;
-	margin: 72.0pt 89.85pt 72.0pt 89.85pt;
-}
-
-div.Section1 {
-	page: Section1;
-}
-</style>
-
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
 </head>
 
-<body bgcolor=white link=blue vlink=purple style='margin-bottom: 12.0pt'>
+<body>
 
-<h1><span>Non-EMF Domain Objects</span></h1>
-
-<p class=MsoNormal>By default Graphiti supports domain models from
-the EMF world and offers automated support for reacting to changes and
-updating the editor. Since not only EObjects but simple POJOs can be
-passed to all relevant framework APIs, it is also possible to use
-non-EMF domain objects with Graphiti. This page describes the
-differences the user of Graphiti has to deal with when using non-EMF
-domain models.</p>
-
-<h2><span>Domain Model Change Notifications</span></h2>
-<p class=MsoNormal>Of course the framework cannot support automated
-notification to changes in such domain models, so the tool builder needs
-to hook an appropriate listener into the framework. Here's the process
-how to do this:</p>
-
+<h1>Non-EMF Domain Objects</h1>
+<p>By default Graphiti supports domain models from the EMF world and offers automated 
+support for reacting to changes and updating the editor. Since not only EObjects 
+but simple POJOs can be passed to all relevant framework APIs, it is also possible 
+to use non-EMF domain objects with Graphiti. This page describes the differences 
+the user of Graphiti has to deal with when using non-EMF domain models.</p>
+<h2>Domain Model Change Notifications</h2>
+<p>Of course the framework cannot support automated notification to changes in such 
+domain models, so the tool builder needs to hook an appropriate listener into the 
+framework. Here&#39;s the process how to do this:</p>
 <ol>
-	<li class=MsoNormal>Create an appropriate specific domain listener
-	class. As an example you can have a look at DomainModelChangeListener
+	<li>Create an appropriate specific domain listener class. As an example you 
+	can have a look at <span class="inlinecode">DomainModelChangeListener</span> 
 	in the Graphiti framework; this class does this job for EMF models.</li>
-	<li class=MsoNormal>Subclass DiagramEditor and override its method
-	registerBOListener. In that method create an instance of your listener
-	from step 1 and register it.</li>
-	<li class=MsoNormal>Create an appropriate notification service
-	class by subclassing DefaultNotificationService or implementing its
-	interface. An instance of this class is used by the framework to get
-	the connection between domain objects and their graphical
-	representation (method calculateLinkedPictogramElements) and triggers
-	the actual update of the graphical representation in the diagram
-	(method updatePictogramElements) using the appropriate update
-	features. The class DefaultNotificationService does the job for EMF
-	models.</li>
-	<li class=MsoNormal>In your Diagram Type Provider implementation
-	create and return an instance of the class from step 3 within the
-	method getNotificationService.</li>
+	<li>Subclass <span class="inlinecode">DiagramEditor</span> and override its 
+	method <span class="inlinecode">registerBOListener</span>. In that method create 
+	an instance of your listener from step 1 and register it.</li>
+	<li>Create an appropriate notification service class by subclassing
+	<span class="inlinecode">DefaultNotificationService</span> or implementing its 
+	interface. An instance of this class is used by the framework to get the connection 
+	between domain objects and their graphical representation (method
+	<span class="inlinecode">calculateLinkedPictogramElements</span>) and triggers 
+	the actual update of the graphical representation in the diagram (method
+	<span class="inlinecode">updatePictogramElements</span>) using the appropriate 
+	update features. The class <span class="inlinecode">DefaultNotificationService</span> 
+	does the job for EMF models.</li>
+	<li>In your Diagram Type Provider implementation create and return an instance 
+	of the class from step 3 within the method <span class="inlinecode">getNotificationService</span>.</li>
 </ol>
-
-<h2><span>Support for Undo and Redo</span></h2>
-<p class=MsoNormal>For standard EMF domain models users do not need
-to care about implementing undo/redo functionality within their
-features. This is all cared about by the framework by using EMF <i>TransactionalCommandStacks</i>
-and <i>RecordingCommands</i> for executing features. But in case users
-have domain models implemented in another technology than EMF, they need
-to care about implementing undo/redo for their domain model changes by
-themself. (The changes done to the graphical representation (Graphiti <i>PictogramElements</i>
-and <i>GraphicsAlgorithms</i>) are still handled automatically.)</p>
-<p class=MsoNormal>In order to provide undo/redo for non-EMF domain
-models users can implement the new interface <i>ICustomUndoableFeature</i>
-within their features. In case a feature implements this interface the
-Graphiti command stack will care about the EMF undo/redo and
-additionally to the standard EMF-undo/redo call the appropriate methods
-(<i>canUndo</i> and <i>undo</i> resp. <i>canRedo</i> and <i>redo</i>)
-within the feature.</p>
-<p class=MsoNormal>Inside the feature coding for those methods users
-can use the information passed (the executed feature instance will be
-called with the instance of its context) to undo the operations done
-while executing the feature. Within the features <i>execute</i> method
-users might add additional information needed to perform the undo to the
-context object.</p>
-<p class=MsoNormal>The decision to implement <i>ICustomUndoableFeature</i>
+<h2>Support for Undo and Redo</h2>
+<p>For standard EMF domain models users do not need to care about implementing undo/redo 
+functionality within their features. This is all cared about by the framework by 
+using EMF <span class="inlinecode">TransactionalCommandStacks</span> and
+<span class="inlinecode">RecordingCommands</span> for executing features. But in 
+case users have domain models implemented in another technology than EMF, they need 
+to care about implementing undo/redo for their domain model changes by themself. 
+(The changes done to the graphical representation (Graphiti<em> PictogramElements</em> 
+and <em>GraphicsAlgorithms)</em> are still handled automatically.)</p>
+<p>In order to provide undo/redo for non-EMF domain models users can implement the 
+new interface <span class="inlinecode">ICustomUndoableFeature</span> within their 
+features. In case a feature implements this interface the Graphiti command stack 
+will care about the EMF undo/redo and additionally to the standard EMF-undo/redo 
+call the appropriate methods (<span class="inlinecode">canUndo</span> and
+<span class="inlinecode">undo</span> resp. <span class="inlinecode">canRedo</span> 
+and <span class="inlinecode">redo</span>) within the feature.</p>
+<p>Inside the feature coding for those methods users can use the information passed 
+(the executed feature instance will be called with the instance of its context) 
+to undo the operations done while executing the feature. Within the features
+<span class="inlinecode">execute</span> method users might add additional information 
+needed to perform the undo to the context object.</p>
+<p>The decision to implement <span class="inlinecode">ICustomUndoableFeature</span> 
 can be taken individually for each feature.</p>
-<p class=MsoNormal>For the pattern approach a similar interface has
-been introduced: <i>ICustomUndoablePattern</i>, for which the before
-mentioned also applies accordingly.</p>
-<p class=MsoNormal>By introducing this functionality it is now
-possible for users of Graphiti to implement undo and redo
-functionalities also for non-EMF domain changes; nevertheless this
-functionality might also by used for EMF domain models in case they need
-to implement additional undo/redo functionality.</p>
-<p class=MsoNormal>Still there is one thing to be aware of: All
-changes done inside the Graphiti diagram editor (no matter if EMF
-changes or non-EMF changes) will write an <i>IExecutionInfo</i> entry to
-the stack that will be available with the according feature and context
-for undo/redo. External changes (e.g. changes done from the standard
-property sheet) will not break the editor, but will not necessarily lead
-to data being available inside the <i>IExecutionInfo</i> object written:</p>
+<p>For the pattern approach a similar interface has been introduced:
+<span class="inlinecode">ICustomUndoablePattern</span>, for which the before mentioned 
+also applies accordingly.</p>
+<p>By introducing this functionality it is now possible for users of Graphiti to 
+implement undo and redo functionalities also for non-EMF domain changes; nevertheless 
+this functionality might also by used for EMF domain models in case they need to 
+implement additional undo/redo functionality.</p>
+<p>Still there is one thing to be aware of: All changes done inside the Graphiti 
+diagram editor (no matter if EMF changes or non-EMF changes) will write an
+<span class="inlinecode">IExecutionInfo</span> entry to the stack that will be available 
+with the according feature and context for undo/redo. External changes (e.g. changes 
+done from the standard property sheet) will not break the editor, but will not necessarily 
+lead to data being available inside the <span class="inlinecode">IExecutionInfo</span> 
+object written:</p>
 <ul>
-	<li>EMF changes done on the EMF command stack (e.g. from the
-	standard property sheet) have no associated feature and context.
-	Therefore an empty <i>IExecutionInfo</i> entry will be written. On the
-	other hand all changes done in that case will automatically be
-	undone/redone by the EMF command stack, so there should be no need to
-	do additional stuff</li>
-	<li>Non-EMF changes done e.g. from a standard property sheet will
-	naturally not go through the EMF command stack of the editor, so no <i>IExecutionInfo</i>
-	stack entry will be written (in fact also no EMF command stack entry
-	will be written so there is no issue within the editor). In this case
-	users are responsible to add their own undo/redo functionality relying
-	on whatever technology they use for their domain model.</li>
+	<li>EMF changes done on the EMF command stack (e.g. from the standard property 
+	sheet) have no associated feature and context. Therefore an empty
+	<span class="inlinecode">IExecutionInfo</span> entry will be written. On the 
+	other hand all changes done in that case will automatically be undone/redone 
+	by the EMF command stack, so there should be no need to do additional stuff</li>
+	<li>Non-EMF changes done e.g. from a standard property sheet will naturally 
+	not go through the EMF command stack of the editor, so no
+	<span class="inlinecode">IExecutionInfo</span> stack entry will be written (in 
+	fact also no EMF command stack entry will be written so there is no issue within 
+	the editor). In this case users are responsible to add their own undo/redo functionality 
+	relying on whatever technology they use for their domain model.</li>
 </ul>
-</p>
-
-
-<hr>
-<a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright
-(c) SAP AG 2005, 2010.</a>
 
 </body>
 
