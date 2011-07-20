@@ -1,4 +1,5 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -21,8 +22,7 @@ but already at the intersection-point with the parent boundaries. This means esp
 that the intersection-point is re-calculated not only when the parents size or location 
 changes, but also when the direction of the connection changes.</p>
 <p>&nbsp;</p>
-<p>
-<img alt="" border="0" height="104" src="visio/anchor-chopbox.gif" width="164"></p>
+<p><img alt="" height="104" src="visio/anchor-chopbox.gif" width="164"></p>
 <p><strong>Figure: Chop box anchor (always pointing to the center)</strong></p>
 <p>&nbsp;</p>
 <h3>Box Relative Anchor</h3>
@@ -50,8 +50,7 @@ of the connection and the “location” is the visible end-point of the connect
 </p>
 <p>The following sketch explains those points for a chop box anchor.</p>
 <p>&nbsp;</p>
-<p>
-<img alt="" border="0" height="154" src="visio/anchor-points.gif" width="444"></p>
+<p><img alt="" height="154" src="visio/anchor-points.gif" width="444"></p>
 <p><strong>Figure: Points of a chop box anchor </strong></p>
 <p>&nbsp;</p>
 <p>The reference-point (R) of the chop box anchor is the middle of the figure, because 
@@ -86,9 +85,9 @@ be executed then.</p>
 <p>In this example we first add a box relative anchor on the middle-right border 
 of a EClass. Then we support drag &amp; drop from that anchor to another EClass, which 
 will create a new connection.</p>
-<p>First the box relative anchors have to be created at end of the add method of 
-the TutorialAddEClassFeature, as explained in the following code snippet. Note, 
-that the previously created chop box anchor (see
+<p>First the box relative anchors have to be created at end of the add-method of 
+the <span class="inlinecode">TutorialAddEClassFeature</span>, as explained in the 
+following code snippet. Note, that the previously created chop box anchor (see
 <a href="create-connection-feature.htm">create connection feature</a>) remains, 
 so that the EClass has then two anchors:</p>
 <p>&nbsp;</p>
@@ -118,8 +117,7 @@ so that the EClass has then two anchors:</p>
 		rectangle.setBackground(manageColor(<span class="string"><em>CLASS_BACKGROUND</em></span>));<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// call the layout feature</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		layoutPictogramElement(containerShape);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return </span>containerShape;<br>}
-		</p>
+		<span class="keyword">return </span>containerShape;<br>} </p>
 	</div>
 </div>
 <p>&nbsp;</p>
@@ -140,14 +138,15 @@ independent of the given context:</p>
 	</div>
 </div>
 <p>&nbsp;</p>
-<p><strong>Note:</strong> A more sophisticated solution with an anchor on a EClass 
-with an <em>extended rendering area</em> is shown in chapter
+<p class="Note">Note: A more sophisticated solution with an anchor on a EClass with 
+an <em>extended rendering area</em> is shown in chapter
 <a href="selection-behavior.htm">selection behavior</a>.</p>
-<h2><span lang="EN-GB">Test: Create a Connection with Drag &amp; Drop from Anchor</span></h2>
+<h2>Test: Create a Connection with Drag &amp; Drop from Anchor</h2>
 <p>Start the editor again and create two new EClasses (existing EClasses don’t work, 
 because they have no anchor at the middle-right border). Then drag the anchor at 
 the middle-right border of the first EClass and drop it onto the second EClass. 
 This will create a new connection between those two EClasses.</p>
+<p>&nbsp;</p>
 
 </body>
 
