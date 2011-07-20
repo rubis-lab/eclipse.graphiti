@@ -1,4 +1,5 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -26,7 +27,7 @@ This offers the following enhancements:</p>
 </ul>
 <p>&nbsp;</p>
 <p>
-<img alt="" border="0" height="423" src="visio/ui-spec-blue-white-gloss.png" width="669"></p>
+<img alt="" height="423" src="visio/ui-spec-blue-white-gloss.png" width="669"></p>
 <p><strong>Figure: Color schema definition for &quot;blue-white-gloss- unselected&quot; from 
 usability engineers<br></strong></p>
 <p>Technically a complex background color schema is defined in a
@@ -46,12 +47,12 @@ of the shape size. They will stay unchanged even after the shape is resized.</p>
 <p>A <span class="inlinecode">RenderingStyle</span> has only the attribute &quot;<span class="inlinecode">adaptedGradientColoredAreas</span>&quot; 
 of type <span class="inlinecode">AdaptedGradientColoredAreas</span>, which must 
 be one of those defined in <span class="inlinecode">PredefinedColoredAreas</span>. 
-With methods like <span class="inlinecode">PredefinedColoredAreas.getBlueWhiteGlossAdaptions()</span>you 
-can get them. There are only a few predefined rendering styles, which are defined 
-by the usability engineers of SAP. Tools can define further rendering styles, but 
-this is explained later in this chapter.</p>
+With methods like PredefinedColoredAreas.getBlueWhiteGlossAdaptions()you can get 
+them. There are only a few predefined rendering styles, which are defined by the 
+usability engineers of SAP. Tools can define further rendering styles, but this 
+is explained later in this chapter.</p>
 <p>&nbsp;</p>
-<p>&nbsp;<img alt="" border="0" height="186" src="visio/blue-white-gloss.jpg" width="732"></p>
+<p>&nbsp;<img alt="" height="186" src="visio/blue-white-gloss.jpg" width="732"></p>
 <p><strong>Figure: Example screenshot of the different interaction states for the 
 predefined style “blue-white-gloss”<br></strong></p>
 <p>Within <span class="inlinecode">AdaptedGradientColoredAreas</span> these different 
@@ -108,8 +109,7 @@ to define the id &quot;lime-white&quot;. In addition we extend class
 <span class="inlinecode">PredefinedColoredAreas</span> to define colored areas for 
 &quot;lime-white&quot;. The result should look like the image below.</p>
 <p>&nbsp;</p>
-<p>
-<img alt="" border="0" height="153" src="visio/user-defined-gradient.png" width="352"></p>
+<p><img alt="" height="153" src="visio/user-defined-gradient.png" width="352"></p>
 <p><strong>Figure The newly defined &quot;lime-white&quot; gradient<br></strong></p>
 <p>You can see the complete implementation of the interface tutorial rendering style 
 here:</p>
@@ -130,79 +130,79 @@ here:</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
 <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse">
 	<tr>
-		<td style="width: 140.9pt; border: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.9pt; border: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p><strong>Solid Color/Gradient</strong></p>
 		</td>
-		<td style="width: 140.9pt; border: solid black 1.0pt; border-left: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.9pt; border: solid black 1.0pt; border-left: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p><strong>Pixel Row/Rows Location</strong></p>
 		</td>
-		<td style="width: 140.95pt; border: solid black 1.0pt; border-left: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.95pt; border: solid black 1.0pt; border-left: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p><strong>Hex 6 RGB Color</strong></p>
 		</td>
 	</tr>
 	<tr>
-		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Solid color</p>
 		</td>
-		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="227">
+		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Pixel 1 (topmost pixel row)</p>
 		</td>
-		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>#CCFFCC</p>
 		</td>
 	</tr>
 	<tr>
-		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Solid color</p>
 		</td>
-		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="227">
+		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Pixel 2 (second pixel row)</p>
 		</td>
-		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>#CCFF99</p>
 		</td>
 	</tr>
 	<tr>
-		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Solid color</p>
 		</td>
-		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="227">
+		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Pixel 3 (third pixel row)</p>
 		</td>
-		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>#CCFF66</p>
 		</td>
 	</tr>
 	<tr>
-		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Gradient start</p>
 		</td>
-		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="227">
+		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Pixel 4</p>
 		</td>
-		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>#66FF00</p>
 		</td>
 	</tr>
 	<tr>
-		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Gradient stop</p>
 		</td>
-		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="227">
+		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Pixel one before last</p>
 		</td>
-		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>#CCFFCC</p>
 		</td>
 	</tr>
 	<tr>
-		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.9pt; border: solid black 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Solid color</p>
 		</td>
-		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="227">
+		<td style="width: 6.0cm; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>Last pixel (bottom pixel row)</p>
 		</td>
-		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top" width="188">
+		<td style="width: 140.95pt; border-top: none; border-left: none; border-bottom: solid black 1.0pt; border-right: solid black 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt" valign="top">
 		<p>#CCFFCC</p>
 		</td>
 	</tr>
@@ -382,6 +382,7 @@ type to &quot;vertical&quot;.</p>
 <p>Create a new diagram and inside it create a new EClass. Verify that the background 
 color is a lime-white gradient. Also verify, that the background color changes, 
 if you select the EClass shape.</p>
+<p>&nbsp;</p>
 
 </body>
 
