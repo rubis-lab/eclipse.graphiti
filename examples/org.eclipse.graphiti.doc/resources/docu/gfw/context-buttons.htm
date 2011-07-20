@@ -1,4 +1,5 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -36,11 +37,11 @@ getContextButtonPad</a> has to return the context buttons for the given context
 <p>There are different groups of context buttons:</p>
 <ul>
 	<li>Generic context buttons: their look and behaviour is standardized for all 
-	tools (e.g. “delete”, “remove” and “update”). They are shown at the top of the 
+	tools (e.g. &quot;delete&quot;, &quot;remove&quot; and &quot;update&quot;). They are shown at the top of the 
 	pictogram element in a predefined order. A specific tool can only choose which 
 	of the generic context buttons to switch on/off.</li>
-	<li>Domain specific context buttons: they are specific for each tool (e.g. “create 
-	sub-class” in a class editor). They are shown at the right (and if necessary 
+	<li>Domain specific context buttons: they are specific for each tool (e.g. &quot;create 
+	sub-class&quot; in a class editor). They are shown at the right (and if necessary 
 	also bottom) of the pictogram element. A specific tool must define the look 
 	and behaviour for all domain specific context buttons. </li>
 	<li>Collapse context button: the look and position for the collapse context 
@@ -62,14 +63,12 @@ drops the connection, and he can choose the feature to execute.</p>
 <a href="create-connection-feature.htm">create connection features</a> as drag &amp; 
 drop features, but has no click-feature. </p>
 <p>&nbsp;</p>
-<p>
-<img alt="" border="0" height="120" src="visio/context-buttons-click.gif" width="353"></p>
-<p><strong>Figure: A context button, which the user can click or start drag&amp;drop 
+<p><img alt="" height="120" src="visio/context-buttons-click.gif" width="353"></p>
+<p><strong>Figure: A context button, which the user can click or start drag &amp; drop 
 from it</strong></p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>
-<img alt="" border="0" height="102" src="visio/context-buttons-drag.gif" width="353"></p>
+<p><img alt="" height="102" src="visio/context-buttons-drag.gif" width="353"></p>
 <p><strong>Figure: The user started dragging from the context button</strong></p>
 <p>&nbsp;</p>
 <p>You can see the complete implementation of the context button here:</p>
@@ -139,8 +138,9 @@ from it</strong></p>
 <p>&nbsp;</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
 <p>&nbsp;</p>
-<p>The implementation of <em>MyTutorialImageProvider</em> can be found
-<a href="images.htm">here</a>. The implementation of the <em>TutorialCollapseDummyFeature</em> 
+<p>The implementation of <span class="inlinecode">MyTutorialImageProvider</span> can be found
+<a href="images.htm">here</a>. The implementation of the 
+<span class="inlinecode">TutorialCollapseDummyFeature</span> 
 can be found at <a href="#_Implementation_of_the">the end of this page</a>.</p>
 <p>The context button entries contain information about icon, display text and tooltip 
 description.</p>
@@ -167,7 +167,7 @@ creating an association between two EClasses.</p>
 		<li>If several create connection features for the EClass exist, then a context-menu 
 		will be shown to the user, where he can choose the feature to execute. Tip: 
 		if you have only one create connection feature you can try this behaviour 
-		by simply duplicating the line &quot;button.addDragAndDropFeature(feature);&quot;</li>
+		by simply duplicating the line &quot;<span class="inlinecode">button.addDragAndDropFeature(feature);</span>&quot;</li>
 	</ol>
 	</li>
 </ol>
@@ -226,8 +226,7 @@ then creating a connection between them is not possible.</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
 <p>Finally the feature provider has to deliver our newly created custom feature 
 (overwrite the method
-<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCustomFeatures(org.eclipse.graphiti.features.context.ICustomContext)">
-</a>).</p>
+<span class="inlinecode">getCustomFeatures(..)</span><a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCustomFeatures(org.eclipse.graphiti.features.context.ICustomContext)"></a>).</p>
 <p>This implementation can be seen here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
@@ -244,6 +243,7 @@ then creating a connection between them is not possible.</p>
 	</div>
 </div>
 <!-- End code  -------------------------------------------------------------------------------  -->
+<p>&nbsp;</p>
 
 </body>
 
