@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 352709 - invalid image provider id crashes diagram editor
  *
  * </copyright>
  *
@@ -238,7 +239,9 @@ public class ExtensionManager implements IExtensionManager {
 								if (EP_CHILD_NODE_IMAGE_PROVIDER.equals(childName)) {
 									boolean ret = loadImageProvider(childExtensionId);
 									if (ret == false) {
-										return null;
+										IllegalArgumentException e = new IllegalArgumentException("A Graphiti image provider with id '" //$NON-NLS-1$
+												+ childExtensionId + "' could not be found"); //$NON-NLS-1$
+										T.racer().error("Error while creating the children for '" + providerId + "'", e); //$NON-NLS-1$ //$NON-NLS-2$
 									}
 								}
 							}
