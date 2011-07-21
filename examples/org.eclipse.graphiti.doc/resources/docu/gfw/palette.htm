@@ -1,4 +1,5 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -20,8 +21,7 @@ PaletteCompartmentEntry</a></h3>
 <p>This is a container which allows structuring the tools into different compartments, 
 which can be collapsed and expanded. The tools (see below) can be added to the container 
 by calling addToolEntry. </p>
-<p>
-<img alt="" border="0" height="218" src="visio/palette-compartment.png" width="128"></p>
+<p><img alt="" height="218" src="visio/palette-compartment.png" width="128"></p>
 <p><strong>Figure: Compartments containing several creation tools</strong></p>
 <h3>
 <a href="../../../javadoc/org/eclipse/graphiti/palette/impl/ConnectionCreationToolEntry.html">
@@ -45,7 +45,7 @@ ObjectCreationToolEntry</a></h3>
 <p>A stack can contain an arbitrary number of creation tools (not directly create 
 features) which belong semantically together. The user can choose the creation tool 
 which is active on this stack in a drop down list.</p>
-<p><img alt="" height="384" src="visio/palette-stack.png" width="130"><img alt="" border="0" height="270" src="visio/palette-stack-2.png" width="125"></p>
+<p><img alt="" height="384" src="visio/palette-stack.png" width="130"><img alt="" height="270" src="visio/palette-stack-2.png" width="125"></p>
 <p><strong>Figure: Drop down list (on the left expanded) of the stack tool</strong></p>
 <h2>Creating a Palette</h2>
 <p>The palette is defined in the tool behavior provider.</p>
@@ -127,6 +127,7 @@ palette).</p>
 <p>Use the stack entry to create an instance of the object, which is currently active 
 in the stack entry. Afterwards change the active object of the stack entry (if several 
 objects are available) and use the stack entry to create an instance of that object.</p>
+<p>&nbsp;</p>
 
 </body>
 
