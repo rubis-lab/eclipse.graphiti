@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypes">
+      <diagramType
+            id="org.eclipse.graphiti.ui.tests.dtWithInvalidImageProvider"
+            name="Diagram Type with invalid Image Provider"
+            type="dtWithInvalidImageProvider">
+      </diagramType>
+   </extension>
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypeProviders">
+      <diagramTypeProvider
+            class="org.eclipse.graphiti.ui.tests.DTPwithInvalidImageProvider"
+            description="Test for an invalid image provider"
+            id="org.eclipse.graphiti.ui.tests.dtpWithInvalidImageProvider"
+            name="Diagram Type Provider with invalid Image Provider">
+         <diagramType
+               id="org.eclipse.graphiti.ui.tests.dtWithInvalidImageProvider">
+         </diagramType>
+         <!-- Define an invalid image provider to see that editor can be opened nevertheless -->
+         <imageProvider
+               id="invalid">
+         </imageProvider>
+      </diagramTypeProvider>
+   </extension>
+
+</plugin>
