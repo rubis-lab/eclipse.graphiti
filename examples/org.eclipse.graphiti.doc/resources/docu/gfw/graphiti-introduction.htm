@@ -1,4 +1,5 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -28,7 +29,7 @@ flow editors (using the BPMN notation).</p>
 <p>The graphical representation of the domain model itself is also a model, which 
 contains model-elements like &quot;rectangle&quot;, &quot;text&quot; and &quot;connection&quot;. This allows separating 
 each graphical editor into the following parts:</p>
-<ol>
+<ul>
 	<li>The transformation from the domain model to the graphical model (for viewing) 
 	and vice versa (for editing). This includes the definition of a visualization-platform 
 	independent interaction behavior for the graphical model, e.g. the definition 
@@ -38,13 +39,13 @@ each graphical editor into the following parts:</p>
 		so it has to be implemented by the customers of the Graphiti for each graphical 
 		editor. On the other hand, this part is independent from the visualization-platform, 
 		where the rendering of the graphical model is done.</li>
-	</ul>
-	</li>
-	<ul>
 		<li>Note, that the graphical model is based on EMF. Currently it works best, 
 		if the domain model is based on EMF, too, but it can also be based on other 
 		modeling technologies.</li>
 	</ul>
+	</li>
+</ul>
+<ul>
 	<li>The rendering of the graphical model on a specific visualization-platform 
 	and the mapping between the visualization-platform specific interaction (e.g. 
 	mouse-events) and the defined platform independent interaction.<ul>
@@ -58,7 +59,8 @@ each graphical editor into the following parts:</p>
 		is implemented by the Graphiti: Eclipse using Draw2D and GEF.</li>
 	</ul>
 	</li>
-</ol>
+</ul>
+<p>&nbsp;</p>
 
 </body>
 
