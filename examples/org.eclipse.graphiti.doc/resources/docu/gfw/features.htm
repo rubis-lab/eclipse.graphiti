@@ -1,7 +1,8 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" >
+<meta content="text/html; charset=ISO-8859-1" http-equiv="Content-Type">
 <title>Features</title>
 <link href="../book.css" rel="Stylesheet" type="text/css">
 <link href="../code.css" rel="Stylesheet" type="text/css">
@@ -11,60 +12,61 @@
 
 <h1>Features</h1>
 <h2>Architecture: Diagram Type Agent and Interaction Component</h2>
-<p>In the graphics framework's architecture a UI platform dependent and a 
-diagram type independent interaction component communicates with a platform 
-independent diagram type agent (see Figure). A diagram type agent consists 
-mainly of a diagram type provider, a feature provider and its provided features.</p>
+<p>In the graphics framework&#39;s architecture a UI platform dependent and a diagram 
+type independent interaction component communicates with a platform independent 
+diagram type agent (see Figure). A diagram type agent consists mainly of a diagram 
+type provider, a feature provider and its provided features.</p>
 <p>&nbsp;</p>
 <p style="page-break-after: avoid">
-<img height="276" src="visio\diagram-type-agent.gif" width="375"> </p>
+<img alt="" height="276" src="visio\diagram-type-agent.gif" width="375"> </p>
 <p><strong>Figure: Interaction Component talks to Diagram Type Agent</strong></p>
 <p>&nbsp;</p>
 <p>In this chapter we want to implement a feature provider and wire it with the 
 diagram type provider.</p>
-<h2><span lang="EN-GB">Create a Feature Provider</span></h2>
-<p>A feature provider has to implement interface <span class="code1">
-<span lang="EN-US" style="color: black">
-<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html">
-<span style="font-style: normal">IFeatureProvider</span></a></span></span>. 
+<h2>Create a Feature Provider</h2>
+<p>A feature provider has to implement interface
+<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html">IFeatureProvider. 
 Instead of implementing it directly you should extend one of the available base 
-classes. In this example we extend class <span class="code1">
-<span lang="EN-US" style="color: black">
+classes. In this example we extend class </a>
 <a href="../../../javadoc/org/eclipse/graphiti/ui/features/DefaultFeatureProvider.html">
-<span style="font-style: normal">DefaultFeatureProvider</span></a></span></span> 
-and do not have to implement or overwrite any methods initially.</p>
+DefaultFeatureProvider</a> and do not have to implement or overwrite any methods 
+initially.</p>
 <p>You can see the complete implementation of the feature provider here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
-		<p class="code"><span class="keyword">package </span>
-		org.eclipse.graphiti.examples.tutorial.diagram;<br>
+		<p class="code"><span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.diagram;<br>
 		<br><span class="keyword">public class</span> TutorialFeatureProvider
 		<span class="keyword">extends </span>DefaultFeatureProvider {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
-		<span class="keyword">public </span>
-		TutorialFeatureProvider(IDiagramTypeProvider dtp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public </span>TutorialFeatureProvider(IDiagramTypeProvider 
+		dtp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">super</span>(dtp);<br>&nbsp;&nbsp;&nbsp; }<br>}&nbsp;
 		</p>
 	</div>
 </div>
 <p>&nbsp;</p>
-<p>To create and set our feature provider in the diagram type provider we just 
-have to add one line in the diagram type provider&#8217;s constructor:</p>
+<!-- End code ------------------------------------------------------------------------------- -->
+<p>To create and set our feature provider in the diagram type provider we just have 
+to add one line in the diagram type provider&#8217;s constructor:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
-		<p class="code">&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>
-		MyTutorialDiagramTypeProvider() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">
-		super</span>();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		<p class="code">&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>MyTutorialDiagramTypeProvider() 
+		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">super</span>();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		setFeatureProvider(new TutorialFeatureProvider(this));<br>&nbsp;&nbsp;&nbsp; 
 		}</p>
 	</div>
 </div>
+<p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <h2>Test: Open the Empty Diagram Editor</h2>
 <p>Since the basic steps are done you can run the first version of this tutorial 
 editor. It should be possible to create and open a diagram.</p>
-<p>For this follow the steps described in the <a href="example-projects.htm">
-example project</a> to open the empty diagram editor.</p>
+<p>For this follow the steps described in the <a href="example-projects.htm">example 
+project</a> to open the empty diagram editor.</p>
+<p>&nbsp;</p>
 
 </body>
 
