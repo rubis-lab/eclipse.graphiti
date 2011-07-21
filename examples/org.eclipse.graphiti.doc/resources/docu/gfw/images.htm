@@ -1,4 +1,5 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -13,11 +14,11 @@
 <h2>Prerequisite</h2>
 <p>Providing own images is platform dependent (e.g. Eclipse specific). </p>
 <p>You have to <em>copy an icon</em> representing an association to the location
-<span class="inlinecode">&quot;icons/ereference.gif&quot;</span> of your plugin. This icon 
-will be registered and used in this chapter.</p>
+<em>&quot;icons/ereference.gif&quot;</em> of your plugin. This icon will be registered and 
+used in this chapter.</p>
 <h2>Creating an Image Provider</h2>
 <p>Own images can be provided through implementations of image providers, which 
-have to be registered using extensions in the <span class="inlinecode">plugin.xml</span>.</p>
+have to be registered using extensions in the <em>plugin.xml.</em></p>
 <p>Graphiti is (mostly) platform independent, but instances of images are platform 
 dependent. Thus images in Graphiti are only used via identifiers, and the task of 
 the image provider is to deliver the platform-dependent image for an image identifier.</p>
@@ -30,7 +31,7 @@ we created previously.</p>
 IImageProvider</a>. Instead of implementing it directly it is recommended to extend 
 the base class
 <a href="../../../javadoc/org/eclipse/graphiti/ui/platform/AbstractImageProvider.html">
-AbstractImageProvider</a>. </p>
+AbstractImageProvider</a>.</p>
 <p>In this case we have to implement/overwrite one method:</p>
 <ul>
 	<li>The method
@@ -69,8 +70,7 @@ AbstractImageProvider</a>. </p>
 <a href="../extension-points/imageProviders.html">imageProviders</a>.</p>
 <p>Additionally the image provider has to be added to the extension point
 <a href="../extension-points/diagramTypeProviders.html">diagramTypeProviders</a>.</p>
-<p>The corresponding part of the <span class="inlinecode">plugin.xml</span> should 
-look like this:</p>
+<p>The corresponding part of the <em>plugin.xml</em> should look like this:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
@@ -127,6 +127,7 @@ getContextButtonPad</a> of the tool behavior provider, as you can see here:</p>
 <p>Now start the editor and create a new EClass. Hover on top of the EClass to display 
 the context buttons. Verify that the &quot;create connection&quot; context button has the 
 image you provided before.</p>
+<p>&nbsp;</p>
 
 </body>
 
