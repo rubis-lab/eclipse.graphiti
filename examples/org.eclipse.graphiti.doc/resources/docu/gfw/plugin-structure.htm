@@ -1,7 +1,8 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
 <head>
-<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>Plugin structure</title>
 <link href="../book.css" rel="Stylesheet" type="text/css">
 <style type="text/css">
@@ -11,116 +12,83 @@
 </style>
 </head>
 
-<body lang="DE" link="blue" vlink="purple">
+<body>
 
-<div class="Section1">
-	<h1>Plug-In Structure</h1>
-	<p>Graphiti consists of a UI platform independent and a UI platform dependent 
-	part. The other Plug-ins complete the list of Graphiti plug-ins in Eclipse and 
-	might be useful when working with the tutorial.</p>
-	<p>&nbsp;</p>
-	<table border="0" cellpadding="0" class="auto-style1" style="width: 733; float: left;">
-		<tr>
-			<td style="width: 380px; border: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			org.eclipse.graphiti</span></p>
-			</td>
-			<td style="border-right: 1.0pt solid windowtext; border-top: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 311px; border-left: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span lang="EN-GB" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			Graphiti: UI platform independent part</span></p>
-			</td>
-		</tr>
-		<tr>
-			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			org.eclipse.graphiti.ui</span></p>
-			</td>
-			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span lang="EN-US" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			Graphiti: UI platform dependent part</span></p>
-			</td>
-		</tr>
-		<tr>
-			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			org.eclipse.graphiti.mm</span></p>
-			</td>
-			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span lang="EN-GB" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			plug-in for EMF pictogram model</span></p>
-			</td>
-		</tr>
-		<tr>
-			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			org.eclipse.graphiti.pattern</span></p>
-			</td>
-			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span lang="EN-US" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			framework for an alternative generic approach to combine all implementation 
-			aspects in one pattern</span></p>
-			</td>
-		</tr>
-		<tr>
-			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			org.eclipse.graphiti.doc</span></p>
-			</td>
-			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span lang="EN-US" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			Graphiti tutorial in Eclipse help</span></p>
-			</td>
-		</tr>
-		<tr>
-			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span lang="EN-GB" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			org.eclipse.graphiti.examples.common</span></p>
-			</td>
-			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span lang="EN-GB" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			samples and test tools for Graphiti; helper UIs, e.g. repository explorer
-			<i>and wizard(for Graphiti internal use; must not be used by the Graphiti 
-			customers)</i></span></p>
-			</td>
-		</tr>
-		<tr>
-			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span lang="EN-US" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			org.eclipse.graphiti.examples.tutorial</span></p>
-			</td>
-			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span lang="EN-US" style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			implementation of Graphiti tutorial in final stage</span></p>
-			</td>
-		</tr>
-		<tr>
-			<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			org.eclipse.graphiti.tests</span></p>
-			</td>
-			<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
-			<p>
-			<span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;">
-			Graphiti internal tests</span></p>
-			</td>
-		</tr>
-	</table>
-</div>
+<h1>Plug-In Structure</h1>
+<p>Graphiti consists of a UI platform independent and a UI platform dependent part. 
+The other Plug-ins complete the list of Graphiti plug-ins in Eclipse and might be 
+useful when working with the tutorial.</p>
+<p>&nbsp;</p>
+<table border="0" cellpadding="0" class="auto-style1" style="float: left;" width="733">
+	<tr>
+		<td style="width: 380px; border: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>org.eclipse.graphiti</p>
+		</td>
+		<td style="border-right: 1.0pt solid windowtext; border-top: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 311px; border-left: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>Graphiti: UI platform independent part</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>org.eclipse.graphiti.ui</p>
+		</td>
+		<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>Graphiti: UI platform dependent part</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>org.eclipse.graphiti.mm</p>
+		</td>
+		<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>plug-in for EMF pictogram model</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>org.eclipse.graphiti.pattern</p>
+		</td>
+		<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>framework for an alternative generic approach to combine all implementation 
+		aspects in one pattern</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>org.eclipse.graphiti.doc</p>
+		</td>
+		<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>Graphiti tutorial in Eclipse help</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>org.eclipse.graphiti.examples.common</p>
+		</td>
+		<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>samples and test tools for Graphiti; helper UIs, e.g. repository explorer
+		<em>and wizard(for Graphiti internal use; must not be used by the Graphiti 
+		customers)</em></p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>org.eclipse.graphiti.examples.tutorial</p>
+		</td>
+		<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>implementation of Graphiti tutorial in final stage</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-left: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; width: 380px; border-top: medium none; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>org.eclipse.graphiti.tests</p>
+		</td>
+		<td style="width: 311px; border-top: medium none; border-left: medium none; border-bottom: 1.0pt solid windowtext; border-right: 1.0pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm" valign="top">
+		<p>Graphiti internal tests</p>
+		</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
 
 </body>
 
