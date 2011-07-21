@@ -1,4 +1,5 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -40,6 +41,7 @@ create</a> method.</p>
 way, that at the beginning the user is asked for the class name in a popup-dialog. 
 This becomes obsolete now and has to be deleted.</p>
 <p>You can see the new create method here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -60,6 +62,7 @@ This becomes obsolete now and has to be deleted.</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <p>In the <a href="add-feature.htm">add feature</a> the outer container shape of 
 the newly created object must be set (the main pictogram element of the EClass). 
 Additionally the shape (pictogram element) and its graphics algorithm have to be 
@@ -67,6 +70,7 @@ specified, where the direct editing editor shall be opened.</p>
 <p>You have to do this at the end of the
 <a href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#add(org.eclipse.graphiti.features.context.IAddContext)">
 add</a> method as shown here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -105,9 +109,11 @@ add</a> method as shown here:</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <h2>Test: Direct Editing after Creation of a EClass</h2>
 <p>Open a diagram and create a new EClass from the palette. The shape for the EClass 
 should immediately allow the direct editing of the class name.</p>
+<p>&nbsp;</p>
 
 </body>
 
