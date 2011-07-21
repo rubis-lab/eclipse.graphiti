@@ -1,190 +1,148 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 <title>Providing create functionality</title>
-<link rel=Stylesheet type="text/css" href="../book.css">
-<link rel=Stylesheet type="text/css" href="../code.css">
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
 </head>
 
 <body>
+
 <h1>Providing Create Functionality</h1>
-
 <h2>Creating a Create Feature</h2>
-
-<p >Usually a new business object is created graphically by using the 
-corresponding creation tool from the editor’s tool palette. When using Graphiti 
-you only have to provide a so called create feature. The integration into the 
-platform’s UI is done by the framework.</p>
-
-<p>A create feature has to implement the interface <a href="../../../javadoc/org/eclipse/graphiti/features/ICreateFeature.html">
-ICreateFeature</a>.Instead of implementing it directly it should extend one of 
-the available base classes. In this example we extend the base class<a href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractCreateFeature.html">AbstractCreateFeature</a>.</p>
-
+<p>Usually a new business object is created graphically by using the corresponding 
+creation tool from the editor’s tool palette. When using Graphiti you only have 
+to provide a so called create feature. The integration into the platform’s UI is 
+done by the framework.</p>
+<p>A create feature has to implement the interface
+<a href="../../../javadoc/org/eclipse/graphiti/features/ICreateFeature.html">ICreateFeature</a>.Instead 
+of implementing it directly it should extend one of the available base classes. 
+In this example we extend the base class
+<a href="../../../javadoc/org/eclipse/graphiti/features/impl/AbstractCreateFeature.html">
+AbstractCreateFeature</a>.</p>
 <p>In this case we have to implement/overwrite two methods:</p>
-
-<p>The method <a href="../../../javadoc/org/eclipse/graphiti/func/ICreate.html#canCreate(org.eclipse.graphiti.features.context.ICreateContext)">
-canCreate</a> has to check whether the business object can be created for the 
-given context. </p>
-
-<p>The method
-<a href="../../../javadoc/org/eclipse/graphiti/func/ICreate.html#create(org.eclipse.graphiti.features.context.ICreateContext)">
-create</a> has to create the business object and also has to add the graphical 
-representation of the newly created business object to the diagram. The creation 
-of the business object must be implemented here. For adding the graphical 
-representation, the existing add feature should be used (see <a href="add-feature.htm">
-providing add functionality</a>). </p>
-
+<ul>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/func/ICreate.html#canCreate(org.eclipse.graphiti.features.context.ICreateContext)">
+	canCreate</a> has to check whether the business object can be created for the 
+	given context. </li>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/func/ICreate.html#create(org.eclipse.graphiti.features.context.ICreateContext)">
+	create</a> has to create the business object and also has to add the graphical 
+	representation of the newly created business object to the diagram. The creation 
+	of the business object must be implemented here. For adding the graphical representation, 
+	the existing add feature should be used (see <a href="add-feature.htm">providing 
+	add functionality</a>). </li>
+</ul>
 <p>In this example we want create a EClass via the palette. The creation should 
 be possible anywhere on the diagram. </p>
-
 <p>You can see the complete implementation of the create feature here: </p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
-
 <div class="literallayout">
-<div class="incode">
-<p class="code">
-<span class="keyword">package </span>
-org.eclipse.graphiti.examples.tutorial.features;<br>
-&nbsp;<br>
-<span class="keyword">public class</span> TutorialCreateEClassFeature 
-<span class="keyword">extends </span>AbstractCreateFeature {<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp; <span class="keyword">private static final</span> String 
-<span class="string"><em>TITLE</em> </span>= <span class="string">&quot;Create class&quot;</span>;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;<span class="keyword"> private static final</span> String 
-<span class="string"><em>USER_QUESTION</em></span> = <span class="string">&quot;Enter 
-new class name&quot;</span>;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>
-TutorialCreateEClassFeature(IFeatureProvider fp) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// set name and 
-description of the creation feature</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">super</span>(fp, 
-&quot;EClass&quot;, &quot;Create EClass&quot;);<br>
-&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;<span class="keyword"> public boolean</span> canCreate(ICreateContext 
-context) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return </span>
-context.getTargetContainer() 
-<span class="keyword">instanceof </span>Diagram;<br>
-&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>Object[] 
-create(ICreateContext context) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// ask user for 
-EClass name</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String newClassName = 
-ExampleUtil.askString(<span class="string"><em>TITLE</em></span>, 
-<span class="string"><em>USER_QUESTION</em></span>, <span class="string">&quot;&quot;</span>);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">if </span>
-(newClassName == null || newClassName.trim().length() == 0) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-<span class="keyword">return </span><span class="string"><em>EMPTY</em></span>;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">&nbsp;// create EClass</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EClass newClass = EcoreFactory.<span class="string"><em>eINSTANCE</em></span>.createEClass();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// Add model 
-element to resource.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // We add the model element to the 
-resource of the diagram for<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // simplicity&#39;s sake. Normally, a 
-customer would use its own<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // model persistence layer for 
-storing the business model separately.</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-getDiagram().eResource().getContents().add(newClass);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; newClass.setName(newClassName);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// do the add</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addGraphicalRepresentation(context, 
-newClass);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// return newly 
-created business object(s)</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return new</span> 
-Object[] { newClass };<br>
-&nbsp;&nbsp;&nbsp; }<br>
-}</p>
+	<div class="incode">
+		<p class="code"><span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
+		<span class="keyword">public class</span> TutorialCreateEClassFeature
+		<span class="keyword">extends </span>AbstractCreateFeature {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">private static final</span> String
+		<span class="string"><em>TITLE</em> </span>= <span class="string">&quot;Create 
+		class&quot;</span>;<br>&nbsp;<br>&nbsp;&nbsp; <span class="keyword">&nbsp;private 
+		static final</span> String <span class="string"><em>USER_QUESTION</em></span> 
+		= <span class="string">&quot;Enter new class name&quot;</span>;<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public </span>TutorialCreateEClassFeature(IFeatureProvider 
+		fp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// set name and description of the creation feature</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">super</span>(fp, &quot;EClass&quot;, &quot;Create EClass&quot;);<br>&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;<br>&nbsp;&nbsp; <span class="keyword">&nbsp;public boolean</span> 
+		canCreate(ICreateContext context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return </span>context.getTargetContainer()
+		<span class="keyword">instanceof </span>Diagram;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public </span>Object[] create(ICreateContext context) 
+		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
+		ask user for EClass name</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		String newClassName = ExampleUtil.askString(<span class="string"><em>TITLE</em></span>,
+		<span class="string"><em>USER_QUESTION</em></span>, <span class="string">
+		&quot;&quot;</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if </span>(newClassName == null || newClassName.trim().length() 
+		== 0) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return </span><span class="string"><em>EMPTY</em></span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">&nbsp;// create EClass</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EClass newClass = EcoreFactory.<span class="string"><em>eINSTANCE</em></span>.createEClass();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// Add model element to resource.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		// We add the model element to the resource of the diagram for<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		// simplicity&#39;s sake. Normally, a customer would use its own<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		// model persistence layer for storing the business model separately.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		getDiagram().eResource().getContents().add(newClass);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		newClass.setName(newClassName);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// do the add</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		addGraphicalRepresentation(context, newClass);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// return newly created business object(s)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return new</span> Object[] { newClass };<br>&nbsp;&nbsp;&nbsp; 
+		}<br>}</p>
+	</div>
 </div>
-</div>
-
-<p >&nbsp;</p>
-<p >Additionally the feature provider has to deliver our newly created feature 
-(overwrite the method
+<p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
+<p>Additionally the feature provider has to deliver our newly created feature (overwrite 
+the method
 <a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCreateFeatures()">
 getCreateFeatures</a>).</p>
-
-<p >This implementation can be seen here:</p>
-<p >&nbsp;</p>
-
-<div class="literallayout">
-<div class="incode">
-<p class="code">
-@Override<br>
-<span class="keyword">public </span>ICreateFeature[] getCreateFeatures() {<br>
-&nbsp;&nbsp;&nbsp;<span class="keyword">return new</span> ICreateFeature[] { 
-<span class="keyword">new </span>TutorialCreateEClassFeature(<span class="keyword">this</span>) 
-};<br>
-}
-</p>
-</div>
-</div>
-
-
+<p>This implementation can be seen here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
-<h2>Test: Create a EClass</h2>
-
-<p >Now start the editor again. “EClass” should be available in the palette of 
-the editor. It should be possible to create a EClass: Select the palette entry 
-“EClass” and then take the mouse and create size and location of the new object 
-in the diagram. Insert a name and press OK. The new EClass should be visible in 
-the diagram.</p>
-
-<h2>Correct Size of Created EClass</h2>
-
-<p >As you can see the size of the created EClass is not correct. To correct 
-this it’s necessary to update the implementation of the add feature. The add 
-method of the add feature must use the given size and location. </p>
-
-<p >The implementation of the changed add-method can be seen here:</p>
-<p >&nbsp;</p>
-
 <div class="literallayout">
-<div class="incode">
-<p class="code">
-<span class="keyword">public </span>PictogramElement add(IAddContext context) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EClass addedClass = (EClass) context.getNewObject();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diagram targetDiagram = (Diagram) context.getTargetContainer();<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// CONTAINER SHAPE WITH ROUNDED RECTANGLE</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IPeCreateService peCreateService = Graphiti.getPeCreateService();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ContainerShape containerShape =<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;peCreateService.createContainerShape(targetDiagram,
-<span class="keyword">true</span>);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// check whether the context has a size (e.g. from 
-a create feature)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// otherwise define a default size for the shape</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int </span>width = context.getWidth() &lt;= 0 ? 100 : 
-context.getWidth();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int </span>height = context.getHeight() &lt;= 0 ? 50 : 
-context.getHeight();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// ... EXISTING CODING COMES HERE ...</span><br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return </span>containerShape;<br>
-&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;</p>
+	<div class="incode">
+		<p class="code">@Override<br><span class="keyword">public </span>ICreateFeature[] 
+		getCreateFeatures() {<br>&nbsp;&nbsp; <span class="keyword">return new</span> 
+		ICreateFeature[] { <span class="keyword">new </span>TutorialCreateEClassFeature(<span class="keyword">this</span>) 
+		};<br>} </p>
+	</div>
 </div>
+<p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
+<h2>Test: Create a EClass</h2>
+<p>Now start the editor again. &quot;EClass&quot; should be available in the palette of the 
+editor. It should be possible to create a EClass: Select the palette entry &quot;EClass&quot; 
+and then take the mouse and create size and location of the new object in the diagram. 
+Insert a name and press OK. The new EClass should be visible in the diagram.</p>
+<h2>Correct Size of Created EClass</h2>
+<p>As you can see the size of the created EClass is not correct. To correct this 
+it’s necessary to update the implementation of the add feature. The add method of 
+the add feature must use the given size and location. </p>
+<p>The implementation of the changed add-method can be seen here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code"><span class="keyword">public </span>PictogramElement add(IAddContext 
+		context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EClass addedClass = (EClass) 
+		context.getNewObject();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Diagram 
+		targetDiagram = (Diagram) context.getTargetContainer();<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// CONTAINER SHAPE WITH ROUNDED RECTANGLE</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		IPeCreateService peCreateService = Graphiti.getPeCreateService();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		ContainerShape containerShape =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		peCreateService.createContainerShape(targetDiagram,
+		<span class="keyword">true</span>);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// check whether the context has a size (e.g. from 
+		a create feature)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // otherwise define 
+		a default size for the shape</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">int </span>width = context.getWidth() &lt;= 0 ? 100 : 
+		context.getWidth();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">int </span>height = context.getHeight() &lt;= 0 ? 50 
+		: context.getHeight();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// ... EXISTING CODING COMES HERE ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return </span>containerShape;<br>&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;</p>
+	</div>
 </div>
+<p>&nbsp;</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
+<p>Start the editor again and see if it works correctly.</p>
+<p>&nbsp;</p>
 
-
-<p >&nbsp;</p>
-<p >Start the editor again and see if it works correctly.</p>
-
+</body>
 
 </html>
