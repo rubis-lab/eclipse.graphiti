@@ -1,4 +1,5 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -16,10 +17,12 @@
 and add it to the diagram type provider as described </strong>
 <a href="tool-behavior-provider.htm"><strong>here</strong></a>.</p>
 <p>There is one method of the tool behavior provider to overwrite: </p>
-<p>The method
-<a href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getDoubleClickFeature(org.eclipse.graphiti.features.context.IDoubleClickContext)">
-getDoubleClickFeature</a> has to return the <a href="custom-feature.htm">custom 
-feature</a> to execute on double-click for the given context.</p>
+<ul>
+	<li>The method
+	<a href="../../../javadoc/org/eclipse/graphiti/tb/IToolBehaviorProvider.html#getDoubleClickFeature(org.eclipse.graphiti.features.context.IDoubleClickContext)">
+	getDoubleClickFeature</a> has to return the <a href="custom-feature.htm">custom 
+	feature</a> to execute on double-click for the given context.</li>
+</ul>
 <p>In this example we want to execute the <a href="custom-feature.htm">”Rename EClass” 
 feature</a> we implemented previously on double-click.</p>
 <p>You can see the complete implementation of the double-click behavior here:</p>
@@ -44,6 +47,7 @@ feature</a> we implemented previously on double-click.</p>
 <h2>Test: Rename a EClass on Double-Click</h2>
 <p>Now start the editor and create a new EClass. Double-click that EClass and the 
 rename dialog appears, which allows changing the class name.</p>
+<p>&nbsp;</p>
 
 </body>
 
