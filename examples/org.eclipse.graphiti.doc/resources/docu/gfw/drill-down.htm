@@ -1,4 +1,5 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -21,7 +22,7 @@ behavior.</p>
 <p>Although going from overview to detail is the most typical example, there are 
 other examples, where the user navigates to more independent diagrams. </p>
 <p>All those use cases have one thing in common: the user wants to navigate to a 
-diagram, which “represents” the selected business object (meaning this business 
+diagram, which &quot;represents&quot; the selected business object (meaning this business 
 object is central for the diagram). </p>
 <p>Graphiti offers the possibility to link business objects to pictogram elements 
 (including the diagram). The drill-down feature works in a way that it searches 
@@ -35,14 +36,17 @@ the business object.</p>
 <p>In this example we want to enable the users to navigate to the diagram(s) which 
 have the currently selected EClass associated. Therefore we have to create a drill-down 
 feature and make it available in the feature provider.</p>
-<p>A drill-down feature is a <a href="custom-feature.htm">custom feature</a> which 
-can easily be implemented by extending the base class
-<a href="../../../javadoc/org/eclipse/graphiti/ui/features/AbstractDrillDownFeature.html">
-AbstractDrillDownFeature</a>.</p>
-<p>The functionality of the <em>AbstractDrillDownFeature</em> is not tool-independent, 
-so the method <i>getDiagrams()</i> can be implemented only by the tool efficiently. 
-Furthermore we just overwrite the <em>canExecute()</em> method, so that the feature 
-is only enabled if exactly one EClass is selected.</p>
+<ul>
+	<li>A drill-down feature is a <a href="custom-feature.htm">custom feature</a> 
+	which can easily be implemented by extending the base class
+	<a href="../../../javadoc/org/eclipse/graphiti/ui/features/AbstractDrillDownFeature.html">
+	AbstractDrillDownFeature</a>.</li>
+</ul>
+<p>The functionality of the <span class="inlinecode">AbstractDrillDownFeature</span> 
+is not tool-independent, so the method <span class="inlinecode">getDiagrams()</span> 
+can be implemented only by the tool efficiently. Furthermore we just overwrite the
+<span class="inlinecode">canExecute()</span> method, so that the feature is only 
+enabled if exactly one EClass is selected.</p>
 <p>You can see the complete implementation of the drill-down feature here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
@@ -97,7 +101,8 @@ is only enabled if exactly one EClass is selected.</p>
 </div>
 <p>&nbsp;</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
-<p>The complete implementation of class <em>TutorialUtil</em> can be seen here:</p>
+<p>The complete implementation of class <span class="inlinecode">TutorialUtil</span> 
+can be seen here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
@@ -264,6 +269,7 @@ getCustomFeatures</a>). </p>
 	diagram&quot;</li>
 	<li>now the second diagram is opened again</li>
 </ol>
+<p>&nbsp;</p>
 
 </body>
 
