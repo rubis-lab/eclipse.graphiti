@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 352709 - invalid image provider id crashes diagram editor 
  *
  * </copyright>
  *
@@ -27,6 +28,7 @@ public class GFTestSuite {
 		suite.addTestSuite(GFPackageTests.class);
 		suite.addTestSuite(GFDialogTests.class);
 		suite.addTestSuite(GFInteractionComponentTests.class);
+		suite.addTestSuite(ExtensionManagerTest.class);
 
 		return suite;
 	}
