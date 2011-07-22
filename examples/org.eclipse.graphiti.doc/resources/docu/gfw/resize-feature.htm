@@ -37,6 +37,7 @@ one of the available base classes.</p>
 	resizeShape</a> does the final resize. </li>
 </ul>
 <p>You can see the complete implementation of the resize feature here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -69,11 +70,13 @@ one of the available base classes.</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <p>Additionally the feature provider has to deliver our newly created feature (overwrite 
 the method
 <a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getResizeShapeFeature(org.eclipse.graphiti.features.context.IResizeShapeContext)">
 getResizeShapeFeature</a>).</p>
 <p>This implementation can be seen here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -89,6 +92,7 @@ getResizeShapeFeature</a>).</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <h2>Test: Resize EClass Is Restricted</h2>
 <p>Now start the editor again and test it: Just create a EClass whose name is only 
 one character long. This EClass can no longer be resized, because on selection the 
