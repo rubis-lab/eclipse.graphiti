@@ -1,4 +1,5 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -17,7 +18,6 @@ algorithm of the pictogram elements. But this is done only once. If the business
 model changes the example editor does not realize the changes.</p>
 <p>For that purpose we need an update feature which is used by the editor to react 
 on business model changes.</p>
-<p>&nbsp;</p>
 <p>The behavior of the update is straight forward, when the user is changing the 
 domain model directly via the diagram. For example if the user changes a text in 
 the diagram using direct-editing or the property-sheet, then this text should be 
@@ -35,12 +35,10 @@ update-strategies:</p>
 	manually update the outdated shapes.<br></li>
 </ol>
 <p>&nbsp;</p>
-<p>
-<img alt="" border="0" height="114" src="visio/outdated-shape.gif" width="264"></p>
+<p><img alt="" height="114" src="visio/outdated-shape.gif" width="264"></p>
 <p><strong>Figure: Shape marked as outdated (tooltip shows reason)</strong></p>
 <p>&nbsp;</p>
-<p>
-<img alt="" border="0" height="125" src="visio/outdated-shape-update.gif" width="225"></p>
+<p><img alt="" height="125" src="visio/outdated-shape-update.gif" width="225"></p>
 <p><strong>Figure: Outdated shape can be updated manually</strong></p>
 <p>&nbsp;</p>
 <p>By default the automatic update is inactive, but this can be configured by overwriting 
@@ -87,7 +85,7 @@ AbstractUpdateFeature</a></p>
 	up to date, that means whether the graphics algorithm of this pictogram element 
 	contain the latest values from the business objects. </li>
 </ul>
-<p><b><u>Hint:</u></b> An update feature can and should also be used (called) if 
+<p class="Note">Hint: An update feature can and should also be used (called) if 
 any functionality of the editor (e.g. any custom feature) modifies parts of the 
 domain model. This works just like the model view controller pattern.</p>
 <p>In this example we want to update the EClass name. You can see the complete implementation 
@@ -193,7 +191,7 @@ getUpdateFeature</a>)<i>. </i></p>
 </div>
 <p>&nbsp;</p>
 <h2>Test: Update a EClass Name</h2>
-<p><strong>Note:</strong> if the Graphiti project wizard for a &quot;<a href="example-projects.htm">New 
+<p class="Note">Note: if the Graphiti project wizard for a &quot;<a href="example-projects.htm">New 
 Graphiti Sample Project</a>&quot; does not work correctly and you can not test the update 
 feature as described below, please continue with the next chapters and
 <a href="custom-feature.htm">provide custom functionality</a> to rename a EClass. 
@@ -202,19 +200,19 @@ diagrams.</p>
 <p>Now start the editor again and test it:</p>
 <ol>
 	<li>create new diagram</li>
-	<li>create a EClass “A” </li>
+	<li>create a EClass &quot;A&quot;</li>
 	<li>save current diagram</li>
 	<li>move this new EClass to make the diagram editor dirty</li>
 	<li>go to the Project Explorer</li>
 	<li>find the new EClass under &quot;EClasses&quot;</li>
-	<li>rename this EClass via context menu to “B”</li>
+	<li>rename this EClass via context menu to &quot;B&quot;</li>
 	<li>when you activate the editor, you will receive a popup, choose yes and you 
 	will get the updated EClass (since <i>isAutoUpdateAtReset</i> is set to <b>true</b> 
 	by default)</li>
 	<li>save current diagram </li>
 	<li>close the editor</li>
 	<li>go to the Project Explorer</li>
-	<li>rename this EClass via context menu to “C”</li>
+	<li>rename this EClass via context menu to &quot;C&quot;</li>
 	<li>reopen the diagram editor</li>
 	<li>the diagram will not be updated automatically, instead the editor visualizes 
 	dirty states, when the editor is activated (since <i>isAutoUpdateAtStartup</i> 
@@ -222,6 +220,7 @@ diagrams.</p>
 	<li>move mouse on dirty EClass shape and hit appearing update button. The name 
 	&quot;C&quot; should appear.</li>
 </ol>
+<p>&nbsp;</p>
 
 </body>
 
