@@ -26,14 +26,17 @@ AbstractAddFeature</a>.</p>
 <p>In this case we have to implement/overwrite two methods:</p>
 <ul>
 	<li>The method
-	<a href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#canAdd(org.eclipse.graphiti.features.context.IAddContext)">canAdd</a> has to check the given context and therefore it decides if a business 
-object can be added.</li>
+	<a href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#canAdd(org.eclipse.graphiti.features.context.IAddContext)">
+	canAdd</a> has to check the given context and therefore it decides if a business 
+	object can be added.</li>
 	<li>The method
-	<a href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#add(org.eclipse.graphiti.features.context.IAddContext)">add</a> finally has to create the pictogram element (connection) and has to establish 
-the linkage to the business object. Additionally we have to create the graphics 
-algorithm (polyline). </li>
+	<a href="../../../javadoc/org/eclipse/graphiti/func/IAdd.html#add(org.eclipse.graphiti.features.context.IAddContext)">
+	add</a> finally has to create the pictogram element (connection) and has to 
+	establish the linkage to the business object. Additionally we have to create 
+	the graphics algorithm (polyline). </li>
 </ul>
 <p>You can see the complete implementation of the add connection feature here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <div class="literallayout">
 	<div class="incode">
 		<p class="code"><span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
@@ -74,11 +77,13 @@ algorithm (polyline). </li>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <p>Additionally the feature provider has to deliver our newly created feature (overwrite 
 the method
 <a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getAddFeature(org.eclipse.graphiti.features.context.IAddContext)">
 getAdd</a>).</p>
 <p>This implementation can be seen here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -96,6 +101,7 @@ getAdd</a>).</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <p>Before this new add connection feature can be tested, we have to
 <a href="create-connection-feature.htm">provide create connection functionality</a> 
 as described in the next chapter.</p>
