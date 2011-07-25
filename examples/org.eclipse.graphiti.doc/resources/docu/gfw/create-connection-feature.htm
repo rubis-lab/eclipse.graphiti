@@ -46,6 +46,7 @@ tool from the palette.</p>
 <p><strong>Figure: EReference between EClasses</strong></p>
 <p>&nbsp;</p>
 <p>You can see the complete implementation of the create connection feature here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -125,11 +126,13 @@ tool from the palette.</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <p>Additionally the feature provider has to deliver our newly created feature (overwrite 
 the method
 <a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCreateConnectionFeatures()">
 getCreateConnectionFeatures</a>).</p>
 <p>This implementation can be seen here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -141,11 +144,13 @@ getCreateConnectionFeatures</a>).</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <p>Before we can run the editor we have to add <a href="anchors.htm">anchors</a> 
 to the container shapes of the EClasses. Anchors are explained later in detail.</p>
 <p>For now simply create an anchor at end of the add method of the 
 <span class="inlinecode">TutorialAddEClassFeature</span>, 
 as shown in the following code snippet:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -163,6 +168,7 @@ as shown in the following code snippet:</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <h2>Test: Create a Connection</h2>
 <p>Now start the editor and test the create connection feature:</p>
 <ol>
