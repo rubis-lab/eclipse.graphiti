@@ -90,6 +90,7 @@ the <span class="inlinecode">TutorialAddEClassFeature</span>, as explained in th
 following code snippet. Note, that the previously created chop box anchor (see
 <a href="create-connection-feature.htm">create connection feature</a>) remains, 
 so that the EClass has then two anchors:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -121,12 +122,14 @@ so that the EClass has then two anchors:</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <p>Additionally the feature provider has to deliver the drag &amp; drop features (overwrite 
 the method
 <a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getDragAndDropFeatures(org.eclipse.graphiti.features.context.IPictogramElementContext)">
 getDragAndDropFeatures</a>).</p>
 <p>In this very simple implementation all create connection features are returned 
 independent of the given context:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -138,6 +141,7 @@ independent of the given context:</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <p class="Note">Note: A more sophisticated solution with an anchor on a EClass with 
 an <em>extended rendering area</em> is shown in chapter
 <a href="selection-behavior.htm">selection behavior</a>.</p>
