@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
+ *    mwenz - Bug 351053 - Remove the need for WorkspaceCommandStackImpl
  *
  * </copyright>
  *
@@ -49,22 +50,21 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 	}
 
 	@Override
-	public void execute(Command command) {
-		super.execute(command);
-	}
-
-	@Override
 	public void execute(Command command, Map<?, ?> options) throws InterruptedException, RollbackException {
-		execute(command, options, null);
-	}
-
-	/*
-	 * Needed to eventually pass an externally created IExecutionInfo object
-	 * (created in GFCommandStack) to the internal execution of a feature. Could
-	 * be created here as well, but then there would potentially be different
-	 * instances of features and contexts.
-	 */
-	void execute(Command command, Map<?, ?> options, IExecutionInfo executionInfo) throws InterruptedException, RollbackException {
+		IExecutionInfo executionInfo = null;
+		/*
+		 * Needed to retrieve an eventually externally created IExecutionInfo
+		 * object (created in GFCommandStack) to the internal execution of a
+		 * feature. Could be created here as well, but then there would
+		 * potentially be different instances of features and contexts.
+		 */
+		if (options != null) {
+			Object object = options.get(GFCommandStack.OPTION_EXECUTION_INFO);
+			if (object instanceof IExecutionInfo) {
+				executionInfo = (IExecutionInfo) object;
+				options.remove(GFCommandStack.OPTION_EXECUTION_INFO);
+			}
+		}
 		if (topLevelCommand) {
 			topLevelCommand = false;
 			try {

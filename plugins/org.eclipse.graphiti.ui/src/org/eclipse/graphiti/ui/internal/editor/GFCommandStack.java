@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
+ *    mwenz - Bug 351053 - Remove the need for WorkspaceCommandStackImpl
  *
  * </copyright>
  *
@@ -19,14 +20,17 @@ package org.eclipse.graphiti.ui.internal.editor;
 
 import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.commands.operations.IUndoableOperation;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.transaction.RollbackException;
+import org.eclipse.emf.transaction.TransactionalCommandStack;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.impl.WorkspaceCommandStackImpl;
 import org.eclipse.gef.commands.Command;
@@ -57,14 +61,23 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
  */
 public class GFCommandStack extends CommandStack implements CommandStackListener {
 
-	private GFWorkspaceCommandStackImpl emfCommandStack;
+	static final String OPTION_EXECUTION_INFO = "org.eclipse.graphiti.execution.info";
+
+	private TransactionalCommandStack emfCommandStack;
 
 	private IConfigurationProvider configurationProvider;
 
 	private TransactionalEditingDomain editingDomain;
 
 	public GFCommandStack(IConfigurationProvider configurationProvider, TransactionalEditingDomain editingDomain) {
-		emfCommandStack = (GFWorkspaceCommandStackImpl) editingDomain.getCommandStack();
+		org.eclipse.emf.common.command.CommandStack commandStack = editingDomain.getCommandStack();
+		if (!(commandStack instanceof TransactionalCommandStack)) {
+			IllegalArgumentException e = new IllegalArgumentException(
+					"The command stack of the passed editing domain must be a TransactionalCommandStack");
+			e.fillInStackTrace();
+			throw e;
+		}
+		emfCommandStack = (TransactionalCommandStack) commandStack;
 		emfCommandStack.addCommandStackListener(this);
 		setConfigurationProvider(configurationProvider);
 		this.editingDomain = editingDomain;
@@ -102,10 +115,13 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 
 		DefaultExecutionInfo executionInfo = new DefaultExecutionInfo();
 		GraphitiUiInternal.getCommandService().completeExecutionInfo(executionInfo, gefCommand);
+		// Put the execution info object into the options map for consumption within the execution
+		Map<String, DefaultExecutionInfo> options = new HashMap<String, DefaultExecutionInfo>(2);
+		options.put(OPTION_EXECUTION_INFO, executionInfo);
 
 		tbp.preExecute(executionInfo);
 		try {
-			getEmfCommandStack().execute(gfPreparableCommand, null, executionInfo);
+			getEmfCommandStack().execute(gfPreparableCommand, options);
 		} catch (RollbackException e) {
 			if (e.getStatus().getSeverity() == IStatus.CANCEL) {
 				// Just log it as info (operation was cancelled on purpose) 
@@ -255,7 +271,7 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		getEmfCommandStack().undo();
 	}
 
-	private GFWorkspaceCommandStackImpl getEmfCommandStack() {
+	private TransactionalCommandStack getEmfCommandStack() {
 		return emfCommandStack;
 	}
 
