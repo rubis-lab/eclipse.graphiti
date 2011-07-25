@@ -47,6 +47,7 @@ of the real values in the business model (types of association ends).</p>
 connection feature</a>. The following changes must be done in this feature. First 
 add some helper methods to the add connection feature which create the graphics 
 algorithms for the static decorators:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -55,13 +56,15 @@ algorithms for the static decorators:</p>
 		Polyline polyline =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gaService.createPolyline(gaContainer,
 		<span class="keyword">new int</span>[] { -15, 10, 0, 0, -15,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		-10 });<br>&nbsp;&nbsp;&nbsp; polyline.setForeground(manageColor(IColorConstant.<span class="string"><em>BLACK</em></span>));<br>&nbsp;&nbsp;&nbsp; 
-		polyline.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp; return polyline;<br>}
+		polyline.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp; <span class="keyword">return</span> polyline;<br>}
 		</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <p>Then create the connection decorators at the end of the add method of the add 
 connection feature, as explained in the following code snippet:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -88,6 +91,7 @@ connection feature, as explained in the following code snippet:</p>
 	</div>
 </div>
 <p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <h2>Test: Display and Move Connection Decorators</h2>
 <p>Start the editor again and test these new connection decorators:</p>
 <ol>
