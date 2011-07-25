@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 351053 - Remove the need for WorkspaceCommandStackImpl
  *
  * </copyright>
  *
@@ -16,10 +17,16 @@
 package org.eclipse.graphiti.ui.tests;
 
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.easymock.EasyMock;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.impl.TransactionalEditingDomainImpl;
+import org.eclipse.emf.workspace.WorkspaceEditingDomainFactory;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -52,7 +59,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
 @SuppressWarnings("restriction")
 public class CommandStackTest extends GFAbstractTestCase {
 
@@ -63,7 +69,6 @@ public class CommandStackTest extends GFAbstractTestCase {
 	@BeforeClass
 	public static void prepareClass() {
 	}
-
 
 	@Before
 	public void beforeTest() {
@@ -133,6 +138,39 @@ public class CommandStackTest extends GFAbstractTestCase {
 		ContextEntryCommand featureCommand = new ContextEntryCommand(contextEntry);
 
 		executeAndCheck(featureCommand, commandStack);
+		editingDomain.dispose();
+	}
+
+	@Test
+	public void testCanUsePlainTransactionalCommandStack() {
+		// Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=351053
+		// Create an editing domain with a plain transactional command stack (Graphiti services create a
+		// GFWorkspaceCommandStackImpl which is also a Workspace command stack)
+		ResourceSet resourceSet = new ResourceSetImpl();
+		TransactionalEditingDomainImpl editingDomain = new TransactionalEditingDomainImpl(new ComposedAdapterFactory(
+				ComposedAdapterFactory.Descriptor.Registry.INSTANCE), resourceSet);
+		WorkspaceEditingDomainFactory.INSTANCE.mapResourceSet(editingDomain);
+
+		// Create command stack using this editing domain
+		GFCommandStack commandStack = new GFCommandStack(configurationProvider, editingDomain);
+
+		// Create test feature and context
+		TestStandardTransactionalEditingDomainFeature feature = new TestStandardTransactionalEditingDomainFeature(
+				configurationProvider.getFeatureProvider());
+		ICustomContext context = EasyMock.createNiceMock(ICustomContext.class);
+		EasyMock.replay(context);
+
+		// Prepare execution and do it
+		GenericFeatureCommandWithContext featureCommand = new GenericFeatureCommandWithContext(feature, context);
+		CommandContainer commandContainer = new CommandContainer(configurationProvider.getFeatureProvider());
+		commandContainer.add(featureCommand);
+		GefCommandWrapper commandWrapper = new GefCommandWrapper(featureCommand, editingDomain);
+		commandStack.execute(commandWrapper);
+
+		// Check
+		assertTrue("Feature was not executed", feature.wasExecuted);
+
+		// Clean-up local stuff
 		editingDomain.dispose();
 	}
 
@@ -255,6 +293,25 @@ public class CommandStackTest extends GFAbstractTestCase {
 		@Override
 		public boolean hasDoneChanges() {
 			return false;
+		}
+	}
+
+	private class TestStandardTransactionalEditingDomainFeature extends AbstractCustomFeature {
+
+		public boolean wasExecuted = false;
+
+		public TestStandardTransactionalEditingDomainFeature(IFeatureProvider fp) {
+			super(fp);
+		}
+
+		@Override
+		public boolean canExecute(ICustomContext context) {
+			return true;
+		}
+
+		@Override
+		public void execute(ICustomContext context) {
+			wasExecuted = true;
 		}
 	}
 }
