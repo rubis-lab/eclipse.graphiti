@@ -65,7 +65,7 @@ notation and make editable. We locate Graphiti in the Eclipse Modeling arena and
 distinguish the framework from GMF and GEF. Then, we give an overview of the 
 architecture and an introduction into the basic concepts of Graphiti.</p>
 <p>Typical examples are class diagram editors (using the UML notation) or process 
-flow editors (using the BPMN notation).</p>
+flow editors (using the BPMN notation) as you can see in figures below..</p>
 <p>&nbsp;</p>
 <p><img alt="" height="379" src="visio/class-editor.gif" width="810"></p>
 <p><strong>Figure: Example screenshot of a class diagram editor</strong></p>
@@ -75,17 +75,18 @@ flow editors (using the BPMN notation).</p>
 <p><strong>Figure: Example screenshot of a process flow editor</strong></p>
 <p>&nbsp;</p>
 <p>If one tries to build a graphical editor for a Domain Model using Eclipse, he 
-will soon come across the Eclipse Modeling Framework (EMF) and the Graphical 
-Editing Framework (GEF). While EMF provides the basis for modeling, GEF supports 
+will soon come across the <em>Eclipse Modeling Framework (EMF)</em> and the<em> Graphical 
+Editing Framework (GEF)</em>. While EMF provides the basis for modeling, GEF supports 
 programming graphical editors.</p>
 <p>But it is immediately noticeable, that GEF is fairly complex and it needs a 
 notable amount of work to get used to the framework. Therefore, and also to 
 homogenize their tooling, SAP built a framework that hides GEF&#39;s complexities 
 from the developer and bridges EMF and GEF to ease and speed up the development 
-of graphical editors.</p>
+of graphical editors. The easy-to-understand programming model of Graphiti is 
+based on<em><a href="#The_Feature_Concept"> features</a></em>.</p>
 <p>After SAP AG decided in 2009 to donate the framework to the eclipse 
 community, the development team was able to deliver the 0.7.0 incubation release 
-of the Graphical Tooling Infrastructure (Graphiti) in October, 2010 and 0.8.0 
+of the <em>Graphical Tooling Infrastructure (Graphiti)</em> in October, 2010 and 0.8.0 
 with Indigo in June 2011. We should emphasize that already the SAP-internal 
 predecessor of Graphiti was in productive use.</p>
 <p>Graphiti provides the following benefits for development and usage:</p>
@@ -106,7 +107,7 @@ Graphiti and GMF are listed in table below.</p>
 &nbsp;</p>
 
 
-<table class="ms-grid5-main" style="width: 500" cellspacing="1">
+<table class="ms-grid5-main" width="500" cellspacing="1">
 	<!-- fpstyle: 20,011111100 -->
 	<tr>
 		<td class="ms-grid5-tl" style="width: 20%; height: 19px"></td>
@@ -144,20 +145,25 @@ GMF where one has to change generated sources, which can cause headaches when
 regenerating. </p>
 <p>&nbsp;</p>
 
-<h2>Architecture</h2>
+<h2>Architecture and Basic Concepts</h2>
+<p>&nbsp;</p>
+<p>
+<img alt="Basisc Architecture" height="480" longdesc="Basisc Architecture of Graphiti" src="visio/architecture.png" width="488"></p>
+<p><strong>Figure: Basic architecture</strong></p>
+<p>&nbsp;</p>
 <p>Naturally, communication between a user and a Graphiti based tool happens via 
-the screen as well as by mouse and keyboard (see figure).&nbsp; An Interaction 
-Component will receive requests such as resizing, drag-and-drop, or deleting. 
-The actual processing of these requests happens in a so-called <strong>Diagram 
-Type Agent</strong>, which will be discussed in the following section in more 
+the screen as well as by mouse and keyboard (see figure).&nbsp; An <em>Interaction 
+Component</em> will receive requests such as resizing, drag-and-drop, or deleting. 
+The actual processing of these requests happens in a so-called <em>Diagram 
+Type Agent</em>, which will be discussed in the following section in more 
 detail.</p>
-<p>It is the objective of the Rendering Engine to display the current data on 
-the screen. Rendering Engine and Interaction Component together form the 
+<p>It is the objective of the <em>Rendering Engine</em> to display the current data on 
+the screen. Rendering Engine and <em>Interaction Component</em> together form the 
 framework components of Graphiti - and thus the actual Graphiti runtime. The 
 technical realization of the Graphiti runtime is based on the Graphical Editing 
 Framework (GEF) in conjunction with Draw2d. Graphiti’s defaults ensure a uniform 
 user interface (look and feel) of all Graphiti based tools.</p>
-<h2>Diagram Type Agent </h2>
+<h3>Diagram Type Agent </h3>
 <p>As mentioned already above, the Diagram Type Agent is addressed via the 
 Interaction Component. This happens over a standardized interface. The Diagram 
 Type Agent has to be implemented and made available by the developer. For this 
@@ -165,7 +171,7 @@ implementation developers can make use of lots of various services as well as
 many meaningful standard implementations. </p>
 <p>Assistance of the services and standard implementations can support a 
 developer to create his own graphical editor really fast. For example, actions 
-like move, resize, delete, remove, and print are available immediately. One 
+like <em>move</em>, <em>resize</em>, <em>delete</em>, <em>remove</em>, and <em>print</em> are available immediately. One 
 should not regard a first version as a prototype which has to be thrown away 
 later. Rather the initial version can be extended to a complete product 
 incrementally with increasing Graphiti know-how and rising requirements.</p>
@@ -178,16 +184,16 @@ the one side we have the <em>Pictogram Model</em> (incl. <em>Link Model</em>)
 whose <em>metamodel</em> is made available by Graphiti and on the other side we 
 have the <em>domain specific model</em> which comes from the developer. These 
 models are explained in the following.</p>
-<h2>Domain Model </h2>
-<p>The Domain Model contains the data which has to be visualized graphically. A 
-developer would for example use the Ecore metamodel for a graphical Ecore 
-editor. An editor for BPM (Business Process Management) would use the Businesses 
-Process Modeling Notation.</p>
+<h3>Domain Model </h3>
+<p>The <em>Domain Model</em> contains the data which has to be visualized graphically. A 
+developer would for example use the <em>Ecore metamodel</em> for a graphical Ecore 
+editor. An editor for BPM (Business Process Management) would use the <em>Businesses 
+Process Modeling Notation</em>.</p>
 <p>It is of advantage (however not absolutely necessary) if this model is 
 available in EMF just like the Pictogram Model. But Graphiti can deal also with 
 models outside EMF. In Graphiti, the data of the Domain Models are called
 <strong>Business Objects</strong>.</p>
-<h2>Pictogram Model</h2>
+<h3>Pictogram Model</h3>
 <p>The Pictogram Model contains the complete information for representing a 
 diagram. That implies that each diagram can be represented without the presence 
 of the Domain Data. This requires a partially redundant storage of data, which 
@@ -195,16 +201,16 @@ is present both in the Pictogram Model and in the Domain Model. Imagine the
 class names in case of an Ecore editor. Since data redundancy always draws the 
 problem of the synchronization, Graphiti offers a concept to update this data. 
 Data which is out of sync can be visualized graphically and can be corrected 
-(semi-) automatically by the use of so-called<strong> Update Features</strong>. 
+(semi-) automatically by the use of so-called Update Features. 
 This approach enables an editing of Domain Data with different tools and a 
 subsequent updating of already existing diagrams.</p>
 <p>A detailed discussion of the Pictogram metamodel would blow up the content of 
-this article. Further information can be found in the „<em>org.eclipse.graphiti.mm</em> 
+this chapter. Further information can be found in the „<em>org.eclipse.graphiti.mm</em> 
 “-plugin which contains the metamodel and some diagrams. The diagrams can be 
 viewed with the help of the Ecore tooling.</p>
-<p>Th<a name="Hyperlink to tutorial"></a>e tutorial will show where data of the 
+<p>Th<a name="Hyperlink to tutorial"></a>e Graphiti Tutorial will show where data of the 
 Pictogram Model is produced for the graphical representation.</p>
-<h2>Link Model</h2>
+<h3>Link Model</h3>
 <p>The Link Model is responsible for connecting data from the Domain Model and 
 the graphical representation (that is, data from the Pictogram Model). These 
 connections are again needed by many actions in the graphical editor. For 
@@ -219,18 +225,24 @@ the tools palette of the graphical editor and draws a rectangle in the diagram
 to indicate size and position of the object to be created. Now the Diagram Type 
 Agent does the following:</p>
 <ul>
-	<li>&nbsp;Create a new object in the Domain Model.</li>
+	<li>Create a new object in the Domain Model.</li>
 	<li>Create the graphical visualization in the Pictogram Model. E.g., create 
 	Graphics Algorithms like a <span class="keyword">RoundedRectangle</span> or 
 	a text element. Initialize them with colors and fonts and do the layout.</li>
 	<li>Create the link between<em> Pictogram Model object</em> and<em> Domain 
 	Model object</em> (<em>Link Model</em>).</li>
 </ul>
-<h2>The Feature Concept </h2>
-<p>Figure 2 displays the internal structure of the Diagram Type Agent. The 
+<h3><a name="The_Feature_Concept">The Feature Concept</a> </h3>
+<p>&nbsp;</p>
+<p>
+<img alt="Diagram Type Agent" height="299" longdesc="Construction of the Diagram Type Agent" src="visio/diagram-type-agent-new.png" width="448"></p>
+<p><strong>Figure: Construction of the diagram type agent</strong></p>
+<p>&nbsp;</p>
+
+<p>The figure above displays the internal structure of the Diagram Type Agent. The 
 actors shown there are to be provided by the developer. This means he has to 
 implement an amount of so-called Features which are similar to operations. Here 
-are some typical examples for Graphiti Features:</p>
+are some typical examples for <em>Graphiti Features</em>:</p>
 <ul>
 	<li><em>Add Features</em> create the graphical representation of Domain 
 	Model elements in the Pictogram Model.</li>
