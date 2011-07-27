@@ -37,7 +37,7 @@
                 <cs:property key="root" value="${WORKSPACE}"/>
             </cs:properties>
             <cs:products>
-                <cs:public name="javadoc.output" base="git/examples/org.eclipse.graphiti.doc/javadoc/"/>
+                <cs:path path="git/examples/org.eclipse.graphiti.doc/javadoc/"/>
             </cs:products>
         </cs:public>
         <cs:public name="create.site.index" actor="ant">
