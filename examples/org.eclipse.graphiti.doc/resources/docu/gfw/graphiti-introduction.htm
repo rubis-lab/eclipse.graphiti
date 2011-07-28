@@ -51,6 +51,10 @@
 	border-bottom: .75pt solid black;
 	background-color: white;
 }
+.auto-style1 {
+	border-style: solid;
+	border-width: 1px;
+}
 </style>
 
 </head>
@@ -201,15 +205,16 @@ is present both in the Pictogram Model and in the Domain Model. Imagine the
 class names in case of an Ecore editor. Since data redundancy always draws the 
 problem of the synchronization, Graphiti offers a concept to update this data. 
 Data which is out of sync can be visualized graphically and can be corrected 
-(semi-) automatically by the use of so-called Update Features. 
+(semi-) automatically by the use of so-called <em>Update Features</em>. 
 This approach enables an editing of Domain Data with different tools and a 
 subsequent updating of already existing diagrams.</p>
 <p>A detailed discussion of the Pictogram metamodel would blow up the content of 
 this chapter. Further information can be found in the „<em>org.eclipse.graphiti.mm</em> 
 “-plugin which contains the metamodel and some diagrams. The diagrams can be 
 viewed with the help of the Ecore tooling.</p>
-<p>Th<a name="Hyperlink to tutorial"></a>e Graphiti Tutorial will show where data of the 
-Pictogram Model is produced for the graphical representation.</p>
+<p>Where data of the 
+Pictogram Model is produced for the graphical representation is shown
+<a href="#Linkage_Structure_of_the_Involved_Artifacts">here</a>.</p>
 <h3>Link Model</h3>
 <p>The Link Model is responsible for connecting data from the Domain Model and 
 the graphical representation (that is, data from the Pictogram Model). These 
@@ -227,7 +232,7 @@ Agent does the following:</p>
 <ul>
 	<li>Create a new object in the Domain Model.</li>
 	<li>Create the graphical visualization in the Pictogram Model. E.g., create 
-	Graphics Algorithms like a <span class="keyword">RoundedRectangle</span> or 
+	Graphics Algorithms like a <em>Rounded Rectangle</em> or 
 	a text element. Initialize them with colors and fonts and do the layout.</li>
 	<li>Create the link between<em> Pictogram Model object</em> and<em> Domain 
 	Model object</em> (<em>Link Model</em>).</li>
@@ -262,13 +267,48 @@ Interaction Component</strong> are handled by the <strong>Diagram Type Provider<
 This includes the selection of the appropriate update strategy, that is, the 
 decision when synchronizations between Domain and Pictogram Model have to be 
 done.</p>
+<h3><a name="Linkage_Structure_of_the_Involved_Artifacts">Linkage Structure of the Involved Artifacts</a></h3>
 <p>&nbsp;</p>
+<p>
+<img alt="EClass Editor" height="306" longdesc="EClass Editor" src="visio/EClass-Editor.png" width="631"></p>
+<p><strong>Figure: Simple EClass Editor</strong></p>
 <p>&nbsp;</p>
+<p>You see in the figure above a first version of a ready-to-run graphical 
+editor for Ecore metamodels, which you will achieve after implementing a Diagram 
+Type Agent in four simple steps at the beginning of the<strong> Graphiti 
+Tutorial</strong>. The amount of code necessary for this is very low, which is 
+due to the rich standard implementations that are already part of the framework.</p>
+<p>Drag-and-drop gets the <em>PredefinedEClass</em> on the diagram, as it is 
+shown in the figure. Without any further implementations the EClass Shape can be 
+moved, resized, printed, and even deleted.</p>
+<p>The graphical reperesentation of an EClass is shown as a rounded rectangle 
+that contains a separator-like horizontal line above which the name of the 
+EClass appears as text.</p>
+<p>The Diagram Type Agent is implemented in following steps: first a <em>Diagram 
+Type Provider</em> is implemented , and then it is <em>registered</em> it for a 
+new <em>Diagram Type</em>. In the third step, a <em>Feature Provider</em> is 
+created for which an <em>Add Feature</em> is implemented in the end.</p>
 <p>&nbsp;</p>
+<p>
+<img alt="Linkage of the involved artifacts" class="auto-style1" height="366" longdesc="Linkage of the involved artifacts" src="visio/linked-objects.png" width="640"></p>
+<p><strong>Figure: Linkage of the involved artifacts</strong></p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p>The Figure above illustrates how the EClass will look like in the editor 
+(Result). The upper part of the figure shows how the Pictogram Elements of the 
+Add Feature, which are necessary for the graphical representation, are wired 
+with the Domain Object. </p>
+<p>In the left column of the <em>Pictogram Model</em> a <em>Container Shape</em> 
+aggregates two child Shapes, which are responsible for the Text Label and the 
+separation line. All three Shapes aggregate specific <em>Graphics Algorithms</em> 
+providing the complete information to allow the rendering of the EClass in the 
+editor. Examples for such information are positions, fore- and background 
+colours or a gradient, visibility, and line width as well as a line style. In 
+our example we have a <em>Rounded Rectangle</em> providing an additional corner 
+radius, a <em>Polyline</em> having defined end- and bend points, and a <em>Text 
+Label</em> containing a text value.</p>
+<p>The Container Shape and likewise the Shape containing the Text Label are 
+related to a corresponding EClass from the Domain Model. The relationship is 
+realized through special <em>Link Objects</em> which contain both ends.</p>
 <p>&nbsp;</p>
 
 </body>
