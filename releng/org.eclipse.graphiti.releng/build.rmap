@@ -8,14 +8,14 @@
   <rm:locator searchPathRef="orbit"/>
   <rm:searchPath name="releng">
     <rm:provider componentTypes="buckminster,osgi.bundle" readerType="git">
-      <rm:uri format="{0}/git,releng/{1}">
+      <rm:uri format="{0}/../git,releng/{1}">
         <bc:propertyRef key="workspace.root"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
       <rm:property key="git.remote.uri" value="${git.repository}"/>
     </rm:provider>
     <rm:provider componentTypes="eclipse.feature" readerType="git">
-      <rm:uri format="{0}/git,features/{1}">
+      <rm:uri format="{0}/../git,features/{1}">
         <bc:propertyRef key="workspace.root"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
@@ -24,28 +24,28 @@
   </rm:searchPath>
   <rm:searchPath name="sources">
     <rm:provider componentTypes="osgi.bundle" readerType="git">
-      <rm:uri format="{0}/git,plugins/{1}">
+      <rm:uri format="{0}/../git,plugins/{1}">
         <bc:propertyRef key="workspace.root"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
       <rm:property key="git.remote.uri" value="${git.repository}"/>
     </rm:provider>
     <rm:provider componentTypes="osgi.bundle" readerType="git">
-      <rm:uri format="{0}/git,examples/{1}">
+      <rm:uri format="{0}/../git,examples/{1}">
         <bc:propertyRef key="workspace.root"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
       <rm:property key="git.remote.uri" value="${git.repository}"/>
     </rm:provider>
     <rm:provider componentTypes="eclipse.feature" readerType="git">
-      <rm:uri format="{0}/git,features/{1}">
+      <rm:uri format="{0}/../git,features/{1}">
         <bc:propertyRef key="workspace.root"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
       <rm:property key="git.remote.uri" value="${git.repository}"/>
     </rm:provider>
     <rm:provider componentTypes="osgi.bundle" readerType="git">
-      <rm:uri format="{0}/git,tests/{1}">
+      <rm:uri format="{0}/../git,tests/{1}">
         <bc:propertyRef key="workspace.root"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
