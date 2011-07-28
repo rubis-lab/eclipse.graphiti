@@ -23,8 +23,8 @@
                 <cs:property key="targets" value="copy.sites"/>
             </cs:actorProperties>
             <cs:properties>
-                <cs:property key="build_id" value="${build.id}"/>
                 <cs:property key="root" value="${WORKSPACE}"/>
+                <cs:property key="build_id" value="${build.id}"/>
             </cs:properties>
             <cs:products alias="action.output" base="${WORKSPACE}/last_success/"/>
         </cs:public>
@@ -37,7 +37,7 @@
                 <cs:property key="root" value="${WORKSPACE}"/>
             </cs:properties>
             <cs:products>
-                <cs:public name="javadoc" path="${workspace.root}/git/examples/org.eclipse.graphiti.doc/javadoc"/>
+                <cs:public name="javadoc.output" base="plugins/org.eclipse.graphiti.doc/javadoc/"/>
             </cs:products>
         </cs:public>
         <cs:public name="create.site.index" actor="ant">
