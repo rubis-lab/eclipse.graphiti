@@ -21,6 +21,9 @@
      <toc
            file="toc.xml"
            primary="true"/>
+     <toc
+           file="toc_concepts.xml">
+     </toc>
      <toc file="toc_graphiti.xml"/>
   </extension>
 </plugin>

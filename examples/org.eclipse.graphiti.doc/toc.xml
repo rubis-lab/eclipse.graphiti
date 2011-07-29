@@ -16,6 +16,9 @@
  -->
 
 <toc label="Graphiti Developer Guide">
+ <topic label="Concepts">
+    <link toc="toc_concepts.xml"/>
+ </topic>
     <topic label="Tutorial">
        <link toc="toc_graphiti.xml"/>
     </topic>
