@@ -18,5 +18,11 @@
  
 <toc label="Concepts">
    <topic href="resources/docu/gfw/graphiti-introduction.htm" label="Graphiti Introduction">
+      <topic href="resources/docu/gfw/graphiti-introduction.htm#Development_of_High-Quality_Graphical_Model_Editors" label="Development of High-Quality Graphical Model Editors">
+      </topic>
+      <topic href="resources/docu/gfw/graphiti-introduction.htm#Architecture_and_Basic_Concepts" label="Architecture and Basic Concepts">
+      </topic>
+      <topic href="resources/docu/gfw/graphiti-introduction.htm#Tasks_of_the_Diagram_Type_Agent" label="Tasks of the Diagram Type Agent">
+      </topic>
    </topic>
 </toc>
