@@ -23,5 +23,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({ PackageTest.class, CommandStackTest.class, MigrationServiceTest.class, CustomUndoableFeatureTest.class,
 		RollbackTest.class })
 public class AllTests {
+	
+	// test comment
 
 }
