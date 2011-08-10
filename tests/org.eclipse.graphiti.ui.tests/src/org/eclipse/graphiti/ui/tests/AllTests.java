@@ -24,6 +24,6 @@ import org.junit.runners.Suite;
 		RollbackTest.class })
 public class AllTests {
 	
-	// test comment1
+	// test comment2
 
 }
