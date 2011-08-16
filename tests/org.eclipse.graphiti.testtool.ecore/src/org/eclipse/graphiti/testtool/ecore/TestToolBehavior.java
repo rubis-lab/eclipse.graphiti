@@ -33,6 +33,12 @@ import org.eclipse.graphiti.tb.IContextButtonPadData;
  */
 public class TestToolBehavior extends DefaultToolBehaviorProvider {
 
+	private static boolean showFlyoutPalette = true;
+
+	public static void setShowFlyoutPalette(boolean showFlyoutPalette) {
+		TestToolBehavior.showFlyoutPalette = showFlyoutPalette;
+	}
+
 	/**
 	 * Instantiates a new test tool behavior.
 	 * 
@@ -77,5 +83,10 @@ public class TestToolBehavior extends DefaultToolBehaviorProvider {
 	@Override
 	public String getContributorId() {
 		return null; // property sheet not supported
+	}
+	
+	@Override
+	public boolean isShowFlyoutPalette() {
+		return showFlyoutPalette;
 	}
 }
