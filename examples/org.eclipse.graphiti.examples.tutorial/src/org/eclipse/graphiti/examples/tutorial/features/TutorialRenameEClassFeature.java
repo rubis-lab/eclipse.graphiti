@@ -68,6 +68,7 @@ public class TutorialRenameEClassFeature extends AbstractCustomFeature {
 				if (newName != null && !newName.equals(currentName)) {
 					this.hasDoneChanges = true;
 					eClass.setName(newName);
+					updatePictogramElement(pes[0]);
 				}
 			}
 		}

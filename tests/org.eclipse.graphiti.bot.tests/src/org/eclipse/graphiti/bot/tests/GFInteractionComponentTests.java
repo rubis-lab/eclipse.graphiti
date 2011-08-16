@@ -43,6 +43,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.testtool.ecore.TestToolBehavior;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
@@ -53,12 +54,16 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.gef.finder.finders.PaletteFinder;
 import org.eclipse.swtbot.eclipse.gef.finder.matchers.AbstractToolEntryMatcher;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.matchers.WithLabel;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
+import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.junit.Test;
 
 public class GFInteractionComponentTests extends AbstractGFTests {
@@ -92,6 +97,17 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(1000);
+		shutdownEditor(diagramEditor);
+	}
+	
+	@Test
+	public void testHidePalette() throws Exception {
+	    DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		assertNotNull(diagramEditor.getEditDomain().getPaletteViewer());
+		shutdownEditor(diagramEditor);
+		TestToolBehavior.setShowFlyoutPalette(false);
+		diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		assertNull(diagramEditor.getEditDomain().getPaletteViewer());
 		shutdownEditor(diagramEditor);
 	}
 

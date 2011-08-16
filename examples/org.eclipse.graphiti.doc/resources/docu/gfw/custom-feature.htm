@@ -49,6 +49,7 @@ getDescription</a> have to return the information for the UI representation.</p>
 to change the EClass name. This custom feature should be available and enabled in 
 the context menu if exactly one EClass is selected.</p>
 <p>You can see the complete implementation of the custom feature here:</p>
+
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
@@ -98,7 +99,8 @@ the context menu if exactly one EClass is selected.</p>
 		</span>&amp;&amp; !newName.equals(currentName)) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">this</span>.<span class="string">hasDoneChanges
 		</span>= <span class="keyword">true</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		eClass.setName(newName);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		eClass.setName(newName);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		updatePictogramElement(pes[0]);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; 
 		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; @Override<br>&nbsp;&nbsp;&nbsp;
@@ -115,6 +117,7 @@ the context menu if exactly one EClass is selected.</p>
 getCustomFeatures</a>). </p>
 <p>This implementation can be seen here:</p>
 <!-- End code ------------------------------------------------------------------------------- -->
+
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
@@ -127,6 +130,7 @@ getCustomFeatures</a>). </p>
 </div>
 <p>&nbsp; </p>
 <!-- End code ------------------------------------------------------------------------------- -->
+
 <h2>Test: Rename a EClass with a Custom Popup-Dialog</h2>
 <p>Now start the editor and test this new custom feature:</p>
 <ol>
