@@ -269,6 +269,14 @@ public interface IToolBehaviorProvider {
 	 * @return <code>true</code>, if guides should be shown
 	 */
 	boolean isShowGuides();
+	
+	/**
+	 * Indicates whether flyout palette will be shown or not.
+	 * 
+	 * @return <code>true</code>, if flyout palette should be shown
+	 * @since 0.9
+	 */
+	boolean isShowFlyoutPalette();
 
 	/**
 	 * Indicates if the selection of multiple elements is enabled. Override this

@@ -470,4 +470,12 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		// does the job.
 		return false;
 	}
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public boolean isShowFlyoutPalette() {
+		return true;
+	}
 }
