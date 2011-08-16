@@ -33,7 +33,7 @@ import org.eclipse.graphiti.tb.IContextButtonPadData;
  */
 public class TestToolBehavior extends DefaultToolBehaviorProvider {
 
-	private static boolean showFlyoutPalette = true;
+	public static boolean showFlyoutPalette = true;
 
 	public static void setShowFlyoutPalette(boolean showFlyoutPalette) {
 		TestToolBehavior.showFlyoutPalette = showFlyoutPalette;

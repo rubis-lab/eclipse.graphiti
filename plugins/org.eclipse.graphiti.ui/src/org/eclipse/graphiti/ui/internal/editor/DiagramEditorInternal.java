@@ -886,6 +886,8 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 			@Override
 			public int getPaletteState() {
+				if (!getToolBehaviorProvider().isShowFlyoutPalette())
+					return 8;
 				return getPreferenceStore().getInt(PALETTE_STATE);
 			}
 
@@ -914,8 +916,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	private IPreferenceStore getPreferenceStore() {
 		IPreferenceStore ps = GraphitiUIPlugin.getDefault().getPreferenceStore();
 		ps.setDefault(DiagramEditorInternal.PALETTE_STATE, FlyoutPaletteComposite.STATE_PINNED_OPEN);
-		if (!getToolBehaviorProvider().isShowFlyoutPalette())
-			ps.setValue(DiagramEditorInternal.PALETTE_STATE, 8);
 		return ps;
 	}
 

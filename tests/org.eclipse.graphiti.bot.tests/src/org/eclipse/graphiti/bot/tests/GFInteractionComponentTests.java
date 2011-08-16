@@ -97,13 +97,16 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	
 	@Test
 	public void testHidePalette() throws Exception {
-	    DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		boolean oldValue = TestToolBehavior.showFlyoutPalette;
+		TestToolBehavior.setShowFlyoutPalette(true);
+		DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		assertNotNull(diagramEditor.getEditDomain().getPaletteViewer());
 		shutdownEditor(diagramEditor);
 		TestToolBehavior.setShowFlyoutPalette(false);
 		diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		assertNull(diagramEditor.getEditDomain().getPaletteViewer());
 		shutdownEditor(diagramEditor);
+		TestToolBehavior.setShowFlyoutPalette(oldValue);
 	}
 
 	@Test
