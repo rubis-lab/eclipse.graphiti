@@ -1301,7 +1301,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 					+ gaLocation.getY();
 			point = new Point(newX, newY);
 
-		} else if (pe instanceof FixPointAnchor) {
+		} else if (pe instanceof FixPointAnchor && pe.equals(graphicsAlgorithm.getPictogramElement())) {
 			FixPointAnchor fpa = (FixPointAnchor) pe;
 			IRectangle gaBoundsForAnchor = Graphiti.getLayoutService().getGaBoundsForAnchor(fpa);
 			org.eclipse.graphiti.mm.algorithms.styles.Point fpaLocation = fpa.getLocation();
