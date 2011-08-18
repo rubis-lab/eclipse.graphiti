@@ -218,7 +218,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		if (key == IGFAdapter.class || key == IWorkbenchAdapter.class || key == IWorkbenchAdapter2.class) {
 			ret = new GFAdapter();
 		} else if (key == IPropertySource.class) {
-			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
+					.getCurrentToolBehaviorProvider();
 			ret = tbp.getAdapter(key);
 		}
 		return ret;
@@ -427,7 +428,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @param updateNeeded
 	 *            the update needed
 	 */
-	void refreshFigureForGraphicsAlgorithm(final GraphicsAlgorithm graphicsAlgorithm, final PictogramElement pe, IReason updateNeeded) {
+	void refreshFigureForGraphicsAlgorithm(final GraphicsAlgorithm graphicsAlgorithm, final PictogramElement pe,
+			IReason updateNeeded) {
 		if (graphicsAlgorithm == null || pe == null) {
 			return;
 		}
@@ -462,8 +464,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		// refresh figure colors
 		if (selectedConnection) {
-			Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(),
-					Graphiti.getGaService().getBackgroundColor(graphicsAlgorithm, true));
+			Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService()
+					.getBackgroundColor(graphicsAlgorithm, true));
 			figure.setBackgroundColor(bg);
 		} else {
 			refreshFigureColors(figure, graphicsAlgorithm);
@@ -602,16 +604,19 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		// First check the need for an update needed tooltip
 		Label indicateUpdateNeedeTooltipLabel = null;
 		if (selectionFigure != null) {
-			// Indicate needed updates on selectionFigure (using figure would cause problems with invisible rectangles)
+			// Indicate needed updates on selectionFigure (using figure would
+			// cause problems with invisible rectangles)
 			indicateUpdateNeedeTooltipLabel = indicateNeededUpdates(selectionFigure, updateNeeded);
 		}
 
 		// Use the update needed tooltip in case it exists...
 		if (indicateUpdateNeedeTooltipLabel != null) {
-			// Use update needed tooltip in any case (tool provided tooltip would be probably invalid)
+			// Use update needed tooltip in any case (tool provided tooltip
+			// would be probably invalid)
 			tooltipLabel = indicateUpdateNeedeTooltipLabel;
 		} else {
-			// ... if not get the tool provided tooltip (for performance reasons only called in case no update needed tooltip exists)
+			// ... if not get the tool provided tooltip (for performance reasons
+			// only called in case no update needed tooltip exists)
 			String toolTip = toolBehaviorProvider.getToolTip(graphicsAlgorithm);
 			if (toolTip != null && !toolTip.isEmpty()) {
 				// null or empty string means no tooltip wanted
@@ -619,7 +624,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			}
 		}
 
-		// Set the tooltip in any case, especially also when it's null to clean up a previously set tooltip (see Bugzilla 348662) 
+		// Set the tooltip in any case, especially also when it's null to clean
+		// up a previously set tooltip (see Bugzilla 348662)
 		figure.setToolTip(tooltipLabel);
 	}
 
@@ -661,8 +667,10 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	private ILocation calculatePolylineLocation(Polyline polyline) {
 		Collection<org.eclipse.graphiti.mm.algorithms.styles.Point> points = polyline.getPoints();
 
-		int minX = points.isEmpty() ? 0 : ((org.eclipse.graphiti.mm.algorithms.styles.Point) points.toArray()[0]).getX();
-		int minY = points.isEmpty() ? 0 : ((org.eclipse.graphiti.mm.algorithms.styles.Point) points.toArray()[0]).getY();
+		int minX = points.isEmpty() ? 0 : ((org.eclipse.graphiti.mm.algorithms.styles.Point) points.toArray()[0])
+				.getX();
+		int minY = points.isEmpty() ? 0 : ((org.eclipse.graphiti.mm.algorithms.styles.Point) points.toArray()[0])
+				.getY();
 
 		for (Iterator<org.eclipse.graphiti.mm.algorithms.styles.Point> iter = points.iterator(); iter.hasNext();) {
 			org.eclipse.graphiti.mm.algorithms.styles.Point point = iter.next();
@@ -779,7 +787,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				PlatformGraphicsAlgorithm pga = (PlatformGraphicsAlgorithm) graphicsAlgorithm;
 				IGraphicsAlgorithmRendererFactory factory = getGraphicsAlgorithmRendererFactory();
 				if (factory != null) {
-					IRendererContext rendererContext = new RendererContext(pga, getConfigurationProvider().getDiagramTypeProvider());
+					IRendererContext rendererContext = new RendererContext(pga, getConfigurationProvider()
+							.getDiagramTypeProvider());
 					IGraphicsAlgorithmRenderer pr = factory.createGraphicsAlgorithmRenderer(rendererContext);
 					if (pr instanceof IFigure) {
 						ret = (IFigure) pr;
@@ -808,7 +817,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				GFAbstractShape gfAbstractShape = (GFAbstractShape) ret;
 				IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
 						.getCurrentToolBehaviorProvider();
-				gfAbstractShape.setSelectionBorder(currentToolBehaviorProvider.getSelectionBorder(getPictogramElement()));
+				gfAbstractShape.setSelectionBorder(currentToolBehaviorProvider
+						.getSelectionBorder(getPictogramElement()));
 				gfAbstractShape.setClickArea(currentToolBehaviorProvider.getClickArea(getPictogramElement()));
 			}
 		}
@@ -879,11 +889,13 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		String messageText = decorator.getMessage();
 
 		IFigure decoratorFigure = null;
-		org.eclipse.draw2d.geometry.Rectangle boundsForDecoratorFigure = new org.eclipse.draw2d.geometry.Rectangle(0, 0, 16, 16);
+		org.eclipse.draw2d.geometry.Rectangle boundsForDecoratorFigure = new org.eclipse.draw2d.geometry.Rectangle(0,
+				0, 16, 16);
 
 		if (decorator instanceof IImageDecorator) {
 			IImageDecorator imageDecorator = (IImageDecorator) decorator;
-			org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(imageDecorator.getImageId());
+			org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(
+					imageDecorator.getImageId());
 			ImageFigure imageFigure = new DecoratorImageFigure(imageForId);
 			decoratorFigure = imageFigure;
 			org.eclipse.swt.graphics.Rectangle imageBounds = imageFigure.getImage().getBounds();
@@ -927,7 +939,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	private Label indicateNeededUpdates(IFigure figure, IReason updateNeeded) {
 		Label ret = null;
 		if (figure != null && updateNeeded != null && updateNeeded.toBoolean()) {
-			// The figure needs an update, we indicate that with a red border and a tooltip showing the reason for the update 
+			// The figure needs an update, we indicate that with a red border
+			// and a tooltip showing the reason for the update
 			figure.setForegroundColor(ColorConstants.red);
 			if (figure instanceof Shape) {
 				Shape draw2dShape = (Shape) figure;
@@ -1018,10 +1031,10 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @param graphicsAlgorithm
 	 */
 	private void refreshFigureColors(IFigure figure, GraphicsAlgorithm graphicsAlgorithm) {
-		Color fg = DataTypeTransformation.toSwtColor(getConfigurationProvider(),
-				Graphiti.getGaService().getForegroundColor(graphicsAlgorithm, true));
-		Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(),
-				Graphiti.getGaService().getBackgroundColor(graphicsAlgorithm, true));
+		Color fg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService()
+				.getForegroundColor(graphicsAlgorithm, true));
+		Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService()
+				.getBackgroundColor(graphicsAlgorithm, true));
 		figure.setBackgroundColor(bg);
 		figure.setForegroundColor(fg);
 	}
@@ -1214,8 +1227,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		// PolylineConnection's and RotatableDecoration's will be handled by the
 		// gef-framework
-		if ((figure instanceof PolylineConnection) || figure instanceof GFPolylineConnection || (figure instanceof RotatableDecoration)
-				|| figure.getParent() == null) {
+		if ((figure instanceof PolylineConnection) || figure instanceof GFPolylineConnection
+				|| (figure instanceof RotatableDecoration) || figure.getParent() == null) {
 			return;
 		}
 
@@ -1251,7 +1264,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			if (connectionDecorator.isLocationRelative()) {
 				pointAt = GraphitiUiInternal.getGefService().getConnectionPointAt(connection, decoratorLocation);
 			} else { // location is absolute
-				pointAt = GraphitiUiInternal.getGefService().getAbsolutePointOnConnection(connection, decoratorLocation);
+				pointAt = GraphitiUiInternal.getGefService()
+						.getAbsolutePointOnConnection(connection, decoratorLocation);
 			}
 
 			if (pointAt == null) {
@@ -1281,8 +1295,10 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		} else if (pe instanceof BoxRelativeAnchor) {
 			BoxRelativeAnchor bra = (BoxRelativeAnchor) pe;
 			IRectangle gaBoundsForAnchor = Graphiti.getLayoutService().getGaBoundsForAnchor(bra);
-			double newX = gaBoundsForAnchor.getX() + (gaBoundsForAnchor.getWidth() * bra.getRelativeWidth()) + gaLocation.getX();
-			double newY = gaBoundsForAnchor.getY() + (gaBoundsForAnchor.getHeight() * bra.getRelativeHeight()) + gaLocation.getY();
+			double newX = gaBoundsForAnchor.getX() + (gaBoundsForAnchor.getWidth() * bra.getRelativeWidth())
+					+ gaLocation.getX();
+			double newY = gaBoundsForAnchor.getY() + (gaBoundsForAnchor.getHeight() * bra.getRelativeHeight())
+					+ gaLocation.getY();
 			point = new Point(newX, newY);
 
 		} else if (pe instanceof FixPointAnchor) {
@@ -1292,8 +1308,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			if (fpaLocation == null) {
 				return;
 			}
-			point = new Point(gaBoundsForAnchor.getX() + fpaLocation.getX() + gaLocation.getX(), gaBoundsForAnchor.getY()
-					+ fpaLocation.getY() + gaLocation.getY());
+			point = new Point(gaBoundsForAnchor.getX() + fpaLocation.getX() + gaLocation.getX(),
+					gaBoundsForAnchor.getY() + fpaLocation.getY() + gaLocation.getY());
 
 		} else {
 			point = new Point(gaLocation.getX(), gaLocation.getY());
@@ -1315,7 +1331,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		this.pictogramElement = pictogramElement;
 	}
 
-	private PointList toAbsoluteDraw2dPoints(Collection<org.eclipse.graphiti.mm.algorithms.styles.Point> points, ILocation location) {
+	private PointList toAbsoluteDraw2dPoints(Collection<org.eclipse.graphiti.mm.algorithms.styles.Point> points,
+			ILocation location) {
 		int deltaX = 0;
 		int deltaY = 0;
 		if (location != null) {
@@ -1395,9 +1412,10 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		return getConfigurationProvider().getDiagramEditor();
 	}
 
-	protected void addDecorators(final GraphicsAlgorithm graphicsAlgorithm, final PictogramElement pe, final IFigure figure,
-			IToolBehaviorProvider toolBehaviorProvider) {
-		if (pe.isActive() && !(pe instanceof Anchor) && !(pe instanceof Connection) && graphicsAlgorithm.equals(pe.getGraphicsAlgorithm())) {
+	protected void addDecorators(final GraphicsAlgorithm graphicsAlgorithm, final PictogramElement pe,
+			final IFigure figure, IToolBehaviorProvider toolBehaviorProvider) {
+		if (pe.isActive() && !(pe instanceof Anchor) && !(pe instanceof Connection)
+				&& graphicsAlgorithm.equals(pe.getGraphicsAlgorithm())) {
 
 			List<IFigure> decFigureList = decoratorMap.get(figure);
 			if (decFigureList != null) {
@@ -1449,7 +1467,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 	private boolean isDefaultBendPointRenderingActive() {
 		boolean defaultBendPointRenderingActive = true;
-		IToolBehaviorProvider ctbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+		IToolBehaviorProvider ctbp = getConfigurationProvider().getDiagramTypeProvider()
+				.getCurrentToolBehaviorProvider();
 		if (ctbp instanceof DefaultToolBehaviorProvider) {
 			defaultBendPointRenderingActive = ((DefaultToolBehaviorProvider) ctbp).isDefaultBendPointRenderingActive();
 		}
