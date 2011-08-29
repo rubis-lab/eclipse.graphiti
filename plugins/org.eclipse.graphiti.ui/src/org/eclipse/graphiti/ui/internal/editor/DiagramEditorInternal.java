@@ -548,9 +548,11 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		if (getSite() != null && getSite().getPage() != null) {
 			getSite().getPage().removeSelectionListener(this);
 		}
-
-		getEditDomain().getCommandStack().removeCommandStackEventListener(cmdStackListener);
-		getEditDomain().getCommandStack().dispose();
+		
+		if (getEditDomain() != null && getEditDomain().getCommandStack() != null) {
+			getEditDomain().getCommandStack().removeCommandStackEventListener(cmdStackListener);
+			getEditDomain().getCommandStack().dispose();
+		}
 
 		if (resourceRegistry != null) {
 			resourceRegistry.dispose();
@@ -560,10 +562,20 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		behavior.getEditingDomain().getCommandStack().removeCommandStackListener(fwListener);
 		fwListener = null;
 		behavior.dispose();
+		RuntimeException exc = null;
+		try {
+			super.dispose();
+		} catch (RuntimeException e) {
+			exc = e;
+		}
 
-		super.dispose();
+		if (getEditDomain() != null)
+			getEditDomain().setCommandStack(null);
 
-		getEditDomain().setCommandStack(null);
+		if (exc != null)
+			throw exc;
+
+
 	}
 
 	@Override
@@ -579,9 +591,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	@Override
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
-		final String METHOD = "setInput(IEditorInput)"; //$NON-NLS-1$
-
-		try {
 			// determine filename
 			if (input == null)
 				throw new IllegalArgumentException("The IEditorInput must not be null"); //$NON-NLS-1$
@@ -593,8 +602,8 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 			// can happen if editor is started with invalid URI
 			if (diagram == null) {
-				throw new IllegalStateException("Cannot open diagram '" + diagramEditorInput.getName() //$NON-NLS-1$
-						+ "'. Might have been deleted. See the error log for details."); //$NON-NLS-1$
+				throw new IllegalStateException("No Diagram found for URI '" + diagramEditorInput.getUriString() //$NON-NLS-1$
+						+ "'. . See the error log for details."); //$NON-NLS-1$
 			}
 
 			// set editing domain
@@ -611,34 +620,23 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			}
 
 			// get according diagram-type-provider
-			IDiagramTypeProvider diagramTypeProvider = GraphitiUi.getExtensionManager().createDiagramTypeProvider(providerId);
+			IDiagramTypeProvider diagramTypeProvider = GraphitiUi.getExtensionManager().createDiagramTypeProvider(
+					providerId);
 			if (diagramTypeProvider != null) {
 				diagramTypeProvider.init(diagram, this);
 				IConfigurationProvider configurationProvider = new ConfigurationProvider(this, diagramTypeProvider);
 				setConfigurationProvider(configurationProvider);
 				handleAutoUpdateAtStartup(diagram, diagramTypeProvider);
 			} else {
-				throw new IllegalArgumentException("could not find diagram type provider for " + diagram.getDiagramTypeId()); //$NON-NLS-1$
+				throw new IllegalArgumentException(
+						"could not find diagram type provider for " + diagram.getDiagramTypeId()); //$NON-NLS-1$
 			}
 
 			registerBOListener();
 			registerDiagramResourceSetListener();
 
-			// set title
 			refreshTitle();
 
-		} catch (final Exception e) {
-
-			// report exception async as UI may not be there yet
-			getSite().getShell().getDisplay().asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					String message = "Can not open the modifier. Details " + e.getMessage(); //$NON-NLS-1$
-					T.racer().error(message, e);
-					T.racer().error(METHOD, message + "\nDetails: " + GraphitiUiInternal.getTraceService().getStacktrace(e)); //$NON-NLS-1$
-				}
-			});
-		}
 	}
 
 	/**
@@ -1092,7 +1090,11 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		getBehavior().init(site, input, mDirtyFlagUpdater);
 		// In next line GEF calls setSite(), setInput(),
 		// getEditingDomain(), ...
-		super.init(site, input);
+		try {
+			super.init(site, input);
+		} catch (RuntimeException e) {
+			throw new PartInitException(e.getMessage());
+		}
 		fwListener = new FWCommandStackListener();
 		getBehavior().getEditingDomain().getCommandStack().addCommandStackListener(fwListener);
 
@@ -1389,11 +1391,8 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	}
 
 	private void refreshTitle() {
-		String name = getConfigurationProvider().getDiagramTypeProvider().getDiagramTitle();
-		if (name == null || name.length() == 0) {
-			name = getConfigurationElement().getAttribute("name"); //$NON-NLS-1$
-		}
-		setPartName(name);
+		String lastSegment = getDiagramTypeProvider().getDiagram().eResource().getURI().lastSegment();
+		setPartName(lastSegment);
 	}
 
 	@Override

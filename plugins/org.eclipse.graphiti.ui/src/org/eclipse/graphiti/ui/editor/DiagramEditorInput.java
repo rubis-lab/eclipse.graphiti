@@ -78,7 +78,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	/**
 	 * The stored {@link URI} string
 	 */
-	private final String uriName;
+	private String uriName;
 
 	/**
 	 * The stored {@link URI} in normalized form.
@@ -806,5 +806,14 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 			}
 		}
 		return ret;
+	}
+	
+	/**
+	 * @since 0.9
+	 */
+	public void updateUri(URI diagramFileUri) {
+		String fileString = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri).toString();
+		this.uriName = fileString;
+		this.normalizedUri = createNormalizedUri();
 	}
 }

@@ -71,7 +71,14 @@ public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchr
 
 	@Override
 	public boolean handleResourceMoved(Resource resource, URI newURI) {
-		return false;
+		// Handle rename or move of resource.
+		// ((ResourceSetImpl)
+		// (ResourceSetimpl(deb.getEditingDomain().getResourceSet())).getURIResourceMap().remove(resource.getURI());
+		// Map<URI, Resource> uriResourceMap = ((ResourceSetImpl)deb.getEditingDomain().getResourceSet()).getURIResourceMap();
+		resource.setURI(newURI);
+		deb.getEditorInput().updateUri(newURI);
+		deb.refreshEditorContent();
+		return true;
 	}
 
 }

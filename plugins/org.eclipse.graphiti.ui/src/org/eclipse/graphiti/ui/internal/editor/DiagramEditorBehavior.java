@@ -766,9 +766,18 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		return ((IWorkspaceCommandStack) getEditingDomain().getCommandStack()).getDefaultUndoContext();
 	}
 
-	private void refreshEditorContent() {
+	public void refreshEditorContent() {
 		if (editorPart instanceof DiagramEditorInternal) {
 			((DiagramEditorInternal) editorPart).refreshContent();
 		}
+	}
+	
+	public DiagramEditorInput getEditorInput() {
+		IEditorInput editorInput = editorPart.getEditorInput();
+		if (editorInput instanceof DiagramEditorInput) {
+			return ((DiagramEditorInput) editorInput);
+		}
+		return null;
+
 	}
 }
