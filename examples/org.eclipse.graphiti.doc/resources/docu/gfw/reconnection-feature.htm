@@ -37,9 +37,9 @@ standard implementation <a href="../../../javadoc/org/eclipse/graphiti/features/
 	canReconnect</a> has to check whether the reconnection is allowed for the given 
 	context.</li>
 	<li>The methods
-	<a href="../../../javadoc/org/eclipse/graphiti/func/ICreateConnection.html#preReconnect(org.eclipse.graphiti.features.context.IReconnectionContext)">
+	<a href="../../../javadoc/org/eclipse/graphiti/func/IReconnection.html#preReconnect(org.eclipse.graphiti.features.context.IReconnectionContext)">
 	preReconnect</a> and
-	<a href="../../../javadoc/org/eclipse/graphiti/func/ICreateConnection.html#postReconnect(org.eclipse.graphiti.features.context.IReconnectionContext)">
+	<a href="../../../javadoc/org/eclipse/graphiti/func/IReconnection.html#postReconnect(org.eclipse.graphiti.features.context.IReconnectionContext)">
 	postReconnect</a> can be used to modify business objects, manage bend points 
 	etc.</li>
 </ul>
@@ -74,8 +74,7 @@ at all.</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
 <p>Additionally the feature provider has to deliver our newly created feature (overwrite 
 the method
-<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getReconnectionFeature()">
-getReconnectionFeature</a>).</p>
+<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getReconnectionFeature(org.eclipse.graphiti.features.context.IReconnectionContext)">getReconnectionFeature</a>).</p>
 <p>This implementation can be seen here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
