@@ -56,10 +56,11 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 	}
 
 	public boolean canMoveShape(IMoveShapeContext context) {
-		return context.getSourceContainer() != null && context.getSourceContainer().equals(context.getTargetContainer());
+		return context.getSourceContainer() != null
+				&& context.getSourceContainer().equals(context.getTargetContainer());
 	}
 
-	final public void moveShape(IMoveShapeContext context) {
+	public void moveShape(IMoveShapeContext context) {
 		preMoveShape(context);
 		moveAllBendpoints(context);
 		internalMove(context);
@@ -155,13 +156,15 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 
 			shapeToMove.setContainer(newContainerShape);
 			if (shapeToMove.getGraphicsAlgorithm() != null) {
-				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
+				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y,
+						avoidNegativeCoordinates());
 			}
 			// restore selection
 			getDiagramEditor().setPictogramElementsForSelection(currentSelection);
 		} else { // move within the same container
 			if (shapeToMove.getGraphicsAlgorithm() != null) {
-				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
+				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y,
+						avoidNegativeCoordinates());
 			}
 		}
 	}
