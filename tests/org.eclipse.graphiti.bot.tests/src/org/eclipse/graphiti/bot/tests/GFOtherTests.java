@@ -23,6 +23,8 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,8 +33,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.IFigure;
@@ -197,7 +203,8 @@ public class GFOtherTests extends AbstractGFTests {
 		IExtensionManager extensionManager = GraphitiUi.getExtensionManager();
 		assertNotNull("extension manager not available", extensionManager);
 
-		String[] diagramTypeProviders = extensionManager.getDiagramTypeProviderIds(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		String[] diagramTypeProviders = extensionManager
+				.getDiagramTypeProviderIds(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		assertTrue("diagram type provider not available", diagramTypeProviders.length > 0);
 
 		IDiagramTypeProvider dtp = extensionManager.createDiagramTypeProvider(diagramTypeProviders[0]);
@@ -225,7 +232,8 @@ public class GFOtherTests extends AbstractGFTests {
 
 					@Override
 					protected void doExecute() {
-						addClassesAndReferenceToDiagram(fp, currentDiagram, 100, 100, "Connection", 700, 200, "ConnectionDecorator");
+						addClassesAndReferenceToDiagram(fp, currentDiagram, 100, 100, "Connection", 700, 200,
+								"ConnectionDecorator");
 					}
 				});
 
@@ -315,7 +323,7 @@ public class GFOtherTests extends AbstractGFTests {
 			@Override
 			public void run() {
 
-				// Get the figure to check the tooltip via SWTBot  
+				// Get the figure to check the tooltip via SWTBot
 				SWTBotGefEditor ed = getGefEditor();
 				SWTBotGefEditPart editPart = ed.getEditPart("Shape");
 				IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
@@ -371,7 +379,7 @@ public class GFOtherTests extends AbstractGFTests {
 				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 
-				// Get the figure to check the tooltip via SWTBot  
+				// Get the figure to check the tooltip via SWTBot
 				SWTBotGefEditor ed = getGefEditor();
 				SWTBotGefEditPart editPart = ed.getEditPart("Changed");
 				IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
@@ -429,7 +437,7 @@ public class GFOtherTests extends AbstractGFTests {
 			@Override
 			public void run() {
 
-				// Get the figure to check the tooltip via SWTBot  
+				// Get the figure to check the tooltip via SWTBot
 				SWTBotGefEditor ed = getGefEditor();
 				SWTBotGefEditPart editPart = ed.getEditPart("");
 				IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
@@ -544,8 +552,8 @@ public class GFOtherTests extends AbstractGFTests {
 				for (ICreateFeature createFeature : createFeatures) {
 					Rectangle rectangle = new Rectangle(x, 50, 100, 100);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-							createContext, rectangle);
+					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+							createFeature, createContext, rectangle);
 					commandStack.execute(createCommand);
 					x += 150;
 				}
@@ -657,7 +665,8 @@ public class GFOtherTests extends AbstractGFTests {
 				// test debug feature
 				Diagram diagram = dtp.getDiagram();
 				int debugTypes[] = new int[] { DebugFeature.TYPE_DUMP_ALL, DebugFeature.TYPE_DUMP_EDIT_PART_DATA,
-						DebugFeature.TYPE_DUMP_FIGURE_DATA, DebugFeature.TYPE_DUMP_PICTOGRAM_DATA, DebugFeature.TYPE_REFRESH };
+						DebugFeature.TYPE_DUMP_FIGURE_DATA, DebugFeature.TYPE_DUMP_PICTOGRAM_DATA,
+						DebugFeature.TYPE_REFRESH };
 				ICustomContext customContext = new CustomContext(new PictogramElement[] { diagram });
 				for (int i = 0; i < debugTypes.length; i++) {
 					DebugFeature debugFeature = new DebugFeature(fp, debugTypes[i]);
@@ -673,8 +682,8 @@ public class GFOtherTests extends AbstractGFTests {
 				for (ICreateFeature createFeature : createFeatures) {
 					Rectangle rectangle = new Rectangle(x, 50, 100, 100);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-							createContext, rectangle);
+					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+							createFeature, createContext, rectangle);
 					commandStack.execute(createCommand);
 					x -= 150;
 				}
@@ -705,7 +714,8 @@ public class GFOtherTests extends AbstractGFTests {
 					GraphitiUiInternal.getGefService().getLayoutConstraint(child);
 					GraphitiUiInternal.getGefService().selectEditPart(viewer, modelElement);
 					GraphitiUiInternal.getGefService().selectEditPart(viewer, null);
-					assertTrue((new Point(0, 0)).equals(GraphitiUiInternal.getGefService().calculateTranslation(child, child)));
+					assertTrue((new Point(0, 0)).equals(GraphitiUiInternal.getGefService().calculateTranslation(child,
+							child)));
 					if (tmp != null) {
 						GraphitiUiInternal.getGefService().calculateTranslation(child, tmp);
 					}
@@ -883,7 +893,8 @@ public class GFOtherTests extends AbstractGFTests {
 				Anchor anchor1 = getPeService().createFixPointAnchor(cs1);
 				Anchor anchor2 = getPeService().createFixPointAnchor(cs2);
 				FreeFormConnection freeFormConnection = getPeService().createFreeFormConnection(diagram);
-				ConnectionDecorator connectionDecorator = getPeService().createConnectionDecorator(freeFormConnection, true, 0.5, true);
+				ConnectionDecorator connectionDecorator = getPeService().createConnectionDecorator(freeFormConnection,
+						true, 0.5, true);
 
 				EObject[] ro = new EObject[] { c1, c2, c3, c4 };
 				Object[] linkedPictogramElements = getPeService().getLinkedPictogramElements(ro, diagram);
@@ -912,7 +923,8 @@ public class GFOtherTests extends AbstractGFTests {
 				LookManager.setDynamicLook(false);
 
 				GraphitiUiInternal.getTraceService().dumpPictogramModelTree(diagram);
-				org.eclipse.graphiti.mm.algorithms.Rectangle rectangle = Graphiti.getGaCreateService().createRectangle(diagram);
+				org.eclipse.graphiti.mm.algorithms.Rectangle rectangle = Graphiti.getGaCreateService().createRectangle(
+						diagram);
 				Graphiti.getGaCreateService().createDefaultText(diagram, rectangle);
 				GraphitiUiInternal.getTraceService().dumpGATree(rectangle);
 				Ellipse ellipse = new Ellipse();
@@ -1121,6 +1133,47 @@ public class GFOtherTests extends AbstractGFTests {
 	}
 
 	@Test
+	public void testMoveFileWhileDiagramIsOpen() throws Exception {
+		// Create initial diagram file
+		IFile diagFile = createPersistentDiagram();
+		assertTrue(diagFile.exists());
+		int editorCount = openDiagramEditorFromFile(diagFile);
+		assertEquals("One editor must have opened for " + diagFile, 1, editorCount);
+
+		// Create target folder.
+		IProject project = diagFile.getProject();
+		final String folderName = "testmove";
+		IFolder folder = project.getFolder(folderName);
+		folder.create(true, true, new NullProgressMonitor());
+		assertTrue(folder.exists());
+
+		// Move file.
+		IPath destination = folder.getFullPath().append(diagFile.getName());
+		diagFile.move(destination, true, new NullProgressMonitor());
+		project.refreshLocal(IProject.DEPTH_INFINITE, new NullProgressMonitor());
+		IFile file = project.getFolder(folderName).getFile(diagFile.getName());
+		assertThat(file, notNullValue());
+
+		// Check if editor still there.
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				assertEquals("Editor should still be there.", getWorkbenchPage().getEditorReferences().length, 1);
+			}
+		});
+
+		// No new editor should open.
+		openDiagramEditorFromFile(file);
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				assertEquals("No new editor should be opened.", getWorkbenchPage().getEditorReferences().length, 1);
+			}
+		});
+
+	}
+
+	@Test
 	public void testOpenDiagramFromFile() throws Exception {
 		int editorCount = 0;
 		closeAllEditors();
@@ -1214,7 +1267,7 @@ public class GFOtherTests extends AbstractGFTests {
 		return syncExec(new IntResult() {
 			@Override
 			public Integer run() {
-				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				IWorkbenchPage page = getWorkbenchPage();
 				try {
 					IEditorPart ed = IDE.openEditor(page, diagFile, DiagramEditor.DIAGRAM_EDITOR_ID);
 					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditor);
@@ -1233,10 +1286,10 @@ public class GFOtherTests extends AbstractGFTests {
 		return syncExec(new IntResult() {
 			@Override
 			public Integer run() {
-				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				IWorkbenchPage page = getWorkbenchPage();
 				try {
-					IEditorInput input = DiagramEditorInput.createEditorInput(diagram, domain, GraphitiUi.getExtensionManager()
-							.getDiagramTypeProviderId(diagram.getDiagramTypeId()), false);
+					IEditorInput input = DiagramEditorInput.createEditorInput(diagram, domain, GraphitiUi
+							.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId()), false);
 					IEditorPart ed = IDE.openEditor(page, input, DiagramEditor.DIAGRAM_EDITOR_ID);
 					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditor);
 				} catch (PartInitException e) {
@@ -1245,6 +1298,11 @@ public class GFOtherTests extends AbstractGFTests {
 				return page.getEditorReferences().length;
 			}
 		});
+	}
+
+	private IWorkbenchPage getWorkbenchPage() {
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		return page;
 	}
 
 }
