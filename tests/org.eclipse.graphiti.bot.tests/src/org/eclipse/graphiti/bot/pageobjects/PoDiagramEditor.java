@@ -133,5 +133,9 @@ public class PoDiagramEditor extends PageObject{
 		closeEditor(getGefEditor());
 	}
 
+	public String getTitle() {
+		return bot.activeEditor().getTitle();
+	}
+
 
 }

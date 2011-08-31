@@ -35,6 +35,8 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -1036,7 +1038,8 @@ public class GFOtherTests extends AbstractGFTests {
 		IFile diagFile = createInitialDiagramFile();
 		IFolder folder = createTargetFolder(diagFile);
 		IFile file = moveFileToFolder(diagFile, folder);
-
+		
+		Thread.sleep(500);
 		// Check if editor still there.
 		assertTrue(ed.isVisible());
 
@@ -1059,7 +1062,8 @@ public class GFOtherTests extends AbstractGFTests {
 
 		IFolder folder = createTargetFolder(diagFile);
 		IFile file = moveFileToFolder(diagFile, folder);
-
+		
+		Thread.sleep(500);
 		// Check if editor still there.
 		assertTrue(ed.isVisible());
 
@@ -1072,6 +1076,60 @@ public class GFOtherTests extends AbstractGFTests {
 		file.delete(true, new NullProgressMonitor());
 
 	}
+	
+	@Test
+	public void testRenameFileWhileDiagramIsOpen() throws Exception {
+		IFile diagFile = createInitialDiagramFile();
+				
+		// Rename
+		IPath destination = diagFile.getFullPath().removeLastSegments(1).append("renamed.diagram");
+		diagFile.move(destination, true, new NullProgressMonitor());
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IResource newResource = root.findMember(destination);
+		assertTrue(newResource.exists());
+		
+		Thread.sleep(500);
+		// Check that title changed according to rename.
+		assertEquals(destination.lastSegment(), ed.getTitle());
+				
+		page.closeAllEditors();
+		diagFile.delete(true, new NullProgressMonitor());
+		newResource.delete(true, new NullProgressMonitor());
+
+	}
+
+	
+	@Test
+	public void testRenameFileWhileDiagramIsOpenAndDirty() throws Exception {
+		IFile diagFile = createInitialDiagramFile();
+		
+		ed.dirtify();
+		assertTrue(ed.isDirty());
+
+		// Rename
+		IPath destination = diagFile.getFullPath().removeLastSegments(1).append("renamed.diagram");
+		diagFile.move(destination, true, new NullProgressMonitor());
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IResource newResource = root.findMember(destination);
+		assertTrue(newResource.exists());
+		
+		Thread.sleep(500);
+		
+		// Check that title changed according to rename and editor still dirty.
+		assertTrue(ed.isDirty());
+		assertEquals(destination.lastSegment(), ed.getTitle());
+				
+		page.closeAllEditors();
+		diagFile.delete(true, new NullProgressMonitor());
+		newResource.delete(true, new NullProgressMonitor());
+
+
+	}
+
+//	private IFile renameFile(IFile diagFile) {
+//		diagFile.
+//		return null;
+//	}
 
 	private IFile moveFileToFolder(IFile diagFile, IFolder folder) throws CoreException {
 		IPath destination = folder.getFullPath().append(diagFile.getName());
