@@ -144,7 +144,7 @@ public class GFPackageTests extends AbstractGFTests {
 		PictogramElement pe = getPictogramElement(diagramEditor);
 		LayoutContext layoutContext = new LayoutContext(pe);
 		assertFalse(myConfigurableFeatureProviderWrapper.canLayout(layoutContext).toBoolean());
-		closeEditor(diagramEditor);
+		page.closeActiveEditor();
 	}
 
 	@Test
@@ -342,7 +342,7 @@ public class GFPackageTests extends AbstractGFTests {
 			// ignore
 		}
 
-		closeEditor(diagramEditor);
+		page.closeActiveEditor();
 	}
 
 	private PictogramElement getPictogramElement(DiagramEditor diagramEditor) {
@@ -525,7 +525,7 @@ public class GFPackageTests extends AbstractGFTests {
 		pictogramElementMock = createNiceMock(PictogramElement.class);
 		replay(pictogramElementMock);
 
-		closeEditor(diagramEditor);
+		page.closeActiveEditor();
 	}
 
 }

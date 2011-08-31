@@ -17,8 +17,6 @@ package org.eclipse.graphiti.bot.tests;
 
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
 
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +36,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.graphiti.bot.pageobjects.PoDiagramEditor;
+import org.eclipse.graphiti.bot.pageobjects.PoWorkbenchPage;
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.examples.common.ExampleProjectNature;
 import org.eclipse.graphiti.examples.common.FileService;
@@ -62,28 +62,18 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
-import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotPerspective;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-abstract class AbstractGFTests extends SWTBotGefTestCase {
+public abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 	private static final String PROJECT_NAME = "GraphitiTestProject";
 
@@ -107,8 +97,9 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 	private IProject project;
 
-	protected static final String VIEW_REGEXP = "/^[\\*]?test_diagram_.+$/";
+	final protected PoDiagramEditor ed = new PoDiagramEditor();
 
+	final protected PoWorkbenchPage page = new PoWorkbenchPage();
 
 	public AbstractGFTests() {
 		super();
@@ -136,6 +127,42 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 		if (feature.canAdd(addContext)) {
 			feature.execute(addContext);
 		}
+	}
+	
+	
+	public static void executeInRecordingCommand(DiagramEditor diagramEditor, final Runnable run){
+		TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+
+			@Override
+			protected void doExecute() {
+				run.run();
+			}
+		});
+	}
+	
+	public static void executeInRecordingCommand(TransactionalEditingDomain domain, final Runnable run){
+		domain.getCommandStack().execute(new RecordingCommand(domain) {
+
+			@Override
+			protected void doExecute() {
+				run.run();
+			}
+		});
+	}
+	
+	public static void executeInRecordingCommandInUIThread(final DiagramEditor diagramEditor, final Runnable run){
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				executeInRecordingCommand(diagramEditor, run);
+			}
+		});
+	}
+	
+	
+	protected void addClassToDiagram(DiagramEditor ed, int x, int y, String className){
+		
 	}
 
 	protected void addClassesAndReferenceToDiagram(IFeatureProvider fp, Diagram diagram, int sourceX, int sourceY, String sourceClassName,
@@ -169,39 +196,6 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 			//			domain.dispose();
 			domain = null;
 		}
-	}
-
-	protected void closeEditor(final DiagramEditor diagramEditor) {
-
-		if (diagramEditor == null) {
-			return;
-		}
-
-		final IWorkbenchPage workbenchPage = diagramEditor.getEditorSite().getPage();
-
-		if (Display.getCurrent() == null) {
-
-			syncExec(new VoidResult() {
-				@Override
-				public void run() {
-					if (diagramEditor != null) {
-						workbenchPage.closeEditor(diagramEditor, false);
-					}
-				}
-			});
-		} else {
-			workbenchPage.closeEditor(diagramEditor, false);
-		}
-	}
-
-	protected void closeAllEditors() {
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-				page.closeAllEditors(false);
-			}
-		});
 	}
 
 	protected Diagram createDiagram(String diagramTypeId) {
@@ -474,75 +468,16 @@ abstract class AbstractGFTests extends SWTBotGefTestCase {
 	}
 
 	/**
-	 * @param diagramEditor
-	 */
-	protected void shutdownEditor(final DiagramEditor diagramEditor) {
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				// Using SWTBot yields an exception since a keyboard layout file for DE is not available.
-				//				bot.activeShell().pressShortcut(SWT.NONE, SWT.ESC);
-				try {
-					Robot r = new Robot();
-					r.keyPress(SWT.ESC);
-					r.keyRelease(SWT.ESC);
-				} catch (AWTException e) {
-					e.printStackTrace();
-				}
-				diagramEditor.doSave(null);
-				closeEditor(diagramEditor);
-			}
-		});
-	}
-
-	/**
 	 * @return
 	 */
 	protected SWTBotGefEditor getGefEditor() {
-		SWTBotEditor activeEditor = bot.activeEditor();
-		String title = activeEditor.getTitle();
-		SWTBotGefEditor ed = bot.gefEditor(title);
-		return ed;
+		return page.getGefEditor();
 	}
 
-	/**
-	 * @param ed
-	 * @return
-	 */
-	protected GFFigureCanvas getGFCanvas(final SWTBotGefEditor ed) {
-		// get instance of GFFigureCanvas
-		GFFigureCanvas gfFigureCanvas = getGFCanvas();
-		return gfFigureCanvas;
-	}
-
-
-	/**
-	 * @param ed
-	 * @return
-	 */
-	protected Point getOrigin(final SWTBotGefEditor ed) {
-		Canvas c = getGFCanvas();
-		Point p = c.toDisplay(0, 0);
-		return p;
-	}
-
-	protected GFFigureCanvas getGFCanvas() {
-		IEditorReference reference = getGefEditor().getReference();
-		final IEditorPart editor = reference.getEditor(true);
-		GraphicalViewer graphicalViewer = (GraphicalViewer) editor.getAdapter(GraphicalViewer.class);
-		final Control control = graphicalViewer.getControl();
-		if (control instanceof GFFigureCanvas) {
-			GFFigureCanvas c = (GFFigureCanvas) control;
-			return c;
-		}
-		return null;
-	}
 
 	protected ICreateContext createCreateContext(ContainerShape target, Rectangle rect) {
 		CreateContext ret = new CreateContext();
-
 		ret.setTargetContainer(target);
-
 		ret.setX(rect.x);
 		ret.setY(rect.y);
 		ret.setWidth(rect.width);

@@ -36,6 +36,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -61,12 +62,12 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
+import org.eclipse.graphiti.bot.pageobjects.PoWorkbenchPage;
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.datatypes.IRectangle;
@@ -132,20 +133,9 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
-import org.eclipse.swtbot.swt.finder.results.IntResult;
-import org.eclipse.swtbot.swt.finder.results.Result;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IMemento;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.IDE;
 import org.junit.After;
 import org.junit.Test;
 
@@ -153,12 +143,12 @@ public class GFOtherTests extends AbstractGFTests {
 
 	public GFOtherTests() {
 		super();
-	}
+	} 
 
 	@Override
 	@After
 	protected void tearDown() throws Exception {
-		closeAllEditors();
+		page.closeAllEditors();
 		super.tearDown();
 	}
 
@@ -226,37 +216,27 @@ public class GFOtherTests extends AbstractGFTests {
 				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
+				executeInRecordingCommand(diagramEditor, new Runnable() {
 					@Override
-					protected void doExecute() {
+					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, 100, 100, "Connection", 700, 200,
 								"ConnectionDecorator");
 					}
 				});
-
 				// check new model data in repository
 				assertEquals("unexpected number of diagram children", 2, currentDiagram.getChildren().size());
 				assertEquals("unexpected number of connections", 1, currentDiagram.getConnections().size());
 				org.eclipse.graphiti.mm.pictograms.Connection c = (org.eclipse.graphiti.mm.pictograms.Connection) currentDiagram
 						.getConnections().toArray()[0];
 				assertEquals("unexpected number of connection decorators", 3, c.getConnectionDecorators().size());
-
 				// waitForRefresh();
-
 				// change background color of GA
 				final Shape shape = findShapeForEClass(currentDiagram, "Connection");
-
 				// waitForRefresh();
-
 				diagramEditor.selectPictogramElements(new PictogramElement[] { shape });
-
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
+				executeInRecordingCommand(diagramEditor, new Runnable() {
 					@Override
-					protected void doExecute() {
+					public void run() {
 						moveClassShape(fp, currentDiagram, 10, 30, "Connection");
 						removeClassShape(fp, currentDiagram, "ConnectionDecorator");
 					}
@@ -271,7 +251,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 		});
 
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -294,16 +274,12 @@ public class GFOtherTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-
 				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
+				executeInRecordingCommand(diagramEditor, new Runnable() {
 					@Override
-					protected void doExecute() {
+					public void run() {
 						/*
 						 * Reuse of functionality originally written to add
 						 * classes for the ECore test tool. Might need adaption
@@ -313,7 +289,6 @@ public class GFOtherTests extends AbstractGFTests {
 					}
 				});
 			}
-
 		});
 
 		/*
@@ -322,12 +297,7 @@ public class GFOtherTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-
-				// Get the figure to check the tooltip via SWTBot
-				SWTBotGefEditor ed = getGefEditor();
-				SWTBotGefEditPart editPart = ed.getEditPart("Shape");
-				IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
-
+				IFigure figure = ed.getFigureWithLabel("Shape");
 				// Check original tooltip
 				if (!"Shape".equals(((Label) figure.getToolTip()).getText())) {
 					fail("Tooltip must be 'Shape'");
@@ -343,22 +313,16 @@ public class GFOtherTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-
 				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-
 				final ContainerShape tooltipShape = (ContainerShape) findShapeForEClass(currentDiagram, "Shape");
-
 				Object bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape);
 				if (bo instanceof EClass) {
 					final EClass eClass = (EClass) bo;
-
 					// Change the tooltip to something else and check it
-					editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+					executeInRecordingCommand(diagramEditor, new Runnable() {
 						@Override
-						protected void doExecute() {
+						public void run() {
 							eClass.setName("Changed");
 							Text text = (Text) tooltipShape.getChildren().get(1).getGraphicsAlgorithm();
 							text.setValue("Changed");
@@ -366,7 +330,6 @@ public class GFOtherTests extends AbstractGFTests {
 					});
 				}
 			}
-
 		});
 
 		/*
@@ -375,17 +338,10 @@ public class GFOtherTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-
 				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-
-				// Get the figure to check the tooltip via SWTBot
-				SWTBotGefEditor ed = getGefEditor();
-				SWTBotGefEditPart editPart = ed.getEditPart("Changed");
-				IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
-
+				IFigure figure = ed.getFigureWithLabel("Changed");
 				final ContainerShape tooltipShape = (ContainerShape) findShapeForEClass(currentDiagram, "Changed");
-
 				Object bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape);
 				if (bo instanceof EClass) {
 					if (!"Changed".equals(((Label) figure.getToolTip()).getText())) {
@@ -404,22 +360,16 @@ public class GFOtherTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-
 				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-
 				final ContainerShape tooltipShape = (ContainerShape) findShapeForEClass(currentDiagram, "Changed");
-
 				Object bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape);
 				if (bo instanceof EClass) {
 					final EClass eClass = (EClass) bo;
-
-					// Change the tooltip to null and check it
-					editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+					executeInRecordingCommand(diagramEditor, new Runnable() {
 						@Override
-						protected void doExecute() {
+						public void run() {
+							// Change the tooltip to null and check it
 							eClass.setName(""); // Empty name means no tooltip
 							Text text = (Text) tooltipShape.getChildren().get(1).getGraphicsAlgorithm();
 							text.setValue("Changed");
@@ -436,46 +386,38 @@ public class GFOtherTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-
 				// Get the figure to check the tooltip via SWTBot
-				SWTBotGefEditor ed = getGefEditor();
-				SWTBotGefEditPart editPart = ed.getEditPart("");
-				IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
+				IFigure figure = ed.getFigureWithLabel("");
 				if (figure.getToolTip() != null) {
 					fail("Tooltip must be null, but was '" + ((Label) figure.getToolTip()).getText() + "'");
 				}
 			}
-
 		});
-
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
 	public void testUndoRedo() throws Exception {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-
+		final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+		final Diagram diagram = diagramTypeProvider.getDiagram();
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-
-				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
-				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
-				final Diagram diagram = diagramTypeProvider.getDiagram();
-
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
+				executeInRecordingCommand(diagramEditor, new Runnable() {
 					@Override
-					protected void doExecute() {
+					public void run() {
 						addClassToDiagram(fp, diagram, 500, 500, "Shape");
 						addClassToDiagram(fp, diagram, 100, 100, "ContainerShape");
 						removeClassShape(fp, diagram, "ContainerShape");
 						moveClassShape(fp, diagram, 0, 0, "Shape");
+
 					}
 				});
 
 				// get UnDoStack
+				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 				org.eclipse.emf.common.command.CommandStack cmdStack = editingDomain.getCommandStack();
 
 				// process "undo" until UnDoStack is empty
@@ -489,12 +431,9 @@ public class GFOtherTests extends AbstractGFTests {
 					cmdStack.redo();
 				}
 				assertShapeCoordinates(diagramTypeProvider, "Shape", 0, 0);
-
 			}
-
 		});
-
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	/**
@@ -503,31 +442,20 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testRollback() throws Exception {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-
-		syncExec(new VoidResult() {
+		final IFeatureProvider fp = diagramEditor.getDiagramTypeProvider().getFeatureProvider();
+		final Diagram diagram = fp.getDiagramTypeProvider().getDiagram();
+		executeInRecordingCommand(diagramEditor, new Runnable() {
 			@Override
 			public void run() {
+				addClassToDiagram(fp, diagram, 500, 500, "Shape");
+				// enforce roll-back
+				throw new OperationCanceledException();
 
-				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
-				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
-				final Diagram diagram = diagramTypeProvider.getDiagram();
-
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
-					@Override
-					protected void doExecute() {
-						addClassToDiagram(fp, diagram, 500, 500, "Shape");
-						// enforce rollback
-						throw new OperationCanceledException();
-					}
-				});
-				assertEquals("Rollback of creation of shape failed", 0, diagram.getChildren().size());
 			}
-
 		});
 
-		shutdownEditor(diagramEditor);
+		assertEquals("Rollback of creation of shape failed", 0, diagram.getChildren().size());
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -536,10 +464,8 @@ public class GFOtherTests extends AbstractGFTests {
 		Object rootModelObject = diagramEditor.getGraphicalViewer().getContents().getModel();
 		assertTrue(rootModelObject instanceof Diagram);
 		Diagram diagram = (Diagram) rootModelObject;
-
 		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getConfigurationProvider().getDiagramTypeProvider();
 		IFeatureProvider featureProvider = diagramTypeProvider.getFeatureProvider();
-
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -586,7 +512,7 @@ public class GFOtherTests extends AbstractGFTests {
 		drillDownFeature.execute((IContext) customContextMock);
 		drillDownFeature.execute(customContextMock);
 
-		closeEditor(diagramEditor);
+		ed.closeEditor();
 	}
 
 	private class MyAbstractDrillDownFeature extends AbstractDrillDownFeature {
@@ -610,46 +536,23 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testThumbnailView() throws Exception {
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				IWorkbench workbench = PlatformUI.getWorkbench();
-				if (workbench != null) {
-					IWorkbenchWindow activeWorkbenchWindow = workbench.getActiveWorkbenchWindow();
-					if (activeWorkbenchWindow != null) {
-						IWorkbenchPage page = activeWorkbenchWindow.getActivePage();
-						if (page != null) {
-							try {
-								page.showView("org.eclipse.graphiti.ui.internal.editor.thumbnailview");
-							} catch (PartInitException e) {
-							}
-						}
-					}
-				}
-			}
-		});
+		SWTBotView thumbnail = bot.viewById("org.eclipse.graphiti.ui.internal.editor.thumbnailview");
+		thumbnail.show();
+		assertTrue(thumbnail.isActive());
 	}
 
 	@Test
 	public void testPlatformUtil() throws Exception {
-		final DiagramEditor ed = syncExec(new Result<DiagramEditor>() {
+		syncExec(new VoidResult() {
 			@Override
-			public DiagramEditor run() {
+			public void run() {
 				final Diagram newDiagram = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 				assertTrue("create diagram does not work", newDiagram != null);
-				return (DiagramEditor) GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram,
+				GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram,
 						getTransactionalEditingDomain(), false);
 			}
 		});
-
-		if (ed != null) {
-			syncExec(new VoidResult() {
-				@Override
-				public void run() {
-					closeEditor(ed);
-				}
-			});
-		}
+		ed.closeEditor();
 	}
 
 	@Test
@@ -727,7 +630,7 @@ public class GFOtherTests extends AbstractGFTests {
 			}
 		});
 
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -846,11 +749,9 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testGaUtil() throws Exception {
 		final Diagram diagram = createDiagram("test_gautil");
-
-		this.domain.getCommandStack().execute(new RecordingCommand(this.domain) {
-
+		executeInRecordingCommand(getTransactionalEditingDomain(), new Runnable() {
 			@Override
-			protected void doExecute() {
+			public void run() {
 				ContainerShape cs1 = getPeService().createContainerShape(diagram, true);
 				Shape shape1 = getPeService().createShape(cs1, true);
 				IGaService gaService = Graphiti.getGaService();
@@ -882,11 +783,10 @@ public class GFOtherTests extends AbstractGFTests {
 		final EClass c2 = (EClass) diagramResource.getEObject("/3");
 		final EClass c3 = (EClass) diagramResource.getEObject("/4");
 		final EClass c4 = (EClass) diagramResource.getEObject("/5");
-
-		this.domain.getCommandStack().execute(new RecordingCommand(this.domain) {
-
+		
+		executeInRecordingCommand(getTransactionalEditingDomain(), new Runnable() {
 			@Override
-			protected void doExecute() {
+			public void run() {
 				ContainerShape cs1 = getPeService().createContainerShape(diagram, true);
 				ContainerShape cs2 = getPeService().createContainerShape(diagram, true);
 				Shape shape1 = getPeService().createShape(cs1, true);
@@ -895,7 +795,7 @@ public class GFOtherTests extends AbstractGFTests {
 				FreeFormConnection freeFormConnection = getPeService().createFreeFormConnection(diagram);
 				ConnectionDecorator connectionDecorator = getPeService().createConnectionDecorator(freeFormConnection,
 						true, 0.5, true);
-
+				
 				EObject[] ro = new EObject[] { c1, c2, c3, c4 };
 				Object[] linkedPictogramElements = getPeService().getLinkedPictogramElements(ro, diagram);
 				assertEquals("Number of linked elements mismatch: ", 4, linkedPictogramElements.length);
@@ -917,11 +817,11 @@ public class GFOtherTests extends AbstractGFTests {
 				getPeService().getConnectionMidpoint(freeFormConnection, 0.5);
 				getPeService().getActiveContainerPe(shape1);
 				getPeService().removeProperty(cs1, "mc");
-
+				
 				LookManager.getLook();
 				LookManager.setDynamicLook(true);
 				LookManager.setDynamicLook(false);
-
+				
 				GraphitiUiInternal.getTraceService().dumpPictogramModelTree(diagram);
 				org.eclipse.graphiti.mm.algorithms.Rectangle rectangle = Graphiti.getGaCreateService().createRectangle(
 						diagram);
@@ -938,11 +838,10 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testUtils2() throws Exception {
 		final Diagram diagram = createDiagram("test_peutil");
-
-		this.domain.getCommandStack().execute(new RecordingCommand(this.domain) {
+		executeInRecordingCommand(getTransactionalEditingDomain(), new Runnable() {
 
 			@Override
-			protected void doExecute() {
+			public void run() {
 				// Build Pictograms model
 				IGaService gaService = Graphiti.getGaService();
 				ContainerShape containerShape1 = getPeService().createContainerShape(diagram, true);
@@ -997,6 +896,8 @@ public class GFOtherTests extends AbstractGFTests {
 				getPeService().moveBendpoints(executionInfo);
 				getPeService().sendToBack(innerShape1);
 				getPeService().sendToFront(innerShape1);
+				// TODO Auto-generated method stub
+
 			}
 		});
 
@@ -1048,11 +949,10 @@ public class GFOtherTests extends AbstractGFTests {
 		}
 
 		final Diagram diagram = createDiagram("test_peutil");
-
-		this.domain.getCommandStack().execute(new RecordingCommand(this.domain) {
-
+		
+		executeInRecordingCommand(getTransactionalEditingDomain(), new Runnable() {
 			@Override
-			protected void doExecute() {
+			public void run() {
 				ContainerShape cs1 = getPeService().createContainerShape(diagram, true);
 				int[] intArray = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
 				Polyline polyline = Graphiti.getGaCreateService().createPolyline(cs1, intArray);
@@ -1134,59 +1034,87 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testMoveFileWhileDiagramIsOpen() throws Exception {
-		// Create initial diagram file
-		IFile diagFile = createPersistentDiagram();
-		assertTrue(diagFile.exists());
-		int editorCount = openDiagramEditorFromFile(diagFile);
-		assertEquals("One editor must have opened for " + diagFile, 1, editorCount);
-
-		// Create target folder.
-		IProject project = diagFile.getProject();
-		final String folderName = "testmove";
-		IFolder folder = project.getFolder(folderName);
-		folder.create(true, true, new NullProgressMonitor());
-		assertTrue(folder.exists());
-
-		// Move file.
-		IPath destination = folder.getFullPath().append(diagFile.getName());
-		diagFile.move(destination, true, new NullProgressMonitor());
-		project.refreshLocal(IProject.DEPTH_INFINITE, new NullProgressMonitor());
-		IFile file = project.getFolder(folderName).getFile(diagFile.getName());
-		assertThat(file, notNullValue());
+		IFile diagFile = createInitialDiagramFile();
+		IFolder folder = createTargetFolder(diagFile);
+		IFile file = moveFileToFolder(diagFile, folder);
 
 		// Check if editor still there.
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				assertEquals("Editor should still be there.", getWorkbenchPage().getEditorReferences().length, 1);
-			}
-		});
+		assertTrue(ed.isVisible());
 
 		// No new editor should open.
-		openDiagramEditorFromFile(file);
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				assertEquals("No new editor should be opened.", getWorkbenchPage().getEditorReferences().length, 1);
-			}
-		});
+		PoWorkbenchPage page = new PoWorkbenchPage();
+		int count = page.openDiagramEditorFromFile(file);
+		assertEquals("No new editor should be opened.", count, 1);
+		
+		//clean up.
+		page.closeAllEditors();
+		file.delete(true, new NullProgressMonitor());
+	}
 
+	@Test
+	public void testMoveFileWhileDiagramIsOpenAndDirty() throws Exception {
+		IFile diagFile = createInitialDiagramFile();
+		
+		ed.dirtify();
+		assertTrue(ed.isDirty());
+
+		IFolder folder = createTargetFolder(diagFile);
+		IFile file = moveFileToFolder(diagFile, folder);
+
+		// Check if editor still there.
+		assertTrue(ed.isVisible());
+
+		// No new editor should open.
+		PoWorkbenchPage page = new PoWorkbenchPage();
+		int count = page.openDiagramEditorFromFile(file);
+		assertEquals("No new editor should be opened.", count, 1);
+		
+		page.closeAllEditors();
+		file.delete(true, new NullProgressMonitor());
+
+	}
+
+	private IFile moveFileToFolder(IFile diagFile, IFolder folder) throws CoreException {
+		IPath destination = folder.getFullPath().append(diagFile.getName());
+		diagFile.move(destination, true, new NullProgressMonitor());
+		diagFile.getProject().refreshLocal(IProject.DEPTH_INFINITE, new NullProgressMonitor());
+		IFile file = diagFile.getProject().getFolder(folder.getName()).getFile(diagFile.getName());
+		assertThat(file, notNullValue());
+		return file;
+	}
+
+	private IFolder createTargetFolder(IFile diagFile) throws CoreException {
+		final String folderName = "testmove";
+		IFolder folder = diagFile.getProject().getFolder(folderName);
+		if (!folder.exists())
+			folder.create(true, true, new NullProgressMonitor());
+		assertTrue(folder.exists());
+		return folder;
+	}
+
+	private IFile createInitialDiagramFile() throws Exception {
+		IFile diagFile = createPersistentDiagram();
+		assertTrue(diagFile.exists());
+		int editorCount = new PoWorkbenchPage().openDiagramEditorFromFile(diagFile);
+		assertEquals("One editor must have opened for " + diagFile, 1, editorCount);
+		return diagFile;
 	}
 
 	@Test
 	public void testOpenDiagramFromFile() throws Exception {
 		int editorCount = 0;
-		closeAllEditors();
+		page.closeAllEditors();
 
 		IFile diagFile1 = createPersistentDiagram();
 		IFile diagFile2 = createPersistentDiagram();
 
 		// open editor on first diagram file
-		editorCount = openDiagramEditorFromFile(diagFile1);
+		PoWorkbenchPage wp = new PoWorkbenchPage();
+		editorCount = wp.openDiagramEditorFromFile(diagFile1);
 		assertEquals("One editor must have opened for " + diagFile1, 1, editorCount);
 
 		// open same file again
-		editorCount = openDiagramEditorFromFile(diagFile1);
+		editorCount = wp.openDiagramEditorFromFile(diagFile1);
 		assertEquals("No new editor must have opened for " + diagFile1, 1, editorCount);
 
 		// {
@@ -1201,18 +1129,18 @@ public class GFOtherTests extends AbstractGFTests {
 		// }
 
 		// open editor on second file
-		editorCount = openDiagramEditorFromFile(diagFile2);
+		editorCount = wp.openDiagramEditorFromFile(diagFile2);
 		assertEquals("One editor must have opened for " + diagFile2, 2, editorCount);
 
 		// open first file again
-		editorCount = openDiagramEditorFromFile(diagFile1);
+		editorCount = wp.openDiagramEditorFromFile(diagFile1);
 		assertEquals("No new editor must have opened for " + diagFile1, 2, editorCount);
 	}
 
 	@Test
 	public void testOpenDiagramFromObject() throws Exception {
 		int editorCount = 0;
-		closeAllEditors();
+		page.closeAllEditors();
 
 		Diagram[] diagram = new Diagram[1];
 		createPersistentDiagram(diagram);
@@ -1221,19 +1149,20 @@ public class GFOtherTests extends AbstractGFTests {
 		Diagram diagram2 = diagram[0];
 
 		// open editor on first diagram
-		editorCount = openDiagramEditorFromObject(diagram1);
+		PoWorkbenchPage wp = new PoWorkbenchPage();
+		editorCount = wp.openDiagramEditorFromObject(diagram1, domain);
 		assertEquals("One editor must have opened for " + diagram1, 1, editorCount);
 
 		// open same diagram again
-		editorCount = openDiagramEditorFromObject(diagram1);
+		editorCount = wp.openDiagramEditorFromObject(diagram1, domain);
 		assertEquals("No new editor must have opened for " + diagram1, 1, editorCount);
 
 		// open editor on second diagram
-		editorCount = openDiagramEditorFromObject(diagram2);
+		editorCount = wp.openDiagramEditorFromObject(diagram2, domain);
 		assertEquals("One editor must have opened for " + diagram2, 2, editorCount);
 
 		// open first diagram again
-		editorCount = openDiagramEditorFromObject(diagram1);
+		editorCount = wp.openDiagramEditorFromObject(diagram1, domain);
 		assertEquals("No new editor must have opened for " + diagram1, 2, editorCount);
 	}
 
@@ -1261,48 +1190,6 @@ public class GFOtherTests extends AbstractGFTests {
 
 		assertNotNull(diagFile);
 		return diagFile;
-	}
-
-	private int openDiagramEditorFromFile(final IFile diagFile) {
-		return syncExec(new IntResult() {
-			@Override
-			public Integer run() {
-				IWorkbenchPage page = getWorkbenchPage();
-				try {
-					IEditorPart ed = IDE.openEditor(page, diagFile, DiagramEditor.DIAGRAM_EDITOR_ID);
-					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditor);
-				} catch (PartInitException e) {
-					fail(e.getMessage());
-				}
-				return page.getEditorReferences().length;
-			}
-		});
-	}
-
-	private int openDiagramEditorFromObject(final Diagram diagram) {
-		Resource resource = diagram.eResource();
-		assertNotNull(resource);
-
-		return syncExec(new IntResult() {
-			@Override
-			public Integer run() {
-				IWorkbenchPage page = getWorkbenchPage();
-				try {
-					IEditorInput input = DiagramEditorInput.createEditorInput(diagram, domain, GraphitiUi
-							.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId()), false);
-					IEditorPart ed = IDE.openEditor(page, input, DiagramEditor.DIAGRAM_EDITOR_ID);
-					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditor);
-				} catch (PartInitException e) {
-					fail(e.getMessage());
-				}
-				return page.getEditorReferences().length;
-			}
-		});
-	}
-
-	private IWorkbenchPage getWorkbenchPage() {
-		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		return page;
 	}
 
 }

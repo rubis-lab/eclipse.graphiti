@@ -73,7 +73,7 @@ public class GFDialogTests extends AbstractGFTests {
 		shell.bot().button("Cancel").click();
 		Thread.sleep(300);
 		bot.waitUntil(Conditions.shellCloses(shell));
-		closeEditor(diagramEditor);
+		page.closeActiveEditor();
 
 	}
 
@@ -94,7 +94,7 @@ public class GFDialogTests extends AbstractGFTests {
 		shell.bot().button("Cancel").click();
 		Thread.sleep(300);
 		bot.waitUntil(Conditions.shellCloses(shell));
-		closeEditor(diagramEditor);
+		page.closeActiveEditor();
 
 	}
 }

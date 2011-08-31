@@ -92,7 +92,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(1000);
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 	
 	@Test
@@ -101,11 +101,11 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		TestToolBehavior.setShowFlyoutPalette(true);
 		DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		assertNotNull(diagramEditor.getEditDomain().getPaletteViewer());
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 		TestToolBehavior.setShowFlyoutPalette(false);
 		diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		assertNull(diagramEditor.getEditDomain().getPaletteViewer());
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 		TestToolBehavior.setShowFlyoutPalette(oldValue);
 	}
 
@@ -138,7 +138,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
 		// Drag might not be accurate, add tolerance +-1
 		assertTrue((x + 149 <= figure.getBounds().x) && (figure.getBounds().x <= x + 151));
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -146,8 +146,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-		final SWTBotGefEditor ed = getGefEditor();
-
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -172,7 +170,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			@Override
 			public void run() {
 				// move class-shape to origin
-				ed.drag(SHAPE_NAME, -100, -100);
+				ed.getGefEditor().drag(SHAPE_NAME, -100, -100);
 			}
 		});
 		Thread.sleep(500);
@@ -181,7 +179,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			@Override
 			public void run() {
 				// get instance of GFFigureCanvas
-				GFFigureCanvas gfFigureCanvas = getGFCanvas();
+				GFFigureCanvas gfFigureCanvas = ed.getGFCanvas();
 
 				// do some scrolling
 				Event e = new Event();
@@ -236,13 +234,13 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				GFFigureCanvas gfFigureCanvas = getGFCanvas(ed);
+				GFFigureCanvas gfFigureCanvas = ed.getGFCanvas();
 				// regain space
 				gfFigureCanvas.regainSpace();
 			}
 		});
 		Thread.sleep(500);
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -253,8 +251,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-		final SWTBotGefEditor ed = getGefEditor();
-
+		
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -280,7 +277,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			@Override
 			public void run() {
 				// move class-shape to origin
-				ed.drag(SHAPE_NAME, 0, 0);
+				ed.getGefEditor().drag(SHAPE_NAME, 0, 0);
 			}
 		});
 		Thread.sleep(1000);
@@ -289,7 +286,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			@Override
 			public void run() {
 				// get instance of GFFigureCanvas
-				GFFigureCanvas gfFigureCanvas = getGFCanvas(ed);
+				GFFigureCanvas gfFigureCanvas = ed.getGFCanvas();
 				if (gfFigureCanvas == null)
 					return;
 				// scroll shape into visible region
@@ -307,7 +304,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-					Point p = getOrigin(ed);
+					Point p = ed.getOrigin();
 					Display display = GraphitiUiInternal.getWorkbenchService().getShell().getDisplay();
 					Event event = createMouseEvent(p.x + 35, p.y + 35, 0, 0, 0);
 					event.type = SWT.MouseMove;
@@ -332,7 +329,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		}
 		Thread.sleep(500);
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 
@@ -341,7 +338,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -369,7 +365,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				Robot r;
 				try {
 					r = new Robot();
-					Point p = getOrigin(ed);
+					Point p = ed.getOrigin(); 
 					r.mouseMove(p.x + 150, p.y + 150);
 				} catch (AWTException e) {
 					e.printStackTrace();
@@ -440,7 +436,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		});
 		Thread.sleep(1000);
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -459,7 +455,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final SWTBotGefEditor ed = getGefEditor();
-
+		
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -539,7 +535,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(1000);
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -595,7 +591,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Shape shape = (Shape) ep.part().getModel();
 		String value = ((MultiText) shape.getGraphicsAlgorithm().getGraphicsAlgorithmChildren().get(0)).getValue();
 		assertEquals(INPUT_STRING, value);
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -654,7 +650,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(1000);
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -701,7 +697,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		});
 		Thread.sleep(1000);
 		assertTrue(ed.mainEditPart().children().size() == 1);
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -809,7 +805,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		// This is an asynchronous callto the UI.
 		ed.drag(100 + containerSize / 2, 100 + containerSize / 2, 100 + containerSize / 2, 300 + containerSize / 2);
 		Thread.sleep(1000);
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -908,7 +904,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(1000);
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -1003,7 +999,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		}
 		Thread.sleep(1000);
 		assertEquals(objectCreationTools.size(), ed.mainEditPart().children().size());
-		shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	// @Test
