@@ -34,30 +34,46 @@ import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.DefaultFeatureProviderWrapper;
+import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.impl.CreateConnectionContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
+import org.eclipse.graphiti.internal.command.CommandContainer;
+import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
+import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.testtool.ecore.TestToolBehavior;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
+import org.eclipse.graphiti.testtool.sketch.features.ToggleDecorator;
+import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateFreeformConnectionFeature;
+import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaContainerFeature;
+import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaShapeFeature;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
+import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.gef.finder.finders.PaletteFinder;
 import org.eclipse.swtbot.eclipse.gef.finder.matchers.AbstractToolEntryMatcher;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.hamcrest.Description;
 import org.junit.Test;
 
@@ -96,7 +112,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
-	
+
 	@Test
 	public void testHidePalette() throws Exception {
 		boolean oldValue = TestToolBehavior.showFlyoutPalette;
@@ -206,7 +222,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(SHORT_DELAY);
-		
+
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -253,7 +269,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-		
+
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -306,13 +322,13 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-					Point p = ed.getOrigin();
-					Display display = GraphitiUiInternal.getWorkbenchService().getShell().getDisplay();
-					Event event = createMouseEvent(p.x + 35, p.y + 35, 0, 0, 0);
-					event.type = SWT.MouseMove;
-					event.widget = diagramEditor.getGraphicalViewer().getControl();
-					event.display = display;
-					display.post(event);
+				Point p = ed.getOrigin();
+				Display display = GraphitiUiInternal.getWorkbenchService().getShell().getDisplay();
+				Event event = createMouseEvent(p.x + 35, p.y + 35, 0, 0, 0);
+				event.type = SWT.MouseMove;
+				event.widget = diagramEditor.getGraphicalViewer().getControl();
+				event.display = display;
+				display.post(event);
 			}
 		});
 		Thread.sleep(DELAY);
@@ -333,7 +349,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(SHORT_DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
-
 
 	@Test
 	public void testContextButtons() throws Exception {
@@ -367,7 +382,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				Robot r;
 				try {
 					r = new Robot();
-					Point p = ed.getOrigin(); 
+					Point p = ed.getOrigin();
 					r.mouseMove(p.x + 150, p.y + 150);
 				} catch (AWTException e) {
 					e.printStackTrace();
@@ -457,7 +472,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final SWTBotGefEditor ed = getGefEditor();
-		
+
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -1001,6 +1016,126 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		}
 		Thread.sleep(DELAY);
 		assertEquals(objectCreationTools.size(), ed.mainEditPart().children().size());
+		page.shutdownEditor(diagramEditor);
+	}
+
+	@Test
+	public void testMoveConnectionDecorator() throws InterruptedException {
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final SWTBotGefEditor ed = getGefEditor();
+		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
+		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider()).getInnerFeatureProvider();
+		final CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
+
+		// Preparation work
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+
+				// Create an outer container
+				ICreateFeature createFeature = new SketchCreateGaContainerFeature(fp, "Rounded Rectangle Container",
+						"draw rounded rectangle", RoundedRectangle.class);
+				Rectangle rectangle = new Rectangle(0, 0, 500, 400);
+				ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
+				Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
+						createContext, rectangle);
+				commandStack.execute(createCommand);
+				ContainerShape outerShape = (ContainerShape) dtp.getDiagram().getChildren().get(0);
+
+				// Create two children
+				createFeature = new SketchCreateGaShapeFeature(fp, SketchFeatureProvider.CF_RECTANGLE_SINGLE_TEXT,
+						"draw rectangle with a single line text", org.eclipse.graphiti.mm.algorithms.Rectangle.class);
+				rectangle = new Rectangle(50, 50, 51, 51);
+				createContext = createCreateContext(outerShape, rectangle);
+				createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature, createContext,
+						rectangle);
+				commandStack.execute(createCommand);
+				Shape leftShape = outerShape.getChildren().get(0);
+
+				createFeature = new SketchCreateGaShapeFeature(fp, SketchFeatureProvider.CF_RECTANGLE_SINGLE_TEXT,
+						"draw rectangle with a single line text", org.eclipse.graphiti.mm.algorithms.Rectangle.class);
+				rectangle = new Rectangle(150, 50, 51, 51);
+				createContext = createCreateContext(outerShape, rectangle);
+				createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature, createContext,
+						rectangle);
+				commandStack.execute(createCommand);
+				Shape rightShape = outerShape.getChildren().get(1);
+
+				// Create a connection between the child shapes
+				final ICreateConnectionFeature[] ccfs = new ICreateConnectionFeature[] { new SketchCreateFreeformConnectionFeature(fp,
+						"free", "freeform connection") };
+				Anchor sourceAnchor = getPeService().getChopboxAnchor(leftShape);
+				Anchor targetAnchor = getPeService().getChopboxAnchor(rightShape);
+				final CreateConnectionContext ccc = new CreateConnectionContext();
+				ccc.setSourceAnchor(sourceAnchor);
+				ccc.setTargetAnchor(targetAnchor);
+
+				domain.getCommandStack().execute(new RecordingCommand(domain) {
+
+					@Override
+					protected void doExecute() {
+						for (ICreateConnectionFeature ccf : ccfs) {
+							if (ccf.canCreate(ccc)) {
+								ccf.execute(ccc);
+							}
+						}
+
+					}
+				});
+
+				// Show the connection decorators
+				ToggleDecorator feature = new ToggleDecorator(fp);
+				CustomContext context = new CustomContext();
+				context.setPictogramElements(new PictogramElement[] { dtp.getDiagram() });
+				GenericFeatureCommandWithContext gfcwc = new GenericFeatureCommandWithContext(feature, context);
+				CommandContainer commandContainer = new CommandContainer(fp);
+				commandContainer.add(gfcwc);
+				GefCommandWrapper gefCommandWrapper = new GefCommandWrapper(commandContainer, domain);
+				commandStack.execute(gefCommandWrapper);
+
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
+		// Do the move of the connection decorator
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				ed.drag(115, 80, 135, 110);
+
+				ConnectionDecorator connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators().get(0);
+				assertEquals(17, connectionDecorator.getGraphicsAlgorithm().getX());
+				assertEquals(5, connectionDecorator.getGraphicsAlgorithm().getY());
+
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
+		// Set zoom level to next zoom level (150%)
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				SWTBotMenu viewMenu = new SWTWorkbenchBot().menu("View");
+				viewMenu.click();
+				SWTBotMenu zoomInItem = viewMenu.menu("Zoom In");
+				zoomInItem.click();
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
+		// Do the move of the connection decorator with zoom enabled
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				ed.drag(200, 150, 220, 180);
+
+				ConnectionDecorator connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators().get(0);
+				assertEquals(33, connectionDecorator.getGraphicsAlgorithm().getX());
+				assertEquals(25, connectionDecorator.getGraphicsAlgorithm().getY());
+
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
 

@@ -35,7 +35,6 @@ import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
-import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -75,7 +74,6 @@ import org.eclipse.graphiti.ui.internal.command.MoveAnchorFeatureCommandWithCont
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
-import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.viewers.ISelection;
@@ -122,25 +120,9 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		Rectangle rectangle = getHostFigure().getBounds();
 
 		if (model instanceof ConnectionDecorator && constraint instanceof Rectangle && rectangle != null) {
-
-			// change constraint to absolute values
-			getHostFigure().translateToAbsolute((Rectangle) constraint);
-
-			IConfigurationProvider configurationProvider = getConfigurationProvider();
-			Point viewLocation = null;
-			DiagramEditorInternal diagramEditor = getConfigurationProvider().getDiagramEditor();
-			if (diagramEditor.getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-				GFFigureCanvas c = (GFFigureCanvas) configurationProvider.getDiagramEditor().getGraphicalViewer().getControl();
-				viewLocation = c.getViewport().getViewLocation();
-			} else {
-				viewLocation = configurationProvider.getDiagramEditor().getFigureCanvas().getViewport().getViewLocation();
-			}
-
-			((Rectangle) constraint).translate(viewLocation);
-
 			ICommand cmd = getMoveConnectionDecoratorCommand((ConnectionDecorator) model, (Rectangle) constraint, rectangle.x, rectangle.y);
-
 			if (cmd != null) {
+				IConfigurationProvider configurationProvider = getConfigurationProvider();
 				return new GefCommandWrapper(cmd, configurationProvider.getDiagramEditor().getEditingDomain());
 			}
 		}
