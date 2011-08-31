@@ -120,6 +120,7 @@ public class PoWorkbenchPage extends PageObject{
 					e.printStackTrace();
 				}
 				diagramEditor.doSave(new NullProgressMonitor());
+				bot.editorByTitle(diagramEditor.getTitle()).close();
 			}
 		});
 	}

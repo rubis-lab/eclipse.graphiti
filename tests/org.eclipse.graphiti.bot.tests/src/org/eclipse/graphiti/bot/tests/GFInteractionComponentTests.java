@@ -63,6 +63,8 @@ import org.junit.Test;
 
 public class GFInteractionComponentTests extends AbstractGFTests {
 
+	private static final int SHORT_DELAY = 500;
+	private static final int DELAY = 1000;
 	/**
 	 * 
 	 */
@@ -83,7 +85,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final SWTBotGefEditor ed = getGefEditor();
 		createClassesAndConnection(x, y, diagramEditor, ed, null);
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -91,7 +93,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag("ConnectionDecorator", 200, 400);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
 	
@@ -116,15 +118,15 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final SWTBotGefEditor ed = getGefEditor();
 		createClassesAndConnection(x, y, diagramEditor, ed, "Marquee");
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		// Select the newly added shapes with the marquee tool.
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				ed.drag(x - 10, y - 10, x + 500, y + 500);
+				ed.drag(x - 10, y - 10, x + SHORT_DELAY, y + SHORT_DELAY);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -133,7 +135,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag(x + 50, y + 50, x + 200, y + 50);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		SWTBotGefEditPart editPart = ed.getEditPart(SHAPE_NAME);
 		IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
 		// Drag might not be accurate, add tolerance +-1
@@ -164,7 +166,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				});
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -173,7 +175,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.getGefEditor().drag(SHAPE_NAME, -100, -100);
 			}
 		});
-		Thread.sleep(500);
+		Thread.sleep(SHORT_DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -203,7 +205,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				gfFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
 			}
 		});
-		Thread.sleep(500);
+		Thread.sleep(SHORT_DELAY);
 		
 		syncExec(new VoidResult() {
 			@Override
@@ -216,7 +218,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				Display.getDefault().post(event);
 			}
 		});
-		Thread.sleep(500);
+		Thread.sleep(SHORT_DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -229,7 +231,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				Display.getDefault().post(event);
 			}
 		});
-		Thread.sleep(500);
+		Thread.sleep(SHORT_DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -239,7 +241,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				gfFigureCanvas.regainSpace();
 			}
 		});
-		Thread.sleep(500);
+		Thread.sleep(SHORT_DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -270,7 +272,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				});
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		// move class-shape to the origin (0,0)
 		syncExec(new VoidResult() {
@@ -280,7 +282,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.getGefEditor().drag(SHAPE_NAME, 0, 0);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -299,7 +301,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				gfFigureCanvas.getVerticalBar().notifyListeners(SWT.Selection, e);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -313,7 +315,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					display.post(event);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		PictogramElement[] selectedPictogramElements = diagramEditor.getSelectedPictogramElements();
 		for (PictogramElement pictogramElement : selectedPictogramElements) {
@@ -328,7 +330,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				break;
 			}
 		}
-		Thread.sleep(500);
+		Thread.sleep(SHORT_DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -357,7 +359,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -372,7 +374,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				}
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -392,7 +394,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				}
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -435,7 +437,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -495,7 +497,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				}
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -508,7 +510,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.click(xOfShape2 + DIL, yOfShape2 + DIL);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -518,7 +520,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.click((xOfShape1 + 60 + xOfShape3) / 2, (yOfShape1 + 60 + yOfShape3) / 2);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -526,7 +528,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag(xOfShape4 + DIL, yOfShape4 + DIL, xOfShape1 + DIL, (yOfShape2 + yOfShape1 + 2 * DIL) / 2);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -534,7 +536,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag(xOfShape1 + DIL, yOfShape1 + DIL, (xOfShape1 + 2 * DIL + xOfShape3) / 2, (yOfShape2 + yOfShape1 + 2 * DIL) / 2);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -566,7 +568,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				}
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -577,7 +579,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ep.activateDirectEdit();
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -622,7 +624,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				}
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -633,7 +635,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ep.activateDirectEdit();
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		final Robot robot = new Robot();
 		robot.setAutoDelay(50);
@@ -649,7 +651,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				robot.keyRelease(KeyEvent.VK_ENTER);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -687,7 +689,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -695,7 +697,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag(x + 50, y + 50, x + 300 + 100, y + 50);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		assertTrue(ed.mainEditPart().children().size() == 1);
 		page.shutdownEditor(diagramEditor);
 	}
@@ -759,7 +761,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -772,7 +774,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag(currX, currY, currX - (containerSize + rectangleSize) / 2, currY - (containerSize + rectangleSize) / 2);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -782,7 +784,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.click(300 + containerSize / 2, 100 + containerSize / 2);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -792,7 +794,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.click(300 + containerSize / 2 - rectangleSize / 2 - 5, 100 + containerSize / 2); // middle
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -801,10 +803,10 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						/ 2 - 10, 100 + containerSize / 2);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		// This is an asynchronous callto the UI.
 		ed.drag(100 + containerSize / 2, 100 + containerSize / 2, 100 + containerSize / 2, 300 + containerSize / 2);
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -839,7 +841,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -850,7 +852,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.click(350, 150);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -861,7 +863,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.click(250, 150); // middle
 			}
 		});
-		Thread.sleep(500);
+		Thread.sleep(SHORT_DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -869,7 +871,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag(250, 150, 250, 100);
 			}
 		});
-		Thread.sleep(500);
+		Thread.sleep(SHORT_DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -877,7 +879,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag(250, 100, 250, 200);
 			}
 		});
-		Thread.sleep(500);
+		Thread.sleep(SHORT_DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -885,7 +887,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag(250, 200, 250, 150);
 			}
 		});
-		Thread.sleep(500);
+		Thread.sleep(SHORT_DELAY);
 
 		syncExec(new VoidResult() {
 			@Override
@@ -893,7 +895,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag(250, 150, 250, 195);
 			}
 		});
-		Thread.sleep(500);
+		Thread.sleep(SHORT_DELAY);
 
 		// remove the connection via context menu
 		syncExec(new VoidResult() {
@@ -903,7 +905,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.clickContextMenu("Remove");
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -932,7 +934,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				});
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		// select shape
 		syncExec(new VoidResult() {
@@ -942,7 +944,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.select(editPart);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		// resize shape
 		syncExec(new VoidResult() {
@@ -951,7 +953,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ed.drag(100, 100, 120, 120);
 			}
 		});
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 
 		SWTBotGefEditPart editPart = ed.getEditPart(SHAPE_NAME);
 		IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
@@ -997,7 +999,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				counter[0]++;
 			}
 		}
-		Thread.sleep(1000);
+		Thread.sleep(DELAY);
 		assertEquals(objectCreationTools.size(), ed.mainEditPart().children().size());
 		page.shutdownEditor(diagramEditor);
 	}
