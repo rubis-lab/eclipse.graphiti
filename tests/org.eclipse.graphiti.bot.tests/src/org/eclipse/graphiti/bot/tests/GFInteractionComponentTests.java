@@ -27,8 +27,6 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.transaction.RecordingCommand;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.palette.PaletteEntry;
@@ -72,7 +70,6 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.gef.finder.finders.PaletteFinder;
 import org.eclipse.swtbot.eclipse.gef.finder.matchers.AbstractToolEntryMatcher;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.hamcrest.Description;
@@ -1003,22 +1000,16 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(SHORT_DELAY);
 
 		// Do the move of the connection decorator with standard zoom level (100%)
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.drag(115, 80, 135, 110);
-
-				ConnectionDecorator connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators().get(0);
-				/*
-				 * Strange numbers below are ok: they are "calculated" using the
-				 * previous offset of the decorator, the new move point and the
-				 * position the drag operation starts
-				 */
-				assertEquals(17, connectionDecorator.getGraphicsAlgorithm().getX());
-				assertEquals(5, connectionDecorator.getGraphicsAlgorithm().getY());
-
-			}
-		});
+		ed.drag(115, 80, 135, 110);
+		ConnectionDecorator connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators()
+				.get(0);
+		/*
+		 * Strange numbers below are ok: they are "calculated" using the
+		 * previous offset of the decorator, the new move point and the position
+		 * the drag operation starts
+		 */
+		assertEquals(17, connectionDecorator.getGraphicsAlgorithm().getX());
+		assertEquals(5, connectionDecorator.getGraphicsAlgorithm().getY());
 		Thread.sleep(SHORT_DELAY);
 
 		// Set zoom level to next zoom level (150%)
@@ -1034,22 +1025,16 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(SHORT_DELAY);
 
 		// Do the move of the connection decorator with zoom level as set before
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.drag(200, 150, 220, 180);
-
-				/*
-				 * Strange numbers below are ok: they are "calculated" using the
-				 * previous offset of the decorator, the new move point, the
-				 * position the drag operation starts and the zoom factor
-				 */
-				ConnectionDecorator connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators().get(0);
-				assertEquals(33, connectionDecorator.getGraphicsAlgorithm().getX());
-				assertEquals(25, connectionDecorator.getGraphicsAlgorithm().getY());
-
-			}
-		});
+		ed.drag(200, 150, 220, 180);
+		/*
+		 * Strange numbers below are ok: they are "calculated" using the
+		 * previous offset of the decorator, the new move point, the position
+		 * the drag operation starts and the zoom factor
+		 */
+		connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators()
+				.get(0);
+		assertEquals(33, connectionDecorator.getGraphicsAlgorithm().getX());
+		assertEquals(25, connectionDecorator.getGraphicsAlgorithm().getY());
 		Thread.sleep(SHORT_DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
