@@ -98,7 +98,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		createClassesAndConnection(x, y, diagramEditor.getDiagramTypeProvider(), null, SHAPE_NAME);
 		Thread.sleep(DELAY);
-		syncExec(new VoidResult() { 
+		syncExec(new VoidResult() {
 			@Override
 			public void run() {
 				ed.getGefEditor().drag(SHAPE_NAME, 200, 50);
@@ -520,7 +520,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		page.shutdownEditor(diagramEditor);
 	}
 
-
 	@Test
 	public void testDirectEditingMultiText() throws Exception {
 		final int x = 100;
@@ -759,8 +758,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(DELAY);
-		ed.drag(300 + containerSize / 2 - rectangleSize / 2 - 1, 100 + containerSize / 2, 300 + containerSize / 2 - rectangleSize
-				/ 2 - 10, 100 + containerSize / 2);
+		ed.drag(300 + containerSize / 2 - rectangleSize / 2 - 1, 100 + containerSize / 2, 300 + containerSize / 2 - rectangleSize / 2 - 10,
+				100 + containerSize / 2);
 		ed.drag(100 + containerSize / 2, 100 + containerSize / 2, 100 + containerSize / 2, 300 + containerSize / 2);
 		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
@@ -873,7 +872,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		// resize shape
 		ed.drag(100, 100, 120, 120);
 		Thread.sleep(DELAY);
-		IFigure figure  = ed.getFigureWithLabel(SHAPE_NAME);
+		IFigure figure = ed.getFigureWithLabel(SHAPE_NAME);
 		assertEquals(120, figure.getBounds().x);
 		assertEquals(120, figure.getBounds().y);
 	}
@@ -923,6 +922,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	@Test
 	public void testMoveConnectionDecorator() throws InterruptedException {
 		// Test for Bug 355027: Move of connection decorators when zoom level != 100 behaves weird
+		page.closeAllEditors();
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider()).getInnerFeatureProvider();
@@ -996,8 +996,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		// Do the move of the connection decorator with standard zoom level (100%)
 		ed.drag(115, 80, 135, 110);
-		ConnectionDecorator connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators()
-				.get(0);
+		ConnectionDecorator connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators().get(0);
 		/*
 		 * Strange numbers below are ok: they are "calculated" using the
 		 * previous offset of the decorator, the new move point and the position
@@ -1020,17 +1019,16 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(SHORT_DELAY);
 
 		// Do the move of the connection decorator with zoom level as set before
-		ed.drag(200, 150, 220, 180);
+		ed.drag(198, 150, 220, 180);
 		/*
 		 * Strange numbers below are ok: they are "calculated" using the
 		 * previous offset of the decorator, the new move point, the position
 		 * the drag operation starts and the zoom factor
 		 */
-		connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators()
-				.get(0);
+		connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators().get(0);
 		assertEquals(33, connectionDecorator.getGraphicsAlgorithm().getX());
 		assertEquals(25, connectionDecorator.getGraphicsAlgorithm().getY());
-		Thread.sleep(SHORT_DELAY);
+		Thread.sleep(5000);
 		page.shutdownEditor(diagramEditor);
 	}
 }
