@@ -550,7 +550,7 @@ public class GFOtherTests extends AbstractGFTests {
 				final Diagram newDiagram = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 				assertTrue("create diagram does not work", newDiagram != null);
 				GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram,
-						getTransactionalEditingDomain(), false);
+						ed.getTransactionalEditingDomain(), false);
 			}
 		});
 		ed.closeEditor();
@@ -750,7 +750,7 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testGaUtil() throws Exception {
 		final Diagram diagram = createDiagram("test_gautil");
-		executeInRecordingCommand(getTransactionalEditingDomain(), new Runnable() {
+		executeInRecordingCommand(ed.getTransactionalEditingDomain(), new Runnable() {
 			@Override
 			public void run() {
 				ContainerShape cs1 = getPeService().createContainerShape(diagram, true);
@@ -773,7 +773,7 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testUtils() throws Exception {
 		TransactionalEditingDomain editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
-		this.domain = editingDomain;
+		ed.setEditingDomain(editingDomain);
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		URI diagramFileUri = URI.createPlatformPluginURI(
 				"/org.eclipse.graphiti.bot.tests/src/org/eclipse/graphiti/bot/tests/testUtil.diagram", true);
@@ -785,7 +785,7 @@ public class GFOtherTests extends AbstractGFTests {
 		final EClass c3 = (EClass) diagramResource.getEObject("/4");
 		final EClass c4 = (EClass) diagramResource.getEObject("/5");
 		
-		executeInRecordingCommand(getTransactionalEditingDomain(), new Runnable() {
+		executeInRecordingCommand(ed.getTransactionalEditingDomain(), new Runnable() {
 			@Override
 			public void run() {
 				ContainerShape cs1 = getPeService().createContainerShape(diagram, true);
@@ -839,7 +839,7 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testUtils2() throws Exception {
 		final Diagram diagram = createDiagram("test_peutil");
-		executeInRecordingCommand(getTransactionalEditingDomain(), new Runnable() {
+		executeInRecordingCommand(ed.getTransactionalEditingDomain(), new Runnable() {
 
 			@Override
 			public void run() {
@@ -951,7 +951,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 		final Diagram diagram = createDiagram("test_peutil");
 		
-		executeInRecordingCommand(getTransactionalEditingDomain(), new Runnable() {
+		executeInRecordingCommand(ed.getTransactionalEditingDomain(), new Runnable() {
 			@Override
 			public void run() {
 				ContainerShape cs1 = getPeService().createContainerShape(diagram, true);
@@ -1207,19 +1207,19 @@ public class GFOtherTests extends AbstractGFTests {
 
 		// open editor on first diagram
 		PoWorkbenchPage wp = new PoWorkbenchPage();
-		editorCount = wp.openDiagramEditorFromObject(diagram1, domain);
+		editorCount = wp.openDiagramEditorFromObject(diagram1, ed.getTransactionalEditingDomain());
 		assertEquals("One editor must have opened for " + diagram1, 1, editorCount);
 
 		// open same diagram again
-		editorCount = wp.openDiagramEditorFromObject(diagram1, domain);
+		editorCount = wp.openDiagramEditorFromObject(diagram1, ed.getTransactionalEditingDomain());
 		assertEquals("No new editor must have opened for " + diagram1, 1, editorCount);
 
 		// open editor on second diagram
-		editorCount = wp.openDiagramEditorFromObject(diagram2, domain);
+		editorCount = wp.openDiagramEditorFromObject(diagram2, ed.getTransactionalEditingDomain());
 		assertEquals("One editor must have opened for " + diagram2, 2, editorCount);
 
 		// open first diagram again
-		editorCount = wp.openDiagramEditorFromObject(diagram1, domain);
+		editorCount = wp.openDiagramEditorFromObject(diagram1, ed.getTransactionalEditingDomain());
 		assertEquals("No new editor must have opened for " + diagram1, 2, editorCount);
 	}
 

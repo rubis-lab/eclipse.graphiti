@@ -244,7 +244,7 @@ public class GFPackageTests extends AbstractGFTests {
 			@Override
 			public void run() {
 				ModelClipboard.getDefault().setContent(objs);
-				Collection<EObject> copy = ModelClipboard.getDefault().duplicateAndPaste(null, getTransactionalEditingDomain());
+				Collection<EObject> copy = ModelClipboard.getDefault().duplicateAndPaste(null, ed.getTransactionalEditingDomain());
 				diagramEditor.doSave(null);
 				assertTrue(!copy.isEmpty() && !copy.contains(dia));
 			}

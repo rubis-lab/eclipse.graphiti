@@ -68,6 +68,7 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
+import org.eclipse.swtbot.swt.finder.results.Result;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.ui.PlatformUI;
 import org.junit.Before;
@@ -75,31 +76,12 @@ import org.junit.BeforeClass;
 
 public abstract class AbstractGFTests extends SWTBotGefTestCase {
 
-	private static final String PROJECT_NAME = "GraphitiTestProject";
-
 	public static final IPath SOURCE_FOLDER = new Path("src"); //$NON-NLS-1$
-
 	private static IPath DIAGRAMS_FOLDER = SOURCE_FOLDER.append("diagrams");
-
-	private class DiagramEditorHolder {
-		DiagramEditor diagramEditor;
-
-		public DiagramEditor getDiagramEditor() {
-			return diagramEditor;
-		}
-
-		public void setDiagramEditor(DiagramEditor diagramEditor2) {
-			this.diagramEditor = diagramEditor2;
-		}
-	}
-
-	protected TransactionalEditingDomain domain;
-
-	private IProject project;
-
 	final protected PoDiagramEditor ed = new PoDiagramEditor();
-
 	final protected PoWorkbenchPage page = new PoWorkbenchPage();
+	private static final String PROJECT_NAME = "GraphitiTestProject";
+	private IProject project;
 
 	public AbstractGFTests() {
 		super();
@@ -187,13 +169,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		}
 	}
 
-	protected void cleanupEditingDomain() {
-		if (domain != null) {
-			//			domain.dispose();
-			domain = null;
-		}
-	}
-
 	protected Diagram createDiagram(String diagramTypeId) {
 		return createDiagram(diagramTypeId, "xmi");
 	}
@@ -212,18 +187,10 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		final Diagram diagram = getPeService().createDiagram(diagramTypeId, diagramName, true);
 
 		TransactionalEditingDomain editingDomain = FileService.createEmfFileForDiagram(diagramUri, diagram);
-		setEditingDomain(editingDomain);
+		ed.setEditingDomain(editingDomain);
 		return diagram;
 	}
 
-	private void setEditingDomain(TransactionalEditingDomain newDomain) {
-		if (this.domain != null) {
-			// TODO: dispose in corect order (recorder was already null in editingdomain -> nullpointer during dispose()
-			//			this.domain.dispose();
-		}
-		this.domain = newDomain;
-
-	}
 
 	protected EEnum createEEnum(Diagram diagram, String enumName) {
 		EEnum newEnum = EcoreFactory.eINSTANCE.createEEnum();
@@ -233,19 +200,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 		return newEnum;
 	}
-
-	// private IWorkbenchWindow getActiveOrFirstWorkbenchWindow() {
-	// IWorkbenchWindow result =
-	// PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-	// if (result == null) {
-	// IWorkbenchWindow[] windows =
-	// PlatformUI.getWorkbench().getWorkbenchWindows();
-	// if (windows != null && windows.length > 0) {
-	// result = windows[0];
-	// }
-	// }
-	// return result;
-	// }
 
 	protected EClass createEClass(Diagram diagram, String className) {
 		EClass eClass = EcoreFactory.eINSTANCE.createEClass();
@@ -274,10 +228,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return null;
 	}
 
-	protected TransactionalEditingDomain getTransactionalEditingDomain() {
-		assertNotNull(this.domain);
-		return this.domain;
-	}
 
 	protected void moveClassShape(IFeatureProvider fp, Diagram diagram, int x, int y, String className) {
 
@@ -300,10 +250,9 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 	}
 
 	protected DiagramEditor openDiagram(final String type) {
-		final DiagramEditorHolder deh = new DiagramEditorHolder();
-		syncExec(new VoidResult() {
+		DiagramEditor diagramEditor = syncExec(new Result<DiagramEditor>() {
 			@Override
-			public void run() {
+			public DiagramEditor run() {
 
 				/**/
 				final Diagram newDiagram = createDiagram(type);
@@ -314,11 +263,10 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 				// use TestUtil to open editor since this waits for late
 				// initialization
 				DiagramEditor diagramEditor = (DiagramEditor) GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram,
-						getTransactionalEditingDomain(), false);
-				deh.setDiagramEditor(diagramEditor);
+						ed.getTransactionalEditingDomain(), false);
+				return diagramEditor;
 			}
 		});
-		DiagramEditor diagramEditor = deh.getDiagramEditor();
 		if (ITestConstants.DIAGRAM_TYPE_ID_SKETCH.equals(type)) {
 			IFeatureProvider featureProvider = diagramEditor.getDiagramTypeProvider().getFeatureProvider();
 			if (featureProvider instanceof ConfigurableFeatureProviderWrapper) {
@@ -365,7 +313,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 	@Override
 	protected void tearDown() throws Exception {
-		cleanupEditingDomain();
+		ed.cleanupEditingDomain();
 		if (this.project != null) {
 			this.project.close(null);
 			this.project.delete(true, null);

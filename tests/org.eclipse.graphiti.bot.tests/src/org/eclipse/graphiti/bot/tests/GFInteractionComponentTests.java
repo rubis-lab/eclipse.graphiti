@@ -987,7 +987,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				GenericFeatureCommandWithContext gfcwc = new GenericFeatureCommandWithContext(feature, context);
 				CommandContainer commandContainer = new CommandContainer(fp);
 				commandContainer.add(gfcwc);
-				GefCommandWrapper gefCommandWrapper = new GefCommandWrapper(commandContainer, domain);
+				GefCommandWrapper gefCommandWrapper = new GefCommandWrapper(commandContainer, ed.getTransactionalEditingDomain());
 				commandStack.execute(gefCommandWrapper);
 
 			}

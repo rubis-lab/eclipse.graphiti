@@ -1,8 +1,10 @@
 package org.eclipse.graphiti.bot.pageobjects;
 
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
+import static org.junit.Assert.assertNotNull;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.bot.tests.AbstractGFTests;
@@ -30,6 +32,7 @@ import org.eclipse.ui.IEditorReference;
 public class PoDiagramEditor extends PageObject{
 	
 	PoWorkbenchPage page = new PoWorkbenchPage();
+	TransactionalEditingDomain domain = null;
 
 	public boolean isDirty() {
 		return getGefEditor().isDirty();
@@ -158,6 +161,22 @@ public class PoDiagramEditor extends PageObject{
 				
 			}
 		});
+	}
+
+	public TransactionalEditingDomain getTransactionalEditingDomain() {
+		assertNotNull(domain);
+		return domain;
+	}
+
+	public void setEditingDomain(TransactionalEditingDomain editingDomain) {
+		this.domain = editingDomain;
+		
+	}
+
+	public void cleanupEditingDomain() {
+		// TODO manage disposal
+		this.domain = null;
+		
 	}
 
 }
