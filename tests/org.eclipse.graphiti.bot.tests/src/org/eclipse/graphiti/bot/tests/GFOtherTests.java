@@ -185,9 +185,6 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testInstallation() throws Exception {
 
-		// assertNotNull("resource set not available",
-		// getTransactionalEditingDomain());
-
 		PictogramsPackage pictogramsPackage = PictogramsPackage.eINSTANCE;
 		assertNotNull("pictograms package not available", pictogramsPackage);
 
@@ -600,9 +597,7 @@ public class GFOtherTests extends AbstractGFTests {
 				if (rootEditPart instanceof ScalableFreeformRootEditPart) {
 					ZoomManager zoomManager = ((ScalableFreeformRootEditPart) rootEditPart).getZoomManager();
 					zoomManager.setZoom(0.5);
-					// getAbbotFactory().delay(500);
 					zoomManager.setZoom(2.0);
-					// getAbbotFactory().delay(500);
 				}
 
 				EditPart diagramEditPart = GraphitiUiInternal.getGefService().getEditPartChildren(rootEditPart).get(0);
@@ -630,7 +625,6 @@ public class GFOtherTests extends AbstractGFTests {
 				GraphitiUiInternal.getTraceService().dumpEditPartTree(diagramEditPart);
 			}
 		});
-
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -674,7 +668,6 @@ public class GFOtherTests extends AbstractGFTests {
 				return new String("Test Description");
 			}
 		});
-
 	}
 
 	@Test
@@ -719,19 +712,15 @@ public class GFOtherTests extends AbstractGFTests {
 		lineSeg.slope();
 		LineSeg.getLineEquation(0D, 0D, -3.5D, 7.5D);
 		lineSeg.performTranslate(10, 10);
-
 	}
 
 	private void removeClassShape(IFeatureProvider fp, Diagram diagram, String className) {
 
 		Shape shape = findShapeForEClass(diagram, className);
-
 		RemoveContext removeContext = new RemoveContext(shape);
-
 		// remove the shape
 		IRemoveFeature removeFeature = fp.getRemoveFeature(removeContext);
 		assertNotNull("remove feature not available", removeFeature);
-
 		if (removeFeature.canRemove(removeContext)) {
 			try {
 				CommandExec.executeFeatureWithContext(removeFeature, removeContext);
@@ -897,8 +886,6 @@ public class GFOtherTests extends AbstractGFTests {
 				getPeService().moveBendpoints(executionInfo);
 				getPeService().sendToBack(innerShape1);
 				getPeService().sendToFront(innerShape1);
-				// TODO Auto-generated method stub
-
 			}
 		});
 
@@ -1126,10 +1113,6 @@ public class GFOtherTests extends AbstractGFTests {
 
 	}
 
-//	private IFile renameFile(IFile diagFile) {
-//		diagFile.
-//		return null;
-//	}
 
 	private IFile moveFileToFolder(IFile diagFile, IFolder folder) throws CoreException {
 		IPath destination = folder.getFullPath().append(diagFile.getName());
@@ -1173,17 +1156,6 @@ public class GFOtherTests extends AbstractGFTests {
 		// open same file again
 		editorCount = wp.openDiagramEditorFromFile(diagFile1);
 		assertEquals("No new editor must have opened for " + diagFile1, 1, editorCount);
-
-		// {
-		// // This is mainly for test coverage: DiagramEditorFactory creates a
-		// // default connection if it's not there. Close it now so that this
-		// // path can be covered.
-		// Connection defaultConnection =
-		// ConnectionManager.getInstance().getExistingDefaultConnection(getProject());
-		// if (defaultConnection != null) {
-		// defaultConnection.close();
-		// }
-		// }
 
 		// open editor on second file
 		editorCount = wp.openDiagramEditorFromFile(diagFile2);
