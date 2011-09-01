@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 355027: Move of connection decorators when zoom level != 100 behaves weird
  *
  * </copyright>
  *
@@ -1021,6 +1022,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 	@Test
 	public void testMoveConnectionDecorator() throws InterruptedException {
+		// Test for Bug 355027: Move of connection decorators when zoom level != 100 behaves weird
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final SWTBotGefEditor ed = getGefEditor();
 		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
@@ -1042,7 +1044,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				commandStack.execute(createCommand);
 				ContainerShape outerShape = (ContainerShape) dtp.getDiagram().getChildren().get(0);
 
-				// Create two children
+				// Create two children in the container
 				createFeature = new SketchCreateGaShapeFeature(fp, SketchFeatureProvider.CF_RECTANGLE_SINGLE_TEXT,
 						"draw rectangle with a single line text", org.eclipse.graphiti.mm.algorithms.Rectangle.class);
 				rectangle = new Rectangle(50, 50, 51, 51);
@@ -1097,13 +1099,18 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		});
 		Thread.sleep(SHORT_DELAY);
 
-		// Do the move of the connection decorator
+		// Do the move of the connection decorator with standard zoom level (100%)
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
 				ed.drag(115, 80, 135, 110);
 
 				ConnectionDecorator connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators().get(0);
+				/*
+				 * Strange numbers below are ok: they are "calculated" using the
+				 * previous offset of the decorator, the new move point and the
+				 * position the drag operation starts
+				 */
 				assertEquals(17, connectionDecorator.getGraphicsAlgorithm().getX());
 				assertEquals(5, connectionDecorator.getGraphicsAlgorithm().getY());
 
@@ -1123,12 +1130,17 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		});
 		Thread.sleep(SHORT_DELAY);
 
-		// Do the move of the connection decorator with zoom enabled
+		// Do the move of the connection decorator with zoom level as set before
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
 				ed.drag(200, 150, 220, 180);
 
+				/*
+				 * Strange numbers below are ok: they are "calculated" using the
+				 * previous offset of the decorator, the new move point, the
+				 * position the drag operation starts and the zoom factor
+				 */
 				ConnectionDecorator connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators().get(0);
 				assertEquals(33, connectionDecorator.getGraphicsAlgorithm().getX());
 				assertEquals(25, connectionDecorator.getGraphicsAlgorithm().getY());

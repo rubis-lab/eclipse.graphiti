@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    jpasch - BUG 341180: Graphiti fails to handle resize after custom feature addition in the tutorial
  *    mwenz - Bug 346067: Current Milestone Build does no longer build against Eclipse 3.6
+ *    mwenz - Bug 355027: Move of connection decorators when zoom level != 100 behaves weird
  *
  * </copyright>
  *
