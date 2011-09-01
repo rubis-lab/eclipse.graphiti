@@ -100,14 +100,13 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-		final SWTBotGefEditor ed = getGefEditor();
-		createClassesAndConnection(x, y, diagramEditor, ed, null);
+		createClassesAndConnection(x, y, diagramEditor.getDiagramTypeProvider(), null, SHAPE_NAME);
 		Thread.sleep(DELAY);
-		syncExec(new VoidResult() {
+		syncExec(new VoidResult() { 
 			@Override
 			public void run() {
-				ed.drag(SHAPE_NAME, 200, 50);
-				ed.drag("ConnectionDecorator", 200, 400);
+				ed.getGefEditor().drag(SHAPE_NAME, 200, 50);
+				ed.getGefEditor().drag("ConnectionDecorator", 200, 400);
 			}
 		});
 		Thread.sleep(DELAY);
@@ -133,8 +132,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-		final SWTBotGefEditor ed = getGefEditor();
-		createClassesAndConnection(x, y, diagramEditor, ed, "Marquee");
+		createClassesAndConnection(x, y, diagramEditor.getDiagramTypeProvider(), "Marquee", SHAPE_NAME);
 		Thread.sleep(DELAY);
 		// Select the newly added shapes with the marquee tool.
 		syncExec(new VoidResult() {
@@ -148,13 +146,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				ed.activateTool("Select");
-				ed.drag(x + 50, y + 50, x + 200, y + 50);
+				ed.getGefEditor().activateTool("Select");
+				ed.getGefEditor().drag(x + 50, y + 50, x + 200, y + 50);
 			}
 		});
 		Thread.sleep(DELAY);
-		SWTBotGefEditPart editPart = ed.getEditPart(SHAPE_NAME);
-		IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
+		IFigure figure = ed.getFigureWithLabel(SHAPE_NAME);
 		// Drag might not be accurate, add tolerance +-1
 		assertTrue((x + 149 <= figure.getBounds().x) && (figure.getBounds().x <= x + 151));
 		page.shutdownEditor(diagramEditor);
@@ -172,11 +169,9 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
+				executeInRecordingCommand(diagramEditor, new Runnable() {
 					@Override
-					protected void doExecute() {
+					public void run() {
 						// add a class to the diagram
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
@@ -278,11 +273,9 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
+				executeInRecordingCommand(diagramEditor, new Runnable() {
 					@Override
-					protected void doExecute() {
+					public void run() {
 						// add a class to the diagram
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
@@ -290,17 +283,9 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(DELAY);
-
 		// move class-shape to the origin (0,0)
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				// move class-shape to origin
-				ed.getGefEditor().drag(SHAPE_NAME, 0, 0);
-			}
-		});
+		ed.drag(SHAPE_NAME, 0, 0);
 		Thread.sleep(DELAY);
-
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -363,16 +348,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
+				executeInRecordingCommand(diagramEditor, new Runnable() {
 					@Override
-					protected void doExecute() {
+					public void run() {
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
 				});
-
 			}
 		});
 		Thread.sleep(DELAY);
@@ -472,7 +453,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int DIL = 30;
 
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -518,12 +498,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				ed.activateTool("free");
-				ed.drag(xOfShape1 + DIL, yOfShape1 + DIL, xOfShape3 + DIL, yOfShape3 + DIL);
-				ed.click(xOfShape3 + DIL, yOfShape3 + DIL);
-				ed.activateTool("free");
-				ed.drag(xOfShape1 + DIL, yOfShape1 + DIL, xOfShape2 + DIL, yOfShape2 + DIL);
-				ed.click(xOfShape2 + DIL, yOfShape2 + DIL);
+				ed.getGefEditor().activateTool("free");
+				ed.getGefEditor().drag(xOfShape1 + DIL, yOfShape1 + DIL, xOfShape3 + DIL, yOfShape3 + DIL);
+				ed.getGefEditor().click(xOfShape3 + DIL, yOfShape3 + DIL);
+				ed.getGefEditor().activateTool("free");
+				ed.getGefEditor().drag(xOfShape1 + DIL, yOfShape1 + DIL, xOfShape2 + DIL, yOfShape2 + DIL);
+				ed.getGefEditor().click(xOfShape2 + DIL, yOfShape2 + DIL);
 			}
 		});
 		Thread.sleep(DELAY);
@@ -531,37 +511,25 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				ed.activateTool("Rectangle");
+				ed.getGefEditor().activateTool("Rectangle");
 				// click on connection to insert rectangle between two other rectangles
-				ed.click((xOfShape1 + 60 + xOfShape3) / 2, (yOfShape1 + 60 + yOfShape3) / 2);
+				ed.getGefEditor().click((xOfShape1 + 60 + xOfShape3) / 2, (yOfShape1 + 60 + yOfShape3) / 2);
 			}
 		});
 		Thread.sleep(DELAY);
-
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.drag(xOfShape4 + DIL, yOfShape4 + DIL, xOfShape1 + DIL, (yOfShape2 + yOfShape1 + 2 * DIL) / 2);
-			}
-		});
+		ed.drag(xOfShape4 + DIL, yOfShape4 + DIL, xOfShape1 + DIL, (yOfShape2 + yOfShape1 + 2 * DIL) / 2);
 		Thread.sleep(DELAY);
-
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.drag(xOfShape1 + DIL, yOfShape1 + DIL, (xOfShape1 + 2 * DIL + xOfShape3) / 2, (yOfShape2 + yOfShape1 + 2 * DIL) / 2);
-			}
-		});
+		ed.drag(xOfShape1 + DIL, yOfShape1 + DIL, (xOfShape1 + 2 * DIL + xOfShape3) / 2, (yOfShape2 + yOfShape1 + 2 * DIL) / 2);
 		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
+
 
 	@Test
 	public void testDirectEditingMultiText() throws Exception {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -591,21 +559,14 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			public void run() {
 				diagramEditor.getMouseLocation().x = 150;
 				diagramEditor.getMouseLocation().y = 150;
-				SWTBotGefEditPart ep = ed.mainEditPart().children().get(0);
+				SWTBotGefEditPart ep = ed.getGefEditor().mainEditPart().children().get(0);
 				ep.activateDirectEdit();
 			}
 		});
 		Thread.sleep(DELAY);
-
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.directEditType(INPUT_STRING);
-			}
-		});
-
+		ed.getGefEditor().directEditType(INPUT_STRING);
 		// Check results
-		SWTBotGefEditPart ep = ed.mainEditPart().children().get(0);
+		SWTBotGefEditPart ep = ed.getGefEditor().mainEditPart().children().get(0);
 		Shape shape = (Shape) ep.part().getModel();
 		String value = ((MultiText) shape.getGraphicsAlgorithm().getGraphicsAlgorithmChildren().get(0)).getValue();
 		assertEquals(INPUT_STRING, value);
@@ -617,7 +578,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -647,7 +607,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			public void run() {
 				diagramEditor.getMouseLocation().x = 150;
 				diagramEditor.getMouseLocation().y = 150;
-				SWTBotGefEditPart ep = ed.mainEditPart().children().get(0);
+				SWTBotGefEditPart ep = ed.getGefEditor().mainEditPart().children().get(0);
 				ep.activateDirectEdit();
 			}
 		});
@@ -676,7 +636,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -706,15 +665,9 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		});
 		Thread.sleep(DELAY);
-
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.drag(x + 50, y + 50, x + 300 + 100, y + 50);
-			}
-		});
+		ed.drag(x + 50, y + 50, x + 300 + 100, y + 50);
 		Thread.sleep(DELAY);
-		assertTrue(ed.mainEditPart().children().size() == 1);
+		assertTrue(ed.getGefEditor().mainEditPart().children().size() == 1);
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -729,7 +682,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int containerSize = 100;
 		final int rectangleSize = 60;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -795,9 +747,9 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				ed.activateTool("free");
-				ed.click(100 + containerSize / 2, 100 + containerSize / 2);
-				ed.click(300 + containerSize / 2, 100 + containerSize / 2);
+				ed.getGefEditor().activateTool("free");
+				ed.getGefEditor().click(100 + containerSize / 2, 100 + containerSize / 2);
+				ed.getGefEditor().click(300 + containerSize / 2, 100 + containerSize / 2);
 			}
 		});
 		Thread.sleep(DELAY);
@@ -805,22 +757,14 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				ed.activateDefaultTool();
+				ed.getGefEditor().activateDefaultTool();
 				// move to connection start point
-				ed.click(300 + containerSize / 2 - rectangleSize / 2 - 5, 100 + containerSize / 2); // middle
+				ed.getGefEditor().click(300 + containerSize / 2 - rectangleSize / 2 - 5, 100 + containerSize / 2); // middle
 			}
 		});
 		Thread.sleep(DELAY);
-
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.drag(300 + containerSize / 2 - rectangleSize / 2 - 1, 100 + containerSize / 2, 300 + containerSize / 2 - rectangleSize
-						/ 2 - 10, 100 + containerSize / 2);
-			}
-		});
-		Thread.sleep(DELAY);
-		// This is an asynchronous callto the UI.
+		ed.drag(300 + containerSize / 2 - rectangleSize / 2 - 1, 100 + containerSize / 2, 300 + containerSize / 2 - rectangleSize
+				/ 2 - 10, 100 + containerSize / 2);
 		ed.drag(100 + containerSize / 2, 100 + containerSize / 2, 100 + containerSize / 2, 300 + containerSize / 2);
 		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
@@ -831,7 +775,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -863,9 +806,9 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			@Override
 			public void run() {
 				// activate create-freeform-connection tool
-				ed.activateTool("free");
-				ed.drag(150, 150, 350, 150);
-				ed.click(350, 150);
+				ed.getGefEditor().activateTool("free");
+				ed.getGefEditor().drag(150, 150, 350, 150);
+				ed.getGefEditor().click(350, 150);
 			}
 		});
 		Thread.sleep(DELAY);
@@ -874,51 +817,27 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			@Override
 			public void run() {
 				// activate selection tool
-				ed.activateDefaultTool();
+				ed.getGefEditor().activateDefaultTool();
 				// move to line-center and select line
-				ed.click(250, 150); // middle
+				ed.getGefEditor().click(250, 150); // middle
 			}
 		});
 		Thread.sleep(SHORT_DELAY);
-
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.drag(250, 150, 250, 100);
-			}
-		});
+		ed.drag(250, 150, 250, 100);
 		Thread.sleep(SHORT_DELAY);
-
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.drag(250, 100, 250, 200);
-			}
-		});
+		ed.drag(250, 100, 250, 200);
 		Thread.sleep(SHORT_DELAY);
-
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.drag(250, 200, 250, 150);
-			}
-		});
+		ed.drag(250, 200, 250, 150);
 		Thread.sleep(SHORT_DELAY);
-
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.drag(250, 150, 250, 195);
-			}
-		});
+		ed.drag(250, 150, 250, 195);
 		Thread.sleep(SHORT_DELAY);
 
 		// remove the connection via context menu
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				ed.click(250, 195);
-				ed.clickContextMenu("Remove");
+				ed.getGefEditor().click(250, 195);
+				ed.getGefEditor().clickContextMenu("Remove");
 			}
 		});
 		Thread.sleep(DELAY);
@@ -930,7 +849,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-		final SWTBotGefEditor ed = getGefEditor();
 
 		syncExec(new VoidResult() {
 			@Override
@@ -939,40 +857,27 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
+				executeInRecordingCommand(diagramEditor, new Runnable() {
 					@Override
-					protected void doExecute() {
-						// add a class to the diagram
+					public void run() {
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
 				});
 			}
 		});
 		Thread.sleep(DELAY);
-
 		// select shape
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
-				final SWTBotGefEditPart editPart = ed.getEditPart(SHAPE_NAME);
-				ed.select(editPart);
+				ed.getGefEditor().select(SHAPE_NAME);
 			}
 		});
 		Thread.sleep(DELAY);
-
 		// resize shape
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				ed.drag(100, 100, 120, 120);
-			}
-		});
+		ed.drag(100, 100, 120, 120);
 		Thread.sleep(DELAY);
-
-		SWTBotGefEditPart editPart = ed.getEditPart(SHAPE_NAME);
-		IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
+		IFigure figure  = ed.getFigureWithLabel(SHAPE_NAME);
 		assertEquals(120, figure.getBounds().x);
 		assertEquals(120, figure.getBounds().y);
 	}
@@ -980,7 +885,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	@Test
 	public void testSketchAll() throws Exception {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final SWTBotGefEditor ed = getGefEditor();
 		PaletteFinder paletteFinder = new PaletteFinder(diagramEditor.getEditDomain());
 		List<PaletteEntry> objectCreationTools = paletteFinder.findEntries(new AbstractToolEntryMatcher() {
 
@@ -1005,10 +909,10 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				syncExec(new VoidResult() {
 					@Override
 					public void run() {
-						ed.activateTool(toolEntry.getLabel());
+						ed.getGefEditor().activateTool(toolEntry.getLabel());
 						int currX = x + (counter[0] * 5);
 						int currY = y - (5 * counter[0]);
-						ed.drag(currX, currY, currX + 10, currY + 10);
+						ed.getGefEditor().drag(currX, currY, currX + 10, currY + 10);
 					}
 				});
 				//				Thread.sleep(300);
@@ -1016,7 +920,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		}
 		Thread.sleep(DELAY);
-		assertEquals(objectCreationTools.size(), ed.mainEditPart().children().size());
+		assertEquals(objectCreationTools.size(), ed.getGefEditor().mainEditPart().children().size());
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -1024,7 +928,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testMoveConnectionDecorator() throws InterruptedException {
 		// Test for Bug 355027: Move of connection decorators when zoom level != 100 behaves weird
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		final SWTBotGefEditor ed = getGefEditor();
 		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider()).getInnerFeatureProvider();
 		final CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
@@ -1203,29 +1106,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	// Thread.sleep(1000);
 	// assertTrue(ed.mainEditPart().children().size() == 1);
 	// }
-
-	private void createClassesAndConnection(final int x, final int y, final DiagramEditor diagramEditor, final SWTBotGefEditor ed,
-			final String toolToActivate) {
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
-				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
-				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
-					@Override
-					protected void doExecute() {
-						addClassesAndReferenceToDiagram(fp, currentDiagram, x, y, SHAPE_NAME, x, y + 300, "ConnectionDecorator");
-					}
-				});
-				if (toolToActivate != null)
-					ed.activateTool(toolToActivate);
-			}
-		});
-	}
 
 	protected Event createMouseEvent(int x, int y, int button, int stateMask, int count) {
 		Event event = new Event();

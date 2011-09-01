@@ -19,6 +19,7 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.results.Result;
+import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 
@@ -137,5 +138,26 @@ public class PoDiagramEditor extends PageObject{
 		return bot.activeEditor().getTitle();
 	}
 
+	public void drag(final int fromXPosition, final int fromYPosition, final int toXPosition, final int toYPosition){
+		syncExec(new VoidResult() {
+			
+			@Override
+			public void run() {
+				getGefEditor().drag(fromXPosition, fromYPosition, toXPosition, toYPosition);
+				
+			}
+		});
+	}
+	
+	public void drag(final String label, final int toXPosition, final int toYPosition){
+		syncExec(new VoidResult() {
+			
+			@Override
+			public void run() {
+				getGefEditor().drag(label, toXPosition, toYPosition);
+				
+			}
+		});
+	}
 
 }

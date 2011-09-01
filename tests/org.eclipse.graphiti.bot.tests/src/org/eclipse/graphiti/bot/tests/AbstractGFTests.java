@@ -41,6 +41,7 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.bot.pageobjects.PoDiagramEditor;
 import org.eclipse.graphiti.bot.pageobjects.PoWorkbenchPage;
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
+import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.examples.common.ExampleProjectNature;
 import org.eclipse.graphiti.examples.common.FileService;
 import org.eclipse.graphiti.features.ConfigurableFeatureProviderWrapper;
@@ -58,6 +59,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
@@ -130,7 +132,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 	}
 	
 	
-	public static void executeInRecordingCommand(DiagramEditor diagramEditor, final Runnable run){
+	public static void executeInRecordingCommand(IDiagramEditor diagramEditor, final Runnable run){
 		TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
@@ -151,7 +153,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		});
 	}
 	
-	public static void executeInRecordingCommandInUIThread(final DiagramEditor diagramEditor, final Runnable run){
+	public static void executeInRecordingCommandInUIThread(final IDiagramEditor diagramEditor, final Runnable run){
 		syncExec(new VoidResult() {
 			@Override
 			public void run() {
@@ -161,10 +163,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 	}
 	
 	
-	protected void addClassToDiagram(DiagramEditor ed, int x, int y, String className){
-		
-	}
-
 	protected void addClassesAndReferenceToDiagram(IFeatureProvider fp, Diagram diagram, int sourceX, int sourceY, String sourceClassName,
 			int targetX, int targetY, String targetClassName) {
 		addClassToDiagram(fp, diagram, sourceX, sourceY, sourceClassName);
@@ -467,13 +465,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return Graphiti.getPeService();
 	}
 
-	/**
-	 * @return
-	 */
-	protected SWTBotGefEditor getGefEditor() {
-		return page.getGefEditor();
-	}
-
 
 	protected ICreateContext createCreateContext(ContainerShape target, Rectangle rect) {
 		CreateContext ret = new CreateContext();
@@ -484,5 +475,23 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		ret.setHeight(rect.height);
 
 		return ret;
+	}
+
+	protected void createClassesAndConnection(final int x, final int y, final IDiagramTypeProvider diagramTypeProvider, final String toolToActivate, final String shapename) {
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+				executeInRecordingCommand(diagramTypeProvider.getDiagramEditor(), new Runnable() {
+					@Override
+					public void run() {
+						addClassesAndReferenceToDiagram(fp, currentDiagram, x, y, shapename, x, y + 300, "ConnectionDecorator");
+					}
+				});
+				if (toolToActivate != null)
+					ed.getGefEditor().activateTool(toolToActivate);
+			}
+		});
 	}
 }
