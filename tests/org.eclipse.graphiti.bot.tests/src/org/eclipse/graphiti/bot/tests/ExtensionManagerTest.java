@@ -15,8 +15,11 @@
  *******************************************************************************/
 package org.eclipse.graphiti.bot.tests;
 
+import org.eclipse.graphiti.bot.tests.util.ITestConstants;
+import org.eclipse.graphiti.dt.IDiagramType;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.eclipse.graphiti.ui.services.IExtensionManager;
 import org.junit.Test;
 
 /**
@@ -31,5 +34,34 @@ public class ExtensionManagerTest extends AbstractGFTests {
 		IDiagramTypeProvider diagramTypeProvider = GraphitiUi.getExtensionManager().createDiagramTypeProvider(
 				"org.eclipse.graphiti.ui.tests.dtpWithInvalidImageProvider");
 		assertNotNull("Diagram type Provider must not be null", diagramTypeProvider);
+	}
+	
+	@Test
+	public void testExtensionManager() {
+		IExtensionManager em = GraphitiUi.getExtensionManager();
+
+		IDiagramType sketchDiagramType = null;
+
+		// check whether the sketch diagram type is registered
+		IDiagramType[] diagramTypes = em.getDiagramTypes();
+		for (IDiagramType diagramType : diagramTypes) {
+			if (ITestConstants.DIAGRAM_TYPE_ID_SKETCH.equals(diagramType.getId())) {
+				sketchDiagramType = diagramType;
+				break;
+			}
+		}
+
+		assertNotNull("sketch digram type is not available", sketchDiagramType);
+
+		// checker whether a provider for the sketch diagram type is registered
+		// - and if yes - instantiate a diagram type provider
+		if (sketchDiagramType != null) {
+			String[] diagramTypeProviderExtensionIds = em.getDiagramTypeProviderIds(sketchDiagramType.getId());
+			if (diagramTypeProviderExtensionIds != null && diagramTypeProviderExtensionIds.length > 0) {
+				IDiagramTypeProvider dtp = em.createDiagramTypeProvider(diagramTypeProviderExtensionIds[0]);
+				assertNotNull("sketch diagram type provider couldn't be instantiated", dtp);
+			}
+		}
+
 	}
 }

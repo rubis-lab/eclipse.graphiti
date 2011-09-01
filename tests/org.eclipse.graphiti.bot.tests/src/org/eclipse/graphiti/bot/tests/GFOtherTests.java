@@ -72,7 +72,6 @@ import org.eclipse.graphiti.bot.pageobjects.PoWorkbenchPage;
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.datatypes.IRectangle;
-import org.eclipse.graphiti.dt.IDiagramType;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -151,35 +150,6 @@ public class GFOtherTests extends AbstractGFTests {
 	protected void tearDown() throws Exception {
 		page.closeAllEditors();
 		super.tearDown();
-	}
-
-	@Test
-	public void testExtensionManager() {
-		IExtensionManager em = GraphitiUi.getExtensionManager();
-
-		IDiagramType sketchDiagramType = null;
-
-		// check whether the sketch diagram type is registered
-		IDiagramType[] diagramTypes = em.getDiagramTypes();
-		for (IDiagramType diagramType : diagramTypes) {
-			if (ITestConstants.DIAGRAM_TYPE_ID_SKETCH.equals(diagramType.getId())) {
-				sketchDiagramType = diagramType;
-				break;
-			}
-		}
-
-		assertNotNull("sketch digram type is not available", sketchDiagramType);
-
-		// checker whether a provider for the sketch diagram type is registered
-		// - and if yes - instantiate a diagram type provider
-		if (sketchDiagramType != null) {
-			String[] diagramTypeProviderExtensionIds = em.getDiagramTypeProviderIds(sketchDiagramType.getId());
-			if (diagramTypeProviderExtensionIds != null && diagramTypeProviderExtensionIds.length > 0) {
-				IDiagramTypeProvider dtp = em.createDiagramTypeProvider(diagramTypeProviderExtensionIds[0]);
-				assertNotNull("sketch diagram type provider couldn't be instantiated", dtp);
-			}
-		}
-
 	}
 
 	@Test
