@@ -8,6 +8,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.graphiti.bot.tests.AbstractGFTests;
 import org.eclipse.graphiti.bot.tests.GFOtherTests;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
@@ -15,7 +16,9 @@ import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.swt.SWT;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotPerspective;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.results.IntResult;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.ui.IEditorInput;
@@ -138,6 +141,25 @@ public class PoWorkbenchPage extends PageObject{
 	public void closeActiveEditor(){
 		SWTBotEditor activeEditor = bot.activeEditor();
 		activeEditor.close();
+	}
+
+	public void openGraphitiTestPerspective() {
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				SWTBotPerspective p = bot.perspectiveById("org.eclipse.graphiti.examples.common.perspective.GFPerspective");
+				p.activate();
+				bot.activeShell().widget.setMaximized(true);
+			}
+		});
+	}
+
+	public void closeWelcomeView(AbstractGFTests abstractGFTests) {
+		try {
+			bot.viewByTitle("Welcome").close();
+		} catch (WidgetNotFoundException e) {
+			// do nothing
+		}
 	}
 
 }

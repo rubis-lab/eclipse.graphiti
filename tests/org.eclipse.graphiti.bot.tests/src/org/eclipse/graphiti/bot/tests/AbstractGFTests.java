@@ -66,9 +66,7 @@ import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotPerspective;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
-import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.ui.PlatformUI;
@@ -361,13 +359,8 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		project.setDescription(desc, null);
 
 		this.project = project;
-		try {
-			bot.viewByTitle("Welcome").close();
-		} catch (WidgetNotFoundException e) {
-			// do nothing
-		}
-
-		openGraphitiTestPerspective();
+		page.closeWelcomeView(this);
+		page.openGraphitiTestPerspective();
 	}
 
 	@Override
@@ -428,17 +421,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 	private IProject getProject() {
 		return this.project;
-	}
-
-	private void openGraphitiTestPerspective() {
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				SWTBotPerspective p = bot.perspectiveById("org.eclipse.graphiti.examples.common.perspective.GFPerspective");
-				p.activate();
-				bot.activeShell().widget.setMaximized(true);
-			}
-		});
 	}
 
 	private void addReferenceToDiagram(IFeatureProvider fp, Diagram diagram, String sourceClass, String targetClass) {
