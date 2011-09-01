@@ -215,128 +215,89 @@ public class GFOtherTests extends AbstractGFTests {
 		/*
 		 * Open a new diagram containing just one class
 		 */
-		syncExec(new VoidResult() {
+		final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+		final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+		executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
 			@Override
 			public void run() {
-				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
-				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
-				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor, new Runnable() {
-					@Override
-					public void run() {
-						/*
-						 * Reuse of functionality originally written to add
-						 * classes for the ECore test tool. Might need adaption
-						 * in case of future changes
-						 */
-						addClassToDiagram(fp, currentDiagram, 300, 300, "Shape");
-					}
-				});
+				/*
+				 * Reuse of functionality originally written to add
+				 * classes for the ECore test tool. Might need adaption
+				 * in case of future changes
+				 */
+				addClassToDiagram(fp, currentDiagram, 300, 300, "Shape");
 			}
 		});
 
 		/*
 		 * Check the correctness of the initial tooltip
 		 */
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				IFigure figure = ed.getFigureWithLabel("Shape");
-				// Check original tooltip
-				if (!"Shape".equals(((Label) figure.getToolTip()).getText())) {
-					fail("Tooltip must be 'Shape'");
-				}
-			}
-
-		});
+		IFigure figure = ed.getFigureWithLabel("Shape");
+		// Check original tooltip
+		if (!"Shape".equals(((Label) figure.getToolTip()).getText())) {
+			fail("Tooltip must be 'Shape'");
+		}
 
 		/*
 		 * Change the name of the eClass (and the display name in the diagram to
 		 * avoid the need for calling the update feature)
 		 */
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
-				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				final ContainerShape tooltipShape = (ContainerShape) findShapeForEClass(currentDiagram, "Shape");
-				Object bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape);
-				if (bo instanceof EClass) {
-					final EClass eClass = (EClass) bo;
-					// Change the tooltip to something else and check it
-					executeInRecordingCommand(diagramEditor, new Runnable() {
-						@Override
-						public void run() {
-							eClass.setName("Changed");
-							Text text = (Text) tooltipShape.getChildren().get(1).getGraphicsAlgorithm();
-							text.setValue("Changed");
-						}
-					});
+		final ContainerShape tooltipShape = (ContainerShape) findShapeForEClass(currentDiagram, "Shape");
+		Object bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape);
+		if (bo instanceof EClass) {
+			final EClass eClass = (EClass) bo;
+			// Change the tooltip to something else and check it
+			executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+				@Override
+				public void run() {
+					eClass.setName("Changed");
+					Text text = (Text) tooltipShape.getChildren().get(1).getGraphicsAlgorithm();
+					text.setValue("Changed");
 				}
-			}
-		});
+			});
+		}
 
 		/*
 		 * Check that the tooltip of the figure has been updated
 		 */
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
-				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				IFigure figure = ed.getFigureWithLabel("Changed");
-				final ContainerShape tooltipShape = (ContainerShape) findShapeForEClass(currentDiagram, "Changed");
-				Object bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape);
-				if (bo instanceof EClass) {
-					if (!"Changed".equals(((Label) figure.getToolTip()).getText())) {
-						fail("Tooltip must be 'Changed' but is '" + ((Label) figure.getToolTip()).getText() + "'");
-					}
-				}
+		figure = ed.getFigureWithLabel("Changed");
+		ContainerShape tooltipShape2 = (ContainerShape) findShapeForEClass(currentDiagram, "Changed");
+		bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape2);
+		if (bo instanceof EClass) {
+			if (!"Changed".equals(((Label) figure.getToolTip()).getText())) {
+				fail("Tooltip must be 'Changed' but is '" + ((Label) figure.getToolTip()).getText() + "'");
 			}
-
-		});
+		}
 
 		/*
 		 * Change the name of the eClass to the empty string (and the display
 		 * name in the diagram to avoid the need for calling the update
 		 * feature), this will end up showing no tooltip.
 		 */
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
-				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				final ContainerShape tooltipShape = (ContainerShape) findShapeForEClass(currentDiagram, "Changed");
-				Object bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape);
-				if (bo instanceof EClass) {
-					final EClass eClass = (EClass) bo;
-					executeInRecordingCommand(diagramEditor, new Runnable() {
-						@Override
-						public void run() {
-							// Change the tooltip to null and check it
-							eClass.setName(""); // Empty name means no tooltip
-							Text text = (Text) tooltipShape.getChildren().get(1).getGraphicsAlgorithm();
-							text.setValue("Changed");
-						}
-					});
+		ContainerShape tooltipShape3 = (ContainerShape) findShapeForEClass(currentDiagram, "Changed");
+		bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape3);
+		if (bo instanceof EClass) {
+			final EClass eClass = (EClass) bo;
+			executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+				@Override
+				public void run() {
+					// Change the tooltip to null and check it
+					eClass.setName(""); // Empty name means no tooltip
+					Text text = (Text) tooltipShape.getChildren().get(1).getGraphicsAlgorithm();
+					text.setValue("Changed");
 				}
-			}
-
-		});
+			});
+		}
 
 		/*
 		 * Check that the tooltip of the figure has been removed
 		 */
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-				// Get the figure to check the tooltip via SWTBot
-				IFigure figure = ed.getFigureWithLabel("");
-				if (figure.getToolTip() != null) {
-					fail("Tooltip must be null, but was '" + ((Label) figure.getToolTip()).getText() + "'");
-				}
-			}
-		});
+		// Get the figure to check the tooltip via SWTBot
+		figure = ed.getFigureWithLabel("");
+		if (figure.getToolTip() != null) {
+			fail("Tooltip must be null, but was '" + ((Label) figure.getToolTip()).getText() + "'");
+		}
 		page.shutdownEditor(diagramEditor);
 	}
 
