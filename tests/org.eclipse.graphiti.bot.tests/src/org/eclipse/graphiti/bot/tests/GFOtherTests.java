@@ -153,27 +153,6 @@ public class GFOtherTests extends AbstractGFTests {
 	}
 
 	@Test
-	public void testInstallation() throws Exception {
-
-		PictogramsPackage pictogramsPackage = PictogramsPackage.eINSTANCE;
-		assertNotNull("pictograms package not available", pictogramsPackage);
-
-		IExtensionManager extensionManager = GraphitiUi.getExtensionManager();
-		assertNotNull("extension manager not available", extensionManager);
-
-		String[] diagramTypeProviders = extensionManager
-				.getDiagramTypeProviderIds(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-		assertTrue("diagram type provider not available", diagramTypeProviders.length > 0);
-
-		IDiagramTypeProvider dtp = extensionManager.createDiagramTypeProvider(diagramTypeProviders[0]);
-		assertNotNull("diagram type provider couldn't be created", dtp);
-
-		dtp.init(null, null);
-		IFeatureProvider fp = dtp.getFeatureProvider();
-		assertNotNull("feature provider not available", fp);
-	}
-
-	@Test
 	public void testOnEcoreDiagram() throws Exception {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
