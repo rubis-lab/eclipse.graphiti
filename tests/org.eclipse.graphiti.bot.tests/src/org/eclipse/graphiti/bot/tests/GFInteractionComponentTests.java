@@ -26,7 +26,6 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.palette.PaletteEntry;
@@ -971,20 +970,16 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				final CreateConnectionContext ccc = new CreateConnectionContext();
 				ccc.setSourceAnchor(sourceAnchor);
 				ccc.setTargetAnchor(targetAnchor);
-
-				domain.getCommandStack().execute(new RecordingCommand(domain) {
-
+				executeInRecordingCommand(diagramEditor, new Runnable() {
 					@Override
-					protected void doExecute() {
+					public void run() {
 						for (ICreateConnectionFeature ccf : ccfs) {
 							if (ccf.canCreate(ccc)) {
 								ccf.execute(ccc);
 							}
 						}
-
 					}
 				});
-
 				// Show the connection decorators
 				ToggleDecorator feature = new ToggleDecorator(fp);
 				CustomContext context = new CustomContext();
@@ -1037,69 +1032,5 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		assertEquals(25, connectionDecorator.getGraphicsAlgorithm().getY());
 		Thread.sleep(SHORT_DELAY);
 		page.shutdownEditor(diagramEditor);
-	}
-
-	// @Test
-	// public void testEventing() throws Exception {
-	// final int x = 100;
-	// final int y = 100;
-	// final DiagramEditor diagramEditor =
-	// openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
-	// final SWTBotGefEditor ed = getGefEditor();
-	// syncExec(new VoidResult() {
-	// @Override
-	// public void run() {
-	// IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
-	// IFeatureProvider fp = dtp.getFeatureProvider();
-	//
-	// CommandStack commandStack =
-	// diagramEditor.getEditDomain().getCommandStack();
-	//
-	// ICreateFeature[] createFeatures = fp.getCreateFeatures();
-	// for (ICreateFeature createFeature : createFeatures) {
-	// if ("Rectangle".equals(createFeature.getName())) {
-	// Rectangle rectangle = new Rectangle(x, y, 100, 100);
-	// ICreateContext createContext =
-	// createCreateContext(dtp.getDiagram(), rectangle);
-	// Command createCommand = new
-	// CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
-	// createFeature,
-	// createContext, rectangle);
-	// commandStack.execute(createCommand);
-	// } else if ("Rectangle Container".equals(createFeature.getName())) {
-	// Rectangle rectangle = new Rectangle(x + 300, y - 50, 200, 200);
-	// ICreateContext createContext =
-	// createCreateContext(dtp.getDiagram(), rectangle);
-	// Command createCommand = new
-	// CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
-	// createFeature,
-	// createContext, rectangle);
-	// commandStack.execute(createCommand);
-	// }
-	// }
-	// }
-	//
-	// });
-	// Thread.sleep(1000);
-	//
-	// syncExec(new VoidResult() {
-	// @Override
-	// public void run() {
-	// ed.drag(x + 50, y + 50, x + 300 + 100, y + 50);
-	// }
-	// });
-	// Thread.sleep(1000);
-	// assertTrue(ed.mainEditPart().children().size() == 1);
-	// }
-
-	protected Event createMouseEvent(int x, int y, int button, int stateMask, int count) {
-		Event event = new Event();
-		event.time = (int) System.currentTimeMillis();
-		event.x = x;
-		event.y = y;
-		event.button = button;
-		event.stateMask = stateMask;
-		event.count = count;
-		return event;
 	}
 }

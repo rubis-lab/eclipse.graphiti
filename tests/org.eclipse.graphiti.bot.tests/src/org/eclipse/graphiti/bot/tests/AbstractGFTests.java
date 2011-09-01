@@ -65,6 +65,7 @@ import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotPerspective;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
@@ -492,5 +493,16 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 					ed.getGefEditor().activateTool(toolToActivate);
 			}
 		});
+	}
+
+	protected Event createMouseEvent(int x, int y, int button, int stateMask, int count) {
+		Event event = new Event();
+		event.time = (int) System.currentTimeMillis();
+		event.x = x;
+		event.y = y;
+		event.button = button;
+		event.stateMask = stateMask;
+		event.count = count;
+		return event;
 	}
 }

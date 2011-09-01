@@ -25,8 +25,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.transaction.RecordingCommand;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.bot.tests.features.DefaultCopyFeature;
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -213,11 +211,11 @@ public class GFPackageTests extends AbstractGFTests {
 				myDefaultCopyFeature.execute(copyContext);
 			}
 		});
-
+		
 		s = null;
 		s = myDefaultCopyFeature.getName();
 		assertNotNull(s);
-		assertTrue(!("".equals(s)));
+		assertFalse("".equals(s));
 		final MyPasteFeature myPasteFeature = new MyPasteFeature(myDiagramTypeProvider.getFeatureProvider(), diagram);
 		final IPasteContext pasteContext = new PasteContext(pes);
 
@@ -237,7 +235,7 @@ public class GFPackageTests extends AbstractGFTests {
 		s = null;
 		s = myPasteFeature.getName();
 		assertNotNull(s);
-		assertTrue(!("".equals(s)));
+		assertFalse("".equals(s));
 
 		// test ModelClipboard to paste a root element (parent = null)
 		final Diagram dia = myDiagramTypeProvider.getDiagram();
@@ -286,7 +284,7 @@ public class GFPackageTests extends AbstractGFTests {
 		s = null;
 		s = myDefaultMoveAnchorFeature.getName();
 		assertNotNull(s);
-		assertTrue(!("".equals(s)));
+		assertFalse("".equals(s));
 
 		DefaultReconnectionFeature myDefaultReconnectionFeature = new DefaultReconnectionFeature(myDiagramTypeProvider.getFeatureProvider());
 
@@ -309,32 +307,23 @@ public class GFPackageTests extends AbstractGFTests {
 		s = null;
 		s = myDefaultReconnectionFeature.getName();
 		assertNotNull(s);
-		assertTrue(!("".equals(s)));
+		assertFalse("".equals(s));
 
 		DefaultFeatureProvider myDefaultFeatureProvider = new DefaultFeatureProvider(myDiagramTypeProvider);
 		IUpdateContext context = new UpdateContext(null);
 		IUpdateFeature updateFeature = myDefaultFeatureProvider.getUpdateFeature(context);
-
 		final PictogramLink linkForPictogramElement = Graphiti.getLinkService().getLinkForPictogramElement(pe);
-
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-
-				if (linkForPictogramElement != null) {
-					final EList<EObject> businessObject = linkForPictogramElement.getBusinessObjects();
-					if (businessObject != null && !businessObject.isEmpty()) {
-						final TransactionalEditingDomain edDom = getTransactionalEditingDomain();
-						edDom.getCommandStack().execute(new RecordingCommand(edDom) {
-							@Override
-							protected void doExecute() {
-								businessObject.removeAll(businessObject);
-							}
-						});
+		if (linkForPictogramElement != null) {
+			final EList<EObject> businessObject = linkForPictogramElement.getBusinessObjects();
+			if (businessObject != null && !businessObject.isEmpty()) {
+				executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+					@Override
+					public void run() {
+						businessObject.removeAll(businessObject);
 					}
-				}
+				});
 			}
-		});
+		}
 		context = new UpdateContext(pe);
 		try {
 			updateFeature.update(context);
@@ -364,12 +353,9 @@ public class GFPackageTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
+				executeInRecordingCommand(diagramEditor, new Runnable() {
 					@Override
-					protected void doExecute() {
+					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200, "ConnectionDecorator");
 					}
 				});
@@ -478,53 +464,23 @@ public class GFPackageTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 
-		syncExec(new VoidResult() {
+		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+		final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+		executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
 			@Override
 			public void run() {
-				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
-				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
-				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
-					@Override
-					protected void doExecute() {
-						addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200, "ConnectionDecorator");
-					}
-				});
-
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
-					@Override
-					protected void doExecute() {
-						moveClassShape(fp, currentDiagram, 300, 300, "Connection");
-					}
-				});
-			}
-
-		});
-
-		syncExec(new VoidResult() {
-			@Override
-			public void run() {
-
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-
-					@Override
-					protected void doExecute() {
-						getPeService().setPropertyValue(diagram, "Test", "test");
-					}
-				});
-				Property property = getPeService().getProperty(diagram, "Test");
-				assertTrue("test".equals(property.getValue()));
+				addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200, "ConnectionDecorator");
+				moveClassShape(fp, currentDiagram, 300, 300, "Connection");
+				getPeService().setPropertyValue(diagram, "Test", "test");
 			}
 		});
+		Property property = getPeService().getProperty(diagram, "Test");
+		assertTrue("test".equals(property.getValue()));
 
 		pictogramElementMock = createNiceMock(PictogramElement.class);
 		replay(pictogramElementMock);
-
+		
 		page.closeActiveEditor();
 	}
 
