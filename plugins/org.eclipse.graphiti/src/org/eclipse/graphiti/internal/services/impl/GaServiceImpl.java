@@ -50,6 +50,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
@@ -85,7 +86,6 @@ public final class GaServiceImpl implements IGaService {
 		}
 		return new DimensionImpl(Math.abs(maxX - minX) + 1, Math.abs(maxY - minY) + 1);
 	}
-
 
 	private static int fitColorInt(int c) {
 		c = Math.max(0, c);
@@ -474,7 +474,6 @@ public final class GaServiceImpl implements IGaService {
 		setContainer(ret, gaContainer);
 		return ret;
 	}
-
 
 	/*
 	 * (non-Javadoc)
@@ -1392,10 +1391,10 @@ public final class GaServiceImpl implements IGaService {
 				return font;
 		}
 		Font newFont = StylesFactory.eINSTANCE.createFont();
-		newFont.setName(name);
-		newFont.setSize(size);
-		newFont.setItalic(isItalic);
-		newFont.setBold(isBold);
+		newFont.eSet(StylesPackage.eINSTANCE.getFont_Name(), name);
+		newFont.eSet(StylesPackage.eINSTANCE.getFont_Size(), size);
+		newFont.eSet(StylesPackage.eINSTANCE.getFont_Italic(), isItalic);
+		newFont.eSet(StylesPackage.eINSTANCE.getFont_Bold(), isBold);
 		fonts.add(newFont);
 		return newFont;
 	}
@@ -1423,7 +1422,6 @@ public final class GaServiceImpl implements IGaService {
 		graphicsAlgorithm.setLineWidth(1);
 		graphicsAlgorithm.setTransparency(0d);
 	}
-
 
 	private void setDefaultTextAttributes(Diagram diagram, AbstractText ret, String value, boolean createFont) {
 		setDefaultGraphicsAlgorithmValues(ret);
