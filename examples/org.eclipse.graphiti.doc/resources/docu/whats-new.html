@@ -8,330 +8,372 @@
 <title>Graphiti &quot;New and Noteworthy&quot;</title>
 </head>
 <body>
-<h1>Graphiti &quot;New and Noteworthy&quot; for Indigo</h1>
-<p>Last revised Mai 02, 2011</p>
-<p>This document describes the new development topics that were
-adressed during a milestone towards the release 0.8.0 within the Indigo
-release train.</p>
+	<h1>Graphiti &quot;New and Noteworthy&quot; for Indigo</h1>
+	<p>Last revised September  05, 2011</p>
+	<p>This document describes the new development topics  and bug fixes that were
+		adressed during a milestone towards the release 0.8.1 within the
+		Indigo release train.</p>
 
-<table border="0" width="80%" cellpadding="10" cellspacing="0">
-	<tr>
-		<td colspan="2">
-		<hr style="color: grey; height: 5px" />
-		<h2><b>M7</b></h2>
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 324859">
-		<td width="30%" valign="top" align="left"><b>Undo/Redo
-		support for Non-EMF domain models</b></td>
-		<td width="70%" valign="top">It is now possible to provide
-		undo/redo functionality for operations on non-EMF domain models. In
-		order to implement this, users of the Graphiti framework can implement
-		the new interface <i>ICustomUndoableFeature</i> with their features or
-		the new interface <i>ICustomUndoablePattern</i> with their patterns.
-		If they do so, the feature or pattern will be called as soon as an
-		undo or redo is performed for this feature. For details on this new
-		possibility see <a
-			href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=324859">Bugzilla
-		324859</a>.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 324058">
-		<td width="30%" valign="top" align="left"><b>User selection
-		context in IDirectEditing APIs</b></td>
-		<td width="70%" valign="top">So far the direct editing
-		functionality in Graphiti was purely String-based. Entries in the drop
-		down or for code completion could only be identified by the String
-		they were also represented in the UI to the user. Now it is possible
-		to define and provide a proposal support class based on the new
-		interface <i>IProposalSupport</i> based on additional information, e.g
-		placed in the direct editing context. This can serve e.g. tool
-		builders having to deal with different objects that have the name,
-		like classes with the same name residing in different packages. For
-		details on this new possibility see <a
-			href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=324058">Bugzilla
-		324058</a>.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 340708">
-		<td width="30%" valign="top" align="left"><b>Double click for
-		connections</b></td>
-		<td width="70%" valign="top">It is now possible to register A
-		feature that will be executed on double click on a connection. This
-		was so far only possible for shapes.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bugfixing and round-offs">
-		<td width="30%" valign="top" align="left"><b>Round-offs and
-		bugfixes</b></td>
-		<td width="70%" valign="top">Several smaller round-offs have been
-		implemented:
-		<ul>
-			<li>Visualization during direct editing now completely fulfills
-			the usability specification.</li>
-			<li>Opening a user-contributed editor within <i>AbstractDrillDownFeature</i>
-			has been made easier by providing a protected method to open and a
-			specific editor for a given diagram.</li>
-			<li>The framework is now prepared for users to deal with EMF
-			objects that are equal in the sense of <i>EMFUtil.equals</i> but are
-			not identical. For details on this new possibility see <a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=335828">Bugzilla
-			335828</a>.</li>
-		</ul>
-		Besides several bugs within the framework have been fixed.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr style="color: grey; height: 5px" />
-		<h2><b>M6</b></h2>
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 326396">
-		<td width="30%" valign="top" align="left"><b>Connections on
-		Connections</b></td>
-		<td width="70%" valign="top">It is now possible to attach
-		connections to other connections. The Graphiti metamodel offered this
-		possibility already but the framework support for this was still
-		lacking. Now, one can define so-called connection points to actually
-		split existing connections. Technically these connection points are
-		possibly active shapes that can be selected, moved or deleted as any
-		other shape. As a tool builder you need to allow this new behavior
-		when the user tries to drop a connection either via a <i>CreateConnectionFeature</i>
-		or a <i>ReconnectConnectionFeature</i>. Example implementations are
-		available in the Sketch testtool in the tests folder in the
-		Graphiti CVS. <img src="images/NaNW-Indigo-M6-Connection.jpg" /></td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 323358">
-		<td width="30%" valign="top" align="left"><b>Font Management</b></td>
-		<td width="70%" valign="top">Graphiti now manages the fonts that
-		are used inside a diagram just the way it was already done for colors.
-		This feature was introduced in order to improve the graphics handles
-		usage and number of classes instantiated; multiple uses of the same
-		font will now lead to only one instance of that font existing inside
-		the diagram. Just as the colors fonts are now managed at Diagram level
-		and no longer on the individual graphical elements. <b>Note: this
-		is an minor incompatible change in the Graphiti API you will need to
-		adapt to!</b> There are no font creation methods any more, instead you
-		will need to call manageFont on the diagram. <b>Besides diagrams
-		that were created using Graphiti versions before 0.8.0 M6 will need a
-		migration</b> if tool defined fonts are used. The Graphiti framework
-		provides a small migration utility that can be triggered at an
-		appropriate time by the tool. We decided explicitly against triggering
-		the migration from the framework, because there will definitely by
-		different requirements on the time of triggering in the various tool
-		scenarios. Besides there will be tools that will need no migration at
-		all and would be only suffer a time penalty from that check and
-		migration being done in the framework. More details on the API change
-		and the migrator can be found in the Bugzilla <a
-			href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=323358">323358</a>.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 336075">
-		<td width="30%" valign="top" align="left"><b>URIEditorInput</b></td>
-		<td width="70%" valign="top">The Graphiti DiagramEditor now
-		accepts <i>URIEditorInput</i> objects. They can be created outside the
-		editor and the editor will care about opening the corresponding
-		diagram.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 329523">
-		<td width="30%" valign="top" align="left"><b>Resource Saved
-		Hook</b></td>
-		<td width="70%" valign="top">A new hook <i>resourcesSaved()</i>
-		has been introduced in the diagram type provider. It will be called by
-		the framework right after a diagram has been saved.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 336828">
-		<td width="30%" valign="top" align="left"><b>Pattern
-		Enhancements</b></td>
-		<td width="70%" valign="top">Graphiti patterns now allow the
-		integration of delete, remove and direct editing features. These
-		functionalities before had to be implemented within separate features.
-		Besides the patterns now easily allow to prevent that a creation tool
-		entry is created for them in the editor palette.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 323155">
-		<td width="30%" valign="top" align="left"><b>Printing and
-		Saving as Image</b></td>
-		<td width="70%" valign="top">Graphiti supports printing and
-		saving a diagram to an image. There have always been hooks were the
-		user can influence the default behaviors for these operations.
-		Nevertheless it was not clear if the way this was enabled was really
-		feasible. An investigation of the two features that exist for those
-		purposes (<i>DefaultPrintFeature</i> and <i>DefaultSaveImageFeature</i>)
-		showed that tool builders can rudimentary implement behavioral changes
-		to those features (like changing the selection in the editor), so it
-		makes sense to keep the implementations available. The existing state
-		was documented in the JavaDoc at the appropriate classes and methods
-		and a not used property in the save context was removed. This
-		functionality might be subject to further enhancement request as tools
-		need more possibilities to influence the behavior.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bugfixing">
-		<td width="30%" valign="top" align="left"><b>Fixing of Bugs</b></td>
-		<td width="70%" valign="top">Some bugs in the area of anchor
-		handling and drill down features were fixed. Also, the used SUA was
-		updated to the newest Indigo version.</td>
-	</tr>
-
-
-	<tr>
-		<td colspan="2">
-		<hr style="color: grey; height: 5px" />
-		<h2><b>M5</b></h2>
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 323359">
-		<td width="30%" valign="top" align="left"><b>Globalization</b></td>
-		<td width="70%" valign="top">Graphiti now uses resource bundles
-		for all its texts and is ready to be translated.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 327669">
-		<td width="30%" valign="top" align="left"><b>API Usages</b></td>
-		<td width="70%" valign="top">Graphiti now uses other projects
-		only via their public APIs. Usages of GEF internal stuff has been
-		removed.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 332704">
-		<td width="30%" valign="top" align="left"><b>Accessibility</b></td>
-		<td width="70%" valign="top">Graphiti now fully supports themes
-		like the high contrast mode to enable Accessibility for disabled
-		users. Some gaps in presenting selections and gradients were closed.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 326993">
-		<td width="30%" valign="top" align="left"><b>Prevent Multiple
-		Popups</b></td>
-		<td width="70%" valign="top">When deleting more than one object a
-		confirmation popup for each of the objects was presented to the user.
-		This has been improved so that the user has the option "Yes for all"
-		available.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bugfixing">
-		<td width="30%" valign="top" align="left"><b>Fixing of Bugs</b></td>
-		<td width="70%" valign="top">Some bugs especially in the area of
-		the zoom animation, ContextButtonPadData and grid alignment were
-		fixed.</td>
-	</tr>
+	<table border="0" width="80%" cellpadding="10" cellspacing="0">
+		<tr>
+			<td colspan="2">
+				<hr style="color: grey; height: 5px" />
+				<h2>
+					<b>SR1</b>
+				</h2>
+				<hr /></td>
+		</tr>
+		<tr id="Bugfixes">
+			<td width="30%" valign="top" align="left"><b>The following
+					bug were fixe d for the Indigo SR1 release of Graphiti (0.8.1)</b>
+			</td>
+			<td width="70%" valign="top"><ul>
+					<li><a
+						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352709">Bug
+							352709</a> - Invalid image provider id crashes diagram editor</li>
+					<li><a
+						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=351053">Bug
+							351053</a> - Check the need for WorkspaceCommandStackImpl</li>
+					<li><a
+						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=348662">Bug
+							348662</a> - Setting tooltip to null in tool behavior provider
+						doesn't clear up tooltip</li>
+					<li><a
+						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=348637">Bug
+							348637</a> - Direct-editing box for connection text decorator has
+						size issues</li>
+					<li><a
+						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=348634">Bug
+							348634</a> - Direct-editing invoked again after user clicks away from
+						the label and moves back</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr style="color: grey; height: 5px" />
+				<h2>
+					<b>M7</b>
+				</h2>
+				<hr /></td>
+		</tr>
+		<tr id="bug 324859">
+			<td width="30%" valign="top" align="left"><b>Undo/Redo
+					support for Non-EMF domain models</b>
+			</td>
+			<td width="70%" valign="top">It is now possible to provide
+				undo/redo functionality for operations on non-EMF domain models. In
+				order to implement this, users of the Graphiti framework can
+				implement the new interface <i>ICustomUndoableFeature</i> with their
+				features or the new interface <i>ICustomUndoablePattern</i> with
+				their patterns. If they do so, the feature or pattern will be called
+				as soon as an undo or redo is performed for this feature. For
+				details on this new possibility see <a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=324859">Bugzilla
+					324859</a>.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bug 324058">
+			<td width="30%" valign="top" align="left"><b>User selection
+					context in IDirectEditing APIs</b>
+			</td>
+			<td width="70%" valign="top">So far the direct editing
+				functionality in Graphiti was purely String-based. Entries in the
+				drop down or for code completion could only be identified by the
+				String they were also represented in the UI to the user. Now it is
+				possible to define and provide a proposal support class based on the
+				new interface <i>IProposalSupport</i> based on additional
+				information, e.g placed in the direct editing context. This can
+				serve e.g. tool builders having to deal with different objects that
+				have the name, like classes with the same name residing in different
+				packages. For details on this new possibility see <a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=324058">Bugzilla
+					324058</a>.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bug 340708">
+			<td width="30%" valign="top" align="left"><b>Double click
+					for connections</b>
+			</td>
+			<td width="70%" valign="top">It is now possible to register A
+				feature that will be executed on double click on a connection. This
+				was so far only possible for shapes.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bugfixing and round-offs">
+			<td width="30%" valign="top" align="left"><b>Round-offs and
+					bugfixes</b>
+			</td>
+			<td width="70%" valign="top">Several smaller round-offs have
+				been implemented:
+				<ul>
+					<li>Visualization during direct editing now completely
+						fulfills the usability specification.</li>
+					<li>Opening a user-contributed editor within <i>AbstractDrillDownFeature</i>
+						has been made easier by providing a protected method to open and a
+						specific editor for a given diagram.</li>
+					<li>The framework is now prepared for users to deal with EMF
+						objects that are equal in the sense of <i>EMFUtil.equals</i> but
+						are not identical. For details on this new possibility see <a
+						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=335828">Bugzilla
+							335828</a>.</li>
+				</ul> Besides several bugs within the framework have been fixed.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr style="color: grey; height: 5px" />
+				<h2>
+					<b>M6</b>
+				</h2>
+				<hr /></td>
+		</tr>
+		<tr id="bug 326396">
+			<td width="30%" valign="top" align="left"><b>Connections on
+					Connections</b>
+			</td>
+			<td width="70%" valign="top">It is now possible to attach
+				connections to other connections. The Graphiti metamodel offered
+				this possibility already but the framework support for this was
+				still lacking. Now, one can define so-called connection points to
+				actually split existing connections. Technically these connection
+				points are possibly active shapes that can be selected, moved or
+				deleted as any other shape. As a tool builder you need to allow this
+				new behavior when the user tries to drop a connection either via a <i>CreateConnectionFeature</i>
+				or a <i>ReconnectConnectionFeature</i>. Example implementations are
+				available in the Sketch testtool in the tests folder in the Graphiti
+				CVS. <img src="images/NaNW-Indigo-M6-Connection.jpg" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bug 323358">
+			<td width="30%" valign="top" align="left"><b>Font Management</b>
+			</td>
+			<td width="70%" valign="top">Graphiti now manages the fonts that
+				are used inside a diagram just the way it was already done for
+				colors. This feature was introduced in order to improve the graphics
+				handles usage and number of classes instantiated; multiple uses of
+				the same font will now lead to only one instance of that font
+				existing inside the diagram. Just as the colors fonts are now
+				managed at Diagram level and no longer on the individual graphical
+				elements. <b>Note: this is an minor incompatible change in the
+					Graphiti API you will need to adapt to!</b> There are no font creation
+				methods any more, instead you will need to call manageFont on the
+				diagram. <b>Besides diagrams that were created using Graphiti
+					versions before 0.8.0 M6 will need a migration</b> if tool defined
+				fonts are used. The Graphiti framework provides a small migration
+				utility that can be triggered at an appropriate time by the tool. We
+				decided explicitly against triggering the migration from the
+				framework, because there will definitely by different requirements
+				on the time of triggering in the various tool scenarios. Besides
+				there will be tools that will need no migration at all and would be
+				only suffer a time penalty from that check and migration being done
+				in the framework. More details on the API change and the migrator
+				can be found in the Bugzilla <a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=323358">323358</a>.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bug 336075">
+			<td width="30%" valign="top" align="left"><b>URIEditorInput</b>
+			</td>
+			<td width="70%" valign="top">The Graphiti DiagramEditor now
+				accepts <i>URIEditorInput</i> objects. They can be created outside
+				the editor and the editor will care about opening the corresponding
+				diagram.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bug 329523">
+			<td width="30%" valign="top" align="left"><b>Resource Saved
+					Hook</b>
+			</td>
+			<td width="70%" valign="top">A new hook <i>resourcesSaved()</i>
+				has been introduced in the diagram type provider. It will be called
+				by the framework right after a diagram has been saved.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bug 336828">
+			<td width="30%" valign="top" align="left"><b>Pattern
+					Enhancements</b>
+			</td>
+			<td width="70%" valign="top">Graphiti patterns now allow the
+				integration of delete, remove and direct editing features. These
+				functionalities before had to be implemented within separate
+				features. Besides the patterns now easily allow to prevent that a
+				creation tool entry is created for them in the editor palette.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bug 323155">
+			<td width="30%" valign="top" align="left"><b>Printing and
+					Saving as Image</b>
+			</td>
+			<td width="70%" valign="top">Graphiti supports printing and
+				saving a diagram to an image. There have always been hooks were the
+				user can influence the default behaviors for these operations.
+				Nevertheless it was not clear if the way this was enabled was really
+				feasible. An investigation of the two features that exist for those
+				purposes (<i>DefaultPrintFeature</i> and <i>DefaultSaveImageFeature</i>)
+				showed that tool builders can rudimentary implement behavioral
+				changes to those features (like changing the selection in the
+				editor), so it makes sense to keep the implementations available.
+				The existing state was documented in the JavaDoc at the appropriate
+				classes and methods and a not used property in the save context was
+				removed. This functionality might be subject to further enhancement
+				request as tools need more possibilities to influence the behavior.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bugfixing">
+			<td width="30%" valign="top" align="left"><b>Fixing of Bugs</b>
+			</td>
+			<td width="70%" valign="top">Some bugs in the area of anchor
+				handling and drill down features were fixed. Also, the used SUA was
+				updated to the newest Indigo version.</td>
+		</tr>
 
 
-	<tr>
-		<td colspan="2">
-		<hr style="color: grey; height: 5px" />
-		<h2><b>M4</b></h2>
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 330230">
-		<td width="30%" valign="top" align="left"><b>Indigo Release
-		Train</b></td>
-		<td width="70%" valign="top">Graphiti declared its participation
-		in the Indigo release train. All project metadata settings were done
-		and the project update site is aggregated into the common Indigo
-		milestones update site.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="bug 330218">
-		<td width="30%" valign="top" align="left"><b>Vector Graphics
-		Export</b></td>
-		<td width="70%" valign="top">Diagrams can now be exported also in
-		vector graphics format (SVG). This is available from the save as
-		dialog of a diagram editor besides the traditional save as JPG, BMP
-		etc.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="FillGaps">
-		<td width="30%" valign="top" align="left"><b>Filling of
-		functional gaps</b></td>
-		<td width="70%" valign="top">Some functional gaps like missing
-		services, automated resizing for combo boxes, creation of color
-		constants from RGB string etc. were filled.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-	<tr id="BugFixing">
-		<td width="30%" valign="top" align="left"><b>Fixing of bugs</b></td>
-		<td width="70%" valign="top">Some bugs (especially in the area of
-		refreshing the diagram were fixed.</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<hr />
-		</td>
-	</tr>
-</table>
+		<tr>
+			<td colspan="2">
+				<hr style="color: grey; height: 5px" />
+				<h2>
+					<b>M5</b>
+				</h2>
+				<hr /></td>
+		</tr>
+		<tr id="bug 323359">
+			<td width="30%" valign="top" align="left"><b>Globalization</b>
+			</td>
+			<td width="70%" valign="top">Graphiti now uses resource bundles
+				for all its texts and is ready to be translated.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bug 327669">
+			<td width="30%" valign="top" align="left"><b>API Usages</b>
+			</td>
+			<td width="70%" valign="top">Graphiti now uses other projects
+				only via their public APIs. Usages of GEF internal stuff has been
+				removed.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bug 332704">
+			<td width="30%" valign="top" align="left"><b>Accessibility</b>
+			</td>
+			<td width="70%" valign="top">Graphiti now fully supports themes
+				like the high contrast mode to enable Accessibility for disabled
+				users. Some gaps in presenting selections and gradients were closed.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bug 326993">
+			<td width="30%" valign="top" align="left"><b>Prevent
+					Multiple Popups</b>
+			</td>
+			<td width="70%" valign="top">When deleting more than one object
+				a confirmation popup for each of the objects was presented to the
+				user. This has been improved so that the user has the option "Yes
+				for all" available.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bugfixing">
+			<td width="30%" valign="top" align="left"><b>Fixing of Bugs</b>
+			</td>
+			<td width="70%" valign="top">Some bugs especially in the area of
+				the zoom animation, ContextButtonPadData and grid alignment were
+				fixed.</td>
+		</tr>
+
+
+		<tr>
+			<td colspan="2">
+				<hr style="color: grey; height: 5px" />
+				<h2>
+					<b>M4</b>
+				</h2>
+				<hr /></td>
+		</tr>
+		<tr id="bug 330230">
+			<td width="30%" valign="top" align="left"><b>Indigo Release
+					Train</b>
+			</td>
+			<td width="70%" valign="top">Graphiti declared its participation
+				in the Indigo release train. All project metadata settings were done
+				and the project update site is aggregated into the common Indigo
+				milestones update site.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="bug 330218">
+			<td width="30%" valign="top" align="left"><b>Vector Graphics
+					Export</b>
+			</td>
+			<td width="70%" valign="top">Diagrams can now be exported also
+				in vector graphics format (SVG). This is available from the save as
+				dialog of a diagram editor besides the traditional save as JPG, BMP
+				etc.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="FillGaps">
+			<td width="30%" valign="top" align="left"><b>Filling of
+					functional gaps</b>
+			</td>
+			<td width="70%" valign="top">Some functional gaps like missing
+				services, automated resizing for combo boxes, creation of color
+				constants from RGB string etc. were filled.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+		<tr id="BugFixing">
+			<td width="30%" valign="top" align="left"><b>Fixing of bugs</b>
+			</td>
+			<td width="70%" valign="top">Some bugs (especially in the area
+				of refreshing the diagram were fixed.</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr /></td>
+		</tr>
+	</table>
 </body>
 </html>
