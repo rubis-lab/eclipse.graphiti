@@ -1371,9 +1371,9 @@ public final class GaServiceImpl implements IGaService {
 		}
 
 		Color newColor = StylesFactory.eINSTANCE.createColor();
-		newColor.setRed(red);
-		newColor.setGreen(green);
-		newColor.setBlue(blue);
+		newColor.eSet(StylesPackage.eINSTANCE.getColor_Red(), red);
+		newColor.eSet(StylesPackage.eINSTANCE.getColor_Green(), green);
+		newColor.eSet(StylesPackage.eINSTANCE.getColor_Blue(), blue);
 		colors.add(newColor);
 		return newColor;
 	}

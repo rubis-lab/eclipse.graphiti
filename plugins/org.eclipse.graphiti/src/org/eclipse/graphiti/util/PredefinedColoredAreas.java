@@ -23,6 +23,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
 import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredLocation;
 import org.eclipse.graphiti.mm.algorithms.styles.LocationType;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
 import org.eclipse.graphiti.services.IGaService;
 
 /**
@@ -467,16 +468,16 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 		gcas.add(gca);
 		gca.setStart(StylesFactory.eINSTANCE.createGradientColoredLocation());
 		gca.getStart().setColor(StylesFactory.eINSTANCE.createColor());
-		gca.getStart().getColor().setBlue(ColorUtil.getBlueFromHex(colorStart));
-		gca.getStart().getColor().setGreen(ColorUtil.getGreenFromHex(colorStart));
-		gca.getStart().getColor().setRed(ColorUtil.getRedFromHex(colorStart));
+		gca.getStart().getColor().eSet(StylesPackage.eINSTANCE.getColor_Blue(), ColorUtil.getBlueFromHex(colorStart));
+		gca.getStart().getColor().eSet(StylesPackage.eINSTANCE.getColor_Green(), ColorUtil.getGreenFromHex(colorStart));
+		gca.getStart().getColor().eSet(StylesPackage.eINSTANCE.getColor_Red(), ColorUtil.getRedFromHex(colorStart));
 		gca.getStart().setLocationType(locationTypeStart);
 		gca.getStart().setLocationValue(locationValueStart);
 		gca.setEnd(StylesFactory.eINSTANCE.createGradientColoredLocation());
 		gca.getEnd().setColor(StylesFactory.eINSTANCE.createColor());
-		gca.getEnd().getColor().setBlue(ColorUtil.getBlueFromHex(colorEnd));
-		gca.getEnd().getColor().setGreen(ColorUtil.getGreenFromHex(colorEnd));
-		gca.getEnd().getColor().setRed(ColorUtil.getRedFromHex(colorEnd));
+		gca.getEnd().getColor().eSet(StylesPackage.eINSTANCE.getColor_Blue(), ColorUtil.getBlueFromHex(colorEnd));
+		gca.getEnd().getColor().eSet(StylesPackage.eINSTANCE.getColor_Green(), ColorUtil.getGreenFromHex(colorEnd));
+		gca.getEnd().getColor().eSet(StylesPackage.eINSTANCE.getColor_Red(), ColorUtil.getRedFromHex(colorEnd));
 		gca.getEnd().setLocationType(locationTypeEnd);
 		gca.getEnd().setLocationValue(locationValueEnd);
 	}
