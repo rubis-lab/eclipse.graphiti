@@ -46,7 +46,9 @@ import org.eclipse.graphiti.util.IColorConstant;
 public interface IGaCreateService {
 
 	/**
-	 * Creates a multitext graphics algorithm.
+	 * Creates a multitext graphics algorithm with the default font (Arial, size
+	 * 8). Use this method only if you want to use the default text, otherwise
+	 * use {@link #createMultiText(GraphicsAlgorithmContainer)}
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -69,7 +71,10 @@ public interface IGaCreateService {
 	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer);
 
 	/**
-	 * Creates a multitext graphics algorithm with the given text.
+	 * Creates a multitext graphics algorithm with the default font (Arial, size
+	 * 8) and the given text. Use this method only if you want to use the
+	 * default text, otherwise use
+	 * {@link #createMultiText(GraphicsAlgorithmContainer, String)}
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -95,6 +100,8 @@ public interface IGaCreateService {
 
 	/**
 	 * Creates a text graphics algorithm with the default font (Arial, size 8).
+	 * Use this method only if you want to use the default text, otherwise use
+	 * {@link #createText(GraphicsAlgorithmContainer)}
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -117,10 +124,11 @@ public interface IGaCreateService {
 	 */
 	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer);
 
-
 	/**
 	 * Creates a text graphics algorithm with the default font (Arial, size 8)
-	 * and the given text.
+	 * and the given text. Use this method only if you want to use the default
+	 * text, otherwise use
+	 * {@link #createText(GraphicsAlgorithmContainer, String)}
 	 * <p>
 	 * The following values are set by default:
 	 * <p>

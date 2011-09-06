@@ -65,7 +65,11 @@ import org.eclipse.graphiti.util.IColorConstant;
  */
 public final class GaServiceImpl implements IGaService {
 
+	/**
+	 * 
+	 */
 	public static final String DEFAULT_FONT = "Arial"; //$NON-NLS-1$
+	public static final int DEFAULT_FONT_SIZE = 8;
 
 	private static IDimension calculatePolylineMinSize(Polyline polyline) {
 		Collection<Point> points = polyline.getPoints();
@@ -1379,6 +1383,16 @@ public final class GaServiceImpl implements IGaService {
 	}
 
 	@Override
+	public Font manageDefaultFont(Diagram diagram) {
+		return manageDefaultFont(diagram, false, false);
+	}
+
+	@Override
+	public Font manageDefaultFont(Diagram diagram, boolean isItalic, boolean isBold) {
+		return manageFont(diagram, DEFAULT_FONT, DEFAULT_FONT_SIZE, isItalic, isBold);
+	}
+
+	@Override
 	public Font manageFont(Diagram diagram, String name, int size) {
 		return manageFont(diagram, name, size, false, false);
 	}
@@ -1427,7 +1441,7 @@ public final class GaServiceImpl implements IGaService {
 		setDefaultGraphicsAlgorithmValues(ret);
 		ret.setValue(value);
 		if (createFont && diagram != null) {
-			Font font = manageFont(diagram, DEFAULT_FONT, 8);
+			Font font = manageFont(diagram, DEFAULT_FONT, DEFAULT_FONT_SIZE);
 			ret.setFont(font);
 		}
 	}

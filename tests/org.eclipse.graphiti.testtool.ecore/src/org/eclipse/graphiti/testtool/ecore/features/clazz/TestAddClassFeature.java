@@ -126,11 +126,11 @@ public class TestAddClassFeature extends AbstractAddShapeFeature {
 			Shape shape = pecService.createShape(containerShape, false);
 
 			// create and set text graphics algorithm
-			Text text = gaService.createDefaultText(getDiagram(), shape, addedClass.getName());
+			Text text = gaService.createText(shape, addedClass.getName());
 			text.setForeground(manageColor(CLASS_TEXT_FOREGROUND));
 			text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 			text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-			text.getFont().setBold(true);
+			text.setFont(gaService.manageDefaultFont(getDiagram(), false, true));
 			gaService.setLocationAndSize(text, 0, 0, width, 20);
 
 			// create link and wire it

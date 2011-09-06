@@ -299,6 +299,36 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	public Color manageColor(Diagram diagram, int red, int green, int blue);
 
 	/**
+	 * Provides the font instance for the default font (Arial in size 8) by
+	 * either creating a new one and aggregating it to the diagram or finding it
+	 * in the diagrams list of fonts.
+	 * 
+	 * @param diagram
+	 *            the diagram that aggregates the fonts
+	 * @return the font instance
+	 * 
+	 * @since 0.9
+	 */
+	Font manageDefaultFont(Diagram diagram);
+
+	/**
+	 * Provides the font instance for the default font (Arial in size 8) by
+	 * either creating a new one and aggregating it to the diagram or finding it
+	 * in the diagrams list of fonts.
+	 * 
+	 * @param diagram
+	 *            the diagram that aggregates the fonts
+	 * @param isItalic
+	 *            the is italic
+	 * @param isBold
+	 *            the is bold
+	 * @return the font instance
+	 * 
+	 * @since 0.9
+	 */
+	Font manageDefaultFont(Diagram diagram, boolean isItalic, boolean isBold);
+
+	/**
 	 * Provides a font instance by either creating a new one and aggregating it
 	 * to the diagram or finding it in the diagrams list of fonts.
 	 * 
@@ -360,4 +390,5 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 *            areas.
 	 */
 	public void setRenderingStyle(AbstractStyle abstractStyle, AdaptedGradientColoredAreas adaptedGradientColoredAreas);
+
 }

@@ -74,6 +74,7 @@ public abstract class CompartmentPattern extends AbstractPattern {
 		// CONTAINER SHAPE WITH ROUNDED RECTANGLE
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		IGaCreateService gaCreateService = Graphiti.getGaCreateService();
+		IGaService gaService = Graphiti.getGaService();
 		ContainerShape containerShape = peCreateService.createContainerShape(parentContainerShape, true);
 
 		getFeatureProvider().getDirectEditingInfo().setMainPictogramElement(containerShape);
@@ -112,19 +113,19 @@ public abstract class CompartmentPattern extends AbstractPattern {
 
 				gaCreateService.createImage(rectangle, IPlatformImageConstants.IMG_EDIT_EXPANDALL);
 
-				text = gaCreateService.createDefaultText(getDiagram(), rectangle);
+				text = gaCreateService.createText(rectangle);
 				text.setForeground(manageColor(getConfiguration().getTextColor()));
 				text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
 				text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-				text.getFont().setBold(true);
+				text.setFont(gaService.manageDefaultFont(getDiagram(), false, true));
 
 			} else { // just a text data mapping
 
-				text = gaCreateService.createDefaultText(getDiagram(), shape);
+				text = gaCreateService.createText(shape);
 				text.setForeground(manageColor(getConfiguration().getTextColor()));
 				text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 				text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-				text.getFont().setBold(true);
+				text.setFont(gaService.manageDefaultFont(getDiagram(), false, true));
 			}
 
 			IDirectEditingInfo dei = getFeatureProvider().getDirectEditingInfo();
@@ -357,6 +358,7 @@ public abstract class CompartmentPattern extends AbstractPattern {
 	private void createShapesInCompartment(ContainerShape compartmentContainerShape, List<ILinkCreationInfo> linkCreationInfos) {
 
 		IGaCreateService gaCreateService = Graphiti.getGaCreateService();
+		IGaService gaService = Graphiti.getGaService();
 
 		// add multi text shapes
 		for (ILinkCreationInfo linkCreationInfo : linkCreationInfos) {
@@ -369,11 +371,11 @@ public abstract class CompartmentPattern extends AbstractPattern {
 
 			gaCreateService.createImage(rectangle, IPlatformImageConstants.IMG_EDIT_EXPANDALL);
 
-			Text text = gaCreateService.createDefaultText(getDiagram(), rectangle);
+			Text text = gaCreateService.createText(rectangle);
 			text.setForeground(manageColor(getConfiguration().getTextColor()));
 			text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
 			text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-			text.getFont().setBold(true);
+			text.setFont(gaService.manageDefaultFont(getDiagram(), false, true));
 
 			// create link and wire it
 			Object[] businessObjects = linkCreationInfo.getBusinessObjects();
