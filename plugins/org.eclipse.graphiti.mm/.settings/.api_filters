@@ -8,6 +8,26 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src-gen/org/eclipse/graphiti/mm/algorithms/styles/Color.java" type="org.eclipse.graphiti.mm.algorithms.styles.Color">
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.Color"/>
+                <message_argument value="setBlue(int)"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.Color"/>
+                <message_argument value="setGreen(int)"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.Color"/>
+                <message_argument value="setRed(int)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/eclipse/graphiti/mm/algorithms/styles/Font.java" type="org.eclipse.graphiti.mm.algorithms.styles.Font">
         <filter id="405901410">
             <message_arguments>

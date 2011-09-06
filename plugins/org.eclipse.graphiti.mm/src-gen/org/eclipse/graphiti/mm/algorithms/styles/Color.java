@@ -44,22 +44,11 @@ public interface Color extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Red</em>' attribute.
-	 * @see #setRed(int)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getColor_Red()
-	 * @model unique="false" required="true" ordered="false"
+	 * @model unique="false" required="true" ordered="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	int getRed();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getRed <em>Red</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Red</em>' attribute.
-	 * @see #getRed()
-	 * @generated
-	 */
-	void setRed(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Green</b></em>' attribute.
@@ -70,22 +59,11 @@ public interface Color extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Green</em>' attribute.
-	 * @see #setGreen(int)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getColor_Green()
-	 * @model unique="false" required="true" ordered="false"
+	 * @model unique="false" required="true" ordered="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	int getGreen();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getGreen <em>Green</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Green</em>' attribute.
-	 * @see #getGreen()
-	 * @generated
-	 */
-	void setGreen(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Blue</b></em>' attribute.
@@ -96,21 +74,10 @@ public interface Color extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Blue</em>' attribute.
-	 * @see #setBlue(int)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getColor_Blue()
-	 * @model unique="false" required="true" ordered="false"
+	 * @model unique="false" required="true" ordered="false" suppressedSetVisibility="true"
 	 * @generated
 	 */
 	int getBlue();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getBlue <em>Blue</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Blue</em>' attribute.
-	 * @see #getBlue()
-	 * @generated
-	 */
-	void setBlue(int value);
 
 } // Color
