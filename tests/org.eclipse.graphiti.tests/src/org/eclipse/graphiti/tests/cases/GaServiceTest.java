@@ -176,6 +176,49 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 	}
 
 	@Test
+	public void manageDefaultFont() {
+		Font font = gas.manageDefaultFont(d);
+		assertNotNull(font);
+		assertEquals(IGaService.DEFAULT_FONT, font.getName());
+		assertEquals(IGaService.DEFAULT_FONT_SIZE, font.getSize());
+		assertFalse(font.isItalic());
+		assertFalse(font.isBold());
+	}
+
+	@Test
+	public void manageDefaultFont2() {
+		Font font = gas.manageDefaultFont(d, true, true);
+		assertNotNull(font);
+		assertEquals(IGaService.DEFAULT_FONT_SIZE, font.getSize());
+		assertEquals(IGaService.DEFAULT_FONT, font.getName());
+		assertTrue(font.isItalic());
+		assertTrue(font.isBold());
+		font = gas.manageDefaultFont(d, true, false);
+		assertTrue(font.isItalic());
+		assertFalse(font.isBold());
+		font = gas.manageDefaultFont(d, false, true);
+		assertFalse(font.isItalic());
+		assertTrue(font.isBold());
+		font = gas.manageDefaultFont(d, false, false);
+		assertFalse(font.isItalic());
+		assertFalse(font.isBold());
+	}
+
+	@Test
+	public void manageDefaultFont3() {
+		Text text = gas.createDefaultText(d, s1);
+		Font font = gas.manageDefaultFont(d);
+		assertNotNull(font);
+		assertEquals(IGaService.DEFAULT_FONT_SIZE, font.getSize());
+		assertEquals(IGaService.DEFAULT_FONT, font.getName());
+		assertEquals(font, text.getFont());
+		// Check if aggregation on diagram level works-> no additional font
+		// object should be created
+		Font font2 = gas.manageDefaultFont(d);
+		assertEquals(font, font2);
+	}
+
+	@Test
 	public void createStyle() {
 		Style style = gas.createStyle(d, VALUE);
 		assertEquals(VALUE, style.getId());
