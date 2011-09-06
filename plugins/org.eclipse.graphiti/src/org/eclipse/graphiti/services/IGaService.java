@@ -40,6 +40,17 @@ import org.eclipse.graphiti.util.PredefinedColoredAreas;
  * @noextend This interface is not intended to be extended by clients.
  */
 public interface IGaService extends IGaCreateService, IGaLayoutService {
+
+	/**
+	 * @since 0.9
+	 */
+	public static final String DEFAULT_FONT = "Arial";
+
+	/**
+	 * @since 0.9
+	 */
+	public static final int DEFAULT_FONT_SIZE = 8;
+
 	/**
 	 * Delete font.
 	 * 

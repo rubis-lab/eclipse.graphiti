@@ -65,12 +65,6 @@ import org.eclipse.graphiti.util.IColorConstant;
  */
 public final class GaServiceImpl implements IGaService {
 
-	/**
-	 * 
-	 */
-	public static final String DEFAULT_FONT = "Arial"; //$NON-NLS-1$
-	public static final int DEFAULT_FONT_SIZE = 8;
-
 	private static IDimension calculatePolylineMinSize(Polyline polyline) {
 		Collection<Point> points = polyline.getPoints();
 
