@@ -464,6 +464,12 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 
 	protected static void addGradientColoredArea(EList<GradientColoredArea> gcas, String colorStart, int locationValueStart,
 			LocationType locationTypeStart, String colorEnd, int locationValueEnd, LocationType locationTypeEnd) {
+		/*
+		 * Colors are stored locally at the gradient colored area for sake of
+		 * better readability and in the assumption that colors are not
+		 * intensively reused. The complete gradient definition is stored only
+		 * once per diagram so reuse is in place at a higher level.
+		 */
 		final GradientColoredArea gca = StylesFactory.eINSTANCE.createGradientColoredArea();
 		gcas.add(gca);
 		gca.setStart(StylesFactory.eINSTANCE.createGradientColoredLocation());
