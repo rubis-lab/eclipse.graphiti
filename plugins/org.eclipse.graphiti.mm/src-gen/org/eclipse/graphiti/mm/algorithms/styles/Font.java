@@ -17,33 +17,37 @@ package org.eclipse.graphiti.mm.algorithms.styles;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Font</b></em>'.
- * <!-- end-user-doc -->
- *
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Font</b></em>'. <!-- end-user-doc -->
+ * 
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Font#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Font#getSize <em>Size</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Font#isItalic <em>Italic</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Font#isBold <em>Bold</em>}</li>
+ * <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Font#getName <em>Name
+ * </em>}</li>
+ * <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Font#getSize <em>Size
+ * </em>}</li>
+ * <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Font#isItalic <em>Italic
+ * </em>}</li>
+ * <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Font#isBold <em>Bold
+ * </em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getFont()
  * @model
  * @generated
  */
 public interface Font extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getFont_Name()
@@ -53,23 +57,30 @@ public interface Font extends EObject {
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Font#getName <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * Sets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.Font#getName
+	 * <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Name</em>' attribute.
 	 * @see #getName()
-	 * @generated
+	 * @generated not
+	 * @deprecated use the manageFont methods in class IGaService instead to
+	 *             create a Font with the desired properties, see
+	 *             https://bugs.eclipse.org/bugs/show_bug.cgi?id=355347 for
+	 *             details
 	 */
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Size</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Size</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Size</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Size</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Size</em>' attribute.
 	 * @see #setSize(int)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getFont_Size()
@@ -79,23 +90,30 @@ public interface Font extends EObject {
 	int getSize();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Font#getSize <em>Size</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Size</em>' attribute.
+	 * Sets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.Font#getSize
+	 * <em>Size</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Size</em>' attribute.
 	 * @see #getSize()
-	 * @generated
+	 * @generated not
+	 * @deprecated use the manageFont methods in class IGaService instead to
+	 *             create a Font with the desired properties, see
+	 *             https://bugs.eclipse.org/bugs/show_bug.cgi?id=355347 for
+	 *             details
 	 */
 	void setSize(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Italic</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Italic</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Italic</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Italic</em>' attribute isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Italic</em>' attribute.
 	 * @see #setItalic(boolean)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getFont_Italic()
@@ -105,23 +123,31 @@ public interface Font extends EObject {
 	boolean isItalic();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Font#isItalic <em>Italic</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Italic</em>' attribute.
+	 * Sets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.Font#isItalic
+	 * <em>Italic</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Italic</em>' attribute.
 	 * @see #isItalic()
-	 * @generated
+	 * @generated not
+	 * @deprecated use the manageFont methods in class IGaService instead to
+	 *             create a Font with the desired properties, see
+	 *             https://bugs.eclipse.org/bugs/show_bug.cgi?id=355347 for
+	 *             details
 	 */
 	void setItalic(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Bold</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Bold</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Bold</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Bold</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Bold</em>' attribute.
 	 * @see #setBold(boolean)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getFont_Bold()
@@ -131,12 +157,18 @@ public interface Font extends EObject {
 	boolean isBold();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Font#isBold <em>Bold</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Bold</em>' attribute.
+	 * Sets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.Font#isBold
+	 * <em>Bold</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Bold</em>' attribute.
 	 * @see #isBold()
-	 * @generated
+	 * @generated not
+	 * @deprecated use the manageFont methods in class IGaService instead to
+	 *             create a Font with the desired properties, see
+	 *             https://bugs.eclipse.org/bugs/show_bug.cgi?id=355347 for
+	 *             details
 	 */
 	void setBold(boolean value);
 

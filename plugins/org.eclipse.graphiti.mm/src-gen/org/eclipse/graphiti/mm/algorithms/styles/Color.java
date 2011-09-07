@@ -17,32 +17,35 @@ package org.eclipse.graphiti.mm.algorithms.styles;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Color</b></em>'.
- * <!-- end-user-doc -->
- *
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Color</b></em>'. <!-- end-user-doc -->
+ * 
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getRed <em>Red</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getGreen <em>Green</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getBlue <em>Blue</em>}</li>
+ * <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getRed <em>Red
+ * </em>}</li>
+ * <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getGreen <em>Green
+ * </em>}</li>
+ * <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getBlue <em>Blue
+ * </em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getColor()
  * @model
  * @generated
  */
 public interface Color extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Red</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Red</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Red</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Red</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Red</em>' attribute.
 	 * @see #setRed(int)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getColor_Red()
@@ -52,23 +55,30 @@ public interface Color extends EObject {
 	int getRed();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getRed <em>Red</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Red</em>' attribute.
+	 * Sets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.Color#getRed
+	 * <em>Red</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Red</em>' attribute.
 	 * @see #getRed()
-	 * @generated
+	 * @generated not
+	 * @deprecated use the manageColor methods in class IGaService instead to
+	 *             create a Color with the desired properties, see
+	 *             https://bugs.eclipse.org/bugs/show_bug.cgi?id=355347 for
+	 *             details
 	 */
 	void setRed(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Green</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Green</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Green</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Green</em>' attribute isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Green</em>' attribute.
 	 * @see #setGreen(int)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getColor_Green()
@@ -78,23 +88,30 @@ public interface Color extends EObject {
 	int getGreen();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getGreen <em>Green</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Green</em>' attribute.
+	 * Sets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.Color#getGreen
+	 * <em>Green</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Green</em>' attribute.
 	 * @see #getGreen()
-	 * @generated
+	 * @generated not
+	 * @deprecated use the manageColor methods in class IGaService instead to
+	 *             create a Color with the desired properties, see
+	 *             https://bugs.eclipse.org/bugs/show_bug.cgi?id=355347 for
+	 *             details
 	 */
 	void setGreen(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Blue</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Blue</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Blue</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Blue</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Blue</em>' attribute.
 	 * @see #setBlue(int)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getColor_Blue()
@@ -104,12 +121,18 @@ public interface Color extends EObject {
 	int getBlue();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getBlue <em>Blue</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Blue</em>' attribute.
+	 * Sets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.Color#getBlue
+	 * <em>Blue</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Blue</em>' attribute.
 	 * @see #getBlue()
-	 * @generated
+	 * @generated not
+	 * @deprecated use the manageColor methods in class IGaService instead to
+	 *             create a Color with the desired properties, see
+	 *             https://bugs.eclipse.org/bugs/show_bug.cgi?id=355347 for
+	 *             details
 	 */
 	void setBlue(int value);
 

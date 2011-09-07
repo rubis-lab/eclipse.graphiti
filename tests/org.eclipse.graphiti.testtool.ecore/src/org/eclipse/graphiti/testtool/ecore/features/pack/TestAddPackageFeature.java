@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 355347 - Deprecate setters of Graphiti's Font Interface
  *
  * </copyright>
  *
@@ -111,11 +112,11 @@ public class TestAddPackageFeature extends AbstractAddShapeFeature {
 			Shape shape = pecService.createShape(containerShape, false);
 
 			// create and set text graphics algorithm
-			Text text = gaService.createDefaultText(getDiagram(), shape, addedPackage.getName());
+			Text text = gaService.createText(shape, addedPackage.getName());
 			text.setForeground(manageColor(PACKAGE_TEXT_FOREGROUND));
 			text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 			text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-			text.getFont().setBold(true);
+			text.setFont(gaService.manageFont(getDiagram(), "Arial", 8, false, true)); //$NON-NLS-1$
 			gaService.setLocationAndSize(text, 0, 0, width, 20);
 
 			// create link and wire it

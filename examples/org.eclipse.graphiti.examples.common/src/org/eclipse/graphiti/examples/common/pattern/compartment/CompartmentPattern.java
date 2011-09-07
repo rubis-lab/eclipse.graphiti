@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 355347 - Deprecate setters of Graphiti's Font Interface
  *
  * </copyright>
  *
@@ -74,6 +75,7 @@ public abstract class CompartmentPattern extends AbstractPattern {
 		// CONTAINER SHAPE WITH ROUNDED RECTANGLE
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		IGaCreateService gaCreateService = Graphiti.getGaCreateService();
+		IGaService gaService = Graphiti.getGaService();
 		ContainerShape containerShape = peCreateService.createContainerShape(parentContainerShape, true);
 
 		getFeatureProvider().getDirectEditingInfo().setMainPictogramElement(containerShape);
@@ -112,19 +114,19 @@ public abstract class CompartmentPattern extends AbstractPattern {
 
 				gaCreateService.createImage(rectangle, IPlatformImageConstants.IMG_EDIT_EXPANDALL);
 
-				text = gaCreateService.createDefaultText(getDiagram(), rectangle);
+				text = gaCreateService.createText(rectangle);
 				text.setForeground(manageColor(getConfiguration().getTextColor()));
 				text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
 				text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-				text.getFont().setBold(true);
+				text.setFont(gaService.manageFont(getDiagram(), "Arial", 8, false, true)); //$NON-NLS-1$
 
 			} else { // just a text data mapping
 
-				text = gaCreateService.createDefaultText(getDiagram(), shape);
+				text = gaCreateService.createText(shape);
 				text.setForeground(manageColor(getConfiguration().getTextColor()));
 				text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 				text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-				text.getFont().setBold(true);
+				text.setFont(gaService.manageFont(getDiagram(), "Arial", 8, false, true)); //$NON-NLS-1$
 			}
 
 			IDirectEditingInfo dei = getFeatureProvider().getDirectEditingInfo();
@@ -357,6 +359,7 @@ public abstract class CompartmentPattern extends AbstractPattern {
 	private void createShapesInCompartment(ContainerShape compartmentContainerShape, List<ILinkCreationInfo> linkCreationInfos) {
 
 		IGaCreateService gaCreateService = Graphiti.getGaCreateService();
+		IGaService gaService = Graphiti.getGaService();
 
 		// add multi text shapes
 		for (ILinkCreationInfo linkCreationInfo : linkCreationInfos) {
@@ -369,11 +372,11 @@ public abstract class CompartmentPattern extends AbstractPattern {
 
 			gaCreateService.createImage(rectangle, IPlatformImageConstants.IMG_EDIT_EXPANDALL);
 
-			Text text = gaCreateService.createDefaultText(getDiagram(), rectangle);
+			Text text = gaCreateService.createText(rectangle);
 			text.setForeground(manageColor(getConfiguration().getTextColor()));
 			text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
 			text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-			text.getFont().setBold(true);
+			text.setFont(gaService.manageFont(getDiagram(), "Arial", 8, false, true)); //$NON-NLS-1$
 
 			// create link and wire it
 			Object[] businessObjects = linkCreationInfo.getBusinessObjects();

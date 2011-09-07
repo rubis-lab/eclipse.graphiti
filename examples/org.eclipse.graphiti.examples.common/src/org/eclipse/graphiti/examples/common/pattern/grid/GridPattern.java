@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 355347 - Deprecate setters of Graphiti's Font Interface
  *
  * </copyright>
  *
@@ -300,19 +301,18 @@ public abstract class GridPattern extends AbstractPattern {
 
 	private void createCellShapes(ContainerShape containerShape, List<ILinkCreationInfo> linkCreationInfos) {
 
+		IGaService gaService = Graphiti.getGaService();
+
 		// add text shapes for each BO
 		for (ILinkCreationInfo linkCreationInfo : linkCreationInfos) {
 
 			Shape shape = Graphiti.getPeCreateService().createShape(containerShape, false);
 
-			Text text = Graphiti.getGaService().createDefaultText(getDiagram(), shape);
+			Text text = Graphiti.getGaService().createText(shape);
 			text.setForeground(manageColor(getConfiguration().getTextColor()));
 			text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 			text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-			text.getFont().setBold(false);
-			text.getFont().setItalic(true);
-			text.getFont().setSize(10);
-			text.getFont().setName("Baskerville Old Face"); //$NON-NLS-1$
+			text.setFont(gaService.manageFont(getDiagram(), "Baskerville Old Face", 10, true, false)); //$NON-NLS-1$
 
 			// create link and wire it
 			link(shape, linkCreationInfo.getBusinessObjects());
