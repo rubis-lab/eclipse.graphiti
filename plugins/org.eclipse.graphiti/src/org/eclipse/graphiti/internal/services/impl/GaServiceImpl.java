@@ -545,6 +545,38 @@ public final class GaServiceImpl implements IGaService {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createMultiText(org.eclipse
+	 * .graphiti.mm.pictograms.Diagram,
+	 * org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, java.lang.String,
+	 * java.lang.String, int)
+	 */
+	@Override
+	public MultiText createMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize) {
+		return createMultiText(diagram, gaContainer, value, fontName, fontSize, false, false);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createMultiText(org.eclipse
+	 * .graphiti.mm.pictograms.Diagram,
+	 * org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, java.lang.String,
+	 * java.lang.String, int, boolean, boolean)
+	 */
+	@Override
+	public MultiText createMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize,
+			boolean isFontItalic, boolean isFontBold) {
+		MultiText text = createMultiText(gaContainer, value);
+		Font font = manageFont(diagram, fontName, fontSize, isFontItalic, isFontBold);
+		text.setFont(font);
+		return text;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @seeorg.eclipse.graphiti.services.IGaCreateService#
 	 * createPlatformGraphicsAlgorithm
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer,
@@ -855,6 +887,38 @@ public final class GaServiceImpl implements IGaService {
 		setDefaultTextAttributes(diagram, ret, value, createFont);
 		setContainer(ret, gaContainer);
 		return ret;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createText(org.eclipse
+	 * .graphiti.mm.pictograms.Diagram,
+	 * org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, java.lang.String,
+	 * java.lang.String, int)
+	 */
+	@Override
+	public Text createText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize) {
+		return createText(diagram, gaContainer, value, fontName, fontSize, false, false);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createText(org.eclipse
+	 * .graphiti.mm.pictograms.Diagram,
+	 * org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, java.lang.String,
+	 * java.lang.String, int, boolean, boolean)
+	 */
+	@Override
+	public Text createText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize,
+			boolean isFontItalic, boolean isFontBold) {
+		Text text = createText(gaContainer, value);
+		Font font = manageFont(diagram, fontName, fontSize, isFontItalic, isFontBold);
+		text.setFont(font);
+		return text;
 	}
 
 	/*
@@ -1571,5 +1635,4 @@ public final class GaServiceImpl implements IGaService {
 			throw new IllegalArgumentException("Object AdaptedGradientColoredAreas or its attributes must not be null or empty"); //$NON-NLS-1$
 		}
 	}
-
 }

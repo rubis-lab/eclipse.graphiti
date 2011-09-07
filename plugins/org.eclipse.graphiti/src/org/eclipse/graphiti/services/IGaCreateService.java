@@ -196,6 +196,81 @@ public interface IGaCreateService {
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer, String value);
 
 	/**
+	 * Creates a multitext graphics algorithm with the given text and font. The
+	 * font will be displayed in straight (no italics or bold) and will be
+	 * managed within the given diagram; in case the font already exists it will
+	 * be reused, otherwise the corresponding font instance will be created.
+	 * <p>
+	 * The following values are set by default:
+	 * <p>
+	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
+	 * graphicsAlgorithm.setLineVisible(true); <br>
+	 * graphicsAlgorithm.setLineWidth(1);<br>
+	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * text.setAngle(0);<br>
+	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
+	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * text.setFont(<given font<);<br>
+	 * 
+	 * @param diagram
+	 *            the diagram that shall be used for managing the font for the
+	 *            new text field
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param value
+	 *            initial text
+	 * @param fontName
+	 *            the name of the font to use for the new text field
+	 * @param fontSize
+	 *            the size of the font to use for the new text field
+	 * @return the new multiline text
+	 * @since 0.9
+	 */
+	public MultiText createMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize);
+
+	/**
+	 * Creates a multitext graphics algorithm with the given text and font. The
+	 * font will be managed within the given diagram; in case the font already
+	 * exists it will be reused, otherwise the corresponding font instance will
+	 * be created.
+	 * <p>
+	 * The following values are set by default:
+	 * <p>
+	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
+	 * graphicsAlgorithm.setLineVisible(true); <br>
+	 * graphicsAlgorithm.setLineWidth(1);<br>
+	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * text.setAngle(0);<br>
+	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
+	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * text.setFont(<given font<);<br>
+	 * 
+	 * @param diagram
+	 *            the diagram that shall be used for managing the font for the
+	 *            new text field
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param value
+	 *            initial text
+	 * @param fontName
+	 *            the name of the font to use for the new text field
+	 * @param fontSize
+	 *            the size of the font to use for the new text field
+	 * @param isFontItalic
+	 *            flag if the font to use for the new text field should be
+	 *            italic or not
+	 * @param isFontBold
+	 *            flag if the font to use for the new text field should be bold
+	 *            or not
+	 * @return the new multiline text
+	 * @since 0.9
+	 */
+	public MultiText createMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize,
+			boolean isFontItalic, boolean isFontBold);
+
+	/**
 	 * Creates a text graphics algorithm.
 	 * <p>
 	 * The following values are set by default:
@@ -236,6 +311,81 @@ public interface IGaCreateService {
 	 * @return the new text
 	 */
 	public Text createText(GraphicsAlgorithmContainer gaContainer, String value);
+
+	/**
+	 * Creates a text graphics algorithm with the given text and font. The font
+	 * will be displayed in straight (no italics or bold) and will be managed
+	 * within the given diagram; in case the font already exists it will be
+	 * reused, otherwise the corresponding font instance will be created.
+	 * <p>
+	 * The following values are set by default:
+	 * <p>
+	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
+	 * graphicsAlgorithm.setLineVisible(true); <br>
+	 * graphicsAlgorithm.setLineWidth(1);<br>
+	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * text.setAngle(0);<br>
+	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
+	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * text.setFont(<given font<);<br>
+	 * 
+	 * @param diagram
+	 *            the diagram that shall be used for managing the font for the
+	 *            new text field
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param value
+	 *            initial text
+	 * @param fontName
+	 *            the name of the font to use for the new text field
+	 * @param fontSize
+	 *            the size of the font to use for the new text field
+	 * @return the new text
+	 * @since 0.9
+	 */
+	public Text createText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize);
+
+	/**
+	 * Creates a text graphics algorithm with the given text and font. The font
+	 * will be managed within the given diagram; in case the font already exists
+	 * it will be reused, otherwise the corresponding font instance will be
+	 * created.
+	 * <p>
+	 * The following values are set by default:
+	 * <p>
+	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
+	 * graphicsAlgorithm.setLineVisible(true); <br>
+	 * graphicsAlgorithm.setLineWidth(1);<br>
+	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * text.setAngle(0);<br>
+	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
+	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * text.setFont(<given font<);<br>
+	 * 
+	 * @param diagram
+	 *            the diagram that shall be used for managing the font for the
+	 *            new text field
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param value
+	 *            initial text
+	 * @param fontName
+	 *            the name of the font to use for the new text field
+	 * @param fontSize
+	 *            the size of the font to use for the new text field
+	 * @param isFontItalic
+	 *            flag if the font to use for the new text field should be
+	 *            italic or not
+	 * @param isFontBold
+	 *            flag if the font to use for the new text field should be bold
+	 *            or not
+	 * @return the new text
+	 * @since 0.9
+	 */
+	public Text createText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize,
+			boolean isFontItalic, boolean isFontBold);
 
 	/**
 	 * Creates an ellipse graphics algorithm.
