@@ -44,7 +44,7 @@ public class IgnoreAllFeature extends AbstractCustomFeature {
 		for (int i = 0; i < pes.length; i++) {
 			PictogramElement pe = pes[i];
 			GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
-			Graphiti.getGaService().ignoreAll(ga);
+			Graphiti.getGaService().resetAll(ga);
 		}
 
 	}

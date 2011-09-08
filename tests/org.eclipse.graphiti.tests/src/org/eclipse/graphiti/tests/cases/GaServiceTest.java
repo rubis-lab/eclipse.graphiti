@@ -588,7 +588,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		style.setBackground(gas.manageColor(d, IColorConstant.BLACK));
 		style.setForeground(gas.manageColor(d, IColorConstant.BLUE));
 
-		gas.ignoreAll(style);
+		gas.resetAll(style);
 
 		assertNull(style.getBackground());
 		assertNull(style.getForeground());

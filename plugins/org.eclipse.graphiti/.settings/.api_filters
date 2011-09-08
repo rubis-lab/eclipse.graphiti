@@ -95,4 +95,12 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/services/IGaService.java" type="org.eclipse.graphiti.services.IGaService">
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.services.IGaService"/>
+                <message_argument value="ignoreAll(AbstractStyle)"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>

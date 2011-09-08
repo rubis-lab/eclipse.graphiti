@@ -656,7 +656,7 @@ public class GFOtherTests extends AbstractGFTests {
 				MultiText multiText2 = gaService.createMultiText(shape1, "GaUtil");
 				gaService.createText(shape1);
 				gaService.createText(shape1, "GaUtil");
-				gaService.ignoreAll(multiText1);
+				gaService.resetAll(multiText1);
 				gaService.findStyle(diagram, "s");
 				gaService.createStyle(diagram, "s");
 				gaService.findStyle(diagram, "s");

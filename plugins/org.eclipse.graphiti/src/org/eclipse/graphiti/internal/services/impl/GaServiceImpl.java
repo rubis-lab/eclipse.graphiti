@@ -1253,11 +1253,11 @@ public final class GaServiceImpl implements IGaService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.eclipse.graphiti.services.IGaService#ignoreAll(org.eclipse.graphiti
+	 * org.eclipse.graphiti.services.IGaService#ResetAll(org.eclipse.graphiti
 	 * .mm.pictograms.AbstractStyle)
 	 */
 	@Override
-	public void ignoreAll(AbstractStyle abstractStyle) {
+	public void resetAll(AbstractStyle abstractStyle) {
 		abstractStyle.setBackground(null);
 		abstractStyle.setFilled(null);
 		abstractStyle.setForeground(null);

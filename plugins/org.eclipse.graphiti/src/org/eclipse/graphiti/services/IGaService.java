@@ -222,8 +222,10 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * 
 	 * @param abstractStyle
 	 *            The abstract style (style or graphics algorithm)
+	 * 
+	 * @since 0.9
 	 */
-	public void ignoreAll(AbstractStyle abstractStyle);
+	public void resetAll(AbstractStyle abstractStyle);
 
 	/**
 	 * Checks if is filled.
