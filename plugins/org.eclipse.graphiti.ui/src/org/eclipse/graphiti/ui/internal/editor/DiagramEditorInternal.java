@@ -38,6 +38,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -1390,8 +1391,14 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	}
 
 	private void refreshTitle() {
-		String lastSegment = getDiagramTypeProvider().getDiagram().eResource().getURI().lastSegment();
-		setPartName(lastSegment);
+		String name = getConfigurationProvider().getDiagramTypeProvider().getDiagramTitle();
+		if (name == null || name.length() == 0) {
+			name = getConfigurationElement().getAttribute("name"); //$NON-NLS-1$
+		}
+		if (name == null || name.length() == 0) {
+			name = URI.decode(getDiagramTypeProvider().getDiagram().eResource().getURI().lastSegment());
+		}
+		setPartName(name);
 	}
 
 	@Override

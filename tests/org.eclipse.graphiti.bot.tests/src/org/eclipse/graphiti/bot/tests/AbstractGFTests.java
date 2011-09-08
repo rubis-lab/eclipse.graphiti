@@ -173,6 +173,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return createDiagram(diagramTypeId, "xmi");
 	}
 
+
 	/**
 	 * Create Diagram and diagram file.
 	 * 
@@ -181,9 +182,20 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 	 * @return
 	 */
 	protected Diagram createDiagram(String diagramTypeId, String fileExtension) {
+		return createDiagram(diagramTypeId, fileExtension, "diagram");
+	}
 
-		String diagramName = createDiagramFileName(fileExtension);
-		URI diagramUri = createDiagramFileUri(diagramName);
+	/**
+	 * Create Diagram and diagram file.
+	 * 
+	 * @param diagramTypeId
+	 * @param fileExtension
+	 * @return
+	 */
+	protected Diagram createDiagram(String diagramTypeId, String fileExtension, String diagramName) {
+
+		String fileName = createDiagramFileName(fileExtension);
+		URI diagramUri = createDiagramFileUri(fileName);
 		final Diagram diagram = getPeService().createDiagram(diagramTypeId, diagramName, true);
 
 		TransactionalEditingDomain editingDomain = FileService.createEmfFileForDiagram(diagramUri, diagram);
