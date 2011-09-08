@@ -1259,24 +1259,33 @@ public final class GaServiceImpl implements IGaService {
 	@Override
 	public void ignoreAll(AbstractStyle abstractStyle) {
 		abstractStyle.setBackground(null);
-		//abstractStyle.unsetFilled();
 		abstractStyle.setFilled(null);
 		abstractStyle.setForeground(null);
 		abstractStyle.setLineStyle(LineStyle.UNSPECIFIED);
-		//abstractStyle.unsetLineVisible();
 		abstractStyle.setLineVisible(null);
-		//abstractStyle.unsetLineWidth();
 		abstractStyle.setLineWidth(null);
 		deleteRenderingStyle(abstractStyle);
-		//abstractStyle.unsetTransparency();
 		abstractStyle.setTransparency(null);
 		if (abstractStyle instanceof AbstractText) {
 			AbstractText text = (AbstractText) abstractStyle;
-			//text.unsetAngle();
 			text.setAngle(null);
 			text.setFont(null);
 			text.setHorizontalAlignment(Orientation.UNSPECIFIED);
 			text.setVerticalAlignment(Orientation.UNSPECIFIED);
+		} else if (abstractStyle instanceof Image) {
+			Image image = (Image) abstractStyle;
+			image.setProportional(null);
+			image.setStretchH(null);
+			image.setStretchV(null);
+		} else if (abstractStyle instanceof Style) {
+			Style style = (Style) abstractStyle;
+			style.setAngle(null);
+			style.setFont(null);
+			style.setHorizontalAlignment(Orientation.UNSPECIFIED);
+			style.setVerticalAlignment(Orientation.UNSPECIFIED);
+			style.setProportional(null);
+			style.setStretchH(null);
+			style.setStretchV(null);
 		}
 	}
 
