@@ -59,6 +59,10 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 	}
 
 	public void delete(IDeleteContext context) {
+		// we need this reset, since the an instance of this feature can be
+		// used multiple times, e.g. as a part of a pattern
+		setDoneChanges(false);
+
 		IMultiDeleteInfo multiDeleteInfo = context.getMultiDeleteInfo();
 		if (multiDeleteInfo != null && multiDeleteInfo.isDeleteCanceled()) {
 			return;
