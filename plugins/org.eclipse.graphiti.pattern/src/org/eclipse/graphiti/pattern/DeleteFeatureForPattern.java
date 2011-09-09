@@ -24,6 +24,7 @@ import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 
 /**
@@ -102,5 +103,11 @@ public class DeleteFeatureForPattern extends DefaultDeleteFeature implements ICu
 		if (pattern instanceof ICustomUndoablePattern) {
 			((ICustomUndoablePattern) pattern).redo(this, context);
 		}
+	}
+
+	@Override
+	public boolean hasDoneChanges() {
+		IPattern pattern = delegate.getPattern();
+		return pattern.hasDoneChanges(IDelete.class);
 	}
 }

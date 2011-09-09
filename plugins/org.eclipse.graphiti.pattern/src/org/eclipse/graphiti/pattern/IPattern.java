@@ -42,7 +42,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  * @noextend This interface is not intended to be extended by clients. Extend
  *           {@link AbstractPattern} instead
  */
-public interface IPattern extends ICreate, IAdd, IDelete, IRemove, IUpdate, ILayout, IResizeShape, IMoveShape, IDirectEditing {
+public interface IPattern extends ICreate, IAdd, IDelete, IRemove, IUpdate, ILayout, IResizeShape, IMoveShape,
+		IDirectEditing {
 
 	/**
 	 * Determines whether the pattern supports the creation of new business
@@ -125,4 +126,29 @@ public interface IPattern extends ICreate, IAdd, IDelete, IRemove, IUpdate, ILay
 	 * @return the resize configuration object
 	 */
 	IResizeConfiguration getResizeConfiguration(IResizeShapeContext context);
+
+	/**
+	 * Is queried by the framework after a pattern has been executed to find out
+	 * if this pattern should appear in the undo stack. By default all patterns
+	 * should appear there (see implementation in AbstractPattern), but single
+	 * pattern may decide to override this behavior. Note that this is a dynamic
+	 * attribute of the pattern that is queried each time <b>after</b> the
+	 * pattern has been executed.
+	 * <p>
+	 * <b>IMPORTANT NOTE:</b> The implementor of the feature is responsible for
+	 * correctly implementing this method! It will lead to inconsistencies if
+	 * this method returns <code>false</code> although the pattern did changes.
+	 * 
+	 * @param actionType
+	 *            the followings types are currently supported:
+	 *            <code>IDelete.class, IRemove.class</code>
+	 * 
+	 * 
+	 * @return <code>true</code> if the last action of the pattern from this
+	 *         action type should appear in the undo stack, <code>false</code>
+	 *         otherwise
+	 * 
+	 * @since 0.9
+	 */
+	boolean hasDoneChanges(Class<?> actionType);
 }

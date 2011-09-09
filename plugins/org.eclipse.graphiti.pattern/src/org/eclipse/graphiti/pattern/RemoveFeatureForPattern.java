@@ -25,6 +25,7 @@ import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
+import org.eclipse.graphiti.func.IRemove;
 
 /**
  * This class is used by the {@link DefaultFeatureProviderWithPatterns} to wrap
@@ -61,7 +62,7 @@ public class RemoveFeatureForPattern extends DefaultRemoveFeature implements ICu
 	}
 
 	// public void remove(IRemoveContext context)
-	// is final and cannot be overridden...	
+	// is final and cannot be overridden...
 
 	@Override
 	public void postRemove(IRemoveContext context) {
@@ -100,5 +101,11 @@ public class RemoveFeatureForPattern extends DefaultRemoveFeature implements ICu
 		if (pattern instanceof ICustomUndoablePattern) {
 			((ICustomUndoablePattern) pattern).redo(this, context);
 		}
+	}
+
+	@Override
+	public boolean hasDoneChanges() {
+		IPattern pattern = delegate.getPattern();
+		return pattern.hasDoneChanges(IRemove.class);
 	}
 }

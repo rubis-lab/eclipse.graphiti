@@ -125,7 +125,8 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	}
 
 	public boolean canMoveShape(IMoveShapeContext context) {
-		return context.getSourceContainer() != null && context.getSourceContainer().equals(context.getTargetContainer())
+		return context.getSourceContainer() != null
+				&& context.getSourceContainer().equals(context.getTargetContainer())
 				&& isPatternRoot(context.getPictogramElement());
 	}
 
@@ -214,11 +215,13 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 
 			shapeToMove.setContainer(newContainerShape);
 			if (shapeToMove.getGraphicsAlgorithm() != null) {
-				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
+				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y,
+						avoidNegativeCoordinates());
 			}
 		} else { // move within the same container
 			if (shapeToMove.getGraphicsAlgorithm() != null) {
-				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y, avoidNegativeCoordinates());
+				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y,
+						avoidNegativeCoordinates());
 			}
 		}
 	}
@@ -717,5 +720,23 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	@Override
 	public IProposalSupport getProposalSupport() {
 		return null;
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public boolean hasDoneChanges(Class<?> actionType) {
+		boolean ret = true;
+		if (IDelete.class.equals(actionType)) {
+			if (wrappedDeleteFeature != null) {
+				ret = wrappedDeleteFeature.hasDoneChanges();
+			}
+		} else if (IRemove.class.equals(actionType)) {
+			if (wrappedRemoveFeature != null) {
+				ret = wrappedRemoveFeature.hasDoneChanges();
+			}
+		}
+		return ret;
 	}
 }
