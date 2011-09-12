@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@
  *    jpasch - Bug 323025 ActionBarContributor cleanup
  *    mwenz - Bug 345347 - There should be a way to not allow other plugins to contribute to the diagram context menu
  *    mwenz - Bug 346932 - Navigation history broken
+ *    mwenz - Bug 356828 - Escaped diagram name is used as editor title
  *
  * </copyright>
  *

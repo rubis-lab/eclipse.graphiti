@@ -12,6 +12,7 @@
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *    mwenz - Bug 348662 - Setting tooptip to null in tool behavior provider doesn't clear up
  *                         tooltip if the associated figure has a previous tooltip
+ *    mwenz - Bug 356828 - Escaped diagram name is used as editor title
  *
  * </copyright>
  *
