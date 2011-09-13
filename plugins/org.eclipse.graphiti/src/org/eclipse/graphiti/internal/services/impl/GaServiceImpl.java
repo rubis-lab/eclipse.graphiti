@@ -473,6 +473,14 @@ public final class GaServiceImpl implements IGaService {
 		setContainer(ret, gaContainer);
 		return ret;
 	}
+	
+	@Override
+	public Ellipse createPlainEllipse(GraphicsAlgorithmContainer gaContainer) {
+		Ellipse ret = AlgorithmsFactory.eINSTANCE.createEllipse();
+		resetAll(ret);
+		setContainer(ret, gaContainer);
+		return ret;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -491,6 +499,15 @@ public final class GaServiceImpl implements IGaService {
 		ret.setStretchV(false);
 		setContainer(ret, gaContainer);
 		return ret;
+	}
+	
+	@Override
+	public Image createPlainImage(GraphicsAlgorithmContainer gaContainer, String imageId) {
+		Image ret = AlgorithmsFactory.eINSTANCE.createImage();
+		resetAll(ret);
+		ret.setId(imageId);
+		setContainer(ret, gaContainer);
+		return null;
 	}
 
 	/*
@@ -529,6 +546,11 @@ public final class GaServiceImpl implements IGaService {
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer) {
 		return createMultiText(gaContainer, ""); //$NON-NLS-1$
 	}
+	
+	@Override
+	public MultiText createPlainMultiText(GraphicsAlgorithmContainer gaContainer) {
+		return createPlainMultiText(gaContainer, ""); //$NON-NLS-1$
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -541,6 +563,12 @@ public final class GaServiceImpl implements IGaService {
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return (MultiText) createText(null, gaContainer, true, value, false);
 	}
+	
+	@Override
+	public MultiText createPlainMultiText(GraphicsAlgorithmContainer gaContainer, String value) {
+		return (MultiText) createPlainText(null, gaContainer, true, value);
+	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -586,6 +614,15 @@ public final class GaServiceImpl implements IGaService {
 	public PlatformGraphicsAlgorithm createPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id) {
 		PlatformGraphicsAlgorithm ret = AlgorithmsFactory.eINSTANCE.createPlatformGraphicsAlgorithm();
 		setDefaultGraphicsAlgorithmValues(ret);
+		ret.setId(id);
+		setContainer(ret, gaContainer);
+		return ret;
+	}
+	
+	@Override
+	public PlatformGraphicsAlgorithm createPlainPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id) {
+		PlatformGraphicsAlgorithm ret = AlgorithmsFactory.eINSTANCE.createPlatformGraphicsAlgorithm();
+		resetAll(ret);
 		ret.setId(id);
 		setContainer(ret, gaContainer);
 		return ret;
@@ -675,6 +712,14 @@ public final class GaServiceImpl implements IGaService {
 		setContainer(ret, gaContainer);
 		return ret;
 	}
+	
+	@Override
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer) {
+		Polygon ret = AlgorithmsFactory.eINSTANCE.createPolygon();
+		resetAll(ret);
+		setContainer(ret, gaContainer);
+		return ret;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -686,6 +731,13 @@ public final class GaServiceImpl implements IGaService {
 	@Override
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
 		Polygon ret = createPolygon(gaContainer);
+		ret.getPoints().addAll(points);
+		return ret;
+	}
+	
+	@Override
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
+		Polygon ret = createPlainPolygon(gaContainer);
 		ret.getPoints().addAll(points);
 		return ret;
 	}
@@ -703,6 +755,13 @@ public final class GaServiceImpl implements IGaService {
 		Polygon ret = createPolygon(gaContainer, points);
 		return ret;
 	}
+	
+	@Override
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy) {
+		List<Point> points = createPointList(xy);
+		Polygon ret = createPlainPolygon(gaContainer, points);
+		return ret;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -718,6 +777,13 @@ public final class GaServiceImpl implements IGaService {
 		return ret;
 	}
 
+	@Override
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]) {
+		List<Point> points = createPointList(xy, beforeAfter);
+		Polygon ret = createPlainPolygon(gaContainer, points);
+		return ret;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -730,6 +796,14 @@ public final class GaServiceImpl implements IGaService {
 		Polyline ret = AlgorithmsFactory.eINSTANCE.createPolyline();
 		setDefaultGraphicsAlgorithmValues(ret);
 		ret.setFilled(false);
+		setContainer(ret, gaContainer);
+		return ret;
+	}
+	
+	@Override
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer) {
+		Polyline ret = AlgorithmsFactory.eINSTANCE.createPolyline();
+		resetAll(ret);
 		setContainer(ret, gaContainer);
 		return ret;
 	}
@@ -747,6 +821,13 @@ public final class GaServiceImpl implements IGaService {
 		ret.getPoints().addAll(points);
 		return ret;
 	}
+	
+	@Override
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
+		Polyline ret = createPlainPolyline(gaContainer);
+		ret.getPoints().addAll(points);
+		return ret;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -761,7 +842,14 @@ public final class GaServiceImpl implements IGaService {
 		Polyline ret = createPolyline(gaContainer, points);
 		return ret;
 	}
-
+	
+	@Override
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy) {
+		List<Point> points = createPointList(xy);
+		Polyline ret = createPlainPolyline(gaContainer, points);
+		return ret;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -773,6 +861,13 @@ public final class GaServiceImpl implements IGaService {
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]) {
 		List<Point> points = createPointList(xy, beforeAfter);
 		Polyline ret = createPolyline(gaContainer, points);
+		return ret;
+	}
+	
+	@Override
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]) {
+		List<Point> points = createPointList(xy, beforeAfter);
+		Polyline ret = createPlainPolyline(gaContainer, points);
 		return ret;
 	}
 
@@ -790,6 +885,14 @@ public final class GaServiceImpl implements IGaService {
 		setContainer(ret, gaContainer);
 		return ret;
 	}
+	
+	@Override
+	public Rectangle createPlainRectangle(GraphicsAlgorithmContainer gaContainer) {
+		Rectangle ret = AlgorithmsFactory.eINSTANCE.createRectangle();
+		resetAll(ret);
+		setContainer(ret, gaContainer);
+		return ret;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -802,6 +905,16 @@ public final class GaServiceImpl implements IGaService {
 	public RoundedRectangle createRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight) {
 		RoundedRectangle ret = AlgorithmsFactory.eINSTANCE.createRoundedRectangle();
 		setDefaultGraphicsAlgorithmValues(ret);
+		ret.setCornerWidth(cornerWidth);
+		ret.setCornerHeight(cornerHeight);
+		setContainer(ret, gaContainer);
+		return ret;
+	}
+	
+	@Override
+	public RoundedRectangle createPlainRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight) {
+		RoundedRectangle ret = AlgorithmsFactory.eINSTANCE.createRoundedRectangle();
+		resetAll(ret);
 		ret.setCornerWidth(cornerWidth);
 		ret.setCornerHeight(cornerHeight);
 		setContainer(ret, gaContainer);
@@ -880,11 +993,25 @@ public final class GaServiceImpl implements IGaService {
 	public Text createText(GraphicsAlgorithmContainer gaContainer) {
 		return createText(gaContainer, ""); //$NON-NLS-1$
 	}
+	
+	@Override
+	public Text createPlainText(GraphicsAlgorithmContainer gaContainer) {
+		return createPlainText(gaContainer, ""); //$NON-NLS-1$
+	}
+
 
 	private AbstractText createText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, boolean multiText, String value,
 			boolean createFont) {
 		AbstractText ret = multiText ? AlgorithmsFactory.eINSTANCE.createMultiText() : AlgorithmsFactory.eINSTANCE.createText();
 		setDefaultTextAttributes(diagram, ret, value, createFont);
+		setContainer(ret, gaContainer);
+		return ret;
+	}
+	
+	private AbstractText createPlainText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, boolean multiText, String value) {
+		AbstractText ret = multiText ? AlgorithmsFactory.eINSTANCE.createMultiText() : AlgorithmsFactory.eINSTANCE.createText();
+		resetAll(ret);
+		ret.setValue(value);
 		setContainer(ret, gaContainer);
 		return ret;
 	}
@@ -931,6 +1058,12 @@ public final class GaServiceImpl implements IGaService {
 	@Override
 	public Text createText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return (Text) createText(null, gaContainer, false, value, false);
+	}
+	
+
+	@Override
+	public Text createPlainText(GraphicsAlgorithmContainer gaContainer, String value) {
+		return (Text) createPlainText(null, gaContainer, false, value);
 	}
 
 	/*

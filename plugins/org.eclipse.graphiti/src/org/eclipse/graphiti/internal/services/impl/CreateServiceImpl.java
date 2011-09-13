@@ -83,6 +83,7 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createDefaultMultiText(diagram, gaContainer);
 	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -96,7 +97,7 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value) {
 		return getGaService().createDefaultText(diagram, gaContainer, value);
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -120,6 +121,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public Ellipse createEllipse(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createEllipse(gaContainer);
 	}
+	
+	@Override
+	public Ellipse createPlainEllipse(GraphicsAlgorithmContainer gaContainer) {
+		return getGaService().createPlainEllipse(gaContainer);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -131,6 +137,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	@Override
 	public Image createImage(GraphicsAlgorithmContainer gaContainer, String imageId) {
 		return getGaService().createImage(gaContainer, imageId);
+	}
+	
+	@Override
+	public Image createPlainImage(GraphicsAlgorithmContainer gaContainer, String imageId) {
+		return getGaService().createPlainImage(gaContainer, imageId);
 	}
 
 	/*
@@ -156,6 +167,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return getGaService().createMultiText(gaContainer, value);
 	}
+	
+	@Override
+	public MultiText createPlainMultiText(GraphicsAlgorithmContainer gaContainer, String value) {
+		return getGaService().createPlainMultiText(gaContainer, value);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -167,6 +183,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	@Override
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createMultiText(gaContainer);
+	}
+	
+	@Override
+	public MultiText createPlainMultiText(GraphicsAlgorithmContainer gaContainer) {
+		return getGaService().createPlainMultiText(gaContainer);
 	}
 
 	/*
@@ -209,6 +230,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	@Override
 	public PlatformGraphicsAlgorithm createPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id) {
 		return getGaService().createPlatformGraphicsAlgorithm(gaContainer, id);
+	}
+	
+	@Override
+	public PlatformGraphicsAlgorithm createPlainPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id) {
+		return getGaService().createPlainPlatformGraphicsAlgorithm(gaContainer, id);
 	}
 
 	/*
@@ -270,6 +296,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
 		return getGaService().createPolygon(gaContainer, points);
 	}
+	
+	@Override
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
+		return getGaService().createPlainPolygon(gaContainer, points);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -282,6 +313,12 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy, int[] beforeAfter) {
 		return getGaService().createPolygon(gaContainer, xy, beforeAfter);
 	}
+	
+	@Override
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy, int[] beforeAfter) {
+		return getGaService().createPlainPolygon(gaContainer, xy, beforeAfter);
+	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -292,6 +329,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 */
 	@Override
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy) {
+		return getGaService().createPolygon(gaContainer, xy);
+	}
+	
+	@Override
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy) {
 		return getGaService().createPolygon(gaContainer, xy);
 	}
 
@@ -306,6 +348,12 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createPolygon(gaContainer);
 	}
+	
+	@Override
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer) {
+		return getGaService().createPlainPolygon(gaContainer);
+	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -317,6 +365,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	@Override
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
 		return getGaService().createPolyline(gaContainer, points);
+	}
+	
+	@Override
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
+		return getGaService().createPlainPolyline(gaContainer, points);
 	}
 
 	/*
@@ -330,7 +383,12 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy, int[] beforeAfter) {
 		return getGaService().createPolyline(gaContainer, xy, beforeAfter);
 	}
-
+	
+	@Override
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy, int[] beforeAfter) {
+		return getGaService().createPlainPolyline(gaContainer, xy, beforeAfter);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -341,6 +399,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	@Override
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy) {
 		return getGaService().createPolyline(gaContainer, xy);
+	}
+	
+	@Override
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy) {
+		return getGaService().createPlainPolyline(gaContainer, xy);
 	}
 
 	/*
@@ -354,6 +417,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createPolyline(gaContainer);
 	}
+	
+	@Override
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer) {
+		return getGaService().createPlainPolyline(gaContainer);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -366,6 +434,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public Rectangle createRectangle(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createRectangle(gaContainer);
 	}
+	
+	@Override
+	public Rectangle createPlainRectangle(GraphicsAlgorithmContainer gaContainer) {
+		return getGaService().createPlainRectangle(gaContainer);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -377,6 +450,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	@Override
 	public RoundedRectangle createRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight) {
 		return getGaService().createRoundedRectangle(gaContainer, cornerWidth, cornerHeight);
+	}
+	
+	@Override
+	public RoundedRectangle createPlainRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight) {
+		return getGaService().createPlainRoundedRectangle(gaContainer, cornerWidth, cornerHeight);
 	}
 
 	/*
@@ -427,6 +505,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public Text createText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return getGaService().createText(gaContainer, value);
 	}
+	
+	@Override
+	public Text createPlainText(GraphicsAlgorithmContainer gaContainer, String value) {
+		return getGaService().createPlainText(gaContainer, value);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -438,6 +521,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	@Override
 	public Text createText(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createText(gaContainer);
+	}
+	
+	@Override
+	public Text createPlainText(GraphicsAlgorithmContainer gaContainer) {
+		return getGaService().createPlainText(gaContainer);
 	}
 
 	/*

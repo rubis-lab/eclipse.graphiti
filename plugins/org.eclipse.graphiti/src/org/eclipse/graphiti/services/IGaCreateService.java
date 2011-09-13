@@ -70,7 +70,7 @@ public interface IGaCreateService {
 	 * @return the new multiline text
 	 */
 	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer);
-
+	
 	/**
 	 * Creates a multitext graphics algorithm with the default font (Arial, size
 	 * 8) and the given text. Use this method only if you want to use the
@@ -98,7 +98,7 @@ public interface IGaCreateService {
 	 * @return the new multiline text
 	 */
 	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value);
-
+	
 	/**
 	 * Creates a text graphics algorithm with the default font (Arial, size 8).
 	 * Use this method only if you want to use the default text, otherwise use
@@ -171,7 +171,21 @@ public interface IGaCreateService {
 	 *            the container for the new graphics algorithm
 	 * @return the new multiline text
 	 */
+	
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer);
+	
+	/**
+	 * Creates a plain multitext graphics algorithm. Default values have been reset,
+	 * so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @return the new multiline text
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public MultiText createPlainMultiText(GraphicsAlgorithmContainer gaContainer);
 
 	/**
 	 * Creates a multitext graphics algorithm with the given text.
@@ -193,7 +207,23 @@ public interface IGaCreateService {
 	 *            initial text
 	 * @return the new multiline text
 	 */
+	
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer, String value);
+	
+	/**
+	 * Creates a plain multitext graphics algorithm with the given text. Default
+	 * values have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param value
+	 *            initial text
+	 * @return the new multiline text
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public MultiText createPlainMultiText(GraphicsAlgorithmContainer gaContainer, String value);
 
 	/**
 	 * Creates a multitext graphics algorithm with the given text and font. The
@@ -271,7 +301,7 @@ public interface IGaCreateService {
 			boolean isFontItalic, boolean isFontBold);
 
 	/**
-	 * Creates a text graphics algorithm.
+	 * Creates a text graphics algorithm with empty text.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -289,6 +319,19 @@ public interface IGaCreateService {
 	 * @return the new text
 	 */
 	public Text createText(GraphicsAlgorithmContainer gaContainer);
+	
+	/**
+	 * Creates a plain text graphics algorithm with empty text. Default values have
+	 * been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @return the new text
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Text createPlainText(GraphicsAlgorithmContainer gaContainer);
 
 	/**
 	 * Creates a text graphics algorithm with the given text.
@@ -311,6 +354,22 @@ public interface IGaCreateService {
 	 * @return the new text
 	 */
 	public Text createText(GraphicsAlgorithmContainer gaContainer, String value);
+	
+	/**
+	 * Creates a plain text graphics algorithm with the given text. Default values
+	 * have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param value
+	 *            initial text
+	 * @return the new text
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Text createPlainText(GraphicsAlgorithmContainer gaContainer, String value);
+
 
 	/**
 	 * Creates a text graphics algorithm with the given text and font. The font
@@ -403,6 +462,19 @@ public interface IGaCreateService {
 	 * @return the new ellipse
 	 */
 	public Ellipse createEllipse(GraphicsAlgorithmContainer gaContainer);
+	
+	/**
+	 * Creates a plain ellipse graphics algorithm. Default values have been reset, so
+	 * you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @return the new ellipse
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Ellipse createPlainEllipse(GraphicsAlgorithmContainer gaContainer);
 
 	/**
 	 * Creates a image graphics algorithm with the given image id.
@@ -426,6 +498,21 @@ public interface IGaCreateService {
 	 * @return the new image
 	 */
 	public Image createImage(GraphicsAlgorithmContainer gaContainer, String imageId);
+	
+	/**
+	 * Creates a plain image graphics algorithm with the given image id. Default
+	 * values have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param imageId
+	 *            the image id
+	 * @return the new image
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Image createPlainImage(GraphicsAlgorithmContainer gaContainer, String imageId);
 
 	/**
 	 * Create an invisible rectangle.
@@ -446,6 +533,21 @@ public interface IGaCreateService {
 	 * @return the platform graphics algorithm
 	 */
 	public PlatformGraphicsAlgorithm createPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id);
+
+	/**
+	 * Creates the plain platform graphics algorithm. Default values have been reset,
+	 * so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param id
+	 *            the id
+	 * @return the platform graphics algorithm
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public PlatformGraphicsAlgorithm createPlainPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id);
 
 	/**
 	 * Creates a point datatype for the given x/y coordinates.
@@ -520,6 +622,19 @@ public interface IGaCreateService {
 	 * @return the new polygon
 	 */
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer);
+	
+	/**
+	 * Creates a plain polygon graphics algorithm.  Default
+	 * values have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @return the new polygon
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer);
 
 	/**
 	 * Creates a polygon graphics algorithm with the given points.
@@ -539,6 +654,21 @@ public interface IGaCreateService {
 	 * @return the new polygon
 	 */
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
+	
+	/**
+	 * Creates a plain polygon graphics algorithm with the given points. Default
+	 * values have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param points
+	 *            collection of point
+	 * @return the new polygon
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
 
 	/**
 	 * Creates a polygon graphics algorithm with the given points.
@@ -558,6 +688,21 @@ public interface IGaCreateService {
 	 * @return the new polygon
 	 */
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy);
+	
+	/**
+	 * Creates a plain polygon graphics algorithm with the given points. Default
+	 * values have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param xy
+	 *            The x/y coordinates: [x0, y0, ..., xN, yN]
+	 * @return the new polygon
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy);
 
 	/**
 	 * Creates a polygon graphics algorithm with the given points.
@@ -580,6 +725,24 @@ public interface IGaCreateService {
 	 * @return the new polygon
 	 */
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]);
+	
+	/**
+	 * Creates a plain polygon graphics algorithm with the given points. Default
+	 * values have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param xy
+	 *            The x/y coordinates: [x0, y0, ..., xN, yN]
+	 * @param beforeAfter
+	 *            The before/after parameters: [before0, after0, ..., beforeN,
+	 *            afterN]
+	 * @return the new polygon
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]);
 
 	/**
 	 * Creates a polyline graphics algorithm.
@@ -597,6 +760,19 @@ public interface IGaCreateService {
 	 * @return the new polyline
 	 */
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer);
+	
+	/**
+	 * Creates a plain polyline graphics algorithm. Default
+	 * values have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @return the new polyline
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer);
 
 	/**
 	 * Creates a polyline graphics algorithm with the given points.
@@ -616,6 +792,21 @@ public interface IGaCreateService {
 	 * @return the new polyline
 	 */
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
+	
+	/**
+	 * Creates a plain polyline graphics algorithm with the given points. Default
+	 * values have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param points
+	 *            collection of point
+	 * @return the new polyline
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
 
 	/**
 	 * Creates a polyline graphics algorithm with the given points.
@@ -637,6 +828,21 @@ public interface IGaCreateService {
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy);
 
 	/**
+	 * Creates a plain polyline graphics algorithm with the given points. Default
+	 * values have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param xy
+	 *            The x/y coordinates: [x0, y0, ..., xN, yN]
+	 * @return the new polyline
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy);
+	
+	/**
 	 * Creates a polyline graphics algorithm with the given points.
 	 * <p>
 	 * The following values are set by default:
@@ -657,6 +863,24 @@ public interface IGaCreateService {
 	 * @return the new polyline
 	 */
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]);
+	
+	/**
+	 * Creates a plain polyline graphics algorithm with the given points. Default
+	 * values have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param xy
+	 *            The x/y coordinates: [x0, y0, ..., xN, yN]
+	 * @param beforeAfter
+	 *            The before/after parameters: [before0, after0, ..., beforeN,
+	 *            afterN]
+	 * @return the new polyline
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]);
 
 	/**
 	 * Creates a rectangle graphics algorithm.
@@ -674,6 +898,19 @@ public interface IGaCreateService {
 	 * @return the new rectangle
 	 */
 	public Rectangle createRectangle(GraphicsAlgorithmContainer gaContainer);
+	
+	/**
+	 * Creates a plain rectangle graphics algorithm. Default
+	 * values have been reset, so you can use your styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @return the new rectangle
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Rectangle createPlainRectangle(GraphicsAlgorithmContainer gaContainer);
 
 	/**
 	 * Creates a rounded rectangle graphics algorithm with the given corner
@@ -697,6 +934,25 @@ public interface IGaCreateService {
 	 */
 	public RoundedRectangle createRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight);
 
+	/**
+	 * Creates a plain rounded rectangle graphics algorithm with the given
+	 * corner dimensions. Default values have been reset, so you can use your
+	 * styles.
+	 * 
+	 * @param gaContainer
+	 *            the container for the new graphics algorithm
+	 * @param cornerWidth
+	 *            the corner width
+	 * @param cornerHeight
+	 *            the corner height
+	 * @return the new rounded rectangle
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public RoundedRectangle createPlainRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight);
+
+	
 	/**
 	 * Shifts the color darker or lighter.
 	 * 
