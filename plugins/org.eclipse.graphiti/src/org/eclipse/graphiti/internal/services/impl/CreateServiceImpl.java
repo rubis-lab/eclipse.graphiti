@@ -12,6 +12,7 @@
  *    Patch 184530 from Bug 331829 contributed by Henrik Rentz-Reichert
  *    mwenz - Bug 331715: Support for rectangular grids in diagrams
  *    mwenz - Bug 355347 - Remove setters of Graphiti's Font Interface
+ *    jpasch - Bug 352542 - Add "plain"-create methods for working with styles
  *
  * </copyright>
  *

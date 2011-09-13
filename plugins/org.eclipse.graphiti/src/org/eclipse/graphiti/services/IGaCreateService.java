@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 355347 - Remove setters of Graphiti's Font Interface
+ *    jpasch - Bug 352542 - Add "plain"-create methods for working with styles
  *
  * </copyright>
  *
