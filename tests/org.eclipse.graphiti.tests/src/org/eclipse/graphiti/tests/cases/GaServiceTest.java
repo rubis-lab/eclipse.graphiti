@@ -102,6 +102,14 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		assertNull(multiText.getFont());
 		checkTextDefaults(multiText, "");
 	}
+	
+	@Test
+	public void createPlainMultiText(){
+		MultiText multiText = gas.createPlainMultiText(s1);
+		assertNotNull(multiText);
+		assertNull(multiText.getFont());
+		checkPlainTextDefaults(multiText, "");
+	}
 
 	@Test
 	public void createMultiText2() {
@@ -110,6 +118,15 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		assertNull(multiText.getFont());
 		checkTextDefaults(multiText, VALUE);
 	}
+	
+	@Test
+	public void createPlainMultiText2() {
+		MultiText multiText = gas.createPlainMultiText(s1, VALUE);
+		assertNotNull(multiText);
+		assertNull(multiText.getFont());
+		checkPlainTextDefaults(multiText, VALUE);
+	}
+
 
 	@Test
 	public void createDefaultText() {
@@ -132,6 +149,13 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		Ellipse ellipse = gas.createEllipse(s1);
 		assertNotNull(ellipse);
 		checkGraphicsAlgorithmDefaults(ellipse);
+	}
+	
+	@Test
+	public void createPlainEllipse() {
+		Ellipse ellipse = gas.createPlainEllipse(s1);
+		assertNotNull(ellipse);
+		checkPlainGraphicsAlgorithmDefaults(ellipse);
 	}
 
 	@Test
@@ -233,6 +257,13 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		checkGraphicsAlgorithmDefaults(im);
 		checkImageDefaults(im);
 	}
+	
+	@Test
+	public void createPlainImage() {
+		Image im = gas.createPlainImage(d, VALUE);
+		checkPlainGraphicsAlgorithmDefaults(im);
+		checkPlainImageDefaults(im);
+	}
 
 	@Test
 	public void createInvisibleRectangle() {
@@ -243,6 +274,15 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 	@Test
 	public void createPlatformGa() {
 		PlatformGraphicsAlgorithm pGa = gas.createPlatformGraphicsAlgorithm(s1, VALUE);
+		checkGraphicsAlgorithmDefaults(pGa);
+		assertEquals(s1, pGa.eContainer());
+		assertEquals(VALUE, pGa.getId());
+	}
+	
+	@Test
+	public void createPlainPlatformGa() {
+		PlatformGraphicsAlgorithm pGa = gas.createPlainPlatformGraphicsAlgorithm(s1, VALUE);
+		checkPlainGraphicsAlgorithmDefaults(pGa);
 		assertEquals(s1, pGa.eContainer());
 		assertEquals(VALUE, pGa.getId());
 	}
@@ -291,6 +331,13 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		assertEquals(polygon, s1.getGraphicsAlgorithm());
 		checkGraphicsAlgorithmDefaults(polygon);
 	}
+	
+	@Test
+	public void createPlainPolygon() {
+		Polygon polygon = gas.createPlainPolygon(s1);
+		assertEquals(polygon, s1.getGraphicsAlgorithm());
+		checkPlainGraphicsAlgorithmDefaults(polygon);
+	}
 
 	@Test
 	public void createPolygon2() {
@@ -298,6 +345,16 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		Polygon polygon = gas.createPolygon(s1, points);
 		assertEquals(polygon, s1.getGraphicsAlgorithm());
 		checkGraphicsAlgorithmDefaults(polygon);
+		EList<Point> points2 = polygon.getPoints();
+		assertEquals(points, points2);
+	}
+	
+	@Test
+	public void createPlainPolygon2() {
+		List<Point> points = gas.createPointList(new int[] { 1, 2, 3, 4 });
+		Polygon polygon = gas.createPlainPolygon(s1, points);
+		assertEquals(polygon, s1.getGraphicsAlgorithm());
+		checkPlainGraphicsAlgorithmDefaults(polygon);
 		EList<Point> points2 = polygon.getPoints();
 		assertEquals(points, points2);
 	}
@@ -326,12 +383,44 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		assertEquals(7, points2.get(1).getBefore());
 		assertEquals(8, points2.get(1).getAfter());
 	}
+	
+	@Test
+	public void createPlainPolygon3() {
+		int[] points = new int[] { 1, 2, 3, 4 };
+		Polygon polygon = gas.createPlainPolygon(s1, points);
+		assertEquals(polygon, s1.getGraphicsAlgorithm());
+		checkPlainGraphicsAlgorithmDefaults(polygon);
+		EList<Point> points2 = polygon.getPoints();
+		assertEquals(1, points2.get(0).getX());
+		assertEquals(2, points2.get(0).getY());
+		assertEquals(3, points2.get(1).getX());
+		assertEquals(4, points2.get(1).getY());
+		int[] beforeAfter = new int[] { 5, 6, 7, 8 };
+		polygon = gas.createPlainPolygon(s1, points, beforeAfter);
+		checkPlainGraphicsAlgorithmDefaults(polygon);
+		points2 = polygon.getPoints();
+		assertEquals(1, points2.get(0).getX());
+		assertEquals(2, points2.get(0).getY());
+		assertEquals(3, points2.get(1).getX());
+		assertEquals(4, points2.get(1).getY());
+		assertEquals(5, points2.get(0).getBefore());
+		assertEquals(6, points2.get(0).getAfter());
+		assertEquals(7, points2.get(1).getBefore());
+		assertEquals(8, points2.get(1).getAfter());
+	}
 
 	@Test
 	public void createPolyline() {
 		Polyline polyline = gas.createPolyline(s1);
 		assertEquals(polyline, s1.getGraphicsAlgorithm());
 		checkGraphicsAlgorithmDefaults(polyline);
+	}
+	
+	@Test
+	public void createPlainPolyline() {
+		Polyline polyline = gas.createPlainPolyline(s1);
+		assertEquals(polyline, s1.getGraphicsAlgorithm());
+		checkPlainGraphicsAlgorithmDefaults(polyline);
 	}
 
 	@Test
@@ -343,6 +432,17 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		EList<Point> points2 = polyline.getPoints();
 		assertEquals(points, points2);
 	}
+	
+	@Test
+	public void createPlainPolyline2() {
+		List<Point> points = gas.createPointList(new int[] { 1, 2, 3, 4 });
+		Polyline polyline = gas.createPlainPolyline(s1, points);
+		assertEquals(polyline, s1.getGraphicsAlgorithm());
+		checkPlainGraphicsAlgorithmDefaults(polyline);
+		EList<Point> points2 = polyline.getPoints();
+		assertEquals(points, points2);
+	}
+
 
 	@Test
 	public void createPolyline3() {
@@ -368,6 +468,31 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		assertEquals(7, points2.get(1).getBefore());
 		assertEquals(8, points2.get(1).getAfter());
 	}
+	
+	@Test
+	public void createPlainPolyline3() {
+		int[] points = new int[] { 1, 2, 3, 4 };
+		Polyline polyline = gas.createPlainPolyline(s1, points);
+		assertEquals(polyline, s1.getGraphicsAlgorithm());
+		checkPlainGraphicsAlgorithmDefaults(polyline);
+		EList<Point> points2 = polyline.getPoints();
+		assertEquals(1, points2.get(0).getX());
+		assertEquals(2, points2.get(0).getY());
+		assertEquals(3, points2.get(1).getX());
+		assertEquals(4, points2.get(1).getY());
+		int[] beforeAfter = new int[] { 5, 6, 7, 8 };
+		polyline = gas.createPlainPolyline(s1, points, beforeAfter);
+		checkPlainGraphicsAlgorithmDefaults(polyline);
+		points2 = polyline.getPoints();
+		assertEquals(1, points2.get(0).getX());
+		assertEquals(2, points2.get(0).getY());
+		assertEquals(3, points2.get(1).getX());
+		assertEquals(4, points2.get(1).getY());
+		assertEquals(5, points2.get(0).getBefore());
+		assertEquals(6, points2.get(0).getAfter());
+		assertEquals(7, points2.get(1).getBefore());
+		assertEquals(8, points2.get(1).getAfter());
+	}
 
 	@Test
 	public void createRectangle() {
@@ -375,12 +500,28 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		assertEquals(rect, s1.getGraphicsAlgorithm());
 		checkGraphicsAlgorithmDefaults(rect);
 	}
+	
+	@Test
+	public void createPlainRectangle() {
+		Rectangle rect = gas.createPlainRectangle(s1);
+		assertEquals(rect, s1.getGraphicsAlgorithm());
+		checkPlainGraphicsAlgorithmDefaults(rect);
+	}
 
 	@Test
 	public void createRoundedRectangle() {
 		RoundedRectangle rect = gas.createRoundedRectangle(s1, 5, 6);
 		assertEquals(rect, s1.getGraphicsAlgorithm());
 		checkGraphicsAlgorithmDefaults(rect);
+		assertEquals(5, rect.getCornerWidth());
+		assertEquals(6, rect.getCornerHeight());
+	}
+	
+	@Test
+	public void createPlainRoundedRectangle() {
+		RoundedRectangle rect = gas.createPlainRoundedRectangle(s1, 5, 6);
+		assertEquals(rect, s1.getGraphicsAlgorithm());
+		checkPlainGraphicsAlgorithmDefaults(rect);
 		assertEquals(5, rect.getCornerWidth());
 		assertEquals(6, rect.getCornerHeight());
 	}
@@ -578,7 +719,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 	}
 
 	@Test
-	public void ignoreAll() {
+	public void resetAll() {
 		AbstractStyle style = gas.createStyle(d, VALUE);
 		assertEquals(1, d.getStyles().size());
 		gas.setRenderingStyle(style, PredefinedColoredAreas.getBlueWhiteGlossAdaptions());

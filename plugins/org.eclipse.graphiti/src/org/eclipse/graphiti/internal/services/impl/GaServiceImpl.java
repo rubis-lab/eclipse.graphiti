@@ -508,7 +508,7 @@ public final class GaServiceImpl implements IGaService {
 		resetAll(ret);
 		ret.setId(imageId);
 		setContainer(ret, gaContainer);
-		return null;
+		return ret;
 	}
 
 	/*

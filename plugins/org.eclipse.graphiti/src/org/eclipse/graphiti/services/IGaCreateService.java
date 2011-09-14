@@ -32,6 +32,7 @@ import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -201,6 +202,7 @@ public interface IGaCreateService {
 	 * text.setAngle(0);<br>
 	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
 	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * text.setValue(value);<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -214,7 +216,7 @@ public interface IGaCreateService {
 	/**
 	 * Creates a plain multitext graphics algorithm with the given text. Default
 	 * values have been reset, so you can use your styles.
-	 * 
+	 *
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
 	 * @param value
@@ -487,7 +489,6 @@ public interface IGaCreateService {
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
 	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * image.setId(imageId);<br>
 	 * image.setProportional(false);<br>
 	 * image.setStretchH(false);<br>
 	 * image.setStretchV(false);<br>
@@ -517,6 +518,18 @@ public interface IGaCreateService {
 
 	/**
 	 * Create an invisible rectangle.
+	 * <p>
+	 * The following values are set by default when it is shown:
+	 * <p>
+	 * graphicsAlgorithm.setBackground(IColorConstant.LIGHT_GRAY);<br>
+	 * graphicsAlgorithm.setForeground(IColorConstant.YELLOW);<br>
+	 * graphicsAlgorithm.setLineWidth(2);<br>
+	 * graphicsAlgorithm.setTransparency(0.75);<br>
+	 * <p>
+	 * The following values are set by default when it is not shown:
+	 * <p>
+	 * graphicsAlgorithm.setFilled(false);<br>
+	 * graphicsAlgorithm.setLineVisible(false);<br>
 	 * 
 	 * @param pe
 	 *            the pictogram element to create the rectangle
@@ -526,6 +539,13 @@ public interface IGaCreateService {
 
 	/**
 	 * Creates the platform graphics algorithm.
+	 * <p>
+	 * The following values are set by default:
+	 * <p>
+	 * graphicsAlgorithm.setLineStyle(LineStyle.SOLID);<br>
+	 * graphicsAlgorithm.setLineWidth(1);<br>
+	 * graphicsAlgorithm.setTransparency(0d);<br>
+	 * platformGraphicsAlgorithm.setId(id);<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm

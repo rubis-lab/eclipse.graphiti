@@ -17,6 +17,8 @@ package org.eclipse.graphiti.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -43,6 +45,18 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 		assertEquals(new Integer(1), ga.getLineWidth());
 		assertEquals(0.0, ga.getTransparency(), 0);
 	}
+	
+	protected void checkPlainGraphicsAlgorithmDefaults(GraphicsAlgorithm ga) {
+		assertNull(ga.getFilled());
+		assertNull(ga.getBackground());
+		assertNull(ga.getForeground());
+		assertSame(LineStyle.UNSPECIFIED, ga.getLineStyle());
+		assertNull(ga.getLineVisible());
+		assertNull(ga.getLineWidth());
+		assertNull(ga.getTransparency());
+		assertNull(ga.getRenderingStyle());
+	}
+
 
 	protected void checkImageDefaults(Image im) {
 		assertEquals(VALUE, im.getId());
@@ -51,12 +65,28 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 		assertFalse(im.getStretchV());
 
 	}
+	
+	protected void checkPlainImageDefaults(Image im) {
+		assertEquals(VALUE, im.getId());
+		assertNull(im.getProportional());
+		assertNull(im.getStretchH());
+		assertNull(im.getStretchV());
+
+	}
 
 	protected void checkTextDefaults(AbstractText text, String value) {
 		checkGraphicsAlgorithmDefaults(text);
 		assertEquals(new Integer(0), text.getAngle());
 		assertEquals(Orientation.ALIGNMENT_LEFT, text.getHorizontalAlignment());
 		assertEquals(Orientation.ALIGNMENT_CENTER, text.getVerticalAlignment());
+		assertEquals(value, text.getValue());
+	}
+	
+	protected void checkPlainTextDefaults(AbstractText text, String value) {
+		checkPlainGraphicsAlgorithmDefaults(text);
+		assertNull(text.getAngle());
+		assertEquals(Orientation.UNSPECIFIED, text.getHorizontalAlignment());
+		assertEquals(Orientation.UNSPECIFIED, text.getVerticalAlignment());
 		assertEquals(value, text.getValue());
 	}
 }
