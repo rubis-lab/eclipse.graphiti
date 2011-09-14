@@ -49,11 +49,18 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	 * This static Action is just used as a template, to initialize the ID,
 	 * label and image of instances of this class accordingly.
 	 */
-	private static IAction TEMPLATE_ACTION = ActionFactory.PRINT.create(PlatformUI.getWorkbench().getActiveWorkbenchWindow());
+	private static IAction TEMPLATE_ACTION = ActionFactory.PRINT.create(PlatformUI.getWorkbench()
+			.getActiveWorkbenchWindow());
 
 	private IConfigurationProvider _configurationProvider;
 
 	private IPrintFeature printFeature;
+
+	// last time when we checked whether a printer is available with
+	// super.calculateEnabled()
+	private long lastPrinterCheckTime = 0;
+
+	private boolean cachedEnabled = true;
 
 	/**
 	 * Creates a new PrintGraphicalViewerAction. It initializes it with the
@@ -66,7 +73,8 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	 *            belongs. From the WorkbenchPart the GraphicalViewer will be
 	 *            determined.
 	 */
-	public PrintGraphicalViewerAction(IConfigurationProvider configurationProvider, IWorkbenchPart part, IPrintFeature printFeature) {
+	public PrintGraphicalViewerAction(IConfigurationProvider configurationProvider, IWorkbenchPart part,
+			IPrintFeature printFeature) {
 		super(part);
 		this.printFeature = printFeature;
 		_configurationProvider = configurationProvider;
@@ -95,8 +103,20 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	protected boolean calculateEnabled() {
 		if (getWorkbenchPart().getAdapter(GraphicalViewer.class) == null)
 			return false;
-		return super.calculateEnabled();
 
+		long currentTime = System.currentTimeMillis();
+		long diffTime = (currentTime - lastPrinterCheckTime) / 1000;
+
+		// super.calculateEnabled() only checks whether a printer is available.
+		// But calculateEnabled() is called very often and in some environments
+		// this can lead to performance issues. See also bugzilla 355401.
+		// Therefore we cache the result and call the super method earliest
+		// after 5 minutes.
+		if (diffTime > 300) {
+			lastPrinterCheckTime = currentTime;
+			cachedEnabled = super.calculateEnabled();
+		}
+		return cachedEnabled;
 		// TODO ask also feature for canPrint() ?
 	}
 
@@ -128,8 +148,8 @@ public class PrintGraphicalViewerAction extends PrintAction {
 		if (printImageDialog.getReturnCode() != Window.CANCEL) {
 
 			// start the printing
-			PrintFigureScaleableOperation op = new PrintFigureScaleableOperation(printImageDialog.getPrinter(), printImageDialog
-					.getFigure(), printImageDialog.getScaledImage(), printImageDialog.getPreferences());
+			PrintFigureScaleableOperation op = new PrintFigureScaleableOperation(printImageDialog.getPrinter(),
+					printImageDialog.getFigure(), printImageDialog.getScaledImage(), printImageDialog.getPreferences());
 			op.run(getWorkbenchPart().getTitle());
 			printImageDialog.cleanUp();
 		}
