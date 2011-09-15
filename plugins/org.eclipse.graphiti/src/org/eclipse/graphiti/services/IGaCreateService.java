@@ -1009,5 +1009,21 @@ public interface IGaCreateService {
 	 * @return the newly created style
 	 */
 	public Style createStyle(StyleContainer styleContainer, String id);
+	
+	/**
+	 * Creates a style with the given id. The style is aggregated under the
+	 * given container style. Default values have been reset, so you can use
+	 * your styles.
+	 * 
+	 * @param styleContainer
+	 *            container style
+	 * @param id
+	 *            style id
+	 * @return the newly created style
+	 * @see Style
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.9
+	 */
+	public Style createPlainStyle(StyleContainer styleContainer, String id);
 
 }

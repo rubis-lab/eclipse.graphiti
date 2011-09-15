@@ -494,6 +494,11 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	public Style createStyle(StyleContainer styleContainer, String id) {
 		return getGaService().createStyle(styleContainer, id);
 	}
+	
+	@Override
+	public Style createPlainStyle(StyleContainer styleContainer, String id) {
+		return getGaService().createStyle(styleContainer, id);
+	}
 
 	/*
 	 * (non-Javadoc)

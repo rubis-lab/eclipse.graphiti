@@ -982,6 +982,15 @@ public final class GaServiceImpl implements IGaService {
 		ret.setStyleContainer(styleContainer);
 		return ret;
 	}
+	
+	@Override
+	public Style createPlainStyle(StyleContainer styleContainer, String id) {
+		Style ret = StylesFactory.eINSTANCE.createStyle();
+		resetAll(ret);
+		ret.setId(id);
+		ret.setStyleContainer(styleContainer);
+		return ret;
+	}
 
 	/*
 	 * (non-Javadoc)

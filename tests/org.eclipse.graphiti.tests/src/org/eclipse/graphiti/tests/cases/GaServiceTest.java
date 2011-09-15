@@ -248,7 +248,15 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		Style style = gas.createStyle(d, VALUE);
 		assertEquals(VALUE, style.getId());
 		assertEquals(1, d.getStyles().size());
-
+		checkInheritedStyleDefaultsFromMetamodel(style);
+	}
+	
+	@Test
+	public void createPlainStyle() {
+		Style style = gas.createPlainStyle(d, VALUE);
+		assertEquals(VALUE, style.getId());
+		assertEquals(1, d.getStyles().size());
+		checkInheritedPlainStyleDefaultsFromMetamodel(style);
 	}
 
 	@Test

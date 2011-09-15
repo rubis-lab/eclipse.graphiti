@@ -29,6 +29,7 @@ import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 
 public class GFAbstractCreateTestCase extends GFAbstractTestCase {
@@ -44,6 +45,40 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 		assertTrue(ga.getLineVisible());
 		assertEquals(new Integer(1), ga.getLineWidth());
 		assertEquals(0.0, ga.getTransparency(), 0);
+	}
+	
+	protected void checkInheritedPlainStyleDefaultsFromMetamodel(Style style) {
+		assertNull(style.getFilled());
+		assertNull(style.getBackground());
+		assertNull(style.getForeground());
+		assertSame(LineStyle.UNSPECIFIED, style.getLineStyle());
+		assertNull(style.getLineVisible());
+		assertNull(style.getLineWidth());
+		assertSame(Orientation.UNSPECIFIED, style.getHorizontalAlignment());
+		assertSame(Orientation.UNSPECIFIED, style.getVerticalAlignment());
+		assertNull(style.getTransparency());
+		assertNull(style.getRenderingStyle());
+		assertNull(style.getStretchH());
+		assertNull(style.getStretchV());
+		assertNull(style.getFont());
+		assertNull(style.getAngle());
+	}
+	
+	protected void checkInheritedStyleDefaultsFromMetamodel(Style style) {
+		assertTrue(style.getFilled());
+		assertNull(style.getBackground());
+		assertNull(style.getForeground());
+		assertSame(LineStyle.SOLID, style.getLineStyle());
+		assertTrue(style.getLineVisible());
+		assertNull(style.getLineWidth());
+		assertSame(Orientation.ALIGNMENT_CENTER, style.getHorizontalAlignment());
+		assertSame(Orientation.ALIGNMENT_CENTER, style.getVerticalAlignment());
+		assertNull(style.getTransparency());
+		assertNull(style.getRenderingStyle());
+		assertNull(style.getStretchH());
+		assertNull(style.getStretchV());
+		assertNull(style.getFont());
+		assertNull(style.getAngle());
 	}
 	
 	protected void checkPlainGraphicsAlgorithmDefaults(GraphicsAlgorithm ga) {
