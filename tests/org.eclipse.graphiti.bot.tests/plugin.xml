@@ -20,5 +20,25 @@
    <extension
          point="org.eclipse.ui.perspectives">
    </extension>
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypes">
+      <diagramType
+            id="org.eclipse.graphiti.bot.tests.dtWithAutoUpdateAtStartup"
+            name="Diagram Type with auto update at startup enabled"
+            type="dtWithAutoUpdateAtStartup">
+      </diagramType>
+   </extension>
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypeProviders">
+      <diagramTypeProvider
+            class="org.eclipse.graphiti.bot.tests.DTPwithAutoUpdateAtStartup"
+            description="Test for an auto update at startup"
+            id="org.eclipse.graphiti.bot.tests.dtpWithAutoUpdateAtStartup"
+            name="Diagram Type Provider with auto update at startup">
+         <diagramType
+               id="org.eclipse.graphiti.bot.tests.dtWithAutoUpdateAtStartup">
+         </diagramType>
+      </diagramTypeProvider>
+   </extension>
 
 </plugin>

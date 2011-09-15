@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
+ *                         and called features via editor command stack to check it
  *
  * </copyright>
  *
@@ -20,10 +22,15 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
  * The Interface IDiagramEditor.
+ * 
+ * @noimplement This interface is not intended to be implemented by clients.
+ *              Extend DiagramEditor instead.
  */
 public interface IDiagramEditor {
 
@@ -137,4 +144,19 @@ public interface IDiagramEditor {
 	 * @return the mouse location
 	 */
 	ILocation getCurrentMouseLocation();
+
+	/**
+	 * Executes the given feature in the given context using the command stack
+	 * and editing domain of the diagram editor. In case of an IAddFeature being
+	 * passed this method will also trigger the selection of the newly added
+	 * shape.
+	 * 
+	 * @param feature
+	 *            The feature to execute
+	 * @param context
+	 *            The context object to use with the feature
+	 * 
+	 * @since 0.9
+	 */
+	void executeFeature(IFeature feature, IContext context);
 }

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,8 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
+ *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
+ *                         and called features via editor command stack to check it
  *
  * </copyright>
  *
@@ -69,9 +71,6 @@ import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.ExternalPictogramLink;
-import org.eclipse.graphiti.internal.command.AddFeatureCommandWithContext;
-import org.eclipse.graphiti.internal.command.CommandExec;
-import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.Property;
@@ -250,13 +249,9 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		boolean b = false;
 		IUpdateFeature updateFeature = getUpdateFeature(context);
 		if (updateFeature != null) {
-			// if (updateSemanticsFeature != null &&
-			// updateSemanticsFeature.canUpdate(context)) {
-			// ret = updateSemanticsFeature.update(context);
-			// }
-			TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
+			IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
 			try {
-				b = CommandExec.getSingleton().executeCommand(new GenericFeatureCommandWithContext(updateFeature, context), editingDomain);
+				diagramEditor.executeFeature(updateFeature, context);
 			} catch (Exception e) {
 				// Wrap in RuintimeException (handled by all callers)
 				if (e instanceof RuntimeException) {
@@ -283,12 +278,12 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		boolean b = false;
 		ILayoutFeature layoutSemanticsFeature = getLayoutFeature(context);
 		if (layoutSemanticsFeature != null) {
-			TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
+			IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
 			try {
-				b = CommandExec.getSingleton().executeCommand(new GenericFeatureCommandWithContext(layoutSemanticsFeature, context),
-						editingDomain);
+				diagramEditor.executeFeature(layoutSemanticsFeature, context);
+				b = true;
 			} catch (Exception e) {
-				// Wrap in RuintimeException (handled by all callers)
+				// Wrap in RuntimeException (handled by all callers)
 				if (e instanceof RuntimeException) {
 					throw (RuntimeException) e;
 				} else {
@@ -354,24 +349,15 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		PictogramElement ret = null;
 		if (canAdd(context).toBoolean()) {
 			IAddFeature feature = getAddFeature(context);
-			AddFeatureCommandWithContext addFeatureCommandWithContext = new AddFeatureCommandWithContext(feature, context);
-			TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
-			boolean b = false;
+			IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
 			try {
-				b = CommandExec.getSingleton().executeCommand(addFeatureCommandWithContext, editingDomain);
+				diagramEditor.executeFeature(feature, context);
 			} catch (Exception e) {
 				// Wrap in RuintimeException (handled by all callers)
 				if (e instanceof RuntimeException) {
 					throw (RuntimeException) e;
 				} else {
 					throw new RuntimeException(e);
-				}
-			}
-			if (b) {
-				ret = addFeatureCommandWithContext.getAddedPictogramElements();
-				IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
-				if (diagramEditor != null) {
-					diagramEditor.setPictogramElementForSelection(ret);
 				}
 			}
 		}

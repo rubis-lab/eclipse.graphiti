@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,8 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
  *            DefaultSaveImageFeature
+ *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
+ *                         and called features via editor command stack to check it
  *
  * </copyright>
  *
@@ -402,7 +404,9 @@ public interface IFeatureProvider extends IMappingProvider {
 	 * @param context
 	 *            the context
 	 * 
-	 * @return status and reason
+	 * @return status and reason, simply a <code>true</code> {@link IReason} in
+	 *         case the layout operation was executed, a <code>false</code>
+	 *         {@link IReason} otherwise.
 	 */
 	IReason layoutIfPossible(ILayoutContext context);
 
@@ -437,13 +441,6 @@ public interface IFeatureProvider extends IMappingProvider {
 	 * @return status and reason
 	 */
 	IReason updateNeeded(IUpdateContext context);
-
-	//	/**
-	//	 * Gets the transactional editing domain.
-	//	 * 
-	//	 * @return transactional editing domain which is linked to the editor
-	//	 */
-	//	TransactionalEditingDomain getTransactionalEditingDomain();
 
 	/**
 	 * This is called to dispose the object.

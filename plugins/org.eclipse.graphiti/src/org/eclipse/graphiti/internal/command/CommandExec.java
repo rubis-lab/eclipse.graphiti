@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,8 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
+ *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
+ *                         and called features via editor command stack to check it
  *
  * </copyright>
  *
@@ -40,7 +42,16 @@ public class CommandExec {
 	}
 
 	/**
-	 * Execute command.
+	 * Execute a given command within the given
+	 * {@link TransactionalEditingDomain}.<br>
+	 * IMPORTANT: use this method only in situations in which you don't have an
+	 * open diagram editor. This method will simply execute the command on the
+	 * command stack of the EMF editing domain, while the editor wraps this with
+	 * a workspace command stack that will additionally monitor if an operation
+	 * has really done any changes and in case not will reset the editor dirty
+	 * flag again (see {@link IFeature#hasDoneChanges()}.<br>
+	 * If you have a DiagramEditor instance use its method executeFeature
+	 * instead.
 	 * 
 	 * @param command
 	 *            the command
@@ -106,7 +117,16 @@ public class CommandExec {
 	}
 
 	/**
-	 * Execute feature with context.
+	 * Execute feature with context.<br>
+	 * IMPORTANT: use this method only in situations in which you don't have an
+	 * open diagram editor. This method will simply execute the command on the
+	 * command stack of the EMF editing domain, while the editor wraps this with
+	 * a workspace command stack that will additionally monitor if an operation
+	 * has really done any changes and in case not will reset the editor dirty
+	 * flag again (see {@link IFeature#hasDoneChanges()}.<br>
+	 * If you have a DiagramEditor instance use its method executeFeature
+	 * instead.
+	 * 
 	 * 
 	 * @param feature
 	 *            the feature

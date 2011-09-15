@@ -13,6 +13,8 @@
  *    mwenz - Bug 348662 - Setting tooptip to null in tool behavior provider doesn't clear up
  *                         tooltip if the associated figure has a previous tooltip
  *    mwenz - Bug 356828 - Escaped diagram name is used as editor title
+ *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature and
+ *                         called features via editor command stack to check it
  *
  * </copyright>
  *
@@ -1107,6 +1109,15 @@ public class GFOtherTests extends AbstractGFTests {
 
 		// The title of the editor shall be the name of the diagram
 		assertEquals("Diagram Object", wp.getGefEditor().getTitle());
+	}
+
+	@Test
+	public void testAutoUpdateAtStartup() throws Exception {
+		// Test for Bug 356218 - DefaultUpdateDiagramFeature correctly
+		// triggered via editor command stack
+		DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_WITH_AUTO_UPDATE_AT_STARTUP);
+		Thread.sleep(1000);
+		assertFalse(diagramEditor.isDirty());
 	}
 
 	private IFile createPersistentDiagram() throws Exception {

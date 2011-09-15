@@ -38,4 +38,11 @@ public interface ITestConstants {
 	 */
 	public static final String DIAGRAM_TYPE_ID_TUTORIAL = "tutorial";
 
+	/**
+	 * The Constant DIAGRAM_TYPE_ID_WITH_AUTO_UPDATE_AT_STARTUP.
+	 * 
+	 * @since 0.9
+	 */
+	public static final String DIAGRAM_TYPE_ID_WITH_AUTO_UPDATE_AT_STARTUP = "dtWithAutoUpdateAtStartup";
+
 }

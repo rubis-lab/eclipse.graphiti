@@ -18,6 +18,8 @@
  *    mwenz - Bug 345347 - There should be a way to not allow other plugins to contribute to the diagram context menu
  *    mwenz - Bug 346932 - Navigation history broken
  *    mwenz - Bug 356828 - Escaped diagram name is used as editor title
+ *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
+ *                         and called features via editor command stack to check it
  *
  * </copyright>
  *
@@ -32,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.commands.operations.IUndoContext;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
@@ -87,14 +90,21 @@ import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.ISaveImageFeature;
+import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ISaveImageContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.SaveImageContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.internal.command.AddFeatureCommandWithContext;
+import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
+import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
@@ -121,6 +131,7 @@ import org.eclipse.graphiti.ui.internal.action.PrintGraphicalViewerAction;
 import org.eclipse.graphiti.ui.internal.action.RemoveAction;
 import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
+import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.ConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderHolder;
@@ -1683,6 +1694,46 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	@Override
 	public TransactionalEditingDomain getEditingDomain() {
 		return editingDomain;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.platform.IDiagramEditor#executeFeature(org.eclipse
+	 * .graphiti.features.IFeature,
+	 * org.eclipse.graphiti.features.context.IContext)
+	 */
+	@Override
+	public void executeFeature(IFeature feature, IContext context) {
+		DefaultEditDomain domain = getEditDomain();
+
+		// Make sure the editor is valid
+		Assert.isNotNull(domain);
+		CommandStack commandStack = domain.getCommandStack();
+
+		// Create the correct feature command
+		FeatureCommandWithContext featureCommand = null;
+		if (feature instanceof IAddFeature) {
+			// Context must fit to the feature
+			Assert.isTrue(context instanceof IAddContext);
+			featureCommand = new AddFeatureCommandWithContext(feature, context);
+		} else {
+			featureCommand = new GenericFeatureCommandWithContext(feature, context);
+		}
+
+		// Execute the feature using the command
+		GefCommandWrapper commandWrapper = new GefCommandWrapper(featureCommand, editingDomain);
+		commandStack.execute(commandWrapper);
+
+		if (featureCommand instanceof AddFeatureCommandWithContext) {
+			// In case of an add feature, select the newly added shape
+			PictogramElement addedPictogramElement = ((AddFeatureCommandWithContext) featureCommand)
+					.getAddedPictogramElements();
+			if (addedPictogramElement != null) {
+				setPictogramElementForSelection(addedPictogramElement);
+			}
+		}
 	}
 
 	/**

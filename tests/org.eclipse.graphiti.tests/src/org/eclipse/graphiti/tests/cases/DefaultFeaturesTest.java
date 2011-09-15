@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Bug 356218 - Added hasDoneChanges updates to update diagram feature and
+ *                 called features via editor command stack to check it
  *
  * </copyright>
  *
@@ -30,6 +32,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IReason;
+import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AddBendpointContext;
 import org.eclipse.graphiti.features.context.impl.AreaAnchorContext;
 import org.eclipse.graphiti.features.context.impl.MoveBendpointContext;
@@ -39,6 +43,8 @@ import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.RemoveBendpointContext;
 import org.eclipse.graphiti.features.context.impl.RemoveContext;
 import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
+import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
 import org.eclipse.graphiti.features.impl.DefaultMoveAnchorFeature;
 import org.eclipse.graphiti.features.impl.DefaultMoveBendpointFeature;
@@ -48,6 +54,8 @@ import org.eclipse.graphiti.features.impl.DefaultReconnectionFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveBendpointFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
+import org.eclipse.graphiti.features.impl.DefaultUpdateDiagramFeature;
+import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -78,6 +86,9 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 
 	private static IFeatureProvider fpMock;
 
+	// Update feature instance used for DefaultUpdateDiagramFeature tests
+	private static AbstractUpdateFeatureExtension abstractUpdateFeature = new AbstractUpdateFeatureExtension(fpMock);
+
 	@BeforeClass
 	public static void prepareClass() {
 		fpMock = createNiceMock(IFeatureProvider.class);
@@ -89,6 +100,7 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 		expect(fpMock.getDiagramTypeProvider()).andReturn(dtpMock).anyTimes();
 		expect(fpMock.getRemoveFeature(isA(RemoveContext.class))).andReturn(new DefaultRemoveFeature(fpMock));
 		expect(dtpMock.getDiagramEditor()).andReturn(editorMock).anyTimes();
+		expect(fpMock.getUpdateFeature(isA(UpdateContext.class))).andReturn(abstractUpdateFeature).anyTimes();
 		replay(fpMock, dtpMock, editorMock);
 	}
 
@@ -252,6 +264,46 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 
 	}
 
+	@Test
+	public void updateDiagramNoChildren() throws Exception {
+		// Test for Bug 356218 - DefaultUpdateDiagramFeature correctly
+		// implements hasDoneChanges
+		Diagram diagram = Graphiti.getPeCreateService().createDiagram("dummy", "Test", true);
+		DefaultUpdateDiagramFeature feature = new DefaultUpdateDiagramFeature(fpMock);
+		UpdateContext context = new UpdateContext(diagram);
+		assertTrue(feature.canExecute(context));
+		feature.execute(context);
+		assertFalse(feature.hasDoneChanges());
+	}
+
+	@Test
+	public void updateDiagramWithChildrenNegative() throws Exception {
+		// Test for Bug 356218 - DefaultUpdateDiagramFeature correctly
+		// implements hasDoneChanges
+		Diagram diagram = Graphiti.getPeCreateService().createDiagram("dummy", "Test", true);
+		ContainerShape containerShape = Graphiti.getPeCreateService().createContainerShape(diagram, true);
+		((AbstractUpdateFeatureExtension) (fpMock.getUpdateFeature(new UpdateContext(containerShape)))).hasDoneChanges = false;
+		DefaultUpdateDiagramFeature feature = new DefaultUpdateDiagramFeature(fpMock);
+		UpdateContext context = new UpdateContext(diagram);
+		assertTrue(feature.canExecute(context));
+		feature.execute(context);
+		assertFalse(feature.hasDoneChanges());
+	}
+
+	@Test
+	public void updateDiagramWithChildrenPositive() throws Exception {
+		// Test for Bug 356218 - DefaultUpdateDiagramFeature correctly
+		// implements hasDoneChanges
+		Diagram diagram = Graphiti.getPeCreateService().createDiagram("dummy", "Test", true);
+		ContainerShape containerShape = Graphiti.getPeCreateService().createContainerShape(diagram, true);
+		((AbstractUpdateFeatureExtension) (fpMock.getUpdateFeature(new UpdateContext(containerShape)))).hasDoneChanges = true;
+		DefaultUpdateDiagramFeature feature = new DefaultUpdateDiagramFeature(fpMock);
+		UpdateContext context = new UpdateContext(diagram);
+		assertTrue(feature.canExecute(context));
+		feature.execute(context);
+		assertTrue(feature.hasDoneChanges());
+	}
+
 	@After
 	public void uninitializeTest() {
 
@@ -262,4 +314,41 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 		fpMock = null;
 	}
 
+	/**
+	 *
+	 */
+	private static final class AbstractUpdateFeatureExtension extends AbstractUpdateFeature {
+
+		boolean hasDoneChanges = false;
+
+		private AbstractUpdateFeatureExtension(IFeatureProvider fp) {
+			super(fp);
+		}
+
+		@Override
+		public IReason updateNeeded(IUpdateContext context) {
+			return Reason.createTrueReason();
+		}
+
+		@Override
+		public boolean update(IUpdateContext context) {
+			return true;
+		}
+
+		@Override
+		public boolean canUpdate(IUpdateContext context) {
+			return true;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.eclipse.graphiti.features.impl.AbstractFeature#hasDoneChanges()
+		 */
+		@Override
+		public boolean hasDoneChanges() {
+			return hasDoneChanges;
+		}
+	}
 }

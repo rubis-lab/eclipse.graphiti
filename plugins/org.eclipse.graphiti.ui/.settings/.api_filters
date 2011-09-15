@@ -65,6 +65,22 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/editor/DiagramEditorDummy.java" type="org.eclipse.graphiti.ui.internal.editor.DiagramEditorDummy">
+        <filter comment="Allow direct implementation accross Graphiti projects to make dummy editor available" id="574619656">
+            <message_arguments>
+                <message_argument value="IDiagramEditor"/>
+                <message_argument value="DiagramEditorDummy"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/editor/DiagramEditorInternal.java" type="org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal">
+        <filter comment="Allow implementation accross Graphiti project borders" id="574619656">
+            <message_arguments>
+                <message_argument value="IDiagramEditor"/>
+                <message_argument value="DiagramEditorInternal"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/internal/parts/IPictogramElementDelegate.java" type="org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate">
         <filter id="571473929">
             <message_arguments>
