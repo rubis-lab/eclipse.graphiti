@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * <copyright>
+ *
+ * Copyright (c) 2005, 2011 SAP AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 352220 - Possibility to disable guides
+ *
+ * </copyright>
+ *
+ *******************************************************************************/
 package org.eclipse.graphiti.ui.tests;
 
 import static org.junit.Assert.assertFalse;
@@ -127,7 +143,7 @@ public class RollbackTest extends GFAbstractTestCase {
 		commandStack.execute(commandWrapper);
 
 		// Check.
-		assertTrue("Rollback failed. ShowGuides is false. ", diagram.isShowGuides());
+		assertTrue("Rollback failed. SnapToGrid is false. ", diagram.isSnapToGrid());
 		assertFalse(commandStack.isDirty());
 
 	}
@@ -145,9 +161,9 @@ public class RollbackTest extends GFAbstractTestCase {
 
 		@Override
 		public void execute(ICustomContext context) {
-			assertTrue(getDiagram().isShowGuides());
-			getDiagram().setShowGuides(false);
-			assertTrue(!getDiagram().isShowGuides());
+			assertTrue(getDiagram().isSnapToGrid());
+			getDiagram().setSnapToGrid(false);
+			assertTrue(!getDiagram().isSnapToGrid());
 			// force rollback
 			throw new OperationCanceledException();
 		}

@@ -18,27 +18,20 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.graphiti.mm.MmPackage;
 import org.eclipse.graphiti.mm.StyleContainer;
-
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
-
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramLink;
@@ -169,9 +162,16 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	protected boolean snapToGrid = SNAP_TO_GRID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isShowGuides() <em>Show Guides</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The default value of the '{@link #isShowGuides() <em>Show Guides</em>}'
+	 * attribute. <!-- begin-user-doc -->
+	 * 
+	 * @deprecated This attribute simply exists because of compatibility (after
+	 *             removing it old diagrams would not be readable any more). It
+	 *             is never evaluated, instead the Graphiti framework queries
+	 *             the DiagramTypeProvider if guides shall be shown in a diagram
+	 *             editor.<br>
+	 * 
+	 *             <!-- end-user-doc -->
 	 * @see #isShowGuides()
 	 * @generated
 	 * @ordered
@@ -179,9 +179,16 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	protected static final boolean SHOW_GUIDES_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isShowGuides() <em>Show Guides</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #isShowGuides() <em>Show Guides</em>}'
+	 * attribute. <!-- begin-user-doc -->
+	 * 
+	 * @deprecated This attribute simply exists because of compatibility (after
+	 *             removing it old diagrams would not be readable any more). It
+	 *             is never evaluated, instead the Graphiti framework queries
+	 *             the DiagramTypeProvider if guides shall be shown in a diagram
+	 *             editor.<br>
+	 * 
+	 *             <!-- end-user-doc -->
 	 * @see #isShowGuides()
 	 * @generated
 	 * @ordered

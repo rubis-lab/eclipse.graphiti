@@ -54,4 +54,18 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src-gen/org/eclipse/graphiti/mm/pictograms/Diagram.java" type="org.eclipse.graphiti.mm.pictograms.Diagram">
+        <filter comment="Bug 352220 - Attribute Diagram.showGuides is handled in DiagramTypeProvider" id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.Diagram"/>
+                <message_argument value="isShowGuides()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Bug 352220 - Attribute Diagram.showGuides is handled in DiagramTypeProvider" id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.Diagram"/>
+                <message_argument value="setShowGuides(boolean)"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>

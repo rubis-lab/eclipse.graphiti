@@ -34,7 +34,6 @@ import org.eclipse.graphiti.mm.algorithms.styles.Font;
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getConnections <em>Connections</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#isSnapToGrid <em>Snap To Grid</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#isShowGuides <em>Show Guides</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getColors <em>Colors</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getFonts <em>Fonts</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getPictogramLinks <em>Pictogram Links</em>}</li>
@@ -43,7 +42,8 @@ import org.eclipse.graphiti.mm.algorithms.styles.Font;
  * </p>
  *
  * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getDiagram()
- * @model
+ * @model features="showGuides" 
+ *        showGuidesUnique="false" showGuidesDataType="org.eclipse.emf.ecore.EBoolean" showGuidesRequired="true" showGuidesOrdered="false" showGuidesSuppressedGetVisibility="true" showGuidesSuppressedSetVisibility="true"
  * @generated
  */
 public interface Diagram extends ContainerShape, StyleContainer {
@@ -168,32 +168,6 @@ public interface Diagram extends ContainerShape, StyleContainer {
 	 * @generated
 	 */
 	void setSnapToGrid(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Show Guides</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Show Guides</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Show Guides</em>' attribute.
-	 * @see #setShowGuides(boolean)
-	 * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getDiagram_ShowGuides()
-	 * @model unique="false" required="true" ordered="false"
-	 * @generated
-	 */
-	boolean isShowGuides();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.pictograms.Diagram#isShowGuides <em>Show Guides</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Show Guides</em>' attribute.
-	 * @see #isShowGuides()
-	 * @generated
-	 */
-	void setShowGuides(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Colors</b></em>' containment reference list.

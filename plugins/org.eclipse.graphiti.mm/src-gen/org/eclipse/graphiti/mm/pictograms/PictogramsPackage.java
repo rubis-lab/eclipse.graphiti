@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.graphiti.mm.MmPackage;
 
 /**
@@ -516,9 +515,16 @@ public interface PictogramsPackage extends EPackage {
 	int DIAGRAM__SNAP_TO_GRID = CONTAINER_SHAPE_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Show Guides</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Show Guides</b></em>' attribute. <!--
+	 * begin-user-doc -->
+	 * 
+	 * @deprecated This attribute simply exists because of compatibility (after
+	 *             removing it old diagrams would not be readable any more). It
+	 *             is never evaluated, instead the Graphiti framework queries
+	 *             the DiagramTypeProvider if guides shall be shown in a diagram
+	 *             editor.<br>
+	 * 
+	 *             <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -1596,11 +1602,19 @@ public interface PictogramsPackage extends EPackage {
 	EAttribute getDiagram_SnapToGrid();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.pictograms.Diagram#isShowGuides <em>Show Guides</em>}'.
+	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.graphiti.mm.pictograms.Diagram <em>Show Guides</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * @deprecated This attribute simply exists because of compatibility (after
+	 *             removing it old diagrams would not be readable any more). It
+	 *             is never evaluated, instead the Graphiti framework queries
+	 *             the DiagramTypeProvider if guides shall be shown in a diagram
+	 *             editor.<br>
+	 * 
+	 *             <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Show Guides</em>'.
-	 * @see org.eclipse.graphiti.mm.pictograms.Diagram#isShowGuides()
+	 * @see org.eclipse.graphiti.mm.pictograms.Diagram
 	 * @see #getDiagram()
 	 * @generated
 	 */
