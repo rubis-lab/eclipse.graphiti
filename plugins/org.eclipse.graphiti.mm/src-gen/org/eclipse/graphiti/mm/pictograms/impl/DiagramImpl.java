@@ -168,8 +168,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	 * @deprecated This attribute simply exists because of compatibility (after
 	 *             removing it old diagrams would not be readable any more). It
 	 *             is never evaluated, instead the Graphiti framework queries
-	 *             the DiagramTypeProvider if guides shall be shown in a diagram
-	 *             editor.<br>
+	 *             the tool behaviour provider if guides shall be shown in a
+	 *             diagram editor.<br>
 	 * 
 	 *             <!-- end-user-doc -->
 	 * @see #isShowGuides()
@@ -185,8 +185,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	 * @deprecated This attribute simply exists because of compatibility (after
 	 *             removing it old diagrams would not be readable any more). It
 	 *             is never evaluated, instead the Graphiti framework queries
-	 *             the DiagramTypeProvider if guides shall be shown in a diagram
-	 *             editor.<br>
+	 *             the tool behaviour provider if guides shall be shown in a
+	 *             diagram editor.<br>
 	 * 
 	 *             <!-- end-user-doc -->
 	 * @see #isShowGuides()
