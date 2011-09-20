@@ -483,5 +483,4 @@ public class GFPackageTests extends AbstractGFTests {
 		
 		page.closeActiveEditor();
 	}
-
 }
