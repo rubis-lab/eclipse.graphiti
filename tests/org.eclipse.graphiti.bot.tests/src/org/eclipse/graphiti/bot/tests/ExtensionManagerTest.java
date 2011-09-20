@@ -83,6 +83,5 @@ public class ExtensionManagerTest extends AbstractGFTests {
 				assertNotNull("sketch diagram type provider couldn't be instantiated", dtp);
 			}
 		}
-
 	}
 }
