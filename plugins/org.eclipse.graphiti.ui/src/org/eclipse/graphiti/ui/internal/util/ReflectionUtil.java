@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Patch 203186 from Bug 357411 contributed by Hernan Gonzalez
  *
  * </copyright>
  *
@@ -18,6 +19,7 @@ package org.eclipse.graphiti.ui.internal.util;
 import java.lang.reflect.Method;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.swt.dnd.Transfer;
 
@@ -27,35 +29,20 @@ import org.eclipse.swt.dnd.Transfer;
  * installed. An alternative would be to use extension points which seems to be
  * rather heavy-weight.
  */
-@SuppressWarnings({ "unchecked", "rawtypes" })
 public class ReflectionUtil {
 
 	private static final String CLASSNAME_RESOURCE_TRANSFER = "org.eclipse.ui.part.ResourceTransfer"; //$NON-NLS-1$
 	private static final String METHODNAME_RESOURCE_TRANSFER = "getInstance"; //$NON-NLS-1$
 
-	private static final String CLASSNAME_FILE_EDITOR_INPUT = "org.eclipse.ui.IFileEditorInput"; //$NON-NLS-1$
-	private static final String METHODNAME_FILE_EDITOR_INPUT = "getFile"; //$NON-NLS-1$
-
 	/**
-	 * IFileEditorInput resides in org.eclipse.ui.ide. We need to support an RCP
-	 * scenario without having this plug-in installed. Therefore ashamed we use
-	 * dynamic class-loading and reflection .
+	 * Typical scenario: input instance of IFileEditorInput 
+	 * We don't want to depend on that interface, as it resides in org.eclipse.ui.ide. 
+	 * We need to support an RCP scenario without having this plug-in installed.
 	 */
 	public static IFile getFile(Object input) {
-		Class[] genericInterfaces = input.getClass().getInterfaces();
-		for (Class interfaze : genericInterfaces) {
-			if (CLASSNAME_FILE_EDITOR_INPUT.equals(interfaze.getName())) {
-				try {
-					interfaze = Class.forName(CLASSNAME_FILE_EDITOR_INPUT);
-					Method method = interfaze.getMethod(METHODNAME_FILE_EDITOR_INPUT);
-					Object obj = method.invoke(input);
-					if (obj != null && obj instanceof IFile) {
-						return (IFile) obj;
-					}
-				} catch (Exception e) {
-					T.racer().debug(e.getMessage());
-				}
-			}
+		if(input instanceof IAdaptable) {
+			IFile file = (IFile)((IAdaptable)input).getAdapter(IFile.class);
+			if(file!=null) return file;
 		}
 		return null;
 	}
