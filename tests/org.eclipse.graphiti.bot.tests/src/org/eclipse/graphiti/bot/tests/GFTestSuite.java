@@ -30,5 +30,4 @@ public class GFTestSuite {
 		suite.addTestSuite(ExtensionManagerTest.class);
 		return suite;
 	}
-
 }
