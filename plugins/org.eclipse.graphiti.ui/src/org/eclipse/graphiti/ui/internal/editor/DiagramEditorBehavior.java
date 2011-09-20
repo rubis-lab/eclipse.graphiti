@@ -449,7 +449,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 */
 	public Diagnostic analyzeResourceProblems(Resource resource, Exception exception) {
 		if ((!resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty()) && editingDomain != null) {
-			final IFile file = GraphitiUiInternal.getEmfService().getFile(resource.getURI(), editingDomain);
+			final IFile file = GraphitiUiInternal.getEmfService().getFile(resource.getURI());
 			final String fileName = file != null ? file.getFullPath().toString() : "unknown name"; //$NON-NLS-1$
 			final BasicDiagnostic basicDiagnostic = new BasicDiagnostic(Diagnostic.ERROR, GraphitiUIPlugin.PLUGIN_ID, 0,
 					"Problems encountered in file " + fileName, new Object[] { exception == null ? (Object) resource : exception }); //$NON-NLS-1$

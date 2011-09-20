@@ -88,10 +88,34 @@ public interface IEmfService {
 	 * @return the partition file or <code>null</code> under the mentioned
 	 *         circumstances
 	 * 
-	 * @see #getFile(URI, ResourceSet)
+	 * @see #getFile(URI)
 	 */
 	public abstract IFile getFile(EObject object);
-
+	
+	
+	/**
+	 * Returns the Eclipse file for the given {@link URI}.
+	 * 
+	 * Note that the file is <code>null</code> for objects in
+	 * <ul>
+	 * <li>archives,</li>
+	 * <li>closed projects,</li>
+	 * <li>not yet persisted resources or not yet persisted EObjects in already
+	 * persisted resources. In this respect this methods behaves asymmetric to
+	 * the handle-only resource APIs like {@link IProject#getFile(String)}.</li>
+	 * </ul>
+	 * 
+	 * @param uri
+	 *            the URI to get the file for
+	 * @return the file or <code>null</code> under the mentioned circumstances
+	 * 
+	 * @see #getFile(EObject)
+	 * 
+	 * @since 0.9
+	 */
+	public abstract IFile getFile(URI uri);
+	
+	
 	/**
 	 * Returns the Eclipse file for the given {@link URI}.
 	 * 
@@ -111,7 +135,10 @@ public interface IEmfService {
 	 * @return the file or <code>null</code> under the mentioned circumstances
 	 * 
 	 * @see #getFile(EObject)
+	 * 
+	 * @deprecated use #getFile(URi) instead
 	 */
+	@Deprecated
 	public abstract IFile getFile(URI uri, TransactionalEditingDomain editingDomain);
 
 	/**
@@ -133,7 +160,10 @@ public interface IEmfService {
 	 * @return the file or <code>null</code> under the mentioned circumstances
 	 * 
 	 * @see #getFile(EObject)
+	 * 
+	 * @deprecated use #getFile(URi uri) instead
 	 */
+	@Deprecated
 	public abstract IFile getFile(URI uri, ResourceSet resourceSet);
 
 	/**

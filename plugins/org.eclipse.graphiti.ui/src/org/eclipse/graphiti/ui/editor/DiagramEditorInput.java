@@ -18,6 +18,7 @@ package org.eclipse.graphiti.ui.editor;
 
 import java.util.Collections;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
@@ -480,7 +481,8 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * Returns the concrete model element represented by the stored URI, if the
 	 * requested adapter is either the same class or super class. In addition
 	 * the method examines all composition parents and checks whether or not
-	 * they are of the requested class or a sub class.
+	 * they are of the requested class or a sub class. As last resort it tries
+	 * to adapt to IFile.
 	 * <ul>
 	 * <li>get model element for {@link URI}</li>
 	 * <li>if adapter == modelElement.class return modelElement</li>
@@ -489,6 +491,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * modelElement</li>
 	 * <li>if adapter == ResourceSet return resourceSet</li>
 	 * <li>if adapter == TransactionalEditingDomain return editingDomain</li>
+	 * <li>if adapter == IFile try to return underlying IFile</li>
 	 * </ul>
 	 * 
 	 * @param adapter
@@ -521,9 +524,12 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 			return getEditingDomain();
 		} else if (ResourceSet.class.isAssignableFrom(adapter)) {
 			return getEditingDomain().getResourceSet();
-		}
+		} else if (IFile.class.isAssignableFrom(adapter)) {
+		 	return GraphitiUiInternal.getEmfService().getFile(getUri());
+	    } 
 		return null;
 	}
+	
 
 	/**
 	 * Saves {@link URI} string, object name and provider ID to the given

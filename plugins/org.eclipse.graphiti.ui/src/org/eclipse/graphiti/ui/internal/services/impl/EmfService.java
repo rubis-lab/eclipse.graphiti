@@ -161,19 +161,27 @@ public class EmfService implements IEmfService {
 		if (resource != null) {
 			final ResourceSet resourceSet = resource.getResourceSet();
 			if (resourceSet != null) {
-				result = getFile(resource.getURI(), resourceSet);
+				result = getFile(resource.getURI());
 			}
 		}
 		return result;
 	}
+	
 
 	@Override
+	@Deprecated
 	public IFile getFile(URI uri, TransactionalEditingDomain editingDomain) {
-		return getFile(uri, editingDomain.getResourceSet());
+		return getFile(uri);
+	}
+	
+	@Override
+	@Deprecated
+	public IFile getFile(URI uri, ResourceSet resourceSet) {
+		return getFile(uri);
 	}
 
 	@Override
-	public IFile getFile(URI uri, ResourceSet resourceSet) {
+	public IFile getFile(URI uri) {
 		if (uri == null) {
 			return null;
 		}
@@ -383,4 +391,5 @@ public class EmfService implements IEmfService {
 	public URI mapDiagramFileUriToDiagramUri(URI diagramFileUri) {
 		return diagramFileUri.appendFragment("/0"); //$NON-NLS-1$
 	}
+
 }
