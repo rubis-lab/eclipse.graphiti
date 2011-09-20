@@ -97,7 +97,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * 
 	 * @see #getLiveName()
 	 */
-	private String name;
+	private String name; 
 
 	/**
 	 * The cached input tooltip
