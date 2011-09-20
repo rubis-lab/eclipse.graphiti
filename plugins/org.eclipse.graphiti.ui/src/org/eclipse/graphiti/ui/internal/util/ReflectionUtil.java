@@ -40,9 +40,10 @@ public class ReflectionUtil {
 	 * We need to support an RCP scenario without having this plug-in installed.
 	 */
 	public static IFile getFile(Object input) {
-		if(input instanceof IAdaptable) {
-			IFile file = (IFile)((IAdaptable)input).getAdapter(IFile.class);
-			if(file!=null) return file;
+		if (input instanceof IAdaptable) {
+			IFile file = (IFile) ((IAdaptable) input).getAdapter(IFile.class);
+			if (file != null)
+				return file;
 		}
 		return null;
 	}
