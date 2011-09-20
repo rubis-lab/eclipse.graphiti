@@ -1152,5 +1152,4 @@ public class GFOtherTests extends AbstractGFTests {
 		assertNotNull(diagFile);
 		return diagFile;
 	}
-
 }
