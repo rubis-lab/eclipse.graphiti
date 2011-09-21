@@ -51,7 +51,7 @@ public class ContainerShapeEditPart extends ShapeEditPart implements IContainerS
 
 	private IFigure contentPaneFigureCache;
 
-	private Integer contentPaneChilds = null;
+	private Integer contentPaneChilds = 0;
 
 	/**
 	 * Creates a new ContainerShapeEditPart.
@@ -77,7 +77,8 @@ public class ContainerShapeEditPart extends ShapeEditPart implements IContainerS
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, getConfigurationProvider().getEditPolicyFactory().createShapeXYLayoutEditPolicy());
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, getConfigurationProvider().getEditPolicyFactory()
+				.createShapeXYLayoutEditPolicy());
 		// installEditPolicy(EditPolicy.CONTAINER_ROLE,
 		// getConfigurationProvider().getEditPolicyFactory().createShapeXYLayoutEditPolicy());
 		installEditPolicy("Snap Feedback", new GFSnapFeedbackPolicy()); //$NON-NLS-1$
@@ -101,6 +102,9 @@ public class ContainerShapeEditPart extends ShapeEditPart implements IContainerS
 				figure.setBackgroundColor(ColorConstants.lightGray);
 			figure.setOpaque(true);
 		}
+		setFigure(figure);
+		contentPaneChilds = getContentPane().getChildren().size(); // initialize
+																	// contentPaneChilds
 		return figure;
 	}
 
@@ -209,7 +213,8 @@ public class ContainerShapeEditPart extends ShapeEditPart implements IContainerS
 		if (getContentPaneFigureCache() != null) {
 			return getContentPaneFigureCache();
 		}
-		IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+		IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
+				.getCurrentToolBehaviorProvider();
 		PictogramElement pe = getPictogramElement();
 		if (pe instanceof ContainerShape && !(this instanceof DiagramEditPart)) {
 			ContainerShape cs = (ContainerShape) pe;
@@ -239,9 +244,6 @@ public class ContainerShapeEditPart extends ShapeEditPart implements IContainerS
 	}
 
 	private Integer getContentPaneChildCount() {
-		if (contentPaneChilds == null) {
-			contentPaneChilds = getContentPane().getChildren().size();
-		}
 		return contentPaneChilds;
 	}
 }
