@@ -99,7 +99,8 @@ public class GFPaletteRoot extends PaletteRoot {
 		// create new entries
 		add(createModelIndependentTools());
 
-		IToolBehaviorProvider currentToolBehaviorProvider = cfgProvider.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+		IToolBehaviorProvider currentToolBehaviorProvider = cfgProvider.getDiagramTypeProvider()
+				.getCurrentToolBehaviorProvider();
 
 		IPaletteCompartmentEntry[] paletteCompartments = currentToolBehaviorProvider.getPalette();
 
@@ -124,8 +125,8 @@ public class GFPaletteRoot extends PaletteRoot {
 
 				} else if (toolEntry instanceof IStackToolEntry) {
 					IStackToolEntry stackToolEntry = (IStackToolEntry) toolEntry;
-					PaletteStack stack = new PaletteStack(stackToolEntry.getLabel(), stackToolEntry.getDescription(), GraphitiUi
-							.getImageService().getImageDescriptorForId(stackToolEntry.getIconId()));
+					PaletteStack stack = new PaletteStack(stackToolEntry.getLabel(), stackToolEntry.getDescription(),
+							GraphitiUi.getImageService().getImageDescriptorForId(stackToolEntry.getIconId()));
 					drawer.add(stack);
 					List<ICreationToolEntry> creationToolEntries = stackToolEntry.getCreationToolEntries();
 					for (ICreationToolEntry creationToolEntry : creationToolEntries) {
@@ -232,37 +233,26 @@ public class GFPaletteRoot extends PaletteRoot {
 	// return drawer;
 	// }
 	private PaletteEntry createTool(ICreationToolEntry creationToolEntry) {
-
+		String label = creationToolEntry.getLabel();
+		String description = creationToolEntry.getDescription();
 		if (creationToolEntry instanceof IObjectCreationToolEntry) {
 			IObjectCreationToolEntry objectCreationToolEntry = (IObjectCreationToolEntry) creationToolEntry;
-
-			ICreateFeature feat = objectCreationToolEntry.getCreateFeature();
-
-			if (feat instanceof ICreateFeature) {
-				DefaultCreationFactory cf = new DefaultCreationFactory(feat, ICreateFeature.class);
-				Object template = (DND_FROM_PALETTE == true) ? cf : null;
-
-				CombinedTemplateCreationEntry pe = new CombinedTemplateCreationEntry(feat.getCreateName(), feat.getCreateDescription(),
-						template, cf, getImageDescriptor(creationToolEntry, true), getImageDescriptor(creationToolEntry, false));
-				pe.setToolClass(GFCreationTool.class);
-
-				return pe;
-			}
-
+			DefaultCreationFactory cf = new DefaultCreationFactory(objectCreationToolEntry.getCreateFeature(),
+					ICreateFeature.class);
+			Object template = (DND_FROM_PALETTE == true) ? cf : null;
+			CombinedTemplateCreationEntry pe = new CombinedTemplateCreationEntry(label, description, template, cf,
+					getImageDescriptor(creationToolEntry, true), getImageDescriptor(creationToolEntry, false));
+			pe.setToolClass(GFCreationTool.class);
+			return pe;
 		} else if (creationToolEntry instanceof IConnectionCreationToolEntry) {
 			IConnectionCreationToolEntry connectionCreationToolEntry = (IConnectionCreationToolEntry) creationToolEntry;
-
-			MultiCreationFactory multiCreationFactory = new MultiCreationFactory(connectionCreationToolEntry.getCreateConnectionFeatures());
-
-			ConnectionCreationToolEntry pe = new ConnectionCreationToolEntry(creationToolEntry.getLabel(),
-					creationToolEntry.getDescription(), multiCreationFactory, getImageDescriptor(creationToolEntry, true),
-					getImageDescriptor(creationToolEntry, false));
+			MultiCreationFactory multiCreationFactory = new MultiCreationFactory(
+					connectionCreationToolEntry.getCreateConnectionFeatures());
+			ConnectionCreationToolEntry pe = new ConnectionCreationToolEntry(label, description, multiCreationFactory,
+					getImageDescriptor(creationToolEntry, true), getImageDescriptor(creationToolEntry, false));
 			pe.setToolClass(GFConnectionCreationTool.class);
-
-			return pe;
-
+			return pe; 
 		}
-
 		return null;
 	}
 
