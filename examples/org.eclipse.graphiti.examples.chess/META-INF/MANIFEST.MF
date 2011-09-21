@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Chess Example for Graphiti
-Bundle-SymbolicName: org.eclipse.graphiti.examples.chess
+Bundle-SymbolicName: org.eclipse.graphiti.examples.chess;singleton:=true
 Bundle-Version: 0.9.0.qualifier
 Bundle-Activator: org.eclipse.graphiti.examples.chess.Activator
 Bundle-Vendor: Eclipse Modeling Project
