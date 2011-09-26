@@ -59,6 +59,13 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="{0}/eclipse/updates/3.8milestones">
+        <bc:propertyRef key="eclipse.downloads"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="{0}/modeling/emf/emf/updates/2.8milestones ">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
@@ -67,13 +74,6 @@
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="{0}/tools/gef/updates/milestones/">
-        <bc:propertyRef key="eclipse.downloads"/>
-      </rm:uri>
-    </rm:provider>
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/eclipse/updates/3.8milestones">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
