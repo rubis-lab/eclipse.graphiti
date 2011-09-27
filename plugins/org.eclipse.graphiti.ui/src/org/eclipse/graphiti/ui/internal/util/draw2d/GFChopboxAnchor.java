@@ -61,7 +61,8 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 	@Override
 	public Point getLocation(Point reference) {
 
-		if (getOwner() instanceof GFEllipse || getOwner() instanceof GFEllipseDecoration || getOwner() instanceof Ellipse) {
+		if (getOwner() instanceof GFEllipse || getOwner() instanceof GFEllipseDecoration
+				|| getOwner() instanceof Ellipse) {
 			Rectangle r = Rectangle.SINGLETON;
 			r.setBounds(getBox()); // r.setBounds(getOwner().getBounds().getCropped(getOwner().getInsets()));
 			r.translate(-1, -1);
@@ -83,7 +84,8 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 			float k = (float) (ref.y * r.width) / (ref.x * r.height);
 			k = k * k;
 
-			return r.getCenter().translate((int) (r.width * dx / Math.sqrt(1 + k)), (int) (r.height * dy / Math.sqrt(1 + 1 / k)));
+			return r.getCenter().translate((int) (r.width * dx / Math.sqrt(1 + k)),
+					(int) (r.height * dy / Math.sqrt(1 + 1 / k)));
 		}
 		if (getOwner() instanceof GFPolygon || getOwner() instanceof Polygon || getOwner() instanceof GFPolyline
 				|| getOwner() instanceof Polyline) {
@@ -98,7 +100,8 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 			// ownReference, STRAIGHT_LINE_TOLERANCE);
 
 			Point location = getLocation(ownReference, foreignReference);
-			if (location == null || getBox().expand(1, 1).contains(foreignReference) && !getBox().shrink(1, 1).contains(foreignReference))
+			if (location == null || getBox().expand(1, 1).contains(foreignReference)
+					&& !getBox().shrink(1, 1).contains(foreignReference))
 				location = getLocation(getBox().getCenter(), foreignReference);
 
 			if (location == null) {
@@ -216,10 +219,12 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 			if (p.y < bounds.y || p.y > bounds.y + bounds.height) {
 				temp.y = p.y < bounds.y ? bounds.y : bounds.y + bounds.height;
 			}
-			relLocation = new PrecisionPoint((double) (temp.x - bounds.x) / bounds.width, (double) (temp.y - bounds.y) / bounds.height);
+			relLocation = new PrecisionPoint((double) (temp.x - bounds.x) / bounds.width, (double) (temp.y - bounds.y)
+					/ bounds.height);
 		} else {
 
-			relLocation = new PrecisionPoint((double) (temp.x - bounds.x) / bounds.width, (double) (temp.y - bounds.y) / bounds.height);
+			relLocation = new PrecisionPoint((double) (temp.x - bounds.x) / bounds.width, (double) (temp.y - bounds.y)
+					/ bounds.height);
 		}
 		return relLocation;
 	}
