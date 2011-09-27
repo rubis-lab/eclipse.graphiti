@@ -54,6 +54,15 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src-gen/org/eclipse/graphiti/mm/pictograms/BoxRelativeAnchor.java" type="org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor">
+        <filter id="403984517">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor"/>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.AdvancedAnchor"/>
+                <message_argument value="isUseAnchorLocationAsConnectionEndpoint()"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/eclipse/graphiti/mm/pictograms/Diagram.java" type="org.eclipse.graphiti.mm.pictograms.Diagram">
         <filter comment="Bug 352220 - Attribute Diagram.showGuides is handled in DiagramTypeProvider" id="405901410">
             <message_arguments>
@@ -65,6 +74,162 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.mm.pictograms.Diagram"/>
                 <message_argument value="setShowGuides(boolean)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/eclipse/graphiti/mm/pictograms/FixPointAnchor.java" type="org.eclipse.graphiti.mm.pictograms.FixPointAnchor">
+        <filter id="403984517">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.FixPointAnchor"/>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.AdvancedAnchor"/>
+                <message_argument value="isUseAnchorLocationAsConnectionEndpoint()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/eclipse/graphiti/mm/pictograms/PictogramsPackage.java" type="org.eclipse.graphiti.mm.pictograms.PictogramsPackage">
+        <filter id="388194388">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="BOX_RELATIVE_ANCHOR_FEATURE_COUNT"/>
+                <message_argument value="11"/>
+            </message_arguments>
+        </filter>
+        <filter id="388194388">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="BOX_RELATIVE_ANCHOR__RELATIVE_HEIGHT"/>
+                <message_argument value="10"/>
+            </message_arguments>
+        </filter>
+        <filter id="388194388">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="BOX_RELATIVE_ANCHOR__RELATIVE_WIDTH"/>
+                <message_argument value="9"/>
+            </message_arguments>
+        </filter>
+        <filter id="388194388">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="FIX_POINT_ANCHOR_FEATURE_COUNT"/>
+                <message_argument value="10"/>
+            </message_arguments>
+        </filter>
+        <filter id="388194388">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="FIX_POINT_ANCHOR__LOCATION"/>
+                <message_argument value="9"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR__ACTIVE"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR__GRAPHICS_ALGORITHM"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR__INCOMING_CONNECTIONS"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR__LINK"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR__OUTGOING_CONNECTIONS"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR__PARENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR__PROPERTIES"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR__REFERENCED_GRAPHICS_ALGORITHM"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="ADVANCED_ANCHOR__VISIBLE"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="BOX_RELATIVE_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="FIX_POINT_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="getAdvancedAnchor()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="getAdvancedAnchor_UseAnchorLocationAsConnectionEndpoint()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/eclipse/graphiti/mm/pictograms/PictogramsPackage.java" type="org.eclipse.graphiti.mm.pictograms.PictogramsPackage$Literals">
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage.Literals"/>
+                <message_argument value="ADVANCED_ANCHOR"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage.Literals"/>
+                <message_argument value="ADVANCED_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT"/>
             </message_arguments>
         </filter>
     </resource>

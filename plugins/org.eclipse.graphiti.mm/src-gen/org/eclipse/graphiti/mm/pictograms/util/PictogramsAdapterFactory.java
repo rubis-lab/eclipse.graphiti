@@ -373,10 +373,11 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.AdvancedAnchor <em>Advanced Anchor</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> This default
+	 * implementation returns null so that we can easily ignore cases; it's
+	 * useful to ignore a case when inheritance will catch all the cases anyway.
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see org.eclipse.graphiti.mm.pictograms.AdvancedAnchor
 	 * @generated
