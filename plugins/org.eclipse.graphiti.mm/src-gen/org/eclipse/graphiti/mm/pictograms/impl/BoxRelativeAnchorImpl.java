@@ -37,7 +37,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
  *
  * @generated
  */
-public class BoxRelativeAnchorImpl extends AnchorImpl implements BoxRelativeAnchor {
+public class BoxRelativeAnchorImpl extends AdvancedAnchorImpl implements BoxRelativeAnchor {
 	/**
 	 * The default value of the '{@link #getRelativeWidth() <em>Relative Width</em>}' attribute.
 	 * <!-- begin-user-doc -->

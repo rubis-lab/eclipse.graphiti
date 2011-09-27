@@ -92,11 +92,11 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="anchors" ordered="false"
           upperBound="-1" eType="#//pictograms/Anchor" containment="true" eOpposite="#//pictograms/Anchor/parent"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="FixPointAnchor" eSuperTypes="#//pictograms/Anchor">
+    <eClassifiers xsi:type="ecore:EClass" name="FixPointAnchor" eSuperTypes="#//pictograms/AdvancedAnchor">
       <eStructuralFeatures xsi:type="ecore:EReference" name="location" ordered="false"
           unique="false" lowerBound="1" eType="#//algorithms/styles/Point" containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="BoxRelativeAnchor" eSuperTypes="#//pictograms/Anchor">
+    <eClassifiers xsi:type="ecore:EClass" name="BoxRelativeAnchor" eSuperTypes="#//pictograms/AdvancedAnchor">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="relativeWidth" ordered="false"
           unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="relativeHeight" ordered="false"
@@ -121,6 +121,11 @@
           unique="false" eType="#//pictograms/PictogramElement" eOpposite="#//pictograms/PictogramElement/link"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="businessObjects" upperBound="-1"
           eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AdvancedAnchor" abstract="true" eSuperTypes="#//pictograms/Anchor">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="useAnchorLocationAsConnectionEndpoint"
+          ordered="false" unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="false"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="algorithms" nsURI="http://eclipse.org/graphiti/mm/algorithms"

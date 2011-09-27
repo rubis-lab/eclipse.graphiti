@@ -40,7 +40,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
  *
  * @generated
  */
-public class FixPointAnchorImpl extends AnchorImpl implements FixPointAnchor {
+public class FixPointAnchorImpl extends AdvancedAnchorImpl implements FixPointAnchor {
 	/**
 	 * The cached value of the '{@link #getLocation() <em>Location</em>}' containment reference.
 	 * <!-- begin-user-doc -->

@@ -140,6 +140,10 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 				return createPictogramLinkAdapter();
 			}
 			@Override
+			public Adapter caseAdvancedAnchor(AdvancedAnchor object) {
+				return createAdvancedAnchorAdapter();
+			}
+			@Override
 			public Adapter casePropertyContainer(PropertyContainer object) {
 				return createPropertyContainerAdapter();
 			}
@@ -364,6 +368,20 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPictogramLinkAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.AdvancedAnchor <em>Advanced Anchor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.pictograms.AdvancedAnchor
+	 * @generated
+	 */
+	public Adapter createAdvancedAnchorAdapter() {
 		return null;
 	}
 

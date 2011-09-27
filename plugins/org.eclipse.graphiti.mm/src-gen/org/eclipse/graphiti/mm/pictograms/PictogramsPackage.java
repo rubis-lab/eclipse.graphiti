@@ -1,18 +1,5 @@
-/**
- * <copyright>
- * 
- * Copyright (c) 2005, 2010 SAP AG.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    SAP AG - initial API, implementation and documentation
- * 
- * </copyright>
- */
 package org.eclipse.graphiti.mm.pictograms;
+
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -515,16 +502,9 @@ public interface PictogramsPackage extends EPackage {
 	int DIAGRAM__SNAP_TO_GRID = CONTAINER_SHAPE_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Show Guides</b></em>' attribute. <!--
-	 * begin-user-doc -->
-	 * 
-	 * @deprecated This attribute simply exists because of compatibility (after
-	 *             removing it old diagrams would not be readable any more). It
-	 *             is never evaluated, instead the Graphiti framework queries
-	 *             the tool behaviour provider if guides shall be shown in a
-	 *             diagram editor.<br>
-	 * 
-	 *             <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Show Guides</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
@@ -785,6 +765,127 @@ public interface PictogramsPackage extends EPackage {
 	int ANCHOR_FEATURE_COUNT = PICTOGRAM_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.AdvancedAnchorImpl <em>Advanced Anchor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.AdvancedAnchorImpl
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getAdvancedAnchor()
+	 * @generated
+	 */
+	int ADVANCED_ANCHOR = 14;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCED_ANCHOR__PROPERTIES = ANCHOR__PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute. <!--
+	 * begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCED_ANCHOR__VISIBLE = ANCHOR__VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCED_ANCHOR__GRAPHICS_ALGORITHM = ANCHOR__GRAPHICS_ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Active</b></em>' attribute. <!--
+	 * begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCED_ANCHOR__ACTIVE = ANCHOR__ACTIVE;
+
+	/**
+	 * The feature id for the '<em><b>Link</b></em>' containment reference. <!--
+	 * begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCED_ANCHOR__LINK = ANCHOR__LINK;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference. <!--
+	 * begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCED_ANCHOR__PARENT = ANCHOR__PARENT;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Connections</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCED_ANCHOR__OUTGOING_CONNECTIONS = ANCHOR__OUTGOING_CONNECTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Incoming Connections</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCED_ANCHOR__INCOMING_CONNECTIONS = ANCHOR__INCOMING_CONNECTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Referenced Graphics Algorithm</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCED_ANCHOR__REFERENCED_GRAPHICS_ALGORITHM = ANCHOR__REFERENCED_GRAPHICS_ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Use Anchor Location As Connection Endpoint</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCED_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT = ANCHOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Advanced Anchor</em>' class.
+	 * <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCED_ANCHOR_FEATURE_COUNT = ANCHOR_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.FixPointAnchorImpl <em>Fix Point Anchor</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -801,7 +902,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIX_POINT_ANCHOR__PROPERTIES = ANCHOR__PROPERTIES;
+	int FIX_POINT_ANCHOR__PROPERTIES = ADVANCED_ANCHOR__PROPERTIES;
 
 	/**
 	 * The feature id for the '<em><b>Visible</b></em>' attribute.
@@ -810,7 +911,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIX_POINT_ANCHOR__VISIBLE = ANCHOR__VISIBLE;
+	int FIX_POINT_ANCHOR__VISIBLE = ADVANCED_ANCHOR__VISIBLE;
 
 	/**
 	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
@@ -819,7 +920,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIX_POINT_ANCHOR__GRAPHICS_ALGORITHM = ANCHOR__GRAPHICS_ALGORITHM;
+	int FIX_POINT_ANCHOR__GRAPHICS_ALGORITHM = ADVANCED_ANCHOR__GRAPHICS_ALGORITHM;
 
 	/**
 	 * The feature id for the '<em><b>Active</b></em>' attribute.
@@ -828,7 +929,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIX_POINT_ANCHOR__ACTIVE = ANCHOR__ACTIVE;
+	int FIX_POINT_ANCHOR__ACTIVE = ADVANCED_ANCHOR__ACTIVE;
 
 	/**
 	 * The feature id for the '<em><b>Link</b></em>' containment reference.
@@ -837,7 +938,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIX_POINT_ANCHOR__LINK = ANCHOR__LINK;
+	int FIX_POINT_ANCHOR__LINK = ADVANCED_ANCHOR__LINK;
 
 	/**
 	 * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -846,7 +947,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIX_POINT_ANCHOR__PARENT = ANCHOR__PARENT;
+	int FIX_POINT_ANCHOR__PARENT = ADVANCED_ANCHOR__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Outgoing Connections</b></em>' reference list.
@@ -855,7 +956,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIX_POINT_ANCHOR__OUTGOING_CONNECTIONS = ANCHOR__OUTGOING_CONNECTIONS;
+	int FIX_POINT_ANCHOR__OUTGOING_CONNECTIONS = ADVANCED_ANCHOR__OUTGOING_CONNECTIONS;
 
 	/**
 	 * The feature id for the '<em><b>Incoming Connections</b></em>' reference list.
@@ -864,7 +965,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIX_POINT_ANCHOR__INCOMING_CONNECTIONS = ANCHOR__INCOMING_CONNECTIONS;
+	int FIX_POINT_ANCHOR__INCOMING_CONNECTIONS = ADVANCED_ANCHOR__INCOMING_CONNECTIONS;
 
 	/**
 	 * The feature id for the '<em><b>Referenced Graphics Algorithm</b></em>' reference.
@@ -873,7 +974,17 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIX_POINT_ANCHOR__REFERENCED_GRAPHICS_ALGORITHM = ANCHOR__REFERENCED_GRAPHICS_ALGORITHM;
+	int FIX_POINT_ANCHOR__REFERENCED_GRAPHICS_ALGORITHM = ADVANCED_ANCHOR__REFERENCED_GRAPHICS_ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Use Anchor Location As Connection Endpoint</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIX_POINT_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT = ADVANCED_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -882,7 +993,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIX_POINT_ANCHOR__LOCATION = ANCHOR_FEATURE_COUNT + 0;
+	int FIX_POINT_ANCHOR__LOCATION = ADVANCED_ANCHOR_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Fix Point Anchor</em>' class.
@@ -891,7 +1002,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIX_POINT_ANCHOR_FEATURE_COUNT = ANCHOR_FEATURE_COUNT + 1;
+	int FIX_POINT_ANCHOR_FEATURE_COUNT = ADVANCED_ANCHOR_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.BoxRelativeAnchorImpl <em>Box Relative Anchor</em>}' class.
@@ -910,7 +1021,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR__PROPERTIES = ANCHOR__PROPERTIES;
+	int BOX_RELATIVE_ANCHOR__PROPERTIES = ADVANCED_ANCHOR__PROPERTIES;
 
 	/**
 	 * The feature id for the '<em><b>Visible</b></em>' attribute.
@@ -919,7 +1030,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR__VISIBLE = ANCHOR__VISIBLE;
+	int BOX_RELATIVE_ANCHOR__VISIBLE = ADVANCED_ANCHOR__VISIBLE;
 
 	/**
 	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
@@ -928,7 +1039,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR__GRAPHICS_ALGORITHM = ANCHOR__GRAPHICS_ALGORITHM;
+	int BOX_RELATIVE_ANCHOR__GRAPHICS_ALGORITHM = ADVANCED_ANCHOR__GRAPHICS_ALGORITHM;
 
 	/**
 	 * The feature id for the '<em><b>Active</b></em>' attribute.
@@ -937,7 +1048,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR__ACTIVE = ANCHOR__ACTIVE;
+	int BOX_RELATIVE_ANCHOR__ACTIVE = ADVANCED_ANCHOR__ACTIVE;
 
 	/**
 	 * The feature id for the '<em><b>Link</b></em>' containment reference.
@@ -946,7 +1057,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR__LINK = ANCHOR__LINK;
+	int BOX_RELATIVE_ANCHOR__LINK = ADVANCED_ANCHOR__LINK;
 
 	/**
 	 * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -955,7 +1066,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR__PARENT = ANCHOR__PARENT;
+	int BOX_RELATIVE_ANCHOR__PARENT = ADVANCED_ANCHOR__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Outgoing Connections</b></em>' reference list.
@@ -964,7 +1075,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR__OUTGOING_CONNECTIONS = ANCHOR__OUTGOING_CONNECTIONS;
+	int BOX_RELATIVE_ANCHOR__OUTGOING_CONNECTIONS = ADVANCED_ANCHOR__OUTGOING_CONNECTIONS;
 
 	/**
 	 * The feature id for the '<em><b>Incoming Connections</b></em>' reference list.
@@ -973,7 +1084,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR__INCOMING_CONNECTIONS = ANCHOR__INCOMING_CONNECTIONS;
+	int BOX_RELATIVE_ANCHOR__INCOMING_CONNECTIONS = ADVANCED_ANCHOR__INCOMING_CONNECTIONS;
 
 	/**
 	 * The feature id for the '<em><b>Referenced Graphics Algorithm</b></em>' reference.
@@ -982,7 +1093,17 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR__REFERENCED_GRAPHICS_ALGORITHM = ANCHOR__REFERENCED_GRAPHICS_ALGORITHM;
+	int BOX_RELATIVE_ANCHOR__REFERENCED_GRAPHICS_ALGORITHM = ADVANCED_ANCHOR__REFERENCED_GRAPHICS_ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Use Anchor Location As Connection Endpoint</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOX_RELATIVE_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT = ADVANCED_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT;
 
 	/**
 	 * The feature id for the '<em><b>Relative Width</b></em>' attribute.
@@ -991,7 +1112,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR__RELATIVE_WIDTH = ANCHOR_FEATURE_COUNT + 0;
+	int BOX_RELATIVE_ANCHOR__RELATIVE_WIDTH = ADVANCED_ANCHOR_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Relative Height</b></em>' attribute.
@@ -1000,7 +1121,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR__RELATIVE_HEIGHT = ANCHOR_FEATURE_COUNT + 1;
+	int BOX_RELATIVE_ANCHOR__RELATIVE_HEIGHT = ADVANCED_ANCHOR_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Box Relative Anchor</em>' class.
@@ -1009,7 +1130,7 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_RELATIVE_ANCHOR_FEATURE_COUNT = ANCHOR_FEATURE_COUNT + 2;
+	int BOX_RELATIVE_ANCHOR_FEATURE_COUNT = ADVANCED_ANCHOR_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.ChopboxAnchorImpl <em>Chopbox Anchor</em>}' class.
@@ -1602,17 +1723,9 @@ public interface PictogramsPackage extends EPackage {
 	EAttribute getDiagram_SnapToGrid();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.graphiti.mm.pictograms.Diagram <em>Show Guides</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.pictograms.Diagram <em>Show Guides</em>}'.
 	 * <!-- begin-user-doc -->
-	 * 
-	 * @deprecated This attribute simply exists because of compatibility (after
-	 *             removing it old diagrams would not be readable any more). It
-	 *             is never evaluated, instead the Graphiti framework queries
-	 *             the tool behaviour provider if guides shall be shown in a
-	 *             diagram editor.<br>
-	 * 
-	 *             <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Show Guides</em>'.
 	 * @see org.eclipse.graphiti.mm.pictograms.Diagram
 	 * @see #getDiagram()
@@ -2015,6 +2128,32 @@ public interface PictogramsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPictogramLink_BusinessObjects();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.AdvancedAnchor <em>Advanced Anchor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Advanced Anchor</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.AdvancedAnchor
+	 * @generated
+	 */
+	EClass getAdvancedAnchor();
+
+	/**
+	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.graphiti.mm.pictograms.AdvancedAnchor#isUseAnchorLocationAsConnectionEndpoint
+	 * <em>Use Anchor Location As Connection Endpoint</em>}'. <!--
+	 * begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @return the meta object for the attribute '
+	 *         <em>Use Anchor Location As Connection Endpoint</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.AdvancedAnchor#isUseAnchorLocationAsConnectionEndpoint()
+	 * @see #getAdvancedAnchor()
+	 * @generated
+	 */
+	EAttribute getAdvancedAnchor_UseAnchorLocationAsConnectionEndpoint();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -2449,6 +2588,26 @@ public interface PictogramsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PICTOGRAM_LINK__BUSINESS_OBJECTS = eINSTANCE.getPictogramLink_BusinessObjects();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.AdvancedAnchorImpl <em>Advanced Anchor</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * 
+		 * @since 0.9 <!-- end-user-doc -->
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.AdvancedAnchorImpl
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getAdvancedAnchor()
+		 * @generated
+		 */
+		EClass ADVANCED_ANCHOR = eINSTANCE.getAdvancedAnchor();
+
+		/**
+		 * The meta object literal for the '<em><b>Use Anchor Location As Connection Endpoint</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * 
+		 * @since 0.9 <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADVANCED_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT = eINSTANCE.getAdvancedAnchor_UseAnchorLocationAsConnectionEndpoint();
 
 	}
 

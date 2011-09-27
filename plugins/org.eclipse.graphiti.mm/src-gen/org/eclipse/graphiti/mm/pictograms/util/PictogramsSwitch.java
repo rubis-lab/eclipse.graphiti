@@ -19,6 +19,8 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.util.Switch;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.PropertyContainer;
 import org.eclipse.graphiti.mm.StyleContainer;
@@ -38,7 +40,7 @@ import org.eclipse.graphiti.mm.pictograms.*;
  * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage
  * @generated
  */
-public class PictogramsSwitch<T> {
+public class PictogramsSwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -60,14 +62,16 @@ public class PictogramsSwitch<T> {
 	}
 
 	/**
-	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+	 * Checks whether this is a switch for the given package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the first non-null result returned by a <code>caseXXX</code> call.
+	 * @parameter ePackage the package in question.
+	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
-	public T doSwitch(EObject theEObject) {
-		return doSwitch(theEObject.eClass(), theEObject);
+	@Override
+	protected boolean isSwitchFor(EPackage ePackage) {
+		return ePackage == modelPackage;
 	}
 
 	/**
@@ -77,26 +81,7 @@ public class PictogramsSwitch<T> {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected T doSwitch(EClass theEClass, EObject theEObject) {
-		if (theEClass.eContainer() == modelPackage) {
-			return doSwitch(theEClass.getClassifierID(), theEObject);
-		}
-		else {
-			List<EClass> eSuperTypes = theEClass.getESuperTypes();
-			return
-				eSuperTypes.isEmpty() ?
-					defaultCase(theEObject) :
-					doSwitch(eSuperTypes.get(0), theEObject);
-		}
-	}
-
-	/**
-	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the first non-null result returned by a <code>caseXXX</code> call.
-	 * @generated
-	 */
+	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 			case PictogramsPackage.SHAPE: {
@@ -172,6 +157,7 @@ public class PictogramsSwitch<T> {
 			case PictogramsPackage.FIX_POINT_ANCHOR: {
 				FixPointAnchor fixPointAnchor = (FixPointAnchor)theEObject;
 				T result = caseFixPointAnchor(fixPointAnchor);
+				if (result == null) result = caseAdvancedAnchor(fixPointAnchor);
 				if (result == null) result = caseAnchor(fixPointAnchor);
 				if (result == null) result = casePictogramElement(fixPointAnchor);
 				if (result == null) result = caseGraphicsAlgorithmContainer(fixPointAnchor);
@@ -182,6 +168,7 @@ public class PictogramsSwitch<T> {
 			case PictogramsPackage.BOX_RELATIVE_ANCHOR: {
 				BoxRelativeAnchor boxRelativeAnchor = (BoxRelativeAnchor)theEObject;
 				T result = caseBoxRelativeAnchor(boxRelativeAnchor);
+				if (result == null) result = caseAdvancedAnchor(boxRelativeAnchor);
 				if (result == null) result = caseAnchor(boxRelativeAnchor);
 				if (result == null) result = casePictogramElement(boxRelativeAnchor);
 				if (result == null) result = caseGraphicsAlgorithmContainer(boxRelativeAnchor);
@@ -236,6 +223,16 @@ public class PictogramsSwitch<T> {
 				PictogramLink pictogramLink = (PictogramLink)theEObject;
 				T result = casePictogramLink(pictogramLink);
 				if (result == null) result = casePropertyContainer(pictogramLink);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PictogramsPackage.ADVANCED_ANCHOR: {
+				AdvancedAnchor advancedAnchor = (AdvancedAnchor)theEObject;
+				T result = caseAdvancedAnchor(advancedAnchor);
+				if (result == null) result = caseAnchor(advancedAnchor);
+				if (result == null) result = casePictogramElement(advancedAnchor);
+				if (result == null) result = caseGraphicsAlgorithmContainer(advancedAnchor);
+				if (result == null) result = casePropertyContainer(advancedAnchor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -454,6 +451,21 @@ public class PictogramsSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Advanced Anchor</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Advanced Anchor</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAdvancedAnchor(AdvancedAnchor object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Property Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -509,6 +521,7 @@ public class PictogramsSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
+	@Override
 	public T defaultCase(EObject object) {
 		return null;
 	}

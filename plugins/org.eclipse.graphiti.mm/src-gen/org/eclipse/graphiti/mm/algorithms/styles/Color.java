@@ -19,19 +19,16 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Color</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getRed <em>Red
- * </em>}</li>
- * <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getGreen <em>Green
- * </em>}</li>
- * <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getBlue <em>Blue
- * </em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getRed <em>Red</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getGreen <em>Green</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Color#getBlue <em>Blue</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getColor()
  * @model
  * @generated

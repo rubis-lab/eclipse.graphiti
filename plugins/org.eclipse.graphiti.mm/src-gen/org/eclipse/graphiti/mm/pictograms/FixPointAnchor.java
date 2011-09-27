@@ -32,7 +32,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Point;
  * @model
  * @generated
  */
-public interface FixPointAnchor extends Anchor {
+public interface FixPointAnchor extends AdvancedAnchor {
 	/**
 	 * Returns the value of the '<em><b>Location</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

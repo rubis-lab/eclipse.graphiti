@@ -33,6 +33,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl;
 
 import org.eclipse.graphiti.mm.impl.MmPackageImpl;
 
+import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
@@ -154,6 +155,13 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * @generated
 	 */
 	private EClass pictogramLinkEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass advancedAnchorEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -664,6 +672,24 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAdvancedAnchor() {
+		return advancedAnchorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAdvancedAnchor_UseAnchorLocationAsConnectionEndpoint() {
+		return (EAttribute)advancedAnchorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public PictogramsFactory getPictogramsFactory() {
 		return (PictogramsFactory)getEFactoryInstance();
 	}
@@ -748,6 +774,9 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		pictogramLinkEClass = createEClass(PICTOGRAM_LINK);
 		createEReference(pictogramLinkEClass, PICTOGRAM_LINK__PICTOGRAM_ELEMENT);
 		createEReference(pictogramLinkEClass, PICTOGRAM_LINK__BUSINESS_OBJECTS);
+
+		advancedAnchorEClass = createEClass(ADVANCED_ANCHOR);
+		createEAttribute(advancedAnchorEClass, ADVANCED_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT);
 	}
 
 	/**
@@ -791,13 +820,14 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		connectionEClass.getESuperTypes().add(this.getAnchorContainer());
 		anchorEClass.getESuperTypes().add(this.getPictogramElement());
 		anchorContainerEClass.getESuperTypes().add(this.getPictogramElement());
-		fixPointAnchorEClass.getESuperTypes().add(this.getAnchor());
-		boxRelativeAnchorEClass.getESuperTypes().add(this.getAnchor());
+		fixPointAnchorEClass.getESuperTypes().add(this.getAdvancedAnchor());
+		boxRelativeAnchorEClass.getESuperTypes().add(this.getAdvancedAnchor());
 		chopboxAnchorEClass.getESuperTypes().add(this.getAnchor());
 		connectionDecoratorEClass.getESuperTypes().add(this.getShape());
 		freeFormConnectionEClass.getESuperTypes().add(this.getConnection());
 		manhattanConnectionEClass.getESuperTypes().add(this.getConnection());
 		pictogramLinkEClass.getESuperTypes().add(theMmPackage.getPropertyContainer());
+		advancedAnchorEClass.getESuperTypes().add(this.getAnchor());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(shapeEClass, Shape.class, "Shape", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -861,6 +891,9 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEClass(pictogramLinkEClass, PictogramLink.class, "PictogramLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPictogramLink_PictogramElement(), this.getPictogramElement(), this.getPictogramElement_Link(), "pictogramElement", null, 0, 1, PictogramLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getPictogramLink_BusinessObjects(), ecorePackage.getEObject(), null, "businessObjects", null, 0, -1, PictogramLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(advancedAnchorEClass, AdvancedAnchor.class, "AdvancedAnchor", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAdvancedAnchor_UseAnchorLocationAsConnectionEndpoint(), ecorePackage.getEBoolean(), "useAnchorLocationAsConnectionEndpoint", "false", 1, 1, AdvancedAnchor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 	}
 
 } //PictogramsPackageImpl

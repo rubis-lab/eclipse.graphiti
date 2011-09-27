@@ -162,8 +162,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	protected boolean snapToGrid = SNAP_TO_GRID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isShowGuides() <em>Show Guides</em>}'
-	 * attribute. <!-- begin-user-doc -->
+	 * The default value of the '{@link #isShowGuides() <em>Show Guides</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * 
 	 * @deprecated This attribute simply exists because of compatibility (after
 	 *             removing it old diagrams would not be readable any more). It
@@ -179,8 +179,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	protected static final boolean SHOW_GUIDES_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isShowGuides() <em>Show Guides</em>}'
-	 * attribute. <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isShowGuides() <em>Show Guides</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * 
 	 * @deprecated This attribute simply exists because of compatibility (after
 	 *             removing it old diagrams would not be readable any more). It

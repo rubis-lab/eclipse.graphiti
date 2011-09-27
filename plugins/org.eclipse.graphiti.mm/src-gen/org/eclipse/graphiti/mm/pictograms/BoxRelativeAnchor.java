@@ -32,7 +32,7 @@ package org.eclipse.graphiti.mm.pictograms;
  * @model
  * @generated
  */
-public interface BoxRelativeAnchor extends Anchor {
+public interface BoxRelativeAnchor extends AdvancedAnchor {
 	/**
 	 * Returns the value of the '<em><b>Relative Width</b></em>' attribute.
 	 * <!-- begin-user-doc -->
