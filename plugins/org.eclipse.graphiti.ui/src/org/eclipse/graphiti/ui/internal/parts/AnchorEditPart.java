@@ -25,10 +25,9 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
-import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFChopboxAnchor;
@@ -70,8 +69,8 @@ public abstract class AnchorEditPart extends AbstractGraphicalEditPart implement
 	@Override
 	protected IFigure createFigure() {
 		IFigure figure = delegate.createFigure();
-		if (getModel() instanceof BoxRelativeAnchor || getModel() instanceof FixPointAnchor) {
-			connectionAnchor = new GFChopboxAnchor(figure, (Anchor) getModel());
+		if (getModel() instanceof AdvancedAnchor) {
+			connectionAnchor = new GFChopboxAnchor(figure, (AdvancedAnchor) getModel());
 		} else {
 			connectionAnchor = new GFChopboxAnchor(figure);
 		}

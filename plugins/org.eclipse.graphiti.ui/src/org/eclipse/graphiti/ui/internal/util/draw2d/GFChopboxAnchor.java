@@ -25,8 +25,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.handles.HandleBounds;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
-import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.ui.internal.figures.GFEllipse;
 import org.eclipse.graphiti.ui.internal.figures.GFEllipseDecoration;
 import org.eclipse.graphiti.ui.internal.figures.GFPolygon;
@@ -40,15 +39,15 @@ import org.eclipse.graphiti.ui.internal.figures.GFPolyline;
  */
 public class GFChopboxAnchor extends ChopboxAnchorFixed {
 
-	private Anchor anchor = null;
+	private AdvancedAnchor advancedAnchor = null;
 
 	public GFChopboxAnchor(IFigure figure) {
 		super(figure);
 	}
 
-	public GFChopboxAnchor(IFigure figure, Anchor anchor) {
+	public GFChopboxAnchor(IFigure figure, AdvancedAnchor advancedAnchor) {
 		super(figure);
-		this.anchor = anchor;
+		this.advancedAnchor = advancedAnchor;
 	}
 
 	/**
@@ -62,10 +61,9 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 	protected Rectangle getBox() {
 		if (getOwner() instanceof HandleBounds) {
 			Rectangle copy = ((HandleBounds) getOwner()).getHandleBounds().getCopy();
-			if (anchor != null
-					&& Graphiti.getPeService().getProperty(anchor, "useAnchorLocationForConnectionEndPoint") != null) {
-				int x = anchor.getGraphicsAlgorithm().getX();
-				int y = anchor.getGraphicsAlgorithm().getY();
+			if (advancedAnchor != null && advancedAnchor.isUseAnchorLocationAsConnectionEndpoint()) {
+				int x = advancedAnchor.getGraphicsAlgorithm().getX();
+				int y = advancedAnchor.getGraphicsAlgorithm().getY();
 				copy.translate(-x, -y);
 				copy.setHeight(1);
 				copy.setWidth(1);
