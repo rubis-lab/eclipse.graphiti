@@ -190,6 +190,7 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 	 */
 	protected void eraseConnectionFeedback(BendpointRequest request) {
 		restoreOriginalConstraint();
+		request.getSource().refresh();
 		originalConstraint = null;
 	}
 
@@ -339,14 +340,15 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 		List<?> bendPoints = (List<?>) getConnection().getRoutingConstraint();
 		Point bp = ((Bendpoint) bendPoints.get(request.getIndex())).getLocation();
 
-		int smallestDistance = -1;
+		double smallestDistance = -1;
 
 		for (int i = 0; i < points.size(); i++) {
-			if (smallestDistance == -1 || points.getPoint(i).getDistance2(bp) < smallestDistance) {
+			double dist = points.getPoint(i).getDistance(bp);
+			if (smallestDistance == -1 || dist < smallestDistance) {
 				bpIndex = i;
-				smallestDistance = points.getPoint(i).getDistance2(bp);
+				smallestDistance = dist;
 				if (smallestDistance == 0)
-					break;
+					break; 
 			}
 		}
 
