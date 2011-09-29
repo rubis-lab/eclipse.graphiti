@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Volker Wegert - Bug 332363 - Direct Editing: enable automatic resizing for combo boxes
+ *    mwenz - Bug 359112 - Connection text decorator's direct editing box size is not accurate when the text has length zero
  *
  * </copyright>
  *
@@ -24,6 +25,7 @@ import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.func.IDirectEditing;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
@@ -46,7 +48,6 @@ public class TextCellLocator implements CellEditorLocator {
 	public TextCellLocator(IFigure figure, IDirectEditingFeature directEditingFeature) {
 		this.figure = figure;
 		this.directEditingFeature = directEditingFeature;
-
 	}
 
 	@Override
@@ -79,24 +80,29 @@ public class TextCellLocator implements CellEditorLocator {
 		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_TEXT) {
 
 			Rectangle rect = figure.getBounds().getCopy();
-
-			// no longer needed
-			// figure.getParent().revalidate();
-
 			figure.translateToAbsolute(rect);
 
 			if (directEditingFeature.stretchFieldToFitText()) {
-
 				Text text = (Text) control;
-				Point pref = text.computeSize(-1, -1);
+
+				// Bug 359112 - Prevent enlarging the input field in case string
+				// length is 0 (would set field length to 64)
+				int widthHint = SWT.DEFAULT;
+				if (text.getText().length() == 0) {
+					// In case of text length 0 set field width hint to minimum
+					// value so that field is rendered in minimal size
+					widthHint = 0;
+				}
+				Point pref = text.computeSize(widthHint, SWT.DEFAULT);
 
 				// initialWidth is the minimum width for the field
 				if (initialWidth == -1) {
 					initialWidth = pref.x;
 				}
 
-				if (pref.x < initialWidth)
+				if (pref.x < initialWidth) {
 					pref.x = initialWidth;
+				}
 
 				control.setBounds(rect.x, rect.y, pref.x + 10, pref.y);
 			} else {
@@ -124,13 +130,10 @@ public class TextCellLocator implements CellEditorLocator {
 			}			
 			
 			control.setBounds(rect.x, rect.y, minWidth, 14);
-
 		}
-
 	}
 
 	public IFigure getFigure() {
 		return figure;
 	}
-
 }
