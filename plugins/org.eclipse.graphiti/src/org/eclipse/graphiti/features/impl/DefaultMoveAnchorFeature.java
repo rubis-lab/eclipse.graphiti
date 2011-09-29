@@ -78,23 +78,10 @@ public class DefaultMoveAnchorFeature extends AbstractFeature implements IMoveAn
 	 *            the pos y
 	 */
 	protected void moveAnchor(Anchor anchor, int posX, int posY) {
-		int x = (posX < 0) ? 0 : posX;
-		int y = (posY < 0) ? 0 : posY;
-
-		// TODO change to flexible anchor-size
-		// GraphicalEditPart parent = (GraphicalEditPart) ep.getParent();
-		// IFigure figure = parent.getFigure();
-		// Rectangle clientArea = figure.getClientArea();
-		// if ((x + 10) > clientArea.width) {
-		// x = clientArea.width - 10;
-		// }
-		// if ((y + 10) > clientArea.height) {
-		// y = clientArea.height - 10;
-		// }
 
 		if (anchor instanceof FixPointAnchor) {
 			FixPointAnchor fpAnchor = (FixPointAnchor) anchor;
-			fpAnchor.setLocation(Graphiti.getGaCreateService().createPoint(x, y));
+			fpAnchor.setLocation(Graphiti.getGaCreateService().createPoint(posX, posY));
 		} else if (anchor instanceof BoxRelativeAnchor) {
 			BoxRelativeAnchor brAnchor = (BoxRelativeAnchor) anchor;
 			AnchorContainer anchorContainer = brAnchor.getParent();
