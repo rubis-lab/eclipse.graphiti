@@ -25,6 +25,7 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IMoveAnchorContext;
 import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
@@ -78,6 +79,11 @@ public class DefaultMoveAnchorFeature extends AbstractFeature implements IMoveAn
 	 *            the pos y
 	 */
 	protected void moveAnchor(Anchor anchor, int posX, int posY) {
+
+		if (anchor instanceof AdvancedAnchor) {
+			posX -= anchor.getGraphicsAlgorithm().getX();
+			posY -= anchor.getGraphicsAlgorithm().getY();
+		}
 
 		if (anchor instanceof FixPointAnchor) {
 			FixPointAnchor fpAnchor = (FixPointAnchor) anchor;
