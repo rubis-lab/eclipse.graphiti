@@ -15,7 +15,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.features.impl;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -95,9 +94,8 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 	 */
 	protected void removeAllConnections(Anchor anchor) {
 		IFeatureProvider featureProvider = getFeatureProvider();
-		for (Iterator<Connection> iterator = Graphiti.getPeService().getAllConnections(anchor).iterator(); iterator
-				.hasNext();) {
-			Connection connection = iterator.next();
+		List<Connection> allConnections = Graphiti.getPeService().getAllConnections(anchor);
+		for (Connection connection : allConnections) {
 			if (GraphitiInternal.getEmfService().isObjectAlive(connection)) {
 				IRemoveContext rc = new RemoveContext(connection);
 				IRemoveFeature removeFeature = featureProvider.getRemoveFeature(rc);
