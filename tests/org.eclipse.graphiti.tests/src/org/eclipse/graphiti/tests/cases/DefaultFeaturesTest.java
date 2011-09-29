@@ -122,6 +122,7 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 		a2 = Graphiti.getPeCreateService().createBoxRelativeAnchor(s2);
 		a2.setRelativeHeight(0.5);
 		a2.setRelativeWidth(0.5);
+		a2.setGraphicsAlgorithm(Graphiti.getGaCreateService().createRectangle(d));
 		assertNotNull(a2);
 		c.setStart(a1);
 		c.setEnd(a2);
