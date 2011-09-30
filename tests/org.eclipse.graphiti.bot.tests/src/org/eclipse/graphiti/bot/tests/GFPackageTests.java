@@ -252,7 +252,11 @@ public class GFPackageTests extends AbstractGFTests {
 
 		DefaultMoveAnchorFeature myDefaultMoveAnchorFeature = new DefaultMoveAnchorFeature(myDiagramTypeProvider.getFeatureProvider());
 
+		GraphicsAlgorithm graphicsAlgorithmMock = createNiceMock(GraphicsAlgorithm.class);
+		replay(graphicsAlgorithmMock);
+
 		FixPointAnchor fixPointAnchorMock = createNiceMock(FixPointAnchor.class);
+		expect(fixPointAnchorMock.getGraphicsAlgorithm()).andReturn(graphicsAlgorithmMock).anyTimes();
 		replay(fixPointAnchorMock);
 
 		AreaAnchorContext myAreaAnchorContext = new AreaAnchorContext(fixPointAnchorMock);
@@ -260,13 +264,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 		myAreaAnchorContext.setLocation(10, 20);
 		myDefaultMoveAnchorFeature.canExecute(myAreaAnchorContext);
-
-		myDefaultMoveAnchorFeature.moveAnchor(myAreaAnchorContext);
-
 		myDefaultMoveAnchorFeature.execute(myAreaAnchorContext);
-
-		GraphicsAlgorithm graphicsAlgorithmMock = createNiceMock(GraphicsAlgorithm.class);
-		replay(graphicsAlgorithmMock);
 
 		AnchorContainer myAnchorContainer = createNiceMock(AnchorContainer.class);
 		expect(myAnchorContainer.getGraphicsAlgorithm()).andReturn(graphicsAlgorithmMock);
@@ -274,6 +272,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 		BoxRelativeAnchor boxRelativeAnchor = createNiceMock(BoxRelativeAnchor.class);
 		expect(boxRelativeAnchor.getParent()).andReturn(myAnchorContainer);
+		expect(boxRelativeAnchor.getGraphicsAlgorithm()).andReturn(graphicsAlgorithmMock).anyTimes();
 		replay(boxRelativeAnchor);
 
 		myAreaAnchorContext = new AreaAnchorContext(boxRelativeAnchor);
