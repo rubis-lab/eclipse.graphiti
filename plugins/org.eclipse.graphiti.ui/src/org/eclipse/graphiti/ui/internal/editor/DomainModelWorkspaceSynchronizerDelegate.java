@@ -15,13 +15,9 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.editor;
 
-import java.util.Iterator;
-
 import org.eclipse.core.resources.IFile;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 
 /**
@@ -41,23 +37,24 @@ public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchr
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose() { 
 		deb = null;
 
 	}
 
 	@Override
 	public boolean handleResourceChanged(Resource resource) {
-		ResourceSet resourceSet = resource.getResourceSet();
-		EList<Resource> resources = resourceSet.getResources();
-		for (Iterator<Resource> iterator = resources.iterator(); iterator.hasNext();) {
-			Resource r = iterator.next();
-			IFile file = WorkspaceSynchronizer.getFile(r);
-			if (file != null && (!file.exists() || file.getLocation().toFile().lastModified() != r.getTimeStamp())) {
-				deb.setResourceChanged(true);
-				return true;
-
-			}
+		IFile file = WorkspaceSynchronizer.getUnderlyingFile(resource);
+		// Since we cannot get timestamp information, we have to be pessimistic
+		if (file == null){
+			deb.setResourceChanged(true);
+			return true;
+		}
+		// if file does not exist the getLocalTimeStamp method will return
+		// NULL_TIMESTAMP and we will also get a refresh
+		if (file.getLocalTimeStamp() != resource.getTimeStamp()) {
+			deb.setResourceChanged(true);
+			return true;
 		}
 		return true;
 	}
