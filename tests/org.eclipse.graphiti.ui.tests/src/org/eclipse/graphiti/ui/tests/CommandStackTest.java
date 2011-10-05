@@ -46,13 +46,13 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IContextEntry;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
-import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.eclipse.graphiti.ui.internal.command.AddModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.editor.GFCommandStack;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.junit.After;
 import org.junit.Before;
@@ -72,7 +72,7 @@ public class CommandStackTest extends GFAbstractTestCase {
 
 	@Before
 	public void beforeTest() {
-		editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
+		editingDomain = GraphitiUi.getEmfService().createResourceSetAndEditingDomain();
 		configurationProvider = initConfigurationProviderForHasDoneChangesTests(editingDomain);
 		commandStack = new GFCommandStack(configurationProvider, editingDomain);
 	}

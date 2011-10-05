@@ -119,7 +119,6 @@ import org.eclipse.graphiti.tb.DynamicContextMenuEntry;
 import org.eclipse.graphiti.tb.IContextEntry;
 import org.eclipse.graphiti.tb.ImageDecorator;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
-import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.internal.command.AddModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
@@ -129,6 +128,7 @@ import org.eclipse.graphiti.ui.internal.parts.directedit.IDirectEditHolder;
 import org.eclipse.graphiti.ui.internal.requests.ContextButtonDragRequest;
 import org.eclipse.graphiti.ui.internal.requests.GFDirectEditRequest;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.graphics.FontData;
@@ -1535,7 +1535,7 @@ public class PackageTest extends GFAbstractTestCase {
 
 	@Test
 	public void testDiagramEditorFactory() {
-		TransactionalEditingDomain ted = DiagramEditorFactory.createResourceSetAndEditingDomain();
+		TransactionalEditingDomain ted = GraphitiUi.getEmfService().createResourceSetAndEditingDomain();
 		assertNotNull(ted);
 		ResourceSet rSet = ted.getResourceSet();
 		TransactionalEditingDomain ted2 = TransactionUtil.getEditingDomain(rSet);

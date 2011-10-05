@@ -118,7 +118,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
-import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInputFactory;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
@@ -406,7 +406,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * @return A new ContextMenuProvider.
 	 */
 	protected ContextMenuProvider createContextMenuProvider() {
-		return new DiagramEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry(), getConfigurationProvider());
+		return new DiagramEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry(), getDiagramTypeProvider());
 	}
 
 	/**
@@ -1091,7 +1091,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		// may be handed in (see Bug 346932). Try to convert this to a
 		// valid diagram input.
 		if (!(input instanceof DiagramEditorInput) || ((DiagramEditorInput) input).getAdapter(TransactionalEditingDomain.class) == null) {
-			IEditorInput newInput = new DiagramEditorFactory().createEditorInput(input);
+			IEditorInput newInput = DiagramEditorInput.createEditorInput(input);
 			if (!(newInput instanceof DiagramEditorInput)) {
 				// give up
 				throw new PartInitException("Unknown editor input: " + input); //$NON-NLS-1$

@@ -20,6 +20,7 @@ import java.util.Collections;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.command.CommandStack;
+import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
@@ -34,8 +35,11 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.internal.util.ReflectionUtil;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 
@@ -56,7 +60,7 @@ import org.eclipse.ui.IPersistableElement;
  * 
  * @see {@link IEditorInput}
  * @see {@link IPersistableElement}
- * @see {@link DiagramEditorFactory}
+ * @see {@link DiagramEditorInputFactory}
  * @see {@link DiagramEditor}
  */
 public class DiagramEditorInput implements IEditorInput, IPersistableElement {
@@ -350,7 +354,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 */
 	@Override
 	public String getFactoryId() {
-		return DiagramEditorFactory.class.getName();
+		return DiagramEditorInputFactory.class.getName();
 	}
 
 	public void dispose() {
@@ -821,5 +825,57 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 		String fileString = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri).toString();
 		this.uriName = fileString;
 		this.normalizedUri = createNormalizedUri();
+	}
+	
+	/**
+	 * Creates a new {@link DiagramEditorInput} with a self created
+	 * {@link TransactionalEditingDomain} in case the passed
+	 * {@link IEditorInput} is either a {@link IFileEditorInput} or a
+	 * {@link URIEditorInput}. It returns otherInput, if it is a
+	 * {@link DiagramEditorInput}. The created editor input object will care
+	 * about the disposal of the editing domain.
+	 * 
+	 * @param otherInput
+	 *            an {@link IEditorInput} editor input
+	 * @return a {@link DiagramEditorInput} editor input if the conversion is
+	 *         supported and succeeded, otherwise <code>null</code>.
+	 * @since 0.9
+	 */
+	public static DiagramEditorInput createEditorInput(IEditorInput otherInput) {
+		if (otherInput instanceof DiagramEditorInput) {
+			DiagramEditorInput input = (DiagramEditorInput) otherInput;
+			if (input.getAdapter(TransactionalEditingDomain.class) == null) {
+				// This might happen in case the editor input comes from the
+				// navigation history: there the editing domain is disposed and
+				// the diagram can no longer be resolved. Simply create a new
+				// transactional editing domain
+				// See Bug 346932
+				TransactionalEditingDomain ed = GraphitiUi.getEmfService().createResourceSetAndEditingDomain();
+				input.setEditingDomain(ed);
+			}
+			return input;
+		}
+		IFile file = ReflectionUtil.getFile(otherInput);
+		if (file != null) {
+			final TransactionalEditingDomain domain = GraphitiUi.getEmfService().createResourceSetAndEditingDomain();
+			URI diagramFileUri = GraphitiUiInternal.getEmfService().getFileURI(file, domain.getResourceSet());
+			if (diagramFileUri != null) {
+				// the file's first base node has to be a diagram
+				URI diagramUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri);
+				return new DiagramEditorInput(diagramUri, domain, null, true);
+			}
+		}
+		if (otherInput instanceof URIEditorInput) {
+			final URIEditorInput uriInput = (URIEditorInput) otherInput;
+			final TransactionalEditingDomain domain = GraphitiUi.getEmfService().createResourceSetAndEditingDomain();
+			URI diagramFileUri = uriInput.getURI();
+			if (diagramFileUri != null) {
+				// the file's first base node has to be a diagram
+				URI diagramUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(diagramFileUri);
+				return new DiagramEditorInput(diagramUri, domain, null, true);
+			}
+		}
+
+		return null;
 	}
 }

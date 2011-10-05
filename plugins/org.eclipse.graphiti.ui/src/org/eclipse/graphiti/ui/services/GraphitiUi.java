@@ -20,6 +20,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.ILinkService;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.ui.internal.platform.ExtensionManager;
+import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.services.impl.ImageService;
 import org.eclipse.graphiti.ui.internal.services.impl.UiLayoutService;
 
@@ -70,6 +71,16 @@ public class GraphitiUi {
 	 */
 	public static IUiLayoutService getUiLayoutService() {
 		return uiLayoutService;
+	}
+	
+	/**
+	 * Provides the EMF service.
+	 * 
+	 * @return the EMF service 
+	 * @since 0.9
+	 */
+	public static IEmfService getEmfService() {
+		return GraphitiUiInternal.getEmfService();
 	}
 	
 	/**

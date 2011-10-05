@@ -43,10 +43,10 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
-import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.editor.GFCommandStack;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -61,7 +61,7 @@ public class RollbackTest extends GFAbstractTestCase {
 
 	@BeforeClass
 	public static void before() {
-		editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
+		editingDomain = GraphitiUi.getEmfService().createResourceSetAndEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("diagram", new XMIResourceFactoryImpl()); //$NON-NLS-1$
 

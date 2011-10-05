@@ -111,7 +111,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
-import org.eclipse.graphiti.ui.editor.DiagramEditorFactory;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInputFactory;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.features.AbstractDrillDownFeature;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
@@ -667,7 +667,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testUtils() throws Exception {
-		TransactionalEditingDomain editingDomain = DiagramEditorFactory.createResourceSetAndEditingDomain();
+		TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService().createResourceSetAndEditingDomain();
 		ed.setEditingDomain(editingDomain);
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		URI diagramFileUri = URI.createPlatformPluginURI(
@@ -902,14 +902,14 @@ public class GFOtherTests extends AbstractGFTests {
 		{
 			IMemento memento = createNiceMock(IMemento.class);
 			replay(memento);
-			IAdaptable element = new DiagramEditorFactory().createElement(memento);
+			IAdaptable element = new DiagramEditorInputFactory().createElement(memento);
 			assertNull(element);
 		}
 		{
 			IMemento memento = createNiceMock(IMemento.class);
 			expect(memento.getString(DiagramEditorInput.KEY_URI)).andStubReturn(diagramUri);
 			replay(memento);
-			IAdaptable element = new DiagramEditorFactory().createElement(memento);
+			IAdaptable element = new DiagramEditorInputFactory().createElement(memento);
 			assertNotNull(element);
 		}
 		{
@@ -918,7 +918,7 @@ public class GFOtherTests extends AbstractGFTests {
 			expect(memento.getString(DiagramEditorInput.KEY_PROVIDER_ID)).andStubReturn("myProviderId");
 			// expect(memento.getString(ModelObjectElementFactory.KEY_PROJECTNAME)).andStubReturn(getProject().getName());
 			replay(memento);
-			IAdaptable element = new DiagramEditorFactory().createElement(memento);
+			IAdaptable element = new DiagramEditorInputFactory().createElement(memento);
 			assertNotNull(element);
 			assertTrue(element instanceof DiagramEditorInput);
 		}

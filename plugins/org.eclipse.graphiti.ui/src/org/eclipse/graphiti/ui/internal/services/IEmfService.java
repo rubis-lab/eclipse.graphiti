@@ -37,7 +37,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public interface IEmfService {
+public interface IEmfService extends org.eclipse.graphiti.ui.services.IEmfService{
 
 	/**
 	 * Returns the human readable name of a given object or the EMF id if no

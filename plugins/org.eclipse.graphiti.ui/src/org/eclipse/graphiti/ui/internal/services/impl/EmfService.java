@@ -29,6 +29,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.eclipse.core.commands.operations.DefaultOperationHistory;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -47,11 +48,16 @@ import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.transaction.Transaction;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.impl.TransactionalEditingDomainImpl;
+import org.eclipse.emf.workspace.IWorkspaceCommandStack;
+import org.eclipse.emf.workspace.WorkspaceEditingDomainFactory;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.internal.editor.GFWorkspaceCommandStackImpl;
 import org.eclipse.graphiti.ui.internal.services.IEmfService;
 import org.eclipse.graphiti.ui.internal.util.ModelElementNameComparator;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -390,6 +396,17 @@ public class EmfService implements IEmfService {
 	@Override
 	public URI mapDiagramFileUriToDiagramUri(URI diagramFileUri) {
 		return diagramFileUri.appendFragment("/0"); //$NON-NLS-1$
+	}
+	
+	@Override
+	public TransactionalEditingDomain createResourceSetAndEditingDomain() {
+		final ResourceSet resourceSet = new ResourceSetImpl();
+		final IWorkspaceCommandStack workspaceCommandStack = new GFWorkspaceCommandStackImpl(new DefaultOperationHistory());
+	
+		final TransactionalEditingDomainImpl editingDomain = new TransactionalEditingDomainImpl(new ComposedAdapterFactory(
+				ComposedAdapterFactory.Descriptor.Registry.INSTANCE), workspaceCommandStack, resourceSet);
+		WorkspaceEditingDomainFactory.INSTANCE.mapResourceSet(editingDomain);
+		return editingDomain;
 	}
 
 }
