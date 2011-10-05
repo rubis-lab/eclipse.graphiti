@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *    mwenz - Bug 347152 - Do not log diagnostics errors as errors in the Eclipse error log
+ *    mwenz - Bug 359928 - DiagramEditorBehavior does not initialize adapterActive field
  *
  * </copyright>
  *
@@ -340,7 +341,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		page.closeEditor(editorPart, false);
 	}
 
-	private boolean adapterActive;
+	private boolean adapterActive = true;
 
 	/**
 	 * Handles activation of the editor.
