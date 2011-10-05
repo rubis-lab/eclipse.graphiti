@@ -44,7 +44,7 @@
           extensions="diagram"
           icon="icons/diagram.gif"
           id="org.eclipse.graphiti.ui.editor.DiagramEditor"
-          matchingStrategy="org.eclipse.graphiti.ui.internal.editor.DiagramEditorMatchingStrategy"
+          matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorMatchingStrategy"
           name="%_diagram_editor_name">
        <contentTypeBinding
              contentTypeId="org.eclipse.graphiti.content.diagram">

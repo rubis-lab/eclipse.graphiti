@@ -1,14 +1,9 @@
-package org.eclipse.graphiti.ui.internal.editor;
+package org.eclipse.graphiti.ui.editor;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.ReflectionUtil;
 import org.eclipse.ui.IEditorInput;
@@ -29,45 +24,11 @@ public final class DiagramEditorMatchingStrategy implements IEditorMatchingStrat
 		try {
 			IFile file = ReflectionUtil.getFile(input);
 			if (file != null) {
-
-				// Check whether the given file contains a diagram as its
-				// root element. If yes, compare it with the given editor's
-				// diagram.
-				final IEditorInput editorInput = editorRef.getEditorInput();
-				if (editorInput instanceof DiagramEditorInput) {
-					final DiagramEditorInput diagInput = (DiagramEditorInput) editorInput;
-
-					// We do not compare diagram object but diagram files
-					// only.
-					// Reason is that if editorRef points to a not yet
-					// realized editor, its input's diagram is null (not yet
-					// created), thus we can only get its diagram file.
-					final String uriString = diagInput.getUriString();
-					final URI uri = URI.createURI(uriString);
-					if (uri != null) {
-						final ResourceSet rSet = new ResourceSetImpl();
-						final Diagram diagram = GraphitiUiInternal.getEmfService().getDiagramFromFile(file, rSet);
-						if (diagram != null) {
-							final URI diagramUri = EcoreUtil.getURI(diagram);
-							// Trim fragmentssince in some cases for the
-							// first root object just a slash is used, in
-							// other cases it is /0
-							// (if more than one root object is present).
-							// If we would compare the full diagram URI
-							// we could get false even if we have the same
-							// referent.
-							// since we only allow one diagram per file
-							// comparing file URI is ok:
-							// "one input a diagramfileinput, the other
-							// contains a diagram, and the files are the
-							// same" implies "same diagram".
-							URI diagramUriTrimFragment = diagramUri.trimFragment();
-							URI uriTrimFragment = uri.trimFragment();
-							if (uriTrimFragment.equals(diagramUriTrimFragment)) {
-								return true;
-							}
-						}
-					}
+				// check whether the given input comes with a file which is already opened in the diagram editor.
+				final IEditorInput editorInputOfOpenEditor = editorRef.getEditorInput();
+				IFile fileOpenedInDiagramEditor = ReflectionUtil.getFile(editorInputOfOpenEditor);
+				if (file.equals(fileOpenedInDiagramEditor)){
+					return true;
 				}
 			} else if (input instanceof URIEditorInput) {
 				final URIEditorInput uriInput = (URIEditorInput) input;
