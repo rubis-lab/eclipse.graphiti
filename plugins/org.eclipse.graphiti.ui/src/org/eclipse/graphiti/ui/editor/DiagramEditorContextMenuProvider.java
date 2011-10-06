@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
  *            DefaultSaveImageFeature
+ *    mwenz - Bug 339525 - Enrich paste context with location information
  *
  * </copyright>
  *
@@ -43,6 +44,7 @@ import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.CustomAction;
 import org.eclipse.graphiti.ui.internal.action.DeleteAction;
 import org.eclipse.graphiti.ui.internal.action.IAvailable;
+import org.eclipse.graphiti.ui.internal.action.PasteAction;
 import org.eclipse.graphiti.ui.internal.action.RemoveAction;
 import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
@@ -379,6 +381,12 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 					UpdateAction updateAction = (UpdateAction) action;
 					updateAction.setEnabled(updateAction.isEnabled());
 
+				} else if (action instanceof PasteAction) {
+					// For the paste action we need the infomation at which
+					// location the paste operation was triggered. This
+					// infomation can only be retrieved from the mouse location
+					// at the time the context menu is created
+					((PasteAction) action).setPasteLocation(getEditor().getMouseLocation());
 				}
 			}
 		}

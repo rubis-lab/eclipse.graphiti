@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 339525 - Enrich paste context with location information
  *
  * </copyright>
  *
@@ -61,7 +62,9 @@ public class TutorialPasteEClassFeature extends AbstractPasteFeature {
 		Object[] objects = getFromClipboard();
 		for (Object object : objects) {
 			AddContext ac = new AddContext();
-			ac.setLocation(0, 0); // for simplicity paste at (0, 0)
+			// For simplicity paste all objects at the location given in the
+			// context (no stacking or similar)
+			ac.setLocation(context.getX(), context.getY());
 			ac.setTargetContainer(diagram);
 			addGraphicalRepresentation(ac, object);
 		}

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,12 +9,14 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 339525 - Enrich paste context with location information
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.action;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IPasteFeature;
 import org.eclipse.graphiti.features.context.IPasteContext;
@@ -38,6 +40,8 @@ public class PasteAction extends AbstractPreDefinedAction {
 
 	public static final String ACTION_ID = ActionFactory.PASTE.getId(); // "predefined
 
+	private Point pasteLocation = new Point(-1, -1);
+
 	public PasteAction(IWorkbenchPart part, IConfigurationProvider configurationProvider) {
 		super(part, configurationProvider);
 		setId(ACTION_ID);
@@ -45,9 +49,12 @@ public class PasteAction extends AbstractPreDefinedAction {
 		setToolTipText(TOOL_TIP);
 	}
 
+	public void setPasteLocation(Point mPasteLocation) {
+		this.pasteLocation = mPasteLocation;
+	}
+
 	public boolean isAvailable() {
-		PictogramElement[] pes = getSelectedPictogramElements();
-		IPasteContext context = new PasteContext(pes);
+		IPasteContext context = createPasteContext();
 		IPasteFeature feature = getFeatureProvider().getPasteFeature(context);
 		if (feature == null) {
 			return false;
@@ -58,11 +65,10 @@ public class PasteAction extends AbstractPreDefinedAction {
 
 	@Override
 	protected boolean calculateEnabled() {
-		PictogramElement[] pes = getSelectedPictogramElements();
-		if (pes.length == 0) {
+		IPasteContext context = createPasteContext();
+		if (context.getPictogramElements() == null || context.getPictogramElements().length == 0) {
 			return false;
 		}
-		IPasteContext context = new PasteContext(pes);
 		IFeatureProvider featureProvider = getFeatureProvider();
 		if (featureProvider == null) {
 			return false;
@@ -77,13 +83,19 @@ public class PasteAction extends AbstractPreDefinedAction {
 
 	@Override
 	public void run() {
-		PictogramElement[] pes = getSelectedPictogramElements();
-		IPasteContext context = new PasteContext(pes);
+		IPasteContext context = createPasteContext();
 		final IFeatureProvider featureProvider = getFeatureProvider();
 		IPasteFeature feature = featureProvider.getPasteFeature(context);
 		if (feature != null) {
 			final FeatureCommandWithContext command = new GenericFeatureCommandWithContext(feature, context);
 			executeOnCommandStack(command);
 		}
+	}
+
+	private IPasteContext createPasteContext() {
+		PictogramElement[] pes = getSelectedPictogramElements();
+		PasteContext context = new PasteContext(pes);
+		context.setLocation(pasteLocation.x, pasteLocation.y);
+		return context;
 	}
 }

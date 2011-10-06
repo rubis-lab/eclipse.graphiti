@@ -174,6 +174,8 @@ public class GFPackageTests extends AbstractGFTests {
 			public void paste(IPasteContext context) {
 				Object[] obs = getCopiesFromClipBoard(this.diagram);
 				assertTrue((obs != null && obs.length > 0 && obs[0] instanceof PictogramElement));
+				assertEquals(100, context.getX());
+				assertEquals(200, context.getY());
 				for (int i = 0; i < obs.length; i++) {
 					if (obs[i] instanceof PictogramElement) {
 						this.fromClipboard[i] = (PictogramElement) obs[i];
@@ -217,7 +219,8 @@ public class GFPackageTests extends AbstractGFTests {
 		assertNotNull(s);
 		assertFalse("".equals(s));
 		final MyPasteFeature myPasteFeature = new MyPasteFeature(myDiagramTypeProvider.getFeatureProvider(), diagram);
-		final IPasteContext pasteContext = new PasteContext(pes);
+		final PasteContext pasteContext = new PasteContext(pes);
+		pasteContext.setLocation(100, 200);
 
 		syncExec(new VoidResult() {
 			@Override
