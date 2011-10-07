@@ -88,6 +88,10 @@ public class ChessAdapterFactory extends AdapterFactoryImpl {
 				return createSquareAdapter();
 			}
 			@Override
+			public Adapter casePiece(Piece object) {
+				return createPieceAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -132,6 +136,20 @@ public class ChessAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSquareAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.examples.mm.chess.Piece <em>Piece</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Piece
+	 * @generated
+	 */
+	public Adapter createPieceAdapter() {
 		return null;
 	}
 

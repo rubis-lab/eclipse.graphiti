@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.graphiti.examples.mm.chess.Board#getSquares <em>Squares</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.examples.mm.chess.Board#getPieces <em>Pieces</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,5 +53,23 @@ public interface Board extends EObject {
 	 * @generated
 	 */
 	EList<Square> getSquares();
+
+	/**
+	 * Returns the value of the '<em><b>Pieces</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.graphiti.examples.mm.chess.Piece}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.graphiti.examples.mm.chess.Piece#getBoard <em>Board</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Pieces</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Pieces</em>' containment reference list.
+	 * @see org.eclipse.graphiti.examples.mm.chess.ChessPackage#getBoard_Pieces()
+	 * @see org.eclipse.graphiti.examples.mm.chess.Piece#getBoard
+	 * @model opposite="board" containment="true" upper="32"
+	 * @generated
+	 */
+	EList<Piece> getPieces();
 
 } // Board

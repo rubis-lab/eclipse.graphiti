@@ -71,6 +71,7 @@ public class ChessFactoryImpl extends EFactoryImpl implements ChessFactory {
 		switch (eClass.getClassifierID()) {
 			case ChessPackage.BOARD: return createBoard();
 			case ChessPackage.SQUARE: return createSquare();
+			case ChessPackage.PIECE: return createPiece();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -90,6 +91,8 @@ public class ChessFactoryImpl extends EFactoryImpl implements ChessFactory {
 				return createFilesFromString(eDataType, initialValue);
 			case ChessPackage.COLORS:
 				return createColorsFromString(eDataType, initialValue);
+			case ChessPackage.TYPES:
+				return createTypesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -109,6 +112,8 @@ public class ChessFactoryImpl extends EFactoryImpl implements ChessFactory {
 				return convertFilesToString(eDataType, instanceValue);
 			case ChessPackage.COLORS:
 				return convertColorsToString(eDataType, instanceValue);
+			case ChessPackage.TYPES:
+				return convertTypesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -132,6 +137,16 @@ public class ChessFactoryImpl extends EFactoryImpl implements ChessFactory {
 	public Square createSquare() {
 		SquareImpl square = new SquareImpl();
 		return square;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Piece createPiece() {
+		PieceImpl piece = new PieceImpl();
+		return piece;
 	}
 
 	/**
@@ -191,6 +206,26 @@ public class ChessFactoryImpl extends EFactoryImpl implements ChessFactory {
 	 * @generated
 	 */
 	public String convertColorsToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Types createTypesFromString(EDataType eDataType, String initialValue) {
+		Types result = Types.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTypesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

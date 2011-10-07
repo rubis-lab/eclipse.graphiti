@@ -52,6 +52,15 @@ public interface ChessFactory extends EFactory {
 	Square createSquare();
 
 	/**
+	 * Returns a new object of class '<em>Piece</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Piece</em>'.
+	 * @generated
+	 */
+	Piece createPiece();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

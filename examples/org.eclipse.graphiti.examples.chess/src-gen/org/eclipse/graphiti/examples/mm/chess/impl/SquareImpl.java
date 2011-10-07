@@ -25,6 +25,7 @@ import org.eclipse.graphiti.examples.mm.chess.Board;
 import org.eclipse.graphiti.examples.mm.chess.ChessPackage;
 import org.eclipse.graphiti.examples.mm.chess.Colors;
 import org.eclipse.graphiti.examples.mm.chess.Files;
+import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Ranks;
 import org.eclipse.graphiti.examples.mm.chess.Square;
 
@@ -36,6 +37,7 @@ import org.eclipse.graphiti.examples.mm.chess.Square;
  * <ul>
  *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.SquareImpl#getBoard <em>Board</em>}</li>
  *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.SquareImpl#getIndex <em>Index</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.SquareImpl#getPiece <em>Piece</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,6 +60,16 @@ public class SquareImpl extends EObjectImpl implements Square {
 	 * @ordered
 	 */
 	protected int index = INDEX_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getPiece() <em>Piece</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPiece()
+	 * @generated
+	 * @ordered
+	 */
+	protected Piece piece;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -131,6 +143,66 @@ public class SquareImpl extends EObjectImpl implements Square {
 		index = newIndex;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ChessPackage.SQUARE__INDEX, oldIndex, index));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Piece getPiece() {
+		if (piece != null && piece.eIsProxy()) {
+			InternalEObject oldPiece = (InternalEObject)piece;
+			piece = (Piece)eResolveProxy(oldPiece);
+			if (piece != oldPiece) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ChessPackage.SQUARE__PIECE, oldPiece, piece));
+			}
+		}
+		return piece;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Piece basicGetPiece() {
+		return piece;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetPiece(Piece newPiece, NotificationChain msgs) {
+		Piece oldPiece = piece;
+		piece = newPiece;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ChessPackage.SQUARE__PIECE, oldPiece, newPiece);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPiece(Piece newPiece) {
+		if (newPiece != piece) {
+			NotificationChain msgs = null;
+			if (piece != null)
+				msgs = ((InternalEObject)piece).eInverseRemove(this, ChessPackage.PIECE__SQUARE, Piece.class, msgs);
+			if (newPiece != null)
+				msgs = ((InternalEObject)newPiece).eInverseAdd(this, ChessPackage.PIECE__SQUARE, Piece.class, msgs);
+			msgs = basicSetPiece(newPiece, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ChessPackage.SQUARE__PIECE, newPiece, newPiece));
 	}
 
 	/**
@@ -209,6 +281,10 @@ public class SquareImpl extends EObjectImpl implements Square {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetBoard((Board)otherEnd, msgs);
+			case ChessPackage.SQUARE__PIECE:
+				if (piece != null)
+					msgs = ((InternalEObject)piece).eInverseRemove(this, ChessPackage.PIECE__SQUARE, Piece.class, msgs);
+				return basicSetPiece((Piece)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -222,6 +298,8 @@ public class SquareImpl extends EObjectImpl implements Square {
 		switch (featureID) {
 			case ChessPackage.SQUARE__BOARD:
 				return basicSetBoard(null, msgs);
+			case ChessPackage.SQUARE__PIECE:
+				return basicSetPiece(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -250,6 +328,9 @@ public class SquareImpl extends EObjectImpl implements Square {
 				return getBoard();
 			case ChessPackage.SQUARE__INDEX:
 				return getIndex();
+			case ChessPackage.SQUARE__PIECE:
+				if (resolve) return getPiece();
+				return basicGetPiece();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -266,6 +347,9 @@ public class SquareImpl extends EObjectImpl implements Square {
 				return;
 			case ChessPackage.SQUARE__INDEX:
 				setIndex((Integer)newValue);
+				return;
+			case ChessPackage.SQUARE__PIECE:
+				setPiece((Piece)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -284,6 +368,9 @@ public class SquareImpl extends EObjectImpl implements Square {
 			case ChessPackage.SQUARE__INDEX:
 				setIndex(INDEX_EDEFAULT);
 				return;
+			case ChessPackage.SQUARE__PIECE:
+				setPiece((Piece)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -299,6 +386,8 @@ public class SquareImpl extends EObjectImpl implements Square {
 				return getBoard() != null;
 			case ChessPackage.SQUARE__INDEX:
 				return index != INDEX_EDEFAULT;
+			case ChessPackage.SQUARE__PIECE:
+				return piece != null;
 		}
 		return super.eIsSet(featureID);
 	}

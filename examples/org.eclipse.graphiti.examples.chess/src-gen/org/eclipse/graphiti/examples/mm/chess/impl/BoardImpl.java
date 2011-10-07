@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.graphiti.examples.mm.chess.Board;
 import org.eclipse.graphiti.examples.mm.chess.ChessFactory;
 import org.eclipse.graphiti.examples.mm.chess.ChessPackage;
+import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Square;
 
 /**
@@ -41,6 +42,7 @@ import org.eclipse.graphiti.examples.mm.chess.Square;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.BoardImpl#getSquares <em>Squares</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.BoardImpl#getPieces <em>Pieces</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,6 +58,16 @@ public class BoardImpl extends EObjectImpl implements Board {
 	 * @ordered
 	 */
 	protected EList<Square> squares;
+
+	/**
+	 * The cached value of the '{@link #getPieces() <em>Pieces</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPieces()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Piece> pieces;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -100,12 +112,26 @@ public class BoardImpl extends EObjectImpl implements Board {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Piece> getPieces() {
+		if (pieces == null) {
+			pieces = new EObjectContainmentWithInverseEList<Piece>(Piece.class, this, ChessPackage.BOARD__PIECES, ChessPackage.PIECE__BOARD);
+		}
+		return pieces;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ChessPackage.BOARD__SQUARES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSquares()).basicAdd(otherEnd, msgs);
+			case ChessPackage.BOARD__PIECES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getPieces()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -120,6 +146,8 @@ public class BoardImpl extends EObjectImpl implements Board {
 		switch (featureID) {
 			case ChessPackage.BOARD__SQUARES:
 				return ((InternalEList<?>)getSquares()).basicRemove(otherEnd, msgs);
+			case ChessPackage.BOARD__PIECES:
+				return ((InternalEList<?>)getPieces()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -134,6 +162,8 @@ public class BoardImpl extends EObjectImpl implements Board {
 		switch (featureID) {
 			case ChessPackage.BOARD__SQUARES:
 				return getSquares();
+			case ChessPackage.BOARD__PIECES:
+				return getPieces();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -151,6 +181,10 @@ public class BoardImpl extends EObjectImpl implements Board {
 				getSquares().clear();
 				getSquares().addAll((Collection<? extends Square>)newValue);
 				return;
+			case ChessPackage.BOARD__PIECES:
+				getPieces().clear();
+				getPieces().addAll((Collection<? extends Piece>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -166,6 +200,9 @@ public class BoardImpl extends EObjectImpl implements Board {
 			case ChessPackage.BOARD__SQUARES:
 				getSquares().clear();
 				return;
+			case ChessPackage.BOARD__PIECES:
+				getPieces().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -180,6 +217,8 @@ public class BoardImpl extends EObjectImpl implements Board {
 		switch (featureID) {
 			case ChessPackage.BOARD__SQUARES:
 				return squares != null && !squares.isEmpty();
+			case ChessPackage.BOARD__PIECES:
+				return pieces != null && !pieces.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

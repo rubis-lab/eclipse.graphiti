@@ -6,6 +6,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Board">
     <eStructuralFeatures xsi:type="ecore:EReference" name="squares" lowerBound="64"
         upperBound="64" eType="#//Square" containment="true" eOpposite="#//Square/board"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pieces" upperBound="32"
+        eType="#//Piece" containment="true" eOpposite="#//Piece/board"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Square">
     <eOperations name="getRank" lowerBound="1" eType="#//Ranks"/>
@@ -13,10 +15,12 @@
     <eOperations name="getColor" eType="#//Colors"/>
     <eOperations name="getOffsetX" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eOperations name="getOffsetY" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="board" eType="#//Board"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="board" lowerBound="1" eType="#//Board"
         eOpposite="#//Board/squares"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="piece" eType="#//Piece"
+        eOpposite="#//Piece/square"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Ranks">
     <eLiterals name="one" value="1"/>
@@ -41,5 +45,21 @@
   <eClassifiers xsi:type="ecore:EEnum" name="Colors">
     <eLiterals name="light" literal=""/>
     <eLiterals name="dark" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Piece">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="owner" eType="#//Colors"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//Types"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="square" lowerBound="1"
+        eType="#//Square" eOpposite="#//Square/piece"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="board" lowerBound="1" eType="#//Board"
+        eOpposite="#//Board/pieces"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Types">
+    <eLiterals name="king"/>
+    <eLiterals name="queen" value="1"/>
+    <eLiterals name="rook" value="2"/>
+    <eLiterals name="knight" value="3"/>
+    <eLiterals name="bishop" value="4"/>
+    <eLiterals name="pawn" value="5"/>
   </eClassifiers>
 </ecore:EPackage>

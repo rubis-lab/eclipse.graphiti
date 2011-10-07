@@ -90,6 +90,12 @@ public class ChessSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ChessPackage.PIECE: {
+				Piece piece = (Piece)theEObject;
+				T result = casePiece(piece);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -121,6 +127,21 @@ public class ChessSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSquare(Square object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Piece</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Piece</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePiece(Piece object) {
 		return null;
 	}
 

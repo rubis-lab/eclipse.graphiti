@@ -27,8 +27,10 @@ import org.eclipse.graphiti.examples.mm.chess.ChessFactory;
 import org.eclipse.graphiti.examples.mm.chess.ChessPackage;
 import org.eclipse.graphiti.examples.mm.chess.Colors;
 import org.eclipse.graphiti.examples.mm.chess.Files;
+import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Ranks;
 import org.eclipse.graphiti.examples.mm.chess.Square;
+import org.eclipse.graphiti.examples.mm.chess.Types;
 
 /**
  * <!-- begin-user-doc -->
@@ -56,6 +58,13 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass pieceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum ranksEEnum = null;
 
 	/**
@@ -71,6 +80,13 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 	 * @generated
 	 */
 	private EEnum colorsEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum typesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -156,6 +172,15 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getBoard_Pieces() {
+		return (EReference)boardEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSquare() {
 		return squareEClass;
 	}
@@ -176,6 +201,60 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 	 */
 	public EAttribute getSquare_Index() {
 		return (EAttribute)squareEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSquare_Piece() {
+		return (EReference)squareEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPiece() {
+		return pieceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPiece_Owner() {
+		return (EAttribute)pieceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPiece_Type() {
+		return (EAttribute)pieceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPiece_Square() {
+		return (EReference)pieceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPiece_Board() {
+		return (EReference)pieceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -210,6 +289,15 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getTypes() {
+		return typesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ChessFactory getChessFactory() {
 		return (ChessFactory)getEFactoryInstance();
 	}
@@ -235,15 +323,24 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 		// Create classes and their features
 		boardEClass = createEClass(BOARD);
 		createEReference(boardEClass, BOARD__SQUARES);
+		createEReference(boardEClass, BOARD__PIECES);
 
 		squareEClass = createEClass(SQUARE);
 		createEReference(squareEClass, SQUARE__BOARD);
 		createEAttribute(squareEClass, SQUARE__INDEX);
+		createEReference(squareEClass, SQUARE__PIECE);
+
+		pieceEClass = createEClass(PIECE);
+		createEAttribute(pieceEClass, PIECE__OWNER);
+		createEAttribute(pieceEClass, PIECE__TYPE);
+		createEReference(pieceEClass, PIECE__SQUARE);
+		createEReference(pieceEClass, PIECE__BOARD);
 
 		// Create enums
 		ranksEEnum = createEEnum(RANKS);
 		filesEEnum = createEEnum(FILES);
 		colorsEEnum = createEEnum(COLORS);
+		typesEEnum = createEEnum(TYPES);
 	}
 
 	/**
@@ -278,10 +375,12 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(boardEClass, Board.class, "Board", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBoard_Squares(), this.getSquare(), this.getSquare_Board(), "squares", null, 64, 64, Board.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBoard_Pieces(), this.getPiece(), this.getPiece_Board(), "pieces", null, 0, 32, Board.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(squareEClass, Square.class, "Square", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSquare_Board(), this.getBoard(), this.getBoard_Squares(), "board", null, 0, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSquare_Board(), this.getBoard(), this.getBoard_Squares(), "board", null, 1, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSquare_Index(), ecorePackage.getEInt(), "index", "-1", 1, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSquare_Piece(), this.getPiece(), this.getPiece_Square(), "piece", null, 0, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(squareEClass, this.getRanks(), "getRank", 1, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -292,6 +391,12 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 		addEOperation(squareEClass, ecorePackage.getEInt(), "getOffsetX", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(squareEClass, ecorePackage.getEInt(), "getOffsetY", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(pieceEClass, Piece.class, "Piece", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPiece_Owner(), this.getColors(), "owner", null, 0, 1, Piece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPiece_Type(), this.getTypes(), "type", null, 0, 1, Piece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPiece_Square(), this.getSquare(), this.getSquare_Piece(), "square", null, 1, 1, Piece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPiece_Board(), this.getBoard(), this.getBoard_Pieces(), "board", null, 1, 1, Piece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(ranksEEnum, Ranks.class, "Ranks");
@@ -317,6 +422,14 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 		initEEnum(colorsEEnum, Colors.class, "Colors");
 		addEEnumLiteral(colorsEEnum, Colors.LIGHT);
 		addEEnumLiteral(colorsEEnum, Colors.DARK);
+
+		initEEnum(typesEEnum, Types.class, "Types");
+		addEEnumLiteral(typesEEnum, Types.KING);
+		addEEnumLiteral(typesEEnum, Types.QUEEN);
+		addEEnumLiteral(typesEEnum, Types.ROOK);
+		addEEnumLiteral(typesEEnum, Types.KNIGHT);
+		addEEnumLiteral(typesEEnum, Types.BISHOP);
+		addEEnumLiteral(typesEEnum, Types.PAWN);
 
 		// Create resource
 		createResource(eNS_URI);

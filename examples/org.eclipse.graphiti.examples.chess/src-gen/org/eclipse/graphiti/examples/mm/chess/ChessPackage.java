@@ -88,13 +88,22 @@ public interface ChessPackage extends EPackage {
 	int BOARD__SQUARES = 0;
 
 	/**
+	 * The feature id for the '<em><b>Pieces</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOARD__PIECES = 1;
+
+	/**
 	 * The number of structural features of the '<em>Board</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BOARD_FEATURE_COUNT = 1;
+	int BOARD_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.examples.mm.chess.impl.SquareImpl <em>Square</em>}' class.
@@ -125,14 +134,78 @@ public interface ChessPackage extends EPackage {
 	int SQUARE__INDEX = 1;
 
 	/**
+	 * The feature id for the '<em><b>Piece</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SQUARE__PIECE = 2;
+
+	/**
 	 * The number of structural features of the '<em>Square</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SQUARE_FEATURE_COUNT = 2;
+	int SQUARE_FEATURE_COUNT = 3;
 
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.graphiti.examples.mm.chess.impl.PieceImpl <em>Piece</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.graphiti.examples.mm.chess.impl.PieceImpl
+	 * @see org.eclipse.graphiti.examples.mm.chess.impl.ChessPackageImpl#getPiece()
+	 * @generated
+	 */
+	int PIECE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PIECE__OWNER = 0;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PIECE__TYPE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Square</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PIECE__SQUARE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Board</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PIECE__BOARD = 3;
+
+	/**
+	 * The number of structural features of the '<em>Piece</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PIECE_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.examples.mm.chess.Ranks <em>Ranks</em>}' enum.
@@ -142,7 +215,7 @@ public interface ChessPackage extends EPackage {
 	 * @see org.eclipse.graphiti.examples.mm.chess.impl.ChessPackageImpl#getRanks()
 	 * @generated
 	 */
-	int RANKS = 2;
+	int RANKS = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.examples.mm.chess.Files <em>Files</em>}' enum.
@@ -152,7 +225,7 @@ public interface ChessPackage extends EPackage {
 	 * @see org.eclipse.graphiti.examples.mm.chess.impl.ChessPackageImpl#getFiles()
 	 * @generated
 	 */
-	int FILES = 3;
+	int FILES = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.examples.mm.chess.Colors <em>Colors</em>}' enum.
@@ -162,7 +235,18 @@ public interface ChessPackage extends EPackage {
 	 * @see org.eclipse.graphiti.examples.mm.chess.impl.ChessPackageImpl#getColors()
 	 * @generated
 	 */
-	int COLORS = 4;
+	int COLORS = 5;
+
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.graphiti.examples.mm.chess.Types <em>Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.graphiti.examples.mm.chess.Types
+	 * @see org.eclipse.graphiti.examples.mm.chess.impl.ChessPackageImpl#getTypes()
+	 * @generated
+	 */
+	int TYPES = 6;
 
 
 	/**
@@ -185,6 +269,17 @@ public interface ChessPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getBoard_Squares();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.graphiti.examples.mm.chess.Board#getPieces <em>Pieces</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Pieces</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Board#getPieces()
+	 * @see #getBoard()
+	 * @generated
+	 */
+	EReference getBoard_Pieces();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.examples.mm.chess.Square <em>Square</em>}'.
@@ -219,6 +314,71 @@ public interface ChessPackage extends EPackage {
 	EAttribute getSquare_Index();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.examples.mm.chess.Square#getPiece <em>Piece</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Piece</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Square#getPiece()
+	 * @see #getSquare()
+	 * @generated
+	 */
+	EReference getSquare_Piece();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.graphiti.examples.mm.chess.Piece <em>Piece</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Piece</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Piece
+	 * @generated
+	 */
+	EClass getPiece();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.examples.mm.chess.Piece#getOwner <em>Owner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Owner</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Piece#getOwner()
+	 * @see #getPiece()
+	 * @generated
+	 */
+	EAttribute getPiece_Owner();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.examples.mm.chess.Piece#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Piece#getType()
+	 * @see #getPiece()
+	 * @generated
+	 */
+	EAttribute getPiece_Type();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.examples.mm.chess.Piece#getSquare <em>Square</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Square</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Piece#getSquare()
+	 * @see #getPiece()
+	 * @generated
+	 */
+	EReference getPiece_Square();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.graphiti.examples.mm.chess.Piece#getBoard <em>Board</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Board</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Piece#getBoard()
+	 * @see #getPiece()
+	 * @generated
+	 */
+	EReference getPiece_Board();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.graphiti.examples.mm.chess.Ranks <em>Ranks</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -247,6 +407,16 @@ public interface ChessPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getColors();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.graphiti.examples.mm.chess.Types <em>Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Types</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Types
+	 * @generated
+	 */
+	EEnum getTypes();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -289,6 +459,14 @@ public interface ChessPackage extends EPackage {
 		EReference BOARD__SQUARES = eINSTANCE.getBoard_Squares();
 
 		/**
+		 * The meta object literal for the '<em><b>Pieces</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BOARD__PIECES = eINSTANCE.getBoard_Pieces();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.examples.mm.chess.impl.SquareImpl <em>Square</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -313,6 +491,56 @@ public interface ChessPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SQUARE__INDEX = eINSTANCE.getSquare_Index();
+
+		/**
+		 * The meta object literal for the '<em><b>Piece</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SQUARE__PIECE = eINSTANCE.getSquare_Piece();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.graphiti.examples.mm.chess.impl.PieceImpl <em>Piece</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.graphiti.examples.mm.chess.impl.PieceImpl
+		 * @see org.eclipse.graphiti.examples.mm.chess.impl.ChessPackageImpl#getPiece()
+		 * @generated
+		 */
+		EClass PIECE = eINSTANCE.getPiece();
+
+		/**
+		 * The meta object literal for the '<em><b>Owner</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PIECE__OWNER = eINSTANCE.getPiece_Owner();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PIECE__TYPE = eINSTANCE.getPiece_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Square</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PIECE__SQUARE = eINSTANCE.getPiece_Square();
+
+		/**
+		 * The meta object literal for the '<em><b>Board</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PIECE__BOARD = eINSTANCE.getPiece_Board();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.examples.mm.chess.Ranks <em>Ranks</em>}' enum.
@@ -343,6 +571,16 @@ public interface ChessPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum COLORS = eINSTANCE.getColors();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.graphiti.examples.mm.chess.Types <em>Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.graphiti.examples.mm.chess.Types
+		 * @see org.eclipse.graphiti.examples.mm.chess.impl.ChessPackageImpl#getTypes()
+		 * @generated
+		 */
+		EEnum TYPES = eINSTANCE.getTypes();
 
 	}
 

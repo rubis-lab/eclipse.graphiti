@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.graphiti.examples.mm.chess.Square#getBoard <em>Board</em>}</li>
  *   <li>{@link org.eclipse.graphiti.examples.mm.chess.Square#getIndex <em>Index</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.examples.mm.chess.Square#getPiece <em>Piece</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,7 +49,7 @@ public interface Square extends EObject {
 	 * @see #setBoard(Board)
 	 * @see org.eclipse.graphiti.examples.mm.chess.ChessPackage#getSquare_Board()
 	 * @see org.eclipse.graphiti.examples.mm.chess.Board#getSquares
-	 * @model opposite="squares" transient="false"
+	 * @model opposite="squares" required="true" transient="false"
 	 * @generated
 	 */
 	Board getBoard();
@@ -89,6 +90,34 @@ public interface Square extends EObject {
 	 * @generated
 	 */
 	void setIndex(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Piece</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.graphiti.examples.mm.chess.Piece#getSquare <em>Square</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Piece</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Piece</em>' reference.
+	 * @see #setPiece(Piece)
+	 * @see org.eclipse.graphiti.examples.mm.chess.ChessPackage#getSquare_Piece()
+	 * @see org.eclipse.graphiti.examples.mm.chess.Piece#getSquare
+	 * @model opposite="square"
+	 * @generated
+	 */
+	Piece getPiece();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.graphiti.examples.mm.chess.Square#getPiece <em>Piece</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Piece</em>' reference.
+	 * @see #getPiece()
+	 * @generated
+	 */
+	void setPiece(Piece value);
 
 	/**
 	 * <!-- begin-user-doc -->
