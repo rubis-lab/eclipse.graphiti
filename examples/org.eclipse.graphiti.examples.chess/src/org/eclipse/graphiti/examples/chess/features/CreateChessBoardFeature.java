@@ -41,11 +41,13 @@ public class CreateChessBoardFeature extends AbstractCreateFeature implements IC
 	@Override
 	public Object[] create(ICreateContext context) {
 		Resource resource = context.getTargetContainer().eResource();
-		
+
+		// Create a new chess board and add it to an EMF resource
 		Board board = ChessFactory.eINSTANCE.createBoard();
 		resource.getContents().add(board);
-		
+
+		// Delegate to the add feature
 		addGraphicalRepresentation(context, board);
-		return null;
+		return new Object[] { board };
 	}
 }

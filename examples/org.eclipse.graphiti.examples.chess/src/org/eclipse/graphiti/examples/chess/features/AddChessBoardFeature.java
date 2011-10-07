@@ -54,23 +54,32 @@ public class AddChessBoardFeature extends AbstractAddShapeFeature implements IAd
 
 	@Override
 	public PictogramElement add(IAddContext context) {
+		// Get the Graphiti services
 		ICreateService createService = Graphiti.getCreateService();
 		IGaLayoutService layoutService = Graphiti.getGaLayoutService();
 
+		// Get the board to add
 		Board board = (Board) context.getNewObject();
 
+		// Create the visualization of the board as a square
 		ContainerShape outerContainerShape = createService.createContainerShape(getDiagram(), true);
 		Rectangle outerRectangle = createService.createRectangle(outerContainerShape);
 		layoutService.setLocationAndSize(outerRectangle, context.getX(), context.getY(), BOARD_SIZE, BOARD_SIZE);
+
+		// Link the visualization with the board
 		link(outerContainerShape, board);
 
+		// Add the 64 single squares to the board
 		for (Iterator<Square> it = board.getSquares().iterator(); it.hasNext();) {
 			Square square = it.next();
 
+			// Visualize as a square at the correct location
 			ContainerShape squareShape = createService.createContainerShape(outerContainerShape, true);
 			Rectangle squareRectangle = createService.createRectangle(squareShape);
 			layoutService.setLocationAndSize(squareRectangle, square.getOffsetX() * SQUARE_SIZE, square.getOffsetY()
 					* SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+
+			// Set the fill color
 			IColorConstant color;
 			if (square.getColor() == Colors.LIGHT) {
 				color = IColorConstant.WHITE;
@@ -79,6 +88,7 @@ public class AddChessBoardFeature extends AbstractAddShapeFeature implements IAd
 			}
 			squareRectangle.setBackground(manageColor(color));
 
+			// And do the linking
 			link(squareShape, square);
 		}
 
