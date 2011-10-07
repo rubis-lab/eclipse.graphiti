@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="chess"
+    nsURI="http://eclipse.org/graphiti/examples/chess" nsPrefix="chess">
+  <eClassifiers xsi:type="ecore:EClass" name="Board">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="squares" lowerBound="64"
+        upperBound="64" eType="#//Square" containment="true" eOpposite="#//Square/board"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Square">
+    <eOperations name="getRank" lowerBound="1" eType="#//Ranks"/>
+    <eOperations name="getFile" lowerBound="1" eType="#//Files"/>
+    <eOperations name="getColor" eType="#//Colors"/>
+    <eOperations name="getOffsetX" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eOperations name="getOffsetY" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="board" eType="#//Board"
+        eOpposite="#//Board/squares"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="-1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Ranks">
+    <eLiterals name="one" value="1"/>
+    <eLiterals name="two" value="2"/>
+    <eLiterals name="three" value="3"/>
+    <eLiterals name="four" value="4"/>
+    <eLiterals name="five" value="5"/>
+    <eLiterals name="six" value="6"/>
+    <eLiterals name="seven" value="7"/>
+    <eLiterals name="eight" value="8"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Files">
+    <eLiterals name="A" value="1"/>
+    <eLiterals name="B" value="2"/>
+    <eLiterals name="C" value="3"/>
+    <eLiterals name="D" value="4"/>
+    <eLiterals name="E" value="5"/>
+    <eLiterals name="F" value="6"/>
+    <eLiterals name="G" value="7"/>
+    <eLiterals name="H" value="8"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Colors">
+    <eLiterals name="light" literal=""/>
+    <eLiterals name="dark" value="1"/>
+  </eClassifiers>
+</ecore:EPackage>

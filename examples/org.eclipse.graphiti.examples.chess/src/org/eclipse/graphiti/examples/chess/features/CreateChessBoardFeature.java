@@ -1,5 +1,22 @@
+/**
+ * <copyright>
+ * 
+ * Copyright (c) 2011, 2011 SAP AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    SAP AG - initial API, implementation and documentation
+ * 
+ * </copyright>
+ */
 package org.eclipse.graphiti.examples.chess.features;
 
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.graphiti.examples.mm.chess.Board;
+import org.eclipse.graphiti.examples.mm.chess.ChessFactory;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -23,7 +40,12 @@ public class CreateChessBoardFeature extends AbstractCreateFeature implements IC
 
 	@Override
 	public Object[] create(ICreateContext context) {
-		addGraphicalRepresentation(context, null);
+		Resource resource = context.getTargetContainer().eResource();
+		
+		Board board = ChessFactory.eINSTANCE.createBoard();
+		resource.getContents().add(board);
+		
+		addGraphicalRepresentation(context, board);
 		return null;
 	}
 }

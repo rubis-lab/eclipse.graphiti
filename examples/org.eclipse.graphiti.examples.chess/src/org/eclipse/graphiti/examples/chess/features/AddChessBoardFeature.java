@@ -1,5 +1,24 @@
+/**
+ * <copyright>
+ * 
+ * Copyright (c) 2011, 2011 SAP AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    SAP AG - initial API, implementation and documentation
+ * 
+ * </copyright>
+ */
 package org.eclipse.graphiti.examples.chess.features;
 
+import java.util.Iterator;
+
+import org.eclipse.graphiti.examples.mm.chess.Board;
+import org.eclipse.graphiti.examples.mm.chess.Colors;
+import org.eclipse.graphiti.examples.mm.chess.Square;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -15,8 +34,8 @@ import org.eclipse.graphiti.util.IColorConstant;
 
 public class AddChessBoardFeature extends AbstractAddShapeFeature implements IAddFeature {
 
-	private static final int CHESS_BOARD_ROWS = 8;
-	private static final int CHESS_BOARD_COLUMNS = 8;
+	private static final int SQUARE_SIZE = 50;
+	private static final int BOARD_SIZE = SQUARE_SIZE * 8;
 
 	public AddChessBoardFeature(IFeatureProvider fp) {
 		super(fp);
@@ -24,9 +43,11 @@ public class AddChessBoardFeature extends AbstractAddShapeFeature implements IAd
 
 	@Override
 	public boolean canAdd(IAddContext context) {
-		if (context.getTargetContainer() instanceof Diagram) {
-			// Add new board only in case of an empty diagram
-			return context.getTargetContainer().getChildren().size() == 0;
+		if (context.getNewObject() instanceof Board) {
+			if (context.getTargetContainer() instanceof Diagram) {
+				// Add new board only in case of an empty diagram
+				return context.getTargetContainer().getChildren().size() == 0;
+			}
 		}
 		return false;
 	}
@@ -36,34 +57,31 @@ public class AddChessBoardFeature extends AbstractAddShapeFeature implements IAd
 		ICreateService createService = Graphiti.getCreateService();
 		IGaLayoutService layoutService = Graphiti.getGaLayoutService();
 
+		Board board = (Board) context.getNewObject();
+
 		ContainerShape outerContainerShape = createService.createContainerShape(getDiagram(), true);
 		Rectangle outerRectangle = createService.createRectangle(outerContainerShape);
-		layoutService.setLocationAndSize(outerRectangle, 50, 50, 400, 400);
+		layoutService.setLocationAndSize(outerRectangle, context.getX(), context.getY(), BOARD_SIZE, BOARD_SIZE);
+		link(outerContainerShape, board);
 
-		for (int i = 0; i <= CHESS_BOARD_ROWS; i++) {
-			for (int j = 0; j <= CHESS_BOARD_COLUMNS; j++) {
-				ContainerShape fieldShape = createService.createContainerShape(outerContainerShape, true);
-				Rectangle fieldRectangle = createService.createRectangle(fieldShape);
-				layoutService.setLocationAndSize(fieldRectangle, i * 50, j * 50, 50, 50);
-				IColorConstant color;
-				if (i % 2 == 0) {
-					if (j % 2 == 0) {
-						color = IColorConstant.WHITE;
-					} else {
-						color = IColorConstant.BLACK;
-					}
-				} else {
-					if (j % 2 == 0) {
-						color = IColorConstant.BLACK;
-					} else {
-						color = IColorConstant.WHITE;
-					}
-				}
-				fieldRectangle.setBackground(manageColor(color));
+		for (Iterator<Square> it = board.getSquares().iterator(); it.hasNext();) {
+			Square square = it.next();
+
+			ContainerShape squareShape = createService.createContainerShape(outerContainerShape, true);
+			Rectangle squareRectangle = createService.createRectangle(squareShape);
+			layoutService.setLocationAndSize(squareRectangle, square.getOffsetX() * SQUARE_SIZE, square.getOffsetY()
+					* SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+			IColorConstant color;
+			if (square.getColor() == Colors.LIGHT) {
+				color = IColorConstant.WHITE;
+			} else {
+				color = IColorConstant.BLACK;
 			}
+			squareRectangle.setBackground(manageColor(color));
+
+			link(squareShape, square);
 		}
 
 		return outerContainerShape;
 	}
-
 }

@@ -22,5 +22,13 @@
          </diagramType>
       </diagramTypeProvider>
    </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="org.eclipse.graphiti.examples.mm.chess.ChessPackage"
+            genModel="model/chess.genmodel"
+            uri="http://eclipse.org/graphiti/examples/chess">
+      </package>
+   </extension>
 
 </plugin>
