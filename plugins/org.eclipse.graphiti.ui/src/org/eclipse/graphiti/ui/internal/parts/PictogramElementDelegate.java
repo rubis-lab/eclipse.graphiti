@@ -40,6 +40,7 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
+import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalEditPart;
@@ -318,7 +319,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		// DR: Avoid multiple refresh of the same edit part
 		if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-			if (!getEditor().getRefreshedFigure4EP().add(getContainerEditPart())) {
+			if (!getEditor().getRefreshPerformanceCache().shouldRefresh(getContainerEditPart())) {
 				return;
 			}
 		}
@@ -439,7 +440,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 
 		if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-			if (!getEditor().getRefreshedFigure4GA().add(graphicsAlgorithm)) {
+			if (!getEditor().getRefreshPerformanceCache().shouldRefresh(graphicsAlgorithm)) {
 				return;
 			}
 		}
@@ -1062,7 +1063,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		if (pe != null) {
 			if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-				if (!getEditor().getRefreshedFigure4PE().add(pe)) {
+				if (!getEditor().getRefreshPerformanceCache().shouldRefresh(pe)) {
 					return;
 				}
 			}
@@ -1299,7 +1300,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 					+ gaLocation.getX();
 			double newY = gaBoundsForAnchor.getY() + (gaBoundsForAnchor.getHeight() * bra.getRelativeHeight())
 					+ gaLocation.getY();
-			point = new Point(newX, newY);
+			point = new PrecisionPoint(newX, newY);
 
 		} else if (pe instanceof FixPointAnchor && pe.equals(graphicsAlgorithm.getPictogramElement())) {
 			FixPointAnchor fpa = (FixPointAnchor) pe;

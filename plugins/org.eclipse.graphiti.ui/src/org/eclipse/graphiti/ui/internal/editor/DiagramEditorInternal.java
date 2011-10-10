@@ -28,7 +28,6 @@ package org.eclipse.graphiti.ui.internal.editor;
 
 import java.util.ArrayList;
 import java.util.EventObject;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -110,7 +109,6 @@ import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
@@ -118,7 +116,6 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
-import org.eclipse.graphiti.ui.editor.DiagramEditorInputFactory;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
@@ -271,18 +268,17 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	private boolean directEditingActive = false;
 
-	/* keep refreshed EP/GA/PE to avoid multiple refresh of same figure */
-	private HashSet<EditPart> refreshedFigure4EP = new HashSet<EditPart>();
-
-	private HashSet<GraphicsAlgorithm> refreshedFigure4GA = new HashSet<GraphicsAlgorithm>();
-
-	private HashSet<PictogramElement> refreshedFigure4PE = new HashSet<PictogramElement>();
-
 	private IResourceRegistry resourceRegistry = new ResourceRegistry();
 
 	private boolean autoRefresh = true;
 
 	private TransactionalEditingDomain editingDomain = null;
+
+	private RefreshPerformanceCache refreshPerformanceCache = new RefreshPerformanceCache();
+
+	public RefreshPerformanceCache getRefreshPerformanceCache() {
+		return refreshPerformanceCache;
+	}
 
 	/**
 	 * Instantiates a new diagram editor.
@@ -945,32 +941,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return pictogramElementsForSelection;
 	}
 
-	/**
-	 * Gets the refreshed figure4 ep.
-	 * 
-	 * @return the refreshed figure4 ep
-	 */
-	public HashSet<EditPart> getRefreshedFigure4EP() {
-		return refreshedFigure4EP;
-	}
 
-	/**
-	 * Gets the refreshed figure4 ga.
-	 * 
-	 * @return the refreshed figure4 ga
-	 */
-	public HashSet<GraphicsAlgorithm> getRefreshedFigure4GA() {
-		return refreshedFigure4GA;
-	}
-
-	/**
-	 * Gets the refreshed figure4 pe.
-	 * 
-	 * @return the refreshed figure4 pe
-	 */
-	public HashSet<PictogramElement> getRefreshedFigure4PE() {
-		return refreshedFigure4PE;
-	}
 
 	@Override
 	public IResourceRegistry getResourceRegistry() {
@@ -1297,15 +1268,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 */
 	protected boolean isAutoRefresh() {
 		return autoRefresh;
-	}
-
-	/**
-	 * Inits the refresh.
-	 */
-	public void initRefresh() {
-		refreshedFigure4EP = new HashSet<EditPart>();
-		refreshedFigure4GA = new HashSet<GraphicsAlgorithm>();
-		refreshedFigure4PE = new HashSet<PictogramElement>();
 	}
 
 	@Override
@@ -1661,7 +1623,9 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 																// resource
 			IDiagramTypeProvider diagramTypeProvider = getConfigurationProvider().getDiagramTypeProvider();
 			diagramTypeProvider.resourceReloaded(diagram);
-			initRefresh(); // clean performance hashtables which have references
+			getRefreshPerformanceCache().initRefresh(); // clean performance
+														// hashtables which have
+														// references
 							// to old proxies
 			setPictogramElementsForSelection(null);
 			getGraphicalViewer().setContents(diagram); // create new edit parts

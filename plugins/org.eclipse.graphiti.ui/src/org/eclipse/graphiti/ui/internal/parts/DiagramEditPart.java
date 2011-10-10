@@ -179,7 +179,7 @@ public class DiagramEditPart extends ContainerShapeEditPart implements IDiagramE
 	@Override
 	public void refresh() {
 		DiagramEditorInternal editor = (DiagramEditorInternal) getConfigurationProvider().getWorkbenchPart();
-		editor.initRefresh();
+		editor.getRefreshPerformanceCache().initRefresh();
 		super.refresh();
 	}
 }

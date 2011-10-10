@@ -16,8 +16,8 @@
 package org.eclipse.graphiti.ui.internal.editor;
 
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -91,7 +91,7 @@ class DiagramRefreshJob extends UIJob {
 			}
 		}
 
-		ed.initRefresh();
+		ed.getRefreshPerformanceCache().initRefresh();
 		// prove if switch to auto activate direct editing is required
 		// if yes, call always global editor refresh -> this refresh will activate the direct editing
 		IDirectEditingInfo dei = ed.getConfigurationProvider().getFeatureProvider().getDirectEditingInfo();
