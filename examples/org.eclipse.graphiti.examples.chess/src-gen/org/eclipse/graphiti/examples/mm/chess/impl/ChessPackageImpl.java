@@ -17,6 +17,7 @@ package org.eclipse.graphiti.examples.mm.chess.impl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -407,6 +408,10 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 		initEReference(getBoard_Squares(), this.getSquare(), this.getSquare_Board(), "squares", null, 64, 64, Board.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBoard_Pieces(), this.getPiece(), this.getPiece_Board(), "pieces", null, 0, 32, Board.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		EOperation op = addEOperation(boardEClass, this.getSquare(), "getSquare", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getRanks(), "rank", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFiles(), "file", 1, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(squareEClass, Square.class, "Square", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSquare_Board(), this.getBoard(), this.getBoard_Squares(), "board", null, 1, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSquare_Index(), ecorePackage.getEInt(), "index", "-1", 1, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -454,6 +459,7 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 		addEEnumLiteral(colorsEEnum, Colors.DARK);
 
 		initEEnum(typesEEnum, Types.class, "Types");
+		addEEnumLiteral(typesEEnum, Types.NONE);
 		addEEnumLiteral(typesEEnum, Types.KING);
 		addEEnumLiteral(typesEEnum, Types.QUEEN);
 		addEEnumLiteral(typesEEnum, Types.ROOK);

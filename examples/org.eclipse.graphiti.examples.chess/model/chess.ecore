@@ -4,6 +4,10 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="chess"
     nsURI="http://eclipse.org/graphiti/examples/chess" nsPrefix="chess">
   <eClassifiers xsi:type="ecore:EClass" name="Board">
+    <eOperations name="getSquare" lowerBound="1" eType="#//Square">
+      <eParameters name="rank" lowerBound="1" eType="#//Ranks"/>
+      <eParameters name="file" lowerBound="1" eType="#//Files"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="squares" lowerBound="64"
         upperBound="64" eType="#//Square" containment="true" eOpposite="#//Square/board"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pieces" upperBound="32"
@@ -59,11 +63,12 @@
         eOpposite="#//Board/pieces"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Types">
-    <eLiterals name="king"/>
-    <eLiterals name="queen" value="1"/>
-    <eLiterals name="rook" value="2"/>
-    <eLiterals name="knight" value="3"/>
-    <eLiterals name="bishop" value="4"/>
-    <eLiterals name="pawn" value="5"/>
+    <eLiterals name="none"/>
+    <eLiterals name="king" value="1"/>
+    <eLiterals name="queen" value="2"/>
+    <eLiterals name="rook" value="3"/>
+    <eLiterals name="knight" value="4"/>
+    <eLiterals name="bishop" value="5"/>
+    <eLiterals name="pawn" value="6"/>
   </eClassifiers>
 </ecore:EPackage>

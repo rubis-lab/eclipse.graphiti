@@ -38,17 +38,20 @@ import org.eclipse.graphiti.examples.mm.chess.Square;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.BoardImpl#getSquares <em>Squares</em>}</li>
- *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.BoardImpl#getPieces <em>Pieces</em>}</li>
+ * <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.BoardImpl#getSquares
+ * <em>Squares</em>}</li>
+ * <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.BoardImpl#getPieces
+ * <em>Pieces</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class BoardImpl extends EObjectImpl implements Board {
 	/**
-	 * The cached value of the '{@link #getSquares() <em>Squares</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getSquares() <em>Squares</em>}'
+	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getSquares()
 	 * @generated
 	 * @ordered
@@ -56,8 +59,9 @@ public class BoardImpl extends EObjectImpl implements Board {
 	protected EList<Square> squares;
 
 	/**
-	 * The cached value of the '{@link #getPieces() <em>Pieces</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getPieces() <em>Pieces</em>}'
+	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getPieces()
 	 * @generated
 	 * @ordered
@@ -111,6 +115,7 @@ public class BoardImpl extends EObjectImpl implements Board {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -120,120 +125,144 @@ public class BoardImpl extends EObjectImpl implements Board {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Square> getSquares() {
 		if (squares == null) {
-			squares = new EObjectContainmentWithInverseEList<Square>(Square.class, this, ChessPackage.BOARD__SQUARES, ChessPackage.SQUARE__BOARD);
+			squares = new EObjectContainmentWithInverseEList<Square>(Square.class, this, ChessPackage.BOARD__SQUARES,
+					ChessPackage.SQUARE__BOARD);
 		}
 		return squares;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Piece> getPieces() {
 		if (pieces == null) {
-			pieces = new EObjectContainmentWithInverseEList<Piece>(Piece.class, this, ChessPackage.BOARD__PIECES, ChessPackage.PIECE__BOARD);
+			pieces = new EObjectContainmentWithInverseEList<Piece>(Piece.class, this, ChessPackage.BOARD__PIECES,
+					ChessPackage.PIECE__BOARD);
 		}
 		return pieces;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated not
+	 */
+	public Square getSquare(Ranks rank, Files file) {
+		for (Square square : getSquares()) {
+			if (rank.equals(square.getRank()) && file.equals(square.getFile())) {
+				return square;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ChessPackage.BOARD__SQUARES:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSquares()).basicAdd(otherEnd, msgs);
-			case ChessPackage.BOARD__PIECES:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getPieces()).basicAdd(otherEnd, msgs);
+		case ChessPackage.BOARD__SQUARES:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSquares()).basicAdd(otherEnd, msgs);
+		case ChessPackage.BOARD__PIECES:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getPieces()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ChessPackage.BOARD__SQUARES:
-				return ((InternalEList<?>)getSquares()).basicRemove(otherEnd, msgs);
-			case ChessPackage.BOARD__PIECES:
-				return ((InternalEList<?>)getPieces()).basicRemove(otherEnd, msgs);
+		case ChessPackage.BOARD__SQUARES:
+			return ((InternalEList<?>) getSquares()).basicRemove(otherEnd, msgs);
+		case ChessPackage.BOARD__PIECES:
+			return ((InternalEList<?>) getPieces()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ChessPackage.BOARD__SQUARES:
-				return getSquares();
-			case ChessPackage.BOARD__PIECES:
-				return getPieces();
+		case ChessPackage.BOARD__SQUARES:
+			return getSquares();
+		case ChessPackage.BOARD__PIECES:
+			return getPieces();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ChessPackage.BOARD__SQUARES:
-				getSquares().clear();
-				getSquares().addAll((Collection<? extends Square>)newValue);
-				return;
-			case ChessPackage.BOARD__PIECES:
-				getPieces().clear();
-				getPieces().addAll((Collection<? extends Piece>)newValue);
-				return;
+		case ChessPackage.BOARD__SQUARES:
+			getSquares().clear();
+			getSquares().addAll((Collection<? extends Square>) newValue);
+			return;
+		case ChessPackage.BOARD__PIECES:
+			getPieces().clear();
+			getPieces().addAll((Collection<? extends Piece>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ChessPackage.BOARD__SQUARES:
-				getSquares().clear();
-				return;
-			case ChessPackage.BOARD__PIECES:
-				getPieces().clear();
-				return;
+		case ChessPackage.BOARD__SQUARES:
+			getSquares().clear();
+			return;
+		case ChessPackage.BOARD__PIECES:
+			getPieces().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ChessPackage.BOARD__SQUARES:
-				return squares != null && !squares.isEmpty();
-			case ChessPackage.BOARD__PIECES:
-				return pieces != null && !pieces.isEmpty();
+		case ChessPackage.BOARD__SQUARES:
+			return squares != null && !squares.isEmpty();
+		case ChessPackage.BOARD__PIECES:
+			return pieces != null && !pieces.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -77,7 +77,7 @@ public class PieceImpl extends EObjectImpl implements Piece {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Types TYPE_EDEFAULT = Types.KING;
+	protected static final Types TYPE_EDEFAULT = Types.NONE;
 
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.

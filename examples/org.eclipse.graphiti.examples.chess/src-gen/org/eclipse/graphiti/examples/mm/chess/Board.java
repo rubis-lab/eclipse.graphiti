@@ -72,4 +72,12 @@ public interface Board extends EObject {
 	 */
 	EList<Piece> getPieces();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model required="true" rankRequired="true" fileRequired="true"
+	 * @generated
+	 */
+	Square getSquare(Ranks rank, Files file);
+
 } // Board

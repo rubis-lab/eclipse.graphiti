@@ -31,6 +31,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum Types implements Enumerator {
 	/**
+	 * The '<em><b>None</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NONE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NONE(0, "none", "none"), /**
 	 * The '<em><b>King</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38,7 +46,7 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	KING(0, "king", "king"),
+	KING(1, "king", "king"),
 
 	/**
 	 * The '<em><b>Queen</b></em>' literal object.
@@ -48,7 +56,7 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	QUEEN(1, "queen", "queen"),
+	QUEEN(2, "queen", "queen"),
 
 	/**
 	 * The '<em><b>Rook</b></em>' literal object.
@@ -58,7 +66,7 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROOK(2, "rook", "rook"),
+	ROOK(3, "rook", "rook"),
 
 	/**
 	 * The '<em><b>Knight</b></em>' literal object.
@@ -68,7 +76,7 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	KNIGHT(3, "knight", "knight"),
+	KNIGHT(4, "knight", "knight"),
 
 	/**
 	 * The '<em><b>Bishop</b></em>' literal object.
@@ -78,7 +86,7 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BISHOP(4, "bishop", "bishop"),
+	BISHOP(5, "bishop", "bishop"),
 
 	/**
 	 * The '<em><b>Pawn</b></em>' literal object.
@@ -88,7 +96,22 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PAWN(5, "pawn", "pawn");
+	PAWN(6, "pawn", "pawn");
+
+	/**
+	 * The '<em><b>None</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>None</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NONE
+	 * @model name="none"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NONE_VALUE = 0;
 
 	/**
 	 * The '<em><b>King</b></em>' literal value.
@@ -103,7 +126,7 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int KING_VALUE = 0;
+	public static final int KING_VALUE = 1;
 
 	/**
 	 * The '<em><b>Queen</b></em>' literal value.
@@ -118,7 +141,7 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int QUEEN_VALUE = 1;
+	public static final int QUEEN_VALUE = 2;
 
 	/**
 	 * The '<em><b>Rook</b></em>' literal value.
@@ -133,7 +156,7 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ROOK_VALUE = 2;
+	public static final int ROOK_VALUE = 3;
 
 	/**
 	 * The '<em><b>Knight</b></em>' literal value.
@@ -148,7 +171,7 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int KNIGHT_VALUE = 3;
+	public static final int KNIGHT_VALUE = 4;
 
 	/**
 	 * The '<em><b>Bishop</b></em>' literal value.
@@ -163,7 +186,7 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int BISHOP_VALUE = 4;
+	public static final int BISHOP_VALUE = 5;
 
 	/**
 	 * The '<em><b>Pawn</b></em>' literal value.
@@ -178,7 +201,7 @@ public enum Types implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int PAWN_VALUE = 5;
+	public static final int PAWN_VALUE = 6;
 
 	/**
 	 * An array of all the '<em><b>Types</b></em>' enumerators.
@@ -188,6 +211,7 @@ public enum Types implements Enumerator {
 	 */
 	private static final Types[] VALUES_ARRAY =
 		new Types[] {
+			NONE,
 			KING,
 			QUEEN,
 			ROOK,
@@ -244,6 +268,7 @@ public enum Types implements Enumerator {
 	 */
 	public static Types get(int value) {
 		switch (value) {
+			case NONE_VALUE: return NONE;
 			case KING_VALUE: return KING;
 			case QUEEN_VALUE: return QUEEN;
 			case ROOK_VALUE: return ROOK;
