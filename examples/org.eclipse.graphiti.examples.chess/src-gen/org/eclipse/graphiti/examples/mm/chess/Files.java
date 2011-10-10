@@ -31,6 +31,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum Files implements Enumerator {
 	/**
+	 * The '<em><b>None</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NONE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NONE(0, "none", "none"), /**
 	 * The '<em><b>A</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -109,6 +117,21 @@ public enum Files implements Enumerator {
 	 * @ordered
 	 */
 	H(8, "H", "H");
+
+	/**
+	 * The '<em><b>None</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>None</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NONE
+	 * @model name="none"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NONE_VALUE = 0;
 
 	/**
 	 * The '<em><b>A</b></em>' literal value.
@@ -238,6 +261,7 @@ public enum Files implements Enumerator {
 	 */
 	private static final Files[] VALUES_ARRAY =
 		new Files[] {
+			NONE,
 			A,
 			B,
 			C,
@@ -296,6 +320,7 @@ public enum Files implements Enumerator {
 	 */
 	public static Files get(int value) {
 		switch (value) {
+			case NONE_VALUE: return NONE;
 			case A_VALUE: return A;
 			case B_VALUE: return B;
 			case C_VALUE: return C;

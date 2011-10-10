@@ -57,7 +57,7 @@ public class PieceImpl extends EObjectImpl implements Piece {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Colors OWNER_EDEFAULT = Colors.LIGHT;
+	protected static final Colors OWNER_EDEFAULT = Colors.NONE;
 
 	/**
 	 * The cached value of the '{@link #getOwner() <em>Owner</em>}' attribute.

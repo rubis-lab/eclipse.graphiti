@@ -17,27 +17,24 @@ package org.eclipse.graphiti.examples.mm.chess.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.graphiti.examples.mm.chess.Board;
 import org.eclipse.graphiti.examples.mm.chess.ChessFactory;
 import org.eclipse.graphiti.examples.mm.chess.ChessPackage;
+import org.eclipse.graphiti.examples.mm.chess.Colors;
+import org.eclipse.graphiti.examples.mm.chess.Files;
 import org.eclipse.graphiti.examples.mm.chess.Piece;
+import org.eclipse.graphiti.examples.mm.chess.Ranks;
 import org.eclipse.graphiti.examples.mm.chess.Square;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Board</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Board</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -51,8 +48,7 @@ import org.eclipse.graphiti.examples.mm.chess.Square;
 public class BoardImpl extends EObjectImpl implements Board {
 	/**
 	 * The cached value of the '{@link #getSquares() <em>Squares</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getSquares()
 	 * @generated
 	 * @ordered
@@ -61,8 +57,7 @@ public class BoardImpl extends EObjectImpl implements Board {
 
 	/**
 	 * The cached value of the '{@link #getPieces() <em>Pieces</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getPieces()
 	 * @generated
 	 * @ordered
@@ -70,24 +65,52 @@ public class BoardImpl extends EObjectImpl implements Board {
 	protected EList<Piece> pieces;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated not
 	 */
 	protected BoardImpl() {
 		super();
-		
+
 		// Add squares
 		for (int i = 0; i < 64; i++) {
 			Square square = ChessFactory.eINSTANCE.createSquare();
+
+			// Index
 			square.setIndex(i);
+
+			// Compute rank
+			int rank = (63 - square.getIndex()) / 8 + 1;
+			square.setRank(Ranks.get(rank));
+
+			// Compute file
+			int file = (square.getIndex()) % 8 + 1;
+			square.setFile(Files.get(file));
+
+			// Compute color
+			Colors color;
+			if (file % 2 == 0) {
+				if (rank % 2 == 0) {
+					color = Colors.LIGHT;
+				} else {
+					color = Colors.DARK;
+				}
+			} else {
+				if (rank % 2 == 0) {
+					color = Colors.DARK;
+				} else {
+					color = Colors.LIGHT;
+				}
+			}
+			square.setColor(color);
+
 			getSquares().add(square);
 		}
+
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -96,8 +119,7 @@ public class BoardImpl extends EObjectImpl implements Board {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<Square> getSquares() {
@@ -108,8 +130,7 @@ public class BoardImpl extends EObjectImpl implements Board {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<Piece> getPieces() {
@@ -120,8 +141,7 @@ public class BoardImpl extends EObjectImpl implements Board {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -137,8 +157,7 @@ public class BoardImpl extends EObjectImpl implements Board {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -153,8 +172,7 @@ public class BoardImpl extends EObjectImpl implements Board {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -169,8 +187,7 @@ public class BoardImpl extends EObjectImpl implements Board {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -190,8 +207,7 @@ public class BoardImpl extends EObjectImpl implements Board {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -208,8 +224,7 @@ public class BoardImpl extends EObjectImpl implements Board {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -223,4 +238,4 @@ public class BoardImpl extends EObjectImpl implements Board {
 		return super.eIsSet(featureID);
 	}
 
-} //BoardImpl
+} // BoardImpl

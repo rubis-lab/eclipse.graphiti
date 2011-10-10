@@ -37,6 +37,9 @@ import org.eclipse.graphiti.examples.mm.chess.Square;
  * <ul>
  *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.SquareImpl#getBoard <em>Board</em>}</li>
  *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.SquareImpl#getIndex <em>Index</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.SquareImpl#getFile <em>File</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.SquareImpl#getRank <em>Rank</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.SquareImpl#getColor <em>Color</em>}</li>
  *   <li>{@link org.eclipse.graphiti.examples.mm.chess.impl.SquareImpl#getPiece <em>Piece</em>}</li>
  * </ul>
  * </p>
@@ -62,9 +65,56 @@ public class SquareImpl extends EObjectImpl implements Square {
 	protected int index = INDEX_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getFile() <em>File</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Files FILE_EDEFAULT = Files.NONE;
+	/**
+	 * The cached value of the '{@link #getFile() <em>File</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getFile()
+	 * @generated
+	 * @ordered
+	 */
+	protected Files file = FILE_EDEFAULT;
+	/**
+	 * The default value of the '{@link #getRank() <em>Rank</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getRank()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Ranks RANK_EDEFAULT = Ranks.NONE;
+	/**
+	 * The cached value of the '{@link #getRank() <em>Rank</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getRank()
+	 * @generated
+	 * @ordered
+	 */
+	protected Ranks rank = RANK_EDEFAULT;
+	/**
+	 * The default value of the '{@link #getColor() <em>Color</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getColor()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Colors COLOR_EDEFAULT = Colors.NONE;
+	/**
+	 * The cached value of the '{@link #getColor() <em>Color</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getColor()
+	 * @generated
+	 * @ordered
+	 */
+	protected Colors color = COLOR_EDEFAULT;
+	/**
 	 * The cached value of the '{@link #getPiece() <em>Piece</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getPiece()
 	 * @generated
 	 * @ordered
@@ -146,8 +196,7 @@ public class SquareImpl extends EObjectImpl implements Square {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Piece getPiece() {
@@ -163,8 +212,7 @@ public class SquareImpl extends EObjectImpl implements Square {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Piece basicGetPiece() {
@@ -172,8 +220,7 @@ public class SquareImpl extends EObjectImpl implements Square {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain basicSetPiece(Piece newPiece, NotificationChain msgs) {
@@ -187,8 +234,7 @@ public class SquareImpl extends EObjectImpl implements Square {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setPiece(Piece newPiece) {
@@ -207,49 +253,59 @@ public class SquareImpl extends EObjectImpl implements Square {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated not
+	 * @generated
 	 */
 	public Ranks getRank() {
-		int rank = (63 - getIndex()) / 8 + 1;
-		return Ranks.get(rank);
+		return rank;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated not
+	 * @generated
+	 */
+	public void setRank(Ranks newRank) {
+		Ranks oldRank = rank;
+		rank = newRank == null ? RANK_EDEFAULT : newRank;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ChessPackage.SQUARE__RANK, oldRank, rank));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
 	 */
 	public Files getFile() {
-		int file = (getIndex()) % 8 + 1;
-		return Files.get(file);
+		return file;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated not
+	 * @generated
+	 */
+	public void setFile(Files newFile) {
+		Files oldFile = file;
+		file = newFile == null ? FILE_EDEFAULT : newFile;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ChessPackage.SQUARE__FILE, oldFile, file));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
 	 */
 	public Colors getColor() {
-		int file = 9 - getFile().getValue();
-		int rank = getRank().getValue();
-
-		Colors color;
-		if (file % 2 == 0) {
-			if (rank % 2 == 0) {
-				color = Colors.LIGHT;
-			} else {
-				color = Colors.DARK;
-			}
-		} else {
-			if (rank % 2 == 0) {
-				color = Colors.DARK;
-			} else {
-				color = Colors.LIGHT;
-			}
-		}
-
 		return color;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setColor(Colors newColor) {
+		Colors oldColor = color;
+		color = newColor == null ? COLOR_EDEFAULT : newColor;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ChessPackage.SQUARE__COLOR, oldColor, color));
 	}
 
 	/**
@@ -328,6 +384,12 @@ public class SquareImpl extends EObjectImpl implements Square {
 				return getBoard();
 			case ChessPackage.SQUARE__INDEX:
 				return getIndex();
+			case ChessPackage.SQUARE__FILE:
+				return getFile();
+			case ChessPackage.SQUARE__RANK:
+				return getRank();
+			case ChessPackage.SQUARE__COLOR:
+				return getColor();
 			case ChessPackage.SQUARE__PIECE:
 				if (resolve) return getPiece();
 				return basicGetPiece();
@@ -347,6 +409,15 @@ public class SquareImpl extends EObjectImpl implements Square {
 				return;
 			case ChessPackage.SQUARE__INDEX:
 				setIndex((Integer)newValue);
+				return;
+			case ChessPackage.SQUARE__FILE:
+				setFile((Files)newValue);
+				return;
+			case ChessPackage.SQUARE__RANK:
+				setRank((Ranks)newValue);
+				return;
+			case ChessPackage.SQUARE__COLOR:
+				setColor((Colors)newValue);
 				return;
 			case ChessPackage.SQUARE__PIECE:
 				setPiece((Piece)newValue);
@@ -368,6 +439,15 @@ public class SquareImpl extends EObjectImpl implements Square {
 			case ChessPackage.SQUARE__INDEX:
 				setIndex(INDEX_EDEFAULT);
 				return;
+			case ChessPackage.SQUARE__FILE:
+				setFile(FILE_EDEFAULT);
+				return;
+			case ChessPackage.SQUARE__RANK:
+				setRank(RANK_EDEFAULT);
+				return;
+			case ChessPackage.SQUARE__COLOR:
+				setColor(COLOR_EDEFAULT);
+				return;
 			case ChessPackage.SQUARE__PIECE:
 				setPiece((Piece)null);
 				return;
@@ -386,6 +466,12 @@ public class SquareImpl extends EObjectImpl implements Square {
 				return getBoard() != null;
 			case ChessPackage.SQUARE__INDEX:
 				return index != INDEX_EDEFAULT;
+			case ChessPackage.SQUARE__FILE:
+				return file != FILE_EDEFAULT;
+			case ChessPackage.SQUARE__RANK:
+				return rank != RANK_EDEFAULT;
+			case ChessPackage.SQUARE__COLOR:
+				return color != COLOR_EDEFAULT;
 			case ChessPackage.SQUARE__PIECE:
 				return piece != null;
 		}
@@ -403,6 +489,12 @@ public class SquareImpl extends EObjectImpl implements Square {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (index: ");
 		result.append(index);
+		result.append(", file: ");
+		result.append(file);
+		result.append(", rank: ");
+		result.append(rank);
+		result.append(", color: ");
+		result.append(color);
 		result.append(')');
 		return result.toString();
 	}

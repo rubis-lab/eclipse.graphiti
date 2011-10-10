@@ -134,13 +134,40 @@ public interface ChessPackage extends EPackage {
 	int SQUARE__INDEX = 1;
 
 	/**
+	 * The feature id for the '<em><b>File</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SQUARE__FILE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Rank</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SQUARE__RANK = 3;
+
+	/**
+	 * The feature id for the '<em><b>Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SQUARE__COLOR = 4;
+
+	/**
 	 * The feature id for the '<em><b>Piece</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SQUARE__PIECE = 2;
+	int SQUARE__PIECE = 5;
 
 	/**
 	 * The number of structural features of the '<em>Square</em>' class.
@@ -149,7 +176,7 @@ public interface ChessPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SQUARE_FEATURE_COUNT = 3;
+	int SQUARE_FEATURE_COUNT = 6;
 
 
 	/**
@@ -312,6 +339,39 @@ public interface ChessPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSquare_Index();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.examples.mm.chess.Square#getFile <em>File</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>File</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Square#getFile()
+	 * @see #getSquare()
+	 * @generated
+	 */
+	EAttribute getSquare_File();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.examples.mm.chess.Square#getRank <em>Rank</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Rank</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Square#getRank()
+	 * @see #getSquare()
+	 * @generated
+	 */
+	EAttribute getSquare_Rank();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.examples.mm.chess.Square#getColor <em>Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Color</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.chess.Square#getColor()
+	 * @see #getSquare()
+	 * @generated
+	 */
+	EAttribute getSquare_Color();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.examples.mm.chess.Square#getPiece <em>Piece</em>}'.
@@ -491,6 +551,30 @@ public interface ChessPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SQUARE__INDEX = eINSTANCE.getSquare_Index();
+
+		/**
+		 * The meta object literal for the '<em><b>File</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SQUARE__FILE = eINSTANCE.getSquare_File();
+
+		/**
+		 * The meta object literal for the '<em><b>Rank</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SQUARE__RANK = eINSTANCE.getSquare_Rank();
+
+		/**
+		 * The meta object literal for the '<em><b>Color</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SQUARE__COLOR = eINSTANCE.getSquare_Color();
 
 		/**
 		 * The meta object literal for the '<em><b>Piece</b></em>' reference feature.

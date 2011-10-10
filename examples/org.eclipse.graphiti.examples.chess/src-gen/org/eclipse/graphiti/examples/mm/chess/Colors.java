@@ -31,6 +31,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum Colors implements Enumerator {
 	/**
+	 * The '<em><b>None</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NONE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NONE(0, "none", "none"), /**
 	 * The '<em><b>Light</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38,7 +46,7 @@ public enum Colors implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LIGHT(0, "light", ""),
+	LIGHT(1, "light", "light"),
 
 	/**
 	 * The '<em><b>Dark</b></em>' literal object.
@@ -48,7 +56,22 @@ public enum Colors implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DARK(1, "dark", "dark");
+	DARK(2, "dark", "dark");
+
+	/**
+	 * The '<em><b>None</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>None</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NONE
+	 * @model name="none"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NONE_VALUE = 0;
 
 	/**
 	 * The '<em><b>Light</b></em>' literal value.
@@ -59,11 +82,11 @@ public enum Colors implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #LIGHT
-	 * @model name="light" literal=""
+	 * @model name="light"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int LIGHT_VALUE = 0;
+	public static final int LIGHT_VALUE = 1;
 
 	/**
 	 * The '<em><b>Dark</b></em>' literal value.
@@ -78,7 +101,7 @@ public enum Colors implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DARK_VALUE = 1;
+	public static final int DARK_VALUE = 2;
 
 	/**
 	 * An array of all the '<em><b>Colors</b></em>' enumerators.
@@ -88,6 +111,7 @@ public enum Colors implements Enumerator {
 	 */
 	private static final Colors[] VALUES_ARRAY =
 		new Colors[] {
+			NONE,
 			LIGHT,
 			DARK,
 		};
@@ -140,6 +164,7 @@ public enum Colors implements Enumerator {
 	 */
 	public static Colors get(int value) {
 		switch (value) {
+			case NONE_VALUE: return NONE;
 			case LIGHT_VALUE: return LIGHT;
 			case DARK_VALUE: return DARK;
 		}

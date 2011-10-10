@@ -10,19 +10,21 @@
         eType="#//Piece" containment="true" eOpposite="#//Piece/board"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Square">
-    <eOperations name="getRank" lowerBound="1" eType="#//Ranks"/>
-    <eOperations name="getFile" lowerBound="1" eType="#//Files"/>
-    <eOperations name="getColor" eType="#//Colors"/>
     <eOperations name="getOffsetX" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eOperations name="getOffsetY" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="board" lowerBound="1" eType="#//Board"
         eOpposite="#//Board/squares"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" lowerBound="1" eType="#//Files"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rank" lowerBound="1" eType="#//Ranks"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="color" lowerBound="1" eType="#//Colors"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="piece" eType="#//Piece"
         eOpposite="#//Piece/square"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Ranks">
+    <eLiterals name="none"/>
     <eLiterals name="one" value="1"/>
     <eLiterals name="two" value="2"/>
     <eLiterals name="three" value="3"/>
@@ -33,6 +35,7 @@
     <eLiterals name="eight" value="8"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Files">
+    <eLiterals name="none"/>
     <eLiterals name="A" value="1"/>
     <eLiterals name="B" value="2"/>
     <eLiterals name="C" value="3"/>
@@ -43,8 +46,9 @@
     <eLiterals name="H" value="8"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Colors">
-    <eLiterals name="light" literal=""/>
-    <eLiterals name="dark" value="1"/>
+    <eLiterals name="none"/>
+    <eLiterals name="light" value="1" literal="light"/>
+    <eLiterals name="dark" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Piece">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="owner" eType="#//Colors"/>

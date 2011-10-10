@@ -31,6 +31,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum Ranks implements Enumerator {
 	/**
+	 * The '<em><b>None</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NONE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NONE(0, "none", "none"), /**
 	 * The '<em><b>One</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -109,6 +117,21 @@ public enum Ranks implements Enumerator {
 	 * @ordered
 	 */
 	EIGHT(8, "eight", "eight");
+
+	/**
+	 * The '<em><b>None</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>None</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NONE
+	 * @model name="none"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NONE_VALUE = 0;
 
 	/**
 	 * The '<em><b>One</b></em>' literal value.
@@ -238,6 +261,7 @@ public enum Ranks implements Enumerator {
 	 */
 	private static final Ranks[] VALUES_ARRAY =
 		new Ranks[] {
+			NONE,
 			ONE,
 			TWO,
 			THREE,
@@ -296,6 +320,7 @@ public enum Ranks implements Enumerator {
 	 */
 	public static Ranks get(int value) {
 		switch (value) {
+			case NONE_VALUE: return NONE;
 			case ONE_VALUE: return ONE;
 			case TWO_VALUE: return TWO;
 			case THREE_VALUE: return THREE;

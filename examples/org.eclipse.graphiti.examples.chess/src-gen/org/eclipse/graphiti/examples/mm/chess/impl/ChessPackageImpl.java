@@ -208,8 +208,35 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSquare_File() {
+		return (EAttribute)squareEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSquare_Rank() {
+		return (EAttribute)squareEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSquare_Color() {
+		return (EAttribute)squareEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getSquare_Piece() {
-		return (EReference)squareEClass.getEStructuralFeatures().get(2);
+		return (EReference)squareEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -328,6 +355,9 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 		squareEClass = createEClass(SQUARE);
 		createEReference(squareEClass, SQUARE__BOARD);
 		createEAttribute(squareEClass, SQUARE__INDEX);
+		createEAttribute(squareEClass, SQUARE__FILE);
+		createEAttribute(squareEClass, SQUARE__RANK);
+		createEAttribute(squareEClass, SQUARE__COLOR);
 		createEReference(squareEClass, SQUARE__PIECE);
 
 		pieceEClass = createEClass(PIECE);
@@ -380,13 +410,10 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 		initEClass(squareEClass, Square.class, "Square", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSquare_Board(), this.getBoard(), this.getBoard_Squares(), "board", null, 1, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSquare_Index(), ecorePackage.getEInt(), "index", "-1", 1, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSquare_File(), this.getFiles(), "file", null, 1, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSquare_Rank(), this.getRanks(), "rank", "", 1, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSquare_Color(), this.getColors(), "color", null, 1, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSquare_Piece(), this.getPiece(), this.getPiece_Square(), "piece", null, 0, 1, Square.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(squareEClass, this.getRanks(), "getRank", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(squareEClass, this.getFiles(), "getFile", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(squareEClass, this.getColors(), "getColor", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(squareEClass, ecorePackage.getEInt(), "getOffsetX", 1, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -400,6 +427,7 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 
 		// Initialize enums and add enum literals
 		initEEnum(ranksEEnum, Ranks.class, "Ranks");
+		addEEnumLiteral(ranksEEnum, Ranks.NONE);
 		addEEnumLiteral(ranksEEnum, Ranks.ONE);
 		addEEnumLiteral(ranksEEnum, Ranks.TWO);
 		addEEnumLiteral(ranksEEnum, Ranks.THREE);
@@ -410,6 +438,7 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 		addEEnumLiteral(ranksEEnum, Ranks.EIGHT);
 
 		initEEnum(filesEEnum, Files.class, "Files");
+		addEEnumLiteral(filesEEnum, Files.NONE);
 		addEEnumLiteral(filesEEnum, Files.A);
 		addEEnumLiteral(filesEEnum, Files.B);
 		addEEnumLiteral(filesEEnum, Files.C);
@@ -420,6 +449,7 @@ public class ChessPackageImpl extends EPackageImpl implements ChessPackage {
 		addEEnumLiteral(filesEEnum, Files.H);
 
 		initEEnum(colorsEEnum, Colors.class, "Colors");
+		addEEnumLiteral(colorsEEnum, Colors.NONE);
 		addEEnumLiteral(colorsEEnum, Colors.LIGHT);
 		addEEnumLiteral(colorsEEnum, Colors.DARK);
 
