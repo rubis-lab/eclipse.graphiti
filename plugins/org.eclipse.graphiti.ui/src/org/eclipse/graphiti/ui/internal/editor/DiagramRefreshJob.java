@@ -27,6 +27,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.internal.util.T;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionDecoratorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.DiagramEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
@@ -50,9 +51,9 @@ class DiagramRefreshJob extends UIJob {
 
 	private boolean refreshAll = false;
 
-	private DiagramEditorInternal ed;
+	private DiagramEditor ed;
 
-	DiagramRefreshJob(String name, DiagramEditorInternal ed) {
+	DiagramRefreshJob(String name, DiagramEditor ed) {
 		super(name);
 		this.ed = ed;
 	}
@@ -83,6 +84,7 @@ class DiagramRefreshJob extends UIJob {
 		return refreshAll;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public IStatus runInUIThread(IProgressMonitor monitor) {
 		if (GFPreferences.getInstance().isCPUProfilingTraceActive()) {
@@ -104,6 +106,7 @@ class DiagramRefreshJob extends UIJob {
 				}
 			}
 			// refresh all active connection decorators
+			@SuppressWarnings({ "unchecked" })
 			Set<Entry> entrySet = ed.getGraphicalViewer().getEditPartRegistry().entrySet();
 			for (Entry e : entrySet) {
 				Object value = e.getValue();

@@ -17,7 +17,6 @@
 package org.eclipse.graphiti.ui.internal.services.impl;
 
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.platform.IDiagramEditor;
@@ -82,11 +81,11 @@ public class WorkbenchService implements IWorkbenchService {
 	 * @param domain
 	 * @return the editor instance
 	 */
-	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, boolean disposeEditingDomain) {
+	public IDiagramEditor openDiagramEditor(Diagram diagram) {
 		IDiagramEditor ret = null;
 
 		String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
-		ret = openDiagramEditor(diagram, domain, providerId, disposeEditingDomain);
+		ret = openDiagramEditor(diagram, providerId);
 
 		return ret;
 	}
@@ -102,9 +101,9 @@ public class WorkbenchService implements IWorkbenchService {
 	 *            be used by the editor.
 	 * @return the editor instance
 	 */
-	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, String providerId,
-			boolean disposeEditingDomain) {
-		return openDiagramEditor(diagram, domain, providerId, DiagramEditor.DIAGRAM_EDITOR_ID, disposeEditingDomain);
+
+	public IDiagramEditor openDiagramEditor(Diagram diagram, String providerId) {
+		return openDiagramEditor(diagram, providerId, DiagramEditor.DIAGRAM_EDITOR_ID);
 	}
 
 	/**
@@ -122,10 +121,10 @@ public class WorkbenchService implements IWorkbenchService {
 	 * @return the editor instance
 	 * @since 0.8.0
 	 */
-	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, String providerId, String editorId,
-			boolean disposeEditingDomain) {
+
+	public IDiagramEditor openDiagramEditor(Diagram diagram, String providerId, String editorId) {
 		IDiagramEditor ret = null;
-		DiagramEditorInput diagramEditorInput = DiagramEditorInput.createEditorInput(diagram, domain, providerId, disposeEditingDomain);
+		DiagramEditorInput diagramEditorInput = DiagramEditorInput.createEditorInput(diagram, providerId);
 		IWorkbenchPage workbenchPage = getActivePage();
 		try {
 			Assert.isNotNull(workbenchPage);

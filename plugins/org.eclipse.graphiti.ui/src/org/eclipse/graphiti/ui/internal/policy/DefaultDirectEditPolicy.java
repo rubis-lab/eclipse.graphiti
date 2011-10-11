@@ -27,10 +27,10 @@ import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.graphiti.internal.command.DirectEditingFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ICommand;
 import org.eclipse.graphiti.internal.util.LookManager;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.parts.directedit.IDirectEditHolder;
 import org.eclipse.graphiti.ui.internal.parts.directedit.TextCellEditor;
 import org.eclipse.graphiti.ui.internal.requests.GFDirectEditRequest;
@@ -121,7 +121,7 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 		final ICommand cmd = new DirectEditingFeatureCommandWithContext(directEditingFeature, directEditingContext, value, acceptedProposal);
 
 		final IFeatureProvider fp = directEditingFeature.getFeatureProvider();
-		final DiagramEditorInternal diagramEditor = (DiagramEditorInternal) fp.getDiagramTypeProvider().getDiagramEditor();
+		final DiagramEditor diagramEditor = (DiagramEditor) fp.getDiagramTypeProvider().getDiagramEditor();
 		final CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
 		commandStack.execute(new GefCommandWrapper(cmd, diagramEditor.getEditingDomain()));
 		// CommandExec.getSingleton().executeCommand(cmd, fp.getConnection());

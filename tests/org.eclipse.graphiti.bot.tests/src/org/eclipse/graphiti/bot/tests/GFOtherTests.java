@@ -444,7 +444,7 @@ public class GFOtherTests extends AbstractGFTests {
 			public void run() {
 				final Diagram newDiagram = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 				assertTrue("create diagram does not work", newDiagram != null);
-				GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram, ed.getTransactionalEditingDomain(), false);
+				GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram);
 			}
 		});
 		ed.closeEditor();
@@ -649,7 +649,6 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testUtils() throws Exception {
 		TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService().createResourceSetAndEditingDomain();
-		ed.setEditingDomain(editingDomain);
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		URI diagramFileUri = URI.createPlatformPluginURI(
 				"/org.eclipse.graphiti.bot.tests/src/org/eclipse/graphiti/bot/tests/testUtil.diagram", true);
@@ -661,7 +660,7 @@ public class GFOtherTests extends AbstractGFTests {
 		final EClass c3 = (EClass) diagramResource.getEObject("/4");
 		final EClass c4 = (EClass) diagramResource.getEObject("/5");
 
-		executeInRecordingCommand(ed.getTransactionalEditingDomain(), new Runnable() {
+		executeInRecordingCommand(editingDomain, new Runnable() {
 			public void run() {
 				ContainerShape cs1 = getPeService().createContainerShape(diagram, true);
 				ContainerShape cs2 = getPeService().createContainerShape(diagram, true);
@@ -1055,19 +1054,19 @@ public class GFOtherTests extends AbstractGFTests {
 
 		// open editor on first diagram
 		PoWorkbenchPage wp = new PoWorkbenchPage();
-		editorCount = wp.openDiagramEditorFromObject(diagram1, ed.getTransactionalEditingDomain());
+		editorCount = wp.openDiagramEditorFromObject(diagram1);
 		assertEquals("One editor must have opened for " + diagram1, 1, editorCount);
 
 		// open same diagram again
-		editorCount = wp.openDiagramEditorFromObject(diagram1, ed.getTransactionalEditingDomain());
+		editorCount = wp.openDiagramEditorFromObject(diagram1);
 		assertEquals("No new editor must have opened for " + diagram1, 1, editorCount);
 
 		// open editor on second diagram
-		editorCount = wp.openDiagramEditorFromObject(diagram2, ed.getTransactionalEditingDomain());
+		editorCount = wp.openDiagramEditorFromObject(diagram2);
 		assertEquals("One editor must have opened for " + diagram2, 2, editorCount);
 
 		// open first diagram again
-		editorCount = wp.openDiagramEditorFromObject(diagram1, ed.getTransactionalEditingDomain());
+		editorCount = wp.openDiagramEditorFromObject(diagram1);
 		assertEquals("No new editor must have opened for " + diagram1, 2, editorCount);
 	}
 
@@ -1080,7 +1079,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 		// Open editor
 		PoWorkbenchPage wp = new PoWorkbenchPage();
-		wp.openDiagramEditorFromObject(diagram[0], ed.getTransactionalEditingDomain());
+		wp.openDiagramEditorFromObject(diagram[0]);
 
 		// The title of the editor shall be the name of the diagram
 		assertEquals("Diagram Object", wp.getGefEditor().getTitle());

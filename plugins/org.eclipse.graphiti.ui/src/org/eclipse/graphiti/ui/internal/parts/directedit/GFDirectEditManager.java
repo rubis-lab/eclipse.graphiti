@@ -26,7 +26,7 @@ import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.func.IDirectEditing;
 import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.graphiti.func.Proposal;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.figures.GFMultilineText;
 import org.eclipse.graphiti.ui.internal.figures.GFText;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
@@ -64,7 +64,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 
 	private TextCellLocator locator;
 
-	private DiagramEditorInternal diagramEditor;
+	private DiagramEditor diagramEditor;
 
 	private Font cellEditorFont = null;
 

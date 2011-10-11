@@ -92,8 +92,8 @@ import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.IImageDecorator;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.figures.DecoratorImageFigure;
 import org.eclipse.graphiti.ui.internal.figures.GFAbstractShape;
 import org.eclipse.graphiti.ui.internal.figures.GFEllipse;
@@ -1400,7 +1400,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		return forceRefresh;
 	}
 
-	private DiagramEditorInternal getEditor() {
+	private DiagramEditor getEditor() {
 		return getConfigurationProvider().getDiagramEditor();
 	}
 

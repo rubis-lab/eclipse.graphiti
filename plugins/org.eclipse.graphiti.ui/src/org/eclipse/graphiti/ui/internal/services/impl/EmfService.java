@@ -353,7 +353,7 @@ public class EmfService implements IEmfService {
 
 	public Diagram getDiagramFromFile(IFile file, ResourceSet resourceSet) {
 		// Get the URI of the model file.
-		URI resourceURI = getFileURI(file, resourceSet);
+		URI resourceURI = getFileURI(file);
 		// Demand load the resource for this file.
 		Resource resource;
 		try {
@@ -370,12 +370,12 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	public URI getFileURI(IFile file, ResourceSet resourceSet) {
+
+	public URI getFileURI(IFile file) {
 		String pathName = file.getFullPath().toString();
 		URI resourceURI = URI.createPlatformResourceURI(pathName, true);
-		if (resourceSet != null) {
-			resourceURI = resourceSet.getURIConverter().normalize(resourceURI);
-		}
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceURI = resourceSet.getURIConverter().normalize(resourceURI);
 		return resourceURI;
 	}
 

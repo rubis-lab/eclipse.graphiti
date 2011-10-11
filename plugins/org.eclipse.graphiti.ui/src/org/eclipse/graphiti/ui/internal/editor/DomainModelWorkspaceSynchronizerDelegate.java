@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+import org.eclipse.graphiti.ui.editor.DiagramEditorBehavior;
 
 /**
  * Manages changes done to the resources tied to the diagram outside of the

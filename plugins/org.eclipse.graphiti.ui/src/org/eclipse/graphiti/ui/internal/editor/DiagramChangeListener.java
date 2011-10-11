@@ -50,6 +50,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionEditPart;
@@ -65,9 +66,9 @@ import org.eclipse.swt.widgets.Display;
 public class DiagramChangeListener implements ResourceSetListener {
 
 	private DiagramRefreshJob diagramRefreshJob;
-	private DiagramEditorInternal ed;
+	private DiagramEditor ed;
 
-	public DiagramChangeListener(DiagramEditorInternal ed) {
+	public DiagramChangeListener(DiagramEditor ed) {
 		this.ed = ed;
 	}
 
@@ -300,7 +301,7 @@ public class DiagramChangeListener implements ResourceSetListener {
 		return diagramRefreshJob;
 	}
 
-	boolean stopListening() {
+	public boolean stopListening() {
 		return getRefreshDiagramJob().cancel();
 	}
 

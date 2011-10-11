@@ -22,15 +22,16 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 
-	private DiagramEditorInternal diagramEditor;
+	private DiagramEditor diagramEditor;
 
-	public GraphitiScrollingGraphicalViewer(DiagramEditorInternal diagramEditor) {
+	public GraphitiScrollingGraphicalViewer(DiagramEditor diagramEditor) {
 		this.setDiagramEditor(diagramEditor);
 	}
 
@@ -168,11 +169,11 @@ public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 		}
 	}
 
-	private void setDiagramEditor(DiagramEditorInternal diagramEditor) {
+	private void setDiagramEditor(DiagramEditor diagramEditor) {
 		this.diagramEditor = diagramEditor;
 	}
 
-	protected DiagramEditorInternal getDiagramEditor() {
+	protected DiagramEditor getDiagramEditor() {
 		return diagramEditor;
 	}
 }

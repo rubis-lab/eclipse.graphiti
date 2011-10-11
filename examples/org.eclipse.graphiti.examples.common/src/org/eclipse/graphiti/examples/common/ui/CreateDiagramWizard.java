@@ -27,7 +27,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.examples.common.ExamplesCommonPlugin;
 import org.eclipse.graphiti.examples.common.FileService;
 import org.eclipse.graphiti.examples.common.Messages;
@@ -139,9 +138,9 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 		IFile diagramFile = diagramFolder.getFile(diagramName + "." + editorExtension); //$NON-NLS-1$
 		URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 
-		TransactionalEditingDomain domain = FileService.createEmfFileForDiagram(uri, diagram);
+		FileService.createEmfFileForDiagram(uri, diagram);
 		String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
-		DiagramEditorInput editorInput = new DiagramEditorInput(EcoreUtil.getURI(diagram), domain, providerId, true);
+		DiagramEditorInput editorInput = new DiagramEditorInput(EcoreUtil.getURI(diagram), providerId);
 		
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, editorID);

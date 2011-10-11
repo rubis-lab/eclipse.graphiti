@@ -225,7 +225,7 @@ public interface IEmfService extends org.eclipse.graphiti.ui.services.IEmfServic
 	 *            <code>null</code>, in this case no normalization is done).
 	 * @return The platform resource URI for the given file.
 	 */
-	public abstract URI getFileURI(IFile file, ResourceSet resourceSet);
+	public abstract URI getFileURI(IFile file);
 
 	/**
 	 * Maps the fileURI to an URI which points directly to the Diagram Object.

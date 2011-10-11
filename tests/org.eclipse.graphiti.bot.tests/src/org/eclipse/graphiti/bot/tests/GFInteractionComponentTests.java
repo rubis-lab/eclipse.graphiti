@@ -837,6 +837,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		assertEquals(120, shape.getGraphicsAlgorithm().getX());
 		assertEquals(120, shape.getGraphicsAlgorithm().getX());
 		page.shutdownEditor(diagramEditor);
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
@@ -882,7 +883,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	@Test
 	public void testMoveConnectionDecorator() throws InterruptedException {
 		// Test for Bug 355027: Move of connection decorators when zoom level != 100 behaves weird
-		page.closeAllEditors();
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider()).getInnerFeatureProvider();
@@ -972,7 +972,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				SWTBotMenu zoomInItem = viewMenu.menu("Zoom In");
 				zoomInItem.click();
 			}
-		});
+		}); 
 		Thread.sleep(SHORT_DELAY);
 
 		// Do the move of the connection decorator with zoom level as set before

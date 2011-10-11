@@ -22,6 +22,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.tools.ConnectionDragCreationTool;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.requests.ContextButtonDragRequest;
 
 /**
@@ -77,7 +78,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		return request;
 	}
 
-	private DiagramEditorInternal diagramEditor;
+	private DiagramEditor diagramEditor;
 
 	private ContextButtonEntry contextButtonEntry;
 
@@ -91,7 +92,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	 * @param contextButtonEntry
 	 *            the context button entry
 	 */
-	public void startConnection(EditPart targetEditPart, DiagramEditorInternal diagramEditor, ContextButtonEntry contextButtonEntry) {
+	public void startConnection(EditPart targetEditPart, DiagramEditor diagramEditor, ContextButtonEntry contextButtonEntry) {
 
 		this.diagramEditor = diagramEditor;
 		this.contextButtonEntry = contextButtonEntry;
@@ -123,7 +124,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	 * @param targetTargetEditPart
 	 *            the target target edit part
 	 */
-	public void continueConnection(EditPart targetEditPart, DiagramEditorInternal diagramEditor, ContextButtonEntry contextButtonEntry,
+	public void continueConnection(EditPart targetEditPart, DiagramEditor diagramEditor, ContextButtonEntry contextButtonEntry,
 			EditPart targetTargetEditPart) {
 
 		this.diagramEditor = diagramEditor;

@@ -16,7 +16,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.services;
 
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
@@ -57,7 +56,7 @@ public interface IWorkbenchService {
 	 * @param domain
 	 * @return the editor instance
 	 */
-	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, boolean disposeEditingDomain);
+	public IDiagramEditor openDiagramEditor(Diagram diagram);
 
 	/**
 	 * Opens the given diagram in the diagram editor.
@@ -70,8 +69,7 @@ public interface IWorkbenchService {
 	 *            be used by the editor.
 	 * @return the editor instance
 	 */
-	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, String providerId,
-			boolean disposeEditingDomain);
+	public IDiagramEditor openDiagramEditor(Diagram diagram, String providerId);
 
 	/**
 	 * Opens the given diagram in the diagram editor with the given id.
@@ -88,8 +86,7 @@ public interface IWorkbenchService {
 	 * @return the editor instance
 	 * @since 0.8.0
 	 */
-	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, String providerId, String editorId,
-			boolean disposeEditingDomain);
+	public IDiagramEditor openDiagramEditor(Diagram diagram, String providerId, String editorId);
 
 	/**
 	 * Returns the shell of the active workbench window.
