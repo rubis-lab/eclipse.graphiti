@@ -16,8 +16,11 @@ package org.eclipse.graphiti.examples.chess.diagram;
 
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.examples.chess.features.AddChessBoardFeature;
+import org.eclipse.graphiti.examples.chess.features.AddChessPieceFeature;
+import org.eclipse.graphiti.examples.chess.features.CreateAllInitialChessPiecesFeature;
 import org.eclipse.graphiti.examples.chess.features.CreateChessBoardFeature;
 import org.eclipse.graphiti.examples.mm.chess.Board;
+import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Square;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
@@ -41,13 +44,15 @@ public class ChessFeatureProvider extends DefaultFeatureProvider implements IFea
 
 	@Override
 	public ICreateFeature[] getCreateFeatures() {
-		return new ICreateFeature[] { new CreateChessBoardFeature(this) };
+		return new ICreateFeature[] { new CreateChessBoardFeature(this), new CreateAllInitialChessPiecesFeature(this) };
 	}
 
 	@Override
 	public IAddFeature getAddFeature(IAddContext context) {
 		if (context.getNewObject() instanceof Board) {
 			return new AddChessBoardFeature(this);
+		} else if (context.getNewObject() instanceof Piece) {
+			return new AddChessPieceFeature(this);
 		}
 		return super.getAddFeature(context);
 	}

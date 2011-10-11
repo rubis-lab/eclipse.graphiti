@@ -20,7 +20,17 @@
          <diagramType
                id="org.eclipse.graphiti.examples.chess.ChessDiagramType">
          </diagramType>
+         <imageProvider
+               id="org.eclipse.graphiti.examples.chess.ChessImageProvider">
+         </imageProvider>
       </diagramTypeProvider>
+   </extension>
+   <extension
+         point="org.eclipse.graphiti.ui.imageProviders">
+      <imageProvider
+            class="org.eclipse.graphiti.examples.chess.ChessImageProvider"
+            id="org.eclipse.graphiti.examples.chess.ChessImageProvider">
+      </imageProvider>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
