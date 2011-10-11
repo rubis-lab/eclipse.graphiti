@@ -26,12 +26,9 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ICreateService;
-import org.eclipse.graphiti.services.IGaLayoutService;
 import org.eclipse.graphiti.util.IColorConstant;
 
 public class AddChessPieceFeature extends AbstractAddShapeFeature implements IAddFeature {
-
-	private static final int SQUARE_SIZE = 50;
 
 	public AddChessPieceFeature(IFeatureProvider fp) {
 		super(fp);
@@ -49,7 +46,6 @@ public class AddChessPieceFeature extends AbstractAddShapeFeature implements IAd
 	public PictogramElement add(IAddContext context) {
 		// Get the Graphiti services
 		ICreateService createService = Graphiti.getCreateService();
-		IGaLayoutService layoutService = Graphiti.getGaLayoutService();
 
 		// Get the piece to add
 		Piece piece = (Piece) context.getNewObject();
