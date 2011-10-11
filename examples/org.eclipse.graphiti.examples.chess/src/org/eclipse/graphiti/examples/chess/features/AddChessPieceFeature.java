@@ -14,7 +14,6 @@
  */
 package org.eclipse.graphiti.examples.chess.features;
 
-import org.eclipse.graphiti.examples.chess.ChessImageProvider;
 import org.eclipse.graphiti.examples.mm.chess.Colors;
 import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Types;
@@ -22,12 +21,13 @@ import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
-import org.eclipse.graphiti.mm.algorithms.Image;
+import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ICreateService;
 import org.eclipse.graphiti.services.IGaLayoutService;
+import org.eclipse.graphiti.util.IColorConstant;
 
 public class AddChessPieceFeature extends AbstractAddShapeFeature implements IAddFeature {
 
@@ -55,49 +55,46 @@ public class AddChessPieceFeature extends AbstractAddShapeFeature implements IAd
 		Piece piece = (Piece) context.getNewObject();
 
 		// Get the image
-		String imageId = null;
+		int[] points = null;
 		if (Types.BISHOP.equals(piece.getType())) {
-			if (Colors.DARK.equals(piece.getOwner())) {
-				imageId = ChessImageProvider.IMG_BLACK_BISHOP;
-			} else {
-				imageId = ChessImageProvider.IMG_WHITE_BISHOP;
-			}
+			points = new int[] { 10, 45, 10, 40, 15, 30, 20, 25, 15, 20, 15, 15, 20, 10, 20, 5, 30, 5, 30, 10, 35, 15,
+					35, 20, 30, 25, 35, 30, 40, 40, 40, 45 };
 		} else if (Types.KING.equals(piece.getType())) {
-			if (Colors.DARK.equals(piece.getOwner())) {
-				imageId = ChessImageProvider.IMG_BLACK_KING;
-			} else {
-				imageId = ChessImageProvider.IMG_WHITE_KING;
-			}
+			points = new int[] { 10, 45, 15, 40, 10, 35, 5, 25, 5, 5, 10, 15, 15, 5, 20, 15, 25, 5, 30, 15, 35, 5, 40,
+					15, 45, 5, 45, 25, 40, 35, 35, 40, 40, 45 };
 		} else if (Types.KNIGHT.equals(piece.getType())) {
-			if (Colors.DARK.equals(piece.getOwner())) {
-				imageId = ChessImageProvider.IMG_BLACK_KNIGHT;
-			} else {
-				imageId = ChessImageProvider.IMG_WHITE_KNIGHT;
-			}
+			points = new int[] { 20, 45, 25, 35, 20, 25, 10, 35, 5, 30, 5, 25, 10, 15, 15, 10, 15, 5, 20, 10, 25, 5,
+					25, 10, 35, 15, 40, 20, 45, 30, 45, 45 };
 		} else if (Types.PAWN.equals(piece.getType())) {
-			if (Colors.DARK.equals(piece.getOwner())) {
-				imageId = ChessImageProvider.IMG_BLACK_PAWN;
-			} else {
-				imageId = ChessImageProvider.IMG_WHITE_PAWN;
-			}
+			points = new int[] { 15, 45, 15, 40, 20, 30, 15, 25, 20, 20, 20, 15, 25, 10, 30, 15, 30, 20, 35, 25, 30,
+					30, 35, 40, 35, 45 };
 		} else if (Types.QUEEN.equals(piece.getType())) {
-			if (Colors.DARK.equals(piece.getOwner())) {
-				imageId = ChessImageProvider.IMG_BLACK_QUEEN;
-			} else {
-				imageId = ChessImageProvider.IMG_WHITE_QUEEN;
-			}
+			points = new int[] { 10, 45, 15, 40, 10, 35, 5, 25, 5, 15, 10, 10, 15, 10, 20, 15, 25, 5, 30, 15, 35, 10,
+					40, 10, 45, 15, 45, 25, 40, 35, 35, 40, 40, 45 };
 		} else if (Types.ROOK.equals(piece.getType())) {
-			if (Colors.DARK.equals(piece.getOwner())) {
-				imageId = ChessImageProvider.IMG_BLACK_ROOK;
-			} else {
-				imageId = ChessImageProvider.IMG_WHITE_ROOK;
-			}
+			points = new int[] { 10, 45, 10, 40, 15, 30, 15, 15, 10, 10, 10, 5, 15, 5, 15, 10, 20, 10, 20, 5, 30, 5,
+					30, 10, 35, 10, 35, 5, 40, 5, 40, 10, 35, 15, 35, 30, 40, 40, 40, 45 };
 		}
 
 		// Create the visualization of the board as a square
 		Shape pieceShape = createService.createShape(context.getTargetContainer(), true);
-		Image image = createService.createImage(pieceShape, imageId);
-		layoutService.setLocationAndSize(image, 0, 0, SQUARE_SIZE, SQUARE_SIZE);
+		Polygon polygon = createService.createPolygon(pieceShape, points);
+
+		// Set the line color; it needs to be the opposite color of the square
+		if (Colors.LIGHT.equals(piece.getSquare().getColor())) {
+			polygon.setForeground(manageColor(IColorConstant.BLACK));
+		} else {
+			polygon.setForeground(manageColor(IColorConstant.WHITE));
+		}
+		polygon.setLineWidth(2);
+
+		// Set the fill color; it needs to be the color of the owner of the
+		// piece
+		if (Colors.LIGHT.equals(piece.getOwner())) {
+			polygon.setBackground(manageColor(IColorConstant.WHITE));
+		} else {
+			polygon.setBackground(manageColor(IColorConstant.BLACK));
+		}
 
 		// Link the visualization with the board
 		link(pieceShape, piece);
