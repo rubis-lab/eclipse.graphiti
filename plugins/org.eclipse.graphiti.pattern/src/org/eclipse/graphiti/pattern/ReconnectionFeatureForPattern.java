@@ -32,7 +32,7 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 		ICustomUndoableFeature {
 
 	private static final String NAME = Messages.ReconnectionFeatureForPattern_0_xfld;
-	private IReconnection deletegate;
+	private IReconnection delegate;
 
 	/**
 	 * Creates a new {@link ReconnectionFeatureForPattern}.
@@ -44,23 +44,23 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 */
 	public ReconnectionFeatureForPattern(IFeatureProvider fp, IReconnection pattern) {
 		super(fp);
-		this.deletegate = pattern;
+		this.delegate = pattern;
 	}
 
 	public boolean canReconnect(IReconnectionContext context) {
-		return deletegate.canReconnect(context);
+		return delegate.canReconnect(context);
 	}
 
 	public void postReconnect(IReconnectionContext context) {
-		deletegate.postReconnect(context);
+		delegate.postReconnect(context);
 	}
 
 	public void preReconnect(IReconnectionContext context) {
-		deletegate.preReconnect(context);
+		delegate.preReconnect(context);
 	}
 
 	public void reconnect(IReconnectionContext context) {
-		deletegate.reconnect(context);
+		delegate.reconnect(context);
 	}
 
 	public boolean canExecute(IContext context) {
@@ -84,8 +84,8 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 
 	@Override
 	public boolean canUndo(IContext context) {
-		if (deletegate instanceof ICustomUndoablePattern) {
-			return ((ICustomUndoablePattern) deletegate).canUndo(this, context);
+		if (delegate instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) delegate).canUndo(this, context);
 		}
 		return super.canUndo(context);
 	}
@@ -95,8 +95,8 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 */
 	@Override
 	public void undo(IContext context) {
-		if (deletegate instanceof ICustomUndoablePattern) {
-			((ICustomUndoablePattern) deletegate).undo(this, context);
+		if (delegate instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) delegate).undo(this, context);
 		}
 	}
 
@@ -105,8 +105,8 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 */
 	@Override
 	public boolean canRedo(IContext context) {
-		if (deletegate instanceof ICustomUndoablePattern) {
-			return ((ICustomUndoablePattern) deletegate).canRedo(this, context);
+		if (delegate instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) delegate).canRedo(this, context);
 		}
 		return true;
 	}
@@ -116,8 +116,8 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 */
 	@Override
 	public void redo(IContext context) {
-		if (deletegate instanceof ICustomUndoablePattern) {
-			((ICustomUndoablePattern) deletegate).redo(this, context);
+		if (delegate instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) delegate).redo(this, context);
 		}
 	}
 }
