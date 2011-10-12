@@ -22,10 +22,12 @@ import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.transaction.RollbackException;
+import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.tools.ConnectionCreationTool;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.impl.CreateConnectionContext;
 import org.eclipse.graphiti.internal.command.CommandExec;
@@ -34,6 +36,7 @@ import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.T;
+import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.swt.events.KeyEvent;
 
 /**
@@ -113,6 +116,65 @@ public class GFConnectionCreationTool extends ConnectionCreationTool {
 			}
 		}
 		// No anchors
+		return null;
+	}
+
+	@Override
+	public void deactivate() {
+		CreateConnectionCommand cmd = getCreateConnectionCommand();
+		if (cmd != null) {
+			cmd.deactivate();
+		}
+		ICreateConnectionFeature ccf = getCreateConnectionFeature();
+		if (ccf != null) {
+			ccf.endConnecting();
+		}
+		super.deactivate();
+	}
+
+	@Override
+	public void activate() {
+		super.activate();
+		ICreateConnectionFeature ccf = getCreateConnectionFeature();
+		if (ccf != null) {
+			ccf.startConnecting();
+		}
+	}
+
+	@Override
+	protected void setState(int state) {
+		if (state == STATE_CONNECTION_STARTED) {
+			CreateConnectionCommand cmd = getCreateConnectionCommand();
+			if (cmd != null) {
+				cmd.connectionStarted();
+			}
+		}
+		super.setState(state);
+	}
+
+	private CreateConnectionCommand getCreateConnectionCommand() {
+		if (getTargetRequest() instanceof CreateConnectionRequest) {
+			CreateConnectionRequest r = (CreateConnectionRequest) getTargetRequest();
+			if (r.getStartCommand() instanceof CreateConnectionCommand) {
+				CreateConnectionCommand cmd = (CreateConnectionCommand) r.getStartCommand();
+				return cmd;
+			}
+		}
+		return null;
+	}
+
+	private ICreateConnectionFeature getCreateConnectionFeature() {
+		if (getTargetRequest() instanceof CreateConnectionRequest) {
+			CreateConnectionRequest r = (CreateConnectionRequest) getTargetRequest();
+			@SuppressWarnings("unchecked")
+			List<IFeature> features = (List<IFeature>) r.getNewObject();
+			for (IFeature feature : features) {
+				if (feature instanceof ICreateConnectionFeature) {
+					ICreateConnectionFeature ccf = (ICreateConnectionFeature) feature;
+					return ccf;
+				}
+			}
+		}
 		return null;
 	}
 }

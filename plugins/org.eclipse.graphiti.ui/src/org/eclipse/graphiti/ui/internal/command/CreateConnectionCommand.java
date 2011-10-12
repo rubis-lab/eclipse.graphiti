@@ -74,6 +74,9 @@ public class CreateConnectionCommand extends AbstractCommand {
 	/** Target endpoint for the connection. */
 	private PictogramElement targetObject;
 
+	private boolean createConnectionStarted = false;
+	private boolean createConnectionFinished = false;
+
 	/**
 	 * Instantiate a command that can create a connection between two anchors.
 	 * 
@@ -138,6 +141,8 @@ public class CreateConnectionCommand extends AbstractCommand {
 
 	@Override
 	public void execute() {
+		createConnectionFinished = true;
+
 		// create a new connection between source- and target-anchor
 		Anchor sourceAnchor = getAnchor(sourceObject);
 		Anchor targetAnchor = getAnchor(targetObject);
@@ -367,5 +372,32 @@ public class CreateConnectionCommand extends AbstractCommand {
 		Point realLocation = diagramEditor.calculateRealMouseLocation(location);
 		ILocation currentLocation = new LocationImpl(realLocation.x, realLocation.y);
 		return currentLocation;
+	}
+
+	public void connectionStarted() {
+		createConnectionStarted = true;
+
+		// inform feature about attachment to source
+		CreateConnectionContext connectionContext = createContext();
+		connectionContext.setSourceLocation(sourceLocation);
+		for (IFeature feature : features) {
+			if (feature instanceof ICreateConnectionFeature) {
+				ICreateConnectionFeature ccf = (ICreateConnectionFeature) feature;
+				ccf.attachedToSource(connectionContext);
+			}
+		}
+	}
+
+	public void deactivate() {
+		if (createConnectionStarted && !createConnectionFinished) {
+			CreateConnectionContext connectionContext = createContext();
+			connectionContext.setSourceLocation(sourceLocation);
+			for (IFeature feature : features) {
+				if (feature instanceof ICreateConnectionFeature) {
+					ICreateConnectionFeature ccf = (ICreateConnectionFeature) feature;
+					ccf.canceledAttaching(connectionContext);
+				}
+			}
+		}
 	}
 }
