@@ -39,8 +39,18 @@ import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
 public class ChessFeatureProvider extends DefaultFeatureProvider implements IFeatureProvider {
 
+	private boolean programmaticFeatureCallActive = false;
+
 	public ChessFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);
+	}
+
+	public boolean isProgrammaticFeatureCallActive() {
+		return programmaticFeatureCallActive;
+	}
+
+	public void setProgrammaticFeatureCallActive(boolean programmaticFeatureCallActive) {
+		this.programmaticFeatureCallActive = programmaticFeatureCallActive;
 	}
 
 	@Override
@@ -69,6 +79,11 @@ public class ChessFeatureProvider extends DefaultFeatureProvider implements IFea
 			// No removal allowed for squares
 			return null;
 		}
+		if (bo instanceof Piece && !programmaticFeatureCallActive) {
+			// No removal allowed for pieces unless it is triggered by a tool
+			// call
+			return null;
+		}
 
 		return super.getRemoveFeature(context);
 	}
@@ -84,6 +99,11 @@ public class ChessFeatureProvider extends DefaultFeatureProvider implements IFea
 			// No deletion allowed for squares
 			return null;
 		}
+		if (bo instanceof Piece && !programmaticFeatureCallActive) {
+			// No deletion allowed for pieces unless it is triggered by a tool
+			// call
+			return null;
+		}
 
 		return super.getDeleteFeature(context);
 	}
@@ -97,6 +117,10 @@ public class ChessFeatureProvider extends DefaultFeatureProvider implements IFea
 		}
 		if (bo instanceof Square) {
 			// No resize allowed for squares
+			return null;
+		}
+		if (bo instanceof Piece) {
+			// No resize allowed for pieces
 			return null;
 		}
 

@@ -17,6 +17,7 @@ package org.eclipse.graphiti.examples.chess.features;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.graphiti.examples.chess.diagram.ChessFeatureProvider;
 import org.eclipse.graphiti.examples.mm.chess.Board;
 import org.eclipse.graphiti.examples.mm.chess.Colors;
 import org.eclipse.graphiti.examples.mm.chess.Files;
@@ -260,8 +261,13 @@ public class MoveChessPieceFeature extends DefaultMoveShapeFeature implements IM
 			DeleteContext deleteContext = new DeleteContext(takenPieceShape);
 			IMultiDeleteInfo multiDeleteInfo = new MultiDeleteInfo(false, false, 0);
 			deleteContext.setMultiDeleteInfo(multiDeleteInfo);
-			IDeleteFeature deleteFeature = getFeatureProvider().getDeleteFeature(deleteContext);
-			deleteFeature.execute(deleteContext);
+			try {
+				((ChessFeatureProvider) getFeatureProvider()).setProgrammaticFeatureCallActive(true);
+				IDeleteFeature deleteFeature = getFeatureProvider().getDeleteFeature(deleteContext);
+				deleteFeature.execute(deleteContext);
+			} finally {
+				((ChessFeatureProvider) getFeatureProvider()).setProgrammaticFeatureCallActive(false);
+			}
 		}
 
 		// Adapt business model to reflect new containment
