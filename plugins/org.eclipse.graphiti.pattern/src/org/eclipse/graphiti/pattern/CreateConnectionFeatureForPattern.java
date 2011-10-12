@@ -104,4 +104,24 @@ public class CreateConnectionFeatureForPattern extends AbstractCreateConnectionF
 			((ICustomUndoablePattern) delegate).redo(this, context);
 		}
 	}
+
+	@Override
+	public void startConnecting() {
+		delegate.startConnecting();
+	}
+
+	@Override
+	public void endConnecting() {
+		delegate.endConnecting();
+	}
+
+	@Override
+	public void attachedToSource(ICreateConnectionContext context) {
+		delegate.attachedToSource(context);
+	}
+
+	@Override
+	public void canceledAttaching(ICreateConnectionContext context) {
+		delegate.canceledAttaching(context);
+	}
 }

@@ -136,4 +136,32 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 	public String getCreateName() {
 		return null;
 	}
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public void startConnecting() {
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public void endConnecting() {
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public void attachedToSource(ICreateConnectionContext context) {
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public void canceledAttaching(ICreateConnectionContext context) {
+	}
 }

@@ -108,4 +108,33 @@ public abstract class AbstractCreateConnectionFeature extends AbstractFeature im
 	}
 
 	private static final String NAME = Messages.AbstractCreateConnectionFeature_0_xfld;
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public void startConnecting() {
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public void endConnecting() {
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public void attachedToSource(ICreateConnectionContext context) {
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public void canceledAttaching(ICreateConnectionContext context) {
+	}
+
 }

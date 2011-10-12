@@ -56,4 +56,23 @@ public interface ICreateConnection extends ICreateInfo {
 	 */
 	boolean canStartConnection(ICreateConnectionContext context);
 
+	/**
+	 * @since 0.9
+	 */
+	void startConnecting();
+
+	/**
+	 * @since 0.9
+	 */
+	void endConnecting();
+
+	/**
+	 * @since 0.9
+	 */
+	void attachedToSource(ICreateConnectionContext context);
+
+	/**
+	 * @since 0.9
+	 */
+	void canceledAttaching(ICreateConnectionContext context);
 }
