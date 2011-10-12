@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
+ *    mgorning - Bug 329517 - state call backs during creation of a connection
  *
  * </copyright>
  *

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mgorning - Bug 329517 - state call backs during creation of a connection
  *
  * </copyright>
  *
@@ -57,21 +58,35 @@ public interface ICreateConnection extends ICreateInfo {
 	boolean canStartConnection(ICreateConnectionContext context);
 
 	/**
+	 * Will called after a connection creation tool from the palette was
+	 * selected.
+	 * 
 	 * @since 0.9
 	 */
 	void startConnecting();
 
 	/**
+	 * Will called after a connection creation tool from the palette was
+	 * deselected.
+	 * 
 	 * @since 0.9
 	 */
 	void endConnecting();
 
 	/**
+	 * Will called after a connection was successfully attached to an anchor of
+	 * a source object.
+	 * 
 	 * @since 0.9
 	 */
 	void attachedToSource(ICreateConnectionContext context);
 
 	/**
+	 * Will called if the connection creation process was canceled after the
+	 * successful attachment of the connection to an anchor of a source object.
+	 * E.g. user pressed ESC, user clicked on an invalid target, focus was lost,
+	 * ...
+	 * 
 	 * @since 0.9
 	 */
 	void canceledAttaching(ICreateConnectionContext context);
