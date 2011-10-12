@@ -26,7 +26,8 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 /**
  * The Class CreateConnectionFeatureForPattern.
  */
-public class CreateConnectionFeatureForPattern extends AbstractCreateConnectionFeature implements ICustomUndoableFeature {
+public class CreateConnectionFeatureForPattern extends AbstractCreateConnectionFeature implements
+		ICustomUndoableFeature {
 	private IConnectionPattern delegate;
 
 	/**

@@ -86,7 +86,8 @@ public class CreateConnectionCommand extends AbstractCommand {
 	 *             if source is null
 	 * @see Connection#setLineStyle(int)
 	 */
-	public CreateConnectionCommand(IConfigurationProvider configurationProvider, PictogramElement pe, List<IFeature> features) {
+	public CreateConnectionCommand(IConfigurationProvider configurationProvider, PictogramElement pe,
+			List<IFeature> features) {
 		super(configurationProvider);
 		setLabel(Messages.CreateConnectionCommand_0_xmsg);
 
@@ -153,7 +154,8 @@ public class CreateConnectionCommand extends AbstractCommand {
 		CustomContext customContext = new CustomContext();
 		customContext.setPictogramElements(new PictogramElement[] { sourceObject, targetObject });
 
-		DiagramEditorInternal diagramEditor = (DiagramEditorInternal) getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
+		DiagramEditorInternal diagramEditor = (DiagramEditorInternal) getFeatureProvider().getDiagramTypeProvider()
+				.getDiagramEditor();
 		Point newLocation = diagramEditor.calculateRealMouseLocation(location);
 		customContext.setLocation(newLocation.x, newLocation.y);
 
@@ -217,7 +219,9 @@ public class CreateConnectionCommand extends AbstractCommand {
 		// allow connections only from anchor to anchor
 
 		CreateConnectionContext connectionContext = createContext();
-		sourceLocation = connectionContext.getSourceLocation(); // store location for later usage
+		sourceLocation = connectionContext.getSourceLocation(); // store
+																// location for
+																// later usage
 
 		for (IFeature feature : features) {
 
@@ -358,7 +362,8 @@ public class CreateConnectionCommand extends AbstractCommand {
 		if (location == null) {
 			return null;
 		}
-		DiagramEditorInternal diagramEditor = (DiagramEditorInternal) getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
+		DiagramEditorInternal diagramEditor = (DiagramEditorInternal) getFeatureProvider().getDiagramTypeProvider()
+				.getDiagramEditor();
 		Point realLocation = diagramEditor.calculateRealMouseLocation(location);
 		ILocation currentLocation = new LocationImpl(realLocation.x, realLocation.y);
 		return currentLocation;

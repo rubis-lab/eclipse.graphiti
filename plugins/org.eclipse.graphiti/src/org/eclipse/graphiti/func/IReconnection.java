@@ -13,9 +13,6 @@
  * </copyright>
  *
  *******************************************************************************/
-/**
- * 
- */
 package org.eclipse.graphiti.func;
 
 import org.eclipse.graphiti.features.context.IReconnectionContext;

@@ -13,9 +13,6 @@
  * </copyright>
  *
  *******************************************************************************/
-/*
- * Created on 13.12.2005
- */
 package org.eclipse.graphiti.features.impl;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -45,8 +42,8 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 	public boolean canReconnect(IReconnectionContext context) {
 		Connection connection = context.getConnection();
 		Anchor newAnchor = getNewAnchor(context);
-		boolean ret = (connection != null) && (newAnchor != null) && (connection.getStart() != null) && (connection.getEnd() != null)
-				&& !(newAnchor.getParent() instanceof Diagram);
+		boolean ret = (connection != null) && (newAnchor != null) && (connection.getStart() != null)
+				&& (connection.getEnd() != null) && !(newAnchor.getParent() instanceof Diagram);
 		return ret;
 	}
 
@@ -68,7 +65,7 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 		}
 
 		preReconnect(context);
-		
+
 		Connection connection = context.getConnection();
 		Anchor newAnchor = context.getNewAnchor();
 		Anchor oldAnchor = context.getOldAnchor();

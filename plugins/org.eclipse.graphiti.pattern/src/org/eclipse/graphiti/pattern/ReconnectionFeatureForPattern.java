@@ -28,7 +28,8 @@ import org.eclipse.graphiti.internal.Messages;
 /**
  * The Class ReconnectionFeatureForPattern.
  */
-public class ReconnectionFeatureForPattern extends AbstractFeature implements IReconnectionFeature, ICustomUndoableFeature {
+public class ReconnectionFeatureForPattern extends AbstractFeature implements IReconnectionFeature,
+		ICustomUndoableFeature {
 
 	private static final String NAME = Messages.ReconnectionFeatureForPattern_0_xfld;
 	private IReconnection deletegate;

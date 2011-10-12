@@ -13,9 +13,6 @@
  * </copyright>
  *
  *******************************************************************************/
-/*
- * Created on 04.10.2005
- */
 package org.eclipse.graphiti.features.impl;
 
 import org.eclipse.graphiti.features.ICreateConnectionFeature;

@@ -52,13 +52,14 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 	 * @throws IllegalArgumentException
 	 *             if conn is null
 	 */
-	public ReconnectCommand(IConfigurationProvider configurationProvider, Connection connection, Anchor oldAnchor, Anchor newAnchor,
-			PictogramElement newTargetPictogramElement, String reconnectType, Point location) {
+	public ReconnectCommand(IConfigurationProvider configurationProvider, Connection connection, Anchor oldAnchor,
+			Anchor newAnchor, PictogramElement newTargetPictogramElement, String reconnectType, Point location) {
 		super(configurationProvider);
 
 		ILocation targetLocation = null;
 		if (location != null) {
-			DiagramEditorInternal diagramEditor = (DiagramEditorInternal) getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
+			DiagramEditorInternal diagramEditor = (DiagramEditorInternal) getFeatureProvider().getDiagramTypeProvider()
+					.getDiagramEditor();
 			Point realLocation = diagramEditor.calculateRealMouseLocation(location);
 			targetLocation = new LocationImpl(realLocation.x, realLocation.y);
 		}
@@ -84,9 +85,11 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 	public void execute() {
 		if (feature != null) {
 			// feature.reconnnect(ctx);
-			GenericFeatureCommandWithContext genericFeatureCommandWithContext = new GenericFeatureCommandWithContext(feature, ctx);
+			GenericFeatureCommandWithContext genericFeatureCommandWithContext = new GenericFeatureCommandWithContext(
+					feature, ctx);
 			try {
-				CommandExec.getSingleton().executeCommand(genericFeatureCommandWithContext, getTransactionalEditingDomain());
+				CommandExec.getSingleton().executeCommand(genericFeatureCommandWithContext,
+						getTransactionalEditingDomain());
 			} catch (Exception e) {
 				// Wrap in runtime exception (handled outside)
 				if (e instanceof RuntimeException) {

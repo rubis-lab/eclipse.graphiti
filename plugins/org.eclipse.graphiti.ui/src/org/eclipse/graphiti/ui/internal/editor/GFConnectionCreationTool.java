@@ -64,7 +64,8 @@ public class GFConnectionCreationTool extends ConnectionCreationTool {
 			final CreateConnectionContext context = new CreateConnectionContext();
 			IFeatureProvider featureProvider = createFeature.getFeatureProvider();
 			IDiagramTypeProvider diagramTypeProvider = featureProvider.getDiagramTypeProvider();
-			PictogramElement[] selectedPictogramElements = diagramTypeProvider.getDiagramEditor().getSelectedPictogramElements();
+			PictogramElement[] selectedPictogramElements = diagramTypeProvider.getDiagramEditor()
+					.getSelectedPictogramElements();
 			if (selectedPictogramElements.length == 2) {
 				PictogramElement sourcePictogramElement = selectedPictogramElements[0];
 				Anchor sourceAnchor = getAnchor(sourcePictogramElement);
@@ -79,7 +80,8 @@ public class GFConnectionCreationTool extends ConnectionCreationTool {
 						CommandExec.executeFeatureWithContext(createFeature, context);
 					} catch (Exception ex) {
 						if (ex instanceof RollbackException) {
-							// Just log it as info (operation was cancelled on purpose) 
+							// Just log it as info (operation was cancelled on
+							// purpose)
 							T.racer().log(IStatus.INFO, "GFCommandStack.execute(Command) " + ex, ex); //$NON-NLS-1$
 						} else {
 							// Just log it as an error
