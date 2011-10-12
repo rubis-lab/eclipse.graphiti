@@ -16,11 +16,22 @@ package org.eclipse.graphiti.examples.chess.diagram;
 
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 
 public class ChessDiagramTypeProvider extends AbstractDiagramTypeProvider implements IDiagramTypeProvider {
+
+	private IToolBehaviorProvider[] toolBehaviorProviders;
 
 	public ChessDiagramTypeProvider() {
 		super();
 		setFeatureProvider(new ChessFeatureProvider(this));
+	}
+
+	@Override
+	public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
+		if (toolBehaviorProviders == null) {
+			toolBehaviorProviders = new IToolBehaviorProvider[] { new ChessToolBehaviorProvider(this) };
+		}
+		return toolBehaviorProviders;
 	}
 }

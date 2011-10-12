@@ -22,8 +22,8 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ICreateService;
 import org.eclipse.graphiti.util.IColorConstant;
@@ -73,7 +73,7 @@ public class AddChessPieceFeature extends AbstractAddShapeFeature implements IAd
 		}
 
 		// Create the visualization of the board as a square
-		Shape pieceShape = createService.createShape(context.getTargetContainer(), true);
+		ContainerShape pieceShape = createService.createContainerShape(context.getTargetContainer(), true);
 		Polygon polygon = createService.createPolygon(pieceShape, points);
 
 		// Set the line color; it needs to be the opposite color of the square

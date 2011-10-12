@@ -19,6 +19,7 @@ import org.eclipse.graphiti.examples.chess.features.AddChessBoardFeature;
 import org.eclipse.graphiti.examples.chess.features.AddChessPieceFeature;
 import org.eclipse.graphiti.examples.chess.features.CreateAllInitialChessPiecesFeature;
 import org.eclipse.graphiti.examples.chess.features.CreateChessBoardFeature;
+import org.eclipse.graphiti.examples.chess.features.MoveChessPieceFeature;
 import org.eclipse.graphiti.examples.mm.chess.Board;
 import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Square;
@@ -108,6 +109,8 @@ public class ChessFeatureProvider extends DefaultFeatureProvider implements IFea
 		if (bo instanceof Square) {
 			// No move allowed for squares
 			return null;
+		} else if (bo instanceof Piece) {
+			return new MoveChessPieceFeature(this);
 		}
 
 		return super.getMoveShapeFeature(context);
