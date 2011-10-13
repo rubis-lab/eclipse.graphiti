@@ -15,9 +15,14 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.util.draw2d;
 
+import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.DragTracker;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.handles.ConnectionEndpointHandle;
+import org.eclipse.gef.tools.ConnectionEndpointTracker;
+import org.eclipse.graphiti.ui.internal.policy.GFConnectionEndpointTracker;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -34,5 +39,20 @@ public class GFConnectionEndpointHandle extends ConnectionEndpointHandle {
 	@Override
 	protected void init() {
 		setPreferredSize(HANDLE_DIMENSION);
+	}
+
+	@Override
+	protected DragTracker createDragTracker() {
+		if (isFixed())
+			return null;
+		ConnectionEndpointTracker tracker;
+		tracker = new GFConnectionEndpointTracker((ConnectionEditPart) getOwner());
+		if (getEndPoint() == ConnectionLocator.SOURCE) {
+			tracker.setCommandName(RequestConstants.REQ_RECONNECT_SOURCE);
+		} else {
+			tracker.setCommandName(RequestConstants.REQ_RECONNECT_TARGET);
+		}
+		tracker.setDefaultCursor(getCursor());
+		return tracker;
 	}
 }
