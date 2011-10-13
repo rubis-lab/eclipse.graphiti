@@ -105,4 +105,11 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 	}
 
 	private static final String NAME = Messages.DefaultReconnectionFeature_0_xfld;
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public void canceledReconnect(IReconnectionContext context) {
+	}
 }

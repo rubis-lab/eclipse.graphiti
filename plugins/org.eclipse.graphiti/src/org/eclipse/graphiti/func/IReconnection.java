@@ -59,4 +59,15 @@ public interface IReconnection {
 	 */
 	void postReconnect(IReconnectionContext context);
 
+	/**
+	 * Will called if the connection reconnect process was canceled after
+	 * dragging the start or end of the connection. E.g. user pressed ESC, user
+	 * clicked on an invalid target, focus was lost, ...
+	 * 
+	 * @param context
+	 *            the context
+	 * 
+	 * @since 0.9
+	 */
+	void canceledReconnect(IReconnectionContext context);
 }

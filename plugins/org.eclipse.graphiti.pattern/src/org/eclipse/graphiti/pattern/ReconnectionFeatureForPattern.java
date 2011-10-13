@@ -63,6 +63,14 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 		delegate.reconnect(context);
 	}
 
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public void canceledReconnect(IReconnectionContext context) {
+		delegate.canceledReconnect(context);
+	}
+
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IReconnectionContext) {
