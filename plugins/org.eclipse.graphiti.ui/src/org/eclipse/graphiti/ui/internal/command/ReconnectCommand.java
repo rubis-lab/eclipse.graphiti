@@ -43,6 +43,8 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 
 	private IReconnectionFeature feature;
 
+	private boolean reconnectFinished = false;
+
 	/**
 	 * Instantiate a command that can reconnect a Connection instance to a
 	 * different source or target endpoint.
@@ -99,6 +101,7 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 				}
 			}
 		}
+		reconnectFinished = true;
 	}
 
 	public IFeature getFeature() {
@@ -107,5 +110,11 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 
 	public IContext getContext() {
 		return ctx;
+	}
+
+	public void deactivate() {
+		if (feature != null && ctx != null && !reconnectFinished) {
+			feature.canceledReconnect(ctx);
+		}
 	}
 }
