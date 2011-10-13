@@ -15,24 +15,34 @@
 package org.eclipse.graphiti.examples.chess.diagram;
 
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.examples.chess.MoveUtil;
 import org.eclipse.graphiti.examples.chess.features.AddChessBoardFeature;
+import org.eclipse.graphiti.examples.chess.features.AddChessMoveFeature;
 import org.eclipse.graphiti.examples.chess.features.AddChessPieceFeature;
 import org.eclipse.graphiti.examples.chess.features.CreateAllInitialChessPiecesFeature;
 import org.eclipse.graphiti.examples.chess.features.CreateChessBoardFeature;
+import org.eclipse.graphiti.examples.chess.features.CreateChessMoveFeature;
 import org.eclipse.graphiti.examples.chess.features.MoveChessPieceFeature;
 import org.eclipse.graphiti.examples.mm.chess.Board;
 import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Square;
+import org.eclipse.graphiti.features.IAddBendpointFeature;
 import org.eclipse.graphiti.features.IAddFeature;
+import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
+import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
+import org.eclipse.graphiti.features.context.IAddBendpointContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IMoveBendpointContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
@@ -59,11 +69,21 @@ public class ChessFeatureProvider extends DefaultFeatureProvider implements IFea
 	}
 
 	@Override
+	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
+		return new ICreateConnectionFeature[] { new CreateChessMoveFeature(this) };
+	}
+
+	@Override
 	public IAddFeature getAddFeature(IAddContext context) {
-		if (context.getNewObject() instanceof Board) {
+		Object newObject = context.getNewObject();
+		if (newObject instanceof Board) {
 			return new AddChessBoardFeature(this);
-		} else if (context.getNewObject() instanceof Piece) {
+		} else if (newObject instanceof Piece) {
 			return new AddChessPieceFeature(this);
+		} else if (newObject == null) {
+			if (context.getProperty(MoveUtil.PROPERTY_MOVE) == Boolean.TRUE) {
+				return new AddChessMoveFeature(this);
+			}
 		}
 		return super.getAddFeature(context);
 	}
@@ -138,5 +158,25 @@ public class ChessFeatureProvider extends DefaultFeatureProvider implements IFea
 		}
 
 		return super.getMoveShapeFeature(context);
+	}
+
+	@Override
+	public IReconnectionFeature getReconnectionFeature(IReconnectionContext context) {
+		// We only have move connections which we don't want to be reconnected
+		return null;
+	}
+
+	@Override
+	public IAddBendpointFeature getAddBendpointFeature(IAddBendpointContext context) {
+		// We only have move connections; for all these connections the used
+		// free form connection shall behave like a direct connection
+		return null;
+	}
+
+	@Override
+	public IMoveBendpointFeature getMoveBendpointFeature(IMoveBendpointContext context) {
+		// We only have move connections; for all these connections the used
+		// free form connection shall behave like a direct connection
+		return null;
 	}
 }

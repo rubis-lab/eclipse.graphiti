@@ -21,11 +21,14 @@ import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
+import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
+import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ICreateService;
+import org.eclipse.graphiti.services.IGaLayoutService;
 import org.eclipse.graphiti.util.IColorConstant;
 
 public class AddChessPieceFeature extends AbstractAddShapeFeature implements IAddFeature {
@@ -46,6 +49,7 @@ public class AddChessPieceFeature extends AbstractAddShapeFeature implements IAd
 	public PictogramElement add(IAddContext context) {
 		// Get the Graphiti services
 		ICreateService createService = Graphiti.getCreateService();
+		IGaLayoutService layoutService = Graphiti.getGaLayoutService();
 
 		// Get the piece to add
 		Piece piece = (Piece) context.getNewObject();
@@ -74,26 +78,36 @@ public class AddChessPieceFeature extends AbstractAddShapeFeature implements IAd
 
 		// Create the visualization of the board as a square
 		ContainerShape pieceShape = createService.createContainerShape(context.getTargetContainer(), true);
-		Polygon polygon = createService.createPolygon(pieceShape, points);
+		Polygon piecePolygon = createService.createPolygon(pieceShape, points);
 
 		// Set the line color; it needs to be the opposite color of the square
 		if (Colors.LIGHT.equals(piece.getSquare().getColor())) {
-			polygon.setForeground(manageColor(IColorConstant.BLACK));
+			piecePolygon.setForeground(manageColor(IColorConstant.BLACK));
 		} else {
-			polygon.setForeground(manageColor(IColorConstant.WHITE));
+			piecePolygon.setForeground(manageColor(IColorConstant.WHITE));
 		}
-		polygon.setLineWidth(2);
+		piecePolygon.setLineWidth(2);
 
 		// Set the fill color; it needs to be the color of the owner of the
 		// piece
 		if (Colors.LIGHT.equals(piece.getOwner())) {
-			polygon.setBackground(manageColor(IColorConstant.WHITE));
+			piecePolygon.setBackground(manageColor(IColorConstant.WHITE));
 		} else {
-			polygon.setBackground(manageColor(IColorConstant.BLACK));
+			piecePolygon.setBackground(manageColor(IColorConstant.BLACK));
 		}
 
 		// Link the visualization with the board
 		link(pieceShape, piece);
+
+		// Add an anchor for attaching moves
+		createService.createChopboxAnchor(pieceShape);
+		BoxRelativeAnchor relativeAnchor = createService.createBoxRelativeAnchor(pieceShape);
+		relativeAnchor.setRelativeHeight(0.5d);
+		relativeAnchor.setRelativeWidth(0.5d);
+		relativeAnchor.setReferencedGraphicsAlgorithm(piecePolygon);
+		relativeAnchor.setUseAnchorLocationAsConnectionEndpoint(true);
+		Ellipse anchorEllipse = createService.createEllipse(relativeAnchor);
+		layoutService.setLocationAndSize(anchorEllipse, 25, 25, 0, 0);
 
 		return pieceShape;
 	}

@@ -25,9 +25,11 @@ import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
+import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -146,6 +148,16 @@ public class AddChessBoardFeature extends AbstractAddShapeFeature implements IAd
 
 			// And do the linking
 			link(squareShape, square);
+
+			// Create an anchor for attaching moves
+			createService.createChopboxAnchor(squareShape);
+			BoxRelativeAnchor relativeAnchor = createService.createBoxRelativeAnchor(squareShape);
+			relativeAnchor.setRelativeHeight(0.5d);
+			relativeAnchor.setRelativeWidth(0.5d);
+			relativeAnchor.setReferencedGraphicsAlgorithm(squareRectangle);
+			relativeAnchor.setUseAnchorLocationAsConnectionEndpoint(true);
+			Ellipse anchorEllipse = createService.createEllipse(relativeAnchor);
+			layoutService.setLocationAndSize(anchorEllipse, 25, 25, 0, 0);
 		}
 
 		return outerContainerShape;
