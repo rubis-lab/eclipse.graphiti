@@ -557,7 +557,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			label.setText(text.getValue());
 			refreshFlowTextAlignment(label, text);
 			refreshFont(text, label);
-			label.setOpaque(false);
+			label.setOpaque(text.getFilled());
 			label.setRequestFocusEnabled(false);
 			label.invalidateTree();
 		} else if (graphicsAlgorithm instanceof Text && figure instanceof GFText) {
@@ -566,7 +566,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			label.setText(text.getValue());
 			refreshTextOrientation(label, text);
 			refreshFont(text, label);
-			label.setOpaque(false);
+			label.setOpaque(text.getFilled());
 			label.setRequestFocusEnabled(false);
 		} else if (graphicsAlgorithm instanceof Image && figure instanceof ImageFigure) {
 			ImageFigure imageFigure = (ImageFigure) figure;

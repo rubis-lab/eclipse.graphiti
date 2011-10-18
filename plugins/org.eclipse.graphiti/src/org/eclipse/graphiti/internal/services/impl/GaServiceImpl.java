@@ -1651,6 +1651,7 @@ public final class GaServiceImpl implements IGaService {
 	private void setDefaultTextAttributes(Diagram diagram, AbstractText ret, String value, boolean createFont) {
 		setDefaultGraphicsAlgorithmValues(ret);
 		ret.setValue(value);
+		ret.setFilled(false);
 		if (createFont && diagram != null) {
 			Font font = manageFont(diagram, DEFAULT_FONT, DEFAULT_FONT_SIZE);
 			ret.setFont(font);

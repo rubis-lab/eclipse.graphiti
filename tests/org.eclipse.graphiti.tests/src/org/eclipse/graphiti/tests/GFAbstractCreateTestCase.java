@@ -17,7 +17,6 @@ package org.eclipse.graphiti.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -37,10 +36,13 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 	protected static final String VALUE = "TEST";
 
 	protected void checkGraphicsAlgorithmDefaults(GraphicsAlgorithm ga) {
-		if (ga instanceof Polyline && !(ga instanceof Polygon))
+		if (ga instanceof Polyline && !(ga instanceof Polygon)) {
 			assertFalse(ga.getFilled());
-		else
+		} else if (ga instanceof AbstractText) {
+			assertFalse(ga.getFilled());
+		} else {
 			assertTrue(ga.getFilled());
+		}
 		assertSame(LineStyle.SOLID, ga.getLineStyle());
 		assertTrue(ga.getLineVisible());
 		assertEquals(new Integer(1), ga.getLineWidth());
@@ -114,6 +116,7 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 		assertEquals(new Integer(0), text.getAngle());
 		assertEquals(Orientation.ALIGNMENT_LEFT, text.getHorizontalAlignment());
 		assertEquals(Orientation.ALIGNMENT_CENTER, text.getVerticalAlignment());
+		assertFalse(text.getFilled());
 		assertEquals(value, text.getValue());
 	}
 	

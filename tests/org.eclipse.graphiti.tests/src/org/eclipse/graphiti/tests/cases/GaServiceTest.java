@@ -627,7 +627,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		assertNotNull(gas.getTransparency(text, false));
 		assertNull(gas.getForegroundColor(text, false));
 		assertNull(gas.getBackgroundColor(text, false));
-		assertTrue(gas.isFilled(text, false));
+		assertFalse(gas.isFilled(text, false));
 		assertTrue(gas.isLineVisible(text, false));
 
 	}

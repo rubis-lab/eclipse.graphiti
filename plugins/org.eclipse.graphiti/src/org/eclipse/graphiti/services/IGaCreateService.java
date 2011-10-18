@@ -32,7 +32,6 @@ import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
-import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -55,7 +54,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
@@ -81,7 +80,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
@@ -108,7 +107,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
@@ -135,7 +134,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
@@ -160,7 +159,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
@@ -194,7 +193,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
@@ -236,7 +235,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
@@ -270,7 +269,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
@@ -308,7 +307,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
@@ -341,7 +340,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
@@ -382,7 +381,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
@@ -416,7 +415,7 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
+	 * graphicsAlgorithm.setFilled(false); <br>
 	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
 	 * graphicsAlgorithm.setLineVisible(true); <br>
 	 * graphicsAlgorithm.setLineWidth(1);<br>
