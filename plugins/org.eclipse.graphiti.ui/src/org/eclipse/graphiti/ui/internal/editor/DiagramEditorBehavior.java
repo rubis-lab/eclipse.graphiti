@@ -331,6 +331,8 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	};
 
 	private void closeEd() {
+		if (editorPart == null)
+			return;
 		IWorkbenchPartSite site = editorPart.getSite();
 		// Since we run async we have to check if our ui is still there.
 		if (site == null)
