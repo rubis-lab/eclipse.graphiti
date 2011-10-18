@@ -872,9 +872,11 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		// resize shape
 		ed.drag(100, 100, 120, 120);
 		Thread.sleep(DELAY);
-		IFigure figure = ed.getFigureWithLabel(SHAPE_NAME);
-		assertEquals(120, figure.getBounds().x);
-		assertEquals(120, figure.getBounds().y);
+		Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
+		Shape shape = diagram.getChildren().get(0);
+		assertEquals(120, shape.getGraphicsAlgorithm().getX());
+		assertEquals(120, shape.getGraphicsAlgorithm().getX());
+		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
