@@ -24,6 +24,7 @@ import org.eclipse.graphiti.features.context.impl.PasteContext;
 import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.ui.IWorkbenchPart;
@@ -40,17 +41,11 @@ public class PasteAction extends AbstractPreDefinedAction {
 
 	public static final String ACTION_ID = ActionFactory.PASTE.getId(); // "predefined
 
-	private Point pasteLocation = new Point(-1, -1);
-
 	public PasteAction(IWorkbenchPart part, IConfigurationProvider configurationProvider) {
 		super(part, configurationProvider);
 		setId(ACTION_ID);
 		setText(TEXT);
 		setToolTipText(TOOL_TIP);
-	}
-
-	public void setPasteLocation(Point mPasteLocation) {
-		this.pasteLocation = mPasteLocation;
 	}
 
 	public boolean isAvailable() {
@@ -95,6 +90,11 @@ public class PasteAction extends AbstractPreDefinedAction {
 	private IPasteContext createPasteContext() {
 		PictogramElement[] pes = getSelectedPictogramElements();
 		PasteContext context = new PasteContext(pes);
+		Point pasteLocation = new Point(-1, -1);
+		IWorkbenchPart workbenchPart = getWorkbenchPart();
+		if (workbenchPart instanceof DiagramEditor) {
+			pasteLocation = ((DiagramEditor) workbenchPart).getMouseLocation();
+		}
 		context.setLocation(pasteLocation.x, pasteLocation.y);
 		return context;
 	}

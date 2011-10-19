@@ -44,7 +44,6 @@ import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.CustomAction;
 import org.eclipse.graphiti.ui.internal.action.DeleteAction;
 import org.eclipse.graphiti.ui.internal.action.IAvailable;
-import org.eclipse.graphiti.ui.internal.action.PasteAction;
 import org.eclipse.graphiti.ui.internal.action.RemoveAction;
 import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
@@ -375,18 +374,12 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 		if (action instanceof IAvailable) {
 			if (((IAvailable) action).isAvailable()) {
 				manager.appendToGroup(menuGroup, action);
-				//For Update Actions we have to trigger a refresh of the enablement, also if no selection change occured:
+				// For Update Actions we have to trigger a refresh of the
+				// enablement, also if no selection change occurred:
 				//e.g. update was triggered, then update has to be disabled.
 				if (action instanceof UpdateAction) {
 					UpdateAction updateAction = (UpdateAction) action;
 					updateAction.setEnabled(updateAction.isEnabled());
-
-				} else if (action instanceof PasteAction) {
-					// For the paste action we need the infomation at which
-					// location the paste operation was triggered. This
-					// infomation can only be retrieved from the mouse location
-					// at the time the context menu is created
-					((PasteAction) action).setPasteLocation(getEditor().getMouseLocation());
 				}
 			}
 		}
