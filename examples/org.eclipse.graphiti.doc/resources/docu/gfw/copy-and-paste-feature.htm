@@ -10,212 +10,258 @@
 
 <body>
 
-<h1>Providing Copy &amp; Paste Functionality</h1>
-<h2>Copy &amp; Paste Functionality</h2>
-<p>The copy &amp; paste of graphical elements is integrated with the general copy and 
-paste concept for models</p>
-<p>Note, that copy &amp; paste in graphical editors is always executed on the graphical 
-model-elements. This gives the freedom to implement copy &amp; paste with different 
-semantics</p>
-<ul>
-	<li>On paste a duplicate of the graphical pictogram element and of the underlying 
-	business-model element is created. However, it is sometimes difficult to create 
-	a duplicate of the business-model element, because the semantic boundaries of 
-	it may be ambiguous, think of a “deep copy”.</li>
-	<li>On paste a duplicate of the graphical pictogram element is created, which 
-	is associated to the same underlying business-model element as the originally 
-	copied graphical pictogram element.</li>
-</ul>
-<p>Below we will explain an example, which provides copy &amp; paste functionality for 
-EClasses. For simplicity reasons we only create a duplicate of the graphical pictogram 
-element and not also of the business-model element.</p>
-<h2>Creating a Copy Feature</h2>
-<p>First we have to create a copy feature and make it available in the feature provider.</p>
-<p>A copy feature has to implement the interface
-<a href="../../../javadoc/org/eclipse/graphiti/features/ICopyFeature.html">ICopyFeature</a>. 
-Instead of implementing it directly it should extend one of the available base classes. 
-In this example we extend the base class
-<a href="../../../javadoc/org/eclipse/graphiti/ui/features/AbstractCopyFeature.html">
-AbstractCopyFeature</a>, which offers methods to easily access the clipboard.
-</p>
-<p>In this case we have to implement/overwrite two methods:</p>
-<ul>
-	<li>The method
-	<a href="../../../javadoc/org/eclipse/graphiti/features/ICopyFeature.html#canCopy(org.eclipse.graphiti.features.context.ICopyContext)">
-	canCopy</a> has to check if the given context (containing the selected elements) 
-	can be copied to the clipboard.</li>
-	<li>The method
-	<a href="../../../javadoc/org/eclipse/graphiti/features/ICopyFeature.html#copy(org.eclipse.graphiti.features.context.ICopyContext)">
-	copy</a> finally has to copy the given context to the clipboard. </li>
-</ul>
-<p>You can see the complete implementation of the copy feature here:</p>
-<!-- Begin code ------------------------------------------------------------------------------- -->
-<p>&nbsp;</p>
-<div class="literallayout">
-	<div class="incode">
-		<p class="code"><span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
-		<span class="keyword">public class</span> TutorialCopyEClassFeature
-		<span class="keyword">extends </span>AbstractCopyFeature {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
-		<span class="keyword">public </span>TutorialCopyEClassFeature(IFeatureProvider 
-		fp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">super</span>(fp);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
-		<span class="keyword">public boolean</span> canCopy(ICopyContext context) 
-		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">final
-		</span>PictogramElement[] pes = context.getPictogramElements();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">if</span> (pes == <span class="keyword">null
-		</span>|| pes.<span class="string"><em>length</em> </span>== 0) {&nbsp;
-		<span class="keyword">// nothing selected</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// return true, if all selected elements are a EClasses</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">for </span>(PictogramElement pe : pes) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">final </span>Object bo = getBusinessObjectForPictogramElement(pe);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">if</span> (!(bo <span class="keyword">instanceof
-		</span>EClass)) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return true</span>;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
-		<span class="keyword">public void</span> copy(ICopyContext context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// get the business-objects for all pictogram-elements<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		// we already verified, that all business-objets are EClasses</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		PictogramElement[] pes = context.getPictogramElements();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Object[] bos = <span class="keyword">new </span>Object[pes.<span class="string"><em>length</em></span>];<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">for </span>(<span class="keyword">int </span>i = 0; 
-		i &lt; pes.<span class="string"><em>length</em></span>; i++) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		PictogramElement pe = pes[i];<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		bos[i] = getBusinessObjectForPictogramElement(pe);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
-		put all business objects to the clipboard</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		putToClipboard(bos);<br>&nbsp;&nbsp;&nbsp; }<br>}<br></p>
+	<h1>Providing Copy &amp; Paste Functionality</h1>
+	<h2>Copy &amp; Paste Functionality</h2>
+	<p>The copy &amp; paste of graphical elements is integrated with
+		the general copy and paste concept for models</p>
+	<p>Note, that copy &amp; paste in graphical editors is always
+		executed on the graphical model-elements. This gives the freedom to
+		implement copy &amp; paste with different semantics</p>
+	<ul>
+		<li>On paste a duplicate of the graphical pictogram element and
+			of the underlying business-model element is created. However, it is
+			sometimes difficult to create a duplicate of the business-model
+			element, because the semantic boundaries of it may be ambiguous,
+			think of a “deep copy”.</li>
+		<li>On paste a duplicate of the graphical pictogram element is
+			created, which is associated to the same underlying business-model
+			element as the originally copied graphical pictogram element.</li>
+	</ul>
+	<p>Below we will explain an example, which provides copy &amp;
+		paste functionality for EClasses. For simplicity reasons we only
+		create a duplicate of the graphical pictogram element and not also of
+		the business-model element.</p>
+	<h2>Creating a Copy Feature</h2>
+	<p>First we have to create a copy feature and make it available in
+		the feature provider.</p>
+	<p>
+		A copy feature has to implement the interface <a
+			href="../../../javadoc/org/eclipse/graphiti/features/ICopyFeature.html">ICopyFeature</a>.
+		Instead of implementing it directly it should extend one of the
+		available base classes. In this example we extend the base class <a
+			href="../../../javadoc/org/eclipse/graphiti/ui/features/AbstractCopyFeature.html">
+			AbstractCopyFeature</a>, which offers methods to easily access the
+		clipboard.
+	</p>
+	<p>In this case we have to implement/overwrite two methods:</p>
+	<ul>
+		<li>The method <a
+			href="../../../javadoc/org/eclipse/graphiti/features/ICopyFeature.html#canCopy(org.eclipse.graphiti.features.context.ICopyContext)">
+				canCopy</a> has to check if the given context (containing the selected
+			elements) can be copied to the clipboard.</li>
+		<li>The method <a
+			href="../../../javadoc/org/eclipse/graphiti/features/ICopyFeature.html#copy(org.eclipse.graphiti.features.context.ICopyContext)">
+				copy</a> finally has to copy the given context to the clipboard.</li>
+	</ul>
+	<p>You can see the complete implementation of the copy feature
+		here:</p>
+	<!-- Begin code ------------------------------------------------------------------------------- -->
+	<p>&nbsp;</p>
+	<div class="literallayout">
+		<div class="incode">
+			<p class="code">
+				<span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
+				<span class="keyword">public class</span> TutorialCopyEClassFeature
+				<span class="keyword">extends </span>AbstractCopyFeature {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+				<span class="keyword">public </span>TutorialCopyEClassFeature(IFeatureProvider
+				fp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+					class="keyword">super</span>(fp);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+				<span class="keyword">public boolean</span> canCopy(ICopyContext
+				context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+					class="keyword">final </span>PictogramElement[] pes =
+				context.getPictogramElements();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">if</span> (pes == <span class="keyword">null
+				</span>|| pes.<span class="string"><em>length</em> </span>== 0) {&nbsp; <span
+					class="keyword">// nothing selected</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="comment">// return true, if all selected
+					elements are a EClasses</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">for </span>(PictogramElement pe : pes) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">final </span>Object bo =
+				getBusinessObjectForPictogramElement(pe);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">if</span> (!(bo <span class="keyword">instanceof
+				</span>EClass)) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">return true</span>;<br>&nbsp;&nbsp;&nbsp;
+				}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; <span class="keyword">public
+					void</span> copy(ICopyContext context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="comment">// get the business-objects for all
+					pictogram-elements<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					// we already verified, that all business-objets are EClasses</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				PictogramElement[] pes = context.getPictogramElements();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Object[] bos = <span class="keyword">new </span>Object[pes.<span
+					class="string"><em>length</em> </span>];<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">for </span>(<span class="keyword">int </span>i
+				= 0; i &lt; pes.<span class="string"><em>length</em> </span>; i++) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				PictogramElement pe = pes[i];<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				bos[i] = getBusinessObjectForPictogramElement(pe);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+					class="comment">// put all business objects to the clipboard</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				putToClipboard(bos);<br>&nbsp;&nbsp;&nbsp; }<br>}<br>
+			</p>
+		</div>
 	</div>
-</div>
-<p>&nbsp;</p>
-<!-- End code  -------------------------------------------------------------------------------  -->
-<p>Additionally the feature provider has to deliver our newly created feature (overwrite 
-the method
-<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCopyFeature(org.eclipse.graphiti.features.context.ICopyContext)">
-getCopyFeature</a>). </p>
-<p>This implementation can be seen here: </p>
-<!-- Begin code ------------------------------------------------------------------------------- -->
-<p>&nbsp;</p>
-<div class="literallayout">
-	<div class="incode">
-		<p class="code">@Override<br><span class="keyword">public</span> ICopyFeature getCopyFeature(ICopyContext 
-		context) {<br>&nbsp;&nbsp;&nbsp; <span class="keyword">return new</span> 
-		TutorialCopyEClassFeature(<span class="keyword">this</span>);<br>} </p>
+	<p>&nbsp;</p>
+	<!-- End code  -------------------------------------------------------------------------------  -->
+	<p>
+		Additionally the feature provider has to deliver our newly created
+		feature (overwrite the method <a
+			href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCopyFeature(org.eclipse.graphiti.features.context.ICopyContext)">
+			getCopyFeature</a>).
+	</p>
+	<p>This implementation can be seen here:</p>
+	<!-- Begin code ------------------------------------------------------------------------------- -->
+	<p>&nbsp;</p>
+	<div class="literallayout">
+		<div class="incode">
+			<p class="code">
+				@Override<br> <span class="keyword">public</span> ICopyFeature
+				getCopyFeature(ICopyContext context) {<br>&nbsp;&nbsp;&nbsp; <span
+					class="keyword">return new</span> TutorialCopyEClassFeature(<span
+					class="keyword">this</span>);<br>}
+			</p>
+		</div>
 	</div>
-</div>
-<p>&nbsp;</p>
-<!-- End code  -------------------------------------------------------------------------------  -->
-<h2>Creating a Paste Feature</h2>
-<p>Now we have to create a corresponding paste feature and make it available in 
-the feature provider.</p>
-<p>A paste feature has to implement the interface
-<a href="../../../javadoc/org/eclipse/graphiti/features/IPasteFeature.html">IPasteFeature</a>. 
-Instead of implementing it directly it should extend one of the available base classes. 
-In this example we extend the base class
-<a href="../../../javadoc/org/eclipse/graphiti/ui/features/AbstractPasteFeature.html">
-AbstractPasteFeature</a>, which offers methods to easily access the clipboard.
-</p>
-<p>In this case we have to implement/overwrite two methods:</p>
-<ul>
-	<li>The method
-	<a href="../../../javadoc/org/eclipse/graphiti/features/IPasteFeature.html#canPaste(org.eclipse.graphiti.features.context.IPasteContext)">
-	canPaste</a> has to check if the current clipboard contents can be pasted on 
-	the given context (containing the target object).</li>
-	<li>The method
-	<a href="../../../javadoc/org/eclipse/graphiti/features/IPasteFeature.html#paste(org.eclipse.graphiti.features.context.IPasteContext)">
-	paste</a> finally has to paste the current clipboard contents on the given context.&nbsp;
-	</li>
-</ul>
-<p>You can see the complete implementation of the paste feature here:</p>
-<!-- Begin code ------------------------------------------------------------------------------- -->
-<p>&nbsp;</p>
-<div class="literallayout">
-	<div class="incode">
-		<p class="code"><span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
-		<span class="keyword">public class</span> TutorialPasteEClassFeature
-		<span class="keyword">extends </span>AbstractPasteFeature {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
-		<span class="keyword">public </span>TutorialPasteEClassFeature(IFeatureProvider 
-		fp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">super</span>(fp);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
-		<span class="keyword">public boolean</span> canPaste(IPasteContext context) 
-		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
-		only support pasting directly in the diagram (nothing else selected)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		PictogramElement[] pes = context.getPictogramElements();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		if (pes.<span class="string"><em>length</em> </span>!= 1 || !(pes[0]
-		<span class="keyword">instanceof </span>Diagram)) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// can paste, if all objects on the clipboard are 
-		EClasses</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Object[] fromClipboard 
-		= getFromClipboard();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (fromClipboard 
-		== null || fromClipboard.<span class="string"><em>length</em> </span>== 
-		0) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">for
-		</span>(Object object : fromClipboard) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">if</span> (!(object <span class="keyword">instanceof
-		</span>EClass)) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return true</span>;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;
-		<span class="keyword">&nbsp;public void </span>paste(IPasteContext context) 
-		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
-		we already verified, that we paste directly in the diagram</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		PictogramElement[] pes = context.getPictogramElements();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Diagram diagram = (Diagram) pes[0];<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// get the EClasses from the clipboard without copying 
-		them<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // (only copy the pictogram 
-		element, not the business object)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		// then create new pictogram elements using the add feature</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Object[] objects = getFromClipboard();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">for </span>(Object object : objects) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		AddContext ac = <span class="keyword">new </span>AddContext();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// For simplicity paste all objects at the location given in the</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// context (no stacking or similar)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		ac.setLocation(context.getX(), context.getY()); <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		ac.setTargetContainer(diagram);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		addGraphicalRepresentation(ac, object);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;&nbsp;&nbsp; }<br>}<br></p>
+	<p>&nbsp;</p>
+	<!-- End code  -------------------------------------------------------------------------------  -->
+	<h2>Creating a Paste Feature</h2>
+	<p>Now we have to create a corresponding paste feature and make it
+		available in the feature provider.</p>
+	<p>
+		A paste feature has to implement the interface <a
+			href="../../../javadoc/org/eclipse/graphiti/features/IPasteFeature.html">IPasteFeature</a>.
+		Instead of implementing it directly it should extend one of the
+		available base classes. In this example we extend the base class <a
+			href="../../../javadoc/org/eclipse/graphiti/ui/features/AbstractPasteFeature.html">
+			AbstractPasteFeature</a>, which offers methods to easily access the
+		clipboard.
+	</p>
+	<p>In this case we have to implement/overwrite two methods:</p>
+	<ul>
+		<li>The method <a
+			href="../../../javadoc/org/eclipse/graphiti/features/IPasteFeature.html#canPaste(org.eclipse.graphiti.features.context.IPasteContext)">
+				canPaste</a> has to check if the current clipboard contents can be
+			pasted on the given context (containing the target object).</li>
+		<li>The method <a
+			href="../../../javadoc/org/eclipse/graphiti/features/IPasteFeature.html#paste(org.eclipse.graphiti.features.context.IPasteContext)">
+				paste</a> finally has to paste the current clipboard contents on the
+			given context.&nbsp;</li>
+	</ul>
+	<p>You can see the complete implementation of the paste feature
+		here:</p>
+	<!-- Begin code ------------------------------------------------------------------------------- -->
+	<p>&nbsp;</p>
+	<div class="literallayout">
+		<div class="incode">
+			<p class="code">
+				<span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
+				<span class="keyword">public class</span> TutorialPasteEClassFeature
+				<span class="keyword">extends </span>AbstractPasteFeature {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+				<span class="keyword">public </span>TutorialPasteEClassFeature(IFeatureProvider
+				fp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+					class="keyword">super</span>(fp);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+				<span class="keyword">public boolean</span> canPaste(IPasteContext
+				context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+					class="comment">// only support pasting directly in the
+					diagram (nothing else selected)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				PictogramElement[] pes = context.getPictogramElements();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				if (pes.<span class="string"><em>length</em> </span>!= 1 || !(pes[0]
+				<span class="keyword">instanceof </span>Diagram)) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="comment">// can paste, if all objects on the
+					clipboard are EClasses</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Object[] fromClipboard = getFromClipboard();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				if (fromClipboard == null || fromClipboard.<span class="string"><em>length</em>
+				</span>== 0) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+					class="keyword">for </span>(Object object : fromClipboard) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">if</span> (!(object <span class="keyword">instanceof
+				</span>EClass)) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">return true</span>;<br>&nbsp;&nbsp;&nbsp;
+				}<br>&nbsp;<br>&nbsp;&nbsp; <span class="keyword">&nbsp;public
+					void </span>paste(IPasteContext context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="comment">// we already verified, that we paste
+					directly in the diagram</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				PictogramElement[] pes = context.getPictogramElements();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Diagram diagram = (Diagram) pes[0];<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="comment">// get the EClasses from the clipboard
+					without copying them<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					// (only copy the pictogram element, not the business object)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					// then create new pictogram elements using the add feature</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Object[] objects = getFromClipboard();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="keyword">for </span>(Object object : objects) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				AddContext ac = <span class="keyword">new </span>AddContext();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="comment">// For simplicity paste all objects at
+					the location given in the</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="comment">// context (no stacking or similar)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				ac.setLocation(context.getX(), context.getY()); <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				ac.setTargetContainer(diagram);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				addGraphicalRepresentation(ac, object);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				}<br>&nbsp;&nbsp;&nbsp; }<br>}<br>
+			</p>
+		</div>
 	</div>
-</div>
-<p>&nbsp;</p>
-<!-- End code  -------------------------------------------------------------------------------  -->
-<p>Additionally the feature provider has to deliver our newly created feature (overwrite 
-the method
-<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getPasteFeature(org.eclipse.graphiti.features.context.IPasteContext)">
-getPasteFeature</a>). </p>
-<p>This implementation can be seen here: </p>
-<!-- Begin code ------------------------------------------------------------------------------- -->
-<p>&nbsp;</p>
-<div class="literallayout">
-	<div class="incode">
-		<p class="code">@Override<br><span class="keyword">public </span>IPasteFeature 
-		getPasteFeature(IPasteContext context) {<br>&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return new</span> TutorialPasteEClassFeature(this);<br>
-		} </p>
+	<p>&nbsp;</p>
+	<!-- End code  -------------------------------------------------------------------------------  -->
+	<p>
+		Additionally the feature provider has to deliver our newly created
+		feature (overwrite the method <a
+			href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getPasteFeature(org.eclipse.graphiti.features.context.IPasteContext)">
+			getPasteFeature</a>).
+	</p>
+	<p>This implementation can be seen here:</p>
+	<!-- Begin code ------------------------------------------------------------------------------- -->
+	<p>&nbsp;</p>
+	<div class="literallayout">
+		<div class="incode">
+			<p class="code">
+				@Override<br> <span class="keyword">public </span>IPasteFeature
+				getPasteFeature(IPasteContext context) {<br>&nbsp;&nbsp;&nbsp;
+				<span class="keyword">return new</span>
+				TutorialPasteEClassFeature(this);<br> }
+			</p>
+		</div>
 	</div>
-</div>
-<p>&nbsp;</p>
-<!-- End code  -------------------------------------------------------------------------------  -->
-<h2>Test: Copy &amp; Paste a EClass</h2>
-<p>Now start the editor again </p>
-<ul>
-	<li>Create a new EClass.</li>
-	<li>Copy the EClass to the clipboard using the context-menu.</li>
-	<li>Paste the clipboard to the diagram using the context-menu, so that a new 
-	EClass is created in the upper-left corner of the diagram (in future versions 
-	of the graphics framework it will be possible to paste at the current mouse-location).</li>
-	<li>Verify that in the context-menu of a EClass the paste action is disabled.</li>
-	<li>Rename the new EClass, and verify that the other EClass is also renamed. 
-	This happens, because the implementation only duplicates the graphical pictogram 
-	element and not the underlying business-model element. <br>Note: it might be 
-	necessary to explicitly call the update-action on the other EClass. This is 
-	currently in discussion in Graphitti. </li>
-</ul>
-<p>&nbsp;</p>
-
+	<p>&nbsp;</p>
+	<!-- End code  -------------------------------------------------------------------------------  -->
+	<h2>Test: Copy &amp; Paste a EClass</h2>
+	<p>Now start the editor again</p>
+	<ul>
+		<li>Create a new EClass.</li>
+		<li>Copy the EClass to the clipboard using the context-menu.</li>
+		<li>Paste the clipboard to the diagram using the context-menu, so
+			that a new EClass is created in the upper-left corner of the diagram
+			(in future versions of the graphics framework it will be possible to
+			paste at the current mouse-location).</li>
+		<li>Verify that in the context-menu of a EClass the paste action
+			is disabled.</li>
+		<li>Rename the new EClass, and verify that the other EClass is
+			also renamed. This happens, because the implementation only
+			duplicates the graphical pictogram element and not the underlying
+			business-model element. <br>Note: it might be necessary to
+			explicitly call the update-action on the other EClass. This is
+			currently in discussion in Graphitti.</li>
+	</ul>
+	<p>&nbsp;</p>
+	<p class="Note">
+		<b>Note: </b>The example coding in this tutorial restricts the copy
+		and paste process to the graphical representation. The domain or
+		business objects behind the representation (the EClass objects) will
+		not be copied along. In a real tool implementation this can of course
+		also be modified to also copy the domain objects along with the
+		representation.
+	</p>
+	<p class="Note">
+		<b>Note on performance: </b>The methods canCopy and canPaste are
+		called often, so try to keep them as lightweight as possible to avoid
+		performance issues.
+	</p>
 </body>
 
 </html>
