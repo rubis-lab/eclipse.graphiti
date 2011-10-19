@@ -547,13 +547,23 @@ public interface PictogramsPackage extends EPackage {
 	int DIAGRAM__VERTICAL_GRID_UNIT = CONTAINER_SHAPE_FEATURE_COUNT + 10;
 
 	/**
+	 * The feature id for the '<em><b>Version</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 * @since 0.9
+	 */
+	int DIAGRAM__VERSION = CONTAINER_SHAPE_FEATURE_COUNT + 11;
+
+	/**
 	 * The number of structural features of the '<em>Diagram</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM_FEATURE_COUNT = CONTAINER_SHAPE_FEATURE_COUNT + 11;
+	int DIAGRAM_FEATURE_COUNT = CONTAINER_SHAPE_FEATURE_COUNT + 12;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.ConnectionImpl <em>Connection</em>}' class.
@@ -1778,6 +1788,19 @@ public interface PictogramsPackage extends EPackage {
 	EAttribute getDiagram_VerticalGridUnit();
 
 	/**
+	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.graphiti.mm.pictograms.Diagram#getVersion
+	 * <em>Version</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Version</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.Diagram#getVersion()
+	 * @see #getDiagram()
+	 * @generated
+	 * @since 0.9
+	 */
+	EAttribute getDiagram_Version();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.PictogramElement <em>Pictogram Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2302,6 +2325,15 @@ public interface PictogramsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DIAGRAM__VERTICAL_GRID_UNIT = eINSTANCE.getDiagram_VerticalGridUnit();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute
+		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 * @since 0.9
+		 */
+		EAttribute DIAGRAM__VERSION = eINSTANCE.getDiagram_Version();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.PictogramElementImpl <em>Pictogram Element</em>}' class.

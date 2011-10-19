@@ -54,4 +54,32 @@ public interface IMigrationService {
 	 */
 	public abstract boolean shouldMigrate070To080(Diagram diagram);
 
+	/**
+	 * Sets all filled attributes of abstract text instances to false. Prior to
+	 * 0.9 the filled attribute was not evaluated by the rendering engine. A
+	 * actual value of TRUE was an effective FALSE. Has to be called from within
+	 * a write transaction. It is assumed that there is only one diagram stored
+	 * in the underlying resource.
+	 * 
+	 * @param d
+	 *            the diagram to be migrated
+	 * 
+	 * @see org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal#migrateDiagramModelIfNecessary()
+	 * @since 0.9
+	 */
+	public abstract void migrate080To090(Diagram d);
+
+	/**
+	 * Checks if a version number is present. Prior to 0.9 no version number was
+	 * given to the diagram.
+	 * 
+	 * @param d
+	 *            the diagram under consideration
+	 * @return true if the diagram should be migrated
+	 * 
+	 * @see org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal#migrateDiagramModelIfNecessary()
+	 * @since 0.9
+	 */
+	public abstract boolean shouldMigrate080To090(Diagram d);
+
 }

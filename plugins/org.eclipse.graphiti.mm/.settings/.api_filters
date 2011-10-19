@@ -64,6 +64,18 @@
         </filter>
     </resource>
     <resource path="src-gen/org/eclipse/graphiti/mm/pictograms/Diagram.java" type="org.eclipse.graphiti.mm.pictograms.Diagram">
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.Diagram"/>
+                <message_argument value="getVersion()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.Diagram"/>
+                <message_argument value="setVersion(String)"/>
+            </message_arguments>
+        </filter>
         <filter comment="Bug 352220 - Attribute Diagram.showGuides is handled in DiagramTypeProvider" id="405901410">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.mm.pictograms.Diagram"/>
@@ -106,6 +118,13 @@
                 <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
                 <message_argument value="BOX_RELATIVE_ANCHOR__RELATIVE_WIDTH"/>
                 <message_argument value="9"/>
+            </message_arguments>
+        </filter>
+        <filter id="388194388">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="DIAGRAM_FEATURE_COUNT"/>
+                <message_argument value="19"/>
             </message_arguments>
         </filter>
         <filter id="388194388">
@@ -203,6 +222,12 @@
         <filter id="403767336">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="DIAGRAM__VERSION"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
                 <message_argument value="FIX_POINT_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT"/>
             </message_arguments>
         </filter>
@@ -218,6 +243,12 @@
                 <message_argument value="getAdvancedAnchor_UseAnchorLocationAsConnectionEndpoint()"/>
             </message_arguments>
         </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="getDiagram_Version()"/>
+            </message_arguments>
+        </filter>
     </resource>
     <resource path="src-gen/org/eclipse/graphiti/mm/pictograms/PictogramsPackage.java" type="org.eclipse.graphiti.mm.pictograms.PictogramsPackage$Literals">
         <filter id="403767336">
@@ -230,6 +261,12 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage.Literals"/>
                 <message_argument value="ADVANCED_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage.Literals"/>
+                <message_argument value="DIAGRAM__VERSION"/>
             </message_arguments>
         </filter>
     </resource>

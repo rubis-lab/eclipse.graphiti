@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
@@ -111,6 +112,7 @@ import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
@@ -588,11 +590,20 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
+		// set version info.
+		final Diagram diagram = getDiagramTypeProvider().getDiagram();
+		getEditingDomain().getCommandStack().execute(new RecordingCommand(getEditingDomain()) {
+
+			@Override
+			protected void doExecute() {
+				diagram.eSet(PictogramsPackage.eINSTANCE.getDiagram_Version(), "1.0.0"); //$NON-NLS-1$
+			}
+		});
 		Resource[] savedResources = getBehavior().doSave(monitor);
 		commandStackChanged(null);
 
 		IDiagramTypeProvider provider = getConfigurationProvider().getDiagramTypeProvider();
-		provider.resourcesSaved(getDiagramTypeProvider().getDiagram(), savedResources);
+		provider.resourcesSaved(diagram, savedResources);
 
 	}
 
@@ -1078,9 +1089,28 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		} catch (RuntimeException e) {
 			throw new PartInitException(e.getMessage());
 		}
+
+		migrateDiagramModelIfNecessary();
 		fwListener = new FWCommandStackListener();
 		getBehavior().getEditingDomain().getCommandStack().addCommandStackListener(fwListener);
 
+	}
+
+	/**
+	 * We provide migration from 0.8.0 to 1.0.0. You can override if you want to
+	 * migrate manually. WARNING: If your diagram is under version control, this
+	 * method can cause a check out dialog to be opened etc.
+	 */
+	protected void migrateDiagramModelIfNecessary() {
+		final Diagram diagram = getDiagramTypeProvider().getDiagram();
+		if (Graphiti.getMigrationService().shouldMigrate080To090(diagram)) {
+			getEditingDomain().getCommandStack().execute(new RecordingCommand(getEditingDomain()) {
+				@Override
+				protected void doExecute() {
+					Graphiti.getMigrationService().migrate080To090(diagram);
+				}
+			});
+		}
 	}
 
 	/**

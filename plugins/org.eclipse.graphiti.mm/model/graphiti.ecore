@@ -54,6 +54,12 @@
           upperBound="-1" eType="#//pictograms/PictogramLink"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="verticalGridUnit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
           defaultValueLiteral="-1"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="suppressedSetVisibility" value="true"/>
+        </eAnnotations>
+      </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="PictogramElement" abstract="true"
         eSuperTypes="#//GraphicsAlgorithmContainer">

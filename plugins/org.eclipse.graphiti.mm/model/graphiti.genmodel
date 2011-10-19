@@ -40,6 +40,7 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference graphiti.ecore#//pictograms/Diagram/pictogramLinks"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute graphiti.ecore#//pictograms/Diagram/verticalGridUnit"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute graphiti.ecore#//pictograms/Diagram/version"/>
       </genClasses>
       <genClasses image="false" ecoreClass="graphiti.ecore#//pictograms/PictogramElement">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute graphiti.ecore#//pictograms/PictogramElement/visible"/>
@@ -88,6 +89,9 @@
         <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphiti.ecore#//pictograms/PictogramLink/pictogramElement"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference graphiti.ecore#//pictograms/PictogramLink/businessObjects"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="graphiti.ecore#//pictograms/AdvancedAnchor">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute graphiti.ecore#//pictograms/AdvancedAnchor/useAnchorLocationAsConnectionEndpoint"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Algorithms" basePackage="org.eclipse.graphiti.mm" disposableProviderFactory="true"

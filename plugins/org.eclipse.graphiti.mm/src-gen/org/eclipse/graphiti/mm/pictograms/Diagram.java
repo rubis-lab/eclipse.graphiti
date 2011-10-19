@@ -15,9 +15,7 @@
 package org.eclipse.graphiti.mm.pictograms;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.graphiti.mm.StyleContainer;
-
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 
@@ -38,6 +36,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Font;
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getFonts <em>Fonts</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getPictogramLinks <em>Pictogram Links</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getVerticalGridUnit <em>Vertical Grid Unit</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.pictograms.Diagram#getVersion <em>Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -243,5 +242,22 @@ public interface Diagram extends ContainerShape, StyleContainer {
 	 * @generated
 	 */
 	void setVerticalGridUnit(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Version</b></em>' attribute. The default
+	 * value is <code>""</code>. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Version</em>' attribute isn't clear, there
+	 * really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Version</em>' attribute.
+	 * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getDiagram_Version()
+	 * @model default="" suppressedSetVisibility="true"
+	 * @generated
+	 * @since 0.9
+	 */
+	String getVersion();
 
 } // Diagram

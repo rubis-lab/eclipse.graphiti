@@ -55,6 +55,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getFonts <em>Fonts</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getPictogramLinks <em>Pictogram Links</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getVerticalGridUnit <em>Vertical Grid Unit</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.pictograms.impl.DiagramImpl#getVersion <em>Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -244,6 +245,26 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	 * @ordered
 	 */
 	protected int verticalGridUnit = VERTICAL_GRID_UNIT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVersion()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String VERSION_EDEFAULT = "";
+
+	/**
+	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVersion()
+	 * @generated
+	 * @ordered
+	 */
+	protected String version = VERSION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -455,6 +476,27 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getVersion() {
+		return version;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setVersion(String newVersion) {
+		String oldVersion = version;
+		version = newVersion;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PictogramsPackage.DIAGRAM__VERSION, oldVersion, version));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -517,6 +559,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				return getPictogramLinks();
 			case PictogramsPackage.DIAGRAM__VERTICAL_GRID_UNIT:
 				return getVerticalGridUnit();
+			case PictogramsPackage.DIAGRAM__VERSION:
+				return getVersion();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -568,6 +612,9 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 			case PictogramsPackage.DIAGRAM__VERTICAL_GRID_UNIT:
 				setVerticalGridUnit((Integer)newValue);
 				return;
+			case PictogramsPackage.DIAGRAM__VERSION:
+				setVersion((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -613,6 +660,9 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 			case PictogramsPackage.DIAGRAM__VERTICAL_GRID_UNIT:
 				setVerticalGridUnit(VERTICAL_GRID_UNIT_EDEFAULT);
 				return;
+			case PictogramsPackage.DIAGRAM__VERSION:
+				setVersion(VERSION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -647,6 +697,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 				return pictogramLinks != null && !pictogramLinks.isEmpty();
 			case PictogramsPackage.DIAGRAM__VERTICAL_GRID_UNIT:
 				return verticalGridUnit != VERTICAL_GRID_UNIT_EDEFAULT;
+			case PictogramsPackage.DIAGRAM__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -705,6 +757,8 @@ public class DiagramImpl extends ContainerShapeImpl implements Diagram {
 		result.append(showGuides);
 		result.append(", verticalGridUnit: ");
 		result.append(verticalGridUnit);
+		result.append(", version: ");
+		result.append(version);
 		result.append(')');
 		return result.toString();
 	}

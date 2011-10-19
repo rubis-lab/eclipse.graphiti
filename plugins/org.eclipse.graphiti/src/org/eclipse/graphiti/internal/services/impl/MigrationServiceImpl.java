@@ -68,6 +68,38 @@ public class MigrationServiceImpl implements IMigrationService {
 		}
 	}
 
+	@Override
+	public void migrate080To090(Diagram d) {
+		// Traverse model and and set unfilled texts to filled
+		Resource eResource = d.eResource();
+		TreeIterator<EObject> allContents = eResource.getAllContents();
+		while (allContents.hasNext()) {
+			EObject eObject = allContents.next();
+			if (eObject instanceof AbstractText) {
+				AbstractText t = (AbstractText) eObject;
+				if (t.getFilled()) {
+					t.setFilled(Boolean.FALSE);
+				}
+			}
+		}
+	}
+
+	@Override
+	public boolean shouldMigrate080To090(Diagram d) {
+		String version = d.getVersion();
+		if (version == null || version.isEmpty()) {
+			Resource eResource = d.eResource();
+			TreeIterator<EObject> allContents = eResource.getAllContents();
+			while (allContents.hasNext()) {
+				EObject eObject = allContents.next();
+				if (eObject instanceof AbstractText) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 
 	private void addFontUser(Map<Font, ArrayList<EObject>> fontToUser, EObject fontUser, Font font) {
 		if (font != null) {
