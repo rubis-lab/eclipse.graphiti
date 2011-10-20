@@ -145,6 +145,7 @@ public class AddChessBoardFeature extends AbstractAddShapeFeature implements IAd
 				color = IColorConstant.BLACK;
 			}
 			squareRectangle.setBackground(manageColor(color));
+			squareRectangle.setForeground(manageColor(color));
 
 			// And do the linking
 			link(squareShape, square);

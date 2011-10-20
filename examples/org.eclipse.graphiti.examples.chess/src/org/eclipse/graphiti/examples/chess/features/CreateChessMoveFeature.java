@@ -15,7 +15,12 @@
  *******************************************************************************/
 package org.eclipse.graphiti.examples.chess.features;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.examples.chess.MoveUtil;
 import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Square;
@@ -23,11 +28,17 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.eclipse.graphiti.util.IColorConstant;
 
 public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 
@@ -78,7 +89,87 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 			newConnection = (Connection) getFeatureProvider().addIfPossible(addContext);
 		}
 
+		// Take back the highlighting
+		showFeedback(context, false);
+
 		return newConnection;
+	}
+
+	@Override
+	public void attachedToSource(ICreateConnectionContext context) {
+		Piece piece = getPiece(context.getSourceAnchor());
+		if (piece == null) {
+			return;
+		}
+
+		Square sourceSquare = getSquare(context.getSourceAnchor());
+		if (sourceSquare == null) {
+			return;
+		}
+
+		// Highlight all allowed squares
+		showFeedback(context, true);
+	}
+
+	@Override
+	public void canceledAttaching(ICreateConnectionContext context) {
+		// Take back the highlighting
+		showFeedback(context, false);
+	}
+
+	/**
+	 * @param allowedSquares
+	 */
+	private void showFeedback(ICreateConnectionContext context, final boolean show) {
+		Piece piece = getPiece(context.getSourceAnchor());
+		if (piece == null) {
+			return;
+		}
+
+		Square sourceSquare = getSquare(context.getSourceAnchor());
+		if (sourceSquare == null) {
+			return;
+		}
+
+		// Find all allowed squares to move to
+		EList<Square> allSquares = sourceSquare.getBoard().getSquares();
+		final List<Square> allowedSquares = new ArrayList<Square>();
+		for (Square square : allSquares) {
+			if (MoveUtil.isMoveAllowed(piece, sourceSquare, square)) {
+				allowedSquares.add(square);
+			}
+		}
+
+		// Mark or unmark the allowed squares
+		TransactionalEditingDomain editingDomain = getDiagramEditor().getEditingDomain();
+		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+			@Override
+			protected void doExecute() {
+				for (Square square : allowedSquares) {
+					List<PictogramElement> squarePE = GraphitiUi.getLinkService().getPictogramElements(getDiagram(),
+							square);
+					for (PictogramElement pictogramElement : squarePE) {
+						if (pictogramElement instanceof ContainerShape) {
+							GraphicsAlgorithm squareGA = pictogramElement.getGraphicsAlgorithm();
+							if (squareGA instanceof Rectangle) {
+								if (show) {
+									// Highlight the square in orange
+									squareGA.setForeground(manageColor(IColorConstant.ORANGE));
+									squareGA.setLineWidth(2);
+								} else {
+									// Take back the highlighting
+									Color background = squareGA.getBackground();
+									squareGA.setForeground(manageColor(background.getRed(), background.getGreen(),
+											background.getBlue()));
+									squareGA.setLineWidth(1);
+								}
+
+							}
+						}
+					}
+				}
+			}
+		});
 	}
 
 	private Piece getPiece(Anchor anchor) {

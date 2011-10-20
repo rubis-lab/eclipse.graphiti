@@ -8,6 +8,7 @@ Bundle-Vendor: Eclipse Modeling Project
 Require-Bundle: org.eclipse.ui;bundle-version="[3.7.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
  org.eclipse.graphiti;bundle-version="0.9.0",
- org.eclipse.graphiti.ui;bundle-version="0.9.0"
+ org.eclipse.graphiti.ui;bundle-version="0.9.0",
+ org.eclipse.emf.transaction;bundle-version="[1.4.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
