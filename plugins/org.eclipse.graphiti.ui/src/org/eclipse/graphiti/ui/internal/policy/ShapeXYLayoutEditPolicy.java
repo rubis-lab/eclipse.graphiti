@@ -12,6 +12,7 @@
  *    jpasch - BUG 341180: Graphiti fails to handle resize after custom feature addition in the tutorial
  *    mwenz - Bug 346067: Current Milestone Build does no longer build against Eclipse 3.6
  *    mwenz - Bug 355027: Move of connection decorators when zoom level != 100 behaves weird
+ *    mgorning - Bug 342262 - enhanced resize behavior for container shapes
  *
  * </copyright>
  *
