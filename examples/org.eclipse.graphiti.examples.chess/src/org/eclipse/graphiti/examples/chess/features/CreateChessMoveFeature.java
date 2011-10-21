@@ -48,44 +48,65 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext context) {
+		// We can start a move connection at every anchor that belong to a
+		// square holding a piece or that belongs to a move connection
 		Piece piece = getPiece(context.getSourceAnchor());
 		return piece != null;
 	}
 
 	@Override
 	public boolean canCreate(ICreateConnectionContext context) {
+		// Get the piece to move (potentially follow connection)
 		Piece piece = getPiece(context.getSourceAnchor());
 		if (piece == null) {
 			return false;
 		}
 
+		// The start square for the current move
 		Square sourceSquare = getSquare(context.getSourceAnchor());
 		if (sourceSquare == null) {
 			return false;
 		}
 
+		// The end square for the current move
 		Square targetSquare = getSquare(context.getTargetAnchor());
 		if (targetSquare == null) {
 			return false;
 		}
 
+		// Check if the piece can move from start to end square
 		return MoveUtil.isMoveAllowed(piece, sourceSquare, targetSquare);
 	}
 
 	@Override
 	public Connection create(ICreateConnectionContext context) {
 		Connection newConnection = null;
+		Anchor sourceAnchor = context.getSourceAnchor();
 
-		// get Squares to be connected
-		Square sourceSquare = getPiece(context.getSourceAnchor()).getSquare();
+		// Get Squares to be connected
+		Square sourceSquare = getPiece(sourceAnchor).getSquare();
 		Square targetSquare = getSquare(context.getTargetAnchor());
 
 		if (sourceSquare != null && targetSquare != null) {
-			// Add connection for business object
-			AddConnectionContext addContext = new AddConnectionContext(
-					getSquareConnectionAnchor(context.getSourceAnchor()),
-					getSquareConnectionAnchor(context.getTargetAnchor()));
+			AddConnectionContext addContext;
+			AnchorContainer parent = sourceAnchor.getParent();
+			if (parent instanceof ContainerShape) {
+				// Add connection for normal container shape (either piece or
+				// square)
+				addContext = new AddConnectionContext(getSquareConnectionAnchor(sourceAnchor),
+						getSquareConnectionAnchor(context.getTargetAnchor()));
+			} else if (parent instanceof Connection) {
+				// Add connection for move connection, use end anchor
+				addContext = new AddConnectionContext(((Connection) parent).getEnd(),
+						getSquareConnectionAnchor(context.getTargetAnchor()));
+			} else {
+				throw new IllegalStateException("Parent in neither a ContainerShape nor a Connection: " + parent);
+			}
+
+			// Set the property identifying a move connection
 			addContext.putProperty(MoveUtil.PROPERTY_MOVE, Boolean.TRUE);
+
+			// Add the connection to the diagram
 			newConnection = (Connection) getFeatureProvider().addIfPossible(addContext);
 		}
 
@@ -97,6 +118,7 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 
 	@Override
 	public void attachedToSource(ICreateConnectionContext context) {
+		// Called as soon as a connection is started
 		Piece piece = getPiece(context.getSourceAnchor());
 		if (piece == null) {
 			return;
@@ -117,15 +139,15 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 		showFeedback(context, false);
 	}
 
-	/**
-	 * @param allowedSquares
-	 */
 	private void showFeedback(ICreateConnectionContext context, final boolean show) {
+		// Find the piece that shall be moved (potentially follow move
+		// connections)
 		Piece piece = getPiece(context.getSourceAnchor());
 		if (piece == null) {
 			return;
 		}
 
+		// Find the square to start th move step from
 		Square sourceSquare = getSquare(context.getSourceAnchor());
 		if (sourceSquare == null) {
 			return;
@@ -140,7 +162,7 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 			}
 		}
 
-		// Mark or unmark the allowed squares
+		// Mark or un-mark the allowed squares
 		TransactionalEditingDomain editingDomain = getDiagramEditor().getEditingDomain();
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 			@Override
@@ -173,36 +195,71 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 	}
 
 	private Piece getPiece(Anchor anchor) {
+		// Try to find a piece for the given anchor
 		if (anchor != null) {
-			Object obj = getBusinessObjectForPictogramElement(anchor.getParent());
+			AnchorContainer parent = anchor.getParent();
+			Object obj = getBusinessObjectForPictogramElement(parent);
 			if (obj instanceof Piece) {
+				// The shape of the anchor represents the piece
 				return (Piece) obj;
+			} else if (obj instanceof Square) {
+				// The shape of the anchor represents a square
+				Piece pieceOnSquare = ((Square) obj).getPiece();
+				if (pieceOnSquare != null) {
+					// Return the piece on the square
+					return pieceOnSquare;
+				}
+				// No piece on the square, check for move connection
+				EList<Connection> incomingConnections = anchor.getIncomingConnections();
+				for (Connection connection : incomingConnections) {
+					// Follow the first connection back to a piece
+					Piece piece = getPiece(connection.getStart());
+					if (piece != null) {
+						return piece;
+					}
+				}
+			} else if (parent instanceof Connection) {
+				// Anchor of a connection, follow it backwards to its piece
+				Anchor startAnchor = ((Connection) parent).getStart();
+				return getPiece(startAnchor);
 			}
 		}
 		return null;
 	}
 
 	private Square getSquare(Anchor anchor) {
+		// Try to find a square for the given anchor
 		if (anchor != null) {
-			Object obj = getBusinessObjectForPictogramElement(anchor.getParent());
+			AnchorContainer parent = anchor.getParent();
+			Object obj = getBusinessObjectForPictogramElement(parent);
 			if (obj instanceof Square) {
+				// The shape of the anchor represents a square
 				return (Square) obj;
 			} else if (obj instanceof Piece) {
+				// The shape of the anchor represents a piece
 				return ((Piece) obj).getSquare();
+			} else if (parent instanceof Connection) {
+				// The anchor belongs to a connection; get the square at its end
+				Anchor startAnchor = ((Connection) parent).getEnd();
+				return getSquare(startAnchor);
 			}
 		}
 		return null;
 	}
 
 	private Anchor getSquareConnectionAnchor(Anchor anchor) {
+		// Find the anchor to attach a move connection to a square
 		if (anchor != null) {
 			AnchorContainer parent = anchor.getParent();
 			if (parent instanceof ContainerShape) {
 				Object obj = getBusinessObjectForPictogramElement(parent);
 				if (obj instanceof Square) {
+					// Anchor belongs to a shape that represents a square
 					EList<Anchor> anchors = parent.getAnchors();
 					return findConnectionAnchor(anchors);
 				} else if (obj instanceof Piece) {
+					// Anchor belongs to a shape that represents a piece, use
+					// the anchors of the parent shape
 					EList<Anchor> anchors = ((ContainerShape) parent).getContainer().getAnchors();
 					return findConnectionAnchor(anchors);
 				}
@@ -214,6 +271,9 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 	}
 
 	private Anchor findConnectionAnchor(EList<Anchor> anchors) {
+		// Return the right anchor from the list of found anchors (the
+		// BoxRelativeAnchor is used for connections while the ChopboxAnchor
+		// only catches the connection attachment)
 		for (Anchor connectionAnchor : anchors) {
 			if (connectionAnchor instanceof BoxRelativeAnchor) {
 				return connectionAnchor;

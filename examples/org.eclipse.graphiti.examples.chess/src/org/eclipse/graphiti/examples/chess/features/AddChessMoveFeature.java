@@ -38,6 +38,8 @@ public class AddChessMoveFeature extends AbstractAddFeature {
 
 	@Override
 	public boolean canAdd(IAddContext context) {
+		// Add the connection in case it is a move connection (indicated by a
+		// property)
 		if (context instanceof IAddConnectionContext && context.getProperty(MoveUtil.PROPERTY_MOVE) == Boolean.TRUE) {
 			return true;
 		}
@@ -50,28 +52,33 @@ public class AddChessMoveFeature extends AbstractAddFeature {
 		IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		IGaService gaService = Graphiti.getGaService();
 
-		// Connection line
+		// Connection visualised as a line
 		Connection connection = peCreateService.createFreeFormConnection(getDiagram());
 		connection.setStart(addConContext.getSourceAnchor());
 		connection.setEnd(addConContext.getTargetAnchor());
-
 		Polyline polyline = gaService.createPolyline(connection);
 		polyline.setLineWidth(2);
 		polyline.setForeground(manageColor(IColorConstant.ORANGE));
 
-		// Add decorators for source of connection (circle)
+		// Add decorator for source of connection (circle)
 		ConnectionDecorator cd = peCreateService.createConnectionDecorator(connection, false, 0, true);
 		Ellipse circle = Graphiti.getGaCreateService().createEllipse(cd);
 		circle.setLineWidth(2);
 		gaService.setLocationAndSize(circle, 0, 0, 6, 6);
 		circle.setForeground(manageColor(IColorConstant.ORANGE));
 
-		// Add decorators for target of connection (cross)
+		// Add decorator for target of connection (cross)
 		cd = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
 		Polyline crossPolyline = Graphiti.getGaCreateService().createPolyline(cd,
 				new int[] { -5, -5, 5, 5, 0, 0, -5, 5, 5, -5 });
 		crossPolyline.setLineWidth(2);
 		crossPolyline.setForeground(manageColor(IColorConstant.ORANGE));
+
+		// Add an anchor for move continuation: one to grab the request to
+		// connect to a connection...
+		peCreateService.createChopboxAnchor(connection);
+		// ... and one to actually connect to located at the end decorator
+		peCreateService.createChopboxAnchor(cd);
 
 		return connection;
 	}
