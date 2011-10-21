@@ -121,7 +121,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		Rectangle rectangle = getHostFigure().getBounds();
 
 		if (model instanceof ConnectionDecorator && constraint instanceof Rectangle && rectangle != null) {
-			ICommand cmd = getMoveConnectionDecoratorCommand((ConnectionDecorator) model, (Rectangle) constraint, rectangle.x, rectangle.y);
+			ICommand cmd = getMoveConnectionDecoratorCommand((ConnectionDecorator) model, (Rectangle) constraint,
+					rectangle.x, rectangle.y);
 			if (cmd != null) {
 				IConfigurationProvider configurationProvider = getConfigurationProvider();
 				return new GefCommandWrapper(cmd, configurationProvider.getDiagramEditor().getEditingDomain());
@@ -163,7 +164,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			// connection decorators
 			if (model instanceof ConnectionDecorator) {
 				if (constraint instanceof Rectangle) {
-					ICommand cmd = getMoveConnectionDecoratorCommand((ConnectionDecorator) model, (Rectangle) constraint, 0, 0);
+					ICommand cmd = getMoveConnectionDecoratorCommand((ConnectionDecorator) model,
+							(Rectangle) constraint, 0, 0);
 					if (cmd != null) {
 						ret.add(cmd);
 					}
@@ -174,12 +176,14 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 				Anchor anchor = (Anchor) model;
 				AnchorContainer anchorContainer = anchor.getParent();
 
-				IMoveAnchorContext context = createLayoutAnchorContext(anchor, anchorContainer, anchorContainer, constraint);
+				IMoveAnchorContext context = createLayoutAnchorContext(anchor, anchorContainer, anchorContainer,
+						constraint);
 
 				IMoveAnchorFeature moveAnchorFeature = featureProvider.getMoveAnchorFeature(context);
 				if (moveAnchorFeature != null) {
 					if (child instanceof GraphicalEditPart) {
-						ret.add(new MoveAnchorFeatureCommandWithContext(moveAnchorFeature, context, (GraphicalEditPart) child));
+						ret.add(new MoveAnchorFeatureCommandWithContext(moveAnchorFeature, context,
+								(GraphicalEditPart) child));
 					}
 				}
 			} else
@@ -192,7 +196,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 					Rectangle rectangle = (Rectangle) constraint;
 
 					{
-						IMoveShapeContext context = createMoveShapeContext(shape, containerShape, containerShape, constraint);
+						IMoveShapeContext context = createMoveShapeContext(shape, containerShape, containerShape,
+								constraint);
 
 						IMoveShapeFeature moveShapeFeature = featureProvider.getMoveShapeFeature(context);
 						if (moveShapeFeature != null) {
@@ -250,7 +255,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	 * @param container2
 	 * @return
 	 */
-	protected IMoveShapeContext createMoveShapeContext(Shape shape, ContainerShape source, ContainerShape target, Object constraint) {
+	protected IMoveShapeContext createMoveShapeContext(Shape shape, ContainerShape source, ContainerShape target,
+			Object constraint) {
 		MoveShapeContext ret = new MoveShapeContext(shape);
 
 		ret.setSourceContainer(source);
@@ -304,7 +310,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		return ret;
 	}
 
-	protected IMoveAnchorContext createLayoutAnchorContext(Anchor shape, AnchorContainer source, AnchorContainer target, Object constraint) {
+	protected IMoveAnchorContext createLayoutAnchorContext(Anchor shape, AnchorContainer source,
+			AnchorContainer target, Object constraint) {
 		AreaAnchorContext ret = new AreaAnchorContext(shape);
 
 		ret.setSourceContainer(source);
@@ -371,8 +378,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			cmd = new CreateModelObjectCommand(getConfigurationProvider(), createFeature, context, rectangle);
 			cmd.setLabel(createFeature.getDescription());
 		} else if (request.getNewObjectType() == ISelection.class) {
-			cmd = new AddModelObjectCommand(getConfigurationProvider(), (ContainerShape) parentObject, (ISelection) createdObject,
-					rectangle);
+			cmd = new AddModelObjectCommand(getConfigurationProvider(), (ContainerShape) parentObject,
+					(ISelection) createdObject, rectangle);
 		}
 
 		return cmd;
@@ -388,7 +395,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		return null;
 	}
 
-	private ICommand getMoveConnectionDecoratorCommand(ConnectionDecorator decorator, Rectangle constraint, int offsetX, int offsetY) {
+	private ICommand getMoveConnectionDecoratorCommand(ConnectionDecorator decorator, Rectangle constraint,
+			int offsetX, int offsetY) {
 
 		ICommand ret = null;
 
@@ -404,7 +412,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			y = y - connectionMidpoint.y;
 		} else {
 			// absoluteLocation
-			Point absolutePointOnConnection = GraphitiUiInternal.getGefService().getAbsolutePointOnConnection(connection, location);
+			Point absolutePointOnConnection = GraphitiUiInternal.getGefService().getAbsolutePointOnConnection(
+					connection, location);
 			x = x - absolutePointOnConnection.x;
 			y = y - absolutePointOnConnection.y;
 		}
@@ -414,11 +423,14 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		 * not in the selection of moved objects
 		 */
 		boolean isExecuteAllowed = true;
-		PictogramElement[] selectedPictogramElements = getConfigurationProvider().getDiagramEditor().getSelectedPictogramElements();
+		PictogramElement[] selectedPictogramElements = getConfigurationProvider().getDiagramEditor()
+				.getSelectedPictogramElements();
 		List<PictogramElement> pes = Arrays.asList(selectedPictogramElements);
 		if (pes.size() > 1) {
-			PictogramElement startAnchorContainer = Graphiti.getPeService().getActiveContainerPe(decorator.getConnection().getStart());
-			PictogramElement endAnchorContainer = Graphiti.getPeService().getActiveContainerPe(decorator.getConnection().getEnd());
+			PictogramElement startAnchorContainer = Graphiti.getPeService().getActiveContainerPe(
+					decorator.getConnection().getStart());
+			PictogramElement endAnchorContainer = Graphiti.getPeService().getActiveContainerPe(
+					decorator.getConnection().getEnd());
 			if (pes.contains(startAnchorContainer) || pes.contains(endAnchorContainer)) {
 				isExecuteAllowed = false;
 			}
