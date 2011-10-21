@@ -21,6 +21,7 @@ package org.eclipse.graphiti.ui.internal.policy;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -35,6 +36,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.ICreateFeature;
@@ -151,7 +153,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	 *      java.lang.Object)
 	 */
 	@Override
-	protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
+	protected Command createChangeConstraintCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
 
 		IConfigurationProvider configurationProvider = getConfigurationProvider();
 		IFeatureProvider featureProvider = configurationProvider.getDiagramTypeProvider().getFeatureProvider();
@@ -218,7 +220,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 					{
 						if (isDifferentSize(shape, rectangle)) {
-							IResizeShapeContext context = createResizeShapeContext(shape, constraint);
+							IResizeShapeContext context = createResizeShapeContext(shape, constraint,
+									request.getResizeDirection());
 
 							IResizeShapeFeature resizeShapeFeature = featureProvider.getResizeShapeFeature(context);
 							if (resizeShapeFeature != null) {
@@ -286,7 +289,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		return ret;
 	}
 
-	protected IResizeShapeContext createResizeShapeContext(Shape shape, Object constraint) {
+	protected IResizeShapeContext createResizeShapeContext(Shape shape, Object constraint, int resizeDirection) {
 		ResizeShapeContext ret = new ResizeShapeContext(shape);
 
 		Point loc = null;
@@ -306,6 +309,35 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			ret.setX(loc.x);
 			ret.setY(loc.y);
 		}
+
+		int direction = 0;
+		switch (resizeDirection) {
+		case PositionConstants.NORTH:
+			direction = IResizeShapeContext.DIRECTION_NORTH;
+			break;
+		case PositionConstants.SOUTH:
+			direction = IResizeShapeContext.DIRECTION_SOUTH;
+			break;
+		case PositionConstants.WEST:
+			direction = IResizeShapeContext.DIRECTION_WEST;
+			break;
+		case PositionConstants.EAST:
+			direction = IResizeShapeContext.DIRECTION_EAST;
+			break;
+		case PositionConstants.NORTH_WEST:
+			direction = IResizeShapeContext.DIRECTION_NORTH_WEST;
+			break;
+		case PositionConstants.NORTH_EAST:
+			direction = IResizeShapeContext.DIRECTION_NORTH_EAST;
+			break;
+		case PositionConstants.SOUTH_WEST:
+			direction = IResizeShapeContext.DIRECTION_SOUTH_WEST;
+			break;
+		case PositionConstants.SOUTH_EAST:
+			direction = IResizeShapeContext.DIRECTION_SOUTH_EAST;
+			break;
+		}
+		ret.setDirection(direction);
 
 		return ret;
 	}
