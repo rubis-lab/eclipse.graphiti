@@ -18,10 +18,12 @@ package org.eclipse.graphiti.services;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.PictogramLink;
+import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 
 /**
  * The interface ILinkService provides services for the link handling between
@@ -35,7 +37,14 @@ public interface ILinkService {
 
 	/**
 	 * Returns all business objects which are linked to the given pictogram
-	 * element.
+	 * element.<br>
+	 * Note: Identity of domain or business objects is determined by default
+	 * using the method
+	 * {@link EcoreUtil#equals(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EObject)}
+	 * , which relies on the compared EMF objects having different IDs or
+	 * attributes. The way Graphiti used to compare EMF business objects can be
+	 * changed by overriding
+	 * {@link IToolBehaviorProvider#equalsBusinessObjects(Object, Object)}.
 	 * 
 	 * @param pictogramElement
 	 *            The pictogram element for which to return the business
@@ -49,7 +58,14 @@ public interface ILinkService {
 	 * Returns the first of possibly several business objects which are linked
 	 * to the given pictogram element. This is a convenience method for
 	 * {@link #getAllBusinessObjectsForLinkedPictogramElement(PictogramElement)}
-	 * , because in many use cases only a single business object is linked.
+	 * , because in many use cases only a single business object is linked.<br>
+	 * Note: Identity of domain or business objects is determined by default
+	 * using the method
+	 * {@link EcoreUtil#equals(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EObject)}
+	 * , which relies on the compared EMF objects having different IDs or
+	 * attributes. The way Graphiti used to compare EMF business objects can be
+	 * changed by overriding
+	 * {@link IToolBehaviorProvider#equalsBusinessObjects(Object, Object)}.
 	 * 
 	 * @param pictogramElement
 	 *            The pictogram element for which to return the business
@@ -69,7 +85,14 @@ public interface ILinkService {
 	PictogramLink getLinkForPictogramElement(PictogramElement pictogramElement);
 
 	/**
-	 * Gets all pictogram elements which references the given business object.
+	 * Gets all pictogram elements which references the given business object.<br>
+	 * Note: Identity of domain or business objects is determined by default
+	 * using the method
+	 * {@link EcoreUtil#equals(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EObject)}
+	 * , which relies on the compared EMF objects having different IDs or
+	 * attributes. The way Graphiti used to compare EMF business objects can be
+	 * changed by overriding
+	 * {@link IToolBehaviorProvider#equalsBusinessObjects(Object, Object)}.
 	 * 
 	 * @param diagram
 	 *            the diagram
@@ -82,7 +105,14 @@ public interface ILinkService {
 
 	/**
 	 * Gets all pictogram elements which references at least one of the given
-	 * business objects.
+	 * business objects.<br>
+	 * Note: Identity of domain or business objects is determined by default
+	 * using the method
+	 * {@link EcoreUtil#equals(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EObject)}
+	 * , which relies on the compared EMF objects having different IDs or
+	 * attributes. The way Graphiti used to compare EMF business objects can be
+	 * changed by overriding
+	 * {@link IToolBehaviorProvider#equalsBusinessObjects(Object, Object)}.
 	 * 
 	 * @param diagram
 	 *            the diagram

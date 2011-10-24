@@ -18,6 +18,7 @@
  */
 package org.eclipse.graphiti.features.impl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IProgress;
@@ -31,6 +32,8 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.ILinkService;
+import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.util.IColorConstant;
 
 /**
@@ -182,24 +185,54 @@ public abstract class AbstractFeature implements IFeature {
 	}
 
 	/**
-	 * Link.
+	 * Links the given {@link PictogramElement} to the given business or domain
+	 * object. After doing that, the domain object can be retrieved from the
+	 * {@link PictogramElement} using the methods
+	 * {@link #getBusinessObjectForPictogramElement(PictogramElement)} and
+	 * {@link #getAllBusinessObjectsForPictogramElement(PictogramElement)}; also
+	 * {@link ILinkService#getPictogramElements(Diagram, org.eclipse.emf.ecore.EObject)}
+	 * and
+	 * {@link ILinkService#getPictogramElements(Diagram, java.util.List, boolean)}
+	 * will return the {@link PictogramElement} for the domain object.<br>
+	 * Note: Identity of domain or business objects is determined by default
+	 * using the method
+	 * {@link EcoreUtil#equals(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EObject)}
+	 * , which relies on the compared EMF objects having different IDs or
+	 * attributes. The way Graphiti used to compare EMF business objects can be
+	 * changed by overriding
+	 * {@link IToolBehaviorProvider#equalsBusinessObjects(Object, Object)}.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the {@link PictogramElement} to link to the domain object
 	 * @param businessObject
-	 *            the business object
+	 *            the business object to link to the {@link PictogramElement}
 	 */
 	protected void link(PictogramElement pe, Object businessObject) {
 		link(pe, new Object[] { businessObject });
 	}
 
 	/**
-	 * Link.
+	 * Links the given {@link PictogramElement} to the given business or domain
+	 * objects. After doing that, the domain object can be retrieved from the
+	 * {@link PictogramElement} using the methods
+	 * {@link #getBusinessObjectForPictogramElement(PictogramElement)} and
+	 * {@link #getAllBusinessObjectsForPictogramElement(PictogramElement)}; also
+	 * {@link ILinkService#getPictogramElements(Diagram, org.eclipse.emf.ecore.EObject)}
+	 * and
+	 * {@link ILinkService#getPictogramElements(Diagram, java.util.List, boolean)}
+	 * will return the {@link PictogramElement} for the domain object.<br>
+	 * Note: Identity of domain or business objects is determined by default
+	 * using the method
+	 * {@link EcoreUtil#equals(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EObject)}
+	 * , which relies on the compared EMF objects having different IDs or
+	 * attributes. The way Graphiti used to compare EMF business objects can be
+	 * changed by overriding
+	 * {@link IToolBehaviorProvider#equalsBusinessObjects(Object, Object)}.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the {@link PictogramElement} to link to the domain object
 	 * @param businessObjects
-	 *            the business objects
+	 *            the business objects to link to the {@link PictogramElement}
 	 */
 	protected void link(PictogramElement pe, Object businessObjects[]) {
 		getFeatureProvider().link(pe, businessObjects);
