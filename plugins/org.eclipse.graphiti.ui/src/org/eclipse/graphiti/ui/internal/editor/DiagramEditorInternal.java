@@ -102,6 +102,7 @@ import org.eclipse.graphiti.features.context.ISaveImageContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.SaveImageContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.internal.IDiagramVersion;
 import org.eclipse.graphiti.internal.command.AddFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
@@ -596,7 +597,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 			@Override
 			protected void doExecute() {
-				diagram.eSet(PictogramsPackage.eINSTANCE.getDiagram_Version(), "1.0.0"); //$NON-NLS-1$
+				diagram.eSet(PictogramsPackage.eINSTANCE.getDiagram_Version(), IDiagramVersion.CURRENT);
 			}
 		});
 		Resource[] savedResources = getBehavior().doSave(monitor);
