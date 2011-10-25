@@ -30,7 +30,6 @@ import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
-import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
@@ -80,6 +79,9 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 
 	@Override
 	public Connection create(ICreateConnectionContext context) {
+		// Take back the highlighting
+		getDiagramEditor().getEditingDomain().getCommandStack().undo();
+
 		Connection newConnection = null;
 		Anchor sourceAnchor = context.getSourceAnchor();
 
@@ -110,9 +112,6 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 			newConnection = (Connection) getFeatureProvider().addIfPossible(addContext);
 		}
 
-		// Take back the highlighting
-		showFeedback(context, false);
-
 		return newConnection;
 	}
 
@@ -129,17 +128,23 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 			return;
 		}
 
-		// Highlight all allowed squares
-		showFeedback(context, true);
+		// Highlight all allowed squares.
+		// The highlighting here is done by modifying the Graphiti pictogram
+		// model, which might be considered is a little tricky since the
+		// highlighting should not be part of the visualization infomation
+		// persisted in the diagram. A more cleaner approach would be to use
+		// decorators for highlighting. In the end this is just a demonstration
+		// of the priciple of these hooks.
+		showFeedback(context);
 	}
 
 	@Override
 	public void canceledAttaching(ICreateConnectionContext context) {
 		// Take back the highlighting
-		showFeedback(context, false);
+		getDiagramEditor().getEditingDomain().getCommandStack().undo();
 	}
 
-	private void showFeedback(ICreateConnectionContext context, final boolean show) {
+	private void showFeedback(ICreateConnectionContext context) {
 		// Find the piece that shall be moved (potentially follow move
 		// connections)
 		Piece piece = getPiece(context.getSourceAnchor());
@@ -174,18 +179,9 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 						if (pictogramElement instanceof ContainerShape) {
 							GraphicsAlgorithm squareGA = pictogramElement.getGraphicsAlgorithm();
 							if (squareGA instanceof Rectangle) {
-								if (show) {
-									// Highlight the square in orange
-									squareGA.setForeground(manageColor(IColorConstant.ORANGE));
-									squareGA.setLineWidth(2);
-								} else {
-									// Take back the highlighting
-									Color background = squareGA.getBackground();
-									squareGA.setForeground(manageColor(background.getRed(), background.getGreen(),
-											background.getBlue()));
-									squareGA.setLineWidth(1);
-								}
-
+								// Highlight the square in orange
+								squareGA.setForeground(manageColor(IColorConstant.ORANGE));
+								squareGA.setLineWidth(2);
 							}
 						}
 					}
