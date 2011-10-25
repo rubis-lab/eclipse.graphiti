@@ -59,7 +59,17 @@ public interface ICreateConnection extends ICreateInfo {
 
 	/**
 	 * Will called after a connection creation tool from the palette was
-	 * selected.
+	 * selected.<br>
+	 * Note: In contrast to the standard feature methods like
+	 * {@link #canCreate(ICreateConnectionContext)} and
+	 * {@link #create(ICreateConnectionContext)} this method will not be called
+	 * in the scope of an EMF transaction. In case you want to modify the model
+	 * (EMF domain objects or Graphiti pictogram objects) you need to do that
+	 * within a command executed on the editor's command stack to make sure that
+	 * the modification happens inside an EMF write transaction. Keep in mind
+	 * that any changes you do within such a command will be create a seperate
+	 * entry in the undo/redo stack for the editor, which might not be the
+	 * desired effect.
 	 * 
 	 * @since 0.9
 	 */
@@ -67,7 +77,17 @@ public interface ICreateConnection extends ICreateInfo {
 
 	/**
 	 * Will called after a connection creation tool from the palette was
-	 * deselected.
+	 * deselected.<br>
+	 * Note: In contrast to the standard feature methods like
+	 * {@link #canCreate(ICreateConnectionContext)} and
+	 * {@link #create(ICreateConnectionContext)} this method will not be called
+	 * in the scope of an EMF transaction. In case you want to modify the model
+	 * (EMF domain objects or Graphiti pictogram objects) you need to do that
+	 * within a command executed on the editor's command stack to make sure that
+	 * the modification happens inside an EMF write transaction. Keep in mind
+	 * that any changes you do within such a command will be create a seperate
+	 * entry in the undo/redo stack for the editor, which might not be the
+	 * desired effect.
 	 * 
 	 * @since 0.9
 	 */
@@ -75,7 +95,17 @@ public interface ICreateConnection extends ICreateInfo {
 
 	/**
 	 * Will called after a connection was successfully attached to an anchor of
-	 * a source object.
+	 * a source object.<br>
+	 * Note: In contrast to the standard feature methods like
+	 * {@link #canCreate(ICreateConnectionContext)} and
+	 * {@link #create(ICreateConnectionContext)} this method will not be called
+	 * in the scope of an EMF transaction. In case you want to modify the model
+	 * (EMF domain objects or Graphiti pictogram objects) you need to do that
+	 * within a command executed on the editor's command stack to make sure that
+	 * the modification happens inside an EMF write transaction. Keep in mind
+	 * that any changes you do within such a command will be create a seperate
+	 * entry in the undo/redo stack for the editor, which might not be the
+	 * desired effect.
 	 * 
 	 * @param context
 	 *            the context
@@ -88,7 +118,17 @@ public interface ICreateConnection extends ICreateInfo {
 	 * Will called if the connection creation process was canceled after the
 	 * successful attachment of the connection to an anchor of a source object.
 	 * E.g. user pressed ESC, user clicked on an invalid target, focus was lost,
-	 * ...
+	 * ...<br>
+	 * Note: In contrast to the standard feature methods like
+	 * {@link #canCreate(ICreateConnectionContext)} and
+	 * {@link #create(ICreateConnectionContext)} this method will not be called
+	 * in the scope of an EMF transaction. In case you want to modify the model
+	 * (EMF domain objects or Graphiti pictogram objects) you need to do that
+	 * within a command executed on the editor's command stack to make sure that
+	 * the modification happens inside an EMF write transaction. Keep in mind
+	 * that any changes you do within such a command will be create a seperate
+	 * entry in the undo/redo stack for the editor, which might not be the
+	 * desired effect.
 	 * 
 	 * @param context
 	 *            the context
