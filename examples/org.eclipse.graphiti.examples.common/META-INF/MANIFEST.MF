@@ -34,5 +34,5 @@ Export-Package:
  org.eclipse.graphiti.examples.common.ui,
  org.eclipse.graphiti.examples.common.util,
  org.eclipse.graphiti.examples.common.util.uiprovider
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: org.eclipse.graphiti.examples.common.ExamplesCommonPlugin

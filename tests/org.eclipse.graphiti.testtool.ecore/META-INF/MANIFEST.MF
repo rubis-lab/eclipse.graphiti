@@ -15,4 +15,4 @@ Export-Package: org.eclipse.graphiti.testtool.ecore,
  org.eclipse.graphiti.testtool.ecore.features.association,
  org.eclipse.graphiti.testtool.ecore.features.clazz,
  org.eclipse.graphiti.testtool.ecore.features.pack
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
