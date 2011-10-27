@@ -14,8 +14,6 @@
  */
 package org.eclipse.graphiti.examples.chess.features;
 
-import java.util.Iterator;
-
 import org.eclipse.graphiti.examples.mm.chess.Board;
 import org.eclipse.graphiti.examples.mm.chess.Colors;
 import org.eclipse.graphiti.examples.mm.chess.Files;
@@ -128,9 +126,7 @@ public class AddChessBoardFeature extends AbstractAddShapeFeature implements IAd
 		link(outerContainerShape, board);
 
 		// Add the 64 single squares to the board
-		for (Iterator<Square> it = board.getSquares().iterator(); it.hasNext();) {
-			Square square = it.next();
-
+		for (Square square : board.getSquares()) {
 			// Visualise as a square at the correct location
 			ContainerShape squareShape = createService.createContainerShape(outerContainerShape, true);
 			Rectangle squareRectangle = createService.createRectangle(squareShape);
