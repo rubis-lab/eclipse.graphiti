@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 340403 - Fixed NPE when adding graphical representations from 
  *                         a progress monitor job
+ *    mwenz - Bug 352109 - Enable auto-update option for saved editor
  *
  * </copyright>
  *
@@ -71,14 +72,16 @@ public class DomainModelChangeListener implements ResourceSetListener {
 	@Override
 	public void resourceSetChanged(ResourceSetChangeEvent event) {
 
-		//		// if there is no diagramLink, we have also no pictogramLinks -> no
-		//		// references to bo's -> don't handle change events
-		//		if (getDiagramTypeProvider() instanceof AbstractDiagramTypeProvider) {
-		//			DiagramLink cachedDiagramLink = ((AbstractDiagramTypeProvider) getDiagramTypeProvider()).getCachedDiagramLink();
-		//			if (cachedDiagramLink == null) {
-		//				return;
-		//			}
-		//		}
+		// // if there is no diagramLink, we have also no pictogramLinks -> no
+		// // references to bo's -> don't handle change events
+		// if (getDiagramTypeProvider() instanceof AbstractDiagramTypeProvider)
+		// {
+		// DiagramLink cachedDiagramLink = ((AbstractDiagramTypeProvider)
+		// getDiagramTypeProvider()).getCachedDiagramLink();
+		// if (cachedDiagramLink == null) {
+		// return;
+		// }
+		// }
 		// if we have no pictogramLinks -> no
 		// references to bo's -> don't handle change events
 		Diagram diagram = getDiagramTypeProvider().getDiagram();
@@ -99,8 +102,8 @@ public class DomainModelChangeListener implements ResourceSetListener {
 			changedBOs.add((EObject) notifier);
 		}
 
-		final PictogramElement[] dirtyPes = getDiagramTypeProvider().getNotificationService().calculateRelatedPictogramElements(
-				changedBOs.toArray());
+		final PictogramElement[] dirtyPes = getDiagramTypeProvider().getNotificationService()
+				.calculateRelatedPictogramElements(changedBOs.toArray());
 
 		// Do nothing if no BO linked to the diagram changed.
 		if (dirtyPes.length == 0) {
@@ -112,11 +115,16 @@ public class DomainModelChangeListener implements ResourceSetListener {
 
 			@Override
 			public void run() {
-				if (getDiagramTypeProvider().isAutoUpdateAtRuntime() && getDiagramTypeProvider().getDiagramEditor().isDirty()) {
-					// The notification service takes care of not only the
-					// linked BOs but also asks the diagram provider about
-					// related BOs.
-					getDiagramTypeProvider().getNotificationService().updatePictogramElements(dirtyPes);
+				if (getDiagramTypeProvider().isAutoUpdateAtRuntime()) {
+					// Bug 352109: Enable unconditional auto refresh for case 3)
+					// standard refresh with saved editor
+					if (getDiagramTypeProvider().isAutoUpdateAtRuntimeWhenEditorIsSaved()
+							|| getDiagramTypeProvider().getDiagramEditor().isDirty()) {
+						// The notification service takes care of not only the
+						// linked BOs but also asks the diagram provider about
+						// related BOs.
+						getDiagramTypeProvider().getNotificationService().updatePictogramElements(dirtyPes);
+					}
 				} else {
 					getDiagramTypeProvider().getDiagramEditor().refresh();
 				}

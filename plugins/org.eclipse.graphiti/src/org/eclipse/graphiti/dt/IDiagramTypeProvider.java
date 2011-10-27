@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
+ *    mwenz - Bug 352109 - Enable auto-update option for saved editor
  *
  * </copyright>
  *
@@ -21,7 +22,9 @@ package org.eclipse.graphiti.dt;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProviderHolder;
+import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.notification.INotificationService;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.platform.IExtension;
@@ -100,12 +103,30 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	boolean isAutoUpdateAtStartup();
 
 	/**
-	 * Returns the editor's update behaviour.
+	 * Returns the editor's update behaviour. This flag controls if a diagram
+	 * editor will update its contents (call the {@link AbstractUpdateFeature
+	 * update feature} of the {@link PictogramElement}s changes are indicated
+	 * for.<br>
+	 * Note that the update will only be triggerer in case the editor is already
+	 * dirty, see {@link #isAutoUpdateAtRuntimeWhenEditorIsSaved()}.
 	 * 
 	 * @return true if diagram should be updated automatically (only if editor
 	 *         is already dirty)
 	 */
 	boolean isAutoUpdateAtRuntime();
+
+	/**
+	 * Returns the editor's update behaviour when the editor is saved. This
+	 * method is only called when {@link #isAutoUpdateAtRuntime()} returns
+	 * <code>true</code> and the editor is not dirty. In case this method
+	 * returns <code>true</code> the editor will do an update; this will usually
+	 * cause the editor to get dirty.
+	 * 
+	 * @return true if diagram should be updated automatically (only if editor
+	 *         is already dirty)
+	 * @since 0.9
+	 */
+	boolean isAutoUpdateAtRuntimeWhenEditorIsSaved();
 
 	/**
 	 * Returns the editor's update behaviour on reset.

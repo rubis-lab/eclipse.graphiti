@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
+ *    mwenz - Bug 352109 - Enable auto-update option for saved editor
  *
  * </copyright>
  *
@@ -154,6 +155,14 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	@Override
 	public boolean isAutoUpdateAtRuntime() {
 		return true;
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	@Override
+	public boolean isAutoUpdateAtRuntimeWhenEditorIsSaved() {
+		return false;
 	}
 
 	@Override
