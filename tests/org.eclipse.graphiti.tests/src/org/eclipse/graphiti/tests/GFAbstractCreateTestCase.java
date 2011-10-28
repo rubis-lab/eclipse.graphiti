@@ -50,11 +50,11 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 	}
 	
 	protected void checkInheritedPlainStyleDefaultsFromMetamodel(Style style) {
-		assertNull(style.getFilled());
+		assertFalse(style.isSetFilled()); // is it in state unsettable
 		assertNull(style.getBackground());
 		assertNull(style.getForeground());
 		assertSame(LineStyle.UNSPECIFIED, style.getLineStyle());
-		assertNull(style.getLineVisible());
+		assertFalse(style.isSetLineVisible()); // is it in state unsettable
 		assertNull(style.getLineWidth());
 		assertSame(Orientation.UNSPECIFIED, style.getHorizontalAlignment());
 		assertSame(Orientation.UNSPECIFIED, style.getVerticalAlignment());
@@ -84,11 +84,11 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 	}
 	
 	protected void checkPlainGraphicsAlgorithmDefaults(GraphicsAlgorithm ga) {
-		assertNull(ga.getFilled());
+		assertFalse(ga.isSetFilled()); // is it in state unsettable
 		assertNull(ga.getBackground());
 		assertNull(ga.getForeground());
 		assertSame(LineStyle.UNSPECIFIED, ga.getLineStyle());
-		assertNull(ga.getLineVisible());
+		assertFalse(ga.isSetLineVisible());// is it in state unsettable
 		assertNull(ga.getLineWidth());
 		assertNull(ga.getTransparency());
 		assertNull(ga.getRenderingStyle());

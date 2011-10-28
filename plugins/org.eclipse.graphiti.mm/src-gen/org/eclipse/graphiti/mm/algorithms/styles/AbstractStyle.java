@@ -157,9 +157,11 @@ public interface AbstractStyle extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Filled</em>' attribute.
+	 * @see #isSetFilled()
+	 * @see #unsetFilled()
 	 * @see #setFilled(Boolean)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getAbstractStyle_Filled()
-	 * @model default="true" unique="false" ordered="false"
+	 * @model default="true" unique="false" unsettable="true" ordered="false"
 	 * @generated
 	 */
 	Boolean getFilled();
@@ -169,10 +171,40 @@ public interface AbstractStyle extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Filled</em>' attribute.
+	 * @see #isSetFilled()
+	 * @see #unsetFilled()
 	 * @see #getFilled()
 	 * @generated
 	 */
 	void setFilled(Boolean value);
+
+	/**
+	 * Unsets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getFilled
+	 * <em>Filled</em>}' attribute. <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * 
+	 * @see #isSetFilled()
+	 * @see #getFilled()
+	 * @see #setFilled(Boolean)
+	 * @generated
+	 */
+	void unsetFilled();
+
+	/**
+	 * Returns whether the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getFilled
+	 * <em>Filled</em>}' attribute is set. <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Filled</em>' attribute is set.
+	 * @see #unsetFilled()
+	 * @see #getFilled()
+	 * @see #setFilled(Boolean)
+	 * @generated
+	 */
+	boolean isSetFilled();
 
 	/**
 	 * Returns the value of the '<em><b>Line Visible</b></em>' attribute.
@@ -184,9 +216,11 @@ public interface AbstractStyle extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Line Visible</em>' attribute.
+	 * @see #isSetLineVisible()
+	 * @see #unsetLineVisible()
 	 * @see #setLineVisible(Boolean)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getAbstractStyle_LineVisible()
-	 * @model default="true" unique="false" ordered="false"
+	 * @model default="true" unique="false" unsettable="true" ordered="false"
 	 * @generated
 	 */
 	Boolean getLineVisible();
@@ -196,10 +230,43 @@ public interface AbstractStyle extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Line Visible</em>' attribute.
+	 * @see #isSetLineVisible()
+	 * @see #unsetLineVisible()
 	 * @see #getLineVisible()
 	 * @generated
 	 */
 	void setLineVisible(Boolean value);
+
+	/**
+	 * Unsets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getLineVisible
+	 * <em>Line Visible</em>}' attribute. <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * 
+	 * @see #isSetLineVisible()
+	 * @see #getLineVisible()
+	 * @see #setLineVisible(Boolean)
+	 * @generated
+	 */
+	void unsetLineVisible();
+
+	/**
+	 * Returns whether the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getLineVisible
+	 * <em>Line Visible</em>}' attribute is set. <!-- begin-user-doc -->
+	 * 
+	 * @since 0.9 <!-- end-user-doc -->
+	 * 
+	 * @return whether the value of the '<em>Line Visible</em>' attribute is
+	 *         set.
+	 * @see #unsetLineVisible()
+	 * @see #getLineVisible()
+	 * @see #setLineVisible(Boolean)
+	 * @generated
+	 * 
+	 */
+	boolean isSetLineVisible();
 
 	/**
 	 * Returns the value of the '<em><b>Rendering Style</b></em>' containment reference.

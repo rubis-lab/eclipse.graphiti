@@ -1402,10 +1402,12 @@ public final class GaServiceImpl implements IGaService {
 	@Override
 	public void resetAll(AbstractStyle abstractStyle) {
 		abstractStyle.setBackground(null);
-		abstractStyle.setFilled(null);
+		// Boolean filled is set to unsettable (not to null)
+		abstractStyle.unsetFilled();
 		abstractStyle.setForeground(null);
 		abstractStyle.setLineStyle(LineStyle.UNSPECIFIED);
-		abstractStyle.setLineVisible(null);
+		// Boolean lineVisible is set to unsettable (not to null)
+		abstractStyle.unsetLineVisible();
 		abstractStyle.setLineWidth(null);
 		deleteRenderingStyle(abstractStyle);
 		abstractStyle.setTransparency(null);
@@ -1441,8 +1443,8 @@ public final class GaServiceImpl implements IGaService {
 	 */
 	@Override
 	public boolean isFilled(GraphicsAlgorithm ga, boolean checkStyles) {
-		Boolean filled = ga.getFilled();
-		if (filled == null) {
+		// Check if Boolean filled is unsettable
+		if (!ga.isSetFilled()) {
 			if (checkStyles) {
 				Style style = ga.getStyle();
 				if (style != null) {
@@ -1452,7 +1454,7 @@ public final class GaServiceImpl implements IGaService {
 				}
 			}
 		} else {
-			return filled;
+			return ga.getFilled();
 		}
 		return true; // default value
 	}
@@ -1466,8 +1468,8 @@ public final class GaServiceImpl implements IGaService {
 	 */
 	@Override
 	public boolean isLineVisible(GraphicsAlgorithm ga, boolean checkStyles) {
-		Boolean lv = ga.getLineVisible();
-		if (lv == null) {
+		// Check if Boolean lineVisible is unsettable
+		if (!ga.isSetLineVisible()) {
 			if (checkStyles) {
 				Style style = ga.getStyle();
 				if (style != null) {
@@ -1477,7 +1479,7 @@ public final class GaServiceImpl implements IGaService {
 				}
 			}
 		} else {
-			return lv;
+			return ga.getLineVisible();
 		}
 		return true; // default value
 	}

@@ -246,17 +246,17 @@ public interface Diagram extends ContainerShape, StyleContainer {
 	/**
 	 * Returns the value of the '<em><b>Version</b></em>' attribute. The default
 	 * value is <code>""</code>. <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Version</em>' attribute isn't clear, there
-	 * really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
 	 * 
+	 * @since 0.9
+	 *        <p>
+	 *        If the meaning of the '<em>Version</em>' attribute isn't clear,
+	 *        there really should be more of a description here...
+	 *        </p>
+	 *        <!-- end-user-doc -->
 	 * @return the value of the '<em>Version</em>' attribute.
 	 * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getDiagram_Version()
 	 * @model default="" suppressedSetVisibility="true"
 	 * @generated
-	 * @since 0.9
 	 */
 	String getVersion();
 

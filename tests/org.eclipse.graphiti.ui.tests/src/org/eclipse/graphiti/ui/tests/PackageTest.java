@@ -97,6 +97,7 @@ import org.eclipse.graphiti.mm.algorithms.PlatformGraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -1015,34 +1016,36 @@ public class PackageTest extends GFAbstractTestCase {
 		replay(styleContainerMock);
 
 		Style styleMock = createNiceMock(Style.class);
-		expect(styleMock.getAngle()).andReturn(new Integer(-1));
-		expect(styleMock.getAngle()).andReturn(new Integer(-1));
-
 		expect(styleMock.getAngle()).andReturn(null);
-
-		expect(styleMock.getStyleContainer()).andReturn(styleContainerMock);
+		expect(styleMock.getStyleContainer()).andReturn(styleMock);
+		expect(styleMock.getAngle()).andReturn(null);
+		expect(styleMock.getStyleContainer()).andReturn(null);
+		expect(styleMock.getAngle()).andReturn(new Integer(-1));
 		replay(styleMock);
 
 		AbstractText abstractTextMock = createNiceMock(AbstractText.class);
 		// run 1
 		expect(abstractTextMock.getAngle()).andReturn(null);
-		expect(abstractTextMock.getStyle()).andReturn(styleMock);
+		// expect(abstractTextMock.getStyle()).andReturn(styleMock);
 		// run 2
-		expect(abstractTextMock.getAngle()).andReturn(null);
-		expect(abstractTextMock.getStyle()).andReturn(styleMock);
+		expect(abstractTextMock.getAngle()).andReturn(new Integer(0));
+		// expect(abstractTextMock.getStyle()).andReturn(styleMock);
 		// run 3
 		expect(abstractTextMock.getAngle()).andReturn(null);
+		expect(abstractTextMock.getStyle()).andReturn(styleMock);
 		// run 4
-		expect(abstractTextMock.getAngle()).andReturn(new Integer(0));
-		expect(abstractTextMock.getAngle()).andReturn(new Integer(0));
+		// expect(abstractTextMock.getAngle()).andReturn(new Integer(0));
+		expect(abstractTextMock.getAngle()).andReturn(null);
+		expect(abstractTextMock.getStyle()).andReturn(styleMock);
+		// expect(abstractTextMock.getAngle()).andReturn(new Integer(0));
 		replay(abstractTextMock);
 
 		IGaService gaService = Graphiti.getGaService();
 
-		gaService.getAngle(abstractTextMock, true);
-		gaService.getAngle(abstractTextMock, true);
 		gaService.getAngle(abstractTextMock, false);
 		gaService.getAngle(abstractTextMock, false);
+		gaService.getAngle(abstractTextMock, true);
+		gaService.getAngle(abstractTextMock, true);
 
 		// verify(styleMock);
 
@@ -1057,12 +1060,11 @@ public class PackageTest extends GFAbstractTestCase {
 		expect(styleMock.getStyleContainer()).andReturn(styleMock);
 		expect(styleMock.getBackground()).andReturn(null);
 		expect(styleMock.getStyleContainer()).andReturn(null);
-		expect(styleMock.getBackground()).andReturn(colorMock).times(2);
+		expect(styleMock.getBackground()).andReturn(colorMock);
 		replay(styleMock);
 
 		GraphicsAlgorithm graphicsAlgorithmMock = createMock(GraphicsAlgorithm.class);
 		// run 1
-		expect(graphicsAlgorithmMock.getBackground()).andReturn(colorMock);
 		expect(graphicsAlgorithmMock.getBackground()).andReturn(colorMock);
 		// run 2
 		expect(graphicsAlgorithmMock.getBackground()).andReturn(null);
@@ -1129,7 +1131,7 @@ public class PackageTest extends GFAbstractTestCase {
 
 		graphicsAlgorithmMock = createMock(GraphicsAlgorithm.class);
 		// run 1
-		expect(graphicsAlgorithmMock.getForeground()).andReturn(colorMock).times(2);
+		expect(graphicsAlgorithmMock.getForeground()).andReturn(colorMock);
 		// run 2
 		expect(graphicsAlgorithmMock.getForeground()).andReturn(null);
 		// run 3
@@ -1153,22 +1155,20 @@ public class PackageTest extends GFAbstractTestCase {
 		styleMock = createNiceMock(Style.class);
 		expect(styleMock.getHorizontalAlignment()).andReturn(null);
 		expect(styleMock.getStyleContainer()).andReturn(styleMock);
-		expect(styleMock.getHorizontalAlignment()).andReturn(null);
+		expect(styleMock.getHorizontalAlignment()).andReturn(Orientation.ALIGNMENT_RIGHT);
 		expect(styleMock.getStyleContainer()).andReturn(null);
-		// expect(styleMock.getHorizontalAlignment()).andReturn(createNiceMock(Orientation.class)).times(2);
 		replay(styleMock);
 
 		abstractTextMock = createMock(AbstractText.class);
 		// run 1
-		expect(abstractTextMock.getHorizontalAlignment()).andReturn(null);
+		expect(abstractTextMock.getHorizontalAlignment()).andReturn(Orientation.UNSPECIFIED);
 		// run 2
-		// expect(abstractTextMock.getHorizontalAlignment()).andReturn(createMock(Orientation.class));
-		expect(abstractTextMock.getHorizontalAlignment()).andReturn(null);
+		expect(abstractTextMock.getHorizontalAlignment()).andReturn(Orientation.ALIGNMENT_LEFT);
 		// run 3
-		expect(abstractTextMock.getHorizontalAlignment()).andReturn(null);
+		expect(abstractTextMock.getHorizontalAlignment()).andReturn(Orientation.UNSPECIFIED);
 		expect(abstractTextMock.getStyle()).andReturn(styleMock);
 		// run 4
-		expect(abstractTextMock.getHorizontalAlignment()).andReturn(null);
+		expect(abstractTextMock.getHorizontalAlignment()).andReturn(Orientation.UNSPECIFIED);
 		expect(abstractTextMock.getStyle()).andReturn(styleMock);
 		replay(abstractTextMock);
 
@@ -1185,22 +1185,20 @@ public class PackageTest extends GFAbstractTestCase {
 		styleMock = createNiceMock(Style.class);
 		expect(styleMock.getVerticalAlignment()).andReturn(null);
 		expect(styleMock.getStyleContainer()).andReturn(styleMock);
-		expect(styleMock.getVerticalAlignment()).andReturn(null);
+		expect(styleMock.getVerticalAlignment()).andReturn(Orientation.ALIGNMENT_TOP);
 		expect(styleMock.getStyleContainer()).andReturn(null);
-		// expect(styleMock.getVerticalAlignment()).andReturn(createNiceMock(Orientation.class)).times(2);
 		replay(styleMock);
 
 		abstractTextMock = createMock(AbstractText.class);
 		// run 1
-		expect(abstractTextMock.getVerticalAlignment()).andReturn(null);
+		expect(abstractTextMock.getVerticalAlignment()).andReturn(Orientation.UNSPECIFIED);
 		// run 2
-		// expect(abstractTextMock.getVerticalAlignment()).andReturn(createMock(Orientation.class));
-		expect(abstractTextMock.getVerticalAlignment()).andReturn(null);
+		expect(abstractTextMock.getVerticalAlignment()).andReturn(Orientation.ALIGNMENT_BOTTOM);
 		// run 3
-		expect(abstractTextMock.getVerticalAlignment()).andReturn(null);
+		expect(abstractTextMock.getVerticalAlignment()).andReturn(Orientation.UNSPECIFIED);
 		expect(abstractTextMock.getStyle()).andReturn(styleMock);
 		// run 4
-		expect(abstractTextMock.getVerticalAlignment()).andReturn(null);
+		expect(abstractTextMock.getVerticalAlignment()).andReturn(Orientation.UNSPECIFIED);
 		expect(abstractTextMock.getStyle()).andReturn(styleMock);
 		replay(abstractTextMock);
 
@@ -1217,28 +1215,27 @@ public class PackageTest extends GFAbstractTestCase {
 		styleMock = createNiceMock(Style.class);
 		expect(styleMock.getLineStyle()).andReturn(null);
 		expect(styleMock.getStyleContainer()).andReturn(styleMock);
-		expect(styleMock.getLineStyle()).andReturn(null);
+		expect(styleMock.getLineStyle()).andReturn(LineStyle.DASHDOT);
 		expect(styleMock.getStyleContainer()).andReturn(null);
-		// expect(styleMock.getLineStyle()).andReturn(createNiceMock(LineStyle.class)).times(2);
 		replay(styleMock);
 
 		graphicsAlgorithmMock = createMock(GraphicsAlgorithm.class);
 		// run 1
-		// expect(graphicsAlgorithmMock.getLineStyle()).andReturn(createMock(LineStyle.class)).times(2);
+		expect(graphicsAlgorithmMock.getLineStyle()).andReturn(LineStyle.UNSPECIFIED);
 		// run 2
-		expect(graphicsAlgorithmMock.getLineStyle()).andReturn(null);
+		expect(graphicsAlgorithmMock.getLineStyle()).andReturn(LineStyle.SOLID);
 		// run 3
-		expect(graphicsAlgorithmMock.getLineStyle()).andReturn(null);
+		expect(graphicsAlgorithmMock.getLineStyle()).andReturn(LineStyle.UNSPECIFIED);
 		expect(graphicsAlgorithmMock.getStyle()).andReturn(styleMock);
 		// run 4
-		expect(graphicsAlgorithmMock.getLineStyle()).andReturn(null);
+		expect(graphicsAlgorithmMock.getLineStyle()).andReturn(LineStyle.UNSPECIFIED);
 		expect(graphicsAlgorithmMock.getStyle()).andReturn(styleMock);
 		replay(graphicsAlgorithmMock);
 
 		gaService.getLineStyle(graphicsAlgorithmMock, false);
 		gaService.getLineStyle(graphicsAlgorithmMock, false);
-		// gaService.getLineStyle(graphicsAlgorithmMock, true);
-		// gaService.getLineStyle(graphicsAlgorithmMock, true);
+		gaService.getLineStyle(graphicsAlgorithmMock, true);
+		gaService.getLineStyle(graphicsAlgorithmMock, true);
 
 		// verify(styleMock);
 
@@ -1255,9 +1252,9 @@ public class PackageTest extends GFAbstractTestCase {
 
 		graphicsAlgorithmMock = createMock(GraphicsAlgorithm.class);
 		// run 1
-		expect(graphicsAlgorithmMock.getLineWidth()).andReturn(new Integer(6)).times(2);
-		// run 2
 		expect(graphicsAlgorithmMock.getLineWidth()).andReturn(null);
+		// run 2
+		expect(graphicsAlgorithmMock.getLineWidth()).andReturn(new Integer(6));
 		// run 3
 		expect(graphicsAlgorithmMock.getLineWidth()).andReturn(null);
 		expect(graphicsAlgorithmMock.getStyle()).andReturn(styleMock);
@@ -1286,9 +1283,9 @@ public class PackageTest extends GFAbstractTestCase {
 
 		graphicsAlgorithmMock = createMock(GraphicsAlgorithm.class);
 		// run 1
-		expect(graphicsAlgorithmMock.getRenderingStyle()).andReturn(createMock(RenderingStyle.class)).times(2);
-		// run 2
 		expect(graphicsAlgorithmMock.getRenderingStyle()).andReturn(null);
+		// run 2
+		expect(graphicsAlgorithmMock.getRenderingStyle()).andReturn(createMock(RenderingStyle.class));
 		// run 3
 		expect(graphicsAlgorithmMock.getRenderingStyle()).andReturn(null);
 		expect(graphicsAlgorithmMock.getStyle()).andReturn(styleMock);
@@ -1317,9 +1314,9 @@ public class PackageTest extends GFAbstractTestCase {
 
 		graphicsAlgorithmMock = createMock(GraphicsAlgorithm.class);
 		// run 1
-		expect(graphicsAlgorithmMock.getTransparency()).andReturn(new Double(0.0)).times(2);
-		// run 2
 		expect(graphicsAlgorithmMock.getTransparency()).andReturn(null);
+		// run 2
+		expect(graphicsAlgorithmMock.getTransparency()).andReturn(new Double(0.0));
 		// run 3
 		expect(graphicsAlgorithmMock.getTransparency()).andReturn(null);
 		expect(graphicsAlgorithmMock.getStyle()).andReturn(styleMock);
@@ -1346,16 +1343,17 @@ public class PackageTest extends GFAbstractTestCase {
 		expect(styleMock.getFilled()).andReturn(new Boolean(true)).times(2);
 		replay(styleMock);
 
-		graphicsAlgorithmMock = createNiceMock(GraphicsAlgorithm.class);
+		graphicsAlgorithmMock = createMock(GraphicsAlgorithm.class);
 		// run 1
-		expect(graphicsAlgorithmMock.getFilled()).andReturn(new Boolean(false)).times(2);
+		expect(graphicsAlgorithmMock.isSetFilled()).andReturn(false);
 		// run 2
-		expect(graphicsAlgorithmMock.getFilled()).andReturn(null);
+		expect(graphicsAlgorithmMock.isSetFilled()).andReturn(true);
+		expect(graphicsAlgorithmMock.getFilled()).andReturn(new Boolean(false));
 		// run 3
-		expect(graphicsAlgorithmMock.getFilled()).andReturn(null);
+		expect(graphicsAlgorithmMock.isSetFilled()).andReturn(false);
 		expect(graphicsAlgorithmMock.getStyle()).andReturn(styleMock);
 		// run 4
-		expect(graphicsAlgorithmMock.getFilled()).andReturn(null);
+		expect(graphicsAlgorithmMock.isSetFilled()).andReturn(false);
 		expect(graphicsAlgorithmMock.getStyle()).andReturn(styleMock);
 		replay(graphicsAlgorithmMock);
 
@@ -1377,16 +1375,17 @@ public class PackageTest extends GFAbstractTestCase {
 		expect(styleMock.getLineVisible()).andReturn(new Boolean(true)).times(2);
 		replay(styleMock);
 
-		graphicsAlgorithmMock = createMock(GraphicsAlgorithm.class);
+		graphicsAlgorithmMock = createNiceMock(GraphicsAlgorithm.class);
 		// run 1
-		expect(graphicsAlgorithmMock.getLineVisible()).andReturn(new Boolean(false)).times(2);
+		expect(graphicsAlgorithmMock.isSetLineVisible()).andReturn(false);
 		// run 2
-		expect(graphicsAlgorithmMock.getLineVisible()).andReturn(null);
+		expect(graphicsAlgorithmMock.isSetLineVisible()).andReturn(true);
+		expect(graphicsAlgorithmMock.getLineVisible()).andReturn(new Boolean(false));
 		// run 3
-		expect(graphicsAlgorithmMock.getLineVisible()).andReturn(null);
+		expect(graphicsAlgorithmMock.isSetLineVisible()).andReturn(false);
 		expect(graphicsAlgorithmMock.getStyle()).andReturn(styleMock);
 		// run 4
-		expect(graphicsAlgorithmMock.getLineVisible()).andReturn(null);
+		expect(graphicsAlgorithmMock.isSetLineVisible()).andReturn(false);
 		expect(graphicsAlgorithmMock.getStyle()).andReturn(styleMock);
 		replay(graphicsAlgorithmMock);
 
@@ -1405,14 +1404,14 @@ public class PackageTest extends GFAbstractTestCase {
 		expect(styleMock.getStyleContainer()).andReturn(styleMock);
 		expect(styleMock.getProportional()).andReturn(null);
 		expect(styleMock.getStyleContainer()).andReturn(null);
-		expect(styleMock.getProportional()).andReturn(new Boolean(true)).times(2);
+		expect(styleMock.getProportional()).andReturn(new Boolean(true));
 		replay(styleMock);
 
 		Image imageMock = createMock(Image.class);
 		// run 1
-		expect(imageMock.getProportional()).andReturn(new Boolean(false)).times(2);
-		// run 2
 		expect(imageMock.getProportional()).andReturn(null);
+		// run 2
+		expect(imageMock.getProportional()).andReturn(new Boolean(false));
 		// run 3
 		expect(imageMock.getProportional()).andReturn(null);
 		expect(imageMock.getStyle()).andReturn(styleMock);
@@ -1436,14 +1435,14 @@ public class PackageTest extends GFAbstractTestCase {
 		expect(styleMock.getStyleContainer()).andReturn(styleMock);
 		expect(styleMock.getStretchH()).andReturn(null);
 		expect(styleMock.getStyleContainer()).andReturn(null);
-		expect(styleMock.getStretchH()).andReturn(new Boolean(true)).times(2);
+		expect(styleMock.getStretchH()).andReturn(new Boolean(true));
 		replay(styleMock);
 
 		imageMock = createMock(Image.class);
 		// run 1
-		expect(imageMock.getStretchH()).andReturn(new Boolean(false)).times(2);
-		// run 2
 		expect(imageMock.getStretchH()).andReturn(null);
+		// run 2
+		expect(imageMock.getStretchH()).andReturn(new Boolean(false));
 		// run 3
 		expect(imageMock.getStretchH()).andReturn(null);
 		expect(imageMock.getStyle()).andReturn(styleMock);
@@ -1467,14 +1466,14 @@ public class PackageTest extends GFAbstractTestCase {
 		expect(styleMock.getStyleContainer()).andReturn(styleMock);
 		expect(styleMock.getStretchV()).andReturn(null);
 		expect(styleMock.getStyleContainer()).andReturn(null);
-		expect(styleMock.getStretchV()).andReturn(new Boolean(true)).times(2);
+		expect(styleMock.getStretchV()).andReturn(new Boolean(true));
 		replay(styleMock);
 
 		imageMock = createMock(Image.class);
 		// run 1
-		expect(imageMock.getStretchV()).andReturn(new Boolean(false)).times(2);
-		// run 2
 		expect(imageMock.getStretchV()).andReturn(null);
+		// run 2
+		expect(imageMock.getStretchV()).andReturn(new Boolean(false));
 		// run 3
 		expect(imageMock.getStretchV()).andReturn(null);
 		expect(imageMock.getStyle()).andReturn(styleMock);

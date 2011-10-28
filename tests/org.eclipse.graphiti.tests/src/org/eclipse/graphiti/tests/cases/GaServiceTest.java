@@ -662,12 +662,12 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		text.setAngle(null);
 		text.setLineWidth(null);
 		text.setLineStyle(LineStyle.UNSPECIFIED);
-		text.setLineVisible(null);
+		text.unsetLineVisible();
 		text.setFont(null);
 		text.setHorizontalAlignment(Orientation.UNSPECIFIED);
 		text.setVerticalAlignment(Orientation.UNSPECIFIED);
 		text.setTransparency(null);
-		text.setFilled(null);
+		text.unsetFilled();
 
 		assertNotNull(text);
 		assertEquals(2, gas.getAngle(text, true));
@@ -742,10 +742,10 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		assertNull(style.getBackground());
 		assertNull(style.getForeground());
 		assertEquals(LineStyle.UNSPECIFIED, style.getLineStyle());
-		assertNull(style.getLineVisible());
+		assertFalse((style.isSetLineVisible())); // is it in state unsettable
 		assertNull(style.getLineWidth());
 		assertNull(style.getRenderingStyle());
-		assertNull(style.getFilled());
-		assertNull(style.getTransparency());
+		assertFalse(style.isSetFilled());
+		assertNull(style.getTransparency()); // is it in state unsettable
 	}
 }

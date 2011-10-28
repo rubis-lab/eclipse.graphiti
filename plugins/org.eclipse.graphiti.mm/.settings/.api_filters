@@ -8,6 +8,32 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src-gen/org/eclipse/graphiti/mm/algorithms/styles/AbstractStyle.java" type="org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle">
+        <filter comment="Uncommented" id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle"/>
+                <message_argument value="isSetFilled()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Uncommented" id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle"/>
+                <message_argument value="isSetLineVisible()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Uncommented" id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle"/>
+                <message_argument value="unsetFilled()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Uncommented" id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle"/>
+                <message_argument value="unsetLineVisible()"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/eclipse/graphiti/mm/algorithms/styles/Color.java" type="org.eclipse.graphiti.mm.algorithms.styles.Color">
         <filter id="405901410">
             <message_arguments>

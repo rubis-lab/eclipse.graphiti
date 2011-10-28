@@ -1790,13 +1790,13 @@ public interface PictogramsPackage extends EPackage {
 	/**
 	 * Returns the meta object for the attribute '
 	 * {@link org.eclipse.graphiti.mm.pictograms.Diagram#getVersion
-	 * <em>Version</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <em>Version</em>}'. <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9 <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Version</em>'.
 	 * @see org.eclipse.graphiti.mm.pictograms.Diagram#getVersion()
 	 * @see #getDiagram()
 	 * @generated
-	 * @since 0.9
 	 */
 	EAttribute getDiagram_Version();
 
@@ -2328,10 +2328,10 @@ public interface PictogramsPackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Version</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * feature. <!-- begin-user-doc -->
 		 * 
+		 * @since 0.9 <!-- end-user-doc -->
 		 * @generated
-		 * @since 0.9
 		 */
 		EAttribute DIAGRAM__VERSION = eINSTANCE.getDiagram_Version();
 

@@ -155,6 +155,15 @@ public abstract class GraphicsAlgorithmImpl extends GraphicsAlgorithmContainerIm
 	protected Boolean filled = FILLED_EDEFAULT;
 
 	/**
+	 * This is true if the Filled attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean filledESet;
+
+	/**
 	 * The default value of the '{@link #getLineVisible() <em>Line Visible</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -173,6 +182,15 @@ public abstract class GraphicsAlgorithmImpl extends GraphicsAlgorithmContainerIm
 	 * @ordered
 	 */
 	protected Boolean lineVisible = LINE_VISIBLE_EDEFAULT;
+
+	/**
+	 * This is true if the Line Visible attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean lineVisibleESet;
 
 	/**
 	 * The cached value of the '{@link #getRenderingStyle() <em>Rendering Style</em>}' containment reference.
@@ -458,8 +476,33 @@ public abstract class GraphicsAlgorithmImpl extends GraphicsAlgorithmContainerIm
 	public void setFilled(Boolean newFilled) {
 		Boolean oldFilled = filled;
 		filled = newFilled;
+		boolean oldFilledESet = filledESet;
+		filledESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.GRAPHICS_ALGORITHM__FILLED, oldFilled, filled));
+			eNotify(new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.GRAPHICS_ALGORITHM__FILLED, oldFilled, filled, !oldFilledESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetFilled() {
+		Boolean oldFilled = filled;
+		boolean oldFilledESet = filledESet;
+		filled = FILLED_EDEFAULT;
+		filledESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, AlgorithmsPackage.GRAPHICS_ALGORITHM__FILLED, oldFilled, FILLED_EDEFAULT, oldFilledESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetFilled() {
+		return filledESet;
 	}
 
 	/**
@@ -479,8 +522,33 @@ public abstract class GraphicsAlgorithmImpl extends GraphicsAlgorithmContainerIm
 	public void setLineVisible(Boolean newLineVisible) {
 		Boolean oldLineVisible = lineVisible;
 		lineVisible = newLineVisible;
+		boolean oldLineVisibleESet = lineVisibleESet;
+		lineVisibleESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.GRAPHICS_ALGORITHM__LINE_VISIBLE, oldLineVisible, lineVisible));
+			eNotify(new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.GRAPHICS_ALGORITHM__LINE_VISIBLE, oldLineVisible, lineVisible, !oldLineVisibleESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetLineVisible() {
+		Boolean oldLineVisible = lineVisible;
+		boolean oldLineVisibleESet = lineVisibleESet;
+		lineVisible = LINE_VISIBLE_EDEFAULT;
+		lineVisibleESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, AlgorithmsPackage.GRAPHICS_ALGORITHM__LINE_VISIBLE, oldLineVisible, LINE_VISIBLE_EDEFAULT, oldLineVisibleESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetLineVisible() {
+		return lineVisibleESet;
 	}
 
 	/**
@@ -998,10 +1066,10 @@ public abstract class GraphicsAlgorithmImpl extends GraphicsAlgorithmContainerIm
 				setLineStyle(LINE_STYLE_EDEFAULT);
 				return;
 			case AlgorithmsPackage.GRAPHICS_ALGORITHM__FILLED:
-				setFilled(FILLED_EDEFAULT);
+				unsetFilled();
 				return;
 			case AlgorithmsPackage.GRAPHICS_ALGORITHM__LINE_VISIBLE:
-				setLineVisible(LINE_VISIBLE_EDEFAULT);
+				unsetLineVisible();
 				return;
 			case AlgorithmsPackage.GRAPHICS_ALGORITHM__RENDERING_STYLE:
 				setRenderingStyle((RenderingStyle)null);
@@ -1054,9 +1122,9 @@ public abstract class GraphicsAlgorithmImpl extends GraphicsAlgorithmContainerIm
 			case AlgorithmsPackage.GRAPHICS_ALGORITHM__LINE_STYLE:
 				return lineStyle != LINE_STYLE_EDEFAULT;
 			case AlgorithmsPackage.GRAPHICS_ALGORITHM__FILLED:
-				return FILLED_EDEFAULT == null ? filled != null : !FILLED_EDEFAULT.equals(filled);
+				return isSetFilled();
 			case AlgorithmsPackage.GRAPHICS_ALGORITHM__LINE_VISIBLE:
-				return LINE_VISIBLE_EDEFAULT == null ? lineVisible != null : !LINE_VISIBLE_EDEFAULT.equals(lineVisible);
+				return isSetLineVisible();
 			case AlgorithmsPackage.GRAPHICS_ALGORITHM__RENDERING_STYLE:
 				return renderingStyle != null;
 			case AlgorithmsPackage.GRAPHICS_ALGORITHM__TRANSPARENCY:
@@ -1142,9 +1210,9 @@ public abstract class GraphicsAlgorithmImpl extends GraphicsAlgorithmContainerIm
 		result.append(", lineStyle: ");
 		result.append(lineStyle);
 		result.append(", filled: ");
-		result.append(filled);
+		if (filledESet) result.append(filled); else result.append("<unset>");
 		result.append(", lineVisible: ");
-		result.append(lineVisible);
+		if (lineVisibleESet) result.append(lineVisible); else result.append("<unset>");
 		result.append(", transparency: ");
 		result.append(transparency);
 		result.append(", width: ");
