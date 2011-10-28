@@ -619,7 +619,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			// ... if not get the tool provided tooltip (for performance reasons
 			// only called in case no update needed tooltip exists)
 			String toolTip = toolBehaviorProvider.getToolTip(graphicsAlgorithm);
-			if (toolTip != null && !toolTip.isEmpty()) {
+			if (toolTip != null && !(toolTip.length() == 0)) {
 				// null or empty string means no tooltip wanted
 				tooltipLabel = new Label(toolTip);
 			}

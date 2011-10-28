@@ -87,7 +87,7 @@ public class MigrationServiceImpl implements IMigrationService {
 	@Override
 	public boolean shouldMigrate080To090(Diagram d) {
 		String version = d.getVersion();
-		if (version == null || version.isEmpty()) {
+		if (version == null || version.length() == 0) {
 			Resource eResource = d.eResource();
 			TreeIterator<EObject> allContents = eResource.getAllContents();
 			while (allContents.hasNext()) {

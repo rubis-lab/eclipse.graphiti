@@ -470,7 +470,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	}
 
 	private String[] getValues(String value) {
-		if (value.isEmpty()) {
+		if (value.length() == 0) {
 			return new String[0];
 		} else {
 			return st.decode(value);
