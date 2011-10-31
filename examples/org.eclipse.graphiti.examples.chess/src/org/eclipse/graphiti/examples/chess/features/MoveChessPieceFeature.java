@@ -21,7 +21,6 @@ import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Square;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IMultiDeleteInfo;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
@@ -36,7 +35,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 /**
  *
  */
-public class MoveChessPieceFeature extends DefaultMoveShapeFeature implements IMoveShapeFeature {
+public class MoveChessPieceFeature extends DefaultMoveShapeFeature {
 
 	public MoveChessPieceFeature(IFeatureProvider fp) {
 		super(fp);

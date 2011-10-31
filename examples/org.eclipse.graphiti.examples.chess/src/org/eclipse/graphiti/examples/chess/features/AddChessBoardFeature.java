@@ -19,7 +19,6 @@ import org.eclipse.graphiti.examples.mm.chess.Colors;
 import org.eclipse.graphiti.examples.mm.chess.Files;
 import org.eclipse.graphiti.examples.mm.chess.Ranks;
 import org.eclipse.graphiti.examples.mm.chess.Square;
-import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
@@ -38,7 +37,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
 
-public class AddChessBoardFeature extends AbstractAddShapeFeature implements IAddFeature {
+public class AddChessBoardFeature extends AbstractAddShapeFeature {
 
 	private static final int SQUARE_SIZE = 50;
 	private static final int BOARD_SIZE = SQUARE_SIZE * 8;

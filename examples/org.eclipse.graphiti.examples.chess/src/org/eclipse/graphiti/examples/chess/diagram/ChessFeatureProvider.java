@@ -31,7 +31,6 @@ import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.IReconnectionFeature;
@@ -47,7 +46,7 @@ import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
-public class ChessFeatureProvider extends DefaultFeatureProvider implements IFeatureProvider {
+public class ChessFeatureProvider extends DefaultFeatureProvider {
 
 	private boolean programmaticFeatureCallActive = false;
 

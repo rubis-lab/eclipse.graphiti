@@ -15,10 +15,9 @@
 package org.eclipse.graphiti.examples.chess.diagram;
 
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 
-public class ChessDiagramTypeProvider extends AbstractDiagramTypeProvider implements IDiagramTypeProvider {
+public class ChessDiagramTypeProvider extends AbstractDiagramTypeProvider {
 
 	private IToolBehaviorProvider[] toolBehaviorProviders;
 

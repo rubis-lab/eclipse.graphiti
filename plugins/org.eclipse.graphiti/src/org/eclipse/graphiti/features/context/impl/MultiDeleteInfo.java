@@ -15,10 +15,14 @@
  *******************************************************************************/
 package org.eclipse.graphiti.features.context.impl;
 
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IMultiDeleteInfo;
 
 /**
- * @noinstantiate This class is not intended to be instantiated by clients.
+ * Can be used to pass the information if a popup shall be shown or of a multi
+ * delete has been cancelled by the user to the next delete steps. See
+ * {@link IDeleteContext#getMultiDeleteInfo()}.
+ * 
  * @noextend This class is not intended to be subclassed by clients.
  */
 public class MultiDeleteInfo implements IMultiDeleteInfo {
@@ -30,9 +34,15 @@ public class MultiDeleteInfo implements IMultiDeleteInfo {
 	private int number;
 
 	/**
+	 * Creates a new instance with the given settings.
+	 * 
 	 * @param showDialog
+	 *            Determines if a "Are you sure" popup will be shown or not
 	 * @param deleteCanceled
+	 *            Determines if cancellation happened
 	 * @param number
+	 *            Provides information on the number of objects to delete; the
+	 *            number will be shown in the popup if displayed.
 	 */
 	public MultiDeleteInfo(boolean showDialog, boolean deleteCanceled, int number) {
 		super();

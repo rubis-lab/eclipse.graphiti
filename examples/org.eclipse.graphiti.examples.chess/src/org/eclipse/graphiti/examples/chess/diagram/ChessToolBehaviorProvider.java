@@ -17,9 +17,8 @@ package org.eclipse.graphiti.examples.chess.diagram;
 
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
-import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 
-public class ChessToolBehaviorProvider extends DefaultToolBehaviorProvider implements IToolBehaviorProvider {
+public class ChessToolBehaviorProvider extends DefaultToolBehaviorProvider {
 
 	public ChessToolBehaviorProvider(IDiagramTypeProvider diagramTypeProvider) {
 		super(diagramTypeProvider);

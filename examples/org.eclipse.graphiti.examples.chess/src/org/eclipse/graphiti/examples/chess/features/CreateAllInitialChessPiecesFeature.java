@@ -26,7 +26,6 @@ import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Ranks;
 import org.eclipse.graphiti.examples.mm.chess.Square;
 import org.eclipse.graphiti.examples.mm.chess.Types;
-import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
@@ -35,7 +34,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 
-public class CreateAllInitialChessPiecesFeature extends AbstractCreateFeature implements ICreateFeature {
+public class CreateAllInitialChessPiecesFeature extends AbstractCreateFeature {
 
 	public CreateAllInitialChessPiecesFeature(IFeatureProvider fp) {
 		super(fp, "Create Pieces", "Create the initial set of pieces");

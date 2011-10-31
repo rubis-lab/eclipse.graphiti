@@ -17,7 +17,6 @@ package org.eclipse.graphiti.examples.chess.features;
 import org.eclipse.graphiti.examples.mm.chess.Colors;
 import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Types;
-import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
@@ -31,7 +30,7 @@ import org.eclipse.graphiti.services.ICreateService;
 import org.eclipse.graphiti.services.IGaLayoutService;
 import org.eclipse.graphiti.util.IColorConstant;
 
-public class AddChessPieceFeature extends AbstractAddShapeFeature implements IAddFeature {
+public class AddChessPieceFeature extends AbstractAddShapeFeature {
 
 	public AddChessPieceFeature(IFeatureProvider fp) {
 		super(fp);
