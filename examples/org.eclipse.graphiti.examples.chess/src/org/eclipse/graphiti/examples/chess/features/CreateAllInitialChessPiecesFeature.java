@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.graphiti.examples.chess.Messages;
 import org.eclipse.graphiti.examples.mm.chess.Board;
 import org.eclipse.graphiti.examples.mm.chess.ChessFactory;
 import org.eclipse.graphiti.examples.mm.chess.Colors;
@@ -37,7 +38,7 @@ import org.eclipse.graphiti.services.Graphiti;
 public class CreateAllInitialChessPiecesFeature extends AbstractCreateFeature {
 
 	public CreateAllInitialChessPiecesFeature(IFeatureProvider fp) {
-		super(fp, "Create Pieces", "Create the initial set of pieces");
+		super(fp, Messages.CreateAllInitialChessPiecesFeature_name, Messages.CreateAllInitialChessPiecesFeature_description);
 	}
 
 	@Override

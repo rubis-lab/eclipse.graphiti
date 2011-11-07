@@ -25,7 +25,7 @@ import org.eclipse.graphiti.examples.mm.chess.Types;
 
 public final class MoveUtil {
 
-	public static final String PROPERTY_MOVE = "move";
+	public static final String PROPERTY_MOVE = "move"; //$NON-NLS-1$
 
 	private MoveUtil() {
 		super();
@@ -120,7 +120,7 @@ public final class MoveUtil {
 		}
 
 		// Should never get here
-		throw new IllegalStateException("Invalid Piece type: " + piece.getType());
+		throw new IllegalStateException("Invalid Piece type: " + piece.getType()); //$NON-NLS-1$
 	}
 
 	private static boolean allowMovingToSides(Square sourceSquare, Square targetSquare, int fileGap, int rankGap) {

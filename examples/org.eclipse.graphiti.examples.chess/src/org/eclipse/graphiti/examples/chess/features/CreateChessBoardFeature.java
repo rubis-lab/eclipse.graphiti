@@ -15,6 +15,7 @@
 package org.eclipse.graphiti.examples.chess.features;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.graphiti.examples.chess.Messages;
 import org.eclipse.graphiti.examples.mm.chess.Board;
 import org.eclipse.graphiti.examples.mm.chess.ChessFactory;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -25,7 +26,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 public class CreateChessBoardFeature extends AbstractCreateFeature {
 
 	public CreateChessBoardFeature(IFeatureProvider fp) {
-		super(fp, "Create Board", "Create a new chess board");
+		super(fp, Messages.CreateChessBoardFeature_name, Messages.CreateChessBoardFeature_description);
 	}
 
 	@Override

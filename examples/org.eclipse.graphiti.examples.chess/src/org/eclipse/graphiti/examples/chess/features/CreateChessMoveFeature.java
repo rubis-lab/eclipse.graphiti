@@ -21,6 +21,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.graphiti.examples.chess.Messages;
 import org.eclipse.graphiti.examples.chess.MoveUtil;
 import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Square;
@@ -42,7 +43,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 
 	public CreateChessMoveFeature(IFeatureProvider fp) {
-		super(fp, "Create Move", "Creates a new move for a piece");
+		super(fp, Messages.CreateChessMoveFeature_name, Messages.CreateChessMoveFeature_description);
 	}
 
 	@Override
@@ -102,7 +103,7 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 				addContext = new AddConnectionContext(((Connection) parent).getEnd(),
 						getSquareConnectionAnchor(context.getTargetAnchor()));
 			} else {
-				throw new IllegalStateException("Parent in neither a ContainerShape nor a Connection: " + parent);
+				throw new IllegalStateException("Parent in neither a ContainerShape nor a Connection: " + parent); //$NON-NLS-1$
 			}
 
 			// Set the property identifying a move connection
@@ -260,7 +261,7 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 					return findConnectionAnchor(anchors);
 				}
 			} else {
-				throw new IllegalStateException("Parent shape is not a container shape");
+				throw new IllegalStateException("Parent shape is not a container shape"); //$NON-NLS-1$
 			}
 		}
 		return null;
@@ -275,6 +276,6 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 				return connectionAnchor;
 			}
 		}
-		throw new IllegalStateException("No BoxRelativeAnchor found");
+		throw new IllegalStateException("No BoxRelativeAnchor found"); //$NON-NLS-1$
 	}
 }
