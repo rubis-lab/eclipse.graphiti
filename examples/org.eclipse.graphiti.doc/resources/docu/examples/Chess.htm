@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Page Title</title>
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
+<style type="text/css">
+.auto-style1 {
+	text-align: left;
+}
+</style>
+</head>
+
+<body>
+
+	<h1>Chess Example</h1>
+	<p>The chess example provided along with the SDK download of
+		Graphiti illustrates how one could build a chess game editor using the
+		Graphiti framework. It registers an editor for this that allows the
+		user to create a chess board, add the initial set of pieces to that
+		board and move them according to the chess rules (note that the order
+		of the moves is not restricted, so you might make two moves of e.g. a
+		light figure without an intermediate dark move). Besides taking the
+		opponents pieces is supported and one can plan moves by drawing move
+		connections; these connections highlight the allowed target squares
+		and allow to connect moves to each other (demonstrating the
+		"connection on connection" feature of Graphiti).")</p>
+	<img alt="Screensshot of Chess Example Editor"
+		src="images/InitialBoard.png" width="600px">
+	<h2>Chess Example Plugin</h2>
+	<p>
+		The example plugin <i>org.eclipse.graphiti.examples.chess</i> is
+		available as executable but also as source in the SDK download and
+		within our repository under the examples folder. While the example is
+		easy enough for quickly understanding it, it allows to demonstrate
+		some features of Graphiti that are not explained in the tutorial.
+	</p>
+	<h2>EMF Model</h2>
+	<p>The plugin contains a small EMF model to define a chess game.</p>
+	<img alt="The EMF model defined for the Chess Example"
+		src="images/EMFmodel.png" width="600px">
+	<p>Note that the generated model files were modified at certain spots to
+		ease the example coding:</p>
+	<ul>
+		<li>The board contains functionality to retrieve a square
+			represented its file and rank realized via an EMF operation</li>
+		<li>On creation of a board also all of its squares are created
+			and correctly initialized.</li>
+		<li>Squares provide EMF operations to calculate their X- and
+			Y-location for placement on the board.</li>
+	</ul>
+	<h2>Special Graphiti Features</h2>
+	<p>The following special Graphiti features are shown in the Chess
+		example:</p>
+	<ul>
+		<li>Allowing and restricting moving and resizing on squares and
+			pieces; for pieces only moves are allowed that are allowed in chess.</li>
+		<li>A usecase for the hooks during connection creation is shown
+			in <i>CreateChessMoveFeature</i>; this is used to highlight squares a
+			move is allowed to.</li>
+		<li>How to connect a connection to another connection is also
+			shown in the <i>CreateChessMoveFeature</i>.</li>
+		<li>The <i>ChessFeatureProvider</i> shows how it is possible to
+			disable the delete functionality in the UI and still be able to
+			programmatically use it via the Graphiti framework.</li>
+	</ul>
+</body>
+</html>

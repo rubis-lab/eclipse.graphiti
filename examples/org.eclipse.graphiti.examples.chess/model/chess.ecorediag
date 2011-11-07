@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_4-5NUQlOEeG0NKf4aLammg" type="EcoreTools" name="chess.ecorediag" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_5BIB8AlOEeG0NKf4aLammg" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_5Ba84AlOEeG0NKf4aLammg" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_5Ba84QlOEeG0NKf4aLammg" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_5Ba84glOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5Ba84wlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5Ba85AlOEeG0NKf4aLammg"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_5Bkt4AlOEeG0NKf4aLammg" type="5002">
+      <children xmi:type="notation:Node" xmi:id="_5Bue4AlOEeG0NKf4aLammg" type="2002">
+        <element xmi:type="ecore:EOperation" href="chess.ecore#//Board/getSquare"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5Bue4QlOEeG0NKf4aLammg"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_5Bkt4QlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5Bkt4glOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5Bkt4wlOEeG0NKf4aLammg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_5BIB8QlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="chess.ecore#//Board"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5BIB8glOEeG0NKf4aLammg" x="85" y="55"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_5Bue4glOEeG0NKf4aLammg" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_5Bue5QlOEeG0NKf4aLammg" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_5Bue5glOEeG0NKf4aLammg" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_5Bue7glOEeG0NKf4aLammg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="chess.ecore#//Square/index"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5Bue7wlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5Bue8AlOEeG0NKf4aLammg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="chess.ecore#//Square/file"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5Bue8QlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5Bue8glOEeG0NKf4aLammg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="chess.ecore#//Square/rank"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5Bue8wlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5Bue9AlOEeG0NKf4aLammg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="chess.ecore#//Square/color"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5Bue9QlOEeG0NKf4aLammg"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_5Bue5wlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5Bue6AlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5Bue6QlOEeG0NKf4aLammg"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_5Bue6glOEeG0NKf4aLammg" type="5002">
+      <children xmi:type="notation:Node" xmi:id="_5Bue9glOEeG0NKf4aLammg" type="2002">
+        <element xmi:type="ecore:EOperation" href="chess.ecore#//Square/getOffsetX"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5Bue9wlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5Bue-AlOEeG0NKf4aLammg" type="2002">
+        <element xmi:type="ecore:EOperation" href="chess.ecore#//Square/getOffsetY"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5Bue-QlOEeG0NKf4aLammg"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_5Bue6wlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5Bue7AlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5Bue7QlOEeG0NKf4aLammg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_5Bue4wlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="chess.ecore#//Square"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5Bue5AlOEeG0NKf4aLammg" x="85" y="235" width="213"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_5Bue-glOEeG0NKf4aLammg" type="1005">
+    <children xmi:type="notation:Node" xmi:id="_5Bue_QlOEeG0NKf4aLammg" type="4010"/>
+    <children xmi:type="notation:Node" xmi:id="_5Bue_glOEeG0NKf4aLammg" type="5008">
+      <children xmi:type="notation:Node" xmi:id="_5BufAglOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Ranks/none"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufAwlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufBAlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Ranks/one"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufBQlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufBglOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Ranks/two"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufBwlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufCAlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Ranks/three"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufCQlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufCglOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Ranks/four"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufCwlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufDAlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Ranks/five"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufDQlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufDglOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Ranks/six"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufDwlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufEAlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Ranks/seven"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufEQlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufEglOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Ranks/eight"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufEwlOEeG0NKf4aLammg"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_5Bue_wlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5BufAAlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5BufAQlOEeG0NKf4aLammg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_5Bue-wlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EEnum" href="chess.ecore#//Ranks"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5Bue_AlOEeG0NKf4aLammg" x="605" y="55"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_5BufFAlOEeG0NKf4aLammg" type="1005">
+    <children xmi:type="notation:Node" xmi:id="_5BufFwlOEeG0NKf4aLammg" type="4010"/>
+    <children xmi:type="notation:Node" xmi:id="_5BufGAlOEeG0NKf4aLammg" type="5008">
+      <children xmi:type="notation:Node" xmi:id="_5BufHAlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Files/none"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufHQlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufHglOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Files/A"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufHwlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufIAlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Files/B"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufIQlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufIglOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Files/C"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufIwlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufJAlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Files/D"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufJQlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5BufJglOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Files/E"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5BufJwlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3o0AlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Files/F"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3o0QlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3o0glOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Files/G"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3o0wlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3o1AlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Files/H"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3o1QlOEeG0NKf4aLammg"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_5BufGQlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5BufGglOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5BufGwlOEeG0NKf4aLammg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_5BufFQlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EEnum" href="chess.ecore#//Files"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5BufFglOEeG0NKf4aLammg" x="735" y="55"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_5B3o1glOEeG0NKf4aLammg" type="1005">
+    <children xmi:type="notation:Node" xmi:id="_5B3o2QlOEeG0NKf4aLammg" type="4010"/>
+    <children xmi:type="notation:Node" xmi:id="_5B3o2glOEeG0NKf4aLammg" type="5008">
+      <children xmi:type="notation:Node" xmi:id="_5B3o3glOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Colors/none"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3o3wlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3o4AlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Colors/light"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3o4QlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3o4glOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Colors/dark"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3o4wlOEeG0NKf4aLammg"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_5B3o2wlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5B3o3AlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5B3o3QlOEeG0NKf4aLammg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_5B3o1wlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EEnum" href="chess.ecore#//Colors"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5B3o2AlOEeG0NKf4aLammg" x="735" y="260"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_5B3o5AlOEeG0NKf4aLammg" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_5B3o5wlOEeG0NKf4aLammg" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_5B3o6AlOEeG0NKf4aLammg" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_5B3o8AlOEeG0NKf4aLammg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="chess.ecore#//Piece/owner"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3o8QlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3o8glOEeG0NKf4aLammg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="chess.ecore#//Piece/type"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3o8wlOEeG0NKf4aLammg"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_5B3o6QlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5B3o6glOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5B3o6wlOEeG0NKf4aLammg"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_5B3o7AlOEeG0NKf4aLammg" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_5B3o7QlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5B3o7glOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5B3o7wlOEeG0NKf4aLammg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_5B3o5QlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="chess.ecore#//Piece"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5B3o5glOEeG0NKf4aLammg" x="455" y="55"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_5B3o9AlOEeG0NKf4aLammg" type="1005">
+    <children xmi:type="notation:Node" xmi:id="_5B3o9wlOEeG0NKf4aLammg" type="4010"/>
+    <children xmi:type="notation:Node" xmi:id="_5B3o-AlOEeG0NKf4aLammg" type="5008">
+      <children xmi:type="notation:Node" xmi:id="_5B3o_AlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Types/none"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3o_QlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3o_glOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Types/king"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3o_wlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3pAAlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Types/queen"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3pAQlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3pAglOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Types/rook"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3pAwlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3pBAlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Types/knight"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3pBQlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3pBglOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Types/bishop"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3pBwlOEeG0NKf4aLammg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5B3pCAlOEeG0NKf4aLammg" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="chess.ecore#//Types/pawn"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3pCQlOEeG0NKf4aLammg"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_5B3o-QlOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5B3o-glOEeG0NKf4aLammg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5B3o-wlOEeG0NKf4aLammg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_5B3o9QlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EEnum" href="chess.ecore#//Types"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5B3o9glOEeG0NKf4aLammg" x="605" y="260"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_4-5NUglOEeG0NKf4aLammg"/>
+  <element xmi:type="ecore:EPackage" href="chess.ecore#/"/>
+  <edges xmi:type="notation:Edge" xmi:id="_5B3pCglOEeG0NKf4aLammg" type="3002" source="_5BIB8AlOEeG0NKf4aLammg" target="_5Bue4glOEeG0NKf4aLammg">
+    <children xmi:type="notation:Node" xmi:id="_5B3pDglOEeG0NKf4aLammg" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5B3pDwlOEeG0NKf4aLammg" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_5CBZ0AlOEeG0NKf4aLammg" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5CBZ0QlOEeG0NKf4aLammg" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_5B3pCwlOEeG0NKf4aLammg" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_5B3pDAlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="chess.ecore#//Board/squares"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_5B3pDQlOEeG0NKf4aLammg" points="[0, 0, 95, 60]$[-95, -60, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XR-xYglPEeG0NKf4aLammg" id="(0.3286384976525822,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XR-xYwlPEeG0NKf4aLammg" id="(0.664179104477612,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_5CBZ0glOEeG0NKf4aLammg" type="3002" source="_5BIB8AlOEeG0NKf4aLammg" target="_5B3o5AlOEeG0NKf4aLammg">
+    <children xmi:type="notation:Node" xmi:id="_5CBZ1glOEeG0NKf4aLammg" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5CBZ1wlOEeG0NKf4aLammg" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_5CBZ2AlOEeG0NKf4aLammg" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5CBZ2QlOEeG0NKf4aLammg" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_5CBZ0wlOEeG0NKf4aLammg" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_5CBZ1AlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="chess.ecore#//Board/pieces"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_5CBZ1QlOEeG0NKf4aLammg" points="[54, 11, -244, -55]$[213, 47, -85, -19]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XR-xVglPEeG0NKf4aLammg" id="(0.7464788732394366,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XR-xVwlPEeG0NKf4aLammg" id="(0.75,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_5CBZ2glOEeG0NKf4aLammg" type="3002" source="_5Bue4glOEeG0NKf4aLammg" target="_5BIB8AlOEeG0NKf4aLammg">
+    <children xmi:type="notation:Node" xmi:id="_5CBZ3glOEeG0NKf4aLammg" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5CBZ3wlOEeG0NKf4aLammg" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_5CBZ4AlOEeG0NKf4aLammg" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5CBZ4QlOEeG0NKf4aLammg" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_5CBZ2wlOEeG0NKf4aLammg" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_5CBZ3AlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="chess.ecore#//Square/board"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_5CBZ3QlOEeG0NKf4aLammg" points="[0, 0, -95, -60]$[95, 60, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XSIiUglPEeG0NKf4aLammg" id="(0.664179104477612,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XSIiUwlPEeG0NKf4aLammg" id="(0.3286384976525822,0.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_5CBZ4glOEeG0NKf4aLammg" type="3002" source="_5Bue4glOEeG0NKf4aLammg" target="_5B3o5AlOEeG0NKf4aLammg">
+    <children xmi:type="notation:Node" xmi:id="_5CBZ5glOEeG0NKf4aLammg" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5CBZ5wlOEeG0NKf4aLammg" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_5CBZ6AlOEeG0NKf4aLammg" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5CBZ6QlOEeG0NKf4aLammg" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_5CBZ4wlOEeG0NKf4aLammg" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_5CBZ5AlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="chess.ecore#//Square/piece"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_5CBZ5QlOEeG0NKf4aLammg" points="[71, 0, -196, 114]$[267, 0, 0, 114]$[267, -114, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XSIiUAlPEeG0NKf4aLammg" id="(0.664179104477612,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XSIiUQlPEeG0NKf4aLammg" id="(0.3275862068965517,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_5CBZ6glOEeG0NKf4aLammg" type="3002" source="_5B3o5AlOEeG0NKf4aLammg" target="_5Bue4glOEeG0NKf4aLammg">
+    <children xmi:type="notation:Node" xmi:id="_5CBZ7glOEeG0NKf4aLammg" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5CBZ7wlOEeG0NKf4aLammg" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_5CBZ8AlOEeG0NKf4aLammg" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5CBZ8QlOEeG0NKf4aLammg" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_5CBZ6wlOEeG0NKf4aLammg" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_5CBZ7AlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="chess.ecore#//Piece/square"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_5CBZ7QlOEeG0NKf4aLammg" points="[0, 0, 267, -114]$[0, 114, 267, 0]$[-196, 114, 71, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XR-xXglPEeG0NKf4aLammg" id="(0.3275862068965517,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XR-xXwlPEeG0NKf4aLammg" id="(0.664179104477612,0.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_5CBZ8glOEeG0NKf4aLammg" type="3002" source="_5B3o5AlOEeG0NKf4aLammg" target="_5BIB8AlOEeG0NKf4aLammg">
+    <children xmi:type="notation:Node" xmi:id="_5CBZ9glOEeG0NKf4aLammg" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5CBZ9wlOEeG0NKf4aLammg" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_5CBZ-AlOEeG0NKf4aLammg" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5CBZ-QlOEeG0NKf4aLammg" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_5CBZ8wlOEeG0NKf4aLammg" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_5CBZ9AlOEeG0NKf4aLammg" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="chess.ecore#//Piece/board"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_5CBZ9QlOEeG0NKf4aLammg" points="[-85, -19, 213, 47]$[-244, -55, 54, 11]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XR-xWAlPEeG0NKf4aLammg" id="(0.75,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XR-xWQlPEeG0NKf4aLammg" id="(0.7464788732394366,0.0)"/>
+  </edges>
+</notation:Diagram>
