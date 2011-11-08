@@ -98,7 +98,17 @@ public class AddChessPieceFeature extends AbstractAddShapeFeature {
 		// Link the visualization with the board
 		link(pieceShape, piece);
 
-		// Add an anchor for attaching moves
+		// Create an anchor for attaching moves (in fact we are using two
+		// anchors here. The first one is a chopbox anchor that serves for
+		// catching the connection creation. The second one is a box
+		// relative anchor; it is used to actually attach the connection to.
+		// The box relative anchor is visualised as a circle with diameter
+		// 0 (invisible). The advantage of this construction is that it is
+		// possible to attach the connection to the complete shape (via the
+		// chopbox anchor) and not to have the clipping (because of the box
+		// relative anchor) while the user does not have the possibility to
+		// move the anchor around and while he still can get hold of the
+		// shape under the box relative anchor.
 		createService.createChopboxAnchor(pieceShape);
 		BoxRelativeAnchor relativeAnchor = createService.createBoxRelativeAnchor(pieceShape);
 		relativeAnchor.setRelativeHeight(0.5d);

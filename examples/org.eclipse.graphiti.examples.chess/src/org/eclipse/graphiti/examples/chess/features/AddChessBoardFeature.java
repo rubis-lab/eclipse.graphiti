@@ -145,7 +145,17 @@ public class AddChessBoardFeature extends AbstractAddShapeFeature {
 			// And do the linking
 			link(squareShape, square);
 
-			// Create an anchor for attaching moves
+			// Create an anchor for attaching moves (in fact we are using two
+			// anchors here. The first one is a chopbox anchor that serves for
+			// catching the connection creation. The second one is a box
+			// relative anchor; it is used to actually attach the connection to.
+			// The box relative anchor is visualised as a circle with diameter
+			// 0 (invisible). The advantage of this construction is that it is
+			// possible to attach the connection to the complete shape (via the
+			// chopbox anchor) and not to have the clipping (because of the box
+			// relative anchor) while the user does not have the possibility to
+			// move the anchor around and while he still can get hold of the
+			// shape under the box relative anchor.
 			createService.createChopboxAnchor(squareShape);
 			BoxRelativeAnchor relativeAnchor = createService.createBoxRelativeAnchor(squareShape);
 			relativeAnchor.setRelativeHeight(0.5d);
@@ -159,11 +169,6 @@ public class AddChessBoardFeature extends AbstractAddShapeFeature {
 		return outerContainerShape;
 	}
 
-	/**
-	 * @param layoutService
-	 * @param file
-	 * @param text
-	 */
 	private void setLayoutForBorderTexts(IGaLayoutService layoutService, Text text) {
 		text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 		text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
