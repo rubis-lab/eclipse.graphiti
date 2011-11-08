@@ -35,7 +35,7 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Juno</h1>
-	<p>Last revised September 28, 2011</p>
+	<p>Last revised November 8, 2011</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.9.0 within the
 		Juno release train.</p>
@@ -44,72 +44,188 @@ table.news tr td.content {
 		width="600">
 		<tr>
 			<td colspan="2">
-				<h2>M2</h2>
+				<h2>M3</h2></td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				implementing round-offs both in functionality and documentation.</td>
+		</tr>
+		<tr id="bug 361638">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=361638">New
+					Chess Diagram Example</a></td>
+			<td class="content">The Chess Diagram Editor as shown in a demo
+				at EclipseCon Europe 2011 is now part of the Graphiti samples and
+				available as part of the Graphiti SDK download. A screenshot of the
+				tool can be seen in the next entry.</td>
+		</tr>
+		<tr id="bug 329517">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=329517">State
+					Callbacks during Connection Creation</a></td>
+			<td class="content">Graphiti now offers state callbacks during
+				the creation of a new connection. There are hooks for starting and
+				ending a connection, but also for the state when the connection is
+				attached to its source anchor. This allows for example highlighting
+				of allowed targets for the connection.<br> <img
+				src="NaNimages/CallbacksConnection.png" /></td>
+		</tr>
+		<tr id="bug 343983">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=343983">State
+					Callbacks during Reconnect</a></td>
+			<td class="content">The reconnection feature now provides a hook
+				that allows the tool developer to react to reconnect cancellations.</td>
+		</tr>
+		<tr id="bug 339525">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=339525">Allow
+					Paste to Location</a></td>
+			<td class="content">The paste context now provides additional
+				information about the location of the paste operation to allow
+				pasting to a user-defined location.</td>
+		</tr>
+		<tr id="bug 342262">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=342262">Provide
+					Resize Direction</a></td>
+			<td class="content">The resize context now provides additional
+				information on the direction in which the shape is being resized to
+				allow e.g. better placement of child shapes.</td>
+		</tr>
+		<tr id="bug 352109">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352109">Unconditional
+					Editor Refresh</a></td>
+			<td class="content">The Graphiti diagram editor now offers an
+				unconditional refresh mode. Tool developers can enable this mode by
+				overriding the isAutoRefreshXXX methods in the tool behaviour
+				provider.</td>
+		</tr>
+		<tr id="docu">
+			<td class="title">Documentation</td>
+			<td class="content">The complete Graphiti documentation has been
+				reformatted, is easier to read and looks much nicer now. Besides
+				some bugs in the documentation and the tutorial have been fixed and
+				some smaller gaps especially in the styles concept have been filled.</td>
+		</tr>
+		<tr id="bug 359221">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=359221">Bug
+					359221</a></td>
+			<td class="content">Connection were not removed on the removal
+				of their originating anchor.</td>
+		</tr>
+		<tr id="bug 359222">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=359222">Bug
+					359222</a></td>
+			<td class="content">Moving an anchor shape caused jumping of
+				that shape.</td>
+		</tr>
+		<tr id="bug 359928">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=359928">Bug
+					359928</a></td>
+			<td class="content">Fixed a minor initialisation issue in
+				DiagramEditorBehaviour.</td>
+		</tr>
+		<tr id="bug 360800">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=360800">Bug
+					360800</a></td>
+			<td class="content">The background colour attribute for Texts
+				was ignored. As an effect of this fix Graphiti introduced version
+				numbers for diagrams; for older versions than 0.9.0 the Graphiti
+				diagram editor will perform an auto migration of the background
+				colour attribute of Text objects to correctly display the background
+				colour (this behaviour can be changed by the tool developer). For
+				details on this please have a look into the bug report. <b>Involves
+					diagram migration!</b>
 			</td>
+		</tr>
+		<tr id="bug 359112">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=359112">Bug
+					359112</a></td>
+			<td class="content">Fixed an issue in resizing of the direct
+				editing field for connection decorators.</td>
+		</tr>
+		<tr id="bug 357878">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=357878">Bug
+					357878</a></td>
+			<td class="content">Fixed a strange behaviour when adding
+				bendpoints.</td>
+		</tr>
+		<tr id="bug 359526">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=359526">Bug
+					359526</a></td>
+			<td class="content">Fixed a NullPointerException in the refresh
+				handling for non file-based editors.</td>
+		</tr>
+		<!-- ---------------------------------------- M2 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M2</h2></td>
 		</tr>
 		<tr>
 			<td colspan="2">The main focus for this milestone has again been
 				set on bugfixing and implementing round-offs. Besides project
-				releated tasks were focused.</td>
+				related tasks were focused.</td>
 		</tr>
 		<tr id="bug 357764">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=357764">Bug
-					357764</a>
-			</td>
+					357764</a></td>
 			<td class="content">Fixed an index out of bounds exception
 				during refresh in connection with rendering decorators.</td>
 		</tr>
 		<tr id="bug 352200">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352200">Bug
-					352200</a>
-			</td>
+					352200</a></td>
 			<td class="content">The method moveShape in the default move
 				feature is no longer final.</td>
 		</tr>
 		<tr id="bug 352542">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352542">Reworked
-					styles</a>
-			</td>
+					styles</a></td>
 			<td class="content">The styles concept in Graphiti has been
 				reworked. There are new creator methods for graphics algorithms that
 				do not set any default attributes (createPlain...) that prevent you
 				from having to reset certain attributes in order to enable the value
-				set at a style. for details see <a
+				set at a style. For details see <a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352542">Bug
 					352542</a>.</td>
 		</tr>
 		<tr id="bug 355401">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=355401">Bug
-					355401</a>
-			</td>
+					355401</a></td>
 			<td class="content">Fixed performance issue with printing under
 				Linux.</td>
 		</tr>
 		<tr id="bug 356090">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=356090">Bug
-					356090</a>
-			</td>
+					356090</a></td>
 			<td class="content">Fixed bug with hasDoneChanges for delete
 				feature in patterns.</td>
 		</tr>
 		<tr id="bug 354824">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=354824">Bug
-					354824</a>
-			</td>
+					354824</a></td>
 			<td class="content">Fixed bug in positioning within
 				FixPointAnchors.</td>
 		</tr>
 		<tr id="bug 352220">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352220">Bug
-					352220</a>
-			</td>
+					352220</a></td>
 			<td class="content">Cleaned-up the disabling of guides inside
 				the editor. Note: this can affect tool builders since this is a -
 				very minor - <b>change in API</b>.</td>
@@ -117,145 +233,127 @@ table.news tr td.content {
 		<tr id="bug 355027">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=355027">Bug
-					355027</a>
-			</td>
+					355027</a></td>
 			<td class="content">Fixed a bug in moving connection decorators
 				in a zoomed diagram.</td>
 		</tr>
 		<tr id="bug 355347">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=355347">Bug
-					355347</a>
-			</td>
-			<td class="content">Fixed a bug in colors and fonts that
-				invalidated the Graphiti object management. Colors and Fonts are now
-				immutable. Note: this can affect tool builders since this is a small
-				<b>change in API</b>.</td>
+					355347</a></td>
+			<td class="content">Fixed a bug in colours and fonts that
+				invalidated the Graphiti object management. Colours and Fonts are
+				now immutable. Note: this can affect tool builders since this is a
+				small <b>change in API</b>.</td>
 		</tr>
 		<tr id="bug 356218">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=356218">Bug
-					356218</a>
-			</td>
+					356218</a></td>
 			<td class="content">Fixed a bug in auto update at startup that
 				caused the editor to open dirty in any case.</td>
 		</tr>
 		<tr id="bug 356828">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=356828">Bug
-					356828</a>
-			</td>
+					356828</a></td>
 			<td class="content">Fixed a bug in editor title decoding.</td>
 		</tr>
 		<tr id="bug 351226">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=351226">Bug
-					351226</a>
-			</td>
+					351226</a></td>
 			<td class="content">Improved editor behaviour when renaming or
 				deleting a file.</td>
 		</tr>
 		<tr id="bug 357411">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=357411">Bug
-					357411</a>
-			</td>
+					357411</a></td>
 			<td class="content">Removed some unnecessary reflection coding.</td>
 		</tr>
 		<tr id="bug 357417">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=357417">Bug
-					357417</a>
-			</td>
+					357417</a></td>
 			<td class="content">DiagramEditorInput now adapts to IFile.</td>
 		</tr>
 		<tr id="bug 357549">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=357549">Bug
-					357549</a>
-			</td>
+					357549</a></td>
 			<td class="content">Fixed a bug in setting names and
 				descriptions for creation entries.</td>
 		</tr>
 		<tr id="bug 355968">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=355968">Bug
-					355968</a>
-			</td>
+					355968</a></td>
 			<td class="content">Enabled ChopBoxAnchors to define a reference
 				point for connections.</td>
 		</tr>
 		<!-- ---------------------------------------- M1 ------------------------------- -->
 		<tr>
 			<td colspan="2">
-				<h2>M1</h2>
-			</td>
+				<h2>M1</h2></td>
 		</tr>
 		<tr>
 			<td colspan="2">The main focus for this milestone has been set
-				on bugfixing and implementing round-offs. Besides project releated
+				on bugfixing and implementing round-offs. Besides project related
 				tasks were focused.</td>
 		</tr>
 		<tr id="bug 352104">
 			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352104">Bug
-					352104 - Git Migration</a>
-			</td>
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352104">Git
+					Migration</a></td>
 			<td class="content">Graphiti sources have been moved from CVS to
 				Git.</td>
 		</tr>
 		<tr id="bug 352709">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352709">Bug
-					352709</a>
-			</td>
+					352709</a></td>
 			<td class="content">Invalid image provides no longer cause the
 				editor to crash.</td>
 		</tr>
 		<tr id="bug 333985">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=333985">Bug
-					333985</a>
-			</td>
+					333985</a></td>
 			<td class="content">Documentation for Accessibility support for
 				F2 is now available.</td>
 		</tr>
 		<tr id="bug 339185">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=339185">Bug
-					339185</a>
-			</td>
+					339185</a></td>
 			<td class="content">Documentation on reconnection feature is now
 				available.</td>
 		</tr>
 		<tr id="bug 348634">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=348634">Bug
-					348634</a>
-			</td>
+					348634</a></td>
 			<td class="content">Fixed the bug that direct editing got
 				invoked again if mouse was placed over the edit field.</td>
 		</tr>
 		<tr id="bug 348637">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=348637">Bug
-					348637</a>
-			</td>
+					348637</a></td>
 			<td class="content">Fixed sizing bug in direct editing text
 				decorator.</td>
 		</tr>
 		<tr id="bug 348662">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=348662">Bug
-					348662</a>
-			</td>
+					348662</a></td>
 			<td class="content">Fixed bug in removing tooltips.</td>
 		</tr>
 		<tr id="bug 348772">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=348772">Bug
-					348772</a>
-			</td>
+					348772</a></td>
 			<td class="content">Fixed spelling error in
 				DefaultToolBehaviourProvider API. - Note: this can affect tool
 				builders since this is a - very minor - <b>change in API</b>.</td>
@@ -263,66 +361,60 @@ table.news tr td.content {
 		<tr id="bug 350261">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=350261">Bug
-					350261</a>
-			</td>
+					350261</a></td>
 			<td class="content">JAR files get now packed in the central
 				build.</td>
 		</tr>
 		<tr id="bug 350273">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=350273">Bug
-					350273</a>
-			</td>
+					350273</a></td>
 			<td class="content">Central Eclipse license feature is no used.</td>
 		</tr>
 		<tr id="bug 351053">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=351053">Bug
-					351053</a>
-			</td>
+					351053</a></td>
 			<td class="content">Tool builders are more flexible to use other
 				command stacks.</td>
 		</tr>
 		<tr id="bug 349439">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=349439">Bug
-					349439</a>
-			</td>
+					349439</a></td>
 			<td class="content">Eased to use Graphiti in an RCP scenario.</td>
 		</tr>
 		<tr id="bug 350830">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=350830">Bug
-					350830</a>
-			</td>
+					350830</a></td>
 			<td class="content">Tutorial has been updated to correctly
 				reflect selection border behaviour.</td>
 		</tr>
 		<tr id="bug 345748">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=345748">Bug
-					345748</a>
-			</td>
+					345748</a></td>
 			<td class="content">Graphiti ZIP file created in nightly uses
 				time stamp in file name to avoid caching issues.</td>
 		</tr>
 		<tr id="bug 334402">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=334402">Bug
-					334402</a>
-			</td>
+					334402</a></td>
 			<td class="content">Fixed issues with caching image descriptors.</td>
 		</tr>
 		<tr id="bug 323037">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=323037">Bug
-					323037</a>
-			</td>
+					323037</a></td>
 			<td class="content">Enabled right click selection on diagram
 				background.</td>
 		</tr>
 		<tr id="bug 323354">
-			<td class="title">Removal of palette</td>
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=323037">Palette
+					Removal</a></td>
 			<td class="content">It is now possible to completely remove the
 				palette from the editor</td>
 		</tr>
