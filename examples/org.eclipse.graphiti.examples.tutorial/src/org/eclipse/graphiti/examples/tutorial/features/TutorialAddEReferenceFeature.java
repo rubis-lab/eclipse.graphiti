@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,15 +41,15 @@ public class TutorialAddEReferenceFeature extends AbstractAddFeature {
 	public PictogramElement add(IAddContext context) {
 		IAddConnectionContext addConContext = (IAddConnectionContext) context;
 		EReference addedEReference = (EReference) context.getNewObject();
-
 		IPeCreateService peCreateService = Graphiti.getPeCreateService();
+
 		// CONNECTION WITH POLYLINE
 		Connection connection = peCreateService.createFreeFormConnection(getDiagram());
 		connection.setStart(addConContext.getSourceAnchor());
 		connection.setEnd(addConContext.getTargetAnchor());
 
 		IGaService gaService = Graphiti.getGaService();
-		Polyline polyline = gaService.createPolyline(connection);
+		Polyline polyline = gaService.createPlainPolyline(connection);
 		polyline.setStyle(StyleUtil.getStyleForEClass(getDiagram()));
 
 		// create link and wire it
@@ -57,9 +57,10 @@ public class TutorialAddEReferenceFeature extends AbstractAddFeature {
 
 		// add dynamic text decorator for the reference name
 		ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
-		Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-		text.setStyle(StyleUtil.getStyleForEClassText((getDiagram())));
+		Text text = gaService.createPlainText(textDecorator);
+		text.setStyle(StyleUtil.getStyleForTextDecorator((getDiagram())));
 		gaService.setLocation(text, 10, 0);
+
 		// set reference name in the text decorator
 		EReference eReference = (EReference) context.getNewObject();
 		text.setValue(eReference.getName());
@@ -68,9 +69,6 @@ public class TutorialAddEReferenceFeature extends AbstractAddFeature {
 		ConnectionDecorator cd;
 		cd = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
 		createArrow(cd);
-		//		cd = PeUtil.createConnectionDecorator(connection, false, 1.0, true);
-		//		createRhombus(cd);
-
 		return connection;
 	}
 
@@ -85,16 +83,9 @@ public class TutorialAddEReferenceFeature extends AbstractAddFeature {
 	}
 
 	private Polyline createArrow(GraphicsAlgorithmContainer gaContainer) {
-		Polyline polyline = Graphiti.getGaCreateService().createPolyline(gaContainer, new int[] { -15, 10, 0, 0, -15, -10 });
+		Polyline polyline = Graphiti.getGaCreateService().createPlainPolyline(gaContainer,
+				new int[] { -15, 10, 0, 0, -15, -10 });
 		polyline.setStyle(StyleUtil.getStyleForEClass(getDiagram()));
 		return polyline;
 	}
-
-	//	private Polygon createRhombus(GraphicsAlgorithmContainer gaContainer) {
-	//		Polygon polygon = GaUtil.createPolygon(gaContainer, new int[] { 0, 0, -10, 10, -20, 0, -10, -10 });
-	//		polygon.setForeground(manageColor(IColorConstant.BLACK));
-	//		polygon.setBackground(manageColor(IColorConstant.BLACK));
-	//		polygon.setLineWidth(2);
-	//		return polygon;
-	//	}
 }

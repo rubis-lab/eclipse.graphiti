@@ -1644,7 +1644,6 @@ public final class GaServiceImpl implements IGaService {
 
 	private void setDefaultGraphicsAlgorithmValues(GraphicsAlgorithm graphicsAlgorithm) {
 		setLocationAndSize(graphicsAlgorithm, 0, 0, 0, 0);
-		// graphicsAlgorithm.unsetLineVisible();
 		graphicsAlgorithm.setLineStyle(LineStyle.SOLID);
 		graphicsAlgorithm.setLineWidth(1);
 		graphicsAlgorithm.setTransparency(0d);

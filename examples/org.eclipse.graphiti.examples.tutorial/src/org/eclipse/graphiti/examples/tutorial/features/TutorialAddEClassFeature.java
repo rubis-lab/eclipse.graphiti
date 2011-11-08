@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,7 +26,6 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
-import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -82,7 +81,7 @@ public class TutorialAddEClassFeature extends AbstractAddShapeFeature {
 			gaService.setLocationAndSize(invisibleRectangle, context.getX(), context.getY(), width + INVISIBLE_RECT_RIGHT, height);
 
 			// create and set visible rectangle inside invisible rectangle
-			roundedRectangle = gaService.createRoundedRectangle(invisibleRectangle, 5, 5);
+			roundedRectangle = gaService.createPlainRoundedRectangle(invisibleRectangle, 5, 5);
 			roundedRectangle.setParentGraphicsAlgorithm(invisibleRectangle);
 			roundedRectangle.setStyle(StyleUtil.getStyleForEClass(getDiagram()));
 			gaService.setLocationAndSize(roundedRectangle, 0, 0, width, height);
@@ -103,7 +102,7 @@ public class TutorialAddEClassFeature extends AbstractAddShapeFeature {
 			final Shape shape = peCreateService.createShape(containerShape, false);
 
 			// create and set graphics algorithm
-			final Polyline polyline = gaService.createPolyline(shape, new int[] { 0, 20, width, 20 });
+			final Polyline polyline = gaService.createPlainPolyline(shape, new int[] { 0, 20, width, 20 });
 			polyline.setStyle(StyleUtil.getStyleForEClass(getDiagram()));
 		}
 
@@ -113,10 +112,8 @@ public class TutorialAddEClassFeature extends AbstractAddShapeFeature {
 			final Shape shape = peCreateService.createShape(containerShape, false);
 
 			// create and set text graphics algorithm
-			final Text text = gaService.createText(shape, addedClass.getName());
+			final Text text = gaService.createPlainText(shape, addedClass.getName());
 			text.setStyle(StyleUtil.getStyleForEClassText(getDiagram()));
-			text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
-			text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
 			gaService.setLocationAndSize(text, 0, 0, width, 20);
 
 			// create link and wire it
@@ -140,19 +137,19 @@ public class TutorialAddEClassFeature extends AbstractAddShapeFeature {
 		final BoxRelativeAnchor boxAnchor = peCreateService.createBoxRelativeAnchor(containerShape);
 		boxAnchor.setRelativeWidth(1.0);
 		boxAnchor.setRelativeHeight(0.38); // Use golden section
+
 		// anchor references visible rectangle instead of invisible rectangle
 		boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);
+
 		// assign a graphics algorithm for the box relative anchor
-		//		final Rectangle boxRect = gaService.createEllipse(boxAnchor);
-		final Ellipse ellipse = gaService.createEllipse(boxAnchor);
-		ellipse.setFilled(true);
+		final Ellipse ellipse = gaService.createPlainEllipse(boxAnchor);
+
 		// anchor is located on the right border of the visible rectangle
 		// and touches the border of the invisible rectangle
 		final int w = INVISIBLE_RECT_RIGHT;
 		gaService.setLocationAndSize(ellipse, -w, -w, 2 * w, 2 * w);
-		//		final Color c = gaService.manageColor(getDiagram(), IColorConstant.DARK_BLUE);
-		//		boxRect.setBackground(c);
 		ellipse.setStyle(StyleUtil.getStyleForEClass(getDiagram()));
+
 		// call the layout feature
 		layoutPictogramElement(containerShape);
 

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,9 +15,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.examples.tutorial;
 
-import java.util.Collection;
-
-import org.eclipse.graphiti.mm.StyleContainer;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
@@ -26,58 +25,79 @@ import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
 
+/**
+ * Styles are created here with "plain"-methods, i.e. all values have to be set
+ * explicitly.
+ */
 public class StyleUtil {
 
-	private static final IColorConstant E_CLASS_TEXT_FOREGROUND = new ColorConstant(51, 51, 153);
-
-	private static final IColorConstant E_CLASS_FOREGROUND = new ColorConstant(255, 102, 0);
-
-	private static String DEFAULT_FONT = "Arial"; //$NON-NLS-1$
+	private static final IColorConstant E_CLASS_TEXT_FOREGROUND = new ColorConstant(0, 0, 0);
+	private static final IColorConstant E_CLASS_FOREGROUND = new ColorConstant(98, 131, 167);
+	private static final String DEFAULT_FONT = "Arial"; //$NON-NLS-1$
 
 	public static Style getStyleForEClass(Diagram diagram) {
 		final String styleId = "E-CLASS"; //$NON-NLS-1$
-
-		Style style = findStyle(diagram, styleId);
-
 		IGaService gaService = Graphiti.getGaService();
+
+		// Is style already persisted?
+		Style style = gaService.findStyle(diagram, styleId);
+
 		if (style == null) { // style not found - create new style
-			style = gaService.createStyle(diagram, styleId);
+			style = gaService.createPlainStyle(diagram, styleId);
+			setCommonValues(style);
+			style.setFilled(true);
 			style.setForeground(gaService.manageColor(diagram, E_CLASS_FOREGROUND));
-			//gaService.setRenderingStyle(style, TutorialColoredAreas.getLimeWhiteAdaptions());
+			// style.setRenderingStyle(style,
+			// TutorialColoredAreas.getLimeWhiteAdaptions());
 			gaService.setRenderingStyle(style, PredefinedColoredAreas.getBlueWhiteGlossAdaptions());
-			style.setLineWidth(2);
 		}
 		return style;
 	}
 
 	public static Style getStyleForEClassText(Diagram diagram) {
 		final String styleId = "ECLASS-TEXT"; //$NON-NLS-1$
+		IGaService gaService = Graphiti.getGaService();
 
-		// this is a child style of the e-class-style
-		Style parentStyle = getStyleForEClass(diagram);
-		Style style = findStyle(parentStyle, styleId);
-
+		// Is style already persisted?
+		Style style = gaService.findStyle(diagram, styleId);
 		if (style == null) { // style not found - create new style
-			IGaService gaService = Graphiti.getGaService();
-			style = gaService.createStyle(getStyleForEClass(diagram), styleId);
-			// "overwrites" values from parent style
-			style.setForeground(gaService.manageColor(diagram, E_CLASS_TEXT_FOREGROUND));
+
+			style = gaService.createPlainStyle(getStyleForEClass(diagram), styleId);
+			setCommonValues(style);
+			setCommonTextValues(diagram, gaService, style);
 			style.setFont(gaService.manageFont(diagram, DEFAULT_FONT, 8, false, true));
 		}
 		return style;
 	}
 
-	// find the style with a given id in the style-container, can return null
-	private static Style findStyle(StyleContainer styleContainer, String id) {
-		// find and return style
-		Collection<Style> styles = styleContainer.getStyles();
-		if (styles != null) {
-			for (Style style : styles) {
-				if (id.equals(style.getId())) {
-					return style;
-				}
-			}
+	public static Style getStyleForTextDecorator(Diagram diagram) {
+		final String styleId = "TEXT-DECORATOR-TEXT"; //$NON-NLS-1$
+		IGaService gaService = Graphiti.getGaService();
+
+		// Is style already persisted?
+		Style style = gaService.findStyle(diagram, styleId);
+		if (style == null) { // style not found - create new style
+
+			style = gaService.createPlainStyle(getStyleForEClass(diagram), styleId);
+			setCommonValues(style);
+			setCommonTextValues(diagram, gaService, style);
+			style.setFont(gaService.manageFont(diagram, DEFAULT_FONT, 8, false, false));
 		}
-		return null;
+		return style;
+	}
+
+	private static void setCommonTextValues(Diagram diagram, IGaService gaService, Style style) {
+		style.setFilled(false);
+		style.setAngle(0);
+		style.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
+		style.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
+		style.setForeground(gaService.manageColor(diagram, E_CLASS_TEXT_FOREGROUND));
+	}
+
+	private static void setCommonValues(Style style) {
+		style.setLineStyle(LineStyle.SOLID);
+		style.setLineVisible(true);
+		style.setLineWidth(2);
+		style.setTransparency(0.0);
 	}
 }
