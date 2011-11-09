@@ -158,7 +158,6 @@ public class PropertyImpl extends EObjectImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {

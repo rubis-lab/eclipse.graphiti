@@ -14,14 +14,16 @@
  */
 package org.eclipse.graphiti.mm.util;
 
-import java.util.List;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.eclipse.graphiti.mm.*;
+import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
+import org.eclipse.graphiti.mm.MmPackage;
+import org.eclipse.graphiti.mm.Property;
+import org.eclipse.graphiti.mm.PropertyContainer;
+import org.eclipse.graphiti.mm.StyleContainer;
 
 /**
  * <!-- begin-user-doc -->

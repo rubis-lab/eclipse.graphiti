@@ -16,9 +16,8 @@
 package org.eclipse.graphiti.ui.tests;
 
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 
-public class DTPwithInvalidImageProvider extends AbstractDiagramTypeProvider implements IDiagramTypeProvider {
+public class DTPwithInvalidImageProvider extends AbstractDiagramTypeProvider {
 
 	public DTPwithInvalidImageProvider() {
 		super();

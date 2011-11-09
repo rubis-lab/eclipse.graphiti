@@ -17,10 +17,9 @@
 package org.eclipse.graphiti.bot.tests;
 
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
-public class DTPwithAutoUpdateAtStartup extends AbstractDiagramTypeProvider implements IDiagramTypeProvider {
+public class DTPwithAutoUpdateAtStartup extends AbstractDiagramTypeProvider {
 
 	public DTPwithAutoUpdateAtStartup() {
 		super();

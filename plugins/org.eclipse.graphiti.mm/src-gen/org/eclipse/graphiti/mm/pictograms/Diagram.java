@@ -244,8 +244,9 @@ public interface Diagram extends ContainerShape, StyleContainer {
 	void setVerticalGridUnit(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Version</b></em>' attribute. The default
-	 * value is <code>""</code>. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Version</b></em>' attribute.
+	 * The default value is <code>""</code>.
+	 * <!-- begin-user-doc -->
 	 * 
 	 * @since 0.9
 	 *        <p>

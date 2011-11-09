@@ -179,12 +179,10 @@ public interface AbstractStyle extends EObject {
 	void setFilled(Boolean value);
 
 	/**
-	 * Unsets the value of the '
-	 * {@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getFilled
-	 * <em>Filled</em>}' attribute. <!-- begin-user-doc -->
+	 * Unsets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getFilled <em>Filled</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * 
 	 * @since 0.9 <!-- end-user-doc -->
-	 * 
 	 * @see #isSetFilled()
 	 * @see #getFilled()
 	 * @see #setFilled(Boolean)
@@ -193,9 +191,8 @@ public interface AbstractStyle extends EObject {
 	void unsetFilled();
 
 	/**
-	 * Returns whether the value of the '
-	 * {@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getFilled
-	 * <em>Filled</em>}' attribute is set. <!-- begin-user-doc -->
+	 * Returns whether the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getFilled <em>Filled</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
 	 * 
 	 * @since 0.9 <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Filled</em>' attribute is set.
@@ -238,12 +235,10 @@ public interface AbstractStyle extends EObject {
 	void setLineVisible(Boolean value);
 
 	/**
-	 * Unsets the value of the '
-	 * {@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getLineVisible
-	 * <em>Line Visible</em>}' attribute. <!-- begin-user-doc -->
+	 * Unsets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getLineVisible <em>Line Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * 
 	 * @since 0.9 <!-- end-user-doc -->
-	 * 
 	 * @see #isSetLineVisible()
 	 * @see #getLineVisible()
 	 * @see #setLineVisible(Boolean)
@@ -252,19 +247,15 @@ public interface AbstractStyle extends EObject {
 	void unsetLineVisible();
 
 	/**
-	 * Returns whether the value of the '
-	 * {@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getLineVisible
-	 * <em>Line Visible</em>}' attribute is set. <!-- begin-user-doc -->
+	 * Returns whether the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle#getLineVisible <em>Line Visible</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
 	 * 
 	 * @since 0.9 <!-- end-user-doc -->
-	 * 
-	 * @return whether the value of the '<em>Line Visible</em>' attribute is
-	 *         set.
+	 * @return whether the value of the '<em>Line Visible</em>' attribute is set.
 	 * @see #unsetLineVisible()
 	 * @see #getLineVisible()
 	 * @see #setLineVisible(Boolean)
 	 * @generated
-	 * 
 	 */
 	boolean isSetLineVisible();
 

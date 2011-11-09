@@ -14,16 +14,22 @@
  */
 package org.eclipse.graphiti.mm.algorithms.styles.util;
 
-import java.util.List;
-
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.eclipse.graphiti.mm.StyleContainer;
-
 import org.eclipse.graphiti.mm.algorithms.styles.*;
+import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredLocation;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
 
 /**
  * <!-- begin-user-doc -->

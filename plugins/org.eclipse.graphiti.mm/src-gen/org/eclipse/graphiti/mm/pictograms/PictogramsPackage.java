@@ -1788,9 +1788,8 @@ public interface PictogramsPackage extends EPackage {
 	EAttribute getDiagram_VerticalGridUnit();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.graphiti.mm.pictograms.Diagram#getVersion
-	 * <em>Version</em>}'. <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.pictograms.Diagram#getVersion <em>Version</em>}'.
+	 * <!-- begin-user-doc -->
 	 * 
 	 * @since 0.9 <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Version</em>'.
@@ -2327,8 +2326,8 @@ public interface PictogramsPackage extends EPackage {
 		EAttribute DIAGRAM__VERTICAL_GRID_UNIT = eINSTANCE.getDiagram_VerticalGridUnit();
 
 		/**
-		 * The meta object literal for the '<em><b>Version</b></em>' attribute
-		 * feature. <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
 		 * 
 		 * @since 0.9 <!-- end-user-doc -->
 		 * @generated

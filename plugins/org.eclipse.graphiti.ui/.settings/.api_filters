@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.graphiti.ui" version="2">
-    <resource path="META-INF/MANIFEST.MF">
-        <filter id="923795461">
-            <message_arguments>
-                <message_argument value="0.9.0"/>
-                <message_argument value="0.8.0"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="META-INF/MANIFEST.MF" type="org.eclipse.graphiti.ui.editor.DiagramEditorFactory">
         <filter id="305324134">
             <message_arguments>
@@ -53,14 +45,6 @@
             <message_arguments>
                 <message_argument value="IDeleteFeature"/>
                 <message_argument value="DefaultDeleteFeature"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/ui/internal/action/DeleteAction.java" type="org.eclipse.graphiti.ui.internal.action.DeleteAction">
-        <filter id="572522506">
-            <message_arguments>
-                <message_argument value="MultiDeleteInfo"/>
-                <message_argument value="DeleteAction"/>
             </message_arguments>
         </filter>
     </resource>
