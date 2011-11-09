@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 327669 - removed dependencies to GEF internal stuff
+ *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *
  * </copyright>
  *
@@ -79,9 +80,7 @@ public class GFMarqueeToolEntry extends ToolEntry {
 		Object value = getToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR);
 		if (value instanceof Integer) {
 			int selectionType = ((Integer) value).intValue();
-			// TODO Replace after 0.8.0 (in 0.8.0 Indigo we need to be
-			// compatible with GEF 3.6 and 3.7)
-			if (selectionType == MarqueeSelectionTool.BEHAVIOR_NODES_AND_CONNECTIONS)
+			if (selectionType == MarqueeSelectionTool.BEHAVIOR_NODES_CONTAINED_AND_RELATED_CONNECTIONS)
 				return Messages.GFMarqueeToolEntry_MarqueeBothNodesAndRelatedConnections;
 			if (selectionType == MarqueeSelectionTool.BEHAVIOR_CONNECTIONS_TOUCHED)
 				return Messages.GFMarqueeToolEntry_MarqueeSelectionTouched;

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *
  * </copyright>
  *
@@ -415,10 +416,10 @@ public class LineSeg implements java.io.Serializable, Translatable {
 			double y = Math.pow(h / 2, 2) - Math.pow((h * c) / (a * w), 2);
 			if (y < 0)
 				return intersections;
-			intersections.addPoint(new Point(Math.round(x + ellipseBounds.getCenter().x), Math.round(Math.sqrt(y)
-					+ ellipseBounds.getCenter().y)));
-			intersections.addPoint(new Point(Math.round(x + ellipseBounds.getCenter().x), Math.round(-Math.sqrt(y)
-					+ ellipseBounds.getCenter().y)));
+			intersections.addPoint(new PrecisionPoint(x + ellipseBounds.getCenter().x, Math.sqrt(y)
+					+ ellipseBounds.getCenter().y));
+			intersections.addPoint(new PrecisionPoint(x + ellipseBounds.getCenter().x, -Math.sqrt(y)
+					+ ellipseBounds.getCenter().y));
 		} else {
 			// y = (c-a*x)/b => we get quadratic equation for x
 			// x^2*(h^2+(w*a/b)^2)-x*(2*w^2*a*c)/(b^2)+((w*c/b)^2-(h*w/2)^2)=0
@@ -434,10 +435,10 @@ public class LineSeg implements java.io.Serializable, Translatable {
 
 			double x1 = (-xB + Math.sqrt(xD)) / (2 * xA);
 			double x2 = (-xB - Math.sqrt(xD)) / (2 * xA);
-			intersections.addPoint(new Point(Math.round(x1 + ellipseBounds.getCenter().x), Math.round((c - a * x1) / b
-					+ ellipseBounds.getCenter().y)));
-			intersections.addPoint(new Point(Math.round(x2 + ellipseBounds.getCenter().x), Math.round((c - a * x2) / b
-					+ ellipseBounds.getCenter().y)));
+			intersections.addPoint(new PrecisionPoint(x1 + ellipseBounds.getCenter().x, (c - a * x1) / b
+					+ ellipseBounds.getCenter().y));
+			intersections.addPoint(new PrecisionPoint(x2 + ellipseBounds.getCenter().x, (c - a * x2) / b
+					+ ellipseBounds.getCenter().y));
 		}
 
 		return intersections;
@@ -516,7 +517,7 @@ public class LineSeg implements java.io.Serializable, Translatable {
 				intersections.addPoint(new Point(line.getTerminus().getCopy()));
 			}
 		} else {
-			intersections.addPoint(new Point(Math.round((c1 * b2 - b1 * c2) / det), Math.round((a1 * c2 - c1 * a2) / det)));
+			intersections.addPoint(new PrecisionPoint((c1 * b2 - b1 * c2) / det, (a1 * c2 - c1 * a2) / det));
 		}
 		return intersections;
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2011 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *     		made class FadeIn a IDisposable
  *     		changed getLocalBackgroundColor for color management in Diagram
  *     		changed higlightGuide (smaller height and width
+ *     mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.util.ui.sfx;
 
@@ -170,7 +171,7 @@ public class GFSnapFeedbackPolicy extends ResourceManagingGraphicalEditPolicy {
 			guide[offset] = fig;
 			addFeedback(fig);
 			fig.translateToRelative(loc);
-			position = offset % 2 == 0 ? (int) Math.round(loc.preciseX) : (int) Math.round(loc.preciseY);
+			position = offset % 2 == 0 ? (int) Math.round(loc.preciseX()) : (int) Math.round(loc.preciseY());
 			Rectangle figBounds = getFeedbackLayer().getBounds().getCopy();
 			if ((offset % 2) == 1) {
 				figBounds.height = 2;

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *
  * </copyright>
  *
@@ -45,7 +46,7 @@ public class GraphicsTestPreferencePage extends FieldEditorPreferencePage implem
 	public GraphicsTestPreferencePage() {
 		super(GRID);
 		setDescription(Messages.GraphicsTestPreferencePage_PageDescription);
-		setPreferenceStore(new ScopedPreferenceStore(new InstanceScope(), GraphitiPlugin.PLUGIN_ID));
+		setPreferenceStore(new ScopedPreferenceStore(InstanceScope.INSTANCE, GraphitiPlugin.PLUGIN_ID));
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * Copyright (c) 2000, 2011 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@
  *     		added setTargetDecorations
  *     		removed getMaxValue
  *     		added override tags
+ *     mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.figures;
 
@@ -115,7 +116,8 @@ public class GFPolylineConnection extends GFPolyline implements Connection, Anch
 	public Rectangle getBounds() {
 		if (bounds == null) {
 			super.getBounds();
-			bounds.expand(lineWidth / 2, lineWidth / 2);
+			int halfLineWidth = getLineWidth() / 2;
+			bounds.expand(halfLineWidth, halfLineWidth);
 
 			for (int i = 0; i < getChildren().size(); i++) {
 				IFigure child = (IFigure) getChildren().get(i);

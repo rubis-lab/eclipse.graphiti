@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *
  * </copyright>
  *
@@ -94,10 +95,10 @@ public class TransparentGhostFigure extends ImageFigure {
 		super.paintFigure(graphics);
 		graphics.setAlpha(alpha); // fill transparent gray rectangle
 		graphics.setBackgroundColor(ColorConstants.lightGray);
-		graphics.fillRectangle(getClientArea().getCropped(new Insets(0, 0, 1, 1)));
+		graphics.fillRectangle(getClientArea().getShrinked(new Insets(0, 0, 1, 1)));
 		graphics.setAlpha(255); // draw non-transparent dotted rectangle border
 		graphics.setLineStyle(Graphics.LINE_DOT);
-		graphics.drawRectangle(getClientArea().getCropped(new Insets(0, 0, 1, 1)));
+		graphics.drawRectangle(getClientArea().getShrinked(new Insets(0, 0, 1, 1)));
 	}
 
 	public void dispose() {

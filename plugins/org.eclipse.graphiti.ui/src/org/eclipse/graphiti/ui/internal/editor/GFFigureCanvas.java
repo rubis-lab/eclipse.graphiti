@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *
  * </copyright>
  *
@@ -468,7 +469,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 			}
 		}
 
-		Rectangle clientArea = getViewport().getBounds().getCropped(getViewport().getInsets());
+		Rectangle clientArea = getViewport().getBounds().getShrinked(getViewport().getInsets());
 		Rectangle blit = clientArea.getResized(-Math.abs(dx), 0);
 		Rectangle expose = clientArea.getCopy();
 		Point dest = clientArea.getTopLeft();
@@ -588,7 +589,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 			}
 		}
 
-		Rectangle clientArea = getViewport().getBounds().getCropped(getViewport().getInsets());
+		Rectangle clientArea = getViewport().getBounds().getShrinked(getViewport().getInsets());
 		Rectangle blit = clientArea.getResized(0, -Math.abs(dy));
 		Rectangle expose = clientArea.getCopy();
 		Point dest = clientArea.getTopLeft();

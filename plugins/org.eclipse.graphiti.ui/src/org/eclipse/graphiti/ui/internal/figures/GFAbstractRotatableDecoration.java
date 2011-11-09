@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *
  * </copyright>
  *
@@ -238,7 +239,8 @@ public abstract class GFAbstractRotatableDecoration extends GFAbstractShape impl
 		PrecisionPoint backwards = rotateTargetToInitial(x, y);
 
 		// fast check
-		if (!getInitialBounds().contains((int) Math.round(backwards.preciseX), (int) Math.round(backwards.preciseY))) {
+		if (!getInitialBounds()
+				.contains((int) Math.round(backwards.preciseX()), (int) Math.round(backwards.preciseY()))) {
 			return false;
 		}
 

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *
  * </copyright>
  *
@@ -109,11 +110,11 @@ public class GFPreferences {
 	private IEclipsePreferences getNode() {
 		if (node == null) {
 			if (Platform.getBundle("org.eclipse.graphiti.examples.common") != null) { //$NON-NLS-1$
-				node = new InstanceScope().getNode(GraphitiPlugin.PLUGIN_ID);
+				node = InstanceScope.INSTANCE.getNode(GraphitiPlugin.PLUGIN_ID);
 			} else {
 				// If the samples plug-in is not installed, we want to have defaults
 				// since there is no UI for editing the preferences.
-				node = new DefaultScope().getNode(GraphitiPlugin.PLUGIN_ID);
+				node = DefaultScope.INSTANCE.getNode(GraphitiPlugin.PLUGIN_ID);
 			}
 		}
 		return node;

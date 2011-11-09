@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *
  * </copyright>
  *
@@ -264,9 +265,10 @@ public class GFPolyline extends GFAbstractPointListShape {
 	 */
 	@Override
 	public void setLineWidth(int lw) {
-		if (lineWidth == lw)
+		if (getLineWidth() == lw)
 			return;
-		if (lw < lineWidth) // The bounds will become smaller, so erase must
+		if (lw < getLineWidth()) // The bounds will become smaller, so erase
+									// must
 			// occur first.
 			erase();
 		bounds = null;
@@ -291,7 +293,7 @@ public class GFPolyline extends GFAbstractPointListShape {
 	 */
 	@Override
 	public boolean containsPointInFigure(int x, int y) {
-		int tolerance = Math.max(lineWidth, minimumSelectionLineWidth);
+		int tolerance = Math.max(getLineWidth(), minimumSelectionLineWidth);
 
 		// check the translated-points, because the drawing will happen along
 		// those lines

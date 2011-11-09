@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *
  * </copyright>
  *
@@ -46,7 +47,7 @@ public class FixedScalableFreeformLayeredPane extends ScalableFreeformLayeredPan
 			Graphics g = new FixedScaledGraphics(graphics);
 			boolean optimizeClip = getBorder() == null || getBorder().isOpaque();
 			if (!optimizeClip)
-				g.clipRect(getBounds().getCropped(getInsets()));
+				g.clipRect(getBounds().getShrinked(getInsets()));
 			g.scale(getScale());
 			g.pushState();
 			paintChildren(g);
