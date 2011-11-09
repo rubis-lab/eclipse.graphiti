@@ -631,7 +631,6 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 
 			if (schedulePaint) {
 				Display.getCurrent().timerExec(DELAY, new Runnable() {
-					@Override
 					public void run() {
 						offset++;
 						if (offset > 5)

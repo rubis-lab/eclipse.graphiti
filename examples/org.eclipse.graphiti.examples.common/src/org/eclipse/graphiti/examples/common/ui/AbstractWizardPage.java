@@ -35,7 +35,6 @@ public abstract class AbstractWizardPage extends WizardPage implements ITextProv
 		super(pageName);
 	}
 
-	@Override
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
 		composite.setFont(parent.getFont());

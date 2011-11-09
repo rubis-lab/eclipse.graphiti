@@ -45,7 +45,6 @@ public class EClassesNode extends AbstractInstancesOfTypeContainerNode {
 		return NAME;
 	}
 
-	@Override
 	public Object[] getChildren() {
 		return Util.getAllClasses(getProject(), rSet);
 	}

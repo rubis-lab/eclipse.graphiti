@@ -34,8 +34,6 @@ import org.eclipse.ui.IMemento;
  */
 public class DiagramEditorInputFactory implements IElementFactory {
 
-
-	@Override
 	public IAdaptable createElement(IMemento memento) {
 		// get diagram URI
 		final String diagramUriString = memento.getString(DiagramEditorInput.KEY_URI);
@@ -51,5 +49,4 @@ public class DiagramEditorInputFactory implements IElementFactory {
 		final TransactionalEditingDomain domain = GraphitiUi.getEmfService().createResourceSetAndEditingDomain();
 		return new DiagramEditorInput(diagramUriString, domain, providerID, true);
 	}
-
 }

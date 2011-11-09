@@ -180,7 +180,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		ITabbedPropertySheetPageContributor, IResourceRegistryHolder, IEditingDomainProvider {
 
 	private final CommandStackEventListener cmdStackListener = new CommandStackEventListener() {
-		@Override
 		public void stackChanged(CommandStackEvent event) {
 			if (Display.getCurrent() != null) { // Only fire if triggered from
 												// UI thread
@@ -197,11 +196,8 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	};
 
 	protected class FWCommandStackListener implements CommandStackListener {
-
-		@Override
 		public void commandStackChanged(EventObject event) {
 			getEditorSite().getShell().getDisplay().asyncExec(new Runnable() {
-				@Override
 				public void run() {
 					firePropertyChange(IEditorPart.PROP_DIRTY);
 				}
@@ -213,7 +209,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * Updates the editor's dirty toggle.
 	 */
 	final class DirtyFlagUpdater implements Runnable {
-		@Override
 		public void run() {
 			firePropertyChange(IEditorPart.PROP_DIRTY);
 		}
@@ -731,7 +726,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return keyHandler;
 	}
 
-	@Override
 	public IConfigurationProvider getConfigurationProvider() {
 		return configurationProvider;
 	}
@@ -763,7 +757,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * 
 	 * @return the contributor id
 	 */
-	@Override
 	public String getContributorId() {
 
 		if (contributorId == null) {
@@ -775,7 +768,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return contributorId;
 	}
 
-	@Override
 	public IDimension getCurrentSize() {
 
 		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
@@ -817,7 +809,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return this.diagramScrollingBehavior;
 	}
 
-	@Override
 	public IDiagramTypeProvider getDiagramTypeProvider() {
 		IConfigurationProvider cfgProvider = getConfigurationProvider();
 		if (cfgProvider != null)
@@ -888,7 +879,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return mouseLocation;
 	}
 
-	@Override
 	public ILocation getCurrentMouseLocation() {
 		Point mL = getMouseLocation();
 		return new LocationImpl(mL.x, mL.y);
@@ -897,34 +887,28 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	@Override
 	protected FlyoutPreferences getPalettePreferences() {
 		return new FlyoutPreferences() {
-			@Override
 			public int getDockLocation() {
 				return getPreferenceStore().getInt(PALETTE_DOCK_LOCATION);
 			}
 
-			@Override
 			public int getPaletteState() {
 				if (!getToolBehaviorProvider().isShowFlyoutPalette())
 					return 8;
 				return getPreferenceStore().getInt(PALETTE_STATE);
 			}
 
-			@Override
 			public int getPaletteWidth() {
 				return getPreferenceStore().getInt(PALETTE_SIZE);
 			}
 
-			@Override
 			public void setDockLocation(int location) {
 				getPreferenceStore().setValue(PALETTE_DOCK_LOCATION, location);
 			}
 
-			@Override
 			public void setPaletteState(int state) {
 				getPreferenceStore().setValue(PALETTE_STATE, state);
 			}
 
-			@Override
 			public void setPaletteWidth(int width) {
 				getPreferenceStore().setValue(PALETTE_SIZE, width);
 			}
@@ -953,14 +937,10 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return pictogramElementsForSelection;
 	}
 
-
-
-	@Override
 	public IResourceRegistry getResourceRegistry() {
 		return resourceRegistry;
 	}
 
-	@Override
 	public PictogramElement[] getSelectedPictogramElements() {
 		PictogramElement pe[] = new PictogramElement[0];
 		ISelectionProvider selectionProvider = getSite().getSelectionProvider();
@@ -1226,7 +1206,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		}
 
 		getGraphicalViewer().getControl().addMouseMoveListener(new MouseMoveListener() {
-			@Override
 			public void mouseMove(MouseEvent e) {
 				setMouseLocation(e.x, e.y);
 			}
@@ -1247,7 +1226,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	void internalRefreshEditPart(final EditPart editPart) {
 		if (Display.getCurrent() == null) {
 			Display.getDefault().syncExec(new Runnable() {
-				@Override
 				public void run() {
 					internalRefreshEditPart(editPart);
 					// refreshOutline();
@@ -1301,7 +1279,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		return autoRefresh;
 	}
 
-	@Override
 	public void refresh() {
 
 		if (!isAlive()) {
@@ -1316,7 +1293,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 		if (Display.getCurrent() == null) {
 			Display.getDefault().asyncExec(new Runnable() {
-				@Override
 				public void run() {
 					refresh();
 				}
@@ -1362,7 +1338,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		selectBufferedPictogramElements();
 	}
 
-	@Override
 	public void refresh(PictogramElement pe) {
 		if (pe == null || !pe.isActive()) {
 			return;
@@ -1377,7 +1352,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		}
 	}
 
-	@Override
 	public void refreshPalette() {
 		PaletteRoot pr = getPaletteRoot();
 		if (pr instanceof GFPaletteRoot) {
@@ -1386,7 +1360,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		}
 	}
 
-	@Override
 	public void refreshRenderingDecorators(PictogramElement pe) {
 		GraphicalEditPart ep = getEditPartForPictogramElement(pe);
 		if (ep instanceof IShapeEditPart) {
@@ -1406,7 +1379,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		setPartName(name);
 	}
 
-	@Override
 	public void refreshTitleToolTip() {
 		setTitleToolTip(getTitleToolTip());
 	}
@@ -1545,7 +1517,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		super.selectionChanged(part, selection);
 	}
 
-	@Override
 	public void selectPictogramElements(PictogramElement[] pictogramElements) {
 		List<EditPart> editParts = new ArrayList<EditPart>();
 		Map<?, ?> editPartRegistry = getGraphicalViewer().getEditPartRegistry();
@@ -1569,7 +1540,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 					// reveal
 					// method can't work correctly.
 					Display.getDefault().asyncExec(new Runnable() {
-						@Override
 						public void run() {
 							getGraphicalViewer().reveal(editpart);
 						}
@@ -1629,7 +1599,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		getMouseLocation().setLocation(x, y);
 	}
 
-	@Override
 	public void setPictogramElementForSelection(PictogramElement pictogramElementForSelection) {
 		if (pictogramElementForSelection == null)
 			this.pictogramElementsForSelection = null;
@@ -1637,7 +1606,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 			this.pictogramElementsForSelection = new PictogramElement[] { pictogramElementForSelection };
 	}
 
-	@Override
 	public void setPictogramElementsForSelection(PictogramElement pictogramElementsForSelection[]) {
 		this.pictogramElementsForSelection = pictogramElementsForSelection;
 	}
@@ -1686,7 +1654,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 
 	}
 
-	@Override
 	public TransactionalEditingDomain getEditingDomain() {
 		return editingDomain;
 	}
@@ -1699,7 +1666,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * .graphiti.features.IFeature,
 	 * org.eclipse.graphiti.features.context.IContext)
 	 */
-	@Override
 	public void executeFeature(IFeature feature, IContext context) {
 		DefaultEditDomain domain = getEditDomain();
 
@@ -1735,7 +1701,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 	 * 
 	 * @return the resource set
 	 */
-	@Override
 	public ResourceSet getResourceSet() {
 		ResourceSet ret = null;
 		TransactionalEditingDomain editingDomain = getEditingDomain();

@@ -41,20 +41,16 @@ public class DefaultSaveImageFeature extends AbstractFeature implements ISaveIma
 		super(fp);
 	}
 
-	@Override
 	public boolean canSave(ISaveImageContext context) {
 		return true;
 	}
 
-	@Override
 	public void postSave(ISaveImageContext context) {
 	}
 
-	@Override
 	public void preSave(ISaveImageContext context) {
 	}
 
-	@Override
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof ISaveImageContext) {
@@ -63,7 +59,6 @@ public class DefaultSaveImageFeature extends AbstractFeature implements ISaveIma
 		return ret;
 	}
 
-	@Override
 	public final void execute(IContext context) {
 		// not relevant (actual work is done in SaveImageAction)
 	}

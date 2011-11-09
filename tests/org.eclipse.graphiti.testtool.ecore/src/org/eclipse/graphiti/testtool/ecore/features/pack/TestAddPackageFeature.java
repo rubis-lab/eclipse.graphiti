@@ -55,7 +55,6 @@ public class TestAddPackageFeature extends AbstractAddShapeFeature {
 		super(fp);
 	}
 
-	@Override
 	public boolean canAdd(IAddContext context) {
 		// check if user wants to add a package
 		if (context.getNewObject() instanceof EPackage) {
@@ -68,7 +67,6 @@ public class TestAddPackageFeature extends AbstractAddShapeFeature {
 		return false;
 	}
 
-	@Override
 	public PictogramElement add(IAddContext context) {
 		EPackage addedPackage = (EPackage) context.getNewObject();
 		Diagram targetDiagram = (Diagram) context.getTargetContainer();

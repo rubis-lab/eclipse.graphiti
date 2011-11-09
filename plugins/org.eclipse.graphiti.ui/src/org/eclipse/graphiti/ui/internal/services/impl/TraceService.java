@@ -40,7 +40,6 @@ public class TraceService implements ITraceService {
 	private final boolean FULL_QUALIFIED = false;
 	private final boolean ADD_OBJECT_INFO = false;
 
-	@Override
 	public String getStacktrace(Throwable t) {
 		if (t == null)
 			return null;
@@ -49,13 +48,11 @@ public class TraceService implements ITraceService {
 		return writer.toString();
 	}
 
-	@Override
 	public void dumpFigureTree(IFigure figure) {
 		System.out.println("\nFigure Tree"); //$NON-NLS-1$
 		dumpFigureTree(figure, 0);
 	}
 
-	@Override
 	public void dumpFigureTree(IFigure figure, int indent) {
 		String indentString = createIndentString(indent);
 
@@ -85,13 +82,11 @@ public class TraceService implements ITraceService {
 		}
 	}
 
-	@Override
 	public void dumpEditPartTree(EditPart editPart) {
 		System.out.println("\nEdit Part Tree()"); //$NON-NLS-1$
 		dumpEditPartTree(editPart, 0);
 	}
 
-	@Override
 	public void dumpEditPartTree(EditPart editPart, int indent) {
 		String indentString = createIndentString(indent);
 		Object m = editPart.getModel();
@@ -114,13 +109,11 @@ public class TraceService implements ITraceService {
 		}
 	}
 
-	@Override
 	public void dumpPictogramModelTree(PictogramElement pe) {
 		System.out.println("\nPictogram Model Tree()"); //$NON-NLS-1$
 		dumpPictogramModelTree(pe, 0);
 	}
 
-	@Override
 	public void dumpPictogramModelTree(PictogramElement pe, int indent) {
 		String indentString = createIndentString(indent);
 
@@ -138,12 +131,10 @@ public class TraceService implements ITraceService {
 		}
 	}
 
-	@Override
 	public void dumpGATree(GraphicsAlgorithm ga) {
 		dumpGATree(ga, 0);
 	}
 
-	@Override
 	public void dumpGATree(GraphicsAlgorithm ga, int indent) {
 		String indentString = createIndentString(indent);
 		if (ga == null) {

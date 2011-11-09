@@ -48,7 +48,6 @@ public class DeleteContext extends PictogramElementContext implements IDeleteCon
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public IMultiDeleteInfo getMultiDeleteInfo() {
 		return multiDeleteInfo;
 	}

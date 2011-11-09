@@ -40,7 +40,6 @@ import org.eclipse.ui.handlers.HandlerUtil;
  */
 public final class OpenDiagramFromFileHandler extends AbstractHandler {
 
-	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 
 		// Get the current selection

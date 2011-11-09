@@ -29,7 +29,6 @@ public class CreateChessBoardFeature extends AbstractCreateFeature {
 		super(fp, Messages.CreateChessBoardFeature_name, Messages.CreateChessBoardFeature_description);
 	}
 
-	@Override
 	public boolean canCreate(ICreateContext context) {
 		if (context.getTargetContainer() instanceof Diagram) {
 			// Add new board only in case of an empty diagram
@@ -38,7 +37,6 @@ public class CreateChessBoardFeature extends AbstractCreateFeature {
 		return false;
 	}
 
-	@Override
 	public Object[] create(ICreateContext context) {
 		Resource resource = context.getTargetContainer().eResource();
 

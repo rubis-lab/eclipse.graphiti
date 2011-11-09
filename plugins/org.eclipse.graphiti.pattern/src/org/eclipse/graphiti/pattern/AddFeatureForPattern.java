@@ -62,7 +62,6 @@ public class AddFeatureForPattern extends AbstractAddFeature implements ICustomU
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public void undo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {
 			((ICustomUndoablePattern) pattern).undo(this, context);
@@ -72,7 +71,6 @@ public class AddFeatureForPattern extends AbstractAddFeature implements ICustomU
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public boolean canRedo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {
 			return ((ICustomUndoablePattern) pattern).canRedo(this, context);
@@ -83,7 +81,6 @@ public class AddFeatureForPattern extends AbstractAddFeature implements ICustomU
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public void redo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {
 			((ICustomUndoablePattern) pattern).redo(this, context);

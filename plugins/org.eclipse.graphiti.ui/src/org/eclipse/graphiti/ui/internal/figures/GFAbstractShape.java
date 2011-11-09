@@ -586,7 +586,6 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 * 
 	 * @return The selection handle bounds of this Shape.
 	 */
-	@Override
 	public Rectangle getHandleBounds() {
 		Rectangle ret = null;
 		final GraphicsAlgorithm selectionGa = getSelectionBorder();
@@ -611,7 +610,6 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 * 
 	 * @return The visual state of this shape.
 	 */
-	@Override
 	public IVisualState getVisualState() {
 		return getPictogramElementDelegate().getVisualState();
 	}
@@ -619,7 +617,6 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	/**
 	 * Is called after the visual state changed.
 	 */
-	@Override
 	public void visualStateChanged(VisualStateChangedEvent e) {
 		// The colors might have changed, so force a repaint()
 		repaint();

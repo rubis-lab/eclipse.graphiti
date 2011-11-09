@@ -23,12 +23,10 @@ import java.util.HashMap;
 public class PropertyBag implements IPropertyBag {
 	private HashMap<Object, Object> propertyMap;
 
-	@Override
 	public Object getProperty(Object key) {
 		return getPropertyMap().get(key);
 	}
 
-	@Override
 	public Object putProperty(Object key, Object value) {
 		return getPropertyMap().put(key, value);
 	}

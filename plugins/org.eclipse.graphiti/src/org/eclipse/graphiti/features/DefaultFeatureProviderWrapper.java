@@ -223,7 +223,6 @@ public class DefaultFeatureProviderWrapper implements IFeatureProvider {
 		return getInnerFeatureProvider().updateNeeded(context);
 	}
 
-	@Override
 	public void dispose() {
 	}
 }

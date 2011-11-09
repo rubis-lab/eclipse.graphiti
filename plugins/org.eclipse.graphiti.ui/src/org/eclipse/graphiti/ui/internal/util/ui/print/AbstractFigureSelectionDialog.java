@@ -166,7 +166,6 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 	 * org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse
 	 * .swt.events.SelectionEvent)
 	 */
-	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
 		widgetSelected(e);
 	}
@@ -178,7 +177,6 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 	 * org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt
 	 * .events.SelectionEvent)
 	 */
-	@Override
 	public void widgetSelected(SelectionEvent e) {
 		if (_insideInternalModify) // avoid endless-loops
 			return;

@@ -106,9 +106,7 @@ public class GraphicsTestPreferencePage extends FieldEditorPreferencePage implem
 			label.setText(message);
 	}
 
-	@Override
 	public void init(IWorkbench workbench) {
 		// nothing to do
 	}
-
 }

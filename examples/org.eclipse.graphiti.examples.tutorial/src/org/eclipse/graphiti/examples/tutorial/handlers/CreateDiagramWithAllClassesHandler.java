@@ -34,7 +34,6 @@ import org.eclipse.ui.part.FileEditorInput;
  */
 public final class CreateDiagramWithAllClassesHandler extends AbstractHandler {
 
-	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 
 		// Get the current selection

@@ -232,7 +232,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 
 					if (updateProblemIndication) {
 						getShell().getDisplay().asyncExec(new Runnable() {
-							@Override
 							public void run() {
 								updateProblemIndication();
 							}
@@ -276,7 +275,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 						final IEditorPart activeEditor = editorPart.getSite().getPage().getActiveEditor();
 						if (activeEditor == editorPart) {
 							getShell().getDisplay().asyncExec(new Runnable() {
-								@Override
 								public void run() {
 									handleActivate();
 								}
@@ -307,7 +305,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 							final IEditorPart activeEditor = editorPart.getSite().getPage().getActiveEditor();
 							if (activeEditor == editorPart) {
 								getShell().getDisplay().asyncExec(new Runnable() {
-									@Override
 									public void run() {
 										handleActivate();
 									}
@@ -322,7 +319,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 
 		private void startCloseEditorJob() {
 			Display.getDefault().asyncExec(new Runnable() {
-				@Override
 				public void run() {
 					closeEd();
 				}
@@ -441,7 +437,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * @return The {@link TransactionalEditingDomain} that is used within this
 	 *         editor
 	 */
-	@Override
 	public TransactionalEditingDomain getEditingDomain() {
 		return editingDomain;
 	}
@@ -496,7 +491,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		// Do the work within an operation because this is a long running activity that modifies the workbench.
 		final IRunnableWithProgress operation = new IRunnableWithProgress() {
 			// This is the method that gets invoked when the operation runs.
-			@Override
 			public void run(IProgressMonitor monitor) {
 				// Save the resources to the file system.
 				try {
@@ -690,7 +684,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 				// closing, asynchronous to not block this listener longer than necessary,
 				// which may provoke deadlocks.
 				shell.getDisplay().asyncExec(new Runnable() {
-					@Override
 					public void run() {
 						if (editorPart == null) {
 							return; // disposed
@@ -727,7 +720,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		this.handleActivate();
 	}
 
-	@Override
 	public void historyNotification(OperationHistoryEvent event) {
 		switch (event.getEventType()) {
 		case OperationHistoryEvent.DONE:

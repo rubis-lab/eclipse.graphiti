@@ -31,7 +31,6 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  */
 public class ImageService implements IImageService {
 
-	@Override
 	public ImageDescriptor getImageDescriptorForId(String imageId) {
 
 		if (imageId == null)
@@ -47,7 +46,6 @@ public class ImageService implements IImageService {
 		return imageDescriptor;
 	}
 
-	@Override
 	public Image getImageForId(String imageId) {
 
 		if (imageId == null)
@@ -69,7 +67,6 @@ public class ImageService implements IImageService {
 		return image;
 	}
 
-	@Override
 	public void removeImageFromRegistry(String key) {
 		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
 		imageRegistry.remove(key);

@@ -213,12 +213,10 @@ public class CommandStackTest extends GFAbstractTestCase {
 			super(featureProvider);
 		}
 
-		@Override
 		public int getEditingType() {
 			return TYPE_TEXT;
 		}
 
-		@Override
 		public String getInitialValue(IDirectEditingContext context) {
 			return "Initial";
 		}
@@ -257,12 +255,10 @@ public class CommandStackTest extends GFAbstractTestCase {
 			super(fp);
 		}
 
-		@Override
 		public boolean canAdd(IAddContext context) {
 			return true;
 		}
 
-		@Override
 		public PictogramElement add(IAddContext context) {
 			// Do nothing
 			return null;

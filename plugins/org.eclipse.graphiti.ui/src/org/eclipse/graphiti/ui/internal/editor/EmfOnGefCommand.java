@@ -32,27 +32,22 @@ public class EmfOnGefCommand implements Command {
 		setGefCommand(gefCommand);
 	}
 
-	@Override
 	public boolean canExecute() {
 		return getGefCommand().canExecute();
 	}
 
-	@Override
 	public boolean canUndo() {
 		return getGefCommand().canUndo();
 	}
 
-	@Override
 	public Command chain(Command command) {
 		throw new IllegalArgumentException();
 	}
 
-	@Override
 	public void dispose() {
 		getGefCommand().dispose();
 	}
 
-	@Override
 	public void execute() {
 		org.eclipse.gef.commands.Command gefCommand = getGefCommand();
 		if (gefCommand != null) {
@@ -60,18 +55,15 @@ public class EmfOnGefCommand implements Command {
 		}
 	}
 
-	@Override
 	public Collection<?> getAffectedObjects() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public String getDescription() {
 		return getLabel();
 	}
 
-	@Override
 	public String getLabel() {
 		String ret = ""; //$NON-NLS-1$
 		org.eclipse.gef.commands.Command gComm = getGefCommand();
@@ -81,17 +73,14 @@ public class EmfOnGefCommand implements Command {
 		return ret;
 	}
 
-	@Override
 	public Collection<?> getResult() {
 		return null;
 	}
 
-	@Override
 	public void redo() {
 		getGefCommand().redo();
 	}
 
-	@Override
 	public void undo() {
 		getGefCommand().undo();
 	}

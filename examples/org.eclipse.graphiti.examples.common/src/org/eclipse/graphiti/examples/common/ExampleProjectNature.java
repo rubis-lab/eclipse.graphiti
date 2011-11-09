@@ -25,25 +25,20 @@ public class ExampleProjectNature implements IProjectNature {
 
 	IProject p;
 
-	@Override
 	public void configure() throws CoreException {
 
 	}
 
-	@Override
 	public void deconfigure() throws CoreException {
 
 	}
 
-	@Override
 	public IProject getProject() {
 		return p;
 	}
 
-	@Override
 	public void setProject(IProject project) {
 		p = project;
 
 	}
-
 }

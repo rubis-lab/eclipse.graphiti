@@ -110,7 +110,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		setPatternConfiguration(patternConfiguration);
 	}
 
-	@Override
 	public boolean isPaletteApplicable() {
 		return true;
 	}
@@ -604,7 +603,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * org.eclipse.graphiti.func.IDirectEditing#canDirectEdit(org.eclipse.graphiti
 	 * .features.context.IDirectEditingContext)
 	 */
-	@Override
 	public boolean canDirectEdit(IDirectEditingContext context) {
 		return false;
 	}
@@ -616,7 +614,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * org.eclipse.graphiti.func.IDirectEditing#checkValueValid(java.lang.String
 	 * , org.eclipse.graphiti.features.context.IDirectEditingContext)
 	 */
-	@Override
 	public String checkValueValid(String value, IDirectEditingContext context) {
 		return null;
 	}
@@ -629,7 +626,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * int, java.lang.String,
 	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
 	 */
-	@Override
 	public String completeValue(String value, int caretPos, String choosenValue, IDirectEditingContext context) {
 		return choosenValue;
 	}
@@ -641,7 +637,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * org.eclipse.graphiti.func.IDirectEditing#getPossibleValues(org.eclipse
 	 * .graphiti.features.context.IDirectEditingContext)
 	 */
-	@Override
 	public String[] getPossibleValues(IDirectEditingContext context) {
 		return EMPTY_STRING_ARRAY;
 	}
@@ -653,7 +648,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * org.eclipse.graphiti.func.IDirectEditing#getValueProposals(java.lang.
 	 * String, int, org.eclipse.graphiti.features.context.IDirectEditingContext)
 	 */
-	@Override
 	public String[] getValueProposals(String value, int caretPos, IDirectEditingContext context) {
 		return EMPTY_STRING_ARRAY;
 	}
@@ -663,7 +657,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * 
 	 * @see org.eclipse.graphiti.func.IDirectEditing#isAutoCompletionEnabled()
 	 */
-	@Override
 	public boolean isAutoCompletionEnabled() {
 		return false;
 	}
@@ -673,7 +666,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * 
 	 * @see org.eclipse.graphiti.func.IDirectEditing#isCompletionAvailable()
 	 */
-	@Override
 	public boolean isCompletionAvailable() {
 		return false;
 	}
@@ -683,7 +675,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * 
 	 * @see org.eclipse.graphiti.func.IDirectEditing#stretchFieldToFitText()
 	 */
-	@Override
 	public boolean stretchFieldToFitText() {
 		return false;
 	}
@@ -717,7 +708,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	public void setValue(String value, IDirectEditingContext context) {
 	}
 
-	@Override
 	public IProposalSupport getProposalSupport() {
 		return null;
 	}
@@ -725,7 +715,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	/**
 	 * @since 0.9
 	 */
-	@Override
 	public boolean hasDoneChanges(Class<?> actionType) {
 		boolean ret = true;
 		if (IDelete.class.equals(actionType)) {

@@ -72,7 +72,6 @@ public class EmfService implements IEmfService {
 	private final String ATTRIBUTE_OBJ_NAME = "name";//$NON-NLS-1$
 	private final String ATTRIBUTE_OBJ_ID = "id";//$NON-NLS-1$
 
-	@Override
 	public String getObjectName(final Object obj) {
 		if (obj == null) {
 			throw new IllegalArgumentException("Obj must not be null"); //$NON-NLS-1$
@@ -99,7 +98,6 @@ public class EmfService implements IEmfService {
 		return obj.toString();
 	}
 
-	@Override
 	public EObject getEObject(Object object) {
 		EObject eObject = null;
 		if (object != null && object instanceof EObject) {
@@ -160,7 +158,6 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	@Override
 	public IFile getFile(EObject object) {
 		IFile result = null;
 		final Resource resource = object.eResource();
@@ -174,19 +171,16 @@ public class EmfService implements IEmfService {
 	}
 	
 
-	@Override
 	@Deprecated
 	public IFile getFile(URI uri, TransactionalEditingDomain editingDomain) {
 		return getFile(uri);
 	}
 	
-	@Override
 	@Deprecated
 	public IFile getFile(URI uri, ResourceSet resourceSet) {
 		return getFile(uri);
 	}
 
-	@Override
 	public IFile getFile(URI uri) {
 		if (uri == null) {
 			return null;
@@ -219,24 +213,19 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
 	public Set<Resource> save(TransactionalEditingDomain editingDomain) throws WrappedException {
 		return save(editingDomain, Collections.EMPTY_MAP);
 	}
 
-	@Override
 	public Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options) {
 
 		final Map<URI, Throwable> failedSaves = new HashMap<URI, Throwable>();
 		final Set<Resource> savedResources = new HashSet<Resource>();
 		final IWorkspaceRunnable wsRunnable = new IWorkspaceRunnable() {
-			@Override
 			public void run(final IProgressMonitor monitor) throws CoreException {
 
 				final Runnable runnable = new Runnable() {
-
-					@Override
 					public void run() {
 						Transaction parentTx;
 						if (editingDomain != null
@@ -321,7 +310,6 @@ public class EmfService implements IEmfService {
 		return result;
 	}
 
-	@Override
 	public StringBuilder toString(final EObject o, final StringBuilder result) {
 		final EClass metaObject = o.eClass();
 		// type
@@ -363,7 +351,6 @@ public class EmfService implements IEmfService {
 		return result;
 	}
 
-	@Override
 	public Diagram getDiagramFromFile(IFile file, ResourceSet resourceSet) {
 		// Get the URI of the model file.
 		URI resourceURI = getFileURI(file, resourceSet);
@@ -383,7 +370,6 @@ public class EmfService implements IEmfService {
 		return null;
 	}
 
-	@Override
 	public URI getFileURI(IFile file, ResourceSet resourceSet) {
 		String pathName = file.getFullPath().toString();
 		URI resourceURI = URI.createPlatformResourceURI(pathName, true);
@@ -393,12 +379,10 @@ public class EmfService implements IEmfService {
 		return resourceURI;
 	}
 
-	@Override
 	public URI mapDiagramFileUriToDiagramUri(URI diagramFileUri) {
 		return diagramFileUri.appendFragment("/0"); //$NON-NLS-1$
 	}
 	
-	@Override
 	public TransactionalEditingDomain createResourceSetAndEditingDomain() {
 		final ResourceSet resourceSet = new ResourceSetImpl();
 		final IWorkspaceCommandStack workspaceCommandStack = new GFWorkspaceCommandStackImpl(new DefaultOperationHistory());

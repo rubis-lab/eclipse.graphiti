@@ -44,7 +44,6 @@ public class PictogramsTreeEditPartFactory implements EditPartFactory {
 	 * org.eclipse.gef.EditPartFactory#createEditPart(org.eclipse.gef.EditPart,
 	 * java.lang.Object)
 	 */
-	@Override
 	public EditPart createEditPart(EditPart context, Object model) {
 		EditPart ret = null;
 		if (model instanceof PictogramElement) {

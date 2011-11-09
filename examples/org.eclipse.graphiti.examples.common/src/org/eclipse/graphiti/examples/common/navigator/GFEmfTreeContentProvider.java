@@ -50,7 +50,6 @@ public class GFEmfTreeContentProvider implements ITreeContentProvider, IResource
 
 	}
 
-	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof IContainerNode) {
 			IContainerNode icn = (IContainerNode) parentElement;
@@ -78,12 +77,10 @@ public class GFEmfTreeContentProvider implements ITreeContentProvider, IResource
 		return new Object[0];
 	}
 
-	@Override
 	public Object getParent(Object element) {
 		return null;
 	}
 
-	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof IContainerNode) {
 			IContainerNode icn = (IContainerNode) element;
@@ -95,28 +92,22 @@ public class GFEmfTreeContentProvider implements ITreeContentProvider, IResource
 		return true;
 	}
 
-	@Override
 	public Object[] getElements(Object inputElement) {
 		return null;
 	}
 
-	@Override
 	public void dispose() {
 		// do nothing 
 	}
 
-	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		this.viewer = viewer;
 	}
 
-	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		IResourceDelta delta = event.getDelta();
 		try {
 			delta.accept(new IResourceDeltaVisitor() {
-
-				@Override
 				public boolean visit(IResourceDelta delta) throws CoreException {
 					IResource resource = delta.getResource();
 					if (resource == null)

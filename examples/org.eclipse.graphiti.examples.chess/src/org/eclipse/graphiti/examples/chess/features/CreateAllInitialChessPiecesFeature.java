@@ -38,10 +38,10 @@ import org.eclipse.graphiti.services.Graphiti;
 public class CreateAllInitialChessPiecesFeature extends AbstractCreateFeature {
 
 	public CreateAllInitialChessPiecesFeature(IFeatureProvider fp) {
-		super(fp, Messages.CreateAllInitialChessPiecesFeature_name, Messages.CreateAllInitialChessPiecesFeature_description);
+		super(fp, Messages.CreateAllInitialChessPiecesFeature_name,
+				Messages.CreateAllInitialChessPiecesFeature_description);
 	}
 
-	@Override
 	public boolean canCreate(ICreateContext context) {
 		Board board = getBoard(context);
 		if (board != null) {
@@ -55,7 +55,6 @@ public class CreateAllInitialChessPiecesFeature extends AbstractCreateFeature {
 		return false;
 	}
 
-	@Override
 	public Object[] create(ICreateContext context) {
 		Collection<Piece> addedPieces = new ArrayList<Piece>(32);
 

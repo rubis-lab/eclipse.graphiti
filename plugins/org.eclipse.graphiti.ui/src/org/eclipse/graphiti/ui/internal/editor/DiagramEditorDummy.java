@@ -45,57 +45,45 @@ public class DiagramEditorDummy implements IDiagramEditor {
 		editingDomain = eDomain;
 	}
 
-	@Override
 	public TransactionalEditingDomain getEditingDomain() {
 		return editingDomain;
 	}
 
-	@Override
 	public ResourceSet getResourceSet() {
 		return null;
 	}
 
-	@Override
 	public IDimension getCurrentSize() {
 		return new DimensionImpl(0, 0);
 	}
 
-	@Override
 	public IDiagramTypeProvider getDiagramTypeProvider() {
 		return diagramTypeProvider;
 	}
 
-	@Override
 	public PictogramElement[] getSelectedPictogramElements() {
 		return new PictogramElement[0];
 	}
 
-	@Override
 	public boolean isDirty() {
 		return false;
 	}
 
-	@Override
 	public void refresh() {
 	}
 
-	@Override
 	public void refresh(PictogramElement pe) {
 	}
 
-	@Override
 	public void refreshTitleToolTip() {
 	}
 
-	@Override
 	public void selectPictogramElements(PictogramElement[] pictogramElements) {
 	}
 
-	@Override
 	public void setPictogramElementForSelection(PictogramElement pictogramElement) {
 	}
 
-	@Override
 	public void setPictogramElementsForSelection(PictogramElement[] pictogramElements) {
 	}
 
@@ -103,20 +91,16 @@ public class DiagramEditorDummy implements IDiagramEditor {
 		this.diagramTypeProvider = diagramTypeProvider;
 	}
 
-	@Override
 	public void refreshRenderingDecorators(PictogramElement pe) {
 	}
 
-	@Override
 	public void refreshPalette() {
 	}
 
-	@Override
 	public ILocation getCurrentMouseLocation() {
 		return null;
 	}
 
-	@Override
 	public void executeFeature(IFeature feature, IContext context) {
 	}
 }

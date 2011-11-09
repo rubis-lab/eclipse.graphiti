@@ -15,7 +15,6 @@ public class AbstractProposalSupport implements IProposalSupport {
 	 * org.eclipse.graphiti.func.IProposalSupport#getPossibleValues(org.eclipse
 	 * .graphiti.features.context.IDirectEditingContext)
 	 */
-	@Override
 	public IProposal[] getPossibleValues(IDirectEditingContext context) {
 		return EMPTY_PROPOSAL_ARRAY;
 	}
@@ -28,7 +27,6 @@ public class AbstractProposalSupport implements IProposalSupport {
 	 * , int, org.eclipse.graphiti.func.IProposal,
 	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
 	 */
-	@Override
 	public String completeValue(String value, int caretPosition, IProposal choosenValue, IDirectEditingContext context) {
 		return choosenValue.getText();
 	}
@@ -41,7 +39,6 @@ public class AbstractProposalSupport implements IProposalSupport {
 	 * String, org.eclipse.graphiti.func.IProposal,
 	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
 	 */
-	@Override
 	public String checkValueValid(String text, IProposal proposal, IDirectEditingContext context) {
 		return null;
 	}
@@ -54,7 +51,6 @@ public class AbstractProposalSupport implements IProposalSupport {
 	 * .String, int,
 	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
 	 */
-	@Override
 	public IProposal[] getValueProposals(String value, int caretPosition, IDirectEditingContext context) {
 		return EMPTY_PROPOSAL_ARRAY;
 	}
@@ -67,7 +63,6 @@ public class AbstractProposalSupport implements IProposalSupport {
 	 * org.eclipse.graphiti.func.IProposal,
 	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
 	 */
-	@Override
 	public void setValue(String text, IProposal proposal, IDirectEditingContext context) {
 	}
 

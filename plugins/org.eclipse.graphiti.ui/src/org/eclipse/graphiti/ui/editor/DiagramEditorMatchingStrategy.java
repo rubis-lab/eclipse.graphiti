@@ -19,7 +19,7 @@ import org.eclipse.ui.PartInitException;
  * @since 0.9
  */
 public final class DiagramEditorMatchingStrategy implements IEditorMatchingStrategy {
-	@Override
+
 	public boolean matches(IEditorReference editorRef, IEditorInput input) {
 		try {
 			IFile file = ReflectionUtil.getFile(input);

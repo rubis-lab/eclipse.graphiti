@@ -113,29 +113,24 @@ public abstract class AbstractCreateConnectionFeature extends AbstractFeature im
 	/**
 	 * @since 0.9
 	 */
-	@Override
 	public void startConnecting() {
 	}
 
 	/**
 	 * @since 0.9
 	 */
-	@Override
 	public void endConnecting() {
 	}
 
 	/**
 	 * @since 0.9
 	 */
-	@Override
 	public void attachedToSource(ICreateConnectionContext context) {
 	}
 
 	/**
 	 * @since 0.9
 	 */
-	@Override
 	public void canceledAttaching(ICreateConnectionContext context) {
 	}
-
 }

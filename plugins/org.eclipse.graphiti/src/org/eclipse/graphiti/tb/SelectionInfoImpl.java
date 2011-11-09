@@ -88,90 +88,73 @@ public class SelectionInfoImpl implements ISelectionInfo {
 	public SelectionInfoImpl() {
 	}
 
-	@Override
 	public IColorConstant getColor() {
 		return this.color;
 	}
 
-	@Override
 	public IColorConstant getHandleForegroundColor() {
 		return this.handleForegroundColor;
 	}
 
-	@Override
 	public void setHandleForegroundColor(IColorConstant handleForegroundColor) {
 		this.handleForegroundColor = handleForegroundColor;
 	}
 
-	@Override
 	public IColorConstant getHandleBackgroundColor() {
 		return this.handleBackgroundColor;
 	}
 
-	@Override
 	public void setHandleBackgroundColor(IColorConstant handleBackgroundColor) {
 		this.handleBackgroundColor = handleBackgroundColor;
 	}
 
-	@Override
 	public LineStyle getLineStyle() {
 		return this.lineStyle;
 	}
 
-	@Override
 	public void setLineStyle(LineStyle lineStyle) {
 		this.lineStyle = lineStyle;
 	}
 
-	@Override
 	public void setColor(IColorConstant color) {
 		this.color = color;
 	}
 
-	@Override
 	public IColorConstant getHoverColor() {
 		return this.hoverColor;
 	}
 
-	@Override
 	public void setLineStyle(IColorConstant color) {
 
 	}
 
-	@Override
 	public void setHoverColor(IColorConstant hoverColor) {
 		this.hoverColor = hoverColor;
 
 	}
 
-	@Override
 	public IColorConstant getHoverColorParentSelected() {
 		return this.hoverColorParentSelected;
 	}
 
-	@Override
 	public void setHoverColorParentSelected(IColorConstant hoverColor) {
 		this.hoverColorParentSelected = hoverColor;
 
 	}
 
-	@Override
 	public IColorConstant getPrimarySelectionBackGroundColor() {
 		return this.primarySelectionBackgroundColor;
 	}
 
-	@Override
 	public IColorConstant getSecondarySelectionBackGroundColor() {
 		return this.secondarySelectionBackgroundColor;
 
 	}
 
-	@Override
 	public void setPrimarySelectionBackgroundColor(IColorConstant color) {
 		this.primarySelectionBackgroundColor = color;
 	}
 
-	@Override
 	public void setSecondarySelectionBackgroundColor(IColorConstant color) {
 		this.secondarySelectionBackgroundColor = color;
 	}

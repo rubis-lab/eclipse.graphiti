@@ -45,7 +45,6 @@ import org.eclipse.ui.part.EditorActionBarContributor;
  */
 public class WorkbenchService implements IWorkbenchService {
 
-	@Override
 	public IStatusLineManager getActiveStatusLineManager() {
 		final IWorkbenchPart activePart = getActiveOrFirstWorkbenchWindow().getActivePage().getActivePart();
 		if (activePart instanceof IViewPart) {
@@ -64,7 +63,6 @@ public class WorkbenchService implements IWorkbenchService {
 		return new StatusLineManager();
 	}
 
-	@Override
 	public IWorkbenchWindow getActiveOrFirstWorkbenchWindow() {
 		IWorkbenchWindow result = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if (result == null) {
@@ -84,7 +82,6 @@ public class WorkbenchService implements IWorkbenchService {
 	 * @param domain
 	 * @return the editor instance
 	 */
-	@Override
 	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, boolean disposeEditingDomain) {
 		IDiagramEditor ret = null;
 
@@ -105,7 +102,6 @@ public class WorkbenchService implements IWorkbenchService {
 	 *            be used by the editor.
 	 * @return the editor instance
 	 */
-	@Override
 	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, String providerId,
 			boolean disposeEditingDomain) {
 		return openDiagramEditor(diagram, domain, providerId, DiagramEditor.DIAGRAM_EDITOR_ID, disposeEditingDomain);
@@ -126,7 +122,6 @@ public class WorkbenchService implements IWorkbenchService {
 	 * @return the editor instance
 	 * @since 0.8.0
 	 */
-	@Override
 	public IDiagramEditor openDiagramEditor(Diagram diagram, TransactionalEditingDomain domain, String providerId, String editorId,
 			boolean disposeEditingDomain) {
 		IDiagramEditor ret = null;
@@ -158,7 +153,6 @@ public class WorkbenchService implements IWorkbenchService {
 		return null;
 	}
 
-	@Override
 	public Shell getShell() {
 		return GraphitiUIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 	}

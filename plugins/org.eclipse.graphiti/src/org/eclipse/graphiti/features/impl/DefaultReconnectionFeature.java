@@ -110,7 +110,6 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 	/**
 	 * @since 0.9
 	 */
-	@Override
 	public void canceledReconnect(IReconnectionContext context) {
 	}
 }

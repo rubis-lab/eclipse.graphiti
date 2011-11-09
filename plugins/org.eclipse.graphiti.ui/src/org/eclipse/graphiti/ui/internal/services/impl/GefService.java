@@ -60,7 +60,6 @@ public class GefService implements IGefService {
 
 	protected static final String PE = "*PE* "; //$NON-NLS-1$
 
-	@Override
 	public void selectEditPart(EditPartViewer viewer, Object modelObject) {
 		if (modelObject == null)
 			return;
@@ -73,7 +72,6 @@ public class GefService implements IGefService {
 		}
 	}
 
-	@Override
 	public Point calculateTranslation(EditPart source, EditPart target) {
 		if (!(source instanceof GraphicalEditPart && target instanceof GraphicalEditPart))
 			throw new RuntimeException("Both EditParts must be an instance of GraphicalEditPart: " + source + " " + target); //$NON-NLS-1$ //$NON-NLS-2$
@@ -87,7 +85,6 @@ public class GefService implements IGefService {
 		return result;
 	}
 
-	@Override
 	public Object getLayoutConstraint(EditPart editPart) {
 		if (editPart instanceof GraphicalEditPart) {
 			IFigure childFigure = ((GraphicalEditPart) editPart).getFigure();
@@ -102,7 +99,6 @@ public class GefService implements IGefService {
 		return null;
 	}
 
-	@Override
 	public EditPart findEditPartAt(EditPartViewer viewer, Point location, boolean includeConnections) {
 
 		EditPart editPart = findObjectAt(viewer, location, includeConnections);
@@ -157,7 +153,6 @@ public class GefService implements IGefService {
 		return part;
 	}
 
-	@Override
 	public List<EditPart> getConnectionsContainedInEditPart(EditPart ep) {
 		// Compute connections whose start and target are somewhere in the
 		// editpart sub hierarchy of ep
@@ -201,7 +196,6 @@ public class GefService implements IGefService {
 		return res;
 	}
 
-	@Override
 	public Point getConnectionPointAt(Connection c, double d) {
 		Point ret = null;
 
@@ -305,7 +299,6 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
-	@Override
 	public Point getChopboxLocationOnBox(Point reference, Rectangle box) {
 		Rectangle r = Rectangle.SINGLETON;
 		r.setBounds(box);
@@ -348,7 +341,6 @@ public class GefService implements IGefService {
 		return new Point(Math.round(centerX), Math.round(centerY));
 	}
 
-	@Override
 	public Point getAbsolutePointOnConnection(Connection c, double distance) {
 		Point ret = null;
 
@@ -451,13 +443,11 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
-	@Override
 	public Point getDistantPoint(Point start, Point end, double distance) {
 		Point ret = getDistantPoint(start.x, start.y, end.x, end.y, distance);
 		return ret;
 	}
 
-	@Override
 	public Point getDistantPoint(int startX, int startY, int endX, int endY, double distance) {
 		Point ret;
 		double completeDistance = Math.sqrt(((endX - startX) * (endX - startX)) + ((endY - startY) * (endY - startY)));
@@ -473,7 +463,6 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
-	@Override
 	public Point getPointAt(int startX, int startY, int endX, int endY, double d) {
 		Point ret;
 		int midX = (int) Math.round((startX + d * (endX - startX)));
@@ -482,7 +471,6 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
-	@Override
 	public Point getPointAt(Point start, Point end, double d) {
 		Point ret = getPointAt(start.x, start.y, end.x, end.y, d);
 		return ret;
@@ -495,7 +483,6 @@ public class GefService implements IGefService {
 	 * org.eclipse.graphiti.ui.internal.util.gef.IGefService#getDistance(org
 	 * .eclipse.draw2d.geometry.Point[])
 	 */
-	@Override
 	public double getDistance(Point[] points) {
 		double ret = 0;
 		for (int i = 0; i < points.length - 1; i++) {
@@ -513,7 +500,6 @@ public class GefService implements IGefService {
 		return ret;
 	}
 
-	@Override
 	public IDimension calculateTextSize(String text, Font font) {
 		IDimension dimension = null;
 		if (text == null || font == null || font.getName() == null) {
@@ -533,7 +519,6 @@ public class GefService implements IGefService {
 		return dimension;
 	}
 
-	@Override
 	public void mirrorArray(Point[] draw2dPoints) {
 		int length = draw2dPoints.length;
 		for (int i = 0; i < length / 2; i++) {
@@ -543,28 +528,24 @@ public class GefService implements IGefService {
 		}
 	}
 
-	@Override
 	public List<EditPart> getEditPartChildren(EditPart editPart) {
 		@SuppressWarnings("unchecked")
 		List<EditPart> ret = editPart.getChildren();
 		return ret;
 	}
 
-	@Override
 	public List<GraphicalEditPart> getSourceConnections(GraphicalEditPart graphicalEditPart) {
 		@SuppressWarnings("unchecked")
 		List<GraphicalEditPart> sourceConnections = graphicalEditPart.getSourceConnections();
 		return sourceConnections;
 	}
 
-	@Override
 	public List<GraphicalEditPart> getTargetConnections(GraphicalEditPart graphicalEditPart) {
 		@SuppressWarnings("unchecked")
 		List<GraphicalEditPart> targetConnections = graphicalEditPart.getTargetConnections();
 		return targetConnections;
 	}
 
-	@Override
 	public List<EditPart> getSelectedEditParts(EditPartViewer editPartViewer) {
 		@SuppressWarnings("unchecked")
 		List<EditPart> selectedEditParts = editPartViewer.getSelectedEditParts();

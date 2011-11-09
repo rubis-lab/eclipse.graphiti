@@ -71,7 +71,6 @@ public class ExternalPictogramLink extends EObjectImpl implements PictogramLink 
 		pictogramElement = newValue;
 	}
 
-	@Override
 	public EList<Property> getProperties() {
 		return new BasicEList<Property>();
 	}

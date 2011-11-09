@@ -95,7 +95,6 @@ public class ExtensionManager implements IExtensionManager {
 		return singleton;
 	}
 
-	@Override
 	public String[] getDiagramTypeProviderIds(String diagramTypeId) {
 		String ret[] = new String[0];
 		if (diagramTypeId == null) {
@@ -204,7 +203,6 @@ public class ExtensionManager implements IExtensionManager {
 		loadImageProvider(PlatformImageProvider.ID);
 	}
 
-	@Override
 	public IDiagramTypeProvider createDiagramTypeProvider(String providerId) {
 		IDiagramTypeProvider diagramTypeProvider = null;
 
@@ -271,7 +269,6 @@ public class ExtensionManager implements IExtensionManager {
 		return imageProviders;
 	}
 
-	@Override
 	public IDiagramType[] getDiagramTypes() {
 		return diagramTypes;
 	}
@@ -384,7 +381,6 @@ public class ExtensionManager implements IExtensionManager {
 		return null;
 	}
 
-	@Override
 	public IFeatureProvider createFeatureProvider(Diagram diagram) {
 		Assert.isNotNull(diagram);
 		String providerId = getDiagramTypeProviderId(diagram.getDiagramTypeId());
@@ -395,7 +391,6 @@ public class ExtensionManager implements IExtensionManager {
 		return null;
 	}
 
-	@Override
 	public IDiagramTypeProvider createDiagramTypeProvider(Diagram diagram, String providerId) {
 		Assert.isNotNull(diagram);
 		IDiagramTypeProvider dtp = createDiagramTypeProvider(providerId);
@@ -407,7 +402,6 @@ public class ExtensionManager implements IExtensionManager {
 		return dtp;
 	}
 
-	@Override
 	public String getDiagramTypeProviderId(String diagramTypeId) {
 		String diagramTypeProviders[] = getDiagramTypeProviderIds(diagramTypeId);
 		if (diagramTypeProviders != null && diagramTypeProviders.length > 0) {

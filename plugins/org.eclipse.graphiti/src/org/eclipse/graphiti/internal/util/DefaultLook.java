@@ -44,7 +44,6 @@ public class DefaultLook implements ILook {
 		return fieldErrorBackgroundColor;
 	}
 
-	@Override
 	public IColorConstant getFieldErrorForegroundColor() {
 		if (fieldErrorForegroundColor == null) {
 			fieldErrorForegroundColor = new ColorConstant("B00017"); //$NON-NLS-1$

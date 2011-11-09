@@ -61,7 +61,6 @@ public abstract class AbstractFeature implements IFeature {
 		return true;
 	}
 
-	@Override
 	public boolean hasDoneChanges() {
 		return true;
 	}

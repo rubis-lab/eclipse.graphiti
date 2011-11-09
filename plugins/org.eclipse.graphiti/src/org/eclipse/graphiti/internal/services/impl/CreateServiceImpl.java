@@ -68,7 +68,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer,
 	 * java.lang.String)
 	 */
-	@Override
 	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value) {
 		return getGaService().createDefaultMultiText(diagram, gaContainer, value);
 	}
@@ -80,7 +79,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createDefaultMultiText
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
-	@Override
 	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createDefaultMultiText(diagram, gaContainer);
 	}
@@ -94,7 +92,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer,
 	 * java.lang.String)
 	 */
-	@Override
 	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value) {
 		return getGaService().createDefaultText(diagram, gaContainer, value);
 	}
@@ -106,7 +103,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createDefaultText(org.
 	 * eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
-	@Override
 	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createDefaultText(diagram, gaContainer);
 	}
@@ -118,12 +114,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createEllipse(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
-	@Override
 	public Ellipse createEllipse(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createEllipse(gaContainer);
 	}
 	
-	@Override
 	public Ellipse createPlainEllipse(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createPlainEllipse(gaContainer);
 	}
@@ -135,12 +129,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createImage(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, java.lang.String)
 	 */
-	@Override
 	public Image createImage(GraphicsAlgorithmContainer gaContainer, String imageId) {
 		return getGaService().createImage(gaContainer, imageId);
 	}
 	
-	@Override
 	public Image createPlainImage(GraphicsAlgorithmContainer gaContainer, String imageId) {
 		return getGaService().createPlainImage(gaContainer, imageId);
 	}
@@ -152,7 +144,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createInvisibleRectangle
 	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
-	@Override
 	public Rectangle createInvisibleRectangle(PictogramElement pe) {
 		return getGaService().createInvisibleRectangle(pe);
 	}
@@ -164,12 +155,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createMultiText(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, java.lang.String)
 	 */
-	@Override
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return getGaService().createMultiText(gaContainer, value);
 	}
 	
-	@Override
 	public MultiText createPlainMultiText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return getGaService().createPlainMultiText(gaContainer, value);
 	}
@@ -181,12 +170,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createMultiText(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
-	@Override
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createMultiText(gaContainer);
 	}
 	
-	@Override
 	public MultiText createPlainMultiText(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createPlainMultiText(gaContainer);
 	}
@@ -200,7 +187,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, java.lang.String,
 	 * java.lang.String, int)
 	 */
-	@Override
 	public MultiText createMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize) {
 		return getGaService().createMultiText(diagram, gaContainer, value, fontName, fontSize);
 	}
@@ -214,7 +200,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, java.lang.String,
 	 * java.lang.String, int, boolean, boolean)
 	 */
-	@Override
 	public MultiText createMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize,
 			boolean isFontItalic, boolean isFontBold) {
 		return getGaService().createMultiText(diagram, gaContainer, value, fontName, fontSize, isFontItalic, isFontBold);
@@ -228,12 +213,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer,
 	 * java.lang.String)
 	 */
-	@Override
 	public PlatformGraphicsAlgorithm createPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id) {
 		return getGaService().createPlatformGraphicsAlgorithm(gaContainer, id);
 	}
 	
-	@Override
 	public PlatformGraphicsAlgorithm createPlainPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id) {
 		return getGaService().createPlainPlatformGraphicsAlgorithm(gaContainer, id);
 	}
@@ -245,7 +228,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPoint(org.eclipse
 	 * .emf.ecore.EObject, int, int, int, int)
 	 */
-	@Override
 	public Point createPoint(int x, int y, int before, int after) {
 		return getGaService().createPoint(x, y, before, after);
 	}
@@ -257,7 +239,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPoint(org.eclipse
 	 * .emf.ecore.EObject, int, int)
 	 */
-	@Override
 	public Point createPoint(int x, int y) {
 		return getGaService().createPoint(x, y);
 	}
@@ -269,7 +250,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPointList(org.eclipse
 	 * .emf.ecore.EObject, int[], int[])
 	 */
-	@Override
 	public List<Point> createPointList(int[] xy, int[] beforeAfter) {
 		return getGaService().createPointList(xy, beforeAfter);
 	}
@@ -281,7 +261,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPointList(org.eclipse
 	 * .emf.ecore.EObject, int[])
 	 */
-	@Override
 	public List<Point> createPointList(int[] xy) {
 		return getGaService().createPointList(xy);
 	}
@@ -293,12 +272,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolygon(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, java.util.Collection)
 	 */
-	@Override
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
 		return getGaService().createPolygon(gaContainer, points);
 	}
 	
-	@Override
 	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
 		return getGaService().createPlainPolygon(gaContainer, points);
 	}
@@ -310,12 +287,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolygon(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, int[], int[])
 	 */
-	@Override
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy, int[] beforeAfter) {
 		return getGaService().createPolygon(gaContainer, xy, beforeAfter);
 	}
 	
-	@Override
 	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy, int[] beforeAfter) {
 		return getGaService().createPlainPolygon(gaContainer, xy, beforeAfter);
 	}
@@ -328,12 +303,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolygon(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, int[])
 	 */
-	@Override
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy) {
 		return getGaService().createPolygon(gaContainer, xy);
 	}
 	
-	@Override
 	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy) {
 		return getGaService().createPolygon(gaContainer, xy);
 	}
@@ -345,12 +318,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolygon(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
-	@Override
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createPolygon(gaContainer);
 	}
 	
-	@Override
 	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createPlainPolygon(gaContainer);
 	}
@@ -363,12 +334,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolyline(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, java.util.Collection)
 	 */
-	@Override
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
 		return getGaService().createPolyline(gaContainer, points);
 	}
 	
-	@Override
 	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points) {
 		return getGaService().createPlainPolyline(gaContainer, points);
 	}
@@ -380,12 +349,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolyline(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, int[], int[])
 	 */
-	@Override
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy, int[] beforeAfter) {
 		return getGaService().createPolyline(gaContainer, xy, beforeAfter);
 	}
 	
-	@Override
 	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy, int[] beforeAfter) {
 		return getGaService().createPlainPolyline(gaContainer, xy, beforeAfter);
 	}
@@ -397,12 +364,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolyline(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, int[])
 	 */
-	@Override
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy) {
 		return getGaService().createPolyline(gaContainer, xy);
 	}
 	
-	@Override
 	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy) {
 		return getGaService().createPlainPolyline(gaContainer, xy);
 	}
@@ -414,12 +379,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createPolyline(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
-	@Override
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createPolyline(gaContainer);
 	}
 	
-	@Override
 	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createPlainPolyline(gaContainer);
 	}
@@ -431,12 +394,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createRectangle(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
-	@Override
 	public Rectangle createRectangle(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createRectangle(gaContainer);
 	}
 	
-	@Override
 	public Rectangle createPlainRectangle(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createPlainRectangle(gaContainer);
 	}
@@ -448,12 +409,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createRoundedRectangle
 	 * (org.eclipse.graphiti.mm.pictograms.GraphicsAlgorithmContainer, int, int)
 	 */
-	@Override
 	public RoundedRectangle createRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight) {
 		return getGaService().createRoundedRectangle(gaContainer, cornerWidth, cornerHeight);
 	}
 	
-	@Override
 	public RoundedRectangle createPlainRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight) {
 		return getGaService().createPlainRoundedRectangle(gaContainer, cornerWidth, cornerHeight);
 	}
@@ -466,7 +425,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * .eclipse.graphiti.mm.datatypes.Color, int,
 	 * org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */
-	@Override
 	public Color createShiftedColor(Color color, int shift, Diagram diagram) {
 		return getGaService().createShiftedColor(color, shift, diagram);
 	}
@@ -478,7 +436,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createShiftedColor(org
 	 * .eclipse.graphiti.util.IColorConstant, int)
 	 */
-	@Override
 	public IColorConstant createShiftedColor(IColorConstant colorConstant, int shift) {
 		return getGaService().createShiftedColor(colorConstant, shift);
 	}
@@ -490,12 +447,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createStyle(org.eclipse
 	 * .graphiti.mm.pictograms.StyleContainer, java.lang.String)
 	 */
-	@Override
 	public Style createStyle(StyleContainer styleContainer, String id) {
 		return getGaService().createStyle(styleContainer, id);
 	}
 	
-	@Override
 	public Style createPlainStyle(StyleContainer styleContainer, String id) {
 		return getGaService().createStyle(styleContainer, id);
 	}
@@ -507,12 +462,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createText(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer, java.lang.String)
 	 */
-	@Override
 	public Text createText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return getGaService().createText(gaContainer, value);
 	}
 	
-	@Override
 	public Text createPlainText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return getGaService().createPlainText(gaContainer, value);
 	}
@@ -524,12 +477,10 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IGaCreateService#createText(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithmContainer)
 	 */
-	@Override
 	public Text createText(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createText(gaContainer);
 	}
 	
-	@Override
 	public Text createPlainText(GraphicsAlgorithmContainer gaContainer) {
 		return getGaService().createPlainText(gaContainer);
 	}
@@ -543,7 +494,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, java.lang.String,
 	 * java.lang.String, int)
 	 */
-	@Override
 	public Text createText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize) {
 		return getGaService().createText(diagram, gaContainer, value, fontName, fontSize);
 	}
@@ -557,7 +507,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, java.lang.String,
 	 * java.lang.String, int, boolean, boolean)
 	 */
-	@Override
 	public Text createText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize,
 			boolean isFontItalic, boolean isFontBold) {
 		return getGaService().createText(diagram, gaContainer, value, fontName, fontSize, isFontItalic, isFontBold);
@@ -570,7 +519,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IPeCreateService#createBoxRelativeAnchor
 	 * (org.eclipse.graphiti.mm.pictograms.AnchorContainer)
 	 */
-	@Override
 	public BoxRelativeAnchor createBoxRelativeAnchor(AnchorContainer anchorContainer) {
 		return getPeService().createBoxRelativeAnchor(anchorContainer);
 	}
@@ -582,7 +530,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IPeCreateService#createChopboxAnchor(org
 	 * .eclipse.graphiti.mm.pictograms.AnchorContainer)
 	 */
-	@Override
 	public ChopboxAnchor createChopboxAnchor(AnchorContainer anchorContainer) {
 		return getPeService().createChopboxAnchor(anchorContainer);
 	}
@@ -594,7 +541,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IPeCreateService#createConnectionDecorator
 	 * (org.eclipse.graphiti.mm.pictograms.Connection, boolean, double, boolean)
 	 */
-	@Override
 	public ConnectionDecorator createConnectionDecorator(Connection connection, boolean active, double location, boolean isRelative) {
 		return getPeService().createConnectionDecorator(connection, active, location, isRelative);
 	}
@@ -606,7 +552,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IPeCreateService#createContainerShape(org
 	 * .eclipse.graphiti.mm.pictograms.ContainerShape, boolean)
 	 */
-	@Override
 	public ContainerShape createContainerShape(ContainerShape parentContainerShape, boolean active) {
 		return getPeService().createContainerShape(parentContainerShape, active);
 	}
@@ -618,7 +563,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IPeCreateService#createDiagram(java.lang
 	 * .String, java.lang.String, boolean)
 	 */
-	@Override
 	public Diagram createDiagram(String diagramTypeId, String diagramName, boolean snap) {
 		return getPeService().createDiagram(diagramTypeId, diagramName, snap);
 	}
@@ -630,7 +574,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IPeCreateService#createDiagram(java.lang
 	 * .String, java.lang.String, int, boolean)
 	 */
-	@Override
 	public Diagram createDiagram(String diagramTypeId, String diagramName, int gridUnit, boolean snap) {
 		return getPeService().createDiagram(diagramTypeId, diagramName, gridUnit, snap);
 	}
@@ -642,7 +585,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IPeCreateService#createDiagram(java.lang
 	 * .String, java.lang.String, int, boolean)
 	 */
-	@Override
 	public Diagram createDiagram(String diagramTypeId, String diagramName, int horizontalGridUnit, int verticalGridUint, boolean snap) {
 		return getPeService().createDiagram(diagramTypeId, diagramName, horizontalGridUnit, verticalGridUint, snap);
 	}
@@ -654,7 +596,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IPeCreateService#createFixPointAnchor(org
 	 * .eclipse.graphiti.mm.pictograms.AnchorContainer)
 	 */
-	@Override
 	public FixPointAnchor createFixPointAnchor(AnchorContainer anchorContainer) {
 		return getPeService().createFixPointAnchor(anchorContainer);
 	}
@@ -666,7 +607,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IPeCreateService#createFreeFormConnection
 	 * (org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */
-	@Override
 	public FreeFormConnection createFreeFormConnection(Diagram diagram) {
 		return getPeService().createFreeFormConnection(diagram);
 	}
@@ -678,7 +618,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IPeCreateService#createManhattanConnection
 	 * (org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */
-	@Override
 	public ManhattanConnection createManhattanConnection(Diagram diagram) {
 		return getPeService().createManhattanConnection(diagram);
 	}
@@ -690,7 +629,6 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 * org.eclipse.graphiti.services.IPeCreateService#createShape(org.eclipse
 	 * .graphiti.mm.pictograms.ContainerShape, boolean)
 	 */
-	@Override
 	public Shape createShape(ContainerShape parentContainerShape, boolean active) {
 		return getPeService().createShape(parentContainerShape, active);
 	}

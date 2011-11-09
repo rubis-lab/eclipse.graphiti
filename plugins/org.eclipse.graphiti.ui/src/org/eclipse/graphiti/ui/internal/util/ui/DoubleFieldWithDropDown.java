@@ -112,7 +112,6 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 		_text.addModifyListener(listener);
 	}
 
-	@Override
 	public void modifyText(ModifyEvent e) {
 		if (_internalModify)
 			return;
@@ -134,7 +133,6 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 		}
 	}
 
-	@Override
 	public void widgetSelected(SelectionEvent e) {
 		if (_internalModify)
 			return;
@@ -149,7 +147,6 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 		}
 	}
 
-	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
 		widgetSelected(e);
 	}

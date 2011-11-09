@@ -23,7 +23,6 @@ import org.eclipse.ui.views.properties.tabbed.ITypeMapper;
 
 public class TypeMapper implements ITypeMapper {
 
-	@Override
 	public Class<? extends Object> mapType(Object object) {
 
 		Class<? extends Object> type = object.getClass();

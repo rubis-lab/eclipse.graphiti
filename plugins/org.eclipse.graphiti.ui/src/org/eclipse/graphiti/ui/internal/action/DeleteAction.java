@@ -50,7 +50,6 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 		setToolTipText(TOOL_TIP);
 	}
 
-	@Override
 	public boolean isAvailable() {
 		PictogramElement pe[] = getSelectedPictogramElements();
 		for (int i = 0; i < pe.length; i++) {
@@ -96,7 +95,6 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 		genericRun(this);
 	}
 
-	@Override
 	public IContext createContext(PictogramElement pe) {
 		DeleteContext deleteContext = new DeleteContext(pe);
 		if (getMultiDeleteInfo() != null) {
@@ -105,7 +103,6 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 		return deleteContext;
 	}
 
-	@Override
 	public IFeature provideFeatureForContext(IContext context) {
 		return getFeatureProvider().getDeleteFeature((IDeleteContext) context);
 	}

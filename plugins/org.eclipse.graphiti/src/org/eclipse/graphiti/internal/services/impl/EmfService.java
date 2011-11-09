@@ -32,12 +32,10 @@ public final class EmfService implements IEmfService {
 
 	private WeakHashMap<Diagram, WeakReference<IDiagramTypeProvider>> diagToProvider = new WeakHashMap<Diagram, WeakReference<IDiagramTypeProvider>>();
 
-	@Override
 	public boolean isObjectAlive(EObject obj) {
 		return obj != null && obj.eResource() != null;
 	}
 
-	@Override
 	public IDiagramTypeProvider getDTPForDiagram(Diagram d) {
 		WeakReference<IDiagramTypeProvider> weakReference = diagToProvider.get(d);
 		if (weakReference == null || weakReference.get() == null) {
@@ -47,7 +45,6 @@ public final class EmfService implements IEmfService {
 		return weakReference.get();
 	}
 
-	@Override
 	public void wireDTPToDiagram(Diagram d, IDiagramTypeProvider provider) {
 		diagToProvider.put(d, new WeakReference<IDiagramTypeProvider>(provider));
 

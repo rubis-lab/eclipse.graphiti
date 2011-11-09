@@ -1,7 +1,11 @@
 package org.eclipse.graphiti.bot.pageobjects;
 
-import java.awt.AWTException;
+import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.awt.AWTException;
 import java.awt.Robot;
 
 import org.eclipse.core.resources.IFile;
@@ -27,10 +31,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
-import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * Encapsulates SWTBot for operations on the active workbench page.
@@ -50,7 +50,6 @@ public class PoWorkbenchPage extends PageObject{
 	
 	public int openDiagramEditorFromFile(final IFile diagFile) {
 		return syncExec(new IntResult() {
-			@Override
 			public Integer run() {
 				try {
 					IEditorPart ed = IDE.openEditor(getWorkbenchPage(), diagFile, org.eclipse.graphiti.ui.editor.DiagramEditor.DIAGRAM_EDITOR_ID);
@@ -68,7 +67,6 @@ public class PoWorkbenchPage extends PageObject{
 		assertNotNull(resource);
 
 		return syncExec(new IntResult() {
-			@Override
 			public Integer run() {
 				IWorkbenchPage page = getWorkbenchPage();
 				try {
@@ -92,7 +90,6 @@ public class PoWorkbenchPage extends PageObject{
 	public void shutdownEditor(final SWTBotGefEditor diagramEditor) {
 		// Close popups.
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				// Using SWTBot yields an exception since a keyboard layout file for DE is not available.
 				//				bot.activeShell().pressShortcut(SWT.NONE, SWT.ESC);
@@ -111,7 +108,6 @@ public class PoWorkbenchPage extends PageObject{
 	public void shutdownEditor(final DiagramEditor diagramEditor) {
 		// Close popups.
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				// Using SWTBot yields an exception since a keyboard layout file for DE is not available.
 				//				bot.activeShell().pressShortcut(SWT.NONE, SWT.ESC);
@@ -130,7 +126,6 @@ public class PoWorkbenchPage extends PageObject{
 	
 	public void closeAllEditors() {
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				page.closeAllEditors(false);
@@ -145,7 +140,6 @@ public class PoWorkbenchPage extends PageObject{
 
 	public void openGraphitiTestPerspective() {
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				SWTBotPerspective p = bot.perspectiveById("org.eclipse.graphiti.examples.common.perspective.GFPerspective");
 				p.activate();

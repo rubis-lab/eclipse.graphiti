@@ -31,12 +31,10 @@ public class Proposal implements IProposal {
 		setObject(object);
 	}
 
-	@Override
 	public Object getObject() {
 		return object;
 	}
 
-	@Override
 	public String getText() {
 		return text; // + " - " + getObject(); // for tests
 	}

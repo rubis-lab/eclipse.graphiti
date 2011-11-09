@@ -36,13 +36,11 @@ public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchr
 		this.deb = deb;
 	}
 
-	@Override
 	public void dispose() { 
 		deb = null;
 
 	}
 
-	@Override
 	public boolean handleResourceChanged(Resource resource) {
 		IFile file = WorkspaceSynchronizer.getUnderlyingFile(resource);
 		// Since we cannot get timestamp information, we have to be pessimistic
@@ -59,14 +57,12 @@ public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchr
 		return true;
 	}
 
-	@Override
 	public boolean handleResourceDeleted(Resource resource) {
 		// This will lead to an unload of the resource, which is quite what we want.
 		// As a follow up of the unload the editor is closed.
 		return false;
 	}
 
-	@Override
 	public boolean handleResourceMoved(Resource resource, URI newURI) {
 		// Handle rename or move of resource.
 		// ((ResourceSetImpl)

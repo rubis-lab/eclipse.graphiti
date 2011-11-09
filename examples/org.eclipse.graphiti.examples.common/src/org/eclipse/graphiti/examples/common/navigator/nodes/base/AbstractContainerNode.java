@@ -31,7 +31,6 @@ public abstract class AbstractContainerNode implements IContainerNode {
 		super();
 	}
 
-	@Override
 	public String getText() {
 		String ret = getContainerName();
 		return ret;
@@ -44,12 +43,10 @@ public abstract class AbstractContainerNode implements IContainerNode {
 	 */
 	abstract protected String getContainerName();
 
-	@Override
 	public boolean hasChildren() {
 			return true;
 	}
 
-	@Override
 	public Image getImage() {
 		String imageKey = ISharedImages.IMG_OBJ_ELEMENT;
 		return PlatformUI.getWorkbench().getSharedImages().getImage(imageKey);

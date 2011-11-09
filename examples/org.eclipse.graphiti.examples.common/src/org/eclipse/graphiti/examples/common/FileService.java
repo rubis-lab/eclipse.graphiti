@@ -74,12 +74,9 @@ public class FileService {
 
 		final Map<URI, Throwable> failedSaves = new HashMap<URI, Throwable>();
 		final IWorkspaceRunnable wsRunnable = new IWorkspaceRunnable() {
-			@Override
 			public void run(final IProgressMonitor monitor) throws CoreException {
 
 				final Runnable runnable = new Runnable() {
-
-					@Override
 					public void run() {
 						Transaction parentTx;
 						if (editingDomain != null

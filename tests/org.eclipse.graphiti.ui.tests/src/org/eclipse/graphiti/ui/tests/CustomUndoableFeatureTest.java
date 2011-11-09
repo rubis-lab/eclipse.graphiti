@@ -123,18 +123,15 @@ public class CustomUndoableFeatureTest extends GFAbstractTestCase {
 			return true;
 		}
 
-		@Override
 		public void undo(IContext context) {
 			undoCalled = true;
 			assertEquals("Context object must be the same as in execute", this.context, context);
 		}
 
-		@Override
 		public boolean canRedo(IContext context) {
 			return true;
 		}
 
-		@Override
 		public void redo(IContext context) {
 			redoCalled = true;
 			assertEquals("Context object must be the same as in execute", this.context, context);

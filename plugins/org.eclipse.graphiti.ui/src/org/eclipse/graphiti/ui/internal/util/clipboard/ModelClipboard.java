@@ -55,6 +55,7 @@ import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.part.ResourceTransfer;
 
 /**
  * Provides a clipboard-like storage of EMF-related data based on SWT
@@ -254,7 +255,6 @@ public final class ModelClipboard {
 		// in the case of a UI
 		if (canUseUI()) {
 			BusyIndicator.showWhile(Display.getCurrent(), new Runnable() {
-				@Override
 				public void run() {
 					final Copier copier = new Copier(true, true);
 					result[0] = copier.copyAll(Arrays.asList(srcObjects));
@@ -449,8 +449,6 @@ public final class ModelClipboard {
 	private void rollback(final TransactionalEditingDomain targetTED) {
 		try {
 			targetTED.runExclusive(new Runnable() {
-
-				@Override
 				public void run() {
 					final EList<Resource> resources = targetTED.getResourceSet().getResources();
 					for (final Iterator<Resource> iterator = resources.iterator(); iterator.hasNext();) {

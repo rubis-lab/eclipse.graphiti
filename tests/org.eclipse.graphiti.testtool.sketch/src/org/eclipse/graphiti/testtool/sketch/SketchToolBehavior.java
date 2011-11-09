@@ -85,11 +85,9 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 			this.imageFilePath = imageFilePath;
 		}
 
-		@Override
 		public ImageDescriptor getImageDescriptor() {
 			return AbstractUIPlugin.imageDescriptorFromPlugin(SketchPlugin.getID(), imageFilePath);
 		}
-
 	}
 
 	private class MyPaletteCompartmentEntry extends PaletteCompartmentEntry implements IEclipseImageDescriptor {
@@ -101,7 +99,6 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 			this.imageFilePath = imageFilePath;
 		}
 
-		@Override
 		public ImageDescriptor getImageDescriptor() {
 			return AbstractUIPlugin.imageDescriptorFromPlugin(SketchPlugin.getID(), imageFilePath);
 		}
@@ -511,7 +508,6 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 		return super.getContentArea(cs);
 	}
 
-	@Override
 	public String getName() {
 		return "Edit Mode";
 	}

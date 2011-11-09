@@ -36,7 +36,6 @@ public class AddChessPieceFeature extends AbstractAddShapeFeature {
 		super(fp);
 	}
 
-	@Override
 	public boolean canAdd(IAddContext context) {
 		if (context.getNewObject() instanceof Piece) {
 			return context.getTargetContainer().getChildren().size() < 64;
@@ -44,7 +43,6 @@ public class AddChessPieceFeature extends AbstractAddShapeFeature {
 		return false;
 	}
 
-	@Override
 	public PictogramElement add(IAddContext context) {
 		// Get the Graphiti services
 		ICreateService createService = Graphiti.getCreateService();

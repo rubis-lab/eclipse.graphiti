@@ -45,7 +45,6 @@ public class TutorialAddEClassFeature extends AbstractAddShapeFeature {
 		super(fp);
 	}
 
-	@Override
 	public boolean canAdd(IAddContext context) {
 		// check if user wants to add a EClass
 		final Object newObject = context.getNewObject();
@@ -58,7 +57,6 @@ public class TutorialAddEClassFeature extends AbstractAddShapeFeature {
 		return false;
 	}
 
-	@Override
 	public PictogramElement add(IAddContext context) {
 		final EClass addedClass = (EClass) context.getNewObject();
 		final Diagram targetDiagram = (Diagram) context.getTargetContainer();

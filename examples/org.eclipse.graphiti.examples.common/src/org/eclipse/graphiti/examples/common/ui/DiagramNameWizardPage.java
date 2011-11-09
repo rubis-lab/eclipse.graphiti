@@ -40,7 +40,6 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 	Text textField;
 
 	private Listener nameModifyListener = new Listener() {
-		@Override
 		public void handleEvent(Event e) {
 			boolean valid = validatePage();
 			setPageComplete(valid);
@@ -79,7 +78,6 @@ public class DiagramNameWizardPage extends AbstractWizardPage {
 		setControl(composite);
 	}
 
-	@Override
 	public String getText() {
 		if (textField == null) {
 			return getInitialTextFieldValue();

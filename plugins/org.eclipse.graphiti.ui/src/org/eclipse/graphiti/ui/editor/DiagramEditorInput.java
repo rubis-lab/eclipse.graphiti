@@ -352,7 +352,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * 
 	 * @return The ID of the associated factory
 	 */
-	@Override
 	public String getFactoryId() {
 		return DiagramEditorInputFactory.class.getName();
 	}
@@ -379,7 +378,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	/**
 	 * @return Simply returns <code>null</code>.
 	 */
-	@Override
 	public ImageDescriptor getImageDescriptor() {
 		return null;
 	}
@@ -388,7 +386,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @return The cached name or the input's {@link URI} string
 	 * @see #getLiveName()
 	 */
-	@Override
 	public String getName() {
 		if (this.name != null) {
 			return this.name;
@@ -420,7 +417,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @return The cached tooltip or the input's {@link URI} string
 	 * @see #getLiveToolTipText()
 	 */
-	@Override
 	public String getToolTipText() {
 		if (this.tooltip != null) {
 			return this.tooltip;
@@ -503,7 +499,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @return A object castable to the given class, or <code>null</code> if
 	 *         this object does not have an adapter for the given class
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 
@@ -542,7 +537,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @param memento
 	 *            The memeto to store the information in
 	 */
-	@Override
 	public void saveState(IMemento memento) {
 		// Do not store anything for deleted objects
 		boolean exists = exists();
@@ -617,7 +611,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	 * @return <code>true</code> if the input's state denotes a living EMF
 	 *         object <br>
 	 */
-	@Override
 	public boolean exists() {
 		if (this.uriName == null) {
 			return false;
@@ -640,7 +633,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement {
 	/**
 	 * @return this input if it is persistable, otherwise null
 	 */
-	@Override
 	public IPersistableElement getPersistable() {
 		IPersistableElement element = null;
 		EObject obj = null;

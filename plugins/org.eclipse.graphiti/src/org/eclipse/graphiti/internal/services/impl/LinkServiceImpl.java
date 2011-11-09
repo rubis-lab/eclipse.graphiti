@@ -54,7 +54,6 @@ public final class LinkServiceImpl implements ILinkService {
 	 * @return The business objects which are linked to the given pictogram
 	 *         element. Can be empty but not null.
 	 */
-	@Override
 	public EObject[] getAllBusinessObjectsForLinkedPictogramElement(PictogramElement pictogramElement) {
 		EObject[] ret = new EObject[0];
 		if (pictogramElement != null && GraphitiInternal.getEmfService().isObjectAlive(pictogramElement)) {
@@ -81,7 +80,6 @@ public final class LinkServiceImpl implements ILinkService {
 	 * @return The first of possibly several business objects which are linked
 	 *         to the given pictogram element. Can be null.
 	 */
-	@Override
 	public EObject getBusinessObjectForLinkedPictogramElement(PictogramElement pictogramElement) {
 		EObject ret = null;
 		EObject eObject[] = getAllBusinessObjectsForLinkedPictogramElement(pictogramElement);
@@ -98,7 +96,6 @@ public final class LinkServiceImpl implements ILinkService {
 	 *            the pictogram element
 	 * @return the pictogram link referencing the given pictogram element
 	 */
-	@Override
 	public PictogramLink getLinkForPictogramElement(PictogramElement pictogramElement) {
 		long start = System.currentTimeMillis();
 
@@ -141,7 +138,6 @@ public final class LinkServiceImpl implements ILinkService {
 	 *            the diagram
 	 * @return the pictogram elements
 	 */
-	@Override
 	public List<PictogramElement> getPictogramElements(Diagram diagram, EObject eObject) {
 		List<PictogramElement> ret = new ArrayList<PictogramElement>();
 		if (eObject != null && GraphitiInternal.getEmfService().isObjectAlive(eObject)) {
@@ -174,7 +170,6 @@ public final class LinkServiceImpl implements ILinkService {
 	 * @return all (active) pictogram elements in the diagram, which have at
 	 *         least one reference to one of the business objects
 	 */
-	@Override
 	public List<PictogramElement> getPictogramElements(Diagram diagram, List<EObject> eObjects, boolean onlyActive) {
 		List<PictogramElement> ret = new ArrayList<PictogramElement>();
 		if (diagram != null && eObjects != null && eObjects.size() > 0) {
@@ -207,7 +202,6 @@ public final class LinkServiceImpl implements ILinkService {
 	 * @return true if link property exists and has the given value; false if
 	 *         not
 	 */
-	@Override
 	public boolean hasLinkProperty(PictogramElement pictogramElement, String propertyValue) {
 		boolean ret = false;
 		if (pictogramElement != null && propertyValue != null) {
@@ -231,7 +225,6 @@ public final class LinkServiceImpl implements ILinkService {
 	 * @param propertyValue
 	 *            the new value for the link property
 	 */
-	@Override
 	public void setLinkProperty(PictogramElement pictogramElement, String propertyValue) {
 		Graphiti.getPeService().setPropertyValue(pictogramElement, KEY_LINK_PROPERTY, propertyValue);
 	}
@@ -243,7 +236,6 @@ public final class LinkServiceImpl implements ILinkService {
 	 *            the pictogram element
 	 * @return the link property
 	 */
-	@Override
 	public Property getLinkProperty(PictogramElement pictogramElement) {
 		return Graphiti.getPeService().getProperty(pictogramElement, KEY_LINK_PROPERTY);
 	}

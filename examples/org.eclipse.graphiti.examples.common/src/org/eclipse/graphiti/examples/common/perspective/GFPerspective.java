@@ -42,7 +42,6 @@ public class GFPerspective implements IPerspectiveFactory {
 	 * org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui
 	 * .IPageLayout)
 	 */
-	@Override
 	public void createInitialLayout(IPageLayout layout) {
 		defineActions(layout);
 		defineLayout(layout);

@@ -110,7 +110,6 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 		return choosenValue;
 	}
 
-	@Override
 	public boolean stretchFieldToFitText() {
 		return false;
 	}
@@ -131,7 +130,6 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public IProposalSupport getProposalSupport() {
 		return null;
 	}
@@ -141,7 +139,6 @@ public abstract class AbstractDirectEditingFeature extends AbstractFeature imple
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public void setValue(String value, IDirectEditingContext context) {
 	}
 }

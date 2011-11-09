@@ -159,7 +159,6 @@ public class GFPackageTests extends AbstractGFTests {
 				this.diagram = diagram;
 			}
 
-			@Override
 			public boolean canPaste(IPasteContext context) {
 				this.copy = context.getPictogramElements();
 				if (this.copy.length == 1) {
@@ -170,7 +169,6 @@ public class GFPackageTests extends AbstractGFTests {
 				return false;
 			}
 
-			@Override
 			public void paste(IPasteContext context) {
 				Object[] obs = getCopiesFromClipBoard(this.diagram);
 				assertTrue((obs != null && obs.length > 0 && obs[0] instanceof PictogramElement));
@@ -208,7 +206,6 @@ public class GFPackageTests extends AbstractGFTests {
 		assertEquals(true, myDefaultCopyFeature.canExecute(copyContext));
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				myDefaultCopyFeature.execute(copyContext);
 			}
@@ -223,7 +220,6 @@ public class GFPackageTests extends AbstractGFTests {
 		pasteContext.setLocation(100, 200);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				assertEquals(true, myPasteFeature.canExecute(pasteContext));
 
@@ -244,7 +240,6 @@ public class GFPackageTests extends AbstractGFTests {
 		final Diagram dia = myDiagramTypeProvider.getDiagram();
 		final EObject[] objs = new EObject[] { dia };
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				ModelClipboard.getDefault().setContent(objs);
 				Collection<EObject> copy = ModelClipboard.getDefault().duplicateAndPaste(null, ed.getTransactionalEditingDomain());
@@ -319,7 +314,6 @@ public class GFPackageTests extends AbstractGFTests {
 			final EList<EObject> businessObject = linkForPictogramElement.getBusinessObjects();
 			if (businessObject != null && !businessObject.isEmpty()) {
 				executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
-					@Override
 					public void run() {
 						businessObject.removeAll(businessObject);
 					}
@@ -350,13 +344,11 @@ public class GFPackageTests extends AbstractGFTests {
 
 	private void addClassesAndReferencesToDiagram(final DiagramEditor diagramEditor) {
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 				executeInRecordingCommand(diagramEditor, new Runnable() {
-					@Override
 					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200, "ConnectionDecorator");
 					}
@@ -470,7 +462,6 @@ public class GFPackageTests extends AbstractGFTests {
 		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 		final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 		executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
-			@Override
 			public void run() {
 				addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200, "ConnectionDecorator");
 				moveClassShape(fp, currentDiagram, 300, 300, "Connection");

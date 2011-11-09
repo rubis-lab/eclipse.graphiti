@@ -113,7 +113,6 @@ public class DiagramTypeWizardPage extends AbstractWizardPage implements ITextPr
 		return null;
 	}
 
-	@Override
 	public String getText() {
 		return comboBox.getText();
 	}

@@ -66,7 +66,6 @@ public class PasteContext extends PictogramElementsContext implements IPasteCont
 	 * 
 	 * @since 0.9
 	 */
-	@Override
 	public int getX() {
 		return locationContext.getX();
 	}
@@ -88,7 +87,6 @@ public class PasteContext extends PictogramElementsContext implements IPasteCont
 	 * @return an integer representing the y location
 	 * @since 0.9
 	 */
-	@Override
 	public int getY() {
 		return locationContext.getY();
 	}

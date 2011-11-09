@@ -46,7 +46,6 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 		super(fp, Messages.CreateChessMoveFeature_name, Messages.CreateChessMoveFeature_description);
 	}
 
-	@Override
 	public boolean canStartConnection(ICreateConnectionContext context) {
 		// We can start a move connection at every anchor that belong to a
 		// square holding a piece or that belongs to a move connection
@@ -54,7 +53,6 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 		return piece != null;
 	}
 
-	@Override
 	public boolean canCreate(ICreateConnectionContext context) {
 		// Get the piece to move (potentially follow connection)
 		Piece piece = getPiece(context.getSourceAnchor());
@@ -78,7 +76,6 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 		return MoveUtil.isMoveAllowed(piece, sourceSquare, targetSquare);
 	}
 
-	@Override
 	public Connection create(ICreateConnectionContext context) {
 		// Take back the highlighting
 		getDiagramEditor().getEditingDomain().getCommandStack().undo();

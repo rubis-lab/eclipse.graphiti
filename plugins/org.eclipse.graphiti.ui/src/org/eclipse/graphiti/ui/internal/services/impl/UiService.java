@@ -53,7 +53,6 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class UiService implements IUiService {
 
-	@Override
 	public byte[] createImage(Image image, int format) throws Exception {
 		ByteArrayOutputStream result = new ByteArrayOutputStream();
 
@@ -85,7 +84,6 @@ public class UiService implements IUiService {
 		return result.toByteArray();
 	}
 
-	@Override
 	public ImageData create8BitIndexedPaletteImage(Image image) throws Exception {
 		int upperboundWidth = image.getBounds().width;
 		int upperboundHeight = image.getBounds().height;
@@ -134,7 +132,6 @@ public class UiService implements IUiService {
 		return newImageData;
 	}
 
-	@Override
 	public void startSaveAsImageDialog(GraphicalViewer graphicalViewer) {
 		final String METHOD = "startSaveAsImageDialog(graphicalViewer)"; //$NON-NLS-1$
 
@@ -193,7 +190,6 @@ public class UiService implements IUiService {
 			final String file, final Image im, final IDiagramsExporter exporter) {
 		IRunnableWithProgress operation;
 		operation = new IRunnableWithProgress() {
-			@Override
 			public void run(IProgressMonitor monitor) {
 				try {
 					exporter.export(im, saveAsImageDialog.getFigure(), file, saveAsImageDialog.getImageScaleFactor());
@@ -228,7 +224,6 @@ public class UiService implements IUiService {
 	 */
 	private IRunnableWithProgress getSaveToFileOp(final Shell shell, final String filename, final byte contents[]) throws Exception {
 		IRunnableWithProgress operation = new IRunnableWithProgress() {
-			@Override
 			public void run(IProgressMonitor monitor) {
 				FileOutputStream outputStream = null;
 				try {

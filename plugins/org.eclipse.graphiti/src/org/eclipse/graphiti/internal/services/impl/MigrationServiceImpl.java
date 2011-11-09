@@ -32,7 +32,6 @@ import org.eclipse.graphiti.services.IMigrationService;
 
 public class MigrationServiceImpl implements IMigrationService {
 
-	@Override
 	public void migrate070To080(Diagram d) {
 
 		// Traverse model and collect fonts
@@ -68,7 +67,6 @@ public class MigrationServiceImpl implements IMigrationService {
 		}
 	}
 
-	@Override
 	public void migrate080To090(Diagram d) {
 		// Traverse model and and set unfilled texts to filled
 		Resource eResource = d.eResource();
@@ -84,7 +82,6 @@ public class MigrationServiceImpl implements IMigrationService {
 		}
 	}
 
-	@Override
 	public boolean shouldMigrate080To090(Diagram d) {
 		String version = d.getVersion();
 		if (version == null || version.length() == 0) {
@@ -110,7 +107,6 @@ public class MigrationServiceImpl implements IMigrationService {
 		}
 	}
 
-	@Override
 	public boolean shouldMigrate070To080(Diagram d) {
 		// Traverse model and collect fonts
 		HashSet<Font> fonts = new HashSet<Font>();
@@ -138,5 +134,4 @@ public class MigrationServiceImpl implements IMigrationService {
 		}
 		return false;
 	}
-
 }

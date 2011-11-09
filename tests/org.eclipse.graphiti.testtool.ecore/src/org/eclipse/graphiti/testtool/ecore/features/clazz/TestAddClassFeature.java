@@ -65,7 +65,6 @@ public class TestAddClassFeature extends AbstractAddShapeFeature {
 		super(fp);
 	}
 
-	@Override
 	public boolean canAdd(IAddContext context) {
 		// check if user wants to add a EClass
 		if (context.getNewObject() instanceof EClass) {
@@ -83,7 +82,6 @@ public class TestAddClassFeature extends AbstractAddShapeFeature {
 		return false;
 	}
 
-	@Override
 	public PictogramElement add(IAddContext context) {
 		EClass addedClass = (EClass) context.getNewObject();
 		ContainerShape targetContainer = context.getTargetContainer();

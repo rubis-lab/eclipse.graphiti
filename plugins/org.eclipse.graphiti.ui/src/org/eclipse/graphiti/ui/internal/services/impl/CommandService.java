@@ -45,7 +45,6 @@ import org.eclipse.graphiti.ui.internal.services.ICommandService;
  */
 public class CommandService implements ICommandService {
 
-	@Override
 	public org.eclipse.emf.common.command.Command transformFromGefToEmfCommand(org.eclipse.gef.commands.Command gefCommand) {
 		if (gefCommand instanceof GefOnEmfCommand) {
 			GefOnEmfCommand gefOnEmfCommand = (GefOnEmfCommand) gefCommand;
@@ -54,7 +53,6 @@ public class CommandService implements ICommandService {
 		return new EmfOnGefCommand(gefCommand);
 	}
 
-	@Override
 	public org.eclipse.gef.commands.Command transformFromEmfToGefCommand(org.eclipse.emf.common.command.Command emfCommand) {
 		if (emfCommand instanceof EmfOnGefCommand) {
 			EmfOnGefCommand emfOnGefCommand = (EmfOnGefCommand) emfCommand;
@@ -66,7 +64,6 @@ public class CommandService implements ICommandService {
 		return new GefOnEmfCommand(emfCommand);
 	}
 
-	@Override
 	public DefaultExecutionInfo completeExecutionInfo(DefaultExecutionInfo executionInfo, org.eclipse.gef.commands.Command gefCommand) {
 		if (gefCommand instanceof CompoundCommand) {
 			CompoundCommand compoundCommand = (CompoundCommand) gefCommand;
@@ -108,7 +105,6 @@ public class CommandService implements ICommandService {
 		return executionInfo;
 	}
 
-	@Override
 	public DefaultExecutionInfo completeExecutionInfo(DefaultExecutionInfo executionInfo, ICommand gfCommand) {
 		if (gfCommand instanceof CommandContainer) {
 			CommandContainer cc = (CommandContainer) gfCommand;

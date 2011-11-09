@@ -279,7 +279,6 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		return editingDomain;
 	}
 
-	@Override
 	public void commandStackChanged(EventObject event) {
 		notifyListeners();
 		notifyListeners(null, 0);

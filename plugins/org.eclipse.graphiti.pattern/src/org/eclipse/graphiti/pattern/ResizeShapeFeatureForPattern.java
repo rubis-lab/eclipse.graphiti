@@ -77,7 +77,6 @@ public class ResizeShapeFeatureForPattern extends DefaultResizeShapeFeature impl
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public void undo(IContext context) {
 		IPattern pattern = delegate.getPattern();
 		if (pattern instanceof ICustomUndoablePattern) {
@@ -88,7 +87,6 @@ public class ResizeShapeFeatureForPattern extends DefaultResizeShapeFeature impl
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public boolean canRedo(IContext context) {
 		IPattern pattern = delegate.getPattern();
 		if (pattern instanceof ICustomUndoablePattern) {
@@ -100,7 +98,6 @@ public class ResizeShapeFeatureForPattern extends DefaultResizeShapeFeature impl
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public void redo(IContext context) {
 		IPattern pattern = delegate.getPattern();
 		if (pattern instanceof ICustomUndoablePattern) {

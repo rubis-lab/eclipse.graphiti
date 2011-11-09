@@ -34,7 +34,6 @@ public class ContentProposalListener implements IContentProposalListener {
 		this.textCellEditor = textCellEditor;
 	}
 
-	@Override
 	public void proposalAccepted(IContentProposal proposal) {
 		if (proposal instanceof ContentProposal) {
 			IProposal acceptedProposal = ((ContentProposal) proposal).getProposal();

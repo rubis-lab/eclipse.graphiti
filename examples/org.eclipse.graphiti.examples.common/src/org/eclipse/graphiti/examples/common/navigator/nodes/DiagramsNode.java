@@ -44,7 +44,6 @@ public class DiagramsNode extends AbstractInstancesOfTypeContainerNode {
 		return NAME;
 	}
 
-	@Override
 	public Object[] getChildren() {
 		IProject project = getProject();
 		if (project != null) {

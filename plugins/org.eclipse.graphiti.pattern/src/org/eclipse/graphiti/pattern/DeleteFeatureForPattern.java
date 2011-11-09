@@ -80,7 +80,6 @@ public class DeleteFeatureForPattern extends DefaultDeleteFeature implements ICu
 		return super.canUndo(context);
 	}
 
-	@Override
 	public void undo(IContext context) {
 		IPattern pattern = delegate.getPattern();
 		if (pattern instanceof ICustomUndoablePattern) {
@@ -88,7 +87,6 @@ public class DeleteFeatureForPattern extends DefaultDeleteFeature implements ICu
 		}
 	}
 
-	@Override
 	public boolean canRedo(IContext context) {
 		IPattern pattern = delegate.getPattern();
 		if (pattern instanceof ICustomUndoablePattern) {
@@ -97,7 +95,6 @@ public class DeleteFeatureForPattern extends DefaultDeleteFeature implements ICu
 		return true;
 	}
 
-	@Override
 	public void redo(IContext context) {
 		IPattern pattern = delegate.getPattern();
 		if (pattern instanceof ICustomUndoablePattern) {

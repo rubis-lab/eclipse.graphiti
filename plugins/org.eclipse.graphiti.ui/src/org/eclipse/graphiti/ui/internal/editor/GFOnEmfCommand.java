@@ -33,36 +33,29 @@ public class GFOnEmfCommand implements ICommand {
 		this.featureProvider = fp;
 	}
 
-	@Override
 	public boolean canExecute() {
 		return emfCommand.canExecute();
 	}
 
-	@Override
 	public boolean canUndo() {
 		return emfCommand.canUndo();
 	}
 
-	@Override
 	public boolean execute() {
 		emfCommand.execute();
 		return true;
 	}
 
-	@Override
 	public boolean undo() {
 		emfCommand.undo();
 		return true;
 	}
 
-	@Override
 	public String getDescription() {
 		return emfCommand.getDescription();
 	}
 
-	@Override
 	public IFeatureProvider getFeatureProvider() {
 		return featureProvider;
 	}
-
 }

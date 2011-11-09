@@ -60,7 +60,6 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	 * 
 	 * @return An array of all registered tool behavior providers
 	 */
-	@Override
 	public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
 		if (this.availableToolBehaviorProviders == null) {
 			this.availableToolBehaviorProviders = new IToolBehaviorProvider[] { new DefaultToolBehaviorProvider(this) };
@@ -68,7 +67,6 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 		return this.availableToolBehaviorProviders;
 	}
 
-	@Override
 	public IToolBehaviorProvider getCurrentToolBehaviorProvider() {
 		IToolBehaviorProvider ret = null;
 		if (getAvailableToolBehaviorProviders().length > 0) {
@@ -77,12 +75,10 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 		return ret;
 	}
 
-	@Override
 	public int getCurrentToolBehaviorIndex() {
 		return this.currentToolBehaviorIndex;
 	}
 
-	@Override
 	public void setCurrentToolBehaviorIndex(int index) {
 		if (this.currentToolBehaviorIndex != index) {
 			if (index < 0 || index >= getAvailableToolBehaviorProviders().length) {
@@ -96,12 +92,10 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 		}
 	}
 
-	@Override
 	public Diagram getDiagram() {
 		return this.diagram;
 	}
 
-	@Override
 	public String getDiagramTitle() {
 		String name = ""; //$NON-NLS-1$
 		if (getDiagram() != null) {
@@ -110,12 +104,10 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 		return name;
 	}
 
-	@Override
 	public IDiagramEditor getDiagramEditor() {
 		return this.diagramEditor;
 	}
 
-	@Override
 	public IFeatureProvider getFeatureProvider() {
 		if (this.featureProvider == null) {
 			T.racer().error("featureProvider is null"); //$NON-NLS-1$
@@ -123,7 +115,6 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 		return this.featureProvider;
 	}
 
-	@Override
 	public void init(Diagram diagram, IDiagramEditor diagramEditor) {
 		setDiagram(diagram);
 		GraphitiInternal.getEmfService().wireDTPToDiagram(diagram, this);
@@ -152,7 +143,6 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 		this.featureProvider = featureProvider;
 	}
 
-	@Override
 	public boolean isAutoUpdateAtRuntime() {
 		return true;
 	}
@@ -160,22 +150,18 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	/**
 	 * @since 0.9
 	 */
-	@Override
 	public boolean isAutoUpdateAtRuntimeWhenEditorIsSaved() {
 		return false;
 	}
 
-	@Override
 	public boolean isAutoUpdateAtStartup() {
 		return false;
 	}
 
-	@Override
 	public boolean isAutoUpdateAtReset() {
 		return true;
 	}
 
-	@Override
 	public void dispose() {
 		if (getCurrentToolBehaviorProvider() != null) {
 			getCurrentToolBehaviorProvider().dispose();
@@ -185,7 +171,6 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 		}
 	}
 
-	@Override
 	public INotificationService getNotificationService() {
 		if (this.notificationService == null) {
 			this.notificationService = new DefaultNotificationService(this);
@@ -193,26 +178,21 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 		return this.notificationService;
 	}
 
-	@Override
 	public Object[] getRelatedBusinessObjects(Object[] bos) {
 		return new Object[0];
 	}
 
-	@Override
 	public IGraphicsAlgorithmRendererFactory getGraphicsAlgorithmRendererFactory() {
 		return null;
 	}
 
-	@Override
 	public void postInit() {
 	}
 
-	@Override
 	public void resourceReloaded(Diagram diagram) {
 		setDiagram(diagram);
 	}
 
-	@Override
 	public void resourcesSaved(Diagram diagram, Resource[] savedResources) {
 	}
 }

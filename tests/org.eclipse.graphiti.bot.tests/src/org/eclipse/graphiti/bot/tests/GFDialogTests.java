@@ -46,7 +46,6 @@ public class GFDialogTests extends AbstractGFTests {
 		final boolean[] enabled = new boolean[1];
 		final CountDownLatch signal = new CountDownLatch(1);
 		asyncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
@@ -82,7 +81,6 @@ public class GFDialogTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		asyncExec(new VoidResult() {
-			@Override
 			public void run() {
 				GraphitiUiInternal.getUiService().startSaveAsImageDialog(diagramEditor.getGraphicalViewer());
 			}

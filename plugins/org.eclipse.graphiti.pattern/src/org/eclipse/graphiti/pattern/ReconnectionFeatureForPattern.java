@@ -67,7 +67,6 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	/**
 	 * @since 0.9
 	 */
-	@Override
 	public void canceledReconnect(IReconnectionContext context) {
 		delegate.canceledReconnect(context);
 	}
@@ -102,7 +101,6 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public void undo(IContext context) {
 		if (delegate instanceof ICustomUndoablePattern) {
 			((ICustomUndoablePattern) delegate).undo(this, context);
@@ -112,7 +110,6 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public boolean canRedo(IContext context) {
 		if (delegate instanceof ICustomUndoablePattern) {
 			return ((ICustomUndoablePattern) delegate).canRedo(this, context);
@@ -123,7 +120,6 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	/**
 	 * @since 0.8
 	 */
-	@Override
 	public void redo(IContext context) {
 		if (delegate instanceof ICustomUndoablePattern) {
 			((ICustomUndoablePattern) delegate).redo(this, context);

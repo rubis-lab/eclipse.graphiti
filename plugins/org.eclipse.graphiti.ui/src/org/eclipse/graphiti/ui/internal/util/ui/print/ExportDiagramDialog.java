@@ -185,7 +185,6 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 	 * org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events
 	 * .ModifyEvent)
 	 */
-	@Override
 	public void modifyText(ModifyEvent e) {
 		if (_insideInternalModify) // avoid endless-loops
 			return;

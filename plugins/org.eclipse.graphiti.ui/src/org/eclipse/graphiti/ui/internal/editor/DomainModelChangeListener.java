@@ -49,27 +49,22 @@ public class DomainModelChangeListener implements ResourceSetListener {
 		setDiagramEditor(diagramEditor);
 	}
 
-	@Override
 	public NotificationFilter getFilter() {
 		return NotificationFilter.NOT_TOUCH;
 	}
 
-	@Override
 	public boolean isAggregatePrecommitListener() {
 		return false;
 	}
 
-	@Override
 	public boolean isPostcommitOnly() {
 		return true;
 	}
 
-	@Override
 	public boolean isPrecommitOnly() {
 		return false;
 	}
 
-	@Override
 	public void resourceSetChanged(ResourceSetChangeEvent event) {
 
 		// // if there is no diagramLink, we have also no pictogramLinks -> no
@@ -112,8 +107,6 @@ public class DomainModelChangeListener implements ResourceSetListener {
 
 		// Do an asynchronous update in the UI thread.
 		Display.getDefault().asyncExec(new Runnable() {
-
-			@Override
 			public void run() {
 				if (getDiagramTypeProvider().isAutoUpdateAtRuntime()) {
 					// Bug 352109: Enable unconditional auto refresh for case 3)
@@ -134,7 +127,6 @@ public class DomainModelChangeListener implements ResourceSetListener {
 
 	}
 
-	@Override
 	public Command transactionAboutToCommit(ResourceSetChangeEvent event) throws RollbackException {
 		return null;
 	}

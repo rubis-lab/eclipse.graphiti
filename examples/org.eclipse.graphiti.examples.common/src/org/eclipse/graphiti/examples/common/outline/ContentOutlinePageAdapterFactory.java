@@ -29,7 +29,6 @@ public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 
 	private static final Class<?>[] ADAPTERS = new Class[] { IContentOutlinePage.class };
 
-	@Override
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		if (GFPreferences.getInstance().isGenericOutlineActive()) {
 			if (IContentOutlinePage.class.equals(adapterType)) {
@@ -48,7 +47,6 @@ public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
-	@Override
 	@SuppressWarnings("rawtypes")
 	public Class[] getAdapterList() {
 		return ADAPTERS;

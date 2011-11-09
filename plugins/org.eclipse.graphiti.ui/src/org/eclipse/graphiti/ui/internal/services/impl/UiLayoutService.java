@@ -36,86 +36,70 @@ public class UiLayoutService implements IUiLayoutService {
 
 	ILayoutService ls = Graphiti.getLayoutService();
 
-	@Override
 	public ILocation getConnectionMidpoint(Connection c, double d) {
 		return ls.getConnectionMidpoint(c, d);
 	}
 
-	@Override
 	public IRectangle getGaBoundsForAnchor(Anchor anchor) {
 		return ls.getGaBoundsForAnchor(anchor);
 	}
 
-	@Override
 	public ILocationInfo getLocationInfo(Shape shape, int x, int y) {
 		return ls.getLocationInfo(shape, x, y);
 	}
 
-	@Override
 	public ILocation getLocationRelativeToDiagram(Anchor anchor) {
 		return ls.getLocationRelativeToDiagram(anchor);
 	}
 
-	@Override
 	public ILocation getLocationRelativeToDiagram(Shape shape) {
 		return ls.getLocationRelativeToDiagram(shape);
 	}
 
-	@Override
 	public IDimension calculateSize(GraphicsAlgorithm ga) {
 		return ls.calculateSize(ga);
 	}
 
-	@Override
 	public IDimension calculateSize(GraphicsAlgorithm ga, boolean considerLineWidth) {
 		return ls.calculateSize(ga, considerLineWidth);
 	}
 
-	@Override
 	public void setHeight(GraphicsAlgorithm ga, int height) {
 		ls.setHeight(ga, height);
 
 	}
 
-	@Override
 	public void setLocationAndSize(GraphicsAlgorithm ga, int x, int y, int width, int height) {
 		ls.setLocationAndSize(ga, x, y, width, height);
 
 	}
 
-	@Override
 	public void setLocationAndSize(GraphicsAlgorithm ga, int x, int y, int width, int height, boolean avoidNegativeCoordinates) {
 		ls.setLocationAndSize(ga, x, y, width, height, avoidNegativeCoordinates);
 
 	}
 
-	@Override
 	public void setLocation(GraphicsAlgorithm ga, int x, int y) {
 		ls.setLocation(ga, x, y);
 
 	}
 
-	@Override
 	public void setLocation(GraphicsAlgorithm ga, int x, int y, boolean avoidNegativeCoordinates) {
 		ls.setLocation(ga, x, y, avoidNegativeCoordinates);
 
 	}
 
-	@Override
 	public void setSize(GraphicsAlgorithm ga, int width, int height) {
 		ls.setSize(ga, width, height);
 
 	}
 
-	@Override
 	public void setWidth(GraphicsAlgorithm ga, int width) {
 		ls.setWidth(ga, width);
 
 	}
 
-	@Override
 	public IDimension calculateTextSize(String text, Font font) {
 		return GraphitiUiInternal.getGefService().calculateTextSize(text, font);
 	}
-
 }

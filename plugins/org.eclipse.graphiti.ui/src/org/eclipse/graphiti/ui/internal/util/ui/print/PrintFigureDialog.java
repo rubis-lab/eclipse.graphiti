@@ -232,7 +232,6 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 		}
 	}
 
-	@Override
 	public void paintControl(PaintEvent e) {
 		Rectangle printRegion = getPrintRegion();
 		org.eclipse.swt.graphics.Rectangle previewRegion = _preview.getClientArea();
@@ -458,7 +457,6 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 		}
 	}
 
-	@Override
 	public void modifyText(ModifyEvent e) {
 		if (_insideInternalModify) // avoid endless-loops
 			return;

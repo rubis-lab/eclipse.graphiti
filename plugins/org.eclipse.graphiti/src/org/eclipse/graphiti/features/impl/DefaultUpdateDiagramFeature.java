@@ -51,12 +51,10 @@ public class DefaultUpdateDiagramFeature extends AbstractUpdateFeature {
 		super(fp);
 	}
 
-	@Override
 	public boolean canUpdate(IUpdateContext context) {
 		return context.getPictogramElement() instanceof Diagram;
 	}
 
-	@Override
 	public boolean update(IUpdateContext context) {
 		PictogramElement pe = context.getPictogramElement();
 		if (pe instanceof Diagram) {
@@ -87,7 +85,6 @@ public class DefaultUpdateDiagramFeature extends AbstractUpdateFeature {
 		return true;
 	}
 
-	@Override
 	public IReason updateNeeded(IUpdateContext context) {
 		PictogramElement pe = context.getPictogramElement();
 		if (pe instanceof Diagram) {

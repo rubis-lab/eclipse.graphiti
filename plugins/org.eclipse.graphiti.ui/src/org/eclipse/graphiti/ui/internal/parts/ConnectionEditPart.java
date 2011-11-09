@@ -104,7 +104,6 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 	 * 
 	 * @return The IConfigurationProvider of this EditPart
 	 */
-	@Override
 	public IConfigurationProvider getConfigurationProvider() {
 		return delegate.getConfigurationProvider();
 	}
@@ -122,7 +121,6 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		return ret;
 	}
 
-	@Override
 	public PictogramElement getPictogramElement() {
 		return delegate.getPictogramElement();
 	}
@@ -174,7 +172,6 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		return ret;
 	}
 
-	@Override
 	public IFeatureProvider getFeatureProvider() {
 		IFeatureProvider ret = null;
 		if (delegate != null) {
@@ -183,12 +180,10 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		return ret;
 	}
 
-	@Override
 	public IPictogramElementDelegate getPictogramElementDelegate() {
 		return delegate;
 	}
 
-	@Override
 	public void forceVisualRefresh() {
 		getPictogramElementDelegate().setForceRefresh(true);
 		refreshVisuals();
@@ -200,17 +195,14 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		return getClass().getName() + "@" + Integer.toHexString(hashCode()); //$NON-NLS-1$
 	}
 
-	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(org.eclipse.gef.ConnectionEditPart connection) {
 		return null;
 	}
 
-	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(org.eclipse.gef.ConnectionEditPart connection) {
 		return null;
 	}
 
-	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
 		if (request instanceof CreateConnectionRequest) {
 			CreateConnectionRequest r = (CreateConnectionRequest) request;
@@ -219,7 +211,6 @@ public abstract class ConnectionEditPart extends AbstractConnectionEditPart impl
 		return null;
 	}
 
-	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
 		return null;
 	}

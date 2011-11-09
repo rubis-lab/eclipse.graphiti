@@ -71,27 +71,22 @@ public class DiagramChangeListener implements ResourceSetListener {
 		this.ed = ed;
 	}
 
-	@Override
 	public NotificationFilter getFilter() {
 		return NotificationFilter.NOT_TOUCH;
 	}
 
-	@Override
 	public boolean isAggregatePrecommitListener() {
 		return false;
 	}
 
-	@Override
 	public boolean isPostcommitOnly() {
 		return true;
 	}
 
-	@Override
 	public boolean isPrecommitOnly() {
 		return false;
 	}
 
-	@Override
 	public void resourceSetChanged(ResourceSetChangeEvent event) {
 		if (!ed.isAutoRefresh()) {
 			return;
@@ -294,7 +289,6 @@ public class DiagramChangeListener implements ResourceSetListener {
 		return ret;
 	}
 
-	@Override
 	public Command transactionAboutToCommit(ResourceSetChangeEvent event) throws RollbackException {
 		return null;
 	}

@@ -69,6 +69,14 @@ public abstract class AbstractCustomFeature extends AbstractFeature implements I
 	}
 
 	public void execute(IContext context) {
+		if (context instanceof ICustomContext) {
+			execute((ICustomContext) context);
+		}
+	}
+	/**
+	 * @since 0.9
+	 */
+	public void execute(ICustomContext context) {
 		final String SIGNATURE = "execute(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
 		if (info) {

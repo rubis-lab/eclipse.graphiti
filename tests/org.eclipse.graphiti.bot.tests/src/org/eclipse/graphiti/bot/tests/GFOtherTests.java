@@ -111,8 +111,8 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
-import org.eclipse.graphiti.ui.editor.DiagramEditorInputFactory;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInputFactory;
 import org.eclipse.graphiti.ui.features.AbstractDrillDownFeature;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
@@ -157,14 +157,12 @@ public class GFOtherTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 
 				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 				executeInRecordingCommand(diagramEditor, new Runnable() {
-					@Override
 					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, 100, 100, "Connection", 700, 200, "ConnectionDecorator");
 					}
@@ -181,7 +179,6 @@ public class GFOtherTests extends AbstractGFTests {
 				// waitForRefresh();
 				diagramEditor.selectPictogramElements(new PictogramElement[] { shape });
 				executeInRecordingCommand(diagramEditor, new Runnable() {
-					@Override
 					public void run() {
 						moveClassShape(fp, currentDiagram, 10, 30, "Connection");
 						removeClassShape(fp, currentDiagram, "ConnectionDecorator");
@@ -221,7 +218,6 @@ public class GFOtherTests extends AbstractGFTests {
 		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 		final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 		executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
-			@Override
 			public void run() {
 				/*
 				 * Reuse of functionality originally written to add classes for
@@ -251,7 +247,6 @@ public class GFOtherTests extends AbstractGFTests {
 			final EClass eClass = (EClass) bo;
 			// Change the tooltip to something else and check it
 			executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
-				@Override
 				public void run() {
 					eClass.setName("Changed");
 					Text text = (Text) tooltipShape.getChildren().get(1).getGraphicsAlgorithm();
@@ -282,7 +277,6 @@ public class GFOtherTests extends AbstractGFTests {
 		if (bo instanceof EClass) {
 			final EClass eClass = (EClass) bo;
 			executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
-				@Override
 				public void run() {
 					// Change the tooltip to null and check it
 					eClass.setName(""); // Empty name means no tooltip
@@ -310,10 +304,8 @@ public class GFOtherTests extends AbstractGFTests {
 		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 		final Diagram diagram = diagramTypeProvider.getDiagram();
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				executeInRecordingCommand(diagramEditor, new Runnable() {
-					@Override
 					public void run() {
 						addClassToDiagram(fp, diagram, 500, 500, "Shape");
 						addClassToDiagram(fp, diagram, 100, 100, "ContainerShape");
@@ -352,7 +344,6 @@ public class GFOtherTests extends AbstractGFTests {
 		final IFeatureProvider fp = diagramEditor.getDiagramTypeProvider().getFeatureProvider();
 		final Diagram diagram = fp.getDiagramTypeProvider().getDiagram();
 		executeInRecordingCommand(diagramEditor, new Runnable() {
-			@Override
 			public void run() {
 				addClassToDiagram(fp, diagram, 500, 500, "Shape");
 				// enforce roll-back
@@ -374,7 +365,6 @@ public class GFOtherTests extends AbstractGFTests {
 		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getConfigurationProvider().getDiagramTypeProvider();
 		IFeatureProvider featureProvider = diagramTypeProvider.getFeatureProvider();
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
@@ -451,7 +441,6 @@ public class GFOtherTests extends AbstractGFTests {
 	@Test
 	public void testPlatformUtil() throws Exception {
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				final Diagram newDiagram = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 				assertTrue("create diagram does not work", newDiagram != null);
@@ -466,7 +455,6 @@ public class GFOtherTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
@@ -544,32 +532,26 @@ public class GFOtherTests extends AbstractGFTests {
 		assertFalse(container.containsCommands());
 		assertNotNull(container.getDescription());
 		container.add(new ICommand() {
-			@Override
 			public boolean canExecute() {
 				return false;
 			}
 
-			@Override
 			public boolean canUndo() {
 				return false;
 			}
 
-			@Override
 			public boolean execute() {
 				return false;
 			}
 
-			@Override
 			public IFeatureProvider getFeatureProvider() {
 				return null;
 			}
 
-			@Override
 			public boolean undo() {
 				return false;
 			}
 
-			@Override
 			public String getDescription() {
 				return new String("Test Description");
 			}
@@ -646,7 +628,6 @@ public class GFOtherTests extends AbstractGFTests {
 	public void testGaUtil() throws Exception {
 		final Diagram diagram = createDiagram("test_gautil");
 		executeInRecordingCommand(ed.getTransactionalEditingDomain(), new Runnable() {
-			@Override
 			public void run() {
 				ContainerShape cs1 = getPeService().createContainerShape(diagram, true);
 				Shape shape1 = getPeService().createShape(cs1, true);
@@ -681,7 +662,6 @@ public class GFOtherTests extends AbstractGFTests {
 		final EClass c4 = (EClass) diagramResource.getEObject("/5");
 
 		executeInRecordingCommand(ed.getTransactionalEditingDomain(), new Runnable() {
-			@Override
 			public void run() {
 				ContainerShape cs1 = getPeService().createContainerShape(diagram, true);
 				ContainerShape cs2 = getPeService().createContainerShape(diagram, true);
@@ -733,8 +713,6 @@ public class GFOtherTests extends AbstractGFTests {
 	public void testUtils2() throws Exception {
 		final Diagram diagram = createDiagram("test_peutil");
 		executeInRecordingCommand(ed.getTransactionalEditingDomain(), new Runnable() {
-
-			@Override
 			public void run() {
 				// Build Pictograms model
 				IGaService gaService = Graphiti.getGaService();
@@ -817,7 +795,6 @@ public class GFOtherTests extends AbstractGFTests {
 		class RegistryHolder implements IResourceRegistryHolder {
 			IResourceRegistry resourceRegistry = new ResourceRegistry();
 
-			@Override
 			public IResourceRegistry getResourceRegistry() {
 				return resourceRegistry;
 			}
@@ -843,7 +820,6 @@ public class GFOtherTests extends AbstractGFTests {
 		final Diagram diagram = createDiagram("test_peutil");
 
 		executeInRecordingCommand(ed.getTransactionalEditingDomain(), new Runnable() {
-			@Override
 			public void run() {
 				ContainerShape cs1 = getPeService().createContainerShape(diagram, true);
 				int[] intArray = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
@@ -873,7 +849,6 @@ public class GFOtherTests extends AbstractGFTests {
 		final PopupMenu popupMenu = new PopupMenu(content, labelProvider);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				// Shell activeShell = Display.getCurrent().getActiveShell();
 				// popupMenu.show(activeShell);

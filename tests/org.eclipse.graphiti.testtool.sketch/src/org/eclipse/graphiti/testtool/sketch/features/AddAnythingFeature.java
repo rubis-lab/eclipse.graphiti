@@ -41,7 +41,6 @@ public class AddAnythingFeature extends AbstractAddFeature {
 		super(fp);
 	}
 
-	@Override
 	public PictogramElement add(IAddContext context) {
 		Object newObject = context.getNewObject();
 		Shape shape = Graphiti.getPeCreateService().createShape(context.getTargetContainer(), true);
@@ -59,7 +58,6 @@ public class AddAnythingFeature extends AbstractAddFeature {
 		return shape;
 	}
 
-	@Override
 	public boolean canAdd(IAddContext context) {
 		return context.getTargetContainer() != null;
 	}

@@ -49,7 +49,6 @@ public class AddChessBoardFeature extends AbstractAddShapeFeature {
 		super(fp);
 	}
 
-	@Override
 	public boolean canAdd(IAddContext context) {
 		if (context.getNewObject() instanceof Board) {
 			if (context.getTargetContainer() instanceof Diagram) {
@@ -60,7 +59,6 @@ public class AddChessBoardFeature extends AbstractAddShapeFeature {
 		return false;
 	}
 
-	@Override
 	public PictogramElement add(IAddContext context) {
 		// Get the Graphiti services
 		ICreateService createService = Graphiti.getCreateService();

@@ -38,7 +38,6 @@ public class GFCellEditorValidator implements ICellEditorValidator {
 		setCellEditor(cellEditor);
 	}
 
-	@Override
 	public String isValid(Object value) {
 		if (!directEditHolder.isSimpleMode()) {
 			return isValidProposal(value);

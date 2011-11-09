@@ -77,7 +77,6 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 	private double cachedZoom = -1.0;
 
 	private ZoomListener zoomListener = new ZoomListener() {
-		@Override
 		public void zoomChanged(double newZoom) {
 			updateScaledFont();
 		}
@@ -89,12 +88,10 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 		diagramEditor = part.getConfigurationProvider().getDiagramEditor();
 	}
 
-	@Override
 	public IDirectEditingContext getDirectEditingContext() {
 		return directEditingContext;
 	}
 
-	@Override
 	public IDirectEditingFeature getDirectEditingFeature() {
 		return directEditingFeature;
 	}
@@ -107,7 +104,6 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 		this.directEditingFeature = directEditingFeature;
 	}
 
-	@Override
 	public boolean isSimpleMode() {
 		boolean ret = true;
 		if (getDirectEditingFeature() != null) {

@@ -119,7 +119,6 @@ public class DoubleField extends Composite implements ModifyListener {
 		_text.addModifyListener(listener);
 	}
 
-	@Override
 	public void modifyText(ModifyEvent e) {
 		if (_internalModify)
 			return;

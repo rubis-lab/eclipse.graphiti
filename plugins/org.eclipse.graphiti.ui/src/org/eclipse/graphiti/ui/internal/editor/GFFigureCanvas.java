@@ -96,7 +96,6 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 
 		double OldZoomlevel = 1D;
 
-		@Override
 		public void propertyChange(PropertyChangeEvent event) {
 
 			/*
@@ -133,7 +132,6 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 
 		double OldZoomlevel = 1D;
 
-		@Override
 		public void propertyChange(PropertyChangeEvent event) {
 
 			/*
@@ -1008,7 +1006,6 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 		 * org.eclipse.draw2d.UpdateListener#notifyPainting(org.eclipse.draw2d
 		 * .geometry.Rectangle, java.util.Map)
 		 */
-		@Override
 		public void notifyPainting(Rectangle damage, java.util.Map dirtyRegions) {
 		}
 
@@ -1017,7 +1014,6 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 		 * 
 		 * @see org.eclipse.draw2d.UpdateListener#notifyValidating()
 		 */
-		@Override
 		public void notifyValidating() {
 			if (!isDisposed()) {
 				layoutViewport();
@@ -1027,7 +1023,6 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 
 	}
 
-	@Override
 	public Object getAdapter(Class adapter) {
 		if (LightweightSystem.class == adapter) {
 			return getLightweightSystem();

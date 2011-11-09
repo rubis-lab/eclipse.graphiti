@@ -36,7 +36,6 @@ public class AddChessMoveFeature extends AbstractAddFeature {
 		super(fp);
 	}
 
-	@Override
 	public boolean canAdd(IAddContext context) {
 		// Add the connection in case it is a move connection (indicated by a
 		// property)
@@ -46,7 +45,6 @@ public class AddChessMoveFeature extends AbstractAddFeature {
 		return false;
 	}
 
-	@Override
 	public PictogramElement add(IAddContext context) {
 		IAddConnectionContext addConContext = (IAddConnectionContext) context;
 		IPeCreateService peCreateService = Graphiti.getPeCreateService();

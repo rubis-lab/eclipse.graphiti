@@ -53,27 +53,22 @@ public class DefaultContextButtonPadData implements IContextButtonPadData {
 		this.location = new RectangleImpl(0, 0, 0, 0);
 	}
 
-	@Override
 	public List<IContextButtonEntry> getGenericContextButtons() {
 		return this.genericContextButtons;
 	}
 
-	@Override
 	public List<IContextButtonEntry> getDomainSpecificContextButtons() {
 		return this.domainSpecificContextButtons;
 	}
 
-	@Override
 	public IContextButtonEntry getCollapseContextButton() {
 		return this.collapseContextButton;
 	}
 
-	@Override
 	public void setCollapseContextButton(IContextButtonEntry collapseContextButton) {
 		this.collapseContextButton = collapseContextButton;
 	}
 
-	@Override
 	public IRectangle getPadLocation() {
 		return this.location;
 	}

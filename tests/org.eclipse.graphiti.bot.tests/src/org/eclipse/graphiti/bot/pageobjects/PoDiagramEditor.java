@@ -40,7 +40,6 @@ public class PoDiagramEditor extends PageObject{
 	
 	public boolean isVisible() {
 		return syncExec(new Result<Boolean>() {
-			@Override
 			public Boolean run() {
 				Widget widget = getGefEditor().getWidget();
 				if (widget == null)
@@ -53,8 +52,6 @@ public class PoDiagramEditor extends PageObject{
 	public void dirtify() {
 		final DiagramEditor diagramEditor = getActiveDiagramEditor();
 		AbstractGFTests.executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
-			
-			@Override
 			public void run() {
 				ContainerShape cs1 = Graphiti.getPeService()
 						.createContainerShape(diagramEditor.getDiagramTypeProvider().getDiagram(), true);
@@ -143,8 +140,6 @@ public class PoDiagramEditor extends PageObject{
 
 	public void drag(final int fromXPosition, final int fromYPosition, final int toXPosition, final int toYPosition){
 		syncExec(new VoidResult() {
-			
-			@Override
 			public void run() {
 				getGefEditor().drag(fromXPosition, fromYPosition, toXPosition, toYPosition);
 				
@@ -154,8 +149,6 @@ public class PoDiagramEditor extends PageObject{
 	
 	public void drag(final String label, final int toXPosition, final int toYPosition){
 		syncExec(new VoidResult() {
-			
-			@Override
 			public void run() {
 				getGefEditor().drag(label, toXPosition, toYPosition);
 				

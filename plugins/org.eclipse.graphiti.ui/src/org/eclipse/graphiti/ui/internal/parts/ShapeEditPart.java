@@ -844,11 +844,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	public void delayDirectEditing() {
 		setDirectEditingDelayed(true);
 		Runnable runnable = new Runnable() {
-
-			@Override
 			public void run() {
 				setDirectEditingDelayed(false);
-
 			}
 		};
 		Display.getCurrent().timerExec(600, runnable);

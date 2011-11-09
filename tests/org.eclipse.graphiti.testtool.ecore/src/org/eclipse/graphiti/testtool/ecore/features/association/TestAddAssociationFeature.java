@@ -48,7 +48,6 @@ public class TestAddAssociationFeature extends AbstractAddFeature {
 		super(fp);
 	}
 
-	@Override
 	public PictogramElement add(IAddContext context) {
 
 		IAddConnectionContext addConnectionContext = (IAddConnectionContext) context;
@@ -83,7 +82,6 @@ public class TestAddAssociationFeature extends AbstractAddFeature {
 		return newConnection;
 	}
 
-	@Override
 	public boolean canAdd(IAddContext context) {
 		// return true if given business object is of instance association
 		if (context instanceof IAddConnectionContext && context.getNewObject() instanceof EReference) {

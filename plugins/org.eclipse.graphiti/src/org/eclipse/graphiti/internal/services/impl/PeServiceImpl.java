@@ -87,7 +87,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#createBoxRelativeAnchor(org.
 	 * eclipse.graphiti.mm.pictograms.AnchorContainer)
 	 */
-	@Override
 	public BoxRelativeAnchor createBoxRelativeAnchor(AnchorContainer anchorContainer) {
 
 		BoxRelativeAnchor ret = PictogramsFactory.eINSTANCE.createBoxRelativeAnchor();
@@ -106,7 +105,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#createChopboxAnchor(org.eclipse
 	 * .graphiti.mm.pictograms.AnchorContainer)
 	 */
-	@Override
 	public ChopboxAnchor createChopboxAnchor(AnchorContainer anchorContainer) {
 
 		ChopboxAnchor ret = PictogramsFactory.eINSTANCE.createChopboxAnchor();
@@ -123,7 +121,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#createConnectionDecorator(org
 	 * .eclipse.graphiti.mm.pictograms.Connection, boolean, double, boolean)
 	 */
-	@Override
 	public ConnectionDecorator createConnectionDecorator(Connection connection, boolean active, double location, boolean isRelative) {
 		ConnectionDecorator ret = PictogramsFactory.eINSTANCE.createConnectionDecorator();
 		ret.setActive(active);
@@ -141,7 +138,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#createContainerShape(org.eclipse
 	 * .graphiti.mm.pictograms.ContainerShape, boolean)
 	 */
-	@Override
 	public ContainerShape createContainerShape(ContainerShape parentContainerShape, boolean active) {
 		ContainerShape ret = PictogramsFactory.eINSTANCE.createContainerShape();
 		ret.getProperties().addAll(EMPTY_PROPERTIES_LIST);
@@ -158,7 +154,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#createDiagram(java.lang.String,
 	 * java.lang.String, boolean)
 	 */
-	@Override
 	public Diagram createDiagram(String diagramTypeId, String diagramName, boolean snap) {
 		return createDiagram(diagramTypeId, diagramName, LookManager.getLook().getMinorGridLineDistance(), snap);
 	}
@@ -170,7 +165,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#createDiagram(java.lang.String,
 	 * java.lang.String, int, boolean)
 	 */
-	@Override
 	public Diagram createDiagram(String diagramTypeId, String diagramName, int gridUnit, boolean snap) {
 		// Reduce file footprint: use default -1 to avoid storing of verticalGridUnit attribute
 		return createDiagram(diagramTypeId, diagramName, gridUnit, -1, snap);
@@ -183,7 +177,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#createDiagram(java.lang.String,
 	 * java.lang.String, int, boolean)
 	 */
-	@Override
 	public Diagram createDiagram(String diagramTypeId, String diagramName, int horizontalGridUnit, int verticalGridUnit, boolean snap) {
 
 		if (diagramTypeId == null || diagramName == null) {
@@ -221,7 +214,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#createFixPointAnchor(org.eclipse
 	 * .graphiti.mm.pictograms.AnchorContainer)
 	 */
-	@Override
 	public FixPointAnchor createFixPointAnchor(AnchorContainer anchorContainer) {
 		FixPointAnchor ret = PictogramsFactory.eINSTANCE.createFixPointAnchor();
 		ret.setVisible(true);
@@ -237,7 +229,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#createFreeFormConnection(org
 	 * .eclipse.graphiti.mm.pictograms.Diagram)
 	 */
-	@Override
 	public FreeFormConnection createFreeFormConnection(Diagram diagram) {
 		FreeFormConnection ret = PictogramsFactory.eINSTANCE.createFreeFormConnection();
 		ret.setVisible(true);
@@ -253,7 +244,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeCreateService#createManhattanConnection
 	 * (org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */
-	@Override
 	public ManhattanConnection createManhattanConnection(Diagram diagram) {
 		ManhattanConnection ret = PictogramsFactory.eINSTANCE.createManhattanConnection();
 		ret.setVisible(true);
@@ -269,7 +259,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#createShape(org.eclipse.graphiti
 	 * .mm.pictograms.ContainerShape, boolean)
 	 */
-	@Override
 	public Shape createShape(ContainerShape parentContainerShape, boolean active) {
 		Shape ret = PictogramsFactory.eINSTANCE.createShape();
 		ret.getProperties().addAll(EMPTY_PROPERTIES_LIST);
@@ -287,7 +276,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#deletePictogramElement(org.eclipse
 	 * .graphiti.mm.pictograms.PictogramElement)
 	 */
-	@Override
 	public void deletePictogramElement(PictogramElement pe) {
 		if (pe instanceof ContainerShape) {
 			ContainerShape cs = (ContainerShape) pe;
@@ -329,7 +317,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getActiveContainerPe(org.eclipse
 	 * .graphiti.mm.pictograms.GraphicsAlgorithm)
 	 */
-	@Override
 	public PictogramElement getActiveContainerPe(GraphicsAlgorithm ga) {
 		if (ga == null) {
 			throw new IllegalArgumentException("Parameter must not be null"); //$NON-NLS-1$
@@ -357,7 +344,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getActiveContainerPe(org.eclipse
 	 * .graphiti.mm.pictograms.PictogramElement)
 	 */
-	@Override
 	public PictogramElement getActiveContainerPe(PictogramElement pictogramElement) {
 		PictogramElement pe = getPictogramElementParent(pictogramElement);
 		while ((pe != null) && !pe.isActive()) {
@@ -373,7 +359,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getAllConnections(org.eclipse
 	 * .graphiti.mm.pictograms.Anchor)
 	 */
-	@Override
 	public List<Connection> getAllConnections(Anchor anchor) {
 		List<Connection> connections = new ArrayList<Connection>();
 		connections.addAll(anchor.getIncomingConnections());
@@ -388,7 +373,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getAllConnections(org.eclipse
 	 * .graphiti.mm.pictograms.AnchorContainer)
 	 */
-	@Override
 	public List<Connection> getAllConnections(AnchorContainer anchorContainer) {
 		List<Connection> connections = new ArrayList<Connection>();
 		Collection<Anchor> anchors = anchorContainer.getAnchors();
@@ -406,7 +390,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getAllContainedPictogramElements
 	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
-	@Override
 	public Collection<PictogramElement> getAllContainedPictogramElements(PictogramElement pe) {
 		List<PictogramElement> ret = new ArrayList<PictogramElement>();
 		Collection<PictogramElement> peChildren = getPictogramElementChildren(pe);
@@ -424,7 +407,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getAllContainedShapes(org.eclipse
 	 * .graphiti.mm.pictograms.ContainerShape)
 	 */
-	@Override
 	public Collection<Shape> getAllContainedShapes(ContainerShape cs) {
 		ArrayList<Shape> ret = new ArrayList<Shape>();
 		Collection<Shape> children = cs.getChildren();
@@ -445,7 +427,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getChopboxAnchor(org.eclipse
 	 * .graphiti.mm.pictograms.AnchorContainer)
 	 */
-	@Override
 	public Anchor getChopboxAnchor(AnchorContainer anchorContainer) {
 		Collection<Anchor> existingAnchors = anchorContainer.getAnchors();
 		for (Anchor anchor : existingAnchors) {
@@ -488,7 +469,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getConnectionMidpoint(org.eclipse
 	 * .graphiti.mm.pictograms.Connection, double)
 	 */
-	@Override
 	public ILocation getConnectionMidpoint(Connection c, double d) {
 		ILocation ret = null;
 
@@ -598,7 +578,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getDiagramForAnchor(org.eclipse
 	 * .graphiti.mm.pictograms.Anchor)
 	 */
-	@Override
 	public Diagram getDiagramForAnchor(Anchor anchor) {
 		Diagram ret = null;
 		AnchorContainer ac = anchor.getParent();
@@ -619,7 +598,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getDiagramForPictogramElement
 	 * (org.eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
-	@Override
 	public Diagram getDiagramForPictogramElement(PictogramElement pe) {
 		Diagram ret = null;
 		if (pe instanceof Diagram) {
@@ -643,7 +621,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getDiagramForShape(org.eclipse
 	 * .graphiti.mm.pictograms.Shape)
 	 */
-	@Override
 	public Diagram getDiagramForShape(Shape shape) {
 		Diagram ret = null;
 		if (shape instanceof Diagram) {
@@ -680,7 +657,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getElementsNotInDiagram(org.
 	 * eclipse.emf.ecore.EObject[], org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */
-	@Override
 	public EObject[] getElementsNotInDiagram(EObject[] elements, Diagram diagram) {
 		final String SIGNATURE = "getElementsNotInDiagram(EObject[] elements, Diagram diag)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -788,7 +764,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getGaBoundsForAnchor(org.eclipse
 	 * .graphiti.mm.pictograms.Anchor)
 	 */
-	@Override
 	public IRectangle getGaBoundsForAnchor(Anchor anchor) {
 		IRectangle ret = new RectangleImpl(0, 0);
 
@@ -854,7 +829,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getIncomingConnections(org.eclipse
 	 * .graphiti.mm.pictograms.AnchorContainer)
 	 */
-	@Override
 	public List<Connection> getIncomingConnections(AnchorContainer anchorContainer) {
 		List<Connection> connections = new ArrayList<Connection>();
 		Collection<Anchor> anchors = anchorContainer.getAnchors();
@@ -872,7 +846,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getLinkedPictogramElements(org
 	 * .eclipse.emf.ecore.EObject[], org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */
-	@Override
 	public Object[] getLinkedPictogramElements(EObject[] elements, Diagram diagram) {
 		final String SIGNATURE = "getLinkedPictogramElements(EObject[] elements, Diagram diag)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
@@ -918,7 +891,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getLocationInfo(org.eclipse.
 	 * graphiti.mm.pictograms.Shape, int, int)
 	 */
-	@Override
 	public ILocationInfo getLocationInfo(Shape shape, int x, int y) {
 		if (shape instanceof ContainerShape) {
 			ContainerShape containerShape = (ContainerShape) shape;
@@ -951,7 +923,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getLocationRelativeToDiagram
 	 * (org.eclipse.graphiti.mm.pictograms.Anchor)
 	 */
-	@Override
 	public ILocation getLocationRelativeToDiagram(Anchor anchor) {
 		int x = getRelativeToDiagramX(anchor);
 		int y = getRelativeToDiagramY(anchor);
@@ -966,7 +937,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getLocationRelativeToDiagram
 	 * (org.eclipse.graphiti.mm.pictograms.Shape)
 	 */
-	@Override
 	public ILocation getLocationRelativeToDiagram(Shape shape) {
 		int x = getRelativeToDiagramX(shape);
 		int y = getRelativeToDiagramY(shape);
@@ -987,7 +957,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getOutgoingConnections(org.eclipse
 	 * .graphiti.mm.pictograms.AnchorContainer)
 	 */
-	@Override
 	public List<Connection> getOutgoingConnections(AnchorContainer anchorContainer) {
 		List<Connection> connections = new ArrayList<Connection>();
 		Collection<Anchor> anchors = anchorContainer.getAnchors();
@@ -1005,7 +974,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getPictogramElementChildren(
 	 * org.eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
-	@Override
 	public Collection<PictogramElement> getPictogramElementChildren(PictogramElement pe) {
 		List<PictogramElement> retList = new ArrayList<PictogramElement>();
 
@@ -1036,7 +1004,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getPictogramElementParent(org
 	 * .eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
-	@Override
 	public PictogramElement getPictogramElementParent(PictogramElement pe) {
 		if (pe instanceof ConnectionDecorator) {
 			return ((ConnectionDecorator) pe).getConnection();
@@ -1058,7 +1025,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#getProperty(org.eclipse.graphiti
 	 * .mm.pictograms.PropertyContainer, java.lang.String)
 	 */
-	@Override
 	public Property getProperty(PropertyContainer propertyContainer, String key) {
 		if (propertyContainer == null || key == null || !GraphitiInternal.getEmfService().isObjectAlive(propertyContainer)) {
 			return null;
@@ -1073,7 +1039,6 @@ public final class PeServiceImpl implements IPeService {
 		return null;
 	}
 
-	@Override
 	public String getPropertyValue(PropertyContainer propertyContainer, String key) {
 		Property property = getProperty(propertyContainer, key);
 		if (property != null) {
@@ -1253,7 +1218,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#moveBendpoints(org.eclipse.graphiti
 	 * .ei.IExecutionInfo)
 	 */
-	@Override
 	public void moveBendpoints(IExecutionInfo executionInfo) {
 		Set<FreeFormConnection> connections = new HashSet<FreeFormConnection>();
 		Set<AnchorContainer> anchorContainers = new HashSet<AnchorContainer>();
@@ -1335,7 +1299,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#removeProperty(org.eclipse.graphiti
 	 * .mm.pictograms.PropertyContainer, java.lang.String)
 	 */
-	@Override
 	public boolean removeProperty(PropertyContainer propertyContainer, String key) {
 		Property property = getProperty(propertyContainer, key);
 		if (property != null) {
@@ -1352,7 +1315,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#sendToBack(org.eclipse.graphiti
 	 * .mm.pictograms.Shape)
 	 */
-	@Override
 	public void sendToBack(Shape shape) {
 		ContainerShape parentContainerShape = shape.getContainer();
 		List<Shape> brotherAndSisterList = parentContainerShape.getChildren();
@@ -1367,7 +1329,6 @@ public final class PeServiceImpl implements IPeService {
 	 * org.eclipse.graphiti.services.IPeService#sendToFront(org.eclipse.graphiti
 	 * .mm.pictograms.Shape)
 	 */
-	@Override
 	public void sendToFront(Shape shape) {
 		ContainerShape parentContainerShape = shape.getContainer();
 		List<Shape> brotherAndSisterList = parentContainerShape.getChildren();
@@ -1375,7 +1336,6 @@ public final class PeServiceImpl implements IPeService {
 		brotherAndSisterList.add(shape);
 	}
 
-	@Override
 	public void setPropertyValue(PropertyContainer propertyContainer, String key, String value) {
 		if (propertyContainer == null) {
 			throw new InvalidParameterException("propertyContainer must not be null"); //$NON-NLS-1$

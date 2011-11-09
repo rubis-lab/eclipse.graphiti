@@ -99,7 +99,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		createClassesAndConnection(x, y, diagramEditor.getDiagramTypeProvider(), null, SHAPE_NAME);
 		Thread.sleep(DELAY);
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				ed.getGefEditor().drag(SHAPE_NAME, 200, 50);
 				ed.getGefEditor().drag("ConnectionDecorator", 200, 400);
@@ -132,7 +131,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 		// Select the newly added shapes with the marquee tool.
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				ed.drag(x - 10, y - 10, x + SHORT_DELAY, y + SHORT_DELAY);
 			}
@@ -140,7 +138,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				ed.getGefEditor().activateTool("Select");
 				ed.getGefEditor().drag(x + 50, y + 50, x + 200, y + 50);
@@ -159,14 +156,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				// find diagram
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 				executeInRecordingCommand(diagramEditor, new Runnable() {
-					@Override
 					public void run() {
 						// add a class to the diagram
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
@@ -177,7 +172,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				// move class-shape to origin
 				ed.getGefEditor().drag(SHAPE_NAME, -100, -100);
@@ -186,7 +180,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(SHORT_DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				// get instance of GFFigureCanvas
 				GFFigureCanvas gfFigureCanvas = ed.getGFCanvas();
@@ -216,7 +209,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(SHORT_DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				Event event = new Event();
 				event.type = SWT.KeyDown;
@@ -229,7 +221,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(SHORT_DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				Event event = new Event();
 				event.type = SWT.KeyDown;
@@ -242,7 +233,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(SHORT_DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				GFFigureCanvas gfFigureCanvas = ed.getGFCanvas();
 				// regain space
@@ -263,14 +253,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				// find diagram
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 				executeInRecordingCommand(diagramEditor, new Runnable() {
-					@Override
 					public void run() {
 						// add a class to the diagram
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
@@ -283,7 +271,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		ed.drag(SHAPE_NAME, 0, 0);
 		Thread.sleep(DELAY);
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				// get instance of GFFigureCanvas
 				GFFigureCanvas gfFigureCanvas = ed.getGFCanvas();
@@ -302,7 +289,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				Point p = ed.getOrigin();
 				Display display = GraphitiUiInternal.getWorkbenchService().getShell().getDisplay();
@@ -339,13 +325,11 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 				executeInRecordingCommand(diagramEditor, new Runnable() {
-					@Override
 					public void run() {
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
@@ -355,7 +339,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				Robot r;
 				try {
@@ -370,7 +353,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				try {
 					final Robot robot = new Robot();
@@ -390,7 +372,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				try {
 					final Robot robot = new Robot();
@@ -411,7 +392,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		});
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				try {
 					final Robot robot = new Robot();
@@ -451,7 +431,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
@@ -492,7 +471,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				ed.getGefEditor().activateTool("free");
 				ed.getGefEditor().drag(xOfShape1 + DIL, yOfShape1 + DIL, xOfShape3 + DIL, yOfShape3 + DIL);
@@ -505,7 +483,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				ed.getGefEditor().activateTool("Rectangle");
 				// click on connection to insert rectangle between two other rectangles
@@ -527,7 +504,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
@@ -550,7 +526,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				diagramEditor.getMouseLocation().x = 150;
 				diagramEditor.getMouseLocation().y = 150;
@@ -575,7 +550,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
@@ -598,7 +572,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				diagramEditor.getMouseLocation().x = 150;
 				diagramEditor.getMouseLocation().y = 150;
@@ -612,7 +585,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		robot.setAutoDelay(50);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				robot.keyPress(KeyEvent.VK_CONTROL);
 				robot.keyPress(KeyEvent.VK_SPACE);
@@ -633,7 +605,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
@@ -679,7 +650,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
@@ -727,7 +697,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				int currX = xContainer1 + containerSize + rectangleSize / 2;
 				int currY = yContainer1 + containerSize + rectangleSize / 2;
@@ -740,7 +709,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				ed.getGefEditor().activateTool("free");
 				ed.getGefEditor().click(100 + containerSize / 2, 100 + containerSize / 2);
@@ -750,7 +718,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				ed.getGefEditor().activateDefaultTool();
 				// move to connection start point
@@ -772,7 +739,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
@@ -798,7 +764,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				// activate create-freeform-connection tool
 				ed.getGefEditor().activateTool("free");
@@ -809,7 +774,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				// activate selection tool
 				ed.getGefEditor().activateDefaultTool();
@@ -829,7 +793,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		// remove the connection via context menu
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				ed.getGefEditor().click(250, 195);
 				ed.getGefEditor().clickContextMenu("Remove");
@@ -846,14 +809,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				// find diagram
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 				executeInRecordingCommand(diagramEditor, new Runnable() {
-					@Override
 					public void run() {
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
@@ -863,7 +824,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		Thread.sleep(DELAY);
 		// select shape
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				ed.getGefEditor().select(SHAPE_NAME);
 			}
@@ -885,7 +845,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		PaletteFinder paletteFinder = new PaletteFinder(diagramEditor.getEditDomain());
 		List<PaletteEntry> objectCreationTools = paletteFinder.findEntries(new AbstractToolEntryMatcher() {
 
-			@Override
 			public void describeTo(Description description) {
 				// Do nothing
 			}
@@ -904,7 +863,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			if (o instanceof ToolEntry) {
 				final ToolEntry toolEntry = (ToolEntry) o;
 				syncExec(new VoidResult() {
-					@Override
 					public void run() {
 						ed.getGefEditor().activateTool(toolEntry.getLabel());
 						int currX = x + (counter[0] * 5);
@@ -932,7 +890,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		// Preparation work
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 
 				// Create an outer container
@@ -973,7 +930,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ccc.setSourceAnchor(sourceAnchor);
 				ccc.setTargetAnchor(targetAnchor);
 				executeInRecordingCommand(diagramEditor, new Runnable() {
-					@Override
 					public void run() {
 						for (ICreateConnectionFeature ccf : ccfs) {
 							if (ccf.canCreate(ccc)) {
@@ -1010,7 +966,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		// Set zoom level to next zoom level (150%)
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				SWTBotMenu viewMenu = new SWTWorkbenchBot().menu("View");
 				viewMenu.click();

@@ -173,7 +173,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @see org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate
 	 * #activate ()
 	 */
-	@Override
 	public void activate() {
 		// register listener for changes in the bo model -> will be done
 		// globally in the DiagramEditorInternal
@@ -185,7 +184,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @see org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate#
 	 * createFigure()
 	 */
-	@Override
 	public IFigure createFigure() {
 		PictogramElement pe = getPictogramElement();
 		IFigure ret = createFigureForPictogramElement(pe);
@@ -203,7 +201,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @see org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate#
 	 * deactivate()
 	 */
-	@Override
 	public void deactivate() {
 		disposeFonts();
 	}
@@ -213,7 +210,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * 
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
-	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class key) {
 		Object ret = null;
 		if (key == IGFAdapter.class || key == IWorkbenchAdapter.class || key == IWorkbenchAdapter2.class) {
@@ -231,7 +227,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * 
 	 * @return Returns the configurationProvider.
 	 */
-	@Override
 	public IConfigurationProvider getConfigurationProvider() {
 		return configurationProvider;
 	}
@@ -243,7 +238,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * getFigureForGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.
 	 * GraphicsAlgorithm)
 	 */
-	@Override
 	public IFigure getFigureForGraphicsAlgorithm(GraphicsAlgorithm graphicsAlgorithm) {
 		IFigure ret = null;
 		if (graphicsAlgorithm == null) {
@@ -262,7 +256,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @see org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate#
 	 * getPictogramElement()
 	 */
-	@Override
 	public PictogramElement getPictogramElement() {
 		return pictogramElement;
 	}
@@ -273,7 +266,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @param ep
 	 *            the ep
 	 */
-	@Override
 	public void refreshEditPartsForModelChildrenAndSourceConnections(EditPart ep) {
 		if (ep instanceof IPictogramElementEditPart) {
 
@@ -314,7 +306,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @see org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate#
 	 * refreshFigureForEditPart(org.eclipse.gef.EditPart)
 	 */
-	@Override
 	public void refreshFigureForEditPart() {
 
 		// DR: Avoid multiple refresh of the same edit part
@@ -1387,7 +1378,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @see
 	 * org.eclipse.graphiti.features.IFeatureProviderHolder#getFeatureProvider()
 	 */
-	@Override
 	public IFeatureProvider getFeatureProvider() {
 		IConfigurationProvider cp = getConfigurationProvider();
 		IFeatureProvider ret = null;
@@ -1400,7 +1390,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		return ret;
 	}
 
-	@Override
 	public void setForceRefresh(boolean forceRefresh) {
 		this.forceRefresh = forceRefresh;
 	}
@@ -1444,7 +1433,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 	}
 
-	@Override
 	public boolean isValid() {
 		return valid;
 	}
@@ -1458,7 +1446,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * 
 	 * @return The visual state of this shape.
 	 */
-	@Override
 	public IVisualState getVisualState() {
 		if (visualState == null) {
 			visualState = new VisualState();
@@ -1476,7 +1463,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		return defaultBendPointRenderingActive;
 	}
 
-	@Override
 	public List<IFigure> getMainFiguresFromChildEditparts() {
 		List<IFigure> ret = new ArrayList<IFigure>();
 		List<EditPart> children = GraphitiUiInternal.getGefService().getEditPartChildren(getContainerEditPart());

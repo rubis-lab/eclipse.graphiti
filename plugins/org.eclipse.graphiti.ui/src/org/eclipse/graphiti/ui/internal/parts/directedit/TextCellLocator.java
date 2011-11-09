@@ -50,7 +50,6 @@ public class TextCellLocator implements CellEditorLocator {
 		this.directEditingFeature = directEditingFeature;
 	}
 
-	@Override
 	public void relocate(CellEditor celleditor) {
 
 		Control control = celleditor.getControl();

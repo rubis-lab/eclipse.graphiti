@@ -76,16 +76,10 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 			} else {
 				ListDialog dialog = new ListDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
 				dialog.setContentProvider(new IStructuredContentProvider() {
-
-					@Override
 					public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 					}
-
-					@Override
 					public void dispose() {
 					}
-
-					@Override
 					public Object[] getElements(Object inputElement) {
 						return possibleDiagramsList.toArray();
 					}

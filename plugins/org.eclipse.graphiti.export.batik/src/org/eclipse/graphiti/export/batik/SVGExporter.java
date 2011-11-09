@@ -34,7 +34,6 @@ import org.w3c.dom.Document;
  */
 public class SVGExporter implements IDiagramsExporter {
 
-	@Override
 	public void export(Image im, IFigure figure, String fileName, Double scaleFactor) throws Exception {
 		// Get a DOMImplementation.
 		DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();

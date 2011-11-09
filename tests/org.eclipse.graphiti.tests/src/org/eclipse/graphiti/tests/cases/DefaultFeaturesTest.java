@@ -326,17 +326,14 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 			super(fp);
 		}
 
-		@Override
 		public IReason updateNeeded(IUpdateContext context) {
 			return Reason.createTrueReason();
 		}
 
-		@Override
 		public boolean update(IUpdateContext context) {
 			return true;
 		}
 
-		@Override
 		public boolean canUpdate(IUpdateContext context) {
 			return true;
 		}

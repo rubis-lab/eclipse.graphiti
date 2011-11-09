@@ -136,7 +136,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 	
 	public static void executeInRecordingCommandInUIThread(final IDiagramEditor diagramEditor, final Runnable run){
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				executeInRecordingCommand(diagramEditor, run);
 			}
@@ -264,7 +263,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 	protected DiagramEditor openDiagram(final String type) {
 		DiagramEditor diagramEditor = syncExec(new Result<DiagramEditor>() {
-			@Override
 			public DiagramEditor run() {
 
 				/**/
@@ -304,7 +302,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		// exceptions
 		// see http://www.eclipse.org/forums/index.php?t=msg&goto=484090&
 		UIThreadRunnable.syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().forceActive();
 			}
@@ -422,12 +419,10 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 	protected void createClassesAndConnection(final int x, final int y, final IDiagramTypeProvider diagramTypeProvider, final String toolToActivate, final String shapename) {
 		syncExec(new VoidResult() {
-			@Override
 			public void run() {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 				executeInRecordingCommand(diagramTypeProvider.getDiagramEditor(), new Runnable() {
-					@Override
 					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, x, y, shapename, x, y + 300, "ConnectionDecorator");
 					}

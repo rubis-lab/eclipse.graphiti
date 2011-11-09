@@ -67,7 +67,6 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 		setGaType(gaType);
 	}
 
-	@Override
 	public boolean canCreate(ICreateContext context) {
 		boolean ret = false;
 		ContainerShape targetContainer = context.getTargetContainer();
@@ -77,7 +76,6 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 		return ret;
 	}
 
-	@Override
 	public Object[] create(ICreateContext context) {
 		ContainerShape targetContainer = context.getTargetContainer();
 		AnchorContainer newAc = createAnchorContainer(targetContainer);

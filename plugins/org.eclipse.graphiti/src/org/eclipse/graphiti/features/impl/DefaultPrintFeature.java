@@ -41,20 +41,16 @@ public class DefaultPrintFeature extends AbstractFeature implements IPrintFeatur
 		super(fp);
 	}
 
-	@Override
 	public boolean canPrint(IPrintContext context) {
 		return true;
 	}
 
-	@Override
 	public void postPrint(IPrintContext context) {
 	}
 
-	@Override
 	public void prePrint(IPrintContext context) {
 	}
 
-	@Override
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IPrintContext) {
@@ -63,7 +59,6 @@ public class DefaultPrintFeature extends AbstractFeature implements IPrintFeatur
 		return ret;
 	}
 
-	@Override
 	final public void execute(IContext context) {
 		// not relevant (actual work is done in PrintGraphicalViewerAction)
 	}
