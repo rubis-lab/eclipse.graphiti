@@ -32,17 +32,23 @@ import org.eclipse.graphiti.features.context.IDeleteContext;
 public interface IDelete {
 
 	/**
-	 * Can delete.
+	 * Can delete hook. Needs to be implemented in order to decide if a feature
+	 * can (and wants to) handle a delete request.
 	 * 
 	 * @param context
-	 *            the context
+	 *            the context describing the request
 	 * 
-	 * @return true, if successful
+	 * @return <code>true</code>, if the feature can perform the delete
+	 *         operation
 	 */
 	boolean canDelete(IDeleteContext context);
 
 	/**
-	 * Pre delete.
+	 * Pre delete hook that can be implemented by users to perform any
+	 * operations that need to be done before the standard delete functionality
+	 * starts. Be sure to call
+	 * {@link DefaultDeleteFeature#setDoneChanges(boolean)} in case you modify
+	 * any EMF objects to enable that the command stack gets updated.
 	 * 
 	 * @param context
 	 *            the context
@@ -50,7 +56,7 @@ public interface IDelete {
 	void preDelete(IDeleteContext context);
 
 	/**
-	 * Delete.
+	 * Hook to implement the actual delete functionality.
 	 * 
 	 * @param context
 	 *            the context
@@ -58,7 +64,9 @@ public interface IDelete {
 	void delete(IDeleteContext context);
 
 	/**
-	 * Post delete.
+	 * Post delete hook that can be implemented by users to perform any
+	 * operations that need to be done after the standard delete functionality
+	 * ends.
 	 * 
 	 * @param context
 	 *            the context

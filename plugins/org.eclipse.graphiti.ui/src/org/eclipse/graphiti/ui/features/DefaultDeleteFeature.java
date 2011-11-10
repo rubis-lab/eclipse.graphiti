@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 347421 - Make setDoneChanges accessible to sub classes
  *
  * </copyright>
  *
@@ -34,9 +35,17 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * The Class DefaultDeleteFeature.
+ * The Graphiti default implementation of the {@link IDeleteFeature}. It cares
+ * about removing the shape(s) representing the deleted domain object(s) from
+ * the diagram (by delegating to the {@link IRemoveFeature} provided by the
+ * {@link IFeatureProvider}. After that the EMF domain objects will be deleted
+ * using standard EMF functionality.<br>
+ * Before the deletion process starts the tool user will be asked if he really
+ * wants to delete; the popup appears only once for multi object deletions.
  */
 public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeature {
+
+	private static final String NAME = Messages.DefaultDeleteFeature_1_xfld;
 
 	private boolean doneChanges = false;
 
@@ -50,6 +59,11 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		super(fp);
 	}
 
+	/*
+	 * @see
+	 * org.eclipse.graphiti.func.IDelete#canDelete(org.eclipse.graphiti.features
+	 * .context.IDeleteContext)
+	 */
 	public boolean canDelete(IDeleteContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		IRemoveContext rc = new RemoveContext(pictogramElement);
@@ -58,6 +72,11 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		return ret;
 	}
 
+	/*
+	 * @see
+	 * org.eclipse.graphiti.func.IDelete#delete(org.eclipse.graphiti.features
+	 * .context.IDeleteContext)
+	 */
 	public void delete(IDeleteContext context) {
 		// we need this reset, since the an instance of this feature can be
 		// used multiple times, e.g. as a part of a pattern
@@ -88,7 +107,6 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 			}
 		}
 
-		setDoneChanges(true);
 
 		preDelete(context);
 
@@ -97,6 +115,8 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		IRemoveFeature removeFeature = featureProvider.getRemoveFeature(rc);
 		if (removeFeature != null) {
 			removeFeature.remove(rc);
+			// Bug 347421: Set hasDoneChanges flag only after first modification
+			setDoneChanges(true);
 		}
 
 		deleteBusinessObjects(businessObjectsForPictogramElement);
@@ -105,10 +125,10 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 	}
 
 	/**
-	 * Delete business objects.
+	 * Standard functionality to delete all given domain objects.
 	 * 
 	 * @param businessObjects
-	 *            the business objects
+	 *            the domain objects to delete
 	 */
 	protected void deleteBusinessObjects(Object[] businessObjects) {
 		if (businessObjects != null) {
@@ -119,10 +139,12 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 	}
 
 	/**
-	 * Delete business object.
+	 * Standard functionality to delete one domain object. Will delegate for
+	 * {@link EObject}s to {@link EcoreUtil#delete(EObject, boolean)}; non-EMF
+	 * objects will be ignored.
 	 * 
 	 * @param bo
-	 *            the bo
+	 *            the domain object to delete
 	 */
 	protected void deleteBusinessObject(Object bo) {
 		if (bo instanceof EObject) {
@@ -130,12 +152,27 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		}
 	}
 
+	/*
+	 * @see
+	 * org.eclipse.graphiti.func.IDelete#preDelete(org.eclipse.graphiti.features
+	 * .context.IDeleteContext)
+	 */
 	public void preDelete(IDeleteContext context) {
 	}
 
+	/*
+	 * @see
+	 * org.eclipse.graphiti.func.IDelete#postDelete(org.eclipse.graphiti.features
+	 * .context.IDeleteContext)
+	 */
 	public void postDelete(IDeleteContext context) {
 	}
 
+	/*
+	 * @see
+	 * org.eclipse.graphiti.features.IFeature#canExecute(org.eclipse.graphiti
+	 * .features.context.IContext)
+	 */
 	public boolean canExecute(IContext context) {
 		boolean ret = false;
 		if (context instanceof IDeleteContext) {
@@ -144,25 +181,50 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		return ret;
 	}
 
+	/*
+	 * @see
+	 * org.eclipse.graphiti.features.IFeature#execute(org.eclipse.graphiti.features
+	 * .context.IContext)
+	 */
 	public void execute(IContext context) {
 		if (context instanceof IDeleteContext) {
 			delete((IDeleteContext) context);
 		}
 	}
 
+	/**
+	 * Hook to return the name of the delete operation e.g for display in the
+	 * context menu. The standard implementation simply returns "Delete".
+	 * 
+	 * @return The diplay name of the operation
+	 */
 	@Override
 	public String getName() {
 		return NAME;
 	}
 
-	private static final String NAME = Messages.DefaultDeleteFeature_1_xfld;
-
+	/*
+	 * @see org.eclipse.graphiti.features.IFeature#hasDoneChanges()
+	 */
 	@Override
 	public boolean hasDoneChanges() {
 		return doneChanges;
 	}
 
-	private void setDoneChanges(boolean doneChanges) {
+	/**
+	 * Can be called by users (in subclasses of {@link DefaultDeleteFeature}) to
+	 * tell the framework that changes have been done that should reflect on the
+	 * command stack. The method is called by the standard implementation in
+	 * {@link #delete(IDeleteContext)} right after the first shape has been
+	 * removed from the diagram.
+	 * 
+	 * @param doneChanges
+	 *            <code>true</code>in case modifications have been made,
+	 *            <code>false</code> otherwise
+	 * 
+	 * @since 0.9
+	 */
+	protected void setDoneChanges(boolean doneChanges) {
 		this.doneChanges = doneChanges;
 	}
 
@@ -172,7 +234,8 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 	 * 
 	 * @param context
 	 *            delete context
-	 * @return TRUE, delete element(s); FALSE cancel delete
+	 * @return <code>true</code> to delete element(s); <code>false</code> to
+	 *         cancel delete
 	 */
 	protected boolean getUserDecision(IDeleteContext context) {
 		String msg;
@@ -193,11 +256,13 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 
 	/**
 	 * Returns the delete name which will be used for the delete dialog. E.g.
-	 * "file test.java"
+	 * "file test.java". The default implementation returns <code>null</code> to
+	 * indicate that the popup text refers to "this object".
 	 * 
 	 * @param context
 	 *            the delete context
-	 * @return the delete name
+	 * @return the delete name, or <code>null</code> to indicate no special name
+	 *         shall be used
 	 * @since 0.8
 	 */
 	protected String getDeleteName(IDeleteContext context) {
