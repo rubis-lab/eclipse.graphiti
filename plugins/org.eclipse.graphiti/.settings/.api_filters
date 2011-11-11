@@ -88,6 +88,14 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/features/impl/AbstractFeature.java" type="org.eclipse.graphiti.features.impl.AbstractFeature">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.features.impl.AbstractFeature"/>
+                <message_argument value="layoutPictogramElement(PictogramElement)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/services/IGaService.java" type="org.eclipse.graphiti.services.IGaService">
         <filter id="405901410">
             <message_arguments>

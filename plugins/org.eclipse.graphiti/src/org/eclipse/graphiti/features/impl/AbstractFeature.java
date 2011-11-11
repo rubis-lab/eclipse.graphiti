@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 363464: Return IReason to pass on information if layout has been performed
  *
  * </copyright>
  *
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IProgress;
+import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAreaContext;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
@@ -171,16 +173,20 @@ public abstract class AbstractFeature implements IFeature {
 	}
 
 	/**
-	 * Layoutes the given pictogram element. This implementation asks the
+	 * Layouts the given {@link PictogramElement}. This implementation asks the
 	 * feature provider for available layout features and processes the first
 	 * one.
 	 * 
 	 * @param pe
-	 *            the pe
+	 *            the {@link PictogramElement} to layout
+	 * @return a {@link IReason} object that indicates if a layout operation has
+	 *         been performed ({@link IReason#toBoolean()} is <code>true</code>)
+	 * @since 0.9 this method returns now the {@link IReason} object, before it
+	 *        simply returned null
 	 */
-	protected void layoutPictogramElement(PictogramElement pe) {
+	protected IReason layoutPictogramElement(PictogramElement pe) {
 		LayoutContext context = new LayoutContext(pe);
-		getFeatureProvider().layoutIfPossible(context);
+		return getFeatureProvider().layoutIfPossible(context);
 	}
 
 	/**
