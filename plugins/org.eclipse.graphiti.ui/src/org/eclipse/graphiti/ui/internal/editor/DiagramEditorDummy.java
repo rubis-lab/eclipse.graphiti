@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
  *                         and called features via editor command stack to check it
+ *    mwenz - Bug 363539 - Enabled feature delegation via IDiagramEditor.execute method - contributed by Hernan
  *
  * </copyright>
  *
@@ -101,6 +102,24 @@ public class DiagramEditorDummy implements IDiagramEditor {
 		return null;
 	}
 
+	/**
+	 * Can be called to execute the given {@link IFeature} using the given
+	 * {@link IContext}; also the Graphiti framework uses this method to call
+	 * additional features from with feature processing. In the latter case this
+	 * method is called from with an EMF Transaction so that modifications are
+	 * wrapped inside this Transaction. In case the method is called directly by
+	 * a user, it needs to be ensured that the call happens with an EMF
+	 * transaction, otherwise an according EMF Transactions exception will be
+	 * thrown.
+	 * 
+	 * @param feature
+	 *            the {@link IFeature} to execute
+	 * @param context
+	 *            the {@link IContext} to use while executing the feature
+	 */
 	public void executeFeature(IFeature feature, IContext context) {
+		if (feature.canExecute(context)) {
+			feature.execute(context);
+		}
 	}
 }

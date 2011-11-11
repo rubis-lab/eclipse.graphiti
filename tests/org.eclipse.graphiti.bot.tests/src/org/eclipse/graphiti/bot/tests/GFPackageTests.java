@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 363539 - Enabled feature delegation via IDiagramEditor.execute method
  *
  * </copyright>
  *
@@ -32,6 +33,7 @@ import org.eclipse.graphiti.features.ConfigurableFeatureProviderWrapper;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICopyContext;
 import org.eclipse.graphiti.features.context.IPasteContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
@@ -44,8 +46,10 @@ import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.PasteContext;
 import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.features.impl.DefaultMoveAnchorFeature;
 import org.eclipse.graphiti.features.impl.DefaultReconnectionFeature;
+import org.eclipse.graphiti.internal.features.context.impl.base.DefaultContext;
 import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -78,6 +82,7 @@ import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.junit.Test;
 
 // Check whether this test makes sense at all...
+@SuppressWarnings("restriction")
 public class GFPackageTests extends AbstractGFTests {
 
 	public GFPackageTests() {
@@ -92,6 +97,22 @@ public class GFPackageTests extends AbstractGFTests {
 			Diagram d = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH, "diagram");
 			IDiagramTypeProvider dtp = GraphitiUi.getExtensionManager().createDiagramTypeProvider(d, providerIds[0]);
 			assertNotNull("dtp couldn't be instantiated", dtp);
+
+			// Bug 363539: assure that feature execution in dummy editor works
+			final boolean[] canExecuteCalled = { false };
+			final boolean[] executeCalled = { false };
+			dtp.getDiagramEditor().executeFeature(new AbstractFeature(dtp.getFeatureProvider()) {
+				public boolean canExecute(IContext context) {
+					canExecuteCalled[0] = true;
+					return true;
+				}
+				
+				public void execute(IContext context) {
+					executeCalled[0] = true;
+				}
+			}, new DefaultContext());
+			assertTrue(canExecuteCalled[0]);
+			assertTrue(executeCalled[0]);
 		}
 	}
 
