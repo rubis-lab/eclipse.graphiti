@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 348662 - Setting tooptip to null in tool behavior provider doesn't clear up
  *                         tooltip if the associated figure has a previous tooltip
+ *    mgorning - Bug 363229 - Nested GA inside Anchors are not correctly refreshed
  *
  * </copyright>
  *
