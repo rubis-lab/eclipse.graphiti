@@ -71,6 +71,7 @@ import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -321,7 +322,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			return;
 		}
 
-		if (pe instanceof org.eclipse.graphiti.mm.pictograms.Shape) {
+		if (pe instanceof org.eclipse.graphiti.mm.pictograms.Shape || pe instanceof AdvancedAnchor) {
 			if (isRefreshPossible(pe)) {
 				refreshFigureForPictogramElement(pe);
 			} else {
@@ -704,19 +705,19 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	/**
 	 * returns TRUE, if a figure exists for each ga
 	 */
-	private boolean checkGAs(org.eclipse.graphiti.mm.pictograms.Shape shape) {
+	private boolean checkGAs(PictogramElement pe) {
 
-		if (!GraphitiInternal.getEmfService().isObjectAlive(shape))
+		if (!GraphitiInternal.getEmfService().isObjectAlive(pe))
 			return false;
 
-		GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
+		GraphicsAlgorithm graphicsAlgorithm = pe.getGraphicsAlgorithm();
 
 		if (!checkGA(graphicsAlgorithm)) {
 			return false;
 		}
 
-		if (shape instanceof ContainerShape) {
-			ContainerShape containerShape = (ContainerShape) shape;
+		if (pe instanceof ContainerShape) {
+			ContainerShape containerShape = (ContainerShape) pe;
 			List<org.eclipse.graphiti.mm.pictograms.Shape> children = containerShape.getChildren();
 			for (org.eclipse.graphiti.mm.pictograms.Shape childShape : children) {
 				if (!childShape.isActive()) {
@@ -1003,8 +1004,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 */
 	private boolean isRefreshPossible(PictogramElement pe) {
 		// compare pictogram-model with figure-tree -> structural changes?
-		if (pe instanceof org.eclipse.graphiti.mm.pictograms.Shape) {
-			boolean ret = checkGAs((org.eclipse.graphiti.mm.pictograms.Shape) pe);
+		if (pe instanceof org.eclipse.graphiti.mm.pictograms.Shape || pe instanceof AdvancedAnchor) {
+			boolean ret = checkGAs(pe);
 			if (ret == false) {
 				return ret;
 			}
