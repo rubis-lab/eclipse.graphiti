@@ -1284,7 +1284,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				}
 			}
 
-		} else if (pe instanceof BoxRelativeAnchor) {
+		} else if (pe instanceof BoxRelativeAnchor && pe.equals(graphicsAlgorithm.getPictogramElement())) {
 			BoxRelativeAnchor bra = (BoxRelativeAnchor) pe;
 			IRectangle gaBoundsForAnchor = Graphiti.getLayoutService().getGaBoundsForAnchor(bra);
 			double newX = gaBoundsForAnchor.getX() + (gaBoundsForAnchor.getWidth() * bra.getRelativeWidth())
