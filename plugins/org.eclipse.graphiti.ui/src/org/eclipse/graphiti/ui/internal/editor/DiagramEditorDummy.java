@@ -118,7 +118,7 @@ public class DiagramEditorDummy implements IDiagramEditor {
 	 *            the {@link IContext} to use while executing the feature
 	 */
 	public void executeFeature(IFeature feature, IContext context) {
-		if (feature.canExecute(context)) {
+		if (feature != null && context != null && feature.canExecute(context)) {
 			feature.execute(context);
 		}
 	}

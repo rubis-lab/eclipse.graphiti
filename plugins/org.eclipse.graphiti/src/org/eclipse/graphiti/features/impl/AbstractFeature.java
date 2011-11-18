@@ -14,9 +14,6 @@
  * </copyright>
  *
  *******************************************************************************/
-/*
- * Created on 13.07.2005
- */
 package org.eclipse.graphiti.features.impl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
