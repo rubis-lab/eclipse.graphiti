@@ -118,20 +118,22 @@ the add feature must use the given size and location. </p>
 <div class="literallayout">
 	<div class="incode">
 		<p class="code"><span class="keyword">public </span>PictogramElement add(IAddContext 
-		context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EClass addedClass = (EClass) 
-		context.getNewObject();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Diagram 
+		context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">
+		final</span> EClass addedClass = (EClass) 
+		context.getNewObject();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		<span class="keyword">final</span> Diagram 
 		targetDiagram = (Diagram) context.getTargetContainer();<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// CONTAINER SHAPE WITH ROUNDED RECTANGLE</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		IPeCreateService peCreateService = Graphiti.getPeCreateService();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		ContainerShape containerShape =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		<span class="keyword">final</span> IPeCreateService peCreateService = Graphiti.getPeCreateService();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		<span class="keyword">final</span> ContainerShape containerShape =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		peCreateService.createContainerShape(targetDiagram,
 		<span class="keyword">true</span>);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// check whether the context has a size (e.g. from 
 		a create feature)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // otherwise define 
 		a default size for the shape</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">int </span>width = context.getWidth() &lt;= 0 ? 100 : 
+		<span class="keyword">final int </span>width = context.getWidth() &lt;= 0 ? 100 : 
 		context.getWidth();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">int </span>height = context.getHeight() &lt;= 0 ? 50 
+		<span class="keyword">final int </span>height = context.getHeight() &lt;= 0 ? 50 
 		: context.getHeight();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// ... EXISTING CODING COMES HERE ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">return </span>containerShape;<br>&nbsp;&nbsp;&nbsp; 

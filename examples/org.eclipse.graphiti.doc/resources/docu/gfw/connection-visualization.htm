@@ -17,7 +17,7 @@
 <p><em>Static decorators</em> (inactive pictogram elements) are usually used for 
 connection ends.</p>
 <p>
-<img alt="" height="202" src="visio/connection-decorator-static.png" width="501"></p>
+<img alt="" height="156" src="visio/connection-decorator-static.png" width="504">&nbsp;</p>
 <p><strong>Figure: Static connection decorators</strong></p>
 <p>&nbsp;</p>
 <p><em>Dynamic decorators</em> (active pictogram elements) are usually of type text; 
@@ -25,7 +25,7 @@ these decorators can be moved via drag &amp; drop; they can be placed anywhere i
 diagram.</p>
 <p>&nbsp;</p>
 <p>
-<img alt="" height="211" src="visio/connection-decorator-dynamic.png" width="501"></p>
+<img alt="" height="157" src="visio/connection-decorator-dynamic.png" width="504">&nbsp;</p>
 <p><strong>Figure: Dynamic connection decorators</strong></p>
 <p>&nbsp;</p>
 <p>To create such connection decorators we have to do the following in the graphics 
@@ -55,7 +55,7 @@ algorithms for the static decorators:</p>
 		gaContainer) {<br>&nbsp;&nbsp;&nbsp; IGaService gaService = Graphiti.getGaService();<br>&nbsp;&nbsp;&nbsp; 
 		Polyline polyline =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gaService.createPolyline(gaContainer,
 		<span class="keyword">new int</span>[] { -15, 10, 0, 0, -15,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		-10 });<br>&nbsp;&nbsp;&nbsp; polyline.setForeground(manageColor(IColorConstant.<span class="string"><em>BLACK</em></span>));<br>&nbsp;&nbsp;&nbsp; 
+		-10 });<br>&nbsp;&nbsp;&nbsp; polyline.setForeground(manageColor(<span class="string"><em>E_REFERENCE_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp; 
 		polyline.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp; <span class="keyword">return</span> polyline;<br>}
 		</p>
 	</div>
@@ -76,7 +76,7 @@ connection feature, as explained in the following code snippet:</p>
 		=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; peCreateService.createConnectionDecorator(connection,
 		<span class="keyword">true</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		0.5, <span class="keyword">true</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp; Text 
-		text = gaService.createDefaultText(textDecorator);<br>&nbsp;&nbsp;&nbsp;&nbsp; 
+		text = gaService.createDefaultText(getDiagram(),textDecorator);<br>&nbsp;&nbsp;&nbsp;&nbsp; 
 		text.setForeground(manageColor(IColorConstant.<span class="string"><em>BLACK</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp; 
 		gaService.setLocation(text, 10, 0);<br>&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// set reference name in the text decorator</span><br>

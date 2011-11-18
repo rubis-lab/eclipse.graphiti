@@ -126,8 +126,8 @@ it also has to be used in calculations outside this class.</p>
 		rectangle</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; roundedRectangle 
 		=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		gaService.createRoundedRectangle(invisibleRectangle, 5, 5);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		roundedRectangle.setForeground(manageColor(<span class="string"><em>CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		roundedRectangle.setBackground(manageColor(<span class="string"><em>CLASS_BACKGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		roundedRectangle.setForeground(manageColor(<span class="string"><em>E_CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		roundedRectangle.setBackground(manageColor(<span class="string"><em>E_CLASS_BACKGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		roundedRectangle.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		gaService.setLocationAndSize(roundedRectangle, 0,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		0, width, height);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -138,19 +138,20 @@ it also has to be used in calculations outside this class.</p>
 		peCreateService.createChopboxAnchor(containerShape);<br>&nbsp;<br>&nbsp;&nbsp;
 		<span class="comment">&nbsp;// create an additional box relative anchor 
 		at middle-right</span><br>&nbsp;&nbsp;&nbsp; BoxRelativeAnchor boxAnchor 
-		=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; peCreateService.createBoxRelativeAnchor(containerShape);<br>&nbsp;&nbsp;&nbsp; 
-		boxAnchor.setRelativeWidth(1.0);<br>&nbsp;&nbsp;&nbsp; boxAnchor.setRelativeHeight(0.5);<br>&nbsp;&nbsp;&nbsp;
+		=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; peCreateService.createBoxRelativeAnchor(containerShape);<br><br>&nbsp;&nbsp;&nbsp; 
+		boxAnchor.setRelativeWidth(1.0);<br>&nbsp;&nbsp;&nbsp; 
+		boxAnchor.setRelativeHeight(0.38); <span class="comment">//use golden 
+		section<br></span><br>&nbsp;&nbsp;&nbsp;
 		<span class="comment">// anchor references visible rectangle instead of 
-		invisible rectangle</span><br>&nbsp;&nbsp;&nbsp; boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);<br>&nbsp;&nbsp;&nbsp;
+		invisible rectangle</span><br>&nbsp;&nbsp;&nbsp; boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);<br><br>&nbsp;&nbsp;&nbsp;
 		<span class="comment">// assign a graphics algorithm for the box relative 
-		anchor</span><br>&nbsp;&nbsp;&nbsp; Rectangle boxRect = gaService.createRectangle(boxAnchor);<br>&nbsp;&nbsp;&nbsp;
+		anchor</span><br>&nbsp;&nbsp;&nbsp; Ellipse ellipse = 
+		gaService.createEllipse(boxAnchor);<br>&nbsp;&nbsp;&nbsp;&nbsp;ellipse.setForeground(manageColor(<span class="string"><em>E_CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;ellipse.setBackground(manageColor(<span class="string"><em>E_CLASS_BACKGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;ellipse.setLineWidth(2);<br><br>&nbsp;&nbsp;&nbsp;
 		<span class="comment">// anchor is located on the right border of the visible 
 		rectangle<br>&nbsp;&nbsp;&nbsp; // and touches the border of the invisible 
 		rectangle</span><br>&nbsp;&nbsp;&nbsp; <span class="keyword">int </span>
 		w = <span class="string"><em>INVISIBLE_RECT_RIGHT</em></span>;<br>&nbsp;&nbsp;&nbsp; 
-		gaService.setLocationAndSize(boxRect, -w, -w, 2 * w, 2 * w); <br>&nbsp;&nbsp;&nbsp; 
-		Color c = gaService.manageColor(getDiagram(), IColorConstant.<span class="string"><em>DARK_BLUE</em></span>);<br>&nbsp;&nbsp;&nbsp; 
-		boxRect.setBackground(c);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		gaService.setLocationAndSize(ellipse, -w, -w, 2 * w, 2 * w); <br>&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;
 		<span class="comment">// call the layout feature</span><br>&nbsp;&nbsp;&nbsp; 
 		layoutPictogramElement(containerShape);<br>&nbsp;<br>&nbsp;&nbsp;
 		<span class="keyword">&nbsp;return</span> containerShape;<br>}<br></p>

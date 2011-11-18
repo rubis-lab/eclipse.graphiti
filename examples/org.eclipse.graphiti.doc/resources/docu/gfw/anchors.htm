@@ -103,19 +103,20 @@ so that the EClass has then two anchors:</p>
 		<span class="keyword">final </span>BoxRelativeAnchor boxAnchor = <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		peCreateService.createBoxRelativeAnchor(containerShape);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boxAnchor.setRelativeWidth(1.0);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		boxAnchor.setRelativeHeight(0.5);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		boxAnchor.setRelativeHeight(0.38); <span class="comment">//use golden 
+		section</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// anchor references visible rectangle instead of 
 		invisible rectangle</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// assign a graphics algorithm for the box relative 
-		anchor</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rectangle rectangle = gaService.createRectangle(boxAnchor);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		rectangle.setFilled(<span class="keyword">true</span>);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		anchor</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ellipse ellipse = gaService.createEllipse(boxAnchor);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		ellipse.setForeground(manageColor(<span class="string"><em>E_CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		ellipse.setBackground(manageColor(<span class="string"><em>E_CLASS_BACKGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		ellipse.setLineWidth(2);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// anchor is located on the right border of the visible 
 		rectangle<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // and touches the border of 
-		the invisible rectangle</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		the invisible rectangle</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">int </span>w = 6;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		gaService.setLocationAndSize(rectangle, -2 * w, -w, 2 * w, 2 * w);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		rectangle.setForeground(manageColor(<span class="string"><em>CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		rectangle.setBackground(manageColor(<span class="string"><em>CLASS_BACKGROUND</em></span>));<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		gaService.setLocationAndSize(rectangle, -2 * w, -w, 2 * w, 2 * w);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// call the layout feature</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		layoutPictogramElement(containerShape);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">return </span>containerShape;<br>} </p>

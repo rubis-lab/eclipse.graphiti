@@ -41,7 +41,10 @@ AbstractAddFeature</a>.</p>
 	<div class="incode">
 		<p class="code"><span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
 		<span class="keyword">public class</span> TutorialAddEReferenceFeature
-		<span class="keyword">extends </span>AbstractAddFeature {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">extends </span>AbstractAddFeature {<br><br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">private static final</span> IColorConstant
+		<span class="string"><em>E_REFERENCE_FOREGROUND</em></span> =
+		<span class="keyword">new</span> ColorConstant(98, 131, 167);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
 		<span class="keyword">public </span>TutorialAddEReferenceFeature (IFeatureProvider 
 		fp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">super</span>(fp);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
@@ -59,7 +62,7 @@ AbstractAddFeature</a>.</p>
 		IGaService gaService = Graphiti.getGaService();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		Polyline polyline = gaService.createPolyline(connection);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		polyline.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		polyline.setForeground(manageColor(IColorConstant.<span class="string"><em>BLACK</em></span>));<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		polyline.setForeground(manageColor(<span class="string"><em>E_REFERENCE_FOREGROUND</em></span>));<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// create link and wire it</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		link(connection, addedEReference);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">return </span>connection;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;

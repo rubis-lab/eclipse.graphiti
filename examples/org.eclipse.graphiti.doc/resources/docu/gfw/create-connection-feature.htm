@@ -42,7 +42,7 @@ should be used.</li>
 tool from the palette.</p>
 <p>&nbsp;</p>
 <p>
-<img alt="" height="251" src="visio/connection-routing-direct.png" width="251"></p>
+<img alt="" height="253" src="visio/connection-routing-direct.png" width="251"></p>
 <p><strong>Figure: EReference between EClasses</strong></p>
 <p>&nbsp;</p>
 <p>You can see the complete implementation of the create connection feature here:</p>
@@ -52,7 +52,7 @@ tool from the palette.</p>
 	<div class="incode">
 		<p class="code"><span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
 		<span class="keyword">public class</span> TutorialCreateEReferenceFeature 
-		extends<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AbstractCreateConnectionFeature 
+		<span class="keyword">extends</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AbstractCreateConnectionFeature 
 		{<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; <span class="keyword">public </span>TutorialCreateEReferenceFeature 
 		(IFeatureProvider fp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// provide name and description for the UI, e.g. the 
@@ -91,7 +91,7 @@ tool from the palette.</p>
 		EReference eReference = createEReference(source, target);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// add connection for business object</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		AddConnectionContext addContext =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		new AddConnectionContext(context.getSourceAnchor(), context<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		<span class="keyword">new</span> AddConnectionContext(context.getSourceAnchor(), context<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		.getTargetAnchor());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		addContext.setNewObject(eReference);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		newConnection =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 

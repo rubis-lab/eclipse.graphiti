@@ -84,11 +84,10 @@ add</a> method as shown here:</p>
 		Shape shape = peCreateService.createShape(containerShape,
 		<span class="keyword">false</span>);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// create and set text graphics algorithm</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Text text = gaService.createDefaultText(shape, addedClass.getName());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		text.setForeground(manageColor(<span class="string"><em>CLASS_TEXT_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		text.setHorizontalAlignment(OrientationEnum.<span class="string"><em>ALIGNMENT_CENTER</em></span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		text.setVerticalAlignment(OrientationEnum.<span class="string"><em>ALIGNMENT_CENTER</em></span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		text.getFont().setBold(<span class="keyword">true</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Text text = gaService.createText(shape, addedClass.getName());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text.setForeground(manageColor(<span class="string"><em>E_CLASS_TEXT_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text.setHorizontalAlignment(Orientation.<span class="string"><em>ALIGNMENT_CENTER</em>
+		</span>); <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// vertical alignment has as default value &quot;center&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text.setFont(gaService.manageDefaultFont(getDiagram(),
+		<span class="keyword">false</span>, <span class="keyword">true</span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		gaService.setLocationAndSize(text, 0, 0, width, 20);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// create link and wire it</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		link(shape, addedClass);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
