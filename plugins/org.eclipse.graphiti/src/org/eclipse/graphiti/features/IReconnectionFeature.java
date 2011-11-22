@@ -22,7 +22,8 @@ import org.eclipse.graphiti.features.impl.DefaultReconnectionFeature;
 import org.eclipse.graphiti.func.IReconnection;
 
 /**
- * The Interface IReconnectionFeature.
+ * The Interface IReconnectionFeature. Provides the API for implementing
+ * reconnection functionality.
  * 
  * @noextend This interface is not intended to be extended by clients.
  * @noimplement This interface is not intended to be implemented by clients,
