@@ -42,6 +42,7 @@ import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart;
+import org.eclipse.swt.SWT;
 
 /**
  * The context button manager shows and hides the context button pad. Mostly
@@ -81,6 +82,11 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 */
 	private ContextButtonPad activeContextButtonPad;
 
+	/**
+	 * The current state of context button pad enablement
+	 */
+	private boolean contextButtonShowing;
+
 	// ============================= listener =================================
 
 	/**
@@ -119,6 +125,16 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 				return;
 			}
 
+			if ((me.getState() & SWT.MOD1) != 0) {
+				// If CTRL is pressed while buttons are shown hide them
+				hideContextButtonsInstantly();
+				return;
+			}
+
+			if (!isContextButtonShowing()) {
+				return;
+			}
+
 			Object source = me.getSource();
 			showContextButtonsInstantly((IFigure) source, me.getLocation());
 		}
@@ -141,6 +157,8 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 		if (zoomMgr != null) {
 			zoomMgr.addZoomListener(zoomListener);
 		}
+
+		contextButtonShowing = true;
 	}
 
 	// ====================== getter/setter for fields ========================
@@ -360,6 +378,23 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 			IFigure feedbackLayer = rootEditPart.getLayer(LayerConstants.HANDLE_LAYER);
 			feedbackLayer.add(contextButtonPad);
 		}
+	}
+
+	/**
+	 * Sets the general availability of the context button pad.
+	 * 
+	 */
+	public void setContextButtonShowing(boolean enable) {
+		contextButtonShowing = enable;
+	}
+
+	/**
+	 * Checks general availability of the context button pad.
+	 * 
+	 * @return whether the context button pad is enabled
+	 */
+	private boolean isContextButtonShowing() {
+		return contextButtonShowing;
 	}
 
 	/**

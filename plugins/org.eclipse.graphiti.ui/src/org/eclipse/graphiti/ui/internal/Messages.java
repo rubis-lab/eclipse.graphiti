@@ -99,6 +99,8 @@ public class Messages extends NLS {
 	public static String SaveImageAction_1_xmsg;
 	public static String UpdateAction_0_xmsg;
 	public static String UpdateAction_1_xfld;
+	public static String ToggleContextButtonPadAction_0_xmsg;
+	public static String ToggleContextButtonPadAction_1_xfld;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

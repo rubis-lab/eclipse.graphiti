@@ -56,4 +56,11 @@ public interface IContextButtonManager {
 	 * moved/resized, ...
 	 */
 	void hideContextButtonsInstantly();
+
+	/**
+	 * Sets the general availability of the context button pad. This method
+	 * enables the context button pad control from outside the manager
+	 * 
+	 */
+	void setContextButtonShowing(boolean enable);
 }

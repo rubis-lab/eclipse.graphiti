@@ -130,6 +130,7 @@ import org.eclipse.graphiti.ui.internal.action.PasteAction;
 import org.eclipse.graphiti.ui.internal.action.PrintGraphicalViewerAction;
 import org.eclipse.graphiti.ui.internal.action.RemoveAction;
 import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
+import org.eclipse.graphiti.ui.internal.action.ToggleContextButtonPadAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.ConfigurationProvider;
@@ -1131,7 +1132,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 				ISaveImageContext context = new SaveImageContext();
 				action = new SaveImageAction(sf, context, this);
 				actionRegistry.registerAction(action);
-				selectionActions.add(action.getId());
+				// selectionActions.add(action.getId());
 			}
 		}
 
@@ -1148,7 +1149,14 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		registerAction(new MatchWidthAction(this));
 		registerAction(new MatchHeightAction(this));
 		IAction showGrid = new ToggleGridAction(getGraphicalViewer());
-		getActionRegistry().registerAction(showGrid);
+		actionRegistry.registerAction(showGrid);
+
+		// Bug 323351: Add button to toggle a flag if the context pad buttons
+		// shall be shown or not
+		IAction toggleContextButtonPad = new ToggleContextButtonPadAction(this);
+		toggleContextButtonPad.setChecked(false);
+		actionRegistry.registerAction(toggleContextButtonPad);
+		// End bug 323351
 	}
 
 	/**

@@ -98,6 +98,12 @@
 			categoryId="org.eclipse.graphiti.ui.Graphiti_Category"
 			id="org.eclipse.graphiti.ui.internal.action.SaveImageAction">
 		</command>
+		<command
+			name="%_command_name_toggle_context_pad"
+			description="%_command_description_toggle_context_pad"
+			categoryId="org.eclipse.graphiti.ui.Graphiti_Category"
+			id="org.eclipse.graphiti.ui.internal.action.ToggleContextPadAction">
+		</command>
 	</extension>
    <extension point="org.eclipse.ui.bindings">
 		<key

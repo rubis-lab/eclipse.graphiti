@@ -55,5 +55,7 @@ public class PlatformImageProvider extends AbstractImageProvider {
 		addImageFilePath(IPlatformImageConstants.IMG_ECLIPSE_WARNING_TSK, ROOT_FOLDER_FOR_IMG + "eclipse/warn_tsk.gif"); //$NON-NLS-1$
 
 		addImageFilePath(IPlatformImageConstants.IMG_DIAGRAM, ROOT_FOLDER_FOR_IMG + "diagram.gif"); //$NON-NLS-1$
+
+		addImageFilePath(IPlatformImageConstants.IMG_TOGGLE_PAD, ROOT_FOLDER_FOR_IMG + "toggleShowContextButtons.png"); //$NON-NLS-1$
 	}
 }

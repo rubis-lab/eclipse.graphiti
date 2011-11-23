@@ -18,6 +18,8 @@ package org.eclipse.graphiti.platform;
 /**
  * This interface provides predefined image constants which can be used by the
  * features for image graphics algorithm.
+ * 
+ * @noimplement This interface is not intended to be implemented by clients.
  */
 public interface IPlatformImageConstants {
 
@@ -106,5 +108,12 @@ public interface IPlatformImageConstants {
 	 * The Constant IMG_ECLIPSE_QUICKASSIST.
 	 */
 	public static final String IMG_ECLIPSE_QUICKASSIST = PRE + "eclipse.quickassist"; //$NON-NLS-1$
+
+	/**
+	 * The Constant IMG_TOGGLE_PAD.
+	 * 
+	 * @since 0.9
+	 */
+	public static final String IMG_TOGGLE_PAD = PRE + "toggle.context.pad"; //$NON-NLS-1$
 
 }

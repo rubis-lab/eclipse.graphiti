@@ -31,6 +31,7 @@ import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.RemoveAction;
 import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
+import org.eclipse.graphiti.ui.internal.action.ToggleContextButtonPadAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IAction;
@@ -86,6 +87,15 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY,
 				Messages.DiagramEditorActionBarContributor_SnapGeometry, IAction.AS_CHECK_BOX));
+
+		// Bug 323351: Add button to toggle a flag if the context pad buttons
+		// shall be shown or not
+		RetargetAction toggleContextPadAction = new RetargetAction(ToggleContextButtonPadAction.ACTION_ID,
+				ToggleContextButtonPadAction.TEXT, IAction.AS_CHECK_BOX);
+		toggleContextPadAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
+				IPlatformImageConstants.IMG_TOGGLE_PAD));
+		addRetargetAction(toggleContextPadAction);
+		// End bug 323351
 
 		RetargetAction removeRetargetAction = new RetargetAction(RemoveAction.ACTION_ID, RemoveAction.TEXT);
 		removeRetargetAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
@@ -143,6 +153,12 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		tbm.add(new Separator());
 		tbm.add(getAction(GEFActionConstants.MATCH_WIDTH));
 		tbm.add(getAction(GEFActionConstants.MATCH_HEIGHT));
+
+		// Bug 323351: Add button to toggle a flag if the context pad buttons
+		// shall be shown or not
+		tbm.add(new Separator());
+		tbm.add(getAction(ToggleContextButtonPadAction.ACTION_ID));
+		// End bug 323351
 
 		tbm.add(new Separator());
 		tbm.add(getAction(GEFActionConstants.ZOOM_OUT));
