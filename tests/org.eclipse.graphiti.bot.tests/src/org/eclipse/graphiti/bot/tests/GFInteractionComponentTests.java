@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 355027: Move of connection decorators when zoom level != 100 behaves weird
+ *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
  *
  * </copyright>
  *
@@ -322,8 +323,11 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		page.shutdownEditor(diagramEditor);
 	}
 
+	/*
+	 * Test for Bugzilla 323351
+	 */
 	@Test
-	public void testContextPad() throws Exception {
+	public void testContextPadHiding() throws Exception {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
@@ -438,8 +442,11 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		page.shutdownEditor(diagramEditor);
 	}
 
+	/*
+	 * Test for Bugzilla 323351
+	 */
 	@Test
-	public void testContextPadToolbar() throws Exception {
+	public void testContextPadHidingViaToolbar() throws Exception {
 		final int x = 100;
 		final int y = 100;
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);

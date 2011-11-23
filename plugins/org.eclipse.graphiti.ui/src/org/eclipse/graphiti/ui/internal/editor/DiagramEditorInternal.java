@@ -20,6 +20,7 @@
  *    mwenz - Bug 356828 - Escaped diagram name is used as editor title
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
  *                         and called features via editor command stack to check it
+ *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
  *
  * </copyright>
  *
