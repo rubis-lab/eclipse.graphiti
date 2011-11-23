@@ -36,17 +36,17 @@ getContextButtonPad</a> has to return the context buttons for the given context
 </p>
 <p>There are different groups of context buttons:</p>
 <ul>
-	<li>Generic context buttons: their look and behaviour is standardized for all 
-	tools (e.g. &quot;delete&quot;, &quot;remove&quot; and &quot;update&quot;). They are shown at the top of the 
-	pictogram element in a predefined order. A specific tool can only choose which 
-	of the generic context buttons to switch on/off.</li>
-	<li>Domain specific context buttons: they are specific for each tool (e.g. &quot;create 
-	sub-class&quot; in a class editor). They are shown at the right (and if necessary 
-	also bottom) of the pictogram element. A specific tool must define the look 
-	and behaviour for all domain specific context buttons. </li>
-	<li>Collapse context button: the look and position for the collapse context 
-	button is standardized for all tools. A specific tool must define the behavior 
-	of the collapse context button by defining the feature to call (see
+	<li><em>Generic context buttons</em>: their look and behaviour is standardized 
+	for all tools (e.g. &quot;delete&quot;, &quot;remove&quot; and &quot;update&quot;). They are shown at the 
+	top of the pictogram element in a predefined order. A specific tool can only 
+	choose which of the generic context buttons to switch on/off.</li>
+	<li><em>Domain specific context buttons</em>: they are specific for each tool 
+	(e.g. &quot;create sub-class&quot; in a class editor). They are shown at the right (and 
+	if necessary also bottom) of the pictogram element. A specific tool must define 
+	the look and behaviour for all domain specific context buttons. </li>
+	<li><em>Collapse context button</em>: the look and position for the collapse 
+	context button is standardized for all tools. A specific tool must define the 
+	behavior of the collapse context button by defining the feature to call (see
 	<a href="../../../javadoc/org/eclipse/graphiti/tb/ContextEntryHelper.html#createCollapseContextButton(boolean, org.eclipse.graphiti.features.IFeature, org.eclipse.graphiti.features.context.IContext)">
 	createCollapseContextButton</a>).</li>
 </ul>
@@ -61,17 +61,21 @@ drop features are available, a context-menu will be offered to the user when he
 drops the connection, and he can choose the feature to execute.</p>
 <p>In this example we want to create one context button, which offers all available
 <a href="create-connection-feature.htm">create connection features</a> as drag &amp; 
-drop features, but has no click-feature. </p>
+drop features, but has no click-feature. Additionally, we implement a collapse context 
+button, which will pop up a message, that it has not a final implementation.</p>
 <p>&nbsp;</p>
-<p><img alt="" height="152" src="visio/context-buttons-click.png" width="456"></p>
+<p><img alt="" height="159" src="visio/context-buttons-click.png" width="462"></p>
 <p><strong>Figure: A context button, which the user can click or start drag &amp; drop 
 from it</strong></p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<p><img alt="" height="153" src="visio/context-buttons-drag.png" width="451"></p>
+<p><img alt="" height="159" src="visio/context-buttons-drag.png" width="457"></p>
 <p><strong>Figure: The user started dragging from the context button</strong></p>
 <p>&nbsp;</p>
-<p>You can see the complete implementation of the context button here:</p>
+<p>
+<img alt="" height="161" src="visio/context-buttons-collapse.png" width="459"></p>
+<p><strong>Figure: A context button, which the user can click</strong></p>
+<p>&nbsp;</p>
+<p>You can see the complete implementation of the context and collapse buttons here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
@@ -138,10 +142,11 @@ from it</strong></p>
 <p>&nbsp;</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
 <p>&nbsp;</p>
-<p>The implementation of <span class="inlinecode">MyTutorialImageProvider</span> can be found
-<a href="images.htm">here</a>. The implementation of the 
-<span class="inlinecode">TutorialCollapseDummyFeature</span> 
-can be found at <a href="#Implementation_of_the_Tutorial_Collapse_Dummy_Feature">the end of this page</a>.</p>
+<p>The implementation of <span class="inlinecode">MyTutorialImageProvider</span> 
+can be found <a href="images.htm">here</a>. The implementation of the
+<span class="inlinecode">TutorialCollapseDummyFeature</span> can be found at
+<a href="#Implementation_of_the_Tutorial_Collapse_Dummy_Feature">the end of this 
+page</a>.</p>
 <p>The context button entries contain information about icon, display text and tooltip 
 description.</p>
 <p>The positioning of the context buttons can be influenced by changing the rectangle 
@@ -175,7 +180,8 @@ creating an association between two EClasses.</p>
 a connection, if the source and target business object are identical. If you have 
 two different shapes associated with the same business object (e.g. via copy &amp; paste), 
 then creating a connection between them is not possible.</p>
-<h2><a name="Implementation_of_the_Tutorial_Collapse_Dummy_Feature">Implementation of the Tutorial Collapse Dummy Feature</a></h2>
+<h2><a name="Implementation_of_the_Tutorial_Collapse_Dummy_Feature">Implementation 
+of the Tutorial Collapse Dummy Feature</a></h2>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
@@ -225,8 +231,7 @@ then creating a connection between them is not possible.</p>
 <p>&nbsp;</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
 <p>Finally the feature provider has to deliver our newly created custom feature 
-(overwrite the method
-<span class="inlinecode">getCustomFeatures(..)</span><a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCustomFeatures(org.eclipse.graphiti.features.context.ICustomContext)"></a>).</p>
+(overwrite the method <span class="inlinecode">getCustomFeatures(..)</span><a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCustomFeatures(org.eclipse.graphiti.features.context.ICustomContext)"></a>).</p>
 <p>This implementation can be seen here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
@@ -244,6 +249,9 @@ then creating a connection between them is not possible.</p>
 </div>
 <!-- End code  -------------------------------------------------------------------------------  -->
 <p>&nbsp;</p>
+<p>
+<img alt="" height="305" src="visio/context-buttons-collapse-2.png" width="710"></p>
+<p><strong>Figure: Clicking the collape button</strong></p>
 
 </body>
 
