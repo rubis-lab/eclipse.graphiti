@@ -1067,11 +1067,7 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		getBehavior().init(site, input, mDirtyFlagUpdater);
 		// In next line GEF calls setSite(), setInput(),
 		// getEditingDomain(), ...
-		try {
-			super.init(site, input);
-		} catch (RuntimeException e) {
-			throw new PartInitException(e.getMessage());
-		}
+		super.init(site, input);
 
 		migrateDiagramModelIfNecessary();
 		fwListener = new FWCommandStackListener();

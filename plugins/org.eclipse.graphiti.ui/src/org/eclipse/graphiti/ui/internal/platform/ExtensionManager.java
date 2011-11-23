@@ -255,7 +255,7 @@ public class ExtensionManager implements IExtensionManager {
 							}
 						} catch (CoreException e) {
 							// $JL-EXC$
-							T.racer().error(e.toString());
+							T.racer().error("Unable to create DiagramTypeProcider class", e);
 						}
 					}
 				}
