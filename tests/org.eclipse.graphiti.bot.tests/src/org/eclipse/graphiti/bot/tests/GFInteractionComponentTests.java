@@ -26,8 +26,10 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
@@ -57,8 +59,10 @@ import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateFreeform
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaContainerFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaShapeFeature;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
+import org.eclipse.graphiti.ui.internal.contextbuttons.ContextButtonPad;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.SWT;
@@ -319,6 +323,265 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	}
 
 	@Test
+	public void testContextPad() throws Exception {
+		final int x = 100;
+		final int y = 100;
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+				executeInRecordingCommand(diagramEditor, new Runnable() {
+					public void run() {
+						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
+					}
+				});
+			}
+		});
+		Thread.sleep(DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 150, p.y + 150);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(DELAY);
+
+		assertNotNull(findContextButtonPad());
+
+		syncExec(new VoidResult() {
+			public void run() {
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 50, p.y + 50);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(DELAY);
+
+		assertNull(findContextButtonPad());
+
+		syncExec(new VoidResult() {
+			public void run() {
+				Robot r;
+				try {
+					r = new Robot();
+					r.setAutoDelay(20);
+					r.keyPress(KeyEvent.VK_CONTROL);
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 150, p.y + 150);
+					r.keyRelease(KeyEvent.VK_CONTROL);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(DELAY);
+
+		assertNull(findContextButtonPad());
+
+		syncExec(new VoidResult() {
+			public void run() {
+				try {
+					final Robot robot = new Robot();
+					robot.setAutoDelay(10);
+					try {
+						robot.mousePress(InputEvent.BUTTON1_MASK);
+						robot.mouseRelease(InputEvent.BUTTON1_MASK);
+						robot.keyPress(KeyEvent.VK_DELETE);
+					} catch (RuntimeException e) {
+						fail(e.getMessage());
+					} finally {
+						robot.keyRelease(KeyEvent.VK_DELETE);
+					}
+				} catch (Exception e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+
+		Thread.sleep(DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				try {
+					final Robot robot = new Robot();
+					robot.setAutoDelay(1);
+
+					try {
+						robot.keyPress(KeyEvent.VK_ENTER);
+					} catch (RuntimeException e) {
+						fail(e.getMessage());
+					} finally {
+						robot.keyRelease(KeyEvent.VK_ENTER);
+					}
+				} catch (Exception e) {
+					fail(e.getMessage());
+				}
+			}
+
+		});
+		Thread.sleep(DELAY);
+		page.shutdownEditor(diagramEditor);
+	}
+
+	@Test
+	public void testContextPadToolbar() throws Exception {
+		final int x = 100;
+		final int y = 100;
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+				executeInRecordingCommand(diagramEditor, new Runnable() {
+					public void run() {
+						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
+					}
+				});
+			}
+		});
+		Thread.sleep(DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 10, p.y + 10);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 150, p.y + 150);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
+		assertNotNull(findContextButtonPad());
+
+		syncExec(new VoidResult() {
+			public void run() {
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 10, p.y + 10);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(DELAY);
+
+		assertNull(findContextButtonPad());
+
+		syncExec(new VoidResult() {
+			public void run() {
+				Robot r;
+				try {
+					r = new Robot();
+					r.setAutoDelay(20);
+					new SWTWorkbenchBot().toolbarToggleButtonWithTooltip(Messages.ToggleContextButtonPadAction_0_xmsg)
+							.click();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 150, p.y + 150);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(DELAY);
+
+		assertNull(findContextButtonPad());
+
+		syncExec(new VoidResult() {
+			public void run() {
+				try {
+					final Robot robot = new Robot();
+					robot.setAutoDelay(1);
+					try {
+						robot.mousePress(InputEvent.BUTTON1_MASK);
+						robot.mouseRelease(InputEvent.BUTTON1_MASK);
+						robot.keyPress(KeyEvent.VK_DELETE);
+					} catch (RuntimeException e) {
+						fail(e.getMessage());
+					} finally {
+						robot.keyRelease(KeyEvent.VK_DELETE);
+					}
+				} catch (Exception e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+
+		syncExec(new VoidResult() {
+			public void run() {
+				try {
+					final Robot robot = new Robot();
+					robot.setAutoDelay(1);
+
+					try {
+						robot.keyPress(KeyEvent.VK_ENTER);
+					} catch (RuntimeException e) {
+						fail(e.getMessage());
+					} finally {
+						robot.keyRelease(KeyEvent.VK_ENTER);
+					}
+				} catch (Exception e) {
+					fail(e.getMessage());
+				}
+			}
+
+		});
+		Thread.sleep(DELAY);
+		page.shutdownEditor(diagramEditor);
+	}
+
+	@SuppressWarnings("restriction")
+	private ContextButtonPad findContextButtonPad() {
+		SWTBotGefEditPart rootEditPart = ed.getGefEditor().rootEditPart();
+		IFigure feedbackLayer = ((ScalableFreeformRootEditPart) rootEditPart.part())
+				.getLayer(LayerConstants.HANDLE_LAYER);
+		ContextButtonPad cbp = null;
+		for (Object obj : feedbackLayer.getChildren()) {
+			if (obj instanceof ContextButtonPad) {
+				cbp = (ContextButtonPad) obj;
+				break;
+			}
+		}
+		return cbp;
+	}
+
+	@Test
 	public void testContextButtons() throws Exception {
 		final int x = 100;
 		final int y = 100;
@@ -346,7 +609,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					Point p = ed.getOrigin();
 					r.mouseMove(p.x + 150, p.y + 150);
 				} catch (AWTException e) {
-					e.printStackTrace();
+					fail(e.getMessage());
 				}
 			}
 		});
@@ -360,12 +623,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					try {
 						robot.mousePress(InputEvent.BUTTON3_MASK);
 					} catch (RuntimeException e) {
-						e.printStackTrace();
+						fail(e.getMessage());
 					} finally {
 						robot.mouseRelease(InputEvent.BUTTON3_MASK);
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					fail(e.getMessage());
 				}
 			}
 		});
@@ -381,12 +644,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						robot.keyRelease(KeyEvent.VK_ESCAPE);
 						robot.keyPress(KeyEvent.VK_DELETE);
 					} catch (RuntimeException e) {
-						e.printStackTrace();
+						fail(e.getMessage());
 					} finally {
 						robot.keyRelease(KeyEvent.VK_DELETE);
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					fail(e.getMessage());
 				}
 			}
 		});
@@ -400,12 +663,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					try {
 						robot.keyPress(KeyEvent.VK_ENTER);
 					} catch (RuntimeException e) {
-						e.printStackTrace();
+						fail(e.getMessage());
 					} finally {
 						robot.keyRelease(KeyEvent.VK_ENTER);
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					fail(e.getMessage());
 				}
 			}
 
