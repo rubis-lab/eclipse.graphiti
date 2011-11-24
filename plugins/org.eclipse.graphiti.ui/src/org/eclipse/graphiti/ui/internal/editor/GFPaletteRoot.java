@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
  *
  * </copyright>
  *
@@ -57,13 +58,12 @@ import org.eclipse.jface.resource.ImageDescriptor;
  */
 public class GFPaletteRoot extends PaletteRoot {
 
-	/*
+	/**
 	 * later we can make this configurable in the toolbehaviour provider, so
-	 * that the dtp developer can influence the creation style from palette
+	 * that the dtp developer can influence the creation style from palette.<br>
+	 * If true then drag&drop from the palette is possible
 	 */
-	private static boolean DND_FROM_PALETTE = true; // if true then drag&drop
-													// from the palette is
-													// possible
+	private static boolean DND_FROM_PALETTE = true; //
 
 	private IConfigurationProvider cfgProvider;
 
@@ -88,7 +88,7 @@ public class GFPaletteRoot extends PaletteRoot {
 		// remove old entries
 		setDefaultEntry(null);
 		@SuppressWarnings("unchecked")
-		List<PaletteEntry> allEntries = new ArrayList<PaletteEntry>(getChildren()); 
+		List<PaletteEntry> allEntries = new ArrayList<PaletteEntry>(getChildren());
 		// MUST make a copy
 		for (Iterator<PaletteEntry> iter = allEntries.iterator(); iter.hasNext();) {
 			PaletteEntry entry = iter.next();
@@ -121,7 +121,6 @@ public class GFPaletteRoot extends PaletteRoot {
 					if (createTool != null) {
 						drawer.add(createTool);
 					}
-
 				} else if (toolEntry instanceof IStackToolEntry) {
 					IStackToolEntry stackToolEntry = (IStackToolEntry) toolEntry;
 					PaletteStack stack = new PaletteStack(stackToolEntry.getLabel(), stackToolEntry.getDescription(),
@@ -137,100 +136,43 @@ public class GFPaletteRoot extends PaletteRoot {
 				} else if (toolEntry instanceof IPaletteSeparatorEntry) {
 					drawer.add(new PaletteSeparator());
 				}
-
 			}
-
 		}
-
-		// PaletteEntry creationTools = createCreationTools();
-		// if (creationTools != null)
-		// add(creationTools);
 	}
 
 	/**
 	 * Creates and adds the model-independent tools to a new PaletteContainer.
-	 * Those are for example: selection-tool, marque-tool, connection-tool.
+	 * Those are the selection-tool and the marquee-tool. Both tools are only
+	 * added in case the methods
+	 * {@link IToolBehaviorProvider#isShowSelectionTool()} respectively
+	 * {@link IToolBehaviorProvider#isShowMarqueeTool()} allow it. The selection
+	 * tool will be set as the default tool in case it is added.
 	 * 
-	 * @return The PaletteContainer withe the model-independent tools.
+	 * @return The PaletteContainer with the model-independent tools.
 	 */
 	protected PaletteContainer createModelIndependentTools() {
 		PaletteGroup controlGroup = new PaletteGroup(Messages.GraphicsPaletteRoot_0_xmen);
 		List<PaletteEntry> entries = new ArrayList<PaletteEntry>();
+		IToolBehaviorProvider toolBehaviorProvider = cfgProvider.getDiagramTypeProvider()
+				.getCurrentToolBehaviorProvider();
 
-		// selection tool
-		ToolEntry tool = new GFPanningSelectionToolEntry();
-		entries.add(tool);
-		setDefaultEntry(tool);
+		// Selection tool
+		if (toolBehaviorProvider.isShowSelectionTool()) {
+			ToolEntry tool = new GFPanningSelectionToolEntry();
+			entries.add(tool);
+			setDefaultEntry(tool);
+		}
 
-		// marquee tool
-		tool = new GFMarqueeToolEntry();
-		entries.add(tool);
+		// Marquee tool
+		if (toolBehaviorProvider.isShowMarqueeTool()) {
+			ToolEntry tool = new GFMarqueeToolEntry();
+			entries.add(tool);
+		}
 
 		controlGroup.addAll(entries);
 		return controlGroup;
 	}
 
-	/**
-	 * Creates and adds the creation-tools to a new PaletteContainer. Those
-	 * creation-tools are created depending on the information in the Model.
-	 * 
-	 * @return The PaletteContainer with the the creation-tools.
-	 */
-	// protected PaletteContainer createCreationTools() {
-	//
-	// if (cfgProvider == null) {
-	// // can happen for example on first initialization
-	// return null;
-	// }
-	//
-	// List<PaletteEntry> entries = new LinkedList<PaletteEntry>();
-	//
-	// IDiagramTypeProvider diagramTypeProvider =
-	// cfgProvider.getDiagramTypeProvider();
-	// IFeatureProvider featureProvider =
-	// diagramTypeProvider.getFeatureProvider();
-	// if (featureProvider != null) {
-	// ICreateConnectionFeature[] connectionFeatures =
-	// featureProvider.getCreateConnectionFeatures();
-	// for (int i = 0; i < connectionFeatures.length; i++) {
-	// ICreateConnectionFeature feat = connectionFeatures[i];
-	// DefaultCreationFactory cf = new DefaultCreationFactory(feat,
-	// ICreateFeature.class);
-	// PaletteEntry pe = new ConnectionCreationToolEntry(feat.getCreateName(),
-	// feat.getCreateDescription(),
-	// cf, ImagePool.getImageDescriptor(ImagePool.IMG_CONNECTION_SMALL),
-	// ImagePool
-	// .getImageDescriptor(ImagePool.IMG_CONNECTION_LARGE));
-	// entries.add(pe);
-	// }
-	//
-	// ICreateFeature[] createFeatures = featureProvider.getCreateFeatures();
-	// for (int i = 0; i < createFeatures.length; i++) {
-	// ICreateFeature feat = createFeatures[i];
-	// if
-	// (diagramTypeProvider.getCurrentToolBehaviorProvider().isPaletteApplicable(feat))
-	// {
-	// DefaultCreationFactory cf = new DefaultCreationFactory(feat,
-	// ICreateFeature.class);
-	// Object template = (DND_FROM_PALETTE == true) ? cf : null;
-	// PaletteEntry pe = new CombinedTemplateCreationEntry(feat.getCreateName(),
-	// feat
-	// .getCreateDescription(), template, cf,
-	// ImagePool.getImageDescriptorForId(feat
-	// .getCreateImageId()),
-	// ImagePool.getImageDescriptorForId(feat.getCreateImageId()));
-	// entries.add(pe);
-	// }
-	// }
-	// }
-	// if (entries.size() == 0)
-	// return null;
-	//
-	// PaletteDrawer drawer = new
-	// PaletteDrawer(TextPool.getString(TextPool.PALETTE_CREATION_GROUP), null);
-	// drawer.addAll(entries);
-	// return drawer;
-	// }
 	private PaletteEntry createTool(ICreationToolEntry creationToolEntry) {
 		String label = creationToolEntry.getLabel();
 		String description = creationToolEntry.getDescription();
@@ -250,7 +192,7 @@ public class GFPaletteRoot extends PaletteRoot {
 			ConnectionCreationToolEntry pe = new ConnectionCreationToolEntry(label, description, multiCreationFactory,
 					getImageDescriptor(creationToolEntry, true), getImageDescriptor(creationToolEntry, false));
 			pe.setToolClass(GFConnectionCreationTool.class);
-			return pe; 
+			return pe;
 		}
 		return null;
 	}

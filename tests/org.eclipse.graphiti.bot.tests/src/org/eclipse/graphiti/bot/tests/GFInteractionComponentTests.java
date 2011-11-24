@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 355027: Move of connection decorators when zoom level != 100 behaves weird
  *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
+ *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
  *
  * </copyright>
  *
@@ -74,6 +75,7 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.gef.finder.finders.PaletteFinder;
 import org.eclipse.swtbot.eclipse.gef.finder.matchers.AbstractToolEntryMatcher;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
+import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.hamcrest.Description;
@@ -153,6 +155,24 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		// Drag might not be accurate, add tolerance +-1
 		assertTrue((x + 149 <= figure.getBounds().x) && (figure.getBounds().x <= x + 151));
 		page.shutdownEditor(diagramEditor);
+	}
+
+	@Test
+	public void testHideSelectionAndMarqueeTools() throws Exception {
+		openDiagram(ITestConstants.DIAGRAM_TYPE_ID_WITH_HIDDEN_SELECTION_AND_MARQUEE_TOOL);
+		try {
+			ed.getGefEditor().activateTool("Select");
+		} catch (WidgetNotFoundException eSelection) {
+			// Expected this exception
+			try {
+				ed.getGefEditor().activateTool("Marquee");
+			} catch (WidgetNotFoundException eMarquee) {
+				// Expected this exception
+				return;
+			}
+			fail("Marquee tool must not exist");
+		}
+		fail("Selection tool must not exist");
 	}
 
 	@Test
@@ -310,8 +330,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		for (PictogramElement pictogramElement : selectedPictogramElements) {
 			if (pictogramElement instanceof ContainerShape) {
 				GraphicsAlgorithm containerShapeGa = pictogramElement.getGraphicsAlgorithm();
-				Rectangle rectangle = new Rectangle(containerShapeGa.getX(), containerShapeGa.getY(), containerShapeGa.getWidth(),
-						containerShapeGa.getHeight());
+				Rectangle rectangle = new Rectangle(containerShapeGa.getX(), containerShapeGa.getY(),
+						containerShapeGa.getWidth(), containerShapeGa.getHeight());
 				org.eclipse.draw2d.geometry.Point mouseLocation = diagramEditor
 						.calculateRealMouseLocation(diagramEditor.getMouseLocation());
 				boolean mouseIsInsideShape = rectangle.contains(mouseLocation);
@@ -714,26 +734,26 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 					Rectangle rectangle = new Rectangle(xOfShape1, yOfShape1, width, height);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-							createContext, rectangle);
+					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+							createFeature, createContext, rectangle);
 					commandStack.execute(createCommand);
 
 					rectangle = new Rectangle(xOfShape2, yOfShape2, width, height);
 					createContext = createCreateContext(dtp.getDiagram(), rectangle);
-					createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature, createContext,
-							rectangle);
+					createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+							createFeature, createContext, rectangle);
 					commandStack.execute(createCommand);
 
 					rectangle = new Rectangle(xOfShape3, yOfShape3, width, height);
 					createContext = createCreateContext(dtp.getDiagram(), rectangle);
-					createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature, createContext,
-							rectangle);
+					createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+							createFeature, createContext, rectangle);
 					commandStack.execute(createCommand);
 
 					rectangle = new Rectangle(xOfShape4, yOfShape4, width, height);
 					createContext = createCreateContext(dtp.getDiagram(), rectangle);
-					createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature, createContext,
-							rectangle);
+					createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+							createFeature, createContext, rectangle);
 					commandStack.execute(createCommand);
 				}
 			}
@@ -755,14 +775,16 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			public void run() {
 				ed.getGefEditor().activateTool("Rectangle");
-				// click on connection to insert rectangle between two other rectangles
+				// click on connection to insert rectangle between two other
+				// rectangles
 				ed.getGefEditor().click((xOfShape1 + 60 + xOfShape3) / 2, (yOfShape1 + 60 + yOfShape3) / 2);
 			}
 		});
 		Thread.sleep(DELAY);
 		ed.drag(xOfShape4 + DIL, yOfShape4 + DIL, xOfShape1 + DIL, (yOfShape2 + yOfShape1 + 2 * DIL) / 2);
 		Thread.sleep(DELAY);
-		ed.drag(xOfShape1 + DIL, yOfShape1 + DIL, (xOfShape1 + 2 * DIL + xOfShape3) / 2, (yOfShape2 + yOfShape1 + 2 * DIL) / 2);
+		ed.drag(xOfShape1 + DIL, yOfShape1 + DIL, (xOfShape1 + 2 * DIL + xOfShape3) / 2,
+				(yOfShape2 + yOfShape1 + 2 * DIL) / 2);
 		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
 	}
@@ -787,8 +809,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 					Rectangle rectangle = new Rectangle(x, y, 100, 100);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-							createContext, rectangle);
+					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+							createFeature, createContext, rectangle);
 					commandStack.execute(createCommand);
 				}
 			}
@@ -831,8 +853,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					if (SketchFeatureProvider.CF_RECTANGLE_SINGLE_TEXT.equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(x, y, 100, 100);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-								createContext, rectangle);
+						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+								createFeature, createContext, rectangle);
 						commandStack.execute(createCommand);
 						break;
 					}
@@ -886,14 +908,14 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					if ("Rectangle".equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(x, y, 100, 100);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-								createContext, rectangle);
+						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+								createFeature, createContext, rectangle);
 						commandStack.execute(createCommand);
 					} else if ("Rectangle Container".equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(x + 300, y - 50, 200, 200);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-								createContext, rectangle);
+						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+								createFeature, createContext, rectangle);
 						commandStack.execute(createCommand);
 					}
 				}
@@ -929,35 +951,36 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				ICreateFeature[] createFeatures = fp.getCreateFeatures();
 				for (ICreateFeature createFeature : createFeatures) {
 					if ("Rectangle".equals(createFeature.getName())) {
-						Rectangle rectangle = new Rectangle(xContainer1 + containerSize, yContainer1 + containerSize, rectangleSize,
-								rectangleSize);
+						Rectangle rectangle = new Rectangle(xContainer1 + containerSize, yContainer1 + containerSize,
+								rectangleSize, rectangleSize);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-								createContext, rectangle);
+						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+								createFeature, createContext, rectangle);
 						commandStack.execute(createCommand);
 
-						rectangle = new Rectangle(xContainer2 + containerSize, yContainer2 + containerSize, rectangleSize, rectangleSize);
+						rectangle = new Rectangle(xContainer2 + containerSize, yContainer2 + containerSize,
+								rectangleSize, rectangleSize);
 						createContext = createCreateContext(dtp.getDiagram(), rectangle);
-						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-								createContext, rectangle);
+						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+								createFeature, createContext, rectangle);
 						commandStack.execute(createCommand);
 					} else if ("Rectangle Container".equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(xContainer1, yContainer1, containerSize, containerSize);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-								createContext, rectangle);
+						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+								createFeature, createContext, rectangle);
 						commandStack.execute(createCommand);
 
 						rectangle = new Rectangle(xContainer2, yContainer2, containerSize, containerSize);
 						createContext = createCreateContext(dtp.getDiagram(), rectangle);
-						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-								createContext, rectangle);
+						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+								createFeature, createContext, rectangle);
 						commandStack.execute(createCommand);
 
 						rectangle = new Rectangle(xContainer3, yContainer3, containerSize, containerSize);
 						createContext = createCreateContext(dtp.getDiagram(), rectangle);
-						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-								createContext, rectangle);
+						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+								createFeature, createContext, rectangle);
 						commandStack.execute(createCommand);
 					}
 				}
@@ -970,10 +993,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			public void run() {
 				int currX = xContainer1 + containerSize + rectangleSize / 2;
 				int currY = yContainer1 + containerSize + rectangleSize / 2;
-				ed.drag(currX, currY, currX - (containerSize + rectangleSize) / 2, currY - (containerSize + rectangleSize) / 2);
+				ed.drag(currX, currY, currX - (containerSize + rectangleSize) / 2, currY
+						- (containerSize + rectangleSize) / 2);
 				currX = xContainer2 + containerSize + rectangleSize / 2;
 				currY = yContainer2 + containerSize + rectangleSize / 2;
-				ed.drag(currX, currY, currX - (containerSize + rectangleSize) / 2, currY - (containerSize + rectangleSize) / 2);
+				ed.drag(currX, currY, currX - (containerSize + rectangleSize) / 2, currY
+						- (containerSize + rectangleSize) / 2);
 			}
 		});
 		Thread.sleep(DELAY);
@@ -995,8 +1020,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(DELAY);
-		ed.drag(300 + containerSize / 2 - rectangleSize / 2 - 1, 100 + containerSize / 2, 300 + containerSize / 2 - rectangleSize / 2 - 10,
-				100 + containerSize / 2);
+		ed.drag(300 + containerSize / 2 - rectangleSize / 2 - 1, 100 + containerSize / 2, 300 + containerSize / 2
+				- rectangleSize / 2 - 10, 100 + containerSize / 2);
 		ed.drag(100 + containerSize / 2, 100 + containerSize / 2, 100 + containerSize / 2, 300 + containerSize / 2);
 		Thread.sleep(DELAY);
 		page.shutdownEditor(diagramEditor);
@@ -1018,13 +1043,13 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					if ("Rectangle".equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(x, y, 100, 100);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-								createContext, rectangle);
+						Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+								createFeature, createContext, rectangle);
 						commandStack.execute(createCommand);
 						rectangle = new Rectangle(x + 200, y, 100, 100);
 						createContext = createCreateContext(dtp.getDiagram(), rectangle);
-						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-								createContext, rectangle);
+						createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+								createFeature, createContext, rectangle);
 						commandStack.execute(createCommand);
 					}
 				}
@@ -1140,7 +1165,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						ed.getGefEditor().drag(currX, currY, currX + 10, currY + 10);
 					}
 				});
-				//				Thread.sleep(300);
+				// Thread.sleep(300);
 				counter[0]++;
 			}
 		}
@@ -1151,11 +1176,13 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 	@Test
 	public void testMoveConnectionDecorator() throws InterruptedException {
-		// Test for Bug 355027: Move of connection decorators when zoom level != 100 behaves weird
+		// Test for Bug 355027: Move of connection decorators when zoom level !=
+		// 100 behaves weird
 		page.closeAllEditors();
 		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
-		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider()).getInnerFeatureProvider();
+		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider())
+				.getInnerFeatureProvider();
 		final CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
 
 		// Preparation work
@@ -1167,8 +1194,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						"draw rounded rectangle", RoundedRectangle.class);
 				Rectangle rectangle = new Rectangle(0, 0, 300, 200);
 				ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-				Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
-						createContext, rectangle);
+				Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(),
+						createFeature, createContext, rectangle);
 				commandStack.execute(createCommand);
 				ContainerShape outerShape = (ContainerShape) dtp.getDiagram().getChildren().get(0);
 
@@ -1177,8 +1204,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						"draw rectangle with a single line text", org.eclipse.graphiti.mm.algorithms.Rectangle.class);
 				rectangle = new Rectangle(50, 50, 51, 51);
 				createContext = createCreateContext(outerShape, rectangle);
-				createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature, createContext,
-						rectangle);
+				createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
+						createContext, rectangle);
 				commandStack.execute(createCommand);
 				Shape leftShape = outerShape.getChildren().get(0);
 
@@ -1186,14 +1213,14 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						"draw rectangle with a single line text", org.eclipse.graphiti.mm.algorithms.Rectangle.class);
 				rectangle = new Rectangle(150, 50, 51, 51);
 				createContext = createCreateContext(outerShape, rectangle);
-				createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature, createContext,
-						rectangle);
+				createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
+						createContext, rectangle);
 				commandStack.execute(createCommand);
 				Shape rightShape = outerShape.getChildren().get(1);
 
 				// Create a connection between the child shapes
-				final ICreateConnectionFeature[] ccfs = new ICreateConnectionFeature[] { new SketchCreateFreeformConnectionFeature(fp,
-						"free", "freeform connection") };
+				final ICreateConnectionFeature[] ccfs = new ICreateConnectionFeature[] { new SketchCreateFreeformConnectionFeature(
+						fp, "free", "freeform connection") };
 				Anchor sourceAnchor = getPeService().getChopboxAnchor(leftShape);
 				Anchor targetAnchor = getPeService().getChopboxAnchor(rightShape);
 				final CreateConnectionContext ccc = new CreateConnectionContext();
@@ -1215,16 +1242,19 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				GenericFeatureCommandWithContext gfcwc = new GenericFeatureCommandWithContext(feature, context);
 				CommandContainer commandContainer = new CommandContainer(fp);
 				commandContainer.add(gfcwc);
-				GefCommandWrapper gefCommandWrapper = new GefCommandWrapper(commandContainer, ed.getTransactionalEditingDomain());
+				GefCommandWrapper gefCommandWrapper = new GefCommandWrapper(commandContainer,
+						ed.getTransactionalEditingDomain());
 				commandStack.execute(gefCommandWrapper);
 
 			}
 		});
 		Thread.sleep(SHORT_DELAY);
 
-		// Do the move of the connection decorator with standard zoom level (100%)
+		// Do the move of the connection decorator with standard zoom level
+		// (100%)
 		ed.drag(115, 80, 135, 110);
-		ConnectionDecorator connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators().get(0);
+		ConnectionDecorator connectionDecorator = dtp.getDiagram().getConnections().get(0).getConnectionDecorators()
+				.get(0);
 		/*
 		 * Strange numbers below are ok: they are "calculated" using the
 		 * previous offset of the decorator, the new move point and the position

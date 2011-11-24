@@ -2,7 +2,7 @@
 <?eclipse version="3.0"?><!--
     <copyright>
    
-    Copyright (c) 2005, 2010 SAP AG.
+    Copyright (c) 2005, 2011 SAP AG.
     All rights reserved. This program and the accompanying materials
     are made available under the terms of the Eclipse Public License v1.0
     which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
    
     Contributors:
        SAP AG - initial API, implementation and documentation
+       mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
    
     </copyright>
    
@@ -27,6 +28,11 @@
             name="Diagram Type with auto update at startup enabled"
             type="dtWithAutoUpdateAtStartup">
       </diagramType>
+      <diagramType
+            id="org.eclipse.graphiti.bot.tests.dtWithHiddenSelectionAndMarqueeTool"
+            name="Diagram Type for hiding the selection and marquee tool"
+            type="dtWithHiddenSelectionAndMarqueeTool">
+      </diagramType>
    </extension>
    <extension
          point="org.eclipse.graphiti.ui.diagramTypeProviders">
@@ -37,6 +43,15 @@
             name="Diagram Type Provider with auto update at startup">
          <diagramType
                id="org.eclipse.graphiti.bot.tests.dtWithAutoUpdateAtStartup">
+         </diagramType>
+      </diagramTypeProvider>
+      <diagramTypeProvider
+            class="org.eclipse.graphiti.bot.tests.DTPwithHiddenSelectionAndMarqueeTool"
+            description="Test for hiding the selection and marquee tool"
+            id="org.eclipse.graphiti.bot.tests.dtpWithHiddenSelectionAndMarqueeTool"
+            name="Diagram Type Provider for hiding the selection and marquee tool">
+         <diagramType
+               id="org.eclipse.graphiti.bot.tests.dtWithHiddenSelectionAndMarqueeTool">
          </diagramType>
       </diagramTypeProvider>
    </extension>

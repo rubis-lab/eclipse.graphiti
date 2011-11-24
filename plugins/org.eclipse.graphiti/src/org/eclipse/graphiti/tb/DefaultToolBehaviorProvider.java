@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
  *
  * </copyright>
  *
@@ -446,9 +447,41 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	}
 
 	/**
+	 * {@see IToolBehaviorProvider#isShowFlyoutPalette()}. This default
+	 * implementation returns <code>true</code> and tells the framework to show
+	 * the palette.
+	 * 
+	 * @return <code>true</code>
+	 * 
 	 * @since 0.9
 	 */
 	public boolean isShowFlyoutPalette() {
+		return true;
+	}
+
+	/**
+	 * {@see IToolBehaviorProvider#isShowSelectionTool()}. This default
+	 * implementation returns <code>true</code> and tells the framework to show
+	 * the selection tool entry in the palette.
+	 * 
+	 * @return <code>true</code>
+	 * 
+	 * @since 0.9
+	 */
+	public boolean isShowSelectionTool() {
+		return true;
+	}
+
+	/**
+	 * {@see IToolBehaviorProvider#isShowMarqueeTool()}. This default
+	 * implementation returns <code>true</code> and tells the framework to show
+	 * the marquee tool entry in the palette.
+	 * 
+	 * @return <code>true</code>
+	 * 
+	 * @since 0.9
+	 */
+	public boolean isShowMarqueeTool() {
 		return true;
 	}
 }

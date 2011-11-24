@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 348662 - Setting tooptip to null in tool behavior provider doesn't clear up
  *                         tooltip if the associated figure has a previous tooltip
+ *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
  *
  * </copyright>
  *
@@ -45,4 +46,10 @@ public interface ITestConstants {
 	 */
 	public static final String DIAGRAM_TYPE_ID_WITH_AUTO_UPDATE_AT_STARTUP = "dtWithAutoUpdateAtStartup";
 
+	/**
+	 * The Constant DIAGRAM_TYPE_ID_WITH_HIDDEN_SELECTION_AND_MARQUEE_TOOL.
+	 * 
+	 * @since 0.9
+	 */
+	public static final String DIAGRAM_TYPE_ID_WITH_HIDDEN_SELECTION_AND_MARQUEE_TOOL = "dtWithHiddenSelectionAndMarqueeTool";
 }
