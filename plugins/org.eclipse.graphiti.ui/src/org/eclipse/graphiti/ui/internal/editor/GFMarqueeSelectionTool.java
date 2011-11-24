@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2005 IBM Corporation and others.
+ * Copyright (c) 2000, 2011 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,9 +9,11 @@
  *     IBM Corporation - initial API and implementation
  *     SAP AG - Changed for initial API, implementation and documentation of Graphiti:
  *     		changed calculateNewSelection to correctly handle HandleBounds
+ *     Felix Velasco (mwenz) - Bug 349416 - Support drag&drop operations on FixPointAnchors
+ *                                          the same way as for BoxRelativeAnchors
+ *     
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.editor;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -37,13 +39,14 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.SharedCursors;
 import org.eclipse.gef.handles.HandleBounds;
 import org.eclipse.gef.tools.AbstractTool;
-import org.eclipse.graphiti.ui.internal.parts.AnchorEditPart;
+import org.eclipse.graphiti.ui.internal.parts.AdvancedAnchorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionDecoratorEditPart;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Display;
+
 
 /**
  * This is a copy of class org.eclipse.gef.tools.MarqueeSelectionTool. In this
@@ -513,7 +516,7 @@ public class GFMarqueeSelectionTool extends AbstractTool {
 				if (newSelections.contains(ep.getParent())) {
 					continue;
 				}
-				if (ep instanceof AnchorEditPart || ep instanceof ConnectionDecoratorEditPart) {
+				if (ep instanceof AdvancedAnchorEditPart || ep instanceof ConnectionDecoratorEditPart) {
 					continue;
 				}
 				filteredSelections.add(ep);

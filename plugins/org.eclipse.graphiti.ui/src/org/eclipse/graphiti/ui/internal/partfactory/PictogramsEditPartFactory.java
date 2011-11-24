@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Felix Velasco (mwenz) - Bug 349416 - Support drag&drop operations on FixPointAnchors
+ *                                         the same way as for BoxRelativeAnchors
  *
  * </copyright>
  *
@@ -19,22 +21,20 @@ import java.util.Map;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
+import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.ManhattanConnection;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.internal.config.AbstractConfigurationProviderHolder;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IEditPartFactory;
-import org.eclipse.graphiti.ui.internal.parts.BoxRelativeAnchorEditPart;
+import org.eclipse.graphiti.ui.internal.parts.AdvancedAnchorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionDecoratorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ContainerShapeEditPart;
 import org.eclipse.graphiti.ui.internal.parts.DiagramEditPart;
-import org.eclipse.graphiti.ui.internal.parts.FixPointAnchorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.FreeFormConnectionEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ManhattanConnectionEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
@@ -92,10 +92,8 @@ public class PictogramsEditPartFactory extends AbstractConfigurationProviderHold
 				ret = new ManhattanConnectionEditPart(configurationProvider, (ManhattanConnection) model);
 			} else if (model instanceof FreeFormConnection) {
 				ret = new FreeFormConnectionEditPart(configurationProvider, (FreeFormConnection) model);
-			} else if (model instanceof FixPointAnchor) {
-				ret = new FixPointAnchorEditPart(configurationProvider, (FixPointAnchor) model);
-			} else if (model instanceof BoxRelativeAnchor) {
-				ret = new BoxRelativeAnchorEditPart(configurationProvider, (BoxRelativeAnchor) model);
+			} else if (model instanceof AdvancedAnchor) {
+				ret = new AdvancedAnchorEditPart(configurationProvider, (AdvancedAnchor) model);
 			}
 		}
 

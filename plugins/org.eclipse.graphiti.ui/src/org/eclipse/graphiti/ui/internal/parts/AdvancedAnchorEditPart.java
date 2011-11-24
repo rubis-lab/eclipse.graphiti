@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Felix Velasco (mwenz) - Bug 349416 - Support drag&drop operations on FixPointAnchors
+ *                                         the same way as for BoxRelativeAnchors
  *
  * </copyright>
  *
@@ -16,29 +18,43 @@
 package org.eclipse.graphiti.ui.internal.parts;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.DragTracker;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.tools.ConnectionDragCreationTool;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.internal.features.context.impl.base.PictogramElementContext;
 import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFChopboxAnchor;
+import org.eclipse.graphiti.ui.internal.util.gef.MultiCreationFactory;
 
 /**
- * Abstraction from the concrete anchor edit parts (as e.g. BoxRelativeAnchor).
+ * EditPart for an {@link AdvancedAnchor}. Such an anchor can be positioned
+ * either at a fixed point of the container ({@link FixPointAnchor}) or relative
+ * to a container ({@link BoxRelativeAnchor}). For the graphical notation see
+ * {@link AdvancedAnchor} and its subclasses {@link FixPointAnchor} adn
+ * {@link BoxRelativeAnchor}. .
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public abstract class AnchorEditPart extends AbstractGraphicalEditPart implements IAnchorEditPart, NodeEditPart {
+public class AdvancedAnchorEditPart extends AbstractGraphicalEditPart implements IAnchorEditPart, NodeEditPart {
 
 	private ConnectionAnchor connectionAnchor;
 
@@ -55,7 +71,7 @@ public abstract class AnchorEditPart extends AbstractGraphicalEditPart implement
 	 * @param anchor
 	 *            the anchor
 	 */
-	public AnchorEditPart(IConfigurationProvider configurationProvider, Anchor anchor) {
+	public AdvancedAnchorEditPart(IConfigurationProvider configurationProvider, AdvancedAnchor anchor) {
 		setModel(anchor);
 		delegate = new PictogramElementDelegate(configurationProvider, anchor, this);
 	}
@@ -175,4 +191,42 @@ public abstract class AnchorEditPart extends AbstractGraphicalEditPart implement
 		return delegate;
 	}
 
+	@Override
+	protected void createEditPolicies() {
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, getConfigurationProvider().getEditPolicyFactory().createModelObjectDeleteEditPolicy(
+				getConfigurationProvider()));
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, getConfigurationProvider().getEditPolicyFactory().createConnectionEditPolicy());
+	}
+
+	/**
+	 * Allow the initiation of a connection creation by drag&drop from an anchor
+	 * (FixPoint and BoxReleative)
+	 **/
+	@Override
+	public DragTracker getDragTracker(Request request) {
+	
+		PictogramElementContext context = new PictogramElementContext(getPictogramElement());
+		IFeature[] dragAndDropFeatures = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider().getDragAndDropFeatures(
+				context);
+		if (dragAndDropFeatures == null || dragAndDropFeatures.length == 0)
+			return super.getDragTracker(request);
+	
+		ConnectionDragCreationTool tool = new ConnectionDragCreationTool() {
+				/**
+				 * changed order: feedback gets deleted after command is executed
+				 * (popup!)
+				 */
+				@Override
+				protected boolean handleCreateConnection() {
+					Command endCommand = getCommand();
+					setCurrentCommand(endCommand);
+					executeCurrentCommand();
+					eraseSourceFeedback();
+	
+					return true;
+				}
+			};
+			tool.setFactory(new MultiCreationFactory(Arrays.asList(dragAndDropFeatures)));
+		return tool;
+	}
 }

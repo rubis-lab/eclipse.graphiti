@@ -12,6 +12,8 @@
  *    mwenz - Bug 348662 - Setting tooptip to null in tool behavior provider doesn't clear up
  *                         tooltip if the associated figure has a previous tooltip
  *    mgorning - Bug 363229 - Nested GA inside Anchors are not correctly refreshed
+ *    Felix Velasco (mwenz) - Bug 349416 - Support drag&drop operations on FixPointAnchors
+ *                                         the same way as for BoxRelativeAnchors
  *
  * </copyright>
  *
@@ -1469,7 +1471,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		List<IFigure> ret = new ArrayList<IFigure>();
 		List<EditPart> children = GraphitiUiInternal.getGefService().getEditPartChildren(getContainerEditPart());
 		for (EditPart ep : children) {
-			if (ep instanceof ShapeEditPart || ep instanceof AnchorEditPart) {
+			if (ep instanceof ShapeEditPart || ep instanceof AdvancedAnchorEditPart) {
 				GraphicalEditPart gep = (GraphicalEditPart) ep;
 				ret.add(gep.getFigure());
 			}
