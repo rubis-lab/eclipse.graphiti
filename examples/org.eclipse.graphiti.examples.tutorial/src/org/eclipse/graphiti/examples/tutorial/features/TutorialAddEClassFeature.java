@@ -80,7 +80,6 @@ public class TutorialAddEClassFeature extends AbstractAddShapeFeature {
 
 			// create and set visible rectangle inside invisible rectangle
 			roundedRectangle = gaService.createPlainRoundedRectangle(invisibleRectangle, 5, 5);
-			roundedRectangle.setParentGraphicsAlgorithm(invisibleRectangle);
 			roundedRectangle.setStyle(StyleUtil.getStyleForEClass(getDiagram()));
 			gaService.setLocationAndSize(roundedRectangle, 0, 0, width, height);
 
