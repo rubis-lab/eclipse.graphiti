@@ -1409,14 +1409,6 @@ public class DiagramEditorInternal extends GraphicalEditorWithFlyoutPalette impl
 		selectionActions.add(action.getId());
 	}
 
-	/**
-	 * Register diagram change listener. Since the diagram comes from a
-	 * ModelEditorInput and ModelEditor input provides an own ResourceSet for
-	 * every editor instance, we can safely register a listener with the
-	 * provided ResourceSet: we will be notified only by events regarding the
-	 * diagram!
-	 * 
-	 */
 	private void registerDiagramResourceSetListener() {
 		diagramChangeListener = new DiagramChangeListener(this);
 		TransactionalEditingDomain eDomain = getEditingDomain();
