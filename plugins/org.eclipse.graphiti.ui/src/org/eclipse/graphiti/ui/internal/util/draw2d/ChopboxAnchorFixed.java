@@ -41,6 +41,16 @@ public class ChopboxAnchorFixed extends ChopboxAnchor {
 	 */
 	@Override
 	public Point getLocation(Point reference) {
+
+		Rectangle box = getBox();
+		if (box.width() == 1 && box.height == 1) {
+			Rectangle r = Rectangle.SINGLETON;
+			r.setBounds(box);
+			getOwner().translateToAbsolute(r); // consider zoom etc.
+			Point point = new Point(r.x(), r.y());
+			return point;
+		}
+
 		Rectangle r = Rectangle.SINGLETON;
 		r.setBounds(getBox());
 		r.translate(-1, -1);
