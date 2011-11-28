@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mgorning - Bug 355968 - Only ChopboxAnchors should compute the reference point as the center of its GA
  *
  * </copyright>
  *
@@ -19,6 +20,7 @@ import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.ui.internal.services.impl.GefService;
 
 /**
@@ -30,8 +32,11 @@ import org.eclipse.graphiti.ui.internal.services.impl.GefService;
  */
 public class ChopboxAnchorFixed extends ChopboxAnchor {
 
-	public ChopboxAnchorFixed(IFigure figure) {
+	private AdvancedAnchor advancedAnchor = null;
+
+	public ChopboxAnchorFixed(IFigure figure, AdvancedAnchor advancedAnchor) {
 		super(figure);
+		this.advancedAnchor = advancedAnchor;
 	}
 
 	/**
@@ -42,8 +47,8 @@ public class ChopboxAnchorFixed extends ChopboxAnchor {
 	@Override
 	public Point getLocation(Point reference) {
 
-		Rectangle box = getBox();
-		if (box.width() == 1 && box.height == 1) {
+		if (getAdvancedAnchor() != null && getAdvancedAnchor().isUseAnchorLocationAsConnectionEndpoint()) {
+			Rectangle box = getBox();
 			Rectangle r = Rectangle.SINGLETON;
 			r.setBounds(box);
 			getOwner().translateToAbsolute(r); // consider zoom etc.
@@ -90,5 +95,9 @@ public class ChopboxAnchorFixed extends ChopboxAnchor {
 		centerY += dy;
 
 		return new Point(Math.round(centerX), Math.round(centerY));
+	}
+
+	protected AdvancedAnchor getAdvancedAnchor() {
+		return this.advancedAnchor;
 	}
 }

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 336516 - Anchors with polyline GA caused NPE
+ *    mgorning - Bug 355968 - Only ChopboxAnchors should compute the reference point as the center of its GA
  *
  * </copyright>
  *
@@ -39,15 +40,12 @@ import org.eclipse.graphiti.ui.internal.figures.GFPolyline;
  */
 public class GFChopboxAnchor extends ChopboxAnchorFixed {
 
-	private AdvancedAnchor advancedAnchor = null;
-
 	public GFChopboxAnchor(IFigure figure) {
-		super(figure);
+		super(figure, null);
 	}
 
 	public GFChopboxAnchor(IFigure figure, AdvancedAnchor advancedAnchor) {
-		super(figure);
-		this.advancedAnchor = advancedAnchor;
+		super(figure, advancedAnchor);
 	}
 
 	/**
@@ -61,9 +59,9 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 	protected Rectangle getBox() {
 		if (getOwner() instanceof HandleBounds) {
 			Rectangle copy = ((HandleBounds) getOwner()).getHandleBounds().getCopy();
-			if (advancedAnchor != null && advancedAnchor.isUseAnchorLocationAsConnectionEndpoint()) {
-				int x = advancedAnchor.getGraphicsAlgorithm().getX();
-				int y = advancedAnchor.getGraphicsAlgorithm().getY();
+			if (getAdvancedAnchor() != null && getAdvancedAnchor().isUseAnchorLocationAsConnectionEndpoint()) {
+				int x = getAdvancedAnchor().getGraphicsAlgorithm().getX();
+				int y = getAdvancedAnchor().getGraphicsAlgorithm().getY();
 				copy.translate(-x, -y);
 				copy.setHeight(1);
 				copy.setWidth(1);
