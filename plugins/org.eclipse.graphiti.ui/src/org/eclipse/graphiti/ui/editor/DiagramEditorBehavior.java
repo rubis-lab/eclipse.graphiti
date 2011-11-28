@@ -53,7 +53,6 @@ import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
-import org.eclipse.emf.workspace.ResourceUndoContext;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
@@ -696,40 +695,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 
 	public void historyNotification(OperationHistoryEvent event) {
 		switch (event.getEventType()) {
-		case OperationHistoryEvent.DONE:
-			final Set<Resource> affectedResources = ResourceUndoContext.getAffectedResources(event.getOperation());
-			final TransactionalEditingDomain editingDomain = getEditingDomain();
-			if (editingDomain != null) {
-				final ResourceSet resourceSet = editingDomain.getResourceSet();
-				// Editing domain might already be disposed
-				if (resourceSet != null) {
-					final EList<Resource> resourcesInThisEditor = resourceSet.getResources();
-					for (final Resource resource : resourcesInThisEditor) {
-						if (affectedResources.contains(resource)) {
-							// final IUndoableOperation operation =
-							// event.getOperation();
-
-							// The following coding was taken over from the
-							// generated EMF editors
-							// In our scenario it seems not to be necessary to
-							// remove the default
-							// undo context from the operation to achieve
-							// separate undo stacks in
-							// separate editors. In contrast: if we remove the
-							// default undo context
-							// we break the undo behavior inside the Diagram
-							// Editor!
-							// operation.removeContext(((IWorkspaceCommandStack)
-							// editingDomain.getCommandStack()).getDefaultUndoContext());
-
-							// add our undo context to populate our undo menu
-							// operation.addContext(undoContext);
-							return;
-						}
-					}
-				}
-			}
-			break;
 		case OperationHistoryEvent.REDONE:
 		case OperationHistoryEvent.UNDONE:
 			this.dirtyStateUpdater.run();
