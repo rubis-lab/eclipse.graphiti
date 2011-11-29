@@ -1074,9 +1074,11 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
-	 * We provide migration from 0.8.0 to 1.0.0. You can override if you want to
+	 * We provide migration from 0.8.0 to 0.9.0. You can override if you want to
 	 * migrate manually. WARNING: If your diagram is under version control, this
 	 * method can cause a check out dialog to be opened etc.
+	 * 
+	 * @since 0.9
 	 */
 	protected void migrateDiagramModelIfNecessary() {
 		final Diagram diagram = getDiagramTypeProvider().getDiagram();
