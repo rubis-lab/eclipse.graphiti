@@ -569,11 +569,11 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 			r.eAdapters().add(updateAdapter);
 		}
 
-		// // Register for object deletion
-		// if (object != null) {
-		// elementDeleteListener = new ElementDeleteListener();
-		// object.eAdapters().add(this.elementDeleteListener);
-		// }
+		// Register for object deletion
+		if (object != null) {
+			elementDeleteListener = new ElementDeleteListener();
+			object.eAdapters().add(this.elementDeleteListener);
+		}
 
 		getOperationHistory().addOperationHistoryListener(this);
 	}
@@ -594,10 +594,10 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 			r.eAdapters().remove(updateAdapter);
 		}
 
-		// EObject object = (EObject) editorPart.getAdapter(Diagram.class);
-		// if (object != null) {
-		// object.eAdapters().remove(elementDeleteListener);
-		// }
+		EObject object = (EObject) editorPart.getAdapter(Diagram.class);
+		if (object != null) {
+			object.eAdapters().remove(elementDeleteListener);
+		}
 
 		workspaceSynchronizer.dispose();
 
@@ -645,7 +645,9 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	/**
-	 * Closes editor if model element was deleted.
+	 * Closes editor if model element was deleted. For instace, if only the
+	 * diagram object is deleted from the resource, this listeners handles
+	 * closing the editor.
 	 */
 	private final class ElementDeleteListener extends AdapterImpl {
 
@@ -669,9 +671,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 				if (site == null) {
 					return;
 				}
-				final EObject object = (EObject) editorPart.getAdapter(Diagram.class);
 				final Shell shell = site.getShell();
-				final IWorkbenchPage page = site.getPage();
 				// Do the real work, e.g. object retrieval from input and
 				// closing, asynchronous to not block this listener longer than necessary,
 				// which may provoke deadlocks.
@@ -680,7 +680,25 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 						if (editorPart == null) {
 							return; // disposed
 						}
-						page.closeEditor(part, false);
+						if (shell.isDisposed()) {
+							return; // disposed
+						}
+						EObject obj = null;
+						try {
+							obj = (EObject) editorPart.getAdapter(EObject.class);
+						} catch (final Exception e) {
+							// Ignore, exception indicates that the object has
+							// been deleted
+						}
+						if (obj == null || EcoreUtil.getRootContainer(obj) == null) {
+							// object is gone so try to close
+							final IWorkbenchPage page = site.getPage();
+							if (T.racer().debug()) {
+								final String editorName = part.getTitle();
+								T.racer().debug("Closing editor " + editorName); //$NON-NLS-1$
+							}
+							page.closeEditor(part, false);
+						}
 					}
 				});
 			}
