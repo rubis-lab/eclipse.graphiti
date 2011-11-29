@@ -1651,7 +1651,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			public void stackChanged(CommandStackEvent event) {
 				// Only fire if triggered from UI thread
 				if (Display.getCurrent() != null) {
-					DiagramEditor.this.firePropertyChange(IEditorPart.PROP_DIRTY);
+					firePropertyChange(IEditorPart.PROP_DIRTY);
 
 					// Promote the changes to the command stack also to the
 					// action bars and registered actions to correctly reflect
