@@ -345,6 +345,12 @@
         <filter id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="getDiagram()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
                 <message_argument value="getEObject()"/>
             </message_arguments>
         </filter>
