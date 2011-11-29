@@ -45,7 +45,12 @@ public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
 
 		Rectangle clip = g.getClip(Rectangle.SINGLETON);
 
-		GraphicsAlgorithm graphicsAlgorithm = getDiagram().getGraphicsAlgorithm();
+		Diagram diagram = getDiagram();
+		if (diagram == null) {
+			// Editor is already disposed
+			return;
+		}
+		GraphicsAlgorithm graphicsAlgorithm = diagram.getGraphicsAlgorithm();
 
 		org.eclipse.graphiti.mm.algorithms.styles.Color background = Graphiti.getGaService().getBackgroundColor(graphicsAlgorithm, true);
 		if (background.getBlue() != getBackgroundColor().getBlue() || background.getRed() != getBackgroundColor().getRed()
@@ -59,8 +64,8 @@ public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
 
 		Color minorLineColor = getMinorLineColor();
 
-		gridX = getDiagram().getGridUnit();
-		gridY = getDiagram().getVerticalGridUnit();
+		gridX = diagram.getGridUnit();
+		gridY = diagram.getVerticalGridUnit();
 		if (gridY == -1) {
 			// No vertical grid unit set (or old diagram before 0.8): use vertical grid unit
 			gridY = gridX;
