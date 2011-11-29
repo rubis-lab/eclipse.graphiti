@@ -102,6 +102,7 @@ import org.eclipse.graphiti.features.context.ISaveImageContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.SaveImageContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.internal.IDiagramVersion;
 import org.eclipse.graphiti.internal.command.AddFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
@@ -112,6 +113,7 @@ import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
@@ -547,6 +549,15 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 
 	public void doSave(IProgressMonitor monitor) {
+		// set version info.
+		final Diagram diagram = getDiagramTypeProvider().getDiagram();
+		getEditingDomain().getCommandStack().execute(new RecordingCommand(getEditingDomain()) {
+
+			@Override
+			protected void doExecute() {
+				diagram.eSet(PictogramsPackage.eINSTANCE.getDiagram_Version(), IDiagramVersion.CURRENT);
+			}
+		});
 		Resource[] savedResources = getBehavior().doSave(monitor);
 		commandStackChanged(null);
 
