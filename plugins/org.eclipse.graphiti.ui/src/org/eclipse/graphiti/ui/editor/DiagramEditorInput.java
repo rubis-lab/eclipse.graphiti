@@ -137,14 +137,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 		return diagramEditorInput;
 	}
 
-	/**
-	 * Returns the diagram instance of this input
-	 * 
-	 * @return The diagram.
-	 */
-	public Diagram getDiagram() {
-		return (Diagram) getAdapter(Diagram.class);
-	}
 
 	/**
 	 * Returns the diagram type provider id.
