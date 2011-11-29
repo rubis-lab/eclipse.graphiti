@@ -645,7 +645,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	/**
-	 * Closes editor if model element was deleted. For instace, if only the
+	 * Closes editor if model element was deleted. For instance, if only the
 	 * diagram object is deleted from the resource, this listeners handles
 	 * closing the editor.
 	 */
@@ -683,15 +683,15 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 						if (shell.isDisposed()) {
 							return; // disposed
 						}
-						EObject obj = null;
+						Diagram diagram = null;
 						try {
-							obj = (EObject) editorPart.getAdapter(Diagram.class);
+							diagram = (Diagram) editorPart.getAdapter(Diagram.class);
 						} catch (final Exception e) {
-							// Ignore, exception indicates that the object has
+							// Ignore, exception indicates that the diagram has
 							// been deleted
 						}
-						if (obj == null || EcoreUtil.getRootContainer(obj) == null) {
-							// object is gone so try to close
+						if (diagram == null || EcoreUtil.getRootContainer(diagram) == null) {
+							// diagram is gone so try to close
 							final IWorkbenchPage page = site.getPage();
 							if (T.racer().debug()) {
 								final String editorName = part.getTitle();
