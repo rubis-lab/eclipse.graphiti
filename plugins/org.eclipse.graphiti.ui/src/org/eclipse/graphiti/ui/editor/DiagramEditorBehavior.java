@@ -685,7 +685,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 						}
 						EObject obj = null;
 						try {
-							obj = (EObject) editorPart.getAdapter(EObject.class);
+							obj = (EObject) editorPart.getAdapter(Diagram.class);
 						} catch (final Exception e) {
 							// Ignore, exception indicates that the object has
 							// been deleted
