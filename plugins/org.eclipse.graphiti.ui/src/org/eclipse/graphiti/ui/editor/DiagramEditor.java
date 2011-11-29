@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
@@ -1041,6 +1042,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		getBehavior().initializeEditingDomain();
 
 		try {
+			// In next line GEF calls setSite(), setInput(),
+			// getEditingDomain(), ...
 			super.init(site, input);
 		} catch (RuntimeException e) {
 			throw new PartInitException(e.getMessage());
@@ -1052,8 +1055,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 				firePropertyChange(IEditorPart.PROP_DIRTY);
 			}
 		});
-		// In next line GEF calls setSite(), setInput(),
-		// getEditingDomain(), ...
+
+		migrateDiagramModelIfNecessary();
 		fwListener = new CommandStackListener() {
 
 
@@ -1068,6 +1071,23 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		};
 		getBehavior().getEditingDomain().getCommandStack().addCommandStackListener(fwListener);
 
+	}
+
+	/**
+	 * We provide migration from 0.8.0 to 1.0.0. You can override if you want to
+	 * migrate manually. WARNING: If your diagram is under version control, this
+	 * method can cause a check out dialog to be opened etc.
+	 */
+	protected void migrateDiagramModelIfNecessary() {
+		final Diagram diagram = getDiagramTypeProvider().getDiagram();
+		if (Graphiti.getMigrationService().shouldMigrate080To090(diagram)) {
+			getEditingDomain().getCommandStack().execute(new RecordingCommand(getEditingDomain()) {
+				@Override
+				protected void doExecute() {
+					Graphiti.getMigrationService().migrate080To090(diagram);
+				}
+			});
+		}
 	}
 
 	/**

@@ -568,11 +568,12 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		for (final Resource r : getEditingDomain().getResourceSet().getResources()) {
 			r.eAdapters().add(updateAdapter);
 		}
-		// Register for object deletion
-		if (object != null) {
-			elementDeleteListener = new ElementDeleteListener();
-			object.eAdapters().add(this.elementDeleteListener);
-		}
+
+		// // Register for object deletion
+		// if (object != null) {
+		// elementDeleteListener = new ElementDeleteListener();
+		// object.eAdapters().add(this.elementDeleteListener);
+		// }
 
 		getOperationHistory().addOperationHistoryListener(this);
 	}
@@ -593,10 +594,10 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 			r.eAdapters().remove(updateAdapter);
 		}
 
-		EObject object = (EObject) editorPart.getAdapter(Diagram.class);
-		if (object != null) {
-			object.eAdapters().remove(elementDeleteListener);
-		}
+		// EObject object = (EObject) editorPart.getAdapter(Diagram.class);
+		// if (object != null) {
+		// object.eAdapters().remove(elementDeleteListener);
+		// }
 
 		workspaceSynchronizer.dispose();
 
@@ -668,6 +669,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 				if (site == null) {
 					return;
 				}
+				final EObject object = (EObject) editorPart.getAdapter(Diagram.class);
 				final Shell shell = site.getShell();
 				final IWorkbenchPage page = site.getPage();
 				// Do the real work, e.g. object retrieval from input and
