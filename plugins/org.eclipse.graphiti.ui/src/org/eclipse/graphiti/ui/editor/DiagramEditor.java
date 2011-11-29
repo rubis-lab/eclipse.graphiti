@@ -27,7 +27,6 @@
 package org.eclipse.graphiti.ui.editor;
 
 import java.util.ArrayList;
-import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +39,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -190,11 +188,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 	public static final String DIAGRAM_EDITOR_ID = "org.eclipse.graphiti.ui.editor.DiagramEditor"; //$NON-NLS-1$
 
-	private CommandStackEventListener cmdStackListener;
+	private CommandStackEventListener gefCommandStackListener;
 
 	private final DiagramEditorBehavior behavior;
-
-	protected CommandStackListener fwListener;
 
 	protected static final int DEFAULT_PALETTE_SIZE = 130;
 
@@ -518,7 +514,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		}
 		
 		if (getEditDomain() != null && getEditDomain().getCommandStack() != null) {
-			getEditDomain().getCommandStack().removeCommandStackEventListener(cmdStackListener);
+			getEditDomain().getCommandStack().removeCommandStackEventListener(gefCommandStackListener);
 			getEditDomain().getCommandStack().dispose();
 		}
 
@@ -527,8 +523,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		}
 
 		DiagramEditorBehavior behavior = getBehavior();
-		behavior.getEditingDomain().getCommandStack().removeCommandStackListener(fwListener);
-		fwListener = null;
 		behavior.dispose();
 		RuntimeException exc = null;
 		try {
@@ -1068,20 +1062,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		});
 
 		migrateDiagramModelIfNecessary();
-		fwListener = new CommandStackListener() {
-
-
-			public void commandStackChanged(EventObject event) {
-				getEditorSite().getShell().getDisplay().asyncExec(new Runnable() {
-
-					public void run() {
-						firePropertyChange(IEditorPart.PROP_DIRTY);
-					}
-				});
-			}
-		};
-		getBehavior().getEditingDomain().getCommandStack().addCommandStackListener(fwListener);
-
 	}
 
 	/**
@@ -1666,23 +1646,22 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
 		getDiagramTypeProvider().postInit();
-		cmdStackListener = new CommandStackEventListener() {
+		gefCommandStackListener = new CommandStackEventListener() {
 
 			public void stackChanged(CommandStackEvent event) {
-				if (Display.getCurrent() != null) { // Only fire if triggered from
-													// UI thread
+				// Only fire if triggered from UI thread
+				if (Display.getCurrent() != null) {
 					DiagramEditor.this.firePropertyChange(IEditorPart.PROP_DIRTY);
 
-					// Promote the changes to the command stack also to the action
-					// bars and registered actions to
-					// correctly reflect e.g. undo/redo in the menu (introduced to
-					// enable removing NOP commands from
-					// the command stack
+					// Promote the changes to the command stack also to the
+					// action bars and registered actions to correctly reflect
+					// e.g. undo/redo in the menu (introduced to enable removing
+					// NOP commands from the command stack
 					commandStackChanged(event);
 				}
 			}
 		};
-		getEditDomain().getCommandStack().addCommandStackEventListener(cmdStackListener);
+		getEditDomain().getCommandStack().addCommandStackEventListener(gefCommandStackListener);
 	}
 
 
