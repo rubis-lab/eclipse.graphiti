@@ -444,7 +444,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 			int b = Math.min(255, color.getBlue() + disabledAdjustment);
 			color = new ColorConstant(r, g, b);
 		}
-		Color swtColor = DataTypeTransformation.toSwtColor(editor, color);
+		Color swtColor = DataTypeTransformation.toSwtColor(this.contextButtonPad.getResourceRegistry(), color);
 		return swtColor;
 	}
 

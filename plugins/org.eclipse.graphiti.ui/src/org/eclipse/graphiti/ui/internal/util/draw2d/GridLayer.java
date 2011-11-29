@@ -136,9 +136,9 @@ public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
 		GraphicsAlgorithm diagramGa = getDiagram().getGraphicsAlgorithm();
 
 		org.eclipse.graphiti.mm.algorithms.styles.Color background = Graphiti.getGaService().getBackgroundColor(diagramGa, true);
-		setBackgroundColor(DataTypeTransformation.toSwtColor(getDiagramEditor(), background));
+		setBackgroundColor(DataTypeTransformation.toSwtColor(cfgProvider.getResourceRegistry(), background));
 		org.eclipse.graphiti.mm.algorithms.styles.Color foreground = Graphiti.getGaService().getForegroundColor(diagramGa, true);
-		setForegroundColor(DataTypeTransformation.toSwtColor(getDiagramEditor(), foreground));
+		setForegroundColor(DataTypeTransformation.toSwtColor(cfgProvider.getResourceRegistry(), foreground));
 	}
 
 	private int getGridLineAlternation() {
@@ -155,13 +155,15 @@ public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
 			foregroundColor = Graphiti.getGaService().getForegroundColor(diagramGa, true);
 		}
 		if (foregroundColor == null) {
-			return DataTypeTransformation.toSwtColor(getDiagramEditor(), LookManager.getLook().getMinorGridLineColor());
+			return DataTypeTransformation.toSwtColor(cfgProvider.getResourceRegistry(), LookManager.getLook()
+					.getMinorGridLineColor());
 		}
-		return DataTypeTransformation.toSwtColor(getDiagramEditor(), foregroundColor);
+		return DataTypeTransformation.toSwtColor(cfgProvider.getResourceRegistry(), foregroundColor);
 	}
 
 	private Color getMajorLineColor() {
-		return DataTypeTransformation.toSwtColor(getDiagramEditor(), LookManager.getLook().getMajorGridLineColor());
+		return DataTypeTransformation.toSwtColor(cfgProvider.getResourceRegistry(), LookManager.getLook()
+				.getMajorGridLineColor());
 	}
 
 	private DiagramEditor getDiagramEditor() {

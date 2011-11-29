@@ -36,7 +36,6 @@ import org.eclipse.graphiti.examples.common.IExampleImageConstants;
 import org.eclipse.graphiti.examples.common.outline.tree.PictogramsTreeEditPartFactory;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
-import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScrollableThumbnail;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.Action;
@@ -148,7 +147,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	public void initContents() {
 		EditPartFactory treeEditPartFactory = new PictogramsTreeEditPartFactory();
 		getViewer().setEditPartFactory(treeEditPartFactory);
-		Diagram diagram = ((DiagramEditorInput) _diagramEditor.getEditorInput()).getDiagram();
+		Diagram diagram = (Diagram) _diagramEditor.getAdapter(Diagram.class);
 		getViewer().setContents(diagram);
 	}
 

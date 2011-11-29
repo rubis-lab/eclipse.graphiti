@@ -41,6 +41,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart;
 
 /**
@@ -125,6 +126,8 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 
 	};
 
+	private IResourceRegistry resourceRegistry;
+
 	// ============================ constructor ===============================
 
 	/**
@@ -133,9 +136,11 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 * @param editor
 	 *            The editor on which this context button manager works, see
 	 *            {@link #getEditor()}.
+	 * @param iResourceRegistry
 	 */
-	public ContextButtonManagerForPad(DiagramEditor editor) {
+	public ContextButtonManagerForPad(DiagramEditor editor, IResourceRegistry resourceRegistry) {
 		this.editor = editor;
+		this.resourceRegistry = resourceRegistry;
 
 		ZoomManager zoomMgr = (ZoomManager) getEditor().getGraphicalViewer().getProperty(ZoomManager.class.toString());
 		if (zoomMgr != null) {
@@ -327,7 +332,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 			}
 
 			// retrieve context button pad data
-			IToolBehaviorProvider toolBehaviorProvider = getEditor().getConfigurationProvider().getDiagramTypeProvider()
+			IToolBehaviorProvider toolBehaviorProvider = getEditor().getDiagramTypeProvider()
 					.getCurrentToolBehaviorProvider();
 			IContextButtonPadData contextButtonPadData = toolBehaviorProvider.getContextButtonPad(context);
 			if (contextButtonPadData == null) {
@@ -354,7 +359,8 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 
 			// create context button pad and add to handle layer
 			EditPart activeEditPart = getFigure2EditPart().get(figure);
-			ContextButtonPad contextButtonPad = new ContextButtonPad(declaration, zoom, getEditor(), activeEditPart);
+			ContextButtonPad contextButtonPad = new ContextButtonPad(declaration, zoom, getEditor(), activeEditPart,
+					resourceRegistry);
 			setActive(figure, contextButtonPad);
 
 			IFigure feedbackLayer = rootEditPart.getLayer(LayerConstants.HANDLE_LAYER);

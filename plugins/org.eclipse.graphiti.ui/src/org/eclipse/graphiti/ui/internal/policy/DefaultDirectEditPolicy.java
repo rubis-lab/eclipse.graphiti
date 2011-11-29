@@ -162,10 +162,11 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 			control.setForeground(ColorConstants.listForeground);
 		} else {
 			IColorConstant errorBgColorConstant = LookManager.getLook().getFieldErrorBackgroundColor();
-			Color errorBgColor = DataTypeTransformation.toSwtColor(this.configurationProvider, errorBgColorConstant);
+			Color errorBgColor = DataTypeTransformation.toSwtColor(this.configurationProvider.getResourceRegistry(), errorBgColorConstant);
 			control.setBackground(errorBgColor);
 			IColorConstant errorFgColorConstant = LookManager.getLook().getFieldErrorForegroundColor();
-			Color errorfgColor = DataTypeTransformation.toSwtColor(this.configurationProvider, errorFgColorConstant);
+			Color errorfgColor = DataTypeTransformation.toSwtColor(this.configurationProvider.getResourceRegistry(),
+					errorFgColorConstant);
 			control.setForeground(errorfgColor);
 		}
 

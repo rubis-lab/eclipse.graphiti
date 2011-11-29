@@ -122,7 +122,8 @@ public class ConnectionHighlightEditPolicy extends ConnectionEndpointEditPolicy 
 			if (selectionInfo != null) {
 				IColorConstant selectionColor = selectionInfo.getColor();
 				if (selectionColor != null) {
-					newForeground = DataTypeTransformation.toSwtColor(getConfigurationProvider(), selectionColor);
+					newForeground = DataTypeTransformation.toSwtColor(getConfigurationProvider().getResourceRegistry(),
+							selectionColor);
 				}
 				LineStyle selectionLineStyle = selectionInfo.getLineStyle();
 				if (selectionLineStyle != null) {

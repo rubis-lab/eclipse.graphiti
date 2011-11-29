@@ -117,9 +117,6 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
-import org.eclipse.graphiti.ui.internal.IResourceRegistry;
-import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
-import org.eclipse.graphiti.ui.internal.ResourceRegistry;
 import org.eclipse.graphiti.ui.internal.action.CopyAction;
 import org.eclipse.graphiti.ui.internal.action.DeleteAction;
 import org.eclipse.graphiti.ui.internal.action.PasteAction;
@@ -130,7 +127,6 @@ import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.ConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderHolder;
 import org.eclipse.graphiti.ui.internal.contextbuttons.ContextButtonManagerForPad;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.dnd.GFTemplateTransferDropTargetListener;
@@ -183,8 +179,9 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  * 
  * @since 0.9
  */
-public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements IConfigurationProviderHolder, IDiagramEditor,
-		ITabbedPropertySheetPageContributor, IResourceRegistryHolder, IEditingDomainProvider {
+public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
+		IDiagramEditor,
+		ITabbedPropertySheetPageContributor, IEditingDomainProvider {
 
 	public static final String DIAGRAM_EDITOR_ID = "org.eclipse.graphiti.ui.editor.DiagramEditor"; //$NON-NLS-1$
 
@@ -225,8 +222,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	private String contributorId;
 
 	private boolean directEditingActive = false;
-
-	private IResourceRegistry resourceRegistry = new ResourceRegistry();
 
 	private boolean autoRefresh = true;
 
@@ -340,7 +335,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		viewer.setProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED, toolBehaviorProvider.isShowGuides());
 
 		// context button manager
-		contextButtonManager = new ContextButtonManagerForPad(this);
+		contextButtonManager = new ContextButtonManagerForPad(this, configurationProvider.getResourceRegistry());
 
 		/* sw: make scroll bars always visible */
 		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
@@ -516,10 +511,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		if (getEditDomain() != null && getEditDomain().getCommandStack() != null) {
 			getEditDomain().getCommandStack().removeCommandStackEventListener(gefCommandStackListener);
 			getEditDomain().getCommandStack().dispose();
-		}
-
-		if (resourceRegistry != null) {
-			resourceRegistry.dispose();
 		}
 
 		DiagramEditorBehavior behavior = getBehavior();
@@ -706,7 +697,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return keyHandler;
 	}
 
-	public IConfigurationProvider getConfigurationProvider() {
+	private IConfigurationProvider getConfigurationProvider() {
 		return configurationProvider;
 	}
 
@@ -913,13 +904,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	protected PictogramElement[] getPictogramElementsForSelection() {
 		return pictogramElementsForSelection;
-	}
-
-
-
-
-	public IResourceRegistry getResourceRegistry() {
-		return resourceRegistry;
 	}
 
 
@@ -1154,7 +1138,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		if (featureProvider != null) {
 			IPrintFeature pf = featureProvider.getPrintFeature();
 			if (pf != null) {
-				registerAction(new PrintGraphicalViewerAction(getConfigurationProvider(), getConfigurationProvider().getWorkbenchPart(), pf));
+				registerAction(new PrintGraphicalViewerAction(getConfigurationProvider().getWorkbenchPart(), pf));
 			}
 		}
 

@@ -85,7 +85,8 @@ public class DiagramEditPart extends ContainerShapeEditPart implements IDiagramE
 		};
 
 		GraphicsAlgorithm graphicsAlgorithm = getPictogramElement().getGraphicsAlgorithm();
-		f.setBackgroundColor(DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService().getBackgroundColor(
+		f.setBackgroundColor(DataTypeTransformation.toSwtColor(getConfigurationProvider().getResourceRegistry(),
+				Graphiti.getGaService().getBackgroundColor(
 				graphicsAlgorithm, true)));
 		f.setBorder(new MarginBorder(5));
 		f.setLayoutManager(new XYLayout() {

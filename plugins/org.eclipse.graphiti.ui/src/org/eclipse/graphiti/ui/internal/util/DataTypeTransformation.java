@@ -28,7 +28,6 @@ import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
-import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -58,16 +57,14 @@ public class DataTypeTransformation {
 		}
 	}
 
-	public static Color toSwtColor(IResourceRegistryHolder rrh, org.eclipse.graphiti.mm.algorithms.styles.Color pictogramsColor) {
-		IResourceRegistry rr = rrh.getResourceRegistry();
+	public static Color toSwtColor(IResourceRegistry rr, org.eclipse.graphiti.mm.algorithms.styles.Color pictogramsColor) {
 		if (pictogramsColor != null)
 			return rr.getSwtColor(pictogramsColor.getRed(), pictogramsColor.getGreen(), pictogramsColor.getBlue());
 		else
 			return rr.getSwtColor(100, 100, 100);
 	}
 
-	public static Color toSwtColor(IResourceRegistryHolder rrh, IColorConstant color) {
-		IResourceRegistry rr = rrh.getResourceRegistry();
+	public static Color toSwtColor(IResourceRegistry rr, IColorConstant color) {
 		if (color != null)
 			return rr.getSwtColor(color.getRed(), color.getGreen(), color.getBlue());
 		else

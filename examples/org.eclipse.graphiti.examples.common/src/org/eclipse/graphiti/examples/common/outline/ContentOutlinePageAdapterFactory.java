@@ -34,7 +34,9 @@ public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 			if (IContentOutlinePage.class.equals(adapterType)) {
 				if (adaptableObject instanceof DiagramEditor) {
 					DiagramEditor diagramEditor = (DiagramEditor) adaptableObject;
-					if (diagramEditor.getConfigurationProvider() != null) { // diagram editor initialized?
+					if (diagramEditor.getDiagramTypeProvider() != null) { // diagram
+																			// editor
+																			// initialized?
 						GraphicsEditorOutlinePage outlinePage = new GraphicsEditorOutlinePage(new TreeViewer(), diagramEditor
 								.getGraphicalViewer(), diagramEditor.getActionRegistryInternal(), diagramEditor.getEditDomain(),
 								diagramEditor.getCommonKeyHandler(), diagramEditor.getAdapter(ZoomManager.class), diagramEditor

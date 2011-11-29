@@ -362,7 +362,7 @@ public class GFOtherTests extends AbstractGFTests {
 		Object rootModelObject = diagramEditor.getGraphicalViewer().getContents().getModel();
 		assertTrue(rootModelObject instanceof Diagram);
 		Diagram diagram = (Diagram) rootModelObject;
-		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getConfigurationProvider().getDiagramTypeProvider();
+		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 		IFeatureProvider featureProvider = diagramTypeProvider.getFeatureProvider();
 		syncExec(new VoidResult() {
 			public void run() {
@@ -375,7 +375,8 @@ public class GFOtherTests extends AbstractGFTests {
 				for (ICreateFeature createFeature : createFeatures) {
 					Rectangle rectangle = new Rectangle(x, 50, 100, 100);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
+					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
+							createFeature,
 							createContext, rectangle);
 					commandStack.execute(createCommand);
 					x += 150;
@@ -478,7 +479,8 @@ public class GFOtherTests extends AbstractGFTests {
 				for (ICreateFeature createFeature : createFeatures) {
 					Rectangle rectangle = new Rectangle(x, 50, 100, 100);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
-					Command createCommand = new CreateModelObjectCommand(diagramEditor.getConfigurationProvider(), createFeature,
+					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
+							createFeature,
 							createContext, rectangle);
 					commandStack.execute(createCommand);
 					x -= 150;

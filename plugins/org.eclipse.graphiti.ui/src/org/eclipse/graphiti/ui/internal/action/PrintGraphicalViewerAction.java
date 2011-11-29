@@ -20,7 +20,6 @@ import org.eclipse.gef.ui.actions.PrintAction;
 import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.context.IPrintContext;
 import org.eclipse.graphiti.features.context.impl.PrintContext;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.ui.print.PrintFigureDialog;
 import org.eclipse.graphiti.ui.internal.util.ui.print.PrintFigureScaleableOperation;
@@ -52,8 +51,6 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	private static IAction TEMPLATE_ACTION = ActionFactory.PRINT.create(PlatformUI.getWorkbench()
 			.getActiveWorkbenchWindow());
 
-	private IConfigurationProvider _configurationProvider;
-
 	private IPrintFeature printFeature;
 
 	// last time when we checked whether a printer is available with
@@ -73,11 +70,10 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	 *            belongs. From the WorkbenchPart the GraphicalViewer will be
 	 *            determined.
 	 */
-	public PrintGraphicalViewerAction(IConfigurationProvider configurationProvider, IWorkbenchPart part,
+	public PrintGraphicalViewerAction(IWorkbenchPart part,
 			IPrintFeature printFeature) {
 		super(part);
 		this.printFeature = printFeature;
-		_configurationProvider = configurationProvider;
 
 		// set all values of the TEMPLATE_ACTION for this Action.
 		setId(TEMPLATE_ACTION.getId());
@@ -89,10 +85,6 @@ public class PrintGraphicalViewerAction extends PrintAction {
 		setImageDescriptor(TEMPLATE_ACTION.getImageDescriptor());
 		setHoverImageDescriptor(TEMPLATE_ACTION.getHoverImageDescriptor());
 		setDisabledImageDescriptor(TEMPLATE_ACTION.getDisabledImageDescriptor());
-	}
-
-	public IConfigurationProvider getConfigurationProvider() {
-		return _configurationProvider;
 	}
 
 	/**

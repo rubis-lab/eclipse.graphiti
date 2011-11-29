@@ -14,6 +14,7 @@
  *
  *******************************************************************************/
 package org.eclipse.graphiti.bot.tests;
+
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.asyncExec;
 
 import java.util.concurrent.CountDownLatch;
@@ -35,7 +36,6 @@ import org.junit.Test;
 
 public class GFDialogTests extends AbstractGFTests {
 
-
 	public GFDialogTests() {
 		super();
 	}
@@ -50,8 +50,7 @@ public class GFDialogTests extends AbstractGFTests {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
 				IPrintFeature pf = fp.getPrintFeature();
-				IAction printGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor.getConfigurationProvider(),
-						diagramEditor, pf);
+				IAction printGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor, pf);
 				// check if default printer is configured, otherwise SWT throws
 				// a "no more handles" error in Printer.checkNull(..)
 				enabled[0] = printGraphicalViewerAction.isEnabled();
@@ -61,7 +60,8 @@ public class GFDialogTests extends AbstractGFTests {
 			}
 		});
 		signal.await(5, TimeUnit.SECONDS);
-		// If the action is not enabled since there is no printer available on the system,
+		// If the action is not enabled since there is no printer available on
+		// the system,
 		// we simply return.
 		if (!enabled[0]) {
 			return;

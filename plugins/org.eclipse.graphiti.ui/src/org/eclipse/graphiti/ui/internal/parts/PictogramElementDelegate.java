@@ -458,7 +458,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		// refresh figure colors
 		if (selectedConnection) {
-			Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService()
+			Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider().getResourceRegistry(), Graphiti
+					.getGaService()
 					.getBackgroundColor(graphicsAlgorithm, true));
 			figure.setBackgroundColor(bg);
 		} else {
@@ -1025,9 +1026,11 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @param graphicsAlgorithm
 	 */
 	private void refreshFigureColors(IFigure figure, GraphicsAlgorithm graphicsAlgorithm) {
-		Color fg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService()
+		Color fg = DataTypeTransformation.toSwtColor(getConfigurationProvider().getResourceRegistry(), Graphiti
+				.getGaService()
 				.getForegroundColor(graphicsAlgorithm, true));
-		Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService()
+		Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider().getResourceRegistry(), Graphiti
+				.getGaService()
 				.getBackgroundColor(graphicsAlgorithm, true));
 		figure.setBackgroundColor(bg);
 		figure.setForegroundColor(fg);

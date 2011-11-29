@@ -20,6 +20,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
+import org.eclipse.graphiti.ui.internal.ResourceRegistry;
 import org.eclipse.graphiti.ui.internal.partfactory.PictogramsEditPartFactory;
 import org.eclipse.graphiti.ui.internal.policy.DefaultEditPolicyFactory;
 import org.eclipse.graphiti.ui.internal.policy.IEditPolicyFactory;
@@ -43,6 +44,8 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	private DiagramEditor diagramEditor;
 
 	private IDiagramTypeProvider diagramTypeProvider;
+
+	private IResourceRegistry resourceRegistry = new ResourceRegistry();
 
 	/**
 	 * The Constructor.
@@ -68,6 +71,10 @@ public class ConfigurationProvider implements IConfigurationProvider {
 		_editPartFactory = null;
 
 		_isDisposed = true;
+
+		if (resourceRegistry != null) {
+			resourceRegistry.dispose();
+		}
 
 		getDiagramTypeProvider().dispose();
 	}
@@ -177,6 +184,6 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	}
 
 	public IResourceRegistry getResourceRegistry() {
-		return getDiagramEditor().getResourceRegistry();
+		return resourceRegistry;
 	}
 }

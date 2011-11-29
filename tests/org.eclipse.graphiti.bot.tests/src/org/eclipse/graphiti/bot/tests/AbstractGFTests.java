@@ -16,6 +16,9 @@
  *******************************************************************************/
 package org.eclipse.graphiti.bot.tests;
 
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
 
 import java.util.ArrayList;
@@ -67,6 +70,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
@@ -442,5 +446,13 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		event.stateMask = stateMask;
 		event.count = count;
 		return event;
+	}
+
+	protected IConfigurationProvider getConfigProviderMock(IDiagramTypeProvider dtp, DiagramEditor ed) {
+		IConfigurationProvider configurationProviderMock = createNiceMock(IConfigurationProvider.class);
+		expect(configurationProviderMock.getDiagramTypeProvider()).andReturn(dtp).anyTimes();
+		expect(configurationProviderMock.getDiagramEditor()).andReturn(ed).anyTimes();
+		replay(configurationProviderMock);
+		return configurationProviderMock;
 	}
 }
