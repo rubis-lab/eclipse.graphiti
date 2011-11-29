@@ -837,7 +837,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		assertEquals(120, shape.getGraphicsAlgorithm().getX());
 		assertEquals(120, shape.getGraphicsAlgorithm().getX());
 		page.shutdownEditor(diagramEditor);
-		page.shutdownEditor(diagramEditor);
 	}
 
 	@Test
