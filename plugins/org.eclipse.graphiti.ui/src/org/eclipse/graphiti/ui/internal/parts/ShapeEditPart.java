@@ -118,7 +118,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	@Override
 	public void activate() {
 		super.activate();
-		IContextButtonManager contextButtonManager = getConfigurationProvider().getDiagramEditor().getContextButtonManager();
+		IContextButtonManager contextButtonManager = getConfigurationProvider().getContextButtonManager();
 		contextButtonManager.register(this);
 		delegate.activate();
 	}
@@ -131,7 +131,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	@Override
 	public void deactivate() {
 		delegate.deactivate();
-		IContextButtonManager contextButtonManager = getConfigurationProvider().getDiagramEditor().getContextButtonManager();
+		IContextButtonManager contextButtonManager = getConfigurationProvider().getContextButtonManager();
 		contextButtonManager.deRegister(this);
 		super.deactivate();
 	}

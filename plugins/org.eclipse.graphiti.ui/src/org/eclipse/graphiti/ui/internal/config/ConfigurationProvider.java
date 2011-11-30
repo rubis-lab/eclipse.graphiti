@@ -21,6 +21,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.ResourceRegistry;
+import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.partfactory.PictogramsEditPartFactory;
 import org.eclipse.graphiti.ui.internal.policy.DefaultEditPolicyFactory;
 import org.eclipse.graphiti.ui.internal.policy.IEditPolicyFactory;
@@ -44,6 +45,9 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	private DiagramEditor diagramEditor;
 
 	private IDiagramTypeProvider diagramTypeProvider;
+
+
+	private IContextButtonManager contextButtonManager;
 
 	private IResourceRegistry resourceRegistry = new ResourceRegistry();
 
@@ -88,6 +92,14 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	 */
 	public boolean isDisposed() {
 		return _isDisposed;
+	}
+
+	public IContextButtonManager getContextButtonManager() {
+		return contextButtonManager;
+	}
+
+	public void setContextButtonManager(IContextButtonManager contextButtonManager) {
+		this.contextButtonManager = contextButtonManager;
 	}
 
 	/*

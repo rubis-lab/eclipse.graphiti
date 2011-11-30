@@ -9,6 +9,12 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/DiagramEditor.java" type="org.eclipse.graphiti.ui.editor.DiagramEditor">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IDiagramEditor"/>
+                <message_argument value="DiagramEditor"/>
+            </message_arguments>
+        </filter>
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="DEFAULT_PALETTE_SIZE"/>
@@ -56,11 +62,6 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="fwListener"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
                 <message_argument value="getActionRegistryInternal()"/>
             </message_arguments>
         </filter>
@@ -71,17 +72,7 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getConfigurationProvider()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
                 <message_argument value="getContentEditPart()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getContextButtonManager()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
@@ -137,16 +128,6 @@
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="getPictogramElementsForSelection()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getRefreshPerformanceCache()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getResourceRegistry()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">

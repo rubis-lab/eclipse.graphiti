@@ -20,6 +20,7 @@ import org.eclipse.graphiti.features.IFeatureProviderHolder;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
+import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.policy.IEditPolicyFactory;
 import org.eclipse.ui.IWorkbenchPart;
 
@@ -114,4 +115,8 @@ public interface IConfigurationProvider extends IFeatureProviderHolder, IResourc
 	 * @return the editor which is connected with this configuration-provider
 	 */
 	DiagramEditor getDiagramEditor();
+
+	public abstract void setContextButtonManager(IContextButtonManager contextButtonManager);
+
+	public abstract IContextButtonManager getContextButtonManager();
 }

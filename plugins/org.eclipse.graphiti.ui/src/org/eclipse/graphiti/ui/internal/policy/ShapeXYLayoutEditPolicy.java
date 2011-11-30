@@ -242,10 +242,10 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 		if (ret.containsCommands()) {
 			// hide context-buttons, if the user resizes/moves the shape
-			DiagramEditor editor = getConfigurationProvider().getDiagramEditor();
-			IContextButtonManager contextButtonManager = editor.getContextButtonManager();
+			IContextButtonManager contextButtonManager = getConfigurationProvider().getContextButtonManager();
 			contextButtonManager.hideContextButtonsInstantly();
 
+			DiagramEditor editor = getConfigurationProvider().getDiagramEditor();
 			return new GefCommandWrapper(ret, editor.getEditingDomain());
 		} else {
 			return null;

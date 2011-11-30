@@ -128,7 +128,6 @@ import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.ConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.contextbuttons.ContextButtonManagerForPad;
-import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.dnd.GFTemplateTransferDropTargetListener;
 import org.eclipse.graphiti.ui.internal.dnd.ObjectsTransferDropTargetListener;
 import org.eclipse.graphiti.ui.internal.editor.DefaultFlyoutPalettePreferences;
@@ -217,8 +216,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 	private DomainModelChangeListener domainModelListener;
 
-	private IContextButtonManager contextButtonManager;
-
 	private String contributorId;
 
 	private boolean directEditingActive = false;
@@ -227,8 +224,22 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 	private RefreshPerformanceCache refreshPerformanceCache = new RefreshPerformanceCache();
 
-	public RefreshPerformanceCache getRefreshPerformanceCache() {
+	private RefreshPerformanceCache getRefreshPerformanceCache() {
 		return refreshPerformanceCache;
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	public void initRefresh() {
+		getRefreshPerformanceCache().initRefresh();
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	public boolean shouldRefresh(Object obj) {
+		return getRefreshPerformanceCache().shouldRefresh(obj);
 	}
 
 	/**
@@ -335,7 +346,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		viewer.setProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED, toolBehaviorProvider.isShowGuides());
 
 		// context button manager
-		contextButtonManager = new ContextButtonManagerForPad(this, configurationProvider.getResourceRegistry());
+		configurationProvider.setContextButtonManager(new ContextButtonManagerForPad(this, configurationProvider
+				.getResourceRegistry()));
 
 		/* sw: make scroll bars always visible */
 		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
@@ -712,15 +724,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			return getGraphicalViewer().getContents();
 		}
 		return null;
-	}
-
-	/**
-	 * Gets the context button manager.
-	 * 
-	 * @return the context button manager
-	 */
-	public IContextButtonManager getContextButtonManager() {
-		return contextButtonManager;
 	}
 
 	/**
@@ -1212,7 +1215,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		long start = System.currentTimeMillis();
 
 		try {
-			getContextButtonManager().hideContextButtonsInstantly();
+			configurationProvider.getContextButtonManager().hideContextButtonsInstantly();
 
 			editPart.refresh();
 
@@ -1623,7 +1626,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 	public void setDirectEditingActive(boolean directEditingActive) {
 		this.directEditingActive = directEditingActive;
-		getContextButtonManager().hideContextButtonsInstantly();
+		configurationProvider.getContextButtonManager().hideContextButtonsInstantly();
 	}
 
 

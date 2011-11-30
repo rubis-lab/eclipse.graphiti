@@ -625,7 +625,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 			getEditor().getEditDomain().getCommandStack().execute(new ContextEntryCommand(getEntry()));
 		}
 
-		getContextButtonPad().getEditor().getContextButtonManager().hideContextButtonsInstantly();
+		getContextButtonPad().getContextButtonManagerForPad().hideContextButtonsInstantly();
 	}
 
 	/**

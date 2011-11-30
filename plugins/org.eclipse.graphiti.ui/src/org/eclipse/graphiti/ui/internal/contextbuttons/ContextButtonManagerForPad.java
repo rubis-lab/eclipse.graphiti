@@ -359,7 +359,8 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 
 			// create context button pad and add to handle layer
 			EditPart activeEditPart = getFigure2EditPart().get(figure);
-			ContextButtonPad contextButtonPad = new ContextButtonPad(declaration, zoom, getEditor(), activeEditPart,
+			ContextButtonPad contextButtonPad = new ContextButtonPad(this, declaration, zoom, getEditor(),
+					activeEditPart,
 					resourceRegistry);
 			setActive(figure, contextButtonPad);
 

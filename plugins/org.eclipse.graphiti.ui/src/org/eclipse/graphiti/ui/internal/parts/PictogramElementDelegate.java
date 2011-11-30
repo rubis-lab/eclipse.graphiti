@@ -312,7 +312,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		// DR: Avoid multiple refresh of the same edit part
 		if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-			if (!getEditor().getRefreshPerformanceCache().shouldRefresh(getContainerEditPart())) {
+			if (!getEditor().shouldRefresh(getContainerEditPart())) {
 				return;
 			}
 		}
@@ -433,7 +433,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 
 		if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-			if (!getEditor().getRefreshPerformanceCache().shouldRefresh(graphicsAlgorithm)) {
+			if (!getEditor().shouldRefresh(graphicsAlgorithm)) {
 				return;
 			}
 		}
@@ -1059,7 +1059,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		if (pe != null) {
 			if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-				if (!getEditor().getRefreshPerformanceCache().shouldRefresh(pe)) {
+				if (!getEditor().shouldRefresh(pe)) {
 					return;
 				}
 			}

@@ -114,7 +114,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	private MouseMoveListener mouseMoveListener = new MouseMoveListener() {
 		public void mouseMove(MouseEvent e) {
 			if (!isMouseInOverlappingArea()) {
-				getEditor().getContextButtonManager().hideContextButtonsInstantly();
+				getContextButtonManagerForPad().hideContextButtonsInstantly();
 			}
 		}
 	};
@@ -141,10 +141,14 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 
 	private IResourceRegistry resourceRegistry;
 
+	private ContextButtonManagerForPad contextButtonManagerForPad;
+
 	// ============================ constructors ==============================
 
 	/**
 	 * Creates a new ContextButtonPad and calls {@link #initialize()}.
+	 * 
+	 * @param contextButtonManagerForPad
 	 * 
 	 * @param declaration
 	 *            The context button pad declaration as described in
@@ -157,13 +161,15 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	 *            The edit-part as described in {@link #getEditPart()}.
 	 * @param resourceRegistry
 	 */
-	public ContextButtonPad(IContextButtonPadDeclaration declaration, double zoomLevel, DiagramEditor editor,
+	public ContextButtonPad(ContextButtonManagerForPad contextButtonManagerForPad,
+			IContextButtonPadDeclaration declaration, double zoomLevel, DiagramEditor editor,
 			EditPart editPart, IResourceRegistry resourceRegistry) {
 		this.declaration = declaration;
 		this.zoomLevel = zoomLevel;
 		this.editor = editor;
 		this.editPart = editPart;
 		this.resourceRegistry = resourceRegistry;
+		this.contextButtonManagerForPad = contextButtonManagerForPad;
 
 		initialize();
 	}
@@ -646,10 +652,14 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 		// hide if mouse location outside overlapping containment rectangles
 		boolean containsPointOverlapping = containsPointOverlapping(mouseLocation.x, mouseLocation.y);
 		if (!containsPointOverlapping) {
-			getEditor().getContextButtonManager().hideContextButtonsInstantly();
+			getContextButtonManagerForPad().hideContextButtonsInstantly();
 			return true;
 		}
 		return containsPointOverlapping;
+	}
+
+	public ContextButtonManagerForPad getContextButtonManagerForPad() {
+		return contextButtonManagerForPad;
 	}
 
 	/**

@@ -30,7 +30,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  * The Interface IDiagramEditor.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
- *              Extend DiagramEditor instead.
+ * @noextend This interface is not intended to be extended by clients. Extend
+ *           DiagramEditor instead.
  */
 public interface IDiagramEditor {
 

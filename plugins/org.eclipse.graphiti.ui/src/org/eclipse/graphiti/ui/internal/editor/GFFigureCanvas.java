@@ -1007,7 +1007,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 		 * org.eclipse.draw2d.UpdateListener#notifyPainting(org.eclipse.draw2d
 		 * .geometry.Rectangle, java.util.Map)
 		 */
-		public void notifyPainting(Rectangle damage, java.util.Map dirtyRegions) {
+		public void notifyPainting(Rectangle damage, @SuppressWarnings("rawtypes") java.util.Map dirtyRegions) {
 		}
 
 		/*
@@ -1024,7 +1024,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 
 	}
 
-	public Object getAdapter(Class adapter) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 		if (LightweightSystem.class == adapter) {
 			return getLightweightSystem();
 		}
