@@ -33,10 +33,9 @@ public class StyleUtil {
 
 	private static final IColorConstant E_CLASS_TEXT_FOREGROUND = new ColorConstant(0, 0, 0);
 	private static final IColorConstant E_CLASS_FOREGROUND = new ColorConstant(98, 131, 167);
-	private static final String DEFAULT_FONT = "Arial"; //$NON-NLS-1$
 
-	public static Style getStyleForEClass(Diagram diagram) {
-		final String styleId = "E-CLASS"; //$NON-NLS-1$
+	public static Style getStyleForCommonValues(Diagram diagram) {
+		final String styleId = "COMMON-VALUES"; //$NON-NLS-1$
 		IGaService gaService = Graphiti.getGaService();
 
 		// Is style already persisted?
@@ -45,10 +44,26 @@ public class StyleUtil {
 		if (style == null) { // style not found - create new style
 			style = gaService.createPlainStyle(diagram, styleId);
 			setCommonValues(style);
+		}
+		return style;
+	}
+
+	public static Style getStyleForEClass(Diagram diagram) {
+		final String styleId = "E-CLASS"; //$NON-NLS-1$
+		IGaService gaService = Graphiti.getGaService();
+
+		// this is a child style of the common-values-style
+		Style parentStyle = getStyleForCommonValues(diagram);
+		Style style = gaService.findStyle(parentStyle, styleId);
+
+		if (style == null) { // style not found - create new style
+			style = gaService.createPlainStyle(getStyleForCommonValues(diagram), styleId);
 			style.setFilled(true);
 			style.setForeground(gaService.manageColor(diagram, E_CLASS_FOREGROUND));
 			// style.setRenderingStyle(style,
 			// TutorialColoredAreas.getLimeWhiteAdaptions());
+
+			// no background color here, we have a gradient instead
 			gaService.setRenderingStyle(style, PredefinedColoredAreas.getBlueWhiteGlossAdaptions());
 		}
 		return style;
@@ -58,14 +73,14 @@ public class StyleUtil {
 		final String styleId = "ECLASS-TEXT"; //$NON-NLS-1$
 		IGaService gaService = Graphiti.getGaService();
 
-		// Is style already persisted?
-		Style style = gaService.findStyle(diagram, styleId);
-		if (style == null) { // style not found - create new style
+		// this is a child style of the common-values-style
+		Style parentStyle = getStyleForCommonValues(diagram);
+		Style style = gaService.findStyle(parentStyle, styleId);
 
-			style = gaService.createPlainStyle(getStyleForEClass(diagram), styleId);
-			setCommonValues(style);
+		if (style == null) { // style not found - create new style
+			style = gaService.createPlainStyle(getStyleForCommonValues(diagram), styleId);
 			setCommonTextValues(diagram, gaService, style);
-			style.setFont(gaService.manageFont(diagram, DEFAULT_FONT, 8, false, true));
+			style.setFont(gaService.manageDefaultFont(diagram, false, true));
 		}
 		return style;
 	}
@@ -74,14 +89,14 @@ public class StyleUtil {
 		final String styleId = "TEXT-DECORATOR-TEXT"; //$NON-NLS-1$
 		IGaService gaService = Graphiti.getGaService();
 
-		// Is style already persisted?
-		Style style = gaService.findStyle(diagram, styleId);
-		if (style == null) { // style not found - create new style
+		// this is a child style of the common-values-style
+		Style parentStyle = getStyleForCommonValues(diagram);
+		Style style = gaService.findStyle(parentStyle, styleId);
 
-			style = gaService.createPlainStyle(getStyleForEClass(diagram), styleId);
-			setCommonValues(style);
+		if (style == null) { // style not found - create new style
+			style = gaService.createPlainStyle(getStyleForCommonValues(diagram), styleId);
 			setCommonTextValues(diagram, gaService, style);
-			style.setFont(gaService.manageFont(diagram, DEFAULT_FONT, 8, false, false));
+			style.setFont(gaService.manageDefaultFont(diagram, true, false));
 		}
 		return style;
 	}
