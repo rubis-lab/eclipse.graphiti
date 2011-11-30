@@ -436,7 +436,6 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	 * @return The adjusted SWT color for the given IColorConstant.
 	 */
 	private Color getAdjustedColor(IColorConstant color) {
-		DiagramEditor editor = getContextButtonPad().getEditor();
 		if (!isEnabled()) {
 			int disabledAdjustment = 80;
 			int r = Math.min(255, color.getRed() + disabledAdjustment);
@@ -444,7 +443,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 			int b = Math.min(255, color.getBlue() + disabledAdjustment);
 			color = new ColorConstant(r, g, b);
 		}
-		Color swtColor = DataTypeTransformation.toSwtColor(this.contextButtonPad.getResourceRegistry(), color);
+		Color swtColor = DataTypeTransformation.toSwtColor(getContextButtonPad().getResourceRegistry(), color);
 		return swtColor;
 	}
 
