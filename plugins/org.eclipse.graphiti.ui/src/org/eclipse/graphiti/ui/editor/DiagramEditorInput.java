@@ -18,6 +18,7 @@ package org.eclipse.graphiti.ui.editor;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -32,11 +33,9 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 
 /**
- * The Class DiagramEditorInput.
- * 
- * The editor input for {@link DiagramEditor} diagram editors.
- * <p>
- * The editor input consists basically of an URI and a diagram type provider id.
+ * The editor input object for {@link DiagramEditor}s. Wraps the {@link URI} of
+ * a {@link Diagram} and an ID of a diagram type provider for displaying it with
+ * a Graphiti diagram editor.<br>
  * 
  * @see {@link IEditorInput}
  * @see {@link IPersistableElement}
@@ -115,25 +114,23 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 	}
 
 	/**
-	 * Creates a new {@link DiagramEditorInput} with a self created {@link}
-	 * TransactionalEditingDomain editing domain, which must be disposed later
-	 * on. <br>
+	 * Creates a new {@link DiagramEditorInput} for the given {@link Diagram}
+	 * and the given diagram type provider ID.
 	 * 
 	 * @param diagram
 	 *            A {@link Diagram}
 	 * @param providerId
-	 *            A {@link String} which holds the diagram type id.
+	 *            A {@link String} which holds the diagram type provider id.
 	 * @return A {@link DiagramEditorInput} editor input
 	 * @since 0.9
 	 */
 	public static DiagramEditorInput createEditorInput(Diagram diagram, String providerId) {
 		final Resource resource = diagram.eResource();
 		if (resource == null) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Diagram must be contained within a resource");
 		}
 		URI diagramUri = EcoreUtil.getURI(diagram);
-		DiagramEditorInput diagramEditorInput;
-		diagramEditorInput = new DiagramEditorInput(diagramUri, providerId);
+		DiagramEditorInput diagramEditorInput = new DiagramEditorInput(diagramUri, providerId);
 		return diagramEditorInput;
 	}
 
@@ -218,7 +215,8 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 
 
 	/**
-	 * Adapts to IFile.
+	 * Adapter method as defined in {@link IAdaptable}, supports adaptation to
+	 * {@link IFile}.
 	 * 
 	 * @param adapter
 	 *            The adapter class to look up
@@ -226,7 +224,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 	 *         this object does not have an adapter for the given class
 	 */
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
-
 		if (IFile.class.isAssignableFrom(adapter)) {
 		 	return GraphitiUiInternal.getEmfService().getFile(getUri());
 	    } 
@@ -239,7 +236,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 	 * {@link IMemento}.
 	 * 
 	 * @param memento
-	 *            The memeto to store the information in
+	 *            The memento to store the information in
 	 */
 	public void saveState(IMemento memento) {
 		// Do not store anything for deleted objects
@@ -269,10 +266,6 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 	 *         object <br>
 	 */
 	public boolean exists() {
-		if (this.uri == null) {
-			return false;
-		}
-		final URI uri = getUri();
 		if (uri == null) {
 			return false;
 		}
@@ -363,5 +356,4 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 		URI normalizedUri = normalizeUriString(uri);
 		this.uri = normalizedUri;
 	}
-	
 }
