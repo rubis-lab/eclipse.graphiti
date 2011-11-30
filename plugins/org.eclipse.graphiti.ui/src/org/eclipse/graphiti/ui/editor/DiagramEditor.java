@@ -55,16 +55,12 @@ import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.SnapToGeometry;
 import org.eclipse.gef.SnapToGrid;
-import org.eclipse.gef.Tool;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackEvent;
 import org.eclipse.gef.commands.CommandStackEventListener;
-import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.editparts.GridLayer;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.tools.ConnectionCreationTool;
-import org.eclipse.gef.tools.CreationTool;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.AlignmentAction;
 import org.eclipse.gef.ui.actions.DirectEditAction;
@@ -74,11 +70,7 @@ import org.eclipse.gef.ui.actions.MatchWidthAction;
 import org.eclipse.gef.ui.actions.ToggleGridAction;
 import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
-import org.eclipse.gef.ui.palette.DefaultPaletteViewerPreferences;
-import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
-import org.eclipse.gef.ui.palette.PaletteViewer;
-import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
@@ -116,7 +108,6 @@ import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.action.CopyAction;
 import org.eclipse.graphiti.ui.internal.action.DeleteAction;
 import org.eclipse.graphiti.ui.internal.action.PasteAction;
@@ -130,12 +121,10 @@ import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.contextbuttons.ContextButtonManagerForPad;
 import org.eclipse.graphiti.ui.internal.dnd.GFTemplateTransferDropTargetListener;
 import org.eclipse.graphiti.ui.internal.dnd.ObjectsTransferDropTargetListener;
-import org.eclipse.graphiti.ui.internal.editor.DefaultFlyoutPalettePreferences;
 import org.eclipse.graphiti.ui.internal.editor.DiagramChangeListener;
 import org.eclipse.graphiti.ui.internal.editor.DomainModelChangeListener;
 import org.eclipse.graphiti.ui.internal.editor.GFCommandStack;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
-import org.eclipse.graphiti.ui.internal.editor.GFPaletteRoot;
 import org.eclipse.graphiti.ui.internal.editor.GFScrollingGraphicalViewer;
 import org.eclipse.graphiti.ui.internal.editor.GraphitiScrollingGraphicalViewer;
 import org.eclipse.graphiti.ui.internal.editor.RefreshPerformanceCache;
@@ -148,14 +137,12 @@ import org.eclipse.graphiti.ui.internal.util.gef.ScalableRootEditPartAnimated;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.TransferDropTargetListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.widgets.Composite;
@@ -187,14 +174,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	private CommandStackEventListener gefCommandStackListener;
 
 	private final DiagramEditorBehavior behavior;
+	private DefaultPaletteBehaviour paletteBehaviour;
 
-	protected static final int DEFAULT_PALETTE_SIZE = 130;
-
-	protected static final String PALETTE_DOCK_LOCATION = "Dock location"; //$NON-NLS-1$
-
-	protected static final String PALETTE_SIZE = "Palette Size"; //$NON-NLS-1$
-
-	public static final String PALETTE_STATE = "Palette state"; //$NON-NLS-1$
 
 	private static final boolean REFRESH_ON_GAINED_FOCUS = false;
 
@@ -207,8 +188,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	private IConfigurationProvider configurationProvider;
 
 	private KeyHandler keyHandler;
-
-	private PaletteRoot paletteRoot;
 
 	private Point mouseLocation;
 
@@ -229,7 +208,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	 * Instantiates a new diagram editor.
 	 */
 	public DiagramEditor() {
+		super();
 		behavior = new DiagramEditorBehavior(this);
+		paletteBehaviour = createPaletteBehaviour();
 	}
 
 	/**
@@ -391,94 +372,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		initializeGraphicalViewer();
 	}
 
-	/**
-	 * Returns the object, which is used to store/provide the preferences for
-	 * the Palette. This implementation will use the IModelExtensionProvider as
-	 * persistent storage.
-	 * 
-	 * @return The object, which is used to store/provide the preferences for
-	 *         the Palette.
-	 */
-	protected FlyoutPreferences createPalettePreferences() {
-		return new DefaultFlyoutPalettePreferences();
-	}
-
-	/**
-	 * Creates the PaletteRoot of this editor.
-	 * 
-	 * @return the palette root
-	 * @see org.eclipse.graphiti.ui.editor.GraphicalEditorIncludingPalette#createPaletteRoot()
-	 */
-	protected PaletteRoot createPaletteRoot() {
-		return new GFPaletteRoot(getConfigurationProvider());
-	}
-
-	/**
-	 * Returns the PaletteViewerProvider, which can be used to create a new
-	 * PaletteViewer. This method can be overwritten to return a subclass of the
-	 * PaletteViewerProvider, which configures the PaletteViewer with a
-	 * different ContextMenu, with a PaletteCustomizer or with a different
-	 * IPreferencesStore. Do not call this method directly, instead call
-	 * getPaletteViewerProvider(), which buffers the created object.
-	 * <p>
-	 * By default this method returns a new PaletteViewerProvider.
-	 * 
-	 * @return The PaletteViewerProvider, which can be used to create a new
-	 *         PaletteViewer.
-	 */
-
-	protected PaletteViewerProvider createPaletteViewerProvider() {
-		return new PaletteViewerProvider(getEditDomain()) {
-			private KeyHandler paletteKeyHandler = null;
-
-
-			protected void configurePaletteViewer(PaletteViewer viewer) {
-				super.configurePaletteViewer(viewer);
-				viewer.getKeyHandler().setParent(getPaletteKeyHandler());
-				viewer.addDragSourceListener(new TemplateTransferDragSourceListener(viewer));
-			}
-
-			/**
-			 * @return Palette Key Handler for the palette
-			 */
-			private KeyHandler getPaletteKeyHandler() {
-
-				if (paletteKeyHandler == null) {
-
-					paletteKeyHandler = new KeyHandler() {
-
-						/**
-						 * Processes a <i>key released </i> event. This method
-						 * is called by the Tool whenever a key is released, and
-						 * the Tool is in the proper state. Override to support
-						 * pressing the enter key to create a shape or
-						 * connection (between two selected shapes)
-						 * 
-						 * @param event
-						 *            the KeyEvent
-						 * @return <code>true</code> if KeyEvent was handled in
-						 *         some way
-						 */
-
-						public boolean keyReleased(KeyEvent event) {
-							if (event.keyCode == SWT.Selection) {
-								Tool tool = getEditDomain().getPaletteViewer().getActiveTool().createTool();
-								if (tool instanceof CreationTool || tool instanceof ConnectionCreationTool) {
-									tool.keyUp(event, getGraphicalViewer());
-									// Deactivate current selection
-									getEditDomain().getPaletteViewer().setActiveTool(null);
-									return true;
-								}
-							}
-							return super.keyReleased(event);
-						}
-					};
-				}
-				return paletteKeyHandler;
-			}
-		};
-	}
-
 	// ====================== standard behaviour ==============================
 
 
@@ -496,7 +389,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			getConfigurationProvider().dispose();
 		}
 
-		this.paletteRoot = null;
+		if (paletteBehaviour != null) {
+			paletteBehaviour.dispose();
+			paletteBehaviour = null;
+		}
 
 		// unregister selection listener, registered during createPartControl()
 		if (getSite() != null && getSite().getPage() != null) {
@@ -840,49 +736,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		return new LocationImpl(mL.x, mL.y);
 	}
 
-	protected FlyoutPreferences getPalettePreferences() {
-		return new FlyoutPreferences() {
-			public int getDockLocation() {
-				return getPreferenceStore().getInt(PALETTE_DOCK_LOCATION);
-			}
-
-			public int getPaletteState() {
-				if (!getToolBehaviorProvider().isShowFlyoutPalette())
-					return 8;
-				return getPreferenceStore().getInt(PALETTE_STATE);
-			}
-
-			public int getPaletteWidth() {
-				return getPreferenceStore().getInt(PALETTE_SIZE);
-			}
-
-			public void setDockLocation(int location) {
-				getPreferenceStore().setValue(PALETTE_DOCK_LOCATION, location);
-			}
-
-			public void setPaletteState(int state) {
-				getPreferenceStore().setValue(PALETTE_STATE, state);
-			}
-
-			public void setPaletteWidth(int width) {
-				getPreferenceStore().setValue(PALETTE_SIZE, width);
-			}
-		};
-	}
-
-	private IPreferenceStore getPreferenceStore() {
-		IPreferenceStore ps = GraphitiUIPlugin.getDefault().getPreferenceStore();
-		ps.setDefault(DiagramEditor.PALETTE_STATE, FlyoutPaletteComposite.STATE_PINNED_OPEN);
-		return ps;
-	}
-
-
-	protected PaletteRoot getPaletteRoot() {
-		if (paletteRoot == null)
-			paletteRoot = createPaletteRoot();
-		return paletteRoot;
-	}
-
 	/**
 	 * Gets the pictogram element for selection.
 	 * 
@@ -1021,7 +874,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			// getEditingDomain(), ...
 			super.init(site, input);
 		} catch (RuntimeException e) {
-			throw new PartInitException(e.getMessage());
+			throw new PartInitException("Could not initialize editor", e);
 		}
 
 		getBehavior().init(input, new Runnable() {
@@ -1150,19 +1003,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		getGraphicalViewer().setEditPartFactory(getConfigurationProvider().getEditPartFactory());
 		getGraphicalViewer().setContents(getConfigurationProvider().getDiagram());
 
-		// set preference-store for palette
-		PaletteViewer paletteViewer = getEditDomain().getPaletteViewer();
-		if (paletteViewer != null) {
-			IPreferenceStore store = GraphitiUIPlugin.getDefault().getPreferenceStore();
-			paletteViewer.setPaletteViewerPreferences(new DefaultPaletteViewerPreferences(store));
-
-			// Refresh the PaletteViewer
-			// This can be achieved by firing a font-change-event from the
-			// IPreferenceStore.
-			// It would be nicer, if the PaletteViewer would have some kind of
-			// refresh()-method directly.
-			store.firePropertyChangeEvent(PaletteViewerPreferences.PREFERENCE_FONT, null, null);
-		}
+		paletteBehaviour.initializeViewer();
 
 		getGraphicalViewer().getControl().addMouseMoveListener(new MouseMoveListener() {
 
@@ -1263,9 +1104,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			return;
 		}
 
-		// this should indicate that the editor is already disposed
-		// perhaps you find a better way to do this
-		if (this.paletteRoot == null)
+		if (!isAlive())
 			return;
 
 		long start = System.currentTimeMillis();
@@ -1315,16 +1154,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			delegate.setForceRefresh(false);
 		}
 	}
-
-
-	public void refreshPalette() {
-		PaletteRoot pr = getPaletteRoot();
-		if (pr instanceof GFPaletteRoot) {
-			GFPaletteRoot gpr = (GFPaletteRoot) pr;
-			gpr.updatePaletteEntries();
-		}
-	}
-
 
 	public void refreshRenderingDecorators(PictogramElement pe) {
 		GraphicalEditPart ep = getEditPartForPictogramElement(pe);
@@ -1735,5 +1564,41 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			selectPictogramElements(getPictogramElementsForSelection());
 			setPictogramElementsForSelection(null);
 		}
+	}
+
+	// ---------------------- Palette ----------------------------------//
+
+	/**
+	 * Override to change palette behaviour
+	 * 
+	 * @return
+	 * @since 0.9
+	 */
+	protected DefaultPaletteBehaviour createPaletteBehaviour() {
+		return new DefaultPaletteBehaviour(this);
+	}
+
+	/**
+	 * Delegates to (a subclass of)
+	 * {@link DefaultPaletteBehaviour#createPaletteViewerProvider()}
+	 */
+	protected final PaletteViewerProvider createPaletteViewerProvider() {
+		return paletteBehaviour.createPaletteViewerProvider();
+	}
+
+	/**
+	 * Delegates to (a subclass of) {@link DefaultPaletteBehaviour}. To change
+	 * the palette override the behaviour there.
+	 */
+	protected final FlyoutPreferences getPalettePreferences() {
+		return paletteBehaviour.getPalettePreferences();
+	}
+
+	protected final PaletteRoot getPaletteRoot() {
+		return paletteBehaviour.getPaletteRoot();
+	}
+
+	public final void refreshPalette() {
+		paletteBehaviour.refreshPalette();
 	}
 }

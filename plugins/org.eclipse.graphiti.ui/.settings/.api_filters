@@ -17,42 +17,12 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="DEFAULT_PALETTE_SIZE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="PALETTE_DOCK_LOCATION"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="PALETTE_SIZE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="PALETTE_STATE"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
                 <message_argument value="calculateRealMouseLocation(Point)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
                 <message_argument value="createContextMenuProvider()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="createPalettePreferences()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="createPaletteRoot()"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
