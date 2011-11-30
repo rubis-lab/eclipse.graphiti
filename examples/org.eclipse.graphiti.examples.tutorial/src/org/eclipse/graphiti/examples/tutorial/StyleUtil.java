@@ -57,7 +57,7 @@ public class StyleUtil {
 		Style style = gaService.findStyle(parentStyle, styleId);
 
 		if (style == null) { // style not found - create new style
-			style = gaService.createPlainStyle(getStyleForCommonValues(diagram), styleId);
+			style = gaService.createPlainStyle(parentStyle, styleId);
 			style.setFilled(true);
 			style.setForeground(gaService.manageColor(diagram, E_CLASS_FOREGROUND));
 			// style.setRenderingStyle(style,
@@ -78,7 +78,7 @@ public class StyleUtil {
 		Style style = gaService.findStyle(parentStyle, styleId);
 
 		if (style == null) { // style not found - create new style
-			style = gaService.createPlainStyle(getStyleForCommonValues(diagram), styleId);
+			style = gaService.createPlainStyle(parentStyle, styleId);
 			setCommonTextValues(diagram, gaService, style);
 			style.setFont(gaService.manageDefaultFont(diagram, false, true));
 		}
@@ -94,7 +94,7 @@ public class StyleUtil {
 		Style style = gaService.findStyle(parentStyle, styleId);
 
 		if (style == null) { // style not found - create new style
-			style = gaService.createPlainStyle(getStyleForCommonValues(diagram), styleId);
+			style = gaService.createPlainStyle(parentStyle, styleId);
 			setCommonTextValues(diagram, gaService, style);
 			style.setFont(gaService.manageDefaultFont(diagram, true, false));
 		}
