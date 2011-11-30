@@ -224,23 +224,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 	private RefreshPerformanceCache refreshPerformanceCache = new RefreshPerformanceCache();
 
-	private RefreshPerformanceCache getRefreshPerformanceCache() {
-		return refreshPerformanceCache;
-	}
-
-	/**
-	 * @since 0.9
-	 */
-	public void initRefresh() {
-		getRefreshPerformanceCache().initRefresh();
-	}
-
-	/**
-	 * @since 0.9
-	 */
-	public boolean shouldRefresh(Object obj) {
-		return getRefreshPerformanceCache().shouldRefresh(obj);
-	}
 
 	/**
 	 * Instantiates a new diagram editor.
@@ -1716,13 +1699,31 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		return ret;
 	}
 
-	/**
-	 * Gets the model editor.
-	 * 
-	 * @return the model editor
-	 */
 	private DiagramEditorBehavior getBehavior() {
 		return behavior;
+	}
+
+	private RefreshPerformanceCache getRefreshPerformanceCache() {
+		return refreshPerformanceCache;
+	}
+
+	/**
+	 * Initializes the performance cache. Should not be called by external
+	 * clients.
+	 * 
+	 * @since 0.9
+	 */
+	public void initRefresh() {
+		getRefreshPerformanceCache().initRefresh();
+	}
+
+	/**
+	 * Manages the performance cache. Should not be called by external clients.
+	 * 
+	 * @since 0.9
+	 */
+	public boolean shouldRefresh(Object obj) {
+		return getRefreshPerformanceCache().shouldRefresh(obj);
 	}
 
 	public boolean isMultipleRefreshSupressionActive() {
