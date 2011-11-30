@@ -1540,6 +1540,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	 * Initializes the performance cache. Should not be called by external
 	 * clients.
 	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 * @since 0.9
 	 */
 	public void initRefresh() {
@@ -1549,6 +1550,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	/**
 	 * Manages the performance cache. Should not be called by external clients.
 	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 * @since 0.9
 	 */
 	public boolean shouldRefresh(Object obj) {
