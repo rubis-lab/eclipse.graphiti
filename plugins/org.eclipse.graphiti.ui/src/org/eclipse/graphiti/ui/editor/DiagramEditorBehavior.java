@@ -150,31 +150,33 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 
 	private boolean adapterActive = true;
 
-	/**
-	 * @return the resourceDeleted
-	 */
-	public boolean isResourceDeleted() {
+
+	private boolean isResourceDeleted() {
 		return resourceDeleted;
 	}
 
+
 	/**
+	 * Should not be called by external clients.
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 * @param resourceDeleted
-	 *            the resourceDeleted to set
 	 */
 	public void setResourceDeleted(boolean resourceDeleted) {
 		this.resourceDeleted = resourceDeleted;
 	}
 
-	/**
-	 * @return the resourceChanged
-	 */
-	public boolean isResourceChanged() {
+
+	private boolean isResourceChanged() {
 		return resourceChanged;
 	}
 
+
 	/**
+	 * Should not be called by external clients.
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 * @param resourceChanged
-	 *            the resourceChanged to set
 	 */
 	public void setResourceChanged(boolean resourceChanged) {
 		this.resourceChanged = resourceChanged;
@@ -539,7 +541,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	/**
-	 * Initialises this editor with the given editor site and input. If a
+	 * Initializes this editor with the given editor site and input. If a
 	 * dirtyStateUpdater is provided, it will be registered such that it toggles
 	 * the editor's dirty state.
 	 * 
@@ -553,7 +555,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 *            contain a call
 	 *            <code>firePropertyChange(IEditorPart.PROP_DIRTY)</code>.
 	 * @throws PartInitException
-	 *             if the initialisation fails
+	 *             if the initialization fails
 	 */
 	/**
 	 * @param site
