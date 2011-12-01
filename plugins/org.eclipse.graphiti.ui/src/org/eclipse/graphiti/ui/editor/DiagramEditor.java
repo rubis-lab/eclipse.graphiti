@@ -266,7 +266,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	/**
 	 * @since 0.9
 	 */
-	public void dirtify() {
+	public void updateDirtyState() {
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 	}
 

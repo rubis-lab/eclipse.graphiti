@@ -152,11 +152,6 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="loadDiagram(String)"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
                 <message_argument value="refresh()"/>
             </message_arguments>
         </filter>

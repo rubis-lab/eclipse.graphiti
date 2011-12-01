@@ -63,6 +63,7 @@ public class DefaultPersistencyBehavior {
 		return null;
 	}
 
+	// TODO extract some functionality, like setting version info, saving, ...
 	public void saveDiagram(IProgressMonitor monitor) {
 		// set version info.
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
@@ -105,7 +106,7 @@ public class DefaultPersistencyBehavior {
 
 			((BasicCommandStack) diagramEditor.getEditingDomain().getCommandStack()).saveIsDone();
 			// Refresh the necessary state.
-			diagramEditor.dirtify();
+			diagramEditor.updateDirtyState();
 			// commandStack.notifyListeners();
 		} catch (final Exception exception) {
 			// Something went wrong that shouldn't.

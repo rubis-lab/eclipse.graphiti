@@ -657,7 +657,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		switch (event.getEventType()) {
 		case OperationHistoryEvent.REDONE:
 		case OperationHistoryEvent.UNDONE:
-			diagramEditor.dirtify();
+			diagramEditor.updateDirtyState();
 			break;
 		}
 	}
