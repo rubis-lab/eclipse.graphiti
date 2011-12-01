@@ -65,7 +65,6 @@ public class DefaultPersistencyBehavior {
 		return null;
 	}
 
-	// TODO extract some functionality, like setting version info, saving, ...
 	public void saveDiagram(IProgressMonitor monitor) {
 		// set version info.
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
