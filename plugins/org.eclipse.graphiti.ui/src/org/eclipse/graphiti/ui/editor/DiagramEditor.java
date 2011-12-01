@@ -226,17 +226,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		return new DiagramEditorBehavior(this);
 	}
 
-	
-	/**
-	 * Creates and registers the "New ..." actions. Those actions are dependent
-	 * on the IConfigurationProvider.
-	 */
-	private void buildNewObjectActions() {
-		if (getConfigurationProvider() == null) // can happen for example on
-			// first initialization
-			return;
-	}
-
 	/**
 	 * Calculates the location in dependence from scrollbars and zoom factor.
 	 * 
@@ -955,8 +944,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 				registerAction(new PrintGraphicalViewerAction(getConfigurationProvider().getWorkbenchPart(), pf));
 			}
 		}
-
-		buildNewObjectActions();
 
 		// this will cause the ActionBarContributor to refresh with the
 		// new actions (there is no specific refresh-action).
