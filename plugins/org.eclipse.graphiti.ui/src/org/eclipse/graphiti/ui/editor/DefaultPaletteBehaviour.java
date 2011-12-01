@@ -36,7 +36,7 @@ import org.eclipse.swt.events.KeyEvent;
 
 /**
  * This class can be subclassed by clients to adapt the palette appearance and
- * behaviour of the Graphiti diagranm Editor. The API is very much aligned with
+ * behaviour of the Graphiti diagram Editor. The API is very much aligned with
  * the way GEF handles the palette within its editors, see
  * {@link GraphicalEditorWithFlyoutPalette} for more information on that.
  * 

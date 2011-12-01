@@ -19,11 +19,8 @@
 package org.eclipse.graphiti.ui.editor;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.commands.operations.IOperationHistory;
 import org.eclipse.core.commands.operations.IOperationHistoryListener;
@@ -31,8 +28,6 @@ import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.commands.operations.OperationHistoryEvent;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.Adapter;
@@ -43,7 +38,6 @@ import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -61,8 +55,6 @@ import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.editor.DomainModelWorkspaceSynchronizerDelegate;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
@@ -85,7 +77,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * 
 	 * @see {@link DiagramEditorBehavior#DiagramEditorBehavior(IEditorPart)}
 	 */
-	private IEditorPart editorPart = null;
+	private DiagramEditor diagramEditor = null;
 
 	/**
 	 * Keeps track of the editing domain that is used to track all changes to
@@ -114,12 +106,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 */
 	private boolean updateProblemIndication = true;
 
-	/**
-	 * If a dirtyStateUpdater is provided with
-	 * {@link DiagramEditorBehavior#init(IEditorSite, IEditorInput, Runnable)},
-	 * it will be registered such that it toggles the editor's dirty state.
-	 */
-	private Runnable dirtyStateUpdater;
 
 	/**
 	 * The update adapter is added to every {@link Resource} adapters in the
@@ -185,12 +171,12 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	/**
 	 * Creates a model editor responsible for the given {@link IEditorPart}.
 	 * 
-	 * @param editorPart
+	 * @param diagramEditor
 	 *            the part this model editor works on
 	 */
-	public DiagramEditorBehavior(IEditorPart editorPart) {
+	public DiagramEditorBehavior(DiagramEditor diagramEditor) {
 		super();
-		this.editorPart = editorPart;
+		this.diagramEditor = diagramEditor;
 	}
 
 	/**
@@ -263,7 +249,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	};
 
 	private Shell getShell() {
-		return editorPart.getSite().getShell();
+		return diagramEditor.getSite().getShell();
 	}
 
 	private final Adapter updateAdapter = new AdapterImpl() {
@@ -278,8 +264,8 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 					if (editingDomain.getResourceSet().getURIConverter().exists(uri, null)) {
 						// file content has changes
 						setResourceChanged(true);
-						final IEditorPart activeEditor = editorPart.getSite().getPage().getActiveEditor();
-						if (activeEditor == editorPart) {
+						final IEditorPart activeEditor = diagramEditor.getSite().getPage().getActiveEditor();
+						if (activeEditor == diagramEditor) {
 							getShell().getDisplay().asyncExec(new Runnable() {
 								public void run() {
 									handleActivate();
@@ -289,7 +275,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 					} else {
 						// file has been deleted
 						if (!isDirty()) {
-							final IEditorInput editorInput = editorPart.getEditorInput();
+							final IEditorInput editorInput = diagramEditor.getEditorInput();
 							if (editorInput instanceof IDiagramEditorInput) {
 								final IDiagramEditorInput input = (IDiagramEditorInput) editorInput;
 								URI inputUri = input.getUri();
@@ -300,8 +286,8 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 							}
 						} else {
 							setResourceDeleted(true);
-							final IEditorPart activeEditor = editorPart.getSite().getPage().getActiveEditor();
-							if (activeEditor == editorPart) {
+							final IEditorPart activeEditor = diagramEditor.getSite().getPage().getActiveEditor();
+							if (activeEditor == diagramEditor) {
 								getShell().getDisplay().asyncExec(new Runnable() {
 									public void run() {
 										handleActivate();
@@ -325,16 +311,16 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	};
 
 	private void closeEd() {
-		if (editorPart == null)
+		if (diagramEditor == null)
 			return;
-		IWorkbenchPartSite site = editorPart.getSite();
+		IWorkbenchPartSite site = diagramEditor.getSite();
 		// Since we run async we have to check if our ui is still there.
 		if (site == null)
 			return;
 		IWorkbenchPage page = site.getPage();
 		if (page == null)
 			return;
-		page.closeEditor(editorPart, false);
+		page.closeEditor(diagramEditor, false);
 	}
 
 	/**
@@ -372,8 +358,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		if (!isDirty() || handleDirtyConflict()) {
 			getOperationHistory().dispose(getUndoContext(), true, true, true);
 
-			updateProblemIndication = false;
-
+			setProblemIndicationUpdateActive(false);
 			// Disable adapter temporarily.
 			setAdapterActive(false);
 			try {
@@ -387,7 +372,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 			} finally {
 				setAdapterActive(true);
 			}
-			updateProblemIndication = true;
+			setProblemIndicationUpdateActive(true);
 			updateProblemIndication();
 		}
 	}
@@ -396,7 +381,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * Updates the problems indication with the information described in the
 	 * specified diagnostic.
 	 */
-	private void updateProblemIndication() {
+	void updateProblemIndication() {
 		if (this.updateProblemIndication && editingDomain != null) {
 			final BasicDiagnostic diagnostic = new BasicDiagnostic(Diagnostic.OK, GraphitiUIPlugin.PLUGIN_ID, 0, null,
 					new Object[] { editingDomain.getResourceSet() });
@@ -477,55 +462,10 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		return false;
 	}
 
-	/**
-	 * This is for implementing {@link IEditorPart} and simply saves the model
-	 * file.
-	 * 
-	 * @param progressMonitor
-	 *            The {@link IProgressMonitor} progress monitor
-	 */
-	public Resource[] doSave(IProgressMonitor progressMonitor) {
-		// Save only resources that have actually changed.
-		final Map<Object, Object> saveOptions = new HashMap<Object, Object>();
-		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
-		final Set<Resource> savedResources = new HashSet<Resource>();
 
-		// Do the work within an operation because this is a long running
-		// activity that modifies the workbench.
-		final IRunnableWithProgress operation = new IRunnableWithProgress() {
-			// This is the method that gets invoked when the operation runs.
-			public void run(IProgressMonitor monitor) {
-				// Save the resources to the file system.
-				try {
-					savedResources.addAll(GraphitiUiInternal.getEmfService().save(editingDomain));
-				} catch (final WrappedException e) {
-					final MultiStatus errorStatus = new MultiStatus(GraphitiUIPlugin.PLUGIN_ID, 0, e.getMessage(),
-							e.exception());
-					GraphitiUIPlugin.getDefault().getLog().log(errorStatus);
-					T.racer().error(e.getMessage(), e.exception());
-				}
-			}
-		};
 
-		this.updateProblemIndication = false;
-		try {
-			// This runs the options, and shows progress.
-			new ProgressMonitorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()).run(true, false,
-					operation);
-
-			((BasicCommandStack) editingDomain.getCommandStack()).saveIsDone();
-			// Refresh the necessary state.
-			if (dirtyStateUpdater != null)
-				this.dirtyStateUpdater.run();
-			// commandStack.notifyListeners(); // EMFMIG needed?
-		} catch (final Exception exception) {
-			// Something went wrong that shouldn't.
-			T.racer().error(exception.getMessage(), exception);
-		}
-		this.updateProblemIndication = true;
-		updateProblemIndication();
-
-		return savedResources.toArray(new Resource[savedResources.size()]);
+	public void setProblemIndicationUpdateActive(boolean onOff) {
+		this.updateProblemIndication = onOff;
 	}
 
 	private IOperationHistory getOperationHistory() {
@@ -560,12 +500,10 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	/**
 	 * @param site
 	 * @param editorInput
-	 * @param dirtyStateUpdater
 	 */
-	public void init(IEditorInput editorInput, Runnable dirtyStateUpdater) {
-		this.dirtyStateUpdater = dirtyStateUpdater;
+	public void init(IEditorInput editorInput) {
 		// Retrieve the object from the editor input
-		final EObject object = (EObject) editorPart.getAdapter(Diagram.class);
+		final EObject object = (EObject) diagramEditor.getAdapter(Diagram.class);
 
 		for (final Resource r : getEditingDomain().getResourceSet().getResources()) {
 			r.eAdapters().add(updateAdapter);
@@ -586,7 +524,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	public void dispose() {
-		updateProblemIndication = false;
+		setProblemIndicationUpdateActive(false);
 
 		// Remove all the registered listeners
 		editingDomain.getResourceSet().eAdapters().remove(resourceSetUpdateAdapter);
@@ -596,7 +534,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 			r.eAdapters().remove(updateAdapter);
 		}
 
-		EObject object = (EObject) editorPart.getAdapter(Diagram.class);
+		EObject object = (EObject) diagramEditor.getAdapter(Diagram.class);
 		if (object != null) {
 			object.eAdapters().remove(elementDeleteListener);
 		}
@@ -606,7 +544,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		// Remove reference
 		disposeEditingDomain();
 		editingDomain = null;
-		editorPart = null;
+		diagramEditor = null;
 	}
 
 	protected void disposeEditingDomain() {
@@ -660,7 +598,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 
 		@Override
 		public void notifyChanged(Notification msg) {
-			final IEditorPart part = editorPart;
+			final IEditorPart part = diagramEditor;
 			if (T.racer().debug()) {
 				final String editorName = part.getTitle();
 				T.racer().debug("Delete listener called of editor " //$NON-NLS-1$
@@ -679,7 +617,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 				// which may provoke deadlocks.
 				shell.getDisplay().asyncExec(new Runnable() {
 					public void run() {
-						if (editorPart == null) {
+						if (diagramEditor == null) {
 							return; // disposed
 						}
 						if (shell.isDisposed()) {
@@ -687,7 +625,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 						}
 						Diagram diagram = null;
 						try {
-							diagram = (Diagram) editorPart.getAdapter(Diagram.class);
+							diagram = (Diagram) diagramEditor.getAdapter(Diagram.class);
 						} catch (final Exception e) {
 							// Ignore, exception indicates that the diagram has
 							// been deleted
@@ -719,7 +657,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		switch (event.getEventType()) {
 		case OperationHistoryEvent.REDONE:
 		case OperationHistoryEvent.UNDONE:
-			this.dirtyStateUpdater.run();
+			diagramEditor.dirtify();
 			break;
 		}
 	}
@@ -729,13 +667,13 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	public void refreshEditorContent() {
-		if (editorPart instanceof DiagramEditor) {
-			((DiagramEditor) editorPart).refreshContent();
+		if (diagramEditor instanceof DiagramEditor) {
+			((DiagramEditor) diagramEditor).refreshContent();
 		}
 	}
 
 	public IDiagramEditorInput getEditorInput() {
-		IEditorInput editorInput = editorPart.getEditorInput();
+		IEditorInput editorInput = diagramEditor.getEditorInput();
 		if (editorInput instanceof IDiagramEditorInput) {
 			return ((IDiagramEditorInput) editorInput);
 		}

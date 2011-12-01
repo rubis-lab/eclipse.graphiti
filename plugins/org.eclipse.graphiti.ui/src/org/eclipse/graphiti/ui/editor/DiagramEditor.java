@@ -41,7 +41,6 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.transaction.RecordingCommand;
@@ -92,7 +91,6 @@ import org.eclipse.graphiti.features.context.ISaveImageContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.SaveImageContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
-import org.eclipse.graphiti.internal.IDiagramVersion;
 import org.eclipse.graphiti.internal.command.AddFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
@@ -103,7 +101,6 @@ import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
@@ -175,6 +172,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 	private final DiagramEditorBehavior behavior;
 	private DefaultPaletteBehaviour paletteBehaviour;
+	private DefaultPersistencyBehavior persistencyBehavior;
 
 
 	private static final boolean REFRESH_ON_GAINED_FOCUS = false;
@@ -203,16 +201,31 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 	private RefreshPerformanceCache refreshPerformanceCache = new RefreshPerformanceCache();
 
-
 	/**
 	 * Instantiates a new diagram editor.
 	 */
 	public DiagramEditor() {
 		super();
-		behavior = new DiagramEditorBehavior(this);
+		behavior = createDiagramEditorBehavior();
 		paletteBehaviour = createPaletteBehaviour();
+		persistencyBehavior = createPersistencyBehavior();
 	}
 
+	/**
+	 * @since 0.9
+	 */
+	protected DefaultPersistencyBehavior createPersistencyBehavior() {
+		return new DefaultPersistencyBehavior(this);
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	protected DiagramEditorBehavior createDiagramEditorBehavior() {
+		return new DiagramEditorBehavior(this);
+	}
+
+	
 	/**
 	 * Creates and registers the "New ..." actions. Those actions are dependent
 	 * on the IConfigurationProvider.
@@ -248,6 +261,13 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		ret = ret.getScaled(1 / zoomManager.getZoom());
 
 		return ret;
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	public void dirtify() {
+		firePropertyChange(IEditorPart.PROP_DIRTY);
 	}
 
 	/**
@@ -424,24 +444,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	}
 
 
-	public void doSave(IProgressMonitor monitor) {
-		// set version info.
-		final Diagram diagram = getDiagramTypeProvider().getDiagram();
-		getEditingDomain().getCommandStack().execute(new RecordingCommand(getEditingDomain()) {
-
-			@Override
-			protected void doExecute() {
-				diagram.eSet(PictogramsPackage.eINSTANCE.getDiagram_Version(), IDiagramVersion.CURRENT);
-			}
-		});
-		Resource[] savedResources = getBehavior().doSave(monitor);
-		commandStackChanged(null);
-
-		IDiagramTypeProvider provider = getConfigurationProvider().getDiagramTypeProvider();
-		provider.resourcesSaved(getDiagramTypeProvider().getDiagram(), savedResources);
+	public final void doSave(IProgressMonitor monitor) {
+		persistencyBehavior.saveDiagram(monitor);
 
 	}
-
 
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
@@ -452,7 +458,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			throw new IllegalArgumentException("The IEditorInput has the wrong type: " + input.getClass()); //$NON-NLS-1$
 
 		IDiagramEditorInput diagramEditorInput = (IDiagramEditorInput) input;
-		Diagram diagram = loadDiagram(diagramEditorInput.getUriString());
+		Diagram diagram = persistencyBehavior.loadDiagram(diagramEditorInput.getUriString());
 
 		// can happen if editor is started with invalid URI
 		Assert.isNotNull(diagram, "No Diagram found for URI '" //$NON-NLS-1$
@@ -485,33 +491,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		refreshTitle();
 	}
 
-
-	protected Diagram loadDiagram(String uriName) {
-		URI uri = URI.createURI(uriName);
-		if (uri != null) {
-			final TransactionalEditingDomain editingDomain = getEditingDomain();
-			if (editingDomain != null) {
-				// First try the URI resolution without loading not yet loaded
-				// resources
-				// because calling with loadOnDemand will _always_ create a new
-				// Resource
-				// instance for newly created and not yet saved Resources, no
-				// matter if
-				// they already exist within the ResourceSet or not
-				EObject modelElement = editingDomain.getResourceSet().getEObject(uri, false);
-				if (modelElement == null) {
-					modelElement = editingDomain.getResourceSet().getEObject(uri, true);
-					if (modelElement == null) {
-						return null;
-					}
-				}
-
-				modelElement.eResource().setTrackingModification(true);
-				return (Diagram) modelElement;
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * Returns the internal ActionRegistry (because {@link #getActionRegistry()}
@@ -588,7 +567,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		return keyHandler;
 	}
 
-	private IConfigurationProvider getConfigurationProvider() {
+	IConfigurationProvider getConfigurationProvider() {
 		return configurationProvider;
 	}
 
@@ -877,12 +856,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			throw new PartInitException("Could not initialize editor", e);
 		}
 
-		getBehavior().init(input, new Runnable() {
-
-			public void run() {
-				firePropertyChange(IEditorPart.PROP_DIRTY);
-			}
-		});
+		getBehavior().init(input);
 
 		migrateDiagramModelIfNecessary();
 	}
@@ -1416,7 +1390,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			refresh();
 		} else {
 			IDiagramEditorInput diagramEditorInput = (IDiagramEditorInput) getEditorInput();
-			Diagram diagram = loadDiagram(diagramEditorInput.getUriString()); // resolve
+			Diagram diagram = persistencyBehavior.loadDiagram(diagramEditorInput.getUriString()); // resolve
 																// diagram in
 																// reloaded
 																// resource
@@ -1528,7 +1502,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		return ret;
 	}
 
-	private DiagramEditorBehavior getBehavior() {
+	DiagramEditorBehavior getBehavior() {
 		return behavior;
 	}
 
