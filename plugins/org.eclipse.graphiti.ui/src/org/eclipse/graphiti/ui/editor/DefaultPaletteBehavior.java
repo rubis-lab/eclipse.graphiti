@@ -42,7 +42,7 @@ import org.eclipse.swt.events.KeyEvent;
  * 
  * @since 0.9
  */
-public class DefaultPaletteBehaviour {
+public class DefaultPaletteBehavior {
 
 	/**
 	 * Property name for storing the location (east, west) of the palette within
@@ -76,7 +76,7 @@ public class DefaultPaletteBehaviour {
 	 * @param diagramEditor
 	 *            The associated {@link DiagramEditor}.
 	 */
-	public DefaultPaletteBehaviour(DiagramEditor diagramEditor) {
+	public DefaultPaletteBehavior(DiagramEditor diagramEditor) {
 		super();
 		this.diagramEditor = diagramEditor;
 	}
@@ -259,8 +259,8 @@ public class DefaultPaletteBehaviour {
 
 	private IPreferenceStore getPreferenceStore() {
 		IPreferenceStore ps = GraphitiUIPlugin.getDefault().getPreferenceStore();
-		ps.setDefault(DefaultPaletteBehaviour.PROPERTY_PALETTE_STATE, FlyoutPaletteComposite.STATE_PINNED_OPEN);
-		ps.setDefault(DefaultPaletteBehaviour.PROPERTY_PALETTE_SIZE, DEFAULT_PALETTE_SIZE);
+		ps.setDefault(DefaultPaletteBehavior.PROPERTY_PALETTE_STATE, FlyoutPaletteComposite.STATE_PINNED_OPEN);
+		ps.setDefault(DefaultPaletteBehavior.PROPERTY_PALETTE_SIZE, DEFAULT_PALETTE_SIZE);
 		return ps;
 	}
 }

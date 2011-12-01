@@ -171,7 +171,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	private CommandStackEventListener gefCommandStackListener;
 
 	private final DiagramEditorBehavior behavior;
-	private DefaultPaletteBehaviour paletteBehaviour;
+	private DefaultPaletteBehavior paletteBehaviour;
 	private DefaultPersistencyBehavior persistencyBehavior;
 
 
@@ -1550,20 +1550,20 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	 * @return
 	 * @since 0.9
 	 */
-	protected DefaultPaletteBehaviour createPaletteBehaviour() {
-		return new DefaultPaletteBehaviour(this);
+	protected DefaultPaletteBehavior createPaletteBehaviour() {
+		return new DefaultPaletteBehavior(this);
 	}
 
 	/**
 	 * Delegates to (a subclass of)
-	 * {@link DefaultPaletteBehaviour#createPaletteViewerProvider()}
+	 * {@link DefaultPaletteBehavior#createPaletteViewerProvider()}
 	 */
 	protected final PaletteViewerProvider createPaletteViewerProvider() {
 		return paletteBehaviour.createPaletteViewerProvider();
 	}
 
 	/**
-	 * Delegates to (a subclass of) {@link DefaultPaletteBehaviour}. To change
+	 * Delegates to (a subclass of) {@link DefaultPaletteBehavior}. To change
 	 * the palette override the behaviour there.
 	 */
 	protected final FlyoutPreferences getPalettePreferences() {
