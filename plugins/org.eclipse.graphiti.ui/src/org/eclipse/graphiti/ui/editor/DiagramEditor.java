@@ -458,7 +458,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			throw new IllegalArgumentException("The IEditorInput has the wrong type: " + input.getClass()); //$NON-NLS-1$
 
 		IDiagramEditorInput diagramEditorInput = (IDiagramEditorInput) input;
-		Diagram diagram = persistencyBehavior.loadDiagram(diagramEditorInput.getUriString());
+		Diagram diagram = persistencyBehavior.loadDiagram(diagramEditorInput.getUri());
 
 		// can happen if editor is started with invalid URI
 		Assert.isNotNull(diagram, "No Diagram found for URI '" //$NON-NLS-1$
@@ -1390,7 +1390,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			refresh();
 		} else {
 			IDiagramEditorInput diagramEditorInput = (IDiagramEditorInput) getEditorInput();
-			Diagram diagram = persistencyBehavior.loadDiagram(diagramEditorInput.getUriString()); // resolve
+			Diagram diagram = persistencyBehavior.loadDiagram(diagramEditorInput.getUri()); // resolve
 																// diagram in
 																// reloaded
 																// resource

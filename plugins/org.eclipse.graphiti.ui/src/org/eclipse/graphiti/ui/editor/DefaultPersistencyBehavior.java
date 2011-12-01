@@ -8,6 +8,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
@@ -39,8 +40,7 @@ public class DefaultPersistencyBehavior {
 		this.diagramEditor = diagramEditor;
 	}
 
-	public Diagram loadDiagram(String uriName) {
-		URI uri = URI.createURI(uriName);
+	public Diagram loadDiagram(URI uri) {
 		if (uri != null) {
 			final TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 			if (editingDomain != null) {
@@ -67,36 +67,11 @@ public class DefaultPersistencyBehavior {
 	public void saveDiagram(IProgressMonitor monitor) {
 		// set version info.
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
-		diagramEditor.getEditingDomain().getCommandStack()
-				.execute(new RecordingCommand(diagramEditor.getEditingDomain()) {
+		setDiagramVersion(diagram);
 
-					@Override
-					protected void doExecute() {
-						diagram.eSet(PictogramsPackage.eINSTANCE.getDiagram_Version(), IDiagramVersion.CURRENT);
-					}
-				});
-
-		// Save only resources that have actually changed.
-		final Map<Object, Object> saveOptions = new HashMap<Object, Object>();
-		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		Map<Resource, Map<?, ?>> saveOptions = createSaveOptions();
 		final Set<Resource> savedResources = new HashSet<Resource>();
-
-		// Do the work within an operation because this is a long running
-		// activity that modifies the workbench.
-		final IRunnableWithProgress operation = new IRunnableWithProgress() {
-			// This is the method that gets invoked when the operation runs.
-			public void run(IProgressMonitor monitor) {
-				// Save the resources to the file system.
-				try {
-					savedResources.addAll(GraphitiUiInternal.getEmfService().save(diagramEditor.getEditingDomain()));
-				} catch (final WrappedException e) {
-					final MultiStatus errorStatus = new MultiStatus(GraphitiUIPlugin.PLUGIN_ID, 0, e.getMessage(),
-							e.exception());
-					GraphitiUIPlugin.getDefault().getLog().log(errorStatus);
-					T.racer().error(e.getMessage(), e.exception());
-				}
-			}
-		};
+		final IRunnableWithProgress operation = createOperation(savedResources, saveOptions);
 
 		diagramEditor.getBehavior().setProblemIndicationUpdateActive(false);
 		try {
@@ -119,6 +94,51 @@ public class DefaultPersistencyBehavior {
 		diagramEditor.commandStackChanged(null);
 		IDiagramTypeProvider provider = diagramEditor.getConfigurationProvider().getDiagramTypeProvider();
 		provider.resourcesSaved(diagramEditor.getDiagramTypeProvider().getDiagram(), savedResourcesArray);
+	}
+
+	protected Map<Resource, Map<?, ?>> createSaveOptions() {
+		// Save only resources that have actually changed.
+		final Map<Object, Object> saveOption = new HashMap<Object, Object>();
+		saveOption.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		EList<Resource> resources = diagramEditor.getEditingDomain().getResourceSet().getResources();
+		final Map<Resource, Map<?, ?>> saveOptions = new HashMap<Resource, Map<?, ?>>();
+		for (Resource resource : resources) {
+			saveOptions.put(resource, saveOption);
+		}
+		return saveOptions;
+	}
+
+	protected IRunnableWithProgress createOperation(final Set<Resource> savedResources,
+			final Map<Resource, Map<?, ?>> saveOptions) {
+		// Do the work within an operation because this is a long running
+		// activity that modifies the workbench.
+		final IRunnableWithProgress operation = new IRunnableWithProgress() {
+			// This is the method that gets invoked when the operation runs.
+			public void run(IProgressMonitor monitor) {
+				// Save the resources to the file system.
+				try {
+					savedResources.addAll(GraphitiUiInternal.getEmfService().save(diagramEditor.getEditingDomain(),
+							saveOptions));
+				} catch (final WrappedException e) {
+					final MultiStatus errorStatus = new MultiStatus(GraphitiUIPlugin.PLUGIN_ID, 0, e.getMessage(),
+							e.exception());
+					GraphitiUIPlugin.getDefault().getLog().log(errorStatus);
+					T.racer().error(e.getMessage(), e.exception());
+				}
+			}
+		};
+		return operation;
+	}
+
+	protected void setDiagramVersion(final Diagram diagram) {
+		diagramEditor.getEditingDomain().getCommandStack()
+				.execute(new RecordingCommand(diagramEditor.getEditingDomain()) {
+
+					@Override
+					protected void doExecute() {
+						diagram.eSet(PictogramsPackage.eINSTANCE.getDiagram_Version(), IDiagramVersion.CURRENT);
+					}
+				});
 	}
 
 }
