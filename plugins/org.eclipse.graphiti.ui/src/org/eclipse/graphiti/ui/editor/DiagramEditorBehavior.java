@@ -29,7 +29,6 @@ import org.eclipse.core.commands.operations.OperationHistoryEvent;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.PlatformObject;
-import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -60,7 +59,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
-import org.eclipse.ui.ISaveablePart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
@@ -274,7 +272,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 						}
 					} else {
 						// file has been deleted
-						if (!isDirty()) {
+						if (!diagramEditor.isDirty()) {
 							final IEditorInput editorInput = diagramEditor.getEditorInput();
 							if (editorInput instanceof IDiagramEditorInput) {
 								final IDiagramEditorInput input = (IDiagramEditorInput) editorInput;
@@ -355,7 +353,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * Handles what to do with changed resources on activation.
 	 */
 	private void handleChangedResources() {
-		if (!isDirty() || handleDirtyConflict()) {
+		if (!diagramEditor.isDirty() || handleDirtyConflict()) {
 			getOperationHistory().dispose(getUndoContext(), true, true, true);
 
 			setProblemIndicationUpdateActive(false);
@@ -445,24 +443,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 			return Diagnostic.OK_INSTANCE;
 		}
 	}
-
-	/**
-	 * Answers whether this editor is dirty by querying the command stack of its
-	 * editing domain for changes that are not yet persisted.
-	 * 
-	 * @return the editor's dirty state
-	 * @see ISaveablePart#isDirty()
-	 */
-	public boolean isDirty() {
-		if (editingDomain != null && editingDomain.getCommandStack() != null) { // not
-																				// disposed
-																				// yet
-			return ((BasicCommandStack) editingDomain.getCommandStack()).isSaveNeeded();
-		}
-		return false;
-	}
-
-
 
 	public void setProblemIndicationUpdateActive(boolean onOff) {
 		this.updateProblemIndication = onOff;

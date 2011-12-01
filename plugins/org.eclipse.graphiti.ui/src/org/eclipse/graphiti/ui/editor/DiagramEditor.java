@@ -39,6 +39,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -1439,8 +1440,12 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 
 	public boolean isDirty() {
-		return getBehavior().isDirty();
-
+		TransactionalEditingDomain editingDomain = getEditingDomain();
+		// Check that the editor is not yet disposed
+		if (editingDomain != null && editingDomain.getCommandStack() != null) {
+			return ((BasicCommandStack) editingDomain.getCommandStack()).isSaveNeeded();
+		}
+		return false;
 	}
 
 
