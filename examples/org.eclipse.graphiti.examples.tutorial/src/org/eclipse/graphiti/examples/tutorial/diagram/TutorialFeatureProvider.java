@@ -21,6 +21,7 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialAddEClassFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialAddEReferenceFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialAssociateDiagramEClassFeature;
+import org.eclipse.graphiti.examples.tutorial.features.TutorialChangeColorEClassFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialCollapseDummyFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialCopyEClassFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialCreateEClassFeature;
@@ -130,11 +131,9 @@ public class TutorialFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
-		return new ICustomFeature[] 
-		      { new TutorialRenameEClassFeature(this),
-				new TutorialDrillDownEClassFeature(this),
-				new TutorialAssociateDiagramEClassFeature(this),
-				new TutorialCollapseDummyFeature(this)};
+		return new ICustomFeature[] { new TutorialRenameEClassFeature(this), new TutorialDrillDownEClassFeature(this),
+				new TutorialAssociateDiagramEClassFeature(this), new TutorialCollapseDummyFeature(this),
+				new TutorialChangeColorEClassFeature(this) };
 	}
 
 	@Override
