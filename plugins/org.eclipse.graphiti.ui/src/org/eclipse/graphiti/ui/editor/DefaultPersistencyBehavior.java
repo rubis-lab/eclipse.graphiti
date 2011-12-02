@@ -35,9 +35,11 @@ import org.eclipse.ui.PlatformUI;
 public class DefaultPersistencyBehavior {
 
 	private DiagramEditor diagramEditor;
+	private DefaultMarkerBehavior markerBehavior;
 
-	public DefaultPersistencyBehavior(DiagramEditor diagramEditor) {
+	public DefaultPersistencyBehavior(DiagramEditor diagramEditor, DefaultMarkerBehavior markerBehavior) {
 		this.diagramEditor = diagramEditor;
+		this.markerBehavior = markerBehavior;
 	}
 
 	public Diagram loadDiagram(URI uri) {
@@ -73,7 +75,7 @@ public class DefaultPersistencyBehavior {
 		final Set<Resource> savedResources = new HashSet<Resource>();
 		final IRunnableWithProgress operation = createOperation(savedResources, saveOptions);
 
-		diagramEditor.getBehavior().setProblemIndicationUpdateActive(false);
+		markerBehavior.disableProblemIndicationUpdate();
 		try {
 			// This runs the options, and shows progress.
 			new ProgressMonitorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()).run(true, false,
@@ -82,13 +84,11 @@ public class DefaultPersistencyBehavior {
 			((BasicCommandStack) diagramEditor.getEditingDomain().getCommandStack()).saveIsDone();
 			// Refresh the necessary state.
 			diagramEditor.updateDirtyState();
-			// commandStack.notifyListeners();
 		} catch (final Exception exception) {
 			// Something went wrong that shouldn't.
 			T.racer().error(exception.getMessage(), exception);
 		}
-		diagramEditor.getBehavior().setProblemIndicationUpdateActive(true);
-		diagramEditor.getBehavior().updateProblemIndication();
+		markerBehavior.enableProblemIndicationUpdate();
 
 		Resource[] savedResourcesArray = savedResources.toArray(new Resource[savedResources.size()]);
 		diagramEditor.commandStackChanged(null);

@@ -174,6 +174,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	private final DiagramEditorBehavior behavior;
 	private DefaultPaletteBehavior paletteBehaviour;
 	private DefaultPersistencyBehavior persistencyBehavior;
+	private DefaultMarkerBehavior markerBehavior;
 
 
 	private static final boolean REFRESH_ON_GAINED_FOCUS = false;
@@ -207,6 +208,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	 */
 	public DiagramEditor() {
 		super();
+		markerBehavior = createMarkerBehavior();
 		behavior = createDiagramEditorBehavior();
 		paletteBehaviour = createPaletteBehaviour();
 		persistencyBehavior = createPersistencyBehavior();
@@ -215,15 +217,22 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	/**
 	 * @since 0.9
 	 */
+	protected DefaultMarkerBehavior createMarkerBehavior() {
+		return new DefaultMarkerBehavior(this);
+	}
+
+	/**
+	 * @since 0.9
+	 */
 	protected DefaultPersistencyBehavior createPersistencyBehavior() {
-		return new DefaultPersistencyBehavior(this);
+		return new DefaultPersistencyBehavior(this, markerBehavior);
 	}
 
 	/**
 	 * @since 0.9
 	 */
 	protected DiagramEditorBehavior createDiagramEditorBehavior() {
-		return new DiagramEditorBehavior(this);
+		return new DiagramEditorBehavior(this, markerBehavior);
 	}
 
 	/**
@@ -422,6 +431,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		} catch (RuntimeException e) {
 			exc = e;
 		}
+
+		markerBehavior.dispose();
 
 		if (getEditDomain() != null) {
 			getEditDomain().setCommandStack(null);

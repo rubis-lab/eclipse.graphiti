@@ -19,36 +19,26 @@
 package org.eclipse.graphiti.ui.editor;
 
 import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.eclipse.core.commands.operations.IOperationHistory;
 import org.eclipse.core.commands.operations.IOperationHistoryListener;
 import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.commands.operations.OperationHistoryEvent;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
-import org.eclipse.emf.common.ui.MarkerHelper;
-import org.eclipse.emf.common.util.BasicDiagnostic;
-import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
-import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.editor.DomainModelWorkspaceSynchronizerDelegate;
@@ -75,7 +65,8 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * 
 	 * @see {@link DiagramEditorBehavior#DiagramEditorBehavior(IEditorPart)}
 	 */
-	private DiagramEditor diagramEditor = null;
+	private DiagramEditor diagramEditor;
+	private DefaultMarkerBehavior markerBehavior;
 
 	/**
 	 * Keeps track of the editing domain that is used to track all changes to
@@ -88,21 +79,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 */
 	private ElementDeleteListener elementDeleteListener = null;
 
-	/**
-	 * Is responsible for creating workspace resource markers presented in
-	 * Eclipse's Problems View.
-	 */
-	private final MarkerHelper markerHelper = new EditUIMarkerHelper();
-
-	/**
-	 * Map to store the diagnostic associated with a resource.
-	 */
-	private final Map<Resource, Diagnostic> resourceToDiagnosticMap = new LinkedHashMap<Resource, Diagnostic>();
-
-	/**
-	 * Controls whether the problem indication should be updated.
-	 */
-	private boolean updateProblemIndication = true;
 
 
 	/**
@@ -134,6 +110,18 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 
 	private boolean adapterActive = true;
 
+
+	/**
+	 * Creates a model editor responsible for the given {@link IEditorPart}.
+	 * 
+	 * @param diagramEditor
+	 *            the part this model editor works on
+	 */
+	public DiagramEditorBehavior(DiagramEditor diagramEditor, DefaultMarkerBehavior markerBehavior) {
+		super();
+		this.diagramEditor = diagramEditor;
+		this.markerBehavior = markerBehavior;
+	}
 
 	private boolean isResourceDeleted() {
 		return resourceDeleted;
@@ -167,17 +155,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	/**
-	 * Creates a model editor responsible for the given {@link IEditorPart}.
-	 * 
-	 * @param diagramEditor
-	 *            the part this model editor works on
-	 */
-	public DiagramEditorBehavior(DiagramEditor diagramEditor) {
-		super();
-		this.diagramEditor = diagramEditor;
-	}
-
-	/**
 	 * This sets up the editing domain for this model editor.
 	 * 
 	 * @param domain
@@ -189,7 +166,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		final ResourceSet resourceSet = domain.getResourceSet();
 
 		// Problem analysis
-		resourceSet.eAdapters().add(problemIndicationAdapter);
+		resourceSet.eAdapters().add(markerBehavior.getProblemIndicationAdapter());
 
 		resourceSetUpdateAdapter = new ResourceSetUpdateAdapter();
 		resourceSet.eAdapters().add(resourceSetUpdateAdapter);
@@ -199,52 +176,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		workspaceSynchronizer = new WorkspaceSynchronizer(getEditingDomain(),
 				new DomainModelWorkspaceSynchronizerDelegate(this));
 	}
-
-	/**
-	 * Adapter used to update the problem indication when resources are demanded
-	 * loaded.
-	 */
-	private final EContentAdapter problemIndicationAdapter = new EContentAdapter() {
-		@Override
-		public void notifyChanged(Notification notification) {
-			if (notification.getNotifier() instanceof Resource) {
-				switch (notification.getFeatureID(Resource.class)) {
-				case Resource.RESOURCE__IS_LOADED:
-				case Resource.RESOURCE__ERRORS:
-				case Resource.RESOURCE__WARNINGS: {
-					final Resource resource = (Resource) notification.getNotifier();
-					final Diagnostic diagnostic = analyzeResourceProblems(resource, null);
-					if (diagnostic.getSeverity() != Diagnostic.OK) {
-						resourceToDiagnosticMap.put(resource, diagnostic);
-					} else {
-						resourceToDiagnosticMap.remove(resource);
-					}
-
-					if (updateProblemIndication) {
-						getShell().getDisplay().asyncExec(new Runnable() {
-							public void run() {
-								updateProblemIndication();
-							}
-						});
-					}
-					break;
-				}
-				}
-			} else {
-				super.notifyChanged(notification);
-			}
-		}
-
-		@Override
-		protected void setTarget(Resource target) {
-			basicSetTarget(target);
-		}
-
-		@Override
-		protected void unsetTarget(Resource target) {
-			basicUnsetTarget(target);
-		}
-	};
 
 	private Shell getShell() {
 		return diagramEditor.getSite().getShell();
@@ -356,9 +287,10 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		if (!diagramEditor.isDirty() || handleDirtyConflict()) {
 			getOperationHistory().dispose(getUndoContext(), true, true, true);
 
-			setProblemIndicationUpdateActive(false);
-			// Disable adapter temporarily.
+			// Disable adapters temporarily.
+			markerBehavior.disableProblemIndicationUpdate();
 			setAdapterActive(false);
+
 			try {
 				// We unload our resources such that refreshEditorContent does a
 				// complete diagram refresh.
@@ -368,36 +300,9 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 				}
 				refreshEditorContent();
 			} finally {
+				// Re-enable adapters again
 				setAdapterActive(true);
-			}
-			setProblemIndicationUpdateActive(true);
-			updateProblemIndication();
-		}
-	}
-
-	/**
-	 * Updates the problems indication with the information described in the
-	 * specified diagnostic.
-	 */
-	void updateProblemIndication() {
-		if (this.updateProblemIndication && editingDomain != null) {
-			final BasicDiagnostic diagnostic = new BasicDiagnostic(Diagnostic.OK, GraphitiUIPlugin.PLUGIN_ID, 0, null,
-					new Object[] { editingDomain.getResourceSet() });
-			for (final Diagnostic childDiagnostic : resourceToDiagnosticMap.values()) {
-				if (childDiagnostic.getSeverity() != Diagnostic.OK) {
-					diagnostic.add(childDiagnostic);
-				}
-			}
-			if (markerHelper.hasMarkers(editingDomain.getResourceSet())) {
-				markerHelper.deleteMarkers(editingDomain.getResourceSet());
-			}
-			if (diagnostic.getSeverity() != Diagnostic.OK) {
-				try {
-					markerHelper.createMarkers(diagnostic);
-					T.racer().info(diagnostic.toString());
-				} catch (final CoreException exception) {
-					T.racer().error(exception.getMessage(), exception);
-				}
+				markerBehavior.enableProblemIndicationUpdate();
 			}
 		}
 	}
@@ -419,33 +324,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 */
 	public TransactionalEditingDomain getEditingDomain() {
 		return editingDomain;
-	}
-
-	/**
-	 * Returns a diagnostic describing the errors and warnings listed in the
-	 * resource and the specified exception (if any).
-	 */
-	public Diagnostic analyzeResourceProblems(Resource resource, Exception exception) {
-		if ((!resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty()) && editingDomain != null) {
-			final IFile file = GraphitiUiInternal.getEmfService().getFile(resource.getURI());
-			final String fileName = file != null ? file.getFullPath().toString() : "unknown name"; //$NON-NLS-1$
-			final BasicDiagnostic basicDiagnostic = new BasicDiagnostic(
-					Diagnostic.ERROR,
-					GraphitiUIPlugin.PLUGIN_ID,
-					0,
-					"Problems encountered in file " + fileName, new Object[] { exception == null ? (Object) resource : exception }); //$NON-NLS-1$
-			basicDiagnostic.merge(EcoreUtil.computeDiagnostic(resource, true));
-			return basicDiagnostic;
-		} else if (exception != null) {
-			return new BasicDiagnostic(Diagnostic.ERROR, GraphitiUIPlugin.PLUGIN_ID, 0, "Problems encountered in file", //$NON-NLS-1$ 
-					new Object[] { exception });
-		} else {
-			return Diagnostic.OK_INSTANCE;
-		}
-	}
-
-	public void setProblemIndicationUpdateActive(boolean onOff) {
-		this.updateProblemIndication = onOff;
 	}
 
 	private IOperationHistory getOperationHistory() {
@@ -504,7 +382,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	public void dispose() {
-		setProblemIndicationUpdateActive(false);
 
 		// Remove all the registered listeners
 		editingDomain.getResourceSet().eAdapters().remove(resourceSetUpdateAdapter);
