@@ -30,7 +30,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 /**
  * The default implementation for the {@link IReconnectionFeature} interface. Is
  * used by default by the framework for any reconnection requests triggered in
- * the diagram. May be subclassed and adpated by clients.
+ * the diagram. May be subclassed and adapted by clients.
  */
 public class DefaultReconnectionFeature extends AbstractFeature implements IReconnectionFeature {
 
