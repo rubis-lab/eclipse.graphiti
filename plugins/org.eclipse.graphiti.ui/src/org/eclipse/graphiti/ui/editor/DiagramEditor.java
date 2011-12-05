@@ -857,7 +857,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			throw new PartInitException("Could not initialize editor", e);
 		}
 
-		getBehavior().init(input);
+		getBehavior().init();
 
 		migrateDiagramModelIfNecessary();
 	}

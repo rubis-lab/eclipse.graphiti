@@ -339,27 +339,9 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	/**
-	 * Initializes this editor with the given editor site and input. If a
-	 * dirtyStateUpdater is provided, it will be registered such that it toggles
-	 * the editor's dirty state.
-	 * 
-	 * @param site
-	 *            the editor site
-	 * @param input
-	 *            the editor's input, preferably a {@link DiagramEditorInput}
-	 * @param dirtyStateUpdater
-	 *            an optional operation for toggling the dirty state, which is
-	 *            called at the appropriate time. Its implementation should
-	 *            contain a call
-	 *            <code>firePropertyChange(IEditorPart.PROP_DIRTY)</code>.
-	 * @throws PartInitException
-	 *             if the initialization fails
+	 * Initializes listeners and adapters.
 	 */
-	/**
-	 * @param site
-	 * @param editorInput
-	 */
-	public void init(IEditorInput editorInput) {
+	public void init() {
 		for (final Resource r : getEditingDomain().getResourceSet().getResources()) {
 			r.eAdapters().add(updateAdapter);
 		}
