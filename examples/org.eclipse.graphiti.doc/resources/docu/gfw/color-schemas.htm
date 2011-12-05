@@ -118,7 +118,7 @@ to define the id &quot;lime-white&quot;. In addition we extend class
 <span class="inlinecode">PredefinedColoredAreas</span> to define colored areas for 
 &quot;lime-white&quot;. The result should look like the image below.</p>
 <p>&nbsp;</p>
-<p><img alt="" height="153" src="visio/user-defined-gradient.png" width="352"></p>
+<p><img alt="" height="151" src="visio/user-defined-gradient.png" width="355"></p>
 <p><strong>Figure The newly defined &quot;lime-white&quot; gradient<br></strong></p>
 <p>You can see the complete implementation of the interface tutorial rendering style 
 here:</p>
@@ -368,14 +368,20 @@ type to &quot;vertical&quot;.</p>
 <p>&nbsp;</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
 <p>To use our new rendering style we have to change the implementation of class
-<span class="inlinecode">StyleUtil</span>:</p>
+<span class="inlinecode">StyleUtil</span>. Do not forget to delete the background color and to change the RGB-values of the foreground color:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
-		<p class="code"><span class="keyword">public class</span> StyleUtil {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// ... EXISTING CODING ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp; 
-		public static Style getStyleForEClass(Diagram diagram) {<br>&nbsp;<br>&nbsp;&nbsp;
+		<p class="code"><span class="keyword">public class</span> StyleUtil {<br>
+		<br><span class="keyword">&nbsp;&nbsp;&nbsp;
+		<span class="comment">// ... EXISTING CODING ...<br></span><br>&nbsp;&nbsp;&nbsp; 
+		private static final</span> IColorConstant <span class="string"><em>
+		E_CLASS_FOREGROUND</em></span> 
+		=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">new</span> ColorConstant(0, 204, 0);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// ... EXISTING CODING ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public static</span> Style getStyleForEClass(Diagram diagram) {<br>&nbsp;<br>&nbsp;&nbsp;
 		<span class="comment">&nbsp;&nbsp;&nbsp;&nbsp; // ... EXISTING CODING ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		gaService.setRenderingStyle(style,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		TutorialColoredAreas.<em>getLimeWhiteAdaptions()</em>);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;
