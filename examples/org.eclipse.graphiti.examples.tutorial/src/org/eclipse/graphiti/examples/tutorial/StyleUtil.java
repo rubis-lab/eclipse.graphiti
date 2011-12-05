@@ -28,11 +28,19 @@ import org.eclipse.graphiti.util.PredefinedColoredAreas;
 /**
  * Styles are created here with "plain"-methods, i.e. all values have to be set
  * explicitly.
+ * 
+ * See chapters "Using Styles" and "Color Schemas" in tutorial for deatails.
  */
 public class StyleUtil {
 
 	private static final IColorConstant E_CLASS_TEXT_FOREGROUND = new ColorConstant(0, 0, 0);
 	private static final IColorConstant E_CLASS_FOREGROUND = new ColorConstant(98, 131, 167);
+
+	// no background color here, we have a gradient instead
+	// see chapter "Color Schemas" in Tutorial
+
+	// private static final IColorConstant E_CLASS_BACKGROUND = new
+	// ColorConstant(187, 218, 247);
 
 	public static Style getStyleForCommonValues(Diagram diagram) {
 		final String styleId = "COMMON-VALUES"; //$NON-NLS-1$
@@ -60,10 +68,11 @@ public class StyleUtil {
 			style = gaService.createPlainStyle(parentStyle, styleId);
 			style.setFilled(true);
 			style.setForeground(gaService.manageColor(diagram, E_CLASS_FOREGROUND));
-			// style.setRenderingStyle(style,
-			// TutorialColoredAreas.getLimeWhiteAdaptions());
+			// style.setBackground(gaService.manageColor(diagram,
+			// E_CLASS_BACKGROUND));
 
 			// no background color here, we have a gradient instead
+			// see chapter "Color Schemas" in Tutorial
 			gaService.setRenderingStyle(style, PredefinedColoredAreas.getBlueWhiteGlossAdaptions());
 		}
 		return style;
