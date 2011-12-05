@@ -835,13 +835,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		// Eclipse may call us with other inputs when a file is to be
-		// opened. Also a disposed DiagramEditorInput (no editing domain)
-		// may be handed in (see Bug 346932). Try to convert this to a
-		// valid diagram input.
+		// opened. Try to convert this to a valid diagram input.
 		if (!(input instanceof IDiagramEditorInput)) {
 			IEditorInput newInput = EditorInputAdapter.adaptToDiagramEditorInput(input);
 			if (!(newInput instanceof IDiagramEditorInput)) {
-				// give up
 				throw new PartInitException("Unknown editor input: " + input); //$NON-NLS-1$
 			}
 			input = newInput;
@@ -854,7 +851,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			// getEditingDomain(), ...
 			super.init(site, input);
 		} catch (RuntimeException e) {
-			throw new PartInitException("Could not initialize editor", e);
+			throw new PartInitException("Can not initialize editor", e); //$NON-NLS-1$
 		}
 
 		getBehavior().init();
