@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
-import java.util.Collection;
 
 import org.eclipse.core.commands.operations.IOperationHistory;
 import org.eclipse.core.commands.operations.IOperationHistoryListener;
@@ -152,7 +151,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		editingDomain = domain;
 		final ResourceSet resourceSet = domain.getResourceSet();
 
-		resourceSetUpdateAdapter = new ResourceSetUpdateAdapter();
+		resourceSetUpdateAdapter = new ResourceSetUpdateAdapter(updateAdapter);
 		resourceSet.eAdapters().add(resourceSetUpdateAdapter);
 
 		// Install synchronizer for editor-external changes to the files
@@ -168,7 +167,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		return diagramEditor.getSite().getShell();
 	}
 
-	private final Adapter updateAdapter = new AdapterImpl() {
+	final Adapter updateAdapter = new AdapterImpl() {
 		@Override
 		public void notifyChanged(Notification msg) {
 			if (!isAdapterActive())
@@ -372,39 +371,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 
 	protected void disposeEditingDomain() {
 		editingDomain.dispose();
-	}
-
-	/**
-	 * Adding update adapters to the respective resources.
-	 */
-	private final class ResourceSetUpdateAdapter extends AdapterImpl {
-		@SuppressWarnings("unchecked")
-		@Override
-		public void notifyChanged(Notification msg) {
-			if (msg.getFeatureID(ResourceSet.class) == ResourceSet.RESOURCE_SET__RESOURCES) {
-				switch (msg.getEventType()) {
-				case Notification.ADD:
-					((Resource) msg.getNewValue()).eAdapters().add(updateAdapter);
-					break;
-				case Notification.ADD_MANY:
-					for (final Resource res : (Collection<Resource>) msg.getNewValue()) {
-						res.eAdapters().add(updateAdapter);
-					}
-					break;
-				case Notification.REMOVE:
-					((Resource) msg.getOldValue()).eAdapters().remove(updateAdapter);
-					break;
-				case Notification.REMOVE_MANY:
-					for (final Resource res : (Collection<Resource>) msg.getOldValue()) {
-						res.eAdapters().remove(updateAdapter);
-					}
-					break;
-
-				default:
-					break;
-				}
-			}
-		}
 	}
 
 	/**
