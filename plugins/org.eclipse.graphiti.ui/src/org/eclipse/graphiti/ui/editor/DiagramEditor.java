@@ -395,14 +395,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 
 	public void dispose() {
-
 		unregisterDiagramResourceSetListener();
-
 		unregisterBOListener();
-
-		if (isDirty()) {
-			// TODO rollback
-		}
 
 		if (getConfigurationProvider() != null) {
 			getConfigurationProvider().dispose();
@@ -440,8 +434,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 		if (exc != null)
 			throw exc;
-
-
 	}
 
 
