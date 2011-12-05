@@ -77,18 +77,27 @@ styles</a>”.</p>
 		<span class="keyword">public static</span> Style getStyleForEClass(Diagram 
 		diagram) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">final</span> String styleId = <span class="string">
-		&quot;E-CLASS&quot;</span>;<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Style style = <em>findStyle</em>(diagram, styleId);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">if</span> (style == <span class="keyword">null</span>) 
-		{ <span class="comment">// style not found - create new style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		IGaService gaService = Graphiti.getGaService();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		style = gaService.createStyle(diagram, styleId);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		style.setForeground(gaService.manageColor(diagram,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string"><em>E_CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		gaService.setRenderingStyle(style,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		PredefinedColoredAreas.getBlueWhiteGlossAdaptions());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		style.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return</span> style;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;
+		&quot;E-CLASS&quot;</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IGaService gaService 
+		= Graphiti.getGaService();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// this is a child style of the 
+		common-values-style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Style parentStyle = 
+		<em>getStyleForCommonValues</em>(diagram);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Style style = 
+		gaService.findStyle(parentStyle, styleId);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (style == <span class="keyword">null</span>) { 
+		<span class="comment">// style not found - create new style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; style = 
+		gaService.createPlainStyle(parentStyle, styleId);<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		style.setFilled(<span class="keyword">true</span>);<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		style.setForeground(gaService.manageColor(diagram,<br>
+		<span class="string"><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E_CLASS_FOREGROUND</em></span>));<br>
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// no background color here, we have a 
+		gradient instead</span><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		gaService.setRenderingStyle(style,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PredefinedColoredAreas.<em>getBlueWhiteGlossAdaptions</em>());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return</span> 
+		style;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;
 		<br>&nbsp;&nbsp;&nbsp; <span class="comment">// ... EXISTING CODING ...</span><br>&nbsp;<br>
 		}<br></p>
 	</div>
@@ -369,7 +378,7 @@ type to &quot;vertical&quot;.</p>
 		public static Style getStyleForEClass(Diagram diagram) {<br>&nbsp;<br>&nbsp;&nbsp;
 		<span class="comment">&nbsp;&nbsp;&nbsp;&nbsp; // ... EXISTING CODING ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		gaService.setRenderingStyle(style,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		TutorialColoredAreas.getLimeWhiteAdaptions());<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;
+		TutorialColoredAreas.<em>getLimeWhiteAdaptions()</em>);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">&nbsp;&nbsp; // ... EXISTING CODING ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">return</span> style;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;
 		<br>&nbsp;&nbsp;&nbsp; <span class="comment">// ... EXISTING CODING ...</span><br>&nbsp;<br>
