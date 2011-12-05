@@ -66,7 +66,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * @see {@link DiagramEditorBehavior#DiagramEditorBehavior(IEditorPart)}
 	 */
 	private DiagramEditor diagramEditor;
-	private DefaultMarkerBehavior markerBehavior;
 
 	/**
 	 * Keeps track of the editing domain that is used to track all changes to
@@ -117,10 +116,9 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * @param diagramEditor
 	 *            the part this model editor works on
 	 */
-	public DiagramEditorBehavior(DiagramEditor diagramEditor, DefaultMarkerBehavior markerBehavior) {
+	public DiagramEditorBehavior(DiagramEditor diagramEditor) {
 		super();
 		this.diagramEditor = diagramEditor;
-		this.markerBehavior = markerBehavior;
 	}
 
 	private boolean isResourceDeleted() {
@@ -165,9 +163,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		editingDomain = domain;
 		final ResourceSet resourceSet = domain.getResourceSet();
 
-		// Problem analysis
-		resourceSet.eAdapters().add(markerBehavior.getProblemIndicationAdapter());
-
 		resourceSetUpdateAdapter = new ResourceSetUpdateAdapter();
 		resourceSet.eAdapters().add(resourceSetUpdateAdapter);
 
@@ -175,6 +170,9 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		// underlying the resources of the ED
 		workspaceSynchronizer = new WorkspaceSynchronizer(getEditingDomain(),
 				new DomainModelWorkspaceSynchronizerDelegate(diagramEditor));
+
+		// Problem analysis
+		diagramEditor.editingDomainInitialized();
 	}
 
 	private Shell getShell() {
@@ -276,7 +274,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		return adapterActive;
 	}
 
-	private void setAdapterActive(boolean b) {
+	public void setAdapterActive(boolean b) {
 		adapterActive = b;
 	}
 
@@ -288,8 +286,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 			getOperationHistory().dispose(getUndoContext(), true, true, true);
 
 			// Disable adapters temporarily.
-			markerBehavior.disableProblemIndicationUpdate();
-			setAdapterActive(false);
+			diagramEditor.disableAdapters();
 
 			try {
 				// We unload our resources such that refreshEditorContent does a
@@ -301,8 +298,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 				diagramEditor.refreshContent();
 			} finally {
 				// Re-enable adapters again
-				setAdapterActive(true);
-				markerBehavior.enableProblemIndicationUpdate();
+				diagramEditor.enableAdapters();
 			}
 		}
 	}

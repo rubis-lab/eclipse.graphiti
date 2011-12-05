@@ -225,14 +225,14 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	 * @since 0.9
 	 */
 	protected DefaultPersistencyBehavior createPersistencyBehavior() {
-		return new DefaultPersistencyBehavior(this, markerBehavior);
+		return new DefaultPersistencyBehavior(this);
 	}
 
 	/**
 	 * @since 0.9
 	 */
 	protected DiagramEditorBehavior createDiagramEditorBehavior() {
-		return new DiagramEditorBehavior(this, markerBehavior);
+		return new DiagramEditorBehavior(this);
 	}
 
 	/**
@@ -1548,7 +1548,47 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		}
 	}
 
-	// ---------------------- Palette ----------------------------------//
+	// ---------------------- Synchronisation hooks between behaviors ------- //
+
+	/**
+	 * Hook that is called by the holder of the
+	 * {@link TransactionalEditingDomain} ({@link DiagramEditorBehavior}) after
+	 * the editing domain has been initialized. Can be used to e.g. register
+	 * additional listeners.
+	 * 
+	 * @since 0.9
+	 */
+	public void editingDomainInitialized() {
+		markerBehavior.initialize();
+	}
+
+	/**
+	 * Should be called by the various behavior instances before mass EMF
+	 * resource operations are triggered (e.g. saving all resources). Can be
+	 * used to disable eventing for performance reasons. See
+	 * {@link #enableAdapters()} as well.
+	 * 
+	 * @since 0.9
+	 */
+	public void disableAdapters() {
+		markerBehavior.disableProblemIndicationUpdate();
+		behavior.setAdapterActive(false);
+	}
+
+	/**
+	 * Should be called by the various behavior instances after mass EMF
+	 * resource operations have been triggered (e.g. saving all resources). Can
+	 * be used to re-enable eventing after it was disabled for performance
+	 * reasons. See {@link #disableAdapters()} as well.
+	 * 
+	 * @since 0.9
+	 */
+	public void enableAdapters() {
+		markerBehavior.enableProblemIndicationUpdate();
+		behavior.setAdapterActive(true);
+	}
+
+	// ---------------------- Palette --------------------------------------- //
 
 	/**
 	 * Override to change palette behaviour

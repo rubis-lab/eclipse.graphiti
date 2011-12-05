@@ -35,11 +35,9 @@ import org.eclipse.ui.PlatformUI;
 public class DefaultPersistencyBehavior {
 
 	private DiagramEditor diagramEditor;
-	private DefaultMarkerBehavior markerBehavior;
 
-	public DefaultPersistencyBehavior(DiagramEditor diagramEditor, DefaultMarkerBehavior markerBehavior) {
+	public DefaultPersistencyBehavior(DiagramEditor diagramEditor) {
 		this.diagramEditor = diagramEditor;
-		this.markerBehavior = markerBehavior;
 	}
 
 	public Diagram loadDiagram(URI uri) {
@@ -74,7 +72,7 @@ public class DefaultPersistencyBehavior {
 		final Set<Resource> savedResources = new HashSet<Resource>();
 		final IRunnableWithProgress operation = createOperation(savedResources, saveOptions);
 
-		markerBehavior.disableProblemIndicationUpdate();
+		diagramEditor.disableAdapters();
 		try {
 			// This runs the options, and shows progress.
 			new ProgressMonitorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()).run(true, false,
@@ -87,7 +85,7 @@ public class DefaultPersistencyBehavior {
 			// Something went wrong that shouldn't.
 			T.racer().error(exception.getMessage(), exception);
 		}
-		markerBehavior.enableProblemIndicationUpdate();
+		diagramEditor.enableAdapters();
 
 		Resource[] savedResourcesArray = savedResources.toArray(new Resource[savedResources.size()]);
 		diagramEditor.commandStackChanged(null);

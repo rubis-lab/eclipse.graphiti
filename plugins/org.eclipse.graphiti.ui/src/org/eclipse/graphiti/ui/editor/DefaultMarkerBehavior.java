@@ -63,6 +63,10 @@ public class DefaultMarkerBehavior {
 		this.diagramEditor = diagramEditor;
 	}
 
+	public void initialize() {
+		diagramEditor.getResourceSet().eAdapters().add(problemIndicationAdapter);
+	}
+
 	/**
 	 * @return the problemIndicationAdapter
 	 */
