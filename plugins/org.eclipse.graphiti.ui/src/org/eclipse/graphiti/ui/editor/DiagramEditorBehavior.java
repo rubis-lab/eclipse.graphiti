@@ -33,14 +33,12 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.Messages;
-import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.editor.DomainModelWorkspaceSynchronizerDelegate;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -48,7 +46,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
@@ -60,17 +57,9 @@ import org.eclipse.ui.PlatformUI;
  */
 public class DiagramEditorBehavior extends PlatformObject implements IEditingDomainProvider, IOperationHistoryListener {
 
-	/**
-	 * The part this model editor works on.
-	 * 
-	 * @see {@link DiagramEditorBehavior#DiagramEditorBehavior(IEditorPart)}
-	 */
+
 	private DiagramEditor diagramEditor;
 
-	/**
-	 * Keeps track of the editing domain that is used to track all changes to
-	 * the model.
-	 */
 	private TransactionalEditingDomain editingDomain;
 
 	/**
@@ -346,8 +335,8 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		final EObject object = (EObject) diagramEditor.getAdapter(Diagram.class);
 		// Register for object deletion
 		if (object != null) {
-			elementDeleteListener = new ElementDeleteListener();
-			object.eAdapters().add(this.elementDeleteListener);
+			elementDeleteListener = new ElementDeleteListener(diagramEditor);
+			object.eAdapters().add(elementDeleteListener);
 		}
 
 		getOperationHistory().addOperationHistoryListener(this);
@@ -414,67 +403,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 				default:
 					break;
 				}
-			}
-		}
-	}
-
-	/**
-	 * Closes editor if model element was deleted. For instance, if only the
-	 * diagram object is deleted from the resource, this listeners handles
-	 * closing the editor.
-	 */
-	private final class ElementDeleteListener extends AdapterImpl {
-
-		@Override
-		public boolean isAdapterForType(Object type) {
-			return type instanceof EObject;
-		}
-
-		@Override
-		public void notifyChanged(Notification msg) {
-			final IEditorPart part = diagramEditor;
-			if (T.racer().debug()) {
-				final String editorName = part.getTitle();
-				T.racer().debug("Delete listener called of editor " //$NON-NLS-1$
-						+ editorName + " with events " + msg.toString()); //$NON-NLS-1$
-			}
-
-			final IEditorInput in = part.getEditorInput();
-			if (in != null) {
-				final IEditorSite site = part.getEditorSite();
-				if (site == null) {
-					return;
-				}
-				final Shell shell = site.getShell();
-				// Do the real work, e.g. object retrieval from input and
-				// closing, asynchronous to not block this listener longer than necessary,
-				// which may provoke deadlocks.
-				shell.getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						if (diagramEditor == null) {
-							return; // disposed
-						}
-						if (shell.isDisposed()) {
-							return; // disposed
-						}
-						Diagram diagram = null;
-						try {
-							diagram = (Diagram) diagramEditor.getAdapter(Diagram.class);
-						} catch (final Exception e) {
-							// Ignore, exception indicates that the diagram has
-							// been deleted
-						}
-						if (diagram == null || EcoreUtil.getRootContainer(diagram) == null) {
-							// diagram is gone so try to close
-							final IWorkbenchPage page = site.getPage();
-							if (T.racer().debug()) {
-								final String editorName = part.getTitle();
-								T.racer().debug("Closing editor " + editorName); //$NON-NLS-1$
-							}
-							page.closeEditor(part, false);
-						}
-					}
-				});
 			}
 		}
 	}
