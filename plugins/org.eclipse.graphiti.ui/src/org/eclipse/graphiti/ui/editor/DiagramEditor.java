@@ -1505,7 +1505,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		return ret;
 	}
 
-	DiagramEditorBehavior getBehavior() {
+	public DiagramEditorBehavior getBehavior() {
 		return behavior;
 	}
 

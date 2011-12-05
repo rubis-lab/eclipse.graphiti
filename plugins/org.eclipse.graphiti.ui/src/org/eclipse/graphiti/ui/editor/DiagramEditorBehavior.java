@@ -174,7 +174,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		// Install synchronizer for editor-external changes to the files
 		// underlying the resources of the ED
 		workspaceSynchronizer = new WorkspaceSynchronizer(getEditingDomain(),
-				new DomainModelWorkspaceSynchronizerDelegate(this));
+				new DomainModelWorkspaceSynchronizerDelegate(diagramEditor));
 	}
 
 	private Shell getShell() {
@@ -298,7 +298,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 				for (Resource resource : resources) {
 					resource.unload();
 				}
-				refreshEditorContent();
+				diagramEditor.refreshContent();
 			} finally {
 				// Re-enable adapters again
 				setAdapterActive(true);
@@ -360,13 +360,12 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * @param editorInput
 	 */
 	public void init(IEditorInput editorInput) {
-		// Retrieve the object from the editor input
-		final EObject object = (EObject) diagramEditor.getAdapter(Diagram.class);
-
 		for (final Resource r : getEditingDomain().getResourceSet().getResources()) {
 			r.eAdapters().add(updateAdapter);
 		}
 
+		// Retrieve the object from the editor input
+		final EObject object = (EObject) diagramEditor.getAdapter(Diagram.class);
 		// Register for object deletion
 		if (object != null) {
 			elementDeleteListener = new ElementDeleteListener();
@@ -523,18 +522,4 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		return ((IWorkspaceCommandStack) getEditingDomain().getCommandStack()).getDefaultUndoContext();
 	}
 
-	public void refreshEditorContent() {
-		if (diagramEditor instanceof DiagramEditor) {
-			((DiagramEditor) diagramEditor).refreshContent();
-		}
-	}
-
-	public IDiagramEditorInput getEditorInput() {
-		IEditorInput editorInput = diagramEditor.getEditorInput();
-		if (editorInput instanceof IDiagramEditorInput) {
-			return ((IDiagramEditorInput) editorInput);
-		}
-		return null;
-
-	}
 }
