@@ -403,11 +403,17 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				Robot r;
 				try {
 					r = new Robot();
-					r.setAutoDelay(20);
-					r.keyPress(KeyEvent.VK_CONTROL);
+					// r.setAutoDelay(20);
+					Event event = new Event();
+					event.type = SWT.KeyDown;
+					event.keyCode = SWT.CTRL;
+					bot.getDisplay().post(event);
 					Point p = ed.getOrigin();
 					r.mouseMove(p.x + 150, p.y + 150);
-					r.keyRelease(KeyEvent.VK_CONTROL);
+					Event event2 = new Event();
+					event2.type = SWT.KeyUp;
+					event2.keyCode = SWT.CTRL;
+					bot.getDisplay().post(event2);
 				} catch (AWTException e) {
 					fail(e.getMessage());
 				}
