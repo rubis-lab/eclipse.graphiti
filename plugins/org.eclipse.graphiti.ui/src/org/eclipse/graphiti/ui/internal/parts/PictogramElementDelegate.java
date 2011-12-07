@@ -14,6 +14,7 @@
  *    mgorning - Bug 363229 - Nested GA inside Anchors are not correctly refreshed
  *    Felix Velasco (mwenz) - Bug 349416 - Support drag&drop operations on FixPointAnchors
  *                                         the same way as for BoxRelativeAnchors
+ *    mgorning - Bug 347144 - Angle of MultiText objects can't be modified
  *
  * </copyright>
  *
@@ -776,7 +777,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			} else if (graphicsAlgorithm instanceof RoundedRectangle) {
 				ret = new GFRoundedRectangle(this, graphicsAlgorithm);
 			} else if (graphicsAlgorithm instanceof MultiText) {
-				ret = new GFMultilineText();
+				ret = new GFMultilineText((MultiText) graphicsAlgorithm);
 			} else if (graphicsAlgorithm instanceof Text) {
 				ret = new GFText(this, graphicsAlgorithm);
 			} else if (graphicsAlgorithm instanceof PlatformGraphicsAlgorithm) {

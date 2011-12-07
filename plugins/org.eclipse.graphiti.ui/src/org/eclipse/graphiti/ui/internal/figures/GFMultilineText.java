@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mgorning - Bug 347144 - Angle of MultiText objects can't be modified
  *
  * </copyright>
  *
@@ -21,6 +22,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.text.ParagraphTextLayout;
 import org.eclipse.draw2d.text.TextFlow;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -32,10 +34,10 @@ public class GFMultilineText extends Figure {
 
 	private GFFlowPage flowPage;
 
-	public GFMultilineText() {
+	public GFMultilineText(MultiText text) {
 		setBorder(new MarginBorder(2));
 
-		textFlow = new TextFlow();
+		textFlow = new GFTextFlow(text);
 		textFlow.setLayoutManager(new ParagraphTextLayout(textFlow, ParagraphTextLayout.WORD_WRAP_SOFT));
 
 		flowPage = new GFFlowPage(textFlow);
