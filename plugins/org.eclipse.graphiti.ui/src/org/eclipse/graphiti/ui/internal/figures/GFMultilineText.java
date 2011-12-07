@@ -34,10 +34,10 @@ public class GFMultilineText extends Figure {
 
 	private GFFlowPage flowPage;
 
-	public GFMultilineText(MultiText text) {
+	public GFMultilineText(MultiText multiText) {
 		setBorder(new MarginBorder(2));
 
-		textFlow = new GFTextFlow(text);
+		textFlow = new GFTextFlow(multiText);
 		textFlow.setLayoutManager(new ParagraphTextLayout(textFlow, ParagraphTextLayout.WORD_WRAP_SOFT));
 
 		flowPage = new GFFlowPage(textFlow);
