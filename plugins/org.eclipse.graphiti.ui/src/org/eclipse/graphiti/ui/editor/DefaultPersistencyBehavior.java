@@ -34,7 +34,7 @@ import org.eclipse.ui.PlatformUI;
  */
 public class DefaultPersistencyBehavior {
 
-	private DiagramEditor diagramEditor;
+	protected final DiagramEditor diagramEditor;
 
 	public DefaultPersistencyBehavior(DiagramEditor diagramEditor) {
 		this.diagramEditor = diagramEditor;
@@ -114,8 +114,7 @@ public class DefaultPersistencyBehavior {
 			public void run(IProgressMonitor monitor) {
 				// Save the resources to the file system.
 				try {
-					savedResources.addAll(GraphitiUiInternal.getEmfService().save(diagramEditor.getEditingDomain(),
-							saveOptions));
+					savedResources.addAll(save(diagramEditor.getEditingDomain(), saveOptions));
 				} catch (final WrappedException e) {
 					final MultiStatus errorStatus = new MultiStatus(GraphitiUIPlugin.PLUGIN_ID, 0, e.getMessage(),
 							e.exception());
@@ -125,6 +124,23 @@ public class DefaultPersistencyBehavior {
 			}
 		};
 		return operation;
+	}
+
+	/**
+	 * Saves all resources in the given {@link TransactionalEditingDomain}. Can
+	 * be overridden to enable additional (call the super method to save the EMF
+	 * resources) or other persistencies.
+	 * 
+	 * @param editingDomain
+	 *            the {@link TransactionalEditingDomain} for which all resources
+	 *            will be saved
+	 * @param saveOptions
+	 *            the EMF save options used for the saving.
+	 * @return a {@link Set} of all EMF {@link Resource}s that where actually
+	 *         saved.
+	 */
+	protected Set<Resource> save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> saveOptions) {
+		return GraphitiUiInternal.getEmfService().save(editingDomain, saveOptions);
 	}
 
 	protected void setDiagramVersion(final Diagram diagram) {
@@ -137,5 +153,4 @@ public class DefaultPersistencyBehavior {
 					}
 				});
 	}
-
 }

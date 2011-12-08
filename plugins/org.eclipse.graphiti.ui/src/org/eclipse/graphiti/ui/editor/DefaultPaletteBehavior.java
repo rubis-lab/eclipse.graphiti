@@ -65,7 +65,7 @@ public class DefaultPaletteBehavior {
 	 */
 	protected static final int DEFAULT_PALETTE_SIZE = 130;
 
-	private DiagramEditor diagramEditor;
+	protected final DiagramEditor diagramEditor;
 	private PaletteRoot paletteRoot;
 
 	/**

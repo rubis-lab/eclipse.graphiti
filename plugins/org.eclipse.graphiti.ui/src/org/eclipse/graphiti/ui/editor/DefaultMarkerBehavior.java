@@ -40,7 +40,7 @@ import org.eclipse.swt.widgets.Display;
  */
 public class DefaultMarkerBehavior {
 
-	private DiagramEditor diagramEditor;
+	protected final DiagramEditor diagramEditor;
 
 	/**
 	 * Is responsible for creating workspace resource markers presented in

@@ -54,7 +54,7 @@ import org.eclipse.ui.PlatformUI;
  */
 public class DiagramEditorBehavior extends PlatformObject implements IEditingDomainProvider, IOperationHistoryListener {
 
-	private DiagramEditor diagramEditor;
+	protected final DiagramEditor diagramEditor;
 
 	private TransactionalEditingDomain editingDomain;
 
@@ -411,7 +411,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		// Remove reference
 		disposeEditingDomain();
 		editingDomain = null;
-		diagramEditor = null;
 	}
 
 	/**
