@@ -50,12 +50,9 @@ import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * @noinstantiate This class is not intended to be instantiated by clients.
- * @noextend This class is not intended to be subclassed by clients.
  * @since 0.9
  */
 public class DiagramEditorBehavior extends PlatformObject implements IEditingDomainProvider, IOperationHistoryListener {
-
 
 	private DiagramEditor diagramEditor;
 
@@ -65,8 +62,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 * Closes editor if model object is deleted.
 	 */
 	private ElementDeleteListener elementDeleteListener = null;
-
-
 
 	/**
 	 * The update adapter is added to every {@link Resource} adapters in the
@@ -81,97 +76,38 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	/**
 	 * Is toggled by {@link DiagramEditorBehavior#updateAdapter}.
 	 */
-	protected boolean resourceDeleted = false;
+	private boolean resourceDeleted = false;
 
 	/**
 	 * Is toggled by {@link DiagramEditorBehavior#updateAdapter}.
 	 */
 	private boolean resourceChanged = false;
 
-	// TODO, FIXME:
-	// check if the Synchronizer really works for inter-EditingDomain-eventing
-	// there are some concerns out there regarding WorkspaceSynchronizers, @see
+	// Note: there are some concerns out there that the Synchronizer does not
+	// work for inter-EditingDomain-eventing, @see
 	// http://www.eclipse.org/forums/index.php?t=msg&th=140242&start=0&
-	// Also EMF group experienced deadlocks caused by the synchronizer.
 	private WorkspaceSynchronizer workspaceSynchronizer;
 
+	/**
+	 * Flag that indicates if the {@link #updateAdapter} shall be active or not.
+	 * It may be deactivated when mass operations (e.g. saving the diagram
+	 * editor with all its resources) take place. Use the methods
+	 * {@link #isAdapterActive()} and {@link #setAdapterActive(boolean)} to
+	 * access this field.
+	 */
 	private boolean adapterActive = true;
 
-
 	/**
-	 * Creates a model editor responsible for the given {@link IEditorPart}.
-	 * 
-	 * @param diagramEditor
-	 *            the part this model editor works on
+	 * The default update that cares about refreshing the diagram editor in case
+	 * of resource changes. May be disabled by overriding
+	 * {@link #isAdapterActive()} and returning false.
 	 */
-	public DiagramEditorBehavior(DiagramEditor diagramEditor) {
-		super();
-		this.diagramEditor = diagramEditor;
-	}
-
-	private boolean isResourceDeleted() {
-		return resourceDeleted;
-	}
-
-
-	/**
-	 * Should not be called by external clients.
-	 * 
-	 * @noreference This method is not intended to be referenced by clients.
-	 * @param resourceDeleted
-	 */
-	public void setResourceDeleted(boolean resourceDeleted) {
-		this.resourceDeleted = resourceDeleted;
-	}
-
-
-	private boolean isResourceChanged() {
-		return resourceChanged;
-	}
-
-
-	/**
-	 * Should not be called by external clients.
-	 * 
-	 * @noreference This method is not intended to be referenced by clients.
-	 * @param resourceChanged
-	 */
-	public void setResourceChanged(boolean resourceChanged) {
-		this.resourceChanged = resourceChanged;
-	}
-
-	/**
-	 * This sets up the editing domain for this model editor.
-	 * 
-	 * @param domain
-	 *            The {@link TransactionalEditingDomain} that is used within
-	 *            this model editor
-	 */
-	private void initializeEditingDomain(TransactionalEditingDomain domain) {
-		editingDomain = domain;
-		final ResourceSet resourceSet = domain.getResourceSet();
-
-		resourceSetUpdateAdapter = new ResourceSetUpdateAdapter(updateAdapter);
-		resourceSet.eAdapters().add(resourceSetUpdateAdapter);
-
-		// Install synchronizer for editor-external changes to the files
-		// underlying the resources of the ED
-		workspaceSynchronizer = new WorkspaceSynchronizer(getEditingDomain(),
-				new DomainModelWorkspaceSynchronizerDelegate(diagramEditor));
-
-		// Problem analysis
-		diagramEditor.editingDomainInitialized();
-	}
-
-	private Shell getShell() {
-		return diagramEditor.getSite().getShell();
-	}
-
-	final Adapter updateAdapter = new AdapterImpl() {
+	private Adapter updateAdapter = new AdapterImpl() {
 		@Override
 		public void notifyChanged(Notification msg) {
-			if (!isAdapterActive())
+			if (!isAdapterActive()) {
 				return;
+			}
 			if (msg.getFeatureID(Resource.class) == Resource.RESOURCE__IS_LOADED) {
 				if (msg.getNewBooleanValue() == Boolean.FALSE) {
 					final Resource resource = (Resource) msg.getNotifier();
@@ -219,32 +155,99 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		private void startCloseEditorJob() {
 			Display.getDefault().asyncExec(new Runnable() {
 				public void run() {
-					closeEd();
+					closeEditor();
 				}
 			});
 		}
 	};
 
-	private void closeEd() {
-		if (diagramEditor == null)
-			return;
-		IWorkbenchPartSite site = diagramEditor.getSite();
-		// Since we run async we have to check if our ui is still there.
-		if (site == null)
-			return;
-		IWorkbenchPage page = site.getPage();
-		if (page == null)
-			return;
-		page.closeEditor(diagramEditor, false);
+	/**
+	 * Creates a new {@link DiagramEditorBehavior} instance associated with the
+	 * given {@link DiagramEditor}.
+	 * 
+	 * @param diagramEditor
+	 *            the part this model editor works on
+	 */
+	public DiagramEditorBehavior(DiagramEditor diagramEditor) {
+		super();
+		this.diagramEditor = diagramEditor;
 	}
 
 	/**
-	 * Handles activation of the editor.
+	 * Returns the flag that indicates if the underlying resource of the
+	 * {@link Diagram} has been deleted. Note that this flag will only be
+	 * updated in case the {@link #updateAdapter} is enabled, see
+	 * {@link #adapterActive}, {@link #isAdapterActive()} and
+	 * {@link #setAdapterActive(boolean)}. If this flag is set the editor will
+	 * close on receiving the next event.
+	 * 
+	 * @return <code>true</code> in case the resource has been deleted,
+	 *         <code>false</code> otherwise
 	 */
-	private void handleActivate() {
+	protected boolean isResourceDeleted() {
+		return resourceDeleted;
+	}
+
+	/**
+	 * Sets the flag that indicates if the underlying resource of the
+	 * {@link Diagram} has been deleted. Note that this flag should only be
+	 * updated by the {@link #updateAdapter}, see {@link #adapterActive},
+	 * {@link #isAdapterActive()} and {@link #setAdapterActive(boolean)}.
+	 * <p>
+	 * Should not be called by external clients.
+	 * 
+	 * @param resourceDeleted
+	 *            the value to set the flag to, <code>true</code> indicates that
+	 *            the resource has been deleted.
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
+	public void setResourceDeleted(boolean resourceDeleted) {
+		this.resourceDeleted = resourceDeleted;
+	}
+
+	/**
+	 * Returns the flag that indicates if the underlying resource of the
+	 * {@link Diagram} has been changed. Note that this flag will only be
+	 * updated in case the {@link #updateAdapter} is enabled, see
+	 * {@link #adapterActive}, {@link #isAdapterActive()} and
+	 * {@link #setAdapterActive(boolean)}.
+	 * 
+	 * @return <code>true</code> in case the resource has been changed,
+	 *         <code>false</code> otherwise
+	 */
+	protected boolean isResourceChanged() {
+		return resourceChanged;
+	}
+
+	/**
+	 * Sets the flag that indicates if the underlying resource of the
+	 * {@link Diagram} has been changed. Note that this flag should only be
+	 * updated by the {@link #updateAdapter}, see {@link #adapterActive},
+	 * {@link #isAdapterActive()} and {@link #setAdapterActive(boolean)}.
+	 * <p>
+	 * Should not be called by external clients.
+	 * 
+	 * @param resourceChanged
+	 *            the value to set the flag to, <code>true</code> indicates that
+	 *            the resource has been changed.
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
+	public void setResourceChanged(boolean resourceChanged) {
+		this.resourceChanged = resourceChanged;
+	}
+
+	/**
+	 * Handles activation of the editor. In case of the underlying diagram
+	 * resource being deleted ({@link #resourceDeleted} is <code>true</code>)
+	 * the editor will be closed after a call to {@link #handleDirtyConflict()}
+	 * that returns <code>true</code>. Also it will call
+	 * {@link #handleChangedResources()} in case the underlying diagram resource
+	 * has changed ({@link #resourceChanged} is <code>true</code>).
+	 */
+	public void handleActivate() {
 		if (isResourceDeleted()) {
 			if (handleDirtyConflict()) {
-				closeEd();
+				closeEditor();
 			} else {
 				setResourceDeleted(false);
 				setResourceChanged(false);
@@ -256,22 +259,37 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	/**
-	 * @return
+	 * Returns the flag that indicates if the {@link #updateAdapter} shall be
+	 * active of not ({@link #adapterActive}). In case this method returns
+	 * <code>false</code>, the {@link #updateAdapter} will do nothing on being
+	 * called.
+	 * 
+	 * @return <code>true</code> in case the adapter shall run,
+	 *         <code>false</code> otherwise.
 	 */
 	protected boolean isAdapterActive() {
 		return adapterActive;
 	}
 
-	public void setAdapterActive(boolean b) {
-		adapterActive = b;
+	/**
+	 * Sets the flag that indicates if the {@link #updateAdapter} shall be
+	 * active of not ({@link #adapterActive}).
+	 * 
+	 * @param active
+	 *            the new value for the flag
+	 */
+	public void setAdapterActive(boolean active) {
+		adapterActive = active;
 	}
 
 	/**
-	 * Handles what to do with changed resources on activation.
+	 * TODO Handles what to do with changed resources on activation.
 	 */
-	private void handleChangedResources() {
+	protected void handleChangedResources() {
 		if (!diagramEditor.isDirty() || handleDirtyConflict()) {
-			getOperationHistory().dispose(getUndoContext(), true, true, true);
+			IUndoContext undoContext = ((IWorkspaceCommandStack) getEditingDomain().getCommandStack())
+					.getDefaultUndoContext();
+			getOperationHistory().dispose(undoContext, true, true, true);
 
 			// Disable adapters temporarily.
 			diagramEditor.disableAdapters();
@@ -292,9 +310,13 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	/**
-	 * Shows a dialog that asks if conflicting changes should be discarded.
+	 * Shows a dialog that asks if conflicting changes should be discarded or
+	 * not. See {@link #handleActivate()}.
+	 * 
+	 * @return <code>true</code> in case the editor shall be closed,
+	 *         <code>false</code> otherwise
 	 */
-	private boolean handleDirtyConflict() {
+	protected boolean handleDirtyConflict() {
 		return MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 				Messages.DiscardChangesDialog_0_xmsg, Messages.DiscardChangesDialog_1_xmsg);
 	}
@@ -308,18 +330,6 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	 */
 	public TransactionalEditingDomain getEditingDomain() {
 		return editingDomain;
-	}
-
-	private IOperationHistory getOperationHistory() {
-		IOperationHistory history = null;
-		final TransactionalEditingDomain domain = getEditingDomain();
-		if (domain != null) {
-			final IWorkspaceCommandStack commandStack = (IWorkspaceCommandStack) getEditingDomain().getCommandStack();
-			if (commandStack != null) {
-				history = commandStack.getOperationHistory();
-			}
-		}
-		return history;
 	}
 
 	/**
@@ -341,15 +351,50 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		getOperationHistory().addOperationHistoryListener(this);
 	}
 
-	public void initializeEditingDomain() {
-		TransactionalEditingDomain ed = GraphitiUiInternal.getEmfService().createResourceSetAndEditingDomain();
-		initializeEditingDomain(ed);
+	/**
+	 * Created the {@link TransactionalEditingDomain} that shall be used within
+	 * the diagram editor and initializes it by delegating to
+	 * {@link #initializeEditingDomain(TransactionalEditingDomain)}.
+	 */
+	protected void createEditingDomain() {
+		TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService()
+				.createResourceSetAndEditingDomain();
+		initializeEditingDomain(editingDomain);
 	}
 
-	public void dispose() {
+	/**
+	 * This sets up the editing domain for this model editor.
+	 * 
+	 * @param domain
+	 *            The {@link TransactionalEditingDomain} that is used within
+	 *            this model editor
+	 */
+	protected void initializeEditingDomain(TransactionalEditingDomain domain) {
+		editingDomain = domain;
+		final ResourceSet resourceSet = domain.getResourceSet();
 
-		// Remove all the registered listeners
+		resourceSetUpdateAdapter = new ResourceSetUpdateAdapter(updateAdapter);
+		resourceSet.eAdapters().add(resourceSetUpdateAdapter);
+
+		// Install synchronizer for editor-external changes to the files
+		// underlying the resources of the ED
+		workspaceSynchronizer = new WorkspaceSynchronizer(getEditingDomain(),
+				new DomainModelWorkspaceSynchronizerDelegate(diagramEditor));
+
+		// Problem analysis
+		diagramEditor.editingDomainInitialized();
+	}
+
+	/**
+	 * Disposes this {@link DiagramEditorBehavior} and free all resources it
+	 * holds. In case you only want to omit or influence the disposal of the
+	 * {@link TransactionalEditingDomain}, you can also override
+	 * {@link #disposeEditingDomain()}.
+	 */
+	public void dispose() {
 		editingDomain.getResourceSet().eAdapters().remove(resourceSetUpdateAdapter);
+		resourceSetUpdateAdapter = null;
+
 		getOperationHistory().removeOperationHistoryListener(this);
 
 		for (Resource r : editingDomain.getResourceSet().getResources()) {
@@ -369,18 +414,22 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		diagramEditor = null;
 	}
 
+	/**
+	 * Cares about disposing the {@link TransactionalEditingDomain} held in this
+	 * instance. Is called during the {@link #dispose()} method.
+	 */
 	protected void disposeEditingDomain() {
 		editingDomain.dispose();
 	}
 
 	/**
-	 * Called by editor parts when focus is set by Eclipse. It is necessary to
-	 * update the action bars (undo menu) accordingly if editor receives focus
+	 * Is called by the operation history of the
+	 * {@link TransactionalEditingDomain} in case the history changes. Reacts on
+	 * undo and redo events and updates the dirty state of the editor.
+	 * 
+	 * @param event
+	 *            the {@link OperationHistoryEvent} to react upon
 	 */
-	public void setFocus() {
-		this.handleActivate();
-	}
-
 	public void historyNotification(OperationHistoryEvent event) {
 		switch (event.getEventType()) {
 		case OperationHistoryEvent.REDONE:
@@ -390,8 +439,36 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 		}
 	}
 
-	public IUndoContext getUndoContext() {
-		return ((IWorkspaceCommandStack) getEditingDomain().getCommandStack()).getDefaultUndoContext();
+	private Shell getShell() {
+		return diagramEditor.getSite().getShell();
 	}
 
+	private void closeEditor() {
+		if (diagramEditor == null) {
+			return;
+		}
+		IWorkbenchPartSite site = diagramEditor.getSite();
+		// Since we run asynchronously we have to check if our UI is still
+		// there.
+		if (site == null) {
+			return;
+		}
+		IWorkbenchPage page = site.getPage();
+		if (page == null) {
+			return;
+		}
+		page.closeEditor(diagramEditor, false);
+	}
+
+	private IOperationHistory getOperationHistory() {
+		IOperationHistory history = null;
+		TransactionalEditingDomain domain = getEditingDomain();
+		if (domain != null) {
+			IWorkspaceCommandStack commandStack = (IWorkspaceCommandStack) domain.getCommandStack();
+			if (commandStack != null) {
+				history = commandStack.getOperationHistory();
+			}
+		}
+		return history;
+	}
 }

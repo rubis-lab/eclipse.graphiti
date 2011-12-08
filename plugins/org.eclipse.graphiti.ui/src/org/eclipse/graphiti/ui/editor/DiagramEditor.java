@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
@@ -531,7 +532,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			return null; // not yet initialized
 		}
 		if (type == IUndoContext.class) {
-			return getBehavior().getUndoContext();
+			// TODO ? Do we need to provide this ?
+			return ((IWorkspaceCommandStack) getEditingDomain().getCommandStack()).getDefaultUndoContext();
 		}
 		if (type == Diagram.class) {
 			return getDiagramTypeProvider().getDiagram();
@@ -836,7 +838,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			input = newInput;
 		}
 
-		getBehavior().initializeEditingDomain();
+		getBehavior().createEditingDomain();
 
 		try {
 			// In next line GEF calls setSite(), setInput(),
@@ -1341,7 +1343,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			return;
 
 		super.setFocus();
-		getBehavior().setFocus();
+		getBehavior().handleActivate();
 		if (REFRESH_ON_GAINED_FOCUS) {
 			refresh();
 		}
