@@ -38,18 +38,38 @@ value which is not null in the following order:</p>
 </ul>
 <h2>Creating a Style Utility Class</h2>
 <p>In this example we want to associate the same style to the graphics algorithms 
-of all EClasses. The graphical attributes (color, line-width, …) are then set on 
-the style and no longer on the different graphics algorithm.</p>
-<p>Additionally we will provide functionality to change the color-value of that 
+of all EClasses and EReferences. <strong>All graphical attributes </strong>(color, line-width, …) 
+<strong>are then set on 
+the style</strong> and no longer on the different graphics algorithm.</p>
+<p>Additionally we will provide functionality to change the foreground-color-value of that 
 style, and as a result all EClasses will be painted in this color.</p>
 <p>We start by implementing a utility class for the handling of styles.</p>
 <p>We store the styles in the diagram with a given ID. The utility class has methods 
 to return a specific style by either finding it in the diagram or by creating a 
-new style and assigning it to the diagram.</p>
-<p>Note, that we have two styles: one main style for all graphics algorithms of 
-the EClass, and one child style for the Text of the EClass. The reason is, that 
+new<strong> </strong>style and assigning it to the diagram. When creating 
+styles, the method <span class="inlinecode">createPlainStyle</span> is used to 
+set explicitly all graphical values here.</p>
+<p>Note, that we have four styles: one main style with common values for all 
+other child styles. There are three child styles: a child&nbsp; style for graphics algorithms of 
+the EClass and EReference, a child style for the Text of the EClass, and a child 
+style for the Text decorator of the EReference. The reason is, that 
 we want to have a different color for the text and for the lines, but in both cases 
-the color is stored a &quot;foreground&quot; color.</p>
+the color is stored as &quot;foreground&quot; color. The Text of the EClass has 
+a bold Arial font, while the Text decorator has an italic Arial font.</p>
+<p>We have a cascading design of styles here . C<span id="result_box">omplemental</span><span id="result_box" lang="en">
+<span class="hps">we</span> <span class="hps">could</span> <span class="hps">
+introduce</span> <span class="hps">another</span> <span class="hps">style for 
+the</span> </span><span id="result_box">common</span><span id="result_box" lang="en">
+<span class="hps">values ​​of text</span><span>.</span> <span class="hps">The 
+opposite of this</span></span><span class="hps"><span id="result_box"> cascading 
+approach is</span></span><span><span id="result_box"> to</span><span id="result_box" lang="en">
+</span></span><span id="result_box" lang="en"><span class="hps">put</span>
+<span class="hps">all the styles</span> <span class="hps">flat</span>
+<span class="hps">side by side.</span></span><span class="hps"><span id="result_box"> 
+The present arrengment was choosen because of the intrinsic clarity and the 
+economical serialization into the diagram file. Do not hesitate to have a look 
+on this by opening the diagram file with a text editor and then search for 
+&quot;styles&quot;.</span></span></p>
 <p>You can see the complete implementation of the style utility class here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
@@ -59,65 +79,89 @@ the color is stored a &quot;foreground&quot; color.</p>
 		<span class="keyword">public class</span> StyleUtil {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
 		<span class="keyword">private static final</span> IColorConstant
 		<span class="string"><em>E_CLASS_TEXT_FOREGROUND</em></span> =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">&nbsp;new</span> ColorConstant(51, 51, 153);<br>&nbsp;<br>&nbsp;&nbsp;
+		<span class="keyword">&nbsp;new</span> ColorConstant(0, 0, 0);<br>&nbsp;&nbsp;
 		<span class="keyword">&nbsp;private static final</span> IColorConstant<span class="string"><em> 
 		E_CLASS_FOREGROUND</em></span> =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">new</span> ColorConstant(255, 102, 0);<br>&nbsp;<br>&nbsp;&nbsp;
-		<span class="keyword">&nbsp;private static final</span> IColorConstant
-		<em class="string">E_CLASS_BACKGROUND</em> =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">new</span> ColorConstant(255, 204, 153);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
-		<span class="keyword">private static</span> String <span class="string">
-		<em>DEFAULT_FONT</em></span> = <span class="string">&quot;Arial&quot;</span>;<br>&nbsp;<br>&nbsp;&nbsp;
+		<span class="keyword">new</span> ColorConstant(98, 131, 167);<br>&nbsp;&nbsp;&nbsp; 
+		private static final IColorConstant <span class="string"><strong><em>E_CLASS_BACKGROUND</em></strong></span> 
+		=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">new</span> 
+		ColorConstant(187, 218, 247);<br><br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public static Style</span> getStyleForCommonValues(Diagram 
+		diagram) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">final</span> String styleId = <span class="string">
+		&quot;COMMON-VALUES&quot;</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IGaService 
+		gaService = Graphiti.getGaService();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// Is style already persisted?</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Style style = gaService.findStyle(diagram, styleId);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (style == <span class="keyword">null</span>) 
+		{ <span class="comment">// style not found - create new style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style = gaService.createPlainStyle(diagram, styleId);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		setCommonValues(style);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return</span> style;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;
 		<span class="keyword">&nbsp;public static</span> Style getStyleForEClass(Diagram 
 		diagram) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">final</span> String styleId = <span class="string">
-		&quot;E-CLASS&quot;</span>;<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Style style = <em>findStyle</em>(diagram, styleId);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		IGaService gaService = Graphiti.getGaService();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&quot;E-CLASS&quot;</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IGaService 
+		gaService = Graphiti.getGaService();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// this is a child style of the common-values-style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Style parentStyle = <em>getStyleForCommonValues</em>(diagram);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Style style = gaService.findStyle(parentStyle, styleId);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">if</span> (style == <span class="keyword">null</span>) 
 		{ <span class="comment">// style not found - create new style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		style = gaService.createStyle(diagram, styleId);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		style.setForeground(gaService.manageColor(diagram,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string"><em>E_CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style = gaService.createPlainStyle(parentStyle, styleId);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style.setFilled(<span class="keyword">true</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style.setForeground(gaService.manageColor(diagram, <span class="string">
+		<em><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		E_CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		style.setBackground(gaService.manageColor(diagram,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string"><em>E_CLASS_BACKGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		style.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		<span class="string"><em>E_CLASS_BACKGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return</span> 
-		style;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;
+		style;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;
 		<span class="keyword">&nbsp;public static</span> Style getStyleForEClassText(Diagram 
 		diagram) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">final</span> String styleId = <span class="string">
-		&quot;E-CLASS-TEXT&quot;</span>;<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// this is a child style of the e-class-style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Style parentStyle = getStyleForEClass(diagram);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Style style = <em>findStyle</em>(parentStyle, styleId);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&quot;E-CLASS-TEXT&quot;</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IGaService 
+		gaService = Graphiti.getGaService();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// this is a child style of the common-values-style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Style parentStyle = <em>getStyleForCommonValues</em>(diagram);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Style style = gaService.findStyle(parentStyle, styleId);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">if</span> (style == <span class="keyword">null</span>) 
 		{ <span class="comment">// style not found - create new style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		IGaService gaService = Graphiti.getGaService();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		style = gaService.createStyle(getStyleForEClass(diagram), styleId);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// &quot;overwrites&quot; values from parent style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		style.setForeground(gaService.manageColor(diagram,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string"><em>&nbsp;E_CLASS_TEXT_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		style.setFont(gaService.manageFont(diagram, <span class="string"><em>DEFAULT_FONT</em></span>, 
-		8,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">false</span>, <span class="keyword">true</span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style = gaService.createPlainStyle(parentStyle, styleId);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<em>setCommonTextValues</em>(diagram, gaService, style);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style.setFont(gaService.manageDefaultFont(diagram, <span class="keyword">
+		false</span>, <span class="keyword">true</span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return</span> 
-		style;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
-		<span class="comment">// find the style with a given id in the style-container, 
-		can return null</span><br>&nbsp;&nbsp;&nbsp; <span class="keyword">private 
-		static</span> Style findStyle(StyleContainer styleContainer, String id) 
-		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
-		find and return style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Collection&lt;Style&gt; styles = styleContainer.getStyles();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">if</span> (styles != <span class="keyword">null</span>) 
-		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">for</span> (Style style : styles) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">if</span> (id.equals(style.getId())) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return</span> style;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return 
-		null</span>;<br>&nbsp;&nbsp;&nbsp; }<br>}<br></p>
+		style;<br>&nbsp;&nbsp;&nbsp; }<br><br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public static</span> Style getStyleForTextDecorator(Diagram 
+		diagram) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">final</span> String styleId = <span class="string">
+		&quot;TEXT-DECORATOR-TEXT&quot;</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		IGaService gaService = Graphiti.getGaService();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// this is a child style of the common-values-style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Style parentStyle = <em>getStyleForCommonValues</em>(diagram);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Style style = gaService.findStyle(parentStyle, styleId);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (style == <span class="keyword">null</span>) 
+		{ <span class="comment">// style not found - create new style</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style = gaService.createPlainStyle(parentStyle, styleId);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<em>setCommonTextValues</em>(diagram, gaService, style);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style.setFont(gaService.manageDefaultFont(diagram, <span class="keyword">
+		true</span>, <span class="keyword">false</span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return</span> 
+		style;<br>&nbsp;&nbsp;&nbsp; }<br><br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">private static</span> void setCommonTextValues(Diagram 
+		diagram,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IGaService gaService, 
+		Style style) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; style.setFilled(<span class="keyword">false</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style.setAngle(0);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; style.setHorizontalAlignment(Orientation.<span class="string"><em>ALIGNMENT_CENTER</em></span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style.setVerticalAlignment(Orientation.<span class="string"><em>ALIGNMENT_CENTER</em></span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style.setForeground(gaService.manageColor(diagram,<br>
+		<span class="string"><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		E_CLASS_TEXT_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp; }<br><br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">private static</span> void setCommonValues(Style style) 
+		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; style.setLineStyle(LineStyle.<span class="string"><em>SOLID</em></span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style.setLineVisible(<span class="keyword">true</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		style.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; style.setTransparency(0.0);<br>&nbsp;&nbsp;&nbsp; 
+		}<br>}<br></p>
 	</div>
 </div>
 <p>&nbsp;</p>
@@ -137,67 +181,131 @@ code snippet:</p>
 		context) {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; <span class="comment">// ... 
 		EXISTING CODING ...<br></span><br>&nbsp;&nbsp;&nbsp; IGaService gaService 
 		= Graphiti.getGaService();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; 
-		RoundedRectangle roundedRectangle; <span class="comment">// need to access 
-		it later</span><br>&nbsp;&nbsp;&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// create invisible outer rectangle expanded by<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		// the width needed for the anchor</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Rectangle invisibleRectangle =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		RoundedRectangle roundedRectangle; // need to access it later<br>&nbsp;&nbsp;&nbsp; 
+		{<br>&nbsp;&nbsp;&nbsp; <span class="comment">&nbsp;&nbsp;&nbsp; // create 
+		invisible outer rectangle expanded by</span><br>&nbsp;&nbsp;&nbsp;
+		<span class="comment">&nbsp;&nbsp;&nbsp; // the width needed for the anchor</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">final</span> Rectangle invisibleRectangle =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		gaService.createInvisibleRectangle(containerShape);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		gaService.setLocationAndSize(invisibleRectangle,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		context.getX(), context.getY(), width + <span class="string"><em>INVISIBLE_RECT_RIGHT</em></span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		height);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// create and set visible rectangle inside invisible 
-		rectangle</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; roundedRectangle 
-		=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		gaService.createRoundedRectangle(invisibleRectangle, 5, 5);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		roundedRectangle.setStyle(StyleUtil<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		.<em>getStyleForEClass</em>(getDiagram()));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		gaService.setLocationAndSize(roundedRectangle, 0, 0, width, height); <br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// create link and wire it</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		gaService.setLocationAndSize(invisibleRectangle, context.getX(),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		context.getY(), width + <span class="string"><em>INVISIBLE_RECT_RIGHT</em></span>, 
+		height);<br><br>&nbsp;&nbsp;&nbsp; <span class="comment">&nbsp;&nbsp;&nbsp; 
+		// create and set visible rectangle inside invisible rectangle</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		roundedRectangle =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		gaService.createPlainRoundedRectangle(invisibleRectangle, 5, 5);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		roundedRectangle.setStyle(StyleUtil.<em>getStyleForEClass</em>(getDiagram()));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		gaService.setLocationAndSize(roundedRectangle, 0, 0, width, height);<br>
+		<br>&nbsp;&nbsp;&nbsp; <span class="comment">&nbsp;&nbsp;&nbsp; // if addedClass 
+		has no resource we add it to the resource of the diagram</span><br>&nbsp;&nbsp;&nbsp;
+		<span class="comment">&nbsp;&nbsp;&nbsp; // in a real scenario the business 
+		model would have its own resource</span><br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">&nbsp;&nbsp;&nbsp; if</span> (addedClass.eResource() 
+		== <span class="keyword">null</span>) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		getDiagram().eResource().getContents().add(addedClass);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br><br>&nbsp;&nbsp;&nbsp; <span class="comment">&nbsp;&nbsp;&nbsp; // 
+		create link and wire it</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		link(containerShape, addedClass);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
 		<span class="comment">// SHAPE WITH LINE</span><br>&nbsp;&nbsp;&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// create shape for line</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Shape shape = peCreateService.createShape(containerShape,
-		<span class="keyword">false</span>);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// create and set graphics algorithm</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Polyline polyline =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		gaService.createPolyline(shape, <span class="keyword">new int</span>[] { 
-		0, 20, width, 20 });<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; polyline.setStyle(StyleUtil.<em>getStyleForEClass</em>(getDiagram()));<br>&nbsp;&nbsp;&nbsp; 
+		final Shape shape = peCreateService.createShape(containerShape,
+		<span class="keyword">false</span>);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// create and set graphics algorithm</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">final</span> Polyline polyline =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		gaService.createPlainPolyline(shape, <span class="keyword">new</span>
+		<span class="keyword">int</span>[] { 0, 20, width, 20 });<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		polyline.setStyle(StyleUtil.<em>getStyleForEClass</em>(getDiagram()));<br>&nbsp;&nbsp;&nbsp; 
 		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; <span class="comment">// SHAPE WITH TEXT</span><br>&nbsp;&nbsp;&nbsp; 
 		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
-		create shape for text</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Shape shape = peCreateService.createShape(containerShape,
-		<span class="keyword">false</span>);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// create and set text graphics algorithm</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Text text = gaService.createText(shape, addedClass.getName());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		text.setStyle(StyleUtil.<em>getStyleForEClassText</em>(getDiagram()));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		text.setHorizontalAlignment(Orientation.<span class="string"><em>ALIGNMENT_CENTER</em></span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		text.setVerticalAlignment(Orientation.<em class="string">ALIGNMENT_CENTER</em>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		gaService.setLocationAndSize(text, 0, 0, width, 20);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		create shape for text</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">final</span> Shape shape = peCreateService.createShape(containerShape,
+		<span class="keyword">false</span>);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// create and set text graphics algorithm</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">final</span> Text text = gaService.createPlainText(shape, 
+		addedClass.getName());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; text.setStyle(StyleUtil.<em>getStyleForEClassText</em>(getDiagram()));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		gaService.setLocationAndSize(text, 0, 0, width, 20);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// create link and wire it</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		link(shape, addedClass);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// provide information to support direct-editing directly<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		// after object creation (must be activated additionally)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		IDirectEditingInfo directEditingInfo =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		getFeatureProvider().getDirectEditingInfo();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		link(shape, addedClass);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// provide information to support direct-editing directly</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// after object creation (must be activated additionally)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">final </span>IDirectEditingInfo directEditingInfo 
+		= getFeatureProvider().getDirectEditingInfo();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// set container shape for direct editing after object 
-		creation</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; directEditingInfo.setMainPictogramElement(containerShape);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		creation</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; directEditingInfo.setMainPictogramElement(containerShape);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// set shape and graphics algorithm where the editor 
-		for<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // direct editing shall 
-		be opened after object creation</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		directEditingInfo.setPictogramElement(shape);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		for</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">
+		// direct editing shall be opened after object creation</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		directEditingInfo.setPictogramElement(shape);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		directEditingInfo.setGraphicsAlgorithm(text);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
 		<span class="comment">// add a chopbox anchor to the shape<br><br>&nbsp;&nbsp;&nbsp; 
-		// ... EXISTING CODING ...</span><br><br>&nbsp;&nbsp;&nbsp; rectangle.setStyle(StyleUtil.<em>getStyleForEClass</em>(getDiagram()));<br>
+		// ... EXISTING CODING ...</span><br><br>&nbsp;&nbsp;&nbsp; ellipse.setStyle(StyleUtil.<em>getStyleForEClass</em>(getDiagram()));<br>
 		<br>&nbsp;&nbsp;&nbsp; <span class="comment">// ... EXISTING CODING ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
 		<span class="keyword">return</span> containerShape;<br>}<br></p>
 	</div>
 </div>
 <p>&nbsp;</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
+<p>Tto achieve a homogeneously appearence of our editor, the styles must also be 
+applied to our EReferences. To do this we have to change the
+<span class="inlinecode">add</span>- and <span class="inlinecode">createArrow</span>-method 
+in class <span class="inlinecode">TutorialAddEReferenceFeature</span>.</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code"><span class="keyword">package</span> org.eclipse.graphiti.examples.tutorial.features;<br>
+		<br><span class="keyword">public class</span> TutorialAddEReferenceFeature
+		<span class="keyword">extends</span> AbstractAddFeature {<br><br>
+		<span class="comment">&nbsp;&nbsp;&nbsp; // ... EXISTING CODING ...</span><br>
+		<br><span class="keyword">&nbsp;&nbsp;&nbsp; public</span> PictogramElement 
+		add(IAddContext context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		IAddConnectionContext addConContext =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		(IAddConnectionContext) context;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EReference addedEReference =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		(EReference) context.getNewObject();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		IPeCreateService peCreateService =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Graphiti.getPeCreateService();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// CONNECTION WITH POLYLINE</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Connection connection =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		peCreateService.createFreeFormConnection(getDiagram());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		connection.setStart(addConContext.getSourceAnchor());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		connection.setEnd(addConContext.getTargetAnchor());<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		IGaService gaService = Graphiti.getGaService();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Polyline polyline = gaService.createPlainPolyline(connection);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		polyline.setStyle(StyleUtil.<em>getStyleForEClass</em>(getDiagram()));<br>
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// create 
+		link and wire it</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; link(connection, 
+		addedEReference);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// add dynamic text decorator for the reference name</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		ConnectionDecorator textDecorator =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		peCreateService.createConnectionDecorator(connection,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		true, 0.5, true);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Text text = gaService.createPlainText(textDecorator);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		text.setStyle(StyleUtil.<em>getStyleForTextDecorator</em>((getDiagram())));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		gaService.setLocation(text, 10, 0);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// set reference name in the text decorator</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		EReference eReference = (EReference) context.getNewObject();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		text.setValue(eReference.getName());<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// add static graphical decorators (composition and 
+		navigable)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ConnectionDecorator 
+		cd;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cd = peCreateService.createConnectionDecorator(connection,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">false</span>, 1.0, true);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		createArrow(cd);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return</span> connection;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;
+		<br><span class="comment">&nbsp;&nbsp;&nbsp; // ... EXISTING CODING ...</span><br>
+		<br>&nbsp;&nbsp;&nbsp; <span class="keyword">private</span> Polyline createArrow(GraphicsAlgorithmContainer 
+		gaContainer) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Polyline polyline 
+		=<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Graphiti.getGaCreateService().createPlainPolyline(gaContainer,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">new int</span>[] { -15, 10, 0, 0, -15, -10 });<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		polyline.setStyle(StyleUtil.<em>getStyleForEClass</em>(getDiagram()));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return</span> polyline;<br>&nbsp;&nbsp;&nbsp; }<br>
+		}</p>
+	</div>
+</div>
+<p>&nbsp;</p>
+<!-- End code  -------------------------------------------------------------------------------  -->
 <p>To test the just implemented styles we have to create a small
 <a href="custom-feature.htm">custom feature</a>, which allows changing the foreground 
-color or background color of the style.</p>
+color of the style.</p>
 <p>The implementation can be seen here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
@@ -205,67 +313,47 @@ color or background color of the style.</p>
 	<div class="incode">
 		<p class="code"><span class="keyword">package</span> org.eclipse.graphiti.examples.tutorial.features;<br>&nbsp;<br>
 		<span class="keyword">public class</span> TutorialChangeColorEClassFeature
-		<span class="keyword">extends</span> AbstractCustomFeature {<br>&nbsp;<br>&nbsp;&nbsp;
-		<span class="keyword">&nbsp;private boolean</span> <span class="string">
-		background</span>;<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; <span class="keyword">
-		public</span> TutorialChangeColorEClassFeature(IFeatureProvider fp,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">boolean</span> background) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">super</span>(fp);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">this</span>.<span class="string">background </span>
-		= background;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; @Override<br>&nbsp;&nbsp;&nbsp;
-		<span class="keyword">public</span> String getName() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		String colorType = <span class="string">background</span> ?
-		<span class="string">&quot;&amp;background&quot;</span> : <span class="string">&quot;&amp;foreground&quot;</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return</span> <span class="string">&quot;Change &quot;</span> 
-		+ colorType + <span class="string">&quot; color&quot;</span>;<br>&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; @Override<br>&nbsp;&nbsp;&nbsp;
-		<span class="keyword">public</span> String getDescription() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		String colorType = <span class="string">background</span> ?
-		<span class="string">&quot;background&quot;</span> : <span class="string">&quot;foreground&quot;</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return</span> <span class="string">&quot;Change the &quot;</span> 
-		+ colorType + <span class="string">&quot; color&quot;</span>;<br>&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; @Override<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">extends</span> AbstractCustomFeature {<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public</span> TutorialChangeColorEClassFeature(IFeatureProvider 
+		fp) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">super</span>(fp);<br>&nbsp;&nbsp;&nbsp; }<br><br>&nbsp;&nbsp;&nbsp; 
+		@Override<br>&nbsp;&nbsp;&nbsp; <span class="keyword">public</span> String 
+		getName() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return</span> <span class="string">&quot;Change &amp;foreground 
+		color&quot;</span>;<br>&nbsp;&nbsp;&nbsp; }<br><br>&nbsp;&nbsp;&nbsp; @Override<br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public</span> String getDescription() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return</span> <span class="string">&quot;Change the foreground 
+		color&quot;</span>;<br>&nbsp;&nbsp;&nbsp; }<br><br>&nbsp;&nbsp;&nbsp; @Override<br>&nbsp;&nbsp;&nbsp;
 		<span class="keyword">public boolean</span> canExecute(ICustomContext context) 
 		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PictogramElement[] pes = 
 		context.getPictogramElements();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">if</span> (pes == <span class="keyword">null</span> 
 		|| pes.<span class="string">length</span> == 0) { <span class="comment">
-		// nothing selected</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// return true, if all elements are EClasses<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		// nothing selected</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">&nbsp;&nbsp;&nbsp; return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
+		return true, if all elements are EClasses<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		// note, that in execute() the selected elements are not even accessed,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		// so theoretically it would be possible that canExecute() always<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		// returns true. But for usability reasons it is better to check<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		// if the selected elements are EClasses.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">for</span> (PictogramElement pe : pes) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">final</span> Object bo = getBusinessObjectForPictogramElement(pe);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">if</span> (!(bo <span class="keyword">instanceof</span> 
-		EClass)) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">&nbsp;return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		<span class="keyword">final</span> Object bo = getBusinessObjectForPictogramElement(pe);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		if (!(bo <span class="keyword">instanceof</span> EClass)) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return false</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return true</span>;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
-		<span class="keyword">public void</span> execute(ICustomContext context) 
-		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Style style = StyleUtil.<em>getStyleForEClass</em>(getDiagram());<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// let the user choose the new color</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Color currentColor;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">if</span> (<span class="string">background</span>) 
-		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		currentColor = style.getBackground();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		} <span class="keyword">else</span> {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		currentColor = style.getForeground();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Color newColor = ExampleUtil<em>.editColor</em>(currentColor);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return true</span>;<br>&nbsp;&nbsp;&nbsp; }<br>
+		<br>&nbsp;&nbsp;&nbsp; <span class="keyword">public</span> void execute(ICustomContext 
+		context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Style style = StyleUtil.getStyleForEClass(getDiagram());<br>
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// 
+		let the user choose the new color</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Color currentColor = style.getForeground();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Color newColor = ExampleUtil.<em>editColor</em>(currentColor);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">if</span> (newColor == <span class="keyword">null</span>) 
-		{ <span class="comment">// user did not choose new color</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">&nbsp;return</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// set new color</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">if</span> (<span class="string">background</span>) 
-		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		style.setBackground(newColor);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		} <span class="keyword">else</span> {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		style.setForeground(newColor);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		}<br>&nbsp;&nbsp;&nbsp; }<br>}<br></p>
+		{ <span class="comment">// user did not choose new color</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return</span>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; style.setForeground(newColor);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		}<br>}<br></p>
 	</div>
 </div>
 <p>&nbsp;</p>
@@ -285,10 +373,8 @@ getCustomFeatures</a>).</p>
 		<span class="keyword">new</span> TutorialRenameEClassFeature(<span class="keyword">this</span>),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">new</span> TutorialDrillDownEClassFeature(<span class="keyword">this</span>),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">new</span> TutorialAssociateDiagramEClassFeature(<span class="keyword">this</span>),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">new</span> TutorialChangeColorEClassFeature(<span class="keyword">this</span>,
-		<span class="keyword">true</span>),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">new</span> TutorialChangeColorEClassFeature(<span class="keyword">this</span>,
-		<span class="keyword">false</span>) };<br>}<br></p>
+		<span class="keyword">new</span> TutorialCollapseDummyFeature(<span class="keyword">this</span>),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">new</span> TutorialChangeColorEClassFeature(<span class="keyword">this</span>)};<br>}<br></p>
 	</div>
 </div>
 <p>&nbsp;</p>
@@ -297,8 +383,8 @@ getCustomFeatures</a>).</p>
 <p>Now start the editor and test this:</p>
 <ol>
 	<li>create or open a new diagram</li>
-	<li>create several new EClasses</li>
-	<li>open the context menu on one of the EClasses; choose &quot;Change background 
+	<li>create several new EClasses and EReferences</li>
+	<li>open the context menu on one of the EClasses; choose &quot;Change Foreground 
 	color&quot;</li>
 	<li>verify that the color of all EClasses is changed accordingly</li>
 </ol>
