@@ -15,6 +15,7 @@
  *    Felix Velasco (mwenz) - Bug 349416 - Support drag&drop operations on FixPointAnchors
  *                                         the same way as for BoxRelativeAnchors
  *    mgorning - Bug 347144 - Angle of MultiText objects can't be modified
+ *    Felix Velasco (mgorning) - Bug 328279 - Support rendering decorator positioning for connection text decorator
  *
  * </copyright>
  *
