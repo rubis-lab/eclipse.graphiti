@@ -207,6 +207,11 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * deactivate()
 	 */
 	public void deactivate() {
+
+		for (IFigure figure : elementFigureHash.values()) {
+			removeDecorators(figure);
+		}
+
 		disposeFonts();
 	}
 
@@ -248,10 +253,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		if (graphicsAlgorithm == null) {
 			return ret;
 		}
-		Object element = elementFigureHash.get(graphicsAlgorithm);
-		if (element instanceof IFigure) {
-			ret = (IFigure) element;
-		}
+		ret = elementFigureHash.get(graphicsAlgorithm);
 		return ret;
 	}
 
@@ -905,15 +907,21 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				boundsForDecoratorFigure.setLocation(location.getX(), location.getY());
 			}
 
+			IFigure parent = figure.getParent();
+			if (parent != null) {
+				org.eclipse.draw2d.geometry.Rectangle ownerBounds = (org.eclipse.draw2d.geometry.Rectangle) parent
+						.getLayoutManager().getConstraint(figure);
+				boundsForDecoratorFigure.translate(ownerBounds.getLocation());
+			}
+
 			decoratorFigure.setVisible(true);
 			if (messageText != null && messageText.length() > 0) {
 				decoratorFigure.setToolTip(new Label(messageText));
 			}
-			if (figure.getLayoutManager() == null) {
-				figure.setLayoutManager(new XYLayout());
+			if (parent.getLayoutManager() == null) {
+				parent.setLayoutManager(new XYLayout());
 			}
-			figure.add(decoratorFigure);
-			figure.setConstraint(decoratorFigure, boundsForDecoratorFigure);
+			parent.add(decoratorFigure, boundsForDecoratorFigure, parent.getChildren().indexOf(figure) + 1);
 		}
 
 		return decoratorFigure;
@@ -1412,17 +1420,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		if (pe.isActive() && !(pe instanceof Anchor) && !(pe instanceof Connection)
 				&& graphicsAlgorithm.equals(pe.getGraphicsAlgorithm())) {
 
-			List<IFigure> decFigureList = decoratorMap.get(figure);
-			if (decFigureList != null) {
-				for (IFigure decFigure : decFigureList) {
-					IFigure parent = decFigure.getParent();
-					if (parent != null && figure.equals(parent)) {
-						figure.remove(decFigure);
-					}
-				}
-				decFigureList.clear();
-				decoratorMap.remove(figure);
-			}
+			removeDecorators(figure);
 
 			IDecorator[] decorators = toolBehaviorProvider.getDecorators(pe);
 
@@ -1435,6 +1433,20 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 					decList.add(decorateFigure);
 				}
 			}
+		}
+	}
+
+	private void removeDecorators(final IFigure figure) {
+		List<IFigure> decFigureList = decoratorMap.get(figure);
+		if (decFigureList != null) {
+			for (IFigure decFigure : decFigureList) {
+				IFigure parent = decFigure.getParent();
+				if (parent != null) {
+					parent.remove(decFigure);
+				}
+			}
+			decFigureList.clear();
+			decoratorMap.remove(figure);
 		}
 	}
 
