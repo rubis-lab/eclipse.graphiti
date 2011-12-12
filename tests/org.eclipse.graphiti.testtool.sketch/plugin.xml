@@ -63,6 +63,17 @@
          </imageProvider>
       </diagramTypeProvider>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.eclipse.graphiti.testtool.sketch.editors.MultiPageEditor"
+            contributorClass="org.eclipse.graphiti.testtool.sketch.editors.MultiPageEditorContributor"
+            extensions="diagram"
+            icon="icons/sample.gif"
+            id="org.eclipse.graphiti.testtool.sketch.editors.MultiPageEditor"
+            name="Sample Multi-page Editor">
+      </editor>
+   </extension>
    
   
 </plugin>
