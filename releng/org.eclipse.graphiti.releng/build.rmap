@@ -62,8 +62,9 @@
     </rm:provider>
   </rm:searchPath>
   <rm:searchPath name="binaries.platform">
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" mutable="false">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.mutable" value="false"/>
+      <rm:property key="buckminster.source" value="false"/>
       <rm:uri format="{0}/eclipse/updates/3.8milestones">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
