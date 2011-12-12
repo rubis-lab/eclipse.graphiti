@@ -93,7 +93,7 @@ class DiagramRefreshJob extends UIJob {
 			}
 		}
 
-		ed.initRefresh();
+		ed.getRefreshBehavior().initRefresh();
 		// prove if switch to auto activate direct editing is required
 		// if yes, call always global editor refresh -> this refresh will activate the direct editing
 		IDirectEditingInfo dei = ed.getDiagramTypeProvider().getFeatureProvider().getDirectEditingInfo();
@@ -102,7 +102,7 @@ class DiagramRefreshJob extends UIJob {
 		} else {
 			for (EditPart ep : editParts) {
 				if (!hasNewParent(ep)) {
-					ed.internalRefreshEditPart(ep);
+					ed.getRefreshBehavior().internalRefreshEditPart(ep);
 				}
 			}
 			// refresh all active connection decorators

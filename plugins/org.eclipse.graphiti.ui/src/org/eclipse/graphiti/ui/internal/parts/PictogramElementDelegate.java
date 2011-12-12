@@ -92,6 +92,7 @@ import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.IImageDecorator;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.figures.DecoratorImageFigure;
@@ -189,7 +190,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	public IFigure createFigure() {
 		PictogramElement pe = getPictogramElement();
 		IFigure ret = createFigureForPictogramElement(pe);
-		if (getEditor().isMultipleRefreshSupressionActive()) {
+		if (getEditor().getRefreshBehavior().isMultipleRefreshSupressionActive()) {
 			return ret;
 		} else {
 			refreshFigureForPictogramElement(pe);
@@ -311,8 +312,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	public void refreshFigureForEditPart() {
 
 		// DR: Avoid multiple refresh of the same edit part
-		if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-			if (!getEditor().shouldRefresh(getContainerEditPart())) {
+		DefaultRefreshBehavior refreshBehavior = getEditor().getRefreshBehavior();
+		if (!isForceRefresh() && refreshBehavior.isMultipleRefreshSupressionActive()) {
+			if (!refreshBehavior.shouldRefresh(getContainerEditPart())) {
 				return;
 			}
 		}
@@ -432,8 +434,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			return;
 		}
 
-		if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-			if (!getEditor().shouldRefresh(graphicsAlgorithm)) {
+		DefaultRefreshBehavior refreshBehavior = getEditor().getRefreshBehavior();
+		if (!isForceRefresh() && refreshBehavior.isMultipleRefreshSupressionActive()) {
+			if (!refreshBehavior.shouldRefresh(graphicsAlgorithm)) {
 				return;
 			}
 		}
@@ -1058,8 +1061,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	private void refreshFigureForPictogramElement(PictogramElement pe) {
 
 		if (pe != null) {
-			if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-				if (!getEditor().shouldRefresh(pe)) {
+			DefaultRefreshBehavior refreshBehavior = getEditor().getRefreshBehavior();
+			if (!isForceRefresh() && refreshBehavior.isMultipleRefreshSupressionActive()) {
+				if (!refreshBehavior.shouldRefresh(pe)) {
 					return;
 				}
 			}

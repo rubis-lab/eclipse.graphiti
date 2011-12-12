@@ -89,7 +89,7 @@ public class DiagramChangeListener implements ResourceSetListener {
 	}
 
 	public void resourceSetChanged(ResourceSetChangeEvent event) {
-		if (!ed.isAutoRefresh()) {
+		if (!ed.getRefreshBehavior().isAutoRefresh()) {
 			return;
 		}
 		DiagramRefreshJob refreshDiagramJob = getRefreshDiagramJob();
