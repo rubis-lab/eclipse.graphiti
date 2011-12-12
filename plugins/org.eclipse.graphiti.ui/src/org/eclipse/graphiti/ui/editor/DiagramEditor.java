@@ -164,44 +164,35 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  * 
  * @since 0.9
  */
-public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
-		IDiagramEditor,
+public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements IDiagramEditor,
 		ITabbedPropertySheetPageContributor, IEditingDomainProvider {
 
 	public static final String DIAGRAM_EDITOR_ID = "org.eclipse.graphiti.ui.editor.DiagramEditor"; //$NON-NLS-1$
 
-	private CommandStackEventListener gefCommandStackListener;
-
-	private final DefaultUpdateBehavior behavior;
-	private DefaultPaletteBehavior paletteBehaviour;
-	private DefaultPersistencyBehavior persistencyBehavior;
-	private DefaultMarkerBehavior markerBehavior;
-
-
 	private static final boolean REFRESH_ON_GAINED_FOCUS = false;
 
-	// private static final boolean REFRESH_ON_COMMAND_STACK_CHANGES = false;
+	private final DefaultUpdateBehavior updateBehavior;
+	private final DefaultPaletteBehavior paletteBehaviour;
+	private final DefaultPersistencyBehavior persistencyBehavior;
+	private final DefaultMarkerBehavior markerBehavior;
+
+	private CommandStackEventListener gefCommandStackListener;
+	private DiagramChangeListener diagramChangeListener;
+	private DomainModelChangeListener domainModelListener;
 
 	private DiagramScrollingBehavior diagramScrollingBehavior;
 
 	private PictogramElement pictogramElementsForSelection[];
 
+	private String contributorId;
 	private IConfigurationProvider configurationProvider;
 
 	private KeyHandler keyHandler;
-
 	private Point mouseLocation;
-
-	private DiagramChangeListener diagramChangeListener;
-
-	private DomainModelChangeListener domainModelListener;
-
-	private String contributorId;
 
 	private boolean directEditingActive = false;
 
 	private boolean autoRefresh = true;
-
 	private RefreshPerformanceCache refreshPerformanceCache = new RefreshPerformanceCache();
 
 	/**
@@ -210,10 +201,12 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	public DiagramEditor() {
 		super();
 		markerBehavior = createMarkerBehavior();
-		behavior = createDiagramEditorBehavior();
+		updateBehavior = createUpdateBehavior();
 		paletteBehaviour = createPaletteBehaviour();
 		persistencyBehavior = createPersistencyBehavior();
 	}
+
+	// ------------------ Behaviors --------------------------------------------
 
 	/**
 	 * @since 0.9
@@ -225,49 +218,295 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	/**
 	 * @since 0.9
 	 */
-	protected DefaultPersistencyBehavior createPersistencyBehavior() {
-		return new DefaultPersistencyBehavior(this);
-	}
-
-	/**
-	 * @since 0.9
-	 */
-	protected DefaultUpdateBehavior createDiagramEditorBehavior() {
+	protected DefaultUpdateBehavior createUpdateBehavior() {
 		return new DefaultUpdateBehavior(this);
 	}
 
 	/**
-	 * Calculates the location in dependence from scrollbars and zoom factor.
-	 * 
-	 * @param nativeLocation
-	 *            the native location
-	 * @return the point
+	 * @since 0.9
 	 */
-	public Point calculateRealMouseLocation(Point nativeLocation) {
+	public DefaultUpdateBehavior getBehavior() {
+		return updateBehavior;
+	}
 
-		Point ret = new Point(nativeLocation);
-		Point viewLocation;
-		// view location depends on the current scroll bar position
-		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-			viewLocation = getGFFigureCanvas().getViewport().getViewLocation();
-		} else {
-			viewLocation = getFigureCanvas().getViewport().getViewLocation();
-		}
-
-		ret.x += viewLocation.x;
-		ret.y += viewLocation.y;
-
-		ZoomManager zoomManager = (ZoomManager) getGraphicalViewer().getProperty(ZoomManager.class.toString());
-		ret = ret.getScaled(1 / zoomManager.getZoom());
-
-		return ret;
+	/**
+	 * Override to change palette behaviour
+	 * 
+	 * @return
+	 * @since 0.9
+	 */
+	protected DefaultPaletteBehavior createPaletteBehaviour() {
+		return new DefaultPaletteBehavior(this);
 	}
 
 	/**
 	 * @since 0.9
 	 */
-	public void updateDirtyState() {
-		firePropertyChange(IEditorPart.PROP_DIRTY);
+	protected DefaultPersistencyBehavior createPersistencyBehavior() {
+		return new DefaultPersistencyBehavior(this);
+	}
+
+	// ---------------------- Synchronisation hooks between behaviors ------- //
+
+	/**
+	 * Hook that is called by the holder of the
+	 * {@link TransactionalEditingDomain} ({@link DefaultUpdateBehavior}) after
+	 * the editing domain has been initialized. Can be used to e.g. register
+	 * additional listeners.
+	 * 
+	 * @since 0.9
+	 */
+	public void editingDomainInitialized() {
+		markerBehavior.initialize();
+	}
+
+	/**
+	 * Should be called by the various behavior instances before mass EMF
+	 * resource operations are triggered (e.g. saving all resources). Can be
+	 * used to disable eventing for performance reasons. See
+	 * {@link #enableAdapters()} as well.
+	 * 
+	 * @since 0.9
+	 */
+	public void disableAdapters() {
+		markerBehavior.disableProblemIndicationUpdate();
+		updateBehavior.setAdapterActive(false);
+	}
+
+	/**
+	 * Should be called by the various behavior instances after mass EMF
+	 * resource operations have been triggered (e.g. saving all resources). Can
+	 * be used to re-enable eventing after it was disabled for performance
+	 * reasons. See {@link #disableAdapters()} as well.
+	 * 
+	 * @since 0.9
+	 */
+	public void enableAdapters() {
+		markerBehavior.enableProblemIndicationUpdate();
+		updateBehavior.setAdapterActive(true);
+	}
+
+	// ------------------ Initializazion ---------------------------------------
+
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		// Eclipse may call us with other inputs when a file is to be
+		// opened. Try to convert this to a valid diagram input.
+		if (!(input instanceof IDiagramEditorInput)) {
+			IEditorInput newInput = EditorInputAdapter.adaptToDiagramEditorInput(input);
+			if (!(newInput instanceof IDiagramEditorInput)) {
+				throw new PartInitException("Unknown editor input: " + input); //$NON-NLS-1$
+			}
+			input = newInput;
+		}
+
+		getBehavior().createEditingDomain();
+
+		try {
+			// In next line GEF calls setSite(), setInput(),
+			// getEditingDomain(), ...
+			super.init(site, input);
+		} catch (RuntimeException e) {
+			throw new PartInitException("Can not initialize editor", e); //$NON-NLS-1$
+		}
+
+		getBehavior().init();
+
+		migrateDiagramModelIfNecessary();
+	}
+
+	protected void setInput(IEditorInput input) {
+		super.setInput(input);
+		// determine filename
+		Assert.isNotNull(input, "The IEditorInput must not be null"); //$NON-NLS-1$
+
+		if (!(input instanceof IDiagramEditorInput))
+			throw new IllegalArgumentException("The IEditorInput has the wrong type: " + input.getClass()); //$NON-NLS-1$
+
+		IDiagramEditorInput diagramEditorInput = (IDiagramEditorInput) input;
+		Diagram diagram = persistencyBehavior.loadDiagram(diagramEditorInput.getUri());
+
+		// can happen if editor is started with invalid URI
+		Assert.isNotNull(diagram, "No Diagram found for URI '" //$NON-NLS-1$
+				+ "'. . See the error log for details."); //$NON-NLS-1$
+
+		String providerId = diagramEditorInput.getProviderId();
+		// if provider is null then take the first installed provider for
+		// this diagram type
+		if (providerId == null) {
+			providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
+			diagramEditorInput.setProviderId(providerId);
+		}
+
+		Assert.isNotNull(providerId, "DiagramEditorInput does not convey a Provider ID '" + diagramEditorInput //$NON-NLS-1$
+				+ "'. . See the error log for details."); //$NON-NLS-1$
+
+		// get according diagram-type-provider
+		IDiagramTypeProvider diagramTypeProvider = GraphitiUi.getExtensionManager().createDiagramTypeProvider(
+				providerId);
+		Assert.isNotNull(diagramTypeProvider, "could not find diagram type provider for " + diagram.getDiagramTypeId()); //$NON-NLS-1$
+
+		diagramTypeProvider.init(diagram, this);
+		IConfigurationProvider configurationProvider = new ConfigurationProvider(this, diagramTypeProvider);
+		setConfigurationProvider(configurationProvider);
+		handleAutoUpdateAtStartup(diagram, diagramTypeProvider);
+
+		registerBOListener();
+		registerDiagramResourceSetListener();
+
+		refreshTitle();
+	}
+
+	/**
+	 * Inits the action regsitry.
+	 */
+	protected void initActionRegistry(ZoomManager zoomManager) {
+		final ActionRegistry actionRegistry = getActionRegistry();
+		@SuppressWarnings("unchecked")
+		final List<String> selectionActions = getSelectionActions();
+
+		// register predefined actions (e.g. update, remove, delete, ...)
+		IAction action = new UpdateAction(this, getConfigurationProvider());
+		actionRegistry.registerAction(action);
+		selectionActions.add(action.getId());
+
+		action = new RemoveAction(this, getConfigurationProvider());
+		actionRegistry.registerAction(action);
+		selectionActions.add(action.getId());
+
+		action = new DeleteAction(this, getConfigurationProvider());
+		actionRegistry.registerAction(action);
+		selectionActions.add(action.getId());
+
+		action = new CopyAction(this, getConfigurationProvider());
+		actionRegistry.registerAction(action);
+		selectionActions.add(action.getId());
+
+		action = new PasteAction(this, getConfigurationProvider());
+		actionRegistry.registerAction(action);
+		selectionActions.add(action.getId());
+
+		IFeatureProvider fp = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
+		if (fp != null) {
+			ISaveImageFeature sf = fp.getSaveImageFeature();
+
+			if (sf != null) {
+				ISaveImageContext context = new SaveImageContext();
+				action = new SaveImageAction(sf, context, this);
+				actionRegistry.registerAction(action);
+				selectionActions.add(action.getId());
+			}
+		}
+
+		registerAction(new ZoomInAction(zoomManager));
+		registerAction(new ZoomOutAction(zoomManager));
+		registerAction(new DirectEditAction((IWorkbenchPart) this));
+
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.LEFT));
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.RIGHT));
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.TOP));
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.BOTTOM));
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.CENTER));
+		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.MIDDLE));
+		registerAction(new MatchWidthAction(this));
+		registerAction(new MatchHeightAction(this));
+		IAction showGrid = new ToggleGridAction(getGraphicalViewer());
+		getActionRegistry().registerAction(showGrid);
+	}
+
+	public void createPartControl(Composite parent) {
+		super.createPartControl(parent);
+		getDiagramTypeProvider().postInit();
+		gefCommandStackListener = new CommandStackEventListener() {
+
+			public void stackChanged(CommandStackEvent event) {
+				// Only fire if triggered from UI thread
+				if (Display.getCurrent() != null) {
+					firePropertyChange(IEditorPart.PROP_DIRTY);
+
+					// Promote the changes to the command stack also to the
+					// action bars and registered actions to correctly reflect
+					// e.g. undo/redo in the menu (introduced to enable removing
+					// NOP commands from the command stack
+					commandStackChanged(event);
+				}
+			}
+		};
+		getEditDomain().getCommandStack().addCommandStackEventListener(gefCommandStackListener);
+	}
+
+	/**
+	 * Creates the GraphicalViewer AND navigation-bar on the specified
+	 * <code>Composite</code>.
+	 * 
+	 * @param parent
+	 *            the parent composite
+	 */
+	protected void createGraphicalViewer(Composite parent) {
+		GraphicalViewer viewer;
+		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
+			viewer = new GFScrollingGraphicalViewer(this);
+			((GFScrollingGraphicalViewer) viewer).createGFControl(parent);
+		} else {
+			viewer = new GraphitiScrollingGraphicalViewer(this);
+			viewer.createControl(parent);
+		}
+		setGraphicalViewer(viewer);
+		configureGraphicalViewer();
+		hookGraphicalViewer();
+		initializeGraphicalViewer();
+	}
+
+	/**
+	 * Called to initialize the editor with its content. Here everything is
+	 * done, which is dependent of the IConfigurationProvider.
+	 */
+	protected void initializeGraphicalViewer() {
+
+		super.initializeGraphicalViewer();
+
+		// register Actions
+		IFeatureProvider featureProvider = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
+		if (featureProvider != null) {
+			IPrintFeature pf = featureProvider.getPrintFeature();
+			if (pf != null) {
+				registerAction(new PrintGraphicalViewerAction(getConfigurationProvider().getWorkbenchPart(), pf));
+			}
+		}
+
+		// this will cause the ActionBarContributor to refresh with the
+		// new actions (there is no specific refresh-action).
+		if (getEditorSite().getActionBarContributor() != null)
+			getEditorSite().getActionBarContributor().setActiveEditor(this);
+
+		// setting ContextMenuProvider
+		ContextMenuProvider contextMenuProvider = createContextMenuProvider();
+		if (contextMenuProvider != null) {
+			getGraphicalViewer().setContextMenu(contextMenuProvider);
+			// the registration allows an extension of the context-menu by other
+			// plugins
+			if (shouldRegisterContextMenu()) {
+				getSite().registerContextMenu(contextMenuProvider, getGraphicalViewer());
+			}
+		}
+
+		// set contents
+		getGraphicalViewer().setEditPartFactory(getConfigurationProvider().getEditPartFactory());
+		getGraphicalViewer().setContents(getConfigurationProvider().getDiagram());
+
+		paletteBehaviour.initializeViewer();
+
+		getGraphicalViewer().getControl().addMouseMoveListener(new MouseMoveListener() {
+
+			public void mouseMove(MouseEvent e) {
+				setMouseLocation(e.x, e.y);
+			}
+		});
+
+		getGraphicalViewer().addDropTargetListener(
+				(TransferDropTargetListener) new ObjectsTransferDropTargetListener(getGraphicalViewer()));
+
+		getGraphicalViewer()
+				.addDropTargetListener(new GFTemplateTransferDropTargetListener(getGraphicalViewer(), this));
 	}
 
 	/**
@@ -278,7 +517,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	 * 
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#configureGraphicalViewer()
 	 */
-
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 
@@ -342,6 +580,56 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		}
 	}
 
+	// ------------------- Dirty state -----------------------------------------
+
+	/**
+	 * @since 0.9
+	 */
+	public void updateDirtyState() {
+		firePropertyChange(IEditorPart.PROP_DIRTY);
+	}
+
+	public final void doSave(IProgressMonitor monitor) {
+		persistencyBehavior.saveDiagram(monitor);
+	}
+
+	public boolean isDirty() {
+		TransactionalEditingDomain editingDomain = getEditingDomain();
+		// Check that the editor is not yet disposed
+		if (editingDomain != null && editingDomain.getCommandStack() != null) {
+			return ((BasicCommandStack) editingDomain.getCommandStack()).isSaveNeeded();
+		}
+		return false;
+	}
+
+	// ---------------------- Palette --------------------------------------- //
+
+	/**
+	 * Delegates to (a subclass of)
+	 * {@link DefaultPaletteBehavior#createPaletteViewerProvider()}
+	 */
+	protected final PaletteViewerProvider createPaletteViewerProvider() {
+		return paletteBehaviour.createPaletteViewerProvider();
+	}
+
+	/**
+	 * Delegates to (a subclass of) {@link DefaultPaletteBehavior}. To change
+	 * the palette override the behaviour there.
+	 */
+	protected final FlyoutPreferences getPalettePreferences() {
+		return paletteBehaviour.getPalettePreferences();
+	}
+
+	protected final PaletteRoot getPaletteRoot() {
+		return paletteBehaviour.getPaletteRoot();
+	}
+
+	public final void refreshPalette() {
+		paletteBehaviour.refreshPalette();
+	}
+
+	// ---------------------- Context Menu ---------------------------------- //
+
 	/**
 	 * Returns a new ContextMenuProvider. Can be null, if no context-menu shall
 	 * be displayed.
@@ -369,133 +657,281 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		return true;
 	}
 
-	/**
-	 * Creates the GraphicalViewer AND navigation-bar on the specified
-	 * <code>Composite</code>.
-	 * 
-	 * @param parent
-	 *            the parent composite
-	 */
+	// ---------------------- Listeners ------------------------------------- //
 
-	protected void createGraphicalViewer(Composite parent) {
-		GraphicalViewer viewer;
-		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-			viewer = new GFScrollingGraphicalViewer(this);
-			((GFScrollingGraphicalViewer) viewer).createGFControl(parent);
-		} else {
-			viewer = new GraphitiScrollingGraphicalViewer(this);
-			viewer.createControl(parent);
+	/**
+	 * Register diagram change listener. Since the diagram comes from a
+	 * ModelEditorInput and ModelEditor input provides an own ResourceSet for
+	 * every editor instance, we can safely register a listener with the
+	 * provided ResourceSet: we will be notified only by events regarding the
+	 * diagram!
+	 * 
+	 */
+	private void registerDiagramResourceSetListener() {
+		diagramChangeListener = new DiagramChangeListener(this);
+		TransactionalEditingDomain eDomain = getEditingDomain();
+		eDomain.addResourceSetListener(diagramChangeListener);
+	}
+
+	/**
+	 * Registers a listener for changes of business objects in the resource set
+	 * of the editor.
+	 */
+	protected void registerBOListener() {
+		domainModelListener = new DomainModelChangeListener(this);
+		TransactionalEditingDomain eDomain = getEditingDomain();
+		eDomain.addResourceSetListener(domainModelListener);
+	}
+
+	private void unregisterDiagramResourceSetListener() {
+		if (diagramChangeListener != null) {
+			diagramChangeListener.stopListening();
+			TransactionalEditingDomain eDomain = getEditingDomain();
+			eDomain.removeResourceSetListener(diagramChangeListener);
 		}
-		setGraphicalViewer(viewer);
-		configureGraphicalViewer();
-		hookGraphicalViewer();
-		initializeGraphicalViewer();
+	}
+
+	protected void unregisterBOListener() {
+		if (domainModelListener != null) {
+			TransactionalEditingDomain eDomain = getEditingDomain();
+			eDomain.removeResourceSetListener(domainModelListener);
+		}
+	}
+
+	// ---------------------- Refresh/Update -------------------------------- //
+
+	/**
+	 * Handle auto update at startup.
+	 * 
+	 * @param diagram
+	 *            the diagram
+	 * @param diagramTypeProvider
+	 *            the diagram type provider
+	 */
+	private void handleAutoUpdateAtStartup(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
+		if (diagramTypeProvider.isAutoUpdateAtStartup()) {
+			autoUpdate(diagram, diagramTypeProvider);
+		}
+	}
+
+	/**
+	 * Handle auto update at reset.
+	 * 
+	 * @param diagram
+	 *            the diagram
+	 * @param diagramTypeProvider
+	 *            the diagram type provider
+	 */
+	private void handleAutoUpdateAtReset(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
+		if (diagramTypeProvider.isAutoUpdateAtReset()) {
+			autoUpdate(diagram, diagramTypeProvider);
+		}
+	}
+
+	private void autoUpdate(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
+		IFeatureProvider featureProvider = diagramTypeProvider.getFeatureProvider();
+		IUpdateContext updateCtx = new UpdateContext(diagram);
+		featureProvider.updateIfPossible(updateCtx);
+		refresh();
+	}
+
+	/**
+	 * Internal refresh edit part.
+	 * 
+	 * @param editPart
+	 *            the edit part
+	 */
+	public void internalRefreshEditPart(final EditPart editPart) {
+		if (Display.getCurrent() == null) {
+			Display.getDefault().syncExec(new Runnable() {
+				public void run() {
+					internalRefreshEditPart(editPart);
+					// refreshOutline();
+				}
+			});
+			return;
+		}
+
+		long start = System.currentTimeMillis();
+
+		try {
+			configurationProvider.getContextButtonManager().hideContextButtonsInstantly();
+
+			editPart.refresh();
+
+			long stop = System.currentTimeMillis();
+			long time = (stop - start);
+			if (time > 500) {
+				String output = "refreshEditPart took " + time + " ms."; //$NON-NLS-1$ //$NON-NLS-2$
+				T.racer().warning("DiagramEditorInternal.refreshEditPart() ", output); //$NON-NLS-1$
+			}
+		} catch (NullPointerException e) {
+			T.racer().error("refresh edit part problem", e); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Checks if is auto refresh.
+	 * 
+	 * @return true, if is auto refresh
+	 */
+	public boolean isAutoRefresh() {
+		return autoRefresh;
+	}
+
+	public void refresh() {
+		if (!isAlive()) {
+			return;
+		}
+
+		if (GFPreferences.getInstance().isCPUProfilingTraceActive()) {
+			if (T.racer().info()) {
+				T.racer().info("DiagramEditorInternal.refresh()"); //$NON-NLS-1$
+			}
+		}
+
+		if (Display.getCurrent() == null) {
+			Display.getDefault().asyncExec(new Runnable() {
+				public void run() {
+					refresh();
+				}
+			});
+			return;
+		}
+
+		if (!isAlive()) {
+			return;
+		}
+
+		long start = System.currentTimeMillis();
+
+		final EditPart contentEditPart = getContentEditPart();
+		if (contentEditPart == null) {
+			return;
+		}
+
+		internalRefreshEditPart(contentEditPart);
+
+		refreshTitle();
+
+		long stop = System.currentTimeMillis();
+		long time = (stop - start);
+		if (time > 500) {
+			String output = "refresh took " + time + " ms."; //$NON-NLS-1$ //$NON-NLS-2$
+			T.racer().warning("DiagramEditorInternal.refresh() ", output); //$NON-NLS-1$
+		}
+
+		// prove if switch to direct editing is required
+		IDirectEditingInfo dei = getConfigurationProvider().getFeatureProvider().getDirectEditingInfo();
+		if (dei.isActive()) {
+			EditPart editPart = (EditPart) getGraphicalViewer().getEditPartRegistry()
+					.get(dei.getMainPictogramElement());
+			if (editPart instanceof ShapeEditPart) {
+				ShapeEditPart shapeEditPart = (ShapeEditPart) editPart;
+				shapeEditPart.switchToDirectEditingMode(dei.getPictogramElement(), dei.getGraphicsAlgorithm());
+				// reset values
+				dei.reset();
+			}
+		}
+		selectBufferedPictogramElements();
+	}
+
+	public void refresh(PictogramElement pe) {
+		if (pe == null || !pe.isActive()) {
+			return;
+		}
+		GraphicalEditPart editPart = getEditPartForPictogramElement(pe);
+		if (editPart != null && editPart instanceof IPictogramElementEditPart) {
+			IPictogramElementEditPart ep = (IPictogramElementEditPart) editPart;
+			IPictogramElementDelegate delegate = ep.getPictogramElementDelegate();
+			delegate.setForceRefresh(true);
+			editPart.refresh();
+			delegate.setForceRefresh(false);
+		}
+	}
+
+	public void refreshRenderingDecorators(PictogramElement pe) {
+		GraphicalEditPart ep = getEditPartForPictogramElement(pe);
+		if (ep instanceof IShapeEditPart) {
+			IShapeEditPart sep = (IShapeEditPart) ep;
+			sep.refreshDecorators();
+		}
+	}
+
+	private void refreshTitle() {
+		String name = getConfigurationProvider().getDiagramTypeProvider().getDiagramTitle();
+		if (name == null || name.length() == 0) {
+			name = getConfigurationElement().getAttribute("name"); //$NON-NLS-1$
+		}
+		if (name == null || name.length() == 0) {
+			name = URI.decode(getDiagramTypeProvider().getDiagram().eResource().getURI().lastSegment());
+		}
+		setPartName(name);
+	}
+
+	public void refreshTitleToolTip() {
+		setTitleToolTip(getTitleToolTip());
+	}
+
+	public void refreshContent() {
+		Diagram currentDiagram = getDiagramTypeProvider().getDiagram();
+		if (GraphitiInternal.getEmfService().isObjectAlive(currentDiagram)) {
+			refresh();
+		} else {
+			IDiagramEditorInput diagramEditorInput = (IDiagramEditorInput) getEditorInput();
+			// resolve diagram in reloaded resource
+			Diagram diagram = persistencyBehavior.loadDiagram(diagramEditorInput.getUri());
+			IDiagramTypeProvider diagramTypeProvider = getConfigurationProvider().getDiagramTypeProvider();
+			diagramTypeProvider.resourceReloaded(diagram);
+			// clean performance hashtables which have references
+			getRefreshPerformanceCache().initRefresh();
+			// to old proxies
+			setPictogramElementsForSelection(null);
+			getGraphicalViewer().setContents(diagram); // create new edit parts
+			handleAutoUpdateAtReset(diagram, diagramTypeProvider);
+		}
+	}
+
+	/**
+	 * Sets the auto refresh.
+	 * 
+	 * @param b
+	 *            the new auto refresh
+	 */
+	protected void setAutoRefresh(boolean b) {
+		autoRefresh = b;
+	}
+
+	/**
+	 * Initializes the performance cache. Should not be called by external
+	 * clients.
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
+	 * @since 0.9
+	 */
+	public void initRefresh() {
+		getRefreshPerformanceCache().initRefresh();
+	}
+
+	/**
+	 * Manages the performance cache. Should not be called by external clients.
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
+	 * @since 0.9
+	 */
+	public boolean shouldRefresh(Object obj) {
+		return getRefreshPerformanceCache().shouldRefresh(obj);
+	}
+
+	public boolean isMultipleRefreshSupressionActive() {
+		return true;
+	}
+
+	private RefreshPerformanceCache getRefreshPerformanceCache() {
+		return refreshPerformanceCache;
 	}
 
 	// ====================== standard behaviour ==============================
-
-
-	public void dispose() {
-		unregisterDiagramResourceSetListener();
-		unregisterBOListener();
-
-		if (getConfigurationProvider() != null) {
-			getConfigurationProvider().dispose();
-		}
-
-		if (paletteBehaviour != null) {
-			paletteBehaviour.dispose();
-			paletteBehaviour = null;
-		}
-
-		// unregister selection listener, registered during createPartControl()
-		if (getSite() != null && getSite().getPage() != null) {
-			getSite().getPage().removeSelectionListener(this);
-		}
-		
-		if (getEditDomain() != null && getEditDomain().getCommandStack() != null) {
-			getEditDomain().getCommandStack().removeCommandStackEventListener(gefCommandStackListener);
-			getEditDomain().getCommandStack().dispose();
-		}
-
-		DefaultUpdateBehavior behavior = getBehavior();
-		behavior.dispose();
-		RuntimeException exc = null;
-		try {
-			super.dispose();
-		} catch (RuntimeException e) {
-			exc = e;
-		}
-
-		markerBehavior.dispose();
-
-		if (getEditDomain() != null) {
-			getEditDomain().setCommandStack(null);
-		}
-
-		if (exc != null)
-			throw exc;
-	}
-
-
-	public final void doSave(IProgressMonitor monitor) {
-		persistencyBehavior.saveDiagram(monitor);
-
-	}
-
-	protected void setInput(IEditorInput input) {
-		super.setInput(input);
-		// determine filename
-		Assert.isNotNull(input, "The IEditorInput must not be null"); //$NON-NLS-1$
-
-		if (!(input instanceof IDiagramEditorInput))
-			throw new IllegalArgumentException("The IEditorInput has the wrong type: " + input.getClass()); //$NON-NLS-1$
-
-		IDiagramEditorInput diagramEditorInput = (IDiagramEditorInput) input;
-		Diagram diagram = persistencyBehavior.loadDiagram(diagramEditorInput.getUri());
-
-		// can happen if editor is started with invalid URI
-		Assert.isNotNull(diagram, "No Diagram found for URI '" //$NON-NLS-1$
-				+ "'. . See the error log for details."); //$NON-NLS-1$
-
-		String providerId = diagramEditorInput.getProviderId();
-		// if provider is null then take the first installed provider for
-		// this diagram type
-		if (providerId == null) {
-			providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
-			diagramEditorInput.setProviderId(providerId);
-		}
-
-		Assert.isNotNull(providerId, "DiagramEditorInput does not convey a Provider ID '" + diagramEditorInput //$NON-NLS-1$
-					+ "'. . See the error log for details."); //$NON-NLS-1$
-
-		// get according diagram-type-provider
-		IDiagramTypeProvider diagramTypeProvider = GraphitiUi.getExtensionManager().createDiagramTypeProvider(
-				providerId);
-		Assert.isNotNull(diagramTypeProvider, "could not find diagram type provider for " + diagram.getDiagramTypeId()); //$NON-NLS-1$
-
-		diagramTypeProvider.init(diagram, this);
-		IConfigurationProvider configurationProvider = new ConfigurationProvider(this, diagramTypeProvider);
-		setConfigurationProvider(configurationProvider);
-		handleAutoUpdateAtStartup(diagram, diagramTypeProvider);
-
-		registerBOListener();
-		registerDiagramResourceSetListener();
-
-		refreshTitle();
-	}
-
-
-	/**
-	 * Returns the internal ActionRegistry (because {@link #getActionRegistry()}
-	 * is protected).
-	 * 
-	 * @return The internal ActionRegistry (because {@link #getActionRegistry()}
-	 *         is protected).
-	 */
-	public ActionRegistry getActionRegistryInternal() {
-		return getActionRegistry();
-	}
 
 	/**
 	 * This implementation returns the ZoomManager for the ZoomManager.class and
@@ -506,7 +942,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	 * @return the adapter
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#getAdapter(Class)
 	 */
-
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
 		IConfigurationProvider cfgProvider = getConfigurationProvider();
 
@@ -539,6 +974,256 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			return getDiagramTypeProvider().getDiagram();
 		}
 		return super.getAdapter(type);
+	}
+
+	public void dispose() {
+		unregisterDiagramResourceSetListener();
+		unregisterBOListener();
+
+		if (getConfigurationProvider() != null) {
+			getConfigurationProvider().dispose();
+		}
+
+		if (paletteBehaviour != null) {
+			paletteBehaviour.dispose();
+		}
+
+		// unregister selection listener, registered during createPartControl()
+		if (getSite() != null && getSite().getPage() != null) {
+			getSite().getPage().removeSelectionListener(this);
+		}
+		
+		if (getEditDomain() != null && getEditDomain().getCommandStack() != null) {
+			getEditDomain().getCommandStack().removeCommandStackEventListener(gefCommandStackListener);
+			getEditDomain().getCommandStack().dispose();
+		}
+
+		DefaultUpdateBehavior behavior = getBehavior();
+		behavior.dispose();
+		RuntimeException exc = null;
+		try {
+			super.dispose();
+		} catch (RuntimeException e) {
+			exc = e;
+		}
+
+		markerBehavior.dispose();
+
+		if (getEditDomain() != null) {
+			getEditDomain().setCommandStack(null);
+		}
+
+		if (exc != null) {
+			throw exc;
+		}
+	}
+
+	public void setFocus() {
+		if (getGraphicalViewer() == null)
+			return;
+
+		super.setFocus();
+		getBehavior().handleActivate();
+		if (REFRESH_ON_GAINED_FOCUS) {
+			refresh();
+		}
+	}
+
+	// ---------------------- Selection ------------------------------------- //
+
+	/**
+	 * Gets the pictogram element for selection.
+	 * 
+	 * @return the pictogram element for selection
+	 */
+	protected PictogramElement[] getPictogramElementsForSelection() {
+		return pictogramElementsForSelection;
+	}
+
+	public PictogramElement[] getSelectedPictogramElements() {
+		PictogramElement pe[] = new PictogramElement[0];
+		ISelectionProvider selectionProvider = getSite().getSelectionProvider();
+		if (selectionProvider != null) {
+			ISelection s = selectionProvider.getSelection();
+			if (s instanceof IStructuredSelection) {
+				IStructuredSelection sel = (IStructuredSelection) s;
+				List<PictogramElement> list = new ArrayList<PictogramElement>();
+				for (Iterator<?> iter = sel.iterator(); iter.hasNext();) {
+					Object o = iter.next();
+					if (o instanceof EditPart) {
+						EditPart editPart = (EditPart) o;
+						if (editPart.getModel() instanceof PictogramElement) {
+							list.add((PictogramElement) editPart.getModel());
+						}
+					}
+				}
+				pe = list.toArray(new PictogramElement[0]);
+			}
+		}
+		return pe;
+	}
+
+	/**
+	 * Returns the internal SelectionSynchronizer (because
+	 * {@link #getSelectionSynchronizer()} is protected).
+	 * 
+	 * @return The internal SelectionSynchronizer (because
+	 *         {@link #getSelectionSynchronizer()} is protected).
+	 */
+	public SelectionSynchronizer getSelectionSynchronizerInternal() {
+		return getSelectionSynchronizer();
+	}
+
+	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+		// If not the active editor, ignore selection changed.
+		boolean editorIsActive = getSite().getPage().isPartVisible(this);
+		if (!editorIsActive) {
+			// Check if we are a page of the active multipage editor
+			IEditorPart activeEditor = getSite().getPage().getActiveEditor();
+			if (activeEditor != null) {
+				// Check if the top level editor if it is active
+				editorIsActive = getSite().getPage().isPartVisible(activeEditor);
+				if (activeEditor instanceof MultiPageEditorPart) {
+					Object selectedPage = ((MultiPageEditorPart) activeEditor).getSelectedPage();
+					if (!(selectedPage instanceof DiagramEditor)) {
+						// Editor is active but the diagram sub editor is not
+						// its active page
+						editorIsActive = false;
+					}
+				}
+			}
+		}
+		if (editorIsActive) {
+			// long start = System.nanoTime();
+			// this is where we should check the selection source (part)
+			// * for CNF view the link flag must be obeyed
+			// this would however require a dependency to
+			// org.eclipse.ui.navigator
+			if (part instanceof CommonNavigator) {
+				if (!((CommonNavigator) part).isLinkingEnabled()) {
+					return;
+				}
+			}
+			// useful selection ??
+			if (selection instanceof IStructuredSelection) {
+				IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+				List<PictogramElement> peList = new ArrayList<PictogramElement>();
+				// Collect all Pictogram Elements for all selected domain
+				// objects into one list
+				for (Iterator<?> iterator = structuredSelection.iterator(); iterator.hasNext();) {
+					Object object = iterator.next();
+					if (object instanceof EObject) {
+						// Find the Pictogram Elements for the given domain
+						// object via the standard link service
+						List<PictogramElement> referencingPes = Graphiti.getLinkService().getPictogramElements(
+								getDiagramTypeProvider().getDiagram(), (EObject) object);
+						if (referencingPes.size() > 0) {
+							peList.addAll(referencingPes);
+						}
+					} else {
+						// For non-EMF domain objects use the registered
+						// notification service for finding
+						PictogramElement[] relatedPictogramElements = getDiagramTypeProvider().getNotificationService()
+								.calculateRelatedPictogramElements(new Object[] { object });
+						for (int i = 0; i < relatedPictogramElements.length; i++) {
+							peList.add(relatedPictogramElements[i]);
+						}
+					}
+				}
+
+				// Do the selection in the diagram (in case there is something
+				// to select)
+				PictogramElement[] pes = null;
+				if (peList.size() > 0) {
+					pes = peList.toArray(new PictogramElement[peList.size()]);
+				}
+				if (pes != null && pes.length > 0) {
+					selectPictogramElements(pes);
+				}
+			}
+		}
+		super.selectionChanged(part, selection);
+	}
+
+	public void selectPictogramElements(PictogramElement[] pictogramElements) {
+		List<EditPart> editParts = new ArrayList<EditPart>();
+		Map<?, ?> editPartRegistry = getGraphicalViewer().getEditPartRegistry();
+		if (editPartRegistry != null) {
+			for (int i = 0; i < pictogramElements.length; i++) {
+				PictogramElement pe = pictogramElements[i];
+				Object obj = editPartRegistry.get(pe);
+				if (obj instanceof EditPart) {
+					editParts.add((EditPart) obj);
+				}
+			}
+			getSite().getSelectionProvider().setSelection(new StructuredSelection(editParts));
+			if (editParts.size() > 0) {
+				final EditPart editpart = editParts.get(0);
+				if (!(editpart instanceof IConnectionEditPart)) {
+					// if the editPart is newly created it is possible that his
+					// figure has not a valid bounds. Hence we have to wait for
+					// the UI update (for the validation of the figure tree).
+					// Otherwise the reveal method can't work correctly.
+					Display.getDefault().asyncExec(new Runnable() {
+						public void run() {
+							getGraphicalViewer().reveal(editpart);
+						}
+					});
+				}
+			}
+		}
+	}
+
+	public void setPictogramElementForSelection(PictogramElement pictogramElementForSelection) {
+		if (pictogramElementForSelection == null) {
+			this.pictogramElementsForSelection = null;
+		} else {
+			this.pictogramElementsForSelection = new PictogramElement[] { pictogramElementForSelection };
+		}
+	}
+
+	public void setPictogramElementsForSelection(PictogramElement pictogramElementsForSelection[]) {
+		this.pictogramElementsForSelection = pictogramElementsForSelection;
+	}
+
+	// ---------------------- Other ----------------------------------------- //
+
+	/**
+	 * Calculates the location in dependence from scrollbars and zoom factor.
+	 * 
+	 * @param nativeLocation
+	 *            the native location
+	 * @return the point
+	 */
+	public Point calculateRealMouseLocation(Point nativeLocation) {
+
+		Point ret = new Point(nativeLocation);
+		Point viewLocation;
+		// view location depends on the current scroll bar position
+		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
+			viewLocation = getGFFigureCanvas().getViewport().getViewLocation();
+		} else {
+			viewLocation = getFigureCanvas().getViewport().getViewLocation();
+		}
+
+		ret.x += viewLocation.x;
+		ret.y += viewLocation.y;
+
+		ZoomManager zoomManager = (ZoomManager) getGraphicalViewer().getProperty(ZoomManager.class.toString());
+		ret = ret.getScaled(1 / zoomManager.getZoom());
+
+		return ret;
+	}
+
+	/**
+	 * Returns the internal ActionRegistry (because {@link #getActionRegistry()}
+	 * is protected).
+	 * 
+	 * @return The internal ActionRegistry (because {@link #getActionRegistry()}
+	 *         is protected).
+	 */
+	public ActionRegistry getActionRegistryInternal() {
+		return getActionRegistry();
 	}
 
 	/**
@@ -688,7 +1373,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			return null;
 	}
 
-
 	public GraphicalViewer getGraphicalViewer() {
 		return super.getGraphicalViewer();
 	}
@@ -709,51 +1393,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		Point mL = getMouseLocation();
 		return new LocationImpl(mL.x, mL.y);
 	}
-
-	/**
-	 * Gets the pictogram element for selection.
-	 * 
-	 * @return the pictogram element for selection
-	 */
-	protected PictogramElement[] getPictogramElementsForSelection() {
-		return pictogramElementsForSelection;
-	}
-
-
-	public PictogramElement[] getSelectedPictogramElements() {
-		PictogramElement pe[] = new PictogramElement[0];
-		ISelectionProvider selectionProvider = getSite().getSelectionProvider();
-		if (selectionProvider != null) {
-			ISelection s = selectionProvider.getSelection();
-			if (s instanceof IStructuredSelection) {
-				IStructuredSelection sel = (IStructuredSelection) s;
-				List<PictogramElement> list = new ArrayList<PictogramElement>();
-				for (Iterator<?> iter = sel.iterator(); iter.hasNext();) {
-					Object o = iter.next();
-					if (o instanceof EditPart) {
-						EditPart editPart = (EditPart) o;
-						if (editPart.getModel() instanceof PictogramElement) {
-							list.add((PictogramElement) editPart.getModel());
-						}
-					}
-				}
-				pe = list.toArray(new PictogramElement[0]);
-			}
-		}
-		return pe;
-	}
-
-	/**
-	 * Returns the internal SelectionSynchronizer (because
-	 * {@link #getSelectionSynchronizer()} is protected).
-	 * 
-	 * @return The internal SelectionSynchronizer (because
-	 *         {@link #getSelectionSynchronizer()} is protected).
-	 */
-	public SelectionSynchronizer getSelectionSynchronizerInternal() {
-		return getSelectionSynchronizer();
-	}
-
 
 	public String getTitleToolTip() {
 		if (getDiagramTypeProvider() != null && getDiagramTypeProvider().getCurrentToolBehaviorProvider() != null) {
@@ -792,68 +1431,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	}
 
 	/**
-	 * Handle auto update at startup.
-	 * 
-	 * @param diagram
-	 *            the diagram
-	 * @param diagramTypeProvider
-	 *            the diagram type provider
-	 */
-	private void handleAutoUpdateAtStartup(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
-		if (diagramTypeProvider.isAutoUpdateAtStartup()) {
-			autoUpdate(diagram, diagramTypeProvider);
-		}
-	}
-
-	/**
-	 * Handle auto update at reset.
-	 * 
-	 * @param diagram
-	 *            the diagram
-	 * @param diagramTypeProvider
-	 *            the diagram type provider
-	 */
-	private void handleAutoUpdateAtReset(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
-		if (diagramTypeProvider.isAutoUpdateAtReset()) {
-			autoUpdate(diagram, diagramTypeProvider);
-		}
-	}
-
-	private void autoUpdate(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
-		IFeatureProvider featureProvider = diagramTypeProvider.getFeatureProvider();
-		IUpdateContext updateCtx = new UpdateContext(diagram);
-		featureProvider.updateIfPossible(updateCtx);
-		refresh();
-	}
-
-
-	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-		// Eclipse may call us with other inputs when a file is to be
-		// opened. Try to convert this to a valid diagram input.
-		if (!(input instanceof IDiagramEditorInput)) {
-			IEditorInput newInput = EditorInputAdapter.adaptToDiagramEditorInput(input);
-			if (!(newInput instanceof IDiagramEditorInput)) {
-				throw new PartInitException("Unknown editor input: " + input); //$NON-NLS-1$
-			}
-			input = newInput;
-		}
-
-		getBehavior().createEditingDomain();
-
-		try {
-			// In next line GEF calls setSite(), setInput(),
-			// getEditingDomain(), ...
-			super.init(site, input);
-		} catch (RuntimeException e) {
-			throw new PartInitException("Can not initialize editor", e); //$NON-NLS-1$
-		}
-
-		getBehavior().init();
-
-		migrateDiagramModelIfNecessary();
-	}
-
-	/**
 	 * We provide migration from 0.8.0 to 0.9.0. You can override if you want to
 	 * migrate manually. WARNING: If your diagram is under version control, this
 	 * method can cause a check out dialog to be opened etc.
@@ -873,153 +1450,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	}
 
 	/**
-	 * Inits the action regsitry.
-	 */
-	protected void initActionRegistry(ZoomManager zoomManager) {
-		final ActionRegistry actionRegistry = getActionRegistry();
-		@SuppressWarnings("unchecked")
-		final List<String> selectionActions = getSelectionActions();
-
-		// register predefined actions (e.g. update, remove, delete, ...)
-		IAction action = new UpdateAction(this, getConfigurationProvider());
-		actionRegistry.registerAction(action);
-		selectionActions.add(action.getId());
-
-		action = new RemoveAction(this, getConfigurationProvider());
-		actionRegistry.registerAction(action);
-		selectionActions.add(action.getId());
-
-		action = new DeleteAction(this, getConfigurationProvider());
-		actionRegistry.registerAction(action);
-		selectionActions.add(action.getId());
-
-		action = new CopyAction(this, getConfigurationProvider());
-		actionRegistry.registerAction(action);
-		selectionActions.add(action.getId());
-
-		action = new PasteAction(this, getConfigurationProvider());
-		actionRegistry.registerAction(action);
-		selectionActions.add(action.getId());
-
-		IFeatureProvider fp = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
-		if (fp != null) {
-			ISaveImageFeature sf = fp.getSaveImageFeature();
-
-			if (sf != null) {
-				ISaveImageContext context = new SaveImageContext();
-				action = new SaveImageAction(sf, context, this);
-				actionRegistry.registerAction(action);
-				selectionActions.add(action.getId());
-			}
-		}
-
-		registerAction(new ZoomInAction(zoomManager));
-		registerAction(new ZoomOutAction(zoomManager));
-		registerAction(new DirectEditAction((IWorkbenchPart) this));
-
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.LEFT));
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.RIGHT));
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.TOP));
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.BOTTOM));
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.CENTER));
-		registerAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.MIDDLE));
-		registerAction(new MatchWidthAction(this));
-		registerAction(new MatchHeightAction(this));
-		IAction showGrid = new ToggleGridAction(getGraphicalViewer());
-		getActionRegistry().registerAction(showGrid);
-	}
-
-	/**
-	 * Called to initialize the editor with its content. Here everything is
-	 * done, which is dependent of the IConfigurationProvider.
-	 */
-
-	protected void initializeGraphicalViewer() {
-
-		super.initializeGraphicalViewer();
-
-		// register Actions
-		IFeatureProvider featureProvider = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
-		if (featureProvider != null) {
-			IPrintFeature pf = featureProvider.getPrintFeature();
-			if (pf != null) {
-				registerAction(new PrintGraphicalViewerAction(getConfigurationProvider().getWorkbenchPart(), pf));
-			}
-		}
-
-		// this will cause the ActionBarContributor to refresh with the
-		// new actions (there is no specific refresh-action).
-		if (getEditorSite().getActionBarContributor() != null)
-			getEditorSite().getActionBarContributor().setActiveEditor(this);
-
-		// setting ContextMenuProvider
-		ContextMenuProvider contextMenuProvider = createContextMenuProvider();
-		if (contextMenuProvider != null) {
-			getGraphicalViewer().setContextMenu(contextMenuProvider);
-			// the registration allows an extension of the context-menu by other
-			// plugins
-			if (shouldRegisterContextMenu()) {
-				getSite().registerContextMenu(contextMenuProvider, getGraphicalViewer());
-			}
-		}
-
-		// set contents
-		getGraphicalViewer().setEditPartFactory(getConfigurationProvider().getEditPartFactory());
-		getGraphicalViewer().setContents(getConfigurationProvider().getDiagram());
-
-		paletteBehaviour.initializeViewer();
-
-		getGraphicalViewer().getControl().addMouseMoveListener(new MouseMoveListener() {
-
-			public void mouseMove(MouseEvent e) {
-				setMouseLocation(e.x, e.y);
-			}
-		});
-
-		getGraphicalViewer()
-				.addDropTargetListener((TransferDropTargetListener) new ObjectsTransferDropTargetListener(getGraphicalViewer()));
-
-		getGraphicalViewer().addDropTargetListener(new GFTemplateTransferDropTargetListener(getGraphicalViewer(), this));
-	}
-
-	/**
-	 * Internal refresh edit part.
-	 * 
-	 * @param editPart
-	 *            the edit part
-	 */
-	public void internalRefreshEditPart(final EditPart editPart) {
-		if (Display.getCurrent() == null) {
-			Display.getDefault().syncExec(new Runnable() {
-
-				public void run() {
-					internalRefreshEditPart(editPart);
-					// refreshOutline();
-				}
-			});
-			return;
-		}
-
-		long start = System.currentTimeMillis();
-
-		try {
-			configurationProvider.getContextButtonManager().hideContextButtonsInstantly();
-
-			editPart.refresh();
-
-			long stop = System.currentTimeMillis();
-			long time = (stop - start);
-			if (time > 500) {
-				String output = "refreshEditPart took " + time + " ms."; //$NON-NLS-1$ //$NON-NLS-2$
-				T.racer().warning("DiagramEditorInternal.refreshEditPart() ", output); //$NON-NLS-1$
-
-			}
-		} catch (NullPointerException e) {
-			T.racer().error("refresh edit part problem", e); //$NON-NLS-1$
-		}
-	}
-
-	/**
 	 * Checks if is alive.
 	 * 
 	 * @return TRUE, if editor contains a model connector and a valid Diagram
@@ -1034,113 +1464,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * Checks if is auto refresh.
-	 * 
-	 * @return true, if is auto refresh
-	 */
-	public boolean isAutoRefresh() {
-		return autoRefresh;
-	}
-
-
-	public void refresh() {
-
-		if (!isAlive()) {
-			return;
-		}
-
-		if (GFPreferences.getInstance().isCPUProfilingTraceActive()) {
-			if (T.racer().info()) {
-				T.racer().info("DiagramEditorInternal.refresh()"); //$NON-NLS-1$
-			}
-		}
-
-		if (Display.getCurrent() == null) {
-			Display.getDefault().asyncExec(new Runnable() {
-
-				public void run() {
-					refresh();
-				}
-			});
-			return;
-		}
-
-		if (!isAlive())
-			return;
-
-		long start = System.currentTimeMillis();
-
-		final EditPart contentEditPart = getContentEditPart();
-		if (contentEditPart == null) {
-			return;
-		}
-
-		internalRefreshEditPart(contentEditPart);
-
-		refreshTitle();
-
-		long stop = System.currentTimeMillis();
-		long time = (stop - start);
-		if (time > 500) {
-			String output = "refresh took " + time + " ms."; //$NON-NLS-1$ //$NON-NLS-2$
-			T.racer().warning("DiagramEditorInternal.refresh() ", output); //$NON-NLS-1$
-		}
-
-		// prove if switch to direct editing is required
-		IDirectEditingInfo dei = getConfigurationProvider().getFeatureProvider().getDirectEditingInfo();
-		if (dei.isActive()) {
-			EditPart editPart = (EditPart) getGraphicalViewer().getEditPartRegistry().get(dei.getMainPictogramElement());
-			if (editPart instanceof ShapeEditPart) {
-				ShapeEditPart shapeEditPart = (ShapeEditPart) editPart;
-				shapeEditPart.switchToDirectEditingMode(dei.getPictogramElement(), dei.getGraphicsAlgorithm());
-				// reset values
-				dei.reset();
-			}
-		}
-
-		selectBufferedPictogramElements();
-	}
-
-
-	public void refresh(PictogramElement pe) {
-		if (pe == null || !pe.isActive()) {
-			return;
-		}
-		GraphicalEditPart editPart = getEditPartForPictogramElement(pe);
-		if (editPart != null && editPart instanceof IPictogramElementEditPart) {
-			IPictogramElementEditPart ep = (IPictogramElementEditPart) editPart;
-			IPictogramElementDelegate delegate = ep.getPictogramElementDelegate();
-			delegate.setForceRefresh(true);
-			editPart.refresh();
-			delegate.setForceRefresh(false);
-		}
-	}
-
-	public void refreshRenderingDecorators(PictogramElement pe) {
-		GraphicalEditPart ep = getEditPartForPictogramElement(pe);
-		if (ep instanceof IShapeEditPart) {
-			IShapeEditPart sep = (IShapeEditPart) ep;
-			sep.refreshDecorators();
-		}
-	}
-
-	private void refreshTitle() {
-		String name = getConfigurationProvider().getDiagramTypeProvider().getDiagramTitle();
-		if (name == null || name.length() == 0) {
-			name = getConfigurationElement().getAttribute("name"); //$NON-NLS-1$
-		}
-		if (name == null || name.length() == 0) {
-			name = URI.decode(getDiagramTypeProvider().getDiagram().eResource().getURI().lastSegment());
-		}
-		setPartName(name);
-	}
-
-
-	public void refreshTitleToolTip() {
-		setTitleToolTip(getTitleToolTip());
 	}
 
 	/**
@@ -1164,163 +1487,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		selectionActions.add(action.getId());
 	}
 
-	/**
-	 * Register diagram change listener. Since the diagram comes from a
-	 * ModelEditorInput and ModelEditor input provides an own ResourceSet for
-	 * every editor instance, we can safely register a listener with the
-	 * provided ResourceSet: we will be notified only by events regarding the
-	 * diagram!
-	 * 
-	 */
-	private void registerDiagramResourceSetListener() {
-		diagramChangeListener = new DiagramChangeListener(this);
-		TransactionalEditingDomain eDomain = getEditingDomain();
-		eDomain.addResourceSetListener(diagramChangeListener);
-	}
-
-	/**
-	 * Registers a listener for changes of business objects in the resource set
-	 * of the editor.
-	 */
-	protected void registerBOListener() {
-		domainModelListener = new DomainModelChangeListener(this);
-		TransactionalEditingDomain eDomain = getEditingDomain();
-		eDomain.addResourceSetListener(domainModelListener);
-	}
-
-	private void unregisterDiagramResourceSetListener() {
-		if (diagramChangeListener != null) {
-			diagramChangeListener.stopListening();
-			TransactionalEditingDomain eDomain = getEditingDomain();
-			eDomain.removeResourceSetListener(diagramChangeListener);
-		}
-	}
-
-	protected void unregisterBOListener() {
-		if (domainModelListener != null) {
-			TransactionalEditingDomain eDomain = getEditingDomain();
-			eDomain.removeResourceSetListener(domainModelListener);
-		}
-	}
-
-
-	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		// If not the active editor, ignore selection changed.
-		boolean editorIsActive = getSite().getPage().isPartVisible(this);
-		if (!editorIsActive) {
-			// Check if we are a page of the active multipage editor
-			IEditorPart activeEditor = getSite().getPage().getActiveEditor();
-			if (activeEditor != null) {
-				// Check if the top level editor if it is active
-				editorIsActive = getSite().getPage().isPartVisible(activeEditor);
-				if (activeEditor instanceof MultiPageEditorPart) {
-					Object selectedPage = ((MultiPageEditorPart) activeEditor).getSelectedPage();
-					if (!(selectedPage instanceof DiagramEditor)) {
-						// Editor is active but the diagram sub editor is not
-						// its active page
-						editorIsActive = false;
-					}
-				}
-			}
-		}
-		if (editorIsActive) {
-
-			// long start = System.nanoTime();
-			// this is where we should check the selection source (part)
-			// * for CNF view the link flag must be obeyed
-			// this would however require a dependency to
-			// org.eclipse.ui.navigator
-			if (part instanceof CommonNavigator) {
-				if (!((CommonNavigator) part).isLinkingEnabled()) {
-					return;
-				}
-			}
-			// useful selection ??
-			if (selection instanceof IStructuredSelection) {
-				IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-				List<PictogramElement> peList = new ArrayList<PictogramElement>();
-				// Collect all Pictogram Elements for all selected domain
-				// objects into one list
-				for (Iterator<?> iterator = structuredSelection.iterator(); iterator.hasNext();) {
-					Object object = iterator.next();
-					if (object instanceof EObject) {
-						// Find the Pictogram Elements for the given domain
-						// object via the standard link service
-						List<PictogramElement> referencingPes = Graphiti.getLinkService().getPictogramElements(
-								getDiagramTypeProvider().getDiagram(), (EObject) object);
-						if (referencingPes.size() > 0) {
-							peList.addAll(referencingPes);
-						}
-					} else {
-						// For non-EMF domain objects use the registered
-						// notification service for finding
-						PictogramElement[] relatedPictogramElements = getDiagramTypeProvider().getNotificationService()
-								.calculateRelatedPictogramElements(new Object[] { object });
-						for (int i = 0; i < relatedPictogramElements.length; i++) {
-							peList.add(relatedPictogramElements[i]);
-						}
-					}
-				}
-
-				// Do the selection in the diagram (in case there is something
-				// to select)
-				PictogramElement[] pes = null;
-				if (peList.size() > 0) {
-					pes = peList.toArray(new PictogramElement[peList.size()]);
-				}
-				if (pes != null && pes.length > 0) {
-					selectPictogramElements(pes);
-				}
-
-			}
-		}
-		super.selectionChanged(part, selection);
-	}
-
-
-	public void selectPictogramElements(PictogramElement[] pictogramElements) {
-		List<EditPart> editParts = new ArrayList<EditPart>();
-		Map<?, ?> editPartRegistry = getGraphicalViewer().getEditPartRegistry();
-		if (editPartRegistry != null) {
-			for (int i = 0; i < pictogramElements.length; i++) {
-				PictogramElement pe = pictogramElements[i];
-				Object obj = editPartRegistry.get(pe);
-				if (obj instanceof EditPart) {
-					editParts.add((EditPart) obj);
-				}
-			}
-			getSite().getSelectionProvider().setSelection(new StructuredSelection(editParts));
-			if (editParts.size() > 0) {
-				final EditPart editpart = editParts.get(0);
-				if (!(editpart instanceof IConnectionEditPart)) {
-					// if the editPart is newly created it is possible that his
-					// figure
-					// has not a valid bounds. Hence we have to wait for the UI
-					// update
-					// (for the validation of the figure tree). Otherwise the
-					// reveal
-					// method can't work correctly.
-					Display.getDefault().asyncExec(new Runnable() {
-
-						public void run() {
-							getGraphicalViewer().reveal(editpart);
-						}
-					});
-				}
-			}
-		}
-	}
-
-	/**
-	 * Sets the auto refresh.
-	 * 
-	 * @param b
-	 *            the new auto refresh
-	 */
-	protected void setAutoRefresh(boolean b) {
-		autoRefresh = b;
-	}
-
 	private void setConfigurationProvider(IConfigurationProvider configurationProvider) {
 
 		this.configurationProvider = configurationProvider;
@@ -1337,18 +1503,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		setEditDomain(editDomain);
 	}
 
-
-	public void setFocus() {
-		if (getGraphicalViewer() == null)
-			return;
-
-		super.setFocus();
-		getBehavior().handleActivate();
-		if (REFRESH_ON_GAINED_FOCUS) {
-			refresh();
-		}
-	}
-
 	/**
 	 * Sets the mouse location.
 	 * 
@@ -1361,41 +1515,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		getMouseLocation().setLocation(x, y);
 	}
 
-
-	public void setPictogramElementForSelection(PictogramElement pictogramElementForSelection) {
-		if (pictogramElementForSelection == null)
-			this.pictogramElementsForSelection = null;
-		else
-			this.pictogramElementsForSelection = new PictogramElement[] { pictogramElementForSelection };
-	}
-
-
-	public void setPictogramElementsForSelection(PictogramElement pictogramElementsForSelection[]) {
-		this.pictogramElementsForSelection = pictogramElementsForSelection;
-	}
-
-	public void refreshContent() {
-		Diagram currentDiagram = getDiagramTypeProvider().getDiagram();
-		if (GraphitiInternal.getEmfService().isObjectAlive(currentDiagram)) {
-			refresh();
-		} else {
-			IDiagramEditorInput diagramEditorInput = (IDiagramEditorInput) getEditorInput();
-			Diagram diagram = persistencyBehavior.loadDiagram(diagramEditorInput.getUri()); // resolve
-																// diagram in
-																// reloaded
-																// resource
-			IDiagramTypeProvider diagramTypeProvider = getConfigurationProvider().getDiagramTypeProvider();
-			diagramTypeProvider.resourceReloaded(diagram);
-			getRefreshPerformanceCache().initRefresh(); // clean performance
-														// hashtables which have
-														// references
-							// to old proxies
-			setPictogramElementsForSelection(null);
-			getGraphicalViewer().setContents(diagram); // create new edit parts
-			handleAutoUpdateAtReset(diagram, diagramTypeProvider);
-		}
-	}
-
 	public boolean isDirectEditingActive() {
 		return directEditingActive;
 	}
@@ -1405,41 +1524,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		configurationProvider.getContextButtonManager().hideContextButtonsInstantly();
 	}
 
-
-	public void createPartControl(Composite parent) {
-		super.createPartControl(parent);
-		getDiagramTypeProvider().postInit();
-		gefCommandStackListener = new CommandStackEventListener() {
-
-			public void stackChanged(CommandStackEvent event) {
-				// Only fire if triggered from UI thread
-				if (Display.getCurrent() != null) {
-					firePropertyChange(IEditorPart.PROP_DIRTY);
-
-					// Promote the changes to the command stack also to the
-					// action bars and registered actions to correctly reflect
-					// e.g. undo/redo in the menu (introduced to enable removing
-					// NOP commands from the command stack
-					commandStackChanged(event);
-				}
-			}
-		};
-		getEditDomain().getCommandStack().addCommandStackEventListener(gefCommandStackListener);
-	}
-
-
-	public boolean isDirty() {
-		TransactionalEditingDomain editingDomain = getEditingDomain();
-		// Check that the editor is not yet disposed
-		if (editingDomain != null && editingDomain.getCommandStack() != null) {
-			return ((BasicCommandStack) editingDomain.getCommandStack()).isSaveNeeded();
-		}
-		return false;
-	}
-
-
 	public TransactionalEditingDomain getEditingDomain() {
-		return behavior.getEditingDomain();
+		return updateBehavior.getEditingDomain();
 	}
 
 	/*
@@ -1486,7 +1572,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	 * 
 	 * @return the resource set
 	 */
-
 	public ResourceSet getResourceSet() {
 		ResourceSet ret = null;
 		TransactionalEditingDomain editingDomain = getEditingDomain();
@@ -1496,122 +1581,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 		return ret;
 	}
 
-	/**
-	 * @since 0.9
-	 */
-	public DefaultUpdateBehavior getBehavior() {
-		return behavior;
-	}
-
-	private RefreshPerformanceCache getRefreshPerformanceCache() {
-		return refreshPerformanceCache;
-	}
-
-	/**
-	 * Initializes the performance cache. Should not be called by external
-	 * clients.
-	 * 
-	 * @noreference This method is not intended to be referenced by clients.
-	 * @since 0.9
-	 */
-	public void initRefresh() {
-		getRefreshPerformanceCache().initRefresh();
-	}
-
-	/**
-	 * Manages the performance cache. Should not be called by external clients.
-	 * 
-	 * @noreference This method is not intended to be referenced by clients.
-	 * @since 0.9
-	 */
-	public boolean shouldRefresh(Object obj) {
-		return getRefreshPerformanceCache().shouldRefresh(obj);
-	}
-
-	public boolean isMultipleRefreshSupressionActive() {
-		return true;
-	}
-
 	public void selectBufferedPictogramElements() {
 		if (getPictogramElementsForSelection() != null) {
 			selectPictogramElements(getPictogramElementsForSelection());
 			setPictogramElementsForSelection(null);
 		}
-	}
-
-	// ---------------------- Synchronisation hooks between behaviors ------- //
-
-	/**
-	 * Hook that is called by the holder of the
-	 * {@link TransactionalEditingDomain} ({@link DefaultUpdateBehavior}) after
-	 * the editing domain has been initialized. Can be used to e.g. register
-	 * additional listeners.
-	 * 
-	 * @since 0.9
-	 */
-	public void editingDomainInitialized() {
-		markerBehavior.initialize();
-	}
-
-	/**
-	 * Should be called by the various behavior instances before mass EMF
-	 * resource operations are triggered (e.g. saving all resources). Can be
-	 * used to disable eventing for performance reasons. See
-	 * {@link #enableAdapters()} as well.
-	 * 
-	 * @since 0.9
-	 */
-	public void disableAdapters() {
-		markerBehavior.disableProblemIndicationUpdate();
-		behavior.setAdapterActive(false);
-	}
-
-	/**
-	 * Should be called by the various behavior instances after mass EMF
-	 * resource operations have been triggered (e.g. saving all resources). Can
-	 * be used to re-enable eventing after it was disabled for performance
-	 * reasons. See {@link #disableAdapters()} as well.
-	 * 
-	 * @since 0.9
-	 */
-	public void enableAdapters() {
-		markerBehavior.enableProblemIndicationUpdate();
-		behavior.setAdapterActive(true);
-	}
-
-	// ---------------------- Palette --------------------------------------- //
-
-	/**
-	 * Override to change palette behaviour
-	 * 
-	 * @return
-	 * @since 0.9
-	 */
-	protected DefaultPaletteBehavior createPaletteBehaviour() {
-		return new DefaultPaletteBehavior(this);
-	}
-
-	/**
-	 * Delegates to (a subclass of)
-	 * {@link DefaultPaletteBehavior#createPaletteViewerProvider()}
-	 */
-	protected final PaletteViewerProvider createPaletteViewerProvider() {
-		return paletteBehaviour.createPaletteViewerProvider();
-	}
-
-	/**
-	 * Delegates to (a subclass of) {@link DefaultPaletteBehavior}. To change
-	 * the palette override the behaviour there.
-	 */
-	protected final FlyoutPreferences getPalettePreferences() {
-		return paletteBehaviour.getPalettePreferences();
-	}
-
-	protected final PaletteRoot getPaletteRoot() {
-		return paletteBehaviour.getPaletteRoot();
-	}
-
-	public final void refreshPalette() {
-		paletteBehaviour.refreshPalette();
 	}
 }
