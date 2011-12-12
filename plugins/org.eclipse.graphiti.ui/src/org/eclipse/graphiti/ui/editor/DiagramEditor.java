@@ -172,7 +172,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 	private CommandStackEventListener gefCommandStackListener;
 
-	private final DiagramEditorBehavior behavior;
+	private final DefaultUpdateBehavior behavior;
 	private DefaultPaletteBehavior paletteBehaviour;
 	private DefaultPersistencyBehavior persistencyBehavior;
 	private DefaultMarkerBehavior markerBehavior;
@@ -232,8 +232,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	/**
 	 * @since 0.9
 	 */
-	protected DiagramEditorBehavior createDiagramEditorBehavior() {
-		return new DiagramEditorBehavior(this);
+	protected DefaultUpdateBehavior createDiagramEditorBehavior() {
+		return new DefaultUpdateBehavior(this);
 	}
 
 	/**
@@ -418,7 +418,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 			getEditDomain().getCommandStack().dispose();
 		}
 
-		DiagramEditorBehavior behavior = getBehavior();
+		DefaultUpdateBehavior behavior = getBehavior();
 		behavior.dispose();
 		RuntimeException exc = null;
 		try {
@@ -1499,7 +1499,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 	/**
 	 * @since 0.9
 	 */
-	public DiagramEditorBehavior getBehavior() {
+	public DefaultUpdateBehavior getBehavior() {
 		return behavior;
 	}
 
@@ -1543,7 +1543,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements
 
 	/**
 	 * Hook that is called by the holder of the
-	 * {@link TransactionalEditingDomain} ({@link DiagramEditorBehavior}) after
+	 * {@link TransactionalEditingDomain} ({@link DefaultUpdateBehavior}) after
 	 * the editing domain has been initialized. Can be used to e.g. register
 	 * additional listeners.
 	 * 

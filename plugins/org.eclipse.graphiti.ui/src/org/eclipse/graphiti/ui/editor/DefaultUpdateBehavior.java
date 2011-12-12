@@ -52,7 +52,7 @@ import org.eclipse.ui.PlatformUI;
 /**
  * @since 0.9
  */
-public class DiagramEditorBehavior extends PlatformObject implements IEditingDomainProvider, IOperationHistoryListener {
+public class DefaultUpdateBehavior extends PlatformObject implements IEditingDomainProvider, IOperationHistoryListener {
 
 	protected final DiagramEditor diagramEditor;
 
@@ -66,20 +66,20 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	/**
 	 * The update adapter is added to every {@link Resource} adapters in the
 	 * {@link ResourceSet} of the {@link TransactionalEditingDomain}. When
-	 * notified, it adds an {@link DiagramEditorBehavior#updateAdapter} to the
+	 * notified, it adds an {@link DefaultUpdateBehavior#updateAdapter} to the
 	 * adapters of the ResourceSet.
 	 * 
-	 * @see DiagramEditorBehavior#initializeEditingDomain(TransactionalEditingDomain)
+	 * @see DefaultUpdateBehavior#initializeEditingDomain(TransactionalEditingDomain)
 	 */
 	private ResourceSetUpdateAdapter resourceSetUpdateAdapter;
 
 	/**
-	 * Is toggled by {@link DiagramEditorBehavior#updateAdapter}.
+	 * Is toggled by {@link DefaultUpdateBehavior#updateAdapter}.
 	 */
 	private boolean resourceDeleted = false;
 
 	/**
-	 * Is toggled by {@link DiagramEditorBehavior#updateAdapter}.
+	 * Is toggled by {@link DefaultUpdateBehavior#updateAdapter}.
 	 */
 	private boolean resourceChanged = false;
 
@@ -162,13 +162,13 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	};
 
 	/**
-	 * Creates a new {@link DiagramEditorBehavior} instance associated with the
+	 * Creates a new {@link DefaultUpdateBehavior} instance associated with the
 	 * given {@link DiagramEditor}.
 	 * 
 	 * @param diagramEditor
 	 *            the part this model editor works on
 	 */
-	public DiagramEditorBehavior(DiagramEditor diagramEditor) {
+	public DefaultUpdateBehavior(DiagramEditor diagramEditor) {
 		super();
 		this.diagramEditor = diagramEditor;
 	}
@@ -386,7 +386,7 @@ public class DiagramEditorBehavior extends PlatformObject implements IEditingDom
 	}
 
 	/**
-	 * Disposes this {@link DiagramEditorBehavior} and free all resources it
+	 * Disposes this {@link DefaultUpdateBehavior} and free all resources it
 	 * holds. In case you only want to omit or influence the disposal of the
 	 * {@link TransactionalEditingDomain}, you can also override
 	 * {@link #disposeEditingDomain()}.
