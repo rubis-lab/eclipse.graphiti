@@ -95,16 +95,6 @@ public interface IDiagramEditor {
 	void refresh();
 
 	/**
-	 * In opposite to <code>refresh()</code> where the diagram will globally
-	 * refreshed this method only refreshes the graphical representation for the
-	 * given pictogramm element.
-	 * 
-	 * @param pe
-	 *            an active pictogram element
-	 */
-	void refresh(PictogramElement pe);
-
-	/**
 	 * Gets the current size.
 	 * 
 	 * @return the current size of the diagram in the editor
@@ -117,6 +107,13 @@ public interface IDiagramEditor {
 	 * @return true, if editor is dirty
 	 */
 	boolean isDirty();
+
+	/**
+	 * Refreshes the title text of this part.
+	 * 
+	 * @since 0.9
+	 */
+	void refreshTitle();
 
 	/**
 	 * Refreshes the title tool tip text of this part.

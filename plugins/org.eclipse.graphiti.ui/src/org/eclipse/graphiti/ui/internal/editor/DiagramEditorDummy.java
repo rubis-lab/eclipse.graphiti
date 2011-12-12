@@ -76,6 +76,9 @@ public class DiagramEditorDummy implements IDiagramEditor {
 	public void refresh(PictogramElement pe) {
 	}
 
+	public void refreshTitle() {
+	}
+
 	public void refreshTitleToolTip() {
 	}
 

@@ -160,7 +160,7 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributo
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 /**
- * The Class DiagramEditorInternal.
+ * The Class DiagramEditor.
  * 
  * @since 0.9
  */
@@ -168,8 +168,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		ITabbedPropertySheetPageContributor, IEditingDomainProvider {
 
 	public static final String DIAGRAM_EDITOR_ID = "org.eclipse.graphiti.ui.editor.DiagramEditor"; //$NON-NLS-1$
-
-	private static final boolean REFRESH_ON_GAINED_FOCUS = false;
 
 	private final DefaultUpdateBehavior updateBehavior;
 	private final DefaultPaletteBehavior paletteBehaviour;
@@ -707,8 +705,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 *            the diagram
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
+	 * @since 0.9
 	 */
-	private void handleAutoUpdateAtStartup(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
+	protected void handleAutoUpdateAtStartup(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
 		if (diagramTypeProvider.isAutoUpdateAtStartup()) {
 			autoUpdate(diagram, diagramTypeProvider);
 		}
@@ -721,14 +720,18 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 *            the diagram
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
+	 * @since 0.9
 	 */
-	private void handleAutoUpdateAtReset(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
+	protected void handleAutoUpdateAtReset(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
 		if (diagramTypeProvider.isAutoUpdateAtReset()) {
 			autoUpdate(diagram, diagramTypeProvider);
 		}
 	}
 
-	private void autoUpdate(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
+	/**
+	 * @since 0.9
+	 */
+	protected void autoUpdate(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
 		IFeatureProvider featureProvider = diagramTypeProvider.getFeatureProvider();
 		IUpdateContext updateCtx = new UpdateContext(diagram);
 		featureProvider.updateIfPossible(updateCtx);
@@ -740,6 +743,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * 
 	 * @param editPart
 	 *            the edit part
+	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public void internalRefreshEditPart(final EditPart editPart) {
 		if (Display.getCurrent() == null) {
@@ -836,7 +840,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		selectBufferedPictogramElements();
 	}
 
-	public void refresh(PictogramElement pe) {
+	protected void refresh(PictogramElement pe) {
 		if (pe == null || !pe.isActive()) {
 			return;
 		}
@@ -858,7 +862,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		}
 	}
 
-	private void refreshTitle() {
+	/**
+	 * @since 0.9
+	 */
+	public void refreshTitle() {
 		String name = getConfigurationProvider().getDiagramTypeProvider().getDiagramTitle();
 		if (name == null || name.length() == 0) {
 			name = getConfigurationElement().getAttribute("name"); //$NON-NLS-1$
@@ -1024,9 +1031,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 		super.setFocus();
 		getUpdateBehavior().handleActivate();
-		if (REFRESH_ON_GAINED_FOCUS) {
-			refresh();
-		}
 	}
 
 	// ---------------------- Selection ------------------------------------- //
