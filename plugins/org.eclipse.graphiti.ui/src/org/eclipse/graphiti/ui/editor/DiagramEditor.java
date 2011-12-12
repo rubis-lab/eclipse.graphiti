@@ -225,7 +225,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	/**
 	 * @since 0.9
 	 */
-	public DefaultUpdateBehavior getBehavior() {
+	public DefaultUpdateBehavior getUpdateBehavior() {
 		return updateBehavior;
 	}
 
@@ -299,7 +299,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			input = newInput;
 		}
 
-		getBehavior().createEditingDomain();
+		getUpdateBehavior().createEditingDomain();
 
 		try {
 			// In next line GEF calls setSite(), setInput(),
@@ -309,7 +309,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			throw new PartInitException("Can not initialize editor", e); //$NON-NLS-1$
 		}
 
-		getBehavior().init();
+		getUpdateBehavior().init();
 
 		migrateDiagramModelIfNecessary();
 	}
@@ -998,7 +998,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			getEditDomain().getCommandStack().dispose();
 		}
 
-		DefaultUpdateBehavior behavior = getBehavior();
+		DefaultUpdateBehavior behavior = getUpdateBehavior();
 		behavior.dispose();
 		RuntimeException exc = null;
 		try {
@@ -1023,7 +1023,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			return;
 
 		super.setFocus();
-		getBehavior().handleActivate();
+		getUpdateBehavior().handleActivate();
 		if (REFRESH_ON_GAINED_FOCUS) {
 			refresh();
 		}

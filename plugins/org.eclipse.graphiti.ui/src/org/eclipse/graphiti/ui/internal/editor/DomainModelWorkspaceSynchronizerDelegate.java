@@ -48,13 +48,13 @@ public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchr
 		IFile file = WorkspaceSynchronizer.getUnderlyingFile(resource);
 		// Since we cannot get timestamp information, we have to be pessimistic
 		if (file == null){
-			diagramEditor.getBehavior().setResourceChanged(true);
+			diagramEditor.getUpdateBehavior().setResourceChanged(true);
 			return true;
 		}
 		// if file does not exist the getLocalTimeStamp method will return
 		// NULL_TIMESTAMP and we will also get a refresh
 		if (file.getLocalTimeStamp() != resource.getTimeStamp()) {
-			diagramEditor.getBehavior().setResourceChanged(true);
+			diagramEditor.getUpdateBehavior().setResourceChanged(true);
 			return true;
 		}
 		return true;
