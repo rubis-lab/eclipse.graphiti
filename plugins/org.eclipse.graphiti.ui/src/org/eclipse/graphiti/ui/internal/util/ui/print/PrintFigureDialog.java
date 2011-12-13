@@ -162,22 +162,10 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 	// ===================== overwritten methods ==============================
 
 	@Override
-	protected Control createButtonBar(Composite parent) {
-		Composite bar = new Composite(parent, SWT.NONE);
-		GridLayout grid = new GridLayout(0, true);
-		grid.marginWidth = 20;
-		bar.setLayout(grid);
-		bar.setLayoutData(new GridData(GridData.FILL));
-
-		Button changePrinter = super.createButton(bar, BUTTON_CHANGE_PRINTERDATA_ID, Messages.PrintFigureDialog_0_xfld, false);
-		changePrinter.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
-		grid.numColumns++;
-		new Label(bar, SWT.NONE);
-
-		createButton(bar, IDialogConstants.OK_ID, Messages.PrintFigureDialog_1_xfld, false);
-		createButton(bar, IDialogConstants.CANCEL_ID, Messages.PrintFigureDialog_2_xfld, false);
-
-		return bar;
+	protected void createButtonsForButtonBar(Composite parent) {
+		createButton(parent, BUTTON_CHANGE_PRINTERDATA_ID,
+				Messages.PrintFigureDialog_0_xfld, false);
+		super.createButtonsForButtonBar(parent);
 	}
 
 	@Override

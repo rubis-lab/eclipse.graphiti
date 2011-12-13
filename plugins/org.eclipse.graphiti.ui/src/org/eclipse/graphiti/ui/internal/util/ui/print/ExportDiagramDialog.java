@@ -110,7 +110,7 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 		Group scaleGroup = createChooseScaleFactorGroup(composite);
 
 		Label widthComboText = new Label(scaleGroup, SWT.NONE);
-		widthComboText.setText(Messages.SaveFigureAsImageDialog_0_xfld + " (px)"); //$NON-NLS-1$
+		widthComboText.setText(Messages.SaveFigureAsImageDialog_0_xfld);
 		_widthCombo = new Combo(scaleGroup, SWT.DROP_DOWN);
 		_widthCombo.setItems(WIDTHS);
 		_widthCombo.addModifyListener(this);
@@ -118,13 +118,14 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 		_widthCombo.setLayoutData(data);
 
 		Label heightComboText = new Label(scaleGroup, SWT.NONE);
-		heightComboText.setText(Messages.SaveFigureAsImageDialog_1_xfld + " (px)"); //$NON-NLS-1$
+		heightComboText.setText(Messages.SaveFigureAsImageDialog_1_xfld);
 		_heightCombo = new Combo(scaleGroup, SWT.DROP_DOWN);
 		_heightCombo.setItems(HEIGHTS);
 		_heightCombo.addModifyListener(this);
 		GridData data2 = new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL);
 		_heightCombo.setLayoutData(data2);
 
+		new Label(scaleGroup, SWT.FILL);
 		createFormatGroup(composite);
 
 		updateControls();
@@ -142,16 +143,22 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 
 	private void createFormatGroup(Composite composite) {
 		Group formatGroup = new Group(composite, SWT.NONE);
+		formatGroup.setText(Messages.SaveFigureAsImageDialog_2_xfld);
 		formatGroup.setLayout(new GridLayout(2, false));
-		Label formatComboText = new Label(formatGroup, SWT.NONE);
-		formatComboText.setText(Messages.SaveFigureAsImageDialog_2_xfld);
-		GridData data4 = new GridData(GridData.HORIZONTAL_ALIGN_END);
-		formatComboText.setLayoutData(data4);
+		GridData layoutData = new GridData();
+		layoutData.grabExcessVerticalSpace = true;
+		layoutData.grabExcessHorizontalSpace = true;
+		layoutData.verticalAlignment = SWT.FILL;
+		layoutData.horizontalAlignment = SWT.FILL;
+		formatGroup.setLayoutData(layoutData);
+
 		_formatCombo = new Combo(formatGroup, SWT.DROP_DOWN | SWT.READ_ONLY);
 		_formatCombo.setItems(IMAGE_FILE_EXTENSIONS);
 		_formatCombo.setText(IMAGE_FILE_EXTENSIONS[_formatIndex]);
 		_formatCombo.addModifyListener(this);
-		GridData data3 = new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL);
+		GridData data3 = new GridData();
+		data3.grabExcessHorizontalSpace = true;
+		data3.horizontalAlignment = SWT.FILL;
 		_formatCombo.setLayoutData(data3);
 	}
 
@@ -161,6 +168,8 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 		GridData data = new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL);
 		data.horizontalSpan = 1;
 		data.verticalSpan = 2;
+		data.verticalAlignment = GridData.VERTICAL_ALIGN_FILL;
+		data.grabExcessVerticalSpace = true;
 		scaleGroup.setLayoutData(data);
 		GridLayout layout = new GridLayout(2, false);
 		scaleGroup.setLayout(layout);
@@ -169,7 +178,9 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 		scaleFactorText.setText(Messages.SaveFigureAsImageDialog_4_xfld);
 		_scaleFactorText = new DoubleFieldWithDropDown(scaleGroup, SWT.NONE, _preferences, DefaultPrintPreferences.SCALE_FACTOR,
 				SCALE_FACTORS);
-		data = new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL);
+		data = new GridData();
+		data.grabExcessHorizontalSpace = true;
+		data.horizontalAlignment = SWT.FILL;
 		_scaleFactorText.setLayoutData(data);
 		_scaleFactorText.addModifyListener(this);
 
