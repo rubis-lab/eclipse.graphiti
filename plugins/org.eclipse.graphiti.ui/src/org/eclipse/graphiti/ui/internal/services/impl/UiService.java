@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.internal.util.T;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.platform.ExtensionManager;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.services.IUiService;
@@ -150,6 +151,8 @@ public class UiService implements IUiService {
 		FileDialog fileDialog = new FileDialog(shell, SWT.SAVE);
 		String fileExtensions[] = new String[] { "*." + saveAsImageDialog.getFormattedFileExtension() }; //$NON-NLS-1$
 		fileDialog.setFilterExtensions(fileExtensions);
+		String name = ((Diagram) graphicalViewer.getContents().getModel()).getName();
+		fileDialog.setFileName(name);
 		String filename = fileDialog.open();
 		if (filename != null) {
 			try {
