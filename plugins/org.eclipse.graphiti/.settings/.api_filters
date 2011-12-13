@@ -39,11 +39,6 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="getCurrentToolBehaviorIndex()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
                 <message_argument value="setCurrentToolBehaviorIndex(int)"/>
             </message_arguments>
         </filter>

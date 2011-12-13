@@ -349,7 +349,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		diagramTypeProvider.init(diagram, this);
 		IConfigurationProvider configurationProvider = new ConfigurationProvider(this, diagramTypeProvider);
 		setConfigurationProvider(configurationProvider);
-		refreshBehavior.handleAutoUpdateAtStartup(diagram, diagramTypeProvider);
+		refreshBehavior.handleAutoUpdateAtStartup();
 
 		registerBOListener();
 		registerDiagramResourceSetListener();
@@ -764,7 +764,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			setPictogramElementsForSelection(null);
 			// create new edit parts
 			getGraphicalViewer().setContents(diagram);
-			refreshBehavior.handleAutoUpdateAtReset(diagram, diagramTypeProvider);
+			refreshBehavior.handleAutoUpdateAtReset();
 		}
 	}
 

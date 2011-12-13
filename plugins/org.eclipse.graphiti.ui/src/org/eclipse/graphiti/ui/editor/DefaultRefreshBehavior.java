@@ -34,17 +34,28 @@ import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.swt.widgets.Display;
 
 /**
+/**
+ * This class can be subclassed by clients to adapt the refresh behaviour of the
+ * Graphiti diagram editor.
+ * 
  * @since 0.9
  */
 public class DefaultRefreshBehavior {
 
+	/**
+	 * The associated {@link DiagramEditor}. Set on construction on this class.
+	 */
 	protected final DiagramEditor diagramEditor;
 
-	private boolean autoRefresh = true;
 	private RefreshPerformanceCache refreshPerformanceCache = new RefreshPerformanceCache();
 
 	/**
+	 * Creates a new standard refresh behaviour for a Graphiti diagram editor.
+	 * The passed {@link DiagramEditor} is closely linked to this instance (1:1
+	 * relation) and both instances will have a common lifecycle.
 	 * 
+	 * @param diagramEditor
+	 *            The associated {@link DiagramEditor}.
 	 */
 	public DefaultRefreshBehavior(DiagramEditor diagramEditor) {
 		super();
@@ -52,8 +63,8 @@ public class DefaultRefreshBehavior {
 	}
 
 	/**
-	 * Initializes the performance cache. Should not be called by external
-	 * clients.
+	 * Initializes the performance cache and is called by the Graphiti framework
+	 * before a refresh is triggered. Should not be called by clients.
 	 * 
 	 * @noreference This method is not intended to be referenced by clients.
 	 * @since 0.9
@@ -63,45 +74,66 @@ public class DefaultRefreshBehavior {
 	}
 
 	/**
-	 * Handle auto update at startup.
+	 * Handles the auto update at startup of the editor and is called by the
+	 * Graphiti {@link DiagramEditor} when the input is set (
+	 * {@link DiagramEditor#setInput(org.eclipse.ui.IEditorInput)}). The default
+	 * implementation checks the desired behavior as defined in
+	 * {@link IDiagramTypeProvider#isAutoUpdateAtStartup()} and calls
+	 * {@link #autoUpdate(Diagram, IDiagramTypeProvider)} in case an update
+	 * shall be done.
 	 * 
-	 * @param diagram
-	 *            the diagram
-	 * @param diagramTypeProvider
-	 *            the diagram type provider
 	 * @since 0.9
 	 */
-	protected void handleAutoUpdateAtStartup(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
+	protected void handleAutoUpdateAtStartup() {
+		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 		if (diagramTypeProvider.isAutoUpdateAtStartup()) {
-			autoUpdate(diagram, diagramTypeProvider);
+			autoUpdate();
 		}
 	}
 
 	/**
-	 * Handle auto update at reset.
+	 * Handles the auto update at rest of the editor (the editor performs a
+	 * reload of the EMF resources because e.g. the underlying file has been
+	 * changed by another editor) and is called by the Graphiti
+	 * {@link DiagramEditor} after the {@link Diagram} has been reloaded. The
+	 * default implementation checks the desired behavior as defined in
+	 * {@link IDiagramTypeProvider#isAutoUpdateAtReset()} and calls
+	 * {@link #autoUpdate(Diagram, IDiagramTypeProvider)} in case an update
+	 * shall be done.
 	 * 
-	 * @param diagram
-	 *            the diagram
-	 * @param diagramTypeProvider
-	 *            the diagram type provider
 	 * @since 0.9
 	 */
-	protected void handleAutoUpdateAtReset(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
+	protected void handleAutoUpdateAtReset() {
+		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 		if (diagramTypeProvider.isAutoUpdateAtReset()) {
-			autoUpdate(diagram, diagramTypeProvider);
+			autoUpdate();
 		}
 	}
 
 	/**
+	 * Handles the auto update of the editor and triggers an update of the
+	 * {@link Diagram} by delegating to the {@link IUpdateFeature} regsitered
+	 * for the {@link Diagram}. In the end {@link #refresh()} is called to
+	 * reflect the update in the editor UI. This method is called by
+	 * {@link #handleAutoUpdateAtStartup()} and
+	 * {@link #handleAutoUpdateAtReset()}.
+	 * 
 	 * @since 0.9
 	 */
-	protected void autoUpdate(Diagram diagram, IDiagramTypeProvider diagramTypeProvider) {
+	protected void autoUpdate() {
+		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+		Diagram diagram = diagramTypeProvider.getDiagram();
 		IFeatureProvider featureProvider = diagramTypeProvider.getFeatureProvider();
 		IUpdateContext updateCtx = new UpdateContext(diagram);
 		featureProvider.updateIfPossible(updateCtx);
 		refresh();
 	}
 
+	/**
+	 * Does the refresh of the editor, so that the UI reflects the current state
+	 * of the Graphiti pictograms model. Also the editor title is updated; in
+	 * case direct editing is active it is cancelled.
+	 */
 	public void refresh() {
 		if (!diagramEditor.isAlive()) {
 			return;
@@ -155,6 +187,13 @@ public class DefaultRefreshBehavior {
 		diagramEditor.selectBufferedPictogramElements();
 	}
 
+	/**
+	 * Refreshed the given {@link PictogramElement} so that the UI reflects the
+	 * current state in the Graphiti pictograms model.
+	 * 
+	 * @param pe
+	 *            the {@link PictogramElement} to refresh
+	 */
 	protected void refresh(PictogramElement pe) {
 		if (pe == null || !pe.isActive()) {
 			return;
@@ -169,6 +208,14 @@ public class DefaultRefreshBehavior {
 		}
 	}
 
+	/**
+	 * Refreshes all rendering decorators for the given {@link PictogramElement}
+	 * as defined in
+	 * {@link IToolBehaviorProvider#getDecorators(PictogramElement)}.
+	 * 
+	 * @param pe
+	 *            the {@link PictogramElement} to refresh the decorators for
+	 */
 	public void refreshRenderingDecorators(PictogramElement pe) {
 		GraphicalEditPart ep = diagramEditor.getEditPartForPictogramElement(pe);
 		if (ep instanceof IShapeEditPart) {
@@ -178,10 +225,10 @@ public class DefaultRefreshBehavior {
 	}
 
 	/**
-	 * Internal refresh edit part.
+	 * Internal refresh of a given {@link EditPart}.
 	 * 
 	 * @param editPart
-	 *            the edit part
+	 *            the edit part to refresh
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public void internalRefreshEditPart(final EditPart editPart) {
@@ -214,30 +261,35 @@ public class DefaultRefreshBehavior {
 	}
 
 	/**
-	 * Checks if is auto refresh.
+	 * Returns if auto refresh is enabled or not. In case it is enabled the
+	 * editor will automatically react on EMF resource changes.
+	 * <p>
+	 * The default implementation here simply returns <code>true</code>.
 	 * 
 	 * @return true, if is auto refresh
 	 */
 	public boolean isAutoRefresh() {
-		return autoRefresh;
+		return true;
 	}
 
 	/**
-	 * Sets the auto refresh.
+	 * Returns if multiple refreshes shall be omitted and a bundled refresh
+	 * should happen instead. Is called by the framework on creation and
+	 * refreshing of {@link Figure}s.
+	 * <p>
+	 * The default implementation simply returns <code>true</code>. <b>Note:</b>
+	 * returning false here might have large performance implications, so use
+	 * this option only with extra care!
 	 * 
-	 * @param value
-	 *            the new auto refresh
+	 * @return
 	 */
-	protected void setAutoRefresh(boolean value) {
-		autoRefresh = value;
-	}
-
 	public boolean isMultipleRefreshSupressionActive() {
 		return true;
 	}
 
 	/**
-	 * Manages the performance cache. Should not be called by external clients.
+	 * Checks the performance cache if a refresh shall be triggered for the
+	 * given object. Should not be called by external clients.
 	 * 
 	 * @noreference This method is not intended to be referenced by clients.
 	 * @since 0.9
