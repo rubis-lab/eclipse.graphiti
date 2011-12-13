@@ -20,14 +20,54 @@ the color of all other EClasses should be changed, too.</p>
 <p>The graphics framework supports this by providing &quot;styles&quot;. A style is a container 
 for graphical attributes (color, line-width, …), which can be associated by a graphics 
 algorithm. A style can have a parent-style, from which a style can &quot;inherit&quot; graphical 
-attributes (similar to cascading style sheets).</p>
+attributes (similar to cascading style sheets). </p>
 <p>Concretely the value of a graphical attribute is determined by finding the first 
-value which is not null in the following order:</p>
+attribute which has no value in the following order: </p>
 <ol>
 	<li>The graphics algorithm itself</li>
-	<li>The style assigned to the graphics algorithm, if style exists</li>
-	<li>The parent-style(s) of the style, if parent-style(s) exists</li>
+	<li>The parent style of a style assigned to the graphics algorithm, if parent 
+	style(s) exists</li>
+	<li>The style, if no parent-style(s) exists</li>
 </ol>
+<p class="Note">Note: <strong>a style cannot &quot;overwrite&quot; an existing attribute value 
+in the graphics algorithm</strong>, which the style should be assigned to. This 
+makes it particularly suitable for confusion if the attribute value is already set 
+as a default value for the graphics algorithm. Let us show this with an exampel:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code">IGaService gaService = Graphiti.getGaService();<br>Polyline 
+		polyline = gaService.createPolyline(connection);<br>polyline.setLineWidth(2);<br>
+		polyline.setForeground(manageColor(IColorConstant.<span class="string"><em>BLACK</em></span>));<br>
+		polyline.setLineStyle(LineStyle.<span class="string"><em>DASH</em></span>);</p>
+	</div>
+</div>
+<p>&nbsp;</p>
+<!-- End code  -------------------------------------------------------------------------------  -->
+<p>The above coding will create a dashed connection with a line width of 2. But, 
+if a style is created (to achieve the same result) and then set the style on the 
+polyline as shown below, it doesn&#39;t work:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code">IGaService gaService = Graphiti.getGaService();<br>Style 
+		dashedStyle = gaService.createStyle(diagram, styleId);<br>dashedStyle.setLineStyle(LineStyle.<em class="string">DASH</em>);<br>
+		dashedStyle.setLineWidth(2);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<br>dashedStyle.setForeground(gaService.manageColor(diagram,IColorConstant.<span class="string"><em>BLACK</em></span>));<br>
+		polyLine.setStyle(dashedStyle);</p>
+	</div>
+</div>
+<p>&nbsp;</p>
+<!-- End code  -------------------------------------------------------------------------------  -->
+<p>The graphics algorithm above has for the attribute line style &quot;SOLID&quot; as default 
+value as well as line width has &quot;1&quot; as default value. The value &quot;SOLID&quot; as a line 
+styles&#39; default value makes sense, while for most of all Graphiti users this is the 
+right one. Default values are set from the framework, some of them are set in the metamodel.</p>
+<p>To avoid the above confusion the &quot;createPlain&quot;-methods for graphics algorithms were 
+introduced, they have no default values. All values have to be set explicitly and 
+are documented in the coding. We recommend using them, when working with styles.</p>
 <p>It has several advantages if the same style is associated by many graphics algorithms:</p>
 <ul>
 	<li>When a graphical attribute value of the style is changed, all graphics algorithms 
@@ -38,38 +78,37 @@ value which is not null in the following order:</p>
 </ul>
 <h2>Creating a Style Utility Class</h2>
 <p>In this example we want to associate the same style to the graphics algorithms 
-of all EClasses and EReferences. <strong>All graphical attributes </strong>(color, line-width, …) 
-<strong>are then set on 
-the style</strong> and no longer on the different graphics algorithm.</p>
-<p>Additionally we will provide functionality to change the foreground-color-value of that 
-style, and as a result all EClasses will be painted in this color.</p>
+of all EClasses and EReferences. <strong>All graphical attributes </strong>(color, 
+line-width, …) <strong>are then set on the style</strong> and no longer on the different 
+graphics algorithm.</p>
+<p>Additionally we will provide functionality to change the foreground-color-value 
+of that style, and as a result all EClasses will be painted in this color.</p>
 <p>We start by implementing a utility class for the handling of styles.</p>
 <p>We store the styles in the diagram with a given ID. The utility class has methods 
 to return a specific style by either finding it in the diagram or by creating a 
-new<strong> </strong>style and assigning it to the diagram. When creating 
-styles, the method <span class="inlinecode">createPlainStyle</span> is used to 
-set explicitly all graphical values here.</p>
-<p>Note, that we have four styles: one main style with common values for all 
-other child styles. There are three child styles: a child&nbsp; style for graphics algorithms of 
-the EClass and EReference, a child style for the Text of the EClass, and a child 
-style for the Text decorator of the EReference. The reason is, that 
-we want to have a different color for the text and for the lines, but in both cases 
-the color is stored as &quot;foreground&quot; color. The Text of the EClass has 
-a bold Arial font, while the Text decorator has an italic Arial font.</p>
+new<strong> </strong>style and assigning it to the diagram. When creating styles, 
+the method <span class="inlinecode">createPlainStyle</span> is used to set explicitly 
+all graphical values here.</p>
+<p>Note, that we have four styles: one main style with common values for all other 
+child styles. There are three child styles: a child&nbsp; style for graphics algorithms 
+of the EClass and EReference, a child style for the Text of the EClass, and a child 
+style for the Text decorator of the EReference. The reason is, that we want to have 
+a different color for the text and for the lines, but in both cases the color is 
+stored as &quot;foreground&quot; color. The Text of the EClass has a bold Arial font, while 
+the Text decorator has an italic Arial font.</p>
 <p>We have a cascading design of styles here . C<span id="result_box">omplemental</span><span id="result_box" lang="en">
-<span class="hps">we</span> <span class="hps">could</span> <span class="hps">
-introduce</span> <span class="hps">another</span> <span class="hps">style for 
-the</span> </span><span id="result_box">common</span><span id="result_box" lang="en">
-<span class="hps">values ​​of text</span><span>.</span> <span class="hps">The 
-opposite of this</span></span><span class="hps"><span id="result_box"> cascading 
-approach is</span></span><span><span id="result_box"> to</span><span id="result_box" lang="en">
+<span class="hps">we</span> <span class="hps">could</span> <span class="hps">introduce</span>
+<span class="hps">another</span> <span class="hps">style for the</span> </span>
+<span id="result_box">common</span><span id="result_box" lang="en">
+<span class="hps">values ​​of text</span><span>.</span> <span class="hps">The opposite 
+of this</span></span><span class="hps"><span id="result_box"> cascading approach 
+is</span></span><span><span id="result_box"> to</span><span id="result_box" lang="en">
 </span></span><span id="result_box" lang="en"><span class="hps">put</span>
 <span class="hps">all the styles</span> <span class="hps">flat</span>
 <span class="hps">side by side.</span></span><span class="hps"><span id="result_box"> 
-The present arrengment was choosen because of the intrinsic clarity and the 
-economical serialization into the diagram file. Do not hesitate to have a look 
-on this by opening the diagram file with a text editor and then search for 
-&quot;styles&quot;.</span></span></p>
+The present arrengment was choosen because of the intrinsic clarity and the economical 
+serialization into the diagram file. Do not hesitate to have a look on this by opening 
+the diagram file with a text editor and then search for &quot;styles&quot;.</span></span></p>
 <p>You can see the complete implementation of the style utility class here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
@@ -374,7 +413,8 @@ getCustomFeatures</a>).</p>
 		<span class="keyword">new</span> TutorialDrillDownEClassFeature(<span class="keyword">this</span>),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">new</span> TutorialAssociateDiagramEClassFeature(<span class="keyword">this</span>),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">new</span> TutorialCollapseDummyFeature(<span class="keyword">this</span>),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">new</span> TutorialChangeColorEClassFeature(<span class="keyword">this</span>)};<br>}<br></p>
+		<span class="keyword">new</span> TutorialChangeColorEClassFeature(<span class="keyword">this</span>)};<br>
+		}<br></p>
 	</div>
 </div>
 <p>&nbsp;</p>
