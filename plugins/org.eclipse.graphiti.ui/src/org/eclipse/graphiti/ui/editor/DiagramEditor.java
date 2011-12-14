@@ -351,7 +351,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		setConfigurationProvider(configurationProvider);
 		refreshBehavior.handleAutoUpdateAtStartup();
 
-		registerBOListener();
+		registerBusinessObjectsListener();
 		registerDiagramResourceSetListener();
 
 		refreshTitle();
@@ -668,35 +668,37 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	// ---------------------- Listeners ------------------------------------- //
 
 	/**
-	 * Register diagram change listener. Since the diagram comes from a
-	 * ModelEditorInput and ModelEditor input provides an own ResourceSet for
-	 * every editor instance, we can safely register a listener with the
-	 * provided ResourceSet: we will be notified only by events regarding the
-	 * diagram!
+	 * Hook to register listeners for diagram changes. The listener will be
+	 * notified with all events and has to filter for the ones regarding the
+	 * diagram.
 	 * 
+	 * @since 0.9
 	 */
-	private void registerDiagramResourceSetListener() {
+	protected void registerDiagramResourceSetListener() {
 		diagramChangeListener = new DiagramChangeListener(this);
 		TransactionalEditingDomain eDomain = getEditingDomain();
 		eDomain.addResourceSetListener(diagramChangeListener);
 	}
 
 	/**
-	 * Registers a listener for changes of business objects in the resource set
-	 * of the editor.
+	 * Hook that is called to register listeners for changes of the business
+	 * objects (domain) in the resource set of the editor. The default
+	 * implementation registers the {@link DomainModelChangeListener}.
 	 * 
 	 * @since 0.9
 	 */
-	protected void registerBOListener() {
+	protected void registerBusinessObjectsListener() {
 		domainModelListener = new DomainModelChangeListener(this);
 		TransactionalEditingDomain eDomain = getEditingDomain();
 		eDomain.addResourceSetListener(domainModelListener);
 	}
 
 	/**
+	 * Hook to unregister the listeners for diagram changes.
+	 * 
 	 * @since 0.9
 	 */
-	private void unregisterDiagramResourceSetListener() {
+	protected void unregisterDiagramResourceSetListener() {
 		if (diagramChangeListener != null) {
 			diagramChangeListener.stopListening();
 			TransactionalEditingDomain eDomain = getEditingDomain();
@@ -705,9 +707,12 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
+	 * Hook that is called to unregister the listeners for changes of the
+	 * business objects (domain).
+	 * 
 	 * @since 0.9
 	 */
-	protected void unregisterBOListener() {
+	protected void unregisterBusinessObjectsListener() {
 		if (domainModelListener != null) {
 			TransactionalEditingDomain eDomain = getEditingDomain();
 			eDomain.removeResourceSetListener(domainModelListener);
@@ -822,7 +827,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 	public void dispose() {
 		unregisterDiagramResourceSetListener();
-		unregisterBOListener();
+		unregisterBusinessObjectsListener();
 
 		if (getConfigurationProvider() != null) {
 			getConfigurationProvider().dispose();
