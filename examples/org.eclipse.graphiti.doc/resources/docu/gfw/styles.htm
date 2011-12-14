@@ -12,13 +12,13 @@
 
 <h1>Using Styles</h1>
 <p>Sometimes graphical tools give the user the possibility to freely change the 
-graphical attributes to paint each shape (color, line-width, …). But more often 
+graphical attributes to paint each shape (color, line width, …). But more often 
 all shapes of the same kind shall be painted in the same way.</p>
 <p>For example in a Ecore editor it makes sense, that all EClasses look identical. 
 The user might still have the possibility to change the color of a EClass, but then 
 the color of all other EClasses should be changed, too.</p>
 <p>The graphics framework supports this by providing &quot;styles&quot;. A style is a container 
-for graphical attributes (color, line-width, …), which can be associated by a graphics 
+for graphical attributes (color, line width, …), which can be associated by a graphics 
 algorithm. A style can have a parent-style, from which a style can &quot;inherit&quot; graphical 
 attributes (similar to cascading style sheets). </p>
 <p>Concretely the value of a graphical attribute is determined by finding the first 
@@ -32,7 +32,8 @@ attribute which has no value in the following order: </p>
 <p class="Note">Note: <strong>a style cannot &quot;overwrite&quot; an existing attribute value 
 in the graphics algorithm</strong>, which the style should be assigned to. This 
 makes it particularly suitable for confusion if the attribute value is already set 
-as a default value for the graphics algorithm. Let us show this with an exampel:</p>
+as a default value for the graphics algorithm. Default values are set from the 
+framework, some of them are set in the metamodel. Let us show this with an exampel:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
@@ -55,7 +56,8 @@ polyline as shown below, it doesn&#39;t work:</p>
 		<p class="code">IGaService gaService = Graphiti.getGaService();<br>Style 
 		dashedStyle = gaService.createStyle(diagram, styleId);<br>dashedStyle.setLineStyle(LineStyle.<em class="string">DASH</em>);<br>
 		dashedStyle.setLineWidth(2);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<br>dashedStyle.setForeground(gaService.manageColor(diagram,IColorConstant.<span class="string"><em>BLACK</em></span>));<br>
+		<br>dashedStyle.setForeground(gaService.manageColor(diagram,IColorConstant.<span class="string"><em>BLACK</em></span>));<br>Polyline 
+		polyline = gaService.createPolyline(connection);<br>
 		polyLine.setStyle(dashedStyle);</p>
 	</div>
 </div>
@@ -63,8 +65,8 @@ polyline as shown below, it doesn&#39;t work:</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
 <p>The graphics algorithm above has for the attribute line style &quot;SOLID&quot; as default 
 value as well as line width has &quot;1&quot; as default value. The value &quot;SOLID&quot; as a line 
-styles&#39; default value makes sense, while for most of all Graphiti users this is the 
-right one. Default values are set from the framework, some of them are set in the metamodel.</p>
+styles&#39; default value makes sense, while for most of all Graphiti users this 
+is the right one.</p>
 <p>To avoid the above confusion the &quot;createPlain&quot;-methods for graphics algorithms were 
 introduced, they have no default values. All values have to be set explicitly and 
 are documented in the coding. We recommend using them, when working with styles.</p>
