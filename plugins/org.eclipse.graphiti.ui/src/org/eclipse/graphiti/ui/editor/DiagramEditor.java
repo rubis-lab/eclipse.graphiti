@@ -1168,7 +1168,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	@Deprecated
-	public DiagramScrollingBehavior getDiagramScrollingBehavior() {
+	private DiagramScrollingBehavior getDiagramScrollingBehavior() {
 		if (this.diagramScrollingBehavior == null) {
 			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 			this.diagramScrollingBehavior = tbp.getDiagramScrollingBehavior();
