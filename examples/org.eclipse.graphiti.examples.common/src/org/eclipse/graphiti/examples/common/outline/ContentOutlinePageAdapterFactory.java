@@ -40,7 +40,7 @@ public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 						GraphicsEditorOutlinePage outlinePage = new GraphicsEditorOutlinePage(new TreeViewer(), diagramEditor
 								.getGraphicalViewer(), diagramEditor.getActionRegistryInternal(), diagramEditor.getEditDomain(),
 								diagramEditor.getCommonKeyHandler(), diagramEditor.getAdapter(ZoomManager.class), diagramEditor
-										.getSelectionSynchronizerInternal(), diagramEditor);
+.getSelectionSynchronizerInternal(), diagramEditor);
 						return outlinePage;
 					}
 				}

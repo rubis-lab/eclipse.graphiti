@@ -79,7 +79,6 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeature;
@@ -94,7 +93,6 @@ import org.eclipse.graphiti.internal.command.AddFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
-import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -1049,18 +1047,30 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		this.pictogramElementsForSelection = pictogramElementsForSelection;
 	}
 
-	// ---------------------- Other ----------------------------------------- //
+	// ---------------------- Mouse location -------------------------------- //
 
 	/**
-	 * Calculates the location in dependence from scrollbars and zoom factor.
+	 * Gets the current mouse location as a {@link Point}.
+	 * 
+	 * @return the mouse location
+	 * @since 0.9
+	 */
+	public Point getMouseLocation() {
+		if (mouseLocation == null) {
+			mouseLocation = new Point();
+		}
+		return mouseLocation;
+	}
+
+	/**
+	 * Calculates the mouse location depending on scrollbars and zoom factor.
 	 * 
 	 * @param nativeLocation
-	 *            the native location
-	 * @return the point
+	 *            the native location given as {@link Point}
+	 * @return the {@link Point} of the real mouse location
 	 * @since 0.9
 	 */
 	public Point calculateRealMouseLocation(Point nativeLocation) {
-
 		Point ret = new Point(nativeLocation);
 		Point viewLocation;
 		// view location depends on the current scroll bar position
@@ -1078,6 +1088,12 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 		return ret;
 	}
+
+	private void setMouseLocation(int x, int y) {
+		getMouseLocation().setLocation(x, y);
+	}
+
+	// ---------------------- Other ----------------------------------------- //
 
 	/**
 	 * Returns the internal ActionRegistry (because {@link #getActionRegistry()}
@@ -1262,27 +1278,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return super.getGraphicalViewer();
 	}
 
-	/**
-	 * Gets the mouse location.
-	 * 
-	 * @return the mouse location
-	 * @since 0.9
-	 */
-	public Point getMouseLocation() {
-		if (mouseLocation == null) {
-			mouseLocation = new Point();
-		}
-		return mouseLocation;
-	}
-
-	/**
-	 * @since 0.9
-	 */
-	public ILocation getCurrentMouseLocation() {
-		Point mL = getMouseLocation();
-		return new LocationImpl(mL.x, mL.y);
-	}
-
 	public String getTitleToolTip() {
 		if (getDiagramTypeProvider() != null && getDiagramTypeProvider().getCurrentToolBehaviorProvider() != null) {
 			IToolBehaviorProvider tbp = getDiagramTypeProvider().getCurrentToolBehaviorProvider();
@@ -1393,18 +1388,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		CommandStack commandStack = new GFCommandStack(configurationProvider, getEditingDomain());
 		editDomain.setCommandStack(commandStack);
 		setEditDomain(editDomain);
-	}
-
-	/**
-	 * Sets the mouse location.
-	 * 
-	 * @param x
-	 *            the x
-	 * @param y
-	 *            the y
-	 */
-	void setMouseLocation(int x, int y) {
-		getMouseLocation().setLocation(x, y);
 	}
 
 	/**

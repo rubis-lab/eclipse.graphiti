@@ -20,7 +20,6 @@ package org.eclipse.graphiti.platform;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
@@ -136,13 +135,6 @@ public interface IDiagramEditor {
 	 */
 	void refreshPalette();
 	
-	/**
-	 * Gets the mouse location.
-	 * 
-	 * @return the mouse location
-	 */
-	ILocation getCurrentMouseLocation();
-
 	/**
 	 * Executes the given feature in the given context using the command stack
 	 * and editing domain of the diagram editor. In case of an IAddFeature being
