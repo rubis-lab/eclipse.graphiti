@@ -813,6 +813,12 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		if (type == Diagram.class) {
 			return getDiagramTypeProvider().getDiagram();
 		}
+		if (type == KeyHandler.class) {
+			return getCommonKeyHandler();
+		}
+		if (type == SelectionSynchronizer.class) {
+			return getSelectionSynchronizer();
+		}
 		return super.getAdapter(type);
 	}
 
@@ -902,18 +908,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			}
 		}
 		return pe;
-	}
-
-	/**
-	 * Returns the internal SelectionSynchronizer (because
-	 * {@link #getSelectionSynchronizer()} is protected).
-	 * 
-	 * @return The internal SelectionSynchronizer (because
-	 *         {@link #getSelectionSynchronizer()} is protected).
-	 * @since 0.9
-	 */
-	public SelectionSynchronizer getSelectionSynchronizerInternal() {
-		return getSelectionSynchronizer();
 	}
 
 	/**
@@ -1089,18 +1083,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	// ---------------------- Other ----------------------------------------- //
 
 	/**
-	 * Returns the internal ActionRegistry (because {@link #getActionRegistry()}
-	 * is protected).
-	 * 
-	 * @return The internal ActionRegistry (because {@link #getActionRegistry()}
-	 *         is protected).
-	 * @since 0.9
-	 */
-	public ActionRegistry getActionRegistryInternal() {
-		return getActionRegistry();
-	}
-
-	/**
 	 * Returns the KeyHandler with common bindings for both the Outline and the
 	 * Graphical Viewer.
 	 * 
@@ -1108,7 +1090,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 *         Graphical Viewer.
 	 * @since 0.9
 	 */
-	public KeyHandler getCommonKeyHandler() {
+	protected KeyHandler getCommonKeyHandler() {
 		if (keyHandler == null) {
 			keyHandler = new KeyHandler();
 			keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0), getActionRegistry().getAction(ActionFactory.DELETE.getId()));
