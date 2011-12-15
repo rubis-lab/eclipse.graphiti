@@ -19,7 +19,6 @@ package org.eclipse.graphiti.platform;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
@@ -92,13 +91,6 @@ public interface IDiagramEditor {
 	 * Refresh.
 	 */
 	void refresh();
-
-	/**
-	 * Gets the current size.
-	 * 
-	 * @return the current size of the diagram in the editor
-	 */
-	IDimension getCurrentSize();
 
 	/**
 	 * Checks if is dirty.

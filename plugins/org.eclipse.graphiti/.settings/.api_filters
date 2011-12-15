@@ -101,6 +101,12 @@
         <filter id="405901410">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="getCurrentSize()"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
                 <message_argument value="refresh(PictogramElement)"/>
             </message_arguments>
         </filter>

@@ -76,7 +76,6 @@ import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.graphiti.DiagramScrollingBehavior;
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeature;
@@ -90,7 +89,6 @@ import org.eclipse.graphiti.features.context.impl.SaveImageContext;
 import org.eclipse.graphiti.internal.command.AddFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
-import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -1156,32 +1154,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			}
 		}
 		return contributorId;
-	}
-
-	/**
-	 * @since 0.9
-	 */
-	public IDimension getCurrentSize() {
-
-		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-			GFFigureCanvas canvas = getGFFigureCanvas();
-			// if this method is called during editor opening, it can fail, so
-			// we return "default size".
-			if (canvas != null) {
-				Dimension size = canvas.getContents().getSize();
-				return new DimensionImpl(size.width, size.height);
-			} else
-				return new DimensionImpl(1024, 768);
-		} else {
-			FigureCanvas canvas = getFigureCanvas();
-			// if this method is called during editor opening, it can fail, so
-			// we return "default size".
-			if (canvas != null) {
-				Dimension size = canvas.getContents().getSize();
-				return new DimensionImpl(size.width, size.height);
-			} else
-				return new DimensionImpl(1024, 768);
-		}
 	}
 
 	/**
