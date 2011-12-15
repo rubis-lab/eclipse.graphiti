@@ -129,6 +129,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -1208,20 +1209,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
-	 * Gets the figure canvas.
-	 * 
-	 * @return the figure canvas
-	 * @since 0.9
-	 */
-	public FigureCanvas getFigureCanvas() {
-		GraphicalViewer viewer = getGraphicalViewer();
-		if (viewer != null)
-			return (FigureCanvas) viewer.getControl();
-		else
-			return null;
-	}
-
-	/**
 	 * @since 0.9
 	 */
 	public IFigure getFigureForPictogramElement(PictogramElement pe) {
@@ -1232,12 +1219,26 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return null;
 	}
 
+	private FigureCanvas getFigureCanvas() {
+		GraphicalViewer viewer = getGraphicalViewer();
+		if (viewer != null) {
+			Control control = viewer.getControl();
+			if (control instanceof FigureCanvas) {
+				return (FigureCanvas) control;
+			}
+		}
+		return null;
+	}
+
 	private GFFigureCanvas getGFFigureCanvas() {
 		GraphicalViewer viewer = getGraphicalViewer();
-		if (viewer != null)
-			return (GFFigureCanvas) viewer.getControl();
-		else
-			return null;
+		if (viewer != null) {
+			Control control = viewer.getControl();
+			if (control instanceof GFFigureCanvas) {
+				return (GFFigureCanvas) control;
+			}
+		}
+		return null;
 	}
 
 	public GraphicalViewer getGraphicalViewer() {
