@@ -31,7 +31,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.FigureCanvas;
@@ -46,7 +45,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
@@ -812,10 +810,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 				return new TabbedPropertySheetPage(this);
 			}
 			return null; // not yet initialized
-		}
-		if (type == IUndoContext.class) {
-			// TODO ? Do we need to provide this ?
-			return ((IWorkspaceCommandStack) getEditingDomain().getCommandStack()).getDefaultUndoContext();
 		}
 		if (type == Diagram.class) {
 			return getDiagramTypeProvider().getDiagram();
