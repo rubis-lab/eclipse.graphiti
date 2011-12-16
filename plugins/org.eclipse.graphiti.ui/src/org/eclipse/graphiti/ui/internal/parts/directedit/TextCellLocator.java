@@ -120,14 +120,14 @@ public class TextCellLocator implements CellEditorLocator {
 			if (rect.width > minWidth) {
 				minWidth = rect.width;
 			}
-			
+
 			if (directEditingFeature.stretchFieldToFitText()) {
 				CCombo combo = (CCombo) control;
 				Point pref = combo.computeSize(-1, -1);
-				if (minWidth < pref.x) 
+				if (minWidth < pref.x)
 					minWidth = pref.x;
-			}			
-			
+			}
+
 			control.setBounds(rect.x, rect.y, minWidth, 14);
 		}
 	}

@@ -251,12 +251,14 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 
 				// if auto code completion disabled then open code completion on
 				// CTRL+Space
-				KeyStroke keyStroke = directEditingFeature.isAutoCompletionEnabled() ? null : KeyStroke.getInstance(SWT.CTRL, 32);
+				KeyStroke keyStroke = directEditingFeature.isAutoCompletionEnabled() ? null : KeyStroke.getInstance(
+						SWT.CTRL, 32);
 
-				ContentProposalAdapter contentProposalAdapter = new ContentProposalAdapter(getCellEditor().getControl(),
-						controlContentAdapter, contentProposalProvider, keyStroke, null);
+				ContentProposalAdapter contentProposalAdapter = new ContentProposalAdapter(
+						getCellEditor().getControl(), controlContentAdapter, contentProposalProvider, keyStroke, null);
 				contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
-				contentProposalAdapter.addContentProposalListener(new ContentProposalListener((TextCellEditor) getCellEditor()));
+				contentProposalAdapter.addContentProposalListener(new ContentProposalListener(
+						(TextCellEditor) getCellEditor()));
 
 				// <sw03072008> removed to avoid direct closing of cell editor
 				// after value selection from value help
@@ -283,7 +285,8 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 		// Hook the cell editor's copy/paste actions to the actionBars so that
 		// they can
 		// be invoked via keyboard shortcuts.
-		actionBars = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorSite().getActionBars();
+		actionBars = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()
+				.getEditorSite().getActionBars();
 		saveCurrentActions(actionBars);
 		actionHandler = new CellEditorActionHandler(actionBars);
 		actionHandler.addCellEditor(getCellEditor());

@@ -77,7 +77,8 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 		CellEditor cellEditor = request.getCellEditor();
 		final String message = cellEditor.getErrorMessage();
 		if (message != null && message.length() != 0) {
-			MessageDialog.openError(GraphitiUiInternal.getWorkbenchService().getShell(), Messages.DefaultDirectEditPolicy_0_xmsg, message);
+			MessageDialog.openError(GraphitiUiInternal.getWorkbenchService().getShell(),
+					Messages.DefaultDirectEditPolicy_0_xmsg, message);
 			return null;
 		}
 
@@ -108,7 +109,8 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 				if (directEditHolder.isSimpleMode()) {
 					value = directEditingFeature.getPossibleValues(directEditingContext)[index];
 				} else {
-					acceptedProposal = directEditingFeature.getProposalSupport().getPossibleValues(directEditingContext)[index];
+					acceptedProposal = directEditingFeature.getProposalSupport()
+							.getPossibleValues(directEditingContext)[index];
 				}
 			}
 
@@ -118,10 +120,12 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 			return null;
 		}
 
-		final ICommand cmd = new DirectEditingFeatureCommandWithContext(directEditingFeature, directEditingContext, value, acceptedProposal);
+		final ICommand cmd = new DirectEditingFeatureCommandWithContext(directEditingFeature, directEditingContext,
+				value, acceptedProposal);
 
 		final IFeatureProvider fp = directEditingFeature.getFeatureProvider();
-		final DiagramEditorInternal diagramEditor = (DiagramEditorInternal) fp.getDiagramTypeProvider().getDiagramEditor();
+		final DiagramEditorInternal diagramEditor = (DiagramEditorInternal) fp.getDiagramTypeProvider()
+				.getDiagramEditor();
 		final CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
 		commandStack.execute(new GefCommandWrapper(cmd, diagramEditor.getEditingDomain()));
 		// CommandExec.getSingleton().executeCommand(cmd, fp.getConnection());
