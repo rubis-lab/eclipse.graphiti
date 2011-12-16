@@ -875,16 +875,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	// ---------------------- Selection ------------------------------------- //
 
 	/**
-	 * Gets the pictogram element for selection.
-	 * 
-	 * @return the pictogram element for selection
-	 * @since 0.9
-	 */
-	protected PictogramElement[] getPictogramElementsForSelection() {
-		return pictogramElementsForSelection;
-	}
-
-	/**
 	 * @since 0.9
 	 */
 	public PictogramElement[] getSelectedPictogramElements() {
@@ -1017,21 +1007,100 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
+	 * Returns the {@link PictogramElement}s that are set for later selection.
+	 * <p>
+	 * The methods {@link #getPictogramElementsForSelection()},
+	 * {@link #setPictogramElementForSelection(PictogramElement)},
+	 * {@link #setPictogramElementsForSelection(PictogramElement[])} and
+	 * {@link #selectBufferedPictogramElements()} offer the possibility to use a
+	 * deferred selection mechanism: via the setters, {@link PictogramElement}s
+	 * can be stored for a selection operation that is triggered lateron during
+	 * a general refresh via the method
+	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
+	 * in the Graphiti framework in direct editing to restore the previous
+	 * selection, but can also be used by clients.
+	 * 
+	 * @return the {@link PictogramElement}s stored for later selection
 	 * @since 0.9
 	 */
-	public void setPictogramElementForSelection(PictogramElement pictogramElementForSelection) {
-		if (pictogramElementForSelection == null) {
+	protected PictogramElement[] getPictogramElementsForSelection() {
+		return pictogramElementsForSelection;
+	}
+
+	/**
+	 * Sets one {@link PictogramElement} for later selection.
+	 * <p>
+	 * The methods {@link #getPictogramElementsForSelection()},
+	 * {@link #setPictogramElementForSelection(PictogramElement)},
+	 * {@link #setPictogramElementsForSelection(PictogramElement[])} and
+	 * {@link #selectBufferedPictogramElements()} offer the possibility to use a
+	 * deferred selection mechanism: via the setters, {@link PictogramElement}s
+	 * can be stored for a selection operation that is triggered lateron during
+	 * a general refresh via the method
+	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
+	 * in the Graphiti framework in direct editing to restore the previous
+	 * selection, but can also be used by clients.
+	 * 
+	 * @param pictogramElement
+	 *            the {@link PictogramElement} that shall be stored for later
+	 *            selection
+	 * @since 0.9
+	 */
+	public void setPictogramElementForSelection(PictogramElement pictogramElement) {
+		if (pictogramElement == null) {
 			this.pictogramElementsForSelection = null;
 		} else {
-			this.pictogramElementsForSelection = new PictogramElement[] { pictogramElementForSelection };
+			this.pictogramElementsForSelection = new PictogramElement[] { pictogramElement };
 		}
 	}
 
 	/**
+	 * Sets {@link PictogramElement}s for later selection.
+	 * <p>
+	 * The methods {@link #getPictogramElementsForSelection()},
+	 * {@link #setPictogramElementForSelection(PictogramElement)},
+	 * {@link #setPictogramElementsForSelection(PictogramElement[])} and
+	 * {@link #selectBufferedPictogramElements()} offer the possibility to use a
+	 * deferred selection mechanism: via the setters, {@link PictogramElement}s
+	 * can be stored for a selection operation that is triggered lateron during
+	 * a general refresh via the method
+	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
+	 * in the Graphiti framework in direct editing to restore the previous
+	 * selection, but can also be used by clients.
+	 * 
+	 * @param pictogramElements
+	 *            the {@link PictogramElement}s that shall be stored for later
+	 *            selection
 	 * @since 0.9
 	 */
-	public void setPictogramElementsForSelection(PictogramElement pictogramElementsForSelection[]) {
-		this.pictogramElementsForSelection = pictogramElementsForSelection;
+	public void setPictogramElementsForSelection(PictogramElement pictogramElements[]) {
+		this.pictogramElementsForSelection = pictogramElements;
+	}
+
+	/**
+	 * Triggers the selection for the {@link PictogramElement}s that are stored
+	 * for later selection. Can be called e.g during a general refresh of the
+	 * editor or after another operation needing another selection is finished
+	 * (an example in the framework is direct editing).
+	 * <p>
+	 * The methods {@link #getPictogramElementsForSelection()},
+	 * {@link #setPictogramElementForSelection(PictogramElement)},
+	 * {@link #setPictogramElementsForSelection(PictogramElement[])} and
+	 * {@link #selectBufferedPictogramElements()} offer the possibility to use a
+	 * deferred selection mechanism: via the setters, {@link PictogramElement}s
+	 * can be stored for a selection operation that is triggered lateron during
+	 * a general refresh via the method
+	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
+	 * in the Graphiti framework in direct editing to restore the previous
+	 * selection, but can also be used by clients.
+	 * 
+	 * @since 0.9
+	 */
+	public void selectBufferedPictogramElements() {
+		if (getPictogramElementsForSelection() != null) {
+			selectPictogramElements(getPictogramElementsForSelection());
+			setPictogramElementsForSelection(null);
+		}
 	}
 
 	// ---------------------- Mouse location -------------------------------- //
@@ -1416,15 +1485,5 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			ret = editingDomain.getResourceSet();
 		}
 		return ret;
-	}
-
-	/**
-	 * @since 0.9
-	 */
-	public void selectBufferedPictogramElements() {
-		if (getPictogramElementsForSelection() != null) {
-			selectPictogramElements(getPictogramElementsForSelection());
-			setPictogramElementsForSelection(null);
-		}
 	}
 }
