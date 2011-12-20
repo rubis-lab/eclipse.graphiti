@@ -44,10 +44,14 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 
 public class FileService {
 
-	public static TransactionalEditingDomain createEmfFileForDiagram(URI diagramResourceUri, final Diagram diagram) {
+	/**
+	 * @since 0.9
+	 */
+	public static void createEmfFileForDiagram(URI diagramResourceUri, final Diagram diagram) {
 
 		// Create a resource set and EditingDomain
-		final TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService().createResourceSetAndEditingDomain();
+		final TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService()
+				.createResourceSetAndEditingDomain();
 		final ResourceSet resourceSet = editingDomain.getResourceSet();
 		// Create a resource for this file.
 		final Resource resource = resourceSet.createResource(diagramResourceUri);
@@ -63,7 +67,7 @@ public class FileService {
 		});
 
 		save(editingDomain, Collections.<Resource, Map<?, ?>> emptyMap());
-		return editingDomain;
+		editingDomain.dispose();
 	}
 
 	private static void save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> options) {

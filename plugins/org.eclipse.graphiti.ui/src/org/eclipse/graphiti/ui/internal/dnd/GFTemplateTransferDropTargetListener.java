@@ -19,7 +19,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.swt.dnd.DND;
 
 /**
@@ -33,9 +33,9 @@ import org.eclipse.swt.dnd.DND;
  */
 public class GFTemplateTransferDropTargetListener extends TemplateTransferDropTargetListener {
 
-	private DiagramEditorInternal editor;
+	private DiagramEditor editor;
 
-	public GFTemplateTransferDropTargetListener(EditPartViewer viewer, DiagramEditorInternal editor) {
+	public GFTemplateTransferDropTargetListener(EditPartViewer viewer, DiagramEditor editor) {
 		super(viewer);
 		// it is important to set this value to true
 		setEnablementDeterminedByCommand(true);

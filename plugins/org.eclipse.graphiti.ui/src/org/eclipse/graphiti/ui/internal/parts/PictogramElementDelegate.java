@@ -96,8 +96,9 @@ import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.IImageDecorator;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.figures.DecoratorImageFigure;
 import org.eclipse.graphiti.ui.internal.figures.GFAbstractShape;
 import org.eclipse.graphiti.ui.internal.figures.GFEllipse;
@@ -193,7 +194,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	public IFigure createFigure() {
 		PictogramElement pe = getPictogramElement();
 		IFigure ret = createFigureForPictogramElement(pe);
-		if (getEditor().isMultipleRefreshSupressionActive()) {
+		if (getEditor().getRefreshBehavior().isMultipleRefreshSupressionActive()) {
 			return ret;
 		} else {
 			refreshFigureForPictogramElement(pe);
@@ -317,8 +318,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	public void refreshFigureForEditPart() {
 
 		// DR: Avoid multiple refresh of the same edit part
-		if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-			if (!getEditor().getRefreshPerformanceCache().shouldRefresh(getContainerEditPart())) {
+		DefaultRefreshBehavior refreshBehavior = getEditor().getRefreshBehavior();
+		if (!isForceRefresh() && refreshBehavior.isMultipleRefreshSupressionActive()) {
+			if (!refreshBehavior.shouldRefresh(getContainerEditPart())) {
 				return;
 			}
 		}
@@ -438,8 +440,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			return;
 		}
 
-		if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-			if (!getEditor().getRefreshPerformanceCache().shouldRefresh(graphicsAlgorithm)) {
+		DefaultRefreshBehavior refreshBehavior = getEditor().getRefreshBehavior();
+		if (!isForceRefresh() && refreshBehavior.isMultipleRefreshSupressionActive()) {
+			if (!refreshBehavior.shouldRefresh(graphicsAlgorithm)) {
 				return;
 			}
 		}
@@ -464,7 +467,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		// refresh figure colors
 		if (selectedConnection) {
-			Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService()
+			Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider().getResourceRegistry(), Graphiti
+					.getGaService()
 					.getBackgroundColor(graphicsAlgorithm, true));
 			figure.setBackgroundColor(bg);
 		} else {
@@ -1037,9 +1041,11 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @param graphicsAlgorithm
 	 */
 	private void refreshFigureColors(IFigure figure, GraphicsAlgorithm graphicsAlgorithm) {
-		Color fg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService()
+		Color fg = DataTypeTransformation.toSwtColor(getConfigurationProvider().getResourceRegistry(), Graphiti
+				.getGaService()
 				.getForegroundColor(graphicsAlgorithm, true));
-		Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider(), Graphiti.getGaService()
+		Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider().getResourceRegistry(), Graphiti
+				.getGaService()
 				.getBackgroundColor(graphicsAlgorithm, true));
 		figure.setBackgroundColor(bg);
 		figure.setForegroundColor(fg);
@@ -1067,8 +1073,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	private void refreshFigureForPictogramElement(PictogramElement pe) {
 
 		if (pe != null) {
-			if (!isForceRefresh() && getEditor().isMultipleRefreshSupressionActive()) {
-				if (!getEditor().getRefreshPerformanceCache().shouldRefresh(pe)) {
+			DefaultRefreshBehavior refreshBehavior = getEditor().getRefreshBehavior();
+			if (!isForceRefresh() && refreshBehavior.isMultipleRefreshSupressionActive()) {
+				if (!refreshBehavior.shouldRefresh(pe)) {
 					return;
 				}
 			}
@@ -1412,7 +1419,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		return forceRefresh;
 	}
 
-	private DiagramEditorInternal getEditor() {
+	private DiagramEditor getEditor() {
 		return getConfigurationProvider().getDiagramEditor();
 	}
 

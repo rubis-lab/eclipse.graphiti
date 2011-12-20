@@ -66,10 +66,10 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.parts.directedit.GFDirectEditManager;
 import org.eclipse.graphiti.ui.internal.parts.directedit.TextCellLocator;
 import org.eclipse.graphiti.ui.internal.policy.DefaultEditPolicyFactory;
@@ -118,7 +118,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	@Override
 	public void activate() {
 		super.activate();
-		IContextButtonManager contextButtonManager = getConfigurationProvider().getDiagramEditor().getContextButtonManager();
+		IContextButtonManager contextButtonManager = getConfigurationProvider().getContextButtonManager();
 		contextButtonManager.register(this);
 		delegate.activate();
 	}
@@ -131,7 +131,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	@Override
 	public void deactivate() {
 		delegate.deactivate();
-		IContextButtonManager contextButtonManager = getConfigurationProvider().getDiagramEditor().getContextButtonManager();
+		IContextButtonManager contextButtonManager = getConfigurationProvider().getContextButtonManager();
 		contextButtonManager.deRegister(this);
 		super.deactivate();
 	}
@@ -529,7 +529,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 
 				if (doubleClickFeature != null && doubleClickFeature.canExecute(dcc)) {
 					GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(doubleClickFeature, dcc);
-					DiagramEditorInternal diagramEditor = getConfigurationProvider().getDiagramEditor();
+					DiagramEditor diagramEditor = getConfigurationProvider().getDiagramEditor();
 					CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
 					commandStack.execute(new GefCommandWrapper(commandWithContext, diagramEditor.getEditingDomain()));
 				}
@@ -722,7 +722,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	}
 
 	private Point getRelativeMouseLocation() {
-		DiagramEditorInternal editor = (DiagramEditorInternal) getConfigurationProvider().getWorkbenchPart();
+		DiagramEditor editor = (DiagramEditor) getConfigurationProvider().getWorkbenchPart();
 
 		// get current mouse location from the viewer
 		Point mouseLocation = new Point(editor.getMouseLocation());

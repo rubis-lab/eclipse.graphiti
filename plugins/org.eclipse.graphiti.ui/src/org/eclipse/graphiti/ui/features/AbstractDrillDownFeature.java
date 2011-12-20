@@ -117,8 +117,8 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 	protected void openDiagramEditor(Diagram diagram) {
 		// Found a diagram to open
 		String diagramTypeProviderId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
-		GraphitiUiInternal.getWorkbenchService().openDiagramEditor(diagram, getTransActionalEditingDomainForNewDiagram(),
-				diagramTypeProviderId, getDiagramEditorId(diagram), true);
+		GraphitiUiInternal.getWorkbenchService().openDiagramEditor(diagram, diagramTypeProviderId,
+				getDiagramEditorId(diagram));
 	}
 
 	/**

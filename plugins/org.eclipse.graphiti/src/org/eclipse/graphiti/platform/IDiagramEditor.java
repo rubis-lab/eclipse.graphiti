@@ -19,8 +19,6 @@ package org.eclipse.graphiti.platform;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
@@ -30,7 +28,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  * The Interface IDiagramEditor.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
- *              Extend DiagramEditor instead.
+ * @noextend This interface is not intended to be extended by clients. Extend
+ *           DiagramEditor instead.
  */
 public interface IDiagramEditor {
 
@@ -94,28 +93,18 @@ public interface IDiagramEditor {
 	void refresh();
 
 	/**
-	 * In opposite to <code>refresh()</code> where the diagram will globally
-	 * refreshed this method only refreshes the graphical representation for the
-	 * given pictogramm element.
-	 * 
-	 * @param pe
-	 *            an active pictogram element
-	 */
-	void refresh(PictogramElement pe);
-
-	/**
-	 * Gets the current size.
-	 * 
-	 * @return the current size of the diagram in the editor
-	 */
-	IDimension getCurrentSize();
-
-	/**
 	 * Checks if is dirty.
 	 * 
 	 * @return true, if editor is dirty
 	 */
 	boolean isDirty();
+
+	/**
+	 * Refreshes the title text of this part.
+	 * 
+	 * @since 0.9
+	 */
+	void refreshTitle();
 
 	/**
 	 * Refreshes the title tool tip text of this part.
@@ -138,13 +127,6 @@ public interface IDiagramEditor {
 	 */
 	void refreshPalette();
 	
-	/**
-	 * Gets the mouse location.
-	 * 
-	 * @return the mouse location
-	 */
-	ILocation getCurrentMouseLocation();
-
 	/**
 	 * Executes the given feature in the given context using the command stack
 	 * and editing domain of the diagram editor. In case of an IAddFeature being

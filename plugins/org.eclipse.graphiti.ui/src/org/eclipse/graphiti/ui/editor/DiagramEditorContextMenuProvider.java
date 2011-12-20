@@ -47,7 +47,6 @@ import org.eclipse.graphiti.ui.internal.action.IAvailable;
 import org.eclipse.graphiti.ui.internal.action.RemoveAction;
 import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.ILocationInfo;
@@ -403,7 +402,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 		return this.diagramTypeProvider;
 	}
 
-	private DiagramEditorInternal getEditor() {
-		return (DiagramEditorInternal) getDiagramTypeProvider().getDiagramEditor();
+	private DiagramEditor getEditor() {
+		return (DiagramEditor) getDiagramTypeProvider().getDiagramEditor();
 	}
 }

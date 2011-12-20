@@ -86,9 +86,11 @@ public class GFFigureUtil {
 		}
 		// fill rectangle
 		org.eclipse.graphiti.mm.algorithms.styles.Color foregroundColor = coloredArea.getStart().getColor();
-		Color foregroundColorSWT = DataTypeTransformation.toSwtColor(registryHolder, foregroundColor);
+		Color foregroundColorSWT = DataTypeTransformation.toSwtColor(registryHolder.getResourceRegistry(),
+				foregroundColor);
 		org.eclipse.graphiti.mm.algorithms.styles.Color backgroundColor = coloredArea.getEnd().getColor();
-		Color backgroundColorSWT = DataTypeTransformation.toSwtColor(registryHolder, backgroundColor);
+		Color backgroundColorSWT = DataTypeTransformation.toSwtColor(registryHolder.getResourceRegistry(),
+				backgroundColor);
 
 		graphics.setForegroundColor(foregroundColorSWT);
 		graphics.setBackgroundColor(backgroundColorSWT);

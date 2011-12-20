@@ -39,11 +39,6 @@
         </filter>
         <filter id="1211105284">
             <message_arguments>
-                <message_argument value="getCurrentToolBehaviorIndex()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
                 <message_argument value="setCurrentToolBehaviorIndex(int)"/>
             </message_arguments>
         </filter>
@@ -93,6 +88,26 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.features.impl.AbstractFeature"/>
                 <message_argument value="layoutPictogramElement(PictogramElement)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/platform/IDiagramEditor.java" type="org.eclipse.graphiti.platform.IDiagramEditor">
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="getCurrentMouseLocation()"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="getCurrentSize()"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="refresh(PictogramElement)"/>
             </message_arguments>
         </filter>
     </resource>

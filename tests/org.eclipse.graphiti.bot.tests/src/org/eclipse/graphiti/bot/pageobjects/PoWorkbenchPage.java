@@ -11,7 +11,6 @@ import java.awt.Robot;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.bot.tests.AbstractGFTests;
 import org.eclipse.graphiti.bot.tests.GFOtherTests;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -62,7 +61,7 @@ public class PoWorkbenchPage extends PageObject{
 		});
 	}
 	
-	public int openDiagramEditorFromObject(final Diagram diagram, final TransactionalEditingDomain domain) {
+	public int openDiagramEditorFromObject(final Diagram diagram) {
 		Resource resource = diagram.eResource();
 		assertNotNull(resource);
 
@@ -70,8 +69,8 @@ public class PoWorkbenchPage extends PageObject{
 			public Integer run() {
 				IWorkbenchPage page = getWorkbenchPage();
 				try {
-					IEditorInput input = DiagramEditorInput.createEditorInput(diagram, domain, GraphitiUi
-							.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId()), false);
+					IEditorInput input = DiagramEditorInput.createEditorInput(diagram, GraphitiUi.getExtensionManager()
+							.getDiagramTypeProviderId(diagram.getDiagramTypeId()));
 					IEditorPart ed = IDE.openEditor(page, input, DiagramEditor.DIAGRAM_EDITOR_ID);
 					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditor);
 				} catch (PartInitException e) {

@@ -18,8 +18,10 @@ package org.eclipse.graphiti.ui.internal.config;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
+import org.eclipse.graphiti.ui.internal.ResourceRegistry;
+import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.partfactory.PictogramsEditPartFactory;
 import org.eclipse.graphiti.ui.internal.policy.DefaultEditPolicyFactory;
 import org.eclipse.graphiti.ui.internal.policy.IEditPolicyFactory;
@@ -40,9 +42,14 @@ public class ConfigurationProvider implements IConfigurationProvider {
 
 	private IWorkbenchPart _workbenchPart;
 
-	private DiagramEditorInternal diagramEditor;
+	private DiagramEditor diagramEditor;
 
 	private IDiagramTypeProvider diagramTypeProvider;
+
+
+	private IContextButtonManager contextButtonManager;
+
+	private IResourceRegistry resourceRegistry = new ResourceRegistry();
 
 	/**
 	 * The Constructor.
@@ -52,7 +59,7 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
 	 */
-	public ConfigurationProvider(DiagramEditorInternal diagramEditor, IDiagramTypeProvider diagramTypeProvider) {
+	public ConfigurationProvider(DiagramEditor diagramEditor, IDiagramTypeProvider diagramTypeProvider) {
 		this.diagramEditor = diagramEditor;
 		setDiagramTypeProvider(diagramTypeProvider);
 	}
@@ -69,6 +76,10 @@ public class ConfigurationProvider implements IConfigurationProvider {
 
 		_isDisposed = true;
 
+		if (resourceRegistry != null) {
+			resourceRegistry.dispose();
+		}
+
 		getDiagramTypeProvider().dispose();
 	}
 
@@ -81,6 +92,14 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	 */
 	public boolean isDisposed() {
 		return _isDisposed;
+	}
+
+	public IContextButtonManager getContextButtonManager() {
+		return contextButtonManager;
+	}
+
+	public void setContextButtonManager(IContextButtonManager contextButtonManager) {
+		this.contextButtonManager = contextButtonManager;
 	}
 
 	/*
@@ -137,7 +156,7 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	 * @see org.eclipse.graphiti.ui.internal.config.IConfigurationProvider#
 	 * getDiagramEditor()
 	 */
-	public DiagramEditorInternal getDiagramEditor() {
+	public DiagramEditor getDiagramEditor() {
 		return diagramEditor;
 	}
 
@@ -177,6 +196,6 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	}
 
 	public IResourceRegistry getResourceRegistry() {
-		return getDiagramEditor().getResourceRegistry();
+		return resourceRegistry;
 	}
 }

@@ -33,8 +33,8 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.internal.contextbuttons.PositionedContextButton;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.editor.GFDragConnectionTool;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
@@ -225,13 +225,13 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	}
 
 	/**
-	 * Returns the {@link DiagramEditorInternal} for which the context button is
+	 * Returns the {@link DiagramEditor} for which the context button is
 	 * displayed.
 	 * 
-	 * @return The {@link DiagramEditorInternal} for which the context button is
+	 * @return The {@link DiagramEditor} for which the context button is
 	 *         displayed.
 	 */
-	public final DiagramEditorInternal getEditor() {
+	public final DiagramEditor getEditor() {
 		return getContextButtonPad().getEditor();
 	}
 
@@ -436,7 +436,6 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	 * @return The adjusted SWT color for the given IColorConstant.
 	 */
 	private Color getAdjustedColor(IColorConstant color) {
-		DiagramEditorInternal editor = getContextButtonPad().getEditor();
 		if (!isEnabled()) {
 			int disabledAdjustment = 80;
 			int r = Math.min(255, color.getRed() + disabledAdjustment);
@@ -444,7 +443,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 			int b = Math.min(255, color.getBlue() + disabledAdjustment);
 			color = new ColorConstant(r, g, b);
 		}
-		Color swtColor = DataTypeTransformation.toSwtColor(editor, color);
+		Color swtColor = DataTypeTransformation.toSwtColor(getContextButtonPad().getResourceRegistry(), color);
 		return swtColor;
 	}
 
@@ -626,7 +625,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 			getEditor().getEditDomain().getCommandStack().execute(new ContextEntryCommand(getEntry()));
 		}
 
-		getContextButtonPad().getEditor().getContextButtonManager().hideContextButtonsInstantly();
+		getContextButtonPad().getContextButtonManagerForPad().hideContextButtonsInstantly();
 	}
 
 	/**

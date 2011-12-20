@@ -369,13 +369,15 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			if (selectionFeedback == IVisualState.SELECTION_PRIMARY) {
 				IColorConstant primarySelectionBackGroundColor = selectionInfo.getPrimarySelectionBackGroundColor();
 				if (primarySelectionBackGroundColor != null) {
-					graphics.setBackgroundColor(DataTypeTransformation.toSwtColor(getConfigurationProvider(),
+					graphics.setBackgroundColor(DataTypeTransformation.toSwtColor(getConfigurationProvider()
+							.getResourceRegistry(),
 							primarySelectionBackGroundColor));
 				}
 			} else if (selectionFeedback == IVisualState.SELECTION_SECONDARY) {
 				IColorConstant secondarySelectionBackGroundColor = selectionInfo.getSecondarySelectionBackGroundColor();
 				if (secondarySelectionBackGroundColor != null) {
-					graphics.setBackgroundColor(DataTypeTransformation.toSwtColor(getConfigurationProvider(),
+					graphics.setBackgroundColor(DataTypeTransformation.toSwtColor(getConfigurationProvider()
+							.getResourceRegistry(),
 							secondarySelectionBackGroundColor));
 				}
 
@@ -439,7 +441,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			if (parentSelected)
 				hoverColor = selectionInfo.getHoverColorParentSelected();
 			if (hoverColor != null) {
-				Color hoverColorSwt = DataTypeTransformation.toSwtColor(getConfigurationProvider(), hoverColor);
+				Color hoverColorSwt = DataTypeTransformation.toSwtColor(getConfigurationProvider()
+						.getResourceRegistry(), hoverColor);
 				graphics.setBackgroundColor(hoverColorSwt);
 				return true;
 			}

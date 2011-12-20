@@ -22,21 +22,22 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 
-	private DiagramEditorInternal diagramEditor;
+	private DiagramEditor diagramEditor;
 
-	public GraphitiScrollingGraphicalViewer(DiagramEditorInternal diagramEditor) {
+	public GraphitiScrollingGraphicalViewer(DiagramEditor diagramEditor) {
 		this.setDiagramEditor(diagramEditor);
 	}
 
 	@Override
 	public void select(EditPart editpart) {
-		IToolBehaviorProvider tbp = getDiagramEditor().getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+		IToolBehaviorProvider tbp = getDiagramEditor().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 		boolean connectionPossible = tbp.isConnectionSelectionEnabled();
 
 		if (connectionPossible) {
@@ -53,7 +54,7 @@ public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 
 	@Override
 	public void setSelection(ISelection newSelection) {
-		IToolBehaviorProvider tbp = getDiagramEditor().getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+		IToolBehaviorProvider tbp = getDiagramEditor().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 		boolean multiPossible = tbp.isMultiSelectionEnabled();
 		boolean connectionPossible = tbp.isConnectionSelectionEnabled();
 
@@ -127,7 +128,7 @@ public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 
 	@Override
 	public void appendSelection(EditPart editpart) {
-		IToolBehaviorProvider tbp = getDiagramEditor().getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+		IToolBehaviorProvider tbp = getDiagramEditor().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 		boolean multiPossible = tbp.isMultiSelectionEnabled();
 		boolean connectionPossible = tbp.isConnectionSelectionEnabled();
 
@@ -168,11 +169,11 @@ public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 		}
 	}
 
-	private void setDiagramEditor(DiagramEditorInternal diagramEditor) {
+	private void setDiagramEditor(DiagramEditor diagramEditor) {
 		this.diagramEditor = diagramEditor;
 	}
 
-	protected DiagramEditorInternal getDiagramEditor() {
+	protected DiagramEditor getDiagramEditor() {
 		return diagramEditor;
 	}
 }

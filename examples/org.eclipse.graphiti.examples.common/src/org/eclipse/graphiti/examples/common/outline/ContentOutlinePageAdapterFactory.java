@@ -16,7 +16,10 @@
 package org.eclipse.graphiti.examples.common.outline;
 
 import org.eclipse.core.runtime.IAdapterFactory;
+import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.editparts.ZoomManager;
+import org.eclipse.gef.ui.actions.ActionRegistry;
+import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
@@ -34,11 +37,17 @@ public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 			if (IContentOutlinePage.class.equals(adapterType)) {
 				if (adaptableObject instanceof DiagramEditor) {
 					DiagramEditor diagramEditor = (DiagramEditor) adaptableObject;
-					if (diagramEditor.getConfigurationProvider() != null) { // diagram editor initialized?
-						GraphicsEditorOutlinePage outlinePage = new GraphicsEditorOutlinePage(new TreeViewer(), diagramEditor
-								.getGraphicalViewer(), diagramEditor.getActionRegistryInternal(), diagramEditor.getEditDomain(),
-								diagramEditor.getCommonKeyHandler(), diagramEditor.getAdapter(ZoomManager.class), diagramEditor
-										.getSelectionSynchronizerInternal(), diagramEditor);
+					if (diagramEditor.getDiagramTypeProvider() != null) { // diagram
+																			// editor
+																			// initialized?
+						GraphicsEditorOutlinePage outlinePage = new GraphicsEditorOutlinePage(new TreeViewer(),
+								diagramEditor.getGraphicalViewer(),
+								(ActionRegistry) diagramEditor.getAdapter(ActionRegistry.class),
+								diagramEditor.getEditDomain(),
+								(org.eclipse.gef.KeyHandler) diagramEditor.getAdapter(KeyHandler.class),
+								diagramEditor.getAdapter(ZoomManager.class),
+								(SelectionSynchronizer) diagramEditor.getAdapter(SelectionSynchronizer.class),
+								diagramEditor);
 						return outlinePage;
 					}
 				}

@@ -9,9 +9,9 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/DiagramEditor.java" type="org.eclipse.graphiti.ui.editor.DiagramEditor">
-        <filter id="576720909">
+        <filter id="574619656">
             <message_arguments>
-                <message_argument value="DiagramEditorInternal"/>
+                <message_argument value="IDiagramEditor"/>
                 <message_argument value="DiagramEditor"/>
             </message_arguments>
         </filter>
@@ -21,6 +21,80 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider"/>
                 <message_argument value="DiagramEditorContextMenuProvider(EditPartViewer, ActionRegistry, IConfigurationProvider)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DiagramEditorInput.java" type="org.eclipse.graphiti.ui.editor.DiagramEditorInput">
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="DiagramEditorInput(String, TransactionalEditingDomain, String)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="DiagramEditorInput(String, TransactionalEditingDomain, String, boolean)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="DiagramEditorInput(URI, TransactionalEditingDomain, String)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="DiagramEditorInput(URI, TransactionalEditingDomain, String, boolean)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338755678">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="KEY_OBJECT_NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="338755678">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="editingDomain"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="createEditorInput(Diagram, TransactionalEditingDomain, String, boolean)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="dispose()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="getDiagram()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="getEObject()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="getLiveName()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorInput"/>
+                <message_argument value="getLiveToolTipText()"/>
             </message_arguments>
         </filter>
     </resource>
@@ -86,14 +160,6 @@
             <message_arguments>
                 <message_argument value="IDiagramEditor"/>
                 <message_argument value="DiagramEditorDummy"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/ui/internal/editor/DiagramEditorInternal.java" type="org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal">
-        <filter comment="Allow implementation accross Graphiti project borders" id="574619656">
-            <message_arguments>
-                <message_argument value="IDiagramEditor"/>
-                <message_argument value="DiagramEditorInternal"/>
             </message_arguments>
         </filter>
     </resource>

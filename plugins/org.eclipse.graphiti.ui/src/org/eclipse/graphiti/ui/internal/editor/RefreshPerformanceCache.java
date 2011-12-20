@@ -15,32 +15,6 @@ public class RefreshPerformanceCache {
 
 	private HashSet<PictogramElement> refreshedFigure4PE = new HashSet<PictogramElement>();
 
-	/**
-	 * Gets the refreshed figure4 ep.
-	 * 
-	 * @return the refreshed figure4 ep
-	 */
-	public HashSet<EditPart> getRefreshedFigure4EP() {
-		return refreshedFigure4EP;
-	}
-
-	/**
-	 * Gets the refreshed figure4 ga.
-	 * 
-	 * @return the refreshed figure4 ga
-	 */
-	public HashSet<GraphicsAlgorithm> getRefreshedFigure4GA() {
-		return refreshedFigure4GA;
-	}
-
-	/**
-	 * Gets the refreshed figure4 pe.
-	 * 
-	 * @return the refreshed figure4 pe
-	 */
-	public HashSet<PictogramElement> getRefreshedFigure4PE() {
-		return refreshedFigure4PE;
-	}
 
 	/**
 	 * Inits the refresh.
@@ -51,16 +25,30 @@ public class RefreshPerformanceCache {
 		refreshedFigure4PE.clear();
 	}
 
-	public boolean shouldRefresh(EditPart ep) {
-		return getRefreshedFigure4EP().add(ep);
-	}
+	/**
+	 * Answers if a refresh should be triggered for an object of type
+	 * <ul>
+	 * <li> {@link GraphicsAlgorithm}
+	 * <li> {@link PictogramElement}
+	 * <li> {@link EditPart}
+	 * </ul>
+	 * If the supplied argument is of another type an
+	 * {@link IllegalArgumentException} is thrown.
+	 * 
+	 * @param obj
+	 * @return true if the supplied object should be refreshed, false otherwise.
+	 */
+	public boolean shouldRefresh(Object obj) {
+		if (obj instanceof GraphicsAlgorithm) {
+			return refreshedFigure4GA.add((GraphicsAlgorithm) obj);
+		} else if (obj instanceof EditPart) {
+			return refreshedFigure4EP.add((EditPart) obj);
+		} else if (obj instanceof PictogramElement) {
+			return refreshedFigure4PE.add((PictogramElement) obj);
+		} else {
+			throw new IllegalArgumentException("Can not refresh type: " + obj.getClass()); //$NON-NLS-1$
+		}
 
-	public boolean shouldRefresh(PictogramElement pe) {
-		return getRefreshedFigure4PE().add(pe);
-	}
-
-	public boolean shouldRefresh(GraphicsAlgorithm ga) {
-		return getRefreshedFigure4GA().add(ga);
 	}
 
 }

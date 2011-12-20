@@ -71,13 +71,13 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.command.AddModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.command.MoveAnchorFeatureCommandWithContext;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.viewers.ISelection;
@@ -242,10 +242,10 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 		if (ret.containsCommands()) {
 			// hide context-buttons, if the user resizes/moves the shape
-			DiagramEditorInternal editor = getConfigurationProvider().getDiagramEditor();
-			IContextButtonManager contextButtonManager = editor.getContextButtonManager();
+			IContextButtonManager contextButtonManager = getConfigurationProvider().getContextButtonManager();
 			contextButtonManager.hideContextButtonsInstantly();
 
+			DiagramEditor editor = getConfigurationProvider().getDiagramEditor();
 			return new GefCommandWrapper(ret, editor.getEditingDomain());
 		} else {
 			return null;

@@ -123,7 +123,8 @@ public class Util {
 						// (e.g. known by a special extension or residing in
 						// a special folder) instead of this generic logic.
 						@SuppressWarnings("restriction")
-						URI uri = org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal.getEmfService().getFileURI(file, rSet);
+						URI uri = org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal.getEmfService()
+								.getFileURI(file);
 						Resource fileResource = rSet.getResource(uri, true);
 						if (fileResource != null) {
 							EList<EObject> contents = fileResource.getContents();

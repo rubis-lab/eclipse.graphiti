@@ -25,9 +25,10 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.internal.contextbuttons.IContextButtonPadDeclaration;
-import org.eclipse.graphiti.internal.contextbuttons.PositionedContextButton;
 import org.eclipse.graphiti.internal.contextbuttons.IContextButtonPadDeclaration.PadStyle;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
+import org.eclipse.graphiti.internal.contextbuttons.PositionedContextButton;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.swt.SWT;
@@ -80,7 +81,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	/**
 	 * The editor as described in {@link #getEditor()}.
 	 */
-	private DiagramEditorInternal editor;
+	private DiagramEditor editor;
 
 	/**
 	 * The edit-part as described in {@link #getEditPart()}.
@@ -113,7 +114,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	private MouseMoveListener mouseMoveListener = new MouseMoveListener() {
 		public void mouseMove(MouseEvent e) {
 			if (!isMouseInOverlappingArea()) {
-				getEditor().getContextButtonManager().hideContextButtonsInstantly();
+				getContextButtonManagerForPad().hideContextButtonsInstantly();
 			}
 		}
 	};
@@ -138,10 +139,16 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 		}
 	};
 
+	private IResourceRegistry resourceRegistry;
+
+	private ContextButtonManagerForPad contextButtonManagerForPad;
+
 	// ============================ constructors ==============================
 
 	/**
 	 * Creates a new ContextButtonPad and calls {@link #initialize()}.
+	 * 
+	 * @param contextButtonManagerForPad
 	 * 
 	 * @param declaration
 	 *            The context button pad declaration as described in
@@ -152,12 +159,17 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	 *            The editor as described in {@link #getEditor()}.
 	 * @param editPart
 	 *            The edit-part as described in {@link #getEditPart()}.
+	 * @param resourceRegistry
 	 */
-	public ContextButtonPad(IContextButtonPadDeclaration declaration, double zoomLevel, DiagramEditorInternal editor, EditPart editPart) {
+	public ContextButtonPad(ContextButtonManagerForPad contextButtonManagerForPad,
+			IContextButtonPadDeclaration declaration, double zoomLevel, DiagramEditor editor,
+			EditPart editPart, IResourceRegistry resourceRegistry) {
 		this.declaration = declaration;
 		this.zoomLevel = zoomLevel;
 		this.editor = editor;
 		this.editPart = editPart;
+		this.resourceRegistry = resourceRegistry;
+		this.contextButtonManagerForPad = contextButtonManagerForPad;
 
 		initialize();
 	}
@@ -197,7 +209,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	 * 
 	 * @return The editor, which can be used to access the environment.
 	 */
-	public final DiagramEditorInternal getEditor() {
+	public final DiagramEditor getEditor() {
 		return editor;
 	}
 
@@ -273,6 +285,10 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 			ContextButton cb = new ContextButton(positionedButton, this);
 			add(cb, position);
 		}
+	}
+
+	IResourceRegistry getResourceRegistry() {
+		return resourceRegistry;
 	}
 
 	/**
@@ -520,11 +536,13 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 		int lw = (int) (getZoomLevel() * getDeclaration().getPadLineWidth());
 		graphics.setLineWidth(lw);
 
-		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(getEditor(), getDeclaration().getPadInnerLineColor()));
+		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
+				.getPadInnerLineColor()));
 		graphics.drawPath(pathInnerLine);
-		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(getEditor(), getDeclaration().getPadMiddleLineColor()));
+		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration().getPadMiddleLineColor()));
 		graphics.drawPath(pathMiddleLine);
-		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(getEditor(), getDeclaration().getPadOuterLineColor()));
+		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
+				.getPadOuterLineColor()));
 		graphics.drawPath(pathOuterLine);
 	}
 
@@ -563,8 +581,10 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 		int lw = (int) (getZoomLevel() * getDeclaration().getPadLineWidth());
 		graphics.setLineWidth(lw);
 
-		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(getEditor(), getDeclaration().getPadFillColor()));
-		graphics.setBackgroundColor(DataTypeTransformation.toSwtColor(getEditor(), getDeclaration().getPadFillColor()));
+		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
+				.getPadFillColor()));
+		graphics.setBackgroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
+				.getPadFillColor()));
 		graphics.drawPath(pathFill);
 		graphics.fillPath(pathFill);
 	}
@@ -632,10 +652,14 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 		// hide if mouse location outside overlapping containment rectangles
 		boolean containsPointOverlapping = containsPointOverlapping(mouseLocation.x, mouseLocation.y);
 		if (!containsPointOverlapping) {
-			getEditor().getContextButtonManager().hideContextButtonsInstantly();
+			getContextButtonManagerForPad().hideContextButtonsInstantly();
 			return true;
 		}
 		return containsPointOverlapping;
+	}
+
+	public ContextButtonManagerForPad getContextButtonManagerForPad() {
+		return contextButtonManagerForPad;
 	}
 
 	/**

@@ -18,8 +18,7 @@
 package org.eclipse.graphiti.ui.editor;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.ui.IElementFactory;
 import org.eclipse.ui.IMemento;
 
@@ -40,13 +39,9 @@ public class DiagramEditorInputFactory implements IElementFactory {
 		if (diagramUriString == null) {
 			return null;
 		}
-
 		// get diagram type provider id
 		final String providerID = memento.getString(DiagramEditorInput.KEY_PROVIDER_ID);
-		// TODO if (providerID == null)
-		// return null;
-
-		final TransactionalEditingDomain domain = GraphitiUi.getEmfService().createResourceSetAndEditingDomain();
-		return new DiagramEditorInput(diagramUriString, domain, providerID, true);
+		URI diagramUri = URI.createURI(diagramUriString);
+		return new DiagramEditorInput(diagramUri, providerID);
 	}
 }

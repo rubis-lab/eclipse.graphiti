@@ -24,6 +24,7 @@ import org.eclipse.gef.AccessibleEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ExposeHelper;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScalableRootEditPart;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -50,7 +51,7 @@ public class GFScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer
 	 * @param diagramEditor
 	 *            the diagram editor
 	 */
-	public GFScrollingGraphicalViewer(DiagramEditorInternal diagramEditor) {
+	public GFScrollingGraphicalViewer(DiagramEditor diagramEditor) {
 		super(diagramEditor);
 	}
 

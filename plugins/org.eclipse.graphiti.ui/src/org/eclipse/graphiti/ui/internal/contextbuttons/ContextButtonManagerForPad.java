@@ -41,7 +41,8 @@ import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart;
 import org.eclipse.swt.SWT;
 
@@ -64,7 +65,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 * The editor on which this context button manager works, see
 	 * {@link #getEditor()}. It is set in the constructor.
 	 */
-	private DiagramEditorInternal editor;
+	private DiagramEditor editor;
 
 	/**
 	 * A backward-map from the edit-part figures to their edit-parts as
@@ -116,7 +117,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 		}
 
 		private void reactOnMouse(MouseEvent me) {
-			DiagramEditorInternal ed = getEditor();
+			DiagramEditor ed = getEditor();
 
 			if (ed.isDirectEditingActive()) {
 				return;
@@ -142,6 +143,8 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 
 	};
 
+	private IResourceRegistry resourceRegistry;
+
 	// ============================ constructor ===============================
 
 	/**
@@ -150,9 +153,11 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 * @param editor
 	 *            The editor on which this context button manager works, see
 	 *            {@link #getEditor()}.
+	 * @param iResourceRegistry
 	 */
-	public ContextButtonManagerForPad(DiagramEditorInternal editor) {
+	public ContextButtonManagerForPad(DiagramEditor editor, IResourceRegistry resourceRegistry) {
 		this.editor = editor;
+		this.resourceRegistry = resourceRegistry;
 
 		ZoomManager zoomMgr = (ZoomManager) getEditor().getGraphicalViewer().getProperty(ZoomManager.class.toString());
 		if (zoomMgr != null) {
@@ -170,7 +175,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 * 
 	 * @return The editor this context button manager works on.
 	 */
-	public DiagramEditorInternal getEditor() {
+	public DiagramEditor getEditor() {
 		return editor;
 	}
 
@@ -346,7 +351,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 			}
 
 			// retrieve context button pad data
-			IToolBehaviorProvider toolBehaviorProvider = getEditor().getConfigurationProvider().getDiagramTypeProvider()
+			IToolBehaviorProvider toolBehaviorProvider = getEditor().getDiagramTypeProvider()
 					.getCurrentToolBehaviorProvider();
 			IContextButtonPadData contextButtonPadData = toolBehaviorProvider.getContextButtonPad(context);
 			if (contextButtonPadData == null) {
@@ -373,7 +378,9 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 
 			// create context button pad and add to handle layer
 			EditPart activeEditPart = getFigure2EditPart().get(figure);
-			ContextButtonPad contextButtonPad = new ContextButtonPad(declaration, zoom, getEditor(), activeEditPart);
+			ContextButtonPad contextButtonPad = new ContextButtonPad(this, declaration, zoom, getEditor(),
+					activeEditPart,
+					resourceRegistry);
 			setActive(figure, contextButtonPad);
 
 			IFigure feedbackLayer = rootEditPart.getLayer(LayerConstants.HANDLE_LAYER);

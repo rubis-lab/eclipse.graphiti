@@ -31,6 +31,7 @@ import org.eclipse.gef.palette.PaletteSeparator;
 import org.eclipse.gef.palette.PaletteStack;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.CreationFactory;
+import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.palette.IConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.ICreationToolEntry;
@@ -42,7 +43,6 @@ import org.eclipse.graphiti.palette.IToolEntry;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.IEclipseImageDescriptor;
 import org.eclipse.graphiti.ui.internal.Messages;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.util.gef.MultiCreationFactory;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -65,7 +65,7 @@ public class GFPaletteRoot extends PaletteRoot {
 	 */
 	private static boolean DND_FROM_PALETTE = true; //
 
-	private IConfigurationProvider cfgProvider;
+	private IDiagramTypeProvider diagramTypeProvider;
 
 	/**
 	 * Creates a new GenericPaletteRoot for the given Model. It is constructed
@@ -74,8 +74,8 @@ public class GFPaletteRoot extends PaletteRoot {
 	 * @param configurationProvider
 	 *            the configuration provider
 	 */
-	public GFPaletteRoot(IConfigurationProvider configurationProvider) {
-		cfgProvider = configurationProvider;
+	public GFPaletteRoot(IDiagramTypeProvider diagramTypeProvider) {
+		this.diagramTypeProvider = diagramTypeProvider;
 		updatePaletteEntries();
 	}
 
@@ -98,8 +98,7 @@ public class GFPaletteRoot extends PaletteRoot {
 		// create new entries
 		add(createModelIndependentTools());
 
-		IToolBehaviorProvider currentToolBehaviorProvider = cfgProvider.getDiagramTypeProvider()
-				.getCurrentToolBehaviorProvider();
+		IToolBehaviorProvider currentToolBehaviorProvider = diagramTypeProvider.getCurrentToolBehaviorProvider();
 
 		IPaletteCompartmentEntry[] paletteCompartments = currentToolBehaviorProvider.getPalette();
 
@@ -153,8 +152,7 @@ public class GFPaletteRoot extends PaletteRoot {
 	protected PaletteContainer createModelIndependentTools() {
 		PaletteGroup controlGroup = new PaletteGroup(Messages.GraphicsPaletteRoot_0_xmen);
 		List<PaletteEntry> entries = new ArrayList<PaletteEntry>();
-		IToolBehaviorProvider toolBehaviorProvider = cfgProvider.getDiagramTypeProvider()
-				.getCurrentToolBehaviorProvider();
+		IToolBehaviorProvider toolBehaviorProvider = diagramTypeProvider.getCurrentToolBehaviorProvider();
 
 		// Selection tool
 		if (toolBehaviorProvider.isShowSelectionTool()) {

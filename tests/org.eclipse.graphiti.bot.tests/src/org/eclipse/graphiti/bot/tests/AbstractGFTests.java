@@ -16,6 +16,9 @@
  *******************************************************************************/
 package org.eclipse.graphiti.bot.tests;
 
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
 
 import java.util.ArrayList;
@@ -37,6 +40,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.bot.pageobjects.PoDiagramEditor;
@@ -65,6 +70,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
@@ -111,9 +117,8 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 			feature.execute(addContext);
 		}
 	}
-	
-	
-	public static void executeInRecordingCommand(IDiagramEditor diagramEditor, final Runnable run){
+
+	public static void executeInRecordingCommand(IDiagramEditor diagramEditor, final Runnable run) {
 		TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
@@ -123,8 +128,8 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 			}
 		});
 	}
-	
-	public static void executeInRecordingCommand(TransactionalEditingDomain domain, final Runnable run){
+
+	public static void executeInRecordingCommand(TransactionalEditingDomain domain, final Runnable run) {
 		domain.getCommandStack().execute(new RecordingCommand(domain) {
 
 			@Override
@@ -133,18 +138,17 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 			}
 		});
 	}
-	
-	public static void executeInRecordingCommandInUIThread(final IDiagramEditor diagramEditor, final Runnable run){
+
+	public static void executeInRecordingCommandInUIThread(final IDiagramEditor diagramEditor, final Runnable run) {
 		syncExec(new VoidResult() {
 			public void run() {
 				executeInRecordingCommand(diagramEditor, run);
 			}
 		});
 	}
-	
-	
-	protected void addClassesAndReferenceToDiagram(IFeatureProvider fp, Diagram diagram, int sourceX, int sourceY, String sourceClassName,
-			int targetX, int targetY, String targetClassName) {
+
+	protected void addClassesAndReferenceToDiagram(IFeatureProvider fp, Diagram diagram, int sourceX, int sourceY,
+			String sourceClassName, int targetX, int targetY, String targetClassName) {
 		addClassToDiagram(fp, diagram, sourceX, sourceY, sourceClassName);
 		addClassToDiagram(fp, diagram, targetX, targetY, targetClassName);
 		addReferenceToDiagram(fp, diagram, sourceClassName, targetClassName);
@@ -173,7 +177,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return createDiagram(diagramTypeId, "xmi");
 	}
 
-
 	/**
 	 * Create Diagram and diagram file.
 	 * 
@@ -198,11 +201,14 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		URI diagramUri = createDiagramFileUri(fileName);
 		final Diagram diagram = getPeService().createDiagram(diagramTypeId, diagramName, true);
 
-		TransactionalEditingDomain editingDomain = FileService.createEmfFileForDiagram(diagramUri, diagram);
+		FileService.createEmfFileForDiagram(diagramUri, diagram);
+		final TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService()
+				.createResourceSetAndEditingDomain();
+		final ResourceSet resourceSet = editingDomain.getResourceSet();
+		final Resource resource = resourceSet.createResource(diagramUri);
 		ed.setEditingDomain(editingDomain);
 		return diagram;
 	}
-
 
 	protected EEnum createEEnum(Diagram diagram, String enumName) {
 		EEnum newEnum = EcoreFactory.eINSTANCE.createEEnum();
@@ -240,7 +246,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return null;
 	}
 
-
 	protected void moveClassShape(IFeatureProvider fp, Diagram diagram, int x, int y, String className) {
 
 		Shape shape = findShapeForEClass(diagram, className);
@@ -269,12 +274,12 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 				final Diagram newDiagram = createDiagram(type);
 				assertTrue("create diagram does not work", newDiagram != null);
 
-				//				assertEditingDomainSave(getTransactionalEditingDomain());
+				// assertEditingDomainSave(getTransactionalEditingDomain());
 
 				// use TestUtil to open editor since this waits for late
 				// initialization
-				DiagramEditor diagramEditor = (DiagramEditor) GraphitiUiInternal.getWorkbenchService().openDiagramEditor(newDiagram,
-						ed.getTransactionalEditingDomain(), false);
+				DiagramEditor diagramEditor = (DiagramEditor) GraphitiUiInternal.getWorkbenchService()
+						.openDiagramEditor(newDiagram);
 				return diagramEditor;
 			}
 		});
@@ -294,7 +299,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 	@Override
 	@Before
 	protected void setUp() throws Exception {
-		//		T.racer().setInfoAlwaysTrue(true); // tracing enabled for testing
+		// T.racer().setInfoAlwaysTrue(true); // tracing enabled for testing
 
 		super.setUp();
 
@@ -323,14 +328,12 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 	@Override
 	protected void tearDown() throws Exception {
-		ed.cleanupEditingDomain();
 		if (this.project != null) {
 			this.project.close(null);
 			this.project.delete(true, null);
 		}
 		super.tearDown();
 	}
-
 
 	private String createDiagramFileName(String extension) {
 
@@ -391,7 +394,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 			CreateConnectionContext ccc = new CreateConnectionContext();
 			ccc.setSourceAnchor(sourceAnchor);
 			ccc.setTargetAnchor(targetAnchor);
-			// question instantiate create feature directly? 
+			// question instantiate create feature directly?
 			for (ICreateConnectionFeature ccf : ccfs) {
 				if (ccf.canCreate(ccc)) {
 					ccf.execute(ccc);
@@ -405,7 +408,6 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return Graphiti.getPeService();
 	}
 
-
 	protected ICreateContext createCreateContext(ContainerShape target, Rectangle rect) {
 		CreateContext ret = new CreateContext();
 		ret.setTargetContainer(target);
@@ -417,14 +419,16 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return ret;
 	}
 
-	protected void createClassesAndConnection(final int x, final int y, final IDiagramTypeProvider diagramTypeProvider, final String toolToActivate, final String shapename) {
+	protected void createClassesAndConnection(final int x, final int y, final IDiagramTypeProvider diagramTypeProvider,
+			final String toolToActivate, final String shapename) {
 		syncExec(new VoidResult() {
 			public void run() {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 				executeInRecordingCommand(diagramTypeProvider.getDiagramEditor(), new Runnable() {
 					public void run() {
-						addClassesAndReferenceToDiagram(fp, currentDiagram, x, y, shapename, x, y + 300, "ConnectionDecorator");
+						addClassesAndReferenceToDiagram(fp, currentDiagram, x, y, shapename, x, y + 300,
+								"ConnectionDecorator");
 					}
 				});
 				if (toolToActivate != null)
@@ -442,5 +446,13 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		event.stateMask = stateMask;
 		event.count = count;
 		return event;
+	}
+
+	protected IConfigurationProvider getConfigProviderMock(IDiagramTypeProvider dtp, DiagramEditor ed) {
+		IConfigurationProvider configurationProviderMock = createNiceMock(IConfigurationProvider.class);
+		expect(configurationProviderMock.getDiagramTypeProvider()).andReturn(dtp).anyTimes();
+		expect(configurationProviderMock.getDiagramEditor()).andReturn(ed).anyTimes();
+		replay(configurationProviderMock);
+		return configurationProviderMock;
 	}
 }

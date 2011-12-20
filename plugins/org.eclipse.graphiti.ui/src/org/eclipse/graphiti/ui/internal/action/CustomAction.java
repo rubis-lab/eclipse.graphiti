@@ -21,8 +21,8 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.command.CommandContainer;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ICommand;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
 import org.eclipse.jface.action.Action;
 
 /**
@@ -35,9 +35,9 @@ public class CustomAction extends Action {
 
 	private ICustomContext context;
 
-	private DiagramEditorInternal diagramEditor;
+	private DiagramEditor diagramEditor;
 
-	public CustomAction(ICustomFeature customFeature, ICustomContext context, DiagramEditorInternal diagramEditor) {
+	public CustomAction(ICustomFeature customFeature, ICustomContext context, DiagramEditor diagramEditor) {
 		super();
 		this.customFeature = customFeature;
 		this.context = context;
