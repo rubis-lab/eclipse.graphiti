@@ -55,7 +55,10 @@
 	</topic>
 	<topic label="Property Sheet" href="resources/docu/gfw/property-sheet.htm"/>
 	<topic label="Images" href="resources/docu/gfw/images.htm"/>
-	<topic label="Styles" href="resources/docu/gfw/styles.htm"/>
+	<topic href="resources/docu/gfw/styles.htm" label="Styles">
+    <topic href="resources/docu/gfw/default_values.html" label="Default Attribute Values of Graphics Algorithms">
+    </topic>
+ </topic>
 	<topic label="Color Schemas" href="resources/docu/gfw/color-schemas.htm"/>
 	<topic label="Polygon and Polyline" href="resources/docu/gfw/polygon-and-polyline.htm"/>
 	<topic label="User-defined Properties" href="resources/docu/gfw/user-defined-properties.htm"/>

@@ -22,7 +22,7 @@ for graphical attributes (color, line width, …), which can be associated by a 
 algorithm. A style can have a parent-style, from which a style can &quot;inherit&quot; graphical 
 attributes (similar to cascading style sheets). </p>
 <p>Concretely the value of a graphical attribute is determined by finding the first 
-attribute which has no value in the following order: </p>
+attribute which <em>has no value</em> in the following order: </p>
 <ol>
 	<li>The graphics algorithm itself</li>
 	<li>The parent style of a style assigned to the graphics algorithm, if parent 
@@ -66,7 +66,8 @@ polyline as shown below, it doesn&#39;t work:</p>
 <p>The graphics algorithm above has for the attribute line style &quot;SOLID&quot; as default 
 value as well as line width has &quot;1&quot; as default value. The value &quot;SOLID&quot; as a line 
 styles&#39; default value makes sense, while for most of all Graphiti users this 
-is the right one.</p>
+is the right one. You can find the default attribute values of graphics 
+algorithms <a href="default_values.html">here</a>.</p>
 <p>To avoid the above confusion the &quot;createPlain&quot;-methods for graphics algorithms were 
 introduced, they have no default values. All values have to be set explicitly and 
 are documented in the coding. We recommend using them, when working with styles.</p>
