@@ -20,6 +20,7 @@
  *    mwenz - Bug 356828 - Escaped diagram name is used as editor title
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
  *                         and called features via editor command stack to check it
+ *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
  *
  * </copyright>
  *
@@ -102,11 +103,13 @@ import org.eclipse.graphiti.ui.internal.action.PasteAction;
 import org.eclipse.graphiti.ui.internal.action.PrintGraphicalViewerAction;
 import org.eclipse.graphiti.ui.internal.action.RemoveAction;
 import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
+import org.eclipse.graphiti.ui.internal.action.ToggleContextButtonPadAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.ConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.contextbuttons.ContextButtonManagerForPad;
+import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.dnd.GFTemplateTransferDropTargetListener;
 import org.eclipse.graphiti.ui.internal.dnd.ObjectsTransferDropTargetListener;
 import org.eclipse.graphiti.ui.internal.editor.DiagramChangeListener;
@@ -409,6 +412,13 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		registerAction(new MatchHeightAction(this));
 		IAction showGrid = new ToggleGridAction(getGraphicalViewer());
 		getActionRegistry().registerAction(showGrid);
+
+		// Bug 323351: Add button to toggle a flag if the context pad buttons
+		// shall be shown or not
+		IAction toggleContextButtonPad = new ToggleContextButtonPadAction(this);
+		toggleContextButtonPad.setChecked(false);
+		actionRegistry.registerAction(toggleContextButtonPad);
+		// End bug 323351
 	}
 
 	public void createPartControl(Composite parent) {
@@ -819,6 +829,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		if (type == SelectionSynchronizer.class) {
 			return getSelectionSynchronizer();
 		}
+		if (type == IContextButtonManager.class) {
+			return getConfigurationProvider().getContextButtonManager();
+		}
 		return super.getAdapter(type);
 	}
 
@@ -907,17 +920,15 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		// If not the active editor, ignore selection changed.
 		boolean editorIsActive = getSite().getPage().isPartVisible(this);
 		if (!editorIsActive) {
-			// Check if we are a page of the active multipage editor
+			// Check if we are a page of the active multi page editor
 			IEditorPart activeEditor = getSite().getPage().getActiveEditor();
 			if (activeEditor != null) {
-				// Check if the top level editor if it is active
-				editorIsActive = getSite().getPage().isPartVisible(activeEditor);
 				if (activeEditor instanceof MultiPageEditorPart) {
-					Object selectedPage = ((MultiPageEditorPart) activeEditor).getSelectedPage();
-					if (!(selectedPage instanceof DiagramEditor)) {
-						// Editor is active but the diagram sub editor is not
-						// its active page
-						editorIsActive = false;
+					Object selectedPage = ((MultiPageEditorPart) activeEditor).getAdapter(DiagramEditor.class);
+					if (selectedPage instanceof DiagramEditor) {
+						// Editor is active and diagram sub editor is its active
+						// page
+						editorIsActive = true;
 					}
 				}
 			}

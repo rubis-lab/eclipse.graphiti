@@ -15,8 +15,9 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.action;
 
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.Messages;
-import org.eclipse.graphiti.ui.internal.editor.DiagramEditorInternal;
+import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.jface.action.Action;
 
 /**
@@ -25,7 +26,7 @@ import org.eclipse.jface.action.Action;
  */
 public class ToggleContextButtonPadAction extends Action {
 
-	private DiagramEditorInternal graphicsEditor;
+	private DiagramEditor graphicsEditor;
 	
 	public static final String TOOL_TIP = Messages.ToggleContextButtonPadAction_0_xmsg;
 	
@@ -33,7 +34,7 @@ public class ToggleContextButtonPadAction extends Action {
 	
 	public static final String ACTION_ID = "toggle_context_button_pad"; //$NON-NLS-1$
 	
-	public ToggleContextButtonPadAction(DiagramEditorInternal graphicsEditor) {
+	public ToggleContextButtonPadAction(DiagramEditor graphicsEditor) {
 		super();
 		this.graphicsEditor = graphicsEditor;
 		setText(TEXT);
@@ -43,6 +44,7 @@ public class ToggleContextButtonPadAction extends Action {
 
 	@Override
 	public void run() {
-		graphicsEditor.getContextButtonManager().setContextButtonShowing(!isChecked());
+		IContextButtonManager contextButtonManager = (IContextButtonManager) graphicsEditor.getAdapter(IContextButtonManager.class);
+		contextButtonManager.setContextButtonShowing(!isChecked());
 	}
 }
