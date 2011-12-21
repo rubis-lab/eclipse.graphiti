@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *    mgorning - Bug 343983 - Notification for Cancelled Reconnection Events
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

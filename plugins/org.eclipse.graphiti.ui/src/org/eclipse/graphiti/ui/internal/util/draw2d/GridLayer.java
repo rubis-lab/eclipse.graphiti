@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 331715: Support for rectangular grids in diagrams
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

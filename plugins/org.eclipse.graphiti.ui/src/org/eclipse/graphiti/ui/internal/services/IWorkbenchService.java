@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Ali Akar, mwenz - Bug 348420 - Opening a user contributed editor
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

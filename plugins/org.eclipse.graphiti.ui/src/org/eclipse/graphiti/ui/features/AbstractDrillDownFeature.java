@@ -12,6 +12,7 @@
  *    mwenz - Bug  338067 - Drill down features should not use current diagram type provider
  *                          for opening diagram of other type
  *    Ali Akar, mwenz - Bug 340842 - Opening a user contributed editor
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

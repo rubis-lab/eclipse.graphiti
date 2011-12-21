@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

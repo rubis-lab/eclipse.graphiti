@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *    mwenz - Bug 352109 - Enable auto-update option for saved editor
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

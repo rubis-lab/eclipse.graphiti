@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 346932 - Navigation history broken
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

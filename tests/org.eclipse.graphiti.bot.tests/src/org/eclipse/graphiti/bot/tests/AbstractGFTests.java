@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 356828 - Escaped diagram name is used as editor title
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

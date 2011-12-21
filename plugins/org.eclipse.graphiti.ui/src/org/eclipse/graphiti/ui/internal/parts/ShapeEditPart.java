@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 327756 - Cancelled double click feature marked editor dirty
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

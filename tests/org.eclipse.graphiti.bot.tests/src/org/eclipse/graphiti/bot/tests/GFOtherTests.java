@@ -15,6 +15,7 @@
  *    mwenz - Bug 356828 - Escaped diagram name is used as editor title
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature and
  *                         called features via editor command stack to check it
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

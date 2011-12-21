@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

@@ -14,6 +14,7 @@
  *            "targetLocation" on creation of a Connection
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *    mgorning - Bug 329517 - state call backs during creation of a connection
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

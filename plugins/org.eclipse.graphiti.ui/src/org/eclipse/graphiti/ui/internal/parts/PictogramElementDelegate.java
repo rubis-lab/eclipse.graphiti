@@ -16,6 +16,7 @@
  *                                         the same way as for BoxRelativeAnchors
  *    mgorning - Bug 347144 - Angle of MultiText objects can't be modified
  *    Felix Velasco (mgorning) - Bug 328279 - Support rendering decorator positioning for connection text decorator
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

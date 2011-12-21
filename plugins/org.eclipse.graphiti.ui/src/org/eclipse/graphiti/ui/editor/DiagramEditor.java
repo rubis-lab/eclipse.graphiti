@@ -21,6 +21,7 @@
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
  *                         and called features via editor command stack to check it
  *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

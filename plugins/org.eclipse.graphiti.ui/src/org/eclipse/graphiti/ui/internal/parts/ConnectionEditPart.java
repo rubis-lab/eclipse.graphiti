@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Torkild U. Resheim - Allow double-click handling, bug 340708
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

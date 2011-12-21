@@ -12,6 +12,7 @@
  *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
  *            DefaultSaveImageFeature
  *    mwenz - Bug 339525 - Enrich paste context with location information
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

@@ -12,6 +12,7 @@
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *    mwenz - Bug 347152 - Do not log diagnostics errors as errors in the Eclipse error log
  *    mwenz - Bug 359928 - DiagramEditorBehavior does not initialize adapterActive field
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

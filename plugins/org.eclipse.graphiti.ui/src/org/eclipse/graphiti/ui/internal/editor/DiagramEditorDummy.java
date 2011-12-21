@@ -12,6 +12,7 @@
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
  *                         and called features via editor command stack to check it
  *    mwenz - Bug 363539 - Enabled feature delegation via IDiagramEditor.execute method - contributed by Hernan
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *

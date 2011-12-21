@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 345442 - Fixed NPE in RenameActionProvider.fillContextMenu (EClasses were proxies right after loading)
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *
