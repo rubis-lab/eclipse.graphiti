@@ -8,7 +8,6 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
@@ -38,16 +37,19 @@ import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.swt.widgets.Display;
 
 /**
-/**
- * This class can be subclassed by clients to adapt the refresh behaviour of the
- * Graphiti diagram editor.
+ * The default implementation for the {@link DiagramEditor} behavior extension
+ * that controls the refresh behavior of the Graphiti diagram editor. Clients
+ * may subclass to change the behavior; use
+ * {@link DiagramEditor#createRefreshBehavior()} to return the instance that
+ * shall be used.<br>
+ * Note that there is always a 1:1 relation with a {@link DiagramEditor}.
  * 
  * @since 0.9
  */
 public class DefaultRefreshBehavior {
 
 	/**
-	 * The associated {@link DiagramEditor}. Set on construction on this class.
+	 * The associated {@link DiagramEditor}. Set on construction of this class.
 	 */
 	protected final DiagramEditor diagramEditor;
 
@@ -192,7 +194,7 @@ public class DefaultRefreshBehavior {
 	}
 
 	/**
-	 * Refreshed the given {@link PictogramElement} so that the UI reflects the
+	 * Refreshes the given {@link PictogramElement} so that the UI reflects the
 	 * current state in the Graphiti pictograms model.
 	 * 
 	 * @param pe
