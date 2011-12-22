@@ -70,7 +70,7 @@ public class DefaultMarkerBehavior {
 
 	/**
 	 * Creates a new instance of {@link DefaultMarkerBehavior} that is
-	 * associated with the gievn {@link DiagramEditor}.
+	 * associated with the given {@link DiagramEditor}.
 	 * 
 	 * @param diagramEditor
 	 *            the associated {@link DiagramEditor}

@@ -28,6 +28,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -42,19 +43,46 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * This class can be sub-classed by clients to adapt the persistency of the
- * Graphiti diagram Editor.
+ * The default implementation for the {@link DiagramEditor} behavior extension
+ * that controls the persistence behavior of the Graphiti diagram Editor.
+ * Clients may subclass to change the behavior; use
+ * {@link DiagramEditor#createPersistencyBehavior()} to return the instance that
+ * shall be used.<br>
+ * Note that there is always a 1:1 relation with a {@link DiagramEditor}.
  * 
  * @since 0.9
  */
 public class DefaultPersistencyBehavior {
 
+	/**
+	 * The associated {@link DiagramEditor}
+	 */
 	protected final DiagramEditor diagramEditor;
 
+	/**
+	 * Creates a new instance of {@link DefaultPersistencyBehavior} that is
+	 * associated with the given {@link DiagramEditor}.
+	 * 
+	 * @param diagramEditor
+	 *            the associated {@link DiagramEditor}
+	 */
 	public DefaultPersistencyBehavior(DiagramEditor diagramEditor) {
 		this.diagramEditor = diagramEditor;
 	}
 
+	/**
+	 * This method is called to load the diagram into the editor. The default
+	 * implementation here will use the {@link TransactionalEditingDomain} and
+	 * its {@link ResourceSet} to load an EMF {@link Resource} that holds the
+	 * {@link Diagram}. It will also enable modification tracking on the diagram
+	 * {@link Resource}.
+	 * 
+	 * @param uri
+	 *            the {@link URI} of the diagram to load
+	 * @return the instance of the {@link Diagram} as it is resolved within the
+	 *         editor, meaning as it is resolved within the editor's
+	 *         {@link TransactionalEditingDomain}.
+	 */
 	public Diagram loadDiagram(URI uri) {
 		if (uri != null) {
 			final TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
@@ -78,6 +106,23 @@ public class DefaultPersistencyBehavior {
 		return null;
 	}
 
+	/**
+	 * This method is called to save a diagram. The default implementation here
+	 * saves all changes done to any of the EMF resources loaded within the
+	 * {@link DiagramEditor} so that the complete state of all modified objects
+	 * will be persisted in the file system.<br>
+	 * The default implementation also sets the current version information
+	 * (currently 0.9.0) to the diagram before saving it and wraps the save
+	 * operation inside a {@link IRunnableWithProgress} that cares about sending
+	 * only one {@link Resource} change event holding all modified files.
+	 * Besides also all adapters are temporarily switched off (see
+	 * {@link DiagramEditor#disableAdapters()}).<br>
+	 * To only modify the actual saving clients should rather override
+	 * {@link #save(TransactionalEditingDomain, Map)}.
+	 * 
+	 * @param monitor
+	 *            the Eclipse {@link IProgressMonitor} to use to report progress
+	 */
 	public void saveDiagram(IProgressMonitor monitor) {
 		// set version info.
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
@@ -108,6 +153,12 @@ public class DefaultPersistencyBehavior {
 		provider.resourcesSaved(diagramEditor.getDiagramTypeProvider().getDiagram(), savedResourcesArray);
 	}
 
+	/**
+	 * Returns the EMF save options to be used when saving the EMF
+	 * {@link Resource}s.
+	 * 
+	 * @return a {@link Map} object holding the used EMF save options.
+	 */
 	protected Map<Resource, Map<?, ?>> createSaveOptions() {
 		// Save only resources that have actually changed.
 		final Map<Object, Object> saveOption = new HashMap<Object, Object>();
@@ -120,6 +171,21 @@ public class DefaultPersistencyBehavior {
 		return saveOptions;
 	}
 
+	/**
+	 * Creates the runnable to be used to wrap the actual saving of the EMF
+	 * {@link Resource}s.<br>
+	 * To only modify the actual saving clients should rather override
+	 * {@link #save(TransactionalEditingDomain, Map)}.
+	 * 
+	 * @param savedResources
+	 *            this parameter will after the operation has been performed
+	 *            contain all EMF {@link Resource}s that have really been saved.
+	 * 
+	 * @param saveOptions
+	 *            the EMF save options to use.
+	 * @return an {@link IRunnableWithProgress} instance wrapping the actual
+	 *         save process.
+	 */
 	protected IRunnableWithProgress createOperation(final Set<Resource> savedResources,
 			final Map<Resource, Map<?, ?>> saveOptions) {
 		// Do the work within an operation because this is a long running
@@ -158,6 +224,14 @@ public class DefaultPersistencyBehavior {
 		return GraphitiUiInternal.getEmfService().save(editingDomain, saveOptions);
 	}
 
+	/**
+	 * Called in {@link #saveDiagram(IProgressMonitor)} to update the Graphiti
+	 * diagram version before saving a diagram. Currently the diagram version is
+	 * set to 0.9.0
+	 * 
+	 * @param diagram
+	 *            the {@link Diagram} to update the version attribute for
+	 */
 	protected void setDiagramVersion(final Diagram diagram) {
 		diagramEditor.getEditingDomain().getCommandStack()
 				.execute(new RecordingCommand(diagramEditor.getEditingDomain()) {
