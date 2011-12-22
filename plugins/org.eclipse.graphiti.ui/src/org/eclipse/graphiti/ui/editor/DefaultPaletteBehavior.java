@@ -36,9 +36,12 @@ import org.eclipse.swt.events.KeyEvent;
 
 /**
  * This class can be subclassed by clients to adapt the palette appearance and
- * behaviour of the Graphiti diagram Editor. The API is very much aligned with
+ * behavior of the Graphiti diagram Editor. The API is very much aligned with
  * the way GEF handles the palette within its editors, see
- * {@link GraphicalEditorWithFlyoutPalette} for more information on that.
+ * {@link GraphicalEditorWithFlyoutPalette} for more information on that. To
+ * exchange the default implementation you have to return an instance of your
+ * subclass in the method {@link DiagramEditor#createPaletteBehaviour()}.<br>
+ * Note that there is always a 1:1 relation with a {@link DiagramEditor}.
  * 
  * @since 0.9
  */
@@ -49,11 +52,13 @@ public class DefaultPaletteBehavior {
 	 * the editor in an Eclipse preference store.
 	 */
 	protected static final String PROPERTY_PALETTE_DOCK_LOCATION = "Dock location"; //$NON-NLS-1$
+
 	/**
 	 * Property name for storing the size of the palette within the editor in an
 	 * Eclipse preference store.
 	 */
 	protected static final String PROPERTY_PALETTE_SIZE = "Palette Size"; //$NON-NLS-1$
+
 	/**
 	 * Property name for storing the state (collapsed, expanded, hidden) of the
 	 * palette within the editor in an Eclipse preference store.
@@ -65,7 +70,11 @@ public class DefaultPaletteBehavior {
 	 */
 	protected static final int DEFAULT_PALETTE_SIZE = 130;
 
+	/**
+	 * The associated {@link DiagramEditor}
+	 */
 	protected final DiagramEditor diagramEditor;
+
 	private PaletteRoot paletteRoot;
 
 	/**
@@ -84,7 +93,7 @@ public class DefaultPaletteBehavior {
 	/**
 	 * Creates the {@link PaletteRoot} of this editor. To retrieve the
 	 * {@link PaletteRoot} object use {@link #getPaletteRoot()} instead which
-	 * will return an already exsiting instance or create a new one by
+	 * will return an already existing instance or create a new one by
 	 * delegating to this method.
 	 * 
 	 * @return a new Graphiti specific {@link PaletteRoot} instance
@@ -96,7 +105,7 @@ public class DefaultPaletteBehavior {
 
 	/**
 	 * Returns the already existing {@link PaletteRoot} instance for the
-	 * {@link DiagramEditor} associated the this palette behaviour or creates a
+	 * {@link DiagramEditor} associated the this palette behavior or creates a
 	 * new {@link PaletteRoot} instance in case none exists.
 	 * 
 	 * @return a new Graphiti specific {@link PaletteRoot} instance
@@ -242,14 +251,15 @@ public class DefaultPaletteBehavior {
 
 	/**
 	 * Disposes this instance. Must be called before closing the associated
-	 * Graphiti diagram editor.
+	 * Graphiti diagram editor. The default implementation clears the
+	 * {@link #paletteRoot} reference.
 	 */
 	public void dispose() {
 		paletteRoot = null;
 	}
 
 	/**
-	 * Returns the associated graphiti diagram editor.
+	 * Returns the associated Graphiti diagram editor.
 	 * 
 	 * @return the associated {@link DiagramEditor} instance
 	 */
