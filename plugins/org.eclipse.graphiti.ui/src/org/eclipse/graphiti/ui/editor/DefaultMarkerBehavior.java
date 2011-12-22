@@ -24,6 +24,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.ui.MarkerHelper;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
@@ -36,15 +37,24 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.widgets.Display;
 
 /**
+ * The default implementation for the {@link DiagramEditor} behavior extension
+ * that controls how markers are handled in the editor. Clients may subclass to
+ * change the marker behavior; use {@link DiagramEditor#createMarkerBehavior()}
+ * to return the instance that shall be used.<br>
+ * Note that there is always a 1:1 relation with a {@link DiagramEditor}.
+ * 
  * @since 0.9
  */
 public class DefaultMarkerBehavior {
 
+	/**
+	 * The associated {@link DiagramEditor}
+	 */
 	protected final DiagramEditor diagramEditor;
 
 	/**
-	 * Is responsible for creating workspace resource markers presented in
-	 * Eclipse's Problems View.
+	 * The marker helper instance is responsible for creating workspace resource
+	 * markers presented in Eclipse's Problems View.
 	 */
 	private final MarkerHelper markerHelper = new EditUIMarkerHelper();
 
@@ -58,34 +68,61 @@ public class DefaultMarkerBehavior {
 	 */
 	private boolean updateProblemIndication = true;
 
+	/**
+	 * Creates a new instance of {@link DefaultMarkerBehavior} that is
+	 * associated with the gievn {@link DiagramEditor}.
+	 * 
+	 * @param diagramEditor
+	 *            the associated {@link DiagramEditor}
+	 */
 	public DefaultMarkerBehavior(DiagramEditor diagramEditor) {
 		super();
 		this.diagramEditor = diagramEditor;
 	}
 
+	/**
+	 * Initializes this marker behavior extension. The default implementation
+	 * simply registers an adapter that updates the markers when EMF objects
+	 * change.
+	 */
 	public void initialize() {
 		diagramEditor.getResourceSet().eAdapters().add(problemIndicationAdapter);
 	}
 
 	/**
+	 * Returns the adapter that is installed for updating the markers.
+	 * 
 	 * @return the problemIndicationAdapter
 	 */
 	public EContentAdapter getProblemIndicationAdapter() {
 		return problemIndicationAdapter;
 	}
 
+	/**
+	 * Can be called to (temporarily) disable the marker update adapter, so that
+	 * mass changes do not result in a bunch of notifications and cause
+	 * performance penalties.
+	 * 
+	 * @see #enableProblemIndicationUpdate()
+	 */
 	public void disableProblemIndicationUpdate() {
 		updateProblemIndication = false;
 	}
 
+	/**
+	 * Can be called to enable the marker update adapter again after it has been
+	 * disabled with {@link #disableProblemIndicationUpdate()}. The default
+	 * implementation also triggers an update of the markers.
+	 */
 	public void enableProblemIndicationUpdate() {
 		updateProblemIndication = true;
 		updateProblemIndication();
 	}
 
 	/**
-	 * Updates the problems indication with the information described in the
-	 * specified diagnostic.
+	 * Updates the problems indication markers in the editor. The default
+	 * implementation used an EMF {@link BasicDiagnostic} to do the checks and
+	 * {@link EditUIMarkerHelper} to check and set markers for {@link EObject}s.
 	 */
 	void updateProblemIndication() {
 		TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
@@ -115,6 +152,13 @@ public class DefaultMarkerBehavior {
 	/**
 	 * Returns a diagnostic describing the errors and warnings listed in the
 	 * resource and the specified exception (if any).
+	 * 
+	 * @param resource
+	 *            the resource to analyze
+	 * @param exception
+	 *            forwarded as data object to the {@link BasicDiagnostic}
+	 * @return a new {@link Diagnostic} for the given resource
+	 * 
 	 */
 	public Diagnostic analyzeResourceProblems(Resource resource, Exception exception) {
 		if ((!resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty()) && updateProblemIndication) {
@@ -135,6 +179,10 @@ public class DefaultMarkerBehavior {
 		}
 	}
 
+	/**
+	 * Called to dispose this instance when the editor is closed. The default
+	 * implementation simply disables the marker update.
+	 */
 	public void dispose() {
 		disableProblemIndicationUpdate();
 	}
@@ -184,5 +232,4 @@ public class DefaultMarkerBehavior {
 			basicUnsetTarget(target);
 		}
 	};
-
 }
