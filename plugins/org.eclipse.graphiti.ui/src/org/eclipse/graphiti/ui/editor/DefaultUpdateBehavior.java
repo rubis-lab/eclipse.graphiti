@@ -12,7 +12,7 @@
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *    mwenz - Bug 347152 - Do not log diagnostics errors as errors in the Eclipse error log
  *    mwenz - Bug 359928 - DiagramEditorBehavior does not initialize adapterActive field
- *    Bug 336488 - DiagramEditor API
+ *    Bug 336488 - DiagramEditor API - Rename from DiagramEditorBehavior to DefaultUpdateBehavior
  *
  * </copyright>
  *
@@ -51,12 +51,26 @@ import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
 
 /**
+ * The default implementation for the {@link DiagramEditor} behavior extension
+ * that controls update behavior of the editor and defines the EMF adapters that
+ * watch over model object modifications. Clients may subclass to change the
+ * behavior; use {@link DiagramEditor#createUpdateBehavior()} to return the
+ * instance that shall be used.<br>
+ * Note that there is always a 1:1 relation with a {@link DiagramEditor}.
+ * 
  * @since 0.9
  */
 public class DefaultUpdateBehavior extends PlatformObject implements IEditingDomainProvider, IOperationHistoryListener {
 
+	/**
+	 * The associated {@link DiagramEditor}
+	 */
 	protected final DiagramEditor diagramEditor;
 
+	/**
+	 * The editing domain that is used throughout the {@link DiagramEditor} is
+	 * kept here and only here.
+	 */
 	private TransactionalEditingDomain editingDomain;
 
 	/**
@@ -284,7 +298,7 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	}
 
 	/**
-	 * TODO Handles what to do with changed resources on activation.
+	 * Handles what to do with changed resources on editor activation.
 	 */
 	protected void handleChangedResources() {
 		if (!diagramEditor.isDirty() || handleDirtyConflict()) {
