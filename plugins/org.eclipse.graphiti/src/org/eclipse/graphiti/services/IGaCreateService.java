@@ -54,15 +54,22 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setFont(DEFAULT_FONT);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value:""<br>
+	 * name: Arial<br>
+	 * size: 8<br>
+	 * italic: false<br>
+	 * bold: false<br>
 	 * 
 	 * @param diagram
 	 *            the diagram to manage the font
@@ -80,15 +87,22 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setFont(DEFAULT_FONT);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value: value<br>
+	 * name: Arial<br>
+	 * size: 8<br>
+	 * italic: false<br>
+	 * bold: false<br>
 	 * 
 	 * @param diagram
 	 *            the diagram to manage the font
@@ -107,15 +121,22 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setFont(DEFAULT_FONT);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value:""<br>
+	 * name: Arial<br>
+	 * size: 8<br>
+	 * italic: false<br>
+	 * bold: false<br>
 	 * 
 	 * @param diagram
 	 *            the diagram to manage the font
@@ -134,15 +155,22 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setFont(DEFAULT_FONT);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value: value<br>
+	 * name: Arial<br>
+	 * size: 8<br>
+	 * italic: false<br>
+	 * bold: false<br>
 	 * 
 	 * @param diagram
 	 *            the diagram to manage the font
@@ -159,14 +187,18 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value: ""<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -193,15 +225,18 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
-	 * text.setValue(value);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value: value<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -235,15 +270,22 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
-	 * text.setFont(<given font<);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value: value<br>
+	 * name: fontNamel<br>
+	 * size: fontSize<br>
+	 * italic: false<br>
+	 * bold: false<br>
 	 * 
 	 * @param diagram
 	 *            the diagram that shall be used for managing the font for the
@@ -269,15 +311,22 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
-	 * text.setFont(<given font<);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value: value<br>
+	 * name: fontNamel<br>
+	 * size: fontSize<br>
+	 * italic: isFontItalic<br>
+	 * bold: isFontBold<br>
 	 * 
 	 * @param diagram
 	 *            the diagram that shall be used for managing the font for the
@@ -307,14 +356,18 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value: ""<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -340,14 +393,18 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value: value<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -381,15 +438,22 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
-	 * text.setFont(<given font<);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value: value<br>
+	 * name: fontNamel<br>
+	 * size: fontSize<br>
+	 * italic: false<br>
+	 * bold: false<br>
 	 * 
 	 * @param diagram
 	 *            the diagram that shall be used for managing the font for the
@@ -415,15 +479,22 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * text.setAngle(0);<br>
-	 * text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);<br>
-	 * text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);<br>
-	 * text.setFont(<given font<);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * horizontalAlignment: ALIGNMENT_LEFT<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br>
+	 * angle: 0<br>
+	 * value: value<br>
+	 * name: fontNamel<br>
+	 * size: fontSize<br>
+	 * italic: isFontItalic<br>
+	 * bold: isFontBold<br>
 	 * 
 	 * @param diagram
 	 *            the diagram that shall be used for managing the font for the
@@ -453,11 +524,13 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -483,14 +556,18 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
-	 * image.setProportional(false);<br>
-	 * image.setStretchH(false);<br>
-	 * image.setStretchV(false);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: true<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * id: TEST<br>
+	 * stretchH: false<br>
+	 * stretchV: false<br>
+	 * proportional: false<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -520,15 +597,15 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default when it is shown:
 	 * <p>
-	 * graphicsAlgorithm.setBackground(IColorConstant.LIGHT_GRAY);<br>
-	 * graphicsAlgorithm.setForeground(IColorConstant.YELLOW);<br>
-	 * graphicsAlgorithm.setLineWidth(2);<br>
-	 * graphicsAlgorithm.setTransparency(0.75);<br>
-	 * <p>
-	 * The following values are set by default when it is not shown:
-	 * <p>
-	 * graphicsAlgorithm.setFilled(false);<br>
-	 * graphicsAlgorithm.setLineVisible(false);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * lineVisible: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0
 	 * 
 	 * @param pe
 	 *            the pictogram element to create the rectangle
@@ -541,10 +618,14 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setLineStyle(LineStyle.SOLID);<br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0d);<br>
-	 * platformGraphicsAlgorithm.setId(id);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * id: id<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -631,11 +712,14 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: true<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -661,11 +745,14 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: true<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -695,11 +782,14 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: true<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -729,11 +819,14 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: true<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -769,11 +862,14 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -799,11 +895,14 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -833,11 +932,14 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -867,11 +969,14 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(false); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * filled: false<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -907,11 +1012,13 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -938,11 +1045,15 @@ public interface IGaCreateService {
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
-	 * graphicsAlgorithm.setFilled(true); <br>
-	 * graphicsAlgorithm.setLineStyle(LineStyleEnum.SOLID); <br>
-	 * graphicsAlgorithm.setLineVisible(true); <br>
-	 * graphicsAlgorithm.setLineWidth(1);<br>
-	 * graphicsAlgorithm.setTransparency(0);<br>
+	 * lineWidth: 1<br>
+	 * lineStyle: SOLID<br>
+	 * transparency: 0.0<br>
+	 * width: 0<br>
+	 * height: 0<br>
+	 * x: 0<br>
+	 * y: 0<br>
+	 * cornerHeight: cornerHeight<br>
+	 * cornerWidth: cornerWidth<br>
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -1000,6 +1111,13 @@ public interface IGaCreateService {
 	/**
 	 * Creates a style with the given id. The style is aggregated under the
 	 * given container style.
+	 * <p>
+	 * The following values are set by default:
+	 * <p>
+	 * lineStyle: SOLID<br>
+	 * id: id<br>
+	 * horizontalAlignment: ALIGNMENT_CENTER<br>
+	 * verticalAlignment: ALIGNMENT_CENTER<br<
 	 * 
 	 * @param styleContainer
 	 *            container style
