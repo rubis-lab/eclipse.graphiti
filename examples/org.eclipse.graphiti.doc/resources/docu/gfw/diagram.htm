@@ -69,8 +69,8 @@ the extension points:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <div class="literallayout">
 	<div class="incode">
-		<p class="code">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>
-		&lt;?eclipse version=&quot;3.0&quot;?&gt;<br><span class="string">&lt;plugin&gt;<br>&nbsp; &lt;extension<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		<p class="code">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;?eclipse version=&quot;3.0&quot;?&gt;<br>
+		<span class="string">&lt;plugin&gt;<br>&nbsp; &lt;extension<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		point</span>=<span class="comment">&quot;org.eclipse.graphiti.ui.diagramTypes&quot;</span><span class="string">&gt;</span><br>&nbsp;&nbsp;&nbsp;
 		<span class="string">&lt;diagramType</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="string">description</span>=<span class="comment">&quot;This is the 
@@ -78,20 +78,21 @@ the extension points:</p>
 		<span class="string">id</span>=<span class="comment">&quot;org.eclipse.graphiti.examples.tutorial.diagram.MyTutorialDiagramType&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="string">name</span>=<span class="comment">&quot;My Graphiti Tutorial 
 		Diagram Type&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string">type</span>=<span class="comment">&quot;mytutorial&quot;<span class="string">&gt;</span><br>&nbsp;&nbsp;&nbsp;
-		<span class="string">&lt;/diagramType&gt;<br>&nbsp; &lt;/extension&gt;<br><br>&nbsp; 
-		&lt;extension<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; point</span>=<span class="comment">&quot;org.eclipse.graphiti.ui.diagramTypeProviders&quot;</span><span class="string">&gt;</span><br>&nbsp;&nbsp;&nbsp;
-		<span class="string">&lt;diagramTypeProvider<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		class</span>=<span class="comment">&quot;org.eclipse.graphiti.examples.tutorial.diagram.<br>&nbsp;</span></span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		</span><span class="comment">MyTutorialDiagramTypeProvider&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="string">type</span>=<span class="comment">&quot;mytutorial&quot;</span><span class="string">&gt;</span><br>&nbsp;&nbsp;
+		<span class="string">&nbsp;&lt;/diagramType&gt;<br>&nbsp; &lt;/extension&gt;<br><br>&nbsp; 
+		&lt;extension<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; point</span>=<span class="comment">&quot;org.eclipse.graphiti.ui.diagramTypeProviders</span>&quot;<span class="string">&gt;</span><br>&nbsp;&nbsp;&nbsp;
+		<span class="string">&lt;diagramTypeProvider<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		class</span>=<span class="comment">&quot;org.eclipse.graphiti.examples.tutorial.diagram.</span><br>&nbsp;<span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		MyTutorialDiagramTypeProvider&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="string">description</span>=<span class="comment">&quot;This is my 
 		editor for the Graphiti tutorial&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="string">id</span>=<span class="comment">&quot;org.eclipse.graphiti.examples.tutorial.diagram.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		MyTutorialDiagramTypeProvider&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="string">name</span>=<span class="comment">&quot;My tutorial editor&quot;</span><span class="string">&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		&lt;diagramType<br>&nbsp;&nbsp;&nbsp; &lt;/diagramTypeProvider&gt;<br>&nbsp; &lt;/extension&gt;<br>
+		&lt;diagramType<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id</span>=<span class="comment">&quot;org.eclipse.graphiti.examples.tutorial.diagram.MyTutorialDiagramType&quot;</span><span class="string">&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		&lt;/diagramType&gt;<br>&nbsp;&nbsp;&nbsp; &lt;/diagramTypeProvider&gt;<br>&nbsp; &lt;/extension&gt;<br>
 		&lt;/plugin&gt;</span></p>
-		<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+		<p>&nbsp;&nbsp;&nbsp;&nbsp; </p>
 	</div>
 </div>
 <p>&nbsp;</p>
