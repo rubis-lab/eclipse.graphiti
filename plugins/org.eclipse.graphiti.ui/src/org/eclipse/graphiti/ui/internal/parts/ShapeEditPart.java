@@ -78,9 +78,6 @@ import org.eclipse.graphiti.ui.internal.policy.DefaultEditPolicyFactory;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFChopboxAnchor;
 import org.eclipse.graphiti.util.ILocationInfo;
 import org.eclipse.graphiti.util.LocationInfo;
-import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.DialogCellEditor;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.widgets.Display;
 
 /**
@@ -682,27 +679,13 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 			return;
 		}
 
-		TextCellLocator cellEditorLocator = new TextCellLocator(figure, directEditingFeature);
-
-		Class<?> uiElementClass = null;
-		switch (directEditingFeature.getEditingType()) {
-		case IDirectEditing.TYPE_TEXT:
-		case IDirectEditing.TYPE_MULTILINETEXT:
-			uiElementClass = TextCellEditor.class;
-			break;
-		case IDirectEditing.TYPE_DROPDOWN:
-		case IDirectEditing.TYPE_DROPDOWN_READ_ONLY:
-			uiElementClass = ComboBoxCellEditor.class;
-			break;
-		case IDirectEditing.TYPE_CUSTOM:
-			uiElementClass = DialogCellEditor.class;
-			break;
-		default:
+		if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_NONE) {
 			return;
-
 		}
 
-		GFDirectEditManager directEditManager = new GFDirectEditManager(this, uiElementClass, cellEditorLocator);
+		TextCellLocator cellEditorLocator = new TextCellLocator(figure, directEditingFeature);
+
+		GFDirectEditManager directEditManager = new GFDirectEditManager(this, cellEditorLocator);
 		directEditManager.setDirectEditingFeature(directEditingFeature);
 		directEditManager.setDirectEditingContext(directEditingContext);
 		directEditManager.show();

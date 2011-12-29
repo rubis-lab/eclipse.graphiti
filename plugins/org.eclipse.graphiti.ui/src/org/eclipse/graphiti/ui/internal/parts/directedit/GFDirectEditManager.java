@@ -85,8 +85,8 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 		}
 	};
 
-	public GFDirectEditManager(ShapeEditPart part, Class<?> uiElementClass, TextCellLocator cellEditorLocator) {
-		super(part, uiElementClass, cellEditorLocator);
+	public GFDirectEditManager(ShapeEditPart part, TextCellLocator cellEditorLocator) {
+		super(part, null, cellEditorLocator);
 		locator = cellEditorLocator;
 		diagramEditor = part.getConfigurationProvider().getDiagramEditor();
 	}
@@ -119,7 +119,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 
 	@Override
 	protected CellEditor createCellEditorOn(Composite composite) {
-		CellEditor ret;
+		CellEditor ret = null;
 
 		IFigure locatorFigure = locator.getFigure();
 
@@ -151,19 +151,15 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 				|| directEditingFeature.getEditingType() == IDirectEditing.TYPE_DROPDOWN_READ_ONLY) {
 			String[] possibleValues = getPossibleValues();
 			ret = new ComboBoxCellEditor(composite, possibleValues);
-			// return new ComboBoxCellEditorFixed(composite, possibleValues,
-			// SWT.NONE);
 		} else if (editingType == IDirectEditing.TYPE_CUSTOM) {
 			if (directEditingFeature instanceof ICellEditorProvider) {
 				ret = ((ICellEditorProvider) directEditingFeature).createCellEditor(composite);
 			} else {
 				throw new UnsupportedOperationException("if custom type the feature must implement ICellEditorProvider"); //$NON-NLS-1$
 			}
-		} else {
-			ret = super.createCellEditorOn(composite);
 		}
 
-		if (editingType != IDirectEditing.TYPE_CUSTOM) {
+		if (ret != null && editingType != IDirectEditing.TYPE_CUSTOM) {
 			ret.setValidator(new GFCellEditorValidator(this, ret));
 		}
 
@@ -270,16 +266,6 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 				contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
 				contentProposalAdapter.addContentProposalListener(new ContentProposalListener(
 						(TextCellEditor) getCellEditor()));
-
-				// <sw03072008> removed to avoid direct closing of cell editor
-				// after value selection from value help
-				// contentProposalAdapter.addContentProposalListener(new
-				// IContentProposalListener() {
-				// public void proposalAccepted(IContentProposal proposal) {
-				// commit();
-				// }
-				// });
-				// </sw03072008>
 			}
 		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_CUSTOM) {
 			setDirty(true);
