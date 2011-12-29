@@ -195,7 +195,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 
 				Collection<?> exclusionSet2 = super.getExclusionSet();
 
-				LayerManager layerManager = (LayerManager) getCurrentViewer().getEditPartRegistry().get(LayerManager.ID);
+				LayerManager layerManager = (LayerManager) getCurrentViewer().getEditPartRegistry()
+						.get(LayerManager.ID);
 				if (layerManager != null) {
 					exclusionSet2.remove(layerManager.getLayer(LayerConstants.CONNECTION_LAYER));
 				}
@@ -465,7 +466,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	@Override
 	public boolean isSelectable() {
 		PictogramElement pe = getPictogramElement();
-		return super.isSelectable() && pe != null && GraphitiInternal.getEmfService().isObjectAlive(pe) && pe.isActive();
+		return super.isSelectable() && pe != null && GraphitiInternal.getEmfService().isObjectAlive(pe)
+				&& pe.isActive();
 	}
 
 	/**
@@ -498,7 +500,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 
 			// pressed F2 outside the current shape edit part
 			// location for direct editing is still unknown
-			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
+					.getCurrentToolBehaviorProvider();
 			locationInfo = tbp.getLocationInfo(shape, locationInfo);
 
 			if (locationInfo != null) {
@@ -506,9 +509,11 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 				DirectEditingContext directEditingContext = new DirectEditingContext(locationInfo.getShape(),
 						locationInfo.getGraphicsAlgorithm());
 
-				IFeatureProvider featureProvider = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
+				IFeatureProvider featureProvider = getConfigurationProvider().getDiagramTypeProvider()
+						.getFeatureProvider();
 
-				IDirectEditingFeature directEditingFeature = featureProvider.getDirectEditingFeature(directEditingContext);
+				IDirectEditingFeature directEditingFeature = featureProvider
+						.getDirectEditingFeature(directEditingContext);
 				if (directEditingFeature != null && directEditingFeature.canExecute(directEditingContext)) {
 
 					IFigure figure = delegate.getFigureForGraphicsAlgorithm(locationInfo.getGraphicsAlgorithm());
@@ -530,7 +535,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 				IFeature doubleClickFeature = currentToolBehaviorProvider.getDoubleClickFeature(dcc);
 
 				if (doubleClickFeature != null && doubleClickFeature.canExecute(dcc)) {
-					GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(doubleClickFeature, dcc);
+					GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(
+							doubleClickFeature, dcc);
 					DiagramEditor diagramEditor = getConfigurationProvider().getDiagramEditor();
 					CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
 					commandStack.execute(new GefCommandWrapper(commandWithContext, diagramEditor.getEditingDomain()));
@@ -602,11 +608,14 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, getConfigurationProvider().getEditPolicyFactory()
 				.createShapeHighlightEditPolicy());
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, getConfigurationProvider().getEditPolicyFactory().createShapeForbidLayoutEditPolicy());
-		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, getConfigurationProvider().getEditPolicyFactory().createDirectEditPolicy());
-		installEditPolicy(EditPolicy.COMPONENT_ROLE,
-				getConfigurationProvider().getEditPolicyFactory().createModelObjectDeleteEditPolicy(getConfigurationProvider()));
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, getConfigurationProvider().getEditPolicyFactory().createConnectionEditPolicy());
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, getConfigurationProvider().getEditPolicyFactory()
+				.createShapeForbidLayoutEditPolicy());
+		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, getConfigurationProvider().getEditPolicyFactory()
+				.createDirectEditPolicy());
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, getConfigurationProvider().getEditPolicyFactory()
+				.createModelObjectDeleteEditPolicy(getConfigurationProvider()));
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, getConfigurationProvider().getEditPolicyFactory()
+				.createConnectionEditPolicy());
 		installEditPolicy(DefaultEditPolicyFactory.HOVER_POLICY_KEY, getConfigurationProvider().getEditPolicyFactory()
 				.createShapeHoverEditPolicy());
 	}
@@ -668,8 +677,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	 * @param figure
 	 *            The IFigure on which the direct editing should appear
 	 */
-	private void bringUpDirectEditField(IDirectEditingFeature directEditingFeature, IDirectEditingContext directEditingContext,
-			IFigure figure) {
+	private void bringUpDirectEditField(IDirectEditingFeature directEditingFeature,
+			IDirectEditingContext directEditingContext, IFigure figure) {
 
 		if (isDirectEditingDelayed()) {
 			return;
@@ -760,10 +769,14 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	public EditPart getTargetEditPart(Request request) {
 		IConfigurationProvider configurationProvider = getConfigurationProvider();
 
-		PictogramElement alternativeSelection = configurationProvider.getDiagramTypeProvider().getCurrentToolBehaviorProvider()
-				.getSelection(getPictogramElement(), configurationProvider.getDiagramEditor().getSelectedPictogramElements());
+		PictogramElement alternativeSelection = configurationProvider
+				.getDiagramTypeProvider()
+				.getCurrentToolBehaviorProvider()
+				.getSelection(getPictogramElement(),
+						configurationProvider.getDiagramEditor().getSelectedPictogramElements());
 		if (alternativeSelection != null && request instanceof SelectionRequest) {
-			Object object = configurationProvider.getDiagramEditor().getGraphicalViewer().getEditPartRegistry().get(alternativeSelection);
+			Object object = configurationProvider.getDiagramEditor().getGraphicalViewer().getEditPartRegistry()
+					.get(alternativeSelection);
 			if (object instanceof EditPart) {
 				return (EditPart) object;
 			}
@@ -782,14 +795,17 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 	@Override
 	public void showSourceFeedback(Request request) {
 		// suppress source feedback if no move feature available
-		if ((REQ_MOVE.equals(request.getType()) || REQ_ADD.equals(request.getType())) && (request instanceof ChangeBoundsRequest)) {
+		if ((REQ_MOVE.equals(request.getType()) || REQ_ADD.equals(request.getType()))
+				&& (request instanceof ChangeBoundsRequest)) {
 			Shape shape = (Shape) getPictogramElement();
 			ContainerShape containerShape = shape.getContainer();
 			ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
 			Point oldLocation = getFigure().getBounds().getLocation();
 			Point currentDelta = changeBoundsRequest.getMoveDelta();
-			IMoveShapeContext context = createMoveShapeContext(shape, containerShape, containerShape, oldLocation, currentDelta);
-			IMoveShapeFeature moveShapeFeature = getConfigurationProvider().getFeatureProvider().getMoveShapeFeature(context);
+			IMoveShapeContext context = createMoveShapeContext(shape, containerShape, containerShape, oldLocation,
+					currentDelta);
+			IMoveShapeFeature moveShapeFeature = getConfigurationProvider().getFeatureProvider().getMoveShapeFeature(
+					context);
 			if (moveShapeFeature == null) {
 				return;
 			}
@@ -797,7 +813,8 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 		super.showSourceFeedback(request);
 	}
 
-	private IMoveShapeContext createMoveShapeContext(Shape shape, ContainerShape source, ContainerShape target, Point location, Point delta) {
+	private IMoveShapeContext createMoveShapeContext(Shape shape, ContainerShape source, ContainerShape target,
+			Point location, Point delta) {
 
 		MoveShapeContext ret = new MoveShapeContext(shape);
 		ret.setSourceContainer(source);
