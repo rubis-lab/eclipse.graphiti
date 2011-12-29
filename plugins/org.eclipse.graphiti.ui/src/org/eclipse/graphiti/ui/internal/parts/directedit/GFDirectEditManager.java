@@ -153,7 +153,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 			ret = new ComboBoxCellEditor(composite, possibleValues);
 			// return new ComboBoxCellEditorFixed(composite, possibleValues,
 			// SWT.NONE);
-		} else if (editingType == IDirectEditing.TYPE_DIALOG) {
+		} else if (editingType == IDirectEditing.TYPE_CUSTOM) {
 			if (directEditingFeature instanceof ICellEditorProvider) {
 				ret = ((ICellEditorProvider) directEditingFeature).createCellEditor(composite);
 			} else {
@@ -163,7 +163,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 			ret = super.createCellEditorOn(composite);
 		}
 
-		if (editingType != IDirectEditing.TYPE_DIALOG) {
+		if (editingType != IDirectEditing.TYPE_CUSTOM) {
 			ret.setValidator(new GFCellEditorValidator(this, ret));
 		}
 
@@ -281,7 +281,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 				// });
 				// </sw03072008>
 			}
-		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_DIALOG) {
+		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_CUSTOM) {
 			setDirty(true);
 			getCellEditor().setValue(initialValue);
 		}

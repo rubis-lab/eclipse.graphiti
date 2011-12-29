@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 327756 - Cancelled double click feature marked editor dirty
  *    Bug 336488 - DiagramEditor API
+ *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *
  * </copyright>
  *
@@ -694,7 +695,7 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 		case IDirectEditing.TYPE_COLOR:
 			uiElementClass = ColorCellEditor.class;
 			break;
-		case IDirectEditing.TYPE_DIALOG:
+		case IDirectEditing.TYPE_CUSTOM:
 			uiElementClass = DialogCellEditor.class;
 			break;
 		default:

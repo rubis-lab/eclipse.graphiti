@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Volker Wegert - Bug 332363 - Direct Editing: enable automatic resizing for combo boxes
+ *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *
  * </copyright>
  *
@@ -64,8 +65,10 @@ public interface IDirectEditing {
 
 	/**
 	 * dialog is wanted for editing.
+	 * 
+	 * @since 0.9
 	 */
-	static final int TYPE_DIALOG = 9;
+	static final int TYPE_CUSTOM = 9;
 
 	/**
 	 * Framework calls this method to decide which UI to show up.

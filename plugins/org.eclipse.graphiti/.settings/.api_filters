@@ -91,6 +91,14 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/func/IDirectEditing.java" type="org.eclipse.graphiti.func.IDirectEditing">
+        <filter id="405864542">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.func.IDirectEditing"/>
+                <message_argument value="TYPE_DIALOG"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/platform/IDiagramEditor.java" type="org.eclipse.graphiti.platform.IDiagramEditor">
         <filter id="405901410">
             <message_arguments>

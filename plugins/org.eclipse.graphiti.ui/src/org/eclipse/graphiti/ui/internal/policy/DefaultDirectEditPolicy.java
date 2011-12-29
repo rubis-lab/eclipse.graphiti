@@ -117,7 +117,7 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 				}
 			}
 
-		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_DIALOG) {
+		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_CUSTOM) {
 			Object cellEditorValue = cellEditor.getValue();
 			if (cellEditorValue instanceof String) {
 				value = (String) cellEditorValue;

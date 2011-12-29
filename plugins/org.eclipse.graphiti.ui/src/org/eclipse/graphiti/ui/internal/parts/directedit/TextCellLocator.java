@@ -131,7 +131,7 @@ public class TextCellLocator implements CellEditorLocator {
 			}
 
 			control.setBounds(rect.x, rect.y, minWidth, 14);
-		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_DIALOG
+		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_CUSTOM
 				&& (directEditingFeature instanceof ICellEditorProvider)) {
 			ICellEditorProvider cep = (ICellEditorProvider) directEditingFeature;
 			cep.relocate(celleditor, figure);
