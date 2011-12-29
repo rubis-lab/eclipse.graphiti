@@ -95,6 +95,18 @@
         <filter id="405864542">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.func.IDirectEditing"/>
+                <message_argument value="TYPE_CHECK"/>
+            </message_arguments>
+        </filter>
+        <filter id="405864542">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.func.IDirectEditing"/>
+                <message_argument value="TYPE_COLOR"/>
+            </message_arguments>
+        </filter>
+        <filter id="405864542">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.func.IDirectEditing"/>
                 <message_argument value="TYPE_DIALOG"/>
             </message_arguments>
         </filter>

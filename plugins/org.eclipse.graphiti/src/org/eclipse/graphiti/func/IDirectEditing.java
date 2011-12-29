@@ -29,7 +29,7 @@ import org.eclipse.graphiti.features.context.IDirectEditingContext;
 public interface IDirectEditing {
 
 	/**
-	 * no spcial UI is wanted for editing.
+	 * no special UI is wanted for editing.
 	 */
 	static final int TYPE_NONE = 0;
 
@@ -39,9 +39,9 @@ public interface IDirectEditing {
 	static final int TYPE_TEXT = 1;
 
 	/**
-	 * color chooser is wanted for editing.
+	 * multi line text box is wanted for editing.
 	 */
-	static final int TYPE_COLOR = 2;
+	static final int TYPE_MULTILINETEXT = 5;
 
 	/**
 	 * combo box is wanted for editing.
@@ -52,16 +52,6 @@ public interface IDirectEditing {
 	 * read only combo box is wanted for editing.
 	 */
 	static final int TYPE_DROPDOWN_READ_ONLY = 6;
-
-	/**
-	 * check box is wanted for editing.
-	 */
-	static final int TYPE_CHECK = 4;
-
-	/**
-	 * multi line text box is wanted for editing.
-	 */
-	static final int TYPE_MULTILINETEXT = 5;
 
 	/**
 	 * With this type the customers can provide their own cell editors for the

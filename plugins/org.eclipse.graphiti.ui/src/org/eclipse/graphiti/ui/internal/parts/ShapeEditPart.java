@@ -78,8 +78,6 @@ import org.eclipse.graphiti.ui.internal.policy.DefaultEditPolicyFactory;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFChopboxAnchor;
 import org.eclipse.graphiti.util.ILocationInfo;
 import org.eclipse.graphiti.util.LocationInfo;
-import org.eclipse.jface.viewers.CheckboxCellEditor;
-import org.eclipse.jface.viewers.ColorCellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -689,20 +687,12 @@ public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEd
 		Class<?> uiElementClass = null;
 		switch (directEditingFeature.getEditingType()) {
 		case IDirectEditing.TYPE_TEXT:
-			uiElementClass = TextCellEditor.class;
-			break;
 		case IDirectEditing.TYPE_MULTILINETEXT:
 			uiElementClass = TextCellEditor.class;
 			break;
 		case IDirectEditing.TYPE_DROPDOWN:
 		case IDirectEditing.TYPE_DROPDOWN_READ_ONLY:
 			uiElementClass = ComboBoxCellEditor.class;
-			break;
-		case IDirectEditing.TYPE_CHECK:
-			uiElementClass = CheckboxCellEditor.class;
-			break;
-		case IDirectEditing.TYPE_COLOR:
-			uiElementClass = ColorCellEditor.class;
 			break;
 		case IDirectEditing.TYPE_CUSTOM:
 			uiElementClass = DialogCellEditor.class;
