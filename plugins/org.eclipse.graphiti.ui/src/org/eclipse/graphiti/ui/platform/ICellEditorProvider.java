@@ -18,6 +18,7 @@ package org.eclipse.graphiti.ui.platform;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.swt.widgets.Composite;
 
 /**
@@ -32,6 +33,16 @@ public interface ICellEditorProvider {
 
 	/**
 	 * Creates the cell editor on the given parent composite.
+	 * 
+	 * The methods <li> <code>protected abstract Object doGetValue();</code></li>
+	 * <li> <code>protected abstract void doSetValue(Object value);</code></li><br>
+	 * <br>
+	 * from the {@link CellEditor} must handle {@link String} as value.
+	 * Otherwise the framework cannot interact with the cell editor.
+	 * 
+	 * The customer is also responsible to set a correct
+	 * {@link ICellEditorValidator} on the {@link CellEditor} if input
+	 * validation is needed.
 	 * 
 	 * @param parent
 	 *            the parent composite to create the cell editor on

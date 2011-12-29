@@ -64,7 +64,10 @@ public interface IDirectEditing {
 	static final int TYPE_MULTILINETEXT = 5;
 
 	/**
-	 * dialog is wanted for editing.
+	 * With this type the customers can provide their own cell editors for the
+	 * direct editing mode. In this case the direct editing feature must
+	 * implement the interface
+	 * <code>org.eclipse.graphiti.ui.platform.ICellEditorProvider</code>
 	 * 
 	 * @since 0.9
 	 */
