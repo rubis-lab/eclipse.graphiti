@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *
  * </copyright>
  *
@@ -24,6 +25,7 @@ import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.func.IDirectEditing;
 import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.graphiti.internal.command.DirectEditingFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ICommand;
@@ -115,6 +117,11 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 				}
 			}
 
+		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_DIALOG) {
+			Object cellEditorValue = cellEditor.getValue();
+			if (cellEditorValue instanceof String) {
+				value = (String) cellEditorValue;
+			}
 		}
 
 		if (value == null && acceptedProposal == null) {
@@ -166,7 +173,8 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 			control.setForeground(ColorConstants.listForeground);
 		} else {
 			IColorConstant errorBgColorConstant = LookManager.getLook().getFieldErrorBackgroundColor();
-			Color errorBgColor = DataTypeTransformation.toSwtColor(this.configurationProvider.getResourceRegistry(), errorBgColorConstant);
+			Color errorBgColor = DataTypeTransformation.toSwtColor(this.configurationProvider.getResourceRegistry(),
+					errorBgColorConstant);
 			control.setBackground(errorBgColor);
 			IColorConstant errorFgColorConstant = LookManager.getLook().getFieldErrorForegroundColor();
 			Color errorfgColor = DataTypeTransformation.toSwtColor(this.configurationProvider.getResourceRegistry(),

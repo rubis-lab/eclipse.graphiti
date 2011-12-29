@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Volker Wegert - Bug 332363 - Direct Editing: enable automatic resizing for combo boxes
  *    mwenz - Bug 359112 - Connection text decorator's direct editing box size is not accurate when the text has length zero
+ *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *
  * </copyright>
  *
@@ -24,6 +25,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.func.IDirectEditing;
+import org.eclipse.graphiti.ui.platform.ICellEditorProvider;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -129,6 +131,10 @@ public class TextCellLocator implements CellEditorLocator {
 			}
 
 			control.setBounds(rect.x, rect.y, minWidth, 14);
+		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_DIALOG
+				&& (directEditingFeature instanceof ICellEditorProvider)) {
+			ICellEditorProvider cep = (ICellEditorProvider) directEditingFeature;
+			cep.relocate(celleditor, figure);
 		}
 	}
 

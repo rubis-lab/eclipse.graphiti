@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *
  * </copyright>
  *
@@ -33,6 +34,7 @@ import org.eclipse.graphiti.ui.internal.figures.GFText;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.graphiti.ui.internal.requests.GFDirectEditRequest;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.platform.ICellEditorProvider;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.jface.fieldassist.ContentProposalAdapter;
@@ -151,11 +153,19 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 			ret = new ComboBoxCellEditor(composite, possibleValues);
 			// return new ComboBoxCellEditorFixed(composite, possibleValues,
 			// SWT.NONE);
+		} else if (editingType == IDirectEditing.TYPE_DIALOG) {
+			if (directEditingFeature instanceof ICellEditorProvider) {
+				ret = ((ICellEditorProvider) directEditingFeature).createCellEditor(composite);
+			} else {
+				throw new UnsupportedOperationException("if custom type the feature must implement ICellEditorProvider"); //$NON-NLS-1$
+			}
 		} else {
 			ret = super.createCellEditorOn(composite);
 		}
 
-		ret.setValidator(new GFCellEditorValidator(this, ret));
+		if (editingType != IDirectEditing.TYPE_DIALOG) {
+			ret.setValidator(new GFCellEditorValidator(this, ret));
+		}
 
 		return ret;
 	}
@@ -271,6 +281,9 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 				// });
 				// </sw03072008>
 			}
+		} else if (directEditingFeature.getEditingType() == IDirectEditing.TYPE_DIALOG) {
+			setDirty(true);
+			getCellEditor().setValue(initialValue);
 		}
 
 		// this will force the font to be set
