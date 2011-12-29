@@ -33,7 +33,7 @@ attribute which <em>has no value</em> in the following order: </p>
 in the graphics algorithm</strong>, which the style should be assigned to. This 
 makes it particularly suitable for confusion if the attribute value is already set 
 as a default value for the graphics algorithm. Default values are set from the 
-framework, some of them are set in the metamodel. Let us show this with an exampel:</p>
+framework, some of them are set in the metamodel. Let us show this with an example:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
@@ -69,8 +69,8 @@ styles&#39; default value makes sense, while for most of all Graphiti users this
 is the right one. You can find the default attribute values of graphics 
 algorithms <a href="default_values.html">here</a>.</p>
 <p>To avoid the above confusion the &quot;createPlain&quot;-methods for graphics algorithms were 
-introduced, they have no default values. All values have to be set explicitly and 
-are documented in the coding. We recommend using them, when working with styles.</p>
+introduced; graphics algorithms created with these methods have no default values. All values have to
+be set explicitly and are documented in the coding. We recommend using them, when working with styles.</p>
 <p>It has several advantages if the same style is associated by many graphics algorithms:</p>
 <ul>
 	<li>When a graphical attribute value of the style is changed, all graphics algorithms 
@@ -286,7 +286,7 @@ code snippet:</p>
 </div>
 <p>&nbsp;</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
-<p>Tto achieve a homogeneously appearence of our editor, the styles must also be 
+<p>To achieve a homogeneously appearence of our editor, the styles must also be 
 applied to our EReferences. To do this we have to change the
 <span class="inlinecode">add</span>- and <span class="inlinecode">createArrow</span>-method 
 in class <span class="inlinecode">TutorialAddEReferenceFeature</span>.</p>
@@ -401,7 +401,7 @@ color of the style.</p>
 <p>&nbsp;</p>
 <!-- End code  -------------------------------------------------------------------------------  -->
 <p>Finally the feature provider has to deliver our newly created custom feature 
-(overwrite the method
+(overwrite or extend the method
 <a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getCustomFeatures(org.eclipse.graphiti.features.context.ICustomContext)">
 getCustomFeatures</a>).</p>
 <p>This implementation can be seen here:</p>
