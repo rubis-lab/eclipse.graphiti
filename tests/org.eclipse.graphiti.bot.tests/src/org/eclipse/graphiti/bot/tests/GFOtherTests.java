@@ -16,6 +16,7 @@
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature and
  *                         called features via editor command stack to check it
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *
  * </copyright>
  *
@@ -83,6 +84,7 @@ import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
+import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.context.impl.RemoveContext;
@@ -1095,6 +1097,37 @@ public class GFOtherTests extends AbstractGFTests {
 		DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_WITH_AUTO_UPDATE_AT_STARTUP);
 		Thread.sleep(1000);
 		assertFalse(diagramEditor.isDirty());
+	}
+
+	@Test
+	public void testAddReturnsAddedPictogramElement() throws Exception {
+		/*
+		 * Test for Bug 367204 - AbstractFeatureProvider's addIfPossible method
+		 * should return added {@link PictogramElement}
+		 */
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_TUTORIAL);
+
+		syncExec(new VoidResult() {
+			public void run() {
+
+				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+
+				final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
+				executeInRecordingCommand(diagramEditor, new Runnable() {
+					public void run() {
+						EClass eClass = createEClass(diagram, "Class1");
+
+						AddContext context = new AddContext();
+						context.setNewObject(eClass);
+						context.setTargetContainer(diagram);
+						context.setLocation(100, 100);
+						PictogramElement addedObject = fp.addIfPossible(context);
+						assertNotNull(addedObject);
+					}
+				});
+			}
+		});
 	}
 
 	private IFile createPersistentDiagram() throws Exception {

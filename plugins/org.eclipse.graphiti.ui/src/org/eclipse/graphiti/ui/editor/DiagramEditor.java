@@ -22,6 +22,7 @@
  *                         and called features via editor command stack to check it
  *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *
  * </copyright>
  *
@@ -1780,10 +1781,16 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 *            the feature to execute
 	 * @param context
 	 *            the context to use
+	 * @return in case of an {@link IAddFeature} being passed as feature the
+	 *         newly added {@link PictogramElement} will be returned (in case
+	 *         the add method returning it), in all other cases
+	 *         <code>null</code>
 	 * 
 	 * @since 0.9
 	 */
-	public void executeFeature(IFeature feature, IContext context) {
+	public Object executeFeature(IFeature feature, IContext context) {
+		Object returnValue = null;
+
 		DefaultEditDomain domain = getEditDomain();
 
 		// Make sure the editor is valid
@@ -1811,7 +1818,12 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			if (addedPictogramElement != null) {
 				setPictogramElementForSelection(addedPictogramElement);
 			}
+
+			// Store the added pictogram element as return value
+			returnValue = addedPictogramElement;
 		}
+
+		return returnValue;
 	}
 
 	/**

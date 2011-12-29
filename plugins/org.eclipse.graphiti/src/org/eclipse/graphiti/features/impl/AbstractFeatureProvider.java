@@ -12,6 +12,7 @@
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
  *                         and called features via editor command stack to check it
+ *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *
  * </copyright>
  *
@@ -322,12 +323,15 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		if (info) {
 			T.racer().entering(AbstractFeatureProvider.class, SIGNATURE, new Object[] { context });
 		}
-		PictogramElement ret = null;
+		PictogramElement returnValue = null;
 		if (canAdd(context).toBoolean()) {
 			IAddFeature feature = getAddFeature(context);
 			IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
 			try {
-				diagramEditor.executeFeature(feature, context);
+				Object result = diagramEditor.executeFeature(feature, context);
+				if (result instanceof PictogramElement) {
+					returnValue = (PictogramElement) result;
+				}
 			} catch (Exception e) {
 				// Wrap in RuintimeException (handled by all callers)
 				if (e instanceof RuntimeException) {
@@ -338,9 +342,9 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 			}
 		}
 		if (info) {
-			T.racer().exiting(AbstractFeatureProvider.class, SIGNATURE, ret);
+			T.racer().exiting(AbstractFeatureProvider.class, SIGNATURE, returnValue);
 		}
-		return ret;
+		return returnValue;
 	}
 
 	public IReason canAdd(IAddContext context) {

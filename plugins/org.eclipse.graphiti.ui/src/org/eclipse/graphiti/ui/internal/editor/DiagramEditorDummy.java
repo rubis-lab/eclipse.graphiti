@@ -13,6 +13,7 @@
  *                         and called features via editor command stack to check it
  *    mwenz - Bug 363539 - Enabled feature delegation via IDiagramEditor.execute method - contributed by Hernan
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *
  * </copyright>
  *
@@ -120,10 +121,13 @@ public class DiagramEditorDummy implements IDiagramEditor {
 	 *            the {@link IFeature} to execute
 	 * @param context
 	 *            the {@link IContext} to use while executing the feature
+	 * @return always <code>null</code>
 	 */
-	public void executeFeature(IFeature feature, IContext context) {
+	public Object executeFeature(IFeature feature, IContext context) {
 		if (feature != null && context != null && feature.canExecute(context)) {
 			feature.execute(context);
 		}
+
+		return null;
 	}
 }

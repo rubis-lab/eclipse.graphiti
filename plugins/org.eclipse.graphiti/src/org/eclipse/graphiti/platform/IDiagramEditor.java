@@ -12,6 +12,7 @@
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
  *                         and called features via editor command stack to check it
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *
  * </copyright>
  *
@@ -138,8 +139,10 @@ public interface IDiagramEditor {
 	 *            The feature to execute
 	 * @param context
 	 *            The context object to use with the feature
+	 * @return an object representing the result of the feature call (depends on
+	 *         the concrete implementation)
 	 * 
 	 * @since 0.9
 	 */
-	void executeFeature(IFeature feature, IContext context);
+	Object executeFeature(IFeature feature, IContext context);
 }
