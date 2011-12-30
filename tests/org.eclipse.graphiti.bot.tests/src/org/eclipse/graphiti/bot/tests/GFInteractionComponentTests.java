@@ -13,6 +13,7 @@
  *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
  *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 363796 - Make setting of selection width of connections public
  *
  * </copyright>
  *
@@ -55,6 +56,8 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.ICreateService;
 import org.eclipse.graphiti.testtool.ecore.TestToolBehavior;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
 import org.eclipse.graphiti.testtool.sketch.features.ToggleDecorator;
@@ -128,6 +131,22 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		assertNull(diagramEditor.getEditDomain().getPaletteViewer());
 		page.shutdownEditor(diagramEditor);
 		TestToolBehavior.setShowFlyoutPalette(oldValue);
+	}
+
+	@Test
+	public void testLineSelectionWidth() throws Exception {
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final ICreateService createService = Graphiti.getCreateService();
+		executeInRecordingCommand(diagramEditor, new Runnable() {
+			public void run() {
+				ContainerShape containerShape = createService.createContainerShape(diagramEditor
+						.getDiagramTypeProvider().getDiagram(), true);
+				createService.createPolyline(containerShape, new int[] { 0, 0, 10, 0 });
+			}
+		});
+		diagramEditor.refresh();
+		assertTrue(TestToolBehavior.lineSelectionWidthCalled);
+		page.getGefEditor().saveAndClose();
 	}
 
 	@Test

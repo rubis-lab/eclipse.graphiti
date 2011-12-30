@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
+ *    mwenz - Bug 363796 - Make setting of selection width of connections public
  *
  * </copyright>
  *
@@ -28,6 +29,8 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.swt.graphics.Path;
 
@@ -45,7 +48,7 @@ public class GFPolyline extends GFAbstractPointListShape {
 	 * The minimum selection line-width which is set in
 	 * {@link #setMinimumSelectionLineWidth(int)}.
 	 */
-	private int minimumSelectionLineWidth = 5;
+	private int minimumSelectionLineWidth = DefaultToolBehaviorProvider.DEFAULT_LINE_SELECTION_WIDTH;
 
 	/**
 	 * If filling is suppressed as described in
@@ -83,7 +86,12 @@ public class GFPolyline extends GFAbstractPointListShape {
 	 */
 	public GFPolyline(IPictogramElementDelegate pictogramElementDelegate, GraphicsAlgorithm graphicsAlgorithm) {
 		super(pictogramElementDelegate, graphicsAlgorithm);
-
+		if (graphicsAlgorithm instanceof Polyline) {
+			// Ask the tool behavior provider for the selection tolerance for
+			// the line object
+			minimumSelectionLineWidth = pictogramElementDelegate.getConfigurationProvider().getDiagramTypeProvider()
+					.getCurrentToolBehaviorProvider().getLineSelectionWidth((Polyline) graphicsAlgorithm);
+		}
 		// A Polyline is NEVER filled
 		setSuppressFilling(true);
 	}

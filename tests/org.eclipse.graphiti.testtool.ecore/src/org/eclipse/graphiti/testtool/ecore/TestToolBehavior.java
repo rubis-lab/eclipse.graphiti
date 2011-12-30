@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 363796 - Make setting of selection width of connections public
  *
  * </copyright>
  *
@@ -23,6 +24,7 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
@@ -34,10 +36,13 @@ import org.eclipse.graphiti.tb.IContextButtonPadData;
 public class TestToolBehavior extends DefaultToolBehaviorProvider {
 
 	public static boolean showFlyoutPalette = true;
+	public static int lineSelectionWidth = DEFAULT_LINE_SELECTION_WIDTH;
+	public static boolean lineSelectionWidthCalled = false;
 
 	public static void setShowFlyoutPalette(boolean showFlyoutPalette) {
 		TestToolBehavior.showFlyoutPalette = showFlyoutPalette;
 	}
+
 
 	/**
 	 * Instantiates a new test tool behavior.
@@ -88,5 +93,11 @@ public class TestToolBehavior extends DefaultToolBehaviorProvider {
 	@Override
 	public boolean isShowFlyoutPalette() {
 		return showFlyoutPalette;
+	}
+
+	@Override
+	public int getLineSelectionWidth(Polyline polyline) {
+		lineSelectionWidthCalled = true;
+		return lineSelectionWidth;
 	}
 }

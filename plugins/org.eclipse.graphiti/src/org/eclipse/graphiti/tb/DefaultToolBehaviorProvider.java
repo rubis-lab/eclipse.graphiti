@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
+ *    mwenz - Bug 363796 - Make setting of selection width of connections public
  *
  * </copyright>
  *
@@ -19,6 +20,7 @@
  */
 package org.eclipse.graphiti.tb;
 
+import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,7 @@ import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -56,6 +59,16 @@ import org.eclipse.graphiti.util.ILocationInfo;
  * The Class DefaultToolBehaviorProvider.
  */
 public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
+
+	/**
+	 * The default selection width (the tolerance area a user can click to still
+	 * select) a lathy object (e.g. {@link Polyline} or {@link Polygon} for
+	 * {@link Shape}s and {@link Connection}s) in the diagram. Is returned in
+	 * the default implementation of {@link #getLineSelectionWidth(Polyline)}.
+	 * 
+	 * @since 0.9
+	 */
+	public static final int DEFAULT_LINE_SELECTION_WIDTH = 5;
 
 	protected int THRESHOLD_FOR_LONG_RUNNING_OPERATION = 20;
 
@@ -483,5 +496,25 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 */
 	public boolean isShowMarqueeTool() {
 		return true;
+	}
+
+	/**
+	 * Is asked to return the selection width (the tolerance area a user can
+	 * click to still select) a lathy object (e.g. {@link Polyline} or
+	 * {@link Polygon} for {@link Shape}s and {@link Connection}s) in the
+	 * diagram. The method is called when a new object is drawn for the first
+	 * time onto a diagram (on creation of the object or on opening the
+	 * diagram).<br>
+	 * The default implementation returns {@link #DEFAULT_LINE_SELECTION_WIDTH}
+	 * with the value {@value #DEFAULT_LINE_SELECTION_WIDTH} for all shapes.
+	 * 
+	 * @param polyline
+	 *            the {@link Polyline} object to get the selection width for
+	 * @return an int representing the allowed tolerance for clicking in pixels
+	 * 
+	 * @since 0.9
+	 */
+	public int getLineSelectionWidth(Polyline polyline) {
+		return DEFAULT_LINE_SELECTION_WIDTH;
 	}
 }

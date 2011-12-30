@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
+ *    mwenz - Bug 363796 - Make setting of selection width of connections public
  *
  * </copyright>
  *
@@ -24,6 +25,7 @@ import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -331,4 +333,9 @@ public interface IToolBehaviorProvider {
 	 * @since 0.8
 	 */
 	public boolean equalsBusinessObjects(Object o1, Object o2);
+
+	/**
+	 * @since 0.9
+	 */
+	public int getLineSelectionWidth(Polyline polyline);
 }
