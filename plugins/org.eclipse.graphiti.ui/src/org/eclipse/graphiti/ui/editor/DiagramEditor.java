@@ -23,6 +23,7 @@
  *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
+ *    mwenz - Bug 324556 - Prevent invisible shapes to be selected to avoid IllegalArgumentException
  *
  * </copyright>
  *
@@ -1257,7 +1258,14 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			for (int i = 0; i < pictogramElements.length; i++) {
 				PictogramElement pe = pictogramElements[i];
 				Object obj = editPartRegistry.get(pe);
-				if (obj instanceof EditPart) {
+				/*
+				 * Add all EditParts to a list to be selected. Bug 324556: Only
+				 * add EditParts that allow selection to the list, e.g.
+				 * invisible objects will cause an IllegalArgumentException in
+				 * AbstractEditPart.setSelected (GEF) when setSelected is
+				 * called.
+				 */
+				if (obj instanceof EditPart && ((EditPart) obj).isSelectable()) {
 					editParts.add((EditPart) obj);
 				}
 			}
