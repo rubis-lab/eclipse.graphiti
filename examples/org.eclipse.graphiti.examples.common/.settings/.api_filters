@@ -16,4 +16,23 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/examples/common/outline/GraphicsEditorOutlinePage.java" type="org.eclipse.graphiti.examples.common.outline.GraphicsEditorOutlinePage">
+        <filter id="337682486">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.examples.common.outline.GraphicsEditorOutlinePage"/>
+            </message_arguments>
+        </filter>
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.examples.common.outline.GraphicsEditorOutlinePage"/>
+                <message_argument value="GraphicsEditorOutlinePage(EditPartViewer, GraphicalViewer, ActionRegistry, EditDomain, KeyHandler, Object, SelectionSynchronizer, DiagramEditor)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.examples.common.outline.GraphicsEditorOutlinePage"/>
+                <message_argument value="getAdapter(Class)"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>

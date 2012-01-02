@@ -15,7 +15,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.examples.common.outline;
 
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.Viewport;
@@ -28,10 +27,10 @@ import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
-import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.parts.ContentOutlinePage;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
+import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.graphiti.examples.common.IExampleImageConstants;
 import org.eclipse.graphiti.examples.common.outline.tree.PictogramsTreeEditPartFactory;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -61,7 +60,7 @@ import org.eclipse.ui.part.PageBook;
 // The generic outline uses internal functionality of Graphiti. For concrete
 // tool implementations this should not be necessary
 @SuppressWarnings("restriction")
-public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAdaptable, IPropertyListener {
+public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IPropertyListener {
 
 	// The IDs to identify the outline and the thunbnail
 	private static final int ID_OUTLINE = 0;
@@ -78,7 +77,6 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 
 	private KeyHandler _keyHandler;
 
-	private Object _zoomManagerAdapter;
 
 	private SelectionSynchronizer _selectionSynchronizer;
 
@@ -106,39 +104,21 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	 * ZoomManagerAdapter, ...) as the main editor, so that the behaviour is
 	 * synchronized between them.
 	 * 
-	 * @param viewer
-	 *            The viewer (typically a tree-viewer) for the hierarchical
-	 *            outline.
-	 * @param graphicalViewer
-	 *            The GraphicalViewer for the Thumbnail.
-	 * @param actionRegistry
-	 *            The ActionRegistry to find/register Actions.
-	 * @param editDomain
-	 *            The EditDomain to use for Commands.
-	 * @param keyHandler
-	 *            The KeyHandler to use.
-	 * @param zoomManagerAdapter
-	 *            The ZoomManagerAdapter to use for the Thumbnail-Display.
-	 * @param selectionSynchronizer
-	 *            The selection-synchronizer for the main-editor and this
-	 *            outline page.
-	 * @param configurationProviderHolder
-	 *            the configuration provider holder
+	 * @param diagramEditor
+	 *            the attached diagram editor
+	 * @since 0.9
 	 */
-	public GraphicsEditorOutlinePage(EditPartViewer viewer, GraphicalViewer graphicalViewer, ActionRegistry actionRegistry,
-			EditDomain editDomain, KeyHandler keyHandler, Object zoomManagerAdapter, SelectionSynchronizer selectionSynchronizer,
-			DiagramEditor diagramEditor) {
-		super(viewer);
-		_graphicalViewer = graphicalViewer;
-		_actionRegistry = actionRegistry;
-		_editDomain = editDomain;
-		_keyHandler = keyHandler;
-		_zoomManagerAdapter = zoomManagerAdapter;
-		_selectionSynchronizer = selectionSynchronizer;
+	public GraphicsEditorOutlinePage(DiagramEditor diagramEditor) {
+		super(new TreeViewer());
+		_graphicalViewer = diagramEditor.getGraphicalViewer();
+		_actionRegistry = (ActionRegistry) diagramEditor.getAdapter(ActionRegistry.class);
+		_editDomain = diagramEditor.getEditDomain();
+		_keyHandler = (KeyHandler) diagramEditor.getAdapter(KeyHandler.class);
+		_selectionSynchronizer = (SelectionSynchronizer) diagramEditor.getAdapter(SelectionSynchronizer.class);
 		_diagramEditor = diagramEditor;
 	}
 
-	// ========================= standard behaviour ===========================
+	// ========================= standard behavior ===========================
 
 	/**
 	 * Is called to indicate, that the contents have changed. Causes a complete
@@ -147,7 +127,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	public void initContents() {
 		EditPartFactory treeEditPartFactory = new PictogramsTreeEditPartFactory();
 		getViewer().setEditPartFactory(treeEditPartFactory);
-		Diagram diagram = (Diagram) _diagramEditor.getAdapter(Diagram.class);
+		Diagram diagram = _diagramEditor.getDiagramTypeProvider().getDiagram();
 		getViewer().setContents(diagram);
 	}
 
@@ -225,22 +205,6 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IAd
 	@Override
 	public Control getControl() {
 		return _pageBook;
-	}
-
-	/**
-	 * This implementation returns the ZoomManager for the ZoomManager.class.
-	 * 
-	 * @param type
-	 *            the type
-	 * 
-	 * @return the adapter
-	 * 
-	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#getAdapter(Class)
-	 */
-	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
-		if (type == ZoomManager.class)
-			return _zoomManagerAdapter;
-		return null;
 	}
 
 	/**

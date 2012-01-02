@@ -17,11 +17,6 @@
 package org.eclipse.graphiti.examples.common.outline;
 
 import org.eclipse.core.runtime.IAdapterFactory;
-import org.eclipse.gef.KeyHandler;
-import org.eclipse.gef.editparts.ZoomManager;
-import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.gef.ui.parts.SelectionSynchronizer;
-import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
@@ -41,14 +36,7 @@ public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 					if (diagramEditor.getDiagramTypeProvider() != null) { // diagram
 																			// editor
 																			// initialized?
-						GraphicsEditorOutlinePage outlinePage = new GraphicsEditorOutlinePage(new TreeViewer(),
-								diagramEditor.getGraphicalViewer(),
-								(ActionRegistry) diagramEditor.getAdapter(ActionRegistry.class),
-								diagramEditor.getEditDomain(),
-								(org.eclipse.gef.KeyHandler) diagramEditor.getAdapter(KeyHandler.class),
-								diagramEditor.getAdapter(ZoomManager.class),
-								(SelectionSynchronizer) diagramEditor.getAdapter(SelectionSynchronizer.class),
-								diagramEditor);
+						GraphicsEditorOutlinePage outlinePage = new GraphicsEditorOutlinePage(diagramEditor);
 						return outlinePage;
 					}
 				}
