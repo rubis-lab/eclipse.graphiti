@@ -31,6 +31,7 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
@@ -48,9 +49,9 @@ import org.eclipse.graphiti.util.IColorConstant;
 public interface IGaCreateService {
 
 	/**
-	 * Creates a multitext graphics algorithm with the default font (Arial, size
-	 * 8). Use this method only if you want to use the default text, otherwise
-	 * use {@link #createMultiText(GraphicsAlgorithmContainer)}
+	 * Creates a {@link MultiText} graphics algorithm with the default font
+	 * (Arial, size 8). Use this method only if you want to use the default
+	 * text, otherwise use {@link #createMultiText(GraphicsAlgorithmContainer)}
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -80,9 +81,9 @@ public interface IGaCreateService {
 	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer);
 	
 	/**
-	 * Creates a multitext graphics algorithm with the default font (Arial, size
-	 * 8) and the given text. Use this method only if you want to use the
-	 * default text, otherwise use
+	 * Creates a {@link MultiText} graphics algorithm with the default font
+	 * (Arial, size 8) and the given text. Use this method only if you want to
+	 * use the default text, otherwise use
 	 * {@link #createMultiText(GraphicsAlgorithmContainer, String)}
 	 * <p>
 	 * The following values are set by default:
@@ -115,9 +116,9 @@ public interface IGaCreateService {
 	public MultiText createDefaultMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value);
 	
 	/**
-	 * Creates a text graphics algorithm with the default font (Arial, size 8).
-	 * Use this method only if you want to use the default text, otherwise use
-	 * {@link #createText(GraphicsAlgorithmContainer)}
+	 * Creates a {@link Text} graphics algorithm with the default font (Arial,
+	 * size 8). Use this method only if you want to use the default text,
+	 * otherwise use {@link #createText(GraphicsAlgorithmContainer)}
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -148,9 +149,9 @@ public interface IGaCreateService {
 	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer);
 
 	/**
-	 * Creates a text graphics algorithm with the default font (Arial, size 8)
-	 * and the given text. Use this method only if you want to use the default
-	 * text, otherwise use
+	 * Creates a {@link Text} graphics algorithm with the default font (Arial,
+	 * size 8) and the given text. Use this method only if you want to use the
+	 * default text, otherwise use
 	 * {@link #createText(GraphicsAlgorithmContainer, String)}
 	 * <p>
 	 * The following values are set by default:
@@ -183,7 +184,7 @@ public interface IGaCreateService {
 	public Text createDefaultText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value);
 
 	/**
-	 * Creates a multitext graphics algorithm.
+	 * Creates a {@link MultiText} graphics algorithm.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -208,8 +209,8 @@ public interface IGaCreateService {
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer);
 	
 	/**
-	 * Creates a plain multitext graphics algorithm. Default values have been reset,
-	 * so you can use your styles.
+	 * Creates a plain {@link MultiText} graphics algorithm. Default values have
+	 * been reset, so you can use your styles, see {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -221,7 +222,7 @@ public interface IGaCreateService {
 	public MultiText createPlainMultiText(GraphicsAlgorithmContainer gaContainer);
 
 	/**
-	 * Creates a multitext graphics algorithm with the given text.
+	 * Creates a {@link MultiText} graphics algorithm with the given text.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -248,9 +249,10 @@ public interface IGaCreateService {
 	public MultiText createMultiText(GraphicsAlgorithmContainer gaContainer, String value);
 	
 	/**
-	 * Creates a plain multitext graphics algorithm with the given text. Default
-	 * values have been reset, so you can use your styles.
-	 *
+	 * Creates a plain {@link MultiText} graphics algorithm with the given text.
+	 * Default values have been reset, so you can use your styles, see
+	 * {@link AbstractStyle}.
+	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
 	 * @param value
@@ -263,10 +265,11 @@ public interface IGaCreateService {
 	public MultiText createPlainMultiText(GraphicsAlgorithmContainer gaContainer, String value);
 
 	/**
-	 * Creates a multitext graphics algorithm with the given text and font. The
-	 * font will be displayed in straight (no italics or bold) and will be
-	 * managed within the given diagram; in case the font already exists it will
-	 * be reused, otherwise the corresponding font instance will be created.
+	 * Creates a {@link MultiText} graphics algorithm with the given text and
+	 * font. The font will be displayed in straight (no italics or bold) and
+	 * will be managed within the given diagram; in case the font already exists
+	 * it will be reused, otherwise the corresponding font instance will be
+	 * created.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -304,10 +307,10 @@ public interface IGaCreateService {
 	public MultiText createMultiText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize);
 
 	/**
-	 * Creates a multitext graphics algorithm with the given text and font. The
-	 * font will be managed within the given diagram; in case the font already
-	 * exists it will be reused, otherwise the corresponding font instance will
-	 * be created.
+	 * Creates a {@link MultiText} graphics algorithm with the given text and
+	 * font. The font will be managed within the given diagram; in case the font
+	 * already exists it will be reused, otherwise the corresponding font
+	 * instance will be created.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -352,7 +355,7 @@ public interface IGaCreateService {
 			boolean isFontItalic, boolean isFontBold);
 
 	/**
-	 * Creates a text graphics algorithm with empty text.
+	 * Creates a {@link Text} graphics algorithm with empty text.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -376,8 +379,9 @@ public interface IGaCreateService {
 	public Text createText(GraphicsAlgorithmContainer gaContainer);
 	
 	/**
-	 * Creates a plain text graphics algorithm with empty text. Default values have
-	 * been reset, so you can use your styles.
+	 * Creates a plain {@link Text} graphics algorithm with empty text. Default
+	 * values have been reset, so you can use your styles, see
+	 * {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -389,7 +393,7 @@ public interface IGaCreateService {
 	public Text createPlainText(GraphicsAlgorithmContainer gaContainer);
 
 	/**
-	 * Creates a text graphics algorithm with the given text.
+	 * Creates a {@link Text} graphics algorithm with the given text.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -415,8 +419,9 @@ public interface IGaCreateService {
 	public Text createText(GraphicsAlgorithmContainer gaContainer, String value);
 	
 	/**
-	 * Creates a plain text graphics algorithm with the given text. Default values
-	 * have been reset, so you can use your styles.
+	 * Creates a plain {@link Text} graphics algorithm with the given text.
+	 * Default values have been reset, so you can use your styles, see
+	 * {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -431,10 +436,10 @@ public interface IGaCreateService {
 
 
 	/**
-	 * Creates a text graphics algorithm with the given text and font. The font
-	 * will be displayed in straight (no italics or bold) and will be managed
-	 * within the given diagram; in case the font already exists it will be
-	 * reused, otherwise the corresponding font instance will be created.
+	 * Creates a {@link Text} graphics algorithm with the given text and font.
+	 * The font will be displayed in straight (no italics or bold) and will be
+	 * managed within the given diagram; in case the font already exists it will
+	 * be reused, otherwise the corresponding font instance will be created.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -472,10 +477,10 @@ public interface IGaCreateService {
 	public Text createText(Diagram diagram, GraphicsAlgorithmContainer gaContainer, String value, String fontName, int fontSize);
 
 	/**
-	 * Creates a text graphics algorithm with the given text and font. The font
-	 * will be managed within the given diagram; in case the font already exists
-	 * it will be reused, otherwise the corresponding font instance will be
-	 * created.
+	 * Creates a {@link Text} graphics algorithm with the given text and font.
+	 * The font will be managed within the given diagram; in case the font
+	 * already exists it will be reused, otherwise the corresponding font
+	 * instance will be created.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -520,7 +525,7 @@ public interface IGaCreateService {
 			boolean isFontItalic, boolean isFontBold);
 
 	/**
-	 * Creates an ellipse graphics algorithm.
+	 * Creates an {@link Ellipse} graphics algorithm.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -539,8 +544,8 @@ public interface IGaCreateService {
 	public Ellipse createEllipse(GraphicsAlgorithmContainer gaContainer);
 	
 	/**
-	 * Creates a plain ellipse graphics algorithm. Default values have been reset, so
-	 * you can use your styles.
+	 * Creates a plain {@link Ellipse} graphics algorithm. Default values have
+	 * been reset, so you can use your styles, see {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -552,7 +557,7 @@ public interface IGaCreateService {
 	public Ellipse createPlainEllipse(GraphicsAlgorithmContainer gaContainer);
 
 	/**
-	 * Creates a image graphics algorithm with the given image id.
+	 * Creates a {@link Image} graphics algorithm with the given image id.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -578,8 +583,9 @@ public interface IGaCreateService {
 	public Image createImage(GraphicsAlgorithmContainer gaContainer, String imageId);
 	
 	/**
-	 * Creates a plain image graphics algorithm with the given image id. Default
-	 * values have been reset, so you can use your styles.
+	 * Creates a plain {@link Image} graphics algorithm with the given image id.
+	 * Default values have been reset, so you can use your styles, see
+	 * {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -593,7 +599,7 @@ public interface IGaCreateService {
 	public Image createPlainImage(GraphicsAlgorithmContainer gaContainer, String imageId);
 
 	/**
-	 * Create an invisible rectangle.
+	 * Create an invisible {@link Rectangle}.
 	 * <p>
 	 * The following values are set by default when it is shown:
 	 * <p>
@@ -614,7 +620,7 @@ public interface IGaCreateService {
 	public Rectangle createInvisibleRectangle(PictogramElement pe);
 
 	/**
-	 * Creates the platform graphics algorithm.
+	 * Creates the {@link PlatformGraphicsAlgorithm}.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -636,8 +642,8 @@ public interface IGaCreateService {
 	public PlatformGraphicsAlgorithm createPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id);
 
 	/**
-	 * Creates the plain platform graphics algorithm. Default values have been reset,
-	 * so you can use your styles.
+	 * Creates the plain {@link PlatformGraphicsAlgorithm}. Default values have
+	 * been reset, so you can use your styles, see {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -651,7 +657,7 @@ public interface IGaCreateService {
 	public PlatformGraphicsAlgorithm createPlainPlatformGraphicsAlgorithm(GraphicsAlgorithmContainer gaContainer, String id);
 
 	/**
-	 * Creates a point datatype for the given x/y coordinates.
+	 * Creates a {@link Point} datatype for the given x/y coordinates.
 	 * 
 	 * @param x
 	 *            the x coordinate
@@ -662,9 +668,9 @@ public interface IGaCreateService {
 	public Point createPoint(int x, int y);
 
 	/**
-	 * Creates a point datatype for the given x/y coordinates. The additional
-	 * before/after parameters defined at which distance before/after the point
-	 * a rounded curve will start/end.
+	 * Creates a {@link Point} datatype for the given x/y coordinates. The
+	 * additional before/after parameters defined at which distance before/after
+	 * the point a rounded curve will start/end.
 	 * 
 	 * Note, that before/after parameters have only an effect, if the graphics
 	 * algorithm support them, e.g. polygon and polyline.
@@ -682,7 +688,7 @@ public interface IGaCreateService {
 	public Point createPoint(int x, int y, int before, int after);
 
 	/**
-	 * Creates a list of point datatypes for the given x/y coordinates.
+	 * Creates a list of {@link Point} datatypes for the given x/y coordinates.
 	 * 
 	 * @param xy
 	 *            The x/y coordinates: [x0, y0, ...,xN, yN]
@@ -692,7 +698,7 @@ public interface IGaCreateService {
 	public List<Point> createPointList(int[] xy);
 
 	/**
-	 * Creates a list of point datatypes for the given x/y coordinates.
+	 * Creates a list of {@link Point} datatypes for the given x/y coordinates.
 	 * 
 	 * Note, that before/after parameters have only an effect, if the graphics
 	 * algorithm support them, e.g. polygon and polyline.
@@ -708,7 +714,7 @@ public interface IGaCreateService {
 	public List<Point> createPointList(int[] xy, int beforeAfter[]);
 
 	/**
-	 * Creates a polygon graphics algorithm.
+	 * Creates a {@link Polygon} graphics algorithm.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -728,8 +734,8 @@ public interface IGaCreateService {
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer);
 	
 	/**
-	 * Creates a plain polygon graphics algorithm.  Default
-	 * values have been reset, so you can use your styles.
+	 * Creates a plain {@link Polygon} graphics algorithm. Default values have
+	 * been reset, so you can use your styles, see {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -741,7 +747,7 @@ public interface IGaCreateService {
 	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer);
 
 	/**
-	 * Creates a polygon graphics algorithm with the given points.
+	 * Creates a {@link Polygon} graphics algorithm with the given points.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -763,8 +769,9 @@ public interface IGaCreateService {
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
 	
 	/**
-	 * Creates a plain polygon graphics algorithm with the given points. Default
-	 * values have been reset, so you can use your styles.
+	 * Creates a plain {@link Polygon} graphics algorithm with the given points.
+	 * Default values have been reset, so you can use your styles, see
+	 * {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -778,7 +785,7 @@ public interface IGaCreateService {
 	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
 
 	/**
-	 * Creates a polygon graphics algorithm with the given points.
+	 * Creates a {@link Polygon} graphics algorithm with the given points.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -800,8 +807,9 @@ public interface IGaCreateService {
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy);
 	
 	/**
-	 * Creates a plain polygon graphics algorithm with the given points. Default
-	 * values have been reset, so you can use your styles.
+	 * Creates a plain {@link Polygon} graphics algorithm with the given points.
+	 * Default values have been reset, so you can use your styles, see
+	 * {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -815,7 +823,7 @@ public interface IGaCreateService {
 	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy);
 
 	/**
-	 * Creates a polygon graphics algorithm with the given points.
+	 * Creates a {@link Polygon} graphics algorithm with the given points.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -840,8 +848,9 @@ public interface IGaCreateService {
 	public Polygon createPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]);
 	
 	/**
-	 * Creates a plain polygon graphics algorithm with the given points. Default
-	 * values have been reset, so you can use your styles.
+	 * Creates a plain {@link Polygon} graphics algorithm with the given points.
+	 * Default values have been reset, so you can use your styles, see
+	 * {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -858,7 +867,7 @@ public interface IGaCreateService {
 	public Polygon createPlainPolygon(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]);
 
 	/**
-	 * Creates a polyline graphics algorithm.
+	 * Creates a {@link Polyline} graphics algorithm.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -878,8 +887,8 @@ public interface IGaCreateService {
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer);
 	
 	/**
-	 * Creates a plain polyline graphics algorithm. Default
-	 * values have been reset, so you can use your styles.
+	 * Creates a plain {@link Polyline} graphics algorithm. Default values have
+	 * been reset, so you can use your styles, see {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -891,7 +900,7 @@ public interface IGaCreateService {
 	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer);
 
 	/**
-	 * Creates a polyline graphics algorithm with the given points.
+	 * Creates a {@link Polyline} graphics algorithm with the given points.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -913,8 +922,9 @@ public interface IGaCreateService {
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
 	
 	/**
-	 * Creates a plain polyline graphics algorithm with the given points. Default
-	 * values have been reset, so you can use your styles.
+	 * Creates a plain {@link Polyline} graphics algorithm with the given
+	 * points. Default values have been reset, so you can use your styles, see
+	 * {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -928,7 +938,7 @@ public interface IGaCreateService {
 	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, Collection<Point> points);
 
 	/**
-	 * Creates a polyline graphics algorithm with the given points.
+	 * Creates a {@link Polyline} graphics algorithm with the given points.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -950,8 +960,9 @@ public interface IGaCreateService {
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy);
 
 	/**
-	 * Creates a plain polyline graphics algorithm with the given points. Default
-	 * values have been reset, so you can use your styles.
+	 * Creates a plain polyline graphics algorithm with the given points.
+	 * Default values have been reset, so you can use your styles, see
+	 * {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -965,7 +976,7 @@ public interface IGaCreateService {
 	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy);
 	
 	/**
-	 * Creates a polyline graphics algorithm with the given points.
+	 * Creates a {@link Polyline} graphics algorithm with the given points.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -990,8 +1001,9 @@ public interface IGaCreateService {
 	public Polyline createPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]);
 	
 	/**
-	 * Creates a plain polyline graphics algorithm with the given points. Default
-	 * values have been reset, so you can use your styles.
+	 * Creates a plain {@link Polyline} graphics algorithm with the given
+	 * points. Default values have been reset, so you can use your styles, see
+	 * {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -1008,7 +1020,7 @@ public interface IGaCreateService {
 	public Polyline createPlainPolyline(GraphicsAlgorithmContainer gaContainer, int[] xy, int beforeAfter[]);
 
 	/**
-	 * Creates a rectangle graphics algorithm.
+	 * Creates a {@link Rectangle} graphics algorithm.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -1027,8 +1039,8 @@ public interface IGaCreateService {
 	public Rectangle createRectangle(GraphicsAlgorithmContainer gaContainer);
 	
 	/**
-	 * Creates a plain rectangle graphics algorithm. Default
-	 * values have been reset, so you can use your styles.
+	 * Creates a plain {@link Rectangle} graphics algorithm. Default values have
+	 * been reset, so you can use your styles, see {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -1040,8 +1052,8 @@ public interface IGaCreateService {
 	public Rectangle createPlainRectangle(GraphicsAlgorithmContainer gaContainer);
 
 	/**
-	 * Creates a rounded rectangle graphics algorithm with the given corner
-	 * dimensions.
+	 * Creates a {@link RoundedRectangle} graphics algorithm with the given
+	 * corner dimensions.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -1066,9 +1078,9 @@ public interface IGaCreateService {
 	public RoundedRectangle createRoundedRectangle(GraphicsAlgorithmContainer gaContainer, int cornerWidth, int cornerHeight);
 
 	/**
-	 * Creates a plain rounded rectangle graphics algorithm with the given
-	 * corner dimensions. Default values have been reset, so you can use your
-	 * styles.
+	 * Creates a plain {@link RoundedRectangle} graphics algorithm with the
+	 * given corner dimensions. Default values have been reset, so you can use
+	 * your styles, see {@link AbstractStyle}.
 	 * 
 	 * @param gaContainer
 	 *            the container for the new graphics algorithm
@@ -1085,7 +1097,7 @@ public interface IGaCreateService {
 
 	
 	/**
-	 * Shifts the color darker or lighter.
+	 * Shifts the {@link Color} darker or lighter.
 	 * 
 	 * @param color
 	 *            the color to be changed
@@ -1098,7 +1110,7 @@ public interface IGaCreateService {
 	public Color createShiftedColor(Color color, int shift, Diagram diagram);
 
 	/**
-	 * Shifts the color constant darker or lighter.
+	 * Shifts the {@link Color} constant darker or lighter.
 	 * 
 	 * @param colorConstant
 	 *            the color constant to be changed
@@ -1109,8 +1121,8 @@ public interface IGaCreateService {
 	public IColorConstant createShiftedColor(IColorConstant colorConstant, int shift);
 
 	/**
-	 * Creates a style with the given id. The style is aggregated under the
-	 * given container style.
+	 * Creates a {@link Style} with the given id. The style is aggregated under
+	 * the given container style.
 	 * <p>
 	 * The following values are set by default:
 	 * <p>
@@ -1128,9 +1140,9 @@ public interface IGaCreateService {
 	public Style createStyle(StyleContainer styleContainer, String id);
 	
 	/**
-	 * Creates a style with the given id. The style is aggregated under the
-	 * given container style. Default values have been reset, so you can use
-	 * your styles.
+	 * Creates a {@link Style} with the given id. The style is aggregated under
+	 * the given container style. Default values have been reset, so you can use
+	 * your styles, see {@link AbstractStyle}.
 	 * 
 	 * @param styleContainer
 	 *            container style
