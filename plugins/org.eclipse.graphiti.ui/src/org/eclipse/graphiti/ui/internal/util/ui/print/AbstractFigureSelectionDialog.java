@@ -133,18 +133,16 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 	protected Group createChooseFigureGroup(Composite composite) {
 		Group figureGroup = new Group(composite, SWT.NONE);
 		figureGroup.setText(Messages.AbstractFigureSelectionDialog_1_xtxt);
-		GridData data = new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL);
-		data.horizontalSpan = 1;
-		figureGroup.setLayoutData(data);
 		GridLayout layout = new GridLayout(1, false);
 		figureGroup.setLayout(layout);
+		figureGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 
 		boolean singleSelection = isFigureSelected();
 
 		_allFigureButton = new Button(figureGroup, SWT.RADIO);
 		_allFigureButton.setText(Messages.AbstractFigureSelectionDialog_2_xbut);
 		_allFigureButton.setSelection(!singleSelection);
-		data = new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL);
+		GridData data = new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL);
 		_allFigureButton.setLayoutData(data);
 		_allFigureButton.addSelectionListener(this);
 

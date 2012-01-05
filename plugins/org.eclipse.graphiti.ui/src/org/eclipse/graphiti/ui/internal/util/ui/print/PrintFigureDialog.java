@@ -181,12 +181,15 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 		layout.horizontalSpacing = 10;
 		composite.setLayout(layout);
 
-		Group figure = createChooseFigureGroup(composite);
-		((GridData) figure.getLayoutData()).verticalAlignment = GridData.VERTICAL_ALIGN_BEGINNING;
-
+		// Takes column 1 row 1
+		createChooseFigureGroup(composite);
+		// Takes column 2 rows 1-4
 		_previewGroup = createPreviewGroup(composite);
+		// Takes column 1 row 2
 		createChooseSizeGroup(composite);
+		// Takes column 1 row 3
 		createPositionGroup(composite);
+		// Takes column 1 row 4
 		createUnitGroup(composite);
 
 		aspectRatioOnChanged();
@@ -236,14 +239,12 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 
 	// ====================== private helper methods ==========================
 
-	private void createUnitGroup(Composite composite) {
+	private Group createUnitGroup(Composite composite) {
 		Group unitGroup = new Group(composite, SWT.NONE);
 		unitGroup.setText(Messages.PrintFigureDialog_4_xfld);
-		GridData data = new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL | GridData.FILL_VERTICAL);
-		data.horizontalSpan = 1;
-		unitGroup.setLayoutData(data);
 		GridLayout layout = new GridLayout(1, false);
 		unitGroup.setLayout(layout);
+		unitGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 
 		_cmButton = new Button(unitGroup, SWT.RADIO);
 		_cmButton.setText(Messages.PrintFigureDialog_5_xfld);
@@ -265,13 +266,14 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 		_cmButton.setSelection(false);
 		_inchesButton.setSelection(true);
 
+		return unitGroup;
 	}
 
 	private Composite createPreviewGroup(Composite composite) {
 		Composite previewGroup = new Composite(composite, SWT.NONE);
 		previewGroup.setLayout(new GridLayout(1, false));
-		GridData grid = new GridData();
-		grid.verticalSpan = 3;
+		GridData grid = new GridData(SWT.FILL, SWT.TOP, true, false);
+		grid.verticalSpan = 4;
 		previewGroup.setLayoutData(grid);
 
 		Label previewLabel = new Label(previewGroup, SWT.NONE);
@@ -306,8 +308,7 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 		scaleGroup.setText(Messages.PrintFigureDialog_11_xfld);
 		GridLayout layout = new GridLayout(3, false);
 		scaleGroup.setLayout(layout);
-		GridData data = new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL | GridData.FILL);
-		scaleGroup.setLayoutData(data);
+		scaleGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 
 		_bestFitButton = new Button(scaleGroup, SWT.RADIO);
 		_bestFitButton.addSelectionListener(this);
@@ -369,11 +370,9 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 	private Group createPositionGroup(Composite parent) {
 		Group posGroup = new Group(parent, SWT.NONE);
 		posGroup.setText(Messages.PrintFigureDialog_18_xfld);
-		GridData data = new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL);
-		data.horizontalSpan = 1;
-		posGroup.setLayoutData(data);
 		GridLayout layout = new GridLayout(2, false);
 		posGroup.setLayout(layout);
+		posGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 
 		Label leftMargin = new Label(posGroup, SWT.NONE);
 		leftMargin.setText(Messages.PrintFigureDialog_30_xfld + ": "); //$NON-NLS-1$
