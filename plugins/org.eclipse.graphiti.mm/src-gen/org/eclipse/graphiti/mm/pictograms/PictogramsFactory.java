@@ -133,6 +133,15 @@ public interface PictogramsFactory extends EFactory {
 	PictogramLink createPictogramLink();
 
 	/**
+	 * Returns a new object of class '<em>Curved Connection</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Curved Connection</em>'.
+	 * @generated
+	 */
+	CurvedConnection createCurvedConnection();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

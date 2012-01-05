@@ -23,6 +23,7 @@ import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
@@ -175,6 +176,14 @@ public interface IPeCreateService {
 	 * @since 0.8
 	 */
 	ManhattanConnection createManhattanConnection(Diagram diagram);
+
+	/**
+	 * 
+	 * @param controllPoints
+	 * @param diagram
+	 * @return
+	 */
+	CurvedConnection createCurvedConnection(double[] controllPoints, Diagram diagram);
 
 	/**
 	 * Creates a shape inside the given parent container shape.

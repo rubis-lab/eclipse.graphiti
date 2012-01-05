@@ -39,6 +39,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.LocationType;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
 import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
@@ -126,6 +127,13 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 	 * @generated
 	 */
 	private EClass colorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass precisionPointEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -675,6 +683,33 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPrecisionPoint() {
+		return precisionPointEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPrecisionPoint_X() {
+		return (EAttribute)precisionPointEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPrecisionPoint_Y() {
+		return (EAttribute)precisionPointEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getLineStyle() {
 		return lineStyleEEnum;
 	}
@@ -785,6 +820,10 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 		createEAttribute(colorEClass, COLOR__GREEN);
 		createEAttribute(colorEClass, COLOR__BLUE);
 
+		precisionPointEClass = createEClass(PRECISION_POINT);
+		createEAttribute(precisionPointEClass, PRECISION_POINT__X);
+		createEAttribute(precisionPointEClass, PRECISION_POINT__Y);
+
 		// Create enums
 		lineStyleEEnum = createEEnum(LINE_STYLE);
 		orientationEEnum = createEEnum(ORIENTATION);
@@ -885,6 +924,10 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 		initEAttribute(getColor_Red(), ecorePackage.getEInt(), "red", null, 1, 1, Color.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getColor_Green(), ecorePackage.getEInt(), "green", null, 1, 1, Color.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getColor_Blue(), ecorePackage.getEInt(), "blue", null, 1, 1, Color.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(precisionPointEClass, PrecisionPoint.class, "PrecisionPoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPrecisionPoint_X(), ecorePackage.getEDouble(), "x", null, 1, 1, PrecisionPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPrecisionPoint_Y(), ecorePackage.getEDouble(), "y", null, 1, 1, PrecisionPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(lineStyleEEnum, LineStyle.class, "LineStyle");

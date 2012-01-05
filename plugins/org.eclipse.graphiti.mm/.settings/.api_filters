@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.graphiti.mm" version="2">
+    <resource path="META-INF/MANIFEST.MF">
+        <filter id="923795461">
+            <message_arguments>
+                <message_argument value="0.9.0"/>
+                <message_argument value="0.8.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/eclipse/graphiti/mm/algorithms/styles/AbstractStyle.java" type="org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle">
         <filter comment="Uncommented" id="403804204">
             <message_arguments>
@@ -69,6 +77,99 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.Font"/>
                 <message_argument value="setSize(int)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/eclipse/graphiti/mm/algorithms/styles/StylesFactory.java" type="org.eclipse.graphiti.mm.algorithms.styles.StylesFactory">
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesFactory"/>
+                <message_argument value="createPrecisionPoint()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/eclipse/graphiti/mm/algorithms/styles/StylesPackage.java" type="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage">
+        <filter id="388194388">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage"/>
+                <message_argument value="LINE_STYLE"/>
+                <message_argument value="10"/>
+            </message_arguments>
+        </filter>
+        <filter id="388194388">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage"/>
+                <message_argument value="LOCATION_TYPE"/>
+                <message_argument value="12"/>
+            </message_arguments>
+        </filter>
+        <filter id="388194388">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage"/>
+                <message_argument value="ORIENTATION"/>
+                <message_argument value="11"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage"/>
+                <message_argument value="PRECISION_POINT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage"/>
+                <message_argument value="PRECISION_POINT_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage"/>
+                <message_argument value="PRECISION_POINT__X"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage"/>
+                <message_argument value="PRECISION_POINT__Y"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage"/>
+                <message_argument value="getPrecisionPoint()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage"/>
+                <message_argument value="getPrecisionPoint_X()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage"/>
+                <message_argument value="getPrecisionPoint_Y()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/eclipse/graphiti/mm/algorithms/styles/StylesPackage.java" type="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage$Literals">
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage.Literals"/>
+                <message_argument value="PRECISION_POINT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage.Literals"/>
+                <message_argument value="PRECISION_POINT__X"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.algorithms.styles.StylesPackage.Literals"/>
+                <message_argument value="PRECISION_POINT__Y"/>
             </message_arguments>
         </filter>
     </resource>

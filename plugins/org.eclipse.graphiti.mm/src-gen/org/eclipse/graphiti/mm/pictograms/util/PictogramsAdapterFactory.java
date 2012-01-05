@@ -144,6 +144,10 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 				return createAdvancedAnchorAdapter();
 			}
 			@Override
+			public Adapter caseCurvedConnection(CurvedConnection object) {
+				return createCurvedConnectionAdapter();
+			}
+			@Override
 			public Adapter casePropertyContainer(PropertyContainer object) {
 				return createPropertyContainerAdapter();
 			}
@@ -383,6 +387,20 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAdvancedAnchorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.pictograms.CurvedConnection <em>Curved Connection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.pictograms.CurvedConnection
+	 * @generated
+	 */
+	public Adapter createCurvedConnectionAdapter() {
 		return null;
 	}
 

@@ -78,6 +78,7 @@ public class StylesFactoryImpl extends EFactoryImpl implements StylesFactory {
 			case StylesPackage.FONT: return createFont();
 			case StylesPackage.POINT: return createPoint();
 			case StylesPackage.COLOR: return createColor();
+			case StylesPackage.PRECISION_POINT: return createPrecisionPoint();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -209,6 +210,16 @@ public class StylesFactoryImpl extends EFactoryImpl implements StylesFactory {
 	public Color createColor() {
 		ColorImpl color = new ColorImpl();
 		return color;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PrecisionPoint createPrecisionPoint() {
+		PrecisionPointImpl precisionPoint = new PrecisionPointImpl();
+		return precisionPoint;
 	}
 
 	/**

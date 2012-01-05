@@ -49,6 +49,8 @@ import org.eclipse.graphiti.mm.PropertyContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
@@ -56,6 +58,7 @@ import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
@@ -249,6 +252,21 @@ public final class PeServiceImpl implements IPeService {
 		ret.setVisible(true);
 		ret.setActive(true);
 		ret.setParent(diagram);
+		return ret;
+	}
+
+	public CurvedConnection createCurvedConnection(double[] xy, Diagram diagram) {
+		assert (xy != null && xy.length % 2 == 0);
+		CurvedConnection ret = PictogramsFactory.eINSTANCE.createCurvedConnection();
+		ret.setVisible(true);
+		ret.setActive(true);
+		ret.setParent(diagram);
+		for (int i = 0; i < xy.length; i += 2) {
+			PrecisionPoint point = StylesFactory.eINSTANCE.createPrecisionPoint();
+			point.setX(xy[i]);
+			point.setY(xy[i + 1]);
+			ret.getControlPoints().add(point);
+		}
 		return ret;
 	}
 

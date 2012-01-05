@@ -248,6 +248,17 @@ public class PictogramsSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case PictogramsPackage.CURVED_CONNECTION: {
+				CurvedConnection curvedConnection = (CurvedConnection)theEObject;
+				T result = caseCurvedConnection(curvedConnection);
+				if (result == null) result = caseConnection(curvedConnection);
+				if (result == null) result = caseAnchorContainer(curvedConnection);
+				if (result == null) result = casePictogramElement(curvedConnection);
+				if (result == null) result = caseGraphicsAlgorithmContainer(curvedConnection);
+				if (result == null) result = casePropertyContainer(curvedConnection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -474,6 +485,21 @@ public class PictogramsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAdvancedAnchor(AdvancedAnchor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Curved Connection</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Curved Connection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCurvedConnection(CurvedConnection object) {
 		return null;
 	}
 

@@ -42,6 +42,7 @@ import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
@@ -620,6 +621,17 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 */
 	public ManhattanConnection createManhattanConnection(Diagram diagram) {
 		return getPeService().createManhattanConnection(diagram);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IPeCreateService#createCurvedConnection
+	 * (org.eclipse.graphiti.mm.pictograms.Diagram)
+	 */
+	public CurvedConnection createCurvedConnection(double[] controllPoints, Diagram diagram) {
+		return getPeService().createCurvedConnection(controllPoints, diagram);
 	}
 
 	/*

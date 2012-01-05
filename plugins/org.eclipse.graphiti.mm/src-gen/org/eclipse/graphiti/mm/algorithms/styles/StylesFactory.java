@@ -115,6 +115,16 @@ public interface StylesFactory extends EFactory {
 	Color createColor();
 
 	/**
+	 * Returns a new object of class '<em>Precision Point</em>'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Precision Point</em>'.
+	 * @generated
+	 * @since 0.9
+	 */
+	PrecisionPoint createPrecisionPoint();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

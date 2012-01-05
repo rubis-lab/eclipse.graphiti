@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.graphiti.mm.MmPackage;
 
 /**
@@ -702,6 +701,49 @@ public interface StylesPackage extends EPackage {
 	int COLOR_FEATURE_COUNT = 3;
 
 	/**
+	 * The meta object id for the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.impl.PrecisionPointImpl
+	 * <em>Precision Point</em>}' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.PrecisionPointImpl
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl#getPrecisionPoint()
+	 * @generated
+	 * @since 0.9
+	 */
+	int PRECISION_POINT = 10;
+
+	/**
+	 * The feature id for the '<em><b>X</b></em>' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 * @since 0.9
+	 */
+	int PRECISION_POINT__X = 0;
+
+	/**
+	 * The feature id for the '<em><b>Y</b></em>' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 * @since 0.9
+	 */
+	int PRECISION_POINT__Y = 1;
+
+	/**
+	 * The number of structural features of the '<em>Precision Point</em>'
+	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 * @since 0.9
+	 */
+	int PRECISION_POINT_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.algorithms.styles.LineStyle <em>Line Style</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -709,7 +751,7 @@ public interface StylesPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl#getLineStyle()
 	 * @generated
 	 */
-	int LINE_STYLE = 10;
+	int LINE_STYLE = 11;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.algorithms.styles.Orientation <em>Orientation</em>}' enum.
@@ -719,7 +761,7 @@ public interface StylesPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl#getOrientation()
 	 * @generated
 	 */
-	int ORIENTATION = 11;
+	int ORIENTATION = 12;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.algorithms.styles.LocationType <em>Location Type</em>}' enum.
@@ -729,7 +771,7 @@ public interface StylesPackage extends EPackage {
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl#getLocationType()
 	 * @generated
 	 */
-	int LOCATION_TYPE = 12;
+	int LOCATION_TYPE = 13;
 
 
 	/**
@@ -1273,6 +1315,44 @@ public interface StylesPackage extends EPackage {
 	EAttribute getColor_Blue();
 
 	/**
+	 * Returns the meta object for class '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint
+	 * <em>Precision Point</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Precision Point</em>'.
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint
+	 * @generated
+	 * @since 0.9
+	 */
+	EClass getPrecisionPoint();
+
+	/**
+	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint#getX
+	 * <em>X</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>X</em>'.
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint#getX()
+	 * @see #getPrecisionPoint()
+	 * @generated
+	 * @since 0.9
+	 */
+	EAttribute getPrecisionPoint_X();
+
+	/**
+	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint#getY
+	 * <em>Y</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Y</em>'.
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint#getY()
+	 * @see #getPrecisionPoint()
+	 * @generated
+	 * @since 0.9
+	 */
+	EAttribute getPrecisionPoint_Y();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.graphiti.mm.algorithms.styles.LineStyle <em>Line Style</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1743,6 +1823,37 @@ public interface StylesPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLOR__BLUE = eINSTANCE.getColor_Blue();
+
+		/**
+		 * The meta object literal for the '
+		 * {@link org.eclipse.graphiti.mm.algorithms.styles.impl.PrecisionPointImpl
+		 * <em>Precision Point</em>}' class. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
+		 * 
+		 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.PrecisionPointImpl
+		 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl#getPrecisionPoint()
+		 * @generated
+		 * @since 0.9
+		 */
+		EClass PRECISION_POINT = eINSTANCE.getPrecisionPoint();
+
+		/**
+		 * The meta object literal for the '<em><b>X</b></em>' attribute
+		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 * @since 0.9
+		 */
+		EAttribute PRECISION_POINT__X = eINSTANCE.getPrecisionPoint_X();
+
+		/**
+		 * The meta object literal for the '<em><b>Y</b></em>' attribute
+		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 * @since 0.9
+		 */
+		EAttribute PRECISION_POINT__Y = eINSTANCE.getPrecisionPoint_Y();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.algorithms.styles.LineStyle <em>Line Style</em>}' enum.

@@ -1626,6 +1626,125 @@ public interface PictogramsPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.CurvedConnectionImpl <em>Curved Connection</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.CurvedConnectionImpl
+	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getCurvedConnection()
+	 * @generated
+	 */
+	int CURVED_CONNECTION = 15;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
+
+	/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION__VISIBLE = CONNECTION__VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION__GRAPHICS_ALGORITHM = CONNECTION__GRAPHICS_ALGORITHM;
+
+	/**
+	 * The feature id for the '<em><b>Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION__ACTIVE = CONNECTION__ACTIVE;
+
+	/**
+	 * The feature id for the '<em><b>Link</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION__LINK = CONNECTION__LINK;
+
+	/**
+	 * The feature id for the '<em><b>Anchors</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION__ANCHORS = CONNECTION__ANCHORS;
+
+	/**
+	 * The feature id for the '<em><b>Start</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION__START = CONNECTION__START;
+
+	/**
+	 * The feature id for the '<em><b>End</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION__END = CONNECTION__END;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION__PARENT = CONNECTION__PARENT;
+
+	/**
+	 * The feature id for the '<em><b>Connection Decorators</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION__CONNECTION_DECORATORS = CONNECTION__CONNECTION_DECORATORS;
+
+	/**
+	 * The feature id for the '<em><b>Control Points</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION__CONTROL_POINTS = CONNECTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Curved Connection</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CURVED_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 1;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.Shape <em>Shape</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2178,6 +2297,27 @@ public interface PictogramsPackage extends EPackage {
 	EAttribute getAdvancedAnchor_UseAnchorLocationAsConnectionEndpoint();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.CurvedConnection <em>Curved Connection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Curved Connection</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.CurvedConnection
+	 * @generated
+	 */
+	EClass getCurvedConnection();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.graphiti.mm.pictograms.CurvedConnection#getControlPoints <em>Control Points</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Control Points</em>'.
+	 * @see org.eclipse.graphiti.mm.pictograms.CurvedConnection#getControlPoints()
+	 * @see #getCurvedConnection()
+	 * @generated
+	 */
+	EReference getCurvedConnection_ControlPoints();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2639,6 +2779,24 @@ public interface PictogramsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ADVANCED_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT = eINSTANCE.getAdvancedAnchor_UseAnchorLocationAsConnectionEndpoint();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.CurvedConnectionImpl <em>Curved Connection</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.CurvedConnectionImpl
+		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getCurvedConnection()
+		 * @generated
+		 */
+		EClass CURVED_CONNECTION = eINSTANCE.getCurvedConnection();
+
+		/**
+		 * The meta object literal for the '<em><b>Control Points</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CURVED_CONNECTION__CONTROL_POINTS = eINSTANCE.getCurvedConnection_ControlPoints();
 
 	}
 

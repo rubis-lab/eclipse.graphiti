@@ -133,6 +133,10 @@
           ordered="false" unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="false"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CurvedConnection" eSuperTypes="#//pictograms/Connection">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="controlPoints" upperBound="-1"
+          eType="#//algorithms/styles/PrecisionPoint" containment="true"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="algorithms" nsURI="http://eclipse.org/graphiti/mm/algorithms"
       nsPrefix="al">
@@ -347,6 +351,10 @@
             <details key="suppressedSetVisibility" value="true"/>
           </eAnnotations>
         </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="PrecisionPoint">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       </eClassifiers>
     </eSubpackages>
   </eSubpackages>

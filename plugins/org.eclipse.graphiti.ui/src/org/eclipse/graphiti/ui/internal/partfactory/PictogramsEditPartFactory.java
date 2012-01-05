@@ -24,6 +24,7 @@ import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.ManhattanConnection;
@@ -34,6 +35,7 @@ import org.eclipse.graphiti.ui.internal.config.IEditPartFactory;
 import org.eclipse.graphiti.ui.internal.parts.AdvancedAnchorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionDecoratorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ContainerShapeEditPart;
+import org.eclipse.graphiti.ui.internal.parts.CurvedConnectionEditPart;
 import org.eclipse.graphiti.ui.internal.parts.DiagramEditPart;
 import org.eclipse.graphiti.ui.internal.parts.FreeFormConnectionEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ManhattanConnectionEditPart;
@@ -92,6 +94,8 @@ public class PictogramsEditPartFactory extends AbstractConfigurationProviderHold
 				ret = new ManhattanConnectionEditPart(configurationProvider, (ManhattanConnection) model);
 			} else if (model instanceof FreeFormConnection) {
 				ret = new FreeFormConnectionEditPart(configurationProvider, (FreeFormConnection) model);
+			} else if (model instanceof CurvedConnection) {
+				ret = new CurvedConnectionEditPart(configurationProvider, (CurvedConnection) model);
 			} else if (model instanceof AdvancedAnchor) {
 				ret = new AdvancedAnchorEditPart(configurationProvider, (AdvancedAnchor) model);
 			}
