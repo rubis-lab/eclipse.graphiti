@@ -89,6 +89,7 @@ import org.eclipse.graphiti.testtool.sketch.features.TransparencyFeature;
 import org.eclipse.graphiti.testtool.sketch.features.bd.CreateChannelFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.CreateCsGhostAndInnerShapeFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCanFigureFeature;
+import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCurvedConnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateFreeformConnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaContainerFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaContainerFeatureWithGhost;
@@ -265,6 +266,7 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 
 		retList.add(new SketchCreateFreeformConnectionFeature(this, "free", "freeform connection"));
 		retList.add(new SketchCreateManhattanConnectionFeature(this, "manhattan", "manhattan connection"));
+		retList.add(new SketchCreateCurvedConnectionFeature(this, "curved", "curved connection"));
 		retList.add(new CreateChannelFeature(this, "channel", "channel connection"));
 
 		return retList.toArray(new ICreateConnectionFeature[0]);
