@@ -178,9 +178,13 @@ public interface IPeCreateService {
 	ManhattanConnection createManhattanConnection(Diagram diagram);
 
 	/**
+	 * Creates a curved connection (Bézier curve) inside the given diagram.
 	 * 
 	 * @param controllPoints
+	 *            an array of double value pairs defining the control points
+	 *            (two values - x and y - define the point) of the Bézier curve
 	 * @param diagram
+	 *            the diagram
 	 * @return
 	 */
 	CurvedConnection createCurvedConnection(double[] controllPoints, Diagram diagram);

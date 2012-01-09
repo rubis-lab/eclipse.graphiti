@@ -255,6 +255,13 @@ public final class PeServiceImpl implements IPeService {
 		return ret;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IPeCreateService#createCurvedConnection
+	 * (double[], org.eclipse.graphiti.mm.pictograms.Diagram)
+	 */
 	public CurvedConnection createCurvedConnection(double[] xy, Diagram diagram) {
 		assert (xy != null && xy.length % 2 == 0);
 		CurvedConnection ret = PictogramsFactory.eINSTANCE.createCurvedConnection();

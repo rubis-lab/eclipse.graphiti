@@ -17,6 +17,7 @@ package org.eclipse.graphiti.testtool.sketch.features.create;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.services.Graphiti;
 
 /**
@@ -40,8 +41,9 @@ public class SketchCreateCurvedConnectionFeature extends AbstractSketchCreateSim
 
 	@Override
 	protected Connection createConnection() {
-		return Graphiti.getPeCreateService().createCurvedConnection(
+		CurvedConnection curvedConnection = Graphiti.getPeCreateService().createCurvedConnection(
 				new double[] { 0.25d, 100d, 0.5d, -100d, 0.75d, 100d },
 				getDiagram());
+		return curvedConnection;
 	}
 }
