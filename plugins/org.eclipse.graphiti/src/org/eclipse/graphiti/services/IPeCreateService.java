@@ -186,6 +186,7 @@ public interface IPeCreateService {
 	 * @param diagram
 	 *            the diagram
 	 * @return
+	 * @since 0.9
 	 */
 	CurvedConnection createCurvedConnection(double[] controllPoints, Diagram diagram);
 
