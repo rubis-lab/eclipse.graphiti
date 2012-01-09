@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * <copyright>
+ *
+ * Copyright (c) 2011, 2011 SAP AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    mwenz Bug 352119 - initial API, implementation and documentation contributed by Benjamin Schmeling
+ *
+ * </copyright>
+ *
+ *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.parts;
 
 import java.util.ArrayList;
@@ -13,11 +28,6 @@ import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
 import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
-/**
- * 
- * @author Benjamin Schmeling
- * 
- */
 public class CurvedConnectionEditPart extends ConnectionEditPart {
 
 	public CurvedConnectionEditPart(IConfigurationProvider configurationProvider, CurvedConnection connection) {
@@ -54,7 +64,6 @@ public class CurvedConnectionEditPart extends ConnectionEditPart {
 		public BezierRouter(List<PrecisionPoint> bezierPoints) {
 			this.bezierPoints = bezierPoints;
 		}
-
 
 		public void route(org.eclipse.draw2d.Connection connection) {
 			List<org.eclipse.draw2d.geometry.PrecisionPoint> controllPoints = new ArrayList<org.eclipse.draw2d.geometry.PrecisionPoint>();
@@ -140,8 +149,5 @@ public class CurvedConnectionEditPart extends ConnectionEditPart {
 		public Object getConstraint(org.eclipse.draw2d.Connection connection) {
 			return constraints.get(connection);
 		}
-
 	}
-
-
 }
