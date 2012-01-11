@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.draw2d.AbstractRouter;
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
@@ -65,13 +66,11 @@ public class CurvedConnectionEditPart extends ConnectionEditPart {
 		IFigure figure = getFigure();
 		if (figure instanceof org.eclipse.draw2d.Connection) {
 			org.eclipse.draw2d.Connection draw2dConnection = (org.eclipse.draw2d.Connection) figure;
-			List<PrecisionPoint> controllPoints = new ArrayList<PrecisionPoint>();
-			controllPoints.addAll(getCurvedConnection().getControlPoints());
-			draw2dConnection.setConnectionRouter(new BezierRouter(controllPoints));
+			draw2dConnection.getConnectionRouter().invalidate(draw2dConnection);
 		}
 	}
 
-	private static class BezierRouter extends AbstractRouter {
+	private class BezierRouter extends AbstractRouter {
 
 		private List<PrecisionPoint> bezierPoints;
 		private Map<org.eclipse.draw2d.Connection, Object> constraints = new HashMap<org.eclipse.draw2d.Connection, Object>(
@@ -79,6 +78,13 @@ public class CurvedConnectionEditPart extends ConnectionEditPart {
 
 		public BezierRouter(List<PrecisionPoint> bezierPoints) {
 			this.bezierPoints = bezierPoints;
+		}
+
+		@Override
+		public void invalidate(Connection connection) {
+			super.invalidate(connection);
+			bezierPoints.clear();
+			bezierPoints.addAll(getCurvedConnection().getControlPoints());
 		}
 
 		public void route(org.eclipse.draw2d.Connection connection) {
@@ -140,7 +146,7 @@ public class CurvedConnectionEditPart extends ConnectionEditPart {
 			return binomialCoefficients(n, i) * Math.pow(t, i) * Math.pow((1 - t), (n - i));
 		}
 
-		static long binomialCoefficients(int n, int k) {
+		private long binomialCoefficients(int n, int k) {
 			long coeff = 1;
 			for (int i = n - k + 1; i <= n; i++) {
 				coeff *= i;
