@@ -42,7 +42,7 @@ public class SketchCreateCurvedConnectionFeature extends AbstractSketchCreateSim
 	@Override
 	protected Connection createConnection() {
 		CurvedConnection curvedConnection = Graphiti.getPeCreateService().createCurvedConnection(
-				new double[] { 0.25d, 100d, 0.5d, -100d, 0.75d, 100d },
+				new double[] { 0.2d, -100d, 0.5d, 100d, 0.6d, -100d },
 				getDiagram());
 		return curvedConnection;
 	}

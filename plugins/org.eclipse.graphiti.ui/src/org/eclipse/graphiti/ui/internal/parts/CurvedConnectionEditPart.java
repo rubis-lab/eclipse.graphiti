@@ -55,6 +55,22 @@ public class CurvedConnectionEditPart extends ConnectionEditPart {
 		return ret;
 	}
 
+	@Override
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+		refreshControlPoints();
+	}
+
+	private void refreshControlPoints() {
+		IFigure figure = getFigure();
+		if (figure instanceof org.eclipse.draw2d.Connection) {
+			org.eclipse.draw2d.Connection draw2dConnection = (org.eclipse.draw2d.Connection) figure;
+			List<PrecisionPoint> controllPoints = new ArrayList<PrecisionPoint>();
+			controllPoints.addAll(getCurvedConnection().getControlPoints());
+			draw2dConnection.setConnectionRouter(new BezierRouter(controllPoints));
+		}
+	}
+
 	private static class BezierRouter extends AbstractRouter {
 
 		private List<PrecisionPoint> bezierPoints;

@@ -286,6 +286,7 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 		ContextMenuEntry changetLineStyleEntry = null;
 		ContextMenuEntry changetCornerDimensionEntry = null;
 		ContextMenuEntry setStyleEntry = null;
+		ContextMenuEntry modifyControlPointsEntry = null;
 
 		for (int i = 0; i < customFeatures.length; i++) {
 			ICustomFeature customFeature = customFeatures[i];

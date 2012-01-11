@@ -71,6 +71,7 @@ import org.eclipse.graphiti.testtool.sketch.features.GradientColorFeature;
 import org.eclipse.graphiti.testtool.sketch.features.LayoutContainerShapeGhostAndInnerShapeFeature;
 import org.eclipse.graphiti.testtool.sketch.features.LineStyleFeature;
 import org.eclipse.graphiti.testtool.sketch.features.LineWidthFeature;
+import org.eclipse.graphiti.testtool.sketch.features.ModifyControlPointsFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SendToBackFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SendToFrontFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchDeleteFeature;
@@ -248,6 +249,8 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		retList.add(new IgnoreAllFeature(this));
 
 		retList.add(new SwitchModeFeature(this));
+
+		retList.add(new ModifyControlPointsFeature(this));
 
 		return retList.toArray(new ICustomFeature[0]);
 	}
