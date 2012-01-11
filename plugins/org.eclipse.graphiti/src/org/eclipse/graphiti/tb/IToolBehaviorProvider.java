@@ -17,6 +17,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.tb;
 
+import java.awt.Polygon;
+
 import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.features.context.ICustomContext;
@@ -335,6 +337,17 @@ public interface IToolBehaviorProvider {
 	public boolean equalsBusinessObjects(Object o1, Object o2);
 
 	/**
+	 * Is asked to return the selection width (the tolerance area a user can
+	 * click to still select) a lathy object (e.g. {@link Polyline} or
+	 * {@link Polygon} for {@link Shape}s and {@link Connection}s) in the
+	 * diagram. The method is called when a new object is drawn for the first
+	 * time onto a diagram (on creation of the object or on opening the
+	 * diagram).
+	 * 
+	 * @param polyline
+	 *            the {@link Polyline} object to get the selection width for
+	 * @return an int representing the allowed tolerance for clicking in pixels
+	 * 
 	 * @since 0.9
 	 */
 	public int getLineSelectionWidth(Polyline polyline);
