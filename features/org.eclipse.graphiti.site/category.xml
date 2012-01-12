@@ -6,10 +6,10 @@
    <feature id="org.eclipse.graphiti.feature.examples" version="0.0.0">
       <category name="org.eclipse.graphiti"/>
    </feature>
-   <feature url="features/org.eclipse.graphiti.sdk.feature_0.8.1.qualifier.jar" id="org.eclipse.graphiti.sdk.feature" version="0.8.1.qualifier">
+   <feature url="features/org.eclipse.graphiti.sdk.feature_0.8.2.qualifier.jar" id="org.eclipse.graphiti.sdk.feature" version="0.8.2.qualifier">
       <category name="org.eclipse.graphiti"/>
    </feature>
-   <feature url="features/org.eclipse.graphiti.sdk.plus.feature_0.8.1.qualifier.jar" id="org.eclipse.graphiti.sdk.plus.feature" version="0.8.1.qualifier">
+   <feature url="features/org.eclipse.graphiti.sdk.plus.feature_0.8.2.qualifier.jar" id="org.eclipse.graphiti.sdk.plus.feature" version="0.8.2.qualifier">
       <category name="org.eclipse.graphiti"/>
    </feature>
    <category-def name="org.eclipse.graphiti" label="Graphiti">
