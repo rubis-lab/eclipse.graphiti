@@ -9,9 +9,9 @@
 </head>
 <body>
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Indigo</h1>
-	<p>Last revised September 12, 2011</p>
+	<p>Last revised January 12, 2012</p>
 	<p>This document describes the new development topics and bug fixes
-		that were adressed during a milestone towards the release 0.8.1 within
+		that were adressed during a milestone towards the release 0.8.2 within
 		the Indigo release train.</p>
 
 	<table border="0" width="80%" cellpadding="10" cellspacing="0">
@@ -19,15 +19,45 @@
 			<td colspan="2">
 				<hr style="color: grey; height: 5px" />
 				<h2>
+					<b>SR2</b>
+				</h2>
+				<hr />
+			</td>
+		</tr>
+		<tr id="Bugfixes">
+			<td width="30%" valign="top" align="left"><b>The following
+					bugs were fixed for the Indigo SR2 release of Graphiti (version
+					number is 0.8.2)</b></td>
+			<td width="70%" valign="top"><ul>
+					<li><a
+						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=357764">Bug
+							357764</a> - IndexOutOfBoundsException when creating new
+						ContainerShape inside existing one</li>
+					<li><a
+						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=365169">Bug
+							365169</a> - DiagramEditorInternal's selectionChanged() method
+						doesn't support FormEditor-based multipage editors</li>
+					<li><a
+						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=359217">Bug
+							359217</a> - Documentation: Plugin-In structure page missing some plugins</li>
+					<li><a
+						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=359526">Bug
+							359526</a> - NPE in DomainModelWorkspaceSynchronizerDelegate</li>
+				</ul></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr style="color: grey; height: 5px" />
+				<h2>
 					<b>SR1</b>
 				</h2>
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="Bugfixes">
 			<td width="30%" valign="top" align="left"><b>The following
 					bugs were fixed for the Indigo SR1 release of Graphiti (version
-					number is 0.8.1)</b>
-			</td>
+					number is 0.8.1)</b></td>
 			<td width="70%" valign="top"><ul>
 					<li><a
 						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=355347">Bug
@@ -51,8 +81,7 @@
 						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=348634">Bug
 							348634</a> - Direct-editing invoked again after user clicks away from
 						the label and moves back</li>
-				</ul>
-			</td>
+				</ul></td>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -60,12 +89,12 @@
 				<h2>
 					<b>M7</b>
 				</h2>
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 324859">
 			<td width="30%" valign="top" align="left"><b>Undo/Redo
-					support for Non-EMF domain models</b>
-			</td>
+					support for Non-EMF domain models</b></td>
 			<td width="70%" valign="top">It is now possible to provide
 				undo/redo functionality for operations on non-EMF domain models. In
 				order to implement this, users of the Graphiti framework can
@@ -75,16 +104,17 @@
 				as soon as an undo or redo is performed for this feature. For
 				details on this new possibility see <a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=324859">Bugzilla
-					324859</a>.</td>
+					324859</a>.
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 324058">
 			<td width="30%" valign="top" align="left"><b>User selection
-					context in IDirectEditing APIs</b>
-			</td>
+					context in IDirectEditing APIs</b></td>
 			<td width="70%" valign="top">So far the direct editing
 				functionality in Graphiti was purely String-based. Entries in the
 				drop down or for code completion could only be identified by the
@@ -96,28 +126,29 @@
 				have the name, like classes with the same name residing in different
 				packages. For details on this new possibility see <a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=324058">Bugzilla
-					324058</a>.</td>
+					324058</a>.
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 340708">
 			<td width="30%" valign="top" align="left"><b>Double click
-					for connections</b>
-			</td>
+					for connections</b></td>
 			<td width="70%" valign="top">It is now possible to register A
 				feature that will be executed on double click on a connection. This
 				was so far only possible for shapes.</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bugfixing and round-offs">
 			<td width="30%" valign="top" align="left"><b>Round-offs and
-					bugfixes</b>
-			</td>
+					bugfixes</b></td>
 			<td width="70%" valign="top">Several smaller round-offs have
 				been implemented:
 				<ul>
@@ -125,13 +156,16 @@
 						fulfills the usability specification.</li>
 					<li>Opening a user-contributed editor within <i>AbstractDrillDownFeature</i>
 						has been made easier by providing a protected method to open and a
-						specific editor for a given diagram.</li>
+						specific editor for a given diagram.
+					</li>
 					<li>The framework is now prepared for users to deal with EMF
 						objects that are equal in the sense of <i>EMFUtil.equals</i> but
 						are not identical. For details on this new possibility see <a
 						href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=335828">Bugzilla
-							335828</a>.</li>
-				</ul> Besides several bugs within the framework have been fixed.</td>
+							335828</a>.
+					</li>
+				</ul> Besides several bugs within the framework have been fixed.
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -139,12 +173,12 @@
 				<h2>
 					<b>M6</b>
 				</h2>
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 326396">
 			<td width="30%" valign="top" align="left"><b>Connections on
-					Connections</b>
-			</td>
+					Connections</b></td>
 			<td width="70%" valign="top">It is now possible to attach
 				connections to other connections. The Graphiti metamodel offered
 				this possibility already but the framework support for this was
@@ -160,7 +194,8 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 323358">
 			<td width="30%" valign="top" align="left"><b>Font Management</b>
@@ -186,11 +221,13 @@
 				only suffer a time penalty from that check and migration being done
 				in the framework. More details on the API change and the migrator
 				can be found in the Bugzilla <a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=323358">323358</a>.</td>
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=323358">323358</a>.
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 336075">
 			<td width="30%" valign="top" align="left"><b>URIEditorInput</b>
@@ -198,28 +235,30 @@
 			<td width="70%" valign="top">The Graphiti DiagramEditor now
 				accepts <i>URIEditorInput</i> objects. They can be created outside
 				the editor and the editor will care about opening the corresponding
-				diagram.</td>
+				diagram.
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 329523">
 			<td width="30%" valign="top" align="left"><b>Resource Saved
-					Hook</b>
-			</td>
+					Hook</b></td>
 			<td width="70%" valign="top">A new hook <i>resourcesSaved()</i>
 				has been introduced in the diagram type provider. It will be called
-				by the framework right after a diagram has been saved.</td>
+				by the framework right after a diagram has been saved.
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 336828">
 			<td width="30%" valign="top" align="left"><b>Pattern
-					Enhancements</b>
-			</td>
+					Enhancements</b></td>
 			<td width="70%" valign="top">Graphiti patterns now allow the
 				integration of delete, remove and direct editing features. These
 				functionalities before had to be implemented within separate
@@ -228,12 +267,12 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 323155">
 			<td width="30%" valign="top" align="left"><b>Printing and
-					Saving as Image</b>
-			</td>
+					Saving as Image</b></td>
 			<td width="70%" valign="top">Graphiti supports printing and
 				saving a diagram to an image. There have always been hooks were the
 				user can influence the default behaviors for these operations.
@@ -246,11 +285,13 @@
 				The existing state was documented in the JavaDoc at the appropriate
 				classes and methods and a not used property in the save context was
 				removed. This functionality might be subject to further enhancement
-				request as tools need more possibilities to influence the behavior.</td>
+				request as tools need more possibilities to influence the behavior.
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bugfixing">
 			<td width="30%" valign="top" align="left"><b>Fixing of Bugs</b>
@@ -267,44 +308,44 @@
 				<h2>
 					<b>M5</b>
 				</h2>
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 323359">
-			<td width="30%" valign="top" align="left"><b>Globalization</b>
-			</td>
+			<td width="30%" valign="top" align="left"><b>Globalization</b></td>
 			<td width="70%" valign="top">Graphiti now uses resource bundles
 				for all its texts and is ready to be translated.</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 327669">
-			<td width="30%" valign="top" align="left"><b>API Usages</b>
-			</td>
+			<td width="30%" valign="top" align="left"><b>API Usages</b></td>
 			<td width="70%" valign="top">Graphiti now uses other projects
 				only via their public APIs. Usages of GEF internal stuff has been
 				removed.</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 332704">
-			<td width="30%" valign="top" align="left"><b>Accessibility</b>
-			</td>
+			<td width="30%" valign="top" align="left"><b>Accessibility</b></td>
 			<td width="70%" valign="top">Graphiti now fully supports themes
 				like the high contrast mode to enable Accessibility for disabled
 				users. Some gaps in presenting selections and gradients were closed.</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 326993">
 			<td width="30%" valign="top" align="left"><b>Prevent
-					Multiple Popups</b>
-			</td>
+					Multiple Popups</b></td>
 			<td width="70%" valign="top">When deleting more than one object
 				a confirmation popup for each of the objects was presented to the
 				user. This has been improved so that the user has the option "Yes
@@ -312,7 +353,8 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bugfixing">
 			<td width="30%" valign="top" align="left"><b>Fixing of Bugs</b>
@@ -329,12 +371,12 @@
 				<h2>
 					<b>M4</b>
 				</h2>
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 330230">
 			<td width="30%" valign="top" align="left"><b>Indigo Release
-					Train</b>
-			</td>
+					Train</b></td>
 			<td width="70%" valign="top">Graphiti declared its participation
 				in the Indigo release train. All project metadata settings were done
 				and the project update site is aggregated into the common Indigo
@@ -342,12 +384,12 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="bug 330218">
 			<td width="30%" valign="top" align="left"><b>Vector Graphics
-					Export</b>
-			</td>
+					Export</b></td>
 			<td width="70%" valign="top">Diagrams can now be exported also
 				in vector graphics format (SVG). This is available from the save as
 				dialog of a diagram editor besides the traditional save as JPG, BMP
@@ -355,19 +397,20 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="FillGaps">
 			<td width="30%" valign="top" align="left"><b>Filling of
-					functional gaps</b>
-			</td>
+					functional gaps</b></td>
 			<td width="70%" valign="top">Some functional gaps like missing
 				services, automated resizing for combo boxes, creation of color
 				constants from RGB string etc. were filled.</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 		<tr id="BugFixing">
 			<td width="30%" valign="top" align="left"><b>Fixing of bugs</b>
@@ -377,7 +420,8 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<hr /></td>
+				<hr />
+			</td>
 		</tr>
 	</table>
 </body>
