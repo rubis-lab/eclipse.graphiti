@@ -11,9 +11,9 @@
  *    		   uses GraphitiUiInternal.getWorkbenchService() instead of 
  *    		   GMF's DisplayUtils, does not implement the interface
  *    		   DrawableRenderedImage, since it is not needed.
+ *    mwenz - Bug  368146 - RuntimeException during SVG export
  *    			
  ****************************************************************************/
-
 package org.eclipse.graphiti.export.batik;
 
 import java.awt.AlphaComposite;
@@ -1519,4 +1519,18 @@ public class GraphicsToGraphics2DAdaptor extends Graphics {
 		relativeClipRegion = new Rectangle(bounds.x, bounds.y, bounds.width, bounds.height);
 	}
 
+	@Override
+	public void rotate(float degrees) {
+		/*
+		 * Method was introduced to fix Bug 368146. With this at place no
+		 * exceptions happens during SVG export (which happened as soon as a
+		 * rotatable object like an ellipse is contained in the diagram), but
+		 * the object is still not rotated in the exported SVG graphics. Seems
+		 * to be a limitation there. TODO: Fix the rotation issue in the SVG
+		 * export (tracked by Bug 369241).
+		 */
+		if (swtGraphics.getAdvanced()) {
+			swtGraphics.rotate(degrees);
+		}
+	}
 }
