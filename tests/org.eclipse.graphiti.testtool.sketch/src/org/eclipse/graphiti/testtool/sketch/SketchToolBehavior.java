@@ -63,6 +63,7 @@ import org.eclipse.graphiti.testtool.sketch.features.ChangeAlignmentFeature;
 import org.eclipse.graphiti.testtool.sketch.features.CornerDimensionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.LineStyleFeature;
 import org.eclipse.graphiti.testtool.sketch.features.LineWidthFeature;
+import org.eclipse.graphiti.testtool.sketch.features.SetImageAttributesFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchFontFeature;
 import org.eclipse.graphiti.testtool.sketch.features.TransparencyFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCanFigureFeature;
@@ -286,7 +287,7 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 		ContextMenuEntry changetLineStyleEntry = null;
 		ContextMenuEntry changetCornerDimensionEntry = null;
 		ContextMenuEntry setStyleEntry = null;
-		ContextMenuEntry modifyControlPointsEntry = null;
+		ContextMenuEntry setImageAttributeEntry = null;
 
 		for (int i = 0; i < customFeatures.length; i++) {
 			ICustomFeature customFeature = customFeatures[i];
@@ -345,6 +346,16 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 					retList.add(setStyleEntry);
 				}
 				setStyleEntry.add(contextMenuEntry);
+			} else if (customFeature instanceof SetImageAttributesFeature) {
+				if (setImageAttributeEntry == null) {
+					setImageAttributeEntry = new ContextMenuEntry(null, null);
+					setImageAttributeEntry.setSubmenu(true);
+					setImageAttributeEntry.setText("Image");
+					setImageAttributeEntry.setDescription("Set Image Attributes");
+					retList.add(setImageAttributeEntry);
+				}
+				setImageAttributeEntry.add(contextMenuEntry);
+
 			} else {
 				retList.add(contextMenuEntry);
 			}

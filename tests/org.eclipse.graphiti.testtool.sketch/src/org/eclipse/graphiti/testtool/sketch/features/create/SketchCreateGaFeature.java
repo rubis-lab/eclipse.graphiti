@@ -22,6 +22,7 @@ import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Image;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
@@ -40,6 +41,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
+import org.eclipse.graphiti.testtool.sketch.SketchImageProvider;
 import org.eclipse.graphiti.util.IColorConstant;
 
 /**
@@ -90,18 +92,20 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 
 		gaService.setLocationAndSize(newGa, context.getX(), context.getY(), width, height);
 
-		AbstractText label;
-		if (isMultiLineText()) {
-			label = gaService.createDefaultMultiText(getDiagram(), newGa, NEW_ELEMENT);
-		} else {
-			label = gaService.createText(newGa, NEW_ELEMENT);
+		if (!Image.class.equals(gaType)) {
+			AbstractText label;
+			if (isMultiLineText()) {
+				label = gaService.createDefaultMultiText(getDiagram(), newGa, NEW_ELEMENT);
+			} else {
+				label = gaService.createText(newGa, NEW_ELEMENT);
+			}
+			Font font = gaService.manageFont(getDiagram(), "Comic Sans MS", 14);
+			label.setFont(font);
+			label.setForeground(manageColor(IColorConstant.BLUE));
+			label.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
+			label.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
+			gaService.setLocationAndSize(label, 0, 0, width, height);
 		}
-		Font font = gaService.manageFont(getDiagram(), "Comic Sans MS", 14);
-		label.setFont(font);
-		label.setForeground(manageColor(IColorConstant.BLUE));
-		label.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
-		label.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-		gaService.setLocationAndSize(label, 0, 0, width, height);
 		layoutPictogramElement(newAc);
 
 		final Connection targetConnection = context.getTargetConnection();
@@ -192,6 +196,12 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 				Polygon p = gaService.createPolygon(gac, xy, ba);
 				ret = p;
 			}
+		} else if (Image.class.equals(gaType)) {
+			Image image = gaService.createImage(gac, SketchImageProvider.IMG_GRAPHITI);
+			image.setStretchH(true);
+			image.setStretchV(true);
+			image.setProportional(true);
+			ret = image;
 		}
 
 		if (ret != null) {

@@ -46,6 +46,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Image;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -74,6 +75,7 @@ import org.eclipse.graphiti.testtool.sketch.features.LineWidthFeature;
 import org.eclipse.graphiti.testtool.sketch.features.ModifyControlPointsFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SendToBackFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SendToFrontFeature;
+import org.eclipse.graphiti.testtool.sketch.features.SetImageAttributesFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchDeleteFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchFontFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SketchGhostLayoutFeature;
@@ -161,6 +163,7 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		features.add(createCreateGaShapeFeature("Triangle", "draw triangle", Polygon.class));
 		features.add(createCreateGaShapeFeature("Arrow", "draw Arrow outline", Polygon.class));
 		features.add(createCreateGaShapeFeature("Line", "draw line", Polyline.class));
+		features.add(createCreateGaShapeFeature("Image", "draw image", Image.class));
 
 		features.add(createCreateGaShapeFeatureWithGhost("Rectangle Ghost", "rectangle with ghost", Rectangle.class));
 		features.add(createCreateGaShapeFeatureWithGhost("Rounded Rectangle Ghost", "rounded rectangle with ghost", RoundedRectangle.class));
@@ -251,6 +254,11 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		retList.add(new SwitchModeFeature(this));
 
 		retList.add(new ModifyControlPointsFeature(this));
+
+		retList.add(new SetImageAttributesFeature(this, context,
+				SetImageAttributesFeature.ATTRIBUTE_STRETCH_HORIZONTALLY));
+		retList.add(new SetImageAttributesFeature(this, context, SetImageAttributesFeature.ATTRIBUTE_STRETCH_VERTICALLY));
+		retList.add(new SetImageAttributesFeature(this, context, SetImageAttributesFeature.ATTRIBUTE_PROPORTIONAL));
 
 		return retList.toArray(new ICustomFeature[0]);
 	}

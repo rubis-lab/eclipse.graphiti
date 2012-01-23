@@ -61,6 +61,9 @@
           <imageProvider
                id="org.eclipse.graphiti.examples.common.ExampleImageProvider">
          </imageProvider>
+          <imageProvider
+                id="org.eclipse.graphiti.testtool.sketch.SketchImageProvider">
+          </imageProvider>
       </diagramTypeProvider>
    </extension>
    <extension
@@ -73,6 +76,13 @@
             id="org.eclipse.graphiti.testtool.sketch.editors.MultiPageEditor"
             name="Sample Multi-page Editor">
       </editor>
+   </extension>
+   <extension
+         point="org.eclipse.graphiti.ui.imageProviders">
+      <imageProvider
+            class="org.eclipse.graphiti.testtool.sketch.SketchImageProvider"
+            id="org.eclipse.graphiti.testtool.sketch.SketchImageProvider">
+      </imageProvider>
    </extension>
    
   
