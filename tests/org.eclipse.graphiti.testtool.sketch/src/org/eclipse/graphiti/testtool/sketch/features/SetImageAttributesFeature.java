@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 342869 - Image doesn't scale the contained SWT Image on resize
  *
  * </copyright>
  *
