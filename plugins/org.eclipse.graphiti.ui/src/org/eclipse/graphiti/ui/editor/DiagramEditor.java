@@ -766,7 +766,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @param monitor
 	 *            the Eclipse progress monitor to report progress with.
 	 */
-	public final void doSave(IProgressMonitor monitor) {
+	public void doSave(IProgressMonitor monitor) {
 		persistencyBehavior.saveDiagram(monitor);
 	}
 
