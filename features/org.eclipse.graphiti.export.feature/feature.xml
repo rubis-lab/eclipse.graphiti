@@ -17,9 +17,11 @@
 <feature
       id="org.eclipse.graphiti.export.feature"
       label="%featureName"
-      version="0.8.2.qualifier"
+      version="0.9.0.qualifier"
       provider-name="%providerName"
-      plugin="org.eclipse.graphiti.export.batik">
+      plugin="org.eclipse.graphiti.export.batik"
+      license-feature="org.eclipse.license"
+      license-feature-version="1.0.0.qualifier">
 
    <description>
       %description
@@ -33,10 +35,6 @@ v1.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v10.html
    </copyright>
-
-   <license url="%licenseURL">
-      %license
-   </license>
 
    <plugin
          id="org.eclipse.graphiti.export.batik"

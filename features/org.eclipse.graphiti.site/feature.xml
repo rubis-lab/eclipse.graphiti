@@ -33,12 +33,8 @@ which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v10.html
    </copyright>
 
-   <license url="%licenseURL">
-      %license
-   </license>
-
    <url>
-      <update url="http://www.eclipse.org/downloads/download.php?file=/graphiti/updates/0.8.2/&amp;protocol=http&amp;format=xml"/>
+      <update url="http://www.eclipse.org/downloads/download.php?file=/graphiti/updates/0.9.0/&amp;protocol=http&amp;format=xml"/>
    </url>
 
    <includes
