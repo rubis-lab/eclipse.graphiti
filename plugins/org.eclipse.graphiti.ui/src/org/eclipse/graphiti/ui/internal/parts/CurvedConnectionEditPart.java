@@ -31,11 +31,10 @@ import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
 public class CurvedConnectionEditPart extends ConnectionEditPart {
-	EditPart context;
 
 	public CurvedConnectionEditPart(IConfigurationProvider configurationProvider, CurvedConnection connection,
-			EditPart context) {
-		super(configurationProvider, connection, context);
+			EditPart contextParent) {
+		super(configurationProvider, connection, contextParent);
 	}
 
 	private CurvedConnection getCurvedConnection() {

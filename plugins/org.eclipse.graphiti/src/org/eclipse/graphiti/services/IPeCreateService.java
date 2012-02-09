@@ -186,15 +186,18 @@ public interface IPeCreateService {
 	 *            (two values - x and y - define the point) of the Bézier curve
 	 * @param diagram
 	 *            the diagram
-	 * @return
+	 * @return the new curved connection
 	 * @since 0.9
 	 */
 	CurvedConnection createCurvedConnection(double[] controllPoints, Diagram diagram);
 
 	/**
+	 * Creates a composite connection (a connection that is made of several
+	 * other connections) inside the given diagram.
 	 * 
 	 * @param diagram
-	 * @return
+	 *            the diagram
+	 * @return the new composite connection
 	 * @since 0.9
 	 */
 	CompositeConnection createCompositeConnection(Diagram diagram);
