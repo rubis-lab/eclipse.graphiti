@@ -215,6 +215,12 @@
         <filter id="403804204">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsFactory"/>
+                <message_argument value="createCompositeConnection()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsFactory"/>
                 <message_argument value="createCurvedConnection()"/>
             </message_arguments>
         </filter>
@@ -343,6 +349,84 @@
         <filter id="403767336">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION__ACTIVE"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION__ANCHORS"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION__CHILDREN"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION__CONNECTION_DECORATORS"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION__END"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION__GRAPHICS_ALGORITHM"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION__LINK"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION__PARENT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION__PROPERTIES"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION__START"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="COMPOSITE_CONNECTION__VISIBLE"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
                 <message_argument value="CURVED_CONNECTION"/>
             </message_arguments>
         </filter>
@@ -445,6 +529,18 @@
         <filter id="403804204">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="getCompositeConnection()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
+                <message_argument value="getCompositeConnection_Children()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage"/>
                 <message_argument value="getCurvedConnection()"/>
             </message_arguments>
         </filter>
@@ -472,6 +568,18 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage.Literals"/>
                 <message_argument value="ADVANCED_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage.Literals"/>
+                <message_argument value="COMPOSITE_CONNECTION"/>
+            </message_arguments>
+        </filter>
+        <filter id="403767336">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.mm.pictograms.PictogramsPackage.Literals"/>
+                <message_argument value="COMPOSITE_CONNECTION__CHILDREN"/>
             </message_arguments>
         </filter>
         <filter id="403767336">

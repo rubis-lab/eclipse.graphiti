@@ -39,6 +39,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -632,6 +633,17 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 */
 	public CurvedConnection createCurvedConnection(double[] controllPoints, Diagram diagram) {
 		return getPeService().createCurvedConnection(controllPoints, diagram);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IPeCreateService#createCompositeConnection
+	 * (org.eclipse.graphiti.mm.pictograms.Diagram)
+	 */
+	public CompositeConnection createCompositeConnection(Diagram diagram) {
+		return getPeService().createCompositeConnection(diagram);
 	}
 
 	/*

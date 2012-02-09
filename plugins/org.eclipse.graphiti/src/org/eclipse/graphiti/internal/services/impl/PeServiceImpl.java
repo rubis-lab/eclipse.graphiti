@@ -55,6 +55,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -249,6 +250,21 @@ public final class PeServiceImpl implements IPeService {
 	 */
 	public ManhattanConnection createManhattanConnection(Diagram diagram) {
 		ManhattanConnection ret = PictogramsFactory.eINSTANCE.createManhattanConnection();
+		ret.setVisible(true);
+		ret.setActive(true);
+		ret.setParent(diagram);
+		return ret;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IPeCreateService#createCompositeConnection
+	 * (org.eclipse.graphiti.mm.pictograms.Diagram)
+	 */
+	public CompositeConnection createCompositeConnection(Diagram diagram) {
+		CompositeConnection ret = PictogramsFactory.eINSTANCE.createCompositeConnection();
 		ret.setVisible(true);
 		ret.setActive(true);
 		ret.setParent(diagram);

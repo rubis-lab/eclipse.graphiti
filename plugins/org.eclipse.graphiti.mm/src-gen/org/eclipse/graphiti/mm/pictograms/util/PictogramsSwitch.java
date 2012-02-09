@@ -26,6 +26,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -256,6 +257,17 @@ public class PictogramsSwitch<T> extends Switch<T> {
 				if (result == null) result = casePictogramElement(curvedConnection);
 				if (result == null) result = caseGraphicsAlgorithmContainer(curvedConnection);
 				if (result == null) result = casePropertyContainer(curvedConnection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PictogramsPackage.COMPOSITE_CONNECTION: {
+				CompositeConnection compositeConnection = (CompositeConnection)theEObject;
+				T result = caseCompositeConnection(compositeConnection);
+				if (result == null) result = caseConnection(compositeConnection);
+				if (result == null) result = caseAnchorContainer(compositeConnection);
+				if (result == null) result = casePictogramElement(compositeConnection);
+				if (result == null) result = caseGraphicsAlgorithmContainer(compositeConnection);
+				if (result == null) result = casePropertyContainer(compositeConnection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -503,6 +515,24 @@ public class PictogramsSwitch<T> extends Switch<T> {
 	 * @since 0.9
 	 */
 	public T caseCurvedConnection(CurvedConnection object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '
+	 * <em>Composite Connection</em>'. <!-- begin-user-doc --> This
+	 * implementation returns null; returning a non-null result will terminate
+	 * the switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '
+	 *         <em>Composite Connection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 * @since 0.9
+	 */
+	public T caseCompositeConnection(CompositeConnection object) {
 		return null;
 	}
 

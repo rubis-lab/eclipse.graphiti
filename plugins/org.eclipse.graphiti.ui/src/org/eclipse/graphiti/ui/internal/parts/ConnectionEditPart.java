@@ -24,6 +24,7 @@ import java.util.List;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.XYAnchor;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
@@ -51,7 +52,7 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 		NodeEditPart {
 
 	private final IAnchorContainerDelegate delegate;
-
+	private EditPart contextParent;
 	/**
 	 * Creates a new ConnectionEditPart.
 	 * 
@@ -60,9 +61,11 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 	 * @param connection
 	 *            the connection
 	 */
-	public ConnectionEditPart(IConfigurationProvider configurationProvider, Connection connection) {
+	public ConnectionEditPart(IConfigurationProvider configurationProvider, Connection connection,
+			EditPart contextParent) {
 		setModel(connection);
 		delegate = new AnchorContainerDelegate(configurationProvider, connection, this);
+		this.contextParent = contextParent;
 	}
 
 	/**
@@ -163,6 +166,14 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 	@Override
 	public List<Connection> getModelTargetConnections() {
 		return new ArrayList<Connection>();
+	}
+
+	@Override
+	public EditPart getTargetEditPart(Request request) {
+		if (contextParent instanceof CompositeConnectionEditPart) {
+			return contextParent;
+		} else
+			return super.getTargetEditPart(request);
 	}
 
 	@Override

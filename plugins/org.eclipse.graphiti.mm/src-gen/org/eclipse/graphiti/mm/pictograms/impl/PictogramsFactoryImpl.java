@@ -90,6 +90,7 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 			case PictogramsPackage.MANHATTAN_CONNECTION: return createManhattanConnection();
 			case PictogramsPackage.PICTOGRAM_LINK: return createPictogramLink();
 			case PictogramsPackage.CURVED_CONNECTION: return createCurvedConnection();
+			case PictogramsPackage.COMPOSITE_CONNECTION: return createCompositeConnection();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -213,6 +214,16 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 	public CurvedConnection createCurvedConnection() {
 		CurvedConnectionImpl curvedConnection = new CurvedConnectionImpl();
 		return curvedConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CompositeConnection createCompositeConnection() {
+		CompositeConnectionImpl compositeConnection = new CompositeConnectionImpl();
+		return compositeConnection;
 	}
 
 	/**

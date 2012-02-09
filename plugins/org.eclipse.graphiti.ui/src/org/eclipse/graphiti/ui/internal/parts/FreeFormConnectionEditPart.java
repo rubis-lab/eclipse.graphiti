@@ -21,6 +21,7 @@ import java.util.List;
 import org.eclipse.draw2d.Bendpoint;
 import org.eclipse.draw2d.BendpointConnectionRouter;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
@@ -45,8 +46,9 @@ public class FreeFormConnectionEditPart extends ConnectionEditPart {
 	 * @param connection
 	 *            the connection
 	 */
-	public FreeFormConnectionEditPart(IConfigurationProvider configurationProvider, Connection connection) {
-		super(configurationProvider, connection);
+	public FreeFormConnectionEditPart(IConfigurationProvider configurationProvider, Connection connection,
+			EditPart contextParent) {
+		super(configurationProvider, connection, contextParent);
 	}
 
 	/*

@@ -38,6 +38,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -170,6 +171,13 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * @generated
 	 */
 	private EClass curvedConnectionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass compositeConnectionEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -725,6 +733,24 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCompositeConnection() {
+		return compositeConnectionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCompositeConnection_Children() {
+		return (EReference)compositeConnectionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public PictogramsFactory getPictogramsFactory() {
 		return (PictogramsFactory)getEFactoryInstance();
 	}
@@ -816,6 +842,9 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 
 		curvedConnectionEClass = createEClass(CURVED_CONNECTION);
 		createEReference(curvedConnectionEClass, CURVED_CONNECTION__CONTROL_POINTS);
+
+		compositeConnectionEClass = createEClass(COMPOSITE_CONNECTION);
+		createEReference(compositeConnectionEClass, COMPOSITE_CONNECTION__CHILDREN);
 	}
 
 	/**
@@ -868,6 +897,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		pictogramLinkEClass.getESuperTypes().add(theMmPackage.getPropertyContainer());
 		advancedAnchorEClass.getESuperTypes().add(this.getAnchor());
 		curvedConnectionEClass.getESuperTypes().add(this.getConnection());
+		compositeConnectionEClass.getESuperTypes().add(this.getConnection());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(shapeEClass, Shape.class, "Shape", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -938,6 +968,9 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 
 		initEClass(curvedConnectionEClass, CurvedConnection.class, "CurvedConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCurvedConnection_ControlPoints(), theStylesPackage.getPrecisionPoint(), null, "controlPoints", null, 0, -1, CurvedConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(compositeConnectionEClass, CompositeConnection.class, "CompositeConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCompositeConnection_Children(), this.getConnection(), null, "children", null, 0, -1, CompositeConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //PictogramsPackageImpl

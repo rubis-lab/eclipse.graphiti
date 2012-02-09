@@ -20,6 +20,7 @@ package org.eclipse.graphiti.services;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -189,6 +190,14 @@ public interface IPeCreateService {
 	 * @since 0.9
 	 */
 	CurvedConnection createCurvedConnection(double[] controllPoints, Diagram diagram);
+
+	/**
+	 * 
+	 * @param diagram
+	 * @return
+	 * @since 0.9
+	 */
+	CompositeConnection createCompositeConnection(Diagram diagram);
 
 	/**
 	 * Creates a shape inside the given parent container shape.

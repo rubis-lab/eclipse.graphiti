@@ -26,6 +26,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -158,6 +159,10 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseCurvedConnection(CurvedConnection object) {
 				return createCurvedConnectionAdapter();
+			}
+			@Override
+			public Adapter caseCompositeConnection(CompositeConnection object) {
+				return createCompositeConnectionAdapter();
 			}
 			@Override
 			public Adapter casePropertyContainer(PropertyContainer object) {
@@ -416,6 +421,23 @@ public class PictogramsAdapterFactory extends AdapterFactoryImpl {
 	 * @since 0.9
 	 */
 	public Adapter createCurvedConnectionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '
+	 * {@link org.eclipse.graphiti.mm.pictograms.CompositeConnection
+	 * <em>Composite Connection</em>}'. <!-- begin-user-doc --> This default
+	 * implementation returns null so that we can easily ignore cases; it's
+	 * useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.pictograms.CompositeConnection
+	 * @generated
+	 * @since 0.9
+	 */
+	public Adapter createCompositeConnectionAdapter() {
 		return null;
 	}
 

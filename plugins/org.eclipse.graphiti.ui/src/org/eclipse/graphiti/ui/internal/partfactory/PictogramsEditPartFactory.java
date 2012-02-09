@@ -22,6 +22,7 @@ import java.util.Map;
 import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
@@ -33,6 +34,7 @@ import org.eclipse.graphiti.ui.internal.config.AbstractConfigurationProviderHold
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IEditPartFactory;
 import org.eclipse.graphiti.ui.internal.parts.AdvancedAnchorEditPart;
+import org.eclipse.graphiti.ui.internal.parts.CompositeConnectionEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionDecoratorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ContainerShapeEditPart;
 import org.eclipse.graphiti.ui.internal.parts.CurvedConnectionEditPart;
@@ -91,11 +93,13 @@ public class PictogramsEditPartFactory extends AbstractConfigurationProviderHold
 			} else if (model instanceof Shape) {
 				ret = new ShapeEditPart(configurationProvider, (Shape) model);
 			} else if (model instanceof ManhattanConnection) {
-				ret = new ManhattanConnectionEditPart(configurationProvider, (ManhattanConnection) model);
+				ret = new ManhattanConnectionEditPart(configurationProvider, (ManhattanConnection) model, context);
 			} else if (model instanceof FreeFormConnection) {
-				ret = new FreeFormConnectionEditPart(configurationProvider, (FreeFormConnection) model);
+				ret = new FreeFormConnectionEditPart(configurationProvider, (FreeFormConnection) model, context);
 			} else if (model instanceof CurvedConnection) {
-				ret = new CurvedConnectionEditPart(configurationProvider, (CurvedConnection) model);
+				ret = new CurvedConnectionEditPart(configurationProvider, (CurvedConnection) model, context);
+			} else if (model instanceof CompositeConnection) {
+				ret = new CompositeConnectionEditPart(configurationProvider, (CompositeConnection) model, this, context);
 			} else if (model instanceof AdvancedAnchor) {
 				ret = new AdvancedAnchorEditPart(configurationProvider, (AdvancedAnchor) model);
 			}

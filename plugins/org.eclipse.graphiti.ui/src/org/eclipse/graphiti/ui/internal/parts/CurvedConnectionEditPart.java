@@ -25,14 +25,17 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
+import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
 import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
 public class CurvedConnectionEditPart extends ConnectionEditPart {
+	EditPart context;
 
-	public CurvedConnectionEditPart(IConfigurationProvider configurationProvider, CurvedConnection connection) {
-		super(configurationProvider, connection);
+	public CurvedConnectionEditPart(IConfigurationProvider configurationProvider, CurvedConnection connection,
+			EditPart context) {
+		super(configurationProvider, connection, context);
 	}
 
 	private CurvedConnection getCurvedConnection() {

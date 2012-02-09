@@ -143,6 +143,16 @@ public interface PictogramsFactory extends EFactory {
 	CurvedConnection createCurvedConnection();
 
 	/**
+	 * Returns a new object of class '<em>Composite Connection</em>'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Composite Connection</em>'.
+	 * @generated
+	 * @since 0.9
+	 */
+	CompositeConnection createCompositeConnection();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

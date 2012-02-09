@@ -23,6 +23,7 @@ package org.eclipse.graphiti.ui.internal.parts;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ManhattanConnectionRouter;
+import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 
@@ -42,8 +43,9 @@ public class ManhattanConnectionEditPart extends ConnectionEditPart {
 	 * @param connection
 	 *            the connection
 	 */
-	public ManhattanConnectionEditPart(IConfigurationProvider configurationProvider, Connection connection) {
-		super(configurationProvider, connection);
+	public ManhattanConnectionEditPart(IConfigurationProvider configurationProvider, Connection connection,
+			EditPart contextParent) {
+		super(configurationProvider, connection, contextParent);
 	}
 
 	/*
