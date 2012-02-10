@@ -16,6 +16,7 @@
 package org.eclipse.graphiti.ui.internal.policy;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Handle;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
@@ -35,6 +37,7 @@ import org.eclipse.graphiti.tb.ISelectionInfo;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.figures.GFPolylineConnection;
+import org.eclipse.graphiti.ui.internal.parts.CompositeConnectionEditPart;
 import org.eclipse.graphiti.ui.internal.parts.IConnectionEditPart;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFColorConstants;
@@ -134,22 +137,25 @@ public class ConnectionHighlightEditPolicy extends ConnectionEndpointEditPolicy 
 
 		// store old highlight-values and set new highlight-values
 		// important: get old colors via getLocalForeGround() to ignore parent
-		figureToColor.put(getConnectionFigure(), getConnectionFigure().getLocalForegroundColor());
-		getConnectionFigure().setForegroundColor(newForeground);
-		shapeToLineStyle.put(getConnectionFigure(), getConnectionFigure().getLineStyle());
-		getConnectionFigure().setLineStyle(newLineStyle);
+		Collection<Shape> connectionFigures = getConnectionFigures();
+		for (Shape connectionFigure : connectionFigures) {
+			figureToColor.put(connectionFigure, connectionFigure.getLocalForegroundColor());
+			connectionFigure.setForegroundColor(newForeground);
+			shapeToLineStyle.put(connectionFigure, connectionFigure.getLineStyle());
+			connectionFigure.setLineStyle(newLineStyle);
 
-		if (getConnectionFigure() instanceof GFPolylineConnection) {
-			GFPolylineConnection polylineConnection = (GFPolylineConnection) getConnectionFigure();
-			List<IFigure> allDecorations = polylineConnection.getAllDecorations();
-			for (IFigure decoration : allDecorations) {
-				if (decoration != null) {
-					figureToColor.put(decoration, decoration.getLocalForegroundColor());
-					decoration.setForegroundColor(newForeground);
-					if (decoration instanceof Shape) {
-						Shape decorationShape = (Shape) decoration;
-						shapeToLineStyle.put(decorationShape, new Integer(decorationShape.getLineStyle()));
-						decorationShape.setLineStyle(newLineStyle);
+			if (connectionFigure instanceof GFPolylineConnection) {
+				GFPolylineConnection polylineConnection = (GFPolylineConnection) connectionFigure;
+				List<IFigure> allDecorations = polylineConnection.getAllDecorations();
+				for (IFigure decoration : allDecorations) {
+					if (decoration != null) {
+						figureToColor.put(decoration, decoration.getLocalForegroundColor());
+						decoration.setForegroundColor(newForeground);
+						if (decoration instanceof Shape) {
+							Shape decorationShape = (Shape) decoration;
+							shapeToLineStyle.put(decorationShape, new Integer(decorationShape.getLineStyle()));
+							decorationShape.setLineStyle(newLineStyle);
+						}
 					}
 				}
 			}
@@ -175,8 +181,18 @@ public class ConnectionHighlightEditPolicy extends ConnectionEndpointEditPolicy 
 
 	// ===================== private helper methods ===========================
 
-	private Shape getConnectionFigure() {
-		return (Shape) ((GraphicalEditPart) getHost()).getFigure();
+	private Collection<Shape> getConnectionFigures() {
+		EditPart host = getHost();
+		Collection<Shape> shapes = new ArrayList<Shape>();
+		if (host instanceof CompositeConnectionEditPart) {
+			Collection<ConnectionEditPart> editParts = ((CompositeConnectionEditPart) host).getEditParts();
+			for (ConnectionEditPart editPart : editParts) {
+				shapes.add((Shape) editPart.getFigure());
+			}
+		} else {
+			shapes.add((Shape) ((GraphicalEditPart) getHost()).getFigure());
+		}
+		return shapes;
 	}
 
 	@Override

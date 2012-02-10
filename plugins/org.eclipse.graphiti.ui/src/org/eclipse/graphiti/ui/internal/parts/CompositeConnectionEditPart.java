@@ -25,14 +25,14 @@ public class CompositeConnectionEditPart extends ConnectionEditPart {
 		for (Connection con : ((CompositeConnection) getConnection()).getChildren()) {
 			org.eclipse.gef.ConnectionEditPart editPart = (org.eclipse.gef.ConnectionEditPart) getConfigurationProvider()
 					.getEditPartFactory().createEditPart(this, con);
-			this.editParts.add(editPart);
+			this.getEditParts().add(editPart);
 		}
 	}
 
 	@Override
 	public void setSource(EditPart editPart) {
 		super.setSource(editPart);
-		for (org.eclipse.gef.ConnectionEditPart editPartChild : this.editParts) {
+		for (org.eclipse.gef.ConnectionEditPart editPartChild : this.getEditParts()) {
 			editPartChild.setSource(editPart);
 		}
 	}
@@ -40,9 +40,12 @@ public class CompositeConnectionEditPart extends ConnectionEditPart {
 	@Override
 	public void setTarget(EditPart editPart) {
 		super.setTarget(editPart);
-		for (org.eclipse.gef.ConnectionEditPart editPartChild : this.editParts) {
+		for (org.eclipse.gef.ConnectionEditPart editPartChild : this.getEditParts()) {
 			editPartChild.setTarget(editPart);
 		}
 	}
 
+	public Collection<org.eclipse.gef.ConnectionEditPart> getEditParts() {
+		return editParts;
+	}
 }
