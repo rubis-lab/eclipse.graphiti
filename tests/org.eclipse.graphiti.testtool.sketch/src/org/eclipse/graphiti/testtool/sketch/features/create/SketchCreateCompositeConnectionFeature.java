@@ -15,9 +15,14 @@
  *******************************************************************************/
 package org.eclipse.graphiti.testtool.sketch.features.create;
 
+import java.util.Iterator;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.services.Graphiti;
 
 /**
@@ -42,12 +47,27 @@ public class SketchCreateCompositeConnectionFeature extends AbstractSketchCreate
 	@Override
 	protected Connection createConnection() {
 		CompositeConnection compositeConnection = Graphiti.getPeCreateService().createCompositeConnection(getDiagram());
-		compositeConnection.getChildren().add(
-				Graphiti.getPeCreateService().createCurvedConnection(new double[] { 0.1d, -50d, 0.9d, -50d },
-						getDiagram()));
-		compositeConnection.getChildren().add(
-				Graphiti.getPeCreateService().createCurvedConnection(new double[] { 0.1d, 50d, 0.9d, 50d },
-						getDiagram()));
+		CurvedConnection curvedConnection1 = Graphiti.getPeCreateService().createCurvedConnection(
+				new double[] { 0.1d, -50d, 0.9d, -50d }, getDiagram());
+		compositeConnection.getChildren().add(curvedConnection1);
+		CurvedConnection curvedConnection2 = Graphiti.getPeCreateService().createCurvedConnection(
+				new double[] { 0.1d, 50d, 0.9d, 50d }, getDiagram());
+		compositeConnection.getChildren().add(curvedConnection2);
 		return compositeConnection;
+	}
+
+	protected Connection createConnection(Anchor startAnchor, Anchor endAnchor) {
+		Connection connection = createConnection();
+		createVisualization(connection);
+		connection.getGraphicsAlgorithm().setLineVisible(false);
+		setAnchors(startAnchor, endAnchor, connection);
+
+		EList<Connection> children = ((CompositeConnection) connection).getChildren();
+		for (Iterator<Connection> childConnections = children.iterator(); childConnections.hasNext();) {
+			Connection childConnection = childConnections.next();
+			createVisualization(childConnection);
+		}
+
+		return connection;
 	}
 }

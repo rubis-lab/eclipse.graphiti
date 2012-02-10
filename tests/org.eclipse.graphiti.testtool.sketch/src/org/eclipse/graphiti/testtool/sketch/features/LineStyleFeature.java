@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.testtool.sketch.features;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
@@ -22,6 +23,7 @@ import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -57,18 +59,28 @@ public class LineStyleFeature extends AbstractCustomFeature {
 
 		for (int i = 0; i < pes.length; i++) {
 			PictogramElement pe = pes[i];
-			if (pe != null && pe.getGraphicsAlgorithm() != null) {
-				GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
-				if (ga.getLineStyle() != null) {
-					Style style = ga.getStyle();
-					if (style != null) {
-						style.setLineStyle(lineStyle);
-					} else {
-						ga.setLineStyle(lineStyle);
-					}
+			setLineStyle(pe);
+			if (pe instanceof CompositeConnection) {
+				EList<Connection> children = ((CompositeConnection) pe).getChildren();
+				for (Connection connection : children) {
+					setLineStyle(connection);
+				}
+			}
+		}
+	}
+
+	private void setLineStyle(PictogramElement pe) {
+		if (pe != null && pe.getGraphicsAlgorithm() != null) {
+			GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
+			if (ga.getLineStyle() != null) {
+				Style style = ga.getStyle();
+				if (style != null) {
+					style.setLineStyle(lineStyle);
 				} else {
 					ga.setLineStyle(lineStyle);
 				}
+			} else {
+				ga.setLineStyle(lineStyle);
 			}
 		}
 	}

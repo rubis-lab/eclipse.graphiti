@@ -15,9 +15,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.testtool.sketch.features.create;
 
-import java.util.Iterator;
-
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
@@ -26,7 +23,6 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
-import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -114,32 +110,21 @@ abstract class AbstractSketchCreateSimpleConnectionFeature extends AbstractSketc
 	 */
 	protected abstract Connection createConnection();
 
-	private Connection createConnection(Anchor startAnchor, Anchor endAnchor) {
+	protected Connection createConnection(Anchor startAnchor, Anchor endAnchor) {
 		Connection connection = createConnection();
-		if (connection instanceof CompositeConnection) {
-			Polyline compositeLine = Graphiti.getGaCreateService().createPolyline(connection);
-			compositeLine.setLineVisible(false);
-			setAnchors(startAnchor, endAnchor, connection);
 
-			EList<Connection> children = ((CompositeConnection) connection).getChildren();
-			for (Iterator<Connection> childConnections = children.iterator(); childConnections.hasNext();) {
-				Connection childConnection = childConnections.next();
-				createVisualization(childConnection);
-			}
-		} else {
-			createVisualization(connection);
-			setAnchors(startAnchor, endAnchor, connection);
-		}
+		createVisualization(connection);
+		setAnchors(startAnchor, endAnchor, connection);
 
 		return connection;
 	}
 
-	private void setAnchors(Anchor startAnchor, Anchor endAnchor, Connection connection) {
+	protected void setAnchors(Anchor startAnchor, Anchor endAnchor, Connection connection) {
 		connection.setStart(startAnchor);
 		connection.setEnd(endAnchor);
 	}
 
-	private void createVisualization(Connection connection) {
+	protected void createVisualization(Connection connection) {
 		Polyline p = Graphiti.getCreateService().createPolyline(connection);
 		p.setLineWidth(3);
 		p.setForeground(manageColor(IColorConstant.LIGHT_BLUE));
