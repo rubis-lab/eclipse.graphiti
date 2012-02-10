@@ -68,6 +68,7 @@ import org.eclipse.graphiti.testtool.ecore.TestToolBehavior;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
 import org.eclipse.graphiti.testtool.sketch.features.DisplayDecoratorFeature;
 import org.eclipse.graphiti.testtool.sketch.features.ToggleDecorator;
+import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCompositeConnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCurvedConnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateFreeformConnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaContainerFeature;
@@ -1512,6 +1513,65 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					assertEquals(IColorConstant.LIGHT_ORANGE.getGreen(), backgroundColor.getGreen());
 					assertEquals(IColorConstant.LIGHT_ORANGE.getRed(), backgroundColor.getRed());
 				}
+			}
+		});
+	}
+
+
+	public void testCompositeConnection() throws Exception {
+		page.closeAllEditors();
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
+		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider())
+				.getInnerFeatureProvider();
+		final CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
+
+		// Create 2 rectangles and a curved connection
+		syncExec(new VoidResult() {
+			public void run() {
+				// One
+				{
+					ICreateFeature createFeature = new SketchCreateGaContainerFeature(fp,
+							"Rounded Rectangle Container", "draw rounded rectangle", RoundedRectangle.class);
+					Rectangle rectangle = new Rectangle(100, 100, 100, 50);
+					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
+					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
+							createFeature, createContext, rectangle);
+					commandStack.execute(createCommand);
+				}
+				ContainerShape shape1 = (ContainerShape) dtp.getDiagram().getChildren().get(0);
+				assertNotNull(shape1);
+
+				// Two
+				{
+					ICreateFeature createFeature = new SketchCreateGaContainerFeature(fp,
+							"Rounded Rectangle Container", "draw rounded rectangle", RoundedRectangle.class);
+					Rectangle rectangle = new Rectangle(500, 200, 100, 50);
+					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
+					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
+							createFeature, createContext, rectangle);
+					commandStack.execute(createCommand);
+				}
+				ContainerShape shape2 = (ContainerShape) dtp.getDiagram().getChildren().get(1);
+				assertNotNull(shape2);
+
+				// Create a connection between the child shapes
+				final ICreateConnectionFeature[] ccfs = new ICreateConnectionFeature[] { new SketchCreateCompositeConnectionFeature(
+						fp, "curved", "curved connection") };
+				Anchor sourceAnchor = getPeService().getChopboxAnchor(shape1);
+				Anchor targetAnchor = getPeService().getChopboxAnchor(shape2);
+				final CreateConnectionContext ccc = new CreateConnectionContext();
+				ccc.setSourceAnchor(sourceAnchor);
+				ccc.setTargetAnchor(targetAnchor);
+				executeInRecordingCommand(diagramEditor, new Runnable() {
+					public void run() {
+						for (ICreateConnectionFeature ccf : ccfs) {
+							if (ccf.canCreate(ccc)) {
+								ccf.execute(ccc);
+							}
+						}
+					}
+				});
 			}
 		});
 
