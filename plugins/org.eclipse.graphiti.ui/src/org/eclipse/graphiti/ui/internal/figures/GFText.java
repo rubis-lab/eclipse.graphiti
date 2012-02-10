@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2011 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mgorning - Bug 365536 - Using BoxRelativeAnchor with relativeWidth = 1 display ellipsis in related Text 
  *
  * </copyright>
  *
@@ -18,6 +19,8 @@ package org.eclipse.graphiti.ui.internal.figures;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.ScaledGraphics;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -25,6 +28,7 @@ import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -34,6 +38,10 @@ public class GFText extends Label {
 	private GraphicsAlgorithm graphicsAlgorithm;
 
 	private int labelAlignment = CENTER;
+
+	private String subStringText;
+
+	private Dimension myPrefSize;
 
 	public GFText(IPictogramElementDelegate pictogramElementDelegate, GraphicsAlgorithm graphicsAlgorithm) {
 		this.graphicsAlgorithm = graphicsAlgorithm;
@@ -99,5 +107,44 @@ public class GFText extends Label {
 	public void setLabelAlignment(int align) {
 		super.setLabelAlignment(align);
 		labelAlignment = align;
+	}
+
+	@Override
+	public String getSubStringText() {
+		if (subStringText != null)
+			return subStringText;
+
+		subStringText = getText();
+		int widthShrink = getPreferredSizeWithoutChilds().width - getSize().width;
+		if (widthShrink <= 0)
+			return subStringText;
+
+		Dimension effectiveSize = getTextSize().getExpanded(-widthShrink, 0);
+		Font currentFont = getFont();
+		int dotsWidth = getTextUtilities().getTextExtents(getTruncationString(), currentFont).width;
+
+		if (effectiveSize.width < dotsWidth)
+			effectiveSize.width = dotsWidth;
+
+		int subStringLength = getTextUtilities().getLargestSubstringConfinedTo(getText(), currentFont,
+				effectiveSize.width - dotsWidth);
+		subStringText = new String(getText().substring(0, subStringLength) + getTruncationString());
+		return subStringText;
+	}
+
+	protected Dimension getPreferredSizeWithoutChilds() {
+		if (myPrefSize == null) {
+			myPrefSize = calculateLabelSize(getTextSize());
+			Insets insets = getInsets();
+			myPrefSize.expand(insets.getWidth(), insets.getHeight());
+		}
+		return myPrefSize;
+	}
+
+	@Override
+	public void invalidate() {
+		subStringText = null;
+		myPrefSize = null;
+		super.invalidate();
 	}
 }
