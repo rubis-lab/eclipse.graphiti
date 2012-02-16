@@ -129,11 +129,16 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 		@Override
 		public void mouseExit(MouseEvent e) {
 			// TODO: discuss with Christian
-			// This functionality will hide the context button pad, whenever the mouse leaves the
-			// diagram control (e.g. when the mouse goes to the top-menu or other views/editors).
-			// Unfortunately tooltips are also other controls, so the context button pad would
-			// be hidden, if the mouse is on the tooltip of the shape or of the buttons.
-			// Both behaviors are reasonable, but for now we decided not to hide the
+			// This functionality will hide the context button pad, whenever the
+			// mouse leaves the
+			// diagram control (e.g. when the mouse goes to the top-menu or
+			// other views/editors).
+			// Unfortunately tooltips are also other controls, so the context
+			// button pad would
+			// be hidden, if the mouse is on the tooltip of the shape or of the
+			// buttons.
+			// Both behaviors are reasonable, but for now we decided not to hide
+			// the
 			// context button pad when the mouse leaves the control
 
 			// getContextButtonManager().hideContextButtonsInstantly();
@@ -163,8 +168,8 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	 * @param resourceRegistry
 	 */
 	public ContextButtonPad(ContextButtonManagerForPad contextButtonManagerForPad,
-			IContextButtonPadDeclaration declaration, double zoomLevel, DiagramEditor editor,
-			EditPart editPart, IResourceRegistry resourceRegistry) {
+			IContextButtonPadDeclaration declaration, double zoomLevel, DiagramEditor editor, EditPart editPart,
+			IResourceRegistry resourceRegistry) {
 		this.declaration = declaration;
 		this.zoomLevel = zoomLevel;
 		this.editor = editor;
@@ -263,7 +268,8 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 			for (Rectangle containmentRectangle : overlappingContainmentRectangles) {
 				unionRectangle.union(containmentRectangle);
 			}
-			unionRectangle.expand(2, 2); // expand slightly to avoid rounding problems
+			unionRectangle.expand(2, 2); // expand slightly to avoid rounding
+											// problems
 			setBounds(unionRectangle);
 		}
 	}
@@ -374,14 +380,18 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	private Path createPath(Rectangle topOutside, Rectangle rightOutside, Rectangle bottomOutside, int corner) {
 		Path path = new Path(null);
 
-		// currently we assume, that the inner corner radius is always half the outer corner radius
+		// currently we assume, that the inner corner radius is always half the
+		// outer corner radius
 		int innerCorner = corner / 2;
 
-		// first shrink all rectangles by the half line-width, so that painting remains inside the given 'outside' rectangles
-		Rectangle top = GFFigureUtil.getAdjustedRectangle(topOutside, 1.0, (int) (getDeclaration().getPadLineWidth() * getZoomLevel()));
-		Rectangle right = GFFigureUtil.getAdjustedRectangle(rightOutside, 1.0, (int) (getDeclaration().getPadLineWidth() * getZoomLevel()));
-		Rectangle bottom = GFFigureUtil.getAdjustedRectangle(bottomOutside, 1.0,
+		// first shrink all rectangles by the half line-width, so that painting
+		// remains inside the given 'outside' rectangles
+		Rectangle top = GFFigureUtil.getAdjustedRectangle(topOutside, 1.0,
 				(int) (getDeclaration().getPadLineWidth() * getZoomLevel()));
+		Rectangle right = GFFigureUtil.getAdjustedRectangle(rightOutside, 1.0, (int) (getDeclaration()
+				.getPadLineWidth() * getZoomLevel()));
+		Rectangle bottom = GFFigureUtil.getAdjustedRectangle(bottomOutside, 1.0, (int) (getDeclaration()
+				.getPadLineWidth() * getZoomLevel()));
 
 		// differenciate the pad styles
 		boolean hasTop = top != null;
@@ -394,13 +404,16 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 		// create path
 
 		if (hasStandardTop) {
-			// curved line around top(top-right) -> top(top-left) -> top(bottom-left)
+			// curved line around top(top-right) -> top(top-left) ->
+			// top(bottom-left)
 			path.addArc(top.getTopRight().x - corner, top.getTopRight().y, corner, corner, 0, 90);
 			path.addArc(top.getTopLeft().x, top.getTopLeft().y, corner, corner, 90, 90);
 			path.addArc(top.getBottomLeft().x, top.getBottomLeft().y - corner, corner, corner, 180, 90);
 		} else if (hasAppendageTop) {
 			// curved line around top(top-left) -> top(bottom-left)
-			int appendageCorner = Math.min(corner, top.height * 2); // adjust for small sizes
+			int appendageCorner = Math.min(corner, top.height * 2); // adjust
+																	// for small
+																	// sizes
 			path.addArc(top.getTopLeft().x, top.getTopLeft().y, appendageCorner, appendageCorner, 90, 90);
 			path.lineTo(top.getBottomLeft().x, top.getBottomLeft().y);
 		} else { // !hasTop
@@ -419,11 +432,14 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 				path.addArc(right.getBottomLeft().x, right.getBottomLeft().y - corner, corner, corner, 180, 90);
 			} else {
 				// inside open curve connection right and bottom
-				path.addArc(right.getLeft().x - innerCorner, bottom.getTop().y - innerCorner, innerCorner, innerCorner, 0, -90);
-				// curved line around bottom(top-left) -> bottom(bottom-left) -> bottom(bottom-right)
+				path.addArc(right.getLeft().x - innerCorner, bottom.getTop().y - innerCorner, innerCorner, innerCorner,
+						0, -90);
+				// curved line around bottom(top-left) -> bottom(bottom-left) ->
+				// bottom(bottom-right)
 				path.addArc(bottom.getTopLeft().x, bottom.getTopLeft().y, corner, corner, 90, 90);
 				path.addArc(bottom.getBottomLeft().x, bottom.getBottomLeft().y - corner, corner, corner, 180, 90);
-				path.addArc(bottom.getBottomRight().x - corner, bottom.getBottomRight().y - corner, corner, corner, 270, 90);
+				path.addArc(bottom.getBottomRight().x - corner, bottom.getBottomRight().y - corner, corner, corner,
+						270, 90);
 				// outside open curve connection bottom and right
 				path.addArc(bottom.getRight().x, right.getBottom().y, corner, corner, 180, -90);
 			}
@@ -433,17 +449,21 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 			path.addArc(right.getTopRight().x - corner, right.getTopRight().y, corner, corner, 0, 90);
 		} else if (hasAppendageRight) {
 			// curved line around right(bottom-left) -> right(bottom-right)
-			int appendageCorner = Math.min(corner, right.width * 2); // adjust for small sizes
+			int appendageCorner = Math.min(corner, right.width * 2); // adjust
+																		// for
+																		// small
+																		// sizes
 			path.lineTo(right.getBottomLeft().x, right.getBottomLeft().y);
-			path.addArc(right.getBottomRight().x - appendageCorner, right.getBottomRight().y - appendageCorner, appendageCorner,
-					appendageCorner, 270, 90);
+			path.addArc(right.getBottomRight().x - appendageCorner, right.getBottomRight().y - appendageCorner,
+					appendageCorner, appendageCorner, 270, 90);
 		} else { // !hasRight
 			// close curved rectangle around top (bottom-right)
 			path.addArc(top.getBottomRight().x - corner, top.getBottomRight().y - corner, corner, corner, 270, 90);
 		}
 
 		if (hasStandardTop && hasStandardRight) {
-			// outside open curve connecting right and top (appendages have direct line)
+			// outside open curve connecting right and top (appendages have
+			// direct line)
 			path.addArc(top.getRight().x, right.getTop().y - corner, corner, corner, 270, -90);
 		}
 
@@ -540,7 +560,8 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
 				.getPadInnerLineColor()));
 		graphics.drawPath(pathInnerLine);
-		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration().getPadMiddleLineColor()));
+		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
+				.getPadMiddleLineColor()));
 		graphics.drawPath(pathMiddleLine);
 		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
 				.getPadOuterLineColor()));
@@ -613,7 +634,8 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 			double restSteps = (((double) (stepsDone * restTime)) / elapsedTime);
 			double deltaTransparency = (ANIMATION_END_TRANSPARENCY - currentTransparency) / restSteps;
 			currentTransparency += deltaTransparency;
-			if (elapsedTime > animationDuration) { // safeguard in case of rounding errors
+			if (elapsedTime > animationDuration) { // safeguard in case of
+													// rounding errors
 				currentTransparency = ANIMATION_END_TRANSPARENCY;
 			}
 		}

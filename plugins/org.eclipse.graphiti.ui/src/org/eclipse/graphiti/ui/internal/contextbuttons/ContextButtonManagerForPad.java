@@ -266,8 +266,8 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	public void hideContextButtonsInstantly() {
 		if (getActiveContextButtonPad() != null) {
 			synchronized (this) {
-				ScalableFreeformRootEditPart rootEditPart = (ScalableFreeformRootEditPart) getEditor().getGraphicalViewer()
-						.getRootEditPart();
+				ScalableFreeformRootEditPart rootEditPart = (ScalableFreeformRootEditPart) getEditor()
+						.getGraphicalViewer().getRootEditPart();
 				IFigure feedbackLayer = rootEditPart.getLayer(LayerConstants.HANDLE_LAYER);
 				feedbackLayer.remove(getActiveContextButtonPad());
 				setActive(null, null);
@@ -337,7 +337,8 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 			hideContextButtonsInstantly();
 
 			// determine zoom level
-			ScalableFreeformRootEditPart rootEditPart = (ScalableFreeformRootEditPart) getEditor().getGraphicalViewer().getRootEditPart();
+			ScalableFreeformRootEditPart rootEditPart = (ScalableFreeformRootEditPart) getEditor().getGraphicalViewer()
+					.getRootEditPart();
 			double zoom = rootEditPart.getZoomManager().getZoom();
 			if (zoom < MINIMUM_ZOOM_LEVEL) {
 				return;
@@ -380,8 +381,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 			// create context button pad and add to handle layer
 			EditPart activeEditPart = getFigure2EditPart().get(figure);
 			ContextButtonPad contextButtonPad = new ContextButtonPad(this, declaration, zoom, getEditor(),
-					activeEditPart,
-					resourceRegistry);
+					activeEditPart, resourceRegistry);
 			setActive(figure, contextButtonPad);
 
 			IFigure feedbackLayer = rootEditPart.getLayer(LayerConstants.HANDLE_LAYER);
