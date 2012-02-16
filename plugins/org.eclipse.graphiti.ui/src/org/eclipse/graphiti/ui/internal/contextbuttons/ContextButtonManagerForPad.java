@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
  *    Bug 336488 - DiagramEditor API
+ *    mgorning - Bug 369370 - visibility of context button pad for graphical entities
  *
  * </copyright>
  *
@@ -284,10 +285,12 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 * 
 	 * @param figure
 	 *            The figure which to check.
+	 * @param mouseLocation
+	 *            current mouse location in the diagram
 	 * @return true, if for the given figure a replacement of the context button
 	 *         pad is required.
 	 */
-	private boolean replaceContextButtonPad(IFigure figure) {
+	private boolean replaceContextButtonPad(IFigure figure, Point mouseLocation) {
 		// requires new context buttons, if there is no active figure
 		if (getActiveFigure() == null) {
 			return true;
@@ -306,6 +309,13 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 			if (parent.equals(getActiveFigure()))
 				return true;
 			parent = parent.getParent();
+		}
+
+		// requires changed context buttons, if the mouse location is inside the
+		// active figure (that means the
+		// figure overlaps the active figure)
+		if (getActiveFigure().containsPoint(mouseLocation)) {
+			return true;
 		}
 
 		// requires no (new) context buttons, if the the mouse is still in the
@@ -330,7 +340,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 *            The current location of the mouse.
 	 */
 	private void showContextButtonsInstantly(IFigure figure, Point mouse) {
-		if (!replaceContextButtonPad(figure))
+		if (!replaceContextButtonPad(figure, mouse))
 			return;
 
 		synchronized (this) {
