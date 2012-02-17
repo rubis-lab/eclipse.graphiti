@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 363539 - Enabled feature delegation via IDiagramEditor.execute method
+ *    mgorning - Bug 371671 - addGraphicalRepresentation returns null in dark mode
  *
  * </copyright>
  *
@@ -33,6 +34,7 @@ import org.eclipse.graphiti.features.ConfigurableFeatureProviderWrapper;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
+import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICopyContext;
 import org.eclipse.graphiti.features.context.IPasteContext;
@@ -46,6 +48,7 @@ import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.PasteContext;
 import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.features.impl.AbstractAddFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.features.impl.DefaultMoveAnchorFeature;
 import org.eclipse.graphiti.features.impl.DefaultReconnectionFeature;
@@ -91,10 +94,11 @@ public class GFPackageTests extends AbstractGFTests {
 
 	@Test
 	public void testDarkFeatureProcessing() throws Exception {
-		String[] providerIds = GraphitiUi.getExtensionManager().getDiagramTypeProviderIds(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		String[] providerIds = GraphitiUi.getExtensionManager().getDiagramTypeProviderIds(
+				ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		assertTrue("no dtp for sketch diagram type available", providerIds.length > 0);
 		if (providerIds.length > 0) {
-			Diagram d = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH, "diagram");
+			final Diagram d = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH, "diagram");
 			IDiagramTypeProvider dtp = GraphitiUi.getExtensionManager().createDiagramTypeProvider(d, providerIds[0]);
 			assertNotNull("dtp couldn't be instantiated", dtp);
 
@@ -106,13 +110,29 @@ public class GFPackageTests extends AbstractGFTests {
 					canExecuteCalled[0] = true;
 					return true;
 				}
-				
+
 				public void execute(IContext context) {
 					executeCalled[0] = true;
 				}
 			}, new DefaultContext());
 			assertTrue(canExecuteCalled[0]);
 			assertTrue(executeCalled[0]);
+
+			// Bug 371671 - addGraphicalRepresentation returns null in dark mode
+			AbstractAddFeature addFeature = new AbstractAddFeature(dtp.getFeatureProvider()) {
+
+				public boolean canAdd(IAddContext context) {
+					return true;
+				}
+
+				public PictogramElement add(IAddContext context) {
+					Shape shape = Graphiti.getPeCreateService().createShape(d, true);
+					return shape;
+				}
+			};
+
+			Object result = dtp.getDiagramEditor().executeFeature(addFeature, new AddContext());
+			assertTrue(result instanceof Shape);
 		}
 	}
 
@@ -126,7 +146,8 @@ public class GFPackageTests extends AbstractGFTests {
 
 	@Test
 	public void testGraphitiUiInternal() throws Exception {
-		org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(IPlatformImageConstants.IMG_DIAGRAM);
+		org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(
+				IPlatformImageConstants.IMG_DIAGRAM);
 		GraphitiUiInternal.getUiService().createImage(imageForId, SWT.IMAGE_GIF);
 	}
 
@@ -222,7 +243,8 @@ public class GFPackageTests extends AbstractGFTests {
 		assertNotNull(pe);
 		PictogramElement[] pes = new PictogramElement[] { pe };
 
-		final DefaultCopyFeature myDefaultCopyFeature = new DefaultCopyFeature(myDiagramTypeProvider.getFeatureProvider());
+		final DefaultCopyFeature myDefaultCopyFeature = new DefaultCopyFeature(
+				myDiagramTypeProvider.getFeatureProvider());
 		final ICopyContext copyContext = new CopyContext(pes);
 		assertEquals(true, myDefaultCopyFeature.canExecute(copyContext));
 
@@ -231,7 +253,7 @@ public class GFPackageTests extends AbstractGFTests {
 				myDefaultCopyFeature.execute(copyContext);
 			}
 		});
-		
+
 		s = null;
 		s = myDefaultCopyFeature.getName();
 		assertNotNull(s);
@@ -263,13 +285,15 @@ public class GFPackageTests extends AbstractGFTests {
 		syncExec(new VoidResult() {
 			public void run() {
 				ModelClipboard.getDefault().setContent(objs);
-				Collection<EObject> copy = ModelClipboard.getDefault().duplicateAndPaste(null, ed.getTransactionalEditingDomain());
+				Collection<EObject> copy = ModelClipboard.getDefault().duplicateAndPaste(null,
+						ed.getTransactionalEditingDomain());
 				diagramEditor.doSave(null);
 				assertTrue(!copy.isEmpty() && !copy.contains(dia));
 			}
 		});
 
-		DefaultMoveAnchorFeature myDefaultMoveAnchorFeature = new DefaultMoveAnchorFeature(myDiagramTypeProvider.getFeatureProvider());
+		DefaultMoveAnchorFeature myDefaultMoveAnchorFeature = new DefaultMoveAnchorFeature(
+				myDiagramTypeProvider.getFeatureProvider());
 
 		GraphicsAlgorithm graphicsAlgorithmMock = createNiceMock(GraphicsAlgorithm.class);
 		replay(graphicsAlgorithmMock);
@@ -304,7 +328,8 @@ public class GFPackageTests extends AbstractGFTests {
 		assertNotNull(s);
 		assertFalse("".equals(s));
 
-		DefaultReconnectionFeature myDefaultReconnectionFeature = new DefaultReconnectionFeature(myDiagramTypeProvider.getFeatureProvider());
+		DefaultReconnectionFeature myDefaultReconnectionFeature = new DefaultReconnectionFeature(
+				myDiagramTypeProvider.getFeatureProvider());
 
 		Anchor anchorMock = createNiceMock(Anchor.class);
 		expect(anchorMock.getParent()).andReturn(shapes.get(0));
@@ -315,7 +340,8 @@ public class GFPackageTests extends AbstractGFTests {
 		expect(connectionMock.getStart()).andReturn(anchorMock).anyTimes();
 		replay(connectionMock);
 
-		IReconnectionContext myReconnectionContext = new ReconnectionContext(connectionMock, anchorMock, anchorMock, null);
+		IReconnectionContext myReconnectionContext = new ReconnectionContext(connectionMock, anchorMock, anchorMock,
+				null);
 		myReconnectionContext.setTargetPictogramElement(pe);
 
 		assertTrue(myDefaultReconnectionFeature.canExecute(myReconnectionContext));
@@ -371,7 +397,8 @@ public class GFPackageTests extends AbstractGFTests {
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 				executeInRecordingCommand(diagramEditor, new Runnable() {
 					public void run() {
-						addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200, "ConnectionDecorator");
+						addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200,
+								"ConnectionDecorator");
 					}
 				});
 			}
@@ -484,7 +511,8 @@ public class GFPackageTests extends AbstractGFTests {
 		final Diagram currentDiagram = diagramTypeProvider.getDiagram();
 		executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
 			public void run() {
-				addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200, "ConnectionDecorator");
+				addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200,
+						"ConnectionDecorator");
 				moveClassShape(fp, currentDiagram, 300, 300, "Connection");
 				getPeService().setPropertyValue(diagram, "Test", "test");
 			}
@@ -494,7 +522,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 		pictogramElementMock = createNiceMock(PictogramElement.class);
 		replay(pictogramElementMock);
-		
+
 		page.closeActiveEditor();
 	}
 }
