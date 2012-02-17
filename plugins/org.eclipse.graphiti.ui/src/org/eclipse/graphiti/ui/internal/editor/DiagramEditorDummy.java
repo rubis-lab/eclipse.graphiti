@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  *    mwenz - Bug 363539 - Enabled feature delegation via IDiagramEditor.execute method - contributed by Hernan
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
+ *    mgorning - Bug 371671 - addGraphicalRepresentation returns null in dark mode
  *
  * </copyright>
  *
@@ -25,7 +26,9 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -121,13 +124,22 @@ public class DiagramEditorDummy implements IDiagramEditor {
 	 *            the {@link IFeature} to execute
 	 * @param context
 	 *            the {@link IContext} to use while executing the feature
-	 * @return always <code>null</code>
+	 * @return in case of an {@link IAddFeature} being passed as feature the
+	 *         newly added {@link PictogramElement} will be returned (in case
+	 *         the add method returning it), in all other cases
+	 *         <code>null</code>
 	 */
 	public Object executeFeature(IFeature feature, IContext context) {
+		Object returnValue = null;
 		if (feature != null && context != null && feature.canExecute(context)) {
-			feature.execute(context);
+			if (feature instanceof IAddFeature) {
+				IAddFeature addFeature = (IAddFeature) feature;
+				returnValue = addFeature.add((IAddContext) context);
+			} else {
+				feature.execute(context);
+			}
 		}
 
-		return null;
+		return returnValue;
 	}
 }
