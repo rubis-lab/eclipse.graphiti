@@ -41,7 +41,7 @@ border of the parent (x=1.0, y=0.5). The location of the anchor is re-calculated
 whenever the parents size or location changes.</p>
 <p>&nbsp;</p>
 <p><img alt="" height="152" src="visio/anchor-box-relative.png" width="209"></p>
-<p><strong>Figure: Box relative anchor (on middle-right border)</strong></p>
+<p><strong>Figure: Box relative anchor (on middle-right border outside of shape)</strong></p>
 <p>&nbsp;</p>
 <h3>Fix Point Anchor</h3>
 <p>It can be created calling
@@ -82,6 +82,12 @@ this graphical representation? For this purpose define a location there and use
 setUseAnchorLocationAsConnectionEndpoint </a>. At the end of this chapter is 
 an example for this use case.</p>
 <h2>Creating Connections with Drag &amp; Drop from Anchors</h2>
+<p>&nbsp;</p>
+<p>
+<img alt="" height="154" src="visio/anchor-box-relative-example.png" width="203"></p>
+<p><strong>Figure: Box relative anchor with graphical representation inside 
+border of shape</strong></p>
+<p>&nbsp;</p>
 <p>If the user shall be able to create connections directly via drag &amp; drop from 
 an anchor without the connection-tool, this can be implemented by so called drag 
 &amp; drop features. This does not work for chop box anchors, because they have no visible 
@@ -116,20 +122,18 @@ so that the EClass has then two anchors:</p>
 		<span class="keyword">final </span>BoxRelativeAnchor boxAnchor = <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		peCreateService.createBoxRelativeAnchor(containerShape);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boxAnchor.setRelativeWidth(1.0);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		boxAnchor.setRelativeHeight(0.38); <span class="comment">//use golden section</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// anchor references visible rectangle instead of 
-		invisible rectangle</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// assign an ellipse graphics algorithm for the box 
-		relative anchor</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ellipse ellipse 
-		= gaService.createEllipse(boxAnchor);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		ellipse.setForeground(manageColor(<span class="string"><em>E_CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		ellipse.setBackground(manageColor(<span class="string"><em>E_CLASS_BACKGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		ellipse.setLineWidth(2);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// anchor is located on the right border of the visible 
-		rectangle<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // and touches the border of 
-		the invisible rectangle</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">int </span>w = 6;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		gaService.setLocationAndSize(ellipse, -2 * w, -w, 2 * w, 2 * w);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		boxAnchor.setRelativeHeight(0.38); <span class="comment">//use golden section </span><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// assign a rectangle graphics algorithm for the 
+		box relative anchor<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // note, that the 
+		rectangle is inside the border of the rectangle shape</span><br>&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">&nbsp;final</span> Rectangle rectangle = 
+		gaService.createPlainRectangle(boxAnchor);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		rectangle.setForeground(manageColor(<span class="string"><em>E_CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		rectangle.setBackground(manageColor(<span class="string"><em>E_CLASS_BACKGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		rectangle.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		gaService.setLocationAndSize(rectangle, -12, -6, 12, 12);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// call the layout 
 		feature</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; layoutPictogramElement(containerShape);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">return </span>containerShape;<br>} </p>
@@ -157,25 +161,26 @@ independent of the given context:</p>
 <p>&nbsp;</p>
 <!-- End code ------------------------------------------------------------------------------- -->
 <p class="Note">Note: A more sophisticated solution with an anchor on a EClass with 
-an <em>extended rendering area</em> is shown in chapter
+an <em>extended rendering area</em> like the examples at the beginning is shown in chapter
 <a href="selection-behavior.htm">selection behavior</a>.</p>
 <h2>Test: Create a Connection with Drag &amp; Drop from Anchor</h2>
 <p>Start the editor again and create two new EClasses (existing EClasses don’t work, 
-because they have no anchor at the middle-right border). Then drag the anchor at 
+because they have no anchor). Then drag the anchor at 
 the middle-right border of the first EClass and drop it onto the second EClass. 
 This will create a new connection between those two EClasses.</p>
 <p>&nbsp;</p>
 <h1>Use an Anchor Location as Connection End-Point</h1>
 <p>&nbsp;</p>
-<p><img alt="" height="152" src="visio/line-oriented-anchor.png" width="207"></p>
-<p><strong>Figure: Fix point anchor with an anchor location as end-point</strong></p>
+<p>
+<img alt="" height="153" src="visio/anchor-box-relative-example-2.png" width="203"></p>
+<p><strong>Figure: Box relative anchor with an anchor location as end-point</strong></p>
 <p>&nbsp;</p>
-<p>The above image shows a connection which has an end-point directly on the border 
-of the ellipsis on the right. The ellipsis is the graphical representation of the 
-fix point anchor. Using a location on the the right border of the fox point anchor 
+<p>The above image shows a connection which has an end-point directly on the 
+border of the rectangle on the right. The rectangle is the graphical 
+representation of the box relative anchor. Using a location on the the right border of the anchor 
 as end-point will be possible by invoking
 <a href="../../../javadoc/org/eclipse/graphiti/mm/pictograms/AdvancedAnchor.html#setUseAnchorLocationAsConnectionEndpoint(boolean)">
-setUseAnchorLocationAsConnectionEndpoint </a>on the fix point anchor.</p>
+setUseAnchorLocationAsConnectionEndpoint </a>on the anchor.</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
@@ -183,27 +188,25 @@ setUseAnchorLocationAsConnectionEndpoint </a>on the fix point anchor.</p>
 		<p class="code"><span class="keyword">public </span>PictogramElement add(IAddContext 
 		context) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// ... EXISTING CODING ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// create an fix point anchor at middle-right</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">int </span>w = 6;<br><span class="keyword">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		final</span> FixPointAnchor fixAnchor =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		peCreateService.createFixPointAnchor(containerShape);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// create anchor 
-		location which will be the end-point</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Point location = gaService.createPoint(width + w, (<span class="keyword">int</span>) 
-		(height * 0.38));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fixAnchor.setLocation(location);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// anchor references visible rectangle instead of 
-		invisible rectangle</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fixAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// invoking this is manadatory for this kind of solution</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		fixAnchor.setUseAnchorLocationAsConnectionEndpoint(<span class="keyword">true</span>);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="comment">// assign an ellipse graphics algorithm for the fix 
-		point anchor</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ellipse ellipse = 
-		gaService.createEllipse(fixAnchor);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ellipse.setForeground(manageColor(<span class="string"><em>E_CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		<span class="comment">// create an box relative anchor at middle-right</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">final </span>BoxRelativeAnchor boxAnchor = <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		peCreateService.createBoxRelativeAnchor(containerShape);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boxAnchor.setRelativeWidth(1.0);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		boxAnchor.setRelativeHeight(0.38); <span class="comment">//use golden section</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		boxAnchor.setUseAnchorLocationAsConnectionEndpoint(<span class="keyword">true</span>);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);<br>
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="comment">// assign a rectangle graphics algorithm for the 
+		box relative anchor<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // note, that the 
+		rectangle is inside the border of the rectangle shape</span><br>&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">&nbsp;final</span> Rectangle rectangle = 
+		gaService.createPlainRectangle(boxAnchor);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ellipse.setForeground(manageColor(<span class="string"><em>E_CLASS_FOREGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		ellipse.setBackground(manageColor(<span class="string"><em>E_CLASS_BACKGROUND</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		ellipse.setLineWidth(2);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		ellipse.setLineWidth(2);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// anchor is located on the right border of the visible 
 		rectangle<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // and touches the border of 
-		the invisible rectangle</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gaService.setLocationAndSize(ellipse, 
-		-2 * w, -w, 2 * w, 2 * w);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		the invisible rectangle</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		gaService.setLocationAndSize(rectangle, -12, -6, 12, 12);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// call the layout feature</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		layoutPictogramElement(containerShape);<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="keyword">return </span>containerShape;<br>} </p>
