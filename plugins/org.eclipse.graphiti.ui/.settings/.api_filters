@@ -196,6 +196,22 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/platform/GraphitiConnectionEditPart.java" type="org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IFeatureProviderHolder"/>
+                <message_argument value="GraphitiConnectionEditPart"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/platform/GraphitiShapeEditPart.java" type="org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IFeatureProviderHolder"/>
+                <message_argument value="GraphitiShapeEditPart"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/services/IUiLayoutService.java" type="org.eclipse.graphiti.ui.services.IUiLayoutService">
         <filter id="571473929">
             <message_arguments>

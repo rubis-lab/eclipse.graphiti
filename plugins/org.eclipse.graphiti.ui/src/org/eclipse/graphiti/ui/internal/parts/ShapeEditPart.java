@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    mwenz - Bug 327756 - Cancelled double click feature marked editor dirty
  *    Bug 336488 - DiagramEditor API
  *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
+ *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
  *
  * </copyright>
  *
@@ -36,7 +37,6 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateConnectionRequest;
@@ -76,6 +76,7 @@ import org.eclipse.graphiti.ui.internal.parts.directedit.GFDirectEditManager;
 import org.eclipse.graphiti.ui.internal.parts.directedit.TextCellLocator;
 import org.eclipse.graphiti.ui.internal.policy.DefaultEditPolicyFactory;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFChopboxAnchor;
+import org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart;
 import org.eclipse.graphiti.util.ILocationInfo;
 import org.eclipse.graphiti.util.LocationInfo;
 import org.eclipse.swt.widgets.Display;
@@ -86,7 +87,7 @@ import org.eclipse.swt.widgets.Display;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class ShapeEditPart extends AbstractGraphicalEditPart implements IShapeEditPart, NodeEditPart {
+public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPart, NodeEditPart {
 
 	private static final boolean TRACE_OUT = false;
 

@@ -12,11 +12,21 @@
 
 <h1>Contributing to the Property Sheet</h1>
 <h2>Prerequisite</h2>
-<p>Contributing to the property sheet is platform dependent (e.g. Eclipse specific).
-</p>
-<p>Add a dependency to the plugin<em> org.eclipse.ui.views.properties.tabbed</em> 
-in the <em>plugin.xml</em> resp. <em>manifest.mf</em>, which contains eclipse functionality 
-for property sheets.</p>
+	<p>
+		Contributing to the property sheet is done using the standard Eclipse
+		extension point for registering tabbed property sheets. Add a
+		dependency to the plugin <em>org.eclipse.ui.views.properties.tabbed</em>
+		in the <em>plugin.xml</em> resp. <em>manifest.mf</em>, which contains
+		eclipse functionality for property sheets.
+	</p>
+	<p class="Note">
+		Note: It is also possible to use the standard Eclipse property sheets.
+		In order to enable that you need to provide a
+		<code>org.eclipse.ui.views.properties.PropertySheetPage</code>
+		instead of the default
+		<code>org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage(ITabbedPropertySheetPageContributor)</code>
+		in the <code>getAdapter()</code> method of <code>DiagramEditor</code>.
+	</p>
 <h2>Contributing to the Property Sheet</h2>
 <p>Contributing to the property sheet is easy if you are familiar with the Eclipse 
 property sheet concept. If not please read the following
@@ -173,8 +183,27 @@ correctly displayed.</p>
 sheet. If the name of the EClass is changed in the editor, the change is not visible 
 in the property sheet. The same happens vice versa. </p>
 <p>The event handling can be implemented as an exercise.</p>
-<p>&nbsp;</p>
 
+
+	<h2>Embedding a Standard Table Property Sheet</h2>
+	<p>
+		Eclipse also allows to embed a standard (table format) property sheet
+		section into the tabbeb property sheet. This can be done by
+		referencing a <em>org.eclipse.ui.views.properties.tabbed.AdvancedPropertySection</em>
+		instead of the <em>GFPropertySection</em>-based section in the
+		property section definition in plugin.xml. Addionally you will need to
+		define an Eclipse adapter factory extension to map from the edit part
+		selected in the diagram editor to an <em>IPropertySource</em> object
+		defining what the properties are and how they shall be edited. An
+		example how to embed such a property section is shown in the tutorial
+		plugin. Have a look into the following extensions:
+	</p>
+	<ul>
+		<li>The property tab with id "graphiti.table.tab"</li>
+		<li>The property section with id "graphiti.main.tab.emfreference.table"</li>
+		<li>The "org.eclipse.core.runtime.adapters" adapter</li>
+	</ul>
+<p>&nbsp;</p>
 </body>
 
 </html>

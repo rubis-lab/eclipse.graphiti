@@ -10,6 +10,7 @@
    
     Contributors:
        SAP AG - initial API, implementation and documentation
+       mwenz - Bug 341898 - Support for AdvancedPropertySheet
    
     </copyright>
    
@@ -68,6 +69,15 @@
 	        <propertyTab label="Main" category="Graphiti" 
 	            id="graphiti.main.tab">
 	        </propertyTab>
+	        
+	        <!--
+	        Defines a property sheet tab for the Eclipse tabbed property sheet for EReferences.
+	        -->
+			<propertyTab
+				category="Graphiti"
+				id="graphiti.table.tab"
+				label="Table">
+			</propertyTab>
 	    </propertyTabs>
 	</extension>
 	 
@@ -79,6 +89,17 @@
 	         filter="org.eclipse.graphiti.examples.tutorial.property.TutorialEClassFilter"
 	         id="graphiti.main.tab.emfclass">
 	        </propertySection>
+	        
+	        <!--
+	        Defines a standard (table format) property sheet section using the table property sheet
+	        integration into the Eclipse tabbed property sheet for EReferences.
+	        -->
+			<propertySection
+				class="org.eclipse.ui.views.properties.tabbed.AdvancedPropertySection"
+				filter="org.eclipse.graphiti.examples.tutorial.property.TutorialEReferenceFilter"
+				id="graphiti.main.tab.emfreference.table"
+				tab="graphiti.table.tab">
+			</propertySection>
 	    </propertySections>
 	</extension>
  
@@ -118,6 +139,21 @@
 			</and>
 		</definition>
 	</extension>
-	
+
+	<!--
+	Registers an Eclipse adapter factory to provide IPropertySource objects for the GraphitiConnectionEditPart
+	that gets selected in the DiagramEditor to provide a standard (table format) property sheet for EReference
+	objects.
+	-->
+	<extension
+       point="org.eclipse.core.runtime.adapters">
+		<factory
+			adaptableType="org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart"
+			class="org.eclipse.graphiti.examples.tutorial.property.GraphitiEditPartToIPropertySourceAdapterFactory">
+			<adapter
+				type="org.eclipse.ui.views.properties.IPropertySource">
+			</adapter>
+		</factory>
+	</extension>
 </plugin>
  

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010, 2011 SAP AG and others.
+ * Copyright (c) 2005, 2012 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Torkild U. Resheim - Allow double-click handling, bug 340708
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
  *
  * </copyright>
  *
@@ -27,7 +28,6 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -39,6 +39,7 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart;
 
 /**
  * A ConnectionEditPart, which model is of the type Connection.
@@ -46,7 +47,8 @@ import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public abstract class ConnectionEditPart extends AbstractConnectionEditPart implements IConnectionEditPart, NodeEditPart {
+public abstract class ConnectionEditPart extends GraphitiConnectionEditPart implements IConnectionEditPart,
+		NodeEditPart {
 
 	private final IAnchorContainerDelegate delegate;
 

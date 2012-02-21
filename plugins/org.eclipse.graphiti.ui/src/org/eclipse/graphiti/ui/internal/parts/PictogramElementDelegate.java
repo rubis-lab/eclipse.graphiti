@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@
  *    mgorning - Bug 347144 - Angle of MultiText objects can't be modified
  *    Felix Velasco (mgorning) - Bug 328279 - Support rendering decorator positioning for connection text decorator
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
  *
  * </copyright>
  *
@@ -123,7 +124,6 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.model.IWorkbenchAdapter;
 import org.eclipse.ui.model.IWorkbenchAdapter2;
-import org.eclipse.ui.views.properties.IPropertySource;
 
 /**
  * A class, which contains helper-methods, which are necessary to implement the
@@ -227,10 +227,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		Object ret = null;
 		if (key == IGFAdapter.class || key == IWorkbenchAdapter.class || key == IWorkbenchAdapter2.class) {
 			ret = new GFAdapter();
-		} else if (key == IPropertySource.class) {
-			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
-					.getCurrentToolBehaviorProvider();
-			ret = tbp.getAdapter(key);
 		}
 		return ret;
 	}
