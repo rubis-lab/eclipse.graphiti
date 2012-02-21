@@ -229,7 +229,8 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 		@SuppressWarnings("unchecked")
 		List<EditPart> selectedEditParts = viewer.getSelectedEditParts();
 		for (EditPart selectedEditPart : selectedEditParts) {
-			if (!(selectedEditPart instanceof GraphicalEditPart) || (selectedEditPart == getGraphicalViewer().getContents())) {
+			if (!(selectedEditPart instanceof GraphicalEditPart)
+					|| (selectedEditPart == getGraphicalViewer().getContents())) {
 				_selectionFigure = null;
 				break;
 			}
@@ -240,7 +241,7 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 
 		// determine _figure
 		_figure = (_selectionFigure == null) ? _allFigure : _selectionFigure;
-		//_allFigureButton.setSelection(_figure == _allFigure);
+		// _allFigureButton.setSelection(_figure == _allFigure);
 	}
 
 	public void setScaledImage(double scaleFactor) {
@@ -264,7 +265,8 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 	private void initImage() {
 		{
 			if (_selectionFigure != null) {
-				_imageSelection = new Image(Display.getDefault(), _selectionFigure.getBounds().width, _selectionFigure.getBounds().height);
+				_imageSelection = new Image(Display.getDefault(), _selectionFigure.getBounds().width,
+						_selectionFigure.getBounds().height);
 				GC gc = new GC(_imageSelection);
 				SWTGraphics graphics = new SWTGraphics(gc);
 

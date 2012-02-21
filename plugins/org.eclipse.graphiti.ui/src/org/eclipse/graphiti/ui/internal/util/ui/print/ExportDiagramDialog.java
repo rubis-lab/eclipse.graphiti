@@ -59,7 +59,6 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 	// controls
 	private Combo _formatCombo;
 
-
 	private Combo _widthCombo;
 
 	private Combo _heightCombo;
@@ -82,8 +81,7 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 	public ExportDiagramDialog(Shell shell, GraphicalViewer graphicalViewer) {
 		super(shell, graphicalViewer);
 	}
-	
-	
+
 	public void addExporters(Map<String, Boolean> diagramExporterTypes) {
 		additionalExporterTypes = diagramExporterTypes;
 		List<String> asList = new ArrayList<String>();
@@ -94,7 +92,7 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 			asList.add(string);
 		}
 		IMAGE_FILE_EXTENSIONS = asList.toArray(new String[] {});
-		
+
 	}
 
 	// ======================= overwritten methods ============================
@@ -176,8 +174,8 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 
 		Label scaleFactorText = new Label(scaleGroup, SWT.NONE);
 		scaleFactorText.setText(Messages.SaveFigureAsImageDialog_4_xfld);
-		_scaleFactorText = new DoubleFieldWithDropDown(scaleGroup, SWT.NONE, _preferences, DefaultPrintPreferences.SCALE_FACTOR,
-				SCALE_FACTORS);
+		_scaleFactorText = new DoubleFieldWithDropDown(scaleGroup, SWT.NONE, _preferences,
+				DefaultPrintPreferences.SCALE_FACTOR, SCALE_FACTORS);
 		data = new GridData();
 		data.grabExcessHorizontalSpace = true;
 		data.horizontalAlignment = SWT.FILL;
@@ -216,7 +214,8 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 				if (width < 0) {
 					throw new NumberFormatException(Messages.ExportDiagramDialog_0 + width);
 				}
-				_preferences.setDoublePreference(DefaultPrintPreferences.SCALE_FACTOR, (double) width / (double) _figure.getBounds().width);
+				_preferences.setDoublePreference(DefaultPrintPreferences.SCALE_FACTOR, (double) width
+						/ (double) _figure.getBounds().width);
 			} catch (NumberFormatException x) {
 				T.racer().debug(x.getMessage());
 			}

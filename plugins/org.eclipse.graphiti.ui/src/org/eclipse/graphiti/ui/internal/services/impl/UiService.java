@@ -74,7 +74,8 @@ public class UiService implements IUiService {
 				imageLoader.save(result, format);
 			} catch (SWTException e) {
 				String error = "Depth: " + Integer.toString(image.getImageData().depth) + "\n" + "X: " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						+ Integer.toString(image.getImageData().x) + "\n" + "Y: " + Integer.toString(image.getImageData().y); //$NON-NLS-1$ //$NON-NLS-2$
+						+ Integer.toString(image.getImageData().x)
+						+ "\n" + "Y: " + Integer.toString(image.getImageData().y); //$NON-NLS-1$ //$NON-NLS-2$
 				throw new IllegalStateException(error, e);
 			}
 
@@ -104,7 +105,8 @@ public class UiService implements IUiService {
 		// at the moment this is only working if not more than 256 colors are
 		// used in the image
 		if (colors.size() > 256)
-			throw new Exception("Image contains more than 256 colors. \n Automated color reduction is currently not supported."); //$NON-NLS-1$
+			throw new Exception(
+					"Image contains more than 256 colors. \n Automated color reduction is currently not supported."); //$NON-NLS-1$
 
 		// create an indexed palette
 		RGB[] rgbs = new RGB[256];
@@ -168,7 +170,8 @@ public class UiService implements IUiService {
 				// if the exporter is non-standard, i.e. registered via
 				// extension point, we need to call the registered exporter.
 				if (diagramExporterTypes.containsKey(imageExtension)) {
-					final IDiagramsExporter exporter = ExtensionManager.getSingleton().getDiagramExporterForType(imageExtension);
+					final IDiagramsExporter exporter = ExtensionManager.getSingleton().getDiagramExporterForType(
+							imageExtension);
 					Assert.isNotNull(exporter);
 					operation = getExportOp(METHOD, shell, saveAsImageDialog, file, im, exporter);
 					new ProgressMonitorDialog(shell).run(false, false, operation);
@@ -182,15 +185,16 @@ public class UiService implements IUiService {
 			} catch (Exception e) {
 				String message = "Can not save image: "; //$NON-NLS-1$
 				MessageDialog.openError(shell, "Can not save image", message + e.getMessage()); //$NON-NLS-1$
-				T.racer().error(METHOD, message + "\nDetails: " + GraphitiUiInternal.getTraceService().getStacktrace(e)); //$NON-NLS-1$
+				T.racer()
+						.error(METHOD, message + "\nDetails: " + GraphitiUiInternal.getTraceService().getStacktrace(e)); //$NON-NLS-1$
 				e.printStackTrace();
 			}
 		}
 	}
 
-
-	private IRunnableWithProgress getExportOp(final String METHOD, final Shell shell, final ExportDiagramDialog saveAsImageDialog,
-			final String file, final Image im, final IDiagramsExporter exporter) {
+	private IRunnableWithProgress getExportOp(final String METHOD, final Shell shell,
+			final ExportDiagramDialog saveAsImageDialog, final String file, final Image im,
+			final IDiagramsExporter exporter) {
 		IRunnableWithProgress operation;
 		operation = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) {
@@ -204,7 +208,6 @@ public class UiService implements IUiService {
 		};
 		return operation;
 	}
-
 
 	private void handleException(final Shell shell, Exception e) {
 		String message = "Can not export diagram: "; //$NON-NLS-1$
@@ -225,7 +228,8 @@ public class UiService implements IUiService {
 	 * @throws Exception
 	 *             On any errors that occur.
 	 */
-	private IRunnableWithProgress getSaveToFileOp(final Shell shell, final String filename, final byte contents[]) throws Exception {
+	private IRunnableWithProgress getSaveToFileOp(final Shell shell, final String filename, final byte contents[])
+			throws Exception {
 		IRunnableWithProgress operation = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) {
 				FileOutputStream outputStream = null;
