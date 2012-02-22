@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    jpasch - Bug 345315  Missing units for "Choose scale-factor
+ *    mgorning - Bug 352874 - Exports of Diagrams > 3000x3000 px 
  *
  * </copyright>
  *
@@ -46,9 +47,10 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class ExportDiagramDialog extends AbstractFigureSelectionDialog implements ModifyListener {
 
-	private String[] IMAGE_FILE_EXTENSIONS = new String[] { "BMP", "GIF", "JPG", "RLE" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+	private String[] IMAGE_FILE_EXTENSIONS = new String[] { "BMP", "GIF", "JPG", "RLE", "PNG" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
-	private int[] IMAGE_FILE_TYPES = new int[] { SWT.IMAGE_BMP, SWT.IMAGE_GIF, SWT.IMAGE_JPEG, SWT.IMAGE_BMP_RLE };
+	private int[] IMAGE_FILE_TYPES = new int[] { SWT.IMAGE_BMP, SWT.IMAGE_GIF, SWT.IMAGE_JPEG, SWT.IMAGE_BMP_RLE,
+			SWT.IMAGE_PNG };
 
 	public static final String[] WIDTHS = new String[] { "320", "640", "800", "1024", "1280", "1600" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
@@ -278,7 +280,11 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 
 	@Override
 	protected void okPressed() {
-		setScaledImage(getImageScaleFactor());
+		if (getImageFormat() == SWT.IMAGE_PNG) {
+			setScaledImage(getImageScaleFactor(), 10000.0d);
+		} else {
+			setScaledImage(getImageScaleFactor());
+		}
 		super.okPressed();
 	}
 

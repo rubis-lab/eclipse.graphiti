@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 323034 - Aligned vertical gaps between groups
+ *    mgorning - Bug 352874 - Exports of Diagrams > 3000x3000 px 
  *
  * </copyright>
  *
@@ -244,13 +245,11 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 		// _allFigureButton.setSelection(_figure == _allFigure);
 	}
 
-	public void setScaledImage(double scaleFactor) {
+	public void setScaledImage(double scaleFactor, double upperBoundPixels) {
 		cleanUp();
 		_imageAll = null;
 		_scaledImage = null;
 		_image = null;
-
-		double upperBoundPixels = 3000.0d;
 
 		// create _imageAll based on _allFigure
 		initImageAll(upperBoundPixels);
@@ -260,6 +259,10 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 		initScaledImage(scaleFactor, upperBoundPixels);
 
 		initImage();
+	}
+
+	public void setScaledImage(double scaleFactor) {
+		setScaledImage(scaleFactor, 3000.0d);
 	}
 
 	private void initImage() {
