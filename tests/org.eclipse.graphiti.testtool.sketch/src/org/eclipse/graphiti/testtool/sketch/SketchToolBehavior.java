@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 342869 - Image doesn't scale the contained SWT Image on resize
+ *    mwenz - Bug 358255 - Add Border/Background decorators
  *
  * </copyright>
  *
@@ -18,6 +19,8 @@ package org.eclipse.graphiti.testtool.sketch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.eclipse.graphiti.IExecutionInfo;
@@ -61,7 +64,9 @@ import org.eclipse.graphiti.tb.ISelectionInfo;
 import org.eclipse.graphiti.tb.ImageDecorator;
 import org.eclipse.graphiti.tb.SelectionInfoImpl;
 import org.eclipse.graphiti.testtool.sketch.features.ChangeAlignmentFeature;
+import org.eclipse.graphiti.testtool.sketch.features.ClearDecoratorsFeature;
 import org.eclipse.graphiti.testtool.sketch.features.CornerDimensionFeature;
+import org.eclipse.graphiti.testtool.sketch.features.DisplayDecoratorFeature;
 import org.eclipse.graphiti.testtool.sketch.features.LineStyleFeature;
 import org.eclipse.graphiti.testtool.sketch.features.LineWidthFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SetImageAttributesFeature;
@@ -78,6 +83,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * The Class SketchToolBehavior.
  */
 public class SketchToolBehavior extends DefaultToolBehaviorProvider implements IName {
+
+	private Dictionary<PictogramElement, List<IDecorator>> decorators = new Hashtable<PictogramElement, List<IDecorator>>();
+
 	private class MyObjectCreationToolEntry extends ObjectCreationToolEntry implements IEclipseImageDescriptor {
 
 		private final String imageFilePath;
@@ -289,6 +297,7 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 		ContextMenuEntry changetCornerDimensionEntry = null;
 		ContextMenuEntry setStyleEntry = null;
 		ContextMenuEntry setImageAttributeEntry = null;
+		ContextMenuEntry displayImageDecoratorEntry = null;
 
 		for (int i = 0; i < customFeatures.length; i++) {
 			ICustomFeature customFeature = customFeatures[i];
@@ -356,6 +365,17 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 					retList.add(setImageAttributeEntry);
 				}
 				setImageAttributeEntry.add(contextMenuEntry);
+
+			} else if (customFeature instanceof DisplayDecoratorFeature
+					|| customFeature instanceof ClearDecoratorsFeature) {
+				if (displayImageDecoratorEntry == null) {
+					displayImageDecoratorEntry = new ContextMenuEntry(null, null);
+					displayImageDecoratorEntry.setSubmenu(true);
+					displayImageDecoratorEntry.setText("Decorators");
+					displayImageDecoratorEntry.setDescription("Display a decorator");
+					retList.add(displayImageDecoratorEntry);
+				}
+				displayImageDecoratorEntry.add(contextMenuEntry);
 
 			} else {
 				retList.add(contextMenuEntry);
@@ -430,18 +450,37 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 
 	@Override
 	public IDecorator[] getDecorators(PictogramElement pe) {
-		if (!TEST_SHOW_WARNING_DECORATORS) {
-			return super.getDecorators(pe);
-		}
-		ImageDecorator rd = new ImageDecorator(IPlatformImageConstants.IMG_ECLIPSE_WARNING);
-		int x = 22;
-		int y = 33;
-		rd.setX(x);
-		rd.setY(y);
-		rd.setMessage("Warning (x=" + x + " y=" + y + ")");
+		if (TEST_SHOW_WARNING_DECORATORS) {
+			ImageDecorator rd = new ImageDecorator(IPlatformImageConstants.IMG_ECLIPSE_WARNING);
+			int x = 22;
+			int y = 33;
+			rd.setX(x);
+			rd.setY(y);
+			rd.setMessage("Warning (x=" + x + " y=" + y + ")");
 
-		IDecorator[] ret = new IDecorator[] { rd };
-		return ret;
+			IDecorator[] ret = new IDecorator[] { rd };
+			return ret;
+		} else {
+			List<IDecorator> list = decorators.get(pe);
+			if (list != null) {
+				return list.toArray(new IDecorator[decorators.size()]);
+			} else {
+				return super.getDecorators(pe);
+			}
+		}
+	}
+
+	public void addDecorators(PictogramElement pe, IDecorator decorator) {
+		List<IDecorator> list = decorators.get(pe);
+		if (list == null) {
+			list = new ArrayList<IDecorator>();
+			decorators.put(pe, list);
+		}
+		list.add(decorator);
+	}
+
+	public void clearDecorators(PictogramElement pe) {
+		decorators.remove(pe);
 	}
 
 	@Override
@@ -524,4 +563,5 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 	public String getName() {
 		return "Edit Mode";
 	}
+
 }

@@ -14,6 +14,7 @@
  *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 363796 - Make setting of selection width of connections public
+ *    mwenz - Bug 358255 - Add Border/Background decorators
  *
  * </copyright>
  *
@@ -26,10 +27,15 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
@@ -60,6 +66,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ICreateService;
 import org.eclipse.graphiti.testtool.ecore.TestToolBehavior;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
+import org.eclipse.graphiti.testtool.sketch.features.DisplayDecoratorFeature;
 import org.eclipse.graphiti.testtool.sketch.features.ToggleDecorator;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCurvedConnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateFreeformConnectionFeature;
@@ -71,8 +78,13 @@ import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.contextbuttons.ContextButtonPad;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
+import org.eclipse.graphiti.ui.internal.figures.DecoratorImageFigure;
+import org.eclipse.graphiti.ui.internal.parts.ContainerShapeEditPart;
+import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -86,6 +98,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.hamcrest.Description;
 import org.junit.Test;
 
+@SuppressWarnings("restriction")
 public class GFInteractionComponentTests extends AbstractGFTests {
 
 	private static final int SHORT_DELAY = 500;
@@ -627,7 +640,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		page.shutdownEditor(diagramEditor);
 	}
 
-	@SuppressWarnings("restriction")
 	private ContextButtonPad findContextButtonPad() {
 		SWTBotGefEditPart rootEditPart = ed.getGefEditor().rootEditPart();
 		IFigure feedbackLayer = ((ScalableFreeformRootEditPart) rootEditPart.part())
@@ -1380,6 +1392,129 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				});
 			}
 		});
+		Thread.sleep(SHORT_DELAY);
+		page.shutdownEditor(diagramEditor);
+	}
+
+	@Test
+	public void testRenderingDecorators() throws Exception {
+		page.closeAllEditors();
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
+		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider())
+				.getInnerFeatureProvider();
+		final CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
+
+		// Create 3 rectangles
+		syncExec(new VoidResult() {
+			public void run() {
+				// One
+				{
+					ICreateFeature createFeature = new SketchCreateGaContainerFeature(fp,
+							"Rounded Rectangle Container", "draw rounded rectangle", RoundedRectangle.class);
+					Rectangle rectangle = new Rectangle(100, 100, 100, 50);
+					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
+					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
+							createFeature, createContext, rectangle);
+					commandStack.execute(createCommand);
+				}
+				ContainerShape shape1 = (ContainerShape) dtp.getDiagram().getChildren().get(0);
+				assertNotNull(shape1);
+
+				// Two
+				{
+					ICreateFeature createFeature = new SketchCreateGaContainerFeature(fp,
+							"Rounded Rectangle Container", "draw rounded rectangle", RoundedRectangle.class);
+					Rectangle rectangle = new Rectangle(500, 200, 100, 50);
+					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
+					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
+							createFeature, createContext, rectangle);
+					commandStack.execute(createCommand);
+				}
+				ContainerShape shape2 = (ContainerShape) dtp.getDiagram().getChildren().get(1);
+				assertNotNull(shape2);
+
+				// Three
+				{
+					ICreateFeature createFeature = new SketchCreateGaContainerFeature(fp,
+							"Rounded Rectangle Container", "draw rounded rectangle", RoundedRectangle.class);
+					Rectangle rectangle = new Rectangle(100, 400, 100, 50);
+					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
+					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
+							createFeature, createContext, rectangle);
+					commandStack.execute(createCommand);
+				}
+				ContainerShape shape3 = (ContainerShape) dtp.getDiagram().getChildren().get(2);
+				assertNotNull(shape3);
+
+				// Add image decorator to one
+				{
+					CustomContext context = new CustomContext(new PictogramElement[] { shape1 });
+					DisplayDecoratorFeature feature = new DisplayDecoratorFeature(fp, context,
+							DisplayDecoratorFeature.TYPE_IMAGE);
+					diagramEditor.executeFeature(feature, context);
+				}
+
+				// Add border decorator to two
+				{
+					CustomContext context = new CustomContext(new PictogramElement[] { shape2 });
+					DisplayDecoratorFeature feature = new DisplayDecoratorFeature(fp, context,
+							DisplayDecoratorFeature.TYPE_BORDER);
+					diagramEditor.executeFeature(feature, context);
+				}
+
+				// Add color decorator to three
+				{
+					CustomContext context = new CustomContext(new PictogramElement[] { shape3 });
+					DisplayDecoratorFeature feature = new DisplayDecoratorFeature(fp, context,
+							DisplayDecoratorFeature.TYPE_COLOR);
+					diagramEditor.executeFeature(feature, context);
+				}
+				
+				// Check if image is shown
+				{
+					GraphicalEditPart shape1EditPart = diagramEditor.getEditPartForPictogramElement(shape1);
+					IPictogramElementDelegate delegate = ((ContainerShapeEditPart) shape1EditPart)
+							.getPictogramElementDelegate();
+					try {
+						Class<? extends IPictogramElementDelegate> class1 = delegate.getClass();
+						Field field = class1.getSuperclass().getDeclaredField("decoratorMap");
+						field.setAccessible(true);
+						@SuppressWarnings("rawtypes")
+						HashMap map = (HashMap) field.get(delegate);
+						@SuppressWarnings("rawtypes")
+						DecoratorImageFigure figure = (DecoratorImageFigure) ((ArrayList) map.get(shape1EditPart
+								.getFigure())).get(0);
+						assertNotNull(figure);
+					} catch (Exception e) {
+						fail(e.getMessage());
+					}
+				}
+
+				// Check if border is shown
+				{
+					GraphicalEditPart shape2EditPart = diagramEditor.getEditPartForPictogramElement(shape2);
+					Color color = ((LineBorder) shape2EditPart.getFigure().getBorder()).getColor();
+					assertEquals(IColorConstant.ORANGE.getBlue(), color.getBlue());
+					assertEquals(IColorConstant.ORANGE.getGreen(), color.getGreen());
+					assertEquals(IColorConstant.ORANGE.getRed(), color.getRed());
+				}
+
+				// Check if color is shown
+				{
+					GraphicalEditPart shape3EditPart = diagramEditor.getEditPartForPictogramElement(shape3);
+					Color foregroundColor = shape3EditPart.getFigure().getForegroundColor();
+					assertEquals(IColorConstant.DARK_GREEN.getBlue(), foregroundColor.getBlue());
+					assertEquals(IColorConstant.DARK_GREEN.getGreen(), foregroundColor.getGreen());
+					assertEquals(IColorConstant.DARK_GREEN.getRed(), foregroundColor.getRed());
+					Color backgroundColor = shape3EditPart.getFigure().getBackgroundColor();
+					assertEquals(IColorConstant.LIGHT_ORANGE.getBlue(), backgroundColor.getBlue());
+					assertEquals(IColorConstant.LIGHT_ORANGE.getGreen(), backgroundColor.getGreen());
+					assertEquals(IColorConstant.LIGHT_ORANGE.getRed(), backgroundColor.getRed());
+				}
+			}
+		});
+
 		Thread.sleep(SHORT_DELAY);
 		page.shutdownEditor(diagramEditor);
 	}

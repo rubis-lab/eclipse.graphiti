@@ -32,10 +32,20 @@ and add it to the diagram type provider as described </strong>
 	<a href="../../../javadoc/org/eclipse/graphiti/datatypes/ILocation.html">ILocation</a>, 
 	which provides the decorator location relative to the pictogram element.</li>
 </ul>
-<p>Currently only the
-<a href="../../../javadoc/org/eclipse/graphiti/tb/ImageDecorator.html">ImageDecorator</a> 
-is supported, which renders an image at the defined location and can show a text 
-message as tooltip.</p>
+	<p>Graphiti supports the following decorators:</p>
+	<ul>
+		<li><a
+			href="../../../javadoc/org/eclipse/graphiti/tb/ImageDecorator.html">ImageDecorators</a>:
+			render an image at the defined location and can show a text message
+			as tooltip</li>
+		<li><a
+			href="../../../javadoc/org/eclipse/graphiti/tb/ColorDecorator.html">ColorDecorators</a>:
+			render a shape with a different background and/or foreground color</li>
+		<li><a
+			href="../../../javadoc/org/eclipse/graphiti/tb/BorderDecorator.html">BorderDecorators</a>:
+			render a shape with an additional surrounding border with a defined
+			color, width and style</li>
+	</ul>
 <p>In this example we want to show an image decorator for a EClass, whenever the 
 class name does not start with an upper case letter.</p>
 <p>&nbsp;</p>

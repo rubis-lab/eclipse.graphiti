@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2011, 2011 SAP AG.
+ * Copyright (c) 2011, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 358255 - Add Border/Background decorators
  *
  * </copyright>
  *
@@ -19,26 +20,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.transaction.RecordingCommand;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.examples.chess.Messages;
 import org.eclipse.graphiti.examples.chess.MoveUtil;
+import org.eclipse.graphiti.examples.chess.diagram.ChessToolBehaviorProvider;
 import org.eclipse.graphiti.examples.mm.chess.Piece;
 import org.eclipse.graphiti.examples.mm.chess.Square;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
-import org.eclipse.graphiti.util.IColorConstant;
 
 public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 
@@ -78,7 +74,7 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 
 	public Connection create(ICreateConnectionContext context) {
 		// Take back the highlighting
-		getDiagramEditor().getEditingDomain().getCommandStack().undo();
+		takeBackHighlighting();
 
 		Connection newConnection = null;
 		Anchor sourceAnchor = context.getSourceAnchor();
@@ -127,19 +123,20 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 		}
 
 		// Highlight all allowed squares.
-		// The highlighting here is done by modifying the Graphiti pictogram
-		// model, which might be considered is a little tricky since the
-		// highlighting should not be part of the visualization infomation
-		// persisted in the diagram. A more cleaner approach would be to use
-		// decorators for highlighting. In the end this is just a demonstration
-		// of the priciple of these hooks.
 		showFeedback(context);
 	}
 
 	@Override
 	public void canceledAttaching(ICreateConnectionContext context) {
 		// Take back the highlighting
-		getDiagramEditor().getEditingDomain().getCommandStack().undo();
+		takeBackHighlighting();
+	}
+
+	private void takeBackHighlighting() {
+		ChessToolBehaviorProvider toolBehaviorProvider = (ChessToolBehaviorProvider) getFeatureProvider()
+				.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+		toolBehaviorProvider.clearAllowedSquaresForMove();
+		getDiagramEditor().refresh();
 	}
 
 	private void showFeedback(ICreateConnectionContext context) {
@@ -165,27 +162,14 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 			}
 		}
 
-		// Mark or un-mark the allowed squares
-		TransactionalEditingDomain editingDomain = getDiagramEditor().getEditingDomain();
-		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-			@Override
-			protected void doExecute() {
-				for (Square square : allowedSquares) {
-					List<PictogramElement> squarePE = GraphitiUi.getLinkService().getPictogramElements(getDiagram(),
-							square);
-					for (PictogramElement pictogramElement : squarePE) {
-						if (pictogramElement instanceof ContainerShape) {
-							GraphicsAlgorithm squareGA = pictogramElement.getGraphicsAlgorithm();
-							if (squareGA instanceof Rectangle) {
-								// Highlight the square in orange
-								squareGA.setForeground(manageColor(IColorConstant.ORANGE));
-								squareGA.setLineWidth(2);
-							}
-						}
-					}
-				}
-			}
-		});
+		// Mark the allowed squares using decorators
+		ChessToolBehaviorProvider toolBehaviorProvider = (ChessToolBehaviorProvider) getFeatureProvider()
+				.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+		toolBehaviorProvider.addToAllowedSquaresForMove(allowedSquares);
+		for (Square square : allowedSquares) {
+			PictogramElement pe = getFeatureProvider().getPictogramElementForBusinessObject(square);
+			getDiagramEditor().refreshRenderingDecorators(pe);
+		}
 	}
 
 	private Piece getPiece(Anchor anchor) {

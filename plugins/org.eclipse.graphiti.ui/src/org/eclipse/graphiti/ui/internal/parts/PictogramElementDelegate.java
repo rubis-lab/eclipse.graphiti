@@ -18,6 +18,7 @@
  *    Felix Velasco (mgorning) - Bug 328279 - Support rendering decorator positioning for connection text decorator
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
+ *    mwenz - Bug 358255 - Add Border/Background decorators
  *
  * </copyright>
  *
@@ -39,6 +40,8 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.LineBorder;
+import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.RotatableDecoration;
@@ -95,11 +98,14 @@ import org.eclipse.graphiti.platform.ga.RendererContext;
 import org.eclipse.graphiti.platform.ga.VisualState;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
+import org.eclipse.graphiti.tb.IBorderDecorator;
+import org.eclipse.graphiti.tb.IColorDecorator;
 import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.IImageDecorator;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.figures.DecoratorImageFigure;
 import org.eclipse.graphiti.ui.internal.figures.GFAbstractShape;
@@ -118,6 +124,7 @@ import org.eclipse.graphiti.ui.internal.figures.GFText;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.ui.ISharedImages;
@@ -449,6 +456,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		// refresh common figure data
 		figure.setOpaque(true);
 		figure.setVisible(pe.isVisible());
+		figure.setBorder(null);
 
 		// check whether the edit part is a connection edit part and the edit
 		// part is selected
@@ -554,6 +562,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		} else if (graphicsAlgorithm instanceof MultiText && figure instanceof GFMultilineText) {
 			MultiText text = (MultiText) graphicsAlgorithm;
 			GFMultilineText label = (GFMultilineText) figure;
+			label.setBorder(new MarginBorder(2));
 			label.setText(text.getValue());
 			refreshFlowTextAlignment(label, text);
 			refreshFont(text, label);
@@ -886,13 +895,25 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 	}
 
-	private IFigure decorateFigure(final IFigure figure, final IDecorator decorator) {
+	/**
+	 * returns null if the decorator does not produce a figure of its own
+	 */
+	private IFigure decorateFigure(IFigure figure, IDecorator decorator) {
+		if (decorator == null) {
+			return null;
+		}
+
 		String messageText = decorator.getMessage();
 
+		// Variable to store an additional figure for the decorator (needed in
+		// case of an image decorator. Cannot be created in the if for image
+		// decorators, because a shape can have more than one decorator (also of
+		// different kinds)
 		IFigure decoratorFigure = null;
 		org.eclipse.draw2d.geometry.Rectangle boundsForDecoratorFigure = new org.eclipse.draw2d.geometry.Rectangle(0,
 				0, 16, 16);
 
+		// Decorate with an image
 		if (decorator instanceof IImageDecorator) {
 			IImageDecorator imageDecorator = (IImageDecorator) decorator;
 			org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(
@@ -901,9 +922,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			decoratorFigure = imageFigure;
 			org.eclipse.swt.graphics.Rectangle imageBounds = imageFigure.getImage().getBounds();
 			boundsForDecoratorFigure.setSize(imageBounds.width, imageBounds.height);
-		}
 
-		if (decoratorFigure != null) {
 			if (decorator instanceof ILocation) {
 				ILocation location = (ILocation) decorator;
 				boundsForDecoratorFigure.setLocation(location.getX(), location.getY());
@@ -926,6 +945,72 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			parent.add(decoratorFigure, boundsForDecoratorFigure, parent.getChildren().indexOf(figure) + 1);
 		}
 
+		// Decorate the border of the shape
+		if (decorator instanceof IBorderDecorator) {
+			IBorderDecorator renderingDecorator = ((IBorderDecorator) decorator);
+			IResourceRegistry resourceRegistry = getConfigurationProvider().getResourceRegistry();
+
+			// Get the width for the border (or set to default)
+			Integer borderWidth = renderingDecorator.getBorderWidth();
+			if (borderWidth == null || borderWidth < 1) {
+				borderWidth = 1;
+			}
+
+			// Get the style for the border (or set to default)
+			Integer borderStyle = renderingDecorator.getBorderStyle();
+			if (borderStyle == null
+					|| (Graphics.LINE_DASH != borderStyle && Graphics.LINE_DASHDOT != borderStyle
+							&& Graphics.LINE_DASHDOTDOT != borderStyle && Graphics.LINE_DOT != borderStyle && Graphics.LINE_SOLID != borderStyle)) {
+				borderStyle = Graphics.LINE_SOLID;
+			}
+
+			// Get the color for the border (or set to default)
+			Color borderColor = null;
+			IColorConstant colorConstant = renderingDecorator.getBorderColor();
+			if (colorConstant == null) {
+				colorConstant = IColorConstant.BLACK;
+			}
+			borderColor = resourceRegistry.getSwtColor(colorConstant.getRed(), colorConstant.getGreen(),
+					colorConstant.getBlue());
+
+			// Apply border decorations
+			figure.setBorder(new LineBorder(borderColor, borderWidth, borderStyle));
+		}
+
+		// Decorate using the colors of the shape
+		if (decorator instanceof IColorDecorator) {
+			IColorDecorator renderingDecorator = ((IColorDecorator) decorator);
+			IResourceRegistry resourceRegistry = getConfigurationProvider().getResourceRegistry();
+
+			// Get the background color (or set to default)
+			Color backgroundColor = null;
+			IColorConstant colorConstant = renderingDecorator.getBackgroundColor();
+			if (colorConstant != null) {
+				backgroundColor = resourceRegistry.getSwtColor(colorConstant.getRed(), colorConstant.getGreen(),
+						colorConstant.getBlue());
+			}
+
+			// Get the foreground color (or set to default)
+			Color foregroundColor = null;
+			colorConstant = renderingDecorator.getForegroundColor();
+			if (colorConstant != null) {
+				foregroundColor = resourceRegistry.getSwtColor(colorConstant.getRed(), colorConstant.getGreen(),
+						colorConstant.getBlue());
+			}
+
+			// Apply color decorations
+			if (foregroundColor != null) {
+				figure.setForegroundColor(foregroundColor);
+			}
+			if (backgroundColor != null) {
+				figure.setBackgroundColor(backgroundColor);
+			}
+			if (figure instanceof Shape) {
+				((Shape) figure).setFill(true);
+			}
+		}
+
+		// Return additionally created figure
 		return decoratorFigure;
 	}
 
@@ -1426,6 +1511,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				&& graphicsAlgorithm.equals(pe.getGraphicsAlgorithm())) {
 
 			removeDecorators(figure);
+			refreshFigureColors(figure, graphicsAlgorithm);
+			figure.setBorder(null);
 
 			IDecorator[] decorators = toolBehaviorProvider.getDecorators(pe);
 
@@ -1435,7 +1522,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				for (int i = 0; i < decorators.length; i++) {
 					IDecorator decorator = decorators[i];
 					IFigure decorateFigure = decorateFigure(figure, decorator);
-					decList.add(decorateFigure);
+					if (decorateFigure != null) {
+						decList.add(decorateFigure);
+					}
 				}
 			}
 		}

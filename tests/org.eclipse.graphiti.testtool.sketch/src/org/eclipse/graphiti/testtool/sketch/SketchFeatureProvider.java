@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 342869 - Image doesn't scale the contained SWT Image on resize
+ *    mwenz - Bug 358255 - Add Border/Background decorators
  *
  * </copyright>
  *
@@ -66,7 +67,9 @@ import org.eclipse.graphiti.testtool.sketch.features.AddDiagramFeature;
 import org.eclipse.graphiti.testtool.sketch.features.AddLinkFeature;
 import org.eclipse.graphiti.testtool.sketch.features.BackgroundColorFeature;
 import org.eclipse.graphiti.testtool.sketch.features.ChangeAlignmentFeature;
+import org.eclipse.graphiti.testtool.sketch.features.ClearDecoratorsFeature;
 import org.eclipse.graphiti.testtool.sketch.features.CornerDimensionFeature;
+import org.eclipse.graphiti.testtool.sketch.features.DisplayDecoratorFeature;
 import org.eclipse.graphiti.testtool.sketch.features.FontColorFeature;
 import org.eclipse.graphiti.testtool.sketch.features.ForegroundColorFeature;
 import org.eclipse.graphiti.testtool.sketch.features.GradientColorFeature;
@@ -260,6 +263,11 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 				SetImageAttributesFeature.ATTRIBUTE_STRETCH_HORIZONTALLY));
 		retList.add(new SetImageAttributesFeature(this, context, SetImageAttributesFeature.ATTRIBUTE_STRETCH_VERTICALLY));
 		retList.add(new SetImageAttributesFeature(this, context, SetImageAttributesFeature.ATTRIBUTE_PROPORTIONAL));
+
+		retList.add(new DisplayDecoratorFeature(this, context, DisplayDecoratorFeature.TYPE_IMAGE));
+		retList.add(new DisplayDecoratorFeature(this, context, DisplayDecoratorFeature.TYPE_BORDER));
+		retList.add(new DisplayDecoratorFeature(this, context, DisplayDecoratorFeature.TYPE_COLOR));
+		retList.add(new ClearDecoratorsFeature(this, context));
 
 		return retList.toArray(new ICustomFeature[0]);
 	}
