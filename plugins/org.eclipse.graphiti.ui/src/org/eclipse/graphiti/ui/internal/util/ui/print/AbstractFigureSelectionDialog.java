@@ -265,10 +265,6 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 		setScaledImage(scaleFactor, 3000.0d);
 	}
 
-	public void setScaledImage(double scaleFactor) {
-		setScaledImage(scaleFactor, 3000.0d);
-	}
-
 	private void initImage() {
 		{
 			if (_selectionFigure != null) {
