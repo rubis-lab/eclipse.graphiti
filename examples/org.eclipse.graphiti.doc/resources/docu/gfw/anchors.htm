@@ -18,23 +18,23 @@ onto the graphical representation of the anchors. The connection points can then
 be calculated automatically.</p>
 <h2>Different Types of Connection Anchors</h2>
 <p>Currently the following different types of connection anchors are supported:</p>
-<h3>Chop Box Anchor</h3>
-<p>It can be created calling
+<h3>Chop Box Anchors</h3>
+<p>They can be created calling
 <a href="../../../javadoc/org/eclipse/graphiti/services/IPeCreateService.html#createChopboxAnchor(org.eclipse.graphiti.mm.pictograms.AnchorContainer)">
-createChopboxAnchor</a>. A chop box anchor is located virtually in the center of 
+IPeCreateService.createChopboxAnchor</a>. A chop box anchor is located virtually in the center of 
 the parent. However, the connection line does not end at the center of the parent 
 but already at the intersection-point with the parent boundaries. This means especially, 
 that the intersection-point is re-calculated not only when the parents size or location 
-changes, but also when the direction of the connection changes. Chop box anchor 
-is the only anchor which do not need a graphics algorithm.</p>
+changes, but also when the direction of the connection changes. Chop box anchors 
+are the only anchors which do not need a graphics algorithm.</p>
 <p>&nbsp;</p>
 <p><img alt="" height="158" src="visio/anchor-chopbox.png" width="217"></p>
 <p><strong>Figure: Chop box anchor (always pointing to the center)</strong></p>
 <p>&nbsp;</p>
-<h3>Box Relative Anchor</h3>
-<p>It can be created calling
+<h3>Box Relative Anchors</h3>
+<p>They can be created calling
 <a href="../../../javadoc/org/eclipse/graphiti/services/IPeCreateService.html#createBoxRelativeAnchor(org.eclipse.graphiti.mm.pictograms.AnchorContainer)">
-createBoxRelativeAnchor</a>. A box relative anchor is located relative to the size 
+IPeCreateService.createBoxRelativeAnchor</a>. A box relative anchor is located relative to the size 
 and location of the parent. The x/y-coordinates are defined as percentage values 
 between 0.0 and 1.0. This allows for example to locate an anchor always at the middle-right 
 border of the parent (x=1.0, y=0.5). The location of the anchor is re-calculated 
@@ -43,10 +43,10 @@ whenever the parents size or location changes.</p>
 <p><img alt="" height="152" src="visio/anchor-box-relative.png" width="209"></p>
 <p><strong>Figure: Box relative anchor (on middle-right border outside of shape)</strong></p>
 <p>&nbsp;</p>
-<h3>Fix Point Anchor</h3>
-<p>It can be created calling
+<h3>Fix Point Anchors</h3>
+<p>They can be created calling
 <a href="../../../javadoc/org/eclipse/graphiti/services/IPeCreateService.html#createFixPointAnchor(org.eclipse.graphiti.mm.pictograms.AnchorContainer)">
-createFixPointAnchor</a>. A fix point anchor is located at fix x/y-coordinates (relative 
+IPeCreateService.createFixPointAnchor</a>. A fix point anchor is located at fixed x/y-coordinates (relative 
 to the parent).</p>
 <h2><span lang="EN-US">Connection Anchor Points Explained</span></h2>
 <p>Every connection has two connection anchors which provide the points where the 
@@ -76,10 +76,10 @@ calculation is much simpler. For example in a fix point anchor the reference-poi
 to (R).</p>
 <p class="Note">Note: All anchors have a graphical representation and connections 
 are starting and ending virtually in the center of the graphical representation. 
-But how can it be achieved that connections starting precisely from the border of 
-this graphical representation? For this purpose define a location there and use
+But how can it be achieved that connections are starting precisely from the border of 
+this graphical representation? For this purpose define a teh anchor location there and use
 <a href="../../../javadoc/org/eclipse/graphiti/mm/pictograms/AdvancedAnchor.html#setUseAnchorLocationAsConnectionEndpoint(boolean)">
-setUseAnchorLocationAsConnectionEndpoint </a>. At the end of this chapter is 
+setUseAnchorLocationAsConnectionEndpoint</a>. At the end of this chapter is 
 an example for this use case.</p>
 <h2>Creating Connections with Drag &amp; Drop from Anchors</h2>
 <p>&nbsp;</p>
@@ -94,7 +94,7 @@ an anchor without the connection-tool, this can be implemented by so called drag
 anchor which can be dragged.</p>
 <p>To offer drag &amp; drop functionality from anchors we have to overwrite the
 <a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getDragAndDropFeatures(org.eclipse.graphiti.features.context.IPictogramElementContext)">
-getDragAndDropFeatures</a>.</p>
+getDragAndDropFeatures</a> method of the feature provider.</p>
 <p>If this method returns exactly one feature it will be executed directly on drop 
 (if applicable). If you provide more than one feature the user will be presented 
 a popup menu on drop showing all applicable features (applicable means
@@ -104,7 +104,7 @@ be executed then.</p>
 <p>In this example we first add a box relative anchor on the middle-right border 
 of a EClass. Then we support drag &amp; drop from that anchor to another EClass, which 
 will create a new connection.</p>
-<p>First the box relative anchors have to be created at end of the add-method of 
+<p>First the box relative anchors have to be created at the end of the add-method of 
 the <span class="inlinecode">TutorialAddEClassFeature</span>, as explained in the 
 following code snippet. Note, that the previously created chop box anchor (see
 <a href="create-connection-feature.htm">create connection feature</a>) remains, 
