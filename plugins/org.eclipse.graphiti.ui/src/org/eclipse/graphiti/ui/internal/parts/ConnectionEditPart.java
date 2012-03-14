@@ -30,6 +30,7 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.requests.CreateConnectionRequest;
+import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
@@ -53,6 +54,7 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 
 	private final IAnchorContainerDelegate delegate;
 	private EditPart contextParent;
+
 	/**
 	 * Creates a new ConnectionEditPart.
 	 * 
@@ -171,9 +173,16 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 	@Override
 	public EditPart getTargetEditPart(Request request) {
 		if (contextParent instanceof CompositeConnectionEditPart) {
+			// This ConnectionEditPart is a child of a CompositeConnection
+			if (request instanceof SelectionRequest) {
+				// Store the actually selected sub-connection at the composite
+				// (for adding the info to custom context later)
+				((CompositeConnectionEditPart) contextParent).setOriginallySelectedChild(this);
+			}
 			return contextParent;
-		} else
+		} else {
 			return super.getTargetEditPart(request);
+		}
 	}
 
 	@Override

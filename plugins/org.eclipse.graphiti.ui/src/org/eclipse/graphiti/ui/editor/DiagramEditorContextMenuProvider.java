@@ -19,6 +19,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
+import java.util.List;
+
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartViewer;
@@ -34,6 +36,8 @@ import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -49,6 +53,7 @@ import org.eclipse.graphiti.ui.internal.action.RemoveAction;
 import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
+import org.eclipse.graphiti.ui.internal.parts.CompositeConnectionEditPart;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.ILocationInfo;
 import org.eclipse.jface.action.ActionContributionItem;
@@ -279,6 +284,23 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 					ILocationInfo locationInfo = Graphiti.getLayoutService().getLocationInfo((Shape) pe, relativeX, relativeY);
 					context.setInnerPictogramElement(locationInfo.getShape());
 					context.setInnerGraphicsAlgorithm(locationInfo.getGraphicsAlgorithm());
+				}
+			}
+		} else if (pe instanceof CompositeConnection) {
+			List<?> selectedEditParts = getViewer().getSelectedEditParts();
+			for (Object object : selectedEditParts) {
+				if (object instanceof CompositeConnectionEditPart) {
+					// Retrieve child selection info from the edit part
+					CompositeConnectionEditPart compEditPart = (CompositeConnectionEditPart) object;
+					org.eclipse.graphiti.ui.internal.parts.ConnectionEditPart originallySelectedChildConnection = compEditPart
+							.getOriginallySelectedChild();
+					if (originallySelectedChildConnection != null) {
+						// and provide the originally selection child connection
+						// as inner PE
+						Connection connectionPicto = (Connection) originallySelectedChildConnection.getModel();
+						context.setInnerGraphicsAlgorithm(connectionPicto.getGraphicsAlgorithm());
+						context.setInnerPictogramElement(connectionPicto);
+					}
 				}
 			}
 		}
