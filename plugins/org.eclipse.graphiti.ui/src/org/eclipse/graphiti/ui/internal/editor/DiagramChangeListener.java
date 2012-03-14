@@ -236,9 +236,9 @@ public class DiagramChangeListener implements ResourceSetListener {
 			// Only refresh the editpart that changed.
 			if (connPart instanceof ConnectionEditPart) {
 				ConnectionEditPart cep = (ConnectionEditPart) connPart;
-				if (cep.getSource() != null && !cep.getSource().equals(startPart)) {
+				if (cep.getSource() != null && !cep.getSource().equals(startPart) && startPart != null) {
 					refreshJob.addEditPart((EditPart) startPart);
-				} else if (cep.getTarget() != null && !cep.getTarget().equals(endPart)) {
+				} else if (cep.getTarget() != null && !cep.getTarget().equals(endPart) && endPart != null) {
 					refreshJob.addEditPart((EditPart) endPart);
 				}
 
