@@ -17,6 +17,8 @@
 package org.eclipse.graphiti.ui.features;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -29,6 +31,8 @@ import org.eclipse.graphiti.features.context.IMultiDeleteInfo;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.impl.RemoveContext;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -109,7 +113,20 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 
 
 		preDelete(context);
-
+		if (pe instanceof CompositeConnection) {
+			// Find all domain objects for the children connections of the
+			// composite connection...
+			List<Object> compositeChildConnectionsBOs = collectCompositeConnectionsBOs((CompositeConnection) pe);
+			// ... and add them to the list of BOs to delete (no duplicates)
+			for (Object object : businessObjectsForPictogramElement) {
+				if (!compositeChildConnectionsBOs.contains(object)) {
+					compositeChildConnectionsBOs.add(object);
+				}
+			}
+			// Update BOs to delete
+			businessObjectsForPictogramElement = compositeChildConnectionsBOs
+					.toArray(new Object[compositeChildConnectionsBOs.size()]);
+		}
 		IRemoveContext rc = new RemoveContext(pe);
 		IFeatureProvider featureProvider = getFeatureProvider();
 		IRemoveFeature removeFeature = featureProvider.getRemoveFeature(rc);
@@ -122,6 +139,19 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		deleteBusinessObjects(businessObjectsForPictogramElement);
 
 		postDelete(context);
+	}
+
+	private List<Object> collectCompositeConnectionsBOs(CompositeConnection composite) {
+		List<Object> result = new ArrayList<Object>();
+		for (Connection childConnection : composite.getChildren()) {
+			Object[] allBusinessObjectsForChildConnection = getAllBusinessObjectsForPictogramElement(childConnection);
+			for (Object object : allBusinessObjectsForChildConnection) {
+				if (!result.contains(object)) {
+					result.add(object);
+				}
+			}
+		}
+		return result;
 	}
 
 	/**

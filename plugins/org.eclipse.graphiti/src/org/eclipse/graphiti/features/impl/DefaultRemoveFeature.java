@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.features.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -27,6 +28,7 @@ import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -66,11 +68,21 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 			removeAllConnections(shape);
 		} else if (pe instanceof AdvancedAnchor) {
 			removeAllConnections((AdvancedAnchor) pe);
+		} else if (pe instanceof CompositeConnection) {
+			removeCompositeConnections((CompositeConnection) pe);
 		}
 
 		Graphiti.getPeService().deletePictogramElement(pe);
 
 		postRemove(context);
+	}
+
+	private void removeCompositeConnections(CompositeConnection composite) {
+		List<Connection> children = new ArrayList<Connection>(composite.getChildren());
+		for (Connection childConnection : children) {
+			RemoveContext context = new RemoveContext(childConnection);
+			remove(context);
+		}
 	}
 
 	public void preRemove(IRemoveContext context) {
