@@ -13,6 +13,7 @@
  *    mwenz - Bug 331715: Support for rectangular grids in diagrams
  *    mwenz - Bug 352220 - Possibility to disable guides
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
+ *    mwenz - Bug 364126 - Make GaServiceImpl extensible
  *
  * </copyright>
  *
@@ -813,14 +814,44 @@ public final class PeServiceImpl implements IPeService {
 		if (parentGa != null) {
 			if (anchor.getReferencedGraphicsAlgorithm() != null) {
 				GraphicsAlgorithm referencedGa = anchor.getReferencedGraphicsAlgorithm();
-				int relX = GaServiceImpl.getRelativeX(referencedGa, parentGa);
-				int relY = GaServiceImpl.getRelativeY(referencedGa, parentGa);
+				int relX = getRelativeX(referencedGa, parentGa);
+				int relY = getRelativeY(referencedGa, parentGa);
 				ret = new RectangleImpl(relX, relY, referencedGa.getWidth(), referencedGa.getHeight());
 			} else {
 				ret = new RectangleImpl(0, 0, parentGa.getWidth(), parentGa.getHeight());
 			}
 		}
 
+		return ret;
+	}
+
+	private int getRelativeX(GraphicsAlgorithm ga, GraphicsAlgorithm referenceGA) {
+		if (referenceGA == null || ga == null) {
+			throw new IllegalArgumentException(
+					"ga and referenceGa must not be null, and ga must be a child of referenceGA"); //$NON-NLS-1$
+		}
+		if (ga.equals(referenceGA)) {
+			return 0;
+		}
+
+		int ret = ga.getX();
+		GraphicsAlgorithm parent = ga.getParentGraphicsAlgorithm();
+		ret = ret + getRelativeX(parent, referenceGA);
+		return ret;
+	}
+
+	private int getRelativeY(GraphicsAlgorithm ga, GraphicsAlgorithm referenceGA) {
+		if (referenceGA == null || ga == null) {
+			throw new IllegalArgumentException(
+					"ga and referenceGa must not be null, and ga must be a child of referenceGA"); //$NON-NLS-1$
+		}
+		if (ga.equals(referenceGA)) {
+			return 0;
+		}
+
+		int ret = ga.getY();
+		GraphicsAlgorithm parent = ga.getParentGraphicsAlgorithm();
+		ret = ret + getRelativeY(parent, referenceGA);
 		return ret;
 	}
 

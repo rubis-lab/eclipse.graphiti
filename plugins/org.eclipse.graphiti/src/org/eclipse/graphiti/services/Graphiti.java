@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 364126 - Make GaServiceImpl extensible
  *
  * </copyright>
  *
@@ -16,11 +17,11 @@
 package org.eclipse.graphiti.services;
 
 import org.eclipse.graphiti.internal.services.impl.CreateServiceImpl;
-import org.eclipse.graphiti.internal.services.impl.GaServiceImpl;
 import org.eclipse.graphiti.internal.services.impl.LayoutServiceImpl;
 import org.eclipse.graphiti.internal.services.impl.LinkServiceImpl;
 import org.eclipse.graphiti.internal.services.impl.MigrationServiceImpl;
 import org.eclipse.graphiti.internal.services.impl.PeServiceImpl;
+import org.eclipse.graphiti.services.impl.GaServiceImpl;
 
 /**
  * This class is the main access point to all public Graphiti services. These
