@@ -12,6 +12,7 @@
  *    Torkild U. Resheim - Allow double-click handling, bug 340708
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
+ *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *
  * </copyright>
  *

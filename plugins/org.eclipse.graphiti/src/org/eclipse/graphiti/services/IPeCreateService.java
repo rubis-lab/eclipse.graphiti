@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,12 +11,15 @@
  *    SAP AG - initial API, implementation and documentation
  *    Patch 184530 from Bug 331829 contributed by Henrik Rentz-Reichert
  *    mwenz - Bug 331715: Support for rectangular grids in diagrams
+ *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.services;
 
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
@@ -193,11 +196,21 @@ public interface IPeCreateService {
 
 	/**
 	 * Creates a composite connection (a connection that is made of several
-	 * other connections) inside the given diagram.
+	 * other connections) inside the given diagram. {@link CompositeConnection}s
+	 * can be used to combine any number of {@link CurvedConnection}s into one
+	 * semantical connection using its {@link CompositeConnection#getChildren()}
+	 * relation. Note that the composite connection itself needs to have an
+	 * associated {@link GraphicsAlgorithm} (usually a {@link Polyline}) for its
+	 * visualization, although it might be invisible and only the child
+	 * connections have a visible polyline as their visualization.<br>
+	 * 
+	 * <b>Note that this is an experimental API and might change without further
+	 * notice.</b>
 	 * 
 	 * @param diagram
 	 *            the diagram
 	 * @return the new composite connection
+	 * @experimental
 	 * @since 0.9
 	 */
 	CompositeConnection createCompositeConnection(Diagram diagram);

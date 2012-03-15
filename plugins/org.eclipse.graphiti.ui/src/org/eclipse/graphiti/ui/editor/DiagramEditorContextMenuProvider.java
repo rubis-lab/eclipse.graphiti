@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *            DefaultSaveImageFeature
  *    mwenz - Bug 339525 - Enrich paste context with location information
  *    Bug 336488 - DiagramEditor API
+ *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *
  * </copyright>
  *

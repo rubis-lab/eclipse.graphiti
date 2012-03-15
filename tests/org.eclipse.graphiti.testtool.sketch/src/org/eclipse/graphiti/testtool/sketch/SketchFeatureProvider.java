@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 342869 - Image doesn't scale the contained SWT Image on resize
  *    mwenz - Bug 358255 - Add Border/Background decorators
+ *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *
  * </copyright>
  *

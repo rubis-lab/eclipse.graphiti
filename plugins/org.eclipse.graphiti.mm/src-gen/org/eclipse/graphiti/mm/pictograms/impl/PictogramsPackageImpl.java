@@ -1,7 +1,7 @@
 /**
  * <copyright>
  * 
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  * 
  * </copyright>
  */
@@ -18,21 +19,13 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.graphiti.mm.MmPackage;
-
 import org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage;
-
 import org.eclipse.graphiti.mm.algorithms.impl.AlgorithmsPackageImpl;
-
 import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
-
 import org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl;
-
 import org.eclipse.graphiti.mm.impl.MmPackageImpl;
-
 import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;

@@ -1,14 +1,14 @@
 /**
  * <copyright>
  * 
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2012, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *    SAP AG - initial API, implementation and documentation
+ *    Benjamin Schmeling - initial API, implementation and documentation for Bug 367483
  * 
  * </copyright>
  */
@@ -18,15 +18,21 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '
- * <em><b>Composite Connection</b></em>'. <!-- end-user-doc -->
- *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.eclipse.graphiti.mm.pictograms.CompositeConnection#getChildren <em>Children</em>}</li>
- * </ul>
- * </p>
- *
+ * <em><b>Composite Connection</b></em>'. <br>
+ * <b>Note that this is an experimental API and might change without further
+ * notice.</b> @experimental
+ * 
+ * @since 0.9<!-- end-user-doc -->
+ * 
+ *        <p>
+ *        The following features are supported:
+ *        <ul>
+ *        <li>
+ *        {@link org.eclipse.graphiti.mm.pictograms.CompositeConnection#getChildren
+ *        <em>Children</em>}</li>
+ *        </ul>
+ *        </p>
+ * 
  * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getCompositeConnection()
  * @model
  * @generated

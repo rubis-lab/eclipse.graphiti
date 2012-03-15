@@ -20,15 +20,19 @@ import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '
- * <em><b>Curved Connection</b></em>'. <!-- end-user-doc -->
- *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.eclipse.graphiti.mm.pictograms.CurvedConnection#getControlPoints <em>Control Points</em>}</li>
- * </ul>
- * </p>
- *
+ * <em><b>Curved Connection</b></em>'.
+ * 
+ * @since 0.9<!-- end-user-doc -->
+ * 
+ *        <p>
+ *        The following features are supported:
+ *        <ul>
+ *        <li>
+ *        {@link org.eclipse.graphiti.mm.pictograms.CurvedConnection#getControlPoints
+ *        <em>Control Points</em>}</li>
+ *        </ul>
+ *        </p>
+ * 
  * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getCurvedConnection()
  * @model
  * @generated
