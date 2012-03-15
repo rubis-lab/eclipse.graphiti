@@ -1516,8 +1516,10 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				}
 			}
 		});
-	}
 
+		Thread.sleep(SHORT_DELAY);
+		page.shutdownEditor(diagramEditor);
+	}
 
 	public void testCompositeConnection() throws Exception {
 		page.closeAllEditors();
