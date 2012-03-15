@@ -60,10 +60,10 @@ public class CompositeConnectionEditPart extends ConnectionEditPart {
 
 	@Override
 	public void setSelected(int value) {
-		super.setSelected(value);
 		for (org.eclipse.gef.ConnectionEditPart editPartChild : this.getEditParts()) {
 			editPartChild.setSelected(value);
 		}
+		super.setSelected(value);
 	}
 
 	public Collection<org.eclipse.gef.ConnectionEditPart> getEditParts() {
@@ -93,5 +93,16 @@ public class CompositeConnectionEditPart extends ConnectionEditPart {
 	 */
 	public void setOriginallySelectedChild(ConnectionEditPart originallySelectedChild) {
 		this.originallySelectedChild = originallySelectedChild;
+	}
+
+	@Override
+	public void forceVisualRefresh() {
+		super.forceVisualRefresh();
+		Collection<org.eclipse.gef.ConnectionEditPart> connectionEditParts = getEditParts();
+		for (org.eclipse.gef.ConnectionEditPart connectionEditPart : connectionEditParts) {
+			if (connectionEditPart instanceof IConnectionEditPart) {
+				((IConnectionEditPart) connectionEditPart).forceVisualRefresh();
+			}
+		}
 	}
 }
