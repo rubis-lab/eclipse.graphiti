@@ -58,6 +58,14 @@ public class CompositeConnectionEditPart extends ConnectionEditPart {
 		return super.getTargetEditPart(request);
 	}
 
+	@Override
+	public void setSelected(int value) {
+		super.setSelected(value);
+		for (org.eclipse.gef.ConnectionEditPart editPartChild : this.getEditParts()) {
+			editPartChild.setSelected(value);
+		}
+	}
+
 	public Collection<org.eclipse.gef.ConnectionEditPart> getEditParts() {
 		return editParts;
 	}
