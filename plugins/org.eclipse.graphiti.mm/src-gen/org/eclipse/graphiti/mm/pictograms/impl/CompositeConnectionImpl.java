@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 
@@ -48,7 +49,7 @@ public class CompositeConnectionImpl extends ConnectionImpl implements Composite
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Connection> children;
+	protected EList<CurvedConnection> children;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -74,9 +75,9 @@ public class CompositeConnectionImpl extends ConnectionImpl implements Composite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Connection> getChildren() {
+	public EList<CurvedConnection> getChildren() {
 		if (children == null) {
-			children = new EObjectResolvingEList<Connection>(Connection.class, this, PictogramsPackage.COMPOSITE_CONNECTION__CHILDREN);
+			children = new EObjectResolvingEList<CurvedConnection>(CurvedConnection.class, this, PictogramsPackage.COMPOSITE_CONNECTION__CHILDREN);
 		}
 		return children;
 	}
@@ -106,7 +107,7 @@ public class CompositeConnectionImpl extends ConnectionImpl implements Composite
 		switch (featureID) {
 			case PictogramsPackage.COMPOSITE_CONNECTION__CHILDREN:
 				getChildren().clear();
-				getChildren().addAll((Collection<? extends Connection>)newValue);
+				getChildren().addAll((Collection<? extends CurvedConnection>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

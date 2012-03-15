@@ -139,7 +139,7 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="CompositeConnection" eSuperTypes="#//pictograms/Connection">
       <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
-          eType="#//pictograms/Connection"/>
+          eType="#//pictograms/CurvedConnection"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="algorithms" nsURI="http://eclipse.org/graphiti/mm/algorithms"

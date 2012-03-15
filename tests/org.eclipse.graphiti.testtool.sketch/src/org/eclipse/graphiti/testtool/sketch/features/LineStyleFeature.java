@@ -25,6 +25,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -61,7 +62,7 @@ public class LineStyleFeature extends AbstractCustomFeature {
 			PictogramElement pe = pes[i];
 			setLineStyle(pe);
 			if (pe instanceof CompositeConnection) {
-				EList<Connection> children = ((CompositeConnection) pe).getChildren();
+				EList<CurvedConnection> children = ((CompositeConnection) pe).getChildren();
 				for (Connection connection : children) {
 					setLineStyle(connection);
 				}

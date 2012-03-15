@@ -1626,25 +1626,23 @@ public interface PictogramsPackage extends EPackage {
 
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.eclipse.graphiti.mm.pictograms.impl.CurvedConnectionImpl
-	 * <em>Curved Connection</em>}' class. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.CurvedConnectionImpl <em>Curved Connection</em>}' class.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.CurvedConnectionImpl
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getCurvedConnection()
 	 * @generated
-	 * @since 0.9
 	 */
 	int CURVED_CONNECTION = 15;
 
 	/**
-	 * The feature id for the '<em><b>Properties</b></em>' containment reference
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.9
 	 */
 	int CURVED_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
 
@@ -1659,12 +1657,12 @@ public interface PictogramsPackage extends EPackage {
 	int CURVED_CONNECTION__VISIBLE = CONNECTION__VISIBLE;
 
 	/**
-	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.9
 	 */
 	int CURVED_CONNECTION__GRAPHICS_ALGORITHM = CONNECTION__GRAPHICS_ALGORITHM;
 
@@ -1689,12 +1687,12 @@ public interface PictogramsPackage extends EPackage {
 	int CURVED_CONNECTION__LINK = CONNECTION__LINK;
 
 	/**
-	 * The feature id for the '<em><b>Anchors</b></em>' containment reference
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Anchors</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.9
 	 */
 	int CURVED_CONNECTION__ANCHORS = CONNECTION__ANCHORS;
 
@@ -1729,56 +1727,54 @@ public interface PictogramsPackage extends EPackage {
 	int CURVED_CONNECTION__PARENT = CONNECTION__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Connection Decorators</b></em>'
-	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Connection Decorators</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.9
 	 */
 	int CURVED_CONNECTION__CONNECTION_DECORATORS = CONNECTION__CONNECTION_DECORATORS;
 
 	/**
-	 * The feature id for the '<em><b>Control Points</b></em>' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Control Points</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.9
 	 */
 	int CURVED_CONNECTION__CONTROL_POINTS = CONNECTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Curved Connection</em>'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Curved Connection</em>' class.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.9
 	 */
 	int CURVED_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 1;
 
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.eclipse.graphiti.mm.pictograms.impl.CompositeConnectionImpl
-	 * <em>Composite Connection</em>}' class. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The meta object id for the '{@link org.eclipse.graphiti.mm.pictograms.impl.CompositeConnectionImpl <em>Composite Connection</em>}' class.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.CompositeConnectionImpl
 	 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getCompositeConnection()
 	 * @generated
-	 * @since 0.9
 	 */
 	int COMPOSITE_CONNECTION = 16;
 
 	/**
-	 * The feature id for the '<em><b>Properties</b></em>' containment reference
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.9
 	 */
 	int COMPOSITE_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
 
@@ -1793,12 +1789,12 @@ public interface PictogramsPackage extends EPackage {
 	int COMPOSITE_CONNECTION__VISIBLE = CONNECTION__VISIBLE;
 
 	/**
-	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Graphics Algorithm</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.9
 	 */
 	int COMPOSITE_CONNECTION__GRAPHICS_ALGORITHM = CONNECTION__GRAPHICS_ALGORITHM;
 
@@ -1823,12 +1819,12 @@ public interface PictogramsPackage extends EPackage {
 	int COMPOSITE_CONNECTION__LINK = CONNECTION__LINK;
 
 	/**
-	 * The feature id for the '<em><b>Anchors</b></em>' containment reference
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Anchors</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.9
 	 */
 	int COMPOSITE_CONNECTION__ANCHORS = CONNECTION__ANCHORS;
 
@@ -1863,12 +1859,12 @@ public interface PictogramsPackage extends EPackage {
 	int COMPOSITE_CONNECTION__PARENT = CONNECTION__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Connection Decorators</b></em>'
-	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Connection Decorators</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.9
 	 */
 	int COMPOSITE_CONNECTION__CONNECTION_DECORATORS = CONNECTION__CONNECTION_DECORATORS;
 
@@ -1883,12 +1879,12 @@ public interface PictogramsPackage extends EPackage {
 	int COMPOSITE_CONNECTION__CHILDREN = CONNECTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Composite Connection</em>'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Composite Connection</em>' class.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.9
 	 */
 	int COMPOSITE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 1;
 
@@ -2459,42 +2455,37 @@ public interface PictogramsPackage extends EPackage {
 	EClass getCurvedConnection();
 
 	/**
-	 * Returns the meta object for the containment reference list '
-	 * {@link org.eclipse.graphiti.mm.pictograms.CurvedConnection#getControlPoints
-	 * <em>Control Points</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.graphiti.mm.pictograms.CurvedConnection#getControlPoints <em>Control Points</em>}'.
+	 * <!-- begin-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '
-	 *         <em>Control Points</em>'.
+	 * @since 0.9<!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Control Points</em>'.
 	 * @see org.eclipse.graphiti.mm.pictograms.CurvedConnection#getControlPoints()
 	 * @see #getCurvedConnection()
 	 * @generated
-	 * @since 0.9
 	 */
 	EReference getCurvedConnection_ControlPoints();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.eclipse.graphiti.mm.pictograms.CompositeConnection
-	 * <em>Composite Connection</em>}'. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.pictograms.CompositeConnection <em>Composite Connection</em>}'.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @return the meta object for class '<em>Composite Connection</em>'.
 	 * @see org.eclipse.graphiti.mm.pictograms.CompositeConnection
 	 * @generated
-	 * @since 0.9
 	 */
 	EClass getCompositeConnection();
 
 	/**
-	 * Returns the meta object for the reference list '
-	 * {@link org.eclipse.graphiti.mm.pictograms.CompositeConnection#getChildren
-	 * <em>Children</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the reference list '{@link org.eclipse.graphiti.mm.pictograms.CompositeConnection#getChildren <em>Children</em>}'.
+	 * <!-- begin-user-doc -->
 	 * 
+	 * @since 0.9<!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Children</em>'.
 	 * @see org.eclipse.graphiti.mm.pictograms.CompositeConnection#getChildren()
 	 * @see #getCompositeConnection()
 	 * @generated
-	 * @since 0.9
 	 */
 	EReference getCompositeConnection_Children();
 
@@ -2962,47 +2953,42 @@ public interface PictogramsPackage extends EPackage {
 		EAttribute ADVANCED_ANCHOR__USE_ANCHOR_LOCATION_AS_CONNECTION_ENDPOINT = eINSTANCE.getAdvancedAnchor_UseAnchorLocationAsConnectionEndpoint();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.eclipse.graphiti.mm.pictograms.impl.CurvedConnectionImpl
-		 * <em>Curved Connection</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.CurvedConnectionImpl <em>Curved Connection</em>}' class.
+		 * <!-- begin-user-doc -->
 		 * 
+		 * @since 0.9<!-- end-user-doc -->
 		 * @see org.eclipse.graphiti.mm.pictograms.impl.CurvedConnectionImpl
 		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getCurvedConnection()
 		 * @generated
-		 * @since 0.9
 		 */
 		EClass CURVED_CONNECTION = eINSTANCE.getCurvedConnection();
 
 		/**
-		 * The meta object literal for the '<em><b>Control Points</b></em>'
-		 * containment reference list feature. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '<em><b>Control Points</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
 		 * 
+		 * @since 0.9<!-- end-user-doc -->
 		 * @generated
-		 * @since 0.9
 		 */
 		EReference CURVED_CONNECTION__CONTROL_POINTS = eINSTANCE.getCurvedConnection_ControlPoints();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.eclipse.graphiti.mm.pictograms.impl.CompositeConnectionImpl
-		 * <em>Composite Connection</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.pictograms.impl.CompositeConnectionImpl <em>Composite Connection</em>}' class.
+		 * <!-- begin-user-doc -->
 		 * 
+		 * @since 0.9<!-- end-user-doc -->
 		 * @see org.eclipse.graphiti.mm.pictograms.impl.CompositeConnectionImpl
 		 * @see org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl#getCompositeConnection()
 		 * @generated
-		 * @since 0.9
 		 */
 		EClass COMPOSITE_CONNECTION = eINSTANCE.getCompositeConnection();
 
 		/**
-		 * The meta object literal for the '<em><b>Children</b></em>' reference
-		 * list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Children</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
 		 * 
+		 * @since 0.9<!-- end-user-doc -->
 		 * @generated
-		 * @since 0.9
 		 */
 		EReference COMPOSITE_CONNECTION__CHILDREN = eINSTANCE.getCompositeConnection_Children();
 

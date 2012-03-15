@@ -24,6 +24,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -62,7 +63,7 @@ public class LineWidthFeature extends AbstractCustomFeature {
 			PictogramElement pe = pes[i];
 			setLineWidth(pe);
 			if (pe instanceof CompositeConnection) {
-				EList<Connection> children = ((CompositeConnection) pe).getChildren();
+				EList<CurvedConnection> children = ((CompositeConnection) pe).getChildren();
 				for (Connection connection : children) {
 					setLineWidth(connection);
 				}

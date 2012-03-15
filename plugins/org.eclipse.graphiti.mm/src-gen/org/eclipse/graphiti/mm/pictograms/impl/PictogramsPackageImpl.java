@@ -970,7 +970,7 @@ public class PictogramsPackageImpl extends EPackageImpl implements PictogramsPac
 		initEReference(getCurvedConnection_ControlPoints(), theStylesPackage.getPrecisionPoint(), null, "controlPoints", null, 0, -1, CurvedConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(compositeConnectionEClass, CompositeConnection.class, "CompositeConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCompositeConnection_Children(), this.getConnection(), null, "children", null, 0, -1, CompositeConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompositeConnection_Children(), this.getCurvedConnection(), null, "children", null, 0, -1, CompositeConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //PictogramsPackageImpl

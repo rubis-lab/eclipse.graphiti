@@ -62,8 +62,8 @@ public class SketchCreateCompositeConnectionFeature extends AbstractSketchCreate
 		connection.getGraphicsAlgorithm().setLineVisible(false);
 		setAnchors(startAnchor, endAnchor, connection);
 
-		EList<Connection> children = ((CompositeConnection) connection).getChildren();
-		for (Iterator<Connection> childConnections = children.iterator(); childConnections.hasNext();) {
+		EList<CurvedConnection> children = ((CompositeConnection) connection).getChildren();
+		for (Iterator<CurvedConnection> childConnections = children.iterator(); childConnections.hasNext();) {
 			Connection childConnection = childConnections.next();
 			createVisualization(childConnection);
 		}
