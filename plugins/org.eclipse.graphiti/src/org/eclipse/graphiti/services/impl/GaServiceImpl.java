@@ -1486,7 +1486,7 @@ public class GaServiceImpl implements IGaService {
 	 * org.eclipse.graphiti.services.IGaService#manageColor(org.eclipse.graphiti
 	 * .mm.pictograms.Diagram, int, int, int)
 	 */
-	public Color manageColor(Diagram diagram, int red, int green, int blue) {
+	public final Color manageColor(Diagram diagram, int red, int green, int blue) {
 		Collection<Color> colors = diagram.getColors();
 		for (Color existingColor : colors) {
 			if (existingColor.getRed() == red && existingColor.getGreen() == green && existingColor.getBlue() == blue) {
