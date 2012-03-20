@@ -44,13 +44,128 @@ table.news tr td.content {
 		width="600">
 		<tr>
 			<td colspan="2">
+				<h2>M6</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on rounding off the Graphiti functionality by providing some
+				features requested (and partly contributed) by the community. Also
+				several bugfixes are part of this milestone.</td>
+		</tr>
+		<tr id="bug 358255">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=358255">Border
+					and Color Decorators</a></td>
+			<td class="content">Graphiti supports new decorator types for
+				shapes (besides the already supported Image decorators). It is now
+				possible to add decorators that change the way the border or the
+				colors of a shape are displayed without modifying the diagram
+				itself. This could e.g. be used to highlight possible target shapes
+				while drawing a connection; the following screenshot shows the Chess
+				Example while drawing a move connection.<br> <img
+				src="NaNimages/Decorators.png" width="600px">
+			</td>
+		</tr>
+		<tr id="bug 367483">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=367483">Composite
+					Connections</a></td>
+			<td class="content">Graphiti again supports a new connection
+				type: Composite Connections can group Curved Connections (Splines)
+				now. This set of connections appears as one connection with several
+				lines to the user. <i>Note that this new connection type is
+					still experimental and that its API might be subject to change in
+					upcoming versions.<br>
+			</i><img src="NaNimages/CompositeConnections.png" width="600px">
+			</td>
+		</tr>
+		<tr id="bug 364126">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=364126">Make
+					Graphics Algorithm Service Extensible</a></td>
+			<td class="content">The Graphiti service to create Graphics
+				Algorithms can now be extended by clients to change the default
+				settings for the involved attributes. By doing that it is e.g.
+				possible to define an own default font and size that is used for
+				Text and MultiText objects created within one tool. The affected
+				class <i>GaServiceImpl</i> has been moved to a public API package
+				and has been adapted accordingly.
+			</td>
+		</tr>
+		<tr id="bug 341898">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=341898">Advanced
+					Property Sheet Support</a></td>
+			<td class="content">It is now possible to define Eclipse
+				AdvancedPropertySheets using only official Graphiti APIs; they
+				appear as a standard table format property sheet within a tabbed
+				property sheet page. To enable that there are new base classes
+				(org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart and
+				org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart) that
+				can be added to the plugin.xml instead of the formally needed
+				internal classes. For more details on this see the linked bug and
+				the documentation on creating property sheets for diagrams.</td>
+		</tr>
+		<tr id="bug 370457">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=370457">Feature
+					for Export Functionality</a></td>
+			<td class="content">There is now a new Eclipse P2 feature that
+				wraps the export functionality (export diagram as SVG graphics) that
+				can be used to install this functionality along with the Graphiti
+				framework only. Before the export functionality could only be
+				installed with the complete SDK including also the samples.</td>
+		</tr>
+		<tr id="bug 359219">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=359219">Anchor
+					Documentation</a></td>
+			<td class="content">The documentation on anchors has been
+				improved, all anchor types are explained now and there's an example
+				code snippet how to use them.</td>
+		</tr>
+		<tr id="bug 352874">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352874">Export
+					Diagram Improvements</a></td>
+			<td class="content">A bug in the export for large diagrams has
+				been fixed. It is now possible to export much larger diagrams. In
+				the cause of this bugfix a new "export to PNG" functionality has
+				been added.</td>
+		</tr>
+		<tr id="bug 371671">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=371671">Bug
+					371671</a></td>
+			<td class="content">A bug in the dark feature processing mode
+				causing an add feature to return null has been fixed.</td>
+		</tr>
+		<tr id="bug 369370">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=369370">Bug
+					369370</a></td>
+			<td class="content">A bug in updating the context button pad for
+				nested shapes has been fixed.</td>
+		</tr>
+		<tr id="bug 365536">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=365536">Bug
+					365536</a></td>
+			<td class="content">A bug in the size calculation for Texts has
+				been fixed that caused unnecessary ellipsis showing in certain
+				situations.</td>
+		</tr>
+		<!-- ---------------------------------------- M5 ------------------------------- -->
+		<tr>
+			<td colspan="2">
 				<h2>M5</h2>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">The main focus for this milestone has been set
 				on finalizing the Graphiti API especially in the Diagram Editor
-				area. Also some funtional enhancements are part of this milestone.</td>
+				area. Also some functional enhancements are part of this milestone.</td>
 		</tr>
 		<tr id="bug 336488">
 			<td class="title"><a
