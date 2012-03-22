@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -140,12 +141,10 @@ public class PoWorkbenchPage extends PageObject{
 	}
 	
 	public void closeAllEditors() {
-		syncExec(new VoidResult() {
-			public void run() {
-				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-				page.closeAllEditors(false);
-			}
-		});
+		List<? extends SWTBotEditor> editors = bot.editors();
+		for (SWTBotEditor editor : editors) {
+			editor.close();
+		}
 	}
 	
 	public void closeActiveEditor(){

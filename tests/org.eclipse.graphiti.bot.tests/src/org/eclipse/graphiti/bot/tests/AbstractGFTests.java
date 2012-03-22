@@ -268,17 +268,15 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 	}
 
 	protected DiagramEditor openDiagram(final String type) {
+		return openDiagram(type, "xmi", "diagram");
+	}
+
+	protected DiagramEditor openDiagram(final String type, final String fileExtension, final String diagramName) {
 		DiagramEditor diagramEditor = syncExec(new Result<DiagramEditor>() {
 			public DiagramEditor run() {
-
-				/**/
-				final Diagram newDiagram = createDiagram(type);
+				final Diagram newDiagram = createDiagram(type, fileExtension, diagramName);
 				assertTrue("create diagram does not work", newDiagram != null);
 
-				// assertEditingDomainSave(getTransactionalEditingDomain());
-
-				// use TestUtil to open editor since this waits for late
-				// initialization
 				DiagramEditor diagramEditor = (DiagramEditor) GraphitiUiInternal.getWorkbenchService()
 						.openDiagramEditor(newDiagram);
 				return diagramEditor;
