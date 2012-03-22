@@ -48,6 +48,7 @@ import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.ReflectionUtil;
 import org.eclipse.jface.util.LocalSelectionTransfer;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.dnd.Clipboard;
@@ -516,7 +517,9 @@ public final class ModelClipboard {
 		}
 		final Map<Transfer, Object> result = new HashMap<Transfer, Object>(7);
 		final UriTransferData data = new UriTransferData(uriStrings);
-		result.put(LocalSelectionTransfer.getTransfer(), new StructuredSelection(objects));
+		ISelection localSelection = new StructuredSelection(objects);
+		LocalSelectionTransfer.getTransfer().setSelection(localSelection);
+		result.put(LocalSelectionTransfer.getTransfer(), new Object());
 		result.put(UriTransfer.getInstance(), data);
 		result.put(FileTransfer.getInstance(), filePaths.toArray(new String[filePaths.size()]));
 		// Resource Transfer resides in org.eclipse.ui.ide. We need to support
