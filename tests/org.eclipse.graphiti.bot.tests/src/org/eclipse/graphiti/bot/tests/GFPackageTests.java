@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 363539 - Enabled feature delegation via IDiagramEditor.execute method
  *    mgorning - Bug 371671 - addGraphicalRepresentation returns null in dark mode
+ *    mwenz - Felix Velasco - Bug 374918 - Let default paste use LocalSelectionTransfer
  *
  * </copyright>
  *
@@ -344,6 +345,11 @@ public class GFPackageTests extends AbstractGFTests {
 		PictogramElement pe = getPictogramElement(diagramEditor);
 		assertNotNull(pe);
 		PictogramElement[] pes = new PictogramElement[] { pe };
+		syncExec(new VoidResult() {
+			public void run() {
+				diagramEditor.doSave(null);
+			}
+		});
 
 		final DefaultCopyFeature myDefaultCopyFeature = new DefaultCopyFeature(
 				myDiagramTypeProvider.getFeatureProvider());
@@ -376,6 +382,11 @@ public class GFPackageTests extends AbstractGFTests {
 			}
 		});
 
+		syncExec(new VoidResult() {
+			public void run() {
+				diagramEditor2.doSave(null);
+			}
+		});
 		page.closeAllEditors();
 	}
 

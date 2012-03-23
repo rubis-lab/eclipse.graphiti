@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Felix Velasco - Bug 374918 - Let default paste use LocalSelectionTransfer
  *
  * </copyright>
  *
@@ -126,16 +127,16 @@ public final class ModelClipboard {
 		if (resourceSet == null) {
 			throw new IllegalArgumentException("ResourceSet resourceSet must not be null"); //$NON-NLS-1$
 		}
-		final List<EObject> uriStrings;
+		final List<EObject> eObjectList;
 		if (canUseNative()) {
-			uriStrings = getLocalSelectionContent();
+			eObjectList = getLocalSelectionContent();
 		} else {
-			uriStrings = Collections.emptyList();
+			eObjectList = Collections.emptyList();
 		}
-		if (uriStrings.isEmpty()) {
+		if (eObjectList.isEmpty()) {
 			return NO_E_OBJECTS;
 		}
-		return uriStrings.toArray(new EObject[uriStrings.size()]);
+		return eObjectList.toArray(new EObject[eObjectList.size()]);
 	}
 
 	private List<EObject> getLocalSelectionContent() {
