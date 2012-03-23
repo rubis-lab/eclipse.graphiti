@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 374918 - Default copy feature makes editor dirty
  *
  * </copyright>
  *
@@ -16,12 +17,11 @@
 /*
  * Created on 06.07.2005
  */
-package org.eclipse.graphiti.bot.tests.features;
-
-import org.eclipse.graphiti.features.IFeatureProvider;
+package org.eclipse.graphiti.bot.tests.features;import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICopyContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.AbstractCopyFeature;
+;
 
 /**
  * The Class DefaultCopyFeature.
@@ -46,5 +46,10 @@ public class DefaultCopyFeature extends AbstractCopyFeature {
 	public void copy(ICopyContext context) {
 		final PictogramElement[] pes = context.getPictogramElements();
 		putToClipboard(pes);
+	}
+
+	@Override
+	public boolean hasDoneChanges() {
+		return false;
 	}
 }
