@@ -49,6 +49,7 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.ReflectionUtil;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.dnd.Clipboard;
@@ -125,17 +126,36 @@ public final class ModelClipboard {
 		if (resourceSet == null) {
 			throw new IllegalArgumentException("ResourceSet resourceSet must not be null"); //$NON-NLS-1$
 		}
-		final List<String> uriStrings;
+		final List<EObject> uriStrings;
 		if (canUseNative()) {
-			uriStrings = getNativeContent();
+			uriStrings = getLocalSelectionContent();
 		} else {
 			uriStrings = Collections.emptyList();
 		}
 		if (uriStrings.isEmpty()) {
 			return NO_E_OBJECTS;
 		}
-		final List<EObject> result = getObjectsFromUri(uriStrings, resourceSet, EObject.class);
-		return result.toArray(new EObject[result.size()]);
+		return uriStrings.toArray(new EObject[uriStrings.size()]);
+	}
+
+	private List<EObject> getLocalSelectionContent() {
+		final Clipboard cb = new Clipboard(Display.getCurrent());
+		try {
+			final ISelection contents = (ISelection) cb.getContents(LocalSelectionTransfer.getTransfer());
+			if (contents instanceof IStructuredSelection && !contents.isEmpty()) {
+				List<?> list = ((IStructuredSelection) contents).toList();
+				for (Object o : list) {
+					if (!(o instanceof EObject))
+						return Collections.emptyList();
+				}
+				@SuppressWarnings("unchecked")
+				List<EObject> localList = (List<EObject>) list;
+				return localList;
+			}
+			return Collections.emptyList();
+		} finally {
+			cb.dispose();
+		}
 	}
 
 	/**
