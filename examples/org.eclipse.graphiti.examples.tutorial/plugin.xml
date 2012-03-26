@@ -121,7 +121,6 @@
 	<extension point="org.eclipse.ui.menus">
 		<menuContribution locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
 			<command commandId="org.eclipse.graphiti.examples.tutorial.commands.createDiagramWithAllClasses">
-					id="org.eclipse.graphiti.examples.tutorial.menus.createDiagramWithAllClasses"> 
 				<visibleWhen>
 					<reference definitionId="org.eclipse.graphiti.examples.tutorial.definitions.OneEClassesNodeSelected" /> 
 				</visibleWhen>
