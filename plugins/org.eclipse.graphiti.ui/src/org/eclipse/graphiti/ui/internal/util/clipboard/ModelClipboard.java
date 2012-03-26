@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Felix Velasco - Bug 374918 - Let default paste use LocalSelectionTransfer
+ *    mwenz - Felix Velasco - Bug 361414 - Copy/paste : clipboard contents confuses the workbench
  *
  * </copyright>
  *
@@ -30,6 +31,7 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -530,7 +532,13 @@ public final class ModelClipboard {
 		for (int i = 0; i < size; i++) {
 			final EObject o = objects.get(i);
 			uriStrings.add(EcoreUtil.getURI(o).toString());
-			final IFile file = GraphitiUiInternal.getEmfService().getFile(o);
+			IFile file = null;
+			if (isSoleContent(o)) {
+				file = GraphitiUiInternal.getEmfService().getFile(o);
+			} else { 
+				file = (IFile) Platform.getAdapterManager().getAdapter(o, IFile.class);
+			}
+			
 			if (file != null && file.exists() && !files.contains(file)) {
 				files.add(file);
 				filePaths.add(file.getLocation().toOSString());
@@ -542,18 +550,25 @@ public final class ModelClipboard {
 		LocalSelectionTransfer.getTransfer().setSelection(localSelection);
 		result.put(LocalSelectionTransfer.getTransfer(), new Object());
 		result.put(UriTransfer.getInstance(), data);
-		result.put(FileTransfer.getInstance(), filePaths.toArray(new String[filePaths.size()]));
-		// Resource Transfer resides in org.eclipse.ui.ide. We need to support
-		// an RCP scenario without having this plug-in installed.
-		try {
-			Transfer resourceTransfer = ReflectionUtil.getResourceTransfer();
-			if (resourceTransfer != null)
-				result.put(resourceTransfer, files.toArray(new IResource[files.size()]));
-		} catch (Exception e) {
-			T.racer().debug(e.getMessage());
+		if (!filePaths.isEmpty()) {
+			result.put(FileTransfer.getInstance(), filePaths.toArray(new String[filePaths.size()]));
+			// Resource Transfer resides in org.eclipse.ui.ide. We need to
+			// support an RCP scenario without having this plug-in installed.
+			try {
+				Transfer resourceTransfer = ReflectionUtil.getResourceTransfer();
+				if (resourceTransfer != null)
+					result.put(resourceTransfer, files.toArray(new IResource[files.size()]));
+			} catch (Exception e) {
+				T.racer().debug(e.getMessage());
+			}
 		}
 		result.put(TextTransfer.getInstance(), toExtendedString(objects));
 		return result;
+	}
+
+	private boolean isSoleContent(final EObject o) {
+		Resource res = o.eResource();
+		return (res != null && res.getContents().size() == 1);
 	}
 
 	private static List<String> getNativeContent() {
