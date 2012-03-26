@@ -9,7 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
- *    mwenz - Bug 374918 - Default copy feature makes editor dirty
+ *    mwenz - Bug 374918 - Let default paste use LocalSelectionTransfer
  *
  * </copyright>
  *

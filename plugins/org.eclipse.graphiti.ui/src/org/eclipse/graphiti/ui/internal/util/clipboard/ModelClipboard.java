@@ -569,21 +569,6 @@ public final class ModelClipboard {
 		}
 	}
 
-	@SuppressWarnings({ "unchecked", "hiding" })
-	private static <T extends EObject> List<T> getObjectsFromUri(List<String> uriStrings, ResourceSet resourceSet, Class<T> type) {
-		final List<T> result = new ArrayList<T>(uriStrings.size());
-		for (final String uriString : uriStrings) {
-			final URI uri = URI.createURI(uriString);
-			if (resourceSet.getURIConverter().exists(uri, null)) {
-				final EObject element = resourceSet.getEObject(uri, true);
-				if (element != null && type.isInstance(element)) {
-					result.add((T) element);
-				}
-			}
-		}
-		return result;
-	}
-
 	private String toExtendedString(List<EObject> objects) {
 		final StringBuilder result = new StringBuilder();
 		for (int i = 0; i < objects.size(); i++) {
