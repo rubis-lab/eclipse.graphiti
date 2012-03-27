@@ -28,6 +28,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -165,6 +166,16 @@ public interface IToolBehaviorProvider {
 	ISelectionInfo getSelectionInfoForShape(Shape shape);
 
 	/**
+	 * Return the selection info for the given anchor.
+	 * 
+	 * @param anchor
+	 *            the anchor
+	 * @return the anchor selection info
+	 * @since 0.9
+	 */
+	ISelectionInfo getSelectionInfoForAnchor(Anchor anchor);
+
+	/**
 	 * Return the selection info for the given connection.
 	 * 
 	 * @param connection
@@ -274,7 +285,7 @@ public interface IToolBehaviorProvider {
 	 * @return <code>true</code>, if guides should be shown
 	 */
 	boolean isShowGuides();
-	
+
 	/**
 	 * Indicates whether flyout palette will be shown or not.
 	 * 

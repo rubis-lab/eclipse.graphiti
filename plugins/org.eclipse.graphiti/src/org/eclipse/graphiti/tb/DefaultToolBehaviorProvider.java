@@ -43,6 +43,7 @@ import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -188,7 +189,8 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 
 		// update button
 		if ((identifiers & CONTEXT_BUTTON_UPDATE) != 0) {
-			IContextButtonEntry updateButton = ContextEntryHelper.createDefaultUpdateContextButton(getFeatureProvider(), pe);
+			IContextButtonEntry updateButton = ContextEntryHelper.createDefaultUpdateContextButton(
+					getFeatureProvider(), pe);
 			if (updateButton != null) {
 				data.getGenericContextButtons().add(updateButton);
 			}
@@ -196,7 +198,8 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 
 		// remove button
 		if ((identifiers & CONTEXT_BUTTON_REMOVE) != 0) {
-			IContextButtonEntry removeButton = ContextEntryHelper.createDefaultRemoveContextButton(getFeatureProvider(), pe);
+			IContextButtonEntry removeButton = ContextEntryHelper.createDefaultRemoveContextButton(
+					getFeatureProvider(), pe);
 			if (removeButton != null) {
 				data.getGenericContextButtons().add(removeButton);
 			}
@@ -204,7 +207,8 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 
 		// delete button
 		if ((identifiers & CONTEXT_BUTTON_DELETE) != 0) {
-			IContextButtonEntry deleteButton = ContextEntryHelper.createDefaultDeleteContextButton(getFeatureProvider(), pe);
+			IContextButtonEntry deleteButton = ContextEntryHelper.createDefaultDeleteContextButton(
+					getFeatureProvider(), pe);
 			if (deleteButton != null) {
 				data.getGenericContextButtons().add(deleteButton);
 			}
@@ -297,7 +301,8 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		}
 		List<IPaletteCompartmentEntry> compartments = new ArrayList<IPaletteCompartmentEntry>();
 
-		PaletteCompartmentEntry compartmentEntry = new PaletteCompartmentEntry(Messages.DefaultToolBehaviorProvider_0_xfld, null);
+		PaletteCompartmentEntry compartmentEntry = new PaletteCompartmentEntry(
+				Messages.DefaultToolBehaviorProvider_0_xfld, null);
 		compartments.add(compartmentEntry);
 
 		IFeatureProvider featureProvider = getFeatureProvider();
@@ -312,9 +317,9 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 			// }
 
 			for (ICreateConnectionFeature createConnectionFeature : createConnectionFeatures) {
-				ConnectionCreationToolEntry ccTool = new ConnectionCreationToolEntry(createConnectionFeature.getCreateName(),
-						createConnectionFeature.getCreateDescription(), createConnectionFeature.getCreateImageId(),
-						createConnectionFeature.getCreateLargeImageId());
+				ConnectionCreationToolEntry ccTool = new ConnectionCreationToolEntry(
+						createConnectionFeature.getCreateName(), createConnectionFeature.getCreateDescription(),
+						createConnectionFeature.getCreateImageId(), createConnectionFeature.getCreateLargeImageId());
 				ccTool.addCreateConnectionFeature(createConnectionFeature);
 				// if (multiTool != null) {
 				// multiTool.addCreateConnectionFeature(createConnectionFeature);
@@ -330,9 +335,9 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		ICreateFeature[] createFeatures = featureProvider.getCreateFeatures();
 
 		for (ICreateFeature createFeature : createFeatures) {
-			ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(createFeature.getCreateName(),
-					createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(),
-					createFeature);
+			ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(
+					createFeature.getCreateName(), createFeature.getCreateDescription(),
+					createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);
 
 			compartmentEntry.addToolEntry(objectCreationToolEntry);
 
@@ -350,8 +355,17 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	}
 
 	public ISelectionInfo getSelectionInfoForShape(Shape shape) {
-		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.SHAPE_SELECTION_FG, IColorConstant.HANDLE_FG, IColorConstant.HANDLE_BG,
-				LineStyle.DASH);
+		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.SHAPE_SELECTION_FG, IColorConstant.HANDLE_FG,
+				IColorConstant.HANDLE_BG, LineStyle.DASH);
+		return si;
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	public ISelectionInfo getSelectionInfoForAnchor(Anchor anchor) {
+		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.SHAPE_SELECTION_FG, IColorConstant.HANDLE_FG,
+				IColorConstant.HANDLE_BG, LineStyle.DASH);
 		return si;
 	}
 

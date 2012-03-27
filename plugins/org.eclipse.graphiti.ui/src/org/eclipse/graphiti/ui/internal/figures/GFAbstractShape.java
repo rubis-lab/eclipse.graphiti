@@ -31,6 +31,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
 import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
 import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.ga.IVisualState;
 import org.eclipse.graphiti.platform.ga.IVisualStateChangeListener;
@@ -367,10 +368,15 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
 					.getCurrentToolBehaviorProvider();
 			PictogramElement pe = getPictogramElementDelegate().getPictogramElement();
-			if (!(pe instanceof org.eclipse.graphiti.mm.pictograms.Shape))
+			ISelectionInfo selectionInfo = null;
+			if (pe instanceof org.eclipse.graphiti.mm.pictograms.Shape) {
+				selectionInfo = tbp.getSelectionInfoForShape((org.eclipse.graphiti.mm.pictograms.Shape) pe);
+			} else if (pe instanceof Anchor) {
+				selectionInfo = tbp.getSelectionInfoForAnchor((Anchor) pe);
+			}
+			if (selectionInfo == null) {
 				return;
-			org.eclipse.graphiti.mm.pictograms.Shape s = (org.eclipse.graphiti.mm.pictograms.Shape) pe;
-			ISelectionInfo selectionInfo = tbp.getSelectionInfoForShape(s);
+			}
 			if (selectionFeedback == IVisualState.SELECTION_PRIMARY) {
 				IColorConstant primarySelectionBackGroundColor = selectionInfo.getPrimarySelectionBackGroundColor();
 				if (primarySelectionBackGroundColor != null) {
