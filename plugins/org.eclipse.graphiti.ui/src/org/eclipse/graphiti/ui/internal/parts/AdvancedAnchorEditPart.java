@@ -193,9 +193,10 @@ public class AdvancedAnchorEditPart extends AbstractGraphicalEditPart implements
 
 	@Override
 	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.COMPONENT_ROLE, getConfigurationProvider().getEditPolicyFactory().createModelObjectDeleteEditPolicy(
-				getConfigurationProvider()));
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, getConfigurationProvider().getEditPolicyFactory().createConnectionEditPolicy());
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, getConfigurationProvider().getEditPolicyFactory()
+				.createModelObjectDeleteEditPolicy(getConfigurationProvider()));
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, getConfigurationProvider().getEditPolicyFactory()
+				.createConnectionEditPolicy());
 	}
 
 	/**
@@ -204,29 +205,29 @@ public class AdvancedAnchorEditPart extends AbstractGraphicalEditPart implements
 	 **/
 	@Override
 	public DragTracker getDragTracker(Request request) {
-	
+
 		PictogramElementContext context = new PictogramElementContext(getPictogramElement());
-		IFeature[] dragAndDropFeatures = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider().getDragAndDropFeatures(
-				context);
+		IFeature[] dragAndDropFeatures = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider()
+				.getDragAndDropFeatures(context);
 		if (dragAndDropFeatures == null || dragAndDropFeatures.length == 0)
 			return super.getDragTracker(request);
-	
+
 		ConnectionDragCreationTool tool = new ConnectionDragCreationTool() {
-				/**
-				 * changed order: feedback gets deleted after command is executed
-				 * (popup!)
-				 */
-				@Override
-				protected boolean handleCreateConnection() {
-					Command endCommand = getCommand();
-					setCurrentCommand(endCommand);
-					executeCurrentCommand();
-					eraseSourceFeedback();
-	
-					return true;
-				}
-			};
-			tool.setFactory(new MultiCreationFactory(Arrays.asList(dragAndDropFeatures)));
+			/**
+			 * changed order: feedback gets deleted after command is executed
+			 * (popup!)
+			 */
+			@Override
+			protected boolean handleCreateConnection() {
+				Command endCommand = getCommand();
+				setCurrentCommand(endCommand);
+				executeCurrentCommand();
+				eraseSourceFeedback();
+
+				return true;
+			}
+		};
+		tool.setFactory(new MultiCreationFactory(Arrays.asList(dragAndDropFeatures)));
 		return tool;
 	}
 }

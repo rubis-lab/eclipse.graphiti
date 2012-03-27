@@ -53,18 +53,20 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 
 	@Override
 	protected IFigure createDragSourceFeedbackFigure() {
-		IFigure feedback = new TransparentGhostFigure(getHostFigure(), 70, getConfigurationProvider().getDiagramEditor().getZoomLevel());
+		IFigure feedback = new TransparentGhostFigure(getHostFigure(), 70, getConfigurationProvider()
+				.getDiagramEditor().getZoomLevel());
 		addFeedback(feedback);
 		return feedback;
 	}
 
 	@Override
 	protected List<?> createSelectionHandles() {
-		boolean resizeAllowed = !(getResizeShapeFeature() == null || !getResizeShapeFeature().canResizeShape(getResizeShapeContext()));
+		boolean resizeAllowed = !(getResizeShapeFeature() == null || !getResizeShapeFeature().canResizeShape(
+				getResizeShapeContext()));
 
 		GraphicalEditPart owner = (GraphicalEditPart) getHost();
-		List<?> list = GFHandleHelper.createShapeHandles(owner, getConfigurationProvider(), getResizeDirections(), isDragAllowed(),
-				resizeAllowed);
+		List<?> list = GFHandleHelper.createShapeHandles(owner, getConfigurationProvider(), getResizeDirections(),
+				isDragAllowed(), resizeAllowed);
 		return list;
 	}
 
@@ -95,7 +97,8 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 		if (!(getResizeShapeContext() == null)) {
 			IResizeShapeFeature resizeShapeFeature = getResizeShapeFeature();
 			if (resizeShapeFeature != null) {
-				IResizeConfiguration resizeConfiguration = resizeShapeFeature.getResizeConfiguration(getResizeShapeContext());
+				IResizeConfiguration resizeConfiguration = resizeShapeFeature
+						.getResizeConfiguration(getResizeShapeContext());
 				if (resizeConfiguration.isHorizontalResizeAllowed()) {
 					ret = ret | PositionConstants.EAST_WEST;
 				}

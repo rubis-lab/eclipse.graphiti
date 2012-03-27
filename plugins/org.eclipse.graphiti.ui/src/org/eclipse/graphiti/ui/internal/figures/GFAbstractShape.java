@@ -59,7 +59,8 @@ import org.eclipse.swt.widgets.Display;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public abstract class GFAbstractShape extends Shape implements HandleBounds, IVisualStateHolder, IVisualStateChangeListener {
+public abstract class GFAbstractShape extends Shape implements HandleBounds, IVisualStateHolder,
+		IVisualStateChangeListener {
 
 	/**
 	 * The {@link IPictogramElementDelegate} given in the constructor.
@@ -323,16 +324,18 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 					Rectangle pathBounds = GFFigureUtil.getPathBounds(path);
 					graphics.clipPath(path);
 					int styleAdaptation = getStyleAdaptation();
-					AdaptedGradientColoredAreas adaptedGradientColoredAreas = renderingStyle.getAdaptedGradientColoredAreas();
-					EList<GradientColoredAreas> gradientColoredAreas = adaptedGradientColoredAreas.getAdaptedGradientColoredAreas();
+					AdaptedGradientColoredAreas adaptedGradientColoredAreas = renderingStyle
+							.getAdaptedGradientColoredAreas();
+					EList<GradientColoredAreas> gradientColoredAreas = adaptedGradientColoredAreas
+							.getAdaptedGradientColoredAreas();
 					EList<GradientColoredArea> gradienColoredAreaList = null;
 					// get the style adaption or use the default style
 					if (gradientColoredAreas != null && gradientColoredAreas.size() > 0
 							&& gradientColoredAreas.size() - 1 >= styleAdaptation) {
 						gradienColoredAreaList = gradientColoredAreas.get(styleAdaptation).getGradientColor();
 					} else {
-						gradienColoredAreaList = gradientColoredAreas.get(IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT)
-								.getGradientColor();
+						gradienColoredAreaList = gradientColoredAreas.get(
+								IPredefinedRenderingStyle.STYLE_ADAPTATION_DEFAULT).getGradientColor();
 					}
 					boolean isVertical = true;
 					if (adaptedGradientColoredAreas.getGradientType() != null) {
@@ -342,8 +345,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 					}
 					for (Iterator<GradientColoredArea> iterator = gradienColoredAreaList.iterator(); iterator.hasNext();) {
 						GradientColoredArea gradientColoredArea = iterator.next();
-						GFFigureUtil.paintColorFlow(getConfigurationProvider(), pathBounds, graphics, gradientColoredArea,
-								getZoomLevel(graphics), isVertical);
+						GFFigureUtil.paintColorFlow(getConfigurationProvider(), pathBounds, graphics,
+								gradientColoredArea, getZoomLevel(graphics), isVertical);
 					}
 				} finally {
 					graphics.popState();
@@ -358,9 +361,11 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	private void setBackgroundWithoutStyle(Graphics graphics, Path path) {
 		Color oldBackground = graphics.getBackgroundColor();
 		int selectionFeedback = getVisualState().getSelectionFeedback();
-		if (selectionFeedback == IVisualState.SELECTION_PRIMARY || selectionFeedback == IVisualState.SELECTION_SECONDARY) {
+		if (selectionFeedback == IVisualState.SELECTION_PRIMARY
+				|| selectionFeedback == IVisualState.SELECTION_SECONDARY) {
 			// fill area
-			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
+					.getCurrentToolBehaviorProvider();
 			PictogramElement pe = getPictogramElementDelegate().getPictogramElement();
 			if (!(pe instanceof org.eclipse.graphiti.mm.pictograms.Shape))
 				return;
@@ -370,15 +375,13 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 				IColorConstant primarySelectionBackGroundColor = selectionInfo.getPrimarySelectionBackGroundColor();
 				if (primarySelectionBackGroundColor != null) {
 					graphics.setBackgroundColor(DataTypeTransformation.toSwtColor(getConfigurationProvider()
-							.getResourceRegistry(),
-							primarySelectionBackGroundColor));
+							.getResourceRegistry(), primarySelectionBackGroundColor));
 				}
 			} else if (selectionFeedback == IVisualState.SELECTION_SECONDARY) {
 				IColorConstant secondarySelectionBackGroundColor = selectionInfo.getSecondarySelectionBackGroundColor();
 				if (secondarySelectionBackGroundColor != null) {
 					graphics.setBackgroundColor(DataTypeTransformation.toSwtColor(getConfigurationProvider()
-							.getResourceRegistry(),
-							secondarySelectionBackGroundColor));
+							.getResourceRegistry(), secondarySelectionBackGroundColor));
 				}
 
 			}
@@ -423,7 +426,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 */
 	private boolean adaptBackgroundToHover(Graphics graphics) {
 		if (getVisualState().getHoverFeedback() == IVisualState.HOVER_ON) {
-			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
+					.getCurrentToolBehaviorProvider();
 			IFigure parent = getParent();
 			boolean parentSelected = false;
 			if (parent instanceof GFAbstractShape) {
