@@ -61,8 +61,11 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 
 	@Override
 	protected List<?> createSelectionHandles() {
-		boolean resizeAllowed = !(getResizeShapeFeature() == null || !getResizeShapeFeature().canResizeShape(
-				getResizeShapeContext()));
+		boolean resizeAllowed = false;
+		if (getResizeShapeContext() != null) {
+			resizeAllowed = !(getResizeShapeFeature() == null || !getResizeShapeFeature().canResizeShape(
+					getResizeShapeContext()));
+		}
 
 		GraphicalEditPart owner = (GraphicalEditPart) getHost();
 		List<?> list = GFHandleHelper.createShapeHandles(owner, getConfigurationProvider(), getResizeDirections(),
@@ -115,6 +118,9 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 	}
 
 	private IResizeShapeFeature getResizeShapeFeature() {
+		if (getResizeShapeContext() == null) {
+			return null;
+		}
 		return getConfigurationProvider().getFeatureProvider().getResizeShapeFeature(getResizeShapeContext());
 	}
 
