@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
  *    mwenz - Bug 363796 - Make setting of selection width of connections public
+ *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
  *
  * </copyright>
  *

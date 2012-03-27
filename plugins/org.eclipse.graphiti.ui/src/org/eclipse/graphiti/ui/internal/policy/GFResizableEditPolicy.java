@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    jpasch - BUG 341180: Graphiti fails to handle resize after custom feature addition in the tutorial
  *    Patch 185019 from Bug 332360 contributed by Volker Wegert
  *    mwenz - Bug 346487 - No selection feedback for non-resizable diagram nodes
+ *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
  *
  * </copyright>
  *
