@@ -10,7 +10,8 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    jpasch - Bug 345315  Missing units for "Choose scale-factor
- *    mgorning - Bug 352874 - Exports of Diagrams > 3000x3000 px 
+ *    mgorning - Bug 352874 - Exports of Diagrams > 3000x3000 px
+ *    mwenz - Bug 375037 - ArrayIndexOutOfBoundsException when exporting diagram to SVG
  *
  * </copyright>
  *
@@ -47,10 +48,10 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class ExportDiagramDialog extends AbstractFigureSelectionDialog implements ModifyListener {
 
-	private String[] IMAGE_FILE_EXTENSIONS = new String[] { "BMP", "GIF", "JPG", "RLE", "PNG" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+	private String[] IMAGE_FILE_EXTENSIONS = new String[] { "BMP", "GIF", "JPG", "PNG", "RLE" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
-	private int[] IMAGE_FILE_TYPES = new int[] { SWT.IMAGE_BMP, SWT.IMAGE_GIF, SWT.IMAGE_JPEG, SWT.IMAGE_BMP_RLE,
-			SWT.IMAGE_PNG };
+	private int[] IMAGE_FILE_TYPES = new int[] { SWT.IMAGE_BMP, SWT.IMAGE_GIF, SWT.IMAGE_JPEG, SWT.IMAGE_PNG,
+			SWT.IMAGE_BMP_RLE };
 
 	public static final String[] WIDTHS = new String[] { "320", "640", "800", "1024", "1280", "1600" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
@@ -291,6 +292,10 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 	// =========================== public access ==============================
 
 	public final int getImageFormat() {
+		if (_formatIndex >= IMAGE_FILE_TYPES.length) {
+			// Custom file type provided via extension
+			return -1;
+		}
 		return IMAGE_FILE_TYPES[_formatIndex];
 	}
 
