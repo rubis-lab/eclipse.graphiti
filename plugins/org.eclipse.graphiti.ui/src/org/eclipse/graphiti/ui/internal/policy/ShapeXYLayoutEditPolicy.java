@@ -79,6 +79,7 @@ import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.command.MoveAnchorFeatureCommandWithContext;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
+import org.eclipse.graphiti.ui.internal.parts.AdvancedAnchorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.viewers.ISelection;
@@ -137,6 +138,9 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 	@Override
 	protected EditPolicy createChildEditPolicy(EditPart child) {
+		if (child instanceof AdvancedAnchorEditPart) {
+			return new GFResizableEditPolicy(getConfigurationProvider());
+		}
 		if (!(child instanceof ShapeEditPart)) {
 			return new NonResizableEditPolicy();
 		}
