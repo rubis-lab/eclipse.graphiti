@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 339525 - Enrich paste context with location information
+ *    mwenz - Bug 374701 - IPasteContext showing invalid location under certain circumstances
  *
  * </copyright>
  *
@@ -93,7 +94,8 @@ public class PasteAction extends AbstractPreDefinedAction {
 		Point pasteLocation = new Point(-1, -1);
 		IWorkbenchPart workbenchPart = getWorkbenchPart();
 		if (workbenchPart instanceof DiagramEditor) {
-			pasteLocation = ((DiagramEditor) workbenchPart).getMouseLocation();
+			DiagramEditor diagramEditor = (DiagramEditor) workbenchPart;
+			pasteLocation = diagramEditor.calculateRealMouseLocation(diagramEditor.getMouseLocation());
 		}
 		context.setLocation(pasteLocation.x, pasteLocation.y);
 		return context;
