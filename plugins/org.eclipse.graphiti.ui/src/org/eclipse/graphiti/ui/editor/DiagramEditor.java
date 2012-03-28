@@ -417,11 +417,11 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		// Eclipse may call us with other inputs when a file is to be
 		// opened. Try to convert this to a valid diagram input.
 		if (!(input instanceof IDiagramEditorInput)) {
-			IEditorInput newInput = EditorInputAdapter.adaptToDiagramEditorInput(input);
-			if (!(newInput instanceof IDiagramEditorInput)) {
-				throw new PartInitException("Unknown editor input: " + input); //$NON-NLS-1$
+			input = convertToDiagramEditorInput(input);
+			if (input == null) {
+				throw new PartInitException(
+						"No DiagramEditorInput instance is available but it is required. The method convertToDiagramEditorInput illegally returned null."); //$NON-NLS-1$
 			}
-			input = newInput;
 		}
 
 		getUpdateBehavior().createEditingDomain();
@@ -437,6 +437,38 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		getUpdateBehavior().init();
 
 		migrateDiagramModelIfNecessary();
+	}
+
+	/**
+	 * Is called by the {@link #init(IEditorSite, IEditorInput)} method in case
+	 * the {@link IEditorInput} instance passed is no {@link DiagramEditorInput}
+	 * . This method should try to convert the passed input object to a
+	 * {@link DiagramEditorInput} or throw an {@link PartInitException} in case
+	 * the conversion can (or should) not be done for any reason. The default
+	 * implementation uses the
+	 * {@link EditorInputAdapter#adaptToDiagramEditorInput(IEditorInput)} method
+	 * to do the conversion. Clients may adapt to do additional conversions or
+	 * to prohibit any conversion by simply throwing a {@link PartInitException}
+	 * .
+	 * 
+	 * @param input
+	 *            the original input
+	 * @return a {@link DiagramEditorInput} corresponding to the passed input
+	 *         instance in case a conversion is possible. This method must not
+	 *         return <code>null</code>, otherwise the editor initialization
+	 *         will fail.
+	 * @throws PartInitException
+	 *             in case the passed input object cannot or should not be
+	 *             converted to a {@link DiagramEditorInput} instance.
+	 * 
+	 * @since 0.9
+	 */
+	protected DiagramEditorInput convertToDiagramEditorInput(IEditorInput input) throws PartInitException {
+		IEditorInput newInput = EditorInputAdapter.adaptToDiagramEditorInput(input);
+		if (!(newInput instanceof IDiagramEditorInput)) {
+			throw new PartInitException("Unknown editor input: " + input); //$NON-NLS-1$
+		}
+		return (DiagramEditorInput) newInput;
 	}
 
 	/**
