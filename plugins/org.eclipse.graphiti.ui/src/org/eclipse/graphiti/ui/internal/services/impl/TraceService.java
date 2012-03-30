@@ -22,9 +22,11 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.internal.figures.GFMultilineText;
@@ -39,6 +41,7 @@ public class TraceService implements ITraceService {
 
 	private final boolean FULL_QUALIFIED = false;
 	private final boolean ADD_OBJECT_INFO = false;
+	private final boolean ADD_STYLE_INFO = false;
 
 	public String getStacktrace(Throwable t) {
 		if (t == null)
@@ -143,16 +146,51 @@ public class TraceService implements ITraceService {
 
 		String additional = ""; //$NON-NLS-1$
 		IDimension size = Graphiti.getGaService().calculateSize(ga);
-		additional = additional + " (" + ga.getX() + ", " + ga.getY() + ", " + size.getWidth() + ", " + size.getHeight() + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		additional = additional
+				+ " (" + ga.getX() + ", " + ga.getY() + ", " + size.getWidth() + ", " + size.getHeight() + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		if (ADD_OBJECT_INFO) {
 			additional = additional + " (" + getObjectInfo(ga) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 		}
 
 		System.out.println(indentString + getClassName(ga, FULL_QUALIFIED) + additional);
 
+		if (ADD_STYLE_INFO) {
+			if (ga.getStyle() != null) {
+				Style style = ga.getStyle();
+				dumpStyleTree(style, indent + 2);
+			}
+		}
+
 		List<GraphicsAlgorithm> gaChildren = ga.getGraphicsAlgorithmChildren();
 		for (GraphicsAlgorithm gaChild : gaChildren) {
 			dumpGATree(gaChild, indent + 2);
+		}
+	}
+
+	public void dumpStyleTree(Style style) {
+		dumpStyleTree(style, 0);
+	}
+
+	public void dumpStyleTree(Style style, int indent) {
+		String indentString = createIndentString(indent);
+		if (style == null) {
+			return;
+		}
+		String additional = ""; //$NON-NLS-1$
+		String styleId = style.getId();
+		if (styleId != null) {
+			additional = additional + " (" + styleId + ")";
+		}
+		if (ADD_OBJECT_INFO) {
+			additional = additional + " (" + getObjectInfo(style) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
+		}
+
+		System.out.println(indentString + getClassName(style, FULL_QUALIFIED) + additional);
+
+		EObject eC = style.eContainer();
+		if (eC instanceof Style) {
+			Style parentStyle = (Style) eC;
+			dumpStyleTree(parentStyle, indent + 2);
 		}
 	}
 
