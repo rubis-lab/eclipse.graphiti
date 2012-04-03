@@ -84,7 +84,7 @@ public class GFText extends Label {
 				// and y based on
 				// angle
 				graphics.rotate(angle);
-				rect = new Rectangle(0, 0, 1000, 1000); // TODO calculate the
+				rect = new Rectangle(0, 0, 5000, 5000); // TODO calculate the
 				// real clip rectangle
 				// from the angle
 				graphics.setClip(rect);
