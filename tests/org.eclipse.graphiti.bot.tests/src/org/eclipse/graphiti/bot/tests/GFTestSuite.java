@@ -28,6 +28,7 @@ public class GFTestSuite {
 		suite.addTestSuite(GFDialogTests.class);
 		suite.addTestSuite(GFInteractionComponentTests.class);
 		suite.addTestSuite(ExtensionManagerTest.class);
+		suite.addTestSuite(PluginWizardTests.class);
 		return suite;
 	}
 }
