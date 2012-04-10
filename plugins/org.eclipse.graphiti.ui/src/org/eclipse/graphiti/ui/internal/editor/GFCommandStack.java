@@ -279,6 +279,7 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		return editingDomain;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void commandStackChanged(EventObject event) {
 		notifyListeners();
 		notifyListeners(null, 0);

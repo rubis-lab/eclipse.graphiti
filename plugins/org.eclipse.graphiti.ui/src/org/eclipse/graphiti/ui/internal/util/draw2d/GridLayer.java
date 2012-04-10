@@ -23,7 +23,6 @@ import org.eclipse.graphiti.internal.util.LookManager;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.util.ILook;
@@ -165,10 +164,6 @@ public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
 	private Color getMajorLineColor() {
 		return DataTypeTransformation.toSwtColor(cfgProvider.getResourceRegistry(), LookManager.getLook()
 				.getMajorGridLineColor());
-	}
-
-	private DiagramEditor getDiagramEditor() {
-		return getCfgProvider().getDiagramEditor();
 	}
 
 	private IConfigurationProvider getCfgProvider() {

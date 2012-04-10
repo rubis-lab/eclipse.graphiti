@@ -42,7 +42,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -207,7 +206,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		final TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService()
 				.createResourceSetAndEditingDomain();
 		final ResourceSet resourceSet = editingDomain.getResourceSet();
-		final Resource resource = resourceSet.createResource(diagramUri);
+		resourceSet.createResource(diagramUri);
 		ed.setEditingDomain(editingDomain);
 		return diagram;
 	}

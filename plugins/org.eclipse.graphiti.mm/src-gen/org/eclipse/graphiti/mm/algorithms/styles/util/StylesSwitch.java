@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.eclipse.graphiti.mm.StyleContainer;
-import org.eclipse.graphiti.mm.algorithms.styles.*;
 import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;

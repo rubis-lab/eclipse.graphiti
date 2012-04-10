@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.graphiti.mm" version="2">
-    <resource path="META-INF/MANIFEST.MF">
-        <filter id="923795461">
-            <message_arguments>
-                <message_argument value="0.9.0"/>
-                <message_argument value="0.8.0"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src-gen/org/eclipse/graphiti/mm/algorithms/styles/AbstractStyle.java" type="org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle">
         <filter comment="Uncommented" id="403804204">
             <message_arguments>
