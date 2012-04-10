@@ -20,6 +20,7 @@ import org.eclipse.graphiti.features.IFeatureProviderHolder;
 import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
@@ -167,5 +168,39 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	 */
 	protected Color manageColor(int red, int green, int blue) {
 		return Graphiti.getGaService().manageColor(getDiagram(), red, green, blue);
+	}
+
+	/**
+	 * A convenient method for the font handling which simply calls
+	 * <code>Graphiti.getGaService().manageFont(...)</code>.
+	 * 
+	 * @param name
+	 *            the name of the font
+	 * @param size
+	 *            the size of the font
+	 * @return the font instance
+	 * @since 0.9
+	 */
+	protected Font manageFont(String name, int size) {
+		return Graphiti.getGaService().manageFont(getDiagram(), name, size);
+	}
+
+	/**
+	 * A convenient method for the color handling which simply calls
+	 * <code>Graphiti.getGaService().manageColor(...)</code>.
+	 * 
+	 * @param name
+	 *            the name of the font
+	 * @param size
+	 *            the size of the font
+	 * @param isItalic
+	 *            the is italic
+	 * @param isBold
+	 *            the is bold
+	 * @return the font instance
+	 * @since 0.9
+	 */
+	protected Font manageFont(String name, int size, boolean isItalic, boolean isBold) {
+		return Graphiti.getGaService().manageFont(getDiagram(), name, size, isItalic, isBold);
 	}
 }
