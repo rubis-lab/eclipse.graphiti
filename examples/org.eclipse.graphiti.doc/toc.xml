@@ -27,6 +27,10 @@
        <topic href="resources/docu/examples/Chess.htm" label="Chess Example">
        </topic>
     </topic>
+    <topic href="resources/docu/tools/Overview.html" label="Overview on Graphiti Tools">
+       <topic href="resources/docu/tools/NewPluginWizard.html" label="New Graphiti Plug-in Project Wizard">
+       </topic>
+    </topic>
 
     <topic label="Reference">
        <topic href="javadoc/overview-summary.html" label="API Reference">

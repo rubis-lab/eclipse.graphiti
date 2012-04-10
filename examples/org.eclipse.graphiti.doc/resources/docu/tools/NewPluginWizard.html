@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Page Title</title>
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
+<style type="text/css">
+.auto-style1 {
+	text-align: left;
+}
+</style>
+</head>
+
+<body>
+
+	<h1>New Graphit Plug-in Wizard</h1>
+	<p>
+		This wizard has been introduced with Graphiti 0.9.0 and allows the
+		creation of a new Eclipse plug-in project containing a basic Graphiti
+		editor. It is integrated in the <i>New Plug-in Project Wizard</i>
+		provided by Eclipse PDE and can be started via <i>File --> New -->
+			Project... --> Plug-in Development --> Plug-in Project</i>. The user can
+		specify the name along with the other settings for the new plug-in
+		project and on the third page of the wizard select the template <i>Plug-in
+			with a Graphiti Editor</i>.
+	</p>
+	<img alt="Template selection for new Plug-in with a Graphiti Editor"
+		src="images/NPW_Template.png" width="400px">
+	<p>On the next page, the user can change the pre-filled definitions
+		of the Graphiti Diagram Type, Diagram Type Provider and Feature
+		Provider to be created. The initial values proposed there are derived
+		from the name of the plug-in project.</p>
+	<img alt="Settings for new Plug-in with a Graphiti Editor"
+		src="images/NPW_Settings.png" width="400px">
+	<p>After finishing the wizard a new plug-in is created containing
+		the definitions and basic implementation classes for a new Graphiti
+		diagram editor that allows the creation of new shapes and connections
+		between shapes. The shapes and connections are not yet linked to any
+		domain objects but offer a good starting point for building a real
+		editor. The user may simply start a Eclipse Application as runtime for
+		this and simply create a new Graphiti diagram with the new type by
+		using the Graphiti New Diagram Wizard that comes as part of the
+		examples.</p>
+</body>
+</html>
