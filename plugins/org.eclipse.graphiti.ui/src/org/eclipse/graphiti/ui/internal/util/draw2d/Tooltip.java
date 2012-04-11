@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
  *
  * </copyright>
  *
@@ -86,8 +87,17 @@ public class Tooltip extends FlowPage {
 		return d;
 	}
 
-	// TODO: move to service layer
-	public static Font getBoldFont() {
+	/*
+	 * Introduced to fix bug 373298
+	 */
+	public void dispose() {
+		if (boldFont != null) {
+			boldFont.dispose();
+			boldFont = null;
+		}
+	}
+
+	private Font getBoldFont() {
 		if (boldFont == null) {
 			FontData fd = Display.getDefault().getSystemFont().getFontData()[0];
 			fd.setStyle(fd.getStyle() | SWT.BOLD);

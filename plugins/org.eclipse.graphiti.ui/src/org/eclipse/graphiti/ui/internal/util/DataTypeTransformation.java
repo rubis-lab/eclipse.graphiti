@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
  *
  * </copyright>
  *
@@ -85,6 +86,18 @@ public class DataTypeTransformation {
 		return pointList;
 	}
 
+	/**
+	 * Checks if the given SWT {@link org.eclipse.swt.graphics.Font} defines the
+	 * same font as the given Graphiti {@link Font}. If yes, the given SWT Font
+	 * is simply returned, otherwise a new SWT Font is created using
+	 * {@link #toSwtFont(Font)}. <b>In case the returned SWT Font is not -
+	 * instance-wise - the same as the given one, users of this method are
+	 * responsible for disposing the returned font again.</b>
+	 * 
+	 * @param pictogramFont
+	 * @param swtFont
+	 * @return
+	 */
 	public static org.eclipse.swt.graphics.Font syncToSwtFont(Font pictogramFont, org.eclipse.swt.graphics.Font swtFont) {
 		org.eclipse.swt.graphics.Font ret = swtFont;
 
@@ -129,6 +142,10 @@ public class DataTypeTransformation {
 	}
 
 	/**
+	 * Returns a <b>new</b> SWT {@link org.eclipse.swt.graphics.Font} for the
+	 * given Graphiti {@link Font}. <b>Users of this method are responsible for
+	 * disposing the font again!</b>
+	 * 
 	 * @param pictogramFont
 	 * @return
 	 */
