@@ -32,17 +32,5 @@
          </description>
       </wizard>
    </extension>
-   <extension
-         point="org.eclipse.ui.newWizards">
-      <wizard
-            class="org.eclipse.graphiti.tools.newprojectwizard.internal.NewGraphitiPluginProjectWizard"
-            finalPerspective="org.eclipse.pde.ui.PDEPerspective"
-            hasPages="true"
-            icon="icons/diagram.gif"
-            id="org.eclipse.graphiti.tools.newprojectwizard.newgraphitipluginwizard"
-            name="%wizard.name.0"
-            project="true">
-      </wizard>
-   </extension>
 
 </plugin>
