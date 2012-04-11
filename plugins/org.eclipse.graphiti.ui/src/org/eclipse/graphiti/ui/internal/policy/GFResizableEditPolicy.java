@@ -13,6 +13,7 @@
  *    Patch 185019 from Bug 332360 contributed by Volker Wegert
  *    mwenz - Bug 346487 - No selection feedback for non-resizable diagram nodes
  *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
+ *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
  *
  * </copyright>
  *
@@ -54,8 +55,7 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 
 	@Override
 	protected IFigure createDragSourceFeedbackFigure() {
-		IFigure feedback = new TransparentGhostFigure(getHostFigure(), 70, getConfigurationProvider()
-				.getDiagramEditor().getZoomLevel());
+		IFigure feedback = new TransparentGhostFigure(70);
 		addFeedback(feedback);
 		return feedback;
 	}

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
  *
  * </copyright>
  *
@@ -57,6 +58,7 @@ public class SVGExporter implements IDiagramsExporter {
 		Writer out = new OutputStreamWriter(new FileOutputStream(fileName), "UTF-8"); //$NON-NLS-1$
 		// svgGenerator.setRenderingHint(SVG_WIDTH_ATTRIBUTE
 		svgGenerator.stream(out, useCSS);
+		graphicsAdaptor.dispose();
 	}
 
 }

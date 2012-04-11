@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
+ *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
  *
  * </copyright>
  *
@@ -18,76 +19,20 @@ package org.eclipse.graphiti.ui.internal.util.draw2d;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ImageFigure;
-import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.handles.HandleBounds;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
 public class TransparentGhostFigure extends ImageFigure {
-	private IFigure figure = null;
 
 	private int alpha;
 
-	private double zoomLevel = 1;
-
-	public TransparentGhostFigure(IFigure figure, int alpha, double zoomLevel) {
-		this.figure = figure;
+	public TransparentGhostFigure(int alpha) {
 		this.alpha = alpha;
-		this.zoomLevel = zoomLevel;
-
 		setOpaque(false);
-
-		// do not set the image any more (see CSN 0120061532 0000510151 2009)
-		// setImage(generateImage());
-	}
-
-	/**
-	 * creates a ghost image - don�t forget to dispose!
-	 * 
-	 * @return the ghost image.
-	 */
-	@SuppressWarnings("unused")
-	private Image generateImage() {
-		if (figure == null)
-			return null;
-
-		Rectangle bounds;
-		if (figure instanceof HandleBounds) {
-			bounds = ((HandleBounds) figure).getHandleBounds().getCopy();
-		} else {
-			bounds = figure.getBounds().getCopy();
-		}
-
-		bounds.scale(zoomLevel);
-
-		Image image = new Image(Display.getCurrent(), bounds.width, bounds.height);
-
-		GC gc = new GC(image);
-		SWTGraphics swtGraphics = new SWTGraphics(gc);
-		swtGraphics.translate(-bounds.x, -bounds.y);
-
-		swtGraphics.scale(zoomLevel);
-
-		figure.paint(swtGraphics);
-
-		ImageData data = image.getImageData();
-		data.alpha = alpha;
-
-		image.dispose();
-		swtGraphics.dispose();
-		gc.dispose();
-		return new Image(Display.getCurrent(), data);
-
 	}
 
 	@Override
