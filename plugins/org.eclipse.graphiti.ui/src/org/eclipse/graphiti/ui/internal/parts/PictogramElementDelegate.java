@@ -473,8 +473,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		// refresh figure colors
 		if (selectedConnection) {
 			Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider().getResourceRegistry(), Graphiti
-					.getGaService()
-					.getBackgroundColor(graphicsAlgorithm, true));
+					.getGaService().getBackgroundColor(graphicsAlgorithm, true));
 			figure.setBackgroundColor(bg);
 		} else {
 			refreshFigureColors(figure, graphicsAlgorithm);
@@ -1124,11 +1123,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 */
 	private void refreshFigureColors(IFigure figure, GraphicsAlgorithm graphicsAlgorithm) {
 		Color fg = DataTypeTransformation.toSwtColor(getConfigurationProvider().getResourceRegistry(), Graphiti
-				.getGaService()
-				.getForegroundColor(graphicsAlgorithm, true));
+				.getGaService().getForegroundColor(graphicsAlgorithm, true));
 		Color bg = DataTypeTransformation.toSwtColor(getConfigurationProvider().getResourceRegistry(), Graphiti
-				.getGaService()
-				.getBackgroundColor(graphicsAlgorithm, true));
+				.getGaService().getBackgroundColor(graphicsAlgorithm, true));
 		figure.setBackgroundColor(bg);
 		figure.setForegroundColor(fg);
 	}
@@ -1323,7 +1320,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		// PolylineConnection's and RotatableDecoration's will be handled by the
 		// gef-framework
 		if ((figure instanceof PolylineConnection) || figure instanceof GFPolylineConnection
-				|| (figure instanceof RotatableDecoration) || figure.getParent() == null) {
+				|| (figure instanceof RotatableDecoration && !(figure instanceof GFText)) || figure.getParent() == null) {
 			return;
 		}
 
@@ -1334,6 +1331,14 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 
 		Dimension dimension = new Dimension(gaSize.getWidth(), gaSize.getHeight());
+
+		// special handling if a text is used in a passive connection decorator
+		// in this case simply set the size and return
+		if (figure instanceof GFText && (pe instanceof ConnectionDecorator) && !pe.isActive()) {
+			GFText text = (GFText) figure;
+			text.setSize(dimension);
+			return;
+		}
 
 		ILocation gaLocation = null;
 

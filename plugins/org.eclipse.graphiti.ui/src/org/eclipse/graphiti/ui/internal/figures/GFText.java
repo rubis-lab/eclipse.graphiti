@@ -19,9 +19,11 @@ package org.eclipse.graphiti.ui.internal.figures;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.ScaledGraphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -35,7 +37,7 @@ import org.eclipse.swt.graphics.Font;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class GFText extends Label {
+public class GFText extends Label implements RotatableDecoration {
 	private GraphicsAlgorithm graphicsAlgorithm;
 
 	private int labelAlignment = CENTER;
@@ -147,5 +149,8 @@ public class GFText extends Label {
 		subStringText = null;
 		myPrefSize = null;
 		super.invalidate();
+	}
+
+	public void setReferencePoint(Point p) {
 	}
 }
