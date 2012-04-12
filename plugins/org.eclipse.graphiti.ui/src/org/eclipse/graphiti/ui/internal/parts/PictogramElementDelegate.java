@@ -1333,9 +1333,12 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		Dimension dimension = new Dimension(gaSize.getWidth(), gaSize.getHeight());
 
-		// special handling if a text is used in a passive connection decorator
-		// in this case simply set the size and return
-		if (figure instanceof GFText && (pe instanceof ConnectionDecorator) && !pe.isActive()) {
+		// Special handling if a text is used in a passive connection decorator.
+		// In this case simply set the size. The location can not be set,
+		// because it will be overwritten later through the class
+		// FlexibleRotatableLocator
+		if (figure instanceof GFText && (pe instanceof ConnectionDecorator) && !pe.isActive()
+				&& (figure.getParent() instanceof GFPolylineConnection)) {
 			GFText text = (GFText) figure;
 			text.setSize(dimension);
 			return;

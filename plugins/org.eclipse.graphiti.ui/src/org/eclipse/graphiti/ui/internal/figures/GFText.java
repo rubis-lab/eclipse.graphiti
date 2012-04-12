@@ -154,4 +154,8 @@ public class GFText extends Label implements RotatableDecoration {
 
 	public void setReferencePoint(Point p) {
 	}
+
+	public GraphicsAlgorithm getGraphicsAlgorithm() {
+		return graphicsAlgorithm;
+	}
 }

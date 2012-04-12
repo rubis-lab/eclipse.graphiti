@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
+ *    mgorning - Bug 368124 - ConnectionDecorator with Text causes problems 
  *
  * </copyright>
  *
@@ -23,6 +24,7 @@ import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 
 /**
  * This is a very flexible Locator, which places a {@link RotatableDecoration}
@@ -105,8 +107,8 @@ public class FlexibleRotatableLocator extends AbstractLocator {
 	 *            The degrees to rotate, as described in
 	 *            {@link #getRotateDegrees()}.
 	 */
-	public FlexibleRotatableLocator(Connection connection, boolean distanceToStart, double relativeDistance, int absoluteDistance,
-			double rotateDegrees) {
+	public FlexibleRotatableLocator(Connection connection, boolean distanceToStart, double relativeDistance,
+			int absoluteDistance, double rotateDegrees) {
 		assert (connection != null);
 		this.connection = connection;
 		setDistanceToStart(distanceToStart);
@@ -292,8 +294,10 @@ public class FlexibleRotatableLocator extends AbstractLocator {
 		} else {
 			double absoluteDistanceInSegment = totalDistance - lengthBeforeTargetSegment;
 			double relativeDistanceInSegment = absoluteDistanceInSegment / segmentLength[targetIndex];
-			double locationX = result.segmentStart.x + ((result.segmentEnd.x - result.segmentStart.x) * relativeDistanceInSegment);
-			double locationY = result.segmentStart.y + ((result.segmentEnd.y - result.segmentStart.y) * relativeDistanceInSegment);
+			double locationX = result.segmentStart.x
+					+ ((result.segmentEnd.x - result.segmentStart.x) * relativeDistanceInSegment);
+			double locationY = result.segmentStart.y
+					+ ((result.segmentEnd.y - result.segmentStart.y) * relativeDistanceInSegment);
 			result.location = new PrecisionPoint(locationX, locationY);
 		}
 
@@ -324,7 +328,14 @@ public class FlexibleRotatableLocator extends AbstractLocator {
 		if (target instanceof RotatableDecoration) {
 			CalculationResult calculationResult = calculateLocation();
 			RotatableDecoration rotatable = (RotatableDecoration) target;
-			rotatable.setLocation(calculationResult.location);
+			if (rotatable instanceof GFText) {
+				GFText text = (GFText) rotatable;
+				GraphicsAlgorithm ga = text.getGraphicsAlgorithm();
+				Point textLocation = calculationResult.location.getCopy().translate(ga.getX(), ga.getY());
+				rotatable.setLocation(textLocation);
+			} else {
+				rotatable.setLocation(calculationResult.location);
+			}
 
 			// determine reference point
 			Point p1 = calculationResult.segmentStart;
