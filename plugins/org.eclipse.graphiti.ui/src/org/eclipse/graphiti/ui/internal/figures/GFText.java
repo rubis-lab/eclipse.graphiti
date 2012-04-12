@@ -10,7 +10,8 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mgorning - Bug 365536 - Using BoxRelativeAnchor with relativeWidth = 1 display ellipsis in related Text
- *    mgorning - Bug 374190 - Vertically aligned text disappears after the height of TextImpl is increased 
+ *    mgorning - Bug 374190 - Vertically aligned text disappears after the height of TextImpl is increased
+ *    mgorning - Bug 368124 - ConnectionDecorator with Text causes problems 
  *
  * </copyright>
  *

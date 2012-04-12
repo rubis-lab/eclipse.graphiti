@@ -19,6 +19,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
  *    mwenz - Bug 358255 - Add Border/Background decorators
+ *    mgorning - Bug 368124 - ConnectionDecorator with Text causes problems 
  *
  * </copyright>
  *
