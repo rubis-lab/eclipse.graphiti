@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    mgorning - Bug 343983 - Notification for Cancelled Reconnection Events
  *    mwenz - Bug 364035 - DefaultReconnectionFeature#reconnect should use getNewAnchor(context)
  *                         not context.getNewAnchor()
+ *    Henrik Rentz-Reichert - mwenz - Bug 376544 - bug in re-connecting a connection with identical start and end anchor
  *
  * </copyright>
  *
@@ -22,6 +23,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
+import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -105,10 +107,9 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 		preReconnect(context);
 
 		Connection connection = context.getConnection();
-		Anchor newAnchor = getNewAnchor(context);
-		Anchor oldAnchor = context.getOldAnchor();
+		Anchor newAnchor = context.getNewAnchor();
 
-		if (connection.getStart().equals(oldAnchor)) {
+		if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
 			connection.setStart(newAnchor);
 		} else {
 			connection.setEnd(newAnchor);
