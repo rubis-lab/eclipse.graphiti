@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mgorning - Bug 368124 - ConnectionDecorator with Text causes problems 
  *
  * </copyright>
  *
@@ -23,6 +24,7 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.services.Graphiti;
@@ -67,6 +69,11 @@ public class ToggleDecorator extends AbstractCustomFeature {
 				Polyline polyline = gaService.createPolyline(decorator, new int[] { 0, -20, 0, 20 });
 				polyline.setForeground(manageColor(IColorConstant.RED));
 				polyline.setBackground(manageColor(IColorConstant.RED));
+
+				decorator = pecService.createConnectionDecorator(connection, false, 0.5, true);
+				Text text = gaService.createText(decorator, "passive text"); //$NON-NLS-1$
+				text.setForeground(manageColor(IColorConstant.BLACK));
+				Graphiti.getLayoutService().setLocationAndSize(text, 25, 50, 100, 20);
 			}
 		}
 
