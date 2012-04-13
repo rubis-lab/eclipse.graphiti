@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2011, 2011 SAP AG.
+ * Copyright (c) 2011, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
  *
  * </copyright>
  *
@@ -23,6 +24,8 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
@@ -58,6 +61,13 @@ public class DefaultPersistencyBehavior {
 	 * The associated {@link DiagramEditor}
 	 */
 	protected final DiagramEditor diagramEditor;
+
+	/**
+	 * Used to store the command that was executed before the editor was saved.
+	 * By comparing with the top of the current undo stack this point in the
+	 * command stack indicates if the editor is dirty.
+	 */
+	protected Command savedCommand = null;
 
 	/**
 	 * Creates a new instance of {@link DefaultPersistencyBehavior} that is
@@ -138,8 +148,12 @@ public class DefaultPersistencyBehavior {
 			new ProgressMonitorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()).run(true, false,
 					operation);
 
-			((BasicCommandStack) diagramEditor.getEditingDomain().getCommandStack()).saveIsDone();
-			// Refresh the necessary state.
+			BasicCommandStack commandStack = (BasicCommandStack) diagramEditor.getEditingDomain().getCommandStack();
+			commandStack.saveIsDone();
+
+			// Store the last executed command on the undo stack as save point
+			// and refresh the dirty state of the editor
+			savedCommand = commandStack.getUndoCommand();
 			diagramEditor.updateDirtyState();
 		} catch (final Exception exception) {
 			// Something went wrong that shouldn't.
@@ -151,6 +165,20 @@ public class DefaultPersistencyBehavior {
 		diagramEditor.commandStackChanged(null);
 		IDiagramTypeProvider provider = diagramEditor.getConfigurationProvider().getDiagramTypeProvider();
 		provider.resourcesSaved(diagramEditor.getDiagramTypeProvider().getDiagram(), savedResourcesArray);
+	}
+
+	/**
+	 * Returns if the editor needs to be saved or not. Is queried by the
+	 * {@link DiagramEditor#isDirty()} method. The default implementation checks
+	 * if the top of the current undo stack is equal to the stored top command
+	 * of the undo stack at the time of the last saving of the editor.
+	 * 
+	 * @return <code>true</code> in case the editor needs to be saved,
+	 *         <code>false</code> otherwise.
+	 */
+	public boolean isDirty() {
+		BasicCommandStack commandStack = (BasicCommandStack) diagramEditor.getEditingDomain().getCommandStack();
+		return savedCommand != commandStack.getUndoCommand();
 	}
 
 	/**
@@ -233,13 +261,16 @@ public class DefaultPersistencyBehavior {
 	 *            the {@link Diagram} to update the version attribute for
 	 */
 	protected void setDiagramVersion(final Diagram diagram) {
-		diagramEditor.getEditingDomain().getCommandStack()
-				.execute(new RecordingCommand(diagramEditor.getEditingDomain()) {
-
-					@Override
-					protected void doExecute() {
-						diagram.eSet(PictogramsPackage.eINSTANCE.getDiagram_Version(), IDiagramVersion.CURRENT);
-					}
-				});
+		// Only trigger a command if the version really changes to avoid an
+		// empty entry in the command stack / undo stack
+		if (!IDiagramVersion.CURRENT.equals(diagram.getVersion())) {
+			CommandStack commandStack = diagramEditor.getEditingDomain().getCommandStack();
+			commandStack.execute(new RecordingCommand(diagramEditor.getEditingDomain()) {
+				@Override
+				protected void doExecute() {
+					diagram.eSet(PictogramsPackage.eINSTANCE.getDiagram_Version(), IDiagramVersion.CURRENT);
+				}
+			});
+		}
 	}
 }

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *    mwenz - Bug 324556 - Prevent invisible shapes to be selected to avoid IllegalArgumentException
+ *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
  *
  * </copyright>
  *
@@ -43,7 +44,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -804,19 +804,14 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 	/**
 	 * Returns if the editor is currently dirty and needs to be saved or not.
-	 * The default implementation queries the command stack of the EMF
-	 * {@link TransactionalEditingDomain}.
+	 * The default implementation delegates to
+	 * {@link DefaultPersistencyBehavior#isDirty()}.
 	 * 
 	 * @return <code>true</code> in case the editor is dirty, <code>false</code>
 	 *         otherwise.
 	 */
 	public boolean isDirty() {
-		TransactionalEditingDomain editingDomain = getEditingDomain();
-		// Check that the editor is not yet disposed
-		if (editingDomain != null && editingDomain.getCommandStack() != null) {
-			return ((BasicCommandStack) editingDomain.getCommandStack()).isSaveNeeded();
-		}
-		return false;
+		return persistencyBehavior.isDirty();
 	}
 
 	// ---------------------- Palette --------------------------------------- //

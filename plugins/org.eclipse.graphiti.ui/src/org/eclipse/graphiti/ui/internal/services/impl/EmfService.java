@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    mwenz - Bug 320635 - Could not open an existing diagram
  *    tkaiser - Bug 340939 - Only one instance of an Graphiti editor may exist, for each editor input
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
  *
  * </copyright>
  *
@@ -266,11 +267,6 @@ public class EmfService implements IEmfService {
 				} catch (final InterruptedException e) {
 					throw new RuntimeException(e);
 				}
-				// For the time being, we clear the command stack after saving.
-				// In a later sprint we might try to implement undo/redo
-				// across save calls (not that easy to handle the ResourceImpl.isModified flag, which is also
-				// set by save() outside any command).
-				editingDomain.getCommandStack().flush();
 			}
 		};
 		try {
