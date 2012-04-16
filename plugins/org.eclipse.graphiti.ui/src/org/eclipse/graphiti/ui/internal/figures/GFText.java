@@ -29,6 +29,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.swt.SWT;
@@ -46,6 +47,9 @@ public class GFText extends Label implements RotatableDecoration {
 	private String subStringText;
 
 	private Dimension myPrefSize;
+
+	// rotation angle if text is used as an passive connection decorator
+	private double rotationAngle = 0d;
 
 	public GFText(IPictogramElementDelegate pictogramElementDelegate, GraphicsAlgorithm graphicsAlgorithm) {
 		this.graphicsAlgorithm = graphicsAlgorithm;
@@ -67,6 +71,27 @@ public class GFText extends Label implements RotatableDecoration {
 			// not support this option
 			if (graphics instanceof ScaledGraphics)
 				graphics.setTextAntialias(SWT.ON);
+
+			if (rotationAngle != 0 && graphicsAlgorithm.eContainer() instanceof ConnectionDecorator
+					&& !((ConnectionDecorator) graphicsAlgorithm.eContainer()).isActive()) {
+				Rectangle rect = new Rectangle();
+				graphics.getClip(rect);
+				graphics.pushState();
+				Rectangle bounds = getBounds();
+				graphics.translate(bounds.x, bounds.y); // TODO caluclate
+				// the offset to x
+				// and y based on
+				// angle
+				graphics.rotate((float) rotationAngle);
+				rect = new Rectangle(0, 0, 5000, 5000); // TODO calculate the
+				// real clip rectangle
+				// from the angle
+				graphics.setClip(rect);
+				graphics.drawText(getSubStringText(), getTextLocation());
+
+				graphics.popState();
+				return;
+			}
 
 			int angle = 0;
 			if (graphicsAlgorithm instanceof Text) {
@@ -153,6 +178,9 @@ public class GFText extends Label implements RotatableDecoration {
 	}
 
 	public void setReferencePoint(Point p) {
+		Point tempRect = Point.SINGLETON.setLocation(p);
+		tempRect.negate().translate(getLocation());
+		rotationAngle = Math.toDegrees((Math.atan2(tempRect.y, tempRect.x))) - 180d;
 	}
 
 	public GraphicsAlgorithm getGraphicsAlgorithm() {
