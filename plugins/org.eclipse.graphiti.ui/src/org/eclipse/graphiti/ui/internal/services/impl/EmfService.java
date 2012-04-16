@@ -14,6 +14,7 @@
  *    tkaiser - Bug 340939 - Only one instance of an Graphiti editor may exist, for each editor input
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
+ *    mwenz - Bug 371513 - Save failed with NPE when switching editors
  *
  * </copyright>
  *
@@ -250,7 +251,16 @@ public class EmfService implements IEmfService {
 							// we can check if a resource has been modified, so that we only need to save
 							// really changed resources; otherwise we need to save all resources in the set
 							final Resource resource = resourcesArray[i];
-							if (!resource.isTrackingModification() || resource.isModified()) {
+							/*
+							 * Bug 371513 - Added check for isLoaded(): a
+							 * resource that has not yet been loaded (possibly
+							 * after a reload triggered by a change in another
+							 * editor) has no content yet; saving such a
+							 * resource will simply erase _all_ content from the
+							 * resource on the disk (including the diagram). -->
+							 * a not yet loaded resource must not be saved
+							 */
+							if ((!resource.isTrackingModification() || resource.isModified()) && resource.isLoaded()) {
 								try {
 									resource.save(options.get(resource));
 									savedResources.add(resource);
