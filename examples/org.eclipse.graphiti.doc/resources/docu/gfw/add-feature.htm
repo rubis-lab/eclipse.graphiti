@@ -50,7 +50,32 @@ and a text label containing a text value.</p>
 to a corresponding EClass. This relationship is realized through special link objects 
 (pictogram link) holding references to both sides: to the pictograms side and to 
 the business side.</p>
-<h2>Creating an add feature</h2>
+<h2>Coordinate Systems, Locations, Sizes, and Rendering</h2>
+<p>Before we can program our first add feature, we need to know which coordinate 
+system is used by Graphiti for the positions (locations) in the graphics 
+algorithms.</p>
+<p class="Note">Note: Graphiti always uses <strong>relative</strong> <strong>
+<a href="http://en.wikipedia.org/wiki/Cartesian_coordinate_system">Cartesian 
+coordinates</a>. T</strong>hat means, the graphical objects are placed in a 
+coordinate system which defines its origin coordinates &mdash; normally (0,0) &mdash; 
+on the top left. These coordinates are <strong>relative to the parent graphics 
+algorithm</strong>. Every graphics algorithm has a parent, except the graphics 
+algorithm of the diagram. The <strong>location</strong> of a graphics algorithm 
+is defined by (x,y) and the <strong>size</strong> by (width, height).</p>
+<p>When a shape is moved, its location is updated by the default features of the 
+framework, but the children come along without any changes of its locations.</p>
+<p>If a shape is transformed, defaultfeatures and <a href="resize-feature.htm">resize</a> 
+functionality is done by the framework, but a <a href="layout-feature.htm">
+layout feature</a> has to be provided, which recalculates the locations and 
+sizes of the children. Otherwise children would be clipped, when their size 
+exceeds their parent and they are not transformed accordingly. There is <em>
+intentionally</em> no 
+default implementation for this recalulations, because there are different 
+methods to achieve it.</p>
+<p>The <a href="graphiti-introduction.htm#Architecture_and_Basic_Concepts">rendering engine</a> of Graphiti uses 
+utility methods on <span class="inlinecode">IFigure</span> to convert relative coordinates to absolute 
+coordinates, when it calls methods of Draw2d.</p>
+<h2>Creating an Add Feature</h2>
 <p>In this example we want to enable the editor’s users to add EClasses to the diagram. 
 As a result it should be possible to drag an EClass from the tree and drop it on 
 the diagram. Therefore we have to create an add feature and make it available in 
