@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
+ *    cbrand - Bug 370440 - Over scaling of connections and lines after canvas zoom 
  *
  * </copyright>
  *
@@ -181,7 +182,8 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	 *         Graphics.
 	 */
 	protected int getLineWidth(Graphics graphics) {
-		return Math.max(1, (int) (getZoomLevel(graphics) * getLineWidth()));
+		return getLineWidth();
+
 	}
 
 	/**
