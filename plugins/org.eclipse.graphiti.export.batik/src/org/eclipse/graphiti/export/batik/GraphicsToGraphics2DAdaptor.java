@@ -12,6 +12,7 @@
  *    		   GMF's DisplayUtils, does not implement the interface
  *    		   DrawableRenderedImage, since it is not needed.
  *    mwenz - Bug  368146 - RuntimeException during SVG export
+ *    Benjamin Schmeling - mwenz - Bug 369241 - SVG export does not rotate objects
  *    			
  ****************************************************************************/
 package org.eclipse.graphiti.export.batik;
@@ -205,6 +206,19 @@ public class GraphicsToGraphics2DAdaptor extends Graphics {
 	 * y coordinate for graphics translation
 	 */
 	private int transY = 0;
+	
+	/**
+	 * current rotation angle 
+	 */
+	private float angle;
+	/**
+	 * The x coordinate of the rotation point
+	 */
+	private int rotateX;
+	/**
+	 * The y coordinate of the rotation point
+	 */
+	private int rotateY;
 
 	/**
 	 * Constructor
@@ -905,6 +919,10 @@ public class GraphicsToGraphics2DAdaptor extends Graphics {
 	@Override
 	public void pushState() {
 		swtGraphics.pushState();
+		if (angle != 0) {
+			getGraphics2D().rotate(Math.toRadians(360 - angle), rotateX, rotateY);
+			angle = 0;
+		}
 
 		// Make a copy of the current state and push it onto the stack
 		State toPush = new State();
@@ -920,7 +938,7 @@ public class GraphicsToGraphics2DAdaptor extends Graphics {
 	@Override
 	public void restoreState() {
 		swtGraphics.restoreState();
-
+		
 		restoreState(states.peek());
 	}
 
@@ -1525,12 +1543,21 @@ public class GraphicsToGraphics2DAdaptor extends Graphics {
 		 * Method was introduced to fix Bug 368146. With this at place no
 		 * exceptions happens during SVG export (which happened as soon as a
 		 * rotatable object like an ellipse is contained in the diagram), but
-		 * the object is still not rotated in the exported SVG graphics. Seems
-		 * to be a limitation there. TODO: Fix the rotation issue in the SVG
-		 * export (tracked by Bug 369241).
+		 * the object is still not rotated in the exported SVG graphics.
 		 */
 		if (swtGraphics.getAdvanced()) {
 			swtGraphics.rotate(degrees);
 		}
+		/*
+		 * The rotation has to be forwarded to the SVG Graphics object. This
+		 * rotation is stateful, all drawing actions thereafter will be rotated.
+		 * Thus the rotation coordinates have to be remembered and the rotation
+		 * needs to be inverted before the next object is drawn. The inverted
+		 * rotation is hence triggered in pushState(). Fix for Bug 369241
+		 */
+		getGraphics2D().rotate(Math.toRadians(degrees), currentState.translateX, currentState.translateY);
+		this.angle = degrees;
+		this.rotateX = currentState.translateX;
+		this.rotateY = currentState.translateY;
 	}
 }
