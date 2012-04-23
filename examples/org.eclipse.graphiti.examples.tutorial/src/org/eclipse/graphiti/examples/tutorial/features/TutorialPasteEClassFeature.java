@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,14 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 339525 - Enrich paste context with location information
+ *    mwenz - Bug 375533 - Problems with copy&paste in the tutorial
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.examples.tutorial.features;
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IPasteContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
@@ -37,19 +38,22 @@ public class TutorialPasteEClassFeature extends AbstractPasteFeature {
 			return false;
 		}
 
-		// Get from clipboard not working
-		// can paste, if all objects on the clipboard are EClasses
+		// can paste, if clipboard is filled and all objects on the clipboard
+		// are EClasses that can be resolved
 		Object[] fromClipboard = getFromClipboard();
 		if (fromClipboard == null || fromClipboard.length == 0) {
 			return false;
 		}
 		for (Object object : fromClipboard) {
-			if (!(object instanceof EClass)) {
+			if (object instanceof EObject) {
+				if (!isResolvable((EObject) object)) {
+					return false;
+				}
+			} else {
 				return false;
 			}
 		}
 		return true;
-		// return false;
 	}
 
 	public void paste(IPasteContext context) {
