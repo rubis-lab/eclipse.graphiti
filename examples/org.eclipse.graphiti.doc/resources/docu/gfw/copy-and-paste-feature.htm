@@ -262,6 +262,21 @@
 		called often, so try to keep them as lightweight as possible to avoid
 		performance issues.
 	</p>
+	<p class="Note">
+		<b>Note: </b>Tools might need to check if a pasted object can be
+		resolved in the scope of the target Diagram Editor; objects might e.g.
+		not be reolvable in case they were just created inside another editor
+		and were not yet saved to any resource. In case a pasted object cannot
+		be resolved some special handling might be necessary. This could e.g.
+		be that it is not allowed to paste such objects or that the domain
+		object needs to be created together with its representation in the
+		target diagram; in any case this needs to be handled by the domain
+		editor in a suitable way. The graphiti framework offers the method <a
+			href="../../../javadoc/org/eclipse/graphiti/ui/features/AbstractPasteFeature.html#isResolvable(org.eclipse.emf.ecore.EObject)">
+			isResolvable</a> to determine this. An example is shown in the
+		implemented version of the tutorial; it shows how to disable paste in
+		such a case.
+	</p>
 </body>
 
 </html>
