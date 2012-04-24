@@ -31,6 +31,7 @@ public abstract class AbstractCustomFeature extends AbstractFeature implements I
 
 	/**
 	 * Creates a new {@link AbstractCustomFeature}.
+	 * 
 	 * @param fp
 	 *            the feature provider
 	 */
@@ -61,6 +62,8 @@ public abstract class AbstractCustomFeature extends AbstractFeature implements I
 		boolean ret = false;
 		if (context instanceof ICustomContext) {
 			ret = canExecute((ICustomContext) context);
+		} else {
+			T.racer().error(SIGNATURE, new IllegalArgumentException("ICustomContext expected")); //$NON-NLS-1$
 		}
 		if (info) {
 			T.racer().exiting(AbstractCustomFeature.class, SIGNATURE, ret);
@@ -69,14 +72,6 @@ public abstract class AbstractCustomFeature extends AbstractFeature implements I
 	}
 
 	public void execute(IContext context) {
-		if (context instanceof ICustomContext) {
-			execute((ICustomContext) context);
-		}
-	}
-	/**
-	 * @since 0.9
-	 */
-	public void execute(ICustomContext context) {
 		final String SIGNATURE = "execute(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
 		if (info) {
@@ -85,6 +80,8 @@ public abstract class AbstractCustomFeature extends AbstractFeature implements I
 		if (context instanceof ICustomContext) {
 			ICustomContext customContext = (ICustomContext) context;
 			execute(customContext);
+		} else {
+			T.racer().error(SIGNATURE, new IllegalArgumentException("ICustomContext expected")); //$NON-NLS-1$
 		}
 		if (info) {
 			T.racer().exiting(AbstractCustomFeature.class, SIGNATURE);
