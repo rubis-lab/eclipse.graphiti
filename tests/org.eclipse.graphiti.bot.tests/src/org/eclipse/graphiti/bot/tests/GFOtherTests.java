@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@
  *                         called features via editor command stack to check it
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
+ *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
  *
  * </copyright>
  *
@@ -31,6 +32,8 @@ import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -136,8 +139,10 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
 import org.eclipse.ui.IMemento;
 import org.junit.After;
 import org.junit.Test;
@@ -1128,6 +1133,45 @@ public class GFOtherTests extends AbstractGFTests {
 				});
 			}
 		});
+	}
+
+	/*
+	 * Test for Bug 376008 - Iterating through navigation history causes
+	 * exceptions
+	 */
+	@Test
+	public void testOpenEditorWithInvalidUrl() throws Exception {
+		IFile diagFile = createInitialDiagramFile();
+		diagFile.delete(true, new NullProgressMonitor());
+
+		Thread.sleep(500);
+
+		try {
+			final Robot robot = new Robot();
+			robot.setAutoDelay(1);
+			try {
+				robot.keyPress(KeyEvent.VK_ALT);
+				robot.keyPress(KeyEvent.VK_LEFT);
+			} catch (RuntimeException e) {
+				fail(e.getMessage());
+			} finally {
+				robot.keyRelease(KeyEvent.VK_LEFT);
+				robot.keyRelease(KeyEvent.VK_ALT);
+			}
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+		Thread.sleep(500);
+
+		SWTBotEditor swtBotEditor = bot.activeEditor();
+		assertNotNull(swtBotEditor);
+		SWTBotStyledText styledText = swtBotEditor.bot().styledText();
+		assertNotNull(styledText);
+		assertTrue(styledText.getText().startsWith("No Diagram found for URI"));
+
+		// clean up.
+		page.closeAllEditors();
 	}
 
 	private IFile createPersistentDiagram() throws Exception {

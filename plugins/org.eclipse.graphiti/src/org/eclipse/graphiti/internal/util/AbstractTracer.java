@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 340443 - Fixed AbstractTracer must not implement ILog warning
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
+ *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
  *
  * </copyright>
  *
@@ -225,6 +226,12 @@ public abstract class AbstractTracer {
 	public void debug(String msg) {
 		if (debug() && log != null) {
 			log.log(new Status(IStatus.INFO, log.getBundle().getSymbolicName(), "DEBUG: " + msg)); //$NON-NLS-1$
+		}
+	}
+
+	public void debug(String msg, Throwable throwable) {
+		if (debug() && log != null) {
+			log.log(new Status(IStatus.ERROR, log.getBundle().getSymbolicName(), msg, throwable));
 		}
 	}
 
@@ -452,6 +459,12 @@ public abstract class AbstractTracer {
 			if (log != null) {
 				log.log(new Status(IStatus.WARNING, log.getBundle().getSymbolicName(), msg));
 			}
+		}
+	}
+
+	public void warning(String msg, Throwable throwable) {
+		if (log != null) {
+			log.log(new Status(IStatus.WARNING, log.getBundle().getSymbolicName(), msg, throwable));
 		}
 	}
 

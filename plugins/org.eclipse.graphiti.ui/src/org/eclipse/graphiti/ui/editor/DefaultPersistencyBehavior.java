@@ -10,6 +10,7 @@
  * Contributors:
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
+ *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
  *
  * </copyright>
  *
@@ -102,12 +103,23 @@ public class DefaultPersistencyBehavior {
 				// create a new Resource instance for newly created and not yet
 				// saved Resources, no matter if they already exist within the
 				// ResourceSet or not
-				EObject modelElement = editingDomain.getResourceSet().getEObject(uri, false);
-				if (modelElement == null) {
-					modelElement = editingDomain.getResourceSet().getEObject(uri, true);
+				EObject modelElement = null;
+				// Catch exceptions that happen while loading the resource to
+				// avoid spamming the log and showing nasty messages to the user
+				// in the editor, see Bug 376008
+				try {
+					modelElement = editingDomain.getResourceSet().getEObject(uri, false);
 					if (modelElement == null) {
-						return null;
+						modelElement = editingDomain.getResourceSet().getEObject(uri, true);
+						if (modelElement == null) {
+							return null;
+						}
 					}
+				} catch (WrappedException e) {
+					// Log only if debug tracing is active to avoid user
+					// confusion (message is shown in the editor anyhow)
+					T.racer().debug("Diagram with URI '" + uri.toString() + "' could not be loaded", e); //$NON-NLS-1$ //$NON-NLS-2$
+					return null;
 				}
 				modelElement.eResource().setTrackingModification(true);
 				return (Diagram) modelElement;

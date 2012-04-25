@@ -25,6 +25,7 @@
  *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *    mwenz - Bug 324556 - Prevent invisible shapes to be selected to avoid IllegalArgumentException
  *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
+ *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
  *
  * </copyright>
  *
@@ -136,8 +137,15 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -234,6 +242,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	private Point mouseLocation;
 
 	private boolean directEditingActive = false;
+
+	private String editorInitializationError = null;
 
 	/**
 	 * Creates a new diagram editor and cares about the creation of the
@@ -426,13 +436,19 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 		getUpdateBehavior().createEditingDomain();
 
-		try {
-			// In next line GEF calls setSite(), setInput(),
-			// getEditingDomain(), ...
-			super.init(site, input);
-		} catch (RuntimeException e) {
-			throw new PartInitException("Can not initialize editor", e); //$NON-NLS-1$
+		// The GEF GraphicalEditor init(...) functionality, adapted to provide a
+		// nice error message to the user in case of an error when opening an
+		// editor with e.g. an invalid diagram, see Bug 376008
+		setSite(site);
+		setInput(input);
+		if (editorInitializationError != null) {
+			// In case of error simply show an primitive editor with a label
+			return;
 		}
+		getCommandStack().addCommandStackListener(this);
+		getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(this);
+		initializeActionRegistry();
+		// ... End of GEF functionality taken over
 
 		getUpdateBehavior().init();
 
@@ -489,9 +505,11 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
-		// determine filename
-		Assert.isNotNull(input, "The IEditorInput must not be null"); //$NON-NLS-1$
 
+		// Check the input
+		if (input == null) {
+			throw new IllegalArgumentException("The IEditorInput must not be null"); //$NON-NLS-1$
+		}
 		if (!(input instanceof IDiagramEditorInput)) {
 			throw new IllegalArgumentException("The IEditorInput has the wrong type: " + input.getClass()); //$NON-NLS-1$
 		}
@@ -500,24 +518,31 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		Diagram diagram = persistencyBehavior.loadDiagram(diagramEditorInput.getUri());
 
 		// can happen if editor is started with invalid URI
-		Assert.isNotNull(diagram, "No Diagram found for URI '" //$NON-NLS-1$
-				+ "'. . See the error log for details."); //$NON-NLS-1$
+		if (diagram == null) {
+			editorInitializationError = "No Diagram found for URI '" + diagramEditorInput.getUri().toString(); //$NON-NLS-1$
+			return;
+		}
 
 		String providerId = diagramEditorInput.getProviderId();
-		// if provider is null then take the first installed provider for
+		// If provider is null then take the first installed provider for
 		// this diagram type
 		if (providerId == null) {
 			providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
 			diagramEditorInput.setProviderId(providerId);
 		}
 
-		Assert.isNotNull(providerId, "DiagramEditorInput does not convey a Provider ID '" + diagramEditorInput //$NON-NLS-1$
-				+ "'. . See the error log for details."); //$NON-NLS-1$
+		if (providerId == null) {
+			editorInitializationError = "DiagramEditorInput does not convey a Provider ID '" + diagramEditorInput; //$NON-NLS-1$
+			return;
+		}
 
-		// get according diagram-type-provider
+		// Get according diagram-type-provider
 		IDiagramTypeProvider diagramTypeProvider = GraphitiUi.getExtensionManager().createDiagramTypeProvider(
 				providerId);
-		Assert.isNotNull(diagramTypeProvider, "could not find diagram type provider for " + diagram.getDiagramTypeId()); //$NON-NLS-1$
+		if (diagramTypeProvider == null) {
+			editorInitializationError = "Could not find diagram type provider for " + diagram.getDiagramTypeId(); //$NON-NLS-1$
+			return;
+		}
 
 		diagramTypeProvider.init(diagram, this);
 		IConfigurationProvider configurationProvider = new ConfigurationProvider(this, diagramTypeProvider);
@@ -609,6 +634,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * dirty state of the editor.
 	 */
 	public void createPartControl(Composite parent) {
+		if (editorInitializationError != null) {
+			createErrorPartControl(parent);
+			return;
+		}
 		super.createPartControl(parent);
 		getDiagramTypeProvider().postInit();
 		gefCommandStackListener = new CommandStackEventListener() {
@@ -627,6 +656,59 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			}
 		};
 		getEditDomain().getCommandStack().addCommandStackEventListener(gefCommandStackListener);
+	}
+
+	private void createErrorPartControl(Composite parent) {
+		Display display = parent.getDisplay();
+
+		// Define colors as desired, in high contrast mode use system defaults
+		Color backgroundColor;
+		final Color foregroundColor;
+		final Color separatorColor;
+		if (display.getHighContrast()) {
+			backgroundColor = display.getSystemColor(SWT.COLOR_WIDGET_BACKGROUND);
+			foregroundColor = display.getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
+			separatorColor = foregroundColor;
+		} else {
+			backgroundColor = display.getSystemColor(SWT.COLOR_WHITE);
+			foregroundColor = display.getSystemColor(SWT.COLOR_DARK_BLUE);
+			separatorColor = new Color(display, 152, 170, 203);
+		}
+
+		ScrolledComposite scrolledComposite = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
+		scrolledComposite.setAlwaysShowScrollBars(false);
+		scrolledComposite.setExpandHorizontal(true);
+		scrolledComposite.setExpandVertical(true);
+		scrolledComposite.addDisposeListener(new DisposeListener() {
+			public void widgetDisposed(DisposeEvent e) {
+				if (separatorColor != foregroundColor) {
+					// Dispose the color only if it was created as additional
+					// color
+					separatorColor.dispose();
+				}
+			}
+		});
+
+		Composite composite = new Composite(scrolledComposite, SWT.NONE);
+		composite.setBackground(backgroundColor);
+		composite.setLayout(new GridLayout());
+
+		Composite separator = new Composite(composite, SWT.NO_FOCUS);
+		separator.setBackground(separatorColor);
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
+		data.heightHint = 2;
+		data.verticalIndent = 50;
+		separator.setLayoutData(data);
+
+		StyledText widget = new StyledText(composite, SWT.READ_ONLY | SWT.MULTI);
+		widget.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		widget.setText(editorInitializationError);
+		widget.setBackground(backgroundColor);
+		widget.setForeground(foregroundColor);
+		widget.setCaret(null);
+
+		scrolledComposite.setContent(composite);
+		scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 	}
 
 	/**
@@ -825,6 +907,11 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @return the {@link PaletteViewerProvider} to use
 	 */
 	protected final PaletteViewerProvider createPaletteViewerProvider() {
+		if (editorInitializationError != null) {
+			// Editor input is erroneous, show error page instead of diagram and
+			// do not initialize the palette to avoid exceptions
+			return null;
+		}
 		return paletteBehaviour.createPaletteViewerProvider();
 	}
 
@@ -1073,7 +1160,14 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			return null; // not yet initialized
 		}
 		if (type == Diagram.class) {
-			return getDiagramTypeProvider().getDiagram();
+			IDiagramTypeProvider diagramTypeProvider = getDiagramTypeProvider();
+			if (diagramTypeProvider != null) {
+				return diagramTypeProvider.getDiagram();
+			} else {
+				// Avoid exception in case an error during editor initialization
+				// happened
+				return null;
+			}
 		}
 		if (type == KeyHandler.class) {
 			return getCommonKeyHandler();
@@ -1120,10 +1214,14 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		DefaultUpdateBehavior behavior = getUpdateBehavior();
 		behavior.dispose();
 		RuntimeException exc = null;
-		try {
-			super.dispose();
-		} catch (RuntimeException e) {
-			exc = e;
+		if (getEditDomain() != null) {
+			// Avoid exception in case an error during editor initialization
+			// happened
+			try {
+				super.dispose();
+			} catch (RuntimeException e) {
+				exc = e;
+			}
 		}
 
 		markerBehavior.dispose();
