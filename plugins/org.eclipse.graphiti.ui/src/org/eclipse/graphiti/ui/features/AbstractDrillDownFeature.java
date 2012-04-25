@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *                          for opening diagram of other type
  *    Ali Akar, mwenz - Bug 340842 - Opening a user contributed editor
  *    Bug 336488 - DiagramEditor API
+ *    cbrand - Bug 377475 - Fix AbstractCustomFeature.execute and canExecute
  *
  * </copyright>
  *
@@ -63,7 +64,6 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 		return NAME;
 	}
 
-	@Override
 	public void execute(ICustomContext context) {
 		final PictogramElement pe = context.getPictogramElements()[0];
 		final Collection<Diagram> possibleDiagramsList = getLinkedDiagrams(pe);

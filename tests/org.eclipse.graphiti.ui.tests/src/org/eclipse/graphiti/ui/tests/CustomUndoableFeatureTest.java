@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    mwenz - Bug 324859 - initial API, implementation and documentation
+ *    cbrand - Bug 377475 - Fix AbstractCustomFeature.execute and canExecute
  *
  * </copyright>
  *
@@ -112,7 +113,6 @@ public class CustomUndoableFeatureTest extends GFAbstractTestCase {
 			return true;
 		}
 
-		@Override
 		public void execute(ICustomContext context) {
 			// Do nothing
 			this.context = context;
