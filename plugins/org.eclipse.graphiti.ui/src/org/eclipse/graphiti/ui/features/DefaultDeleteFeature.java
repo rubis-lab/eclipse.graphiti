@@ -51,6 +51,7 @@ import org.eclipse.ui.PlatformUI;
 public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeature {
 
 	private static final String NAME = Messages.DefaultDeleteFeature_1_xfld;
+	private static final String DESC = org.eclipse.graphiti.internal.Messages.ContextEntryHelper_5_xfld;
 
 	private boolean doneChanges = false;
 
@@ -111,7 +112,6 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 				}
 			}
 		}
-
 
 		preDelete(context);
 		if (pe instanceof CompositeConnection) {
@@ -232,6 +232,11 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 	@Override
 	public String getName() {
 		return NAME;
+	}
+
+	@Override
+	public String getDescription() {
+		return DESC;
 	}
 
 	/*

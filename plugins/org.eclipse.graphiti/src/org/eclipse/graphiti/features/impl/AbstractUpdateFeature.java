@@ -36,6 +36,9 @@ import org.eclipse.graphiti.services.Graphiti;
  */
 public abstract class AbstractUpdateFeature extends AbstractFeature implements IUpdateFeature {
 
+	private static final String NAME = Messages.AbstractUpdateFeature_2_xfld;
+	private static final String DESC = Messages.ContextEntryHelper_1_xfld;
+
 	/**
 	 * Create a new {@link AbstractUpdateFeature}.
 	 * 
@@ -130,5 +133,8 @@ public abstract class AbstractUpdateFeature extends AbstractFeature implements I
 		return NAME;
 	}
 
-	private static final String NAME = Messages.AbstractUpdateFeature_2_xfld;
+	@Override
+	public String getDescription() {
+		return DESC;
+	}
 }

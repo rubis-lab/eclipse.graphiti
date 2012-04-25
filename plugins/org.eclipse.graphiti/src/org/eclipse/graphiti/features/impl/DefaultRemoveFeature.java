@@ -42,6 +42,9 @@ import org.eclipse.graphiti.services.Graphiti;
  */
 public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeature {
 
+	private static final String NAME = Messages.DefaultRemoveFeature_0_xfld;
+	private static final String DESC = Messages.ContextEntryHelper_3_xfld;
+
 	/**
 	 * Creates a new {@link DefaultRemoveFeature}.
 	 * 
@@ -148,5 +151,8 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 		return NAME;
 	}
 
-	private static final String NAME = Messages.DefaultRemoveFeature_0_xfld;
+	@Override
+	public String getDescription() {
+		return DESC;
+	}
 }

@@ -46,7 +46,8 @@ public class ContextEntryHelper {
 	 *            the pictogram element
 	 * @return the created default update context button entry
 	 */
-	public static IContextButtonEntry createDefaultUpdateContextButton(IFeatureProvider featureProvider, PictogramElement pe) {
+	public static IContextButtonEntry createDefaultUpdateContextButton(IFeatureProvider featureProvider,
+			PictogramElement pe) {
 		final IUpdateContext updateContext = new UpdateContext(pe);
 		final IUpdateFeature updateFeature = featureProvider.getUpdateFeature(updateContext);
 		IContextButtonEntry ret = null;
@@ -71,7 +72,8 @@ public class ContextEntryHelper {
 	 *            the pictogram element
 	 * @return the created default remove context button entry
 	 */
-	public static IContextButtonEntry createDefaultRemoveContextButton(IFeatureProvider featureProvider, PictogramElement pe) {
+	public static IContextButtonEntry createDefaultRemoveContextButton(IFeatureProvider featureProvider,
+			PictogramElement pe) {
 		IRemoveContext removeContext = new RemoveContext(pe);
 		IRemoveFeature removeFeature = featureProvider.getRemoveFeature(removeContext);
 		IContextButtonEntry ret = null;
@@ -91,7 +93,8 @@ public class ContextEntryHelper {
 	 *            the pictogram element
 	 * @return the created default delete context button entry
 	 */
-	public static IContextButtonEntry createDefaultDeleteContextButton(IFeatureProvider featureProvider, PictogramElement pe) {
+	public static IContextButtonEntry createDefaultDeleteContextButton(IFeatureProvider featureProvider,
+			PictogramElement pe) {
 		IDeleteContext deleteContext = new DeleteContext(pe);
 		IDeleteFeature deleteFeature = featureProvider.getDeleteFeature(deleteContext);
 		IContextButtonEntry ret = null;
@@ -115,7 +118,8 @@ public class ContextEntryHelper {
 	 *            the custom context
 	 * @return the created collapse button
 	 */
-	public static IContextButtonEntry createCollapseContextButton(boolean collapse, IFeature customFeature, IContext customContext) {
+	public static IContextButtonEntry createCollapseContextButton(boolean collapse, IFeature customFeature,
+			IContext customContext) {
 		IContextButtonEntry ret = null;
 		ret = new ContextButtonEntry(customFeature, customContext);
 		if (collapse) {
@@ -138,8 +142,7 @@ public class ContextEntryHelper {
 	 */
 	public static void markAsUpdateContextEntry(IContextEntry entry) {
 		if (entry != null) {
-			entry.setText(Messages.ContextEntryHelper_0_xfld);
-			entry.setDescription(Messages.ContextEntryHelper_1_xfld);
+			setTextAndDescription(entry, Messages.ContextEntryHelper_0_xfld, Messages.ContextEntryHelper_1_xfld);
 			entry.setIconId(IPlatformImageConstants.IMG_EDIT_REFRESH);
 		}
 	}
@@ -152,8 +155,7 @@ public class ContextEntryHelper {
 	 */
 	public static void markAsRemoveContextEntry(IContextEntry entry) {
 		if (entry != null) {
-			entry.setText(Messages.ContextEntryHelper_2_xfld);
-			entry.setDescription(Messages.ContextEntryHelper_3_xfld);
+			setTextAndDescription(entry, Messages.ContextEntryHelper_2_xfld, Messages.ContextEntryHelper_3_xfld);
 			entry.setIconId(IPlatformImageConstants.IMG_EDIT_REMOVE);
 		}
 	}
@@ -166,8 +168,7 @@ public class ContextEntryHelper {
 	 */
 	public static void markAsDeleteContextEntry(IContextEntry entry) {
 		if (entry != null) {
-			entry.setText(Messages.ContextEntryHelper_4_xfld);
-			entry.setDescription(Messages.ContextEntryHelper_5_xfld);
+			setTextAndDescription(entry, Messages.ContextEntryHelper_4_xfld, Messages.ContextEntryHelper_5_xfld);
 			entry.setIconId(IPlatformImageConstants.IMG_EDIT_DELETE);
 		}
 	}
@@ -194,5 +195,21 @@ public class ContextEntryHelper {
 				entry.setIconId(IPlatformImageConstants.IMG_EDIT_EXPAND);
 			}
 		}
+	}
+
+	private static void setTextAndDescription(IContextEntry entry, String defaultText, String defaultDescription) {
+		String entryText = defaultText;
+		String entryDescription = defaultDescription;
+		IFeature f = entry.getFeature();
+		if (f != null) {
+			if (f.getName() != null) {
+				entryText = f.getName();
+			}
+			if (f.getDescription() != null) {
+				entryDescription = f.getDescription();
+			}
+		}
+		entry.setText(entryText);
+		entry.setDescription(entryDescription);
 	}
 }
