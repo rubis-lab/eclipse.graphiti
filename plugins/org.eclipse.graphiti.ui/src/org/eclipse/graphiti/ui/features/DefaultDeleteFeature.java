@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 347421 - Make setDoneChanges accessible to sub classes
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
+ *    mgorning - Bug 376572 - Generic context buttons name changeable via getName() method
  *
  * </copyright>
  *
