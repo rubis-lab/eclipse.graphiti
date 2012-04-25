@@ -72,7 +72,7 @@ public abstract class AbstractCustomFeature extends AbstractFeature implements I
 		return ret;
 	}
 
-	public void execute(IContext context) {
+	public final void execute(IContext context) {
 		final String SIGNATURE = "execute(IContext)"; //$NON-NLS-1$
 		boolean info = T.racer().info();
 		if (info) {
