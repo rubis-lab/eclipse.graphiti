@@ -168,7 +168,8 @@ public abstract class GFAbstractRotatableDecoration extends GFAbstractShape impl
 		// This is a rough value, which is bigger than the smallest bounds would
 		// be.
 		int maxExtension = Math.max(getInitialBounds().width, getInitialBounds().height) + 10;
-		bounds = new Rectangle(touchPointDelta.x - maxExtension, touchPointDelta.y - maxExtension, 2 * maxExtension, 2 * maxExtension);
+		bounds = new Rectangle(touchPointDelta.x - maxExtension, touchPointDelta.y - maxExtension, 3 * maxExtension,
+				3 * maxExtension);
 	}
 
 	// ============================ overwritten methods =======================
