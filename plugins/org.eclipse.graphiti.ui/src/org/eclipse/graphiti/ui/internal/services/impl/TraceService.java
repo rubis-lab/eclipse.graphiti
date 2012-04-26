@@ -20,6 +20,8 @@ import java.io.StringWriter;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.draw2d.ConnectionLayer;
+import org.eclipse.draw2d.FreeformLayeredPane;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.emf.ecore.EObject;
@@ -39,6 +41,7 @@ import org.eclipse.graphiti.ui.internal.services.ITraceService;
  */
 public class TraceService implements ITraceService {
 
+	private static final boolean CONNECTION_FIGURE_TREE = true;
 	private final boolean FULL_QUALIFIED = false;
 	private final boolean ADD_OBJECT_INFO = false;
 	private final boolean ADD_STYLE_INFO = false;
@@ -57,6 +60,10 @@ public class TraceService implements ITraceService {
 	}
 
 	public void dumpFigureTree(IFigure figure, int indent) {
+		dumpFigureTree(figure, indent, CONNECTION_FIGURE_TREE);
+	}
+
+	public void dumpFigureTree(IFigure figure, int indent, boolean dumpConnectionFigureTree) {
 		String indentString = createIndentString(indent);
 
 		String additional = ""; //$NON-NLS-1$
@@ -81,8 +88,38 @@ public class TraceService implements ITraceService {
 		@SuppressWarnings("unchecked")
 		List<IFigure> children = figure.getChildren();
 		for (IFigure childFigure : children) {
-			dumpFigureTree(childFigure, indent + 2);
+			dumpFigureTree(childFigure, indent + 2, false);
 		}
+
+		if (dumpConnectionFigureTree) {
+			dumpConnectionFigureTree(figure);
+		}
+	}
+
+	private void dumpConnectionFigureTree(IFigure figure) {
+		System.out.println("\nConnection Figure Tree"); //$NON-NLS-1$
+		FreeformLayeredPane fflp = findFreeformLayerdPane(figure);
+		List fflpChildren = fflp.getChildren();
+		ConnectionLayer connectionLayer = null;
+		for (Object o : fflpChildren) {
+			if (o instanceof ConnectionLayer) {
+				connectionLayer = (ConnectionLayer) o;
+			}
+		}
+		if (connectionLayer != null) {
+			dumpFigureTree(fflp, 0, false);
+		}
+	}
+
+	private FreeformLayeredPane findFreeformLayerdPane(IFigure figure) {
+		IFigure parentFigure = figure.getParent();
+		if (parentFigure instanceof FreeformLayeredPane) {
+			return (FreeformLayeredPane) parentFigure;
+		}
+		if (parentFigure != null) {
+			return findFreeformLayerdPane(parentFigure);
+		}
+		return null;
 	}
 
 	public void dumpEditPartTree(EditPart editPart) {
