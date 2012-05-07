@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * <copyright>
+ *
+ * Copyright (c) 2005, 2012 SAP AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 378342 - Cannot store more than a diagram per file
+ *
+ * </copyright>
+ *
+ *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
 import org.eclipse.core.resources.IFile;
@@ -22,12 +38,10 @@ public final class DiagramEditorMatchingStrategy implements IEditorMatchingStrat
 
 	public boolean matches(IEditorReference editorRef, IEditorInput input) {
 		try {
-			IFile file = ReflectionUtil.getFile(input);
-			if (file != null) {
-				// check whether the given input comes with a file which is already opened in the diagram editor.
-				final IEditorInput editorInputOfOpenEditor = editorRef.getEditorInput();
-				IFile fileOpenedInDiagramEditor = ReflectionUtil.getFile(editorInputOfOpenEditor);
-				if (file.equals(fileOpenedInDiagramEditor)){
+			if (input instanceof DiagramEditorInput) {
+				// normal case: check for input equality
+				final IEditorInput editorInput = editorRef.getEditorInput();
+				if (input.equals(editorInput)) {
 					return true;
 				}
 			} else if (input instanceof URIEditorInput) {
@@ -55,11 +69,16 @@ public final class DiagramEditorMatchingStrategy implements IEditorMatchingStrat
 						}
 					}
 				}
-			} else if (input instanceof DiagramEditorInput) {
-				// normal case: check for input equality
-				final IEditorInput editorInput = editorRef.getEditorInput();
-				if (input.equals(editorInput)) {
-					return true;
+			} else {
+				IFile file = ReflectionUtil.getFile(input);
+				if (file != null) {
+					// check whether the given input comes with a file which is
+					// already opened in the diagram editor.
+					final IEditorInput editorInputOfOpenEditor = editorRef.getEditorInput();
+					IFile fileOpenedInDiagramEditor = ReflectionUtil.getFile(editorInputOfOpenEditor);
+					if (file.equals(fileOpenedInDiagramEditor)) {
+						return true;
+					}
 				}
 			}
 		} catch (final PartInitException e) {

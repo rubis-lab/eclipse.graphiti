@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 346932 - Navigation history broken
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 378342 - Cannot store more than a diagram per file
  *
  * </copyright>
  *
@@ -83,34 +84,49 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 
 	/**
 	 * Creates a new {@link DiagramEditorInput} out of a {@link URI} string and
-	 * a transactional editing domain. For resolving the {@link URI} to an
-	 * {@link EObject} its {@link ResourceSet} is used. <br>
-	 * A diagram type provider ID is hold in this class.
+	 * a Graphiti diagram type provider ID. For resolving the {@link URI} to an
+	 * {@link EObject} the {@link ResourceSet} that will be created when a
+	 * diagram editor starts is taken. This input object will not resolve the
+	 * diagram.<br>
+	 * A diagram type provider ID is held in this class.
 	 * 
 	 * @param diagramUri
-	 *            A {@link URI} that denotes the input's {@link EObject}
+	 *            A {@link URI} that denotes the input's {@link EObject}. This
+	 *            can either be a URI of a Graphiti diagram or the URI of an EMF
+	 *            resource storing a Graphiti diagram. In the latter case the
+	 *            given URI will b e trimmed to point to the first element in
+	 *            the resource; make sure that this lemenet is a Graphiti
+	 *            diagram, otherwise an exception will be thrown when the
+	 *            diagram editor opens. No check on this is done inside the
+	 *            input object itself!
 	 * @param providerId
 	 *            A {@link String} which holds the diagram type id. When it is
-	 *            null, it is set later in {@link DiagramEditor}
+	 *            null, it is set later in
+	 *            {@link DiagramEditor#setInput(IEditorInput)}
 	 * @throws IllegalArgumentException
 	 *             if <code>uriString</code> parameter is null <br>
-	 *             if the command stack of the passed <code>domain</code> is no
-	 *             <code>IWorkspaceCommandStack</code>
+	 * 
 	 * @see URI
 	 * @since 0.9
 	 */
 	public DiagramEditorInput(URI diagramUri, String providerId) {
 
 		Assert.isNotNull(diagramUri, "diagram must not be null"); //$NON-NLS-1$
-		// normalize uri
+		// Normalize URI for later compare operations
 		this.uri = normalizeUriString(diagramUri);
 		setProviderId(providerId);
 	}
 
 	private URI normalizeUriString(URI diagramUri) {
 		URI normalizedURI = new ResourceSetImpl().getURIConverter().normalize(diagramUri);
-		URI trimFragment = normalizedURI.trimFragment();
-		normalizedURI = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(trimFragment);
+		// Do the trimming only in case no explicit fragment (no specific
+		// diagram inside the resource) was provided. In case a fragment was
+		// provided, use it, otherwise simply take the first element in the
+		// resource (#0)
+		if (!normalizedURI.hasFragment()) {
+			URI trimFragment = normalizedURI.trimFragment();
+			normalizedURI = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(trimFragment);
+		}
 		return normalizedURI;
 	}
 

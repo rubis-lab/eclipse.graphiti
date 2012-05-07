@@ -12,6 +12,7 @@
  *    mwenz - Bug 356828 - Escaped diagram name is used as editor title
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Felix Velasco - Bug 374918 - Let default paste use LocalSelectionTransfer
+ *    mwenz - Bug 378342 - Cannot store more than a diagram per file
  *
  * </copyright>
  *
@@ -327,6 +328,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 
 	@Override
 	protected void tearDown() throws Exception {
+		page.closeAllEditors();
 		if (this.project != null) {
 			this.project.close(null);
 			this.project.delete(true, null);
@@ -334,7 +336,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		super.tearDown();
 	}
 
-	private String createDiagramFileName(String extension) {
+	protected String createDiagramFileName(String extension) {
 
 		List<String> currentDiagramNames = new ArrayList<String>();
 
@@ -371,7 +373,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return diagramName;
 	}
 
-	private URI createDiagramFileUri(String diagramName) {
+	protected URI createDiagramFileUri(String diagramName) {
 		URI uri = null;
 		IFolder folder = getProject().getFolder(DIAGRAMS_FOLDER);
 		IFile file = folder.getFile(diagramName);

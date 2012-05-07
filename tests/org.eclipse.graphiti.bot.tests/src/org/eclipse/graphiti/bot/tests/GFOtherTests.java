@@ -18,6 +18,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
+ *    mwenz - Bug 378342 - Cannot store more than a diagram per file
  *
  * </copyright>
  *
@@ -36,9 +37,11 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -69,6 +72,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
@@ -144,6 +148,8 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
 import org.eclipse.ui.IMemento;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.junit.After;
 import org.junit.Test;
 
@@ -1172,6 +1178,93 @@ public class GFOtherTests extends AbstractGFTests {
 
 		// clean up.
 		page.closeAllEditors();
+	}
+
+	/*
+	 * Test for Bug 378342 - Cannot store more than a diagram per file
+	 */
+	@Test
+	public void testOpenDiagramWithTwoDiagramsInResource() throws Exception {
+		String fileName = createDiagramFileName("xmi");
+		URI diagramUri = createDiagramFileUri(fileName);
+		// Create a resource set and EditingDomain
+		final TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService()
+				.createResourceSetAndEditingDomain();
+		final ResourceSet resourceSet = editingDomain.getResourceSet();
+		// Create a resource for this file.
+		final Resource resource = resourceSet.createResource(diagramUri);
+		final org.eclipse.emf.common.command.CommandStack commandStack = editingDomain.getCommandStack();
+
+		// Create 2 diagrams
+		final Diagram diagram1 = createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH, "diagram", "Diagram1");
+		final Diagram diagram2 = getPeService().createDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH, "Diagram2", true);
+
+		commandStack.execute(new RecordingCommand(editingDomain) {
+
+			@Override
+			protected void doExecute() {
+				resource.setTrackingModification(true);
+				resource.getContents().add(diagram1);
+				resource.getContents().add(diagram2);
+			}
+		});
+
+		// Save and dispose
+		resource.save(Collections.<Resource, Map<?, ?>> emptyMap());
+		final URI resourceUri = resource.getURI();
+		final URI diagramUri1 = EcoreUtil.getURI(diagram1);
+		final URI diagramUri2 = EcoreUtil.getURI(diagram2);
+		editingDomain.dispose();
+
+		syncExec(new VoidResult() {
+			public void run() {
+				try {
+
+					// Open editor for diagram 1
+					{
+						DiagramEditorInput input1 = new DiagramEditorInput(diagramUri1,
+								"org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider");
+						DiagramEditor editor1;
+						editor1 = (DiagramEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+								.openEditor(input1, DiagramEditor.DIAGRAM_EDITOR_ID);
+						assertEquals("Diagram1", editor1.getDiagramTypeProvider().getDiagram().getName());
+					}
+
+					// Open editor for diagram 2
+					{
+						DiagramEditorInput input2 = new DiagramEditorInput(diagramUri2,
+								"org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider");
+						DiagramEditor editor2 = (DiagramEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+								.getActivePage().openEditor(input2, DiagramEditor.DIAGRAM_EDITOR_ID);
+						assertEquals("Diagram2", editor2.getDiagramTypeProvider().getDiagram().getName());
+					}
+
+					page.closeAllEditors();
+
+					DiagramEditor editor3;
+					{
+						// Open editor for default diagram in file
+						DiagramEditorInput input3 = new DiagramEditorInput(resourceUri,
+								"org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider");
+						editor3 = (DiagramEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+								.openEditor(input3, DiagramEditor.DIAGRAM_EDITOR_ID);
+						assertEquals("Diagram1", editor3.getDiagramTypeProvider().getDiagram().getName());
+					}
+
+					// Again open editor for diagram 1 (editor 3 must be reused)
+					{
+						DiagramEditorInput input4 = new DiagramEditorInput(diagramUri1,
+								"org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider");
+						DiagramEditor editor4 = (DiagramEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+								.getActivePage().openEditor(input4, DiagramEditor.DIAGRAM_EDITOR_ID);
+						assertEquals("Diagram1", editor4.getDiagramTypeProvider().getDiagram().getName());
+						assertEquals(editor3, editor4);
+					}
+				} catch (PartInitException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
 	}
 
 	private IFile createPersistentDiagram() throws Exception {
