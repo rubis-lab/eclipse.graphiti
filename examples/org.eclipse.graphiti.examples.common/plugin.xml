@@ -79,6 +79,24 @@
          </enablement>
       </commonWizard>
    </extension>
+	
+   <extension
+       point="org.eclipse.ui.navigator.linkHelper">
+    <linkHelper
+          class="org.eclipse.graphiti.examples.common.navigator.EditorLinkHelper"
+          id="org.eclipse.graphiti.examples.navigatorContent">
+       <editorInputEnablement>
+          <instanceof
+                value="org.eclipse.graphiti.ui.editor.DiagramEditorInput">
+          </instanceof>
+       </editorInputEnablement>
+       <selectionEnablement>
+          <instanceof
+                value="org.eclipse.core.resources.IFile">
+          </instanceof>
+       </selectionEnablement>
+    </linkHelper>
+   </extension>
 
 	<extension
 		point = "org.eclipse.ui.newWizards">
