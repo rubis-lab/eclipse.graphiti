@@ -15,7 +15,6 @@
         <cs:dependency name="org.eclipse.swtbot.eclipse.gef" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.swtbot.eclipse.test.junit4" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.swtbot.ide" componentType="eclipse.feature"/>
-        <cs:dependency name="org.eclipse.core.runtime.compatibility.registry" componentType="osgi.bundle"/>
     </cs:dependencies>
     <cs:actions>
         <cs:public name="copy.sites" actor="ant">
@@ -24,8 +23,8 @@
                 <cs:property key="targets" value="copy.sites"/>
             </cs:actorProperties>
             <cs:properties>
-                <cs:property key="build_id" value="${build.id}"/>
                 <cs:property key="root" value="${WORKSPACE}"/>
+                <cs:property key="build_id" value="${build.id}"/>
             </cs:properties>
             <cs:products alias="action.output" base="${WORKSPACE}/last_success/"/>
         </cs:public>
