@@ -44,6 +44,199 @@ table.news tr td.content {
 		width="600">
 		<tr>
 			<td colspan="2">
+				<h2>M7</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on</td>
+		</tr>
+		<tr id="bug 375497">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=375497">Plug-in
+					Project Creation Wizard</a></td>
+			<td class="content">Graphiti now provides a wizard that helps
+				starting a new editor project. It's hooked into the Eclipse create
+				new Plug-in Project Wizard and allows to create the relevant
+				extensions to the Graphiti extension points and generates a basic
+				version of a feature set to create, add and layout a new shape type
+				and connections between these shapes.<br> <img
+				src="NaNimages/PluginWizard.png" width="400px">
+			</td>
+		</tr>
+		<tr id="bug 363186">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=363186">Modification
+					of Selection and Hover State for Anchors</a></td>
+			<td class="content">Graphiti now allows clients to change the
+				way anchors are shown when they are selected or hovered over. Until
+				now this was possible only for shapes and connections.</td>
+		</tr>
+		<tr id="bug 376572">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=376572">Modification
+					of the Name of the Generic Context Buttons</a></td>
+			<td class="content">Graphiti now allows to clients to change the
+				name and description of the generic context buttons (delete, remove,
+				update) by simply overriding the getName() and get Description()
+				methods in their features.</td>
+		</tr>
+		<tr id="bug 372753">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=372753">Undo/Redo
+					is now Possible after Saving</a></td>
+			<td class="content">The Graphiti Diagram Editor now allows users
+				to trigger undo/redo even after the editor has been saved. Until now
+				the undo/redo stack was cleared while saving the editor, blocking
+				undo after that operation. Now all editors can be undone or redone
+				without hitting that block.</td>
+		</tr>
+		<tr id="bug 361736">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=361736">Documentation
+					of Graphic Algorithm Properties</a></td>
+			<td class="content">A section in the Graphiti documentation in
+				Graphic Algorithm properties has been introduced. It answers some
+				questions that were aften asked on the effect of these properties.</td>
+		</tr>
+		<tr id="bug 375533">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=375533">Bug
+					375533 </a></td>
+			<td class="content">A bug in the copy and paste implementation
+				of the tutorial causing an update issue has been fixed.</td>
+		</tr>
+		<tr id="bug 361414">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=361414">Bug
+					361414 </a></td>
+			<td class="content">A bug in the copy and paste framework
+				functionality that enabled pasting at too many locations has been
+				fixed. Allowing to paste at some of these locations confused users.</td>
+		</tr>
+		<tr id="bug 374744">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=374744">Bug
+					374744 </a></td>
+			<td class="content">A bug in the usage of the local transfer
+				object in the copy and paste framework functionality has been fixed.</td>
+		</tr>
+		<tr id="bug 374918">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=374918">Bug
+					374918 </a></td>
+			<td class="content">A standard copy and paste functionality of
+				the Graphiti framework is now based on the usage of the local
+				transfer object and does not use additional transfer objects.</td>
+		</tr>
+		<tr id="bug 374701">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=374701">Bug
+					374701</a></td>
+			<td class="content">A bug in the location calculation of the
+				paste context has been fixed. When a diagram was scrolled or zoomed
+				a wrong location was set to the paste context.</td>
+		</tr>
+		<tr id="bug 378083">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=378083">Bug
+					378083</a></td>
+			<td class="content">The Diagram Editor did not get the focus
+				after a drop operation took place into a diagram.</td>
+		</tr>
+		<tr id="bug 368124">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=368124">Bug
+					368124</a></td>
+			<td class="content">A bug in the calculation of the position of
+				text decorators for connections has been fixed.</td>
+		</tr>
+		<tr id="bug 370440">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=370440">Bug
+					370440</a></td>
+			<td class="content">A bug in the rendering engine that caused
+				lines to be visualized thicker than they should be has been fixed.</td>
+		</tr>
+		<tr id="bug 374190">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=374190">Bug
+					374190</a></td>
+			<td class="content">A bug in the rendering engine, causing a
+				rotated text to disappear, has been fixed.</td>
+		</tr>
+		<tr id="bug 376008">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=376008">Bug
+					376008</a></td>
+			<td class="content">A bug in the Diagram Editor has been fixed
+				that caused NullPointerExceptions while browsing through the list of
+				recently opened editors.</td>
+		</tr>
+		<tr id="bug 371513">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=371513">Bug
+					371513</a></td>
+			<td class="content">A bug in the Diagram Editor causing a
+				NullPointerException in a special situation has been fixed.</td>
+		</tr>
+		<tr id="bug 378342">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=378342">Bug
+					378342</a></td>
+			<td class="content">A bug in the Diagram Editor causing that
+				only the first diagram in an EMF resource could be opened has been
+				fixed.</td>
+		</tr>
+		<tr id="bug 375037">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=375037">Bug
+					375037</a></td>
+			<td class="content">A bug in the SVG export causing an exception
+				has been fixed.</td>
+		</tr>
+		<tr id="bug 369241">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=369241">Bug
+					369241</a></td>
+			<td class="content">A bug in the SVG export has been fixed so
+				that rotated objects are now also rendered correctly in the exported
+				SVG file.</td>
+		</tr>
+		<tr id="bug 373298">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=373298">Bug
+					373298</a></td>
+			<td class="content">A resource leak in the Graphiti framework
+				with respect to font handling has been fixed. Tooltip fonts were not
+				freed correctly.</td>
+		</tr>
+		<tr id="bug 376544">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=376544">Bug
+					376544</a></td>
+			<td class="content">A bug in the Graphiti framework with respect
+				to reconnecting a connection has been fixed. In case of source and
+				target anchors being identical, source and target were swapped.</td>
+		</tr>
+		<tr id="bug 377475">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=377475">Bug
+					377475</a></td>
+			<td class="content">A bug in the AbstractCustomfeature has been
+				fixed. Clients may have run into infinite recursions causing an
+				exception.</td>
+		</tr>
+		<tr id="bug 375122">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=375122">Bug
+					375122</a></td>
+			<td class="content">A typo in the turial plugin.xml has been
+				fixed.</td>
+		</tr>
+		<!-- ---------------------------------------- M6 ------------------------------- -->
+		<tr>
+			<td colspan="2">
 				<h2>M6</h2>
 			</td>
 		</tr>
