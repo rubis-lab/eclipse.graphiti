@@ -123,7 +123,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 		// diagram inside the resource) was provided. In case a fragment was
 		// provided, use it, otherwise simply take the first element in the
 		// resource (#0)
-		if (!normalizedURI.hasFragment()) {
+		if (!normalizedURI.hasFragment() || "/".equals(normalizedURI.fragment())) {
 			URI trimFragment = normalizedURI.trimFragment();
 			normalizedURI = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(trimFragment);
 		}
