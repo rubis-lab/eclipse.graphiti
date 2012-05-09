@@ -26,8 +26,10 @@ import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.navigator.ILinkHelper;
+import org.eclipse.ui.part.FileEditorInput;
 
 /**
  * Provides information to the Common Navigator (Project Explorer) on how to
@@ -58,7 +60,16 @@ public class EditorLinkHelper implements ILinkHelper {
 	}
 
 	public void activateEditor(IWorkbenchPage aPage, IStructuredSelection aSelection) {
-		// not needed
+		if (aSelection == null || aSelection.isEmpty()) {
+			return;
+		}
+		if (aSelection.getFirstElement() instanceof IFile) {
+			IEditorInput fileInput = new FileEditorInput((IFile) aSelection.getFirstElement());
+			IEditorPart editor = null;
+			if ((editor = aPage.findEditor(fileInput)) != null) {
+				aPage.bringToTop(editor);
+			}
+		}
 	}
 
 	private IFile getFile(URI uri) {
