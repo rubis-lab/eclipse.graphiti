@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mgorning - Bug 347144 - Angle of MultiText objects can't be modified
+ *    mgorning - Bug 377419 - Hide text in underlying GA while DirectEditing is enabled
  *
  * </copyright>
  *
@@ -116,5 +117,9 @@ public class GFMultilineText extends Figure {
 
 	public int getVerticalAligment() {
 		return flowPage.getVerticalAligment();
+	}
+
+	public void setSuppressText(boolean suppressText) {
+		((GFTextFlow) textFlow).setSuppressText(suppressText);
 	}
 }

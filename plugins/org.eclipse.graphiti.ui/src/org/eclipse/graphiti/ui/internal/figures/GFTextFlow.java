@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mgorning - Bug 347144 - Angle of MultiText objects can't be modified
+ *    mgorning - Bug 377419 - Hide text in underlying GA while DirectEditing is enabled
  *
  * </copyright>
  *
@@ -25,6 +26,8 @@ import org.eclipse.graphiti.mm.algorithms.MultiText;
 public class GFTextFlow extends TextFlow {
 
 	private MultiText multiText;
+
+	private boolean suppressText = false;
 
 	public GFTextFlow(MultiText multiText) {
 		this.multiText = multiText;
@@ -65,6 +68,9 @@ public class GFTextFlow extends TextFlow {
 
 	@Override
 	protected void paintText(Graphics g, String draw, int x, int y, int bidiLevel) {
+		if (suppressText) {
+			return;
+		}
 		if (bidiLevel == -1 && multiText.getAngle() != 0) {
 			g.pushState();
 
@@ -79,5 +85,10 @@ public class GFTextFlow extends TextFlow {
 		} else {
 			super.paintText(g, draw, x, y, bidiLevel);
 		}
+	}
+
+	public void setSuppressText(boolean suppressText) {
+		this.suppressText = suppressText;
+		repaint();
 	}
 }

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
+ *    mgorning - Bug 377419 - Hide text in underlying GA while DirectEditing is enabled
  *
  * </copyright>
  *
@@ -297,6 +298,11 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 	@Override
 	protected void bringDown() {
 
+		GFMultilineText mt = getMultilineText();
+		if (mt != null) {
+			mt.setSuppressText(false);
+		}
+
 		diagramEditor.setDirectEditingActive(false);
 
 		ZoomManager zoomMgr = (ZoomManager) getEditPart().getViewer().getProperty(ZoomManager.class.toString());
@@ -326,6 +332,11 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 	@Override
 	public void show() {
 
+		GFMultilineText mt = getMultilineText();
+		if (mt != null) {
+			mt.setSuppressText(true);
+		}
+
 		diagramEditor.setDirectEditingActive(true);
 		// this is a bugfix
 		// celleditor not shown initially when figure has insets
@@ -354,5 +365,16 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 		find = actionBars.getGlobalActionHandler(ActionFactory.FIND.getId());
 		undo = actionBars.getGlobalActionHandler(ActionFactory.UNDO.getId());
 		redo = actionBars.getGlobalActionHandler(ActionFactory.REDO.getId());
+	}
+
+	private GFMultilineText getMultilineText() {
+		GFMultilineText mt = null;
+		if (getLocator() instanceof TextCellLocator) {
+			TextCellLocator tcl = (TextCellLocator) getLocator();
+			if (tcl.getFigure() instanceof GFMultilineText) {
+				mt = (GFMultilineText) tcl.getFigure();
+			}
+		}
+		return mt;
 	}
 }
