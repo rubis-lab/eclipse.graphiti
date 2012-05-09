@@ -22,7 +22,6 @@ import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.text.ParagraphTextLayout;
-import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
 
 /**
@@ -31,7 +30,7 @@ import org.eclipse.graphiti.mm.algorithms.MultiText;
  */
 public class GFMultilineText extends Figure {
 
-	private TextFlow textFlow;
+	private GFTextFlow textFlow;
 
 	private GFFlowPage flowPage;
 
@@ -120,6 +119,6 @@ public class GFMultilineText extends Figure {
 	}
 
 	public void setSuppressText(boolean suppressText) {
-		((GFTextFlow) textFlow).setSuppressText(suppressText);
+		textFlow.setSuppressText(suppressText);
 	}
 }

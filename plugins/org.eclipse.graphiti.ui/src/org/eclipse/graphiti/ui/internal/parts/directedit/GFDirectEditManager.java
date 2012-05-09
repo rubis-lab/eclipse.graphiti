@@ -60,13 +60,9 @@ import org.eclipse.ui.part.CellEditorActionHandler;
  */
 public class GFDirectEditManager extends DirectEditManager implements IDirectEditHolder {
 
-	// private static final int MIN_DIRECT_EDITING_FONT = 12;
-
 	private IDirectEditingContext directEditingContext;
 
 	private IDirectEditingFeature directEditingFeature;
-
-	private TextCellLocator locator;
 
 	private DiagramEditor diagramEditor;
 
@@ -88,7 +84,6 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 
 	public GFDirectEditManager(ShapeEditPart part, TextCellLocator cellEditorLocator) {
 		super(part, null, cellEditorLocator);
-		locator = cellEditorLocator;
 		diagramEditor = part.getConfigurationProvider().getDiagramEditor();
 	}
 
@@ -122,7 +117,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 	protected CellEditor createCellEditorOn(Composite composite) {
 		CellEditor ret = null;
 
-		IFigure locatorFigure = locator.getFigure();
+		IFigure locatorFigure = getTextLocatorFigure();
 
 		int editingType = directEditingFeature.getEditingType();
 
@@ -198,13 +193,13 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 			cachedZoom = zoom;
 
 			disposeCellEditorFont();
-			Font lf = locator.getFigure().getFont();
+			Font lf = getTextLocatorFigure().getFont();
 			FontData fd = lf.getFontData()[0];
 			fd.setHeight((int) (fd.getHeight() * zoom));
 			cellEditorFont = new Font(lf.getDevice(), fd);
 
 			Text text = (Text) getCellEditor().getControl();
-			text.setForeground(locator.getFigure().getForegroundColor());
+			text.setForeground(getTextLocatorFigure().getForegroundColor());
 			text.setFont(cellEditorFont);
 		}
 	}
@@ -281,7 +276,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 			zoomMgr.addZoomListener(zoomListener);
 		}
 
-		locator.relocate(getCellEditor());
+		getLocator().relocate(getCellEditor());
 
 		// Hook the cell editor's copy/paste actions to the actionBars so that
 		// they can
@@ -342,7 +337,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 		// celleditor not shown initially when figure has insets
 		// or mouse is not directly over control
 		super.show();
-		locator.relocate(getCellEditor());
+		getLocator().relocate(getCellEditor());
 	}
 
 	private void restoreSavedActions(IActionBars actionBars) {
@@ -369,12 +364,13 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 
 	private GFMultilineText getMultilineText() {
 		GFMultilineText mt = null;
-		if (getLocator() instanceof TextCellLocator) {
-			TextCellLocator tcl = (TextCellLocator) getLocator();
-			if (tcl.getFigure() instanceof GFMultilineText) {
-				mt = (GFMultilineText) tcl.getFigure();
-			}
+		if (getTextLocatorFigure() instanceof GFMultilineText) {
+			mt = (GFMultilineText) getTextLocatorFigure();
 		}
 		return mt;
+	}
+
+	private IFigure getTextLocatorFigure() {
+		return ((TextCellLocator) getLocator()).getFigure();
 	}
 }
