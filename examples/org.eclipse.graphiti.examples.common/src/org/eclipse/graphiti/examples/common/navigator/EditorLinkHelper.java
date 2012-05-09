@@ -59,6 +59,9 @@ public class EditorLinkHelper implements ILinkHelper {
 		return StructuredSelection.EMPTY;
 	}
 
+	/**
+	 * Links IFile to FileEditorInput.
+	 */
 	public void activateEditor(IWorkbenchPage aPage, IStructuredSelection aSelection) {
 		if (aSelection == null || aSelection.isEmpty()) {
 			return;
