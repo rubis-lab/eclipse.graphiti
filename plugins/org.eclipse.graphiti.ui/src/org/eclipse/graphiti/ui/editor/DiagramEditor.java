@@ -26,6 +26,7 @@
  *    mwenz - Bug 324556 - Prevent invisible shapes to be selected to avoid IllegalArgumentException
  *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
  *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
+ *    Felix Velasco - mwenz - Bug 379788 - Memory leak in DefaultMarkerBehavior
  *
  * </copyright>
  *
@@ -1201,6 +1202,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			paletteBehaviour.dispose();
 		}
 
+		markerBehavior.dispose();
+
 		// unregister selection listener, registered during createPartControl()
 		if (getSite() != null && getSite().getPage() != null) {
 			getSite().getPage().removeSelectionListener(this);
@@ -1223,8 +1226,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 				exc = e;
 			}
 		}
-
-		markerBehavior.dispose();
 
 		if (getEditDomain() != null) {
 			getEditDomain().setCommandStack(null);

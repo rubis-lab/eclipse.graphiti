@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2011, 2011 SAP AG.
+ * Copyright (c) 2011, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    Bug 336488 - DiagramEditor API
+ *    Felix Velasco - mwenz - Bug 379788 - Memory leak in DefaultMarkerBehavior
  *
  * </copyright>
  *
@@ -50,18 +51,18 @@ public class DefaultMarkerBehavior {
 	/**
 	 * The associated {@link DiagramEditor}
 	 */
-	protected final DiagramEditor diagramEditor;
+	protected DiagramEditor diagramEditor;
 
 	/**
 	 * The marker helper instance is responsible for creating workspace resource
 	 * markers presented in Eclipse's Problems View.
 	 */
-	private final MarkerHelper markerHelper = new EditUIMarkerHelper();
+	private MarkerHelper markerHelper = new EditUIMarkerHelper();
 
 	/**
 	 * Map to store the diagnostic associated with a resource.
 	 */
-	private final Map<Resource, Diagnostic> resourceToDiagnosticMap = new LinkedHashMap<Resource, Diagnostic>();
+	private Map<Resource, Diagnostic> resourceToDiagnosticMap = new LinkedHashMap<Resource, Diagnostic>();
 
 	/**
 	 * Controls whether the problem indication should be updated.
@@ -125,6 +126,10 @@ public class DefaultMarkerBehavior {
 	 * {@link EditUIMarkerHelper} to check and set markers for {@link EObject}s.
 	 */
 	void updateProblemIndication() {
+		if (diagramEditor == null) {
+			// Already disposed
+			return;
+		}
 		TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
 		if (updateProblemIndication && editingDomain != null) {
 			ResourceSet resourceSet = editingDomain.getResourceSet();
@@ -181,17 +186,25 @@ public class DefaultMarkerBehavior {
 
 	/**
 	 * Called to dispose this instance when the editor is closed. The default
-	 * implementation simply disables the marker update.
+	 * implementation simply disables the marker update adapter and removes it
+	 * from the resource set and clears its member variables.
 	 */
 	public void dispose() {
 		disableProblemIndicationUpdate();
+		diagramEditor.getResourceSet().eAdapters().remove(problemIndicationAdapter);
+
+		problemIndicationAdapter = null;
+		markerHelper = null;
+		diagramEditor = null;
+		resourceToDiagnosticMap.clear();
+		resourceToDiagnosticMap = null;
 	}
 
 	/**
 	 * Adapter used to update the problem indication when resources are demanded
 	 * loaded.
 	 */
-	private final EContentAdapter problemIndicationAdapter = new EContentAdapter() {
+	private EContentAdapter problemIndicationAdapter = new EContentAdapter() {
 		@Override
 		public void notifyChanged(Notification notification) {
 			if (notification.getNotifier() instanceof Resource) {
