@@ -14,6 +14,7 @@
  *    mwenz - Bug 339525 - Enrich paste context with location information
  *    Bug 336488 - DiagramEditor API
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
+ *    cbrand - Bug 377783 - Dump for figures in connection layer needed
  *
  * </copyright>
  *
@@ -190,8 +191,12 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 		PictogramElement pes[] = getEditor().getSelectedPictogramElements();
 		ICustomContext context = new CustomContext(pes);
 
+		boolean diagramSelected = false;
 		if (pes.length == 1) {
 			extendCustomContext(pes[0], (CustomContext) context);
+			if (pes[0] instanceof Diagram) {
+				diagramSelected = true;
+			}
 		}
 
 		IToolBehaviorProvider tb = getDiagramTypeProvider().getCurrentToolBehaviorProvider();
@@ -204,6 +209,10 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 			debugEntry.setText("Debug"); //$NON-NLS-1$
 			debugEntry.setSubmenu(true);
 			debugEntry.add(new ContextMenuEntry(new DebugFeature(fp, DebugFeature.TYPE_DUMP_FIGURE_DATA), context));
+			if (diagramSelected) {
+				debugEntry.add(new ContextMenuEntry(new DebugFeature(fp,
+						DebugFeature.TYPE_DUMP_FIGURE_INCL_CONNECTION_DATA), context));
+			}
 			debugEntry.add(new ContextMenuEntry(new DebugFeature(fp, DebugFeature.TYPE_DUMP_PICTOGRAM_DATA), context));
 			debugEntry.add(new ContextMenuEntry(new DebugFeature(fp, DebugFeature.TYPE_DUMP_EDIT_PART_DATA), context));
 			debugEntry.add(new ContextMenuEntry(new DebugFeature(fp, DebugFeature.TYPE_DUMP_ALL), context));

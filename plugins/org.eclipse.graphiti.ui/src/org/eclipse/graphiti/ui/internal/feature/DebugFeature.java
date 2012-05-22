@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    cbrand - Bug 377783 - Dump for figures in connection layer needed
  *
  * </copyright>
  *
@@ -21,6 +22,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
@@ -33,6 +35,7 @@ public class DebugFeature extends AbstractCustomFeature {
 
 	private static final String NAME_DUMP_PICTOGRAM_DATA = "Dump pictogram data"; //$NON-NLS-1$
 	private static final String NAME_DUMP_FIGURE_DATA = "Dump figure data"; //$NON-NLS-1$
+	private static final String NAME_DUMP_FIGURE_INCL_CONNECTION_DATA = "Dump figure data incl. connections"; //$NON-NLS-1$
 	private static final String NAME_DUMP_EDIT_PART_DATA = "Dump editpart tree"; //$NON-NLS-1$
 	private static final String NAME_DUMP_ALL = "Dump all data"; //$NON-NLS-1$
 	private static final String NAME_REFRESH = "Refresh"; //$NON-NLS-1$
@@ -42,6 +45,7 @@ public class DebugFeature extends AbstractCustomFeature {
 	public static final int TYPE_DUMP_EDIT_PART_DATA = 2;
 	public static final int TYPE_DUMP_ALL = 3;
 	public static final int TYPE_REFRESH = 4;
+	public static final int TYPE_DUMP_FIGURE_INCL_CONNECTION_DATA = 5;
 
 	private int type;
 
@@ -68,16 +72,27 @@ public class DebugFeature extends AbstractCustomFeature {
 			case TYPE_DUMP_FIGURE_DATA:
 				GraphitiUiInternal.getTraceService().dumpFigureTree(figure);
 				break;
+			case TYPE_DUMP_FIGURE_INCL_CONNECTION_DATA:
+				GraphitiUiInternal.getTraceService().dumpFigureTreeWithConnectionLayer(figure);
+				break;
 			case TYPE_DUMP_ALL:
 				GraphitiUiInternal.getTraceService().dumpPictogramModelTree(pe);
 				GraphitiUiInternal.getTraceService().dumpEditPartTree(ep);
-				GraphitiUiInternal.getTraceService().dumpFigureTree(figure);
+				if (checkIfDiagram(pe)) {
+					GraphitiUiInternal.getTraceService().dumpFigureTreeWithConnectionLayer(figure);
+				} else {
+					GraphitiUiInternal.getTraceService().dumpFigureTree(figure);
+				}
 				break;
 			case TYPE_REFRESH:
 				ep.refresh();
 				break;
 			}
 		}
+	}
+
+	private boolean checkIfDiagram(PictogramElement pe) {
+		return pe instanceof Diagram;
 	}
 
 	@Override
@@ -94,6 +109,9 @@ public class DebugFeature extends AbstractCustomFeature {
 			break;
 		case TYPE_DUMP_FIGURE_DATA:
 			ret = NAME_DUMP_FIGURE_DATA;
+			break;
+		case TYPE_DUMP_FIGURE_INCL_CONNECTION_DATA:
+			ret = NAME_DUMP_FIGURE_INCL_CONNECTION_DATA;
 			break;
 		case TYPE_DUMP_EDIT_PART_DATA:
 			ret = NAME_DUMP_EDIT_PART_DATA;

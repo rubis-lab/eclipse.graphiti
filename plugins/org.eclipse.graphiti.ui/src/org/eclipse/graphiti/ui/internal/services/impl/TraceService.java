@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    cbrand - Bug 377783 - Dump for figures in connection layer needed
  *
  * </copyright>
  *
@@ -20,7 +21,6 @@ import java.io.StringWriter;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.draw2d.FreeformLayeredPane;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -41,7 +41,6 @@ import org.eclipse.graphiti.ui.internal.services.ITraceService;
  */
 public class TraceService implements ITraceService {
 
-	private static final boolean CONNECTION_FIGURE_TREE = true;
 	private final boolean FULL_QUALIFIED = false;
 	private final boolean ADD_OBJECT_INFO = false;
 	private final boolean ADD_STYLE_INFO = false;
@@ -60,10 +59,6 @@ public class TraceService implements ITraceService {
 	}
 
 	public void dumpFigureTree(IFigure figure, int indent) {
-		dumpFigureTree(figure, indent, CONNECTION_FIGURE_TREE);
-	}
-
-	public void dumpFigureTree(IFigure figure, int indent, boolean dumpConnectionFigureTree) {
 		String indentString = createIndentString(indent);
 
 		String additional = ""; //$NON-NLS-1$
@@ -88,27 +83,17 @@ public class TraceService implements ITraceService {
 		@SuppressWarnings("unchecked")
 		List<IFigure> children = figure.getChildren();
 		for (IFigure childFigure : children) {
-			dumpFigureTree(childFigure, indent + 2, false);
-		}
-
-		if (dumpConnectionFigureTree) {
-			dumpConnectionFigureTree(figure);
+			dumpFigureTree(childFigure, indent + 2);
 		}
 	}
 
-	private void dumpConnectionFigureTree(IFigure figure) {
-		System.out.println("\nConnection Figure Tree"); //$NON-NLS-1$
-		FreeformLayeredPane fflp = findFreeformLayerdPane(figure);
-		List fflpChildren = fflp.getChildren();
-		ConnectionLayer connectionLayer = null;
-		for (Object o : fflpChildren) {
-			if (o instanceof ConnectionLayer) {
-				connectionLayer = (ConnectionLayer) o;
-			}
+	public void dumpFigureTreeWithConnectionLayer(IFigure figure) {
+		IFigure dumpRoot = figure;
+		FreeformLayeredPane root = findFreeformLayerdPane(dumpRoot);
+		if (root != null) {
+			dumpRoot = root;
 		}
-		if (connectionLayer != null) {
-			dumpFigureTree(fflp, 0, false);
-		}
+		dumpFigureTree(dumpRoot);
 	}
 
 	private FreeformLayeredPane findFreeformLayerdPane(IFigure figure) {
@@ -252,5 +237,4 @@ public class TraceService implements ITraceService {
 	private String getObjectInfo(Object o) {
 		return o.toString();
 	}
-
 }
