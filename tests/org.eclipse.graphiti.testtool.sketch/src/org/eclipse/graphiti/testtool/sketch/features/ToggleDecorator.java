@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
@@ -74,6 +75,12 @@ public class ToggleDecorator extends AbstractCustomFeature {
 				Text text = gaService.createText(decorator, "passive text"); //$NON-NLS-1$
 				text.setForeground(manageColor(IColorConstant.BLACK));
 				Graphiti.getLayoutService().setLocationAndSize(text, 25, 50, 100, 20);
+
+				decorator = pecService.createConnectionDecorator(connection, false, 0.5, true);
+				Ellipse e = gaService.createEllipse(decorator);
+				e.setForeground(manageColor(IColorConstant.DARK_BLUE));
+				Graphiti.getLayoutService().setLocationAndSize(e, 0, 0, 150, 150);
+
 			}
 		}
 
