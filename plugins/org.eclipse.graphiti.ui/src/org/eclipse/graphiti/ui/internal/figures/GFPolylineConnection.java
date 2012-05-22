@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2011 IBM Corporation and others.
+ * Copyright (c) 2000, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,8 @@
  *     		removed getMaxValue
  *     		added override tags
  *     mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
+ *     mgorning - Bug 378301 - Small gap between connections and right side anchor
+ *     
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.figures;
 
@@ -37,8 +39,8 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 
 /**
- * A Graphiti Polyline Connection. The "polyline functionality" is inherited from the
- * super-class, the "connection functionality" is added in this class.
+ * A Graphiti Polyline Connection. The "polyline functionality" is inherited
+ * from the super-class, the "connection functionality" is added in this class.
  * <p>
  * Important difference: The super-class denotes a polyline-shape. There the
  * points are translated towards the center depending on the line-width, so that
@@ -90,9 +92,24 @@ public class GFPolylineConnection extends GFPolyline implements Connection, Anch
 	protected PointList getAdjustedPointList(PointList points, double zoom, double lw) {
 		// only zoom, but do not translate regarding the line-width as the
 		// super-class
+		// copy the point list
+		PointList pointsCopy = new PointList();
+		pointsCopy.addAll(points);
+		// adjust both end points if necessary; see Bug 378301
+		// it seems there is a problem if we draw a line to an end point from
+		// left to right or up to bottom. The last point will not be drawn and
+		// hence there is a gap between the connection and the shape. Especially
+		// if zoom is greater then 100%.
+		if (pointsCopy.size() >= 2) {
+			// check end points and adjust them if necessary
+			int lastPointIndex = pointsCopy.size() - 1;
+			adjustEndPoint(pointsCopy, 0, 1);
+			adjustEndPoint(pointsCopy, lastPointIndex, lastPointIndex - 1);
+		}
+		// handle zoom
 		PointList ret = new PointList();
-		for (int i = 0; i < points.size(); i++) {
-			Point point = points.getPoint(i);
+		for (int i = 0; i < pointsCopy.size(); i++) {
+			Point point = pointsCopy.getPoint(i);
 			point.scale(zoom);
 			ret.addPoint(point);
 		}
@@ -394,8 +411,8 @@ public class GFPolylineConnection extends GFPolyline implements Connection, Anch
 	 * @param rotateDegrees
 	 *            The rotation in degrees. See {@link FlexibleRotatableLocator}.
 	 */
-	public void addDecoration(IFigure decoration, boolean distanceToStart, double relativeDistance, int absoluteDistance,
-			double rotateDegrees) {
+	public void addDecoration(IFigure decoration, boolean distanceToStart, double relativeDistance,
+			int absoluteDistance, double rotateDegrees) {
 		if (decoration != null) {
 			// remove if decoration was added before
 			boolean removed = decorations.remove(decoration);
@@ -405,7 +422,8 @@ public class GFPolylineConnection extends GFPolyline implements Connection, Anch
 
 			// add decoration
 			decorations.add(decoration);
-			add(decoration, new FlexibleRotatableLocator(this, distanceToStart, relativeDistance, absoluteDistance, rotateDegrees));
+			add(decoration, new FlexibleRotatableLocator(this, distanceToStart, relativeDistance, absoluteDistance,
+					rotateDegrees));
 		}
 	}
 
@@ -518,5 +536,18 @@ public class GFPolylineConnection extends GFPolyline implements Connection, Anch
 			}
 		}
 		return maxValue;
+	}
+
+	private void adjustEndPoint(PointList pointsCopy, int endPointIndex, int previousPointIndex) {
+		Point endPoint = pointsCopy.getPoint(endPointIndex);
+		Point previousPoint = pointsCopy.getPoint(previousPointIndex);
+		if (endPoint.x > previousPoint.x) {
+			endPoint.x += 1;
+			pointsCopy.setPoint(endPoint, endPointIndex);
+		}
+		if (endPoint.y > previousPoint.y) {
+			endPoint.y += 1;
+			pointsCopy.setPoint(endPoint, endPointIndex);
+		}
 	}
 }
