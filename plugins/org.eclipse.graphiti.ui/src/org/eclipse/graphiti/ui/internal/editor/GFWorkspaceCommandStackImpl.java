@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *    mwenz - Bug 351053 - Remove the need for WorkspaceCommandStackImpl
+ *    mwenz - Bug 371717 - IllegalStateException When updating cells on Diagram
  *
  * </copyright>
  *
@@ -49,8 +50,19 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 		super(history);
 	}
 
+	/*
+	 * Bug 371717: Added synchronization to this method to support scenarios
+	 * where the diagram is changed with the help of an externally triggered
+	 * thread (e.g. operation triggered by a context menu from the project
+	 * explorer). In general: avoid different threads outrunning each other on
+	 * topLevelCommand.
+	 * 
+	 * @see
+	 * org.eclipse.emf.transaction.impl.AbstractTransactionalCommandStack#execute
+	 * (org.eclipse.emf.common.command.Command, java.util.Map)
+	 */
 	@Override
-	public void execute(Command command, Map<?, ?> options) throws InterruptedException, RollbackException {
+	public synchronized void execute(Command command, Map<?, ?> options) throws InterruptedException, RollbackException {
 		IExecutionInfo executionInfo = null;
 		/*
 		 * Needed to retrieve an eventually externally created IExecutionInfo
