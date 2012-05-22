@@ -89,20 +89,20 @@ public class TraceService implements ITraceService {
 
 	public void dumpFigureTreeWithConnectionLayer(IFigure figure) {
 		IFigure dumpRoot = figure;
-		FreeformLayeredPane root = findFreeformLayerdPane(dumpRoot);
+		FreeformLayeredPane root = findFreeformLayeredPane(dumpRoot);
 		if (root != null) {
 			dumpRoot = root;
 		}
 		dumpFigureTree(dumpRoot);
 	}
 
-	private FreeformLayeredPane findFreeformLayerdPane(IFigure figure) {
+	private FreeformLayeredPane findFreeformLayeredPane(IFigure figure) {
 		IFigure parentFigure = figure.getParent();
 		if (parentFigure instanceof FreeformLayeredPane) {
 			return (FreeformLayeredPane) parentFigure;
 		}
 		if (parentFigure != null) {
-			return findFreeformLayerdPane(parentFigure);
+			return findFreeformLayeredPane(parentFigure);
 		}
 		return null;
 	}
