@@ -35,7 +35,7 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Juno</h1>
-	<p>Last revised May 22, 2012</p>
+	<p>Last revised May 23, 2012</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.9.0 within the
 		Juno release train.</p>
@@ -82,6 +82,14 @@ table.news tr td.content {
 			<td class="content">A memory leak in the Graphiti Diagram Editor
 				has been fixed. A listener registered to the editing domain by the
 				DefaultMarkerBehavior is now removed when the editor closes.</td>
+		</tr>
+		<tr id="bug 379836">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=379836">Bug
+					379836 </a></td>
+			<td class="content">A stack overflow in case of an invalid shape
+				hierarchy has been fixed. The user now gets a hopefully more helpful
+				error stating the invalid object.</td>
 		</tr>
 		<!-- ---------------------------------------- M7 ------------------------------- -->
 		<tr>
