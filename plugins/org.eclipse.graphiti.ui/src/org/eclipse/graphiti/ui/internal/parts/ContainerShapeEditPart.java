@@ -97,7 +97,8 @@ public class ContainerShapeEditPart extends ShapeEditPart implements IContainerS
 	@Override
 	protected IFigure createFigure() {
 		if (getPictogramElement().getGraphicsAlgorithm() == null) {
-			throw new RuntimeException("The ContainerShape must have a valid GraphicsAlgorithm"); //$NON-NLS-1$
+			throw new IllegalStateException(
+					"The ContainerShape must have a valid GraphicsAlgorithm: " + getPictogramElement().toString()); //$NON-NLS-1$
 		}
 		resetContentPaneFigureCache();
 		IFigure figure = super.createFigure();
