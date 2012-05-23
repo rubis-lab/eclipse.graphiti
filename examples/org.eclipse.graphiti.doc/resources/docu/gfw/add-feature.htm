@@ -64,7 +64,7 @@ algorithm of the diagram. The <strong>location</strong> of a graphics algorithm
 is defined by (x,y) and the <strong>size</strong> by (width, height).</p>
 <p>When a shape is moved, its location is updated by the default features of the 
 framework, but the children come along without any changes of its locations.</p>
-<p>If a shape is transformed, defaultfeatures and <a href="resize-feature.htm">resize</a> 
+<p>If a shape is transformed, default features and <a href="resize-feature.htm">resize</a> 
 functionality is done by the framework, but a <a href="layout-feature.htm">
 layout feature</a> has to be provided, which recalculates the locations and 
 sizes of the children. Otherwise children would be clipped, when their size 
@@ -198,6 +198,28 @@ has to be set as the text label’s value.</p>
 </div>
 <p>&nbsp;</p>
 <!-- End code ------------------------------------------------------------------------------- -->
+
+<p>Additionally the feature provider has to deliver our newly created feature (overwrite 
+the method
+<a href="../../../javadoc/org/eclipse/graphiti/features/IFeatureProvider.html#getAddFeature()">
+getAddeFeature</a>).</p>
+<p>This implementation can be seen here:</p>
+<!-- Begin code ------------------------------------------------------------------------------- -->
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code">@Override<br><span class="keyword">public </span>
+		IAddFeature getAddFeature(IAddContext context) {<br>&nbsp;&nbsp;&nbsp;
+		<span class="comment">// is object for add request a EClass?</span><br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">if</span> (context.getNewObject()
+		<span class="keyword">instanceof</span> EClass) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="keyword">return new</span> TutorialAddEClassFeature(<span class="keyword">this</span>);<br>&nbsp;&nbsp;&nbsp; 
+		}<br>&nbsp;&nbsp;&nbsp; <span class="keyword">return </span>
+		super.getAddFeature(context);<br>}</p>
+	</div>
+</div>
+<p>&nbsp;</p>
+<!-- End code ------------------------------------------------------------------------------- -->
 <p class="Note"><strong>Note on graphics algorithms and values:</strong> Graphics 
 algorithms, which are created with &quot;create&quot;-methods, have suitable default values 
 as comfort. Default values are defined in the meta model and the framework. The rounded rectangle 
@@ -205,7 +227,7 @@ has the following default values: {lineWidth: 1, lineStyle: SOLID, filled: &lt;u
 lineVisible: &lt;unset&gt;, transparency: 0.0, width: 0, height: 0, x: 0, y: 0}. When 
 using the &quot;create plain&quot;-methods instead, all values have to be set explicitly. 
 You can find more details about setting values and styles in chapter
-<a href="http://www.spiegel.de/">&quot;Using Styles&quot;</a>,
+<a href="styles.htm">&quot;Using Styles&quot;</a>,
 <a href="default_values.html">&quot;Default Attribute Values of Graphics Algorithms&quot;</a> and in the JavaDoc of
 <a href="../../../javadoc/org/eclipse/graphiti/services/IGaCreateService.html">IGaCreateService</a>.</p>
 <p class="Note"><b>Note on colors and fonts:</b> In contrast to other graphical 
