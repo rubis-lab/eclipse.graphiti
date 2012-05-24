@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
+ *    cbrand - Bug 378341 - Enlargement of the Line Width of Shapes isn't calculated based on the center.
  *
  * </copyright>
  *
@@ -69,22 +70,32 @@ public class LineWidthFeature extends AbstractCustomFeature {
 					setLineWidth(connection);
 				}
 			}
+			if (Graphiti.getPeService().getProperty(pe, UNIT) != null) {
+				EList<GraphicsAlgorithm> children = pe.getGraphicsAlgorithm().getGraphicsAlgorithmChildren();
+				for (GraphicsAlgorithm ga : children) {
+					setLineWidth(ga);
+				}
+			}
 		}
 	}
 
 	private void setLineWidth(PictogramElement pe) {
 		if (pe != null && pe.getGraphicsAlgorithm() != null) {
 			GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
-			if (ga.getLineWidth() != null) {
-				Style style = ga.getStyle();
-				if (style != null) {
-					style.setLineWidth(lineWidth);
-				} else {
-					ga.setLineWidth(lineWidth);
-				}
+			setLineWidth(ga);
+		}
+	}
+
+	private void setLineWidth(GraphicsAlgorithm ga) {
+		if (ga.getLineWidth() != null) {
+			Style style = ga.getStyle();
+			if (style != null) {
+				style.setLineWidth(lineWidth);
 			} else {
 				ga.setLineWidth(lineWidth);
 			}
+		} else {
+			ga.setLineWidth(lineWidth);
 		}
 	}
 

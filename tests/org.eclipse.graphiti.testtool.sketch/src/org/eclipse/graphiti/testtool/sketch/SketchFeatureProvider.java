@@ -12,6 +12,7 @@
  *    mwenz - Bug 342869 - Image doesn't scale the contained SWT Image on resize
  *    mwenz - Bug 358255 - Add Border/Background decorators
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
+ *    cbrand - Bug 378341 - Enlargement of the Line Width of Shapes isn't calculated based on the center.
  *
  * </copyright>
  *
@@ -96,6 +97,7 @@ import org.eclipse.graphiti.testtool.sketch.features.ToggleDecorator;
 import org.eclipse.graphiti.testtool.sketch.features.TransparencyFeature;
 import org.eclipse.graphiti.testtool.sketch.features.bd.CreateChannelFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.CreateCsGhostAndInnerShapeFeature;
+import org.eclipse.graphiti.testtool.sketch.features.create.CreateHumanFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCanFigureFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCompositeConnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCurvedConnectionFeature;
@@ -183,6 +185,8 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		features.add(new CreatePoolFeature(this, "Pool", "create a pool"));
 
 		features.add(new SketchCreateCanFigureFeature(this, "Can figure", "example for a platform ga"));
+
+		features.add(new CreateHumanFeature(this, "Human", "create ghost with human"));
 
 		return features.toArray(new ICreateFeature[0]);
 	}
