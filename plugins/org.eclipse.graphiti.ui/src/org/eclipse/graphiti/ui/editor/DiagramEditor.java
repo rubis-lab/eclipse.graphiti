@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.FigureCanvas;
@@ -1914,7 +1915,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @param feature
 	 *            the feature to execute
 	 * @param context
-	 *            the context to use
+	 *            the context to use. In case the passed feature is a
+	 *            {@link IAddFeature} this context needs to be an instance of
+	 *            {@link IAddContext}, otherwise an
+	 *            {@link AssertionFailedException} will be thrown.
 	 * @return in case of an {@link IAddFeature} being passed as feature the
 	 *         newly added {@link PictogramElement} will be returned (in case
 	 *         the add method returning it), in all other cases
