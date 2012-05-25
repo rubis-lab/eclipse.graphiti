@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    mgorning - Bug 376572 - Generic context buttons name changeable via getName() method
+ *    mwenz - Bug 380400 - Remove final from DefaultRemoveFeature.remove
  *
  * </copyright>
  *
@@ -60,7 +61,7 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 		return !(context.getPictogramElement() instanceof Diagram);
 	}
 
-	public final void remove(IRemoveContext context) {
+	public void remove(IRemoveContext context) {
 		if (!getUserDecision()) {
 			return;
 		}
