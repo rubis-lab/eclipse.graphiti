@@ -17,16 +17,16 @@
 <p><em>Static decorators</em> (inactive pictogram elements) are usually used for 
 connection ends.</p>
 <p>
-<img alt="" height="156" src="visio/connection-decorator-static.png" width="504">&nbsp;</p>
-<p><strong>Figure: Static connection decorators</strong></p>
+<img alt="" height="160" src="visio/connection-decorator-static.png" width="510"></p>
+<p><strong>Figure: Static connection decorator</strong></p>
 <p>&nbsp;</p>
 <p><em>Dynamic decorators</em> (active pictogram elements) are usually of type text; 
 these decorators can be moved via drag &amp; drop; they can be placed anywhere in the 
 diagram.</p>
 <p>&nbsp;</p>
 <p>
-<img alt="" height="157" src="visio/connection-decorator-dynamic.png" width="504">&nbsp;</p>
-<p><strong>Figure: Dynamic connection decorators</strong></p>
+<img alt="" height="155" src="visio/connection-decorator-dynamic.png" width="511"></p>
+<p><strong>Figure: Dynamic connection decorator</strong></p>
 <p>&nbsp;</p>
 <p>To create such connection decorators we have to do the following in the graphics 
 model:</p>
@@ -37,16 +37,16 @@ model:</p>
 	<li>optional: link connection decorator with the business object</li>
 </ul>
 <p>There are some technical limitations for static decorators: they are only supported 
-for graphics algorithm of type polyline or polygon (otherwise they can not be rotated) 
+for graphics algorithms of type polyline or polygon (otherwise they can not be rotated) 
 and they can only be placed at the beginning or at the end of a connection.</p>
-<p>In this example we want create two static connection decorators as shown above 
+<p>In this example we want create a static connection decorator as shown above 
 and one dynamic connection decorator which displays the name of the association. 
-For simplification those static connection decorators will be created without consideration 
+For simplification the static connection decorator will be created without consideration 
 of the real values in the business model (types of association ends).</p>
 <p>The decorators will be added in the <a href="add-connection-feature.htm">add 
-connection feature</a>. The following changes must be done in this feature. First 
-add some helper methods to the add connection feature which create the graphics 
-algorithms for the static decorators:</p>
+connection feature</a>. The following changes must be done in this feature. 
+First add a helper method to the add connection feature which creates the graphics 
+algorithm for the static decorator:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
 <div class="literallayout">
@@ -80,7 +80,7 @@ connection feature, as explained in the following code snippet:</p>
 		text.setForeground(manageColor(IColorConstant.<span class="string"><em>BLACK</em></span>));<br>&nbsp;&nbsp;&nbsp;&nbsp; 
 		gaService.setLocation(text, 10, 0);<br>&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// set reference name in the text decorator</span><br>
-		´&nbsp;&nbsp;&nbsp; EReference eReference = (EReference) context.getNewObject();<br>&nbsp;&nbsp;&nbsp;&nbsp; 
+		&nbsp;&nbsp;&nbsp;&nbsp; EReference eReference = (EReference) context.getNewObject();<br>&nbsp;&nbsp;&nbsp;&nbsp; 
 		text.setValue(eReference.getName());<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="comment">// add static graphical decorator (composition and 
 		navigable)</span><br>&nbsp;&nbsp;&nbsp;&nbsp; ConnectionDecorator cd;<br>&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -96,7 +96,7 @@ connection feature, as explained in the following code snippet:</p>
 <p>Start the editor again and test these new connection decorators:</p>
 <ol>
 	<li>create or open a diagram</li>
-	<li>create a new EReference between two EClasses; you can see the three decorators 
+	<li>create a new EReference between two EClasses; you can see the two decorators 
 	on the EReference</li>
 	<li>move the EClasses; you can see that the static decorator (arrow) rotate 
 	automatically</li>

@@ -90,7 +90,7 @@ getMoveShapeFeature</a>.</p>
 		shape = context.getShape();<br>&nbsp;&nbsp;&nbsp; Object bo = getBusinessObjectForPictogramElement(shape);<br>&nbsp;&nbsp;&nbsp;
 		<span class="keyword">if </span>(bo <span class="keyword">instanceof
 		</span>EClass) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="keyword">return new</span> TutorialMoveEClassFeature(this);<br>&nbsp;&nbsp;&nbsp; 
+		<span class="keyword">return new</span> TutorialMoveEClassFeature(<span class="keyword">this</span>);<br>&nbsp;&nbsp;&nbsp; 
 		}<br>&nbsp;&nbsp;&nbsp; <span class="keyword">return super</span>.getMoveShapeFeature(context);<br>
 		} </p>
 	</div>
