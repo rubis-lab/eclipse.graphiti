@@ -112,7 +112,7 @@
 			commandId="org.eclipse.graphiti.ui.internal.action.UpdateAction"
 			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
 		<key
-			sequence="M1+Delete"
+			sequence="M2+Delete"
 			commandId="org.eclipse.graphiti.ui.internal.action.RemoveAction"
 			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
 		<key
