@@ -35,13 +35,60 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Juno</h1>
-	<p>Last revised May 23, 2012</p>
+	<p>Last revised May 29, 2012</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.9.0 within the
 		Juno release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<tr>
+			<td colspan="2">
+				<h2>RC2</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on documentation round-offs.</td>
+		</tr>
+		<tr id="bug 380400">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=380400">Bug
+					380400 </a></td>
+			<td class="content">The method <i>remove</i> in <i>DefaultRemoveFeature</i>
+				is no longer final to enable clients to modify the standard remove
+				functionality in a more flexible way.
+			</td>
+		</tr>
+		<tr id="bug 375497">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=375497">Bug
+					375497 </a></td>
+			<td class="content">The create new Graphiti editor bundle wizard
+				has been enhanced to allow users to reference domain objects and to
+				support patterns. The functional extension has long been prepared
+				but could only be activated now because of the availability of a
+				needed API in JDT UI.</td>
+		</tr>
+		<tr id="bug 350259">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=350259">Bug
+					350259 </a></td>
+			<td class="content">Documentation for the Graphiti Test
+				Preferences page has been added in the Eclipse help. This preference
+				page provides means besides of debugging to identify and analyse
+				issues in Graphiti framework or tool coding. The page itself existed
+				for some releases already, but had never been documented.</td>
+		</tr>
+		<tr id="bug 358818">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=358818">Bug
+					358818 </a></td>
+			<td class="content">A gap in the documentation for the copy &
+				paste functionality regarding the save state of EObjects to be
+				copied has been closed.</td>
+		</tr>
+		<!-- ---------------------------------------- RC1 ------------------------------- -->
 		<tr>
 			<td colspan="2">
 				<h2>RC1</h2>
