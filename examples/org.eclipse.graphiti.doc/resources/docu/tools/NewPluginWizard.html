@@ -3,7 +3,7 @@
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<title>Page Title</title>
+<title>New Graphiti Plug-in Wizard</title>
 <link href="../book.css" rel="Stylesheet" type="text/css">
 <link href="../code.css" rel="Stylesheet" type="text/css">
 <style type="text/css">
@@ -20,11 +20,11 @@
 		This wizard has been introduced with Graphiti 0.9.0 and allows the
 		creation of a new Eclipse plug-in project containing a basic Graphiti
 		editor. It is integrated in the <i>New Plug-in Project Wizard</i>
-		provided by Eclipse PDE and can be started via <i>File --&gt; New --&gt;
-			Project... --&gt; Plug-in Development --&gt; Plug-in Project</i>. The user can
-		specify the name along with the other settings for the new plug-in
-		project and on the third page of the wizard select the template <i>Plug-in
-			with a Graphiti Editor</i>.
+		provided by Eclipse PDE and can be started via <i>File --&gt; New
+			--&gt; Project... --&gt; Plug-in Development --&gt; Plug-in Project</i>.
+		The user can specify the name along with the other settings for the
+		new plug-in project and on the third page of the wizard select the
+		template <i>Plug-in with a Graphiti Editor</i>.
 	</p>
 	<img alt="Template selection for new Plug-in with a Graphiti Editor"
 		src="images/NPW_Template.png" width="400px">
@@ -32,8 +32,19 @@
 		of the Graphiti Diagram Type, Diagram Type Provider and Feature
 		Provider to be created. The initial values proposed there are derived
 		from the name of the plug-in project.</p>
-	<img alt="Settings for new Plug-in with a Graphiti Editor"
-		src="images/NPW_Settings.png" width="400px">
+	<p>In the lower part of the screen (section "Feature Provider") the
+		user can decide if he wants to use the standard feature or the pattern
+		approach for implementing the Graphiti editor.</p>
+	<img alt="General settings for new Plug-in with a Graphiti Editor"
+		src="images/NPW_Settings1.png" width="400px">
+	<p>On the last page of the wizard the user can finally define any
+		domain objects he would like to use within the editor. By default none
+		are used, but both for the shape and the connection created by the
+		wizard, the user can reference a domain object to be used. (It might
+		be an EObject but does not need to be.)</p>
+	<img
+		alt="Domain object settings for new Plug-in with a Graphiti Editor"
+		src="images/NPW_Settings2.png" width="400px">
 	<p>After finishing the wizard a new plug-in is created containing
 		the definitions and basic implementation classes for a new Graphiti
 		diagram editor that allows the creation of new shapes and connections
@@ -43,5 +54,12 @@
 		this and simply create a new Graphiti diagram with the new type by
 		using the Graphiti New Diagram Wizard that comes as part of the
 		examples.</p>
+	<p>
+		There are still some spots in the generated coding that are marked
+		with a <i>// TODO</i> tag. Here the client needs to adapt the coding,
+		e.g. to create a new instance of the domain object. Also some type
+		checks are generated but not yet enabled, because by default the
+		wizard cannot create linked domain objects.
+	</p>
 </body>
 </html>
