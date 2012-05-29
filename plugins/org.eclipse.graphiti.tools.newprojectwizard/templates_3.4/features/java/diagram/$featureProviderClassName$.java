@@ -11,12 +11,18 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
-import $packageName$.features.AddDomainObjectConnectionFeature;
-import $packageName$.features.AddDomainObjectFeature;
-import $packageName$.features.CreateDomainObjectConnectionFeature;
-import $packageName$.features.CreateDomainObjectFeature;
-import $packageName$.features.LayoutDomainObjectFeature;
+import $packageName$.features.Add$connectionDomainObjectClassNameShort$ConnectionFeature;
+import $packageName$.features.Add$shapeDomainObjectClassNameShort$Feature;
+import $packageName$.features.Create$connectionDomainObjectClassNameShort$ConnectionFeature;
+import $packageName$.features.Create$shapeDomainObjectClassNameShort$Feature;
+import $packageName$.features.Layout$shapeDomainObjectClassNameShort$Feature;
 
+%if useShapeDomainObject
+import $shapeDomainObjectClassName$;
+%endif
+%if useConnectionDomainObject
+import $connectionDomainObjectClassName$;
+%endif
 
 public class $featureProviderClassName$ extends DefaultFeatureProvider {
 
@@ -26,22 +32,23 @@ public class $featureProviderClassName$ extends DefaultFeatureProvider {
 
 	@Override
 	public ICreateFeature[] getCreateFeatures() {
-		return new ICreateFeature[] {new CreateDomainObjectFeature(this)};
+		return new ICreateFeature[] {new Create$shapeDomainObjectClassNameShort$Feature(this)};
 	}
 	
 	@Override
 	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
-		return new ICreateConnectionFeature[] {new CreateDomainObjectConnectionFeature(this)};
+		return new ICreateConnectionFeature[] {new Create$connectionDomainObjectClassNameShort$ConnectionFeature(this)};
 	}
 	
 	@Override
 	public IAddFeature getAddFeature(IAddContext context) {
 		// TODO: check for right domain object instances below
 		if (context instanceof IAddConnectionContext /* && context.getNewObject() instanceof <DomainObject> */) {
-			return new AddDomainObjectConnectionFeature(this);
+			return new Add$connectionDomainObjectClassNameShort$ConnectionFeature(this);
 		} else if (context instanceof IAddContext /* && context.getNewObject() instanceof <DomainObject> */) {
-			return new AddDomainObjectFeature(this);
+			return new Add$shapeDomainObjectClassNameShort$Feature(this);
 		}
+
 		return super.getAddFeature(context);
 	}
 	
@@ -49,9 +56,9 @@ public class $featureProviderClassName$ extends DefaultFeatureProvider {
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		// TODO: check for right domain object instances below
 		if (context.getPictogramElement() instanceof ContainerShape /* && getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof <DomainObject> */) {
-			return  new LayoutDomainObjectFeature(this);
+			return  new Layout$shapeDomainObjectClassNameShort$Feature(this);
 		}
-
+	
 		return super.getLayoutFeature(context);
 	}
 }

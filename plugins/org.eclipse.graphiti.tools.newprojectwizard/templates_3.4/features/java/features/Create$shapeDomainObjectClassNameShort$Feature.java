@@ -6,11 +6,11 @@ import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 
-public class CreateDomainObjectFeature extends AbstractCreateFeature implements
+public class Create$shapeDomainObjectClassNameShort$Feature extends AbstractCreateFeature implements
 		ICreateFeature {
 
-	public CreateDomainObjectFeature(IFeatureProvider fp) {
-		super(fp, "Domain Object", "Creates a new domain object");
+	public Create$shapeDomainObjectClassNameShort$Feature(IFeatureProvider fp) {
+		super(fp, "$shapeDomainObjectClassNameShort$", "Creates a new $shapeDomainObjectClassNameShort$");
 	}
 
 	@Override
@@ -21,12 +21,12 @@ public class CreateDomainObjectFeature extends AbstractCreateFeature implements
 	@Override
 	public Object[] create(ICreateContext context) {
 		// TODO: create the domain object here
-		Object newDomainObject = null;
+		Object new$shapeDomainObjectClassNameShort$ = null;
 		
 		// TODO: in case of an EMF object add the new object to a suitable resource
-		// getDiagram().eResource().getContents().add(newDomainObject);
-		
-		addGraphicalRepresentation(context, newDomainObject);
-		return new Object[] { newDomainObject };
+		// getDiagram().eResource().getContents().add(new$shapeDomainObjectClassNameShort$);
+
+		addGraphicalRepresentation(context, new$shapeDomainObjectClassNameShort$);
+		return new Object[] { new$shapeDomainObjectClassNameShort$ };
 	}
 }

@@ -8,11 +8,11 @@ import org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
-public class CreateDomainObjectConnectionFeature extends AbstractCreateConnectionFeature
+public class Create$connectionDomainObjectClassNameShort$ConnectionFeature extends AbstractCreateConnectionFeature
 		implements ICreateConnectionFeature {
 
-	public CreateDomainObjectConnectionFeature(IFeatureProvider fp) {
-		super(fp, "Connection", "Creates a new connection between two domain objects");
+	public Create$connectionDomainObjectClassNameShort$ConnectionFeature(IFeatureProvider fp) {
+		super(fp, "$connectionDomainObjectClassNameShort$", "Creates a new $connectionDomainObjectClassNameShort$ between two $shapeDomainObjectClassNameShort$s");
 	}
 
 	@Override

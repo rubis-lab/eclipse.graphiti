@@ -13,10 +13,14 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 
-public class LayoutDomainObjectFeature extends AbstractLayoutFeature implements
+%if useShapeDomainObject
+import $shapeDomainObjectClassName$;
+%endif
+
+public class Layout$shapeDomainObjectClassNameShort$Feature extends AbstractLayoutFeature implements
 		ILayoutFeature {
 
-	public LayoutDomainObjectFeature(IFeatureProvider fp) {
+	public Layout$shapeDomainObjectClassNameShort$Feature(IFeatureProvider fp) {
 		super(fp);
 	}
 

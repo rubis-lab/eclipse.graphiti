@@ -13,20 +13,21 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.util.IColorConstant;
 
-public class AddDomainObjectConnectionFeature extends AbstractAddFeature implements
+%if useConnectionDomainObject
+import $connectionDomainObjectClassName$;
+%endif
+
+public class Add$connectionDomainObjectClassNameShort$ConnectionFeature extends AbstractAddFeature implements
 		IAddFeature {
 
-	public AddDomainObjectConnectionFeature(IFeatureProvider fp) {
+	public Add$connectionDomainObjectClassNameShort$ConnectionFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
 	@Override
 	public boolean canAdd(IAddContext context) {
 		// TODO: check for right domain object instance below
-		if (context instanceof IAddConnectionContext /* && context.getNewObject() instanceof <DomainObject> */) {
-			return true;
-		}
-		return false;
+		return context instanceof IAddConnectionContext /* && context.getNewObject() instanceof $connectionDomainObjectClassNameShort$ */;
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class AddDomainObjectConnectionFeature extends AbstractAddFeature impleme
 		// TODO: enable the link to the domain object
 		// Object addedDomainObjectConnection = context.getNewObject();
 		// link(connection, addedDomainObjectConnection);
-		
+
 		return connection;
 	}
 

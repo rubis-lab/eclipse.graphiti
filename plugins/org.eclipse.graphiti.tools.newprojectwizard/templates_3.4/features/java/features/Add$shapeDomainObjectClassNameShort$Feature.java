@@ -15,17 +15,21 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 
-public class AddDomainObjectFeature extends AbstractAddFeature implements
+%if useShapeDomainObject
+import $shapeDomainObjectClassName$;
+%endif
+
+public class Add$shapeDomainObjectClassNameShort$Feature extends AbstractAddFeature implements
 		IAddFeature {
 
-	public AddDomainObjectFeature(IFeatureProvider fp) {
+	public Add$shapeDomainObjectClassNameShort$Feature(IFeatureProvider fp) {
 		super(fp);
 	}
 
 	@Override
 	public boolean canAdd(IAddContext context) {
 		// TODO: check for right domain object instance below
-		return /* context.getNewObject() instanceof <DomainObject> && */ context.getTargetContainer() instanceof Diagram;
+		return /* context.getNewObject() instanceof $shapeDomainObjectClassNameShort$ && */ context.getTargetContainer() instanceof Diagram;
 	}
 
 	@Override
@@ -41,7 +45,7 @@ public class AddDomainObjectFeature extends AbstractAddFeature implements
 		roundedRectangle.setFilled(false);
 		
 		Shape shape = peCreateService.createShape(containerShape, false);
-		Text text = gaService.createText(shape, "Domain Object");
+		Text text = gaService.createText(shape, "$shapeDomainObjectClassNameShort$");
 		text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 		text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
 		gaService.setLocationAndSize(text, 0, 0, context.getWidth(), context.getHeight());
@@ -54,5 +58,4 @@ public class AddDomainObjectFeature extends AbstractAddFeature implements
 
 		return containerShape;
 	}
-
 }
