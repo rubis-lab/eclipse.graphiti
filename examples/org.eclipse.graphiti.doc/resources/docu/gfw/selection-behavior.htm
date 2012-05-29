@@ -52,6 +52,10 @@ to select the graphical figure.</p>
 <p>The following example bases on the <a href="anchors.htm">box relative anchor</a> 
 we created previously. As you can see the box relative anchor was located completely 
 inside the bounds of the rectangle depicting the EClass.</p>
+<p>&nbsp;</p>
+<p><img alt="" height="154" src="visio/rendering-area-2aa.png" width="205"></p>
+<p><strong>Figure: Box relative anchor inside bounds of graphical figure</strong></p>
+<p>&nbsp;</p>
 <p>Now we want to change the location of the box relative anchor, so that it exceeds 
 the bounds of the rectangle. This is actually quite typical, that box relative anchors 
 or fix point anchors exceed the bounds of the graphical figure it belongs to.</p>
@@ -69,7 +73,7 @@ relative anchor</a> we created previously:</p>
 <p>&nbsp;</p>
 <div class="literallayout">
 	<div class="incode">
-		<p class="code">gaService.<em>setLocationAndSize</em>(boxRect, -8, -4, 16, 
+		<p class="code">gaService.<em>setLocationAndSize</em>(rectangle, -8, -4, 16, 
 		8); </p>
 	</div>
 </div>
@@ -203,10 +207,10 @@ line and text) in relation to the container graphics algorithm (invisible rectan
 		{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rectangle.setWidth(rectangleWidth);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		anythingChanged = <span class="keyword">true</span>;<br>&nbsp;&nbsp;&nbsp; 
 		}<br>&nbsp;<br>&nbsp;&nbsp;&nbsp; <span class="comment">// width of text 
-		and line (same as visible rectangle)</span><br>&nbsp;&nbsp;&nbsp; Iterator 
-		iter = containerShape.getChildren().iterator();<br>&nbsp;&nbsp;&nbsp;
+		and line (same as visible rectangle)</span><br>&nbsp;&nbsp;&nbsp; 
+		Iterator&lt;Shape&gt; iter = containerShape.getChildren().iterator();<br>&nbsp;&nbsp;&nbsp;
 		<span class="keyword">while</span> (iter.hasNext()) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		Shape shape = (Shape) iter.next();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Shape shape = iter.next();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		IGaService gaService = Graphiti.getGaService();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		IDimension size =<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -305,7 +309,7 @@ and add it to the diagram type provider as described </strong>
 <h2>Test: Verify the Adjusted Selection Behavior</h2>
 <p>Note: This change is incompatible with diagrams created in earlier stages of 
 the tutorial. You will get an exception, when opening these diagrams.</p>
-<p>tart the editor and create a new EClass. Click on the visible rectangle and verify 
+<p>Start the editor and create a new EClass. Click on the visible rectangle and verify 
 that the selection-handles are only around the visible rectangle. Click slightly 
 right of the visible rectangle on the invisible rectangle and verify that the EClass 
 becomes deselected.</p>

@@ -28,16 +28,34 @@ base classe
 <a href="../../../javadoc/org/eclipse/graphiti/tb/DefaultToolBehaviorProvider.html">
 DefaultToolBehaviorProvider</a>.</p>
 <p>At this point we will just create an empty tool behavior provider by extending 
-the base class. </p>
-<p>You can see the implementation of the empty tool behavior provider
-<a href="custom-feature.htm">here</a>. We will add further functionality in the 
+the base class. We will add further functionality in the 
 next chapters.</p>
-<ul>
-	<li>Additionally the diagram type provider has to deliver this newly created tool 
+<p>You can see the implementation of the empty tool behavior provider
+here:</p>
+
+<!-- Begin code ------------------------------------------------------------------------------- -->
+<p>&nbsp;</p>
+<div class="literallayout">
+	<div class="incode">
+		<p class="code"><span class="keyword">package </span>org.eclipse.graphiti.examples.tutorial.diagram;<br>&nbsp;<br>
+		<span class="keyword">import</span> 
+		org.eclipse.graphiti.dt.IDiagramTypeProvider;<br>
+		<span class="keyword">import</span> 
+		org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;<br>&nbsp;<br>
+		<span class="keyword">public class</span> MyTutorialToolBehaviorProvider 
+		<span class="keyword">extends </span>DefaultToolBehaviorProvider{<br><br>&nbsp;&nbsp;&nbsp;
+		<span class="keyword">public 
+		</span>MyTutorialToolBehaviorProvider(IDiagramTypeProvider dtp) {<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">super</span>(dtp);<br>&nbsp;&nbsp;&nbsp; }<br>}<br></p>
+	</div>
+</div>
+<p>&nbsp;</p>
+<!-- End code  -------------------------------------------------------------------------------  -->
+
+<p>Additionally the diagram type provider has to deliver this newly created tool 
 behavior provider (overwrite the method
 	<a href="../../../javadoc/org/eclipse/graphiti/dt/AbstractDiagramTypeProvider.html#getAvailableToolBehaviorProviders()">getAvailableToolBehaviorProviders</a>). 
-	</li>
-</ul>
+	</p>
 <p>This implementation can be seen here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
 <p>&nbsp;</p>
