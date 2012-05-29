@@ -183,8 +183,8 @@ public class UiService implements IUiService {
 				}
 				new ProgressMonitorDialog(shell).run(false, false, operation);
 			} catch (Exception e) {
-				String message = "Can not save image: "; //$NON-NLS-1$
-				MessageDialog.openError(shell, "Can not save image", message + e.getMessage()); //$NON-NLS-1$
+				String message = "Cannot save image: "; //$NON-NLS-1$
+				MessageDialog.openError(shell, "Cannot save image", message + e.getMessage()); //$NON-NLS-1$
 				T.racer()
 						.error(METHOD, message + "\nDetails: " + GraphitiUiInternal.getTraceService().getStacktrace(e)); //$NON-NLS-1$
 				e.printStackTrace();
