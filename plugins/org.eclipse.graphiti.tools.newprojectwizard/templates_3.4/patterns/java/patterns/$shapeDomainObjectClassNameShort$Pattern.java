@@ -21,8 +21,8 @@ import org.eclipse.graphiti.services.IPeCreateService;
 
 public class $shapeDomainObjectClassNameShort$Pattern extends AbstractPattern implements IPattern {
 
-	public $shapeDomainObjectClassNameShort$Pattern(IPatternConfiguration patternConfiguration) {
-		super(patternConfiguration);
+	public $shapeDomainObjectClassNameShort$Pattern() {
+		super(null);
 	}
 
 	@Override

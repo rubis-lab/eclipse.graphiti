@@ -16,7 +16,7 @@ public class $featureProviderClassName$ extends DefaultFeatureProviderWithPatter
 
 	public $featureProviderClassName$(IDiagramTypeProvider dtp) {
 		super(dtp);
-		addPattern(new $shapeDomainObjectClassNameShort$Pattern(null));
+		addPattern(new $shapeDomainObjectClassNameShort$Pattern());
 	}
 
 	@Override
