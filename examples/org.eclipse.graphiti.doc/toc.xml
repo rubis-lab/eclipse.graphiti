@@ -23,6 +23,10 @@
     <topic label="Tutorial">
        <link toc="toc_graphiti.xml"/>
     </topic>
+    <topic label="Further Topics">
+       <topic href="resources/docu/advanced/IssueAnalysis.htm" label="Analysing Issues">
+       </topic>
+    </topic>
     <topic label="Examples">
        <topic href="resources/docu/examples/Chess.htm" label="Chess Example">
        </topic>

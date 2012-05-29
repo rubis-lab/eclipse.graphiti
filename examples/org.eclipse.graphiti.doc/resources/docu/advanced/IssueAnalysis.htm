@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Page Title</title>
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
+<style type="text/css">
+.auto-style1 {
+	text-align: left;
+}
+</style>
+</head>
+
+<body>
+
+	<h1>Issue Analysis</h1>
+	<p>Since Graphiti is based upon writing code against a Java-API,
+		clients can make excellent usage of Java VM features like debugging
+		and hotcode replacement while writing Graphiti editors. An incremental
+		way to develop editors is very nicely supported by this.</p>
+	<p>However, sometimes debugging might not help, e.g. when you have
+		to analyze rendering issues that happen at coding locations that are
+		called often or during special UI states that are focus relevant.</p>
+	<p>
+		To ease analyzing issues in such situation, Graphiti offers a
+		preference page for test settings. It is part of the <i>org.eclipse.graphiti.examples.common</i>
+		plugin and is being installed e.g. when you install the Graphiti SDK.
+		To open the preferences page, click the main menu entry "Window", then
+		"Preferences" and select the page "Graphiti Test Preferences". (Note
+		that the page is not part of the Graphiti framework install, so it
+		will not appear in any Graphiti-based tool-installations, unless
+		explicitly added or the Graphiti SDK is installed along with the
+		tool).
+	</p>
+	<p>The following settings are available on the preference page:</p>
+	<ul>
+		<li>Category "Visually Playing Around" - Contains options to
+			influence the rendering in the Graphiti framework. They are not that
+			helpful in finding or analysing issues, but offer some options that
+			are not (yet?) part of the standard Graphiti framework behavior.</li>
+		<li>Category "Debugging" - This category is the most interesting
+			for clients:</li>
+		<ul>
+			<li>Add debug actions to the context menu of each shape - add
+				special entries (e.g. to print a dump of the shapes in a diagram)
+				into the context menu of shapes on Graphiti diagrams. These entries
+				are available at runtime of the tool and are helpful for analysing
+				issues in e.g. rendering.</li>
+			<li>Activate CPU profiling trace - Enables tracing of the time
+				needed to execute some Graphiti framework methods. Useful for
+				analysing performance issues.</li>
+			<li>Show invisble rectangles - Can be enabled to show rectangles
+				that are actually defined as being not visible.</li>
+			<li>Use generic outline view - Opens a generic Outline view
+				together with any Graphiti editor; this outline view hosts a tree
+				representation of the shapes, graphics algorithms and connections
+				inside a diagram and also a movable Miniature View of the diagram.</li>
+			<li>Use generic property sheet - Open a generic table based
+				property sheet along with any Graphiti editor showing the attributes
+				of any selected shape or connection.</li>
+		</ul>
+		<li>Category "Graphiti Internal" - Contain internal Graphiti
+			settings that should not be changed unless you really know what you
+			are doing.</li>
+		<li>Category "Graphiti Tracing" - Can be used to enable the
+			tracing in the Graphiti framework, available levels are "Info" and
+			"Debug".</li>
+	</ul>
+</body>
+</html>
