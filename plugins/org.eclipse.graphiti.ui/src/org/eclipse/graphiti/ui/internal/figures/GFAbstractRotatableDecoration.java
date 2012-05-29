@@ -87,8 +87,7 @@ public abstract class GFAbstractRotatableDecoration extends GFAbstractShape impl
 	 *            The GraphicsAlgorithm which provides the values to paint this
 	 *            Shape.
 	 */
-	public GFAbstractRotatableDecoration(IPictogramElementDelegate pictogramElementDelegate,
-			GraphicsAlgorithm graphicsAlgorithm) {
+	public GFAbstractRotatableDecoration(IPictogramElementDelegate pictogramElementDelegate, GraphicsAlgorithm graphicsAlgorithm) {
 		super(pictogramElementDelegate, graphicsAlgorithm);
 
 		// initialize values
@@ -150,8 +149,6 @@ public abstract class GFAbstractRotatableDecoration extends GFAbstractShape impl
 	 * {@link #getTouchPointDelta()}.
 	 */
 	protected void processRotatableDecorationValues() {
-		System.out.println("GFAbstractRotatableDecoration.processRotatableDecorationValues()");
-
 		// Calculate the angle between the x-axis and the line through
 		// [location, referencePoint].
 		// Add 180 degrees so that 0 degree is at 3 o'clock, increasing
@@ -168,20 +165,12 @@ public abstract class GFAbstractRotatableDecoration extends GFAbstractShape impl
 		double rotatedY = getInitialTouchPoint().x * sin + getInitialTouchPoint().y * cos;
 		touchPointDelta = new PrecisionPoint(getDecoratorLocation().x - rotatedX, getDecoratorLocation().y - rotatedY);
 
-		System.out.println("getInitialBounds() = " + getInitialBounds());
-		System.out.println("touchPointDelta = " + touchPointDelta);
-		System.out.println("rotatedX = " + rotatedX);
-		System.out.println("rotatedY = " + rotatedY);
-
 		// Calculate the bounds.
 		// This is a rough value, which is bigger than the smallest bounds would
 		// be.
 		int maxExtension = Math.max(getInitialBounds().width, getInitialBounds().height) + 10;
-		maxExtension = maxExtension * 2;
-		System.out.println("maxExtension = " + maxExtension);
-		int dLocation = maxExtension;
-		int dSize = dLocation + maxExtension;
-		bounds = new Rectangle(touchPointDelta.x - dLocation, touchPointDelta.y - dLocation, dSize, dSize);
+		bounds = new Rectangle(touchPointDelta.x - maxExtension, touchPointDelta.y - maxExtension, 3 * maxExtension,
+				3 * maxExtension);
 	}
 
 	// ============================ overwritten methods =======================
