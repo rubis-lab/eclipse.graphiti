@@ -22,10 +22,12 @@
 	<p class="Note">
 		Note: It is also possible to use the standard Eclipse property sheets.
 		In order to enable that you need to provide a
-		<code>org.eclipse.ui.views.properties.PropertySheetPage</code>
+		<span class="inlinecode">
+		<code>org.eclipse.ui.views.properties.PropertySheetPage</code></span>
 		instead of the default
-		<code>org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage(ITabbedPropertySheetPageContributor)</code>
-		in the <code>getAdapter()</code> method of <code>DiagramEditor</code>.
+		<code><span class="inlinecode">org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage(ITabbedPropertySheetPageContributor</span>)</code>
+		in the <code class="inlinecode">getAdapter()</code> method of 
+		<code class="inlinecode">DiagramEditor</code>.
 	</p>
 <h2>Contributing to the Property Sheet</h2>
 <p>Contributing to the property sheet is easy if you are familiar with the Eclipse 
@@ -44,26 +46,27 @@ article</a>.</p>
 		category=</span><span class="comment">&quot;Graphiti&quot;</span><span class="string">&gt;
 		</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="string">&lt;/propertyCategory&gt; <br>&nbsp;&nbsp;&nbsp; &lt;/propertyContributor&gt;
-		<br>&lt;/extension&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&lt;extension<br>&nbsp;&nbsp;&nbsp; 
-		point=</span><span class="comment">&quot;org.eclipse.ui.views.properties.tabbed.propertyTabs&quot;</span><span class="string">&gt;</span><br>&nbsp;&nbsp;&nbsp;
-		<span class="string">&lt;propertyTabs contributorId=</span><span class="comment">&quot;mytutorial.PropertyContributor&quot;</span><span class="string">&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string">&lt;propertyTab label=</span><span class="comment">&quot;Main&quot;</span>
-		<span class="string">category=</span><span class="comment">&quot;Graphiti&quot;</span>
-		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string">id=</span><span class="comment">&quot;graphiti.main.tab&quot;</span><span class="string">&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string">&lt;/propertyTab&gt;<br>&nbsp;&nbsp;&nbsp; &lt;/propertyTabs&gt;<br>
-		&lt;/extension&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&lt;extension<br>&nbsp;&nbsp;&nbsp; 
-		point=</span><span class="comment">&quot;org.eclipse.ui.views.properties.tabbed.propertySections&quot;</span><span class="string">&gt;</span><br>&nbsp;&nbsp;&nbsp;
-		<span class="string">&lt;propertySections contributorId=</span><span class="comment">&quot;mytutorial.PropertyContributor&quot;</span><span class="string">&gt;
-		</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string">&lt;propertySection tab=</span><span class="comment">&quot;graphiti.main.tab&quot;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string">class=</span><span class="comment">&quot;org.eclipse.graphiti.examples.tutorial.property<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		.MyTutorialEClassSection&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string">filter=</span><span class="comment">&quot;org.eclipse.graphiti.examples.tutorial.property<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		.MyTutorialEClassFilter&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="string">id=</span><span class="comment">&quot;graphiti.main.tab.emfclass&quot;</span><span class="string">&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		&lt;/propertySection&gt;<br>&nbsp;&nbsp;&nbsp; &lt;/propertySections&gt;<br>&lt;/extension&gt;</span><br>
+		<br>&lt;/extension&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+		&lt;extension<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		point=</span><span class="comment">&quot;org.eclipse.ui.views.properties.tabbed.propertyTabs&quot;</span><span class="string">&gt;<br>
+		&nbsp;&nbsp;
+		&lt;propertyTabs<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; contributorId=</span><span class="comment">&quot;mytutorial.PropertyContributor&quot;</span><span class="string">&gt;<br>
+		&nbsp;&nbsp;
+		&lt;propertyTab<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; category=</span><span class="comment">&quot;Graphiti&quot;</span><span class="string"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id=</span><span class="comment">&quot;graphiti.main.tab&quot;</span><span class="string"><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		label=</span><span class="comment">&quot;Main&quot;</span><span class="string">&gt;<br>&nbsp;&nbsp;&nbsp; &lt;/propertyTab&gt;<br>&nbsp;&nbsp; &lt;/propertyTabs&gt;<br>&lt;/extension&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp; <br>
+		&lt;extension<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; point=</span><span class="comment">&quot;org.eclipse.ui.views.properties.tabbed.propertySections&quot;</span><span class="string">&gt;<br>&nbsp;&nbsp;&nbsp; 
+		&lt;propertySections<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		contributorId=</span><span class="comment">&quot;mytutorial.PropertyContributor&quot;</span><span class="string">&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		&lt;propertySection<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		class=</span><span class="comment">&quot;org.eclipse.graphiti.examples.tutorial.property<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		.MyTutorialEClassSection&quot;</span><span class="string"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		filter=</span><span class="comment">&quot;org.eclipse.graphiti.examples.tutorial.property<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		.MyTutorialEClassFilter&quot;</span><span class="string"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		id=</span><span class="comment">&quot;graphiti.main.tab.emfclass&quot;</span><span class="string"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		tab=</span><span class="comment">&quot;graphiti.main.tab&quot;</span><span class="string">&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		&lt;/propertySection&gt;<br>&nbsp;&nbsp;&nbsp; &lt;/propertySections&gt;<br>
+		&lt;/extension&gt;</span><br>
 		</p>
 	</div>
 </div>
