@@ -2,8 +2,8 @@
 <project name="project">
 	
 	<target name="create.javadoc" description="Generate the JavaDoc for the sources">
-		<echo message="Generate the JavaDoc for the sources"></echo>
-		<echo message="javadoc source ${root}/buildroot/buckminster.workspace" />
+		<echo message="Generate the JavaDoc for the Graphiti sources"></echo>
+		<echo message="Buckminster workspace is ${root}/buildroot/buckminster.workspace" />
 		
 		<!-- set targetPlatformPath as classpath --> 
 		<path id="files-classpath">  
@@ -11,10 +11,13 @@
 				<include name="*.jar"/>  
 			</fileset> 
 		</path>
+		<echo message="Set files-classpath to: ${root}/buildroot/target.platform" />
 		
 		 <!-- clean and create output location --> 
 		<delete dir="${root}/buildroot/buckminster.workspace/../../org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.doc/javadoc"/>
+		<echo message="Deleted old folder: ${root}/buildroot/buckminster.workspace/../../org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.doc/javadoc" />
 		<mkdir dir="${root}/buildroot/buckminster.workspace/../../org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.doc/javadoc"/>
+		<echo message="Created folder: ${root}/buildroot/buckminster.workspace/../../org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.doc/javadoc" />
 		
 		<!-- generate the javadoc -->
 		<javadoc  destdir="${root}/buildroot/buckminster.workspace/../../org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.doc/javadoc"  
@@ -39,7 +42,7 @@
 			<arg value="-J-Dhttp.proxyPort=9898"/>
 
 			<!-- link external APIs -->   
-			<link href="http://download.oracle.com/javase/6/docs/api/"/>
+			<link href="http://docs.oracle.com/javase/5/docs/api/"/>
 			<link href="http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/"/>
 			<link href="http://download.eclipse.org/modeling/emf/transaction/javadoc/workspace/1.4.0/"/>
 			
@@ -50,10 +53,11 @@
 				<exclude name="**/tests/**"/>
 				<exclude name="**/examples/**"/>
 				<exclude name="**/testtool/**"/>
-				<exclude name="**/tools/**"/> 
+				<exclude name="**/templates_3.4/**"/> 
 			</fileset>
 			<bottom><![CDATA[ <a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2012.</a>]]></bottom>
 		</javadoc>
+		<echo message="Generated JavaDoc" />
 	</target>
 	
 	<target name="create.site.index">
