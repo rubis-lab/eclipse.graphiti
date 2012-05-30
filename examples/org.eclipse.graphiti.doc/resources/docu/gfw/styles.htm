@@ -279,8 +279,11 @@ code snippet:</p>
 		// direct editing shall be opened after object creation</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		directEditingInfo.setPictogramElement(shape);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		directEditingInfo.setGraphicsAlgorithm(text);<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
-		<span class="comment">// add a chopbox anchor to the shape<br><br>&nbsp;&nbsp;&nbsp; 
-		// ... EXISTING CODING ...</span><br><br>&nbsp;&nbsp;&nbsp; ellipse.setStyle(StyleUtil.<em>getStyleForEClass</em>(getDiagram()));<br>
+		<span class="comment">// add a chopbox anchor to the shape</span><br><br>&nbsp;&nbsp;&nbsp; 
+		<span class="comment">// ... EXISTING CODING ...</span><br><br>&nbsp;&nbsp;&nbsp;
+		<span class="comment">// assign a graphics algorithm for the box 
+		relative anchor</span><br>&nbsp;&nbsp;&nbsp; Ellipse ellipse = 
+		gaService.createPlainEllipse(boxAnchor);<br>&nbsp;&nbsp;&nbsp; ellipse.setStyle(StyleUtil.<em>getStyleForEClass</em>(getDiagram()));<br>
 		<br>&nbsp;&nbsp;&nbsp; <span class="comment">// ... EXISTING CODING ...</span><br>&nbsp;<br>&nbsp;&nbsp;&nbsp;
 		<span class="keyword">return</span> containerShape;<br>}<br></p>
 	</div>
