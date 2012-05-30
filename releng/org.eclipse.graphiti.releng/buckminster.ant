@@ -51,7 +51,7 @@
 				<exclude name="**/examples/**"/>
 				<exclude name="**/testtool/**"/> 
 			</fileset>
-			<bottom><![CDATA[ <a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2010.</a>]]></bottom>
+			<bottom><![CDATA[ <a href="http://www.eclipse.org/legal/epl-v10.html" shape="rect">Copyright (c) SAP AG 2005, 2012.</a>]]></bottom>
 		</javadoc>
 	</target>
 	
