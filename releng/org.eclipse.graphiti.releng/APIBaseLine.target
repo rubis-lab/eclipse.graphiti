@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target name="Graphiti API Base Line" sequenceNumber="8">
+<target name="Graphiti API Base Line" sequenceNumber="11">
 <locations>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.graphiti.feature.feature.group" version="0.8.0.v20110607-1252"/>
+<unit id="org.eclipse.graphiti.feature.examples.feature.group" version="0.8.0.v20110607-1252"/>
+<unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.8.0.v20110607-1252"/>
+<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.8.0.v20110607-1252"/>
+<repository location="http://download.eclipse.org/graphiti/updates/0.8.0"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.7.2.v20120130-0943"/>
+<unit id="org.eclipse.emf.transaction.sdk.feature.group" version="1.5.1.v20110823-1800-777T19A_WsXmjNatPxcrPm1rOKlH"/>
+<unit id="org.eclipse.gef.sdk.feature.group" version="3.7.2.v20110927-2020-7G7W77A5WNgIRPdWXDIbNTSQPdQL"/>
 <repository location="http://download.eclipse.org/releases/indigo"/>
 </location>
 </locations>
