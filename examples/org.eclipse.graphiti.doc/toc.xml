@@ -39,21 +39,58 @@
     <topic label="Reference">
        <topic href="javadoc/overview-summary.html" label="API Reference">
           <topic href="javadoc/org/eclipse/graphiti/package-summary.html" label="org.eclipse.graphiti">
+	          <topic href="javadoc/org/eclipse/graphiti/datatypes/package-summary.html" label="org.eclipse.graphiti.datatypes"/>
+	          <topic href="javadoc/org/eclipse/graphiti/dt/package-summary.html" label="org.eclipse.graphiti.dt"/>
+	          <topic href="javadoc/org/eclipse/graphiti/export/batik/package-summary.html" label="org.eclipse.graphiti.export.batik"/>
+	          <topic href="javadoc/org/eclipse/graphiti/features/package-summary.html" label="org.eclipse.graphiti.features">
+		          <topic href="javadoc/org/eclipse/graphiti/features/context/package-summary.html" label="org.eclipse.graphiti.features.context">
+		              <topic href="javadoc/org/eclipse/graphiti/features/context/impl/package-summary.html" label="org.eclipse.graphiti.features.context.impl"/>
+		          </topic>
+		          <topic href="javadoc/org/eclipse/graphiti/features/custom/package-summary.html" label="org.eclipse.graphiti.features.custom"/>
+		          <topic href="javadoc/org/eclipse/graphiti/features/impl/package-summary.html" label="org.eclipse.graphiti.features.impl"/>
+	          </topic>
+	          <topic href="javadoc/org/eclipse/graphiti/func/package-summary.html" label="org.eclipse.graphiti.func"/>
           </topic>
           <topic href="javadoc/org/eclipse/graphiti/mm/package-summary.html" label="org.eclipse.graphiti.mm">
+	          <topic href="javadoc/org/eclipse/graphiti/mm/algorithms/package-summary.html" label="org.eclipse.graphiti.mm.algorithms">
+		          <topic href="javadoc/org/eclipse/graphiti/mm/algorithms/impl/package-summary.html" label="org.eclipse.graphiti.mm.algorithms.impl"/>
+		          <topic href="javadoc/org/eclipse/graphiti/mm/algorithms/styles/package-summary.html" label="org.eclipse.graphiti.mm.algorithms.styles">
+			          <topic href="javadoc/org/eclipse/graphiti/mm/algorithms/styles/impl/package-summary.html" label="org.eclipse.graphiti.mm.algorithms.styles.impl"/>
+			          <topic href="javadoc/org/eclipse/graphiti/mm/algorithms/styles/util/package-summary.html" label="org.eclipse.graphiti.mm.algorithms.styles.util"/>
+		          </topic>
+		          <topic href="javadoc/org/eclipse/graphiti/mm/algorithms/util/package-summary.html" label="org.eclipse.graphiti.mm.algorithms.util"/>
+	          </topic>
+	          <topic href="javadoc/org/eclipse/graphiti/mm/impl/package-summary.html" label="org.eclipse.graphiti.mm.impl"/>
+	          <topic href="javadoc/org/eclipse/graphiti/mm/pictograms/package-summary.html" label="org.eclipse.graphiti.mm.pictograms">
+		          <topic href="javadoc/org/eclipse/graphiti/mm/pictograms/impl/package-summary.html" label="org.eclipse.graphiti.mm.pictograms.impl"/>
+		          <topic href="javadoc/org/eclipse/graphiti/mm/pictograms/util/package-summary.html" label="org.eclipse.graphiti.mm.pictograms.util"/>
+	          </topic>
+	          <topic href="javadoc/org/eclipse/graphiti/mm/util/package-summary.html" label="org.eclipse.graphiti.mm.util"/>
+          </topic>
+          <topic href="javadoc/org/eclipse/graphiti/notification/package-summary.html" label="org.eclipse.graphiti.notification"/>
+          <topic href="javadoc/org/eclipse/graphiti/palette/package-summary.html" label="org.eclipse.graphiti.palette">
+	          <topic href="javadoc/org/eclipse/graphiti/palette/impl/package-summary.html" label="org.eclipse.graphiti.palette.impl"/>
           </topic>
           <topic href="javadoc/org/eclipse/graphiti/pattern/package-summary.html" label="org.eclipse.graphiti.pattern">
+	          <topic href="javadoc/org/eclipse/graphiti/pattern/config/package-summary.html" label="org.eclipse.graphiti.pattern.config"/>
+	          <topic href="javadoc/org/eclipse/graphiti/pattern/mapping/package-summary.html" label="org.eclipse.graphiti.pattern.mapping">
+		          <topic href="javadoc/org/eclipse/graphiti/pattern/mapping/data/package-summary.html" label="org.eclipse.graphiti.pattern.mapping.data"/>
+	          </topic>
           </topic>
+          <topic href="javadoc/org/eclipse/graphiti/platform/package-summary.html" label="org.eclipse.graphiti.platform">
+	          <topic href="javadoc/org/eclipse/graphiti/platform/ga/package-summary.html" label="org.eclipse.graphiti.platform.ga"/>
+          </topic>
+          <topic href="javadoc/org/eclipse/graphiti/services/package-summary.html" label="org.eclipse.graphiti.services">
+	          <topic href="javadoc/org/eclipse/graphiti/services/impl/package-summary.html" label="org.eclipse.graphiti.services.impl"/>
+          </topic>
+          <topic href="javadoc/org/eclipse/graphiti/tb/package-summary.html" label="org.eclipse.graphiti.tb"/>
           <topic label="org.eclipse.graphiti.ui">
-             <topic href="javadoc/org/eclipse/graphiti/ui/editor/package-summary.html" label="org.eclipse.graphiti.ui.editor">
-             </topic>
-             <topic href="javadoc/org/eclipse/graphiti/ui/features/package-summary.html" label="org.eclipse.graphiti.ui.features">
-             </topic>
-             <topic href="javadoc/org/eclipse/graphiti/ui/platform/package-summary.html" label="org.eclipse.graphiti.ui.platform">
-             </topic>
-             <topic href="javadoc/org/eclipse/graphiti/ui/services/package-summary.html" label="org.eclipse.graphiti.ui.services">
-             </topic>
+             <topic href="javadoc/org/eclipse/graphiti/ui/editor/package-summary.html" label="org.eclipse.graphiti.ui.editor"/>
+             <topic href="javadoc/org/eclipse/graphiti/ui/features/package-summary.html" label="org.eclipse.graphiti.ui.features"/>
+             <topic href="javadoc/org/eclipse/graphiti/ui/platform/package-summary.html" label="org.eclipse.graphiti.ui.platform"/>
+             <topic href="javadoc/org/eclipse/graphiti/ui/services/package-summary.html" label="org.eclipse.graphiti.ui.services"/>
           </topic>
+          <topic href="javadoc/org/eclipse/graphiti/util/package-summary.html" label="org.eclipse.graphiti.util"/>
        </topic>
 		<topic label="Extension Points Reference" href="resources/docu/extension-points/index.html">
 			<topic label="diagramTypeProviders" href="resources/docu/extension-points/diagramTypeProviders.html" />
