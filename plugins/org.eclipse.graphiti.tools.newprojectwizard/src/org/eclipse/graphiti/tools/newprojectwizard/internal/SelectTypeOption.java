@@ -73,6 +73,7 @@ public class SelectTypeOption extends StringOption {
 		super(section, name, label);
 		fStyle = F_DEFAULT_STYLE;
 		setRequired(true);
+		setEnabled(false);
 		this.groupOption = groupOption;
 	}
 
@@ -177,7 +178,7 @@ public class SelectTypeOption extends StringOption {
 					if (result != null && result.length > 0 && result[0] instanceof IType) {
 						IType type = (IType) result[0];
 						text.setText(type.getFullyQualifiedName());
-						
+
 						Bundle containingBundle = null;
 
 						// Search for the first bundle that can resolve the
