@@ -14,6 +14,9 @@
  */
 package org.eclipse.graphiti.tools.newprojectwizard.internal;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.SearchEngine;
@@ -167,9 +170,6 @@ public class SelectTypeOption extends StringOption {
 					return;
 				}
 
-				// SelectionDialog dialog = new OpenTypeSelectionDialog(parent,
-				// true, PlatformUI.getWorkbench()
-				// .getProgressService(), null, IJavaSearchConstants.TYPE);
 				dialog.setTitle(Messages.SelectTypeOption_TitleSelectDomainObject);
 				dialog.setMessage(Messages.SelectTypeOption_DescriptionSelectDomainObject);
 
@@ -177,7 +177,6 @@ public class SelectTypeOption extends StringOption {
 					Object[] result = dialog.getResult();
 					if (result != null && result.length > 0 && result[0] instanceof IType) {
 						IType type = (IType) result[0];
-						text.setText(type.getFullyQualifiedName());
 
 						Bundle containingBundle = null;
 
@@ -194,17 +193,44 @@ public class SelectTypeOption extends StringOption {
 								if (classLoader instanceof BundleReference) {
 									containingBundle = ((BundleReference) classLoader).getBundle();
 									setBundleName(containingBundle.getSymbolicName());
+									text.setText(type.getFullyQualifiedName());
 									return;
 								}
 							} catch (ClassNotFoundException cnfe) {
 								// Simply ignore
 							}
 						}
-						if (containingBundle == null) {
-							MessageDialog.openError(parent, "No Bundle found", //$NON-NLS-1$
-									"The class '" + type.getFullyQualifiedName() //$NON-NLS-1$
-											+ "' could not be resolved within an installed plugin."); //$NON-NLS-1$
+
+						// Search for a Java source file in the workspace
+						ICompilationUnit compilationUnit = type.getCompilationUnit();
+						if (compilationUnit != null) {
+							IResource resource = null;
+							try {
+								resource = compilationUnit.getCorrespondingResource();
+							} catch (JavaModelException e1) {
+								// Simply ignore
+							}
+							if (resource != null && resource.exists()) {
+								IProject project = resource.getProject();
+								if (project != null && project.exists()) {
+									// Use project name as bundle name (should
+									// fit in most cases
+									setBundleName(project.getName());
+									text.setText(type.getFullyQualifiedName());
+									return;
+								}
+							}
 						}
+
+						text.setText(type.getFullyQualifiedName());
+
+						// Nothing found
+						MessageDialog
+								.openError(parent,
+										"No Bundle found", //$NON-NLS-1$
+										"The class '" + type.getFullyQualifiedName() //$NON-NLS-1$
+												+ "' could not be resolved within an installed plugin or as a Java source file in the workspace."); //$NON-NLS-1$
+						return;
 					}
 				}
 			}

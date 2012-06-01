@@ -104,34 +104,35 @@ public class GraphitiEditorTemplateSection extends OptionTemplateSection {
 				Messages.GraphitiEditorTemplateSection_groupNameFeatureProvider);
 		addGroupedOption(KEY_FEATURE_PROVIDER_CLASS_NAME, Messages.GraphitiEditorTemplateSection_fieldNameClassName,
 				null, 0, featureProviderGroupOption);
-		addGroupedOption(KEY_USE_PATTERNS, Messages.GraphitiEditorTemplateSection_fieldNameUsePatterns, false, 0, featureProviderGroupOption,
-				new SelectionAdapter() {
-					@Override
-					public void widgetSelected(SelectionEvent e) {
-						Button source = (Button) e.getSource();
-						boolean selection = source.getSelection();
-						shapeDomainObjectOption.setRequired(selection);
-						shapeDomainObjectOption.setEnabled(selection);
-					}
-				});
+		addGroupedOption(KEY_USE_PATTERNS, Messages.GraphitiEditorTemplateSection_fieldNameUsePatterns, false, 0,
+				featureProviderGroupOption, null);
 
-		GroupOption shapeDomainObjectGroupOption = addGroupOption(1, Messages.GraphitiEditorTemplateSection_groupNameShapeDomainObject);
-		addGroupedOption(KEY_USE_SHAPE_DOMAIN_OBJECT, Messages.GraphitiEditorTemplateSection_fieldNameUseShapeDomainObject, false, 1, shapeDomainObjectGroupOption,
-				new SelectionAdapter() {
+		final GroupOption shapeDomainObjectGroupOption = addGroupOption(1,
+				Messages.GraphitiEditorTemplateSection_groupNameShapeDomainObject);
+		addGroupedOption(KEY_USE_SHAPE_DOMAIN_OBJECT,
+				Messages.GraphitiEditorTemplateSection_fieldNameUseShapeDomainObject, false, 1,
+				shapeDomainObjectGroupOption, new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
 						Button source = (Button) e.getSource();
 						boolean selection = source.getSelection();
 						shapeDomainObjectOption.setRequired(selection);
 						shapeDomainObjectOption.setEnabled(selection);
+						if (!selection) {
+							shapeDomainObjectOption.setText("");
+						}
+						validateOptions(shapeDomainObjectGroupOption);
 					}
 				});
-		shapeDomainObjectOption = addSelectTypeOption(KEY_SHAPE_DOMAIN_OBJECT_CLASS_NAME, Messages.GraphitiEditorTemplateSection_fieldNameShapeDomainObject, null, 1,
+		shapeDomainObjectOption = addSelectTypeOption(KEY_SHAPE_DOMAIN_OBJECT_CLASS_NAME,
+				Messages.GraphitiEditorTemplateSection_fieldNameShapeDomainObject, null, 1,
 				shapeDomainObjectGroupOption);
 		shapeDomainObjectOption.setRequired(false);
 
-		GroupOption connectionDomainObjectGroupOption = addGroupOption(1, Messages.GraphitiEditorTemplateSection_groupNameConnectionDomainObject);
-		addGroupedOption(KEY_USE_CONNECTION_DOMAIN_OBJECT, Messages.GraphitiEditorTemplateSection_fieldNameUseConenctionDomainObject, false, 1,
+		final GroupOption connectionDomainObjectGroupOption = addGroupOption(1,
+				Messages.GraphitiEditorTemplateSection_groupNameConnectionDomainObject);
+		addGroupedOption(KEY_USE_CONNECTION_DOMAIN_OBJECT,
+				Messages.GraphitiEditorTemplateSection_fieldNameUseConenctionDomainObject, false, 1,
 				connectionDomainObjectGroupOption, new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
@@ -139,9 +140,14 @@ public class GraphitiEditorTemplateSection extends OptionTemplateSection {
 						boolean selection = source.getSelection();
 						connectionDomainObjectOption.setRequired(selection);
 						connectionDomainObjectOption.setEnabled(selection);
+						if (!selection) {
+							connectionDomainObjectOption.setText("");
+						}
+						validateOptions(connectionDomainObjectGroupOption);
 					}
 				});
-		connectionDomainObjectOption = addSelectTypeOption(KEY_CONNECTION_DOMAIN_OBJECT_CLASS_NAME, Messages.GraphitiEditorTemplateSection_fieldNameConnectionDomainObject, null, 1,
+		connectionDomainObjectOption = addSelectTypeOption(KEY_CONNECTION_DOMAIN_OBJECT_CLASS_NAME,
+				Messages.GraphitiEditorTemplateSection_fieldNameConnectionDomainObject, null, 1,
 				connectionDomainObjectGroupOption);
 		connectionDomainObjectOption.setRequired(false);
 	}
@@ -395,5 +401,40 @@ public class GraphitiEditorTemplateSection extends OptionTemplateSection {
 		} else {
 			return super.getReplacementString(fileName, key);
 		}
+	}
+
+	@Override
+	public void validateOptions(TemplateOption source) {
+		/*
+		 * Workaround for super class only checking page one. reimplement here
+		 * and check all pages
+		 */
+
+		// Check template source itself
+		if (source.isRequired() && source.isEmpty()) {
+			flagMissingRequiredOption(source);
+		}
+
+		// Check first page
+		TemplateOption[] allPageOptions = getOptions(0);
+		for (int i = 0; i < allPageOptions.length; i++) {
+			TemplateOption nextOption = allPageOptions[i];
+			if (nextOption.isRequired() && nextOption.isEmpty()) {
+				flagMissingRequiredOption(nextOption);
+				return;
+			}
+		}
+		resetPageState();
+
+		// Check second page
+		allPageOptions = getOptions(1);
+		for (int i = 0; i < allPageOptions.length; i++) {
+			TemplateOption nextOption = allPageOptions[i];
+			if (nextOption.isRequired() && nextOption.isEmpty()) {
+				flagMissingRequiredOption(nextOption);
+				return;
+			}
+		}
+		resetPageState();
 	}
 }
