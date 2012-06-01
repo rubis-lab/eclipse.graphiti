@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 371527 - Recursive attempt to activate part while in the middle of activating part
  *
  * </copyright>
  *
@@ -27,6 +28,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.printing.Printer;
 import org.eclipse.swt.printing.PrinterData;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
@@ -99,14 +101,29 @@ public class PrintGraphicalViewerAction extends PrintAction {
 		long currentTime = System.currentTimeMillis();
 		long diffTime = (currentTime - lastPrinterCheckTime) / 1000;
 
-		// super.calculateEnabled() only checks whether a printer is available.
-		// But calculateEnabled() is called very often and in some environments
-		// this can lead to performance issues. See also bugzilla 355401.
-		// Therefore we cache the result and call the super method earliest
-		// after 5 minutes.
+		// super.calculateEnabled() only checks whether a printer is
+		// available. But calculateEnabled() is called very often and in
+		// some environments this can lead to performance issues. See also
+		// bugzilla 355401. Therefore we cache the result and call the super
+		// method earliest after 5 minutes.
 		if (diffTime > 300) {
 			lastPrinterCheckTime = currentTime;
-			cachedEnabled = super.calculateEnabled();
+
+			// Fix for Bug 371527: Do not trigger the super call directly,
+			// because on some systems (e.g. Linux) it will take some time. In
+			// between the event loop will be polled and another activation
+			// request (user mouse click on another part) might come in. In this
+			// case a recursive attempt to activate part runtime exception will
+			// be thrown; instead trigger the enablement check via a async call
+			// so that the current activation can return immediately. On other
+			// systems this is not really needed but does not harm because the
+			// cachedEnabled is filled directly after the activation returns
+			// instead of immediately which makes no difference to the user
+			Display.getCurrent().asyncExec(new Runnable() {
+				public void run() {
+					cachedEnabled = PrintGraphicalViewerAction.super.calculateEnabled();
+				}
+			});
 		}
 		return cachedEnabled;
 		// TODO ask also feature for canPrint() ?
