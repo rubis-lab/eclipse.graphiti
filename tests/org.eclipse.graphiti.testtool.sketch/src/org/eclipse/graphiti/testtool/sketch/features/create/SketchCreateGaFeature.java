@@ -52,6 +52,7 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 
 	private static final String NEW_ELEMENT = "new element";
 	private Class<? extends GraphicsAlgorithm> gaType;
+	private static int MIN_SIZE = 51;
 
 	/**
 	 * Instantiates a new sketch create ga feature.
@@ -65,7 +66,8 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 	 * @param gaType
 	 *            the ga type
 	 */
-	public SketchCreateGaFeature(IFeatureProvider fp, String name, String description, Class<? extends GraphicsAlgorithm> gaType) {
+	public SketchCreateGaFeature(IFeatureProvider fp, String name, String description,
+			Class<? extends GraphicsAlgorithm> gaType) {
 		super(fp, name, description);
 		setGaType(gaType);
 	}
@@ -86,8 +88,8 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 		IGaService gaService = Graphiti.getGaService();
 		final ChopboxAnchor newAnchor = pecService.createChopboxAnchor(newAc);
 
-		int width = context.getWidth() < 50 ? 50 : context.getWidth();
-		int height = context.getHeight() < 50 ? 50 : context.getHeight();
+		int width = context.getWidth() < MIN_SIZE ? MIN_SIZE : context.getWidth();
+		int height = context.getHeight() < MIN_SIZE ? MIN_SIZE : context.getHeight();
 
 		GraphicsAlgorithm newGa = createGa(newAc, width, height);
 
@@ -191,7 +193,8 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 				Polygon p = gaService.createPolygon(gac, xy, ba);
 				ret = p;
 			} else { // arrow
-				// top-left, top-middle, middle-right, bottom-middle, bottom-right
+				// top-left, top-middle, middle-right, bottom-middle,
+				// bottom-right
 				int xy[] = new int[] { 0, 0, (2 * width / 3), 0, width, height / 2, (2 * width / 3), height, 0, height };
 				int ba[] = new int[] { 0, 0, 30, 15, 0, 0, 15, 30, 60, 60 };
 				Polygon p = gaService.createPolygon(gac, xy, ba);
