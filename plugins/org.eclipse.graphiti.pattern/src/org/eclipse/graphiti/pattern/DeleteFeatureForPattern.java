@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2011 Volker Wegert and others.
+ * Copyright (c) 2012 Volker Wegert and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *                    remove, direct editing and conditional palette
  *                    creation entry
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
+ *    mwenz - Bug 325084 - Provide documentation for Patterns
  *
  * </copyright>
  *
@@ -20,7 +21,6 @@
 package org.eclipse.graphiti.pattern;
 
 import org.eclipse.graphiti.features.ICustomUndoableFeature;
-import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -28,9 +28,11 @@ import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 
 /**
- * This class is used by the {@link DefaultFeatureProviderWithPatterns} to wrap
- * the deletion behavior provided by an {@link IPattern} into an
- * {@link IDeleteFeature}.
+ * This feature wraps the delete functionality of a pattern for calls of the
+ * Graphiti framework. Clients should not need to use this class directly.
+ * 
+ * @noextend This class is not intended to be subclassed by clients.
+ * @noinstantiate This class is not intended to be instantiated by clients.
  * 
  * @since 0.8.0
  */

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
+ *    mwenz - Bug 325084 - Provide documentation for Patterns
  *
  * </copyright>
  *
@@ -23,7 +24,11 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
 
 /**
- * The Class LayoutFeatureForPattern.
+ * This feature wraps the layout functionality of a pattern for calls of the
+ * Graphiti framework. Clients should not need to use this class directly.
+ * 
+ * @noextend This class is not intended to be subclassed by clients.
+ * @noinstantiate This class is not intended to be instantiated by clients.
  */
 public class LayoutFeatureForPattern extends AbstractLayoutFeature implements ICustomUndoableFeature {
 	private IFeatureForPattern delegate;

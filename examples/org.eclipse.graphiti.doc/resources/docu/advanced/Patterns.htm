@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Patterns</title>
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
+</head>
+
+<body>
+	<h1>Patterns</h1>
+	<p>Patterns are an alternative approach to write graphical tools
+		using Graphiti. The standard Graphiti way to write the functionality
+		for an editor by providing features should be thoroughly understood
+		before continuing with patterns.</p>
+	<p>In general, features are a very nice concept, because they allow
+		tool builders to structure their coding into small pieces each dealing
+		with a certain aspect or functionality for one specific domain object.
+		On the other hand, the fine granularity and the Java single
+		inheritance limitation make it hard to reuse coding between different
+		features. This is something you will sooner or later (at least for
+		non-trivial editors) naturally would like to do. Especially finding
+		the relevant shapes and graphics algorithms inside a diagram for a
+		type of shape is something you will need in several features dealing
+		with one domain object (e.g. add, layout and update features). Using
+		features you need to either re-code the functionality for the
+		different features or extract them to some common utility classes.</p>
+	<p>To enable the reuse in a more convenient way, patterns come
+		really handy: a pattern is one single class that holds all
+		functionality dealing with one domain object. It is used to combine
+		the creation, add, layout, update, direct edit, remove and delete
+		functionality into just one class enabling reuse of common
+		functionality. E.g. is is easy to provide a method to identify the
+		text field showing the name of a domain object to the user; this
+		method can then be reused for update and direct editing. A pattern
+		provides almost all functionality for a specific domain object, almost
+		all because the tool builder is always free to break out of the
+		pattern concept and use a feature for implementing a piece of
+		functionality. Adding a custom feature to a pattern is the most common
+		use case, but all other types of features can be used as well in
+		combination with a pattern and to overrule pattern functionality. The
+		following image shows the basic setup of a feature-based tool on the
+		left and a pattern-based on the right.</p>
+	<img alt="Graphiti editors with features and patterns compared"
+		src="images/FeaturesAndPatterns.png">
+	<p>The following sections describe the steps when building a
+		pattern-based tool and compare them to a feature-based one.</p>
+	<h2>Plug-in Dependencies</h2>
+	<p>
+		One additional plug-in dependency needs to be defined in <i>plugin.xml</i>:
+		the Graphiti framework plug-in <i>org.eclipse.graphiti.pattern</i>
+		must be referenced.
+	</p>
+	<h2>Diagram Type Provider</h2>
+	<p>The entry point to pattern-based tools is as for feature-based
+		tools always a diagram type provider which needs to know the according
+		feature provider. There are no differences to feature-based tools
+		here; the class looks exactly the same and the diagram type needs to
+		be registered in plugin.xml in the same way as a feature-based tool.</p>
+	<!-- Begin code ------------------------------------------------------------------------------- -->
+	<div class="literallayout">
+		<div class="incode">
+			<p class="code">
+				&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>&lt;?eclipse
+				version=&quot;3.0&quot;?&gt;<br> <span class="string">&lt;plugin&gt;<br>&nbsp;
+					&lt;extension<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; point
+				</span>=<span class="comment">&quot;org.eclipse.graphiti.ui.diagramTypes&quot;</span><span
+					class="string">&gt;</span><br>&nbsp;&nbsp;&nbsp; <span
+					class="string">&lt;diagramType</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="string">id</span>=<span class="comment">&quot;org.eclipse.graphiti.patternBasedTool.patternBasedToolDiagramType&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="string">name</span>=<span class="comment">&quot;PatternBasedTool
+					Diagram Type&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+					class="string">type</span>=<span class="comment">&quot;patternBasedTool&quot;</span><span
+					class="string">&gt;</span><br>&nbsp;&nbsp; <span
+					class="string">&nbsp;&lt;/diagramType&gt;<br>&nbsp;
+					&lt;/extension&gt;<br> <br>&nbsp; &lt;extension<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					point
+				</span>=<span class="comment">&quot;org.eclipse.graphiti.ui.diagramTypeProviders</span>&quot;<span
+					class="string">&gt;</span><br>&nbsp;&nbsp;&nbsp; <span
+					class="string">&lt;diagramTypeProvider<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					class
+				</span>=<span class="comment">&quot;org.eclipse.graphiti.patternbasedtool.diagram.PatternBasedToolDiagramTypeProvider&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="string">id</span>=<span class="comment">&quot;org.eclipse.graphiti.patternBasedTool.patternBasedToolDiagramTypeProvider&quot;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="string">name</span>=<span class="comment">&quot;PatternBasedTool
+					Diagram Type Provider&quot;</span><span class="string">&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&lt;diagramType<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					id
+				</span>=<span class="comment">&quot;org.eclipse.graphiti.patternBasedTool.patternBasedToolDiagramType&quot;</span><span
+					class="string">&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&lt;/diagramType&gt;<br>&nbsp;&nbsp;&nbsp;
+					&lt;/diagramTypeProvider&gt;<br>&nbsp; &lt;/extension&gt;<br>
+					&lt;/plugin&gt;
+				</span>
+			</p>
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+		</div>
+	</div>
+	<!-- End code ------------------------------------------------------------------------------- -->
+	<!-- Begin code ------------------------------------------------------------------------------- -->
+	<div class="literallayout">
+		<div class="incode">
+			<p class="code">
+				<span class="keyword">package </span>org.eclipse.graphiti.patternbasedtool.diagram;<br>
+				<br> <span class="keyword">import</span>
+				org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;<br> <br>
+				<span class="keyword">public class</span>
+				PatternBasedToolDiagramTypeProvider <span class="keyword">extends</span>
+				AbstractDiagramTypeProvider {<br> <br> &nbsp;&nbsp;&nbsp;<span
+					class="keyword">public</span> PatternBasedToolDiagramTypeProvider()
+				{<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">super</span>();<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setFeatureProvider(<span
+					class="keyword">new</span> PatternBasedToolFeatureProvider(<span
+					class="keyword">this</span>));<br> &nbsp;&nbsp;&nbsp;}<br>
+				}<br>
+			</p>
+		</div>
+	</div>
+	<p>&nbsp;</p>
+	<!-- End code ------------------------------------------------------------------------------- -->
+
+	<h2>Feature Provider</h2>
+	<p>A basic pattern-enabled feature provider implementation looks
+		like this:</p>
+	<!-- Begin code ------------------------------------------------------------------------------- -->
+	<div class="literallayout">
+		<div class="incode">
+			<p class="code">
+				<span class="keyword">public class </span>PatternBasedToolFeatureProvider
+				<span class="keyword">extends</span>
+				DefaultFeatureProviderWithPatterns {<br> <br>
+				&nbsp;&nbsp;&nbsp;<span class="keyword">public</span>
+				PatternBasedToolFeatureProvider(IDiagramTypeProvider dtp) {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">super</span>(dtp);<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addPattern(<span class="keyword">new</span>
+				DomainObjectPattern());<br> &nbsp;&nbsp;&nbsp;}<br> }
+			</p>
+		</div>
+	</div>
+	<p>&nbsp;</p>
+	<!-- End code ------------------------------------------------------------------------------- -->
+	<p>
+		The call to the method <i>addPattern()</i> registers the passed
+		instance of the pattern for the feature provider for a shape-based
+		object. In order to register a pattern for a connection you would have
+		to call the method <i>addConnectionPattern()</i>. After that the
+		feature provider delegates queries for special features to the pattern
+		and executes the functionality offered by the pattern. Internally the
+		Graphiti framework uses special features to wrap the calls of the
+		pattern so that the core framework again works on pure features. But
+		that is mostly hidden for tool developers underneath the pattern API;
+		in certain situations however (e.g. debugging), the tool developer
+		will notice this therefore it should be mentioned at least briefly
+		here.
+	</p>
+	<h2>Pattern implementation for Shapes</h2>
+	<p>The basic implementation of a pattern that deals with a shape
+		looks like this:
+	<p>
+		<!-- Begin code ------------------------------------------------------------------------------- -->
+	<div class="literallayout">
+		<div class="incode">
+			<p class="code">
+				<span class="keyword">public class</span> DomainObjectPattern <span
+					class="keyword">extends</span> AbstractPattern <span
+					class="keyword">implements</span> IPattern {<br> <br>
+				&nbsp;&nbsp;&nbsp;<span class="keyword">public</span>
+				DomainObjectPattern() {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">super</span>(<span
+					class="keyword">null</span>);<br> &nbsp;&nbsp;&nbsp;}<br>
+				<br> &nbsp;&nbsp;&nbsp;<span class="keyword">public</span>
+				String getCreateName() {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span>
+				"Domain Object Name";<br> &nbsp;&nbsp;&nbsp;}<br> <br>
+				&nbsp;&nbsp;&nbsp;<span class="keyword">public boolean</span>
+				isMainBusinessObjectApplicable(Object mainBusinessObject) {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span>
+				mainBusinessObject <span class="keyword">instanceof</span>
+				&lt;DomainObject&gt;;<br> &nbsp;&nbsp;&nbsp;}<br> <br>
+
+				&nbsp;&nbsp;&nbsp;<span class="keyword">protected boolean</span>
+				isPatternControlled(PictogramElement pictogramElement) {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object domainObject =
+				getBusinessObjectForPictogramElement(pictogramElement);<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span>
+				isMainBusinessObjectApplicable(domainObject);<br>
+				&nbsp;&nbsp;&nbsp;}<br> <br> &nbsp;&nbsp;&nbsp;<span
+					class="keyword">protected boolean</span>
+				isPatternRoot(PictogramElement pictogramElement) {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object domainObject =
+				getBusinessObjectForPictogramElement(pictogramElement);<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span>
+				isMainBusinessObjectApplicable(domainObject);<br>
+				&nbsp;&nbsp;&nbsp;}<br> }
+			</p>
+		</div>
+	</div>
+	<p>&nbsp;</p>
+	<!-- End code ------------------------------------------------------------------------------- -->
+	<p>
+		The method <i>getCreateName()</i> should return the name of the object
+		as it should be shown in the Diagram editor palette for the name of
+		the object to create.
+	</p>
+	<p>
+		The method <i>isMainBusinessObjectApplicable()</i> must check if the
+		passed object is an instance of the domain object for the pattern.
+		This is used by the Graphiti framework to identify the pattern and to
+		decide if the pattern can handle a shape for a specific domain object.
+	</p>
+	<p>
+		The methods <i>isPatternControlled()</i> and <i>isPatternRoot()</i> do
+		similar task but based upon the pictogram element on the diagram.
+	</p>
+	<p>Besides that the pattern base class provides hooks to define or
+		override the functionality that defines the visualization and behavior
+		of the shape or connection. For that purpose the pattern contains all
+		the methods the different features would provide, but all contained
+		within one class. The following functionality is supported within a
+		pattern:</p>
+	<table width="60%" border="1" frame="void" rules="rows">
+		<tr>
+			<th align="left">Functionality</th>
+			<th align="left">Provided methods</th>
+		</tr>
+		<tr>
+			<td valign="top">Create</td>
+			<td><i>canCreate()<br>create()
+			</i></td>
+		</tr>
+		<tr>
+			<td valign="top">Add</td>
+			<td><i>canAdd()<br>add()
+			</i></td>
+		</tr>
+		<tr>
+			<td valign="top">Layout</td>
+			<td><i>canLayout()<br>layout()
+			</i></td>
+		</tr>
+		<tr>
+			<td valign="top">Update</td>
+			<td><i>canUpdate()<br>updateNeeded()<br>update()
+			</i></td>
+		</tr>
+		<tr>
+			<td valign="top">Resize</td>
+			<td><i>canResizeShape()<br>resizeShape()
+			</i></td>
+		</tr>
+		<tr>
+			<td valign="top">Move</td>
+			<td><i>canMoveShape()<br>moveShape()
+			</i></td>
+		</tr>
+		<tr>
+			<td valign="top">Direct editing</td>
+			<td><i>canDirectEdit()<br>getEditingType()<br>getInitialValue()<br>getPossibleValues()<br>getValueProposals()<br>isCompletionAvailable()<br>isAutoCompletionAvailaible()<br>completeValue()<br>stretchFieldToFitText()<br>checkValueVaild()<br>setValue()<br>getProposalSupport()
+			</i></td>
+		</tr>
+		<tr>
+			<td valign="top">Remove</td>
+			<td><i>canRemove()<br>preRemove()<br>remove()<br>postRemove()
+			</i></td>
+		</tr>
+		<tr>
+			<td valign="top">Delete</td>
+			<td><i>canDelete()<br>preDelete()<br>delete()<br>postDelete()
+			</i></td>
+		</tr>
+	</table>
+	<p>Implementing the functionality for each of the methods follows
+		the same rules and principles as for features, e.g. it offers the same
+		default functionality. Therefore you should have understood how to
+		build a Graphiti-based editor using features. In principle it is as
+		easy as copying the coding from the feature methods to the according
+		pattern method to migrate a tool from features to patterns.</p>
+	<h2>Mixing-in Features</h2>
+	<p>
+		Overriding default functionality or adding additional functionality is
+		easily possible. Additional functionality can be added by writing
+		custom features and returning them in the method <i>getCustomFeatures()</i>
+		in the feature provider just the very same as you would do it for a
+		feature-based tool. In case you would like to implement a piece of
+		functionality using a feature (e.g. because you want to change default
+		behavior or have a complete domain object that is implemented with
+		features instead of patterns), you can simply override the according
+		retrieval method in the feature provider, check the input and return
+		the feature if appropriate or delegate to the super implementation in
+		the pattern-aware base implementation of the Graphiti framework. Here
+		is an example that shows how to use a specific add feature for adding
+		a connection to a diagram while the rest of the add functionality is
+		provided by patterns and handled by the Graphiti base class of the
+		patter-aware feature provider.
+	</p>
+	<!-- Begin code ------------------------------------------------------------------------------- -->
+	<div class="literallayout">
+		<div class="incode">
+			<p class="code">
+				<span class="keyword">public class</span>
+				PatternBasedToolFeatureProvider <span class="keyword">extends</span>
+				DefaultFeatureProviderWithPatterns {<br> <br>
+				&nbsp;&nbsp;&nbsp;...<br> <br> &nbsp;&nbsp;&nbsp;<span
+					class="keyword">public</span> IAddFeature getAddFeature(IAddContext
+				context) {<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (context
+				<span class="keyword">instanceof</span> IAddConnectionContext
+				&amp;&amp; context.getNewObject() <span class="keyword">instanceof</span>
+				&lt;DomainObjectConnection&gt; ) {<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+					class="keyword">return new</span>
+				AddDomainObjectConnectionConnectionFeature(<span class="keyword">this</span>);<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return
+					super</span>.getAddFeature(context);<br> &nbsp;&nbsp;&nbsp;}<br>
+				}
+			</p>
+		</div>
+	</div>
+	<p>&nbsp;</p>
+	<!-- End code ------------------------------------------------------------------------------- -->
+	<h2>Patterns for Connections</h2>
+	<p>
+		Writing a pattern that visualizes and defines the behavior of a
+		connection is very similar to what is described above for shape
+		patterns. The main difference is that to pattern should be derived
+		from <i>AbstractConnectionPattern</i> instead of <i>AbstractPattern</i>.
+		There are slightly different methods defined but they correspond to
+		what you would also need to implement for the features of a
+		connection.
+	</p>
+</body>
+</html>

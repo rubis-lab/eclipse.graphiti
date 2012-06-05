@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,12 +13,14 @@
  *    Volker Wegert - Bug 336828: patterns should support delete,
  *                    remove, direct editing and conditional palette
  *                    creation entry
+ *    mwenz - Bug 325084 - Provide documentation for Patterns
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.pattern;
 
+import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IResizeConfiguration;
@@ -36,11 +38,12 @@ import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
- * The Interface IPattern.
+ * The Interface IPattern marks a pattern for handling shapes. Please see the
+ * information in {@link AbstractPattern}.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients. Extend
- *           {@link AbstractPattern} instead
+ *           {@link AbstractPattern} instead.
  */
 public interface IPattern extends ICreate, IAdd, IDelete, IRemove, IUpdate, ILayout, IResizeShape, IMoveShape,
 		IDirectEditing {
@@ -114,8 +117,33 @@ public interface IPattern extends ICreate, IAdd, IDelete, IRemove, IUpdate, ILay
 	 */
 	void completeInfo(IDirectEditingInfo info, Object bo, String keyProperty);
 
+	/**
+	 * Clients must override this method to provide the functionality to add an
+	 * existing domain object to a diagram. Corresponds to the
+	 * {@link IAddFeature#add(IAddContext)} method. The default implementation
+	 * simply does nothing and returns <code>null</code>.
+	 * 
+	 * @param context
+	 *            The add context holding information about the added domain
+	 *            object.
+	 * 
+	 * @return The root shape of the created pictogram tree.
+	 */
 	public PictogramElement add(IAddContext context);
 
+	/**
+	 * Clients must override this method to indicate the framework that this
+	 * pattern can add a domain object to the diagram. Corresponds to the
+	 * {@link IAddFeature#canAdd(IAddContext)} method. The default
+	 * implementation simply returns <code>false</code>.
+	 * 
+	 * @param context
+	 *            The add context holding information about the added domain
+	 *            object.
+	 * 
+	 * @return <code>true</code>, if the domain object can be added,
+	 *         <code>false</code> otherwise.
+	 */
 	public boolean canAdd(IAddContext context);
 
 	/**

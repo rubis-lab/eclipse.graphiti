@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,12 +9,14 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 325084 - Provide documentation for Patterns
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.pattern;
 
+import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IFeatureProviderHolder;
 import org.eclipse.graphiti.features.IMappingProvider;
@@ -25,41 +27,53 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
 
 /**
- * The Class AbstractBasePattern.
+ * This is the abstract base class for patterns. Clients implementing own
+ * patterns should not subclass this class, but use {@link AbstractPattern} or
+ * {@link AbstractConnectionPattern} instead.
  */
 public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 
 	private IFeatureProvider featureProvider;
 
 	/**
-	 * Adds the.
+	 * Clients must override this method to provide the functionality to add an
+	 * existing domain object to a diagram. Corresponds to the
+	 * {@link IAddFeature#add(IAddContext)} method. The default implementation
+	 * simply does nothing and returns <code>null</code>.
 	 * 
 	 * @param context
-	 *            the add context
+	 *            The add context holding information about the added domain
+	 *            object.
 	 * 
-	 * @return the pictogram element
+	 * @return The root shape of the created pictogram tree.
 	 */
 	public PictogramElement add(IAddContext context) {
 		return null;
 	}
 
 	/**
-	 * Can add.
+	 * Clients must override this method to indicate the framework that this
+	 * pattern can add a domain object to the diagram. Corresponds to the
+	 * {@link IAddFeature#canAdd(IAddContext)} method. The default
+	 * implementation simply returns <code>false</code>.
 	 * 
 	 * @param context
-	 *            the add context
+	 *            The add context holding information about the added domain
+	 *            object.
 	 * 
-	 * @return true, if successful
+	 * @return <code>true</code>, if the domain object can be added,
+	 *         <code>false</code> otherwise.
 	 */
 	public boolean canAdd(IAddContext context) {
 		return false;
 	}
 
 	/**
-	 * Gets the feature provider.
+	 * Returns the feature provider for this pattern.
 	 * 
 	 * @return Returns the featureProvider.
 	 */
@@ -68,117 +82,126 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	}
 
 	/**
-	 * Sets the feature provider.
+	 * Sets the feature provider for this pattern. Note that once a feature
+	 * provider has been set, it should not be changed again.
 	 * 
 	 * @param featureProvider
-	 *            the new featureProvider
+	 *            The new featureProvider
 	 */
 	public void setFeatureProvider(IFeatureProvider featureProvider) {
 		this.featureProvider = featureProvider;
 	}
 
 	/**
-	 * Gets the business object for pictogram element.
+	 * Helper method that resolves the domain object for the given pictogram
+	 * element (shape).
 	 * 
 	 * @param pe
-	 *            the pictogram element
+	 *            The pictogram element for which a domain object shall be
+	 *            resolved.
 	 * 
-	 * @return the business object for pictogram element
+	 * @return The domain object for the given pictogram element or
+	 *         <code>null</code> in case none could be found.
 	 */
 	protected Object getBusinessObjectForPictogramElement(PictogramElement pe) {
 		return getFeatureProvider().getBusinessObjectForPictogramElement(pe);
 	}
 
 	/**
-	 * Gets the diagram editor.
+	 * Returns the diagram editor instance this pattern lives in.
 	 * 
-	 * @return the diagram editor
+	 * @return The diagram editor
 	 */
 	protected IDiagramEditor getDiagramEditor() {
 		return getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
 	}
 
 	/**
-	 * Gets the mapping provider.
+	 * Returns the {@link IMappingProvider} that can be used to map pictogram
+	 * elements onto domain objects and vice versa.
 	 * 
-	 * @return the mapping provider
+	 * @return The mapping provider
 	 */
 	protected IMappingProvider getMappingProvider() {
 		return getFeatureProvider();
 	}
 
 	/**
-	 * Link.
+	 * Helper method to link a {@link PictogramElement} to a domain object.
 	 * 
 	 * @param pe
-	 *            the pictogram element
+	 *            The pictogram element
 	 * @param businessObject
-	 *            the business object
+	 *            The domain object
 	 */
 	protected void link(PictogramElement pe, Object businessObject) {
 		link(pe, new Object[] { businessObject });
 	}
 
 	/**
-	 * Link.
+	 * Helper method to link a {@link PictogramElement} to a number of domain
+	 * objects.
 	 * 
 	 * @param pe
-	 *            the pictogram element
+	 *            The pictogram element
 	 * @param businessObjects
-	 *            the business objects
+	 *            The business objects as an array
 	 */
 	protected void link(PictogramElement pe, Object businessObjects[]) {
 		getMappingProvider().link(pe, businessObjects);
 	}
 
 	/**
-	 * Gets the diagram.
+	 * Returns the {@link Diagram} this pattern lives for.
 	 * 
-	 * @return the diagram
+	 * @return The diagram
 	 */
 	protected Diagram getDiagram() {
 		return getFeatureProvider().getDiagramTypeProvider().getDiagram();
 	}
 
 	/**
-	 * A convenient method for the color handling which simply calls
-	 * <code>Graphiti.getGaService().manageColor(...)</code>.
+	 * A convenience method for the color handling which simply calls
+	 * {@link IGaService#manageColor(Diagram, IColorConstant)} to manage a
+	 * {@link Color} used within the {@link Diagram}.
 	 * 
 	 * @param colorConstant
-	 *            the color constant
+	 *            The color constant to manage.
 	 * 
-	 * @return the color
+	 * @return The managed color.
 	 */
 	protected Color manageColor(IColorConstant colorConstant) {
 		return Graphiti.getGaService().manageColor(getDiagram(), colorConstant);
 	}
 
 	/**
-	 * A convenient method for the color handling which simply calls
-	 * <code>Graphiti.getGaService().manageColor(...)</code>.
+	 * A convenience method for the color handling which simply calls
+	 * {@link IGaService#manageColor(Diagram, int, int, int)} to manage a
+	 * {@link Color} used within the {@link Diagram}.
 	 * 
 	 * @param red
-	 *            the red
+	 *            The red portion of the color to manage.
 	 * @param green
-	 *            the green
+	 *            The green portion of the color to manage.
 	 * @param blue
-	 *            the blue
+	 *            The blue portion of the color to manage.
 	 * 
-	 * @return the color
+	 * @return The managed color.
 	 */
 	protected Color manageColor(int red, int green, int blue) {
 		return Graphiti.getGaService().manageColor(getDiagram(), red, green, blue);
 	}
 
 	/**
-	 * A convenient method for the font handling which simply calls
-	 * <code>Graphiti.getGaService().manageFont(...)</code>.
+	 * A convenience method for the {@link Font} handling which simply calls
+	 * {@link IGaService#manageFont(Diagram, String, int)} to manage a
+	 * {@link Font} used within the {@link Diagram}.
 	 * 
 	 * @param name
-	 *            the name of the font
+	 *            The name of the font.
 	 * @param size
-	 *            the size of the font
-	 * @return the font instance
+	 *            The size of the font.
+	 * @return The managed font instance.
 	 * @since 0.9
 	 */
 	protected Font manageFont(String name, int size) {
@@ -186,18 +209,19 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	}
 
 	/**
-	 * A convenient method for the color handling which simply calls
-	 * <code>Graphiti.getGaService().manageColor(...)</code>.
+	 * A convenience method for the {@link Font} handling which simply calls
+	 * {@link IGaService#manageFont(Diagram, String, int, boolean, boolean)} to
+	 * manage a {@link Font} used within the {@link Diagram}.
 	 * 
 	 * @param name
-	 *            the name of the font
+	 *            The name of the font.
 	 * @param size
-	 *            the size of the font
+	 *            The size of the font.
 	 * @param isItalic
-	 *            the is italic
+	 *            The italic flag of the font.
 	 * @param isBold
-	 *            the is bold
-	 * @return the font instance
+	 *            The bold flag of the font.
+	 * @return The managed font instance.
 	 * @since 0.9
 	 */
 	protected Font manageFont(String name, int size, boolean isItalic, boolean isBold) {

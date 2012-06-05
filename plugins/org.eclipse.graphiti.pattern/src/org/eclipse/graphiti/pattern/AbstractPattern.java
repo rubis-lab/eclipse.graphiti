@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    Volker Wegert - Bug 336828: patterns should support delete,
  *                    remove, direct editing and conditional palette
  *                    creation entry
+ *    mwenz - Bug 325084 - Provide documentation for Patterns
  *
  * </copyright>
  *
@@ -40,7 +41,13 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
+import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
+import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
+import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
+import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
+import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IDirectEditing;
@@ -63,7 +70,8 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 
 /**
- * The Class AbstractPattern.
+ * This is the base class AbstractConnectionPattern that clients writing a
+ * pattern for a shape domain object should subclass.
  */
 public abstract class AbstractPattern extends AbstractBasePattern implements IPattern {
 
@@ -101,70 +109,235 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	private IRemoveFeature wrappedRemoveFeature;
 
 	/**
-	 * Creates a new {@link AbstractPattern}.
+	 * Creates a new {@link AbstractPattern} holding the given
+	 * {@link IPatternConfiguration}.
 	 * 
 	 * @param patternConfiguration
-	 *            the pattern configuration
+	 *            The pattern configuration to use within this pattern instance
+	 *            of <code>null</code> in case no configuration is needed.
 	 */
 	public AbstractPattern(IPatternConfiguration patternConfiguration) {
+		super();
 		setPatternConfiguration(patternConfiguration);
 	}
 
+	/**
+	 * Is queried by the Graphiti framework to check if the pattern should
+	 * create a new domain object entry in the editor palette.
+	 * 
+	 * @return <code>true</code> in case a palette entry shall be created,
+	 *         <code>false</code> otherwise.
+	 */
 	public boolean isPaletteApplicable() {
 		return true;
 	}
 
+	/**
+	 * Clients must override this method to indicate that the pattern can be
+	 * used to create domain objects as defined in the given
+	 * {@link ICreateContext}. Corresponds to the method
+	 * {@link AbstractCreateFeature#canCreate(ICreateContext)} . The default
+	 * implementation simply returns <code>false</code>.
+	 * 
+	 * @param context
+	 *            The context holding information on the domain object to be
+	 *            created.
+	 * @return <code>true</code> in case this pattern can create such a domain
+	 *         object, <code>false</code> otherwise.
+	 */
 	public boolean canCreate(ICreateContext context) {
 		return false;
 	}
 
+	/**
+	 * Clients may override this method to indicate that the pattern can be used
+	 * to layout a shape for a domain objects as defined in the given
+	 * {@link ILayoutContext}. Corresponds to the method
+	 * {@link AbstractLayoutFeature#canLayout(ILayoutContext)}. The default
+	 * implementation checks if the {@link PictogramElement} in the given
+	 * context {@link #isPatternControlled(PictogramElement)}.
+	 * 
+	 * @param context
+	 *            The context holding information on the domain object to be
+	 *            layouted.
+	 * @return <code>true</code> in case this pattern can layout a shape for
+	 *         such a domain object, <code>false</code> otherwise.
+	 */
 	public boolean canLayout(ILayoutContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		return isPatternControlled(pictogramElement);
 	}
 
+	/**
+	 * Clients may override this method to indicate that the pattern can be used
+	 * to move the shape of a domain objects as defined in the given
+	 * {@link IMoveShapeContext}. Corresponds to the method
+	 * {@link DefaultMoveShapeFeature#canMoveShape(IMoveShapeContext)}. The
+	 * default implementation checks if the {@link PictogramElement} in the
+	 * given context {@link #isPatternControlled(PictogramElement)} and the
+	 * source and target containers of the shape are the same.
+	 * 
+	 * @param context
+	 *            The context holding information on the domain object to be
+	 *            moved.
+	 * @return <code>true</code> in case this pattern can move a shape for such
+	 *         a domain object, <code>false</code> otherwise.
+	 */
 	public boolean canMoveShape(IMoveShapeContext context) {
 		return context.getSourceContainer() != null
 				&& context.getSourceContainer().equals(context.getTargetContainer())
 				&& isPatternRoot(context.getPictogramElement());
 	}
 
+	/**
+	 * Clients may override this method to indicate that the pattern can be used
+	 * to resize the shape of a domain objects as defined in the given
+	 * {@link IResizeShapeContext}. Corresponds to the method
+	 * {@link DefaultResizeShapeFeature#canResizeShape(IResizeShapeContext)}.
+	 * The default implementation checks if the {@link PictogramElement} in the
+	 * given context fulfills {@link #isPatternRoot(PictogramElement)}.
+	 * 
+	 * @param context
+	 *            The context holding information on the domain object to be
+	 *            resized.
+	 * @return <code>true</code> in case this pattern can resize a shape for
+	 *         such a domain object, <code>false</code> otherwise.
+	 */
 	public boolean canResizeShape(IResizeShapeContext context) {
 		return isPatternRoot(context.getPictogramElement());
 	}
 
+	/**
+	 * Clients may override this method to indicate that the pattern can be used
+	 * to update the shape of a domain objects as defined in the given
+	 * {@link IUpdateContext}. Corresponds to the method
+	 * {@link AbstractUpdateFeature#canUpdate(IUpdateContext)}. The default
+	 * implementation checks if the {@link PictogramElement} in the given
+	 * context {@link #isPatternControlled(PictogramElement)}.
+	 * 
+	 * @param context
+	 *            The context holding information on the domain object to be
+	 *            updated.
+	 * @return <code>true</code> in case this pattern can update a shape for
+	 *         such a domain object, <code>false</code> otherwise.
+	 */
 	public boolean canUpdate(IUpdateContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		return isPatternControlled(pictogramElement);
 	}
 
+	/**
+	 * Clients must override this method to implement the functionality to
+	 * create a new domain object as defined in the given {@link ICreateContext}
+	 * . Corresponds to the method
+	 * {@link AbstractCreateFeature#create(ICreateContext)}. The default
+	 * implementation simply does nothing and returns an empty object array.
+	 * 
+	 * @param context
+	 *            The context holding information on the domain object to be
+	 *            created.
+	 * @return An array of the newly create domain objects.
+	 */
 	public Object[] create(ICreateContext context) {
 		return EMPTY;
 	}
 
+	/**
+	 * Client should override to return a string description of the type of
+	 * domain object that is created with this pattern. The Graphiti framework
+	 * uses this information to fill a tooltip for the creation tool entry in
+	 * the palette. The default implementation simply returns <code>null</code>
+	 * which indicates that no tooltip shall be displayed.
+	 * 
+	 * @return A {@link String} holding the tooltip
+	 */
 	public String getCreateDescription() {
 		return null;
 	}
 
+	/**
+	 * Client should override to return a string id of the the image icon for
+	 * the domain object that is created with this pattern. The Graphiti
+	 * framework uses this information to add an icon to the creation tool entry
+	 * in the palette. The default implementation simply returns
+	 * <code>null</code> which indicates that no icon shall be displayed.
+	 * 
+	 * @return A {@link String} holding the id of the icon as defined in the
+	 *         AbstractImageProvider.
+	 */
 	public String getCreateImageId() {
 		return null;
 	}
 
+	/**
+	 * Client should override to return a string id of the the large image icon
+	 * for the domain object that is created with this pattern. The Graphiti
+	 * framework uses this information to add a large icon to the creation tool
+	 * entry in the palette. The default implementation simply returns
+	 * <code>null</code> which indicates that no icon shall be displayed.
+	 * 
+	 * @return A {@link String} holding the id of the large icon as defined in
+	 *         the AbstractImageProvider.
+	 */
 	public String getCreateLargeImageId() {
 		return getCreateImageId();
 	}
 
+	/**
+	 * Client should override to return the name of the domain object that is
+	 * created with this pattern. The Graphiti framework uses this information
+	 * to fill the text for the creation tool entry in the palette. The default
+	 * implementation simply returns <code>null</code> which results in an empty
+	 * entry in the palette.
+	 * 
+	 * @return A {@link String} holding the name of the domain object.
+	 */
 	public String getCreateName() {
 		return null;
 	}
 
+	/**
+	 * Clients must override this method to indicate that the pattern uses the
+	 * given domain object as its main domain object.
+	 * 
+	 * @param mainBusinessObject
+	 *            The object to check if it is the main domain object of the
+	 *            pattern.
+	 * @return <code>true</code> in case the pattern has the given domain object
+	 *         as its main domain object, <code>false</code> otherwise.
+	 */
 	abstract public boolean isMainBusinessObjectApplicable(Object mainBusinessObject);
 
+	/**
+	 * Clients can override this method to implement the functionality to layout
+	 * a shape for the given domain object as defined in the given
+	 * {@link ILayoutContext} . Corresponds to the method
+	 * {@link AbstractLayoutFeature#layout(ILayoutContext)}. The default
+	 * implementation simply does nothing and returns <code>false</code> as
+	 * indication of this.
+	 * 
+	 * @param context
+	 *            The context holding information on the domain object to be
+	 *            layouted.
+	 * @return Should return <code>true</code> in case a layout happened and
+	 *         <code>false</code> in case none happened. Is used by the Graphiti
+	 *         framework for performance optimization.
+	 */
 	public boolean layout(ILayoutContext context) {
 		return false;
 	}
 
-	final public void moveShape(IMoveShapeContext context) {
+	/**
+	 * Clients can override this method to implement the functionality to move a
+	 * shape for the given domain object as defined in the given
+	 * {@link IMoveShapeContext} . Corresponds to the method
+	 * {@link DefaultMoveShapeFeature#moveShape(IMoveShapeContext)}.
+	 * 
+	 * @param context
+	 *            The context holding information on the domain object to be
+	 *            moved.
+	 */
+	public void moveShape(IMoveShapeContext context) {
 		preMoveShape(context);
 		moveAllBendpoints(context);
 		internalMove(context);
@@ -172,28 +345,34 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	}
 
 	/**
-	 * Post move shape.
+	 * Hook clients can override to add additional steps after the move of the
+	 * shape happened.
 	 * 
 	 * @param context
-	 *            the move shape context
+	 *            The context holding information on the domain object that was
+	 *            moved.
 	 */
 	protected void postMoveShape(IMoveShapeContext context) {
 	}
 
 	/**
-	 * Pre move shape.
+	 * Hook clients can override to add additional steps before the move of the
+	 * shape happens.
 	 * 
 	 * @param context
-	 *            the move shape context
+	 *            The context holding information on the domain object to be
+	 *            moved.
 	 */
 	protected void preMoveShape(IMoveShapeContext context) {
 	}
 
 	/**
-	 * Internal move.
+	 * Default implementation of the move functionality. Moves shapes to new
+	 * coordinates and adapts parents in case this is needed.
 	 * 
 	 * @param context
-	 *            the move shape context
+	 *            The context holding information on the domain object to be
+	 *            moved.
 	 */
 	protected void internalMove(IMoveShapeContext context) {
 		Shape shapeToMove = context.getShape();
@@ -226,10 +405,12 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	}
 
 	/**
-	 * Move all bendpoints within a container shape.
+	 * Default implementation of the move functionality to move all bendpoints
+	 * within a container shape.
 	 * 
 	 * @param context
-	 *            the move shape context
+	 *            The context holding information on the domain object to be
+	 *            moved.
 	 */
 	protected void moveAllBendpoints(IMoveShapeContext context) {
 
@@ -291,6 +472,16 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		return ret;
 	}
 
+	/**
+	 * Clients can override this method to implement the functionality to resize
+	 * a shape for the given domain object as defined in the given
+	 * {@link IResizeShapeContext} . Corresponds to the method
+	 * {@link DefaultResizeShapeFeature#resizeShape(IResizeShapeContext)}.
+	 * 
+	 * @param context
+	 *            The context holding information on the domain object to be
+	 *            resized.
+	 */
 	public void resizeShape(IResizeShapeContext context) {
 		Shape shape = context.getShape();
 		int x = context.getX();
@@ -305,28 +496,54 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		layoutPictogramElement(shape);
 	}
 
+	/**
+	 * Clients can override this method to implement the functionality to update
+	 * a shape for the given domain object as defined in the given
+	 * {@link IUpdateContext}. Corresponds to the method
+	 * {@link AbstractUpdateFeature#update(IUpdateContext)}.
+	 * 
+	 * @param context
+	 *            The context holding information on the domain object to be
+	 *            updated.
+	 */
 	public boolean update(IUpdateContext context) {
 		return false;
 	}
 
+	/**
+	 * Clients can override this method to indicate if an update of a shape for
+	 * the given domain object as defined in the given {@link IUpdateContext}
+	 * needs to be triggered. Corresponds to the method
+	 * {@link AbstractUpdateFeature#updateNeeded(IUpdateContext)}.
+	 * 
+	 * @param context
+	 *            The context holding information on the domain object to be
+	 *            updated.
+	 */
 	public IReason updateNeeded(IUpdateContext context) {
 		return Reason.createFalseReason();
 	}
 
 	/**
-	 * Adds the graphical representation.
+	 * Adds the graphical representation of the given new {@link Object} with
+	 * the information in the given {@link IAreaContext}.
 	 * 
 	 * @param context
-	 *            the area context
+	 *            The area context defining where the new object should placed
 	 * @param newObject
-	 *            the new object
+	 *            The new object instance itself
 	 */
 	protected void addGraphicalRepresentation(IAreaContext context, Object newObject) {
 		getFeatureProvider().addIfPossible(new AddContext(context, newObject));
 	}
 
 	/**
-	 * @return true if moving to negative coordinates should not be possible
+	 * Clients can override to indicate that moving to negative coordinates
+	 * should be possible. The default implementation prohibits this by
+	 * returning false.
+	 * 
+	 * @return <code>true</code> in case moving a shape to negative coordinates
+	 *         should be possible, <code>false</code> otherwise.
 	 */
 	protected boolean avoidNegativeCoordinates() {
 		return false;
@@ -340,6 +557,8 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * @param link
 	 *            the pictogram link
 	 * @return the image
+	 * @deprecated Remains from the mapping information options, should not be
+	 *             part of the standard pattern interface and should be removed!
 	 */
 	protected String getImage(IStructureMapping structureMapping, PictogramLink link) {
 		String ret = null;
@@ -358,6 +577,8 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * @param link
 	 *            the pictogram link
 	 * @return the text
+	 * @deprecated Remains from the mapping information options, should not be
+	 *             part of the standard pattern interface and should be removed!
 	 */
 	protected String getText(IStructureMapping structureMapping, PictogramLink link) {
 		String ret = null;
@@ -369,28 +590,36 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	}
 
 	/**
-	 * This method must be implemented by the pattern developer / provider.
+	 * This method must be implemented by clients to indicate that the given
+	 * {@link PictogramElement} is controlled by this pattern.
 	 * 
 	 * @param pictogramElement
-	 *            the pictogram element
-	 * @return true, if is pattern controlled
+	 *            The pictogram element to check
+	 * @return <code>true</code> in case the pictogram element is controlled by
+	 *         this pattern, <code>false</code> otherwise.
 	 */
 	abstract protected boolean isPatternControlled(PictogramElement pictogramElement);
 
 	/**
-	 * This method must be implemented by the pattern developer / provider.
+	 * This method must be implemented by clients to indicate that the given
+	 * {@link PictogramElement} is the root shape of this pattern.
 	 * 
 	 * @param pictogramElement
-	 *            the pictogram element
-	 * @return true, if is pattern root
+	 *            The pictogram element to check
+	 * @return <code>true</code> in case the pictogram element is the root shape
+	 *         of this pattern, <code>false</code> otherwise.
 	 */
 	abstract protected boolean isPatternRoot(PictogramElement pictogramElement);
 
 	/**
-	 * Layout pictogram element.
+	 * Helper method that triggers a layout of the given
+	 * {@link PictogramElement}. The default implementation queries the feature
+	 * provider and tries to find a functionality either in the pattern of an
+	 * additional {@link AbstractLayoutFeature} that can handle the request and
+	 * triggers the operation.
 	 * 
 	 * @param pe
-	 *            the pictogram element
+	 *            The pictogram element to layout
 	 */
 	protected void layoutPictogramElement(PictogramElement pe) {
 		LayoutContext context = new LayoutContext(pe);
@@ -398,10 +627,14 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	}
 
 	/**
-	 * Update pictogram element.
+	 * Helper method that triggers an update of the given
+	 * {@link PictogramElement}. The default implementation queries the feature
+	 * provider and tries to find a functionality either in the pattern of an
+	 * additional {@link AbstractUpdateFeature} that can handle the request and
+	 * triggers the operation.
 	 * 
 	 * @param pe
-	 *            the pictogram element
+	 *            The pictogram element to update
 	 */
 	protected void updatePictogramElement(PictogramElement pe) {
 		UpdateContext context = new UpdateContext(pe);
@@ -410,30 +643,66 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	}
 
 	/**
-	 * Sets the pattern configuration.
+	 * Sets the {@link IPatternConfiguration} instance to be used with this
+	 * pattern.
 	 * 
 	 * @param patternConfiguration
-	 *            the new patternConfiguration
+	 *            The new patternConfiguration
 	 */
 	protected void setPatternConfiguration(IPatternConfiguration patternConfiguration) {
 		this.patternConfiguration = patternConfiguration;
 	}
 
 	/**
-	 * Gets the pattern configuration.
+	 * Returns the {@link IPatternConfiguration} instance used within this
+	 * pattern or <code>null</code> in case none is used.
 	 * 
-	 * @return the patternConfiguration
+	 * @return The patternConfiguration instance or <code>null</code>
 	 */
 	protected IPatternConfiguration getPatternConfiguration() {
 		return patternConfiguration;
 	}
 
+	/**
+	 * Clients can override to complete the {@link IDirectEditingInfo} info.
+	 * This information is needed to switch automatically into the direct
+	 * editing mode. (e.g. after creation of a new object).
+	 * 
+	 * @param info
+	 *            The direct editing info
+	 * @param bo
+	 *            The domain object
+	 */
 	public void completeInfo(IDirectEditingInfo info, Object bo) {
 	}
 
+	/**
+	 * Clients can override to complete the {@link IDirectEditingInfo} info.
+	 * This information is needed to switch automatically into the direct
+	 * editing mode. (e.g. after creation of a new object)
+	 * 
+	 * @param info
+	 *            The direct editing info
+	 * @param bo
+	 *            The domain object
+	 * @param keyProperty
+	 *            The key property
+	 */
 	public void completeInfo(IDirectEditingInfo info, Object bo, String keyProperty) {
 	}
 
+	/**
+	 * Clients may override to modify the resize behavior. The default
+	 * implementation returns a new instance of
+	 * {@link DefaultResizeConfiguration}, which allows bothe the horizontal and
+	 * vertical resize of a shape.
+	 * 
+	 * @param context
+	 *            Context object holding information about the shape to be
+	 *            resized.
+	 * @return An instance of {@link IResizeConfiguration} defining the resize
+	 *         behavior.
+	 */
 	public IResizeConfiguration getResizeConfiguration(IResizeShapeContext context) {
 		return new DefaultResizeConfiguration();
 	}
@@ -458,12 +727,17 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		return new DefaultDeleteFeature(getFeatureProvider());
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Clients can override to modify the default behavior if the pattern can
+	 * (and wants to) handle a delete request. The default implementation calls
+	 * {@link #createDeleteFeature(IDeleteContext)} and asks the result's
+	 * canDelete method.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IDelete#canDelete(org.eclipse.graphiti.features
-	 * .context.IDeleteContext)
+	 * @param context
+	 *            The context describing the delete request
+	 * 
+	 * @return <code>true</code>, if the pattern can perform the delete
+	 *         operation, <code>false</code> otherwise
 	 */
 	public boolean canDelete(IDeleteContext context) {
 		if (wrappedDeleteFeature == null) {
@@ -472,12 +746,14 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		return ((wrappedDeleteFeature != null) && wrappedDeleteFeature.canDelete(context));
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Clients can override to add actions before the default delete behavior is
+	 * triggered. The default implementation calls
+	 * {@link #createDeleteFeature(IDeleteContext)} and triggers the result's
+	 * preDelete method.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IDelete#preDelete(org.eclipse.graphiti.features
-	 * .context.IDeleteContext)
+	 * @param context
+	 *            The context describing the delete request
 	 */
 	public void preDelete(IDeleteContext context) {
 		if (wrappedDeleteFeature == null) {
@@ -488,12 +764,13 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Clients can override to modify the default delete behavior. The default
+	 * implementation calls {@link #createDeleteFeature(IDeleteContext)} and
+	 * triggers the result's delete method.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IDelete#delete(org.eclipse.graphiti.features
-	 * .context.IDeleteContext)
+	 * @param context
+	 *            The context describing the delete request
 	 */
 	public void delete(IDeleteContext context) {
 		if (wrappedDeleteFeature == null) {
@@ -504,12 +781,14 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Clients can override to add actions after the default delete behavior is
+	 * triggered. The default implementation calls
+	 * {@link #createDeleteFeature(IDeleteContext)} and triggers the result's
+	 * postDelete method.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IDelete#postDelete(org.eclipse.graphiti.features
-	 * .context.IDeleteContext)
+	 * @param context
+	 *            The context describing the delete request
 	 */
 	public void postDelete(IDeleteContext context) {
 		if (wrappedDeleteFeature == null) {
@@ -540,12 +819,17 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		return new DefaultRemoveFeature(getFeatureProvider());
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Clients can override to modify the default behavior if the pattern can
+	 * (and wants to) handle a remove request. The default implementation calls
+	 * {@link #createRemoveFeature(IRemoveContext)} and asks the result's
+	 * canRemove method.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IRemove#canRemove(org.eclipse.graphiti.features
-	 * .context.IRemoveContext)
+	 * @param context
+	 *            The context describing the remove request
+	 * 
+	 * @return <code>true</code>, if the pattern can perform the delete
+	 *         operation, <code>false</code> otherwise
 	 */
 	public boolean canRemove(IRemoveContext context) {
 		if (wrappedRemoveFeature == null) {
@@ -554,12 +838,14 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		return wrappedRemoveFeature.canRemove(context);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Clients can override to add actions before the default remove behavior is
+	 * triggered. The default implementation calls
+	 * {@link #createRemoveFeature(IRemoveContext)} and triggers the result's
+	 * preRemove method.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IRemove#preRemove(org.eclipse.graphiti.features
-	 * .context.IRemoveContext)
+	 * @param context
+	 *            The context describing the remove request
 	 */
 	public void preRemove(IRemoveContext context) {
 		if (wrappedRemoveFeature == null) {
@@ -568,12 +854,13 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		wrappedRemoveFeature.preRemove(context);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Clients can override to modify the default remove behavior. The default
+	 * implementation calls {@link #createRemoveFeature(IRemoveContext)} and
+	 * triggers the result's remove method.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IRemove#remove(org.eclipse.graphiti.features
-	 * .context.IRemoveContext)
+	 * @param context
+	 *            The context describing the remove request
 	 */
 	public void remove(IRemoveContext context) {
 		if (wrappedRemoveFeature == null) {
@@ -582,12 +869,14 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		wrappedRemoveFeature.remove(context);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Clients can override to add actions after the default remove behavior is
+	 * triggered. The default implementation calls
+	 * {@link #createRemoveFeature(IRemoveContext)} and triggers the result's
+	 * postRemove method.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IRemove#postRemove(org.eclipse.graphiti.features
-	 * .context.IRemoveContext)
+	 * @param context
+	 *            The context describing the remove request
 	 */
 	public void postRemove(IRemoveContext context) {
 		if (wrappedRemoveFeature == null) {
@@ -596,123 +885,228 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 		wrappedRemoveFeature.postRemove(context);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Clients can override this method to indicate that the pattern allows
+	 * direct editing for the shape described in the passed
+	 * {@link IDirectEditingContext}. Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#canDirectEdit(IDirectEditingContext)}
+	 * . The default implementation simply returns <code>false</code>.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IDirectEditing#canDirectEdit(org.eclipse.graphiti
-	 * .features.context.IDirectEditingContext)
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @return <code>true</code> in case direct editing shall be allowed,
+	 *         <code>false</code> otherwise.
 	 */
 	public boolean canDirectEdit(IDirectEditingContext context) {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * This method will be called by the framework to check if the passed String
+	 * is valid as new value for the shape. This method's response time should
+	 * be small since the method is queried after each change of the value in
+	 * the direct edit UI. The default implementation simply returns null to
+	 * indicate that all values are valid. In case of a not valid value, the
+	 * returned string shall indicate the reason why the value is not valid.
+	 * Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#checkValueValid(String, IDirectEditingContext)}
+	 * .
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IDirectEditing#checkValueValid(java.lang.String
-	 * , org.eclipse.graphiti.features.context.IDirectEditingContext)
+	 * @param value
+	 *            The new vlue to check
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @return <code>null</code> in case of a vlid value, a string describing
+	 *         the reason for being not valid otherwise.
 	 */
 	public String checkValueValid(String value, IDirectEditingContext context) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Can be overridden by clients to define completion functionality for
+	 * direct editing. Corresponds to
+	 * {@link AbstractDirectEditingFeature#completeValue(String, int, String, IDirectEditingContext)}
+	 * . The default implementation simply returns the parameter chosenValue.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IDirectEditing#completeValue(java.lang.String,
-	 * int, java.lang.String,
-	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
+	 * @param value
+	 *            The current value
+	 * @param caretPosition
+	 *            The current cursor position
+	 * @param choosenValue
+	 *            The value chosen by user
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @return The new value
 	 */
-	public String completeValue(String value, int caretPos, String choosenValue, IDirectEditingContext context) {
-		return choosenValue;
+	public String completeValue(String value, int caretPos, String chosenValue, IDirectEditingContext context) {
+		return chosenValue;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * This value will be used if the cell editor is a combo box. This
+	 * functionality only applies to TYPE_DROPDOWN. Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#getPossibleValues(IDirectEditingContext)}
+	 * . The default implementation returns an empty string array.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IDirectEditing#getPossibleValues(org.eclipse
-	 * .graphiti.features.context.IDirectEditingContext)
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @return The possible values for the combo box.
 	 */
 	public String[] getPossibleValues(IDirectEditingContext context) {
 		return EMPTY_STRING_ARRAY;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * This proposals will be used for the completion list of a simple text cell
+	 * editor. This functionality only applies to TYPE_TEXT. Corresponds to the
+	 * method
+	 * {@link AbstractDirectEditingFeature#getValueProposals(String, int, IDirectEditingContext)}
+	 * . The default implementation returns an empty string array.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IDirectEditing#getValueProposals(java.lang.
-	 * String, int, org.eclipse.graphiti.features.context.IDirectEditingContext)
+	 * @param value
+	 *            The current value
+	 * @param caretPosition
+	 *            The current cursor position
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @return The proposed values
 	 */
 	public String[] getValueProposals(String value, int caretPos, IDirectEditingContext context) {
 		return EMPTY_STRING_ARRAY;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Checks if auto completion is enabled. This functionality only applies to
+	 * TYPE_TEXT. Corresponds to method
+	 * {@link AbstractDirectEditingFeature#isAutoCompletionEnabled()}. The
+	 * default implementation simply returns <code>false</code>.
 	 * 
-	 * @see org.eclipse.graphiti.func.IDirectEditing#isAutoCompletionEnabled()
+	 * @return <code>true</code>, if proposals should appear automatically,
+	 *         <code>false</code> otherwise.
 	 */
 	public boolean isAutoCompletionEnabled() {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Checks if completion is available. This functionality only applies to
+	 * TYPE_TEXT. Corresponds to method
+	 * {@link AbstractDirectEditingFeature#isCompletionAvailable()}. The default
+	 * implementation simply returns <code>false</code>.
 	 * 
-	 * @see org.eclipse.graphiti.func.IDirectEditing#isCompletionAvailable()
+	 * @return <code>true</code> if completion is / proposals are available at
+	 *         all, <code>false</code> otherwise.
 	 */
 	public boolean isCompletionAvailable() {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Defines if the input field should be streched to fit its contents. This
+	 * functionality applies to TYPE_TEXT, TYPE_DROPDOWN and
+	 * TYPE_DROPDOWN_READ_ONLY. Corresponds to method
+	 * {@link AbstractDirectEditingFeature#stretchFieldToFitText()}. The default
+	 * implementation simply returns <code>false</code>.
 	 * 
-	 * @see org.eclipse.graphiti.func.IDirectEditing#stretchFieldToFitText()
+	 * @return <code>true</code> if the field should exactly fit the contents,
+	 *         <code>false</code> otherwise.
 	 */
 	public boolean stretchFieldToFitText() {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * The Graphiti framework calls this method to decide which UI to show up
+	 * for direct editing. Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#getEditingType()}. The default
+	 * implementation return {@link IDirectEditing#TYPE_NONE}, other valid type
+	 * are defined by the TYPE_* constants in {@link IDirectEditing}.
 	 * 
-	 * @see org.eclipse.graphiti.func.IDirectEditing#getEditingType()
+	 * @return The desired editing type
 	 */
 	public int getEditingType() {
 		return IDirectEditing.TYPE_NONE;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Provides the initial value for display in the newly opened text editing
+	 * UI component. Corresponds to the methdo
+	 * {@link AbstractDirectEditingFeature#getInitialValue(IDirectEditingContext)}
+	 * . The default implementation always returns an empty string.
 	 * 
-	 * @see
-	 * org.eclipse.graphiti.func.IDirectEditing#getInitialValue(org.eclipse.
-	 * graphiti.features.context.IDirectEditingContext)
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @return The initial string value to be displayed for editing by the user.
 	 */
 	public String getInitialValue(IDirectEditingContext context) {
 		return ""; //$NON-NLS-1$
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Set the new value after direct editing is finished. The value comes from
+	 * the text editing UI component. Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#setValue(String, IDirectEditingContext)}
+	 * . The default implementation does nothing.
 	 * 
-	 * @see org.eclipse.graphiti.func.IDirectEditing#setValue(java.lang.String,
-	 * org.eclipse.graphiti.features.context.IDirectEditingContext)
+	 * @param value
+	 *            The new value to be set
+	 * @param context
+	 *            A context object describing the direct edit request.
 	 */
 	public void setValue(String value, IDirectEditingContext context) {
 	}
 
+	/**
+	 * The direct editing mode contains controls for code completion and the
+	 * selection from a combo box. In both cases the standard implementation
+	 * supports only strings.
+	 * <p>
+	 * If the client wants to work with Objects he must provide an
+	 * implementation of {@link IProposalSupport}. In this case the following
+	 * methods of the pattern are ignored:
+	 * <p>
+	 * <code>
+	 * <br>* String checkValueValid(String value, IDirectEditingContext context);
+	 * <br>* String completeValue(String value, int caretPosition, String choosenValue, IDirectEditingContext context);
+	 * <br>* String[] getPossibleValues(IDirectEditingContext context);
+	 * <br>* String[] getValueProposals(String value, int caretPosition, IDirectEditingContext context);
+	 * <br>* void setValue(String value, IDirectEditingContext context);  
+	 * </code><br>
+	 * Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#getProposalSupport()}. The default
+	 * implementation returns <code>null</code> to enable the standard
+	 * string-based direct editing functionality.
+	 * 
+	 * @return The special implementation to support Objects in code completion
+	 *         and combo box
+	 * @since 0.8
+	 */
 	public IProposalSupport getProposalSupport() {
 		return null;
 	}
 
 	/**
+	 * Is queried by the framework after a pattern has been executed to find out
+	 * if this pattern should appear in the undo stack. By default all patterns
+	 * should appear there (see implementation in AbstractPattern), but single
+	 * pattern functionality may decide to override this behavior. Note that
+	 * this is a dynamic attribute of the pattern that is queried each time
+	 * <b>after</b> the pattern functionality has been executed.
+	 * <p>
+	 * <b>IMPORTANT NOTE:</b> The implementor of the feature is responsible for
+	 * correctly implementing this method! It will lead to inconsistencies if
+	 * this method returns <code>false</code> although the pattern did changes.
+	 * 
+	 * @param actionType
+	 *            the followings types are currently supported:
+	 *            <code>IDelete.class, IRemove.class</code>
+	 * 
+	 * 
+	 * @return <code>true</code> if the last action of the pattern from this
+	 *         action type should appear in the undo stack, <code>false</code>
+	 *         otherwise
+	 * 
 	 * @since 0.9
 	 */
 	public boolean hasDoneChanges(Class<?> actionType) {
