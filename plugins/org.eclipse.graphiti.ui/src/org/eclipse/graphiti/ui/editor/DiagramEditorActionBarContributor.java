@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    jpasch - Bug 323025 ActionBarContributor cleanup
  *    mwenz - Fixed NPE in RCP usecase
  *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
+ *    mwenz - Bug 381437 - IllegalArgumentException when edit menu missing
  *
  * </copyright>
  *
@@ -36,6 +37,7 @@ import org.eclipse.graphiti.ui.internal.action.ToggleContextButtonPadAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
@@ -202,12 +204,34 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 			editMenu.insertAfter(RemoveAction.ACTION_ID, getAction(UpdateAction.ACTION_ID));
 		}
 
+		// Create view menu ...
 		MenuManager viewMenu = new MenuManager(Messages.GraphicsActionBarContributor_0_xmen);
 		viewMenu.add(getAction(GEFActionConstants.ZOOM_IN));
 		viewMenu.add(getAction(GEFActionConstants.ZOOM_OUT));
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY));
-		menubar.insertAfter(IWorkbenchActionConstants.M_EDIT, viewMenu);
+
+		// ... and add it. The position of the view menu differs depending on
+		// which menus exist (see Bugzilla
+		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=381437)
+		if (editMenu != null) {
+			// Edit menu exists --> place view menu directly in front of it
+			menubar.insertAfter(IWorkbenchActionConstants.M_EDIT, viewMenu);
+		} else if (menubar.findMenuUsingPath(IWorkbenchActionConstants.M_FILE) != null) {
+			// File menu exists --> place view menu behind it
+			menubar.insertAfter(IWorkbenchActionConstants.M_FILE, viewMenu);
+		} else {
+			// Add view menu as first entry
+			IContributionItem[] contributionItems = menubar.getItems();
+			if (contributionItems != null && contributionItems.length > 0) {
+				// Any menu exists --> place view menu in front of it it
+				menubar.insertBefore(contributionItems[0].getId(), viewMenu);
+			} else {
+				// No item exists --> simply add view menu
+				menubar.add(viewMenu);
+			}
+		}
+
 
 		IMenuManager fileMenu = menubar.findMenuUsingPath(IWorkbenchActionConstants.M_FILE);
 		if (fileMenu != null) {
