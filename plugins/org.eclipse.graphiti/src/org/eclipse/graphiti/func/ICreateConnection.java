@@ -38,12 +38,15 @@ public interface ICreateConnection extends ICreateInfo {
 	boolean canCreate(ICreateConnectionContext context);
 
 	/**
-	 * Creates the.
+	 * Creates the connection.
 	 * 
 	 * @param context
 	 *            the context
 	 * 
-	 * @return the connection
+	 * @return The connection that has been created or <code>null</code> in case
+	 *         no valid connection can be returned. Currently this return value
+	 *         is not evaluated by the Graphiti framework but it might be used
+	 *         in future versions but only for performance optimizations.
 	 */
 	Connection create(ICreateConnectionContext context);
 
