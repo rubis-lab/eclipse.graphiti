@@ -14,7 +14,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.IPattern;
-import org.eclipse.graphiti.pattern.config.IPatternConfiguration;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
