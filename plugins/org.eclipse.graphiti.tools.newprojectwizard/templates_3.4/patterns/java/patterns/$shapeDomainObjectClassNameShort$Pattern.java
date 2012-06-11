@@ -32,7 +32,7 @@ public class $shapeDomainObjectClassNameShort$Pattern extends AbstractPattern im
 	@Override
 	public boolean isMainBusinessObjectApplicable(Object mainBusinessObject) {
 		// TODO: check for right domain object instances below
-		// return mainBusinessObject instanceof Match;
+		// return mainBusinessObject instanceof $shapeDomainObjectClassNameShort$;
 		return true;
 	}
 
