@@ -106,5 +106,4 @@ public class EditorLinkHelper implements ILinkHelper {
 		}
 		return null;
 	}
-
 }
