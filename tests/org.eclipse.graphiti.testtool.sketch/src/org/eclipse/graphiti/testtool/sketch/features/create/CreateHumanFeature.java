@@ -33,6 +33,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 /**
  * The Class CreateCsGhostAndInnerShapeFeature.
  */
+
 public class CreateHumanFeature extends AbstractCreateFeature {
 	private static final int LINE_WIDTH = 1;
 	static final int UNIT = 5;
