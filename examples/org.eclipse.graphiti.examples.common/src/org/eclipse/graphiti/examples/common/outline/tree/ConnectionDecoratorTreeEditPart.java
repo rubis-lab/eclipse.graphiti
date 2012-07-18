@@ -31,7 +31,7 @@ public class ConnectionDecoratorTreeEditPart extends AbstractGraphicsTreeEditPar
 	 * Creates a new PictogramElementTreeEditPart for the given model Object.
 	 * 
 	 * @param configurationProvider
-	 *            The IConfigurationProvider which defines the model
+	 *            The IConfigurationProviderInternal which defines the model
 	 * @param shape
 	 *            The Shape of this EditPart.
 	 */

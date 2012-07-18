@@ -41,7 +41,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart;
 
 /**
@@ -64,7 +64,7 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 	 * @param connection
 	 *            the connection
 	 */
-	public ConnectionEditPart(IConfigurationProvider configurationProvider, Connection connection,
+	public ConnectionEditPart(IConfigurationProviderInternal configurationProvider, Connection connection,
 			EditPart contextParent) {
 		setModel(connection);
 		delegate = new AnchorContainerDelegate(configurationProvider, connection, this);
@@ -111,9 +111,9 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 	/**
 	 * Gets the configuration provider.
 	 * 
-	 * @return The IConfigurationProvider of this EditPart
+	 * @return The IConfigurationProviderInternal of this EditPart
 	 */
-	public IConfigurationProvider getConfigurationProvider() {
+	public IConfigurationProviderInternal getConfigurationProvider() {
 		return delegate.getConfigurationProvider();
 	}
 

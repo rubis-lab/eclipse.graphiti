@@ -32,7 +32,7 @@ import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFHandleHelper;
 import org.eclipse.graphiti.ui.internal.util.draw2d.TransparentGhostFigure;
 
@@ -44,11 +44,11 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 	private GFEditPolicyDelegate delegate;
 	private IResizeShapeContext resizeShapeContext;
 
-	public GFResizableEditPolicy(IConfigurationProvider cfgProvider) {
+	public GFResizableEditPolicy(IConfigurationProviderInternal cfgProvider) {
 		setDelegate(new GFEditPolicyDelegate(cfgProvider));
 	}
 
-	public GFResizableEditPolicy(IConfigurationProvider configurationProvider, IResizeShapeContext resizeShapeContext) {
+	public GFResizableEditPolicy(IConfigurationProviderInternal configurationProvider, IResizeShapeContext resizeShapeContext) {
 		this(configurationProvider);
 		setResizeShapeContext(resizeShapeContext);
 	}
@@ -87,7 +87,7 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 		super.eraseSourceFeedback(request);
 	}
 
-	protected IConfigurationProvider getConfigurationProvider() {
+	protected IConfigurationProviderInternal getConfigurationProvider() {
 		return getDelegate().getConfigurationProvider();
 	}
 

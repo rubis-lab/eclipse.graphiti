@@ -78,11 +78,12 @@ import org.eclipse.graphiti.ui.internal.command.AddModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.command.MoveAnchorFeatureCommandWithContext;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.parts.AdvancedAnchorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.viewers.ISelection;
 
 /**
@@ -96,19 +97,19 @@ import org.eclipse.jface.viewers.ISelection;
  */
 public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
-	private IConfigurationProvider _configurationProvider;
+	private IConfigurationProviderInternal _configurationProvider;
 
 	/**
 	 * Creates a new ShapeXYLayoutEditPolicy.
 	 * 
 	 * @param configurationProvider
-	 *            The IConfigurationProvider.
+	 *            The IConfigurationProviderInternal.
 	 */
-	protected ShapeXYLayoutEditPolicy(IConfigurationProvider configurationProvider) {
+	protected ShapeXYLayoutEditPolicy(IConfigurationProviderInternal configurationProvider) {
 		_configurationProvider = configurationProvider;
 	}
 
-	protected final IConfigurationProvider getConfigurationProvider() {
+	protected final IConfigurationProviderInternal getConfigurationProvider() {
 		return _configurationProvider;
 	}
 

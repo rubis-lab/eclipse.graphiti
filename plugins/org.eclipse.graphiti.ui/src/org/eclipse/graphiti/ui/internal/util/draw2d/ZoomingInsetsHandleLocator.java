@@ -21,7 +21,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.handles.HandleBounds;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
  * A Locator, which sets the target bounds to the reference figure bounds.

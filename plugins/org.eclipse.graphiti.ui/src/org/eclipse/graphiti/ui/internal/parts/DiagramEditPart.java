@@ -39,7 +39,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.swt.SWT;
 
@@ -59,7 +59,7 @@ public class DiagramEditPart extends ContainerShapeEditPart implements IDiagramE
 	 * @param diagram
 	 *            the diagram
 	 */
-	public DiagramEditPart(IConfigurationProvider configurationProvider, Diagram diagram) {
+	public DiagramEditPart(IConfigurationProviderInternal configurationProvider, Diagram diagram) {
 		super(configurationProvider, diagram);
 	}
 

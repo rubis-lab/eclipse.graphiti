@@ -23,8 +23,9 @@ import org.eclipse.graphiti.internal.util.LookManager;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.graphiti.util.ILook;
 import org.eclipse.swt.graphics.Color;
 
@@ -33,9 +34,9 @@ import org.eclipse.swt.graphics.Color;
  * @noextend This class is not intended to be subclassed by clients.
  */
 public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
-	private IConfigurationProvider cfgProvider;
+	private IConfigurationProviderInternal cfgProvider;
 
-	public GridLayer(IConfigurationProvider cfgProvider) {
+	public GridLayer(IConfigurationProviderInternal cfgProvider) {
 		setCfgProvider(cfgProvider);
 		updateFromDiagram();
 	}
@@ -170,7 +171,7 @@ public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
 		return cfgProvider;
 	}
 
-	private void setCfgProvider(IConfigurationProvider cfgProvider) {
+	private void setCfgProvider(IConfigurationProviderInternal cfgProvider) {
 		this.cfgProvider = cfgProvider;
 	}
 }

@@ -23,7 +23,7 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 import org.eclipse.graphiti.platform.ga.IVisualState;
 import org.eclipse.graphiti.platform.ga.IVisualStateHolder;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
  * Gives feedback on hovering. It does not create any commands.
@@ -40,7 +40,7 @@ public class ShapeHoverEditPolicy extends GraphicalEditPolicy {
 	 * Creates a new ShapeHighlightEditPolicy.
 	 * 
 	 * @param configurationProvider
-	 *            The IConfigurationProvider.
+	 *            The IConfigurationProviderInternal.
 	 */
 	protected ShapeHoverEditPolicy(IConfigurationProvider configurationProvider) {
 		_configurationProvider = configurationProvider;

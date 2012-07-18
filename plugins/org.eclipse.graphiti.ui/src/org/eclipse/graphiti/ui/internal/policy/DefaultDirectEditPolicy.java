@@ -33,7 +33,7 @@ import org.eclipse.graphiti.internal.util.LookManager;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.parts.directedit.IDirectEditHolder;
 import org.eclipse.graphiti.ui.internal.parts.directedit.TextCellEditor;
 import org.eclipse.graphiti.ui.internal.requests.GFDirectEditRequest;
@@ -58,9 +58,9 @@ import org.eclipse.swt.widgets.Control;
  */
 public class DefaultDirectEditPolicy extends DirectEditPolicy {
 
-	private final IConfigurationProvider configurationProvider;
+	private final IConfigurationProviderInternal configurationProvider;
 
-	public DefaultDirectEditPolicy(IConfigurationProvider configurationProvider) {
+	public DefaultDirectEditPolicy(IConfigurationProviderInternal configurationProvider) {
 		this.configurationProvider = configurationProvider;
 	}
 

@@ -17,7 +17,7 @@ package org.eclipse.graphiti.ui.internal.command;
 
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.

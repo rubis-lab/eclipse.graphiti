@@ -24,7 +24,7 @@ import org.eclipse.graphiti.features.IFeatureProviderHolder;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.ga.IVisualStateHolder;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 
 /**
  * The Interface IPictogramElementDelegate.
@@ -51,7 +51,7 @@ public interface IPictogramElementDelegate extends IAdaptable, IFeatureProviderH
 	 * 
 	 * @return the configuration provider
 	 */
-	IConfigurationProvider getConfigurationProvider();
+	IConfigurationProviderInternal getConfigurationProvider();
 
 	/**
 	 * Gets the pictogram element.

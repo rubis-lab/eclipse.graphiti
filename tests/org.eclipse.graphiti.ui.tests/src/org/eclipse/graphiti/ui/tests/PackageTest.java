@@ -124,7 +124,7 @@ import org.eclipse.graphiti.ui.internal.command.AddModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.GFCommand;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.parts.directedit.IDirectEditHolder;
 import org.eclipse.graphiti.ui.internal.requests.ContextButtonDragRequest;
 import org.eclipse.graphiti.ui.internal.requests.GFDirectEditRequest;
@@ -423,7 +423,7 @@ public class PackageTest extends GFAbstractTestCase {
 		expect(diagramTypeProviderMock.getFeatureProvider()).andReturn(null).anyTimes();
 		replay(diagramTypeProviderMock);
 
-		IConfigurationProvider configurationProviderMock = createNiceMock(IConfigurationProvider.class);
+		IConfigurationProviderInternal configurationProviderMock = createNiceMock(IConfigurationProviderInternal.class);
 		expect(configurationProviderMock.getDiagramTypeProvider()).andReturn(diagramTypeProviderMock).anyTimes();
 		replay(configurationProviderMock);
 

@@ -26,7 +26,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.gef.handles.AbstractHandle;
 import org.eclipse.gef.tools.DragEditPartsTracker;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -95,7 +95,7 @@ public class GFSurroundingHandle extends AbstractHandle {
 	/**
 	 * The configuration provider, which can be used to access the environment.
 	 */
-	private IConfigurationProvider configurationProvider;
+	private IConfigurationProviderInternal configurationProvider;
 
 	/**
 	 * The supported resize directions (see
@@ -123,7 +123,7 @@ public class GFSurroundingHandle extends AbstractHandle {
 	 *            Indicates, if moving the owner edit-part via this handle is
 	 *            supported.
 	 */
-	public GFSurroundingHandle(GraphicalEditPart owner, IConfigurationProvider configurationProvider, int supportedResizeDirections,
+	public GFSurroundingHandle(GraphicalEditPart owner, IConfigurationProviderInternal configurationProvider, int supportedResizeDirections,
 			boolean movable) {
 		this.configurationProvider = configurationProvider;
 		this.supportedResizeDirections = supportedResizeDirections;

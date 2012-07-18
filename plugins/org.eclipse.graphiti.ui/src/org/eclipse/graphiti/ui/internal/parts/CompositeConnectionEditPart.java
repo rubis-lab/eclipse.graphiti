@@ -22,7 +22,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.partfactory.PictogramsEditPartFactory;
 
 public class CompositeConnectionEditPart extends ConnectionEditPart {
@@ -35,7 +35,7 @@ public class CompositeConnectionEditPart extends ConnectionEditPart {
 	 */
 	private ConnectionEditPart originallySelectedChild = null;
 
-	public CompositeConnectionEditPart(IConfigurationProvider configurationProvider, CompositeConnection connection,
+	public CompositeConnectionEditPart(IConfigurationProviderInternal configurationProvider, CompositeConnection connection,
 			PictogramsEditPartFactory factory, EditPart contextParent) {
 		super(configurationProvider, connection, contextParent);
 

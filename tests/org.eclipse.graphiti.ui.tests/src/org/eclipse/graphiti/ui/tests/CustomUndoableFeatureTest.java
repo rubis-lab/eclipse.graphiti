@@ -32,8 +32,9 @@ import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.editor.GFCommandStack;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -66,7 +67,7 @@ public class CustomUndoableFeatureTest extends GFAbstractTestCase {
 		EasyMock.expect(diagramTypeProvider.getCurrentToolBehaviorProvider()).andReturn(toolBehaviorProvider).anyTimes();
 		EasyMock.replay(diagramTypeProvider);
 
-		IConfigurationProvider configurationProvider = EasyMock.createNiceMock(IConfigurationProvider.class);
+		IConfigurationProvider configurationProvider = EasyMock.createNiceMock(IConfigurationProviderInternal.class);
 		EasyMock.expect(configurationProvider.getDiagramTypeProvider()).andReturn(diagramTypeProvider).anyTimes();
 		EasyMock.replay(configurationProvider);
 		GFCommandStack commandStack = new GFCommandStack(configurationProvider, editingDomain);

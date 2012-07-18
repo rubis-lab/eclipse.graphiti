@@ -70,13 +70,14 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.parts.directedit.GFDirectEditManager;
 import org.eclipse.graphiti.ui.internal.parts.directedit.TextCellLocator;
 import org.eclipse.graphiti.ui.internal.policy.DefaultEditPolicyFactory;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFChopboxAnchor;
 import org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.graphiti.util.ILocationInfo;
 import org.eclipse.graphiti.util.LocationInfo;
 import org.eclipse.swt.widgets.Display;
@@ -103,7 +104,7 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 	 * @param shape
 	 *            the shape
 	 */
-	public ShapeEditPart(IConfigurationProvider configurationProvider, Shape shape) {
+	public ShapeEditPart(IConfigurationProviderInternal configurationProvider, Shape shape) {
 		delegate = new AnchorContainerDelegate(configurationProvider, shape, this);
 		setModel(shape);
 	}
@@ -165,9 +166,9 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 	/**
 	 * Gets the configuration provider.
 	 * 
-	 * @return The IConfigurationProvider of this EditPart
+	 * @return The IConfigurationProviderInternal of this EditPart
 	 */
-	public IConfigurationProvider getConfigurationProvider() {
+	public IConfigurationProviderInternal getConfigurationProvider() {
 		return delegate.getConfigurationProvider();
 	}
 

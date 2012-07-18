@@ -25,7 +25,7 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -33,7 +33,7 @@ import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
  */
 public class ShapeContainerAndXYLayoutEditPolicy extends ShapeXYLayoutEditPolicy {
 
-	protected ShapeContainerAndXYLayoutEditPolicy(IConfigurationProvider configurationProvider) {
+	protected ShapeContainerAndXYLayoutEditPolicy(IConfigurationProviderInternal configurationProvider) {
 		super(configurationProvider);
 	}
 

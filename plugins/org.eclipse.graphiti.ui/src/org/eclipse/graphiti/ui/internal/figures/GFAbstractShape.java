@@ -42,7 +42,7 @@ import org.eclipse.graphiti.platform.ga.VisualStateChangedEvent;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.ISelectionInfo;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.util.IColorConstant;
@@ -151,12 +151,12 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 	}
 
 	/**
-	 * Returns the IConfigurationProvider. This is just a convenience for
+	 * Returns the IConfigurationProviderInternal. This is just a convenience for
 	 * <code>getPictogramElementDelegate().getConfigurationProvider()</code>.
 	 * 
-	 * @return The IConfigurationProvider.
+	 * @return The IConfigurationProviderInternal.
 	 */
-	protected IConfigurationProvider getConfigurationProvider() {
+	protected IConfigurationProviderInternal getConfigurationProvider() {
 		return getPictogramElementDelegate().getConfigurationProvider();
 	}
 

@@ -21,7 +21,7 @@ import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.

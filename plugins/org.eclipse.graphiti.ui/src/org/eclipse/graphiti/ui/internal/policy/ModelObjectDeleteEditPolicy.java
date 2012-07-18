@@ -25,12 +25,13 @@ import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
  * An EditPolicy to handle the deletion of EditParts.
  * 
- * @see org.eclipse.graphiti.ui.internal.policy.IEditPolicyFactory#createModelObjectDeleteEditPolicy(IConfigurationProvider)
+ * @see org.eclipse.graphiti.ui.internal.policy.IEditPolicyFactory#createModelObjectDeleteEditPolicy(IConfigurationProviderInternal)
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
@@ -42,7 +43,7 @@ public class ModelObjectDeleteEditPolicy extends ComponentEditPolicy {
 	 * Creates a new ModelObjectDeleteEditPolicy.
 	 * 
 	 * @param configurationProvider
-	 *            The IConfigurationProvider.
+	 *            The IConfigurationProviderInternal.
 	 */
 	protected ModelObjectDeleteEditPolicy(IConfigurationProvider configurationProvider) {
 		_configurationProvider = configurationProvider;

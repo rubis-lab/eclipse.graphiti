@@ -815,7 +815,7 @@ public class GFOtherTests extends AbstractGFTests {
 			}
 
 		}
-		// IConfigurationProvider xx = new
+		// IConfigurationProviderInternal xx = new
 		Image image = new Image(Display.getCurrent(), 22, 22);
 		GC gc = new GC(image);
 		SWTGraphics graphics = new SWTGraphics(gc);

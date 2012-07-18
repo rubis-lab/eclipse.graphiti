@@ -147,14 +147,6 @@
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src/org/eclipse/graphiti/ui/internal/config/IConfigurationProvider.java" type="org.eclipse.graphiti.ui.internal.config.IConfigurationProvider">
-        <filter id="571473929">
-            <message_arguments>
-                <message_argument value="IFeatureProviderHolder"/>
-                <message_argument value="IConfigurationProvider"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src/org/eclipse/graphiti/ui/internal/editor/DiagramEditorDummy.java" type="org.eclipse.graphiti.ui.internal.editor.DiagramEditorDummy">
         <filter comment="Allow direct implementation accross Graphiti projects to make dummy editor available" id="574619656">
             <message_arguments>
@@ -209,6 +201,14 @@
             <message_arguments>
                 <message_argument value="IFeatureProviderHolder"/>
                 <message_argument value="GraphitiShapeEditPart"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/platform/IConfigurationProvider.java" type="org.eclipse.graphiti.ui.platform.IConfigurationProvider">
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IFeatureProviderHolder"/>
+                <message_argument value="IConfigurationProvider"/>
             </message_arguments>
         </filter>
     </resource>

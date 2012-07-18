@@ -29,12 +29,12 @@ import org.eclipse.graphiti.ui.internal.policy.IEditPolicyFactory;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**
- * A concrete implementation of the interface IConfigurationProvider
+ * A concrete implementation of the interface IConfigurationProviderInternal
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class ConfigurationProvider implements IConfigurationProvider {
+public class ConfigurationProvider implements IConfigurationProviderInternal {
 	private boolean _isDisposed = false;
 
 	private IEditPolicyFactory _editPolicyFactory;
@@ -154,7 +154,7 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.ui.internal.config.IConfigurationProvider#
+	 * @see org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal#
 	 * getDiagramEditor()
 	 */
 	public DiagramEditor getDiagramEditor() {
@@ -166,7 +166,7 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.ui.internal.config.IConfigurationProvider#
+	 * @see org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal#
 	 * getDiagram()
 	 */
 	public Diagram getDiagram() {
@@ -189,7 +189,7 @@ public class ConfigurationProvider implements IConfigurationProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.graphiti.ui.internal.config.IConfigurationProvider#
+	 * @see org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal#
 	 * getFeatureProvider()
 	 */
 	public IFeatureProvider getFeatureProvider() {

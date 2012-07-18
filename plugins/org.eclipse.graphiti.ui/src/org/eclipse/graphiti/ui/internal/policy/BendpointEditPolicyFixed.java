@@ -57,7 +57,7 @@ import org.eclipse.graphiti.features.context.impl.MoveBendpointContext;
 import org.eclipse.graphiti.features.context.impl.RemoveBendpointContext;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 
 /**
  * Used to add bendpoint handles on a {@link ConnectionEditPart}.
@@ -77,12 +77,12 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 	protected List<?> originalConstraint;
 	protected boolean isDeleting = false;
 
-	private IConfigurationProvider configurationProvider;
+	private IConfigurationProviderInternal configurationProvider;
 
 	protected static final Point ref1 = new Point();
 	protected static final Point ref2 = new Point();
 
-	public BendpointEditPolicyFixed(IConfigurationProvider configurationProvider) {
+	public BendpointEditPolicyFixed(IConfigurationProviderInternal configurationProvider) {
 		super();
 		setConfigurationProvider(configurationProvider);
 	}
@@ -453,7 +453,7 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 			showCreateBendpointFeedback((BendpointRequest) request);
 	}
 
-	protected IConfigurationProvider getConfigurationProvider() {
+	protected IConfigurationProviderInternal getConfigurationProvider() {
 		return configurationProvider;
 	}
 
@@ -464,7 +464,7 @@ public abstract class BendpointEditPolicyFixed extends SelectionHandlesEditPolic
 		return null;
 	}
 
-	private void setConfigurationProvider(IConfigurationProvider configurationProvider) {
+	private void setConfigurationProvider(IConfigurationProviderInternal configurationProvider) {
 		this.configurationProvider = configurationProvider;
 	}
 
