@@ -25,7 +25,7 @@ framework. Here&#39;s the process how to do this:</p>
 	can have a look at <span class="inlinecode">DomainModelChangeListener</span> 
 	in the Graphiti framework; this class does this job for EMF models.</li>
 	<li>Subclass <span class="inlinecode">DiagramEditor</span> and override its 
-	method <span class="inlinecode">registerBOListener</span>. In that method create 
+	method <span class="inlinecode">registerBusinessObjectsListener</span>. In that method create
 	an instance of your listener from step 1 and register it.</li>
 	<li>Create an appropriate notification service class by subclassing
 	<span class="inlinecode">DefaultNotificationService</span> or implementing its 
