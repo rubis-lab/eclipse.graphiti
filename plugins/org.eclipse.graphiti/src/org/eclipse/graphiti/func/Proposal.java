@@ -35,17 +35,21 @@ public class Proposal implements IProposal {
 		return object;
 	}
 
+
 	public String getText() {
 		return text; // + " - " + getObject(); // for tests
 	}
+
 
 	public void setObject(Object object) {
 		this.object = object;
 	}
 
+
 	public void setText(String text) {
 		this.text = text;
 	}
+
 
 	public static Proposal[] textsToProposals(String[] texts) {
 		Proposal[] ret = new Proposal[texts.length];
@@ -55,6 +59,7 @@ public class Proposal implements IProposal {
 		return ret;
 	}
 
+
 	public static String[] proposalsToTexts(IProposal[] proposals) {
 		String[] ret = new String[proposals.length];
 		for (int i = 0; i < ret.length; i++) {
@@ -62,5 +67,4 @@ public class Proposal implements IProposal {
 		}
 		return ret;
 	}
-
 }
