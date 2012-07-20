@@ -24,6 +24,7 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.tools.ConnectionDragCreationTool;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.graphiti.ui.internal.requests.ContextButtonDragRequest;
 
 /**
@@ -104,8 +105,8 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		((CreateConnectionRequest) getTargetRequest()).setSourceEditPart(getTargetEditPart());
 		Command command = getCommand();
 		if (command != null) {
-			setState(STATE_CONNECTION_STARTED);
 			setCurrentCommand(command);
+			setState(STATE_CONNECTION_STARTED);
 		}
 
 		handleDrag();
@@ -139,8 +140,8 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		createConnectionRequest.setTargetEditPart(targetTargetEditPart);
 		Command command = getCommand();
 		if (command != null) {
-			setState(STATE_CONNECTION_STARTED);
 			setCurrentCommand(command);
+			setState(STATE_CONNECTION_STARTED);
 		}
 
 		handleDrag();
@@ -168,6 +169,17 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		Point absoluteMousePosition = diagramEditor.getMouseLocation();
 		request.setLocation(absoluteMousePosition);
 
+	}
+
+	@Override
+	protected void setState(int state) {
+		if (state == STATE_CONNECTION_STARTED) {
+			Command cmd = getCurrentCommand();
+			if (cmd instanceof CreateConnectionCommand) {
+				((CreateConnectionCommand) cmd).connectionStarted();
+			}
+		}
+		super.setState(state);
 	}
 
 }
