@@ -62,5 +62,4 @@ public class Proposal implements IProposal {
 		}
 		return ret;
 	}
-
 }
