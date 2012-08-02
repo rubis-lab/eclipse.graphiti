@@ -15,6 +15,7 @@
  *    mgorning - Bug 342262 - enhanced resize behavior for container shapes
  *    Bug 336488 - DiagramEditor API
  *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
+ *    mgorning - Bug 383512 - Moving (Resizing) Problem - Polyline/Polygon on first level
  *
  * </copyright>
  *
@@ -28,6 +29,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
@@ -65,6 +67,7 @@ import org.eclipse.graphiti.internal.command.MoveShapeFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ResizeShapeFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -206,8 +209,37 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 					Rectangle rectangle = (Rectangle) constraint;
 
 					{
-						IMoveShapeContext context = createMoveShapeContext(shape, containerShape, containerShape,
-								constraint);
+						Rectangle rc = rectangle;
+
+						// modify the constraint in case if it is a Polyline
+						// graphics algorithm and the uppermost point is not at
+						// y==0 or the leftmost point is not at x==0
+						// see also Bug 383512
+						if (shape.getGraphicsAlgorithm() instanceof Polyline) {
+							Polyline polyline = (Polyline) shape.getGraphicsAlgorithm();
+							EList<org.eclipse.graphiti.mm.algorithms.styles.Point> points = polyline.getPoints();
+							if (points.size() > 0) {
+								org.eclipse.graphiti.mm.algorithms.styles.Point firstPoint = points.get(0);
+								int minX = firstPoint.getX();
+								int minY = firstPoint.getY();
+								for (org.eclipse.graphiti.mm.algorithms.styles.Point point : points) {
+									minX = Math.min(point.getX(), minX);
+									minY = Math.min(point.getY(), minY);
+								}
+
+								if (minX > 0 || minY > 0) {
+									rc = rectangle.getCopy();
+									if (minX > 0) {
+										rc.x -= minX;
+									}
+									if (minY > 0) {
+										rc.y -= minY;
+									}
+								}
+							}
+						}
+
+						IMoveShapeContext context = createMoveShapeContext(shape, containerShape, containerShape, rc);
 
 						IMoveShapeFeature moveShapeFeature = featureProvider.getMoveShapeFeature(context);
 						if (moveShapeFeature != null) {
