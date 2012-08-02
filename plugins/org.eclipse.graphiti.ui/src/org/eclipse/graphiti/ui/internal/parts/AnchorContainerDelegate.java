@@ -27,7 +27,7 @@ import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 
 /**
  * A class, which contains helper-methods, which are necessary to implement the
@@ -50,7 +50,7 @@ public class AnchorContainerDelegate extends PictogramElementDelegate implements
 	 * @param containerEditPart
 	 *            the container edit part
 	 */
-	protected AnchorContainerDelegate(IConfigurationProvider configurationProvider, PictogramElement pictogramElement,
+	protected AnchorContainerDelegate(IConfigurationProviderInternal configurationProvider, PictogramElement pictogramElement,
 			EditPart containerEditPart) {
 		super(configurationProvider, pictogramElement, containerEditPart);
 	}

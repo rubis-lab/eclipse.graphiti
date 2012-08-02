@@ -117,7 +117,7 @@ import org.eclipse.graphiti.ui.internal.action.ToggleContextButtonPadAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.ConfigurationProvider;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.contextbuttons.ContextButtonManagerForPad;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.dnd.GFTemplateTransferDropTargetListener;
@@ -130,6 +130,7 @@ import org.eclipse.graphiti.ui.internal.editor.GFScrollingGraphicalViewer;
 import org.eclipse.graphiti.ui.internal.editor.GraphitiScrollingGraphicalViewer;
 import org.eclipse.graphiti.ui.internal.parts.IConnectionEditPart;
 import org.eclipse.graphiti.ui.internal.util.gef.ScalableRootEditPartAnimated;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
@@ -238,7 +239,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	private PictogramElement pictogramElementsForSelection[];
 
 	private String contributorId;
-	private IConfigurationProvider configurationProvider;
+	private IConfigurationProviderInternal configurationProvider;
 
 	private KeyHandler keyHandler;
 	private Point mouseLocation;
@@ -547,7 +548,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		}
 
 		diagramTypeProvider.init(diagram, this);
-		IConfigurationProvider configurationProvider = new ConfigurationProvider(this, diagramTypeProvider);
+		IConfigurationProviderInternal configurationProvider = new ConfigurationProvider(this, diagramTypeProvider);
 		setConfigurationProvider(configurationProvider);
 		refreshBehavior.handleAutoUpdateAtStartup();
 
@@ -737,7 +738,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 	/**
 	 * Called to initialize the editor with its content. Here everything is
-	 * done, which is dependent of the IConfigurationProvider.
+	 * done, which is dependent of the IConfigurationProviderInternal.
 	 * 
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette#initializeGraphicalViewer()
 	 */
@@ -771,7 +772,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		}
 
 		// set contents
-		getGraphicalViewer().setEditPartFactory(getConfigurationProvider().getEditPartFactory());
+		getGraphicalViewer().setEditPartFactory(
+				((IConfigurationProviderInternal) getConfigurationProvider()).getEditPartFactory());
 		getGraphicalViewer().setContents(getConfigurationProvider().getDiagram());
 
 		paletteBehaviour.initializeViewer();
@@ -794,7 +796,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * Called to configure the editor, before it receives its content. The
 	 * default-implementation is for example doing the following: configure the
 	 * ZoomManager, registering Actions... Here everything is done, which is
-	 * independent of the IConfigurationProvider.
+	 * independent of the IConfigurationProviderInternal.
 	 * 
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#configureGraphicalViewer()
 	 */
@@ -807,7 +809,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 
 			protected GridLayer createGridLayer() {
-				return new org.eclipse.graphiti.ui.internal.util.draw2d.GridLayer(getConfigurationProvider());
+				return new org.eclipse.graphiti.ui.internal.util.draw2d.GridLayer(
+						(IConfigurationProviderInternal) getConfigurationProvider());
 			}
 
 		};
@@ -1178,7 +1181,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			return getSelectionSynchronizer();
 		}
 		if (type == IContextButtonManager.class) {
-			return getConfigurationProvider().getContextButtonManager();
+			return ((IConfigurationProviderInternal) getConfigurationProvider()).getContextButtonManager();
 		}
 		return super.getAdapter(type);
 	}
@@ -1581,7 +1584,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return keyHandler;
 	}
 
-	IConfigurationProvider getConfigurationProvider() {
+	/**
+	 * @since 0.9
+	 */
+	protected IConfigurationProvider getConfigurationProvider() {
 		return configurationProvider;
 	}
 
@@ -1848,7 +1854,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		selectionActions.add(action.getId());
 	}
 
-	private void setConfigurationProvider(IConfigurationProvider configurationProvider) {
+	private void setConfigurationProvider(IConfigurationProviderInternal configurationProvider) {
 		this.configurationProvider = configurationProvider;
 
 		// initialize configuration-provider depending on this editor

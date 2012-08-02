@@ -16,8 +16,8 @@
 package org.eclipse.graphiti.ui.internal.policy;
 
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderHolder;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
  * All EditPolicies must be created with this IEditPolicyFactory. This provides

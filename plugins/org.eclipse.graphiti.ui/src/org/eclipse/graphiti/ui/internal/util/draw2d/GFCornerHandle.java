@@ -27,7 +27,7 @@ import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.gef.handles.AbstractHandle;
 import org.eclipse.gef.tools.DragEditPartsTracker;
 import org.eclipse.gef.tools.ResizeTracker;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -95,7 +95,7 @@ public class GFCornerHandle extends AbstractHandle {
 	/**
 	 * The configuration provider, which can be used to access the environment.
 	 */
-	private IConfigurationProvider configurationProvider;
+	private IConfigurationProviderInternal configurationProvider;
 
 	/**
 	 * The supported resize direction (see
@@ -128,7 +128,7 @@ public class GFCornerHandle extends AbstractHandle {
 	 *            Indicates, if moving the shape edit-part via this handle is
 	 *            supported.
 	 */
-	public GFCornerHandle(GraphicalEditPart owner, IConfigurationProvider configurationProvider, int location,
+	public GFCornerHandle(GraphicalEditPart owner, IConfigurationProviderInternal configurationProvider, int location,
 			int supportedResizeDirections, boolean movable) {
 		this.configurationProvider = configurationProvider;
 		this.resizeDirection = supportedResizeDirections & location;

@@ -19,7 +19,7 @@
 package org.eclipse.graphiti.ui.internal.parts;
 
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 
 /**
  * The Class ConnectionDecoratorEditPart.
@@ -37,7 +37,7 @@ public class ConnectionDecoratorEditPart extends ShapeEditPart implements IConne
 	 * @param shape
 	 *            the shape
 	 */
-	public ConnectionDecoratorEditPart(IConfigurationProvider configurationProvider, Shape shape) {
+	public ConnectionDecoratorEditPart(IConfigurationProviderInternal configurationProvider, Shape shape) {
 		super(configurationProvider, shape);
 	}
 

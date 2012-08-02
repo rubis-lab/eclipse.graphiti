@@ -24,7 +24,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 import org.eclipse.graphiti.platform.ga.IVisualState;
 import org.eclipse.graphiti.platform.ga.IVisualStateHolder;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
  * An EditPolicy, which gives feedback for if an EditPart is selected. It does
@@ -42,7 +42,7 @@ public class ShapeHighlightEditPolicy extends GraphicalEditPolicy {
 	 * Creates a new ShapeHighlightEditPolicy.
 	 * 
 	 * @param configurationProvider
-	 *            The IConfigurationProvider.
+	 *            The IConfigurationProviderInternal.
 	 */
 	protected ShapeHighlightEditPolicy(IConfigurationProvider configurationProvider) {
 		_configurationProvider = configurationProvider;

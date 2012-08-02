@@ -39,10 +39,10 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.graphiti.ui.internal.command.ReconnectCommand;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.figures.GFPolylineConnection;
 import org.eclipse.graphiti.ui.internal.requests.ContextButtonDragRequest;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFColorConstants;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.swt.SWT;
 
 /**

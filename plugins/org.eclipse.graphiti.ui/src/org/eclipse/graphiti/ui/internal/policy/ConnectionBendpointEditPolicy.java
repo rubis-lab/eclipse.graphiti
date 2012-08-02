@@ -36,7 +36,7 @@ import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFPolylineConnection;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFBendpointHandle;
 
@@ -49,7 +49,7 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 	/** The tolerance for the snap-to adjacent bendpoint feedback. */
 	private static final int SNAP_TO_TOLERANCE = 15;
 
-	public ConnectionBendpointEditPolicy(IConfigurationProvider configurationProvider) {
+	public ConnectionBendpointEditPolicy(IConfigurationProviderInternal configurationProvider) {
 		super(configurationProvider);
 	}
 

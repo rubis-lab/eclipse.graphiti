@@ -32,8 +32,9 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.impl.AddBendpointContext;
 import org.eclipse.graphiti.features.context.impl.MoveBendpointContext;
 import org.eclipse.graphiti.features.context.impl.RemoveBendpointContext;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
@@ -93,7 +94,7 @@ public class GFBendpointHandle extends BendpointHandle {
 	/**
 	 * The configuration provider, which can be used to access the environment.
 	 */
-	private IConfigurationProvider configurationProvider;
+	private IConfigurationProviderInternal configurationProvider;
 
 	/**
 	 * The request type of the drag tracker (create/move bendpoint).
@@ -115,7 +116,7 @@ public class GFBendpointHandle extends BendpointHandle {
 	 * @param type
 	 *            The type of the bendpoint handle (create/move).
 	 */
-	public GFBendpointHandle(ConnectionEditPart owner, int index, int locatorIndex, IConfigurationProvider configurationProvider, Type type) {
+	public GFBendpointHandle(ConnectionEditPart owner, int index, int locatorIndex, IConfigurationProviderInternal configurationProvider, Type type) {
 		super();
 		setCursor(Cursors.NO);
 
@@ -262,7 +263,7 @@ public class GFBendpointHandle extends BendpointHandle {
 		return ret;
 	}
 
-	private void setConfigurationProvider(IConfigurationProvider configurationProvider) {
+	private void setConfigurationProvider(IConfigurationProviderInternal configurationProvider) {
 		this.configurationProvider = configurationProvider;
 	}
 

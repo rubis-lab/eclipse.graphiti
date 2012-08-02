@@ -9,30 +9,39 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Bug 336488 - DiagramEditor API
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.config;
 
+import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
+import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
+import org.eclipse.graphiti.ui.internal.policy.IEditPolicyFactory;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
- * A simple interface, which can be implemented by all classes/interfaces which
- * provide access to an IConfigurationProviderInternal.
- * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public interface IConfigurationProviderHolder {
+public interface IConfigurationProviderInternal extends IConfigurationProvider, IResourceRegistryHolder {
 
 	/**
-	 * Returns the IConfigurationProviderInternal. Must not return null.
+	 * Returns the IEditPartFactory of this Model.
 	 * 
-	 * @return The IConfigurationProviderInternal. Must not return null.
-	 * 
-	 * @throws IllegalStateException
-	 *             If no IConfigurationProviderInternal is available (if it is null).
+	 * @return The IEditPartFactory of this Model.
 	 */
-	IConfigurationProvider getConfigurationProvider() throws IllegalStateException;
+	public IEditPartFactory getEditPartFactory();
+
+	/**
+	 * Returns the IEditPolicyFactory of this Model.
+	 * 
+	 * @return The IEditPolicyFactory of this Model.
+	 */
+	public IEditPolicyFactory getEditPolicyFactory();
+
+	public abstract void setContextButtonManager(IContextButtonManager contextButtonManager);
+
+	public abstract IContextButtonManager getContextButtonManager();
 }

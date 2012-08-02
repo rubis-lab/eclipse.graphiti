@@ -17,7 +17,8 @@ package org.eclipse.graphiti.ui.internal.policy;
 
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.graphiti.ui.internal.config.AbstractConfigurationProviderHolder;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
  * A default implementation of the interface IEditPolicyFactory.
@@ -31,9 +32,9 @@ public class DefaultEditPolicyFactory extends AbstractConfigurationProviderHolde
 	 * Creates a new DefaultEditPolicyFactory.
 	 * 
 	 * @param configurationProvider
-	 *            The IConfigurationProvider, to which this factory belongs.
+	 *            The IConfigurationProviderInternal, to which this factory belongs.
 	 */
-	public DefaultEditPolicyFactory(IConfigurationProvider configurationProvider) {
+	public DefaultEditPolicyFactory(IConfigurationProviderInternal configurationProvider) {
 		super(configurationProvider);
 	}
 

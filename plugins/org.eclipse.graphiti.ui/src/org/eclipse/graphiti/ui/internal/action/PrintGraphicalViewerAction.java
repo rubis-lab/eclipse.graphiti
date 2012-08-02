@@ -66,7 +66,7 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	 * proper ID, label and image.
 	 * 
 	 * @param configurationProvider
-	 *            The IConfigurationProvider.
+	 *            The IConfigurationProviderInternal.
 	 * @param part
 	 *            The WorkbenchPart (e.g. the editor), to which this Action
 	 *            belongs. From the WorkbenchPart the GraphicalViewer will be

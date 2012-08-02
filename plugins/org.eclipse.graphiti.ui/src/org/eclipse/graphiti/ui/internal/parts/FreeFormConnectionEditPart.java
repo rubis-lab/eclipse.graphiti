@@ -28,7 +28,7 @@ import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 
 /**
@@ -47,7 +47,7 @@ public class FreeFormConnectionEditPart extends ConnectionEditPart {
 	 * @param connection
 	 *            the connection
 	 */
-	public FreeFormConnectionEditPart(IConfigurationProvider configurationProvider, Connection connection,
+	public FreeFormConnectionEditPart(IConfigurationProviderInternal configurationProvider, Connection connection,
 			EditPart contextParent) {
 		super(configurationProvider, connection, contextParent);
 	}

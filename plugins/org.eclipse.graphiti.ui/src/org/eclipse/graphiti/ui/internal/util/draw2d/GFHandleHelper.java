@@ -22,7 +22,8 @@ import java.util.List;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.handles.AbstractHandle;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
  * Collection of static helper methods for handles.
@@ -65,7 +66,7 @@ public class GFHandleHelper {
 	 * 
 	 * @return A list containing all handles for a given shape.
 	 */
-	public static List<AbstractHandle> createShapeHandles(GraphicalEditPart owner, IConfigurationProvider cp,
+	public static List<AbstractHandle> createShapeHandles(GraphicalEditPart owner, IConfigurationProviderInternal cp,
 			int supportedResizeDirections, boolean movable, boolean resizeAllowed) {
 		List<AbstractHandle> list = new ArrayList<AbstractHandle>();
 

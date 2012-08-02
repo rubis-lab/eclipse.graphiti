@@ -39,7 +39,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRenderer;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.ui.sfx.GFSnapFeedbackPolicy;
 
 /**
@@ -62,7 +62,7 @@ public class ContainerShapeEditPart extends ShapeEditPart implements IContainerS
 	 * @param containerShape
 	 *            the container shape
 	 */
-	public ContainerShapeEditPart(IConfigurationProvider configurationProvider, ContainerShape containerShape) {
+	public ContainerShapeEditPart(IConfigurationProviderInternal configurationProvider, ContainerShape containerShape) {
 		super(configurationProvider, containerShape);
 	}
 

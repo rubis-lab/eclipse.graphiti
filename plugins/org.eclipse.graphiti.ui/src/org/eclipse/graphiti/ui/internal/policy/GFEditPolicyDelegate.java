@@ -19,7 +19,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.graphiti.platform.ga.IVisualState;
 import org.eclipse.graphiti.platform.ga.IVisualStateHolder;
 import org.eclipse.graphiti.ui.internal.config.AbstractConfigurationProviderHolder;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -27,7 +27,7 @@ import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
  */
 public class GFEditPolicyDelegate extends AbstractConfigurationProviderHolder {
 
-	public GFEditPolicyDelegate(IConfigurationProvider configurationProvider) {
+	public GFEditPolicyDelegate(IConfigurationProviderInternal configurationProvider) {
 		super(configurationProvider);
 	}
 

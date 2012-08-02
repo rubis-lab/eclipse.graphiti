@@ -23,7 +23,7 @@ package org.eclipse.graphiti.ui.internal.config;
  */
 public abstract class AbstractConfigurationProviderHolder implements IConfigurationProviderHolder {
 
-	private IConfigurationProvider _configurationProvider;
+	private IConfigurationProviderInternal _configurationProvider;
 
 	/**
 	 * Creates a new SimpleConfigurationProviderHolder.
@@ -31,9 +31,9 @@ public abstract class AbstractConfigurationProviderHolder implements IConfigurat
 	 * @param configurationProvider
 	 *            the configuration provider
 	 */
-	public AbstractConfigurationProviderHolder(IConfigurationProvider configurationProvider) {
+	public AbstractConfigurationProviderHolder(IConfigurationProviderInternal configurationProvider) {
 		if (configurationProvider == null)
-			throw new RuntimeException("Implementation-error: the IConfigurationProvider must not be null."); //$NON-NLS-1$
+			throw new RuntimeException("Implementation-error: the IConfigurationProviderInternal must not be null."); //$NON-NLS-1$
 
 		_configurationProvider = configurationProvider;
 	}
@@ -45,7 +45,7 @@ public abstract class AbstractConfigurationProviderHolder implements IConfigurat
 	 * org.eclipse.graphiti.ui.config.provider.IConfigurationProviderHolder#
 	 * getConfigurationProvider()
 	 */
-	public IConfigurationProvider getConfigurationProvider() {
+	public IConfigurationProviderInternal getConfigurationProvider() {
 		return _configurationProvider;
 	}
 }

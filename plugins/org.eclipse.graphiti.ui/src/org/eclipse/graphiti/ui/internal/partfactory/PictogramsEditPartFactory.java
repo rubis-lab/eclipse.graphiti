@@ -32,7 +32,7 @@ import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.ManhattanConnection;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.internal.config.AbstractConfigurationProviderHolder;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.config.IEditPartFactory;
 import org.eclipse.graphiti.ui.internal.parts.AdvancedAnchorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.CompositeConnectionEditPart;
@@ -56,7 +56,7 @@ public class PictogramsEditPartFactory extends AbstractConfigurationProviderHold
 	/**
 	 * Creates a new PictogramsEditPartFactory.
 	 */
-	public PictogramsEditPartFactory(IConfigurationProvider configurationProvider) {
+	public PictogramsEditPartFactory(IConfigurationProviderInternal configurationProvider) {
 		super(configurationProvider);
 	}
 
@@ -69,7 +69,7 @@ public class PictogramsEditPartFactory extends AbstractConfigurationProviderHold
 	 */
 	public EditPart createEditPart(EditPart context, Object model) {
 		EditPart ret = null;
-		IConfigurationProvider configurationProvider = getConfigurationProvider();
+		IConfigurationProviderInternal configurationProvider = getConfigurationProvider();
 
 		Map<?, ?> epRegistry = getConfigurationProvider().getDiagramEditor().getGraphicalViewer().getEditPartRegistry();
 		if (epRegistry != null && epRegistry.containsKey(model)) {

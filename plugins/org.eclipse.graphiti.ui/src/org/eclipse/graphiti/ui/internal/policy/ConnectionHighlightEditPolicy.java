@@ -36,7 +36,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.tb.ISelectionInfo;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFPolylineConnection;
 import org.eclipse.graphiti.ui.internal.parts.CompositeConnectionEditPart;
 import org.eclipse.graphiti.ui.internal.parts.IConnectionEditPart;
@@ -61,19 +61,19 @@ public class ConnectionHighlightEditPolicy extends ConnectionEndpointEditPolicy 
 
 	private Map<Shape, Integer> shapeToLineStyle = new HashMap<Shape, Integer>();
 
-	private IConfigurationProvider configurationProvider;
+	private IConfigurationProviderInternal configurationProvider;
 
 	/**
 	 * Creates a new ConnectionHighlightEditPolicy.
 	 * 
 	 * @param configurationProvider
-	 *            The IConfigurationProvider.
+	 *            The IConfigurationProviderInternal.
 	 */
-	protected ConnectionHighlightEditPolicy(IConfigurationProvider configurationProvider) {
+	protected ConnectionHighlightEditPolicy(IConfigurationProviderInternal configurationProvider) {
 		setConfigurationProvider(configurationProvider);
 	}
 
-	protected final IConfigurationProvider getConfigurationProvider() {
+	protected final IConfigurationProviderInternal getConfigurationProvider() {
 		return configurationProvider;
 	}
 
@@ -205,7 +205,7 @@ public class ConnectionHighlightEditPolicy extends ConnectionEndpointEditPolicy 
 		}
 	}
 
-	private void setConfigurationProvider(IConfigurationProvider configurationProvider) {
+	private void setConfigurationProvider(IConfigurationProviderInternal configurationProvider) {
 		this.configurationProvider = configurationProvider;
 	}
 

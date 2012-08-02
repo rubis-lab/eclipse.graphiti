@@ -21,7 +21,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
  * An EditPolicy, which 'forbids' any Layout dependent Commands. All methods of
@@ -42,7 +42,7 @@ public class ShapeForbidLayoutEditPolicy extends LayoutEditPolicy {
 	 * Creates a new ShapeForbidLayoutEditPolicy.
 	 * 
 	 * @param configurationProvider
-	 *            The IConfigurationProvider.
+	 *            The IConfigurationProviderInternal.
 	 */
 	protected ShapeForbidLayoutEditPolicy(IConfigurationProvider configurationProvider) {
 		_configurationProvider = configurationProvider;

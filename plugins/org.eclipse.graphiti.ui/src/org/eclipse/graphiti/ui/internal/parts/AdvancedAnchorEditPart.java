@@ -40,7 +40,7 @@ import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFChopboxAnchor;
 import org.eclipse.graphiti.ui.internal.util.gef.MultiCreationFactory;
 
@@ -71,7 +71,7 @@ public class AdvancedAnchorEditPart extends AbstractGraphicalEditPart implements
 	 * @param anchor
 	 *            the anchor
 	 */
-	public AdvancedAnchorEditPart(IConfigurationProvider configurationProvider, AdvancedAnchor anchor) {
+	public AdvancedAnchorEditPart(IConfigurationProviderInternal configurationProvider, AdvancedAnchor anchor) {
 		setModel(anchor);
 		delegate = new PictogramElementDelegate(configurationProvider, anchor, this);
 	}
@@ -100,7 +100,7 @@ public class AdvancedAnchorEditPart extends AbstractGraphicalEditPart implements
 		super.deactivate();
 	}
 
-	public IConfigurationProvider getConfigurationProvider() throws IllegalStateException {
+	public IConfigurationProviderInternal getConfigurationProvider() throws IllegalStateException {
 		return delegate.getConfigurationProvider();
 	}
 

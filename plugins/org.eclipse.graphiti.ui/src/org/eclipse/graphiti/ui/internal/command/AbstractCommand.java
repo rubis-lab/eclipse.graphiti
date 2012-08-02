@@ -18,8 +18,8 @@ package org.eclipse.graphiti.ui.internal.command;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderHolder;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.

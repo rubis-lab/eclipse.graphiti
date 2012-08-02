@@ -29,6 +29,7 @@ import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.editor.RefreshPerformanceCache;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart;
@@ -251,7 +252,8 @@ public class DefaultRefreshBehavior {
 		long start = System.currentTimeMillis();
 
 		try {
-			diagramEditor.getConfigurationProvider().getContextButtonManager().hideContextButtonsInstantly();
+			((IConfigurationProviderInternal) diagramEditor.getConfigurationProvider()).getContextButtonManager()
+					.hideContextButtonsInstantly();
 
 			editPart.refresh();
 

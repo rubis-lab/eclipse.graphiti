@@ -107,7 +107,7 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.DecoratorImageFigure;
 import org.eclipse.graphiti.ui.internal.figures.GFAbstractShape;
 import org.eclipse.graphiti.ui.internal.figures.GFEllipse;
@@ -124,6 +124,7 @@ import org.eclipse.graphiti.ui.internal.figures.GFRoundedRectangle;
 import org.eclipse.graphiti.ui.internal.figures.GFText;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.graphics.Color;
@@ -148,7 +149,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 	private boolean valid = true;
 
-	private IConfigurationProvider configurationProvider;
+	private IConfigurationProviderInternal configurationProvider;
 
 	private final Hashtable<GraphicsAlgorithm, IFigure> elementFigureHash = new Hashtable<GraphicsAlgorithm, IFigure>();
 
@@ -176,7 +177,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @param containerEditPart
 	 *            the container edit part
 	 */
-	public PictogramElementDelegate(IConfigurationProvider configurationProvider, PictogramElement pictogramElement,
+	public PictogramElementDelegate(IConfigurationProviderInternal configurationProvider, PictogramElement pictogramElement,
 			EditPart containerEditPart) {
 		setConfigurationProvider(configurationProvider);
 		setPictogramElement(pictogramElement);
@@ -244,7 +245,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * 
 	 * @return Returns the configurationProvider.
 	 */
-	public IConfigurationProvider getConfigurationProvider() {
+	public IConfigurationProviderInternal getConfigurationProvider() {
 		return configurationProvider;
 	}
 
@@ -1312,7 +1313,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @param configurationProvider
 	 *            The configurationProvider to set.
 	 */
-	private void setConfigurationProvider(IConfigurationProvider configurationProvider) {
+	private void setConfigurationProvider(IConfigurationProviderInternal configurationProvider) {
 		this.configurationProvider = configurationProvider;
 	}
 

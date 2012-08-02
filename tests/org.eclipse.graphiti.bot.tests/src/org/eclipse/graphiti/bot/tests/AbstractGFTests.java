@@ -72,8 +72,9 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
-import org.eclipse.graphiti.ui.internal.config.IConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTBotGefTestCase;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
@@ -450,7 +451,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 	}
 
 	protected IConfigurationProvider getConfigProviderMock(IDiagramTypeProvider dtp, DiagramEditor ed) {
-		IConfigurationProvider configurationProviderMock = createNiceMock(IConfigurationProvider.class);
+		IConfigurationProvider configurationProviderMock = createNiceMock(IConfigurationProviderInternal.class);
 		expect(configurationProviderMock.getDiagramTypeProvider()).andReturn(dtp).anyTimes();
 		expect(configurationProviderMock.getDiagramEditor()).andReturn(ed).anyTimes();
 		replay(configurationProviderMock);
