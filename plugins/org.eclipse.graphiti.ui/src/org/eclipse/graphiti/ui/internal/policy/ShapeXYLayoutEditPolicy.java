@@ -172,16 +172,16 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 		Object model = child.getModel();
 
-		if (!(model instanceof EObject) || GraphitiInternal.getEmfService().isObjectAlive((EObject) model)) {
+		if ((!(model instanceof EObject) || GraphitiInternal.getEmfService().isObjectAlive((EObject) model))
+				&& (constraint instanceof Rectangle)) {
+
+			Rectangle rectangle = (Rectangle) constraint;
 
 			// connection decorators
 			if (model instanceof ConnectionDecorator) {
-				if (constraint instanceof Rectangle) {
-					ICommand cmd = getMoveConnectionDecoratorCommand((ConnectionDecorator) model,
-							(Rectangle) constraint, 0, 0);
-					if (cmd != null) {
-						ret.add(cmd);
-					}
+				ICommand cmd = getMoveConnectionDecoratorCommand((ConnectionDecorator) model, rectangle, 0, 0);
+				if (cmd != null) {
+					ret.add(cmd);
 				}
 			} else
 			// anchors
@@ -190,7 +190,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 				AnchorContainer anchorContainer = anchor.getParent();
 
 				IMoveAnchorContext context = createLayoutAnchorContext(anchor, anchorContainer, anchorContainer,
-						constraint);
+						rectangle);
 
 				IMoveAnchorFeature moveAnchorFeature = featureProvider.getMoveAnchorFeature(context);
 				if (moveAnchorFeature != null) {
@@ -205,76 +205,72 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 				Shape shape = (Shape) model;
 				ContainerShape containerShape = shape.getContainer();
 
-				if (constraint instanceof Rectangle) {
-					Rectangle rectangle = (Rectangle) constraint;
+				{
+					Rectangle rc = rectangle;
 
-					{
-						Rectangle rc = rectangle;
-
-						// modify the constraint in case if it is a Polyline
-						// graphics algorithm and the uppermost point is not at
-						// y==0 or the leftmost point is not at x==0
-						// see also Bug 383512
-						if (shape.getGraphicsAlgorithm() instanceof Polyline) {
-							Polyline polyline = (Polyline) shape.getGraphicsAlgorithm();
-							EList<org.eclipse.graphiti.mm.algorithms.styles.Point> points = polyline.getPoints();
-							if (points.size() > 0) {
-								org.eclipse.graphiti.mm.algorithms.styles.Point firstPoint = points.get(0);
-								int minX = firstPoint.getX();
-								int minY = firstPoint.getY();
-								for (org.eclipse.graphiti.mm.algorithms.styles.Point point : points) {
-									minX = Math.min(point.getX(), minX);
-									minY = Math.min(point.getY(), minY);
-								}
-
-								if (minX > 0 || minY > 0) {
-									rc = rectangle.getCopy();
-									if (minX > 0) {
-										rc.x -= minX;
-									}
-									if (minY > 0) {
-										rc.y -= minY;
-									}
-								}
+					// modify the constraint in case if it is a Polyline
+					// graphics algorithm and the uppermost point is not at
+					// y==0 or the leftmost point is not at x==0
+					// see also Bug 383512
+					if (shape.getGraphicsAlgorithm() instanceof Polyline) {
+						Polyline polyline = (Polyline) shape.getGraphicsAlgorithm();
+						EList<org.eclipse.graphiti.mm.algorithms.styles.Point> points = polyline.getPoints();
+						if (points.size() > 0) {
+							org.eclipse.graphiti.mm.algorithms.styles.Point firstPoint = points.get(0);
+							int minX = firstPoint.getX();
+							int minY = firstPoint.getY();
+							for (org.eclipse.graphiti.mm.algorithms.styles.Point point : points) {
+								minX = Math.min(point.getX(), minX);
+								minY = Math.min(point.getY(), minY);
 							}
-						}
 
-						IMoveShapeContext context = createMoveShapeContext(shape, containerShape, containerShape, rc);
-
-						IMoveShapeFeature moveShapeFeature = featureProvider.getMoveShapeFeature(context);
-						if (moveShapeFeature != null) {
-							if (child instanceof ShapeEditPart) {
-								// Check if size has changed. If yes we do a
-								// resize and no move. In this case do
-								// not add a move feature to the command because
-								// Move might not be allowed while
-								// Resize is allowed. Adding both Move and
-								// Resize leads to Resizing not possible.
-								if (!isDifferentSize(shape, rectangle)) {
-									// Not in resize
-									ret.add(new MoveShapeFeatureCommandWithContext(moveShapeFeature, context));
+							if (minX > 0 || minY > 0) {
+								rc = rectangle.getCopy();
+								if (minX > 0) {
+									rc.x -= minX;
+								}
+								if (minY > 0) {
+									rc.y -= minY;
 								}
 							}
 						}
 					}
 
-					{
-						if (isDifferentSize(shape, rectangle)) {
-							IResizeShapeContext context = createResizeShapeContext(shape, constraint,
-									request.getResizeDirection());
+					IMoveShapeContext context = createMoveShapeContext(shape, containerShape, containerShape, rc);
 
-							IResizeShapeFeature resizeShapeFeature = featureProvider.getResizeShapeFeature(context);
-							if (resizeShapeFeature != null) {
-								ret.add(new ResizeShapeFeatureCommandWithContext(resizeShapeFeature, context));
-								// } else if (child instanceof ShapeEditPart) {
-								// ret.add(new
-								// ResizeShapeFeatureCommandWithContext(resizeShapeFeature,
-								// context));
+					IMoveShapeFeature moveShapeFeature = featureProvider.getMoveShapeFeature(context);
+					if (moveShapeFeature != null) {
+						if (child instanceof ShapeEditPart) {
+							// Check if size has changed. If yes we do a
+							// resize and no move. In this case do
+							// not add a move feature to the command because
+							// Move might not be allowed while
+							// Resize is allowed. Adding both Move and
+							// Resize leads to Resizing not possible.
+							if (!isDifferentSize(shape, rectangle)) {
+								// Not in resize
+								ret.add(new MoveShapeFeatureCommandWithContext(moveShapeFeature, context));
 							}
+						}
+					}
+				}
 
+				{
+					if (isDifferentSize(shape, rectangle)) {
+						IResizeShapeContext context = createResizeShapeContext(shape, rectangle,
+								request.getResizeDirection());
+
+						IResizeShapeFeature resizeShapeFeature = featureProvider.getResizeShapeFeature(context);
+						if (resizeShapeFeature != null) {
+							ret.add(new ResizeShapeFeatureCommandWithContext(resizeShapeFeature, context));
+							// } else if (child instanceof ShapeEditPart) {
+							// ret.add(new
+							// ResizeShapeFeatureCommandWithContext(resizeShapeFeature,
+							// context));
 						}
 
 					}
+
 				}
 			}
 		}
