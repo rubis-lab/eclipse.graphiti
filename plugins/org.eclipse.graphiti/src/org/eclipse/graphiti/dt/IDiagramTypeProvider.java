@@ -16,9 +16,6 @@
  * </copyright>
  *
  *******************************************************************************/
-/*
- * Created on 17.05.2005
- */
 package org.eclipse.graphiti.dt;
 
 import org.eclipse.emf.ecore.resource.Resource;
@@ -46,7 +43,7 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder {
 
 	/**
-	 * Implement this method to initialise the diagram type provider.
+	 * Implement this method to initialize the diagram type provider.
 	 * 
 	 * @param diagram
 	 *            the currently opened diagram
@@ -108,7 +105,7 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 * editor will update its contents (call the {@link AbstractUpdateFeature
 	 * update feature} of the {@link PictogramElement}s changes are indicated
 	 * for.<br>
-	 * Note that the update will only be triggerer in case the editor is already
+	 * Note that the update will only be triggered in case the editor is already
 	 * dirty, see {@link #isAutoUpdateAtRuntimeWhenEditorIsSaved()}.
 	 * 
 	 * @return true if diagram should be updated automatically (only if editor
