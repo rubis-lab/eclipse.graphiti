@@ -21,6 +21,7 @@ package org.eclipse.graphiti.features.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IRemoveFeature;
@@ -34,6 +35,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -101,6 +103,12 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 	 *            the shape
 	 */
 	protected void removeAllConnections(Shape shape) {
+		if (shape instanceof ContainerShape) {
+			EList<Shape> children = ((ContainerShape) shape).getChildren();
+			for (Shape childShape : children) {
+				removeAllConnections(childShape);
+			}
+		}
 		List<Anchor> anchors = shape.getAnchors();
 		for (Anchor anchor : anchors) {
 			removeAllConnections(anchor);
