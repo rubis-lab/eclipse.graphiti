@@ -25,6 +25,7 @@ import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
+import org.eclipse.graphiti.features.context.ISingleClickContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -91,6 +92,19 @@ public interface IToolBehaviorProvider {
 	 * @return the feature to execute
 	 */
 	ICustomFeature getDoubleClickFeature(IDoubleClickContext context);
+
+	/**
+	 * Returns a feature which will be executed at at a single click on an
+	 * already selected shape. If the feature provider already returned a direct
+	 * editing feature for that single click, then this method will not called.
+	 * 
+	 * @param context
+	 *            contains information where the single click gesture has
+	 *            happened
+	 * @return the feature to execute
+	 * @since 0.9
+	 */
+	ICustomFeature getSingleClickFeature(ISingleClickContext context);
 
 	/**
 	 * Returns decorators which will be used at rendering time to decorate the

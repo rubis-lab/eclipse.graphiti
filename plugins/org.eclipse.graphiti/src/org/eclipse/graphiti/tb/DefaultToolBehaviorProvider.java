@@ -12,6 +12,7 @@
  *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
  *    mwenz - Bug 363796 - Make setting of selection width of connections public
  *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
+ *    mgorning - Bug 386913 - Support also Single-Click-Features
  *
  * </copyright>
  *
@@ -37,6 +38,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
+import org.eclipse.graphiti.features.context.ISingleClickContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
@@ -285,6 +287,13 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	}
 
 	public ICustomFeature getDoubleClickFeature(IDoubleClickContext context) {
+		return null;
+	}
+
+	/**
+	 * @since 0.9
+	 */
+	public ICustomFeature getSingleClickFeature(ISingleClickContext context) {
 		return null;
 	}
 

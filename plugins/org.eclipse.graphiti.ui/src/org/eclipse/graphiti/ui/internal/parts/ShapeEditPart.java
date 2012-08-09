@@ -13,6 +13,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
+ *    mgorning - Bug 386913 - Support also Single-Click-Features
  *
  * </copyright>
  *
@@ -40,6 +41,7 @@ import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateConnectionRequest;
+import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gef.tools.DragEditPartsTracker;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -54,6 +56,7 @@ import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.func.IDirectEditing;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.features.context.impl.base.DoubleClickContext;
+import org.eclipse.graphiti.internal.features.context.impl.base.SingleClickContext;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -517,6 +520,26 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 
 					if (figure != null) {
 						bringUpDirectEditField(directEditingFeature, directEditingContext, figure);
+					}
+				} else if (request instanceof DirectEditRequest) {
+					// if direct editing feature is not available, ask for a
+					// single click feature
+					// it must be a DirectEditRequest otherwise F2 was pressed
+					SingleClickContext scc = new SingleClickContext(getPictogramElement(), locationInfo.getShape(),
+							locationInfo.getGraphicsAlgorithm());
+
+					IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider()
+							.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+
+					IFeature singleClickFeature = currentToolBehaviorProvider.getSingleClickFeature(scc);
+
+					if (singleClickFeature != null && singleClickFeature.canExecute(scc)) {
+						GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(
+								singleClickFeature, scc);
+						DiagramEditor diagramEditor = getConfigurationProvider().getDiagramEditor();
+						CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
+						commandStack
+								.execute(new GefCommandWrapper(commandWithContext, diagramEditor.getEditingDomain()));
 					}
 				}
 			}

@@ -16,20 +16,20 @@
  *******************************************************************************/
 package org.eclipse.graphiti.internal.features.context.impl.base;
 
-import org.eclipse.graphiti.features.context.IDoubleClickContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
- * The Class DoubleClickContext.
+ * The Class AbstractClickContext.
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class DoubleClickContext extends AbstractClickContext implements IDoubleClickContext {
+public class AbstractClickContext extends CustomContext {
 
 	/**
-	 * Instantiates a new double click context.
+	 * Instantiates a AbstractClickContext.
 	 * 
 	 * @param pictogramElement
 	 *            the pictogram element
@@ -38,9 +38,11 @@ public class DoubleClickContext extends AbstractClickContext implements IDoubleC
 	 * @param innerGraphicsAlgorithm
 	 *            the inner graphics algorithm
 	 */
-	public DoubleClickContext(PictogramElement pictogramElement, PictogramElement innerPictogramElement,
+	public AbstractClickContext(PictogramElement pictogramElement, PictogramElement innerPictogramElement,
 			GraphicsAlgorithm innerGraphicsAlgorithm) {
-		super(pictogramElement, innerPictogramElement, innerGraphicsAlgorithm);
+		super(new PictogramElement[] { pictogramElement });
+		setInnerPictogramElement(innerPictogramElement);
+		setInnerGraphicsAlgorithm(innerGraphicsAlgorithm);
 	}
 
 }
