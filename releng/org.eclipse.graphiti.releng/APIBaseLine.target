@@ -4,11 +4,11 @@
 <target name="Graphiti API Base Line" sequenceNumber="11">
 <locations>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.graphiti.feature.feature.group" version="0.8.0.v20110607-1252"/>
-<unit id="org.eclipse.graphiti.feature.examples.feature.group" version="0.8.0.v20110607-1252"/>
-<unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.8.0.v20110607-1252"/>
-<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.8.0.v20110607-1252"/>
-<repository location="http://download.eclipse.org/graphiti/updates/0.8.0"/>
+<unit id="org.eclipse.graphiti.feature.feature.group" version="0.8.2.v20120215-0845"/>
+<unit id="org.eclipse.graphiti.feature.examples.feature.group" version="0.8.2.v20120215-0845"/>
+<unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.8.2.v20120215-0845"/>
+<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.8.2.v20120215-0845"/>
+<repository location="http://download.eclipse.org/graphiti/updates/0.8.2"/>
 </location>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.emf.sdk.feature.group" version="2.7.2.v20120130-0943"/>
