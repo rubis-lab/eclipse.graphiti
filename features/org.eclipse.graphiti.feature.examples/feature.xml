@@ -20,7 +20,7 @@
 <feature
       id="org.eclipse.graphiti.feature.examples"
       label="%featureName"
-      version="0.9.0.qualifier"
+      version="0.9.1.qualifier"
       provider-name="%providerName"
       license-feature="org.eclipse.license"
       license-feature-version="1.0.0.qualifier">
@@ -42,35 +42,35 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.graphiti.doc"
          download-size="0"
          install-size="0"
-         version="0.9.0.qualifier"
+         version="0.9.1.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.examples.common"
          download-size="0"
          install-size="0"
-         version="0.9.0.qualifier"
+         version="0.9.1.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.examples.tutorial"
          download-size="0"
          install-size="0"
-         version="0.9.0.qualifier"
+         version="0.9.1.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.ui.capabilities"
          download-size="0"
          install-size="0"
-         version="0.9.0.qualifier"
+         version="0.9.1.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.examples.chess"
          download-size="0"
          install-size="0"
-         version="0.9.0.qualifier"
+         version="0.9.1.qualifier"
          unpack="false"/>
 
 </feature>
