@@ -1585,7 +1585,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
-	 * @since 0.9
+	 * @since 0.10
 	 */
 	protected IConfigurationProvider getConfigurationProvider() {
 		return configurationProvider;
