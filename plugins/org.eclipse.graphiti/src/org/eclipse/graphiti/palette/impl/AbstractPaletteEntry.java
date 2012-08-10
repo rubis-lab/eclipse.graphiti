@@ -44,5 +44,4 @@ public abstract class AbstractPaletteEntry implements IPaletteEntry {
 	public String getIconId() {
 		return this.iconId;
 	}
-
 }
