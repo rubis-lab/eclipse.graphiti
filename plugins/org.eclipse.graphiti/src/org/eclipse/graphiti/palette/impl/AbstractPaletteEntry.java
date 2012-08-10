@@ -23,7 +23,6 @@ import org.eclipse.graphiti.palette.IPaletteEntry;
 public abstract class AbstractPaletteEntry implements IPaletteEntry {
 
 	private String label, iconId;
-
 	/**
 	 * Creates a new {@link AbstractPaletteEntry}.
 	 * 
@@ -36,13 +35,10 @@ public abstract class AbstractPaletteEntry implements IPaletteEntry {
 		this.label = label;
 		this.iconId = iconId;
 	}
-
 	public String getLabel() {
 		return this.label;
 	}
-
 	public String getIconId() {
 		return this.iconId;
 	}
-
 }
