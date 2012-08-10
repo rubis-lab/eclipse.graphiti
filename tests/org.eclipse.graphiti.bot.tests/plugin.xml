@@ -17,7 +17,6 @@
  -->
 
 <plugin>
-
    <extension
          point="org.eclipse.ui.perspectives">
    </extension>
