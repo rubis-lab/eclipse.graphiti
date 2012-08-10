@@ -102,7 +102,7 @@ public interface IToolBehaviorProvider {
 	 *            contains information where the single click gesture has
 	 *            happened
 	 * @return the feature to execute
-	 * @since 0.9
+	 * @since 0.10
 	 */
 	ICustomFeature getSingleClickFeature(ISingleClickContext context);
 

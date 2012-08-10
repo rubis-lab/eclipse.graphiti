@@ -21,7 +21,7 @@ package org.eclipse.graphiti.features.context;
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
- * @since 0.9
+ * @since 0.10
  */
 public interface ISingleClickContext extends ICustomContext {
 }

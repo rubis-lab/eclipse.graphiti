@@ -1168,7 +1168,7 @@ public class GFOtherTests extends AbstractGFTests {
 			fail(e.getMessage());
 		}
 
-		Thread.sleep(500);
+		Thread.sleep(600);
 
 		SWTBotEditor swtBotEditor = bot.activeEditor();
 		assertNotNull(swtBotEditor);
