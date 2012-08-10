@@ -36,7 +36,7 @@ import org.eclipse.ui.IWorkbenchPart;
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This class is not intended to be subclassed by clients.
- * @since 0.9
+ * @since 0.10
  */
 public interface IConfigurationProvider extends IFeatureProviderHolder {
 

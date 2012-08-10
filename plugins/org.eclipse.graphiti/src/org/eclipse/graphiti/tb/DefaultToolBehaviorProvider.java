@@ -291,7 +291,7 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	}
 
 	/**
-	 * @since 0.9
+	 * @since 0.10
 	 */
 	public ICustomFeature getSingleClickFeature(ISingleClickContext context) {
 		return null;
