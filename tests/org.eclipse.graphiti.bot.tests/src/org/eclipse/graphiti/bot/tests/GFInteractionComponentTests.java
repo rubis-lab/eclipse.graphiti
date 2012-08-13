@@ -585,7 +585,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				Robot r;
 				try {
 					r = new Robot();
-					r.setAutoDelay(20);
+					r.setAutoDelay(40);
 					new SWTWorkbenchBot().toolbarToggleButtonWithTooltip(Messages.ToggleContextButtonPadAction_0_xmsg)
 							.click();
 					Point p = ed.getOrigin();
