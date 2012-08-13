@@ -576,7 +576,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				}
 			}
 		});
-		Thread.sleep(DELAY);
+		Thread.sleep(DELAY + 100);
 
 		assertNull(findContextButtonPad());
 
