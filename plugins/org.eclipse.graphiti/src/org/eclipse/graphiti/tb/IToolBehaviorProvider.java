@@ -96,7 +96,8 @@ public interface IToolBehaviorProvider {
 	/**
 	 * Returns a feature which will be executed at at a single click on an
 	 * already selected shape. If the feature provider already returned a direct
-	 * editing feature for that single click, then this method will not called.
+	 * editing feature for that single click, then this method will not be
+	 * called.
 	 * 
 	 * @param context
 	 *            contains information where the single click gesture has
