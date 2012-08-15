@@ -1,0 +1,9 @@
+Change-Id: I5f400a3c7a5058a208a2835256e34fd203f71ba0
+Verified+1: Hudson CI
+Code-Review+2: Michael Wenz <michael.wenz@sap.com>
+IP-Clean+1: Michael Wenz <michael.wenz@sap.com>
+Submitted-by: Michael Wenz <michael.wenz@sap.com>
+Submitted-at: Wed, 15 Aug 2012 10:33:24 -0400
+Reviewed-on: https://git.eclipse.org/r/7236
+Project: gmp/org.eclipse.gmp.graphiti
+Branch: refs/heads/master
