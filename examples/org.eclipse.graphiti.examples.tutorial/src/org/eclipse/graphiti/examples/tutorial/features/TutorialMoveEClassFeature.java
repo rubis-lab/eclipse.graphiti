@@ -45,4 +45,5 @@ public class TutorialMoveEClassFeature extends DefaultMoveShapeFeature {
 		}
 		return canMove;
 	}
+
 }
