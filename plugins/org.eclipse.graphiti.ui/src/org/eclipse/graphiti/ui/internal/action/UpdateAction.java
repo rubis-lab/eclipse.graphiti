@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    jpasch - Bug 323025 ActionBarContributor clean up
+ *    cbrand - Bug 385586 - Remove,Delete, Update Action (ContextMenu, ButtonPad etc.)
  *
  * </copyright>
  *
@@ -56,7 +57,7 @@ public class UpdateAction extends AbstractPreDefinedAction implements IContextAn
 		for (int i = 0; i < pe.length; i++) {
 			IUpdateContext context = new UpdateContext(pe[i]);
 			IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(context);
-			if (updateFeature == null) {
+			if (updateFeature == null || !updateFeature.isAvailable(context)) {
 				return false;
 			}
 		}
@@ -72,7 +73,7 @@ public class UpdateAction extends AbstractPreDefinedAction implements IContextAn
 			IFeatureProvider featureProvider = getFeatureProvider();
 			if (featureProvider != null) {
 				IUpdateFeature updateFeature = featureProvider.getUpdateFeature(context);
-				if (updateFeature != null && updateFeature.canExecute(context)) {
+				if (updateFeature != null && updateFeature.isAvailable(context) && updateFeature.canExecute(context)) {
 					if (pe.length == 1 && pe[0] instanceof Diagram) {
 						return true;
 					} else if (updateFeature.updateNeeded(context).toBoolean()) {
