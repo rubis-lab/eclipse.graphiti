@@ -1,0 +1,8 @@
+Verified+1: Hudson CI
+Code-Review+2: Michael Wenz <michael.wenz@sap.com>
+IP-Clean+1: Michael Wenz <michael.wenz@sap.com>
+Submitted-by: Michael Wenz <michael.wenz@sap.com>
+Submitted-at: Mon, 20 Aug 2012 06:47:43 -0400
+Reviewed-on: https://git.eclipse.org/r/7298
+Project: gmp/org.eclipse.gmp.graphiti
+Branch: refs/heads/b0_9_x
