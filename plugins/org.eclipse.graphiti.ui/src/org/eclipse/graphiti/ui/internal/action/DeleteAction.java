@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    cbrand - Bug 385586 - Remove,Delete, Update Action (ContextMenu, ButtonPad etc.)
  *
  * </copyright>
  *
@@ -55,7 +56,7 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 		for (int i = 0; i < pe.length; i++) {
 			IDeleteContext context = new DeleteContext(pe[i]);
 			IDeleteFeature deleteFeature = getFeatureProvider().getDeleteFeature(context);
-			if (deleteFeature == null) {
+			if (deleteFeature == null || !deleteFeature.isAvailable(context)) {
 				return false;
 			}
 		}
@@ -76,7 +77,7 @@ public class DeleteAction extends AbstractPreDefinedAction implements IContextAn
 				return false;
 			}
 			IDeleteFeature deleteFeature = featureProvider.getDeleteFeature(context);
-			if (deleteFeature != null && !deleteFeature.canDelete(context)) {
+			if (deleteFeature != null && (!deleteFeature.isAvailable(context) || !deleteFeature.canDelete(context))) {
 				return false;
 			}
 		}

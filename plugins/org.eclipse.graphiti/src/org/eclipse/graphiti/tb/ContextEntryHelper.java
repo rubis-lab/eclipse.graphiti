@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mgorning - Bug 376572 - Generic context buttons name changeable via getName() method
+ *    cbrand - Bug 385586 - Remove,Delete, Update Action (ContextMenu, ButtonPad etc.)
  *
  * </copyright>
  *
@@ -52,7 +53,7 @@ public class ContextEntryHelper {
 		final IUpdateContext updateContext = new UpdateContext(pe);
 		final IUpdateFeature updateFeature = featureProvider.getUpdateFeature(updateContext);
 		IContextButtonEntry ret = null;
-		if (updateFeature != null) {
+		if (checkFeatureAvalability(updateFeature, updateContext)) {
 			ret = new ContextButtonEntry(updateFeature, updateContext) {
 				@Override
 				public boolean canExecute() {
@@ -78,7 +79,7 @@ public class ContextEntryHelper {
 		IRemoveContext removeContext = new RemoveContext(pe);
 		IRemoveFeature removeFeature = featureProvider.getRemoveFeature(removeContext);
 		IContextButtonEntry ret = null;
-		if (removeFeature != null) {
+		if (checkFeatureAvalability(removeFeature, removeContext)) {
 			ret = new ContextButtonEntry(removeFeature, removeContext);
 			markAsRemoveContextEntry(ret);
 		}
@@ -99,7 +100,7 @@ public class ContextEntryHelper {
 		IDeleteContext deleteContext = new DeleteContext(pe);
 		IDeleteFeature deleteFeature = featureProvider.getDeleteFeature(deleteContext);
 		IContextButtonEntry ret = null;
-		if (deleteFeature != null) {
+		if (checkFeatureAvalability(deleteFeature, deleteContext)) {
 			ret = new ContextButtonEntry(deleteFeature, deleteContext);
 			markAsDeleteContextEntry(ret);
 		}
@@ -213,4 +214,9 @@ public class ContextEntryHelper {
 		entry.setText(entryText);
 		entry.setDescription(entryDescription);
 	}
+
+	private static boolean checkFeatureAvalability(IFeature feature, IContext context) {
+		return feature != null && feature.isAvailable(context);
+	}
+
 }
