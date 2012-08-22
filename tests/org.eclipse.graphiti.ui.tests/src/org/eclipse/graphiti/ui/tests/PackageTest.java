@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
  *            DefaultSaveImageFeature
+ *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
  *
  * </copyright>
  *
@@ -378,7 +379,6 @@ public class PackageTest extends GFAbstractTestCase {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	public void testTb() throws Exception {
 
 		// ContextButtonEntry and ContextEntryHelper
@@ -388,8 +388,8 @@ public class PackageTest extends GFAbstractTestCase {
 		ContextEntryHelper.markAsCollapseContextEntry(cbe, false);
 		ContextEntryHelper.createCollapseContextButton(false, null, null);
 
-		new ContextButtonEntry(null, null, 0);
-		new ContextButtonEntry(null, null, 0, 0);
+		new ContextButtonEntry(null, null);
+		new ContextButtonEntry(null, null);
 
 		// ImageRenderingDecorator
 		final int X = 10;
