@@ -53,18 +53,6 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	public static final int DEFAULT_FONT_SIZE = 8;
 
 	/**
-	 * Delete font.
-	 * 
-	 * @param abstractText
-	 *            the abstract text
-	 * 
-	 * @deprecated As of release 0.8.0, replaced by
-	 *             {@link #deleteFont(Font font)}
-	 */
-	@Deprecated
-	public void deleteFont(AbstractText abstractText);
-
-	/**
 	 * Deletes the given font.
 	 * 
 	 * @param font
