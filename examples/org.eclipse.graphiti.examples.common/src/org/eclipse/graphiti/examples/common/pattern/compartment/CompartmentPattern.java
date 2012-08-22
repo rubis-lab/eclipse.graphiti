@@ -39,8 +39,12 @@ import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.mapping.ILinkCreationInfo;
+import org.eclipse.graphiti.pattern.mapping.IStructureMapping;
 import org.eclipse.graphiti.pattern.mapping.IStructureMappingMulti;
 import org.eclipse.graphiti.pattern.mapping.IStructureMappingSingle;
+import org.eclipse.graphiti.pattern.mapping.data.IDataMapping;
+import org.eclipse.graphiti.pattern.mapping.data.IImageDataMapping;
+import org.eclipse.graphiti.pattern.mapping.data.ITextDataMapping;
 import org.eclipse.graphiti.pattern.mapping.data.LabelDataMapping;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.services.Graphiti;
@@ -640,5 +644,41 @@ public abstract class CompartmentPattern extends AbstractPattern {
 
 	protected ILinkService getLinkService() {
 		return Graphiti.getLinkService();
+	}
+
+	/**
+	 * Gets the text.
+	 * 
+	 * @param structureMapping
+	 *            the structure mapping
+	 * @param link
+	 *            the pictogram link
+	 * @return the text
+	 */
+	protected String getText(IStructureMapping structureMapping, PictogramLink link) {
+		String ret = null;
+		IDataMapping dm = structureMapping.getDataMapping();
+		if (dm instanceof ITextDataMapping) {
+			ret = ((ITextDataMapping) dm).getText(link);
+		}
+		return ret;
+	}
+
+	/**
+	 * Gets the image.
+	 * 
+	 * @param structureMapping
+	 *            the structure mapping
+	 * @param link
+	 *            the pictogram link
+	 * @return the image
+	 */
+	protected String getImage(IStructureMapping structureMapping, PictogramLink link) {
+		String ret = null;
+		IDataMapping dm = structureMapping.getDataMapping();
+		if (dm instanceof IImageDataMapping) {
+			ret = ((IImageDataMapping) dm).getImageId(link);
+		}
+		return ret;
 	}
 }
