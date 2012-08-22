@@ -388,8 +388,8 @@ public class PackageTest extends GFAbstractTestCase {
 		ContextEntryHelper.markAsCollapseContextEntry(cbe, false);
 		ContextEntryHelper.createCollapseContextButton(false, null, null);
 
-		new ContextButtonEntry(null, null, 0);
-		new ContextButtonEntry(null, null, 0, 0);
+		new ContextButtonEntry(null, null);
+		new ContextButtonEntry(null, null);
 
 		// ImageRenderingDecorator
 		final int X = 10;

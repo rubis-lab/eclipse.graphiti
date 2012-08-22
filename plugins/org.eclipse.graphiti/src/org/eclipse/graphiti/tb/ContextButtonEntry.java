@@ -80,20 +80,4 @@ public class ContextButtonEntry extends AbstractContextEntry implements IContext
 	public ContextButtonEntry(IFeature feature, IContext context) {
 		super(feature, context);
 	}
-
-	/**
-	 * @deprecated Use {@link #ContextButtonEntry(IFeature, IContext)} instead.
-	 */
-	@Deprecated
-	public ContextButtonEntry(IFeature feature, IContext context, int p1) {
-		super(feature, context);
-	}
-
-	/**
-	 * @deprecated Use {@link #ContextButtonEntry(IFeature, IContext)} instead.
-	 */
-	@Deprecated
-	public ContextButtonEntry(IFeature feature, IContext context, int p1, int p2) {
-		this(feature, context);
-	}
 }

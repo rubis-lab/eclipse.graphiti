@@ -35,8 +35,11 @@ import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.mapping.ILinkCreationInfo;
+import org.eclipse.graphiti.pattern.mapping.IStructureMapping;
 import org.eclipse.graphiti.pattern.mapping.IStructureMappingGrid;
 import org.eclipse.graphiti.pattern.mapping.IStructureMappingMulti;
+import org.eclipse.graphiti.pattern.mapping.data.IDataMapping;
+import org.eclipse.graphiti.pattern.mapping.data.ITextDataMapping;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 
@@ -338,5 +341,23 @@ public abstract class GridPattern extends AbstractPattern {
 
 	private int getRowCount() {
 		return getGridMapping().getRows();
+	}
+
+	/**
+	 * Gets the text.
+	 * 
+	 * @param structureMapping
+	 *            the structure mapping
+	 * @param link
+	 *            the pictogram link
+	 * @return the text
+	 */
+	protected String getText(IStructureMapping structureMapping, PictogramLink link) {
+		String ret = null;
+		IDataMapping dm = structureMapping.getDataMapping();
+		if (dm instanceof ITextDataMapping) {
+			ret = ((ITextDataMapping) dm).getText(link);
+		}
+		return ret;
 	}
 }

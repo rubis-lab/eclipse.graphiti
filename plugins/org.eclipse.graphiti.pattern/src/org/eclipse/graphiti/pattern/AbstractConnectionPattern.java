@@ -27,10 +27,6 @@ import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.PictogramLink;
-import org.eclipse.graphiti.pattern.mapping.IStructureMapping;
-import org.eclipse.graphiti.pattern.mapping.data.IDataMapping;
-import org.eclipse.graphiti.pattern.mapping.data.ITextDataMapping;
 
 /**
  * This is the base class AbstractConnectionPattern that clients writing a
@@ -130,27 +126,6 @@ public abstract class AbstractConnectionPattern extends AbstractBasePattern impl
 		AddConnectionContext newContext = new AddConnectionContext(context.getSourceAnchor(), context.getTargetAnchor());
 		newContext.setNewObject(newObject);
 		return (Connection) getFeatureProvider().addIfPossible(newContext);
-	}
-
-	/**
-	 * Gets the text.
-	 * 
-	 * @param structureMapping
-	 *            the structure mapping
-	 * @param link
-	 *            the pictogram link
-	 * 
-	 * @return the text
-	 * @deprecated Remains from the mapping information options, should not be
-	 *             part of the standard pattern interface and should be removed!
-	 */
-	protected String getText(IStructureMapping structureMapping, PictogramLink link) {
-		String ret = null;
-		IDataMapping dm = structureMapping.getDataMapping();
-		if (dm instanceof ITextDataMapping) {
-			ret = ((ITextDataMapping) dm).getText(link);
-		}
-		return ret;
 	}
 
 	/**
