@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 355347 - Remove setters of Graphiti's Font Interface
+ *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
  *
  * </copyright>
  *
@@ -35,8 +36,11 @@ import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.mapping.ILinkCreationInfo;
+import org.eclipse.graphiti.pattern.mapping.IStructureMapping;
 import org.eclipse.graphiti.pattern.mapping.IStructureMappingGrid;
 import org.eclipse.graphiti.pattern.mapping.IStructureMappingMulti;
+import org.eclipse.graphiti.pattern.mapping.data.IDataMapping;
+import org.eclipse.graphiti.pattern.mapping.data.ITextDataMapping;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 
@@ -338,5 +342,23 @@ public abstract class GridPattern extends AbstractPattern {
 
 	private int getRowCount() {
 		return getGridMapping().getRows();
+	}
+
+	/**
+	 * Gets the text.
+	 * 
+	 * @param structureMapping
+	 *            the structure mapping
+	 * @param link
+	 *            the pictogram link
+	 * @return the text
+	 */
+	protected String getText(IStructureMapping structureMapping, PictogramLink link) {
+		String ret = null;
+		IDataMapping dm = structureMapping.getDataMapping();
+		if (dm instanceof ITextDataMapping) {
+			ret = ((ITextDataMapping) dm).getText(link);
+		}
+		return ret;
 	}
 }

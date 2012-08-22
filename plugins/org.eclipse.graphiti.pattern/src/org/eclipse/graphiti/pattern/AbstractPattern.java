@@ -13,6 +13,7 @@
  *                    remove, direct editing and conditional palette
  *                    creation entry
  *    mwenz - Bug 325084 - Provide documentation for Patterns
+ *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
  *
  * </copyright>
  *
@@ -59,13 +60,8 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.config.IPatternConfiguration;
-import org.eclipse.graphiti.pattern.mapping.IStructureMapping;
-import org.eclipse.graphiti.pattern.mapping.data.IDataMapping;
-import org.eclipse.graphiti.pattern.mapping.data.IImageDataMapping;
-import org.eclipse.graphiti.pattern.mapping.data.ITextDataMapping;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 
@@ -547,46 +543,6 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 */
 	protected boolean avoidNegativeCoordinates() {
 		return false;
-	}
-
-	/**
-	 * Gets the image.
-	 * 
-	 * @param structureMapping
-	 *            the structure mapping
-	 * @param link
-	 *            the pictogram link
-	 * @return the image
-	 * @deprecated Remains from the mapping information options, should not be
-	 *             part of the standard pattern interface and should be removed!
-	 */
-	protected String getImage(IStructureMapping structureMapping, PictogramLink link) {
-		String ret = null;
-		IDataMapping dm = structureMapping.getDataMapping();
-		if (dm instanceof IImageDataMapping) {
-			ret = ((IImageDataMapping) dm).getImageId(link);
-		}
-		return ret;
-	}
-
-	/**
-	 * Gets the text.
-	 * 
-	 * @param structureMapping
-	 *            the structure mapping
-	 * @param link
-	 *            the pictogram link
-	 * @return the text
-	 * @deprecated Remains from the mapping information options, should not be
-	 *             part of the standard pattern interface and should be removed!
-	 */
-	protected String getText(IStructureMapping structureMapping, PictogramLink link) {
-		String ret = null;
-		IDataMapping dm = structureMapping.getDataMapping();
-		if (dm instanceof ITextDataMapping) {
-			ret = ((ITextDataMapping) dm).getText(link);
-		}
-		return ret;
 	}
 
 	/**
