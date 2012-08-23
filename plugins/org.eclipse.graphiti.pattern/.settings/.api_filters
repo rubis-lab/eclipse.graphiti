@@ -43,6 +43,11 @@
                 <message_argument value="AbstractPattern"/>
             </message_arguments>
         </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="AbstractPattern()"/>
+            </message_arguments>
+        </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/pattern/IConnectionPattern.java" type="org.eclipse.graphiti.pattern.IConnectionPattern">
         <filter id="571473929">

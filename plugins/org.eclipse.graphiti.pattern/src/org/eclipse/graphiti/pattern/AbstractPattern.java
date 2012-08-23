@@ -14,6 +14,7 @@
  *                    creation entry
  *    mwenz - Bug 325084 - Provide documentation for Patterns
  *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
+ *    cbrand - Bug 385190 - Introduce constructor without parameters for patterns
  *
  * </copyright>
  *
@@ -113,8 +114,17 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 *            of <code>null</code> in case no configuration is needed.
 	 */
 	public AbstractPattern(IPatternConfiguration patternConfiguration) {
-		super();
+		this();
 		setPatternConfiguration(patternConfiguration);
+	}
+
+	/**
+	 * Creates a new {@link AbstractPattern}. This is a convenience method for
+	 * patterns working without any configuration.
+	 * 
+	 */
+	public AbstractPattern() {
+		super();
 	}
 
 	/**
@@ -123,6 +133,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * 
 	 * @return <code>true</code> in case a palette entry shall be created,
 	 *         <code>false</code> otherwise.
+	 * @since 0.10
 	 */
 	public boolean isPaletteApplicable() {
 		return true;
@@ -613,7 +624,8 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * Returns the {@link IPatternConfiguration} instance used within this
 	 * pattern or <code>null</code> in case none is used.
 	 * 
-	 * @return The patternConfiguration instance or <code>null</code>
+	 * @return The patternConfiguration instance or <code>null</code> it there
+	 *         is none set
 	 */
 	protected IPatternConfiguration getPatternConfiguration() {
 		return patternConfiguration;
