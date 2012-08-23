@@ -40,4 +40,26 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/services/IGaService.java" type="org.eclipse.graphiti.services.IGaService">
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.services.IGaService"/>
+                <message_argument value="deleteFont(AbstractText)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/tb/ContextButtonEntry.java" type="org.eclipse.graphiti.tb.ContextButtonEntry">
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.ContextButtonEntry"/>
+                <message_argument value="ContextButtonEntry(IFeature, IContext, int)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.ContextButtonEntry"/>
+                <message_argument value="ContextButtonEntry(IFeature, IContext, int, int)"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>

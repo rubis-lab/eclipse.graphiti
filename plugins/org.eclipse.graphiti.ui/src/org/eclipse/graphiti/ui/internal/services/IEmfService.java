@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *    Bug 336488 - DiagramEditor API
+ *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
  *
  * </copyright>
  *
@@ -117,56 +118,6 @@ public interface IEmfService extends org.eclipse.graphiti.ui.services.IEmfServic
 	public abstract IFile getFile(URI uri);
 	
 	
-	/**
-	 * Returns the Eclipse file for the given {@link URI}.
-	 * 
-	 * Note that the file is <code>null</code> for objects in
-	 * <ul>
-	 * <li>archives,</li>
-	 * <li>closed projects,</li>
-	 * <li>not yet persisted resources or not yet persisted EObjects in already
-	 * persisted resources. In this respect this methods behaves asymmetric to
-	 * the handle-only resource APIs like {@link IProject#getFile(String)}.</li>
-	 * </ul>
-	 * 
-	 * @param uri
-	 *            the URI to get the file for
-	 * @param editingDomain
-	 *            the respective TransactionalEditingDomain
-	 * @return the file or <code>null</code> under the mentioned circumstances
-	 * 
-	 * @see #getFile(EObject)
-	 * 
-	 * @deprecated use #getFile(URi) instead
-	 */
-	@Deprecated
-	public abstract IFile getFile(URI uri, TransactionalEditingDomain editingDomain);
-
-	/**
-	 * Returns the Eclipse file for the given {@link URI}.
-	 * 
-	 * Note that the file is <code>null</code> for objects in
-	 * <ul>
-	 * <li>archives,</li>
-	 * <li>closed projects,</li>
-	 * <li>not yet persisted resources or not yet persisted EObjects in already
-	 * persisted resources. In this respect this methods behaves asymmetric to
-	 * the handle-only resource APIs like {@link IProject#getFile(String)}.</li>
-	 * </ul>
-	 * 
-	 * @param uri
-	 *            the URI to get the file for
-	 * @param resourceSet
-	 *            the respective ResourceSet
-	 * @return the file or <code>null</code> under the mentioned circumstances
-	 * 
-	 * @see #getFile(EObject)
-	 * 
-	 * @deprecated use #getFile(URi uri) instead
-	 */
-	@Deprecated
-	public abstract IFile getFile(URI uri, ResourceSet resourceSet);
-
 	/**
 	 * Saves the given {@link TransactionalEditingDomain} by saving all its
 	 * dirty {@link Resource}s.
