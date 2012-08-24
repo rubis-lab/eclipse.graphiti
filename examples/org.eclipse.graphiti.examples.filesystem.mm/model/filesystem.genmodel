@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="&lt;copyright>&#xD;&#xA;&#xD;&#xA;Copyright (c) 2012, 2012 SAP AG.&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;   SAP AG - initial API, implementation and documentation&#xD;&#xA;&#xD;&#xA;&lt;/copyright>"
+    modelDirectory="/org.eclipse.graphiti.examples.filesystem.mm/src" editDirectory="/org.eclipse.graphiti.examples.filesystem.edit/src"
+    editorDirectory="/org.eclipse.graphiti.examples.filesystem.editor/src" modelPluginID="org.eclipse.graphiti.examples.filesystem.mm"
+    modelName="Filesystem" testSuiteClass="org.eclipse.graphiti.examples.filesystem.tests.FilesystemAllTests"
+    importerID="org.eclipse.emf.importer.java" complianceLevel="6.0">
+  <foreignModel>@model</foreignModel>
+  <genPackages prefix="Filesystem" basePackage="org.eclipse.graphiti.examples.mm"
+      disposableProviderFactory="true" ecorePackage="filesystem.ecore#/">
+    <genClasses ecoreClass="filesystem.ecore#//File">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filesystem.ecore#//File/name"/>
+    </genClasses>
+    <genClasses ecoreClass="filesystem.ecore#//Filesystem">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference filesystem.ecore#//Filesystem/folders"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference filesystem.ecore#//Filesystem/files"/>
+    </genClasses>
+    <genClasses ecoreClass="filesystem.ecore#//Folder">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute filesystem.ecore#//Folder/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference filesystem.ecore#//Folder/folders"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference filesystem.ecore#//Folder/files"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,78 @@
+/**
+ * <copyright>
+ * 
+ * Copyright (c) 2012, 2012 SAP AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    SAP AG - initial API, implementation and documentation
+ * 
+ * </copyright>
+ */
+package org.eclipse.graphiti.examples.mm.filesystem;
+
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Filesystem</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.eclipse.graphiti.examples.mm.filesystem.Filesystem#getFolders <em>Folders</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.examples.mm.filesystem.Filesystem#getFiles <em>Files</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see org.eclipse.graphiti.examples.mm.filesystem.FilesystemPackage#getFilesystem()
+ * @model
+ * @generated
+ */
+public interface Filesystem extends EObject {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String copyright = "<copyright>\r\n\r\nCopyright (c) 2012, 2012 SAP AG.\r\nAll rights reserved. This program and the accompanying materials\r\nare made available under the terms of the Eclipse Public License v1.0\r\nwhich accompanies this distribution, and is available at\r\nhttp://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\n   SAP AG - initial API, implementation and documentation\r\n\r\n</copyright>";
+
+	/**
+	 * Returns the value of the '<em><b>Folders</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.graphiti.examples.mm.filesystem.Folder}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Folders</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Folders</em>' containment reference list.
+	 * @see org.eclipse.graphiti.examples.mm.filesystem.FilesystemPackage#getFilesystem_Folders()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Folder> getFolders();
+
+	/**
+	 * Returns the value of the '<em><b>Files</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.graphiti.examples.mm.filesystem.File}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Files</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Files</em>' containment reference list.
+	 * @see org.eclipse.graphiti.examples.mm.filesystem.FilesystemPackage#getFilesystem_Files()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<File> getFiles();
+
+} // Filesystem

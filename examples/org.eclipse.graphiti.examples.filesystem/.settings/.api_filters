@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.eclipse.graphiti.examples.filesystem" version="2">
+    <resource path="src/org/eclipse/graphiti/examples/filesystem/patterns/IdAddContext.java" type="org.eclipse.graphiti.pattern.id.IdAddContext">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.pattern.id.IdAddContext"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
