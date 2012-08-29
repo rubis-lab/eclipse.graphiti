@@ -60,7 +60,6 @@ import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.part.ResourceTransfer;
 
 /**
  * Provides a clipboard-like storage of EMF-related data based on SWT
