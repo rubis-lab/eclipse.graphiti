@@ -22,7 +22,6 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.ReflectionUtil;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IFileEditorInput;
 
 /**
  * @since 0.9
