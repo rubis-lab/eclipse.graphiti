@@ -167,7 +167,7 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 
 		return changesDone;
 	}
-	
+
 	@Override
 	public IReason updateNeeded(IUpdateContext context) {
 		Text nameText = getNameText(context.getPictogramElement());
@@ -177,7 +177,7 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 		}
 		return Reason.createFalseReason();
 	}
-	
+
 	@Override
 	public boolean update(IUpdateContext context) {
 		Text nameText = getNameText(context.getPictogramElement());
@@ -212,7 +212,7 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 		if (value == null || value.length() == 0) {
 			return "Folder name must not be empty";
 		}
-		
+
 		Folder folder = (Folder) getBusinessObjectForPictogramElement(context.getPictogramElement());
 		EList<Shape> children = getDiagram().getChildren();
 		for (Shape child : children) {
@@ -225,14 +225,14 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public void setValue(String value, IDirectEditingContext context) {
 		Folder folder = (Folder) getBusinessObjectForPictogramElement(context.getPictogramElement());
 		folder.setName(value);
 		updatePictogramElement(context.getPictogramElement());
 	}
-	
+
 	private void setLocationAndSizeOfMainContentsArea(Rectangle outerRectangle, RoundedRectangle mainRectangle) {
 		Graphiti.getGaService().setLocationAndSize(mainRectangle, 0, 10, outerRectangle.getWidth(),
 				outerRectangle.getHeight() - 10);
@@ -242,19 +242,18 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 		Graphiti.getGaService().setLocationAndSize(text, 0, 10, outerRectangle.getWidth(),
 				outerRectangle.getHeight() - 10);
 	}
-	
+
 	private Rectangle getOuterRectangle(PictogramElement pictogramElement) {
 		if (pictogramElement instanceof ContainerShape) {
 			ContainerShape outerContainerShape = (ContainerShape) pictogramElement;
 			GraphicsAlgorithm outerGraphicsAlgorithm = outerContainerShape.getGraphicsAlgorithm();
 			if (outerGraphicsAlgorithm instanceof Rectangle) {
-				return (Rectangle) outerGraphicsAlgorithm; 
+				return (Rectangle) outerGraphicsAlgorithm;
 			}
 		}
 		return null;
 	}
 
-	
 	private Text getNameText(PictogramElement pictogramElement) {
 		if (pictogramElement instanceof ContainerShape) {
 			ContainerShape outerContainerShape = (ContainerShape) pictogramElement;
@@ -272,7 +271,7 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 		}
 		return null;
 	}
-	
+
 	private String createNewName() {
 		String initialName = "NewFolder";
 		String name = initialName;

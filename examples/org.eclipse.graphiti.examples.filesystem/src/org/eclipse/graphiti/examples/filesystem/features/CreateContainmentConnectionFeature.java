@@ -24,30 +24,24 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
-public class CreateContainmentConnectionFeature extends AbstractCreateConnectionFeature
-		implements ICreateConnectionFeature {
+public class CreateContainmentConnectionFeature extends AbstractCreateConnectionFeature implements
+		ICreateConnectionFeature {
 
 	public CreateContainmentConnectionFeature(IFeatureProvider fp) {
-		super(fp, "DomainObjectConnection", "Creates a new DomainObjectConnection between two Folders");
+		super(fp, "Containment", "Creates a new containment relation between two folders");
 	}
 
 	public boolean canStartConnection(ICreateConnectionContext context) {
-		// TODO: check for right domain object instance below
-		// return getBusinessObjectForPictogramElement(context.getSourcePictogramElement()) instanceof <DomainObject>;
-
-		return true;
+		return getBusinessObjectForPictogramElement(context.getSourcePictogramElement()) instanceof Folder;
 	}
 
 	public boolean canCreate(ICreateConnectionContext context) {
 		PictogramElement sourcePictogramElement = context.getSourcePictogramElement();
 		PictogramElement targetPictogramElement = context.getTargetPictogramElement();
 
-		// TODO: check for right domain object instance below
-		// if (getBusinessObjectForPictogramElement(sourcePictogramElement) instanceof <DomainObject> && getBusinessObjectForPictogramElement(targetPictogramElement) instanceof <DomainObject>) {
-		//  	return true;
-		// }
-		
-		return sourcePictogramElement != null && targetPictogramElement != null;
+		return sourcePictogramElement != null && targetPictogramElement != null
+				&& getBusinessObjectForPictogramElement(sourcePictogramElement) instanceof Folder
+				&& getBusinessObjectForPictogramElement(targetPictogramElement) instanceof Folder;
 	}
 
 	public Connection create(ICreateConnectionContext context) {
@@ -57,7 +51,7 @@ public class CreateContainmentConnectionFeature extends AbstractCreateConnection
 		Folder sourceFolder = (Folder) getBusinessObjectForPictogramElement(sourceAnchor.getParent());
 		Folder targetFolder = (Folder) getBusinessObjectForPictogramElement(targetAnchor.getParent());
 		sourceFolder.getFolders().add(targetFolder);
-		
+
 		AddConnectionContext addContext = new AddConnectionContext(sourceAnchor, targetAnchor);
 		getFeatureProvider().addIfPossible(addContext);
 

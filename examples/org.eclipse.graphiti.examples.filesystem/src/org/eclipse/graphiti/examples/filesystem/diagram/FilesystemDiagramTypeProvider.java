@@ -18,7 +18,7 @@ import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 
 public class FilesystemDiagramTypeProvider extends AbstractDiagramTypeProvider {
-	
+
 	private IToolBehaviorProvider[] toolBehaviorProviders;
 
 	public FilesystemDiagramTypeProvider() {
@@ -26,13 +26,11 @@ public class FilesystemDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		setFeatureProvider(new FilesystemFeatureProvider(this));
 	}
 
-    @Override
-    public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
-        if (toolBehaviorProviders == null) {
-            toolBehaviorProviders =
-                new IToolBehaviorProvider[] { new FilesystemToolBehaviorProvider(
-                    this) };
-        }
-        return toolBehaviorProviders;
-    }
+	@Override
+	public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
+		if (toolBehaviorProviders == null) {
+			toolBehaviorProviders = new IToolBehaviorProvider[] { new FilesystemToolBehaviorProvider(this) };
+		}
+		return toolBehaviorProviders;
+	}
 }
