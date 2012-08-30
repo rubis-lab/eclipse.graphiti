@@ -16,7 +16,8 @@ Require-Bundle: org.easymock;bundle-version="2.4.0",
  org.eclipse.graphiti.examples.common;bundle-version="0.10.0",
  org.eclipse.graphiti.testtool.sketch;bundle-version="0.10.0",
  org.eclipse.graphiti.testtool.ecore;bundle-version="0.10.0",
- org.eclipse.graphiti.ui;bundle-version="0.10.0"
+ org.eclipse.graphiti.ui;bundle-version="0.10.0",
+ org.eclipse.pde.core;bundle-version="[3.7.0,4.0.0)"
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
