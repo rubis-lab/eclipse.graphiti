@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 388211 - New plug-in with Graphiti editor wizard adds not needed dependency to org.eclipse.ui
  *
  * </copyright>
  *
@@ -18,6 +19,9 @@ package org.eclipse.graphiti.bot.tests;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.pde.core.plugin.IPluginImport;
+import org.eclipse.pde.core.plugin.IPluginModelBase;
+import org.eclipse.pde.core.plugin.PluginRegistry;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotPerspective;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -68,6 +72,9 @@ public class PluginWizardTests extends AbstractGFTests {
 		// Provide name for new plugin project
 		bot.textWithLabel("Project name:").setText("org.eclipse.graphiti.test1");
 		bot.button("Next >").click();
+
+		// Deselect activator generation, test for Bug 388211
+		bot.checkBoxInGroup("Options", 0).deselect();
 		bot.button("Next >").click();
 
 		// Select Graphiti extension
@@ -81,7 +88,7 @@ public class PluginWizardTests extends AbstractGFTests {
 		// Finish the wizard
 		bot.button("Finish").click();
 
-		// Conform perspective switch
+		// Confirm perspective switch
 		shell = bot.shell("Open Associated Perspective?");
 		shell.activate();
 		bot.button("Yes").click();
@@ -95,5 +102,15 @@ public class PluginWizardTests extends AbstractGFTests {
 		SWTBotTree tree = view.bot().tree();
 		SWTBotTreeItem[] allItems = tree.getAllItems();
 		assertTrue(allItems.length == 0);
+
+		// Check that org.eclipse.ui is not part of the dependencies (no
+		// activator is generated), test for Bug 388211
+		IPluginModelBase newPluginModel = PluginRegistry.findModel(newProject);
+		IPluginImport[] imports = newPluginModel.getPluginBase().getImports();
+		for (IPluginImport pluginImport : imports) {
+			if ("org.eclipse.ui".equals(pluginImport.getId())) {
+				fail("'org.eclipse.ui' should not be part of the dependencies");
+			}
+		}
 	}
 }

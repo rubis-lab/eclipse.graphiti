@@ -9,6 +9,7 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 388211 - New plug-in with Graphiti editor wizard adds not needed dependency to org.eclipse.ui
  * 
  * </copyright>
  */
@@ -30,6 +31,7 @@ import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.IPluginModelFactory;
 import org.eclipse.pde.core.plugin.IPluginReference;
 import org.eclipse.pde.ui.IFieldData;
+import org.eclipse.pde.ui.IPluginFieldData;
 import org.eclipse.pde.ui.templates.OptionTemplateSection;
 import org.eclipse.pde.ui.templates.PluginReference;
 import org.eclipse.pde.ui.templates.StringOption;
@@ -61,6 +63,8 @@ public class GraphitiEditorTemplateSection extends OptionTemplateSection {
 	private static final String KEY_USE_CONNECTION_DOMAIN_OBJECT = "useConnectionDomainObject"; //$NON-NLS-1$
 	private static final String KEY_CONNECTION_DOMAIN_OBJECT_CLASS_NAME = "connectionDomainObjectClassName"; //$NON-NLS-1$
 	private static final String KEY_CONNECTION_DOMAIN_OBJECT_CLASS_NAME_SHORT = "connectionDomainObjectClassNameShort"; //$NON-NLS-1$
+
+	private static final String KEY_GENERATE_ACTIVATOR = "generateActivator"; //$NON-NLS-1$
 
 	private SelectTypeOption shapeDomainObjectOption;
 	private SelectTypeOption connectionDomainObjectOption;
@@ -190,6 +194,9 @@ public class GraphitiEditorTemplateSection extends OptionTemplateSection {
 	@Override
 	protected void initializeFields(IFieldData data) {
 		initializeFields(data.getId(), data.getName());
+		if (data instanceof IPluginFieldData) {
+			initializeOption(KEY_GENERATE_ACTIVATOR, ((IPluginFieldData) data).doGenerateClass());
+		}
 	}
 
 	@Override
@@ -271,6 +278,18 @@ public class GraphitiEditorTemplateSection extends OptionTemplateSection {
 
 		IPluginReference[] superDependencies = super.getDependencies(schemaVersion);
 		for (IPluginReference dependency : superDependencies) {
+			if ("org.eclipse.ui".equals(dependency.getId())) { //$NON-NLS-1$
+				if (!getBooleanOption(KEY_GENERATE_ACTIVATOR)) {
+					/*
+					 * Skip dependency to og.eclipse.ui, because no activator
+					 * shall be created and we don't need this dependency for
+					 * anything else; in contrary it is harmful if one tries to
+					 * create an e4 RCP app, see
+					 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=388211
+					 */
+					continue;
+				}
+			}
 			result.add(dependency);
 		}
 
