@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,24 +9,38 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 388335 - Undo/Redo functionality as part of features
  *
  * </copyright>
  *
  *******************************************************************************/
-/*
- * Created on 06.07.2005
- */
 package org.eclipse.graphiti.features;
 
 import org.eclipse.graphiti.IDescription;
 import org.eclipse.graphiti.IName;
 import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.features.impl.AbstractFeature;
 
 /**
- * The Interface IDirectEditingInfo.
+ * The Interface IFeature provides the common API for all kinds of features in
+ * Graphiti. Features implement a piece of functionality for a Graphiti editor.
+ * Usually they implement one aspect in the lifecycle of one domain object, e.g.
+ * creating a new domain object of a specific type or adding an existing domain
+ * object to the diagram.
  * 
- * Similar to actions and commands. Contains check/can methods and (in the
- * future) methods for undo and redo functionality.
+ * There are various more specific sub interfaces that define the specific API
+ * for the different kinds of feature like {@link IAddFeature} or
+ * {@link ICreateFeature}.
+ * 
+ * IFeature offers similar functionality as actions and commands and contains
+ * methods that enable the Graphiti framework to check if a feature is available
+ * and enabled in the current situation and a method to execute it.
+ * 
+ * Classes that implement this interface may also implement
+ * {@link ICustomUndoableFeature} to provide enhanced undo/redo functionality.
+ * This might be of interest for non-EMF domain objects but also in general if
+ * you need to trigger additional operations when an undo or redo of the feature
+ * is done.
  * 
  * @see org.eclipse.graphiti.features.context.IContext
  * @noimplement This interface is not intended to be implemented by clients.
@@ -83,16 +97,16 @@ public interface IFeature extends IName, IDescription, IFeatureProviderHolder {
 
 	/**
 	 * Is queried by the framework after a feature has been executed to find out
-	 * if this feature should appear in the undo stack. By default all features
-	 * should appear there (see implementation in AbstractFeature), but single
-	 * features may decide to override this behavior. Note that this is a
-	 * dynamic attribute of the feature that is queried each time <b>after</b>
-	 * the feature has been executed.
+	 * if this feature should appear in the undo stack of e.g. an editor. By
+	 * default all features should appear there (see implementation in
+	 * {@link AbstractFeature}), but features may decide to override this
+	 * behavior. Note that this is a dynamic attribute of the feature that is
+	 * queried each time <b>after</b> the feature has been executed.
 	 * <p>
 	 * <b>IMPORTANT NOTE:</b> The implementor of the feature is responsible for
-	 * correctly implementing this method! It will lead to inconsistencies if
-	 * this method returns <code>false</code> although the feature did changes.
-	 * 
+	 * correctly implementing this method! It might lead to inconsistencies in
+	 * the command stack if this method returns <code>false</code> although the
+	 * feature did changes.
 	 * 
 	 * @return <code>true</code> if the feature should appear in the undo stack,
 	 *         <code>false</code> otherwise
