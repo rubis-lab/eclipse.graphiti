@@ -62,4 +62,11 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/util/PredefinedColoredAreas.java" type="org.eclipse.graphiti.util.PredefinedColoredAreas">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="createGradientColoredArea(String, int, LocationType, String, int, LocationType)"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>

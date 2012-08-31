@@ -9,6 +9,7 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    cbrand - Bug 382928 - Introduce factory method(s) for easier gradient creation
  * 
  * </copyright>
  */
@@ -16,6 +17,7 @@ package org.eclipse.graphiti.examples.filesystem.patterns;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.graphiti.examples.filesystem.ui.FilesystemPredefinedColoredAreas;
 import org.eclipse.graphiti.examples.mm.filesystem.FilesystemFactory;
 import org.eclipse.graphiti.examples.mm.filesystem.Folder;
 import org.eclipse.graphiti.features.IReason;
@@ -39,7 +41,6 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipse.graphiti.util.PredefinedColoredAreas;
 
 public class FolderPattern extends AbstractPattern implements IPattern {
 
@@ -107,13 +108,13 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 		RoundedRectangle registerRectangle = gaService.createRoundedRectangle(outerRectangle, 5, 5);
 		gaService.setLocationAndSize(registerRectangle, 0, 0, 20, 20);
 		registerRectangle.setFilled(true);
-		gaService.setRenderingStyle(registerRectangle, PredefinedColoredAreas.getSilverWhiteGlossAdaptions());
+		gaService.setRenderingStyle(registerRectangle, FilesystemPredefinedColoredAreas.getGreenWhiteAdaptions());
 
 		// Main contents area
 		RoundedRectangle mainRectangle = gaService.createRoundedRectangle(outerRectangle, 5, 5);
 		setLocationAndSizeOfMainContentsArea(outerRectangle, mainRectangle);
 		mainRectangle.setFilled(true);
-		gaService.setRenderingStyle(mainRectangle, PredefinedColoredAreas.getSilverWhiteGlossAdaptions());
+		gaService.setRenderingStyle(mainRectangle, FilesystemPredefinedColoredAreas.getGreenWhiteAdaptions());
 
 		// Folder name
 		Shape shape = peCreateService.createShape(outerContainerShape, false);

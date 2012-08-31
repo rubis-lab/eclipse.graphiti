@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 355347 - Remove setters of Graphiti's Font Interface
+ *    cbrand - Bug 382928 - Introduce factory method(s) for easier gradient creation
  *
  * </copyright>
  *
@@ -465,28 +466,36 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 
 	protected static void addGradientColoredArea(EList<GradientColoredArea> gcas, String colorStart, int locationValueStart,
 			LocationType locationTypeStart, String colorEnd, int locationValueEnd, LocationType locationTypeEnd) {
+		GradientColoredArea gca = createGradientColoredArea(colorStart, locationValueStart, locationTypeStart,
+				colorEnd, locationValueEnd, locationTypeEnd);
+
+		gcas.add(gca);
+	}
+
+	protected static GradientColoredArea createGradientColoredArea(String colorStart, int locationValueStart,
+			LocationType locationTypeStart, String colorEnd, int locationValueEnd, LocationType locationTypeEnd) {
 		/*
 		 * Colors are stored locally at the gradient colored area for sake of
 		 * better readability and in the assumption that colors are not
 		 * intensively reused. The complete gradient definition is stored only
 		 * once per diagram so reuse is in place at a higher level.
 		 */
-		final GradientColoredArea gca = StylesFactory.eINSTANCE.createGradientColoredArea();
-		gcas.add(gca);
-		gca.setStart(StylesFactory.eINSTANCE.createGradientColoredLocation());
-		gca.getStart().setColor(StylesFactory.eINSTANCE.createColor());
-		gca.getStart().getColor().eSet(StylesPackage.eINSTANCE.getColor_Blue(), ColorUtil.getBlueFromHex(colorStart));
-		gca.getStart().getColor().eSet(StylesPackage.eINSTANCE.getColor_Green(), ColorUtil.getGreenFromHex(colorStart));
-		gca.getStart().getColor().eSet(StylesPackage.eINSTANCE.getColor_Red(), ColorUtil.getRedFromHex(colorStart));
-		gca.getStart().setLocationType(locationTypeStart);
-		gca.getStart().setLocationValue(locationValueStart);
-		gca.setEnd(StylesFactory.eINSTANCE.createGradientColoredLocation());
-		gca.getEnd().setColor(StylesFactory.eINSTANCE.createColor());
-		gca.getEnd().getColor().eSet(StylesPackage.eINSTANCE.getColor_Blue(), ColorUtil.getBlueFromHex(colorEnd));
-		gca.getEnd().getColor().eSet(StylesPackage.eINSTANCE.getColor_Green(), ColorUtil.getGreenFromHex(colorEnd));
-		gca.getEnd().getColor().eSet(StylesPackage.eINSTANCE.getColor_Red(), ColorUtil.getRedFromHex(colorEnd));
-		gca.getEnd().setLocationType(locationTypeEnd);
-		gca.getEnd().setLocationValue(locationValueEnd);
+		GradientColoredArea ret = StylesFactory.eINSTANCE.createGradientColoredArea();
+		ret.setStart(StylesFactory.eINSTANCE.createGradientColoredLocation());
+		ret.getStart().setColor(StylesFactory.eINSTANCE.createColor());
+		ret.getStart().getColor().eSet(StylesPackage.eINSTANCE.getColor_Blue(), ColorUtil.getBlueFromHex(colorStart));
+		ret.getStart().getColor().eSet(StylesPackage.eINSTANCE.getColor_Green(), ColorUtil.getGreenFromHex(colorStart));
+		ret.getStart().getColor().eSet(StylesPackage.eINSTANCE.getColor_Red(), ColorUtil.getRedFromHex(colorStart));
+		ret.getStart().setLocationType(locationTypeStart);
+		ret.getStart().setLocationValue(locationValueStart);
+		ret.setEnd(StylesFactory.eINSTANCE.createGradientColoredLocation());
+		ret.getEnd().setColor(StylesFactory.eINSTANCE.createColor());
+		ret.getEnd().getColor().eSet(StylesPackage.eINSTANCE.getColor_Blue(), ColorUtil.getBlueFromHex(colorEnd));
+		ret.getEnd().getColor().eSet(StylesPackage.eINSTANCE.getColor_Green(), ColorUtil.getGreenFromHex(colorEnd));
+		ret.getEnd().getColor().eSet(StylesPackage.eINSTANCE.getColor_Red(), ColorUtil.getRedFromHex(colorEnd));
+		ret.getEnd().setLocationType(locationTypeEnd);
+		ret.getEnd().setLocationValue(locationValueEnd);
+		return ret;
 	}
 
 	/**
@@ -519,5 +528,4 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 		}
 		throw new IllegalStateException("Unknown location type '" + gradientColoredLocation.getLocationType() + "'"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
-
 }
