@@ -9,22 +9,35 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    cbrand - Bug 382928 - Introduce factory method(s) for easier gradient creation
  * 
  * </copyright>
  */
 package org.eclipse.graphiti.examples.filesystem.diagram;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.examples.filesystem.features.AddContainmentConnectionFeature;
 import org.eclipse.graphiti.examples.filesystem.features.CreateContainmentConnectionFeature;
+import org.eclipse.graphiti.examples.filesystem.features.GradientColorFeature;
 import org.eclipse.graphiti.examples.filesystem.patterns.FolderPattern;
+import org.eclipse.graphiti.examples.filesystem.ui.FilesystemPredefinedColoredAreas;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.ICustomContext;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
+import org.eclipse.graphiti.util.IPredefinedRenderingStyle;
 
 public class FilesystemFeatureProvider extends DefaultFeatureProviderWithPatterns {
+	static List<String> ALL_GRADIENT_IDS = Arrays.asList(FilesystemPredefinedColoredAreas.GREEN_WHITE_ID,
+			FilesystemPredefinedColoredAreas.RED_WHITE_ID, IPredefinedRenderingStyle.BLUE_WHITE_ID,
+			IPredefinedRenderingStyle.BLUE_WHITE_GLOSS_ID);
 
 	public FilesystemFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -42,5 +55,16 @@ public class FilesystemFeatureProvider extends DefaultFeatureProviderWithPattern
 			return new AddContainmentConnectionFeature(this);
 		}
 		return super.getAddFeature(context);
+	}
+
+	@Override
+	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
+		ICustomFeature[] ret = super.getCustomFeatures(context);
+		List<ICustomFeature> retList = new ArrayList<ICustomFeature>();
+		for (String gid : ALL_GRADIENT_IDS) {
+			retList.add(new GradientColorFeature(this, gid));
+		}
+		ret = retList.toArray(ret);
+		return ret;
 	}
 }
