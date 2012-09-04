@@ -1,0 +1,9 @@
+Verified+1: Hudson CI
+Code-Review+2: Christian Brand <christian.brand@sap.com>
+IP-Clean+1: Christian Brand <christian.brand@sap.com>
+Verified+1: Christian Brand <christian.brand@sap.com>
+Submitted-by: Christian Brand <christian.brand@sap.com>
+Submitted-at: Tue, 04 Sep 2012 09:08:58 -0400
+Reviewed-on: https://git.eclipse.org/r/7544
+Project: gmp/org.eclipse.gmp.graphiti
+Branch: refs/heads/master
