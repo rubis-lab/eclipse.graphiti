@@ -35,7 +35,7 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Juno</h1>
-	<p>Last revised August 21, 2012</p>
+	<p>Last revised September 5, 2012</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.9.1 within the
 		Juno release train.</p>
@@ -82,6 +82,36 @@ table.news tr td.content {
 				entries to be always shown in the context menu and context button
 				pad has been fixed. The entries are now hidden when they are not
 				available and disabled when they cannot be executed.</td>
+		</tr>
+		<tr id="bug 388211">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=388211">Bug
+					388211</a></td>
+			<td class="content">The wizard to create a new Eclipse plug-in
+				project containing a Graphiti diagram editor always added a
+				dependency to <i>org.eclipse.ui</i> even if it was not necessary.
+				This caused issues with creating a Graphiti editor for an e4 RCP
+				application. Now the wizard creates that dependency only in case an
+				activator class is created as well.
+			</td>
+		</tr>
+		<tr id="bug 388335">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=388335">Bug
+					388335</a></td>
+			<td class="content">A wrong statement in the JavaDoc of <i>IFeature</i>
+				has been corrected.
+			</td>
+		</tr>
+		<tr id="bug 388213">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=388213">Bug
+					388213</a></td>
+			<td class="content">Graphiti defines an optional dependency to <i>org.eclipse.ui.ide</i>,
+				but this dependency was needed for two import statements used for
+				JavaDoc. The imports were removed to prevent runtime errors when
+				that plug-in is not installed.
+			</td>
 		</tr>
 		<!-- ---------------------------------------- RC4 ------------------------------- -->
 		<tr>
