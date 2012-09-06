@@ -8,6 +8,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.graphiti.pattern;version="0.10.0",
  org.eclipse.graphiti.pattern.config;version="0.10.0",
+ org.eclipse.graphiti.pattern.id,
  org.eclipse.graphiti.pattern.mapping;version="0.10.0",
  org.eclipse.graphiti.pattern.mapping.data;version="0.10.0"
 Bundle-ActivationPolicy: lazy
