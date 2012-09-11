@@ -25,6 +25,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -93,7 +94,7 @@ public class GradientColorFeature extends AbstractCustomFeature {
 				EList<GraphicsAlgorithm> gaChildren = currentGa.getGraphicsAlgorithmChildren();
 				for (GraphicsAlgorithm innerGa : gaChildren) {
 					// only the rectangles, not the text GA
-					if (innerGa instanceof RoundedRectangle) {
+					if (innerGa instanceof RoundedRectangle || innerGa instanceof Rectangle) {
 						// each GA has to have colored areas of his own; reason:
 						// aggregation in the metamodel
 						AdaptedGradientColoredAreas ca = FilesystemPredefinedColoredAreas
