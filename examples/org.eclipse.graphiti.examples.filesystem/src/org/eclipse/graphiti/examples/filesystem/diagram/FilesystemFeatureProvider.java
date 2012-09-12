@@ -23,6 +23,7 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.examples.filesystem.features.AddContainmentConnectionFeature;
 import org.eclipse.graphiti.examples.filesystem.features.CreateContainmentConnectionFeature;
 import org.eclipse.graphiti.examples.filesystem.features.GradientColorFeature;
+import org.eclipse.graphiti.examples.filesystem.patterns.FilePattern;
 import org.eclipse.graphiti.examples.filesystem.patterns.FolderPattern;
 import org.eclipse.graphiti.examples.filesystem.ui.FilesystemPredefinedColoredAreas;
 import org.eclipse.graphiti.features.IAddFeature;
@@ -42,6 +43,7 @@ public class FilesystemFeatureProvider extends DefaultFeatureProviderWithPattern
 	public FilesystemFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);
 		addPattern(new FolderPattern());
+		addPattern(new FilePattern());
 	}
 
 	@Override
