@@ -27,6 +27,7 @@
  *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
  *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
  *    Felix Velasco - mwenz - Bug 379788 - Memory leak in DefaultMarkerBehavior
+ *    mwenz - Bug 387971 - Features cant't be invoked from contextMenu
  *
  * </copyright>
  *
@@ -1370,8 +1371,18 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 					selectPictogramElements(pes);
 				}
 			}
+			/*
+			 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=387971: When
+			 * embedding a diagram editor inside a multi page editor the
+			 * registered actions were not updated. The fix was simply not to
+			 * delegate to super.selectionChange where a check for the editor
+			 * being active only checks for the main editor (GEF editor is not
+			 * embeddable inside another editor) but to trigger the action
+			 * update ourself when our checks say the diagram editor is active.
+			 */
+			updateActions(getSelectionActions());
 		}
-		super.selectionChanged(part, selection);
+
 	}
 
 	/**
