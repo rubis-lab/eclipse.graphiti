@@ -13,6 +13,7 @@
  *    mwenz - Bug 347152 - Do not log diagnostics errors as errors in the Eclipse error log
  *    mwenz - Bug 359928 - DiagramEditorBehavior does not initialize adapterActive field
  *    Bug 336488 - DiagramEditor API - Rename from DiagramEditorBehavior to DefaultUpdateBehavior
+ *    mwenz - Bug 389426 - Add factory method for creating EMF workspace synchronizer delegate
  *
  * </copyright>
  *
@@ -393,11 +394,27 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 
 		// Install synchronizer for editor-external changes to the files
 		// underlying the resources of the ED
-		workspaceSynchronizer = new WorkspaceSynchronizer(getEditingDomain(),
-				new DomainModelWorkspaceSynchronizerDelegate(diagramEditor));
+		workspaceSynchronizer = new WorkspaceSynchronizer(getEditingDomain(), createWorkspaceSynchronizerDelegate());
 
 		// Problem analysis
 		diagramEditor.editingDomainInitialized();
+	}
+
+	/**
+	 * Can be overridden to return a client specific implementation of a
+	 * {@link WorkspaceSynchronizer} {@link Delegate} object. Graphiti uses the
+	 * returned instance to manage and react on changes done to the resources
+	 * tied to the diagram outside of the diagram editor's
+	 * TransactionalEditingDomain.
+	 * 
+	 * @return The delegate to use. The default implementation return's
+	 *         Graphiti's own implementation of such a delegate that should be
+	 *         sufficient for most client editors.
+	 * 
+	 * @since 0.10
+	 */
+	protected WorkspaceSynchronizer.Delegate createWorkspaceSynchronizerDelegate() {
+		return new DomainModelWorkspaceSynchronizerDelegate(diagramEditor);
 	}
 
 	/**
