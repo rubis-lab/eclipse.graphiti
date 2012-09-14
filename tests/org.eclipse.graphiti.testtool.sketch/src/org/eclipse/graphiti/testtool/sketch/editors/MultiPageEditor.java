@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * <copyright>
+ *
+ * Copyright (c) 2011, 2012 SAP AG.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 387971 - Features cant't be invoked from contextMenu
+ *
+ * </copyright>
+ *
+ *******************************************************************************/
 package org.eclipse.graphiti.testtool.sketch.editors;
 
 
@@ -8,19 +24,22 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
 
-public class MultiPageEditor extends FormEditor implements IResourceChangeListener {
+public class MultiPageEditor extends FormEditor implements IResourceChangeListener, ISelectionListener {
 
 	/** The text editor used in page 0. */
 	private DiagramEditor editor;
@@ -114,6 +133,10 @@ public class MultiPageEditor extends FormEditor implements IResourceChangeListen
 		if (!(editorInput instanceof IFileEditorInput))
 			throw new PartInitException("Invalid Input: Must be IFileEditorInput");
 		super.init(site, editorInput);
+
+		// Register this editor to get informed about selection changes (also
+		// inside editor) to update e.g. the registered actions (see Bug 387971)
+		getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(this);
 	}
 	/* (non-Javadoc)
 	 * Method declared on IEditorPart.
@@ -146,4 +169,14 @@ public class MultiPageEditor extends FormEditor implements IResourceChangeListen
 		}
 	}
 
+	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+		// Propagate the selection changed event to all sub editors
+		int pageCount = getPageCount();
+		for (int i = 0; i < pageCount; i++) {
+			IEditorPart editor = getEditor(i);
+			if (editor instanceof ISelectionListener) {
+				((ISelectionListener) editor).selectionChanged(part, selection);
+			}
+		}
+	}
 }
