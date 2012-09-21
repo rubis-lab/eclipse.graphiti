@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    mwenz - Bug 324859 - initial API, implementation and documentation
+ *    mwenz - Bug 389380 - Undo/Redo handling wrong Command executed by undo action
  *
  * </copyright>
  *
@@ -19,6 +20,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.features.IContextHolder;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureAndContext;
@@ -130,5 +132,15 @@ public class CommandService implements ICommandService {
 		}
 
 		return executionInfo;
+	}
+
+	public IExecutionInfo removeFeaturesWithoutChanges(IExecutionInfo executionInfo) {
+		DefaultExecutionInfo result = new DefaultExecutionInfo();
+		for (IFeatureAndContext featureAndContext : executionInfo.getExecutionList()) {
+			if (featureAndContext.getFeature().hasDoneChanges()) {
+				result.addFeatureAndContext(featureAndContext);
+			}
+		}
+		return result;
 	}
 }
