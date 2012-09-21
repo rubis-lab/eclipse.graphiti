@@ -13,6 +13,7 @@
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *    mwenz - Bug 351053 - Remove the need for WorkspaceCommandStackImpl
  *    mwenz - Bug 371717 - IllegalStateException When updating cells on Diagram
+ *    mwenz - Bug 389380 - Undo/Redo handling wrong Command executed by undo action
  *
  * </copyright>
  *
@@ -94,7 +95,21 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 					GraphitiUiInternal.getCommandService().completeExecutionInfo((DefaultExecutionInfo) executionInfo,
 							GraphitiUiInternal.getCommandService().transformFromEmfToGefCommand(command));
 				}
-				undoStackForExecutionInfo.push(executionInfo);
+
+				/*
+				 * Remove the feature and context combinations from the
+				 * execution list whose features did not do any changes. The
+				 * commands for those features are not placed on the editor
+				 * command stack and must also not appear in the stack for
+				 * additional undo steps. See Bugzilla 389380 for details. In
+				 * case no entry is left in the execution info, it must not be
+				 * written to the stack in order to keep the standard and the
+				 * additional undo stack in sync.
+				 */
+				executionInfo = GraphitiUiInternal.getCommandService().removeFeaturesWithoutChanges(executionInfo);
+				if (executionInfo.getExecutionList().length > 0) {
+					undoStackForExecutionInfo.push(executionInfo);
+				}
 			} finally {
 				topLevelCommand = true;
 			}

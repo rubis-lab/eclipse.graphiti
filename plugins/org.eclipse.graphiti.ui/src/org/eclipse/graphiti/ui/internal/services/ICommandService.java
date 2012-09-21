@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,12 +9,14 @@
  *
  * Contributors:
  *    mwenz - Bug 324859 - initial API, implementation and documentation
+ *    mwenz - Bug 389380 - Undo/Redo handling wrong Command executed by undo action
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.services;
 
+import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.internal.command.DefaultExecutionInfo;
 import org.eclipse.graphiti.internal.command.ICommand;
 
@@ -35,5 +37,7 @@ public interface ICommandService {
 	org.eclipse.gef.commands.Command transformFromEmfToGefCommand(org.eclipse.emf.common.command.Command emfCommand);
 
 	org.eclipse.emf.common.command.Command transformFromGefToEmfCommand(org.eclipse.gef.commands.Command gefCommand);
+
+	IExecutionInfo removeFeaturesWithoutChanges(IExecutionInfo executionInfo);
 
 }
