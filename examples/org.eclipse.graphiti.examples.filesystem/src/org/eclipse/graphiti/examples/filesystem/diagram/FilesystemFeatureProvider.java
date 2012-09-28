@@ -22,8 +22,10 @@ import java.util.List;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.examples.filesystem.features.AddContainmentConnectionFeature;
 import org.eclipse.graphiti.examples.filesystem.features.CreateContainmentConnectionFeature;
+import org.eclipse.graphiti.examples.filesystem.features.CreateInnerFileFeature;
 import org.eclipse.graphiti.examples.filesystem.features.GradientColorFeature;
 import org.eclipse.graphiti.examples.filesystem.patterns.FilePattern;
+import org.eclipse.graphiti.examples.filesystem.patterns.FilesystemPattern;
 import org.eclipse.graphiti.examples.filesystem.patterns.FolderPattern;
 import org.eclipse.graphiti.examples.filesystem.ui.FilesystemPredefinedColoredAreas;
 import org.eclipse.graphiti.features.IAddFeature;
@@ -42,8 +44,9 @@ public class FilesystemFeatureProvider extends DefaultFeatureProviderWithPattern
 
 	public FilesystemFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);
-		addPattern(new FolderPattern());
+		addPattern(new FilesystemPattern());
 		addPattern(new FilePattern());
+		addPattern(new FolderPattern());
 	}
 
 	@Override
@@ -62,10 +65,16 @@ public class FilesystemFeatureProvider extends DefaultFeatureProviderWithPattern
 	@Override
 	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
 		ICustomFeature[] ret = super.getCustomFeatures(context);
+
+		// Add features to change gradient
 		List<ICustomFeature> retList = new ArrayList<ICustomFeature>();
 		for (String gid : ALL_GRADIENT_IDS) {
 			retList.add(new GradientColorFeature(this, gid));
 		}
+
+		// Add create/delete features for files inside folders
+		retList.add(new CreateInnerFileFeature(this));
+
 		ret = retList.toArray(ret);
 		return ret;
 	}

@@ -19,14 +19,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.examples.filesystem.features.CreateInnerFileFeature;
 import org.eclipse.graphiti.examples.filesystem.features.GradientColorFeature;
 import org.eclipse.graphiti.examples.mm.filesystem.Folder;
 import org.eclipse.graphiti.features.context.ICustomContext;
+import org.eclipse.graphiti.features.context.IPictogramElementContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.platform.IPlatformImageConstants;
+import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.ContextMenuEntry;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
+import org.eclipse.graphiti.tb.IContextButtonEntry;
+import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.util.ILocationInfo;
@@ -55,7 +62,7 @@ public class FilesystemToolBehaviorProvider extends DefaultToolBehaviorProvider 
 		ICustomContext customContext = context;
 		ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customContext);
 
-		// menu groups
+		// Gradient colors submenu
 		ContextMenuEntry changeGradientColorEntry = null;
 
 		for (int i = 0; i < customFeatures.length; i++) {
@@ -70,8 +77,32 @@ public class FilesystemToolBehaviorProvider extends DefaultToolBehaviorProvider 
 					retList.add(changeGradientColorEntry);
 				}
 				changeGradientColorEntry.add(contextMenuEntry);
+			} else if (customFeature instanceof CreateInnerFileFeature) {
+				retList.add(contextMenuEntry);
 			}
 		}
 		return retList.toArray(ret);
+	}
+
+	@Override
+	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
+		IContextButtonPadData data = super.getContextButtonPad(context);
+		PictogramElement pe = context.getPictogramElement();
+
+		CustomContext customContext = new CustomContext(new PictogramElement[] { pe });
+		ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customContext);
+		for (int i = 0; i < customFeatures.length; i++) {
+			ICustomFeature customFeature = customFeatures[i];
+			if (customFeature instanceof CreateInnerFileFeature) {
+				IContextButtonEntry button = null;
+				button = new ContextButtonEntry(customFeature, customContext);
+				button.setText(customFeature.getName());
+				button.setDescription(customFeature.getDescription());
+				button.setIconId(IPlatformImageConstants.IMG_ECLIPSE_QUICKASSIST);
+				data.setCollapseContextButton(button);
+			}
+		}
+
+		return data;
 	}
 }

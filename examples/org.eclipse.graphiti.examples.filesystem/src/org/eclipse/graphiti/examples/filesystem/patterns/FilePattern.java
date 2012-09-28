@@ -2,6 +2,7 @@ package org.eclipse.graphiti.examples.filesystem.patterns;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.graphiti.examples.filesystem.ui.FilesystemPredefinedColoredAreas;
 import org.eclipse.graphiti.examples.mm.filesystem.File;
 import org.eclipse.graphiti.examples.mm.filesystem.FilesystemFactory;
 import org.eclipse.graphiti.features.IReason;
@@ -26,7 +27,6 @@ import org.eclipse.graphiti.pattern.id.IdUpdateContext;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipse.graphiti.util.PredefinedColoredAreas;
 
 public class FilePattern extends IdPattern implements IPattern {
 
@@ -87,13 +87,13 @@ public class FilePattern extends IdPattern implements IPattern {
 		RoundedRectangle registerRectangle = gaService.createRoundedRectangle(outerRectangle, 5, 5);
 		gaService.setLocationAndSize(registerRectangle, 0, 0, 20, 20);
 		registerRectangle.setFilled(true);
-		gaService.setRenderingStyle(registerRectangle, PredefinedColoredAreas.getSilverWhiteGlossAdaptions());
+		gaService.setRenderingStyle(registerRectangle, FilesystemPredefinedColoredAreas.getGreenWhiteAdaptions());
 
 		// Main contents area
 		Rectangle mainRectangle = gaService.createRectangle(outerRectangle);
 		setId(mainRectangle, ID_MAIN_RECTANGLE);
 		mainRectangle.setFilled(true);
-		gaService.setRenderingStyle(mainRectangle, PredefinedColoredAreas.getSilverWhiteGlossAdaptions());
+		gaService.setRenderingStyle(mainRectangle, FilesystemPredefinedColoredAreas.getGreenWhiteAdaptions());
 
 		// File name
 		Shape shape = peCreateService.createShape(outerContainerShape, false);

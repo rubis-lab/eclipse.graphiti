@@ -23,6 +23,7 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AreaContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
+import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.PropertyContainer;
@@ -43,13 +44,14 @@ import org.eclipse.graphiti.services.Graphiti;
  * 
  * @since 0.10
  * @experimental This API is in an experimental state and should be used by
- *               clients, as it not final and can be removed or changed without
- *               prior notice!
+ *               clients only with care, as it not final and can be removed or
+ *               changed without prior notice!
  */
 public abstract class IdPattern extends TypedPattern implements IPattern {
 
 	protected static final String PROPERTY_VALUE_PATTERN_TYPE_ID = "org.eclipse.graphiti.pattern.idpattern"; //$NON-NLS-1$
 	protected static final String PROPERTY_KEY_ID = "org.eclipse.graphiti.pattern.id.id"; //$NON-NLS-1$
+	protected static final String PROPERTY_KEY_INDEX = "org.eclipse.graphiti.pattern.id.index"; //$NON-NLS-1$
 
 	public IdPattern() {
 		super();
@@ -154,6 +156,20 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		return null;
 	}
 
+	protected void setIndex(PropertyContainer container, int index) {
+		Graphiti.getPeService().setPropertyValue(container, PROPERTY_KEY_INDEX, Integer.toString(index));
+	}
+
+	protected int getIndex(PropertyContainer container) {
+		EList<Property> properties = container.getProperties();
+		for (Property property : properties) {
+			if (PROPERTY_KEY_INDEX.equals(property.getKey())) {
+				return Integer.valueOf(property.getValue());
+			}
+		}
+		return -1;
+	}
+
 	/*
 	 * Add functionality
 	 */
@@ -175,6 +191,7 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		addContext.setTargetContainer(context.getTargetContainer());
 		PictogramElement pictogramElement = add(addContext);
 		setPatternType(pictogramElement, PROPERTY_VALUE_PATTERN_TYPE_ID);
+		update(new UpdateContext(pictogramElement));
 		layout(new LayoutContext(pictogramElement));
 		return pictogramElement;
 	}
@@ -389,6 +406,10 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 
 	@Override
 	public boolean update(IUpdateContext context) {
+		return update(context, false);
+	}
+
+	private boolean update(IUpdateContext context, boolean innerCall) {
 		boolean result = false;
 
 		PictogramElement rootPictogramElement;
@@ -428,7 +449,7 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 			for (Shape shape : children) {
 				IdUpdateContext updateContext = new IdUpdateContext(shape, shape.getGraphicsAlgorithm(),
 						rootPictogramElement, getBusinessObjectForPictogramElement(shape));
-				if (update(updateContext)) {
+				if (update(updateContext, true)) {
 					result = true;
 				}
 			}
@@ -443,6 +464,10 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		}
 		if (checkUpdateChildren(graphicsAlgorithm, updateContext)) {
 			result = true;
+		}
+
+		if (result && !innerCall) {
+			layoutPictogramElement(rootPictogramElement);
 		}
 
 		return result;

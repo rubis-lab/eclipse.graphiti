@@ -16,6 +16,7 @@ package org.eclipse.graphiti.examples.mm.filesystem.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -23,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -40,6 +42,7 @@ import org.eclipse.graphiti.examples.mm.filesystem.Folder;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.graphiti.examples.mm.filesystem.impl.FilesystemImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.graphiti.examples.mm.filesystem.impl.FilesystemImpl#getFolders <em>Folders</em>}</li>
  *   <li>{@link org.eclipse.graphiti.examples.mm.filesystem.impl.FilesystemImpl#getFiles <em>Files</em>}</li>
  * </ul>
@@ -54,6 +57,26 @@ public class FilesystemImpl extends EObjectImpl implements Filesystem {
 	 * @generated
 	 */
 	public static final String copyright = "<copyright>\r\n\r\nCopyright (c) 2012, 2012 SAP AG.\r\nAll rights reserved. This program and the accompanying materials\r\nare made available under the terms of the Eclipse Public License v1.0\r\nwhich accompanies this distribution, and is available at\r\nhttp://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\n   SAP AG - initial API, implementation and documentation\r\n\r\n</copyright>";
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getFolders() <em>Folders</em>}' containment reference list.
@@ -92,6 +115,27 @@ public class FilesystemImpl extends EObjectImpl implements Filesystem {
 	@Override
 	protected EClass eStaticClass() {
 		return FilesystemPackage.Literals.FILESYSTEM;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FilesystemPackage.FILESYSTEM__NAME, oldName, name));
 	}
 
 	/**
@@ -142,6 +186,8 @@ public class FilesystemImpl extends EObjectImpl implements Filesystem {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case FilesystemPackage.FILESYSTEM__NAME:
+				return getName();
 			case FilesystemPackage.FILESYSTEM__FOLDERS:
 				return getFolders();
 			case FilesystemPackage.FILESYSTEM__FILES:
@@ -159,6 +205,9 @@ public class FilesystemImpl extends EObjectImpl implements Filesystem {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case FilesystemPackage.FILESYSTEM__NAME:
+				setName((String)newValue);
+				return;
 			case FilesystemPackage.FILESYSTEM__FOLDERS:
 				getFolders().clear();
 				getFolders().addAll((Collection<? extends Folder>)newValue);
@@ -179,6 +228,9 @@ public class FilesystemImpl extends EObjectImpl implements Filesystem {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case FilesystemPackage.FILESYSTEM__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 			case FilesystemPackage.FILESYSTEM__FOLDERS:
 				getFolders().clear();
 				return;
@@ -197,12 +249,30 @@ public class FilesystemImpl extends EObjectImpl implements Filesystem {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case FilesystemPackage.FILESYSTEM__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case FilesystemPackage.FILESYSTEM__FOLDERS:
 				return folders != null && !folders.isEmpty();
 			case FilesystemPackage.FILESYSTEM__FILES:
 				return files != null && !files.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //FilesystemImpl
