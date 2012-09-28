@@ -43,6 +43,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.internal.util.T;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
@@ -423,6 +424,10 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 
 	public String getToolTip(GraphicsAlgorithm ga) {
 		return null;
+	}
+
+	public AbstractText getRichToolTip(GraphicsAlgorithm ga) {
+		return Graphiti.getGaCreateService().createPlainText(null, getToolTip(ga));
 	}
 
 	public GraphicsAlgorithm getSelectionBorder(PictogramElement pe) {

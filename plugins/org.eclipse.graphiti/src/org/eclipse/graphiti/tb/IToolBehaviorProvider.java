@@ -28,6 +28,7 @@ import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.ISingleClickContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -243,6 +244,16 @@ public interface IToolBehaviorProvider {
 	 * @return the tooltip
 	 */
 	String getToolTip(GraphicsAlgorithm graphicsAlgorithm);
+
+	/**
+	 * Returns the tooltip to be attached to the graphical representation of the
+	 * given graphics algorithm.
+	 * 
+	 * @param graphicsAlgorithm
+	 *            the graphics algorithm
+	 * @return the tooltip
+	 */
+	AbstractText getRichToolTip(GraphicsAlgorithm graphicsAlgorithm);
 
 	/**
 	 * The returned graphics algorithm defines the selection border and the
