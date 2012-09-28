@@ -23,6 +23,7 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AreaContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
+import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.PropertyContainer;
@@ -43,8 +44,8 @@ import org.eclipse.graphiti.services.Graphiti;
  * 
  * @since 0.10
  * @experimental This API is in an experimental state and should be used by
- *               clients, as it not final and can be removed or changed without
- *               prior notice!
+ *               clients only with care, as it not final and can be removed or
+ *               changed without prior notice!
  */
 public abstract class IdPattern extends TypedPattern implements IPattern {
 
@@ -175,6 +176,7 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		addContext.setTargetContainer(context.getTargetContainer());
 		PictogramElement pictogramElement = add(addContext);
 		setPatternType(pictogramElement, PROPERTY_VALUE_PATTERN_TYPE_ID);
+		update(new UpdateContext(pictogramElement));
 		layout(new LayoutContext(pictogramElement));
 		return pictogramElement;
 	}
@@ -401,6 +403,9 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		// Check id for PE
 		PictogramElement pictogramElement = context.getPictogramElement();
 		String id = getId(pictogramElement);
+		if (id == null) {
+			id = getId(pictogramElement.getGraphicsAlgorithm());
+		}
 		if (id != null) {
 			IdUpdateContext updateContext = new IdUpdateContext(pictogramElement,
 					pictogramElement.getGraphicsAlgorithm(), rootPictogramElement,
