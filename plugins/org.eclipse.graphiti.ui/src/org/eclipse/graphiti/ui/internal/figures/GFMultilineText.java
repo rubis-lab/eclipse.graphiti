@@ -23,6 +23,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.text.ParagraphTextLayout;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
+import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -34,11 +35,12 @@ public class GFMultilineText extends Figure {
 
 	private GFFlowPage flowPage;
 
-	public GFMultilineText(MultiText multiText) {
+	public GFMultilineText(IPictogramElementDelegate pictogramElementDelegate, MultiText multiText) {
 		setBorder(new MarginBorder(2));
 
-		textFlow = new GFTextFlow(multiText);
+		textFlow = new GFTextFlow(multiText, pictogramElementDelegate.getConfigurationProvider());
 		textFlow.setLayoutManager(new ParagraphTextLayout(textFlow, ParagraphTextLayout.WORD_WRAP_SOFT));
+//		setText(multiText.getValue());
 
 		flowPage = new GFFlowPage(textFlow);
 		flowPage.add(textFlow);
