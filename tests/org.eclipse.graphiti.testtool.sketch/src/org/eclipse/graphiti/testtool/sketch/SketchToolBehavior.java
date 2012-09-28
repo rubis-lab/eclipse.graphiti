@@ -38,7 +38,13 @@ import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -510,21 +516,48 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 	}
 
 	@Override
-	public String getToolTip(GraphicsAlgorithm ga) {
+	public AbstractText getRichToolTip(GraphicsAlgorithm ga) {
 		if (SketchUtil.isConnectionPoint(ga.getPictogramElement())) {
 			return null;
 		}
 		
 		if (ga instanceof AbstractText && ga.getParentGraphicsAlgorithm() != null) {
-			return getToolTip(ga.getParentGraphicsAlgorithm());
-		} else {
-			final int x = ga.getX();
-			final int y = ga.getY();
-			final int width = ga.getWidth();
-			final int height = ga.getHeight();
-			String ret = ga.getClass().getSimpleName() + " (x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ")";
-			return ret;
+			return getRichToolTip(ga.getParentGraphicsAlgorithm());
 		}
+		final int x = ga.getX();
+		final int y = ga.getY();
+		final int width = ga.getWidth();
+		final int height = ga.getHeight();
+		String first = ga.getClass().getPackage().getName();
+		String second = ga.getClass().getSimpleName();
+		String third = "(x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ")";
+		String toolTip = first + "." + second + "\n" + third;
+
+		Text text = Graphiti.getGaCreateService().createPlainText(null, toolTip);
+
+		TextStyleRegion textStyleRegion = StylesFactory.eINSTANCE.createTextStyleRegion();
+		TextStyle textStyle = StylesFactory.eINSTANCE.createTextStyle();
+		textStyle.setUnderline(true);
+		textStyleRegion.setStart(first.length() + 1);
+		textStyleRegion.setEnd(first.length() + second.length());
+		textStyleRegion.setStyle(textStyle);
+
+		TextStyleRegion textStyleRegion2 = StylesFactory.eINSTANCE.createTextStyleRegion();
+		TextStyle textStyle2 = StylesFactory.eINSTANCE.createTextStyle();
+		Font font = StylesFactory.eINSTANCE.createFont();
+		font.eSet(StylesPackage.eINSTANCE.getFont_Name(), IGaService.DEFAULT_FONT);
+		font.eSet(StylesPackage.eINSTANCE.getFont_Size(), IGaService.DEFAULT_FONT_SIZE);
+		font.eSet(StylesPackage.eINSTANCE.getFont_Italic(), true);
+		textStyle2.setFont(font);
+
+		textStyleRegion2.setStart(first.length() + second.length() + 2);
+		textStyleRegion2.setEnd(toolTip.length());
+		textStyleRegion2.setStyle(textStyle2);
+
+		text.getStyleRegions().add(textStyleRegion);
+		text.getStyleRegions().add(textStyleRegion2);
+
+		return text;
 	}
 
 	@Override
