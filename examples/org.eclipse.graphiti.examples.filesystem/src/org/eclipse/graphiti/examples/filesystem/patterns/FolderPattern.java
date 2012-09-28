@@ -1,51 +1,50 @@
-/**
- * <copyright>
- * 
- * Copyright (c) 2012, 2012 SAP AG.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *    SAP AG - initial API, implementation and documentation
- *    cbrand - Bug 382928 - Introduce factory method(s) for easier gradient creation
- * 
- * </copyright>
- */
 package org.eclipse.graphiti.examples.filesystem.patterns;
+
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.graphiti.examples.filesystem.ui.FilesystemPredefinedColoredAreas;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.examples.mm.filesystem.File;
 import org.eclipse.graphiti.examples.mm.filesystem.FilesystemFactory;
 import org.eclipse.graphiti.examples.mm.filesystem.Folder;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
-import org.eclipse.graphiti.features.context.ILayoutContext;
-import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
-import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.IPattern;
+import org.eclipse.graphiti.pattern.id.IdAddContext;
+import org.eclipse.graphiti.pattern.id.IdLayoutContext;
+import org.eclipse.graphiti.pattern.id.IdPattern;
+import org.eclipse.graphiti.pattern.id.IdUpdateContext;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.eclipse.graphiti.util.IColorConstant;
+import org.eclipse.graphiti.util.PredefinedColoredAreas;
 
-public class FolderPattern extends AbstractPattern implements IPattern {
+public class FolderPattern extends IdPattern implements IPattern {
+
+	private static final String ID_FOLDER_NAME_TEXT = "folderNameText";
+	private static final String ID_OUTER_RECTANGLE = "outerRectangle";
+	private static final String ID_MAIN_RECTANGLE = "mainRectangle";
+	private static final String ID_NAME_SEPARATOR = "nameSeparator";
+	private static final String ID_FILE_NAMES_RECTANGLE = "fileNamesRectangle";
+	private static final String ID_FILE_NAME_TEXT = "fileNameText";
 
 	public FolderPattern() {
-		super(null);
+		super();
 	}
 
 	@Override
@@ -59,18 +58,6 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 	}
 
 	@Override
-	protected boolean isPatternControlled(PictogramElement pictogramElement) {
-		Object domainObject = getBusinessObjectForPictogramElement(pictogramElement);
-		return isMainBusinessObjectApplicable(domainObject);
-	}
-
-	@Override
-	protected boolean isPatternRoot(PictogramElement pictogramElement) {
-		Object domainObject = getBusinessObjectForPictogramElement(pictogramElement);
-		return isMainBusinessObjectApplicable(domainObject);
-	}
-
-	@Override
 	public boolean canCreate(ICreateContext context) {
 		return context.getTargetContainer() instanceof Diagram;
 	}
@@ -78,9 +65,17 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 	@Override
 	public Object[] create(ICreateContext context) {
 		Folder newFolder = FilesystemFactory.eINSTANCE.createFolder();
+		getDiagram().eResource().getContents().add(newFolder);
 		newFolder.setName(createNewName());
 
-		getDiagram().eResource().getContents().add(newFolder);
+		File file1 = FilesystemFactory.eINSTANCE.createFile();
+		getDiagram().eResource().getContents().add(file1);
+		file1.setName("File1");
+		newFolder.getFiles().add(file1);
+		File file2 = FilesystemFactory.eINSTANCE.createFile();
+		getDiagram().eResource().getContents().add(file2);
+		file2.setName("File2");
+		newFolder.getFiles().add(file2);
 
 		addGraphicalRepresentation(context, newFolder);
 		return new Object[] { newFolder };
@@ -88,81 +83,91 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 
 	@Override
 	public boolean canAdd(IAddContext context) {
-		return context.getNewObject() instanceof Folder && context.getTargetContainer() instanceof Diagram;
+		return super.canAdd(context) && context.getTargetContainer() instanceof Diagram;
 	}
 
 	@Override
-	public PictogramElement add(IAddContext context) {
+	public PictogramElement add(IdAddContext context) {
 		Diagram targetDiagram = (Diagram) context.getTargetContainer();
-		Folder addedDomainObject = (Folder) context.getNewObject();
+		Folder addedFolder = (Folder) context.getNewObject();
 		IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		IGaService gaService = Graphiti.getGaService();
 
 		// Outer container (invisible)
 		ContainerShape outerContainerShape = peCreateService.createContainerShape(targetDiagram, true);
 		Rectangle outerRectangle = gaService.createInvisibleRectangle(outerContainerShape);
+		setId(outerRectangle, ID_OUTER_RECTANGLE);
 		gaService.setLocationAndSize(outerRectangle, context.getX(), context.getY(), context.getWidth(),
 				context.getHeight());
 
 		// Register tab
-		RoundedRectangle registerRectangle = gaService.createRoundedRectangle(outerRectangle, 5, 5);
+		Rectangle registerRectangle = gaService.createRectangle(outerRectangle);
 		gaService.setLocationAndSize(registerRectangle, 0, 0, 20, 20);
 		registerRectangle.setFilled(true);
-		gaService.setRenderingStyle(registerRectangle, FilesystemPredefinedColoredAreas.getGreenWhiteAdaptions());
+		gaService.setRenderingStyle(registerRectangle, PredefinedColoredAreas.getSilverWhiteGlossAdaptions());
 
 		// Main contents area
-		RoundedRectangle mainRectangle = gaService.createRoundedRectangle(outerRectangle, 5, 5);
-		setLocationAndSizeOfMainContentsArea(outerRectangle, mainRectangle);
+		Rectangle mainRectangle = gaService.createRectangle(outerRectangle);
+		setId(mainRectangle, ID_MAIN_RECTANGLE);
 		mainRectangle.setFilled(true);
-		gaService.setRenderingStyle(mainRectangle, FilesystemPredefinedColoredAreas.getGreenWhiteAdaptions());
+		gaService.setRenderingStyle(mainRectangle, PredefinedColoredAreas.getSilverWhiteGlossAdaptions());
 
 		// Folder name
-		Shape shape = peCreateService.createShape(outerContainerShape, false);
-		Text text = gaService.createText(shape, addedDomainObject.getName());
-		text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
-		text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-		setLocationAndSizeOfTextArea(outerRectangle, text);
+		Shape textShape = peCreateService.createShape(outerContainerShape, false);
+		Text folderNameText = gaService.createText(textShape, "");
+		setId(folderNameText, ID_FOLDER_NAME_TEXT);
+		folderNameText.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
+		folderNameText.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
+
+		// Separating line
+		Shape lineShape = peCreateService.createShape(outerContainerShape, false);
+		Polyline polyline = gaService.createPolyline(lineShape);
+		setId(polyline, ID_NAME_SEPARATOR);
+		polyline.setForeground(manageColor(IColorConstant.BLACK));
+
+		// List of files in folder
+		ContainerShape filesContainerShape = peCreateService.createContainerShape(outerContainerShape, false);
+		Rectangle filesRectangle = gaService.createInvisibleRectangle(filesContainerShape);
+		setId(filesRectangle, ID_FILE_NAMES_RECTANGLE);
 
 		peCreateService.createChopboxAnchor(outerContainerShape);
 
-		link(outerContainerShape, addedDomainObject);
+		link(outerContainerShape, addedFolder);
+		link(textShape, addedFolder);
+		link(filesContainerShape, addedFolder);
 
 		return outerContainerShape;
 	}
 
 	@Override
-	public boolean canLayout(ILayoutContext context) {
-		return context.getPictogramElement() instanceof ContainerShape
-				&& getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof Folder;
-	}
-
-	@Override
-	public boolean layout(ILayoutContext context) {
+	protected boolean layout(IdLayoutContext context, String id) {
 		boolean changesDone = false;
-		PictogramElement pictogramElement = context.getPictogramElement();
-		if (pictogramElement instanceof ContainerShape) {
-			ContainerShape outerContainerShape = (ContainerShape) pictogramElement;
-			GraphicsAlgorithm outerGraphicsAlgorithm = outerContainerShape.getGraphicsAlgorithm();
-			if (outerGraphicsAlgorithm instanceof Rectangle) {
-				Rectangle outerRectangle = (Rectangle) outerGraphicsAlgorithm;
 
-				// Adapt size of main contents area
-				EList<GraphicsAlgorithm> graphicsAlgorithmChildren = outerRectangle.getGraphicsAlgorithmChildren();
-				if (graphicsAlgorithmChildren.size() > 1) {
-					GraphicsAlgorithm graphicsAlgorithm = graphicsAlgorithmChildren.get(1);
-					if (graphicsAlgorithm instanceof RoundedRectangle) {
-						setLocationAndSizeOfMainContentsArea(outerRectangle, (RoundedRectangle) graphicsAlgorithm);
-						changesDone = true;
-					}
-				}
-			}
-		}
+		Rectangle outerRectangle = (Rectangle) context.getRootPictogramElement().getGraphicsAlgorithm();
 
-		// Adapt size and location of text field
-		Rectangle outerRectangle = getOuterRectangle(pictogramElement);
-		Text nameText = getNameText(pictogramElement);
-		if (outerRectangle != null && nameText != null) {
-			setLocationAndSizeOfTextArea(outerRectangle, nameText);
+		GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
+		if (id.equals(ID_MAIN_RECTANGLE)) {
+			Graphiti.getGaService().setLocationAndSize(ga, 0, 10, outerRectangle.getWidth(),
+					outerRectangle.getHeight() - 10);
+			changesDone = true;
+		} else if (id.equals(ID_FOLDER_NAME_TEXT)) {
+			Graphiti.getGaService().setLocationAndSize(ga, 0, 10, outerRectangle.getWidth(), 20);
+			changesDone = true;
+		} else if (id.equals(ID_NAME_SEPARATOR)) {
+			Polyline polyline = (Polyline) ga;
+			polyline.getPoints().clear();
+			List<Point> pointList = Graphiti.getGaService().createPointList(
+					new int[] { 0, 30, outerRectangle.getWidth(), 30 });
+			polyline.getPoints().addAll(pointList);
+			changesDone = true;
+		} else if (id.equals(ID_FILE_NAMES_RECTANGLE)) {
+			Graphiti.getGaService().setLocationAndSize(ga, 0, 30, outerRectangle.getWidth(),
+					outerRectangle.getHeight() - 30);
+			changesDone = true;
+		} else if (id.equals(ID_FILE_NAME_TEXT)) {
+			String value = Graphiti.getPeService().getPropertyValue(context.getGraphicsAlgorithm(), "index");
+			int index = new Integer(value);
+			Graphiti.getGaService().setLocationAndSize(ga, 5, 30 + 20 * index, outerRectangle.getWidth() - 10, 20);
 			changesDone = true;
 		}
 
@@ -170,21 +175,64 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 	}
 
 	@Override
-	public IReason updateNeeded(IUpdateContext context) {
-		Text nameText = getNameText(context.getPictogramElement());
-		Folder domainObject = (Folder) getBusinessObjectForPictogramElement(context.getPictogramElement());
-		if (domainObject.getName() == null || !domainObject.getName().equals(nameText.getValue())) {
-			return Reason.createTrueReason("Name differs. Expected: '" + domainObject.getName() + "'");
+	protected IReason updateNeeded(IdUpdateContext context, String id) {
+		if (id.equals(ID_FOLDER_NAME_TEXT)) {
+			Text nameText = (Text) context.getGraphicsAlgorithm();
+			Folder domainObject = (Folder) context.getDomainObject();
+			if (domainObject.getName() == null || !domainObject.getName().equals(nameText.getValue())) {
+				return Reason.createTrueReason("Name differs. Expected: '" + domainObject.getName() + "'");
+			}
+		} else if (id.equals(ID_FILE_NAMES_RECTANGLE)) {
+			ContainerShape filesContainerShape = (ContainerShape) context.getPictogramElement();
+			Folder folder = (Folder) context.getDomainObject();
+			if (filesContainerShape.getChildren().size() != folder.getFiles().size()) {
+				return Reason.createTrueReason("Number of files differ. Expected: " + folder.getFiles().size());
+			}
+		} else if (id.equals(ID_FILE_NAME_TEXT)) {
+			Text nameText = (Text) context.getGraphicsAlgorithm();
+			File file = (File) context.getDomainObject();
+			if (file.getName() == null || !file.getName().equals(nameText.getValue())) {
+				return Reason.createTrueReason("Name differs. Expected: '" + file.getName() + "'");
+			}
 		}
+
 		return Reason.createFalseReason();
 	}
 
 	@Override
-	public boolean update(IUpdateContext context) {
-		Text nameText = getNameText(context.getPictogramElement());
-		Folder domainObject = (Folder) getBusinessObjectForPictogramElement(context.getPictogramElement());
-		nameText.setValue(domainObject.getName());
-		return true;
+	protected boolean update(IdUpdateContext context, String id) {
+		if (id.equals(ID_FOLDER_NAME_TEXT)) {
+			Text nameText = (Text) context.getGraphicsAlgorithm();
+			Folder domainObject = (Folder) context.getDomainObject();
+			nameText.setValue(domainObject.getName());
+			return true;
+		} else if (id.equals(ID_FILE_NAMES_RECTANGLE)) {
+			EList<Shape> children = ((ContainerShape) context.getPictogramElement()).getChildren();
+			Shape[] toDelete = children.toArray(new Shape[children.size()]);
+			for (Shape shape : toDelete) {
+				EcoreUtil.delete(shape, true);
+			}
+			EList<File> files = ((Folder) context.getDomainObject()).getFiles();
+			int index = 0;
+			for (File file : files) {
+				Shape shape = Graphiti.getPeCreateService().createShape((ContainerShape) context.getPictogramElement(),
+						true);
+				Text fileNameText = Graphiti.getGaService().createText(shape, file.getName());
+				setId(fileNameText, ID_FILE_NAME_TEXT);
+				Graphiti.getPeService().setPropertyValue(fileNameText, "index", Integer.toString(index));
+				index++;
+				fileNameText.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
+				fileNameText.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
+				link(shape, file);
+			}
+			return true;
+		} else if (id.equals(ID_FILE_NAME_TEXT)) {
+			Text nameText = (Text) context.getGraphicsAlgorithm();
+			File file = (File) context.getDomainObject();
+			nameText.setValue(file.getName());
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -232,45 +280,6 @@ public class FolderPattern extends AbstractPattern implements IPattern {
 		Folder folder = (Folder) getBusinessObjectForPictogramElement(context.getPictogramElement());
 		folder.setName(value);
 		updatePictogramElement(context.getPictogramElement());
-	}
-
-	private void setLocationAndSizeOfMainContentsArea(Rectangle outerRectangle, RoundedRectangle mainRectangle) {
-		Graphiti.getGaService().setLocationAndSize(mainRectangle, 0, 10, outerRectangle.getWidth(),
-				outerRectangle.getHeight() - 10);
-	}
-
-	private void setLocationAndSizeOfTextArea(Rectangle outerRectangle, Text text) {
-		Graphiti.getGaService().setLocationAndSize(text, 0, 10, outerRectangle.getWidth(),
-				outerRectangle.getHeight() - 10);
-	}
-
-	private Rectangle getOuterRectangle(PictogramElement pictogramElement) {
-		if (pictogramElement instanceof ContainerShape) {
-			ContainerShape outerContainerShape = (ContainerShape) pictogramElement;
-			GraphicsAlgorithm outerGraphicsAlgorithm = outerContainerShape.getGraphicsAlgorithm();
-			if (outerGraphicsAlgorithm instanceof Rectangle) {
-				return (Rectangle) outerGraphicsAlgorithm;
-			}
-		}
-		return null;
-	}
-
-	private Text getNameText(PictogramElement pictogramElement) {
-		if (pictogramElement instanceof ContainerShape) {
-			ContainerShape outerContainerShape = (ContainerShape) pictogramElement;
-			GraphicsAlgorithm outerGraphicsAlgorithm = outerContainerShape.getGraphicsAlgorithm();
-			if (outerGraphicsAlgorithm instanceof Rectangle) {
-				EList<Shape> children = outerContainerShape.getChildren();
-				if (children.size() > 0) {
-					Shape shape = children.get(0);
-					GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-					if (graphicsAlgorithm instanceof Text) {
-						return (Text) graphicsAlgorithm;
-					}
-				}
-			}
-		}
-		return null;
 	}
 
 	private String createNewName() {

@@ -22,8 +22,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 /**
  * @since 0.10
  * @experimental This API is in an experimental state and should be used by
- *               clients, as it not final and can be removed or changed without
- *               prior notice!
+ *               clients only with care, as it not final and can be removed or
+ *               changed without prior notice!
  */
 public class IdLayoutContext extends LayoutContext {
 
