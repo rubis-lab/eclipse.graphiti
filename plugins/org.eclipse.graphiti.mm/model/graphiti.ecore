@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="mm"
-    nsURI="http://eclipse.org/graphiti/mm" nsPrefix="mm">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="mm" nsURI="http://eclipse.org/graphiti/mm" nsPrefix="mm">
   <eClassifiers xsi:type="ecore:EClass" name="Property">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -205,6 +203,8 @@
           defaultValueLiteral="0"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
           unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="styleRegions" upperBound="-1"
+          eType="#//algorithms/styles/TextStyleRegion" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="MultiText" eSuperTypes="#//algorithms/AbstractText"/>
     <eSubpackages name="styles" nsURI="http://eclipse.org/graphiti/mm/algorithms/styles"
@@ -230,6 +230,12 @@
         <eLiterals name="LOCATION_TYPE_RELATIVE" value="1"/>
         <eLiterals name="LOCATION_TYPE_ABSOLUTE_START" value="2"/>
         <eLiterals name="LOCATION_TYPE_ABSOLUTE_END" value="3"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EEnum" name="UnderlineStyle">
+        <eLiterals name="UNDERLINE_SINGLE"/>
+        <eLiterals name="UNDERLINE_DOUBLE" value="1"/>
+        <eLiterals name="UNDERLINE_ERROR" value="2"/>
+        <eLiterals name="UNDERLINE_SQUIGGLE" value="3"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="RenderingStyle">
         <eStructuralFeatures xsi:type="ecore:EReference" name="adaptedGradientColoredAreas"
@@ -359,6 +365,22 @@
       <eClassifiers xsi:type="ecore:EClass" name="PrecisionPoint">
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="TextStyle">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="underline" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="underlineStyle" eType="#//algorithms/styles/UnderlineStyle"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="strikeout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="font" eType="#//algorithms/styles/Font"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="foreground" eType="#//algorithms/styles/Color"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="background" eType="#//algorithms/styles/Color"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="underlineColor" eType="#//algorithms/styles/Color"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="strikeoutColor" eType="#//algorithms/styles/Color"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="TextStyleRegion">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="start" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="end" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="style" eType="#//algorithms/styles/TextStyle"
+            containment="true"/>
       </eClassifiers>
     </eSubpackages>
   </eSubpackages>

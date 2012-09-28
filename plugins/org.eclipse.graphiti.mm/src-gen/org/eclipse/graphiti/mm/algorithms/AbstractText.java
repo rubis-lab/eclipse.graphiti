@@ -14,8 +14,10 @@
  */
 package org.eclipse.graphiti.mm.algorithms;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +32,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getVerticalAlignment <em>Vertical Alignment</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getAngle <em>Angle</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getStyleRegions <em>Style Regions</em>}</li>
  * </ul>
  * </p>
  *
@@ -176,5 +179,21 @@ public interface AbstractText extends GraphicsAlgorithm {
 	 * @generated
 	 */
 	void setValue(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Style Regions</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Style Regions</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Style Regions</em>' containment reference list.
+	 * @see org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage#getAbstractText_StyleRegions()
+	 * @model containment="true" resolveProxies="true"
+	 * @generated
+	 */
+	EList<TextStyleRegion> getStyleRegions();
 
 } // AbstractText

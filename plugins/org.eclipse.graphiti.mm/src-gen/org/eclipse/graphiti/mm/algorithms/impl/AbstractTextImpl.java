@@ -14,14 +14,21 @@
  */
 package org.eclipse.graphiti.mm.algorithms.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,6 +42,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.impl.AbstractTextImpl#getVerticalAlignment <em>Vertical Alignment</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.impl.AbstractTextImpl#getAngle <em>Angle</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.impl.AbstractTextImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.algorithms.impl.AbstractTextImpl#getStyleRegions <em>Style Regions</em>}</li>
  * </ul>
  * </p>
  *
@@ -130,6 +138,16 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 	 * @ordered
 	 */
 	protected String value = VALUE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getStyleRegions() <em>Style Regions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStyleRegions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TextStyleRegion> styleRegions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -277,6 +295,32 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<TextStyleRegion> getStyleRegions() {
+		if (styleRegions == null) {
+			styleRegions = new EObjectContainmentEList.Resolving<TextStyleRegion>(TextStyleRegion.class, this, AlgorithmsPackage.ABSTRACT_TEXT__STYLE_REGIONS);
+		}
+		return styleRegions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case AlgorithmsPackage.ABSTRACT_TEXT__STYLE_REGIONS:
+				return ((InternalEList<?>)getStyleRegions()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -291,6 +335,8 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 				return getAngle();
 			case AlgorithmsPackage.ABSTRACT_TEXT__VALUE:
 				return getValue();
+			case AlgorithmsPackage.ABSTRACT_TEXT__STYLE_REGIONS:
+				return getStyleRegions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -300,6 +346,7 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -317,6 +364,10 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 				return;
 			case AlgorithmsPackage.ABSTRACT_TEXT__VALUE:
 				setValue((String)newValue);
+				return;
+			case AlgorithmsPackage.ABSTRACT_TEXT__STYLE_REGIONS:
+				getStyleRegions().clear();
+				getStyleRegions().addAll((Collection<? extends TextStyleRegion>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -345,6 +396,9 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 			case AlgorithmsPackage.ABSTRACT_TEXT__VALUE:
 				setValue(VALUE_EDEFAULT);
 				return;
+			case AlgorithmsPackage.ABSTRACT_TEXT__STYLE_REGIONS:
+				getStyleRegions().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -367,6 +421,8 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 				return ANGLE_EDEFAULT == null ? angle != null : !ANGLE_EDEFAULT.equals(angle);
 			case AlgorithmsPackage.ABSTRACT_TEXT__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+			case AlgorithmsPackage.ABSTRACT_TEXT__STYLE_REGIONS:
+				return styleRegions != null && !styleRegions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

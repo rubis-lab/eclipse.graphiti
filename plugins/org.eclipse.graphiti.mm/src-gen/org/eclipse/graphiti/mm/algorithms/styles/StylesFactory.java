@@ -125,6 +125,24 @@ public interface StylesFactory extends EFactory {
 	PrecisionPoint createPrecisionPoint();
 
 	/**
+	 * Returns a new object of class '<em>Text Style</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Text Style</em>'.
+	 * @generated
+	 */
+	TextStyle createTextStyle();
+
+	/**
+	 * Returns a new object of class '<em>Text Style Region</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Text Style Region</em>'.
+	 * @generated
+	 */
+	TextStyleRegion createTextStyleRegion();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

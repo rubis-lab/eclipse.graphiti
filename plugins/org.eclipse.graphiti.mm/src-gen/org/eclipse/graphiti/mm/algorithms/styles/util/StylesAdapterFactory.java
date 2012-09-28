@@ -31,6 +31,8 @@ import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
 import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
 
 /**
  * <!-- begin-user-doc -->
@@ -131,6 +133,14 @@ public class StylesAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter casePrecisionPoint(PrecisionPoint object) {
 				return createPrecisionPointAdapter();
+			}
+			@Override
+			public Adapter caseTextStyle(TextStyle object) {
+				return createTextStyleAdapter();
+			}
+			@Override
+			public Adapter caseTextStyleRegion(TextStyleRegion object) {
+				return createTextStyleRegionAdapter();
 			}
 			@Override
 			public Adapter caseStyleContainer(StyleContainer object) {
@@ -297,9 +307,8 @@ public class StylesAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '
-	 * {@link org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint
-	 * <em>Precision Point</em>}'. <!-- begin-user-doc --> This default
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint <em>Precision Point</em>}'.
+	 * <!-- begin-user-doc --> This default
 	 * implementation returns null so that we can easily ignore cases; it's
 	 * useful to ignore a case when inheritance will catch all the cases anyway.
 	 * 
@@ -309,6 +318,34 @@ public class StylesAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPrecisionPointAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyle <em>Text Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle
+	 * @generated
+	 */
+	public Adapter createTextStyleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion <em>Text Style Region</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion
+	 * @generated
+	 */
+	public Adapter createTextStyleRegionAdapter() {
 		return null;
 	}
 

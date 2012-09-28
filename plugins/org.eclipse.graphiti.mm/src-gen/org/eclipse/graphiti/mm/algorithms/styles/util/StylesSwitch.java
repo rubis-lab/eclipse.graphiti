@@ -30,6 +30,8 @@ import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
 import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
 
 /**
  * <!-- begin-user-doc -->
@@ -153,6 +155,18 @@ public class StylesSwitch<T> extends Switch<T> {
 			case StylesPackage.PRECISION_POINT: {
 				PrecisionPoint precisionPoint = (PrecisionPoint)theEObject;
 				T result = casePrecisionPoint(precisionPoint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case StylesPackage.TEXT_STYLE: {
+				TextStyle textStyle = (TextStyle)theEObject;
+				T result = caseTextStyle(textStyle);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case StylesPackage.TEXT_STYLE_REGION: {
+				TextStyleRegion textStyleRegion = (TextStyleRegion)theEObject;
+				T result = caseTextStyleRegion(textStyleRegion);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -322,6 +336,36 @@ public class StylesSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePrecisionPoint(PrecisionPoint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Text Style</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Text Style</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTextStyle(TextStyle object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Text Style Region</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Text Style Region</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTextStyleRegion(TextStyleRegion object) {
 		return null;
 	}
 

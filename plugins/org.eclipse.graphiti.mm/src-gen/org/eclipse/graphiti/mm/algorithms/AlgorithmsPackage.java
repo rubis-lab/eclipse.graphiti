@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.graphiti.mm.MmPackage;
 
 /**
@@ -803,13 +802,22 @@ public interface AlgorithmsPackage extends EPackage {
 	int ABSTRACT_TEXT__VALUE = GRAPHICS_ALGORITHM_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Style Regions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TEXT__STYLE_REGIONS = GRAPHICS_ALGORITHM_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Abstract Text</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_TEXT_FEATURE_COUNT = GRAPHICS_ALGORITHM_FEATURE_COUNT + 5;
+	int ABSTRACT_TEXT_FEATURE_COUNT = GRAPHICS_ALGORITHM_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.algorithms.impl.TextImpl <em>Text</em>}' class.
@@ -1018,6 +1026,15 @@ public interface AlgorithmsPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT__VALUE = ABSTRACT_TEXT__VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Style Regions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT__STYLE_REGIONS = ABSTRACT_TEXT__STYLE_REGIONS;
 
 	/**
 	 * The number of structural features of the '<em>Text</em>' class.
@@ -2169,6 +2186,15 @@ public interface AlgorithmsPackage extends EPackage {
 	int MULTI_TEXT__VALUE = ABSTRACT_TEXT__VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Style Regions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_TEXT__STYLE_REGIONS = ABSTRACT_TEXT__STYLE_REGIONS;
+
+	/**
 	 * The number of structural features of the '<em>Multi Text</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2510,6 +2536,17 @@ public interface AlgorithmsPackage extends EPackage {
 	EAttribute getAbstractText_Value();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getStyleRegions <em>Style Regions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Style Regions</em>'.
+	 * @see org.eclipse.graphiti.mm.algorithms.AbstractText#getStyleRegions()
+	 * @see #getAbstractText()
+	 * @generated
+	 */
+	EReference getAbstractText_StyleRegions();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.algorithms.MultiText <em>Multi Text</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2808,6 +2845,14 @@ public interface AlgorithmsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ABSTRACT_TEXT__VALUE = eINSTANCE.getAbstractText_Value();
+
+		/**
+		 * The meta object literal for the '<em><b>Style Regions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_TEXT__STYLE_REGIONS = eINSTANCE.getAbstractText_StyleRegions();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.algorithms.impl.MultiTextImpl <em>Multi Text</em>}' class.
