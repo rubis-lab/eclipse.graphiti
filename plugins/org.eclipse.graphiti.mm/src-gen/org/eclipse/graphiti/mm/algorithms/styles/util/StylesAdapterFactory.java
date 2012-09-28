@@ -330,6 +330,7 @@ public class StylesAdapterFactory extends AdapterFactoryImpl {
 	 * @return the new adapter.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle
 	 * @generated
+	 * @since 0.10
 	 */
 	public Adapter createTextStyleAdapter() {
 		return null;
@@ -344,6 +345,7 @@ public class StylesAdapterFactory extends AdapterFactoryImpl {
 	 * @return the new adapter.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion
 	 * @generated
+	 * @since 0.10
 	 */
 	public Adapter createTextStyleRegionAdapter() {
 		return null;
