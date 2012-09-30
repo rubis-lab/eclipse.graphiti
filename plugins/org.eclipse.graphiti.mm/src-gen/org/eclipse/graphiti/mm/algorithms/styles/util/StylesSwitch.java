@@ -343,12 +343,13 @@ public class StylesSwitch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Text Style</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
+	 * returning a non-null result will terminate the switch. 
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Text Style</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @since 0.10
 	 */
 	public T caseTextStyle(TextStyle object) {
 		return null;
@@ -364,6 +365,7 @@ public class StylesSwitch<T> extends Switch<T> {
 	 * @return the result of interpreting the object as an instance of '<em>Text Style Region</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @since 0.10
 	 */
 	public T caseTextStyleRegion(TextStyleRegion object) {
 		return null;

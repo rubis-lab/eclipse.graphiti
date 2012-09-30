@@ -39,6 +39,8 @@ import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
  * @see org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage#getAbstractText()
  * @model abstract="true"
  * @generated
+ * @noextend This interface is not intended to be extended by clients.
+ * @noimplement This interface is not intended to be implemented by clients.
  */
 public interface AbstractText extends GraphicsAlgorithm {
 	/**
@@ -188,6 +190,7 @@ public interface AbstractText extends GraphicsAlgorithm {
 	 * If the meaning of the '<em>Style Regions</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Style Regions</em>' containment reference list.
 	 * @see org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage#getAbstractText_StyleRegions()

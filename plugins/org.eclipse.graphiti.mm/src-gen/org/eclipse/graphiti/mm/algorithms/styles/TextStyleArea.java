@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getTextStyleArea()
  * @model
  * @generated
+ * @since 0.10
  */
 public interface TextStyleArea extends EObject {
 	/**
