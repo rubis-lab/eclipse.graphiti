@@ -28,6 +28,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getUnderlineStyle()
  * @model
  * @generated
+ * @since 0.10
  */
 public enum UnderlineStyle implements Enumerator {
 	/**

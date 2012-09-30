@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getTextStyle()
  * @model
  * @generated
+ * @since 0.10
  */
 public interface TextStyle extends EObject {
 	/**

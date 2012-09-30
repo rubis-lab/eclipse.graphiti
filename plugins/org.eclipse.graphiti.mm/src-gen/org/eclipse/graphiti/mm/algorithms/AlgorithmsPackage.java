@@ -25,11 +25,14 @@ import org.eclipse.graphiti.mm.MmPackage;
  * The <b>Package</b> for the model.
  * It contains accessors for the meta objects to represent
  * <ul>
- *   <li>each class,</li>
- *   <li>each feature of each class,</li>
- *   <li>each enum,</li>
- *   <li>and each data type</li>
+ * <li>each class,</li>
+ * <li>each feature of each class,</li>
+ * <li>each enum,</li>
+ * <li>and each data type</li>
  * </ul>
+ * 
+ * @noimplement This interface is not intended to be implemented by clients.
+ * @noextend This interface is not intended to be extended by clients.
  * <!-- end-user-doc -->
  * @see org.eclipse.graphiti.mm.algorithms.AlgorithmsFactory
  * @model kind="package"
@@ -802,11 +805,12 @@ public interface AlgorithmsPackage extends EPackage {
 	int ABSTRACT_TEXT__VALUE = GRAPHICS_ALGORITHM_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Style Regions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Style Regions</b></em>' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
+	 * @since 0.10
 	 */
 	int ABSTRACT_TEXT__STYLE_REGIONS = GRAPHICS_ALGORITHM_FEATURE_COUNT + 5;
 
@@ -1028,11 +1032,12 @@ public interface AlgorithmsPackage extends EPackage {
 	int TEXT__VALUE = ABSTRACT_TEXT__VALUE;
 
 	/**
-	 * The feature id for the '<em><b>Style Regions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Style Regions</b></em>' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
+	 * @since 0.10
 	 */
 	int TEXT__STYLE_REGIONS = ABSTRACT_TEXT__STYLE_REGIONS;
 
@@ -2186,11 +2191,12 @@ public interface AlgorithmsPackage extends EPackage {
 	int MULTI_TEXT__VALUE = ABSTRACT_TEXT__VALUE;
 
 	/**
-	 * The feature id for the '<em><b>Style Regions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Style Regions</b></em>' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
+	 * @since 0.10
 	 */
 	int MULTI_TEXT__STYLE_REGIONS = ABSTRACT_TEXT__STYLE_REGIONS;
 
@@ -2536,13 +2542,16 @@ public interface AlgorithmsPackage extends EPackage {
 	EAttribute getAbstractText_Value();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getStyleRegions <em>Style Regions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Style Regions</em>'.
+	 * Returns the meta object for the containment reference list '
+	 * {@link org.eclipse.graphiti.mm.algorithms.AbstractText#getStyleRegions
+	 * <em>Style Regions</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference list '
+	 *         <em>Style Regions</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.AbstractText#getStyleRegions()
 	 * @see #getAbstractText()
 	 * @generated
+	 * @since 0.10
 	 */
 	EReference getAbstractText_StyleRegions();
 
@@ -2566,15 +2575,18 @@ public interface AlgorithmsPackage extends EPackage {
 	AlgorithmsFactory getAlgorithmsFactory();
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * Defines literals for the meta objects that represent
+	 * <!-- begin-user-doc --> Defines literals for the meta objects that
+	 * represent
 	 * <ul>
-	 *   <li>each class,</li>
-	 *   <li>each feature of each class,</li>
-	 *   <li>each enum,</li>
-	 *   <li>and each data type</li>
+	 * <li>each class,</li>
+	 * <li>each feature of each class,</li>
+	 * <li>each enum,</li>
+	 * <li>and each data type</li>
 	 * </ul>
-	 * <!-- end-user-doc -->
+	 * 
+	 * @noextend This interface is not intended to be extended by clients.
+	 * @noimplement This interface is not intended to be implemented by clients.
+	 *              <!-- end-user-doc -->
 	 * @generated
 	 */
 	interface Literals {
@@ -2847,10 +2859,12 @@ public interface AlgorithmsPackage extends EPackage {
 		EAttribute ABSTRACT_TEXT__VALUE = eINSTANCE.getAbstractText_Value();
 
 		/**
-		 * The meta object literal for the '<em><b>Style Regions</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Style Regions</b></em>'
+		 * containment reference list feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
+		 * 
 		 * @generated
+		 * @since 0.10
 		 */
 		EReference ABSTRACT_TEXT__STYLE_REGIONS = eINSTANCE.getAbstractText_StyleRegions();
 
