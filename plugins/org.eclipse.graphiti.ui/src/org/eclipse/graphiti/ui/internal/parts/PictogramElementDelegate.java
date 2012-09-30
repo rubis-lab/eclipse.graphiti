@@ -610,7 +610,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 
 		// Create a tooltip label
-		Label tooltipLabel = null;
+		IFigure tooltipFigure = null;
 
 		// First check the need for an update needed tooltip
 		Label indicateUpdateNeedeTooltipLabel = null;
@@ -624,20 +624,25 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		if (indicateUpdateNeedeTooltipLabel != null) {
 			// Use update needed tooltip in any case (tool provided tooltip
 			// would be probably invalid)
-			tooltipLabel = indicateUpdateNeedeTooltipLabel;
+			tooltipFigure = indicateUpdateNeedeTooltipLabel;
 		} else {
 			// ... if not get the tool provided tooltip (for performance reasons
 			// only called in case no update needed tooltip exists)
-			String toolTip = toolBehaviorProvider.getToolTip(graphicsAlgorithm);
-			if (toolTip != null && !(toolTip.length() == 0)) {
+			AbstractText toolTip = toolBehaviorProvider.getRichToolTip(graphicsAlgorithm);
+			if (toolTip != null && toolTip.getValue() != null && !(toolTip.getValue().length() == 0)) {
 				// null or empty string means no tooltip wanted
-				tooltipLabel = new Label(toolTip);
+				if (toolTip instanceof Text) {
+					tooltipFigure = new GFText(this, (Text) toolTip);
+					((GFText) tooltipFigure).setText(toolTip.getValue());
+				} else if (toolTip instanceof MultiText) {
+					tooltipFigure = new GFMultilineText(this, (MultiText) toolTip);
+				}
 			}
 		}
 
 		// Set the tooltip in any case, especially also when it's null to clean
 		// up a previously set tooltip (see Bugzilla 348662)
-		figure.setToolTip(tooltipLabel);
+		figure.setToolTip(tooltipFigure);
 	}
 
 	private void refreshFont(AbstractText text, Figure label) {
