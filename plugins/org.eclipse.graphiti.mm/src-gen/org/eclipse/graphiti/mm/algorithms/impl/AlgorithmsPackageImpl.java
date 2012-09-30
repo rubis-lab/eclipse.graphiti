@@ -18,11 +18,8 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.graphiti.mm.MmPackage;
-
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.AlgorithmsFactory;
 import org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage;
@@ -36,15 +33,10 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
-
 import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
-
 import org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl;
-
 import org.eclipse.graphiti.mm.impl.MmPackageImpl;
-
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
-
 import org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl;
 
 /**
@@ -487,6 +479,15 @@ public class AlgorithmsPackageImpl extends EPackageImpl implements AlgorithmsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getAbstractText_StyleRegions() {
+		return (EReference)abstractTextEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMultiText() {
 		return multiTextEClass;
 	}
@@ -559,6 +560,7 @@ public class AlgorithmsPackageImpl extends EPackageImpl implements AlgorithmsPac
 		createEAttribute(abstractTextEClass, ABSTRACT_TEXT__VERTICAL_ALIGNMENT);
 		createEAttribute(abstractTextEClass, ABSTRACT_TEXT__ANGLE);
 		createEAttribute(abstractTextEClass, ABSTRACT_TEXT__VALUE);
+		createEReference(abstractTextEClass, ABSTRACT_TEXT__STYLE_REGIONS);
 
 		multiTextEClass = createEClass(MULTI_TEXT);
 	}
@@ -653,6 +655,7 @@ public class AlgorithmsPackageImpl extends EPackageImpl implements AlgorithmsPac
 		initEAttribute(getAbstractText_VerticalAlignment(), theStylesPackage.getOrientation(), "verticalAlignment", "ALIGNMENT_CENTER", 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getAbstractText_Angle(), ecorePackage.getEIntegerObject(), "angle", "0", 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getAbstractText_Value(), ecorePackage.getEString(), "value", null, 1, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getAbstractText_StyleRegions(), theStylesPackage.getTextStyleRegion(), null, "styleRegions", null, 0, -1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(multiTextEClass, MultiText.class, "MultiText", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 	}

@@ -1154,7 +1154,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 		try {
 			final Robot robot = new Robot();
-			robot.setAutoDelay(1);
+			robot.setAutoDelay(500);
 			try {
 				robot.keyPress(KeyEvent.VK_ALT);
 				robot.keyPress(KeyEvent.VK_LEFT);
@@ -1168,9 +1168,7 @@ public class GFOtherTests extends AbstractGFTests {
 			fail(e.getMessage());
 		}
 
-		Thread.sleep(600);
-
-		SWTBotEditor swtBotEditor = bot.activeEditor();
+		SWTBotEditor swtBotEditor = bot.editorById(DiagramEditor.DIAGRAM_EDITOR_ID);
 		assertNotNull(swtBotEditor);
 		SWTBotStyledText styledText = swtBotEditor.bot().styledText();
 		assertNotNull(styledText);
