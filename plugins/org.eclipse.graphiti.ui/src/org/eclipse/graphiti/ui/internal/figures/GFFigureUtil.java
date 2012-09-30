@@ -24,13 +24,21 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Vector;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Path;
+import org.eclipse.swt.graphics.TextLayout;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * A utility class containing static helper-methods for Graphiti figures.
@@ -621,4 +629,85 @@ public class GFFigureUtil {
 			s.y = Math.round(c.y + (float) y * vy);
 		}
 	}
+
+	protected static void drawRichText(Graphics g, String draw, int x, int y,
+			IConfigurationProviderInternal configurationProvider, AbstractText text) {
+		drawRichText(g, draw, x, y, -1, false, 0, configurationProvider, text);
+	}
+
+	protected static void drawRichText(Graphics g, String draw, int x, int y, int bidiLevel, boolean mirrored,
+			int currentOffset, IConfigurationProviderInternal configurationProvider, AbstractText text) {
+		if (bidiLevel == -1) {
+			TextLayout tl = new TextLayout(Display.getDefault());
+			if (mirrored)
+				tl.setOrientation(SWT.RIGHT_TO_LEFT);
+			tl.setFont(g.getFont());
+			tl.setText(draw);
+			List<Font> fontsToDispose = new ArrayList<Font>();
+
+			for (TextStyleRegion style : text.getStyleRegions()) {
+				int start = style.getStart() - currentOffset;
+				int end = style.getEnd() - currentOffset;
+				if (start >= draw.length())
+					continue;
+				if (end < 0)
+					continue;
+
+				org.eclipse.swt.graphics.TextStyle textStyle = new org.eclipse.swt.graphics.TextStyle();
+				TextStyle gTextStyle = style.getStyle();
+
+				textStyle.underline = gTextStyle.isUnderline();
+				textStyle.strikeout = gTextStyle.isStrikeout();
+				textStyle.underlineStyle = gTextStyle.getUnderlineStyle().getValue();
+
+				org.eclipse.graphiti.mm.algorithms.styles.Font font = gTextStyle.getFont();
+				if (font != null) {
+					textStyle.font = DataTypeTransformation.toSwtFont(font);
+					fontsToDispose.add(textStyle.font);
+				}
+
+				org.eclipse.graphiti.mm.algorithms.styles.Color foreground = gTextStyle.getForeground();
+				if (foreground != null) {
+					textStyle.foreground = DataTypeTransformation.toSwtColor(
+							configurationProvider.getResourceRegistry(), foreground);
+				}
+
+				org.eclipse.graphiti.mm.algorithms.styles.Color background = gTextStyle.getBackground();
+				if (background != null) {
+					textStyle.background = DataTypeTransformation.toSwtColor(
+							configurationProvider.getResourceRegistry(), background);
+				}
+
+				org.eclipse.graphiti.mm.algorithms.styles.Color underlineColor = gTextStyle.getUnderlineColor();
+				if (underlineColor != null) {
+					textStyle.underlineColor = DataTypeTransformation.toSwtColor(
+							configurationProvider.getResourceRegistry(), underlineColor);
+				}
+
+				org.eclipse.graphiti.mm.algorithms.styles.Color strikeoutColor = gTextStyle.getStrikeoutColor();
+				if (strikeoutColor != null) {
+					textStyle.strikeoutColor = DataTypeTransformation.toSwtColor(
+							configurationProvider.getResourceRegistry(), strikeoutColor);
+				}
+
+				tl.setStyle(textStyle, start, end);
+			}
+
+			g.drawTextLayout(tl, x, y);
+			tl.dispose();
+			for (Font font : fontsToDispose) {
+				font.dispose();
+			}
+
+		} else {
+			TextLayout tl = new TextLayout(Display.getDefault());
+			if (mirrored)
+				tl.setOrientation(SWT.RIGHT_TO_LEFT);
+			tl.setFont(g.getFont());
+			tl.setText(draw);
+			g.drawTextLayout(tl, x, y);
+			tl.dispose();
+		}
+	}
+
 }

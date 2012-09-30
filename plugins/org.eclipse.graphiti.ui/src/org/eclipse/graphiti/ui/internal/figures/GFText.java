@@ -31,6 +31,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
@@ -40,7 +41,7 @@ import org.eclipse.swt.graphics.Font;
  * @noextend This class is not intended to be subclassed by clients.
  */
 public class GFText extends Label implements RotatableDecoration {
-	private GraphicsAlgorithm graphicsAlgorithm;
+	private Text text;
 
 	private int labelAlignment = CENTER;
 
@@ -51,8 +52,10 @@ public class GFText extends Label implements RotatableDecoration {
 	// rotation angle if text is used as an passive connection decorator
 	private double rotationAngle = 0d;
 
-	public GFText(IPictogramElementDelegate pictogramElementDelegate, GraphicsAlgorithm graphicsAlgorithm) {
-		this.graphicsAlgorithm = graphicsAlgorithm;
+	private IConfigurationProviderInternal configurationProvider;
+
+	public GFText(IPictogramElementDelegate pictogramElementDelegate, Text text) {
+		this.text = text;
 	}
 
 	@Override
@@ -62,8 +65,8 @@ public class GFText extends Label implements RotatableDecoration {
 
 	@Override
 	public void paintFigure(Graphics graphics) {
-		if (graphicsAlgorithm != null && GraphitiInternal.getEmfService().isObjectAlive(graphicsAlgorithm)) {
-			double transparency = Graphiti.getGaService().getTransparency(graphicsAlgorithm, true);
+		if (text != null && GraphitiInternal.getEmfService().isObjectAlive(text)) {
+			double transparency = Graphiti.getGaService().getTransparency(text, true);
 			int alpha = (int) ((1.0 - transparency) * 255.0);
 			graphics.setAlpha(alpha);
 
@@ -72,8 +75,8 @@ public class GFText extends Label implements RotatableDecoration {
 			if (graphics instanceof ScaledGraphics)
 				graphics.setTextAntialias(SWT.ON);
 
-			if (rotationAngle != 0 && graphicsAlgorithm.eContainer() instanceof ConnectionDecorator
-					&& !((ConnectionDecorator) graphicsAlgorithm.eContainer()).isActive()) {
+			if (rotationAngle != 0 && text.eContainer() instanceof ConnectionDecorator
+					&& !((ConnectionDecorator) text.eContainer()).isActive()) {
 				Rectangle rect = new Rectangle();
 				graphics.getClip(rect);
 				graphics.pushState();
@@ -94,8 +97,8 @@ public class GFText extends Label implements RotatableDecoration {
 			}
 
 			int angle = 0;
-			if (graphicsAlgorithm instanceof Text) {
-				Text textGa = (Text) graphicsAlgorithm;
+			if (text instanceof Text) {
+				Text textGa = (Text) text;
 				angle = Graphiti.getGaService().getAngle(textGa, true);
 			}
 
@@ -117,8 +120,9 @@ public class GFText extends Label implements RotatableDecoration {
 				// real clip rectangle
 				// from the angle
 				graphics.setClip(rect);
-				graphics.drawText(getSubStringText(), getTextLocation());
-
+				GFFigureUtil.drawRichText(graphics, getSubStringText(), getTextLocation().x(), getTextLocation().y(),
+						configurationProvider, text);
+				
 				bounds.height = h;
 				bounds.width = w;
 
@@ -128,7 +132,15 @@ public class GFText extends Label implements RotatableDecoration {
 			}
 		}
 
-		super.paintFigure(graphics);
+		if (isOpaque())
+			super.paintFigure(graphics);
+		Rectangle bounds = getBounds();
+		graphics.translate(bounds.x, bounds.y);
+
+		GFFigureUtil.drawRichText(graphics, getSubStringText(), getTextLocation().x(), getTextLocation().y(),
+				configurationProvider, text);
+
+		graphics.translate(-bounds.x, -bounds.y);
 
 	}
 
@@ -184,6 +196,6 @@ public class GFText extends Label implements RotatableDecoration {
 	}
 
 	public GraphicsAlgorithm getGraphicsAlgorithm() {
-		return graphicsAlgorithm;
+		return text;
 	}
 }
