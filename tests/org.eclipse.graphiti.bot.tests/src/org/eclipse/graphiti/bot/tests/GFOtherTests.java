@@ -29,6 +29,7 @@ import static org.easymock.EasyMock.createNiceMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
+import static org.eclipse.swtbot.eclipse.finder.matchers.WidgetMatcherFactory.withPartId;
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
@@ -147,9 +148,11 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Test;
 
@@ -1169,9 +1172,18 @@ public class GFOtherTests extends AbstractGFTests {
 			fail(e.getMessage());
 		}
 
-		SWTBotEditor swtBotEditor = bot.editorById(DiagramEditor.DIAGRAM_EDITOR_ID);
-		assertNotNull(swtBotEditor);
-		SWTBotStyledText styledText = swtBotEditor.bot().styledText();
+		Matcher<IEditorReference> withPartId = withPartId(DiagramEditor.DIAGRAM_EDITOR_ID);
+		List<SWTBotEditor> editors = bot.editors(withPartId);
+		assertTrue(editors.size() > 0); // May open more than one if it runs too
+										// long in history
+		SWTBotEditor editor = null;
+		for (SWTBotEditor currentEditor : editors)
+			if (currentEditor.getTitle().equals("Graphiti Diagram Editor"))
+				editor = currentEditor;
+
+		assertNotNull(editor);
+		editor.show();
+		SWTBotStyledText styledText = editor.bot().styledText();
 		assertNotNull(styledText);
 		assertTrue(styledText.getText().startsWith("No Diagram found for URI"));
 
