@@ -34,14 +34,115 @@ table.news tr td.content {
 
 <body>
 
-	<h1>Graphiti &quot;New and Noteworthy&quot; for Kepler</h1>
-	<p>Last revised August 21, 2012</p>
+	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Kepler</h1>
+	<p>Last revised September 01, 2012</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.10.0 within the
 		Kepler release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M2 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M2</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on bugfixing and implementing round-offs.</td>
+		</tr>
+		<tr id="bug 376585">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=376585">Removal
+					of Deprecated API</a></td>
+			<td class="content">The deprecated methods in the Graphiti API
+				have been removed. This is an potentially incompatible <b>API
+					change</b>, although clients should have adapted their coding already
+				some time ago.
+			</td>
+		</tr>
+		<tr id="bug 385190">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=385190">New
+					Pattern Constructor</a></td>
+			<td class="content">A new constructor with no parameters has
+				been introduced for Graphiti patterns.</td>
+		</tr>
+		<tr id="bug 388119">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=388119">New
+					Filesystem Example</a></td>
+			<td class="content">The filesystem example shown at the Eclipse
+				Juno demo camps in June has been added as an additional example of
+				Graphiti. It serves as an example of how to use patterns for
+				building a Graphiti editor.</td>
+		</tr>
+		<tr id="bug 382928">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=382928">Gradient
+					Definitions</a></td>
+			<td class="content">An additional and more advanced example for
+				gradient definitions has been added to the filesystem example.</td>
+		</tr>
+		<tr id="bug 389426">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=389426">Factory
+					Method for Workspace Synchronizer</a></td>
+			<td class="content">Clients might have the need to use a custom
+				EMF workspace synchronizer to react differently on external file
+				change events. By providing a special factory method for the
+				instance to use in <i>DefaultUpdateBehavior</i> this scenario has
+				been eased.
+			</td>
+		</tr>
+		<tr id="bug 389380">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=389380">Bug
+					389380</a></td>
+			<td class="content">A bug in the undo stack handling in the
+				Graphiti editor has been fixed that caused the wrong feature command
+				to appear at the top of the undo stack under certain conditions.</td>
+		</tr>
+		<tr id="bug 388213">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=388213">Bug
+					388213 </a></td>
+			<td class="content">Two import statements that required a
+				dependency to <i>org.eclipse.ui</i> to be required have been
+				removed. The dependecy causes issues with using Graphiti in an
+				Eclipse 4 based RCP application.
+			</td>
+		</tr>
+		<tr id="bug 388335">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=388335">Bug
+					388335 </a></td>
+			<td class="content">Fixed a wrong JavaDoc comment about
+				potential future extensions to the Graphiti undo/redo handling that
+				actually already exist.</td>
+		</tr>
+		<tr id="bug 388211">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=388211">Bug
+					388211 </a></td>
+			<td class="content">The new plug-in wizard to create a Graphiti
+				diagram editor always added a dependency to <i>org.eclipse.ui</i>,
+				although it is only needed when an activator class should be
+				generated. In case no activator is generated the dependency will now
+				not be added any more. This resolved some issues with using Graphiti
+				for creating an Eclipse 4 based RCP application.
+			</td>
+		</tr>
+		<tr id="bug 387971">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=387971">Bug
+					387971 </a></td>
+			<td class="content">A bug in the action handling which caused
+				that context menu entries like copy and paste did not work when the
+				Graphiti Diagram Editor was embedded inside a multi page editor has
+				been fixed.</td>
+		</tr>
 		<!-- ---------------------------------------- M1 ------------------------------- -->
 		<tr>
 			<td colspan="2">
