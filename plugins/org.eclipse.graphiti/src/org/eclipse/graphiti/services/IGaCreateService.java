@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.StyleContainer;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.Image;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
@@ -35,6 +36,9 @@ import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
+import org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.util.IColorConstant;
@@ -1155,4 +1159,68 @@ public interface IGaCreateService {
 	 */
 	public Style createPlainStyle(StyleContainer styleContainer, String id);
 
+	/**
+	 * Creates a {@link TextStyleRegion}. The style is aggregated under the
+	 * given abstract text.
+	 * 
+	 * @param abstractText
+	 *            container text
+	 * @return the newly created text style region
+	 * @see TextStyleRegion
+	 * @see #createTextStyleRegion(AbstractText, int, int)
+	 * @since 0.10
+	 */
+	public TextStyleRegion createTextStyleRegion(AbstractText abstractText);
+
+	/**
+	 * Creates a {@link TextStyleRegion} with the given bounds. The style is
+	 * aggregated under the given abstract text.
+	 * 
+	 * @param abstractText
+	 *            container text
+	 * @param start
+	 *            region start
+	 * @param end
+	 *            retion end
+	 * @return the newly created text style region
+	 * 
+	 * @see TextStyleRegion
+	 * @since 0.10
+	 */
+	public TextStyleRegion createTextStyleRegion(AbstractText abstractText, int start, int end);
+
+	/**
+	 * Creates a {@link TextStyle}. The style is aggregated under the given text
+	 * style region.
+	 * 
+	 * @param region
+	 *            container region
+	 * @return the newly created text style
+	 * 
+	 * @see TextStyle
+	 * @see #createTextStyle(TextStyleRegion, boolean, boolean, UnderlineStyle)
+	 * @since 0.10
+	 */
+	public TextStyle createTextStyle(TextStyleRegion region);
+
+	/**
+	 * Creates a {@link TextStyle} with the given values. The style is
+	 * aggregated under the given text style region.
+	 * 
+	 * @param region
+	 *            container region
+	 * @param underline
+	 *            the is underlined
+	 * @param strikeout
+	 *            the is stroke out
+	 * @param underlineStyle
+	 *            the underline style
+	 * @return the newly created text style
+	 * 
+	 * @see TextStyle
+	 * @see #createStyle(StyleContainer, String)
+	 * @since 0.10
+	 */
+	public TextStyle createTextStyle(TextStyleRegion region, boolean underline, boolean strikeout,
+			UnderlineStyle underlineStyle);
 }
