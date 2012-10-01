@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.StyleContainer;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
 import org.eclipse.graphiti.mm.algorithms.Image;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
@@ -37,6 +38,9 @@ import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
+import org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
@@ -656,5 +660,51 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 */
 	public Shape createShape(ContainerShape parentContainerShape, boolean active) {
 		return getPeService().createShape(parentContainerShape, active);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createTextStyleRegion(
+	 * org.eclipse.graphiti.mm.algorithms.AbstractText)
+	 */
+	public TextStyleRegion createTextStyleRegion(AbstractText abstractText) {
+		return getGaService().createTextStyleRegion(abstractText);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createTextStyleRegion(
+	 * org.eclipse.graphiti.mm.algorithms.AbstractText, int, int)
+	 */
+	public TextStyleRegion createTextStyleRegion(AbstractText abstractText, int start, int end) {
+		return getGaService().createTextStyleRegion(abstractText, start, end);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createTextStyle(org.eclipse
+	 * .graphiti.mm.algorithms.styles.TextStyleRegion)
+	 */
+	public TextStyle createTextStyle(TextStyleRegion region) {
+		return getGaService().createTextStyle(region);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createTextStyle(org.eclipse
+	 * .graphiti.mm.algorithms.styles.TextStyleRegion, boolean, boolean,
+	 * org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle)
+	 */
+	public TextStyle createTextStyle(TextStyleRegion region, boolean underline, boolean strikeout,
+			UnderlineStyle underlineStyle) {
+		return getGaService().createTextStyle(region, underline, strikeout, underlineStyle);
 	}
 }

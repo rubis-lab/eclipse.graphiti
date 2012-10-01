@@ -38,7 +38,12 @@ import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
+import org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -510,21 +515,40 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 	}
 
 	@Override
-	public String getToolTip(GraphicsAlgorithm ga) {
+	public AbstractText getRichToolTip(GraphicsAlgorithm ga) {
 		if (SketchUtil.isConnectionPoint(ga.getPictogramElement())) {
 			return null;
 		}
 		
 		if (ga instanceof AbstractText && ga.getParentGraphicsAlgorithm() != null) {
-			return getToolTip(ga.getParentGraphicsAlgorithm());
-		} else {
-			final int x = ga.getX();
-			final int y = ga.getY();
-			final int width = ga.getWidth();
-			final int height = ga.getHeight();
-			String ret = ga.getClass().getSimpleName() + " (x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ")";
-			return ret;
+			return getRichToolTip(ga.getParentGraphicsAlgorithm());
 		}
+		final int x = ga.getX();
+		final int y = ga.getY();
+		final int width = ga.getWidth();
+		final int height = ga.getHeight();
+		String first = ga.getClass().getPackage().getName();
+		String second = ga.getClass().getSimpleName();
+		String third = "(x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ")";
+		String toolTip = first + "." + second + "\n" + third;
+
+		IGaService gaService = Graphiti.getGaService();
+		Text text = gaService.createPlainText(null, toolTip);
+
+		TextStyleRegion textStyleRegion = gaService.createTextStyleRegion(text, first.length() + 1, first.length()
+				+ second.length());
+		gaService.createTextStyle(textStyleRegion, true, false, UnderlineStyle.UNDERLINE_SINGLE);
+
+		TextStyleRegion textStyleRegion2 = gaService.createTextStyleRegion(text);
+		textStyleRegion2.setStart(first.length() + second.length() + 2);
+		textStyleRegion2.setEnd(toolTip.length());
+
+		TextStyle textStyle = gaService.createTextStyle(textStyleRegion);
+		Font font = gaService.manageFont(getDiagramTypeProvider().getDiagram(), IGaService.DEFAULT_FONT,
+				IGaService.DEFAULT_FONT_SIZE, true, false);
+		textStyle.setFont(font);
+
+		return text;
 	}
 
 	@Override
