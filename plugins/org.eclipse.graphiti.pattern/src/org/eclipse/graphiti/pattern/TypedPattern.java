@@ -33,11 +33,20 @@ import org.eclipse.graphiti.services.Graphiti;
  * the key PROPERTY_KEY_PATTERN_TYPE.
  * 
  * @since 0.10
+ * @experimental This API is in an experimental state and should be used by
+ *               clients only with care, as it not final and can be removed or
+ *               changed without prior notice!
  */
 public abstract class TypedPattern extends AbstractPattern {
 
+	/**
+	 * Constant indication the type of pattern, e.g. ID pattern.
+	 */
 	protected static final String PROPERTY_KEY_PATTERN_TYPE = "org.eclipse.graphiti.pattern.patternType";
 
+	/**
+	 * Constructor to be used when no configuration data is needed.
+	 */
 	public TypedPattern() {
 		super();
 	}

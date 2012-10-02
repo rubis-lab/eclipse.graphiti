@@ -21,8 +21,8 @@ import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.context.impl.AreaContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
+import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.PropertyContainer;
@@ -32,6 +32,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.pattern.TypedPattern;
+import org.eclipse.graphiti.pattern.config.IPatternConfiguration;
 import org.eclipse.graphiti.services.Graphiti;
 
 /**
@@ -40,56 +41,139 @@ import org.eclipse.graphiti.services.Graphiti;
  * to identify the parts of that shape and to call the update and layout methods
  * for the shapes with IDs. Clients do not need to search through the shape
  * hierarchy to find the shapes to update and layout.
+ * <p>
+ * Besides IDs this pattern base implementation also supports tagging
+ * {@link PictogramElement}s with an index property that allows to number a
+ * sequence of children using the same ID, e.g. a list of attributes inside a
+ * class.
  * 
  * @since 0.10
  * @experimental This API is in an experimental state and should be used by
- *               clients, as it not final and can be removed or changed without
- *               prior notice!
+ *               clients only with care, as it not final and can be removed or
+ *               changed without prior notice!
  */
 public abstract class IdPattern extends TypedPattern implements IPattern {
 
+	/**
+	 * The property key that stores the information that a
+	 * {@link PictogramElement} is the root object of a {@link IdPattern}
+	 * subclass. The value is set by the {@link #add(IAddContext)} method.
+	 */
 	protected static final String PROPERTY_VALUE_PATTERN_TYPE_ID = "org.eclipse.graphiti.pattern.idpattern"; //$NON-NLS-1$
+
+	/**
+	 * The property key that is used to tag individual {@link PictogramElement}s
+	 * with a specific ID to identify them later during e.g. update or layout.
+	 */
 	protected static final String PROPERTY_KEY_ID = "org.eclipse.graphiti.pattern.id.id"; //$NON-NLS-1$
 
+	/**
+	 * The property key that is used to tag individual {@link PictogramElement}s
+	 * with a specific index beyond the ID to identify them later during e.g.
+	 * update or layout. This can e.g. be used for lists of shapes like the
+	 * attributes of a class.
+	 */
+	protected static final String PROPERTY_KEY_INDEX = "org.eclipse.graphiti.pattern.id.index"; //$NON-NLS-1$
+
+	/**
+	 * Default constructor for a new IdPattern. Clients should call either call
+	 * this or the constructor using a {@link IPatternConfiguration} instance
+	 * from their subclass constructor.
+	 */
 	public IdPattern() {
 		super();
+	}
+
+	/**
+	 * Constructor taking some pattern configuration data for the created
+	 * IdPattern. Clients should call either call this or the null parameter
+	 * constructor from their subclass constructor.
+	 * 
+	 * @param patternConfiguration
+	 *            The configuration data to use
+	 */
+	public IdPattern(IPatternConfiguration patternConfiguration) {
+		super(patternConfiguration);
 	}
 
 	/*
 	 * Base functionality
 	 */
 
+	/**
+	 * Checks if the {@link PictogramElement} is controlled by the pattern. The
+	 * default implementation simply checks if the domain object linked to the
+	 * given {@link PictogramElement} is the one that is controlled by this
+	 * pattern, see {@link #isMainBusinessObjectApplicable(Object)}. Especially
+	 * the default implementation does not traverse up the hierarchy to find a
+	 * suitable parent.
+	 * 
+	 * @param pictogramElement
+	 *            The {@link PictogramElement} to check
+	 * @return <code>true</code> in case the pattern controls the given
+	 *         {@link PictogramElement}, <code>false</code> otherwise.
+	 */
 	@Override
 	protected boolean isPatternControlled(PictogramElement pictogramElement) {
 		Object domainObject = getBusinessObjectForPictogramElement(pictogramElement);
 		return isMainBusinessObjectApplicable(domainObject);
 	}
 
+	/**
+	 * Checks if the given {@link PictogramElement} is the root object of this
+	 * pattern. The default implementation checks if the domain object linked to
+	 * the given {@link PictogramElement} is the one that is controlled by this
+	 * pattern, see {@link #isMainBusinessObjectApplicable(Object)}. It also
+	 * checks if the object is controlled by an ID pattern by checking the
+	 * according property ({@link TypedPattern#PROPERTY_KEY_PATTERN_TYPE}).
+	 * 
+	 * @param pictogramElement
+	 *            The {@link PictogramElement} to check
+	 * @return <code>true</code> in case the given {@link PictogramElement} is
+	 *         the root shape of this pattern, <code>false</code> otherwise.
+	 */
 	@Override
 	protected boolean isPatternRoot(PictogramElement pictogramElement) {
 		Object domainObject = getBusinessObjectForPictogramElement(pictogramElement);
 		if (!isMainBusinessObjectApplicable(domainObject)) {
 			return false;
 		}
-		EList<Property> properties = pictogramElement.getProperties();
-		boolean rootPropertyFound = false;
-		for (Property property : properties) {
-			if (PROPERTY_KEY_PATTERN_TYPE.equals(property.getKey())
-					&& PROPERTY_VALUE_PATTERN_TYPE_ID.equals(property.getValue())) {
-				rootPropertyFound = true;
-			}
-		}
-		return rootPropertyFound;
+		String patternTypePropertyValue = Graphiti.getPeService().getPropertyValue(pictogramElement,
+				PROPERTY_KEY_PATTERN_TYPE);
+		return PROPERTY_VALUE_PATTERN_TYPE_ID.equals(patternTypePropertyValue);
 	}
 
 	/*
 	 * ID handling
 	 */
 
+	/**
+	 * Set the ID property ({@link #PROPERTY_KEY_ID}) for the given
+	 * {@link PictogramElement}; it can be any {@link PropertyContainer}
+	 * ,especially {@link Shape}s or {@link GraphicsAlgorithm}s are allowed. The
+	 * used ID string can later be used to identify the shape, e.g. in the
+	 * update or layout methods.
+	 * 
+	 * @param container
+	 *            The {@link PictogramElement} to set the ID property for
+	 * @param id
+	 *            The {@link String} ID to set.
+	 */
 	protected void setId(PropertyContainer container, String id) {
 		Graphiti.getPeService().setPropertyValue(container, PROPERTY_KEY_ID, id);
 	}
 
+	/**
+	 * Returns any ID that has been set for the given {@link PictogramElement};
+	 * it can be any {@link PropertyContainer}, especially {@link Shape}s or
+	 * {@link GraphicsAlgorithm}s are allowed.
+	 * 
+	 * @param container
+	 *            The {@link PictogramElement} to get the ID property from
+	 * @return A {@link String} representing the value of the property or
+	 *         <code>null</code> in case the property is not set, see
+	 *         {@link #setId(PropertyContainer, String)}.
+	 */
 	protected String getId(PropertyContainer container) {
 		EList<Property> properties = container.getProperties();
 		for (Property property : properties) {
@@ -100,6 +184,25 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		return null;
 	}
 
+	/**
+	 * Searches for a {@link PictogramElement} that has the given ID starting
+	 * from the given {@link PictogramElement}. First the given element is
+	 * checked, then its {@link GraphicsAlgorithm}; after that the
+	 * {@link PictogramElement} children are checked recursively and last the
+	 * {@link GraphicsAlgorithm} children also recursively. The first
+	 * {@link PictogramElement} that has the given ID is returned, in case none
+	 * is found in the tree spanned by the given {@link PictogramElement},
+	 * <code>null</code> is returned.
+	 * 
+	 * @param pictogramElement
+	 *            The {@link PictogramElement} at which the search shall start,
+	 *            any {@link Shape}s or {@link GraphicsAlgorithm}s on top of
+	 *            this element are ignored.
+	 * @param idToFind
+	 *            A {@link String} representing the ID to search for
+	 * @return The {@link PictogramElement} that has the given ID property, in
+	 *         case none id found <code>null</code>.
+	 */
 	protected PropertyContainer findById(PictogramElement pictogramElement, String idToFind) {
 		if (idToFind == null || idToFind.length() == 0) {
 			return null;
@@ -154,43 +257,142 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		return null;
 	}
 
+	/**
+	 * Set the index property ({@link #PROPERTY_KEY_ID}) for the given
+	 * {@link PictogramElement}; it can be any {@link PropertyContainer}
+	 * ,especially {@link Shape}s or {@link GraphicsAlgorithm}s are allowed. The
+	 * used index can later - together with the ID string - be used to identify
+	 * the concrete shape in case of a list of shapes, e.g. in the update or
+	 * layout methods.
+	 * 
+	 * @param container
+	 *            The {@link PictogramElement} to set the index property for
+	 * @param id
+	 *            The {@link Integer} index to set.
+	 */
+	protected void setIndex(PropertyContainer container, int index) {
+		Graphiti.getPeService().setPropertyValue(container, PROPERTY_KEY_INDEX, Integer.toString(index));
+	}
+
+	/**
+	 * Returns any index that has been set for the given
+	 * {@link PictogramElement}; it can be any {@link PropertyContainer},
+	 * especially {@link Shape}s or {@link GraphicsAlgorithm}s are allowed.
+	 * 
+	 * @param container
+	 *            The {@link PictogramElement} to get the index property from
+	 * @return An {@link Integer} representing the value of the property or -1
+	 *         in case the property is not set, see
+	 *         {@link #setIndex(PropertyContainer, int)}.
+	 */
+	protected int getIndex(PropertyContainer container) {
+		EList<Property> properties = container.getProperties();
+		for (Property property : properties) {
+			if (PROPERTY_KEY_INDEX.equals(property.getKey())) {
+				return Integer.valueOf(property.getValue());
+			}
+		}
+		return -1;
+	}
+
 	/*
 	 * Add functionality
 	 */
 
+	/**
+	 * Checks if adding is possible using this pattern in the given context. The
+	 * default implementation simply checks if the new object passed in the
+	 * context is the main domain object for the pattern, see
+	 * {@link #isMainBusinessObjectApplicable(Object)}.
+	 * 
+	 * @param context
+	 *            An {@link IAddContext} describing the add operation.
+	 * @return <code>true</code> in case adding is possible, <code>false</code>
+	 *         otherwise.
+	 */
 	@Override
 	public boolean canAdd(IAddContext context) {
 		return isMainBusinessObjectApplicable(context.getNewObject());
 	}
 
+	/**
+	 * Adds a {@link PictogramElement} representation for the given context to
+	 * the diagram. The default implementation delegates to
+	 * {@link #doAdd(IAddContext)} (which clients should primarily override) and
+	 * updates and layouts the returned {@link PictogramElement} afterwards.
+	 * 
+	 * @param context
+	 *            An {@link IAddContext} describing the add operation.
+	 * @return The root object of the created {@link PictogramElement} tree.
+	 */
 	@Override
 	public PictogramElement add(IAddContext context) {
-		AreaContext areaContext = new AreaContext();
-		areaContext.setHeight(context.getHeight());
-		areaContext.setWidth(context.getWidth());
-		areaContext.setLocation(context.getX(), context.getY());
-		IdAddContext addContext = new IdAddContext(areaContext, context.getNewObject());
-		addContext.setTargetConnection(context.getTargetConnection());
-		addContext.setTargetConnectionDecorator(context.getTargetConnectionDecorator());
-		addContext.setTargetContainer(context.getTargetContainer());
-		PictogramElement pictogramElement = add(addContext);
+		PictogramElement pictogramElement = doAdd(context);
 		setPatternType(pictogramElement, PROPERTY_VALUE_PATTERN_TYPE_ID);
+		update(new UpdateContext(pictogramElement));
 		layout(new LayoutContext(pictogramElement));
 		return pictogramElement;
 	}
 
-	abstract protected PictogramElement add(IdAddContext context);
+	/**
+	 * Clients should primarily override this method and implement their add
+	 * functionality here. This method is called from within
+	 * {@link #add(IAddContext)}.
+	 * 
+	 * @param context
+	 *            An {@link IAddContext} describing the add operation.
+	 * @return The root object of the created {@link PictogramElement} tree.
+	 */
+	abstract protected PictogramElement doAdd(IAddContext context);
 
 	/*
 	 * Layout functionality
 	 */
 
+	/**
+	 * Checks if layouting a shape is possible using this pattern in the given
+	 * context. The default implementation simply checks if the object passed in
+	 * the context is the main domain object for the pattern, see
+	 * {@link #isMainBusinessObjectApplicable(Object)} and if the
+	 * {@link PictogramElement} given in the context is controlled by an ID
+	 * pattern.
+	 * 
+	 * @param context
+	 *            An {@link ILayoutContext} describing the layout operation.
+	 * @return <code>true</code> in case layouting is possible,
+	 *         <code>false</code> otherwise.
+	 */
 	@Override
 	public boolean canLayout(ILayoutContext context) {
 		return PROPERTY_VALUE_PATTERN_TYPE_ID.equals(getPatternType(context.getPictogramElement()))
 				&& isMainBusinessObjectApplicable(getBusinessObjectForPictogramElement(context.getPictogramElement()));
 	}
 
+	/**
+	 * Layouts a {@link PictogramElement} representation given in the context.
+	 * The default implementation delegates to
+	 * {@link #layout(IdLayoutContext, String)} (which clients should primarily
+	 * override) to actually update individual {@link PictogramElement}s. This
+	 * delegation is done for any {@link PictogramElement} tagged with an ID in
+	 * the following order:
+	 * <ul>
+	 * <li>The {@link PictogramElement} given in the context itself</li>
+	 * <li>The {@link GraphicsAlgorithm} of the {@link PictogramElement} in the
+	 * context</li>
+	 * <li>The {@link PictogramElement} children of the {@link PictogramElement}
+	 * in the context</li>
+	 * <li>The {@link GraphicsAlgorithm} children of the
+	 * {@link GraphicsAlgorithm} of the {@link PictogramElement} in the context.
+	 * For this the method
+	 * {@link #layoutGraphicsAlgorithmChildren(GraphicsAlgorithm, IdLayoutContext)}
+	 * is called which in term calles itself and this method recursively.</li>
+	 * </ul>
+	 * 
+	 * @param context
+	 *            An {@link ILayoutContext} describing the layout operation.
+	 * @return <code>true</code> in case the layout operation did changes to the
+	 *         diagram, <code>false</code> otherwise.
+	 */
 	@Override
 	public boolean layout(ILayoutContext context) {
 		boolean changesDone = false;
@@ -262,14 +464,29 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		} else {
 			layoutContext = new IdLayoutContext(null, graphicsAlgorithm, rootPictogramElement);
 		}
-		if (checkLayoutChildren(graphicsAlgorithm, layoutContext)) {
+		if (layoutGraphicsAlgorithmChildren(graphicsAlgorithm, layoutContext)) {
 			changesDone = true;
 		}
 
 		return changesDone;
 	}
 
-	protected boolean checkLayoutChildren(GraphicsAlgorithm graphicsAlgorithm, IdLayoutContext context) {
+	/**
+	 * This method implements the part of the layout that deals with the
+	 * {@link GraphicsAlgorithm} children, see {@link #layout(IdLayoutContext)}.
+	 * Clients should primarily override
+	 * {@link #layout(IdLayoutContext, String)} which is called for all found
+	 * {@link PictogramElement}s and {@link GraphicsAlgorithm}s as described
+	 * above that have an ID.
+	 * 
+	 * @param graphicsAlgorithm
+	 *            The {@link GraphicsAlgorithm} to layout.
+	 * @param context
+	 *            An {@link ILayoutContext} describing the layout operation.
+	 * @return <code>true</code> in case the layout operation did changes to the
+	 *         diagram, <code>false</code> otherwise.
+	 */
+	protected boolean layoutGraphicsAlgorithmChildren(GraphicsAlgorithm graphicsAlgorithm, IdLayoutContext context) {
 		boolean changesDone = false;
 		EList<GraphicsAlgorithm> graphicsAlgorithmChildren = graphicsAlgorithm.getGraphicsAlgorithmChildren();
 		for (GraphicsAlgorithm graphicsAlgorithmChild : graphicsAlgorithmChildren) {
@@ -281,25 +498,75 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 					changesDone = true;
 				}
 			}
-			if (checkLayoutChildren(graphicsAlgorithmChild, context)) {
+			if (layoutGraphicsAlgorithmChildren(graphicsAlgorithmChild, context)) {
 				changesDone = true;
 			}
 		}
 		return changesDone;
 	}
 
+	/**
+	 * Clients should primarily override this method and implement their layout
+	 * functionality here. This method is called from within
+	 * {@link #layout(ILayoutContext)} for each of the {@link PictogramElement}s
+	 * and {@link GraphicsAlgorithm}s that have been tagged with an ID.
+	 * 
+	 * @param context
+	 *            An {@link IdLayoutContext} describing the layout operation.
+	 * @return <code>true</code> in case the layout operation did changes to the
+	 *         diagram, <code>false</code> otherwise.
+	 */
 	abstract protected boolean layout(IdLayoutContext context, String id);
 
 	/*
 	 * Update functionality
 	 */
 
+	/**
+	 * Checks if updating a shape is possible using this pattern in the given
+	 * context. The default implementation simply checks if the object passed in
+	 * the context is the main domain object for the pattern, see
+	 * {@link #isMainBusinessObjectApplicable(Object)} and if the
+	 * {@link PictogramElement} given in the context is controlled by an ID
+	 * pattern.
+	 * 
+	 * @param context
+	 *            An {@link IUpdateContext} describing the update operation.
+	 * @return <code>true</code> in case updating is possible,
+	 *         <code>false</code> otherwise.
+	 */
 	@Override
 	public boolean canUpdate(IUpdateContext context) {
 		return PROPERTY_VALUE_PATTERN_TYPE_ID.equals(getPatternType(context.getPictogramElement()))
 				&& isMainBusinessObjectApplicable(getBusinessObjectForPictogramElement(context.getPictogramElement()));
 	}
 
+	/**
+	 * Checks if an updates is needed for a {@link PictogramElement}
+	 * representation given in the context. The default implementation delegates
+	 * to {@link #updateNeeded(IdUpdateContext, String)} (which clients should
+	 * primarily override) to actually update individual
+	 * {@link PictogramElement}s. This delegation is done for any
+	 * {@link PictogramElement} tagged with an ID in the following order:
+	 * <ul>
+	 * <li>The {@link PictogramElement} given in the context itself</li>
+	 * <li>The {@link GraphicsAlgorithm} of the {@link PictogramElement} in the
+	 * context</li>
+	 * <li>The {@link PictogramElement} children of the {@link PictogramElement}
+	 * in the context</li>
+	 * <li>The {@link GraphicsAlgorithm} children of the
+	 * {@link GraphicsAlgorithm} of the {@link PictogramElement} in the context.
+	 * For this the method
+	 * {@link #updateNeededGraphicsAlgorithmChildren(GraphicsAlgorithm, IdUpdateContext)}
+	 * is called which in term calls itself and this method recursively.</li>
+	 * </ul>
+	 * 
+	 * @param context
+	 *            An {@link IUpdateContext} describing the update operation.
+	 * @return An {@link IReason} indicating <code>true</code> and a
+	 *         {@link String} reason in case the update operation is needed, an
+	 *         {@link IReason} indicating <code>false</code> otherwise.
+	 */
 	@Override
 	public IReason updateNeeded(IUpdateContext context) {
 
@@ -356,7 +623,7 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		} else {
 			updateContext = new IdUpdateContext(null, graphicsAlgorithm, rootPictogramElement, null);
 		}
-		IReason reason = checkUpdateNeededChildren(graphicsAlgorithm, updateContext);
+		IReason reason = updateNeededGraphicsAlgorithmChildren(graphicsAlgorithm, updateContext);
 		if (reason.toBoolean()) {
 			return reason;
 		}
@@ -364,7 +631,23 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		return Reason.createFalseReason();
 	}
 
-	protected IReason checkUpdateNeededChildren(GraphicsAlgorithm graphicsAlgorithm, IdUpdateContext context) {
+	/**
+	 * This method implements the part of the update needed check that deals
+	 * with the {@link GraphicsAlgorithm} children, see
+	 * {@link #updateNeeded(IUpdateContext)}. Clients should primarily override
+	 * {@link #updateNeeded(IdUpdateContext, String)} which is called for all
+	 * found {@link PictogramElement}s and {@link GraphicsAlgorithm}s as
+	 * described above that have an ID.
+	 * 
+	 * @param graphicsAlgorithm
+	 *            The {@link GraphicsAlgorithm} to perform the update check for.
+	 * @param context
+	 *            An {@link IdUpdateContext} describing the update operation.
+	 * @return An {@link IReason} indicating <code>true</code> and a
+	 *         {@link String} reason in case the update operation is needed, an
+	 *         {@link IReason} indicating <code>false</code> otherwise.
+	 */
+	protected IReason updateNeededGraphicsAlgorithmChildren(GraphicsAlgorithm graphicsAlgorithm, IdUpdateContext context) {
 		EList<GraphicsAlgorithm> graphicsAlgorithmChildren = graphicsAlgorithm.getGraphicsAlgorithmChildren();
 		for (GraphicsAlgorithm graphicsAlgorithmChild : graphicsAlgorithmChildren) {
 			String id = getId(graphicsAlgorithmChild);
@@ -377,7 +660,7 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 					return reason;
 				}
 			}
-			IReason reason = checkUpdateNeededChildren(graphicsAlgorithmChild, context);
+			IReason reason = updateNeededGraphicsAlgorithmChildren(graphicsAlgorithmChild, context);
 			if (reason.toBoolean()) {
 				return reason;
 			}
@@ -385,10 +668,63 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		return Reason.createFalseReason();
 	}
 
+	/**
+	 * Clients should primarily override this method and implement their update
+	 * check functionality here. This method is called from within
+	 * {@link #updateNeeded(IUpdateContext)} for each of the
+	 * {@link PictogramElement}s and {@link GraphicsAlgorithm}s that have been
+	 * tagged with an ID.
+	 * 
+	 * @param context
+	 *            An {@link IdUpdateContext} describing the update operation.
+	 * @return An {@link IReason} indicating <code>true</code> and a
+	 *         {@link String} reason in case the update operation is needed, an
+	 *         {@link IReason} indicating <code>false</code> otherwise.
+	 */
 	abstract protected IReason updateNeeded(IdUpdateContext context, String id);
 
+	/**
+	 * Updates a {@link PictogramElement} representation given in the context.
+	 * The default implementation only delegates to
+	 * {@link #update(IUpdateContext, boolean)} setting the parameter innerCall
+	 * to <code>false</code>.
+	 * 
+	 * @param context
+	 *            An {@link IUpdateContext} describing the update operation.
+	 * @return <code>true</code> in case the update operation did changes to the
+	 *         diagram, <code>false</code> otherwise.
+	 */
 	@Override
 	public boolean update(IUpdateContext context) {
+		return update(context, false);
+	}
+
+	/**
+	 * Updates a {@link PictogramElement} representation given in the context
+	 * recursively. The default implementation delegates to
+	 * {@link #update(IdUpdateContext, String)} (which clients should primarily
+	 * override) to actually update individual {@link PictogramElement}s. This
+	 * delegation is done for any {@link PictogramElement} tagged with an ID in
+	 * the following order:
+	 * <ul>
+	 * <li>The {@link PictogramElement} given in the context itself</li>
+	 * <li>The {@link GraphicsAlgorithm} of the {@link PictogramElement} in the
+	 * context</li>
+	 * <li>The {@link PictogramElement} children of the {@link PictogramElement}
+	 * in the context</li>
+	 * <li>The {@link GraphicsAlgorithm} children of the
+	 * {@link GraphicsAlgorithm} of the {@link PictogramElement} in the context.
+	 * For this the method
+	 * {@link #updateGraphicsAlgorithmChildren(GraphicsAlgorithm, IdUpdateContext)}
+	 * is called which in term calls itself and this method recursively.</li>
+	 * </ul>
+	 * 
+	 * @param context
+	 *            An {@link IUpdateContext} describing the update operation.
+	 * @return <code>true</code> in case the update operation did changes to the
+	 *         diagram, <code>false</code> otherwise.
+	 */
+	protected boolean update(IUpdateContext context, boolean innerCall) {
 		boolean result = false;
 
 		PictogramElement rootPictogramElement;
@@ -428,7 +764,7 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 			for (Shape shape : children) {
 				IdUpdateContext updateContext = new IdUpdateContext(shape, shape.getGraphicsAlgorithm(),
 						rootPictogramElement, getBusinessObjectForPictogramElement(shape));
-				if (update(updateContext)) {
+				if (update(updateContext, true)) {
 					result = true;
 				}
 			}
@@ -441,14 +777,33 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		} else {
 			updateContext = new IdUpdateContext(null, graphicsAlgorithm, rootPictogramElement, null);
 		}
-		if (checkUpdateChildren(graphicsAlgorithm, updateContext)) {
+		if (updateGraphicsAlgorithmChildren(graphicsAlgorithm, updateContext)) {
 			result = true;
+		}
+
+		if (result && !innerCall) {
+			layoutPictogramElement(rootPictogramElement);
 		}
 
 		return result;
 	}
 
-	protected boolean checkUpdateChildren(GraphicsAlgorithm graphicsAlgorithm, IdUpdateContext context) {
+	/**
+	 * This method implements the part of the update that deals with the
+	 * {@link GraphicsAlgorithm} children, see
+	 * {@link #update(IUpdateContext, boolean)}. Clients should primarily
+	 * override {@link #update(IdUpdateContext, String)} which is called for all
+	 * found {@link PictogramElement}s and {@link GraphicsAlgorithm}s as
+	 * described above that have an ID.
+	 * 
+	 * @param graphicsAlgorithm
+	 *            The {@link GraphicsAlgorithm} to update.
+	 * @param context
+	 *            An {@link IdUpdateContext} describing the update operation.
+	 * @return <code>true</code> in case the update operation did changes to the
+	 *         diagram, <code>false</code> otherwise.
+	 */
+	protected boolean updateGraphicsAlgorithmChildren(GraphicsAlgorithm graphicsAlgorithm, IdUpdateContext context) {
 		boolean result = false;
 		EList<GraphicsAlgorithm> graphicsAlgorithmChildren = graphicsAlgorithm.getGraphicsAlgorithmChildren();
 		for (GraphicsAlgorithm graphicsAlgorithmChild : graphicsAlgorithmChildren) {
@@ -461,13 +816,25 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 					result = true;
 				}
 			}
-			if (checkUpdateChildren(graphicsAlgorithmChild, context)) {
+			if (updateGraphicsAlgorithmChildren(graphicsAlgorithmChild, context)) {
 				result = true;
 			}
 		}
 		return result;
 	}
 
+	/**
+	 * Clients should primarily override this method and implement their update
+	 * functionality here. This method is called from within
+	 * {@link #update(IUpdateContext, boolean)} for each of the
+	 * {@link PictogramElement}s and {@link GraphicsAlgorithm}s that have been
+	 * tagged with an ID.
+	 * 
+	 * @param context
+	 *            An {@link IdUpdateContext} describing the update operation.
+	 * @return <code>true</code> in case the update operation did changes to the
+	 *         diagram, <code>false</code> otherwise.
+	 */
 	abstract protected boolean update(IdUpdateContext context, String id);
 
 	/*

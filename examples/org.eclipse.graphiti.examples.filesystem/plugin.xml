@@ -35,6 +35,16 @@
          <diagramType
                id="org.eclipse.graphiti.examples.filesystem.filesystemDiagramType">
          </diagramType>
+         <imageProvider
+               id="org.eclipse.graphiti.examples.filesystem.filesystemImageProvider">
+         </imageProvider>
       </diagramTypeProvider>
+   </extension>
+   <extension
+         point="org.eclipse.graphiti.ui.imageProviders">
+      <imageProvider
+            class="org.eclipse.graphiti.examples.filesystem.FilesystemImageProvider"
+            id="org.eclipse.graphiti.examples.filesystem.filesystemImageProvider">
+      </imageProvider>
    </extension>
 </plugin>
