@@ -19,15 +19,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.graphiti.mm.MmPackage;
-
 import org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage;
-
 import org.eclipse.graphiti.mm.algorithms.impl.AlgorithmsPackageImpl;
-
 import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
@@ -44,11 +39,11 @@ import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
-
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
+import org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle;
 import org.eclipse.graphiti.mm.impl.MmPackageImpl;
-
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
-
 import org.eclipse.graphiti.mm.pictograms.impl.PictogramsPackageImpl;
 
 /**
@@ -140,6 +135,20 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass textStyleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass textStyleRegionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum lineStyleEEnum = null;
 
 	/**
@@ -155,6 +164,13 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 	 * @generated
 	 */
 	private EEnum locationTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum underlineStyleEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -710,6 +726,123 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTextStyle() {
+		return textStyleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTextStyle_Underline() {
+		return (EAttribute)textStyleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTextStyle_UnderlineStyle() {
+		return (EAttribute)textStyleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTextStyle_Strikeout() {
+		return (EAttribute)textStyleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTextStyle_Font() {
+		return (EReference)textStyleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTextStyle_Foreground() {
+		return (EReference)textStyleEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTextStyle_Background() {
+		return (EReference)textStyleEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTextStyle_UnderlineColor() {
+		return (EReference)textStyleEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTextStyle_StrikeoutColor() {
+		return (EReference)textStyleEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTextStyleRegion() {
+		return textStyleRegionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTextStyleRegion_Start() {
+		return (EAttribute)textStyleRegionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTextStyleRegion_End() {
+		return (EAttribute)textStyleRegionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTextStyleRegion_Style() {
+		return (EReference)textStyleRegionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getLineStyle() {
 		return lineStyleEEnum;
 	}
@@ -730,6 +863,15 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 	 */
 	public EEnum getLocationType() {
 		return locationTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getUnderlineStyle() {
+		return underlineStyleEEnum;
 	}
 
 	/**
@@ -824,10 +966,26 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 		createEAttribute(precisionPointEClass, PRECISION_POINT__X);
 		createEAttribute(precisionPointEClass, PRECISION_POINT__Y);
 
+		textStyleEClass = createEClass(TEXT_STYLE);
+		createEAttribute(textStyleEClass, TEXT_STYLE__UNDERLINE);
+		createEAttribute(textStyleEClass, TEXT_STYLE__UNDERLINE_STYLE);
+		createEAttribute(textStyleEClass, TEXT_STYLE__STRIKEOUT);
+		createEReference(textStyleEClass, TEXT_STYLE__FONT);
+		createEReference(textStyleEClass, TEXT_STYLE__FOREGROUND);
+		createEReference(textStyleEClass, TEXT_STYLE__BACKGROUND);
+		createEReference(textStyleEClass, TEXT_STYLE__UNDERLINE_COLOR);
+		createEReference(textStyleEClass, TEXT_STYLE__STRIKEOUT_COLOR);
+
+		textStyleRegionEClass = createEClass(TEXT_STYLE_REGION);
+		createEAttribute(textStyleRegionEClass, TEXT_STYLE_REGION__START);
+		createEAttribute(textStyleRegionEClass, TEXT_STYLE_REGION__END);
+		createEReference(textStyleRegionEClass, TEXT_STYLE_REGION__STYLE);
+
 		// Create enums
 		lineStyleEEnum = createEEnum(LINE_STYLE);
 		orientationEEnum = createEEnum(ORIENTATION);
 		locationTypeEEnum = createEEnum(LOCATION_TYPE);
+		underlineStyleEEnum = createEEnum(UNDERLINE_STYLE);
 	}
 
 	/**
@@ -929,6 +1087,21 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 		initEAttribute(getPrecisionPoint_X(), ecorePackage.getEDouble(), "x", null, 1, 1, PrecisionPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPrecisionPoint_Y(), ecorePackage.getEDouble(), "y", null, 1, 1, PrecisionPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(textStyleEClass, TextStyle.class, "TextStyle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTextStyle_Underline(), ecorePackage.getEBoolean(), "underline", null, 0, 1, TextStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTextStyle_UnderlineStyle(), this.getUnderlineStyle(), "underlineStyle", null, 0, 1, TextStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTextStyle_Strikeout(), ecorePackage.getEBoolean(), "strikeout", null, 0, 1, TextStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTextStyle_Font(), this.getFont(), null, "font", null, 0, 1, TextStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTextStyle_Foreground(), this.getColor(), null, "foreground", null, 0, 1, TextStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTextStyle_Background(), this.getColor(), null, "background", null, 0, 1, TextStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTextStyle_UnderlineColor(), this.getColor(), null, "underlineColor", null, 0, 1, TextStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTextStyle_StrikeoutColor(), this.getColor(), null, "strikeoutColor", null, 0, 1, TextStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(textStyleRegionEClass, TextStyleRegion.class, "TextStyleRegion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTextStyleRegion_Start(), ecorePackage.getEInt(), "start", null, 0, 1, TextStyleRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTextStyleRegion_End(), ecorePackage.getEInt(), "end", null, 0, 1, TextStyleRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTextStyleRegion_Style(), this.getTextStyle(), null, "style", null, 0, 1, TextStyleRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(lineStyleEEnum, LineStyle.class, "LineStyle");
 		addEEnumLiteral(lineStyleEEnum, LineStyle.SOLID);
@@ -951,6 +1124,12 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 		addEEnumLiteral(locationTypeEEnum, LocationType.LOCATION_TYPE_RELATIVE);
 		addEEnumLiteral(locationTypeEEnum, LocationType.LOCATION_TYPE_ABSOLUTE_START);
 		addEEnumLiteral(locationTypeEEnum, LocationType.LOCATION_TYPE_ABSOLUTE_END);
+
+		initEEnum(underlineStyleEEnum, UnderlineStyle.class, "UnderlineStyle");
+		addEEnumLiteral(underlineStyleEEnum, UnderlineStyle.UNDERLINE_SINGLE);
+		addEEnumLiteral(underlineStyleEEnum, UnderlineStyle.UNDERLINE_DOUBLE);
+		addEEnumLiteral(underlineStyleEEnum, UnderlineStyle.UNDERLINE_ERROR);
+		addEEnumLiteral(underlineStyleEEnum, UnderlineStyle.UNDERLINE_SQUIGGLE);
 	}
 
 } //StylesPackageImpl

@@ -18,12 +18,26 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.eclipse.graphiti.mm.algorithms.styles.*;
+import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredArea;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredAreas;
+import org.eclipse.graphiti.mm.algorithms.styles.GradientColoredLocation;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.LocationType;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
+import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
+import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
+import org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle;
 
 /**
  * <!-- begin-user-doc -->
@@ -79,6 +93,8 @@ public class StylesFactoryImpl extends EFactoryImpl implements StylesFactory {
 			case StylesPackage.POINT: return createPoint();
 			case StylesPackage.COLOR: return createColor();
 			case StylesPackage.PRECISION_POINT: return createPrecisionPoint();
+			case StylesPackage.TEXT_STYLE: return createTextStyle();
+			case StylesPackage.TEXT_STYLE_REGION: return createTextStyleRegion();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -98,6 +114,8 @@ public class StylesFactoryImpl extends EFactoryImpl implements StylesFactory {
 				return createOrientationFromString(eDataType, initialValue);
 			case StylesPackage.LOCATION_TYPE:
 				return createLocationTypeFromString(eDataType, initialValue);
+			case StylesPackage.UNDERLINE_STYLE:
+				return createUnderlineStyleFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -117,6 +135,8 @@ public class StylesFactoryImpl extends EFactoryImpl implements StylesFactory {
 				return convertOrientationToString(eDataType, instanceValue);
 			case StylesPackage.LOCATION_TYPE:
 				return convertLocationTypeToString(eDataType, instanceValue);
+			case StylesPackage.UNDERLINE_STYLE:
+				return convertUnderlineStyleToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -227,6 +247,26 @@ public class StylesFactoryImpl extends EFactoryImpl implements StylesFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TextStyle createTextStyle() {
+		TextStyleImpl textStyle = new TextStyleImpl();
+		return textStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TextStyleRegion createTextStyleRegion() {
+		TextStyleRegionImpl textStyleRegion = new TextStyleRegionImpl();
+		return textStyleRegion;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public LineStyle createLineStyleFromString(EDataType eDataType, String initialValue) {
 		LineStyle result = LineStyle.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -279,6 +319,26 @@ public class StylesFactoryImpl extends EFactoryImpl implements StylesFactory {
 	 * @generated
 	 */
 	public String convertLocationTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UnderlineStyle createUnderlineStyleFromString(EDataType eDataType, String initialValue) {
+		UnderlineStyle result = UnderlineStyle.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertUnderlineStyleToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
