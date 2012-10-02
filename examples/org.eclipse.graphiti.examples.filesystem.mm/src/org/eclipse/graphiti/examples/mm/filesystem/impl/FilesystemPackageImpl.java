@@ -155,8 +155,17 @@ public class FilesystemPackageImpl extends EPackageImpl implements FilesystemPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFilesystem_Name() {
+		return (EAttribute)filesystemEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getFilesystem_Folders() {
-		return (EReference)filesystemEClass.getEStructuralFeatures().get(0);
+		return (EReference)filesystemEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -165,7 +174,7 @@ public class FilesystemPackageImpl extends EPackageImpl implements FilesystemPac
 	 * @generated
 	 */
 	public EReference getFilesystem_Files() {
-		return (EReference)filesystemEClass.getEStructuralFeatures().get(1);
+		return (EReference)filesystemEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -236,6 +245,7 @@ public class FilesystemPackageImpl extends EPackageImpl implements FilesystemPac
 		createEAttribute(fileEClass, FILE__NAME);
 
 		filesystemEClass = createEClass(FILESYSTEM);
+		createEAttribute(filesystemEClass, FILESYSTEM__NAME);
 		createEReference(filesystemEClass, FILESYSTEM__FOLDERS);
 		createEReference(filesystemEClass, FILESYSTEM__FILES);
 
@@ -279,6 +289,7 @@ public class FilesystemPackageImpl extends EPackageImpl implements FilesystemPac
 		initEAttribute(getFile_Name(), ecorePackage.getEString(), "name", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(filesystemEClass, Filesystem.class, "Filesystem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFilesystem_Name(), ecorePackage.getEString(), "name", null, 0, 1, Filesystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFilesystem_Folders(), this.getFolder(), null, "folders", null, 0, -1, Filesystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFilesystem_Files(), this.getFile(), null, "files", null, 0, -1, Filesystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

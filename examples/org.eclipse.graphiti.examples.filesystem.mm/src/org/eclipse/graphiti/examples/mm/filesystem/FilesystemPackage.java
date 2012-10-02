@@ -113,13 +113,22 @@ public interface FilesystemPackage extends EPackage {
 	int FILESYSTEM = 1;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILESYSTEM__NAME = 0;
+
+	/**
 	 * The feature id for the '<em><b>Folders</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILESYSTEM__FOLDERS = 0;
+	int FILESYSTEM__FOLDERS = 1;
 
 	/**
 	 * The feature id for the '<em><b>Files</b></em>' containment reference list.
@@ -128,7 +137,7 @@ public interface FilesystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILESYSTEM__FILES = 1;
+	int FILESYSTEM__FILES = 2;
 
 	/**
 	 * The number of structural features of the '<em>Filesystem</em>' class.
@@ -137,7 +146,7 @@ public interface FilesystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILESYSTEM_FEATURE_COUNT = 2;
+	int FILESYSTEM_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.examples.mm.filesystem.impl.FolderImpl <em>Folder</em>}' class.
@@ -216,6 +225,17 @@ public interface FilesystemPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getFilesystem();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.examples.mm.filesystem.Filesystem#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.graphiti.examples.mm.filesystem.Filesystem#getName()
+	 * @see #getFilesystem()
+	 * @generated
+	 */
+	EAttribute getFilesystem_Name();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.graphiti.examples.mm.filesystem.Filesystem#getFolders <em>Folders</em>}'.
@@ -331,6 +351,14 @@ public interface FilesystemPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FILESYSTEM = eINSTANCE.getFilesystem();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILESYSTEM__NAME = eINSTANCE.getFilesystem_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Folders</b></em>' containment reference list feature.
