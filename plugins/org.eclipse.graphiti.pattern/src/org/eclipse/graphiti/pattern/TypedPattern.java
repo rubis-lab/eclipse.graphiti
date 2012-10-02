@@ -36,6 +36,9 @@ import org.eclipse.graphiti.services.Graphiti;
  */
 public abstract class TypedPattern extends AbstractPattern {
 
+	/**
+	 * Constant indication the type of pattern, e.g. ID pattern.
+	 */
 	protected static final String PROPERTY_KEY_PATTERN_TYPE = "org.eclipse.graphiti.pattern.patternType";
 
 	public TypedPattern() {
