@@ -22,8 +22,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 /**
  * @since 0.10
  * @experimental This API is in an experimental state and should be used by
- *               clients, as it not final and can be removed or changed without
- *               prior notice!
+ *               clients only with care, as it not final and can be removed or
+ *               changed without prior notice!
  */
 public class IdUpdateContext extends UpdateContext {
 
@@ -37,6 +37,16 @@ public class IdUpdateContext extends UpdateContext {
 		this.graphicsAlgorithm = graphicsAlgorithm;
 		this.rootPictogramElement = rootPictogramElement;
 		this.setDomainObject(domainObject);
+	}
+
+	@Override
+	public PictogramElement getPictogramElement() {
+		/*
+		 * Overriding this method is necessary because otherwise clients calling
+		 * this method will get access warnings (PictogramElementContext
+		 * offering this method is not part of the API).
+		 */
+		return super.getPictogramElement();
 	}
 
 	public GraphicsAlgorithm getGraphicsAlgorithm() {
