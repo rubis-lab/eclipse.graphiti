@@ -21,7 +21,10 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.text.TextFlow;
+import org.eclipse.draw2d.text.TextFragmentBox;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 
 public class GFTextFlow extends TextFlow {
 
@@ -29,14 +32,22 @@ public class GFTextFlow extends TextFlow {
 
 	private boolean suppressText = false;
 
-	public GFTextFlow(MultiText multiText) {
+	private int currentOffset;
+
+	private IConfigurationProviderInternal configurationProvider;
+
+	public GFTextFlow(MultiText multiText, IConfigurationProviderInternal configurationProvider) {
 		this.multiText = multiText;
+		this.configurationProvider = configurationProvider;
 	}
 
 	@Override
 	public void paint(Graphics graphics) {
 
-		if (multiText.getAngle() != 0) {
+		int angle = 0;
+		angle = Graphiti.getGaService().getAngle(multiText, true);
+
+		if (angle != 0) {
 			if (getLocalBackgroundColor() != null)
 				graphics.setBackgroundColor(getLocalBackgroundColor());
 			if (getLocalForegroundColor() != null)
@@ -67,23 +78,42 @@ public class GFTextFlow extends TextFlow {
 	}
 
 	@Override
+	protected String getBidiSubstring(TextFragmentBox box, int index) {
+		currentOffset = box.offset;
+		return super.getBidiSubstring(box, index);
+	}
+
+	@Override
 	protected void paintText(Graphics g, String draw, int x, int y, int bidiLevel) {
 		if (suppressText) {
 			return;
 		}
-		if (bidiLevel == -1 && multiText.getAngle() != 0) {
+		int angle = 0;
+		angle = Graphiti.getGaService().getAngle(multiText, true);
+
+		if (bidiLevel == -1 && angle != 0) {
 			g.pushState();
 
 			int xOff = getParent().getBounds().width() / 2;
 			int yOff = getBounds().height() / 2;
 			g.translate(xOff, yOff);
-			g.rotate(multiText.getAngle());
+			g.rotate(angle);
 
-			g.drawText(draw, x - xOff, y - yOff);
+			if (multiText.getStyleRegions().isEmpty()) {
+				g.drawText(draw, x - xOff, y - yOff);
+			} else {
+				GFFigureUtil.drawRichText(g, draw, x - xOff, y - yOff, bidiLevel, isMirrored(), currentOffset,
+						configurationProvider, multiText);
+			}
 
 			g.popState();
 		} else {
-			super.paintText(g, draw, x, y, bidiLevel);
+			if (multiText.getStyleRegions().isEmpty()) {
+				super.paintText(g, draw, x, y, bidiLevel);
+			} else {
+				GFFigureUtil.drawRichText(g, draw, x, y, bidiLevel, isMirrored(), currentOffset, configurationProvider,
+					multiText);
+			}
 		}
 	}
 

@@ -1157,6 +1157,7 @@ public class GFOtherTests extends AbstractGFTests {
 			robot.setAutoDelay(500);
 			try {
 				robot.keyPress(KeyEvent.VK_ALT);
+				robot.setAutoDelay(0);
 				robot.keyPress(KeyEvent.VK_LEFT);
 			} catch (RuntimeException e) {
 				fail(e.getMessage());

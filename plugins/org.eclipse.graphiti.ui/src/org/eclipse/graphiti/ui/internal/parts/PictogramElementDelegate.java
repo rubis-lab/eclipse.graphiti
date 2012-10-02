@@ -791,9 +791,9 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			} else if (graphicsAlgorithm instanceof RoundedRectangle) {
 				ret = new GFRoundedRectangle(this, graphicsAlgorithm);
 			} else if (graphicsAlgorithm instanceof MultiText) {
-				ret = new GFMultilineText((MultiText) graphicsAlgorithm);
+				ret = new GFMultilineText(this, (MultiText) graphicsAlgorithm);
 			} else if (graphicsAlgorithm instanceof Text) {
-				ret = new GFText(this, graphicsAlgorithm);
+				ret = new GFText(this, (Text) graphicsAlgorithm);
 			} else if (graphicsAlgorithm instanceof PlatformGraphicsAlgorithm) {
 				PlatformGraphicsAlgorithm pga = (PlatformGraphicsAlgorithm) graphicsAlgorithm;
 				IGraphicsAlgorithmRendererFactory factory = getGraphicsAlgorithmRendererFactory();
