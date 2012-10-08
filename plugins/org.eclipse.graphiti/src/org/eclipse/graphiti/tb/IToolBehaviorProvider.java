@@ -238,11 +238,23 @@ public interface IToolBehaviorProvider {
 	 * Returns the tooltip to be attached to the graphical representation of the
 	 * given graphics algorithm.
 	 * 
+	 * @deprecated see {@link #getRichToolTip(GraphicsAlgorithm)}
 	 * @param graphicsAlgorithm
 	 *            the graphics algorithm
 	 * @return the tooltip
 	 */
 	String getToolTip(GraphicsAlgorithm graphicsAlgorithm);
+
+	/**
+	 * Returns the tooltip to be attached to the graphical representation of the
+	 * given graphics algorithm.
+	 * 
+	 * @param graphicsAlgorithm
+	 *            the graphics algorithm
+	 * @return the tooltip
+	 * @since 0.10
+	 */
+	Object getRichToolTip(GraphicsAlgorithm graphicsAlgorithm);
 
 	/**
 	 * The returned graphics algorithm defines the selection border and the

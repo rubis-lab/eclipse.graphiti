@@ -421,8 +421,28 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	public void postExecute(IExecutionInfo executionInfo) {
 	}
 
+	/**
+	 * Returns the tooltip to be attached to the graphical representation of the
+	 * given graphics algorithm.
+	 * 
+	 * @deprecated see {@link #getRichToolTip(GraphicsAlgorithm)}
+	 * @param graphicsAlgorithm
+	 *            the graphics algorithm
+	 * @return the tooltip
+	 */
 	public String getToolTip(GraphicsAlgorithm ga) {
 		return null;
+	}
+
+	/**
+	 * Default implementation: Calls deprecated
+	 * {@link #getToolTip(GraphicsAlgorithm)} method
+	 * 
+	 * @return the Text for the tooltip
+	 * @since 0.10
+	 */
+	public Object getRichToolTip(GraphicsAlgorithm ga) {
+		return getToolTip(ga);
 	}
 
 	public GraphicsAlgorithm getSelectionBorder(PictogramElement pe) {
