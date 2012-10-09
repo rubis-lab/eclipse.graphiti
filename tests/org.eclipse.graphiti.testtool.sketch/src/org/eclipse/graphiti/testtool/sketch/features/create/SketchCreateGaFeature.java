@@ -144,6 +144,8 @@ public abstract class SketchCreateGaFeature extends AbstractCreateFeature {
 			r.setTransparency(1.0);
 			fpa.setLocation(gaService.createPoint(10, 10));
 		}
+		// Create an italic font to use it later in the rich tooltip
+		gaService.manageFont(getDiagram(), IGaService.DEFAULT_FONT, IGaService.DEFAULT_FONT_SIZE, true, false);
 
 		return new Object[] { newAc };
 	}

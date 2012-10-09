@@ -34,10 +34,13 @@ import org.eclipse.graphiti.features.context.impl.CreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
@@ -53,7 +56,9 @@ import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.eclipse.graphiti.tb.IDecorator;
+import org.eclipse.graphiti.tb.ISelectionInfo;
 import org.eclipse.graphiti.tb.ImageDecorator;
+import org.eclipse.graphiti.util.IColorConstant;
 
 public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 
@@ -233,7 +238,7 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 
 	@Override
-	public String getToolTip(GraphicsAlgorithm ga) {
+	public Object getToolTip(GraphicsAlgorithm ga) {
 		PictogramElement pe = ga.getPictogramElement();
 		Object bo = getFeatureProvider().getBusinessObjectForPictogramElement(pe);
 		if (bo instanceof EClass) {
@@ -243,6 +248,27 @@ public class TutorialToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			}
 		}
 		return super.getToolTip(ga);
+	}
+
+	@Override
+	public ISelectionInfo getSelectionInfoForShape(Shape shape) {
+		ISelectionInfo selectionInfoForShape = super.getSelectionInfoForShape(shape);
+		selectionInfoForShape.setLineStyle(LineStyle.SOLID);
+		selectionInfoForShape.setColor(IColorConstant.RED);
+		selectionInfoForShape.setHandleForegroundColor(IColorConstant.LIGHT_GREEN);
+		selectionInfoForShape.setHandleBackgroundColor(IColorConstant.YELLOW);
+		selectionInfoForShape.setHandleBackgroundColor(IColorConstant.BLUE);
+		return selectionInfoForShape;
+	}
+	
+	@Override
+	public ISelectionInfo getSelectionInfoForConnection(Connection connection) {
+		ISelectionInfo selectionInfoForShape = super.getSelectionInfoForConnection(connection);
+		selectionInfoForShape.setLineStyle(LineStyle.DASHDOTDOT);
+		selectionInfoForShape.setColor(IColorConstant.RED);
+		selectionInfoForShape.setHandleForegroundColor(IColorConstant.LIGHT_GREEN);
+		selectionInfoForShape.setHandleBackgroundColor(IColorConstant.YELLOW);
+		return selectionInfoForShape;
 	}
 
 }

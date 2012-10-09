@@ -428,8 +428,9 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * @param graphicsAlgorithm
 	 *            the graphics algorithm
 	 * @return the tooltip
+	 * @since 0.10
 	 */
-	public String getToolTip(GraphicsAlgorithm ga) {
+	public Object getToolTip(GraphicsAlgorithm ga) {
 		return null;
 	}
 
