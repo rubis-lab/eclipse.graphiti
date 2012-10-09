@@ -54,6 +54,9 @@ import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
+import org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
@@ -1004,6 +1007,75 @@ public class GaServiceImpl implements IGaService {
 
 	public final Text createPlainText(GraphicsAlgorithmContainer gaContainer, String value) {
 		return (Text) createPlainText(null, gaContainer, false, value);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createTextStyleRegion(
+	 * org.eclipse.graphiti.mm.algorithms.AbstractText)
+	 */
+	/**
+	 * @since 0.10
+	 */
+	public TextStyleRegion createTextStyleRegion(AbstractText abstractText) {
+		TextStyleRegion textStyleRegion = StylesFactory.eINSTANCE.createTextStyleRegion();
+		abstractText.getStyleRegions().add(textStyleRegion);
+		return textStyleRegion;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createTextStyleRegion(
+	 * org.eclipse.graphiti.mm.algorithms.AbstractText, int, int)
+	 */
+	/**
+	 * @since 0.10
+	 */
+	public TextStyleRegion createTextStyleRegion(AbstractText abstractText, int start, int end) {
+		TextStyleRegion textStyleRegion = createTextStyleRegion(abstractText);
+		textStyleRegion.setStart(start);
+		textStyleRegion.setEnd(end);
+		return textStyleRegion;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createTextStyle(org.eclipse
+	 * .graphiti.mm.algorithms.styles.TextStyleRegion)
+	 */
+	/**
+	 * @since 0.10
+	 */
+	public TextStyle createTextStyle(TextStyleRegion region) {
+		TextStyle textStyle = StylesFactory.eINSTANCE.createTextStyle();
+		region.setStyle(textStyle);
+		return textStyle;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaCreateService#createTextStyle(org.eclipse
+	 * .graphiti.mm.algorithms.styles.TextStyleRegion, boolean, boolean,
+	 * org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle)
+	 */
+	/**
+	 * @since 0.10
+	 */
+	public TextStyle createTextStyle(TextStyleRegion region, boolean underline, boolean strikeout,
+			UnderlineStyle underlineStyle) {
+		TextStyle textStyle = createTextStyle(region);
+		textStyle.setStrikeout(strikeout);
+		textStyle.setUnderline(underline);
+		textStyle.setUnderlineStyle(underlineStyle);
+		return textStyle;
 	}
 
 	/*

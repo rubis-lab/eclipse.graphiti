@@ -28,8 +28,12 @@ import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.ISingleClickContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
+import org.eclipse.graphiti.mm.algorithms.styles.TextStyle;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -236,13 +240,53 @@ public interface IToolBehaviorProvider {
 
 	/**
 	 * Returns the tooltip to be attached to the graphical representation of the
-	 * given graphics algorithm.
+	 * given graphics algorithm. <br>
+	 * <p>
+	 * It can either be a String, creating a simple tooltip, or an AbstractText.
+	 * In the latter case, a rich text label would be created, respecting the
+	 * contained {@link TextStyle}s.
+	 * 
+	 * <p>
+	 * Since the pictogram element doesn't belong to the diagram, you have to be
+	 * careful with the {@link Color}s and {@link Font}s used in the
+	 * {@link TextStyle}s within the {@link AbstractText}. <strong>They should
+	 * be created and added to the diagram beforehand</strong>, preferably in
+	 * the add feature that created the given graphicsAlgorithm, i.e.:
+	 * <p>
+	 * Somewhere in the <em>add</em> method of the <em>addFeature</em>
+	 * :<blockquote>
+	 * 
+	 * <pre>
+	 * manageFont(diagram, &quot;Verdana&quot;, 9, true, false);
+	 * </pre>
+	 * 
+	 * </blockquote>
+	 * <p>
+	 * Inside the <em>getRichToolTip</em>:<blockquote>
+	 * 
+	 * <pre>
+	 * Font font = manageFont(getDiagramTypeProvider().getDiagram(), &quot;Verdana&quot;, 9, true, false);
+	 * textStyle.setFont(font);
+	 * </pre>
+	 * 
+	 * </blockquote>
+	 * <p>
+	 * This will ensure resource management for both fonts and colors, and
+	 * prevent transaction read-only errors if trying to add a font o a color to
+	 * the diagram without a write transaction.
+	 * <p>
+	 * <strong>Note</strong>: Be extremely careful when adding rich text
+	 * tooltips to an previously existing diagram. Since the pictograms may have
+	 * already been added to the diagram, the tooltip may cause an
+	 * {@link IllegalStateException} if trying to use a resource that was not
+	 * previously added to the diagram.
 	 * 
 	 * @param graphicsAlgorithm
 	 *            the graphics algorithm
 	 * @return the tooltip
+	 * @since 0.10
 	 */
-	String getToolTip(GraphicsAlgorithm graphicsAlgorithm);
+	Object getToolTip(GraphicsAlgorithm graphicsAlgorithm);
 
 	/**
 	 * The returned graphics algorithm defines the selection border and the

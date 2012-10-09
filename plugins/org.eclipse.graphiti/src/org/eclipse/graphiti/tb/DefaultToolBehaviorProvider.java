@@ -421,7 +421,16 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	public void postExecute(IExecutionInfo executionInfo) {
 	}
 
-	public String getToolTip(GraphicsAlgorithm ga) {
+	/**
+	 * Returns the tooltip to be attached to the graphical representation of the
+	 * given graphics algorithm.
+	 * 
+	 * @param graphicsAlgorithm
+	 *            the graphics algorithm
+	 * @return the tooltip
+	 * @since 0.10
+	 */
+	public Object getToolTip(GraphicsAlgorithm ga) {
 		return null;
 	}
 

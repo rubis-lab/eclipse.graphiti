@@ -33,8 +33,6 @@ import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -138,6 +136,7 @@ import org.eclipse.graphiti.ui.internal.util.ui.PopupMenu;
 import org.eclipse.graphiti.ui.internal.util.ui.PopupMenu.CascadingMenu;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
+import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.GC;
@@ -147,9 +146,11 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarDropDownButton;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.ActionFactory;
 import org.junit.After;
 import org.junit.Test;
 
@@ -1152,26 +1153,29 @@ public class GFOtherTests extends AbstractGFTests {
 
 		Thread.sleep(500);
 
-		try {
-			final Robot robot = new Robot();
-			robot.setAutoDelay(500);
-			try {
-				robot.keyPress(KeyEvent.VK_ALT);
-				robot.setAutoDelay(0);
-				robot.keyPress(KeyEvent.VK_LEFT);
-			} catch (RuntimeException e) {
-				fail(e.getMessage());
-			} finally {
-				robot.keyRelease(KeyEvent.VK_LEFT);
-				robot.keyRelease(KeyEvent.VK_ALT);
+		final Object[] data = new Object[1];
+		for (int i = 0; i > -1; i++) {
+			final SWTBotToolbarDropDownButton toolbarDropDownButton = bot.toolbarDropDownButton(i);
+			Display.getDefault().syncExec(new Runnable() {
+
+				public void run() {
+					data[0] = toolbarDropDownButton.widget.getData();
+				}
+			});
+
+			if (data[0] instanceof ActionContributionItem) {
+				ActionContributionItem item = (ActionContributionItem) data[0];
+				if (item.getId().equals(ActionFactory.BACKWARD_HISTORY.getId())) { // Found!
+					toolbarDropDownButton.click();
+					break;
+				}
 			}
-		} catch (Exception e) {
-			fail(e.getMessage());
 		}
 
-		SWTBotEditor swtBotEditor = bot.editorById(DiagramEditor.DIAGRAM_EDITOR_ID);
-		assertNotNull(swtBotEditor);
-		SWTBotStyledText styledText = swtBotEditor.bot().styledText();
+		SWTBotEditor editor = bot.editorById(DiagramEditor.DIAGRAM_EDITOR_ID);
+		assertNotNull(editor);
+		editor.show();
+		SWTBotStyledText styledText = editor.bot().styledText();
 		assertNotNull(styledText);
 		assertTrue(styledText.getText().startsWith("No Diagram found for URI"));
 
