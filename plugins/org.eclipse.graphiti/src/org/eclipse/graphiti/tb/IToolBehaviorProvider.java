@@ -241,8 +241,9 @@ public interface IToolBehaviorProvider {
 	 * @param graphicsAlgorithm
 	 *            the graphics algorithm
 	 * @return the tooltip
+	 * @since 0.10
 	 */
-	String getToolTip(GraphicsAlgorithm graphicsAlgorithm);
+	Object getToolTip(GraphicsAlgorithm graphicsAlgorithm);
 
 	/**
 	 * The returned graphics algorithm defines the selection border and the
