@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mgorning - Bug 365172 - Shape Selection Info Solid Line 
  *
  * </copyright>
  *
@@ -26,8 +27,14 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.gef.handles.AbstractHandle;
 import org.eclipse.gef.tools.DragEditPartsTracker;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.tb.ISelectionInfo;
+import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
+import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
+import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
@@ -51,16 +58,6 @@ public class GFSurroundingHandle extends AbstractHandle {
 	 * {@link ZoomingInsetsHandleLocator}.
 	 */
 	private static Insets HANDLE_INSETS = new Insets(LINE_WIDTH, LINE_WIDTH, LINE_WIDTH, LINE_WIDTH);
-
-	/**
-	 * The line-style to use for resizable directions.
-	 */
-	private static int[] LINE_STYLE_RESIZABLE = new int[] { 2, 2 };
-
-	/**
-	 * The line-style to use for not-resizable directions.
-	 */
-	private static int[] LINE_STYLE_NOT_RESIZABLE = new int[] { 2, 2 };
 
 	/**
 	 * The foreground color to use for resizable directions.
@@ -108,6 +105,8 @@ public class GFSurroundingHandle extends AbstractHandle {
 	 */
 	private boolean movable;
 
+	private ISelectionInfo selectionInfoForShape = null;
+
 	/**
 	 * Creates a new GFSurroundingHandle.
 	 * 
@@ -123,11 +122,17 @@ public class GFSurroundingHandle extends AbstractHandle {
 	 *            Indicates, if moving the owner edit-part via this handle is
 	 *            supported.
 	 */
-	public GFSurroundingHandle(GraphicalEditPart owner, IConfigurationProviderInternal configurationProvider, int supportedResizeDirections,
-			boolean movable) {
+	public GFSurroundingHandle(GraphicalEditPart owner, IConfigurationProviderInternal configurationProvider,
+			int supportedResizeDirections, boolean movable) {
 		this.configurationProvider = configurationProvider;
 		this.supportedResizeDirections = supportedResizeDirections;
 		this.movable = movable;
+
+		if (owner instanceof ShapeEditPart && owner.getModel() instanceof Shape) {
+			Shape shape = (Shape) owner.getModel();
+			IToolBehaviorProvider tbp = configurationProvider.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+			selectionInfoForShape = tbp.getSelectionInfoForShape(shape);
+		}
 
 		setOwner(owner);
 		setLocator(new ZoomingInsetsHandleLocator(owner.getFigure(), configurationProvider, HANDLE_INSETS));
@@ -217,30 +222,35 @@ public class GFSurroundingHandle extends AbstractHandle {
 	private void prepareForDrawing(Graphics g, int direction) {
 		boolean resizable = (supportedResizeDirections & direction) != 0;
 
-		int dash[];
 		Color fg;
 		if (resizable) {
-			dash = LINE_STYLE_RESIZABLE;
 			fg = getFG_COLOR_RESIZABLE();
 		} else {
-			dash = LINE_STYLE_NOT_RESIZABLE;
 			fg = getFG_COLOR_NOT_RESIZABLE();
 		}
 
-		int dashZoomed[];
-		double zoom = GFHandleHelper.getZoomLevel(configurationProvider);
-		if (zoom == 1.0) {
-			dashZoomed = dash;
+		if (selectionInfoForShape != null) {
+			LineStyle lineStyle = selectionInfoForShape.getLineStyle();
+			int draw2dLineStyle = DataTypeTransformation.toDraw2dLineStyle(lineStyle);
+			g.setLineStyle(draw2dLineStyle);
 		} else {
-			dashZoomed = new int[dash.length];
-			for (int i = 0; i < dashZoomed.length; i++) {
-				dashZoomed[i] = Math.max(1, (int) (zoom * dash[i]));
+			// default line style for selection
+			int[] dash = new int[] { 2, 2 };
+			int dashZoomed[];
+			double zoom = GFHandleHelper.getZoomLevel(configurationProvider);
+			if (zoom == 1.0) {
+				dashZoomed = dash;
+			} else {
+				dashZoomed = new int[dash.length];
+				for (int i = 0; i < dashZoomed.length; i++) {
+					dashZoomed[i] = Math.max(1, (int) (zoom * dash[i]));
+				}
 			}
+			g.setLineStyle(Graphics.LINE_CUSTOM);
+			g.setLineDash(dashZoomed);
 		}
-
-		g.setLineStyle(Graphics.LINE_CUSTOM);
-		g.setLineDash(dashZoomed);
-		// It is necessary to set the color. This ensures the support for the high contrast mode.
+		// It is necessary to set the color. This ensures the support for the
+		// high contrast mode.
 		setForegroundColor(fg);
 		g.setForegroundColor(getForegroundColor());
 	}
