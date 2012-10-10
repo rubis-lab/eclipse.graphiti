@@ -177,8 +177,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	 * @param containerEditPart
 	 *            the container edit part
 	 */
-	public PictogramElementDelegate(IConfigurationProviderInternal configurationProvider, PictogramElement pictogramElement,
-			EditPart containerEditPart) {
+	public PictogramElementDelegate(IConfigurationProviderInternal configurationProvider,
+			PictogramElement pictogramElement, EditPart containerEditPart) {
 		setConfigurationProvider(configurationProvider);
 		setPictogramElement(pictogramElement);
 		setContainerEditPart(containerEditPart);
@@ -630,21 +630,21 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			// only called in case no update needed tooltip exists)
 			Object toolTip = toolBehaviorProvider.getToolTip(graphicsAlgorithm);
 			// null or empty string means no tooltip wanted
-			if (toolTip != null)
-			{
-				if (toolTip instanceof String)
-				{
-					tooltipFigure = new Label((String) toolTip);
-				} else if (toolTip instanceof Text)
-				{
+			if (toolTip != null) {
+				if (toolTip instanceof String) {
+					String toolTipString = (String) toolTip;
+					if (toolTipString.length() > 0) {
+						tooltipFigure = new Label(toolTipString);
+					}
+				} else if (toolTip instanceof Text) {
 					Text text = (Text) toolTip;
-					if (text.getValue() != null && !(text.getValue().length() == 0)) {
+					if (text.getValue() != null && (text.getValue().length() > 0)) {
 						tooltipFigure = new GFText(this, text);
 						((GFText) tooltipFigure).setText(text.getValue());
 					}
 				} else if (toolTip instanceof MultiText) {
 					MultiText multiText = (MultiText) toolTip;
-					if (multiText.getValue() != null && !(multiText.getValue().length() == 0)) {
+					if (multiText.getValue() != null && (multiText.getValue().length() > 0)) {
 						tooltipFigure = new GFMultilineText(this, multiText);
 					}
 				}
