@@ -610,7 +610,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		}
 
 		// Create a tooltip label
-		Label tooltipLabel = null;
+		IFigure tooltipFigure = null;
 
 		// First check the need for an update needed tooltip
 		Label indicateUpdateNeedeTooltipLabel = null;
@@ -624,20 +624,36 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		if (indicateUpdateNeedeTooltipLabel != null) {
 			// Use update needed tooltip in any case (tool provided tooltip
 			// would be probably invalid)
-			tooltipLabel = indicateUpdateNeedeTooltipLabel;
+			tooltipFigure = indicateUpdateNeedeTooltipLabel;
 		} else {
 			// ... if not get the tool provided tooltip (for performance reasons
 			// only called in case no update needed tooltip exists)
-			String toolTip = toolBehaviorProvider.getToolTip(graphicsAlgorithm);
-			if (toolTip != null && !(toolTip.length() == 0)) {
-				// null or empty string means no tooltip wanted
-				tooltipLabel = new Label(toolTip);
+			Object toolTip = toolBehaviorProvider.getToolTip(graphicsAlgorithm);
+			// null or empty string means no tooltip wanted
+			if (toolTip != null)
+			{
+				if (toolTip instanceof String)
+				{
+					tooltipFigure = new Label((String) toolTip);
+				} else if (toolTip instanceof Text)
+				{
+					Text text = (Text) toolTip;
+					if (text.getValue() != null && !(text.getValue().length() == 0)) {
+						tooltipFigure = new GFText(this, text);
+						((GFText) tooltipFigure).setText(text.getValue());
+					}
+				} else if (toolTip instanceof MultiText) {
+					MultiText multiText = (MultiText) toolTip;
+					if (multiText.getValue() != null && !(multiText.getValue().length() == 0)) {
+						tooltipFigure = new GFMultilineText(this, multiText);
+					}
+				}
 			}
 		}
 
 		// Set the tooltip in any case, especially also when it's null to clean
 		// up a previously set tooltip (see Bugzilla 348662)
-		figure.setToolTip(tooltipLabel);
+		figure.setToolTip(tooltipFigure);
 	}
 
 	private void refreshFont(AbstractText text, Figure label) {
