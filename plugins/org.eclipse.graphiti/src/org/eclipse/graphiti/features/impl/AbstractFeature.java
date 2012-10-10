@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 363464: Return IReason to pass on information if layout has been performed
+ *    mwenz - Added convenience methods for font handling
  *
  * </copyright>
  *
@@ -27,6 +28,7 @@ import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
@@ -266,6 +268,80 @@ public abstract class AbstractFeature implements IFeature {
 	 */
 	protected Color manageColor(int red, int green, int blue) {
 		return Graphiti.getGaService().manageColor(getDiagram(), red, green, blue);
+	}
+
+	/**
+	 * Provides the font instance for the default font (Arial in size 8) by
+	 * either creating a new one and aggregating it to the diagram or finding it
+	 * in the diagrams list of fonts.
+	 * 
+	 * @param diagram
+	 *            the diagram that aggregates the fonts
+	 * @return the font instance
+	 * 
+	 * @since 0.10
+	 */
+	protected Font manageDefaultFont(Diagram diagram) {
+		return Graphiti.getGaService().manageDefaultFont(diagram);
+	}
+
+	/**
+	 * Provides the font instance for the default font (Arial in size 8) by
+	 * either creating a new one and aggregating it to the diagram or finding it
+	 * in the diagrams list of fonts.
+	 * 
+	 * @param diagram
+	 *            the diagram that aggregates the fonts
+	 * @param isItalic
+	 *            the is italic
+	 * @param isBold
+	 *            the is bold
+	 * @return the font instance
+	 * 
+	 * @since 0.10
+	 */
+	Font manageDefaultFont(Diagram diagram, boolean isItalic, boolean isBold) {
+		return Graphiti.getGaService().manageDefaultFont(diagram, isItalic, isBold);
+	}
+
+	/**
+	 * Provides a font instance by either creating a new one and aggregating it
+	 * to the diagram or finding it in the diagrams list of fonts.
+	 * 
+	 * @param diagram
+	 *            the diagram that aggregates the fonts
+	 * @param name
+	 *            the name of the font
+	 * @param size
+	 *            the size of the font
+	 * @return the font instance
+	 * 
+	 * @since 0.10
+	 */
+	public Font manageFont(Diagram diagram, String name, int size) {
+		return Graphiti.getGaService().manageFont(diagram, name, size);
+	}
+
+	/**
+	 * Provides a font instance by either creating a new one and aggregating it
+	 * to the diagram or finding it in the diagrams list of fonts.
+	 * 
+	 * @param diagram
+	 *            the diagram that aggregates the fonts
+	 * @param name
+	 *            the name of the font
+	 * @param size
+	 *            the size of the font
+	 * @param isItalic
+	 *            the is italic
+	 * @param isBold
+	 *            the is bold
+	 * @return the font instance
+	 * 
+	 * @since 0.10
+	 */
+	public Font manageFont(Diagram diagram, String name, int size, boolean isItalic, boolean isBold) {
+		return Graphiti.getGaService().manageFont(diagram, name, size, isItalic, isBold);
 	}
 
 	/**
