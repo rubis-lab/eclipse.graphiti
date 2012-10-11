@@ -231,16 +231,8 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		IUpdateFeature updateFeature = getUpdateFeature(context);
 		if (updateFeature != null) {
 			IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
-			try {
-				diagramEditor.executeFeature(updateFeature, context);
-			} catch (Exception e) {
-				// Wrap in RuintimeException (handled by all callers)
-				if (e instanceof RuntimeException) {
-					throw (RuntimeException) e;
-				} else {
-					throw new RuntimeException(e);
-				}
-			}
+			diagramEditor.executeFeature(updateFeature, context);
+			b = true;
 		}
 		IReason reason = new Reason(b);
 		if (info) {
@@ -259,17 +251,8 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		ILayoutFeature layoutSemanticsFeature = getLayoutFeature(context);
 		if (layoutSemanticsFeature != null) {
 			IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
-			try {
-				diagramEditor.executeFeature(layoutSemanticsFeature, context);
-				b = true;
-			} catch (Exception e) {
-				// Wrap in RuntimeException (handled by all callers)
-				if (e instanceof RuntimeException) {
-					throw (RuntimeException) e;
-				} else {
-					throw new RuntimeException(e);
-				}
-			}
+			diagramEditor.executeFeature(layoutSemanticsFeature, context);
+			b = true;
 		}
 		IReason res = new Reason(b);
 		if (info) {
@@ -327,18 +310,9 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		if (canAdd(context).toBoolean()) {
 			IAddFeature feature = getAddFeature(context);
 			IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
-			try {
-				Object result = diagramEditor.executeFeature(feature, context);
-				if (result instanceof PictogramElement) {
-					returnValue = (PictogramElement) result;
-				}
-			} catch (Exception e) {
-				// Wrap in RuintimeException (handled by all callers)
-				if (e instanceof RuntimeException) {
-					throw (RuntimeException) e;
-				} else {
-					throw new RuntimeException(e);
-				}
+			Object result = diagramEditor.executeFeature(feature, context);
+			if (result instanceof PictogramElement) {
+				returnValue = (PictogramElement) result;
 			}
 		}
 		if (info) {
