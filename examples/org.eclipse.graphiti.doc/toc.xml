@@ -28,7 +28,11 @@
        <topic href="resources/docu/advanced/IssueAnalysis.htm" label="Analysing Issues"/>
     </topic>
     <topic label="Examples">
+       <topic href="resources/docu/examples/Tutorial.htm" label="Tutorial">
+       </topic>
        <topic href="resources/docu/examples/Chess.htm" label="Chess Example">
+       </topic>
+       <topic href="resources/docu/examples/Filesystem.htm" label="Filesystem Example">
        </topic>
     </topic>
     <topic href="resources/docu/tools/Overview.html" label="Overview on Graphiti Tools">
