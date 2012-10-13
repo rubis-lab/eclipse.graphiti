@@ -1160,6 +1160,62 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	}
 
 	@Test
+	public void testCancelConnection() throws Exception {
+		final int x = 100;
+		final int y = 100;
+		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
+				IFeatureProvider fp = dtp.getFeatureProvider();
+				CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
+				ICreateFeature[] createFeatures = fp.getCreateFeatures();
+				for (ICreateFeature createFeature : createFeatures) {
+					if ("Rectangle".equals(createFeature.getName())) {
+						Rectangle rectangle = new Rectangle(x, y, 100, 100);
+						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
+						Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
+								createFeature, createContext, rectangle);
+						commandStack.execute(createCommand);
+						rectangle = new Rectangle(x + 200, y, 100, 100);
+						createContext = createCreateContext(dtp.getDiagram(), rectangle);
+						createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
+								createFeature, createContext, rectangle);
+						commandStack.execute(createCommand);
+					}
+				}
+			}
+
+		});
+		Thread.sleep(DELAY);
+
+		Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
+		assertTrue(diagram.getConnections().isEmpty());
+
+		syncExec(new VoidResult() {
+			public void run() {
+				// activate create-freeform-connection tool
+				try {
+					SketchCreateFreeformConnectionFeature.setCancelling(true);
+					ed.getGefEditor().activateTool("free");
+					ed.getGefEditor().drag(150, 150, 350, 150);
+					ed.getGefEditor().click(350, 150);
+				} finally {
+					SketchCreateFreeformConnectionFeature.setCancelling(false);
+				}
+			}
+		});
+		Thread.sleep(DELAY);
+
+		assertTrue(diagram.getConnections().isEmpty());
+
+		CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
+		assertFalse(commandStack.canRedo());
+		page.shutdownEditor(diagramEditor);
+	}
+
+	@Test
 	public void testResizeAndPosition() throws Exception {
 		final int x = 100;
 		final int y = 100;
