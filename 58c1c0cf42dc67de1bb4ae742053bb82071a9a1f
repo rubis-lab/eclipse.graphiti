@@ -1,0 +1,8 @@
+Verified+1: Hudson CI
+Code-Review+2: Felix Velasco <felix.velasco@gmail.com>
+IP-Clean+1: Felix Velasco <felix.velasco@gmail.com>
+Submitted-by: Felix Velasco <felix.velasco@gmail.com>
+Submitted-at: Sun, 14 Oct 2012 18:18:00 -0400
+Reviewed-on: https://git.eclipse.org/r/8166
+Project: gmp/org.eclipse.gmp.graphiti
+Branch: refs/heads/b0_9_x
