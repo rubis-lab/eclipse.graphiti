@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.testtool.sketch.features.create;
 
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.services.Graphiti;
@@ -23,6 +24,16 @@ import org.eclipse.graphiti.services.Graphiti;
  * The Class SketchCreateFreeformConnectionFeature.
  */
 public class SketchCreateFreeformConnectionFeature extends AbstractSketchCreateSimpleConnectionFeature {
+
+	private static boolean cancel = false;
+
+	public static void setCancelling(boolean cancel) {
+		SketchCreateFreeformConnectionFeature.cancel = cancel;
+	}
+
+	public static boolean isCancelling() {
+		return cancel;
+	}
 
 	/**
 	 * Instantiates a new sketch create freeform connection feature.
@@ -40,6 +51,8 @@ public class SketchCreateFreeformConnectionFeature extends AbstractSketchCreateS
 
 	@Override
 	protected Connection createConnection() {
+		if (isCancelling())
+			throw new OperationCanceledException();
 		return Graphiti.getPeCreateService().createFreeFormConnection(getDiagram());
 	}
 }
