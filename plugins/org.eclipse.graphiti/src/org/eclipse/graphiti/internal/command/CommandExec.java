@@ -12,7 +12,7 @@
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
  *                         and called features via editor command stack to check it
- *
+ *    fvelasco - Bug 391506 - Canceling a feature with OperationCanceledException provoked an extra undo
  * </copyright>
  *
  *******************************************************************************/
@@ -59,7 +59,7 @@ public class CommandExec {
 	 *            the transactional editingDomain
 	 * @return true, if successful
 	 */
-	public boolean executeCommand(ICommand command, TransactionalEditingDomain editingDomain) throws Exception {
+	public boolean executeCommand(ICommand command, TransactionalEditingDomain editingDomain) {
 		commandExecutionDepth2++;
 		long start = System.currentTimeMillis();
 
@@ -81,14 +81,9 @@ public class CommandExec {
 		boolean ret;
 		CommandStack commandStack = editingDomain.getCommandStack();
 
-		try {
-			GFPreparableCommand gfRecordingCommand = new GFPreparableCommand(editingDomain, command);
-			commandStack.execute(gfRecordingCommand); // gfRecordingCommand.execute();
-			ret = gfRecordingCommand.getExecutionResult();
-		} catch (Exception ex) {
-			commandStack.undo();
-			throw ex;
-		}
+		GFPreparableCommand gfRecordingCommand = new GFPreparableCommand(editingDomain, command);
+		commandStack.execute(gfRecordingCommand); // gfRecordingCommand.execute();
+		ret = gfRecordingCommand.getExecutionResult();
 
 		long stop = System.currentTimeMillis();
 
@@ -133,7 +128,7 @@ public class CommandExec {
 	 * @param context
 	 *            the context
 	 */
-	public static void executeFeatureWithContext(IFeature feature, IContext context) throws Exception {
+	public static void executeFeatureWithContext(IFeature feature, IContext context) {
 		GenericFeatureCommandWithContext genericFeatureCommandWithContext = new GenericFeatureCommandWithContext(feature, context);
 		TransactionalEditingDomain editingDomain = feature.getFeatureProvider().getDiagramTypeProvider().getDiagramEditor()
 				.getEditingDomain();
