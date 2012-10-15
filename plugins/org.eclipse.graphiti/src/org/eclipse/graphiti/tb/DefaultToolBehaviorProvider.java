@@ -13,13 +13,11 @@
  *    mwenz - Bug 363796 - Make setting of selection width of connections public
  *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
  *    mgorning - Bug 386913 - Support also Single-Click-Features
+ *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *
  * </copyright>
  *
  *******************************************************************************/
-/*
- * Created on 28.06.2005
- */
 package org.eclipse.graphiti.tb;
 
 import java.awt.Polygon;
@@ -132,9 +130,13 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return null;
 	}
 
-	public ISelectionInfo getSelectionInfoForConnection(Connection connection) {
-		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.CONNECTION_SELECTION_FG, IColorConstant.HANDLE_FG,
-				IColorConstant.HANDLE_BG, LineStyle.DASH);
+	/**
+	 * @since 0.10
+	 */
+	public IConnectionSelectionInfo getSelectionInfoForConnection(Connection connection) {
+		IConnectionSelectionInfo si = new ConnectionSelectionInfoImpl();
+		si.setColor(IColorConstant.CONNECTION_SELECTION_FG);
+		si.setLineStyle(LineStyle.DASH);
 		return si;
 	}
 
@@ -364,18 +366,23 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 		return NO_RENDERING_DECORATORS;
 	}
 
-	public ISelectionInfo getSelectionInfoForShape(Shape shape) {
-		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.SHAPE_SELECTION_FG, IColorConstant.HANDLE_FG,
-				IColorConstant.HANDLE_BG, LineStyle.DASH);
+	/**
+	 * @since 0.10
+	 */
+	public IShapeSelectionInfo getSelectionInfoForShape(Shape shape) {
+		IShapeSelectionInfo si = new ShapeSelectionInfoImpl();
+		si.setColor(IColorConstant.SHAPE_SELECTION_FG);
+		si.setLineStyle(LineStyle.DASH);
 		return si;
 	}
 
 	/**
-	 * @since 0.9
+	 * @since 0.10
 	 */
-	public ISelectionInfo getSelectionInfoForAnchor(Anchor anchor) {
-		ISelectionInfo si = new SelectionInfoImpl(IColorConstant.SHAPE_SELECTION_FG, IColorConstant.HANDLE_FG,
-				IColorConstant.HANDLE_BG, LineStyle.DASH);
+	public IAnchorSelectionInfo getSelectionInfoForAnchor(Anchor anchor) {
+		IAnchorSelectionInfo si = new AnchorSelectionInfoImpl();
+		si.setColor(IColorConstant.SHAPE_SELECTION_FG);
+		si.setLineStyle(LineStyle.DASH);
 		return si;
 	}
 
