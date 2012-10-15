@@ -61,4 +61,64 @@ public interface IShapeSelectionInfo extends ISelectionInfo {
 	 */
 	void setSecondarySelectionBackgroundColor(IColorConstant color);
 
+	/**
+	 * Gets the primary selection foreground color for the selection handle.
+	 * 
+	 * @return the foreground color
+	 */
+	IColorConstant getPrimarySelectionHandleForegroundColor();
+
+	/**
+	 * Gets the primary selection background color for the selection handle.
+	 * 
+	 * @return the background color
+	 */
+	IColorConstant getPrimarySelectionHandleBackgroundColor();
+
+	/**
+	 * Gets the secondary selection foreground color for the selection handle.
+	 * 
+	 * @return the foreground color
+	 */
+	IColorConstant getSecondarySelectionHandleForegroundColor();
+
+	/**
+	 * Gets the secondary selection background color for the selection handle.
+	 * 
+	 * @return the background color
+	 */
+	IColorConstant getSecondarySelectionHandleBackgroundColor();
+
+	/**
+	 * Sets the primary selection foreground color for the selection handle.
+	 * 
+	 * @param color
+	 *            the color
+	 */
+	void setPrimarySelectionHandleForegroundColor(IColorConstant color);
+
+	/**
+	 * Sets the primary selection background color for the selection handle.
+	 * 
+	 * @param color
+	 *            the color
+	 */
+	void setPrimarySelectionHandleBackgroundColor(IColorConstant color);
+
+	/**
+	 * Sets the secondary selection foreground color for the selection handle.
+	 * 
+	 * @param color
+	 *            the color
+	 */
+	void setSecondarySelectionHandleForegroundColor(IColorConstant color);
+
+	/**
+	 * Sets the secondary selection background color for the selection handle.
+	 * 
+	 * @param color
+	 *            the color
+	 */
+	void setSecondarySelectionHandleBackgroundColor(IColorConstant color);
+
 }
