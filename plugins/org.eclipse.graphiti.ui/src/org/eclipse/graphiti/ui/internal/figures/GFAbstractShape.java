@@ -10,7 +10,8 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
- *    cbrand - Bug 370440 - Over scaling of connections and lines after canvas zoom 
+ *    cbrand - Bug 370440 - Over scaling of connections and lines after canvas zoom
+ *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *
  * </copyright>
  *
@@ -41,6 +42,7 @@ import org.eclipse.graphiti.platform.ga.IVisualStateHolder;
 import org.eclipse.graphiti.platform.ga.VisualStateChangedEvent;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.ISelectionInfo;
+import org.eclipse.graphiti.tb.IShapeSelectionInfo;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
@@ -371,7 +373,7 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
 					.getCurrentToolBehaviorProvider();
 			PictogramElement pe = getPictogramElementDelegate().getPictogramElement();
-			ISelectionInfo selectionInfo = null;
+			IShapeSelectionInfo selectionInfo = null;
 			if (pe instanceof org.eclipse.graphiti.mm.pictograms.Shape) {
 				selectionInfo = tbp.getSelectionInfoForShape((org.eclipse.graphiti.mm.pictograms.Shape) pe);
 			} else if (pe instanceof Anchor) {

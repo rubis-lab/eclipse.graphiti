@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 342869 - Image doesn't scale the contained SWT Image on resize
  *    mwenz - Bug 358255 - Add Border/Background decorators
+ *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *
  * </copyright>
  *
@@ -57,17 +58,19 @@ import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.tb.ConnectionSelectionInfoImpl;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.ContextEntryHelper;
 import org.eclipse.graphiti.tb.ContextMenuEntry;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
+import org.eclipse.graphiti.tb.IConnectionSelectionInfo;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.eclipse.graphiti.tb.IDecorator;
-import org.eclipse.graphiti.tb.ISelectionInfo;
+import org.eclipse.graphiti.tb.IShapeSelectionInfo;
 import org.eclipse.graphiti.tb.ImageDecorator;
-import org.eclipse.graphiti.tb.SelectionInfoImpl;
+import org.eclipse.graphiti.tb.ShapeSelectionInfoImpl;
 import org.eclipse.graphiti.testtool.sketch.features.ChangeAlignmentFeature;
 import org.eclipse.graphiti.testtool.sketch.features.ClearDecoratorsFeature;
 import org.eclipse.graphiti.testtool.sketch.features.CornerDimensionFeature;
@@ -95,7 +98,8 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 
 		private final String imageFilePath;
 
-		public MyObjectCreationToolEntry(String label, String description, ICreateFeature createFeature, String imageFilePath) {
+		public MyObjectCreationToolEntry(String label, String description, ICreateFeature createFeature,
+				String imageFilePath) {
 			super(label, description, null, null, createFeature);
 			this.imageFilePath = imageFilePath;
 		}
@@ -126,13 +130,6 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 	private static final double[] ZOOM_LEVELS = new double[] { 0.05, 0.1, 0.5, 1, 1.5, 2, 3, 4 };
 
 	private static boolean TEST_SHOW_WARNING_DECORATORS = false;
-
-	private final ISelectionInfo selectionInfo = new SelectionInfoImpl(IColorConstant.BLUE, IColorConstant.LIGHT_BLUE, IColorConstant.RED,
-			LineStyle.DOT);
-	{
-		selectionInfo.setPrimarySelectionBackgroundColor(IColorConstant.LIGHT_BLUE);
-		selectionInfo.setSecondarySelectionBackgroundColor(IColorConstant.LIGHT_ORANGE);
-	}
 
 	/**
 	 * Instantiates a new sketch tool behaviour.
@@ -186,9 +183,12 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 	}
 
 	@Override
-	public ISelectionInfo getSelectionInfoForConnection(Connection connection) {
+	public IConnectionSelectionInfo getSelectionInfoForConnection(Connection connection) {
 		if (connection instanceof FreeFormConnection) {
-			return selectionInfo;
+			IConnectionSelectionInfo si = new ConnectionSelectionInfoImpl();
+			si.setColor(IColorConstant.BLUE);
+			si.setLineStyle(LineStyle.DOT);
+			return si;
 		}
 		return super.getSelectionInfoForConnection(connection);
 	}
@@ -212,7 +212,8 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 				ICustomFeature customFeature = customFeatures[i];
 				if (customFeature instanceof SketchFontFeature) {
 					// example for a collapse button
-					IContextButtonEntry collapseButton = ContextEntryHelper.createCollapseContextButton(true, customFeature, customContext);
+					IContextButtonEntry collapseButton = ContextEntryHelper.createCollapseContextButton(true,
+							customFeature, customContext);
 					ret.setCollapseContextButton(collapseButton);
 				} else if (customFeature.isAvailable(customContext)) {
 					ContextButtonEntry contextButtonEntry = new ContextButtonEntry(customFeature, customContext);
@@ -413,9 +414,9 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 				}
 
 				for (ICreateConnectionFeature createConnectionFeature : createConnectionFeatures) {
-					ConnectionCreationToolEntry ccTool = new ConnectionCreationToolEntry(createConnectionFeature.getCreateName(),
-							createConnectionFeature.getCreateDescription(), createConnectionFeature.getCreateImageId(),
-							createConnectionFeature.getCreateLargeImageId());
+					ConnectionCreationToolEntry ccTool = new ConnectionCreationToolEntry(
+							createConnectionFeature.getCreateName(), createConnectionFeature.getCreateDescription(),
+							createConnectionFeature.getCreateImageId(), createConnectionFeature.getCreateLargeImageId());
 					ccTool.addCreateConnectionFeature(createConnectionFeature);
 					if (multiTool != null) {
 						multiTool.addCreateConnectionFeature(createConnectionFeature);
@@ -443,8 +444,8 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 							createFeature.getCreateDescription(), createFeature, ICON_CAN_FIGURE);
 				} else {
 					objectCreationToolEntry = new ObjectCreationToolEntry(createFeature.getCreateName(),
-							createFeature.getCreateDescription(), createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(),
-							createFeature);
+							createFeature.getCreateDescription(), createFeature.getCreateImageId(),
+							createFeature.getCreateLargeImageId(), createFeature);
 				}
 				objectsCompartmentEntry.addToolEntry(objectCreationToolEntry);
 			}
@@ -507,9 +508,14 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 	}
 
 	@Override
-	public ISelectionInfo getSelectionInfoForShape(Shape shape) {
+	public IShapeSelectionInfo getSelectionInfoForShape(Shape shape) {
 		if (shape instanceof ContainerShape) {
-			return selectionInfo;
+			IShapeSelectionInfo si = new ShapeSelectionInfoImpl();
+			si.setColor(IColorConstant.BLUE);
+			si.setLineStyle(LineStyle.DOT);
+			si.setPrimarySelectionBackgroundColor(IColorConstant.LIGHT_BLUE);
+			si.setSecondarySelectionBackgroundColor(IColorConstant.LIGHT_ORANGE);
+			return si;
 		}
 		return super.getSelectionInfoForShape(shape);
 	}
@@ -519,7 +525,7 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 		if (SketchUtil.isConnectionPoint(ga.getPictogramElement())) {
 			return null;
 		}
-		
+
 		if (ga instanceof AbstractText && ga.getParentGraphicsAlgorithm() != null) {
 			return getToolTip(ga.getParentGraphicsAlgorithm());
 		}
@@ -560,7 +566,7 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 	public void postExecute(IExecutionInfo executionInfo) {
 		super.postExecute(executionInfo);
 
-		//Graphiti.getPeService().moveBendpoints(executionInfo);
+		// Graphiti.getPeService().moveBendpoints(executionInfo);
 	}
 
 	@Override
