@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *
  * </copyright>
  *
@@ -34,7 +35,10 @@ import org.eclipse.graphiti.features.context.impl.MoveBendpointContext;
 import org.eclipse.graphiti.features.context.impl.RemoveBendpointContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
+import org.eclipse.graphiti.tb.IConnectionSelectionInfo;
+import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFPolylineConnection;
@@ -49,8 +53,22 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 	/** The tolerance for the snap-to adjacent bendpoint feedback. */
 	private static final int SNAP_TO_TOLERANCE = 15;
 
+	private IConnectionSelectionInfo connectionSelectionInfo;
+
 	public ConnectionBendpointEditPolicy(IConfigurationProviderInternal configurationProvider) {
 		super(configurationProvider);
+	}
+
+	@Override
+	public void activate() {
+		super.activate();
+
+		Object model = getHost().getModel();
+		if (model instanceof Connection) {
+			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
+					.getCurrentToolBehaviorProvider();
+			connectionSelectionInfo = tbp.getSelectionInfoForConnection((Connection) model);
+		}
 	}
 
 	@Override
@@ -70,11 +88,12 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 			// http://www.koders.com/java/fid363E5D238D7C1D6660EBA03C7944827E823C6B42.aspx
 			getConnection().translateToRelative(location);
 
-			AddBendpointContext context = new AddBendpointContext(freeFormConnection, location.x, location.y, bendpointIndex);
+			AddBendpointContext context = new AddBendpointContext(freeFormConnection, location.x, location.y,
+					bendpointIndex);
 			IAddBendpointFeature addBendpointFeature = getFeatureProvider().getAddBendpointFeature(context);
 			if (addBendpointFeature != null) {
-				ret = new GefCommandWrapper(new GenericFeatureCommandWithContext(addBendpointFeature, context), getConfigurationProvider()
-						.getDiagramEditor().getEditingDomain());
+				ret = new GefCommandWrapper(new GenericFeatureCommandWithContext(addBendpointFeature, context),
+						getConfigurationProvider().getDiagramEditor().getEditingDomain());
 			}
 		}
 		// workaround: no snapping to original position
@@ -133,8 +152,8 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 
 			IMoveBendpointFeature moveBendpointFeature = getFeatureProvider().getMoveBendpointFeature(context);
 			if (moveBendpointFeature != null) {
-				ret = new GefCommandWrapper(new GenericFeatureCommandWithContext(moveBendpointFeature, context), getConfigurationProvider()
-						.getDiagramEditor().getEditingDomain());
+				ret = new GefCommandWrapper(new GenericFeatureCommandWithContext(moveBendpointFeature, context),
+						getConfigurationProvider().getDiagramEditor().getEditingDomain());
 			}
 		}
 
@@ -165,7 +184,8 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 		// ADDED: enable snap-to adjacent bendpoints.
 		snapToAdjacentBendpoints(request, bp.getLocation());
 
-		// <sw 23022009> add: "request.getIndex() < constraint.size()" to fix CSN 0120061532 0001148754 2009
+		// <sw 23022009> add: "request.getIndex() < constraint.size()" to fix
+		// CSN 0120061532 0001148754 2009
 		if (constraint.size() > 0 && request.getIndex() < constraint.size()) {
 			constraint.set(request.getIndex(), bp);
 		} else {
@@ -193,7 +213,8 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 		for (int i = 0; i < points.size() - 1; i++) {
 			// CHANGED: create GFBendpointCreationHandle instead of
 			// BendpointCreationHandle
-			list.add(new GFBendpointHandle(connEP, 0, i, getConfigurationProvider(), GFBendpointHandle.Type.CREATE));
+			list.add(new GFBendpointHandle(connEP, 0, i, getConfigurationProvider(), GFBendpointHandle.Type.CREATE,
+					connectionSelectionInfo));
 		}
 
 		return list;
@@ -215,14 +236,19 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 
 		for (int i = 0; i < points.size() - 1; i++) {
 			// Put a create handle on the middle of every segment
-			// CHANGED: create GFBendpointCreationHandle instead of BendpointCreationHandle
-			list.add(new GFBendpointHandle(connEP, bendPointIndex, i, getConfigurationProvider(), GFBendpointHandle.Type.CREATE));
+			// CHANGED: create GFBendpointCreationHandle instead of
+			// BendpointCreationHandle
+			list.add(new GFBendpointHandle(connEP, bendPointIndex, i, getConfigurationProvider(),
+					GFBendpointHandle.Type.CREATE, connectionSelectionInfo));
 
 			// If the current user bendpoint matches a bend location, show a
 			// move handle
-			if (i < points.size() - 1 && bendPointIndex < bendPoints.size() && currBendPoint.equals(points.getPoint(i + 1))) {
-				// CHANGED: create GFBendpointMoveHandle instead of BendpointMoveHandle
-				list.add(new GFBendpointHandle(connEP, bendPointIndex, i + 1, getConfigurationProvider(), GFBendpointHandle.Type.MOVE));
+			if (i < points.size() - 1 && bendPointIndex < bendPoints.size()
+					&& currBendPoint.equals(points.getPoint(i + 1))) {
+				// CHANGED: create GFBendpointMoveHandle instead of
+				// BendpointMoveHandle
+				list.add(new GFBendpointHandle(connEP, bendPointIndex, i + 1, getConfigurationProvider(),
+						GFBendpointHandle.Type.MOVE, connectionSelectionInfo));
 
 				// Go to the next user bendpoint
 				bendPointIndex++;
@@ -265,7 +291,8 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 		// moved onto the line,
 		// so that the bendpoint is deleted. In that case just use the next
 		// point, which is the connections end-point.
-		int successorIndex = (request.getIndex() + 2 >= points.size()) ? request.getIndex() + 1 : request.getIndex() + 2;
+		int successorIndex = (request.getIndex() + 2 >= points.size()) ? request.getIndex() + 1
+				: request.getIndex() + 2;
 		org.eclipse.draw2d.geometry.Point successor = points.getPoint(successorIndex).getCopy();
 		getConnection().translateToAbsolute(successor);
 		int deltaSuccessor = getDistanceBetweenPoints(p, successor);
@@ -338,7 +365,8 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 
 	@Override
 	protected void showSelection() {
-		IMoveBendpointFeature moveBendpointFeature = getFeatureProvider().getMoveBendpointFeature(new MoveBendpointContext(null));
+		IMoveBendpointFeature moveBendpointFeature = getFeatureProvider().getMoveBendpointFeature(
+				new MoveBendpointContext(null));
 		if (moveBendpointFeature != null) {
 			super.showSelection();
 		}

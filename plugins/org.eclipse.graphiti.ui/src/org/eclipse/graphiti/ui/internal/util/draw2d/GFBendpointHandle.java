@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *
  * </copyright>
  *
@@ -32,9 +33,12 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.impl.AddBendpointContext;
 import org.eclipse.graphiti.features.context.impl.MoveBendpointContext;
 import org.eclipse.graphiti.features.context.impl.RemoveBendpointContext;
+import org.eclipse.graphiti.tb.IConnectionSelectionInfo;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
+import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
@@ -101,6 +105,8 @@ public class GFBendpointHandle extends BendpointHandle {
 	 */
 	private String dragTrackerType;
 
+	private IConnectionSelectionInfo connectionSelectionInfo;
+
 	/**
 	 * Creates a new GFBendpointHandle.
 	 * 
@@ -116,8 +122,11 @@ public class GFBendpointHandle extends BendpointHandle {
 	 * @param type
 	 *            The type of the bendpoint handle (create/move).
 	 */
-	public GFBendpointHandle(ConnectionEditPart owner, int index, int locatorIndex, IConfigurationProviderInternal configurationProvider, Type type) {
+	public GFBendpointHandle(ConnectionEditPart owner, int index, int locatorIndex,
+			IConfigurationProviderInternal configurationProvider, Type type,
+			IConnectionSelectionInfo connectionSelectionInfo) {
 		super();
+		this.connectionSelectionInfo = connectionSelectionInfo;
 		setCursor(Cursors.NO);
 
 		setConfigurationProvider(configurationProvider);
@@ -205,6 +214,13 @@ public class GFBendpointHandle extends BendpointHandle {
 	}
 
 	private Color getFgColorPrimary() {
+		if (connectionSelectionInfo != null) {
+			IColorConstant color = connectionSelectionInfo.getPrimarySelectionBendpointForegroundColor();
+			if (color != null) {
+				Color swtColor = DataTypeTransformation.toSwtColor(configurationProvider.getResourceRegistry(), color);
+				return swtColor;
+			}
+		}
 		if (FG_COLOR_PRIMARY == null || FG_COLOR_PRIMARY.isDisposed()) {
 			FG_COLOR_PRIMARY = configurationProvider.getResourceRegistry().getSwtColor("cc6a01"); //$NON-NLS-1$
 		}
@@ -212,6 +228,13 @@ public class GFBendpointHandle extends BendpointHandle {
 	}
 
 	private Color getFgColorSecondary() {
+		if (connectionSelectionInfo != null) {
+			IColorConstant color = connectionSelectionInfo.getSecondarySelectionBendpointForegroundColor();
+			if (color != null) {
+				Color swtColor = DataTypeTransformation.toSwtColor(configurationProvider.getResourceRegistry(), color);
+				return swtColor;
+			}
+		}
 		if (FG_COLOR_SECONDARY == null || FG_COLOR_SECONDARY.isDisposed()) {
 			FG_COLOR_SECONDARY = configurationProvider.getResourceRegistry().getSwtColor("cc6a01"); //$NON-NLS-1$
 		}
@@ -219,6 +242,13 @@ public class GFBendpointHandle extends BendpointHandle {
 	}
 
 	private Color getBgColorPrimary() {
+		if (connectionSelectionInfo != null) {
+			IColorConstant color = connectionSelectionInfo.getPrimarySelectionBendpointBackgroundColor();
+			if (color != null) {
+				Color swtColor = DataTypeTransformation.toSwtColor(configurationProvider.getResourceRegistry(), color);
+				return swtColor;
+			}
+		}
 		if (BG_COLOR_PRIMARY == null || BG_COLOR_PRIMARY.isDisposed()) {
 			BG_COLOR_PRIMARY = configurationProvider.getResourceRegistry().getSwtColor("ffaa2f"); //$NON-NLS-1$
 		}
@@ -226,6 +256,13 @@ public class GFBendpointHandle extends BendpointHandle {
 	}
 
 	private Color getBgColorSecondary() {
+		if (connectionSelectionInfo != null) {
+			IColorConstant color = connectionSelectionInfo.getSecondarySelectionBendpointBackgroundColor();
+			if (color != null) {
+				Color swtColor = DataTypeTransformation.toSwtColor(configurationProvider.getResourceRegistry(), color);
+				return swtColor;
+			}
+		}
 		if (BG_COLOR_SECONDARY == null || BG_COLOR_SECONDARY.isDisposed()) {
 			BG_COLOR_SECONDARY = configurationProvider.getResourceRegistry().getSwtColor("ffffff"); //$NON-NLS-1$
 		}
