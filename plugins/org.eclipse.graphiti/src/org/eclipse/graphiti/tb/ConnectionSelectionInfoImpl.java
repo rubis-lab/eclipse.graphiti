@@ -16,9 +16,48 @@
  *******************************************************************************/
 package org.eclipse.graphiti.tb;
 
+import org.eclipse.graphiti.util.IColorConstant;
+
 /**
  * @since 0.10
  */
 public class ConnectionSelectionInfoImpl extends SelectionInfoImpl implements IConnectionSelectionInfo {
+
+	private IColorConstant primarySelectionBendpointForegroundColor;
+	private IColorConstant primarySelectionBendpointBackgroundColor;
+	private IColorConstant secondarySelectionBendpointForegroundColor;
+	private IColorConstant secondarySelectionBendpointBackgroundColor;
+
+	public IColorConstant getPrimarySelectionBendpointForegroundColor() {
+		return primarySelectionBendpointForegroundColor;
+	}
+
+	public IColorConstant getPrimarySelectionBendpointBackgroundColor() {
+		return primarySelectionBendpointBackgroundColor;
+	}
+
+	public IColorConstant getSecondarySelectionBendpointForegroundColor() {
+		return secondarySelectionBendpointForegroundColor;
+	}
+
+	public IColorConstant getSecondarySelectionBendpointBackgroundColor() {
+		return secondarySelectionBendpointBackgroundColor;
+	}
+
+	public void setPrimarySelectionBendpointForegroundColor(IColorConstant color) {
+		primarySelectionBendpointForegroundColor = color;
+	}
+
+	public void setPrimarySelectionBendpointBackgroundColor(IColorConstant color) {
+		primarySelectionBendpointBackgroundColor = color;
+	}
+
+	public void setSecondarySelectionBendpointForegroundColor(IColorConstant color) {
+		secondarySelectionBendpointForegroundColor = color;
+	}
+
+	public void setSecondarySelectionBendpointBackgroundColor(IColorConstant color) {
+		secondarySelectionBendpointBackgroundColor = color;
+	}
 
 }

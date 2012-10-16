@@ -16,6 +16,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.tb;
 
+import org.eclipse.graphiti.util.IColorConstant;
+
 /**
  * The Interface IConnectionSelectionInfo.
  * 
@@ -25,5 +27,65 @@ package org.eclipse.graphiti.tb;
  * @since 0.10
  */
 public interface IConnectionSelectionInfo extends ISelectionInfo {
+
+	/**
+	 * Gets the primary selection foreground color for the bendpoint.
+	 * 
+	 * @return the foreground color
+	 */
+	IColorConstant getPrimarySelectionBendpointForegroundColor();
+
+	/**
+	 * Gets the primary selection background color for the bendpoint.
+	 * 
+	 * @return the background color
+	 */
+	IColorConstant getPrimarySelectionBendpointBackgroundColor();
+
+	/**
+	 * Gets the secondary selection foreground color for the bendpoint.
+	 * 
+	 * @return the foreground color
+	 */
+	IColorConstant getSecondarySelectionBendpointForegroundColor();
+
+	/**
+	 * Gets the secondary selection background color for the bendpoint.
+	 * 
+	 * @return the background color
+	 */
+	IColorConstant getSecondarySelectionBendpointBackgroundColor();
+
+	/**
+	 * Sets the primary selection foreground color for the bendpoint.
+	 * 
+	 * @param color
+	 *            the color
+	 */
+	void setPrimarySelectionBendpointForegroundColor(IColorConstant color);
+
+	/**
+	 * Sets the primary selection background color for the bendpoint.
+	 * 
+	 * @param color
+	 *            the color
+	 */
+	void setPrimarySelectionBendpointBackgroundColor(IColorConstant color);
+
+	/**
+	 * Sets the secondary selection foreground color for the bendpoint.
+	 * 
+	 * @param color
+	 *            the color
+	 */
+	void setSecondarySelectionBendpointForegroundColor(IColorConstant color);
+
+	/**
+	 * Sets the secondary selection background color for the bendpoint.
+	 * 
+	 * @param color
+	 *            the color
+	 */
+	void setSecondarySelectionBendpointBackgroundColor(IColorConstant color);
 
 }
