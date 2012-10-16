@@ -22,23 +22,59 @@ import org.eclipse.graphiti.util.IColorConstant;
  * @since 0.10
  */
 public class ShapeSelectionInfoImpl extends SelectionInfoImpl implements IShapeSelectionInfo {
-	private IColorConstant primarySelectionBackgroundColor;
 
+	private IColorConstant primarySelectionBackgroundColor;
+	private IColorConstant primarySelectionHandleForegroundColor;
+	private IColorConstant primarySelectionHandleBackgroundColor;
 	private IColorConstant secondarySelectionBackgroundColor;
+	private IColorConstant secondarySelectionHandleForegroundColor;
+	private IColorConstant secondarySelectionHandleBackgroundColor;
 
 	public IColorConstant getPrimarySelectionBackgroundColor() {
-		return this.primarySelectionBackgroundColor;
+		return primarySelectionBackgroundColor;
 	}
 
 	public IColorConstant getSecondarySelectionBackgroundColor() {
-		return this.secondarySelectionBackgroundColor;
+		return secondarySelectionBackgroundColor;
 	}
 
 	public void setPrimarySelectionBackgroundColor(IColorConstant color) {
-		this.primarySelectionBackgroundColor = color;
+		primarySelectionBackgroundColor = color;
 	}
 
 	public void setSecondarySelectionBackgroundColor(IColorConstant color) {
-		this.secondarySelectionBackgroundColor = color;
+		secondarySelectionBackgroundColor = color;
+	}
+
+	public IColorConstant getPrimarySelectionHandleForegroundColor() {
+		return primarySelectionHandleForegroundColor;
+	}
+
+	public IColorConstant getPrimarySelectionHandleBackgroundColor() {
+		return primarySelectionHandleBackgroundColor;
+	}
+
+	public IColorConstant getSecondarySelectionHandleForegroundColor() {
+		return secondarySelectionHandleForegroundColor;
+	}
+
+	public IColorConstant getSecondarySelectionHandleBackgroundColor() {
+		return secondarySelectionHandleBackgroundColor;
+	}
+
+	public void setPrimarySelectionHandleForegroundColor(IColorConstant color) {
+		primarySelectionHandleForegroundColor = color;
+	}
+
+	public void setPrimarySelectionHandleBackgroundColor(IColorConstant color) {
+		primarySelectionHandleBackgroundColor = color;
+	}
+
+	public void setSecondarySelectionHandleForegroundColor(IColorConstant color) {
+		secondarySelectionHandleForegroundColor = color;
+	}
+
+	public void setSecondarySelectionHandleBackgroundColor(IColorConstant color) {
+		secondarySelectionHandleBackgroundColor = color;
 	}
 }
