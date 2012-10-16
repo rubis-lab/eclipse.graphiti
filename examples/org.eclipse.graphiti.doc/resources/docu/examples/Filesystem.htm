@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Filesystem Example</title>
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
+</head>
+
+<body>
+
+	<h1>Filesystem Example</h1>
+	<p>
+		The filesystem example provided along with the SDK download of
+		Graphiti illustrates how one can use patterns for building Graphiti
+		editors. It registers an editor for this that allows the user to
+		create a filesystem with files and folders. Most of the functionality
+		is build using <a href="../advanced/Patterns.htm">patterns</a> and <a
+			href="../advanced/Patterns.htm#idpatterns">ID patterns</a>.
+	</p>
+	<img alt="Screensshot of Filesystem Example Editor"
+		src="images/FilesystemEditor.png" width="600px">
+	<h2>Filesystem Example Plugin</h2>
+	<p>
+		The example plugin <i>org.eclipse.graphiti.examples.filesystem</i> is
+		available as executable but also as source in the SDK download and
+		within our repository under the examples folder. While the example is
+		easy enough for quickly understanding it, it allows to demonstrate
+		some features of Graphiti that are not explained in the tutorial.
+	</p>
+	<h2>EMF Model</h2>
+	<p>
+		The examples plugin <i>org.eclipse.graphiti.examples.filesystem.mm</i>
+		contains a small EMF model to define the filesystem model.
+	</p>
+	<img alt="The EMF model defined for the Filesystem Example"
+		src="images/FilesystemModel.png" width="600px">
+	<h2>Special Graphiti Features</h2>
+	<p>The following special Graphiti features are shown in the
+		Filesystem example:</p>
+	<ul>
+		<li>The filesystem object itself is implemented using Graphiti
+			patterns.</li>
+		<li>The file object is a simple example of a Graphiti ID pattern.</li>
+		<li>The folder object is a more advanced example for a Graphiti
+			ID pattern using nesting of a list of objects.</li>
+	</ul>
+</body>
+</html>

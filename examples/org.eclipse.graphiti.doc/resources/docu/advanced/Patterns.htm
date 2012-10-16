@@ -328,5 +328,28 @@
 		what you would also need to implement for the features of a
 		connection.
 	</p>
+	<div id="idpatterns"></div>
+	<h2>ID Patterns</h2>
+	<p>
+		ID patterns are a special kind of pattern that allow clients to easily
+		tag parts of their shapes (both <i>PictogramElements</i> and <i>GraphicsAlgorithms</i>)
+		with IDs. These IDs are simple strings that can in other methods of
+		the pattern be used to identify the shape. The ID pattern base class
+		itself already does that to a wide extend; on e.g. layout or update
+		the pattern checks if the affected shape has an ID and if yes
+		delegates to a special ID Pattern method that can use the passed ID
+		information and simply do the intended job without having to care
+		about finding the shape or checking the relevance of the shape first.
+		This makes client coding much shorter and effective and spares clients
+		the tedious writing of such boilerplate code.
+	</p>
+	<p>The are two examples for ID Patterns within the Graphiti
+		Filesystem example: <i>File</i> objects are a basic example of the ID pattern
+		usage, while <i>Folder</i>s are a more advanced example that also shows
+		nesting a list of children (files in the example).</p>
+	<p class="Note"><b>Note:</b> The ID Pattern type is still experimental, the API
+		might still evolve and/or change without prior notice! Nevertheless,
+		we try to keep the API stable and encourage you to use this new
+		pattern type and give feedback.</p>
 </body>
 </html>

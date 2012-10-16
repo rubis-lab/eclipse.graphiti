@@ -881,10 +881,10 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * .
 	 * 
 	 * @param value
-	 *            The new vlue to check
+	 *            The new value to check
 	 * @param context
 	 *            A context object describing the direct edit request.
-	 * @return <code>null</code> in case of a vlid value, a string describing
+	 * @return <code>null</code> in case of a valid value, a string describing
 	 *         the reason for being not valid otherwise.
 	 */
 	public String checkValueValid(String value, IDirectEditingContext context) {
@@ -999,7 +999,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 
 	/**
 	 * Provides the initial value for display in the newly opened text editing
-	 * UI component. Corresponds to the methdo
+	 * UI component. Corresponds to the method
 	 * {@link AbstractDirectEditingFeature#getInitialValue(IDirectEditingContext)}
 	 * . The default implementation always returns an empty string.
 	 * 

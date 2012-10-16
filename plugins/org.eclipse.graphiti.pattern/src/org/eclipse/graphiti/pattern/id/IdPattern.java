@@ -23,7 +23,9 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
 import org.eclipse.graphiti.features.impl.Reason;
+import org.eclipse.graphiti.func.IDirectEditing;
 import org.eclipse.graphiti.mm.Property;
 import org.eclipse.graphiti.mm.PropertyContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -841,13 +843,39 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 	 * Direct editing functionality
 	 */
 
+	/**
+	 * The Graphiti framework calls this method to decide which UI to show up
+	 * for direct editing. Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#getEditingType()}. The default
+	 * implementation return {@link IDirectEditing#TYPE_NONE}, other valid type
+	 * are defined by the TYPE_* constants in {@link IDirectEditing}.
+	 * 
+	 * @return The desired editing type
+	 */
 	@Override
 	public int getEditingType() {
 		// TODO how to use different editing types for different parts of the
 		// pattern? No context to identify id...
-		return TYPE_TEXT;
+		return super.getEditingType();
 	}
 
+	/**
+	 * Clients can override this method to indicate that the pattern allows
+	 * direct editing for the shape described in the passed
+	 * {@link IDirectEditingContext}, but the recommended method to override for
+	 * {@link IdPattern} is
+	 * {@link #canDirectEdit(IDirectEditingContext, String)}. Corresponds to the
+	 * method
+	 * {@link AbstractDirectEditingFeature#canDirectEdit(IDirectEditingContext)}
+	 * . The default implementation checks if the pattern is responsible for the
+	 * shape and an ID is set; in that case it delegates to
+	 * {@link #canDirectEdit(IDirectEditingContext, String)}.
+	 * 
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @return <code>true</code> in case direct editing shall be allowed,
+	 *         <code>false</code> otherwise.
+	 */
 	@Override
 	public boolean canDirectEdit(IDirectEditingContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
@@ -868,10 +896,37 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		return false;
 	}
 
+	/**
+	 * Clients can override this method to indicate that the pattern allows
+	 * direct editing for the shape described in the passed
+	 * {@link IDirectEditingContext} holding the given ID. Corresponds to the
+	 * method
+	 * {@link AbstractDirectEditingFeature#canDirectEdit(IDirectEditingContext)}
+	 * . The default implementation simply returns <code>false</code>.
+	 * 
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @param id
+	 *            The ID to check direct editing for
+	 * @return <code>true</code> in case direct editing shall be allowed,
+	 *         <code>false</code> otherwise.
+	 */
 	protected boolean canDirectEdit(IDirectEditingContext context, String id) {
 		return false;
 	}
 
+	/**
+	 * Provides the initial value for display in the newly opened text editing
+	 * UI component. Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#getInitialValue(IDirectEditingContext)}
+	 * . The default implementation checks if the pattern is responsible for the
+	 * shape and an ID is set; in that case it delegates to
+	 * {@link #getInitialValue(IDirectEditingContext, String)}.
+	 * 
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @return The initial string value to be displayed for editing by the user.
+	 */
 	@Override
 	public String getInitialValue(IDirectEditingContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
@@ -889,13 +944,44 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 				}
 			}
 		}
-		return null;
+		return "";
 	}
 
+	/**
+	 * Provides the initial value for display in the newly opened text editing
+	 * UI component. Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#getInitialValue(IDirectEditingContext)}
+	 * . The default implementation always returns an empty string.
+	 * 
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @param id
+	 *            The ID of the shape to get the initial value for
+	 * @return The initial string value to be displayed for editing by the user.
+	 */
 	protected String getInitialValue(IDirectEditingContext context, String id) {
-		return null;
+		return "";
 	}
 
+	/**
+	 * This method will be called by the framework to check if the passed String
+	 * is valid as new value for the shape. This method's response time should
+	 * be small since the method is queried after each change of the value in
+	 * the direct edit UI. In case of a not valid value, the returned string
+	 * shall indicate the reason why the value is not valid. Corresponds to the
+	 * method
+	 * {@link AbstractDirectEditingFeature#checkValueValid(String, IDirectEditingContext)}
+	 * . The default implementation checks if the pattern is responsible for the
+	 * shape and an ID is set; in that case it delegates to
+	 * {@link #checkValueValid(String, IDirectEditingContext, String)}.
+	 * 
+	 * @param value
+	 *            The new value to check
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @return <code>null</code> in case of a valid value, a string describing
+	 *         the reason for being not valid otherwise.
+	 */
 	@Override
 	public String checkValueValid(String value, IDirectEditingContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
@@ -916,10 +1002,43 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		return null;
 	}
 
+	/**
+	 * This method will be called by the framework to check if the passed String
+	 * is valid as new value for the shape. This method's response time should
+	 * be small since the method is queried after each change of the value in
+	 * the direct edit UI. The default implementation simply returns null to
+	 * indicate that all values are valid. In case of a not valid value, the
+	 * returned string shall indicate the reason why the value is not valid.
+	 * Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#checkValueValid(String, IDirectEditingContext)}
+	 * .
+	 * 
+	 * @param value
+	 *            The new value to check
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @param id
+	 *            The ID of the shape to check the value for
+	 * @return <code>null</code> in case of a valid value, a string describing
+	 *         the reason for being not valid otherwise.
+	 */
 	protected String checkValueValid(String value, IDirectEditingContext context, String id) {
 		return null;
 	}
 
+	/**
+	 * Set the new value after direct editing is finished. The value comes from
+	 * the text editing UI component. Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#setValue(String, IDirectEditingContext)}
+	 * . The default implementation checks if the pattern is responsible for the
+	 * shape and an ID is set; in that case it delegates to
+	 * {@link #setValue(String, IDirectEditingContext, String)}.
+	 * 
+	 * @param value
+	 *            The new value to be set
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 */
 	@Override
 	public void setValue(String value, IDirectEditingContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
@@ -939,6 +1058,19 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 		}
 	}
 
+	/**
+	 * Set the new value after direct editing is finished. The value comes from
+	 * the text editing UI component. Corresponds to the method
+	 * {@link AbstractDirectEditingFeature#setValue(String, IDirectEditingContext)}
+	 * . The default implementation does nothing.
+	 * 
+	 * @param value
+	 *            The new value to be set
+	 * @param context
+	 *            A context object describing the direct edit request.
+	 * @param id
+	 *            The ID of the shape to set the value for
+	 */
 	protected void setValue(String value, IDirectEditingContext context, String id) {
 	}
 }
