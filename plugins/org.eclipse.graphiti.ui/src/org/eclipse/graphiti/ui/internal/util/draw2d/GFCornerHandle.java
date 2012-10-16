@@ -28,8 +28,11 @@ import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.gef.handles.AbstractHandle;
 import org.eclipse.gef.tools.DragEditPartsTracker;
 import org.eclipse.gef.tools.ResizeTracker;
+import org.eclipse.graphiti.tb.IShapeSelectionInfo;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
+import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Color;
@@ -116,6 +119,11 @@ public class GFCornerHandle extends AbstractHandle {
 	private boolean movable;
 
 	/**
+	 * the selection info, e.g. handle colors
+	 */
+	private IShapeSelectionInfo shapeSelectionInfo;
+
+	/**
 	 * Creates a new GFCornerHandle.
 	 * 
 	 * @param owner
@@ -133,12 +141,14 @@ public class GFCornerHandle extends AbstractHandle {
 	 * @param movable
 	 *            Indicates, if moving the shape edit-part via this handle is
 	 *            supported.
+	 * @param shapeSelectionInfo
 	 */
 	public GFCornerHandle(GraphicalEditPart owner, IConfigurationProviderInternal configurationProvider, int location,
-			int supportedResizeDirections, boolean movable) {
+			int supportedResizeDirections, boolean movable, IShapeSelectionInfo shapeSelectionInfo) {
 		this.configurationProvider = configurationProvider;
 		this.resizeDirection = supportedResizeDirections & location;
 		this.movable = movable;
+		this.shapeSelectionInfo = shapeSelectionInfo;
 
 		setOwner(owner);
 		setLocator(new ZoomingRelativeHandleLocator(owner.getFigure(), configurationProvider, location,
@@ -159,6 +169,13 @@ public class GFCornerHandle extends AbstractHandle {
 	 * @return the fG_COLOR_PRIMARY_RESIZABLE
 	 */
 	public Color getFG_COLOR_PRIMARY_RESIZABLE() {
+		if (shapeSelectionInfo != null) {
+			IColorConstant color = shapeSelectionInfo.getPrimarySelectionHandleForegroundColor();
+			if (color != null) {
+				Color swtColor = DataTypeTransformation.toSwtColor(configurationProvider.getResourceRegistry(), color);
+				return swtColor;
+			}
+		}
 		if (FG_COLOR_PRIMARY_RESIZABLE == null || FG_COLOR_PRIMARY_RESIZABLE.isDisposed())
 			FG_COLOR_PRIMARY_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("f17d00"); //$NON-NLS-1$
 		return FG_COLOR_PRIMARY_RESIZABLE;
@@ -168,6 +185,13 @@ public class GFCornerHandle extends AbstractHandle {
 	 * @return the fG_COLOR_SECONDARY_RESIZABLE
 	 */
 	public Color getFG_COLOR_SECONDARY_RESIZABLE() {
+		if (shapeSelectionInfo != null) {
+			IColorConstant color = shapeSelectionInfo.getSecondarySelectionHandleForegroundColor();
+			if (color != null) {
+				Color swtColor = DataTypeTransformation.toSwtColor(configurationProvider.getResourceRegistry(), color);
+				return swtColor;
+			}
+		}
 		if (FG_COLOR_SECONDARY_RESIZABLE == null || FG_COLOR_SECONDARY_RESIZABLE.isDisposed())
 			FG_COLOR_SECONDARY_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("f17d00"); //$NON-NLS-1$
 		return FG_COLOR_SECONDARY_RESIZABLE;
@@ -186,6 +210,13 @@ public class GFCornerHandle extends AbstractHandle {
 	 * @return the bG_COLOR_PRIMARY_RESIZABLE
 	 */
 	public Color getBG_COLOR_PRIMARY_RESIZABLE() {
+		if (shapeSelectionInfo != null) {
+			IColorConstant color = shapeSelectionInfo.getPrimarySelectionHandleBackgroundColor();
+			if (color != null) {
+				Color swtColor = DataTypeTransformation.toSwtColor(configurationProvider.getResourceRegistry(), color);
+				return swtColor;
+			}
+		}
 		if (BG_COLOR_PRIMARY_RESIZABLE == null || BG_COLOR_PRIMARY_RESIZABLE.isDisposed())
 			BG_COLOR_PRIMARY_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("ff8400"); //$NON-NLS-1$
 		return BG_COLOR_PRIMARY_RESIZABLE;
@@ -195,6 +226,13 @@ public class GFCornerHandle extends AbstractHandle {
 	 * @return the bG_COLOR_SECONDARY_RESIZABLE
 	 */
 	public Color getBG_COLOR_SECONDARY_RESIZABLE() {
+		if (shapeSelectionInfo != null) {
+			IColorConstant color = shapeSelectionInfo.getSecondarySelectionHandleBackgroundColor();
+			if (color != null) {
+				Color swtColor = DataTypeTransformation.toSwtColor(configurationProvider.getResourceRegistry(), color);
+				return swtColor;
+			}
+		}
 		if (BG_COLOR_SECONDARY_RESIZABLE == null || BG_COLOR_SECONDARY_RESIZABLE.isDisposed())
 			BG_COLOR_SECONDARY_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("ffffff"); //$NON-NLS-1$
 		return BG_COLOR_SECONDARY_RESIZABLE;

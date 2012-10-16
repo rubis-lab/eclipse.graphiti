@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mgorning - Bug 365172 - Shape Selection Info Solid Line 
+ *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *
  * </copyright>
  *
@@ -28,12 +29,9 @@ import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.gef.handles.AbstractHandle;
 import org.eclipse.gef.tools.DragEditPartsTracker;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
-import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.tb.ISelectionInfo;
-import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.tb.IShapeSelectionInfo;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
-import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -105,7 +103,7 @@ public class GFSurroundingHandle extends AbstractHandle {
 	 */
 	private boolean movable;
 
-	private ISelectionInfo selectionInfoForShape = null;
+	private IShapeSelectionInfo shapeSelectionInfo = null;
 
 	/**
 	 * Creates a new GFSurroundingHandle.
@@ -121,18 +119,14 @@ public class GFSurroundingHandle extends AbstractHandle {
 	 * @param movable
 	 *            Indicates, if moving the owner edit-part via this handle is
 	 *            supported.
+	 * @param shapeSelectionInfo
 	 */
 	public GFSurroundingHandle(GraphicalEditPart owner, IConfigurationProviderInternal configurationProvider,
-			int supportedResizeDirections, boolean movable) {
+			int supportedResizeDirections, boolean movable, IShapeSelectionInfo shapeSelectionInfo) {
 		this.configurationProvider = configurationProvider;
 		this.supportedResizeDirections = supportedResizeDirections;
 		this.movable = movable;
-
-		if (owner instanceof ShapeEditPart && owner.getModel() instanceof Shape) {
-			Shape shape = (Shape) owner.getModel();
-			IToolBehaviorProvider tbp = configurationProvider.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-			selectionInfoForShape = tbp.getSelectionInfoForShape(shape);
-		}
+		this.shapeSelectionInfo = shapeSelectionInfo;
 
 		setOwner(owner);
 		setLocator(new ZoomingInsetsHandleLocator(owner.getFigure(), configurationProvider, HANDLE_INSETS));
@@ -229,8 +223,8 @@ public class GFSurroundingHandle extends AbstractHandle {
 			fg = getFG_COLOR_NOT_RESIZABLE();
 		}
 
-		if (selectionInfoForShape != null) {
-			LineStyle lineStyle = selectionInfoForShape.getLineStyle();
+		if (shapeSelectionInfo != null) {
+			LineStyle lineStyle = shapeSelectionInfo.getLineStyle();
 			int draw2dLineStyle = DataTypeTransformation.toDraw2dLineStyle(lineStyle);
 			g.setLineStyle(draw2dLineStyle);
 		} else {
