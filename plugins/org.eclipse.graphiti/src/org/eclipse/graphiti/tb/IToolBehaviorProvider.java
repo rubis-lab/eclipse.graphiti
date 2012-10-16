@@ -12,6 +12,7 @@
  *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
  *    mwenz - Bug 363796 - Make setting of selection width of connections public
  *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
+ *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *
  * </copyright>
  *
@@ -182,8 +183,9 @@ public interface IToolBehaviorProvider {
 	 * @param shape
 	 *            the shape
 	 * @return the shape selection info
+	 * @since 0.10
 	 */
-	ISelectionInfo getSelectionInfoForShape(Shape shape);
+	IShapeSelectionInfo getSelectionInfoForShape(Shape shape);
 
 	/**
 	 * Return the selection info for the given anchor.
@@ -191,9 +193,9 @@ public interface IToolBehaviorProvider {
 	 * @param anchor
 	 *            the anchor
 	 * @return the anchor selection info
-	 * @since 0.9
+	 * @since 0.10
 	 */
-	ISelectionInfo getSelectionInfoForAnchor(Anchor anchor);
+	IAnchorSelectionInfo getSelectionInfoForAnchor(Anchor anchor);
 
 	/**
 	 * Return the selection info for the given connection.
@@ -201,8 +203,9 @@ public interface IToolBehaviorProvider {
 	 * @param connection
 	 *            the connection
 	 * @return the connection selection info
+	 * @since 0.10
 	 */
-	ISelectionInfo getSelectionInfoForConnection(Connection connection);
+	IConnectionSelectionInfo getSelectionInfoForConnection(Connection connection);
 
 	/**
 	 * Returns the location info which will be used for direct editing if the

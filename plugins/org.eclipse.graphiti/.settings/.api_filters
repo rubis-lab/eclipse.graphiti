@@ -63,6 +63,24 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/tb/DefaultToolBehaviorProvider.java" type="org.eclipse.graphiti.tb.DefaultToolBehaviorProvider">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.DefaultToolBehaviorProvider"/>
+                <message_argument value="getSelectionInfoForAnchor(Anchor)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.DefaultToolBehaviorProvider"/>
+                <message_argument value="getSelectionInfoForConnection(Connection)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.DefaultToolBehaviorProvider"/>
+                <message_argument value="getSelectionInfoForShape(Shape)"/>
+            </message_arguments>
+        </filter>
         <filter comment="getToolTip changes its return type to Object" id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.tb.DefaultToolBehaviorProvider"/>
@@ -70,11 +88,158 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/tb/ISelectionInfo.java" type="org.eclipse.graphiti.tb.ISelectionInfo">
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.ISelectionInfo"/>
+                <message_argument value="getHandleBackgroundColor()"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.ISelectionInfo"/>
+                <message_argument value="getHandleForegroundColor()"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.ISelectionInfo"/>
+                <message_argument value="getPrimarySelectionBackGroundColor()"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.ISelectionInfo"/>
+                <message_argument value="getSecondarySelectionBackGroundColor()"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.ISelectionInfo"/>
+                <message_argument value="setHandleBackgroundColor(IColorConstant)"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.ISelectionInfo"/>
+                <message_argument value="setHandleForegroundColor(IColorConstant)"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.ISelectionInfo"/>
+                <message_argument value="setLineStyle(IColorConstant)"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.ISelectionInfo"/>
+                <message_argument value="setPrimarySelectionBackgroundColor(IColorConstant)"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.ISelectionInfo"/>
+                <message_argument value="setSecondarySelectionBackgroundColor(IColorConstant)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/tb/IToolBehaviorProvider.java" type="org.eclipse.graphiti.tb.IToolBehaviorProvider">
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.IToolBehaviorProvider"/>
+                <message_argument value="getSelectionInfoForAnchor(Anchor)"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.IToolBehaviorProvider"/>
+                <message_argument value="getSelectionInfoForConnection(Connection)"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.IToolBehaviorProvider"/>
+                <message_argument value="getSelectionInfoForShape(Shape)"/>
+            </message_arguments>
+        </filter>
         <filter comment="getToolTip changes its return type to Object" id="405901410">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.tb.IToolBehaviorProvider"/>
                 <message_argument value="getToolTip(GraphicsAlgorithm)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/tb/SelectionInfoImpl.java" type="org.eclipse.graphiti.tb.SelectionInfoImpl">
+        <filter id="337764418">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+            </message_arguments>
+        </filter>
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+                <message_argument value="SelectionInfoImpl(IColorConstant, IColorConstant, IColorConstant, IColorConstant, LineStyle)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+                <message_argument value="SelectionInfoImpl(IColorConstant, IColorConstant, IColorConstant, LineStyle)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+                <message_argument value="getHandleBackgroundColor()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+                <message_argument value="getHandleForegroundColor()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+                <message_argument value="getPrimarySelectionBackGroundColor()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+                <message_argument value="getSecondarySelectionBackGroundColor()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+                <message_argument value="setHandleBackgroundColor(IColorConstant)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+                <message_argument value="setHandleForegroundColor(IColorConstant)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+                <message_argument value="setLineStyle(IColorConstant)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+                <message_argument value="setPrimarySelectionBackgroundColor(IColorConstant)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
+                <message_argument value="setSecondarySelectionBackgroundColor(IColorConstant)"/>
             </message_arguments>
         </filter>
     </resource>
