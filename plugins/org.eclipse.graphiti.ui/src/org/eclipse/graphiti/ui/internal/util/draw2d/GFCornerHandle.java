@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 334233 - Fixed issue with zooming of diagrams when object in diagram is selected
+ *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *
  * </copyright>
  *
@@ -61,9 +62,14 @@ public class GFCornerHandle extends AbstractHandle {
 	private static Dimension HANDLE_INSETS = new Dimension(3, 3);
 
 	/**
-	 * The foreground color for resizable directions.
+	 * The foreground color for for primary-selected, resizable directions.
 	 */
-	private static Color FG_COLOR_RESIZABLE;
+	private static Color FG_COLOR_PRIMARY_RESIZABLE;
+
+	/**
+	 * The foreground color for for secondary-selected, resizable directions.
+	 */
+	private static Color FG_COLOR_SECONDARY_RESIZABLE;
 
 	/**
 	 * The foreground color for not-resizable directions.
@@ -135,7 +141,8 @@ public class GFCornerHandle extends AbstractHandle {
 		this.movable = movable;
 
 		setOwner(owner);
-		setLocator(new ZoomingRelativeHandleLocator(owner.getFigure(), configurationProvider, location, HANDLE_DIMENSION, HANDLE_INSETS));
+		setLocator(new ZoomingRelativeHandleLocator(owner.getFigure(), configurationProvider, location,
+				HANDLE_DIMENSION, HANDLE_INSETS));
 
 		setOpaque(false);
 
@@ -149,12 +156,21 @@ public class GFCornerHandle extends AbstractHandle {
 	}
 
 	/**
-	 * @return the fG_COLOR_RESIZABLE
+	 * @return the fG_COLOR_PRIMARY_RESIZABLE
 	 */
-	public Color getFG_COLOR_RESIZABLE() {
-		if (FG_COLOR_RESIZABLE == null || FG_COLOR_RESIZABLE.isDisposed())
-			FG_COLOR_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("f17d00"); //$NON-NLS-1$
-		return FG_COLOR_RESIZABLE;
+	public Color getFG_COLOR_PRIMARY_RESIZABLE() {
+		if (FG_COLOR_PRIMARY_RESIZABLE == null || FG_COLOR_PRIMARY_RESIZABLE.isDisposed())
+			FG_COLOR_PRIMARY_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("f17d00"); //$NON-NLS-1$
+		return FG_COLOR_PRIMARY_RESIZABLE;
+	}
+
+	/**
+	 * @return the fG_COLOR_SECONDARY_RESIZABLE
+	 */
+	public Color getFG_COLOR_SECONDARY_RESIZABLE() {
+		if (FG_COLOR_SECONDARY_RESIZABLE == null || FG_COLOR_SECONDARY_RESIZABLE.isDisposed())
+			FG_COLOR_SECONDARY_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("f17d00"); //$NON-NLS-1$
+		return FG_COLOR_SECONDARY_RESIZABLE;
 	}
 
 	/**
@@ -242,13 +258,13 @@ public class GFCornerHandle extends AbstractHandle {
 		Color fg;
 		Color bg;
 		if (primary && isResizable()) {
-			fg = getFG_COLOR_RESIZABLE();
+			fg = getFG_COLOR_PRIMARY_RESIZABLE();
 			bg = getBG_COLOR_PRIMARY_RESIZABLE();
 		} else if (primary && !isResizable()) {
 			fg = getFG_COLOR_NOT_RESIZABLE();
 			bg = getBG_COLOR_PRIMARY_NOT_RESIZABLE();
 		} else if (!primary && isResizable()) {
-			fg = getFG_COLOR_RESIZABLE();
+			fg = getFG_COLOR_SECONDARY_RESIZABLE();
 			bg = getBG_COLOR_SECONDARY_RESIZABLE();
 		} else { // (!primary && !isResizable())
 			fg = getFG_COLOR_NOT_RESIZABLE();
