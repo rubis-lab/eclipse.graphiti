@@ -38,6 +38,7 @@ import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeatureProvider;
 import org.eclipse.graphiti.features.impl.DefaultPrintFeature;
@@ -446,4 +447,19 @@ public interface IFeatureProvider extends IMappingProvider {
 	 * This is called to dispose the object.
 	 */
 	void dispose();
+
+	/**
+	 * Command features can do anything, but they are tied to an external
+	 * command. They can be invoked through a keybinding, a menu action or a
+	 * toolbar item.
+	 * 
+	 * @param context
+	 *            the context
+	 * @param hint
+	 *            the hint specified in the command binding
+	 * 
+	 * @return the feature
+	 * @since 0.10
+	 */
+	ICustomFeature getCommandFeature(CustomContext context, String hint);
 }

@@ -46,6 +46,7 @@ import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IPasteContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
@@ -129,6 +130,8 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 	private static final String NO_MOVE = "no move";
 
 	private static final boolean TEST_RESIZE_SHAPE_FEATURE = false;
+
+	private static final String TOGGLE_COLOR = "toggleColor";
 
 	private final int TRANSPARENCY_STEP_SIZE = 5;
 
@@ -276,6 +279,16 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		retList.add(new ClearDecoratorsFeature(this, context));
 
 		return retList.toArray(new ICustomFeature[0]);
+	}
+
+	@Override
+	public ICustomFeature getCommandFeature(CustomContext context, String hint) {
+		if (TOGGLE_COLOR.equals(hint)) {
+			PictogramElement[] pes = context.getPictogramElements();
+			if (pes.length > 0)
+				return new ToggleColorFeature(this);
+		}
+		return super.getCommandFeature(context, hint);
 	}
 
 	private void createSetStyleFeatures(Style parentStyle, List<ICustomFeature> retList) {

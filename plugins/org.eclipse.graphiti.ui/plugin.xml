@@ -105,19 +105,39 @@
 			categoryId="org.eclipse.graphiti.ui.Graphiti_Category"
 			id="org.eclipse.graphiti.ui.internal.action.ToggleContextPadAction">
 		</command>
+		<command
+			categoryId="org.eclipse.graphiti.ui.Graphiti_Category"
+			id="org.eclipse.graphiti.ui.custom.feature.handler"
+			name="name">
+			<commandParameter
+				id="org.eclipse.graphiti.ui.custom.feature.name"
+				name="hint"
+				optional="false">
+			</commandParameter>
+		</command>
 	</extension>
    <extension point="org.eclipse.ui.bindings">
 		<key
 			sequence="M1+F5"
 			commandId="org.eclipse.graphiti.ui.internal.action.UpdateAction"
+			contextId="org.eclipse.graphiti.ui.diagramEditor"
 			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
 		<key
 			sequence="M2+Delete"
 			commandId="org.eclipse.graphiti.ui.internal.action.RemoveAction"
+			contextId="org.eclipse.graphiti.ui.diagramEditor"
 			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
 		<key
 			sequence="M1+O"
 			commandId="org.eclipse.graphiti.ui.internal.action.SaveImageAction"
+			contextId="org.eclipse.graphiti.ui.diagramEditor"
 			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+	</extension>
+	<extension point="org.eclipse.ui.contexts">
+		<context
+			id="org.eclipse.graphiti.ui.diagramEditor"
+			name="Graphiti Diagram"
+			parentId="org.eclipse.ui.contexts.window">
+		</context>
 	</extension>
 </plugin>

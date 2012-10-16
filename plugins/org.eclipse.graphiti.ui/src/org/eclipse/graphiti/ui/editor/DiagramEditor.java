@@ -110,6 +110,7 @@ import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.action.CopyAction;
 import org.eclipse.graphiti.ui.internal.action.DeleteAction;
+import org.eclipse.graphiti.ui.internal.action.FeatureHandler;
 import org.eclipse.graphiti.ui.internal.action.PasteAction;
 import org.eclipse.graphiti.ui.internal.action.PrintGraphicalViewerAction;
 import org.eclipse.graphiti.ui.internal.action.RemoveAction;
@@ -159,6 +160,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.part.MultiPageEditorPart;
@@ -224,6 +226,14 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * org.eclipse.ui.editors extension point.
 	 */
 	public static final String DIAGRAM_EDITOR_ID = "org.eclipse.graphiti.ui.editor.DiagramEditor"; //$NON-NLS-1$
+
+	/**
+	 * The ID of the context as it is registed with the org.eclipse.ui.contexts
+	 * extension point.
+	 * 
+	 * @since 0.10
+	 */
+	public static final String DIAGRAM_CONTEXT_ID = "org.eclipse.graphiti.ui.diagramEditor"; //$NON-NLS-1$
 
 	private final DefaultUpdateBehavior updateBehavior;
 	private final DefaultPaletteBehavior paletteBehaviour;
@@ -457,6 +467,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		getUpdateBehavior().init();
 
 		migrateDiagramModelIfNecessary();
+		IContextService contextService = (IContextService) getSite().getService(IContextService.class);
+		contextService.activateContext(DIAGRAM_CONTEXT_ID);
 	}
 
 	/**
@@ -629,6 +641,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		toggleContextButtonPad.setChecked(false);
 		actionRegistry.registerAction(toggleContextButtonPad);
 		// End bug 323351
+
+		IHandlerService hs = (IHandlerService) getSite().getService(IHandlerService.class);
+		hs.activateHandler(FeatureHandler.COMMAND_ID, new FeatureHandler(getConfigurationProvider()));
 	}
 
 	/**

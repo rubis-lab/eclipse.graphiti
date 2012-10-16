@@ -85,6 +85,19 @@
             id="org.eclipse.graphiti.testtool.sketch.SketchImageProvider">
       </imageProvider>
    </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+           <key
+        commandId="org.eclipse.graphiti.ui.custom.feature.handler"
+        contextId="org.eclipse.graphiti.ui.diagramEditor"
+        schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+        sequence="M1+F9">
+     <parameter
+           id="org.eclipse.graphiti.ui.custom.feature.name"
+           value="toggleColor">
+     </parameter>
+  </key>
+   </extension>
    
   
 </plugin>

@@ -34,6 +34,7 @@ import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
@@ -224,5 +225,12 @@ public class DefaultFeatureProviderWrapper implements IFeatureProvider {
 	}
 
 	public void dispose() {
+	}
+
+	/**
+	 * @since 0.10
+	 */
+	public ICustomFeature getCommandFeature(CustomContext context, String hint) {
+		return getInnerFeatureProvider().getCommandFeature(context, hint);
 	}
 }

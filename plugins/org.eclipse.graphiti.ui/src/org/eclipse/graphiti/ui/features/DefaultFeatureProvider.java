@@ -44,6 +44,7 @@ import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeatureProvider;
 import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
@@ -92,6 +93,13 @@ public class DefaultFeatureProvider extends AbstractFeatureProvider {
 		}
 		ret = retList.toArray(ret);
 		return ret;
+	}
+
+	/**
+	 * @since 0.10
+	 */
+	public ICustomFeature getCommandFeature(CustomContext context, String hint) {
+		return null;
 	}
 
 	@Override
