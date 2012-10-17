@@ -594,4 +594,19 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 		return "Edit Mode";
 	}
 
+	@Override
+	public ICustomFeature getCommandFeature(CustomContext context, String hint) {
+		PictogramElement[] pes = context.getPictogramElements();
+		if (pes.length > 0) {
+			if (ToggleColorFeature.HINT.equals(hint)) {
+				return new ToggleColorFeature(getFeatureProvider());
+			} else if (ShrinkFeature.HINT.equals(hint)) {
+				return new ShrinkFeature(getFeatureProvider());
+			} else if (EnlargeFeature.HINT.equals(hint)) {
+				return new EnlargeFeature(getFeatureProvider());
+			}
+		}
+		return super.getCommandFeature(context, hint);
+	}
+
 }

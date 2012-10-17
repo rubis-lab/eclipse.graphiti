@@ -85,6 +85,82 @@
             id="org.eclipse.graphiti.testtool.sketch.SketchImageProvider">
       </imageProvider>
    </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+           <key
+        commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+        contextId="org.eclipse.graphiti.ui.diagramEditor"
+        schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+        sequence="M1+J">
+     <parameter
+           id="org.eclipse.graphiti.ui.featureHint"
+           value="shrink">
+     </parameter>
+  </key>
+          <key
+        commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+        contextId="org.eclipse.graphiti.ui.diagramEditor"
+        schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+        sequence="M1+L">
+     <parameter
+           id="org.eclipse.graphiti.ui.featureHint"
+           value="enlarge">
+     </parameter>
+  </key>
+          <key
+        commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+        contextId="org.eclipse.graphiti.ui.diagramEditor"
+        schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+        sequence="M1+F2">
+     <parameter
+           id="org.eclipse.graphiti.ui.featureHint"
+           value="toggleColor">
+     </parameter>
+  </key>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.menus">
+         <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               label="Graphiti Sketch toolbar"
+               id="graphitiSketchToolbar">
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:graphitiSketchToolbar">
+         <command
+               commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+               icon="icons/sample.gif"
+               label="Shrink"
+               style="push"
+               tooltip="Shrink element">
+            <parameter
+                  name="org.eclipse.graphiti.ui.featureHint"
+                  value="shrink">
+            </parameter>
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+               icon="icons/sample.gif"
+               label="Enlarge"
+               style="push"
+               tooltip="Enlarge element">
+            <parameter
+                  name="org.eclipse.graphiti.ui.featureHint"
+                  value="enlarge">
+            </parameter>
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
    
   
 </plugin>
