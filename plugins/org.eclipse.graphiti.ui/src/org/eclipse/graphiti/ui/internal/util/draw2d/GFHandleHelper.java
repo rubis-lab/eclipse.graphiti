@@ -84,7 +84,7 @@ public class GFHandleHelper {
 			si = tbp.getSelectionInfoForAnchor((Anchor) model);
 		}
 
-		list.add(new GFSurroundingHandle(owner, cp, PositionConstants.NSEW, movable, si));
+		list.add(new GFSurroundingHandle(owner, cp, movable, si));
 
 		if (resizeAllowed) {
 			if ((PositionConstants.NORTH_EAST & supportedResizeDirections) != 0)

@@ -19,13 +19,11 @@ package org.eclipse.graphiti.ui.internal.util.draw2d;
 
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.gef.handles.AbstractHandle;
 import org.eclipse.gef.tools.DragEditPartsTracker;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
@@ -58,45 +56,25 @@ public class GFSurroundingHandle extends AbstractHandle {
 	private static Insets HANDLE_INSETS = new Insets(LINE_WIDTH, LINE_WIDTH, LINE_WIDTH, LINE_WIDTH);
 
 	/**
-	 * The foreground color to use for resizable directions.
+	 * The foreground color to use.
 	 */
-	private static Color FG_COLOR_RESIZABLE;
-
-	/**
-	 * The foreground color to use for not-resizable directions.
-	 */
-	private static Color FG_COLOR_NOT_RESIZABLE;
+	private static Color FG_COLOR;
 
 	// ========================================================================
 
 	/**
 	 * @return the fG_COLOR_RESIZABLE
 	 */
-	public Color getFG_COLOR_RESIZABLE() {
-		if (FG_COLOR_RESIZABLE == null || FG_COLOR_RESIZABLE.isDisposed())
-			FG_COLOR_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("ff850f"); //$NON-NLS-1$
-		return FG_COLOR_RESIZABLE;
-	}
-
-	/**
-	 * @return the fG_COLOR_NOT_RESIZABLE
-	 */
-	public Color getFG_COLOR_NOT_RESIZABLE() {
-		if (FG_COLOR_NOT_RESIZABLE == null || FG_COLOR_NOT_RESIZABLE.isDisposed())
-			FG_COLOR_NOT_RESIZABLE = configurationProvider.getResourceRegistry().getSwtColor("d9dadd"); //$NON-NLS-1$
-		return FG_COLOR_NOT_RESIZABLE;
+	public Color getFG_COLOR() {
+		if (FG_COLOR == null || FG_COLOR.isDisposed())
+			FG_COLOR = configurationProvider.getResourceRegistry().getSwtColor("ff850f"); //$NON-NLS-1$
+		return FG_COLOR;
 	}
 
 	/**
 	 * The configuration provider, which can be used to access the environment.
 	 */
 	private IConfigurationProviderInternal configurationProvider;
-
-	/**
-	 * The supported resize directions (see
-	 * {@link ResizableEditPolicy#getResizeDirections()})
-	 */
-	private int supportedResizeDirections;
 
 	/**
 	 * Indicates, if moving the owner edit-part via this handle is supported.
@@ -113,18 +91,14 @@ public class GFSurroundingHandle extends AbstractHandle {
 	 * @param configurationProvider
 	 *            The configuration provider, which can be used to access the
 	 *            environment.
-	 * @param supportedResizeDirections
-	 *            The supported resize directions (see
-	 *            {@link ResizableEditPolicy#getResizeDirections()})
 	 * @param movable
 	 *            Indicates, if moving the owner edit-part via this handle is
 	 *            supported.
 	 * @param shapeSelectionInfo
 	 */
 	public GFSurroundingHandle(GraphicalEditPart owner, IConfigurationProviderInternal configurationProvider,
-			int supportedResizeDirections, boolean movable, IShapeSelectionInfo shapeSelectionInfo) {
+			boolean movable, IShapeSelectionInfo shapeSelectionInfo) {
 		this.configurationProvider = configurationProvider;
-		this.supportedResizeDirections = supportedResizeDirections;
 		this.movable = movable;
 		this.shapeSelectionInfo = shapeSelectionInfo;
 
@@ -194,34 +168,16 @@ public class GFSurroundingHandle extends AbstractHandle {
 
 		Rectangle r = GFFigureUtil.getAdjustedRectangle(getBounds(), 1.0, getLineWidth());
 
-		prepareForDrawing(g, PositionConstants.NORTH);
+		prepareForDrawing(g);
 		g.drawLine(r.getTopLeft(), r.getTopRight());
-		prepareForDrawing(g, PositionConstants.SOUTH);
 		g.drawLine(r.getBottomLeft(), r.getBottomRight());
-		prepareForDrawing(g, PositionConstants.EAST);
 		g.drawLine(r.getTopRight(), r.getBottomRight());
-		prepareForDrawing(g, PositionConstants.WEST);
 		g.drawLine(r.getTopLeft(), r.getBottomLeft());
 	}
 
-	/**
-	 * Prepares the graphics to paint the rectangle-side for the given
-	 * direction. This will set the line-style and foreground color.
-	 * 
-	 * @param g
-	 *            The graphics which to prepare.
-	 * @param direction
-	 *            The direction, for which to prepare the graphics.
-	 */
-	private void prepareForDrawing(Graphics g, int direction) {
-		boolean resizable = (supportedResizeDirections & direction) != 0;
+	private void prepareForDrawing(Graphics g) {
 
-		Color fg;
-		if (resizable) {
-			fg = getFG_COLOR_RESIZABLE();
-		} else {
-			fg = getFG_COLOR_NOT_RESIZABLE();
-		}
+		Color fg = getFG_COLOR();
 
 		if (shapeSelectionInfo != null) {
 			LineStyle lineStyle = shapeSelectionInfo.getLineStyle();
