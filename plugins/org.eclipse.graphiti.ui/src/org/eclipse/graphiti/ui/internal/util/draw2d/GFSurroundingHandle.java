@@ -31,6 +31,7 @@ import org.eclipse.graphiti.tb.IShapeSelectionInfo;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
@@ -66,6 +67,13 @@ public class GFSurroundingHandle extends AbstractHandle {
 	 * @return the fG_COLOR_RESIZABLE
 	 */
 	public Color getFG_COLOR() {
+		if (shapeSelectionInfo != null) {
+			IColorConstant color = shapeSelectionInfo.getColor();
+			if (color != null) {
+				Color swtColor = DataTypeTransformation.toSwtColor(configurationProvider.getResourceRegistry(), color);
+				return swtColor;
+			}
+		}
 		if (FG_COLOR == null || FG_COLOR.isDisposed())
 			FG_COLOR = configurationProvider.getResourceRegistry().getSwtColor("ff850f"); //$NON-NLS-1$
 		return FG_COLOR;
