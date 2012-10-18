@@ -27,6 +27,7 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.ISingleClickContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
 import org.eclipse.graphiti.mm.algorithms.AbstractText;
@@ -111,6 +112,21 @@ public interface IToolBehaviorProvider {
 	 * @since 0.10
 	 */
 	ICustomFeature getSingleClickFeature(ISingleClickContext context);
+
+	/**
+	 * Command features can do anything, but they are tied to an external
+	 * command. They can be invoked through a keybinding, a menu action or a
+	 * toolbar item.
+	 * 
+	 * @param context
+	 *            the context
+	 * @param hint
+	 *            the hint specified in the command binding
+	 * 
+	 * @return the feature
+	 * @since 0.10
+	 */
+	ICustomFeature getCommandFeature(CustomContext context, String hint);
 
 	/**
 	 * Returns decorators which will be used at rendering time to decorate the
