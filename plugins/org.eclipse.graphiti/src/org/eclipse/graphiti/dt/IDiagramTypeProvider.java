@@ -197,4 +197,22 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 *            The resources that have been saved
 	 */
 	void resourcesSaved(Diagram diagram, Resource[] savedResources);
+
+	/**
+	 * Gets the context id.
+	 * 
+	 * @return the context id
+	 * @since 0.10
+	 */
+	String getContextId();
+
+	/**
+	 * Sets the context id.
+	 * 
+	 * @param contextId
+	 *            the new context id
+	 * @since 0.10
+	 */
+	void setContextId(String contextId);
+
 }

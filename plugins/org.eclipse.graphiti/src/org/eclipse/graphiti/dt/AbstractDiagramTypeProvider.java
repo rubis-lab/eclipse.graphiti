@@ -48,6 +48,8 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 
 	private int currentToolBehaviorIndex = 0;
 
+	private String contextId;
+
 	/**
 	 * Creates a new {@link AbstractDiagramTypeProvider}.
 	 */
@@ -113,6 +115,20 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 			T.racer().error("featureProvider is null"); //$NON-NLS-1$
 		}
 		return this.featureProvider;
+	}
+
+	/**
+	 * @since 0.10
+	 */
+	public String getContextId() {
+		return contextId;
+	}
+
+	/**
+	 * @since 0.10
+	 */
+	public void setContextId(String contextId) {
+		this.contextId = contextId;
 	}
 
 	public void init(Diagram diagram, IDiagramEditor diagramEditor) {

@@ -89,6 +89,18 @@
                </appInfo>
             </annotation>
          </attribute>
+         <attribute name="context" type="string" use="default" value="org.eclipse.graphiti.ui.diagramEditor">
+            <annotation>
+               <documentation>
+                  An optional org.eclipse.ui.context that will be activated on diagrams ot this type. If not present, the default org.eclipse.graphiti.ui.diagramEditor context will be used.
+
+Note: The pointed context MUST extend, directly or indirectly, org.eclipse.graphiti.ui.diagramEditor
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="org.eclipse.ui.contexts/context/@id"/>
+               </appInfo>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

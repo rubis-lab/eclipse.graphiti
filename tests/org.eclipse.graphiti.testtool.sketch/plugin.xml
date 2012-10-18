@@ -55,6 +55,7 @@
             class="org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider"
             description="A sample sketch editor"
             id="org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider"
+            context="org.eclipse.graphiti.testtool.sketch.context"
             name="Sketch">
          <diagramType
                id="org.eclipse.graphiti.testtool.sketch.SketchDiagramType">
@@ -85,6 +86,108 @@
             id="org.eclipse.graphiti.testtool.sketch.SketchImageProvider">
       </imageProvider>
    </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+           <key
+        commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+        contextId="org.eclipse.graphiti.testtool.sketch.context"
+        schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+        sequence="M1+J">
+     <parameter
+           id="org.eclipse.graphiti.ui.featureHint"
+           value="shrink">
+     </parameter>
+  </key>
+          <key
+        commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+        contextId="org.eclipse.graphiti.testtool.sketch.context"
+        schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+        sequence="M1+L">
+     <parameter
+           id="org.eclipse.graphiti.ui.featureHint"
+           value="expand">
+     </parameter>
+  </key>
+          <key
+        commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+        contextId="org.eclipse.graphiti.testtool.sketch.context"
+        schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+        sequence="M1+F2">
+     <parameter
+           id="org.eclipse.graphiti.ui.featureHint"
+           value="toggleColor">
+     </parameter>
+  </key>
+   </extension>
    
-  
+   <extension
+         point="org.eclipse.ui.menus">
+         <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               label="Graphiti Sketch toolbar"
+               id="graphitiSketchToolbar">
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:graphitiSketchToolbar">
+         <command
+               commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+               icon="icons/shrink.png"
+               label="Shrink"
+               style="push"
+               tooltip="Shrink element">
+            <parameter
+                  name="org.eclipse.graphiti.ui.featureHint"
+                  value="shrink">
+            </parameter>
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeContexts">
+                  <iterate
+                        ifEmpty="false"
+                        operator="or">
+                     <equals
+                           value="org.eclipse.graphiti.testtool.sketch.context">
+                     </equals>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.graphiti.ui.featureExecutionCommand"
+               icon="icons/expand.png"
+               label="Expand"
+               style="push"
+               tooltip="Expand element">
+            <parameter
+                  name="org.eclipse.graphiti.ui.featureHint"
+                  value="expand">
+            </parameter>
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeContexts">
+                  <iterate
+                        ifEmpty="false"
+                        operator="or">
+                     <equals
+                           value="org.eclipse.graphiti.testtool.sketch.context">
+                     </equals>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            id="org.eclipse.graphiti.testtool.sketch.context"
+            name="Sketch context"
+            parentId="org.eclipse.graphiti.ui.diagramEditor">
+      </context>
+   </extension>
 </plugin>
