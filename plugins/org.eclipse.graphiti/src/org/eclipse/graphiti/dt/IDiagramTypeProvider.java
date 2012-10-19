@@ -12,7 +12,7 @@
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *    mwenz - Bug 352109 - Enable auto-update option for saved editor
  *    Bug 336488 - DiagramEditor API
- *
+ *    fvelasco - Bug 323349 - Enable external invocation of features
  * </copyright>
  *
  *******************************************************************************/
@@ -197,4 +197,22 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 *            The resources that have been saved
 	 */
 	void resourcesSaved(Diagram diagram, Resource[] savedResources);
+
+	/**
+	 * Gets the context id.
+	 * 
+	 * @return the context id
+	 * @since 0.10
+	 */
+	String getContextId();
+
+	/**
+	 * Sets the context id.
+	 * 
+	 * @param contextId
+	 *            the new context id
+	 * @since 0.10
+	 */
+	void setContextId(String contextId);
+
 }

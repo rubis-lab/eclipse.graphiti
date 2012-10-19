@@ -14,7 +14,7 @@
  *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
  *    mgorning - Bug 386913 - Support also Single-Click-Features
  *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
- *
+ *    fvelasco - Bug 323349 - Enable external invocation of features
  * </copyright>
  *
  *******************************************************************************/
@@ -37,6 +37,7 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.ISingleClickContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.Messages;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
@@ -296,6 +297,13 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 * @since 0.10
 	 */
 	public ICustomFeature getSingleClickFeature(ISingleClickContext context) {
+		return null;
+	}
+
+	/**
+	 * @since 0.10
+	 */
+	public ICustomFeature getCommandFeature(CustomContext context, String hint) {
 		return null;
 	}
 

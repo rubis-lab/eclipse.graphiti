@@ -10,7 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 352709 - invalid image provider id crashes diagram editor
- *
+ *    fvelasco - Bug 323349 - Enable external invocation of features
  * </copyright>
  *
  *******************************************************************************/
@@ -36,6 +36,7 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorDummy;
 import org.eclipse.graphiti.ui.internal.util.ui.print.IDiagramsExporter;
 import org.eclipse.graphiti.ui.platform.IImageProvider;
@@ -75,6 +76,8 @@ public class ExtensionManager implements IExtensionManager {
 	private static final String EP_ATTRIBUTE_NAME = "name"; //$NON-NLS-1$
 
 	private static final String EP_ATTRIBUTE_DESCRIPTION = "description"; //$NON-NLS-1$
+
+	private static final String EP_ATTRIBUTE_CONTEXT = "context"; //$NON-NLS-1$
 
 	private IDiagramType diagramTypes[] = null;
 
@@ -225,6 +228,10 @@ public class ExtensionManager implements IExtensionManager {
 					if (description == null) {
 						description = ""; //$NON-NLS-1$
 					}
+					String context = element.getAttribute(EP_ATTRIBUTE_CONTEXT);
+					if (context == null) {
+						context = DiagramEditor.DIAGRAM_CONTEXT_ID;
+					}
 					if (name != null) {
 						// read references to image extensions and try to
 						// instantiate image provider
@@ -249,6 +256,7 @@ public class ExtensionManager implements IExtensionManager {
 							if (executableExtension instanceof IDiagramTypeProvider) {
 								diagramTypeProvider = (IDiagramTypeProvider) executableExtension;
 								diagramTypeProvider.setProviderId(extensionId);
+								diagramTypeProvider.setContextId(context);
 								// TODO later store also name and description -
 								// is only necessary if this information
 								// are shown in the UI
