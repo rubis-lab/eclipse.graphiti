@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
+ *    mwenz - Bug 389379 - Editor Dirty Handling (gets broken after context button execution)
  *
  * </copyright>
  *
@@ -36,7 +37,6 @@ import org.eclipse.graphiti.internal.contextbuttons.PositionedContextButton;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
-import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
 import org.eclipse.graphiti.ui.internal.editor.GFDragConnectionTool;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
@@ -624,7 +624,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 			}
 		} else if (getEntry().canExecute()) {
 			// has no ContextButtonMenuEntries -> execute ContextButton
-			getEditor().getEditDomain().getCommandStack().execute(new ContextEntryCommand(getEntry()));
+			getEntry().execute();
 		}
 
 		getContextButtonPad().getContextButtonManagerForPad().hideContextButtonsInstantly();
