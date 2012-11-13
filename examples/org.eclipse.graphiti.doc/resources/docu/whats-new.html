@@ -35,17 +35,17 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Kepler</h1>
-	<p>Last revised September 01, 2012</p>
+	<p>Last revised November 12, 2012</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.10.0 within the
 		Kepler release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
-		<!-- ---------------------------------------- M2 ------------------------------- -->
+		<!-- ---------------------------------------- M3 ------------------------------- -->
 		<tr>
 			<td colspan="2">
-				<h2>M2</h2>
+				<h2>M3</h2>
 			</td>
 		</tr>
 		<tr>
@@ -62,6 +62,67 @@ table.news tr td.content {
 			    directly for the individual parts. This lowers the effort clients need to
 			    invest into those functionality a lot.  
 			</td>
+		</tr>
+		<tr id="bug 391523">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=391523">Support
+					for SelectionInfo</a></td>
+			<td class="content">The callback methods for providing <i>ISelectionInfo</i>
+				objects to influence the way graphiti highlights selected objects
+				has been reworked. It now supports shapes, anchors and connections.
+			</td>
+		</tr>
+		<tr id="bug 373299">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=373299">Support
+					for rich text</a></td>
+			<td class="content">Graphiti text objects and tooltips now
+				support displaying rich text. Texts may be formatted using different
+				colors, fonts, font sizes and may be highlighted in several ways.</td>
+		</tr>
+		<tr id="bug 323349">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=323349">Shortcuts
+					for Triggering Features</a></td>
+			<td class="content">It is now possible to register shortcuts to
+				trigger features. Any keybinding can be defined and associated with
+				a certain feature so that it will be triggered when a user presses
+				that key combintaion.</td>
+		</tr>
+		<tr id="bug 365172">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=365172">Bug
+					365172</a></td>
+			<td class="content">The modification of the line style using an
+				<i>ISelectionInfo</i> object is now supported.
+			</td>
+		</tr>
+		<tr id="bug 389379">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=389379">Bug
+					389379</a></td>
+			<td class="content">A bug in the editor dirty state handling has
+				been fixed that caused an editor to show the dirty mark although no
+				changes were done; also the undo/redo stack of the editor might have
+				been mixed up by this bug.</td>
+		</tr>
+		<tr id="bug 391506">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=391506">Bug
+					391506</a></td>
+			<td class="content">A bug in the editor feature processing was
+				fixed that caused an editor to get dirty in case a connection
+				creation feature was abandoned.</td>
+		</tr>
+		<!-- ---------------------------------------- M2 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M2</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on bugfixing and implementing round-offs.</td>
 		</tr>
 		<tr id="bug 376585">
 			<td class="title"><a
