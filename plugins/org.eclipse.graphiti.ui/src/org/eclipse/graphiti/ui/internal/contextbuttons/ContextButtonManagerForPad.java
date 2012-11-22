@@ -12,6 +12,7 @@
  *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
  *    Bug 336488 - DiagramEditor API
  *    mgorning - Bug 369370 - visibility of context button pad for graphical entities
+ *    mwenz - Bug 392309 - Scrollbars appear when a tooltip is being displayed on a decorator
  *
  * </copyright>
  *
@@ -40,6 +41,7 @@ import org.eclipse.graphiti.internal.contextbuttons.StandardContextButtonPadDecl
 import org.eclipse.graphiti.internal.features.context.impl.base.PictogramElementContext;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
@@ -357,10 +359,16 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 			// determine pictogram element
 			IPictogramElementEditPart editPart = (IPictogramElementEditPart) getFigure2EditPart().get(figure);
 			PictogramElement pe = editPart.getPictogramElement();
-			PictogramElementContext context = new PictogramElementContext(pe);
+			if (pe instanceof Diagram) {
+				// No context buttons of diagram itself, should also exit here
+				// to avoid showing scrollbars when displaying tooltips on root
+				// decorators (see Bugzilla 392309)
+				return;
+			}
 			if (!GraphitiInternal.getEmfService().isObjectAlive(pe)) {
 				return;
 			}
+			PictogramElementContext context = new PictogramElementContext(pe);
 
 			// retrieve context button pad data
 			IToolBehaviorProvider toolBehaviorProvider = getEditor().getDiagramTypeProvider()
