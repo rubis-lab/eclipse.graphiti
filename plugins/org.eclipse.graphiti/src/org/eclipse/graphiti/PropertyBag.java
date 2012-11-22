@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,13 +9,16 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
- *
+ *    mwenz - Bug 394801 - AddGraphicalRepresentation doesn't carry properties
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * The class PropertyBag.
@@ -29,6 +32,21 @@ public class PropertyBag implements IPropertyBag {
 
 	public Object putProperty(Object key, Object value) {
 		return getPropertyMap().put(key, value);
+	}
+
+	/**
+	 * @since 0.10
+	 */
+	public List<Object> getPropertyKeys() {
+		List<Object> result = new ArrayList<Object>();
+
+		Iterator<Object> iterator = propertyMap.keySet().iterator();
+		while (iterator.hasNext()) {
+			Object key = (Object) iterator.next();
+			result.add(key);
+		}
+
+		return result;
 	}
 
 	private HashMap<Object, Object> getPropertyMap() {
