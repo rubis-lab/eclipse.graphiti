@@ -40,10 +40,12 @@ public class PropertyBag implements IPropertyBag {
 	public List<Object> getPropertyKeys() {
 		List<Object> result = new ArrayList<Object>();
 
-		Iterator<Object> iterator = propertyMap.keySet().iterator();
-		while (iterator.hasNext()) {
-			Object key = (Object) iterator.next();
-			result.add(key);
+		if (propertyMap != null) {
+			Iterator<Object> iterator = propertyMap.keySet().iterator();
+			while (iterator.hasNext()) {
+				Object key = (Object) iterator.next();
+				result.add(key);
+			}
 		}
 
 		return result;
