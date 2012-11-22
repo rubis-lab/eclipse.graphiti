@@ -101,6 +101,9 @@ public class CreateHumanFeature extends AbstractCreateFeature {
 
 		configureMan(mansParent);
 
+		// Create an italic font to use it later in the rich tooltip
+		gaService.manageFont(getDiagram(), IGaService.DEFAULT_FONT, IGaService.DEFAULT_FONT_SIZE, true, false);
+
 		return new Object[] { ret };
 	}
 

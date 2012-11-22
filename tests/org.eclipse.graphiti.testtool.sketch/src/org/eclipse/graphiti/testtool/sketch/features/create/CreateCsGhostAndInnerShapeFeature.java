@@ -69,6 +69,9 @@ public class CreateCsGhostAndInnerShapeFeature extends AbstractCreateFeature {
 
 		layoutPictogramElement(ret);
 
+		// Create an italic font to use it later in the rich tooltip
+		gaService.manageFont(getDiagram(), IGaService.DEFAULT_FONT, IGaService.DEFAULT_FONT_SIZE, true, false);
+
 		return new Object[] { ret };
 	}
 }

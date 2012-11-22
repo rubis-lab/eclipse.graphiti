@@ -22,6 +22,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.testtool.sketch.SketchGraphicsAlgorithmRendererFactory;
 
 /**
@@ -64,6 +65,10 @@ public class SketchCreateCanFigureFeature extends AbstractCreateFeature {
 				SketchGraphicsAlgorithmRendererFactory.CANFIGURE);
 		Graphiti.getGaService().setLocationAndSize(newGa, context.getX(), context.getY(), width, height);
 		layoutPictogramElement(newAc);
+
+		// Create an italic font to use it later in the rich tooltip
+		Graphiti.getGaService().manageFont(getDiagram(), IGaService.DEFAULT_FONT, IGaService.DEFAULT_FONT_SIZE, true,
+				false);
 
 		return new Object[] { newAc };
 	}
