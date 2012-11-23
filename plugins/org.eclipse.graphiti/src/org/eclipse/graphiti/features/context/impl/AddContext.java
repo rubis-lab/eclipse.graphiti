@@ -71,8 +71,10 @@ public class AddContext extends AreaContext implements IAddContext {
 
 		// Transfer properties, see Bugzilla 394801
 		List<Object> propertyKeys = context.getPropertyKeys();
-		for (Object key : propertyKeys) {
-			putProperty(key, context.getProperty(key));
+		if (propertyKeys != null) {
+			for (Object key : propertyKeys) {
+				putProperty(key, context.getProperty(key));
+			}
 		}
 
 		if (context instanceof ITargetContext) {
