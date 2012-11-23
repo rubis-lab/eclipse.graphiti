@@ -11,6 +11,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
  *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
+ *    mwenz - Bug 393074 - Save Editor Progress Monitor Argument
  *
  * </copyright>
  *
@@ -24,6 +25,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStack;
@@ -42,9 +44,9 @@ import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.jface.operation.ModalContext;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * The default implementation for the {@link DiagramEditor} behavior extension
@@ -146,19 +148,24 @@ public class DefaultPersistencyBehavior {
 	 *            the Eclipse {@link IProgressMonitor} to use to report progress
 	 */
 	public void saveDiagram(IProgressMonitor monitor) {
+		if (monitor == null) {
+			monitor = new NullProgressMonitor();
+		}
+
 		// set version info.
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 		setDiagramVersion(diagram);
 
 		Map<Resource, Map<?, ?>> saveOptions = createSaveOptions();
 		final Set<Resource> savedResources = new HashSet<Resource>();
-		final IRunnableWithProgress operation = createOperation(savedResources, saveOptions);
+		final IRunnableWithProgress operation = createOperation(savedResources, saveOptions, monitor);
 
 		diagramEditor.disableAdapters();
+
 		try {
-			// This runs the options, and shows progress.
-			new ProgressMonitorDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()).run(true, false,
-					operation);
+			// This runs the options in a background thread reporting progress
+			// to the progress monitor passed into this method (see Bug 393074)
+			ModalContext.run(operation, true, monitor, Display.getCurrent());
 
 			BasicCommandStack commandStack = (BasicCommandStack) diagramEditor.getEditingDomain().getCommandStack();
 			commandStack.saveIsDone();
@@ -170,8 +177,9 @@ public class DefaultPersistencyBehavior {
 		} catch (final Exception exception) {
 			// Something went wrong that shouldn't.
 			T.racer().error(exception.getMessage(), exception);
+		} finally {
+			diagramEditor.enableAdapters();
 		}
-		diagramEditor.enableAdapters();
 
 		Resource[] savedResourcesArray = savedResources.toArray(new Resource[savedResources.size()]);
 		diagramEditor.commandStackChanged(null);
@@ -223,11 +231,16 @@ public class DefaultPersistencyBehavior {
 	 * 
 	 * @param saveOptions
 	 *            the EMF save options to use.
+	 * @param monitor
+	 *            The progress monitor to use inside the created runnable to
+	 *            report progress
 	 * @return an {@link IRunnableWithProgress} instance wrapping the actual
 	 *         save process.
+	 * @since 0.10 The parameter monitor has been added compared to the 0.9
+	 *        version of this method
 	 */
 	protected IRunnableWithProgress createOperation(final Set<Resource> savedResources,
-			final Map<Resource, Map<?, ?>> saveOptions) {
+			final Map<Resource, Map<?, ?>> saveOptions, IProgressMonitor monitor) {
 		// Do the work within an operation because this is a long running
 		// activity that modifies the workbench.
 		final IRunnableWithProgress operation = new IRunnableWithProgress() {
@@ -235,7 +248,7 @@ public class DefaultPersistencyBehavior {
 			public void run(IProgressMonitor monitor) {
 				// Save the resources to the file system.
 				try {
-					savedResources.addAll(save(diagramEditor.getEditingDomain(), saveOptions));
+					savedResources.addAll(save(diagramEditor.getEditingDomain(), saveOptions, monitor));
 				} catch (final WrappedException e) {
 					final MultiStatus errorStatus = new MultiStatus(GraphitiUIPlugin.PLUGIN_ID, 0, e.getMessage(),
 							e.exception());
@@ -257,11 +270,16 @@ public class DefaultPersistencyBehavior {
 	 *            will be saved
 	 * @param saveOptions
 	 *            the EMF save options used for the saving.
+	 * @param monitor
+	 *            The progress monitor to use for reporting progress
 	 * @return a {@link Set} of all EMF {@link Resource}s that where actually
 	 *         saved.
+	 * @since 0.10 The parameter monitor has been added compared to the 0.9
+	 *        version of this method
 	 */
-	protected Set<Resource> save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> saveOptions) {
-		return GraphitiUiInternal.getEmfService().save(editingDomain, saveOptions);
+	protected Set<Resource> save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> saveOptions,
+			IProgressMonitor monitor) {
+		return GraphitiUiInternal.getEmfService().save(editingDomain, saveOptions, monitor);
 	}
 
 	/**

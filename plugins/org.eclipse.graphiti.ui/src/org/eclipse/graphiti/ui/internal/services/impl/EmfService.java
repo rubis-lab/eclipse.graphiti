@@ -15,6 +15,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
  *    mwenz - Bug 371513 - Save failed with NPE when switching editors
+ *    mwenz - Bug 393074 - Save Editor Progress Monitor Argument
  *
  * </copyright>
  *
@@ -41,6 +42,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -218,10 +220,11 @@ public class EmfService implements IEmfService {
 
 	@SuppressWarnings("unchecked")
 	public Set<Resource> save(TransactionalEditingDomain editingDomain) throws WrappedException {
-		return save(editingDomain, Collections.EMPTY_MAP);
+		return save(editingDomain, Collections.EMPTY_MAP, new NullProgressMonitor());
 	}
 
-	public Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options) {
+	public Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options,
+			IProgressMonitor monitor) {
 
 		final Map<URI, Throwable> failedSaves = new HashMap<URI, Throwable>();
 		final Set<Resource> savedResources = new HashSet<Resource>();

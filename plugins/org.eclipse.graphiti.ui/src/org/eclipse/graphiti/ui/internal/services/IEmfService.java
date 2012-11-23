@@ -12,6 +12,7 @@
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *    Bug 336488 - DiagramEditor API
  *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
+ *    mwenz - Bug 393074 - Save Editor Progress Monitor Argument
  *
  * </copyright>
  *
@@ -23,6 +24,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
@@ -138,7 +140,8 @@ public interface IEmfService extends org.eclipse.graphiti.ui.services.IEmfServic
 	 *            Save options for each of the {@link Resource}s to save.
 	 * @return
 	 */
-	public abstract Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options);
+	public abstract Set<Resource> save(final TransactionalEditingDomain editingDomain,
+			final Map<Resource, Map<?, ?>> options, IProgressMonitor monitor);
 
 	/**
 	 * Creates an extended string presentation of the given {@link EObject},
