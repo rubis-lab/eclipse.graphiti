@@ -4,12 +4,6 @@
         <filter id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior"/>
-                <message_argument value="createOperation(Set&lt;Resource&gt;, Map&lt;Resource,Map&lt;?,?&gt;&gt;)"/>
-            </message_arguments>
-        </filter>
-        <filter id="338792546">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior"/>
                 <message_argument value="save(TransactionalEditingDomain, Map&lt;Resource,Map&lt;?,?&gt;&gt;)"/>
             </message_arguments>
         </filter>

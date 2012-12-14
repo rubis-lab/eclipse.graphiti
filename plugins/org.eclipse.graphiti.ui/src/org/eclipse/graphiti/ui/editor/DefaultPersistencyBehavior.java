@@ -158,7 +158,7 @@ public class DefaultPersistencyBehavior {
 
 		Map<Resource, Map<?, ?>> saveOptions = createSaveOptions();
 		final Set<Resource> savedResources = new HashSet<Resource>();
-		final IRunnableWithProgress operation = createOperation(savedResources, saveOptions, monitor);
+		final IRunnableWithProgress operation = createOperation(savedResources, saveOptions);
 
 		diagramEditor.disableAdapters();
 
@@ -231,16 +231,11 @@ public class DefaultPersistencyBehavior {
 	 * 
 	 * @param saveOptions
 	 *            the EMF save options to use.
-	 * @param monitor
-	 *            The progress monitor to use inside the created runnable to
-	 *            report progress
 	 * @return an {@link IRunnableWithProgress} instance wrapping the actual
 	 *         save process.
-	 * @since 0.10 The parameter monitor has been added compared to the 0.9
-	 *        version of this method
 	 */
 	protected IRunnableWithProgress createOperation(final Set<Resource> savedResources,
-			final Map<Resource, Map<?, ?>> saveOptions, IProgressMonitor monitor) {
+			final Map<Resource, Map<?, ?>> saveOptions) {
 		// Do the work within an operation because this is a long running
 		// activity that modifies the workbench.
 		final IRunnableWithProgress operation = new IRunnableWithProgress() {
