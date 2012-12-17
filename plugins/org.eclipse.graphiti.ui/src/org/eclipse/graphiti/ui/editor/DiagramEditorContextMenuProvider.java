@@ -241,7 +241,8 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 					}
 					action.setText(text);
 					action.setDescription(cmEntry.getDescription());
-					ImageDescriptor image = GraphitiUi.getImageService().getImageDescriptorForId(cmEntry.getIconId());
+					ImageDescriptor image = GraphitiUi.getImageService().getImageDescriptorForId(
+							diagramTypeProvider.getProviderId(), cmEntry.getIconId());
 					action.setImageDescriptor(image);
 					appendContributionItem(manager, groupID, new ActionContributionItem(action));
 				}

@@ -124,7 +124,8 @@ public class GFPaletteRoot extends PaletteRoot {
 				} else if (toolEntry instanceof IStackToolEntry) {
 					IStackToolEntry stackToolEntry = (IStackToolEntry) toolEntry;
 					PaletteStack stack = new PaletteStack(stackToolEntry.getLabel(), stackToolEntry.getDescription(),
-							GraphitiUi.getImageService().getImageDescriptorForId(stackToolEntry.getIconId()));
+							GraphitiUi.getImageService().getImageDescriptorForId(diagramTypeProvider.getProviderId(),
+									stackToolEntry.getIconId()));
 					drawer.add(stack);
 					List<ICreationToolEntry> creationToolEntries = stackToolEntry.getCreationToolEntries();
 					for (ICreationToolEntry creationToolEntry : creationToolEntries) {
@@ -237,7 +238,8 @@ public class GFPaletteRoot extends PaletteRoot {
 			imageDescriptor = ((IEclipseImageDescriptor) creationToolEntry).getImageDescriptor();
 		} else {
 			String iconId = (smallImage) ? creationToolEntry.getIconId() : creationToolEntry.getLargeIconId();
-			imageDescriptor = GraphitiUi.getImageService().getImageDescriptorForId(iconId);
+			imageDescriptor = GraphitiUi.getImageService().getImageDescriptorForId(diagramTypeProvider.getProviderId(),
+					iconId);
 		}
 		return imageDescriptor;
 	}
@@ -247,7 +249,8 @@ public class GFPaletteRoot extends PaletteRoot {
 		if (compartmentEntry instanceof IEclipseImageDescriptor) {
 			imageDescriptor = ((IEclipseImageDescriptor) compartmentEntry).getImageDescriptor();
 		} else {
-			imageDescriptor = GraphitiUi.getImageService().getImageDescriptorForId(compartmentEntry.getIconId());
+			imageDescriptor = GraphitiUi.getImageService().getImageDescriptorForId(diagramTypeProvider.getProviderId(),
+					compartmentEntry.getIconId());
 		}
 		return imageDescriptor;
 	}

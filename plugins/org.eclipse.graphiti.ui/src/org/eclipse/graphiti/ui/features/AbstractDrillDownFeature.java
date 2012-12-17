@@ -231,7 +231,8 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 		@Override
 		public Image getImage(Object element) {
 			if (this.image == null) {
-				this.image = GraphitiUi.getImageService().getImageForId(IPlatformImageConstants.IMG_DIAGRAM);
+				this.image = GraphitiUi.getImageService().getPlatformImageForId(
+						IPlatformImageConstants.IMG_DIAGRAM);
 			}
 			return this.image;
 		}
