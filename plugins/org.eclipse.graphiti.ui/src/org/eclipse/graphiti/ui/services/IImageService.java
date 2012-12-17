@@ -25,24 +25,30 @@ import org.eclipse.swt.graphics.Image;
  * @noextend This class is not intended to be subclassed by clients.
  */
 public interface IImageService {
+
 	/**
 	 * Gets an image descriptor for the given image id. This image id must be
-	 * supported by an graphiti image provider. The image registry of the plugin
+	 * supported by an graphiti image provider, and available to the given
+	 * DiagramTypeProvider. The image registry of the plugin
 	 * <code>org.eclipse.graphiti.ui</code> is used. This ensures that the image
 	 * descriptor will only created once.
 	 * 
 	 * @param imageId
 	 *            the image id which is supported by an graphiti image provider
+	 * @param diagramTypeProviderId
+	 * 
 	 * 
 	 * @return the image descriptor for the id
 	 * 
 	 * @see org.eclipse.jface.resource.ImageDescriptor
+	 * @since 0.10
 	 */
-	ImageDescriptor getImageDescriptorForId(String imageId);
+	ImageDescriptor getImageDescriptorForId(String diagramTypeProviderId, String imageId);
 
 	/**
 	 * Gets an image for the given image id. This image id must be supported by
-	 * an graphiti image provider. The image registry of the plugin
+	 * an graphiti image provider, and available to the given
+	 * DiagramTypeProvider. The image registry of the plugin
 	 * <code>org.eclipse.graphiti.ui</code> is used. This ensures that the image
 	 * will only created once. The image returned must not be disposed by the
 	 * caller.
@@ -53,8 +59,9 @@ public interface IImageService {
 	 * @return the image for the id
 	 * 
 	 * @see org.eclipse.swt.graphics.Image
+	 * @since 0.10
 	 */
-	Image getImageForId(String imageId);
+	Image getImageForId(String diagramTypeProviderId, String imageId);
 
 	/**
 	 * Removes the corresponding image entry from the image registry and
@@ -71,4 +78,39 @@ public interface IImageService {
 	 * @since 0.9
 	 */
 	void removeImageFromRegistry(String imageId);
+
+	/**
+	 * Gets an image descriptor for the given image id. This image id must be
+	 * supported by the graphiti platform image provider. The image registry of
+	 * the plugin <code>org.eclipse.graphiti.ui</code> is used. This ensures
+	 * that the image descriptor will only created once.
+	 * 
+	 * @param imageId
+	 *            the image id which is supported by the graphiti platform image
+	 *            provider
+	 * 
+	 * @return the image descriptor for the id
+	 * 
+	 * @see org.eclipse.jface.resource.ImageDescriptor
+	 * @since 0.10
+	 */
+	ImageDescriptor getPlatformImageDescriptorForId(String imageId);
+
+	/**
+	 * Gets an image for the given image id. This image id must be supported by
+	 * the graphiti platform image provider. The image registry of the plugin
+	 * <code>org.eclipse.graphiti.ui</code> is used. This ensures that the image
+	 * will only created once. The image returned must not be disposed by the
+	 * caller.
+	 * 
+	 * @param imageId
+	 *            the image id which is supported by the graphiti platform image
+	 *            provider
+	 * 
+	 * @return the image for the id
+	 * 
+	 * @see org.eclipse.swt.graphics.Image
+	 * @since 0.10
+	 */
+	Image getPlatformImageForId(String imageId);
 }

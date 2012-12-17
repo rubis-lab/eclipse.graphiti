@@ -147,7 +147,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 	@Test
 	public void testGraphitiUiInternal() throws Exception {
-		org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(
+		org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getPlatformImageForId(
 				IPlatformImageConstants.IMG_DIAGRAM);
 		GraphitiUiInternal.getUiService().createImage(imageForId, SWT.IMAGE_GIF);
 	}
