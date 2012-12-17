@@ -341,10 +341,12 @@ public class CreateConnectionCommand extends AbstractCommand {
 			GenericFeatureCommandWithContext command = (GenericFeatureCommandWithContext) element;
 
 			IFeature feature = command.getFeature();
+			String providerId = feature.getFeatureProvider().getDiagramTypeProvider().getProviderId();
 			if (feature instanceof ICreateInfo) // e.g. ICreateConnectionFeature
-				return GraphitiUi.getImageService().getImageForId(((ICreateInfo) feature).getCreateImageId());
+				return GraphitiUi.getImageService().getImageForId(providerId,
+						((ICreateInfo) feature).getCreateImageId());
 			if (feature instanceof ICustomFeature)
-				return GraphitiUi.getImageService().getImageForId(((ICustomFeature) feature).getImageId());
+				return GraphitiUi.getImageService().getImageForId(providerId, ((ICustomFeature) feature).getImageId());
 
 			return null;
 		}

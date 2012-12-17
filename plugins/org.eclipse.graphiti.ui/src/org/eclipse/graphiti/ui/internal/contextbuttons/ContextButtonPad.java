@@ -290,7 +290,8 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 			Rectangle position = transformGenericRectangle(positionedButton.getPosition(), 0);
 			// translate position relative to bounds (after the bounds are set!)
 			position.translate(-getBounds().getTopLeft().x, -getBounds().getTopLeft().y);
-			ContextButton cb = new ContextButton(positionedButton, this);
+			ContextButton cb = new ContextButton(editor.getDiagramTypeProvider().getProviderId(), positionedButton,
+					this);
 			add(cb, position);
 		}
 	}

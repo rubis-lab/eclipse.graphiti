@@ -259,7 +259,9 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IPr
 				showPage(ID_OUTLINE);
 			}
 		};
-		_showOutlineAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(IExampleImageConstants.IMG_OUTLINE_TREE));
+		_showOutlineAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
+				"org.eclipse.graphiti.examples.tutorial.diagram.TutorialDiagramTypeProvider",
+				IExampleImageConstants.IMG_OUTLINE_TREE));
 		tbm.add(_showOutlineAction);
 		_showOverviewAction = new Action() {
 
@@ -269,6 +271,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IPr
 			}
 		};
 		_showOverviewAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
+				"org.eclipse.graphiti.examples.tutorial.diagram.TutorialDiagramTypeProvider",
 				IExampleImageConstants.IMG_OUTLINE_THUMBNAIL));
 		tbm.add(_showOverviewAction);
 

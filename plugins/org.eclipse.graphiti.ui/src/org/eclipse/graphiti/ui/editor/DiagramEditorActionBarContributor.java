@@ -95,18 +95,18 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		// shall be shown or not
 		RetargetAction toggleContextPadAction = new RetargetAction(ToggleContextButtonPadAction.ACTION_ID,
 				ToggleContextButtonPadAction.TEXT, IAction.AS_CHECK_BOX);
-		toggleContextPadAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
+		toggleContextPadAction.setImageDescriptor(GraphitiUi.getImageService().getPlatformImageDescriptorForId(
 				IPlatformImageConstants.IMG_TOGGLE_PAD));
 		addRetargetAction(toggleContextPadAction);
 		// End bug 323351
 
 		RetargetAction removeRetargetAction = new RetargetAction(RemoveAction.ACTION_ID, RemoveAction.TEXT);
-		removeRetargetAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
+		removeRetargetAction.setImageDescriptor(GraphitiUi.getImageService().getPlatformImageDescriptorForId(
 				IPlatformImageConstants.IMG_EDIT_REMOVE));
 		removeRetargetAction.setActionDefinitionId(RemoveAction.ACTION_DEFINITION_ID);
 		addRetargetAction(removeRetargetAction);
 		RetargetAction updateRetargetAction = new RetargetAction(UpdateAction.ACTION_ID, UpdateAction.TEXT);
-		updateRetargetAction.setImageDescriptor(GraphitiUi.getImageService().getImageDescriptorForId(
+		updateRetargetAction.setImageDescriptor(GraphitiUi.getImageService().getPlatformImageDescriptorForId(
 				IPlatformImageConstants.IMG_EDIT_REFRESH));
 		updateRetargetAction.setActionDefinitionId(UpdateAction.ACTION_DEFINITION_ID);
 		addRetargetAction(updateRetargetAction);

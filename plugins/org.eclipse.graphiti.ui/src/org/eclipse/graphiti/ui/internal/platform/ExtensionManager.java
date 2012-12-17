@@ -17,9 +17,13 @@
 package org.eclipse.graphiti.ui.internal.platform;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -65,6 +69,8 @@ public class ExtensionManager implements IExtensionManager {
 
 	private static final String EP_CHILD_NODE_DIAGRAM_TYPE = "diagramType"; //$NON-NLS-1$
 
+	private static final String EP_CHILD_NODE_DIAGRAM_TYPE_PROVIDER = "diagramTypeProvider"; //$NON-NLS-1$
+
 	private static final String EP_ATTRIBUTE_CLASS = "class"; //$NON-NLS-1$
 
 	private static final String EP_ATTRIBUTE_ID = "id"; //$NON-NLS-1$
@@ -83,11 +89,16 @@ public class ExtensionManager implements IExtensionManager {
 
 	private IImageProvider imageProviders[] = null;
 
+	private IImageProvider platformImageProvider = null;
+
+	private Map<String, Set<IImageProvider>> dtp2imageProvider = null;
+
 	/**
 	 * 
 	 */
 	private ExtensionManager() {
 		super();
+		dtp2imageProvider = new HashMap<String, Set<IImageProvider>>();
 		searchForExtensions();
 	}
 
@@ -203,7 +214,7 @@ public class ExtensionManager implements IExtensionManager {
 		imageProviders = new IImageProvider[0];
 
 		// load image providers from the framework
-		loadImageProvider(PlatformImageProvider.ID);
+		platformImageProvider = loadImageProvider(PlatformImageProvider.ID);
 	}
 
 	public IDiagramTypeProvider createDiagramTypeProvider(String providerId) {
@@ -233,7 +244,7 @@ public class ExtensionManager implements IExtensionManager {
 						context = DiagramEditor.DIAGRAM_CONTEXT_ID;
 					}
 					if (name != null) {
-						// read references to image extensions and try to
+						// read direct references to image extensions and try to
 						// instantiate image provider
 						IConfigurationElement[] children = element.getChildren();
 						for (int k = 0; k < children.length; k++) {
@@ -242,11 +253,13 @@ public class ExtensionManager implements IExtensionManager {
 							String childExtensionId = childElement.getAttribute(EP_ATTRIBUTE_ID);
 							if (childName != null && childExtensionId != null) {
 								if (EP_CHILD_NODE_IMAGE_PROVIDER.equals(childName)) {
-									boolean ret = loadImageProvider(childExtensionId);
-									if (ret == false) {
+									IImageProvider imageProvider = loadImageProvider(childExtensionId);
+									if (imageProvider == null) {
 										IllegalArgumentException e = new IllegalArgumentException("A Graphiti image provider with id '" //$NON-NLS-1$
 												+ childExtensionId + "' could not be found"); //$NON-NLS-1$
 										T.racer().error("Error while creating the children for '" + providerId + "'", e); //$NON-NLS-1$ //$NON-NLS-2$
+									} else {
+										registerImageProviderForDiagramTypeProvider(providerId, imageProvider);
 									}
 								}
 							}
@@ -263,8 +276,29 @@ public class ExtensionManager implements IExtensionManager {
 							}
 						} catch (CoreException e) {
 							// $JL-EXC$
-							T.racer().error("Unable to create DiagramTypeProcider class", e);
+							T.racer().error("Unable to create DiagramTypeProvider class", e);
 						}
+					}
+				}
+			}
+		}
+
+		IExtensionPoint imageProviderExtensionPoint = extensionRegistry.getExtensionPoint(EP_IMAGE_PROVIDERS);
+		// read image providers that point back to this diagramTypeProvider
+		for (IExtension extension : imageProviderExtensionPoint.getExtensions()) {
+			IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+			for (int j = 0; j < configurationElements.length; j++) {
+				IConfigurationElement element = configurationElements[j];
+				String imageProviderId = element.getAttribute(EP_ATTRIBUTE_ID);
+
+				IConfigurationElement[] children = element.getChildren(EP_CHILD_NODE_DIAGRAM_TYPE_PROVIDER);
+
+				for (IConfigurationElement child : children) {
+					String referredDiagramTypeProviderId = child.getAttribute(EP_ATTRIBUTE_ID);
+					if (providerId.equals(referredDiagramTypeProviderId)) {
+						IImageProvider imageProvider = loadImageProvider(imageProviderId);
+						registerImageProviderForDiagramTypeProvider(providerId, imageProvider);
+						break;
 					}
 				}
 			}
@@ -273,8 +307,16 @@ public class ExtensionManager implements IExtensionManager {
 		return diagramTypeProvider;
 	}
 
-	public IImageProvider[] getImageProviders() {
-		return imageProviders;
+	public IImageProvider getPlatformImageProvider() {
+		return platformImageProvider;
+	}
+
+	public Collection<IImageProvider> getImageProvidersForDiagramTypeProviderId(String providerId) {
+		Collection<IImageProvider> providers = dtp2imageProvider.get(providerId);
+		if (providers == null)
+			return Collections.singleton(platformImageProvider);
+		else
+			return providers;
 	}
 
 	public IDiagramType[] getDiagramTypes() {
@@ -294,17 +336,16 @@ public class ExtensionManager implements IExtensionManager {
 		return null;
 	}
 
-	private boolean loadImageProvider(String providerId) {
+	private IImageProvider loadImageProvider(String imageProviderId) {
 
 		// check whether the image provider is already loaded
-		IImageProvider providers[] = getImageProviders();
-		for (int i = 0; i < providers.length; i++) {
-			IImageProvider provider = providers[i];
-			if (providerId.equals(provider.getProviderId())) {
-				return true;
+		for (int i = 0; i < imageProviders.length; i++) {
+			IImageProvider provider = imageProviders[i];
+			if (imageProviderId.equals(provider.getProviderId())) {
+				return provider;
 			}
 		}
-		IImageProvider newProvider = createImageProvider(providerId);
+		IImageProvider newProvider = createImageProvider(imageProviderId);
 		if (newProvider != null) {
 
 			// extend current list of image providers
@@ -313,10 +354,10 @@ public class ExtensionManager implements IExtensionManager {
 			imageProvidersDest[imageProviders.length] = newProvider;
 			imageProviders = imageProvidersDest;
 
-			return true;
+			return newProvider;
 		}
 
-		return false;
+		return null;
 	}
 
 	private List<IDiagramType> createDiagramTypes() {
@@ -387,6 +428,17 @@ public class ExtensionManager implements IExtensionManager {
 			}
 		}
 		return null;
+	}
+
+	private void registerImageProviderForDiagramTypeProvider(String providerId, IImageProvider imageProvider) {
+		Set<IImageProvider> providers = dtp2imageProvider.get(providerId);
+		if (providers == null) {
+			providers = new HashSet<IImageProvider>();
+			dtp2imageProvider.put(providerId, providers);
+			providers.add(platformImageProvider);
+		}
+
+		providers.add(imageProvider);
 	}
 
 	public IFeatureProvider createFeatureProvider(Diagram diagram) {
