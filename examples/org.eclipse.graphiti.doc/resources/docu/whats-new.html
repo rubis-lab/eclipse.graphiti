@@ -35,13 +35,63 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Kepler</h1>
-	<p>Last revised November 12, 2012</p>
+	<p>Last revised December 18, 2012</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.10.0 within the
 		Kepler release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M4 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M4</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on bugfixing.</td>
+		</tr>
+		<tr id="bug 396529">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=396529">Bug
+					396529</a></td>
+			<td class="content">Graphiti enabled the correct usage of the
+				ICU4J library version 50.x brought in by the latest Eclipse platform
+				via its dependencies GEF and EMF Validation.</td>
+		</tr>
+		<tr id="bug 393074">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=393074">Bug
+					393074</a></td>
+			<td class="content">The progress monitor parameter passes in the
+				the saveDiagram() method in DefaultPersistencyBehavior is not
+				correctly used within the method.</td>
+		</tr>
+		<tr id="bug 393113">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=393113">Bug
+					393113</a></td>
+			<td class="content">Selecting a connection in e.g. the Eclipse
+				Project Explorer with enabled editor linking will now select and
+				reveal the connection in the opened diagram editor in case it exists
+				in the diagram.</td>
+		</tr>
+		<tr id="bug 394801">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=394801">Bug
+					394801</a></td>
+			<td class="content">Properties passed in the AddContext will now
+				correctly be passed to the called add feature.</td>
+		</tr>
+		<tr id="bug 392309">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=392309">Bug
+					392309</a></td>
+			<td class="content">Showing a tooltip that is too long to fit
+				into the viewport of the diagram will no longer cause that scroll bars
+				appear.</td>
+		</tr>
 		<!-- ---------------------------------------- M3 ------------------------------- -->
 		<tr>
 			<td colspan="2">
