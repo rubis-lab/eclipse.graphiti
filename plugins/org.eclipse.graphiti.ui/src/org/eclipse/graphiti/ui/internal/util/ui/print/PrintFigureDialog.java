@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 323359 Avoid usage of java.lang.text, ICU4J etc.
  *    mwenz - Bug 323034 - Aligned vertical gaps between groups
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -22,9 +23,10 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.ui.internal.Messages;
-import org.eclipse.graphiti.ui.internal.util.ui.DefaultPreferences;
 import org.eclipse.graphiti.ui.internal.util.ui.DoubleField;
 import org.eclipse.graphiti.ui.internal.util.ui.DoubleFieldWithDropDown;
+import org.eclipse.graphiti.ui.print.IDefaultPrintPreferences;
+import org.eclipse.graphiti.ui.print.IPrintConfiguration;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -54,7 +56,8 @@ import org.eclipse.swt.widgets.Shell;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class PrintFigureDialog extends AbstractFigureSelectionDialog implements ModifyListener, PaintListener {
+public class PrintFigureDialog extends AbstractFigureSelectionDialog implements IPrintConfiguration, ModifyListener,
+		PaintListener {
 
 	private static final String COLON = ":"; //$NON-NLS-1$
 
@@ -548,7 +551,7 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 	 * 
 	 * @return The printer preferences as given through this dialog.
 	 */
-	public DefaultPreferences getPreferences() {
+	public IDefaultPrintPreferences getPreferences() {
 		return _preferences;
 	}
 
@@ -662,7 +665,7 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 
 	/**
 	 * Transforms preview values into printer values and stores them in the
-	 * DefaultPreferences.
+	 * IDefaultPrintPreferences.
 	 */
 	private void adjustPrinterValuesUsingPreview(int leftMargin, int topMargin, int imageWidthScaled, int imageHeightScaled,
 			Rectangle printRegion, org.eclipse.swt.graphics.Rectangle previewRegion) {
@@ -729,5 +732,9 @@ public class PrintFigureDialog extends AbstractFigureSelectionDialog implements 
 		if (_aspectRatioOn && _sizeMode == SCALE_XY)
 			_preferences.setDoublePreference(DefaultPrintPreferences.SCALE_FACTOR_Y, _preferences
 					.getDoublePreference(DefaultPrintPreferences.SCALE_FACTOR_X));
+	}
+
+	public int configure() {
+		return open();
 	}
 }

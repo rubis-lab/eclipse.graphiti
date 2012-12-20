@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -19,9 +20,9 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PrintFigureOperation;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.graphiti.ui.internal.util.ui.DefaultPreferences;
+import org.eclipse.graphiti.ui.print.IDefaultPrintPreferences;
+import org.eclipse.graphiti.ui.print.IPrintConfiguration;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.printing.Printer;
 
 /**
  * A PrintFigureOperation, which allows to print with fully configurable size
@@ -42,7 +43,7 @@ public class PrintFigureScaleableOperation extends PrintFigureOperation {
 	 * 
 	 * @see DefaultPrintPreferences
 	 */
-	private DefaultPreferences _preferences;
+	private IDefaultPrintPreferences _preferences;
 	private Image _image;
 
 	/**
@@ -56,10 +57,10 @@ public class PrintFigureScaleableOperation extends PrintFigureOperation {
 	 *            The image to print, this is currently used for printing since
 	 *            Figures do not allow for flexible xy-scaling.
 	 */
-	public PrintFigureScaleableOperation(Printer p, IFigure figure, Image image, DefaultPreferences prefs) {
-		super(p, figure);
-		_preferences = prefs;
-		_image = image;
+	public PrintFigureScaleableOperation(IPrintConfiguration printConfiguration) {
+		super(printConfiguration.getPrinter(), printConfiguration.getFigure());
+		_preferences = printConfiguration.getPreferences();
+		_image = printConfiguration.getScaledImage();
 	}
 
 	/**
