@@ -12,6 +12,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
  *    mwenz - Bug 389379 - Editor Dirty Handling (gets broken after context button execution)
+ *    fvelasco - Bug 396247 - ImageDescriptor changes
  *
  * </copyright>
  *
@@ -109,6 +110,8 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	 */
 	private MouseListener mouseDragUpListener;
 
+	private String providerId;
+
 	// ============================ inner classes =============================
 
 	/**
@@ -123,7 +126,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 
 		@Override
 		public Image getImage(Object element) {
-			return GraphitiUi.getImageService().getImageForId(((ContextButtonEntry) element).getIconId());
+			return GraphitiUi.getImageService().getImageForId(providerId, ((ContextButtonEntry) element).getIconId());
 		}
 	};
 
@@ -131,6 +134,8 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 
 	/**
 	 * Creates a new ContextButton.
+	 * 
+	 * @param providerId
 	 * 
 	 * @param positionedContextButton
 	 *            The {@link PositionedContextButton} contains the visual
@@ -141,10 +146,12 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	 *            The {@link ContextButtonPad} is used to access the environment
 	 *            (editor, ...).
 	 */
-	public ContextButton(PositionedContextButton positionedContextButton, ContextButtonPad contextButtonPad) {
+	public ContextButton(String providerId, PositionedContextButton positionedContextButton,
+			ContextButtonPad contextButtonPad) {
 		this.positionedContextButton = positionedContextButton;
 		this.contextButtonPad = contextButtonPad;
 		this.contextButtonEntry = (ContextButtonEntry) positionedContextButton.getContextButtonEntry();
+		this.providerId = providerId;
 
 		setBorder(null); // get rid of default border
 		setTransparencyProvider(contextButtonPad);
@@ -329,7 +336,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 
 		// create image
 		String iconId = getEntry().getIconId();
-		Image originalImage = GraphitiUi.getImageService().getImageForId(iconId);
+		Image originalImage = GraphitiUi.getImageService().getImageForId(providerId, iconId);
 		Image image;
 		if (!isEnabled()) {
 			image = new Image(originalImage.getDevice(), originalImage, SWT.IMAGE_DISABLE);

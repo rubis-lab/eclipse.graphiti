@@ -9,15 +9,19 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    fvelasco - Bug 396247 - ImageDescriptor changes
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.services.impl;
 
+import java.util.Collection;
+
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.platform.ExtensionManager;
 import org.eclipse.graphiti.ui.platform.IImageProvider;
+import org.eclipse.graphiti.ui.platform.PlatformImageProvider;
 import org.eclipse.graphiti.ui.services.IImageService;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -31,35 +35,37 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  */
 public class ImageService implements IImageService {
 
-	public ImageDescriptor getImageDescriptorForId(String imageId) {
+	public ImageDescriptor getImageDescriptorForId(String providerId, String imageId) {
 
-		if (imageId == null)
+		if (imageId == null || providerId == null)
 			return null;
 
+		String registryKey = makeKey(providerId, imageId);
 		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
-		ImageDescriptor imageDescriptor = imageRegistry.getDescriptor(imageId);
+		ImageDescriptor imageDescriptor = imageRegistry.getDescriptor(registryKey);
 		if (imageDescriptor != null) {
 			return imageDescriptor;
 		}
 
-		imageDescriptor = createImageDescriptorForId(imageId);
+		imageDescriptor = createImageDescriptorForId(providerId, imageId);
 		return imageDescriptor;
 	}
 
-	public Image getImageForId(String imageId) {
+	public Image getImageForId(String providerId, String imageId) {
 
-		if (imageId == null)
+		if (imageId == null || providerId == null)
 			return null;
 
+		String registryKey = makeKey(providerId, imageId);
 		// if image already available take it
 		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
-		Image result = imageRegistry.get(imageId);
+		Image result = imageRegistry.get(registryKey);
 		if (result != null && !result.isDisposed()) {
 			return result;
 		}
 
-		createImageDescriptorForId(imageId);
-		Image image = imageRegistry.get(imageId); // now there is an image
+		createImageDescriptorForId(providerId, imageId);
+		Image image = imageRegistry.get(registryKey); // now there is an image
 													// registered
 		if (image == null) {
 			throw new IllegalStateException("No image could be retrieved for imageId '" + imageId + "'"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -70,6 +76,42 @@ public class ImageService implements IImageService {
 	public void removeImageFromRegistry(String key) {
 		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
 		imageRegistry.remove(key);
+	}
+
+	public ImageDescriptor getPlatformImageDescriptorForId(String imageId) {
+		if (imageId == null)
+			return null;
+
+		String registryKey = makePlatformKey(imageId);
+		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
+		ImageDescriptor imageDescriptor = imageRegistry.getDescriptor(registryKey);
+		if (imageDescriptor != null) {
+			return imageDescriptor;
+		}
+
+		imageDescriptor = createPlatformImageDescriptorForId(imageId);
+		return imageDescriptor;
+	}
+
+	public Image getPlatformImageForId(String imageId) {
+		if (imageId == null)
+			return null;
+
+		String registryKey = makePlatformKey(imageId);
+		// if image already available take it
+		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
+		Image result = imageRegistry.get(registryKey);
+		if (result != null && !result.isDisposed()) {
+			return result;
+		}
+
+		createPlatformImageDescriptorForId(imageId);
+		Image image = imageRegistry.get(registryKey); // now there is an image
+														// registered
+		if (image == null) {
+			throw new IllegalStateException("No image could be retrieved for imageId '" + imageId + "'"); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		return image;
 	}
 
 	/**
@@ -91,22 +133,23 @@ public class ImageService implements IImageService {
 
 	}
 
-	private ImageDescriptor createImageDescriptorForId(String imageId) {
+	private ImageDescriptor createImageDescriptorForId(String providerId, String imageId) {
 
-		if (imageId == null)
+		if (imageId == null || providerId == null)
 			return null;
 
+		String registryKey = makeKey(providerId, imageId);
 		// if image descriptor already exists return it
 		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
-		ImageDescriptor imageDescriptor = imageRegistry.getDescriptor(imageId);
+		ImageDescriptor imageDescriptor = imageRegistry.getDescriptor(registryKey);
 		if (imageDescriptor != null) {
 			return imageDescriptor;
 		}
 
 		// try get the image-location from the image-providers
-		IImageProvider imageProviders[] = ExtensionManager.getSingleton().getImageProviders();
-		for (int i = 0; i < imageProviders.length; i++) {
-			IImageProvider imageProvider = imageProviders[i];
+		Collection<IImageProvider> imageProviders = ExtensionManager.getSingleton()
+				.getImageProvidersForDiagramTypeProviderId(providerId);
+		for (IImageProvider imageProvider : imageProviders) {
 			String imageFilePath = imageProvider.getImageFilePath(imageId);
 			if (imageFilePath != null) {
 				String pluginId = imageProvider.getPluginId();
@@ -123,8 +166,52 @@ public class ImageService implements IImageService {
 		}
 
 		imageDescriptor = fixImageDescriptor(imageDescriptor);
-		imageRegistry.put(imageId, imageDescriptor);
+		imageRegistry.put(registryKey, imageDescriptor);
 
 		return imageDescriptor;
 	}
+
+	private ImageDescriptor createPlatformImageDescriptorForId(String imageId) {
+
+		if (imageId == null)
+			return null;
+
+		String registryKey = makePlatformKey(imageId);
+		// if image descriptor already exists return it
+		ImageRegistry imageRegistry = GraphitiUIPlugin.getDefault().getImageRegistry();
+		ImageDescriptor imageDescriptor = imageRegistry.getDescriptor(registryKey);
+		if (imageDescriptor != null) {
+			return imageDescriptor;
+		}
+
+		// try get the image-location from the image-providers
+		IImageProvider platformImageProvider = ExtensionManager.getSingleton().getPlatformImageProvider();
+		String imageFilePath = platformImageProvider.getImageFilePath(imageId);
+		if (imageFilePath != null) {
+			String pluginId = platformImageProvider.getPluginId();
+			if (pluginId != null) {
+				// try to create Image from ImageDescriptor (initialize the
+				// ImageRegistry on the fly)
+				imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(pluginId, imageFilePath);
+			}
+		}
+
+		if (imageDescriptor == null) {
+			imageDescriptor = ImageDescriptor.getMissingImageDescriptor();
+		}
+
+		imageDescriptor = fixImageDescriptor(imageDescriptor);
+		imageRegistry.put(registryKey, imageDescriptor);
+
+		return imageDescriptor;
+	}
+
+	private String makeKey(String dtp, String imageId) {
+		return dtp + "||" + imageId;
+	}
+
+	private String makePlatformKey(String imageId) {
+		return makeKey(PlatformImageProvider.ID, imageId);
+	}
+
 }

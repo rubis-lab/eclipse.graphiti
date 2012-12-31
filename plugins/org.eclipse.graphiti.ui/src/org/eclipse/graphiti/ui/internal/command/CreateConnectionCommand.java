@@ -15,6 +15,7 @@
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *    mgorning - Bug 329517 - state call backs during creation of a connection
  *    Bug 336488 - DiagramEditor API
+ *    fvelasco - Bug 396247 - ImageDescriptor changes
  *
  * </copyright>
  *
@@ -341,10 +342,12 @@ public class CreateConnectionCommand extends AbstractCommand {
 			GenericFeatureCommandWithContext command = (GenericFeatureCommandWithContext) element;
 
 			IFeature feature = command.getFeature();
+			String providerId = feature.getFeatureProvider().getDiagramTypeProvider().getProviderId();
 			if (feature instanceof ICreateInfo) // e.g. ICreateConnectionFeature
-				return GraphitiUi.getImageService().getImageForId(((ICreateInfo) feature).getCreateImageId());
+				return GraphitiUi.getImageService().getImageForId(providerId,
+						((ICreateInfo) feature).getCreateImageId());
 			if (feature instanceof ICustomFeature)
-				return GraphitiUi.getImageService().getImageForId(((ICustomFeature) feature).getImageId());
+				return GraphitiUi.getImageService().getImageForId(providerId, ((ICustomFeature) feature).getImageId());
 
 			return null;
 		}

@@ -20,6 +20,7 @@
  *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
  *    mwenz - Bug 358255 - Add Border/Background decorators
  *    mgorning - Bug 368124 - ConnectionDecorator with Text causes problems 
+ *    fvelasco - Bug 396247 - ImageDescriptor changes
  *
  * </copyright>
  *
@@ -581,7 +582,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		} else if (graphicsAlgorithm instanceof Image && figure instanceof ImageFigure) {
 			ImageFigure imageFigure = (ImageFigure) figure;
 			Image pictogramImage = (Image) graphicsAlgorithm;
-			org.eclipse.swt.graphics.Image image = GraphitiUi.getImageService().getImageForId(pictogramImage.getId());
+			org.eclipse.swt.graphics.Image image = GraphitiUi.getImageService().getImageForId(
+					configurationProvider.getDiagramTypeProvider().getProviderId(), pictogramImage.getId());
 			imageFigure.setImage(image);
 			imageFigure.setAlignment(PositionConstants.CENTER);
 			imageFigure.setOpaque(false);
@@ -934,6 +936,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		if (decorator instanceof IImageDecorator) {
 			IImageDecorator imageDecorator = (IImageDecorator) decorator;
 			org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(
+					configurationProvider.getDiagramTypeProvider().getProviderId(),
 					imageDecorator.getImageId());
 			ImageFigure imageFigure = new DecoratorImageFigure(imageForId);
 			decoratorFigure = imageFigure;
