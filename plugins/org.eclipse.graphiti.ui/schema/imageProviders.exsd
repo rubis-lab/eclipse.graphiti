@@ -50,10 +50,13 @@
    <element name="imageProvider">
       <annotation>
          <appInfo>
-            <meta.element labelAttribute="id"/>
+            <meta.element labelAttribute="id" deprecated="true"/>
          </appInfo>
       </annotation>
       <complexType>
+         <sequence minOccurs="0" maxOccurs="unbounded">
+            <element ref="diagramTypeProvider"/>
+         </sequence>
          <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
@@ -68,6 +71,27 @@
                </documentation>
                <appInfo>
                   <meta.attribute kind="java" basedOn="org.eclipse.graphiti.ui.platform.AbstractImageProvider:org.eclipse.graphiti.ui.platform.IImageProvider"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="diagramTypeProvider">
+      <annotation>
+         <documentation>
+            Referred diagram type provider. This makes the image provider available for the referenced diagram type provider. Advertises that the containing diagram type provider needs the given image provider for rendering purposes.
+You can also use the &lt;samp&gt;&apos;org.eclipse.graphiti.ui.diagramTypeProvider&apos;&lt;/samp&gt; extension point instead, pointing it to the &lt;samp&gt;ImageProvider&lt;/samp&gt; its images it requires.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  the diagram type provider identifier. This is an ID defined by the &apos;org.eclipse.graphiti.ui.diagramTypeProviders&apos; extension point.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="org.eclipse.graphiti.ui.diagramTypeProviders/diagramTypeProvider/@id"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -121,7 +145,6 @@ All rights reserved. This program and the accompanying materials are made
 available under the terms of the Eclipse Public License v1.0 which accompanies
 this distribution, and is available at &lt;a 
 href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
-
       </documentation>
    </annotation>
 

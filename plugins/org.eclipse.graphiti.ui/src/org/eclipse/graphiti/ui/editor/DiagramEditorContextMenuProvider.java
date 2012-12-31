@@ -15,6 +15,7 @@
  *    Bug 336488 - DiagramEditor API
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    cbrand - Bug 377783 - Dump for figures in connection layer needed
+ *    fvelasco - Bug 396247 - ImageDescriptor changes
  *
  * </copyright>
  *
@@ -241,7 +242,8 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 					}
 					action.setText(text);
 					action.setDescription(cmEntry.getDescription());
-					ImageDescriptor image = GraphitiUi.getImageService().getImageDescriptorForId(cmEntry.getIconId());
+					ImageDescriptor image = GraphitiUi.getImageService().getImageDescriptorForId(
+							diagramTypeProvider.getProviderId(), cmEntry.getIconId());
 					action.setImageDescriptor(image);
 					appendContributionItem(manager, groupID, new ActionContributionItem(action));
 				}
