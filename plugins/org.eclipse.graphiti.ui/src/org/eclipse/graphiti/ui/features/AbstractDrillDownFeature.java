@@ -14,6 +14,7 @@
  *    Ali Akar, mwenz - Bug 340842 - Opening a user contributed editor
  *    Bug 336488 - DiagramEditor API
  *    cbrand - Bug 377475 - Fix AbstractCustomFeature.execute and canExecute
+ *    fvelasco - Bug 396247 - ImageDescriptor changes
  *
  * </copyright>
  *
@@ -231,7 +232,8 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 		@Override
 		public Image getImage(Object element) {
 			if (this.image == null) {
-				this.image = GraphitiUi.getImageService().getImageForId(IPlatformImageConstants.IMG_DIAGRAM);
+				this.image = GraphitiUi.getImageService().getPlatformImageForId(
+						IPlatformImageConstants.IMG_DIAGRAM);
 			}
 			return this.image;
 		}

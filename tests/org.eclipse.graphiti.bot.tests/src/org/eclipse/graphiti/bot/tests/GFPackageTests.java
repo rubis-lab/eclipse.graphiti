@@ -12,6 +12,7 @@
  *    mwenz - Bug 363539 - Enabled feature delegation via IDiagramEditor.execute method
  *    mgorning - Bug 371671 - addGraphicalRepresentation returns null in dark mode
  *    mwenz - Felix Velasco - Bug 374918 - Let default paste use LocalSelectionTransfer
+ *    fvelasco - Bug 396247 - ImageDescriptor changes
  *
  * </copyright>
  *
@@ -147,7 +148,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 	@Test
 	public void testGraphitiUiInternal() throws Exception {
-		org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getImageForId(
+		org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getPlatformImageForId(
 				IPlatformImageConstants.IMG_DIAGRAM);
 		GraphitiUiInternal.getUiService().createImage(imageForId, SWT.IMAGE_GIF);
 	}

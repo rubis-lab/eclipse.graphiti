@@ -63,6 +63,9 @@
                <documentation>
                   a unique name in the Eclipse environment that will be used to identify this diagram type provider
                </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier"/>
+               </appInfo>
             </annotation>
          </attribute>
          <attribute name="name" type="string" use="required">
@@ -134,6 +137,7 @@ Note: The selected context must have the &lt;samp&gt;org.eclipse.graphiti.ui.dia
          </appInfo>
          <documentation>
             Advertises that the containing diagram type provider needs the given image provider for rendering purposes.
+You can also use the &lt;samp&gt;&apos;org.eclipse.graphiti.ui.imageProvider&apos;&lt;/samp&gt; extension point instead, pointing it to the &lt;samp&gt;diagramTypeProvider&lt;/samp&gt; it provides images for.
          </documentation>
       </annotation>
       <complexType>

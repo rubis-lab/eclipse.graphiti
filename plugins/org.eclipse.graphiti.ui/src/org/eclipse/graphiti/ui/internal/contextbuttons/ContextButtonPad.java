@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
+ *    fvelasco - Bug 396247 - ImageDescriptor changes
  *
  * </copyright>
  *
@@ -290,7 +291,8 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 			Rectangle position = transformGenericRectangle(positionedButton.getPosition(), 0);
 			// translate position relative to bounds (after the bounds are set!)
 			position.translate(-getBounds().getTopLeft().x, -getBounds().getTopLeft().y);
-			ContextButton cb = new ContextButton(positionedButton, this);
+			ContextButton cb = new ContextButton(editor.getDiagramTypeProvider().getProviderId(), positionedButton,
+					this);
 			add(cb, position);
 		}
 	}
