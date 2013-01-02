@@ -114,9 +114,9 @@
     </rm:provider>
   </rm:searchPath>
   <rm:searchPath name="eclipse.license">
-    <rm:provider componentTypes="eclipse.feature" readerType="cvs">
-      <rm:uri format="{0},org.eclipse.sdk-feature/features/{1}">
-        <bc:propertyRef key="cvs.repository.eclipse"/>
+    <rm:provider componentTypes="eclipse.feature" readerType="local">
+      <rm:uri format="{0}/../../platform/eclipse.platform.releng/features/{1}">
+        <bc:propertyRef key="workspace.root"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
     </rm:provider>
