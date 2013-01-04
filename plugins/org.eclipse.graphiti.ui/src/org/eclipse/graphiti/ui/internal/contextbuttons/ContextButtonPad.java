@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    mwenz - Bug 397303 - Accessibility issue with Graphiti diagram in High Contrast Mode
  *
  * </copyright>
  *
@@ -34,11 +35,13 @@ import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackAdapter;
 import org.eclipse.swt.events.MouseTrackListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -570,14 +573,33 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 		int lw = (int) (getZoomLevel() * getDeclaration().getPadLineWidth());
 		graphics.setLineWidth(lw);
 
-		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
-				.getPadInnerLineColor()));
+		Color innerLineSwtColor;
+		Color middleLineSwtColor;
+		Color outerLineSwtColor;
+		Display display = Display.getCurrent();
+		if (display == null) {
+			display = Display.getDefault();
+		}
+		if (display.getHighContrast()) {
+			innerLineSwtColor = display.getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
+			middleLineSwtColor = display.getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
+			outerLineSwtColor = display.getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
+		} else {
+			IColorConstant padInnerLineColor = getDeclaration().getPadInnerLineColor();
+			innerLineSwtColor = DataTypeTransformation.toSwtColor(resourceRegistry, padInnerLineColor);
+
+			IColorConstant padMiddleLineColor = getDeclaration().getPadMiddleLineColor();
+			middleLineSwtColor = DataTypeTransformation.toSwtColor(resourceRegistry, padMiddleLineColor);
+
+			IColorConstant padOuterLineColor = getDeclaration().getPadOuterLineColor();
+			outerLineSwtColor = DataTypeTransformation.toSwtColor(resourceRegistry, padOuterLineColor);
+		}
+
+		graphics.setForegroundColor(innerLineSwtColor);
 		graphics.drawPath(pathInnerLine);
-		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
-				.getPadMiddleLineColor()));
+		graphics.setForegroundColor(middleLineSwtColor);
 		graphics.drawPath(pathMiddleLine);
-		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
-				.getPadOuterLineColor()));
+		graphics.setForegroundColor(outerLineSwtColor);
 		graphics.drawPath(pathOuterLine);
 	}
 
@@ -616,10 +638,20 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 		int lw = (int) (getZoomLevel() * getDeclaration().getPadLineWidth());
 		graphics.setLineWidth(lw);
 
-		graphics.setForegroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
-				.getPadFillColor()));
-		graphics.setBackgroundColor(DataTypeTransformation.toSwtColor(resourceRegistry, getDeclaration()
-				.getPadFillColor()));
+		Color swtColor;
+		Display display = Display.getCurrent();
+		if (display == null) {
+			display = Display.getDefault();
+		}
+		if (display.getHighContrast()) {
+			swtColor = display.getSystemColor(SWT.COLOR_WIDGET_BACKGROUND);
+		} else {
+			IColorConstant padFillColor = getDeclaration().getPadFillColor();
+			swtColor = DataTypeTransformation.toSwtColor(resourceRegistry, padFillColor);
+		}
+
+		graphics.setForegroundColor(swtColor);
+		graphics.setBackgroundColor(swtColor);
 		graphics.drawPath(pathFill);
 		graphics.fillPath(pathFill);
 	}
