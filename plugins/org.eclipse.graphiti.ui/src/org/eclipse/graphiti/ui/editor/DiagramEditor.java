@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@
  *    mwenz - Bug 387971 - Features cant't be invoked from contextMenu
  *    fvelasco - Bug 323349 - Enable external invocation of features
  *    mwenz - Bug 393113 - Auto-focus does not work for connections
+ *    mwenz - Bug 396893 - enable the registration of the drop target listeners configurable
  *
  * </copyright>
  *
@@ -802,11 +803,47 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			}
 		});
 
-		getGraphicalViewer().addDropTargetListener(
-				(TransferDropTargetListener) new ObjectsTransferDropTargetListener(getGraphicalViewer()));
+		List<TransferDropTargetListener> objectDropTargetListeners = createBusinessObjectDropTargetListeners();
+		for (TransferDropTargetListener dropTargetListener : objectDropTargetListeners) {
+			getGraphicalViewer().addDropTargetListener(dropTargetListener);
+		}
 
-		getGraphicalViewer()
-				.addDropTargetListener(new GFTemplateTransferDropTargetListener(getGraphicalViewer(), this));
+		TransferDropTargetListener paletteDropTargetListener = createPaletteDropTargetListener();
+		if (paletteDropTargetListener != null) {
+			getGraphicalViewer().addDropTargetListener(paletteDropTargetListener);
+		}
+	}
+
+	/**
+	 * Creates the drop target listener that is used for adding new objects from
+	 * the palette via drag and drop. Clients may change the default behavior by
+	 * providing their own drop target listener or disable drag and drop from
+	 * the palette by returning null.
+	 * 
+	 * @return An instance of the {@link TransferDropTargetListener} that
+	 *         handles dropping new objects from the palette or
+	 *         <code>null</code> to disable dropping from the palette.
+	 * @since 0.10
+	 */
+	protected TransferDropTargetListener createPaletteDropTargetListener() {
+		return new GFTemplateTransferDropTargetListener(getGraphicalViewer(), this);
+	}
+
+	/**
+	 * Creates a list of drop target listeners that enable dropping domain
+	 * objects into the diagram, e.g. from the project explorer. By adding
+	 * additional listeners other sources may be enabled, simply returning an
+	 * empty list will disable drag and drop into the editor.
+	 * 
+	 * @return a {@link List} containing all the
+	 *         {@link TransferDropTargetListener} that shall be registered in
+	 *         the editor.
+	 * @since 0.10
+	 */
+	protected List<TransferDropTargetListener> createBusinessObjectDropTargetListeners() {
+		ArrayList<TransferDropTargetListener> result = new ArrayList<TransferDropTargetListener>(1);
+		result.add(new ObjectsTransferDropTargetListener(getGraphicalViewer()));
+		return result;
 	}
 
 	/**
