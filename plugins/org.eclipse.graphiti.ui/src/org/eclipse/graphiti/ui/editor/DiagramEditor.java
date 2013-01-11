@@ -28,6 +28,7 @@
  *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
  *    Felix Velasco - mwenz - Bug 379788 - Memory leak in DefaultMarkerBehavior
  *    mwenz - Bug 387971 - Features cant't be invoked from contextMenu
+ *    mwenz - Bug 393113 - Auto-focus does not work for connections
  *
  * </copyright>
  *
@@ -129,7 +130,6 @@ import org.eclipse.graphiti.ui.internal.editor.GFCommandStack;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.graphiti.ui.internal.editor.GFScrollingGraphicalViewer;
 import org.eclipse.graphiti.ui.internal.editor.GraphitiScrollingGraphicalViewer;
-import org.eclipse.graphiti.ui.internal.parts.IConnectionEditPart;
 import org.eclipse.graphiti.ui.internal.util.gef.ScalableRootEditPartAnimated;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IAction;
@@ -1410,17 +1410,15 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			getSite().getSelectionProvider().setSelection(new StructuredSelection(editParts));
 			if (editParts.size() > 0) {
 				final EditPart editpart = editParts.get(0);
-				if (!(editpart instanceof IConnectionEditPart)) {
-					// if the editPart is newly created it is possible that his
-					// figure has not a valid bounds. Hence we have to wait for
-					// the UI update (for the validation of the figure tree).
-					// Otherwise the reveal method can't work correctly.
-					Display.getDefault().asyncExec(new Runnable() {
-						public void run() {
-							getGraphicalViewer().reveal(editpart);
-						}
-					});
-				}
+				// if the editPart is newly created it is possible that his
+				// figure has not a valid bounds. Hence we have to wait for
+				// the UI update (for the validation of the figure tree).
+				// Otherwise the reveal method can't work correctly.
+				Display.getDefault().asyncExec(new Runnable() {
+					public void run() {
+						getGraphicalViewer().reveal(editpart);
+					}
+				});
 			}
 		}
 	}
