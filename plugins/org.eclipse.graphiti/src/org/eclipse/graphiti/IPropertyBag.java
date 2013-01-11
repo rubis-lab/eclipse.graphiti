@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,11 +9,14 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 394801 - AddGraphicalRepresentation doesn't carry properties
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti;
+
+import java.util.List;
 
 /**
  * The Interface IPropertyBag.
@@ -46,4 +49,14 @@ public interface IPropertyBag {
 	 * @see #putProperty(Object, Object)
 	 */
 	Object getProperty(Object key);
+
+	/**
+	 * Returns a {@link List} of all available property keys. The list may be
+	 * empty.
+	 * 
+	 * @return The list of all property keys.
+	 * 
+	 * @since 0.9
+	 */
+	List<Object> getPropertyKeys();
 }
