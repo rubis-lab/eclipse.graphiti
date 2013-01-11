@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2012, 2012 SAP AG.
+ * Copyright (c) 2012, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    mwenz - Bug 358255 - initial API, implementation and documentation
+ *    mwenz - Bug 396793 - Text decorators
  *
  * </copyright>
  *
@@ -28,6 +29,7 @@ import org.eclipse.graphiti.tb.BorderDecorator;
 import org.eclipse.graphiti.tb.ColorDecorator;
 import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.ImageDecorator;
+import org.eclipse.graphiti.tb.TextDecorator;
 import org.eclipse.graphiti.testtool.sketch.SketchToolBehavior;
 import org.eclipse.graphiti.util.IColorConstant;
 
@@ -39,6 +41,7 @@ public class DisplayDecoratorFeature extends AbstractCustomFeature {
 	public static final int TYPE_IMAGE = 0;
 	public static final int TYPE_BORDER = 1;
 	public static final int TYPE_COLOR = 2;
+	public static final int TYPE_TEXT = 3;
 
 	private int type;
 
@@ -56,6 +59,8 @@ public class DisplayDecoratorFeature extends AbstractCustomFeature {
 			return "Border";
 		case TYPE_COLOR:
 			return "Color";
+		case TYPE_TEXT:
+			return "Text";
 		default:
 			return "<Error>";
 		}
@@ -81,6 +86,9 @@ public class DisplayDecoratorFeature extends AbstractCustomFeature {
 				break;
 			case TYPE_COLOR:
 				decorator = new ColorDecorator(IColorConstant.DARK_GREEN, IColorConstant.LIGHT_ORANGE);
+				break;
+			case TYPE_TEXT:
+				decorator = new TextDecorator("Decorated with some example text");
 				break;
 			default:
 				throw new IllegalStateException("Unknown decorator type: " + type);
