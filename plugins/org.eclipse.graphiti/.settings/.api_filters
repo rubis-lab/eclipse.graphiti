@@ -1,48 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.graphiti" version="2">
-    <resource path="src/org/eclipse/graphiti/dt/AbstractDiagramTypeProvider.java" type="org.eclipse.graphiti.dt.AbstractDiagramTypeProvider">
-        <filter id="338792546">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.dt.AbstractDiagramTypeProvider"/>
-                <message_argument value="getCurrentToolBahaviorIndex()"/>
-            </message_arguments>
-        </filter>
-        <filter id="338792546">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.dt.AbstractDiagramTypeProvider"/>
-                <message_argument value="setCurrentToolBahaviorIndex(int)"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getCurrentToolBehaviorIndex()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="setCurrentToolBehaviorIndex(int)"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/dt/IDiagramTypeProvider.java" type="org.eclipse.graphiti.dt.IDiagramTypeProvider">
-        <filter id="405901410">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.dt.IDiagramTypeProvider"/>
-                <message_argument value="getCurrentToolBahaviorIndex()"/>
-            </message_arguments>
-        </filter>
-        <filter id="405901410">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.dt.IDiagramTypeProvider"/>
-                <message_argument value="setCurrentToolBahaviorIndex(int)"/>
-            </message_arguments>
-        </filter>
-        <filter id="1211105284">
-            <message_arguments>
-                <message_argument value="setCurrentToolBehaviorIndex(int)"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src/org/eclipse/graphiti/features/context/impl/DeleteContext.java" type="org.eclipse.graphiti.features.context.impl.DeleteContext">
         <filter id="576720909">
             <message_arguments>
@@ -80,62 +37,6 @@
             <message_arguments>
                 <message_argument value="PictogramElementContext"/>
                 <message_argument value="UpdateContext"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/features/impl/AbstractFeature.java" type="org.eclipse.graphiti.features.impl.AbstractFeature">
-        <filter id="338792546">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.features.impl.AbstractFeature"/>
-                <message_argument value="layoutPictogramElement(PictogramElement)"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/func/IDirectEditing.java" type="org.eclipse.graphiti.func.IDirectEditing">
-        <filter id="405864542">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.func.IDirectEditing"/>
-                <message_argument value="TYPE_CHECK"/>
-            </message_arguments>
-        </filter>
-        <filter id="405864542">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.func.IDirectEditing"/>
-                <message_argument value="TYPE_COLOR"/>
-            </message_arguments>
-        </filter>
-        <filter id="405864542">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.func.IDirectEditing"/>
-                <message_argument value="TYPE_DIALOG"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/platform/IDiagramEditor.java" type="org.eclipse.graphiti.platform.IDiagramEditor">
-        <filter id="405901410">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
-                <message_argument value="getCurrentMouseLocation()"/>
-            </message_arguments>
-        </filter>
-        <filter id="405901410">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
-                <message_argument value="getCurrentSize()"/>
-            </message_arguments>
-        </filter>
-        <filter id="405901410">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
-                <message_argument value="refresh(PictogramElement)"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/services/IGaService.java" type="org.eclipse.graphiti.services.IGaService">
-        <filter id="405901410">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.services.IGaService"/>
-                <message_argument value="ignoreAll(AbstractStyle)"/>
             </message_arguments>
         </filter>
     </resource>
