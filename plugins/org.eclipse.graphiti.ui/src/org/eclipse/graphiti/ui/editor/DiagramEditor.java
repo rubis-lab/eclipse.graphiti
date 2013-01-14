@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,6 +29,7 @@
  *    Felix Velasco - mwenz - Bug 379788 - Memory leak in DefaultMarkerBehavior
  *    mwenz - Bug 387971 - Features cant't be invoked from contextMenu
  *    mwenz - Bug 393113 - Auto-focus does not work for connections
+ *    mwenz - Bug 383768 - Downport of protected getConfigurationProvider method 
  *
  * </copyright>
  *
@@ -1590,7 +1591,24 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return keyHandler;
 	}
 
-	IConfigurationProvider getConfigurationProvider() {
+	/**
+	 * Returns the {@link IConfigurationProvider} instance used with this
+	 * editor; the interface provides access to most of the Graphiti editor
+	 * description means like {@link IDiagramTypeProvider} and
+	 * {@link IToolBehaviorProvider}.
+	 * <p>
+	 * Note however that the {@link IConfigurationProvider} interface is not
+	 * part of the official API in Graphiti 0.9; so useing this method and the
+	 * returned interface will result in compilation warnings. This issue will
+	 * be resolved with Graphiti 0.10 where the interface is split into a public
+	 * (being part of the API) and an internal part. For details see Bugzilla
+	 * 383768.
+	 * 
+	 * @return The instance of {@link IConfigurationProvider} that is used
+	 *         within this editor.
+	 * @since 0.9
+	 */
+	protected IConfigurationProvider getConfigurationProvider() {
 		return configurationProvider;
 	}
 
