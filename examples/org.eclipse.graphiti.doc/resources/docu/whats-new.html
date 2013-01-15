@@ -35,13 +35,77 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Juno</h1>
-	<p>Last revised September 17, 2012</p>
+	<p>Last revised January 15, 2013</p>
 	<p>This document describes the new development topics that were
-		addressed during the milestones towards the release 0.9.1 within the
+		addressed during the milestones towards the release 0.9.2 within the
 		Juno release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- SR2 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>SR2</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">Bug fixes for the SR2 service release of
+				Graphiti 0.9.2</td>
+		</tr>
+		<tr id="bug 383768">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=383768">Bug
+					383768 </a></td>
+			<td class="content">The method <i>getConfigurationProvider()</i>
+				in the class <i>DiagramEditor</i> was not accessible by clients.
+				This caused the need to have multiple configuration providers inside
+				one editor in case clients would like to work with it (it's needed
+				e.g. for registering custom actions for custom features). The
+				downported fix is simply making the method protected and accessible
+				for clients, the real fix for this bug that has been provided for
+				Graphiti 0.10.0 is not part of the downport.
+			</td>
+		</tr>
+		<tr id="bug 389380">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=389380">Bug
+					389380 </a></td>
+			<td class="content">A bug in the undo stack handling in the
+				Graphiti editor has been fixed that caused the wrong feature command
+				to appear at the top of the undo stack under certain conditions.</td>
+		</tr>
+		<tr id="bug 391506">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=391506">Bug
+					391506 </a></td>
+			<td class="content">A bug in the editor feature processing was
+				fixed that caused an editor to get dirty in case a connection
+				creation feature was abandoned.</td>
+		</tr>
+		<tr id="bug 392309">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=392309">Bug
+					392309 </a></td>
+			<td class="content">Showing a tooltip that is too long to fit
+				into the viewport of the diagram will no longer cause that scroll
+				bars appear.</td>
+		</tr>
+		<tr id="bug 393113">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=393113">Bug
+					393113 </a></td>
+			<td class="content">Selecting a connection in e.g. the Eclipse
+				Project Explorer with enabled editor linking will now select and
+				reveal the connection in the opened diagram editor in case it exists
+				in the diagram.</td>
+		</tr>
+		<tr id="bug 394801">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=394801">Bug
+					394801 </a></td>
+			<td class="content">Properties passed in the AddContext will now
+				correctly be passed to the called add feature.</td>
+		</tr>
 		<!-- ---------------------------------------- SR1 ------------------------------- -->
 		<tr>
 			<td colspan="2">
@@ -249,7 +313,7 @@ table.news tr td.content {
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=358818">Bug
 					358818 </a></td>
-			<td class="content">A gap in the documentation for the copy &amp;
+			<td class="content">A gap in the documentation for the copy &
 				paste functionality regarding the save state of EObjects to be
 				copied has been closed.</td>
 		</tr>
