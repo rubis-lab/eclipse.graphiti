@@ -72,4 +72,5 @@ public interface IDelete {
 	 *            the context
 	 */
 	void postDelete(IDeleteContext context);
+
 }
