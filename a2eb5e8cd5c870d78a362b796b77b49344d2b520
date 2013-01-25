@@ -1,0 +1,9 @@
+Change-Id: Ia2eb5e8cd5c870d78a362b796b77b49344d2b520
+Code-Review+2: Matthias Gorning <matthias.gorning@sap.com>
+IP-Clean+1: Matthias Gorning <matthias.gorning@sap.com>
+Verified+1: Matthias Gorning <matthias.gorning@sap.com>
+Submitted-by: Matthias Gorning <matthias.gorning@sap.com>
+Submitted-at: Fri, 25 Jan 2013 05:07:25 -0500
+Reviewed-on: https://git.eclipse.org/r/9923
+Project: gmp/org.eclipse.gmp.graphiti
+Branch: refs/heads/master
