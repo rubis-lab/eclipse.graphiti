@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2012 Volker Wegert and others.
+ * Copyright (c) 2013 Volker Wegert and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  *                    creation entry
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *    mwenz - Bug 325084 - Provide documentation for Patterns
+ *    mwenz - Bug 390331 - preDelete and postDelete not called for Patterns 
  *
  * </copyright>
  *
@@ -63,8 +64,10 @@ public class RemoveFeatureForPattern extends DefaultRemoveFeature implements ICu
 		delegate.getPattern().preRemove(context);
 	}
 
-	// public void remove(IRemoveContext context)
-	// is final and cannot be overridden...
+	@Override
+	public void remove(IRemoveContext context) {
+		delegate.getPattern().remove(context);
+	}
 
 	@Override
 	public void postRemove(IRemoveContext context) {

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@
  *    mwenz - Bug 325084 - Provide documentation for Patterns
  *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
  *    cbrand - Bug 385190 - Introduce constructor without parameters for patterns
+ *    mwenz - Bug 390331 - preDelete and postDelete not called for Patterns 
  *
  * </copyright>
  *
@@ -678,10 +679,18 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	/**
 	 * Creates the {@link IDeleteFeature} instance that handles the deletion of
 	 * business objects and diagram elements. The default implementation just
-	 * creates a {@link DefaultDeleteFeature}. Concrete pattern implementations
-	 * may either override this method to provide their own subclass of
-	 * {@link DefaultDeleteFeature} or override and extend the individual
-	 * methods provided by {@link IDelete}.
+	 * creates an adapted {@link DefaultDeleteFeature}. Concrete pattern
+	 * implementations may either override this method to provide their own
+	 * subclass of {@link DefaultDeleteFeature} or override and extend the
+	 * individual methods provided by {@link IDelete}.
+	 * <p>
+	 * The difference of the delete feature returned here to the standard
+	 * {@link DefaultDeleteFeature} is simply that the instance returned here
+	 * cares about the delegation to the pattern's
+	 * {@link #preDelete(IDeleteContext)} and
+	 * {@link #postDelete(IDeleteContext)} methods. Clients overriding this
+	 * method should re-implement that pattern, in case the delegation is
+	 * desired.
 	 * 
 	 * @param context
 	 *            the deletion context
@@ -692,7 +701,19 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * @see #postDelete(IDeleteContext)
 	 */
 	protected IDeleteFeature createDeleteFeature(IDeleteContext context) {
-		return new DefaultDeleteFeature(getFeatureProvider());
+		return new DefaultDeleteFeature(getFeatureProvider()) {
+			@Override
+			public void preDelete(IDeleteContext context) {
+				super.preDelete(context);
+				AbstractPattern.this.preDelete(context);
+			}
+
+			@Override
+			public void postDelete(IDeleteContext context) {
+				AbstractPattern.this.postDelete(context);
+				super.postDelete(context);
+			}
+		};
 	}
 
 	/**
@@ -716,20 +737,13 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 
 	/**
 	 * Clients can override to add actions before the default delete behavior is
-	 * triggered. The default implementation calls
-	 * {@link #createDeleteFeature(IDeleteContext)} and triggers the result's
-	 * preDelete method.
+	 * triggered. The default implementation does nothing and is called from the
+	 * registered delete feature.
 	 * 
 	 * @param context
 	 *            The context describing the delete request
 	 */
 	public void preDelete(IDeleteContext context) {
-		if (wrappedDeleteFeature == null) {
-			wrappedDeleteFeature = createDeleteFeature(context);
-		}
-		if (wrappedDeleteFeature != null) {
-			wrappedDeleteFeature.preDelete(context);
-		}
 	}
 
 	/**
@@ -751,29 +765,30 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 
 	/**
 	 * Clients can override to add actions after the default delete behavior is
-	 * triggered. The default implementation calls
-	 * {@link #createDeleteFeature(IDeleteContext)} and triggers the result's
-	 * postDelete method.
+	 * triggered. The default implementation does nothing and is called from the
+	 * registered delete feature.
 	 * 
 	 * @param context
 	 *            The context describing the delete request
 	 */
 	public void postDelete(IDeleteContext context) {
-		if (wrappedDeleteFeature == null) {
-			wrappedDeleteFeature = createDeleteFeature(context);
-		}
-		if (wrappedDeleteFeature != null) {
-			wrappedDeleteFeature.postDelete(context);
-		}
 	}
 
 	/**
 	 * Creates the {@link IRemoveFeature} instance that handles the removal of
-	 * diagram elements. The default implementation just creates a
+	 * diagram elements. The default implementation just creates an adapted
 	 * {@link DefaultRemoveFeature}. Concrete pattern implementations may either
 	 * override this method to provide their own subclass of
 	 * {@link DefaultRemoveFeature} or override and extend the individual
 	 * methods provided by {@link IRemove}.
+	 * <p>
+	 * The difference of the remove feature returned here to the standard
+	 * {@link DefaultRemoveFeature} is simply that the instance returned here
+	 * cares about the delegation to the pattern's
+	 * {@link #preRemove(IRemoveContext)} and
+	 * {@link #postRemove(IRemoveContext)} methods. Clients overriding this
+	 * method should re-implement that pattern, in case the delegation is
+	 * desired.
 	 * 
 	 * @param context
 	 *            the removal context
@@ -784,7 +799,19 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * @see #postRemove(IRemoveContext)
 	 */
 	protected IRemoveFeature createRemoveFeature(IRemoveContext context) {
-		return new DefaultRemoveFeature(getFeatureProvider());
+		return new DefaultRemoveFeature(getFeatureProvider()) {
+			@Override
+			public void preRemove(IRemoveContext context) {
+				super.preRemove(context);
+				AbstractPattern.this.preRemove(context);
+			}
+
+			@Override
+			public void postRemove(IRemoveContext context) {
+				AbstractPattern.this.postRemove(context);
+				super.postRemove(context);
+			}
+		};
 	}
 
 	/**
@@ -808,18 +835,13 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 
 	/**
 	 * Clients can override to add actions before the default remove behavior is
-	 * triggered. The default implementation calls
-	 * {@link #createRemoveFeature(IRemoveContext)} and triggers the result's
-	 * preRemove method.
+	 * triggered. The default implementation does nothing and is called from the
+	 * registered remove feature.
 	 * 
 	 * @param context
 	 *            The context describing the remove request
 	 */
 	public void preRemove(IRemoveContext context) {
-		if (wrappedRemoveFeature == null) {
-			wrappedRemoveFeature = createRemoveFeature(context);
-		}
-		wrappedRemoveFeature.preRemove(context);
 	}
 
 	/**
@@ -839,18 +861,13 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 
 	/**
 	 * Clients can override to add actions after the default remove behavior is
-	 * triggered. The default implementation calls
-	 * {@link #createRemoveFeature(IRemoveContext)} and triggers the result's
-	 * postRemove method.
+	 * triggered. The default implementation does nothing and is called from the
+	 * registered remove feature.
 	 * 
 	 * @param context
 	 *            The context describing the remove request
 	 */
 	public void postRemove(IRemoveContext context) {
-		if (wrappedRemoveFeature == null) {
-			wrappedRemoveFeature = createRemoveFeature(context);
-		}
-		wrappedRemoveFeature.postRemove(context);
 	}
 
 	/**
