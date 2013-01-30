@@ -50,7 +50,7 @@
    <element name="imageProvider">
       <annotation>
          <appInfo>
-            <meta.element labelAttribute="id" deprecated="true"/>
+            <meta.element labelAttribute="id"/>
          </appInfo>
       </annotation>
       <complexType>
