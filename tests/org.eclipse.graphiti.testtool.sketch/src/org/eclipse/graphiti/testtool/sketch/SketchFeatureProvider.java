@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    mwenz - Bug 358255 - Add Border/Background decorators
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    cbrand - Bug 378341 - Enlargement of the Line Width of Shapes isn't calculated based on the center.
+ *    mwenz - Bug 396793 - Text decorators
  *
  * </copyright>
  *
@@ -273,6 +274,7 @@ public class SketchFeatureProvider extends DefaultFeatureProvider {
 		retList.add(new DisplayDecoratorFeature(this, context, DisplayDecoratorFeature.TYPE_IMAGE));
 		retList.add(new DisplayDecoratorFeature(this, context, DisplayDecoratorFeature.TYPE_BORDER));
 		retList.add(new DisplayDecoratorFeature(this, context, DisplayDecoratorFeature.TYPE_COLOR));
+		retList.add(new DisplayDecoratorFeature(this, context, DisplayDecoratorFeature.TYPE_TEXT));
 		retList.add(new ClearDecoratorsFeature(this, context));
 
 		return retList.toArray(new ICustomFeature[0]);
