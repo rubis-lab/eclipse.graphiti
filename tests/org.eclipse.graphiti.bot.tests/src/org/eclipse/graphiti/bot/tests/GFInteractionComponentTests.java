@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@
  *    mwenz - Bug 363796 - Make setting of selection width of connections public
  *    mwenz - Bug 358255 - Add Border/Background decorators
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
+ *    mwenz - Bug 396793 - Text decorators
  *
  * </copyright>
  *
@@ -34,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
@@ -1484,7 +1486,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				{
 					ICreateFeature createFeature = new SketchCreateGaContainerFeature(fp,
 							"Rounded Rectangle Container", "draw rounded rectangle", RoundedRectangle.class);
-					Rectangle rectangle = new Rectangle(100, 100, 100, 50);
+					Rectangle rectangle = new Rectangle(50, 50, 100, 50);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
 							createFeature, createContext, rectangle);
@@ -1497,7 +1499,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				{
 					ICreateFeature createFeature = new SketchCreateGaContainerFeature(fp,
 							"Rounded Rectangle Container", "draw rounded rectangle", RoundedRectangle.class);
-					Rectangle rectangle = new Rectangle(500, 200, 100, 50);
+					Rectangle rectangle = new Rectangle(200, 50, 100, 50);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
 							createFeature, createContext, rectangle);
@@ -1510,7 +1512,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				{
 					ICreateFeature createFeature = new SketchCreateGaContainerFeature(fp,
 							"Rounded Rectangle Container", "draw rounded rectangle", RoundedRectangle.class);
-					Rectangle rectangle = new Rectangle(100, 400, 100, 50);
+					Rectangle rectangle = new Rectangle(50, 150, 100, 50);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
 							createFeature, createContext, rectangle);
@@ -1518,6 +1520,19 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				}
 				ContainerShape shape3 = (ContainerShape) dtp.getDiagram().getChildren().get(2);
 				assertNotNull(shape3);
+
+				// Four
+				{
+					ICreateFeature createFeature = new SketchCreateGaContainerFeature(fp,
+							"Rounded Rectangle Container", "draw rounded rectangle", RoundedRectangle.class);
+					Rectangle rectangle = new Rectangle(200, 150, 100, 50);
+					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
+					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
+							createFeature, createContext, rectangle);
+					commandStack.execute(createCommand);
+				}
+				ContainerShape shape4 = (ContainerShape) dtp.getDiagram().getChildren().get(3);
+				assertNotNull(shape4);
 
 				// Add image decorator to one
 				{
@@ -1542,7 +1557,15 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 							DisplayDecoratorFeature.TYPE_COLOR);
 					diagramEditor.executeFeature(feature, context);
 				}
-				
+
+				// Add text decorator to four
+				{
+					CustomContext context = new CustomContext(new PictogramElement[] { shape4 });
+					DisplayDecoratorFeature feature = new DisplayDecoratorFeature(fp, context,
+							DisplayDecoratorFeature.TYPE_TEXT);
+					diagramEditor.executeFeature(feature, context);
+				}
+
 				// Check if image is shown
 				{
 					GraphicalEditPart shape1EditPart = diagramEditor.getEditPartForPictogramElement(shape1);
@@ -1583,6 +1606,35 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					assertEquals(IColorConstant.LIGHT_ORANGE.getBlue(), backgroundColor.getBlue());
 					assertEquals(IColorConstant.LIGHT_ORANGE.getGreen(), backgroundColor.getGreen());
 					assertEquals(IColorConstant.LIGHT_ORANGE.getRed(), backgroundColor.getRed());
+				}
+
+				// Check if text is shown
+				{
+					GraphicalEditPart shape4EditPart = diagramEditor.getEditPartForPictogramElement(shape4);
+					IPictogramElementDelegate delegate = ((ContainerShapeEditPart) shape4EditPart)
+							.getPictogramElementDelegate();
+					try {
+						Class<? extends IPictogramElementDelegate> class4 = delegate.getClass();
+						Field field = class4.getSuperclass().getDeclaredField("decoratorMap");
+						field.setAccessible(true);
+						@SuppressWarnings("rawtypes")
+						HashMap map = (HashMap) field.get(delegate);
+						@SuppressWarnings("rawtypes")
+						Label figure = (Label) ((ArrayList) map.get(shape4EditPart
+								.getFigure())).get(0);
+						assertNotNull(figure);
+						assertEquals("Decorated with some example text", figure.getText());
+						Color whiteColor = new Color(Display.getCurrent(), IColorConstant.WHITE.getRed(),
+								IColorConstant.WHITE.getGreen(), IColorConstant.WHITE.getBlue());
+						assertEquals(whiteColor, figure.getForegroundColor());
+						whiteColor.dispose();
+						Color orangeColor = new Color(Display.getCurrent(), IColorConstant.ORANGE.getRed(),
+								IColorConstant.ORANGE.getGreen(), IColorConstant.ORANGE.getBlue());
+						assertEquals(orangeColor, figure.getBackgroundColor());
+						orangeColor.dispose();
+					} catch (Exception e) {
+						fail(e.getMessage());
+					}
 				}
 			}
 		});
