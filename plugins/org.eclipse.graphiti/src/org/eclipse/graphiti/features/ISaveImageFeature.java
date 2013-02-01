@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2012 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
  *            DefaultSaveImageFeature
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -18,7 +19,7 @@
 package org.eclipse.graphiti.features;
 
 import org.eclipse.graphiti.features.context.ISaveImageContext;
-import org.eclipse.graphiti.features.impl.DefaultSaveImageFeature;
+import org.eclipse.graphiti.features.impl.AbstractSaveAsImageFeature;
 
 /**
  * The Interface ISaveImageFeature. It is planned to use this for save as image
@@ -26,7 +27,8 @@ import org.eclipse.graphiti.features.impl.DefaultSaveImageFeature;
  * 
  * @noextend This interface is not intended to be extended by clients.
  * @noimplement This interface is not intended to be implemented by clients,
- *              extend {@link DefaultSaveImageFeature} instead.
+ *              extend {@link AbstractSaveAsImageFeature} or
+ *              {@link DefaultSaveImageFeature} instead.
  */
 public interface ISaveImageFeature extends IFeature {
 
@@ -39,6 +41,18 @@ public interface ISaveImageFeature extends IFeature {
 	 * @return true, if successful
 	 */
 	boolean canSave(ISaveImageContext context);
+
+	/**
+	 * Save the diagram using the given context information. By default the
+	 * complete diagram is saved, there's currently no option to influence the
+	 * saving via the context.
+	 * 
+	 * @param context
+	 *            Context information for printing
+	 * 
+	 * @since 0.10
+	 */
+	void save(ISaveImageContext context);
 
 	/**
 	 * Pre-save hook. Called before the actual save process starts. You may use

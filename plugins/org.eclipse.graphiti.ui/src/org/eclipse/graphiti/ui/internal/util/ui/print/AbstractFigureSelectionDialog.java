@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 323034 - Aligned vertical gaps between groups
  *    mgorning - Bug 352874 - Exports of Diagrams > 3000x3000 px 
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -33,7 +34,7 @@ import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScaledGraphics;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
-import org.eclipse.graphiti.ui.internal.util.ui.DefaultPreferences;
+import org.eclipse.graphiti.ui.print.IPrintPreferences;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -107,7 +108,7 @@ public class AbstractFigureSelectionDialog extends Dialog implements SelectionLi
 	 */
 	private Image _scaledImage;
 
-	protected DefaultPreferences _preferences;
+	protected IPrintPreferences _preferences;
 
 	private GraphicalEditPart _selectedEditPart;
 

@@ -10,7 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
- *            DefaultSaveImageFeature
+ *            DefaultSaveAsImageFeature
  *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
  *
  * </copyright>

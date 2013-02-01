@@ -20,7 +20,6 @@ import org.eclipse.graphiti.ui.internal.services.impl.CommandService;
 import org.eclipse.graphiti.ui.internal.services.impl.EmfService;
 import org.eclipse.graphiti.ui.internal.services.impl.GefService;
 import org.eclipse.graphiti.ui.internal.services.impl.TraceService;
-import org.eclipse.graphiti.ui.internal.services.impl.UiService;
 import org.eclipse.graphiti.ui.internal.services.impl.WorkbenchService;
 
 /**
@@ -30,7 +29,6 @@ import org.eclipse.graphiti.ui.internal.services.impl.WorkbenchService;
 public class GraphitiUiInternal {
 
 	final private static IEmfService emfService = new EmfService();
-	final private static IUiService uiService = new UiService();
 	final private static ITraceService traceService = new TraceService();
 	final private static IGefService gefService = new GefService();
 	final private static IWorkbenchService workbenchService = new WorkbenchService();
@@ -38,10 +36,6 @@ public class GraphitiUiInternal {
 
 	public static IEmfService getEmfService() {
 		return emfService;
-	}
-
-	public static IUiService getUiService() {
-		return uiService;
 	}
 
 	public static ITraceService getTraceService() {

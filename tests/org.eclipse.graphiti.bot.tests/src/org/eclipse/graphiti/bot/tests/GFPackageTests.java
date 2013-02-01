@@ -69,7 +69,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.mapping.data.ImageDataMapping;
-import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.testtool.ecore.TestDiagramTypeProvider;
 import org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider;
@@ -78,11 +77,9 @@ import org.eclipse.graphiti.ui.features.AbstractPasteFeature;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.editor.GFMarqueeSelectionTool;
-import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.util.clipboard.ModelClipboard;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.LocationInfo;
-import org.eclipse.swt.SWT;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.junit.Test;
 
@@ -144,13 +141,6 @@ public class GFPackageTests extends AbstractGFTests {
 		assertNotNull(id);
 		assertTrue(!("".equals(id)));
 		assertNotNull(GraphitiUIPlugin.getDefault());
-	}
-
-	@Test
-	public void testGraphitiUiInternal() throws Exception {
-		org.eclipse.swt.graphics.Image imageForId = GraphitiUi.getImageService().getPlatformImageForId(
-				IPlatformImageConstants.IMG_DIAGRAM);
-		GraphitiUiInternal.getUiService().createImage(imageForId, SWT.IMAGE_GIF);
 	}
 
 	@Test

@@ -10,7 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
- *            DefaultSaveImageFeature
+ *            DefaultSaveAsImageFeature
  *    mwenz - Bug 339525 - Enrich paste context with location information
  *    Bug 336488 - DiagramEditor API
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
