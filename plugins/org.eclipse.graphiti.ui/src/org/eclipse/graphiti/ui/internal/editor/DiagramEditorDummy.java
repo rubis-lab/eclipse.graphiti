@@ -15,12 +15,16 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *    mgorning - Bug 371671 - addGraphicalRepresentation returns null in dark mode
+ *    pjpaulin - Bug 352120 - Added additional methods required by interface
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.editor;
 
+import java.util.EventObject;
+
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.datatypes.IDimension;
@@ -141,5 +145,41 @@ public class DiagramEditorDummy implements IDiagramEditor {
 		}
 
 		return returnValue;
+	}
+
+	public void disableAdapters() {
+	}
+
+	public void enableAdapters() {
+	}
+
+	public void commandStackChanged(EventObject event) {
+	}
+
+	public boolean isAlive() {
+		return false;
+	}
+
+	public void selectBufferedPictogramElements() {
+	}
+
+	@SuppressWarnings("rawtypes")
+	public Object getAdapter(Class adapter) {
+		return null;
+	}
+
+	public void refreshContent() {
+	}
+
+	public void editingDomainInitialized() {
+	}
+
+	public boolean isLocalEditingDomain() {
+		return true;
+	}
+
+	public void doSave(IProgressMonitor monitor) {
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -14,6 +14,7 @@
  *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
  *    mgorning - Bug 386913 - Support also Single-Click-Features
+ *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *
  * </copyright>
  *
@@ -731,7 +732,7 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 	}
 
 	private Point getRelativeMouseLocation() {
-		DiagramEditor editor = (DiagramEditor) getConfigurationProvider().getWorkbenchPart();
+		DiagramEditor editor = getConfigurationProvider().getDiagramEditor();
 
 		// get current mouse location from the viewer
 		Point mouseLocation = new Point(editor.getMouseLocation());

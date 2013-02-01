@@ -12,6 +12,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *    mwenz - Bug 397346 - Digram Editor loses focus on closing of MessageDialog in Graphiti 
+ *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *
  * </copyright>
  *
@@ -84,7 +85,7 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 			MessageDialog.openError(GraphitiUiInternal.getWorkbenchService().getShell(),
 					Messages.DefaultDirectEditPolicy_0_xmsg, message);
 			if (configurationProvider.getDiagramEditor() != null) {
-				configurationProvider.getDiagramEditor().setFocus();
+				configurationProvider.getDiagramEditor().getWorkbenchPart().setFocus();
 			}
 			return null;
 		}

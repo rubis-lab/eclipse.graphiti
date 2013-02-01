@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    pjpaulin - Bug 352120 - Changed to create action with actual workbench part
  *
  * </copyright>
  *
@@ -50,7 +51,8 @@ public class GFDialogTests extends AbstractGFTests {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
 				IPrintFeature pf = fp.getPrintFeature();
-				IAction printGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor, pf);
+				IAction printGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor.getWorkbenchPart(),
+						pf);
 				// check if default printer is configured, otherwise SWT throws
 				// a "no more handles" error in Printer.checkNull(..)
 				enabled[0] = printGraphicalViewerAction.isEnabled();

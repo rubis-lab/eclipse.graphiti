@@ -9,6 +9,13 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/DiagramEditor.java" type="org.eclipse.graphiti.ui.editor.DiagramEditor">
+        <filter comment="Changing from a class to an interface. Need to explore other options." id="337809484">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="4"/>
+                <message_argument value="8"/>
+            </message_arguments>
+        </filter>
         <filter id="574619656">
             <message_arguments>
                 <message_argument value="IDiagramEditor"/>
