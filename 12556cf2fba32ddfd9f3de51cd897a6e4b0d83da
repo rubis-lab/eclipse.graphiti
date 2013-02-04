@@ -1,0 +1,11 @@
+Verified+1: Hudson CI
+Code-Review+1: Michael Wenz <michael.wenz@sap.com>
+IP-Clean+1: Michael Wenz <michael.wenz@sap.com>
+Code-Review+2: Matthias Gorning <matthias.gorning@sap.com>
+IP-Clean+1: Matthias Gorning <matthias.gorning@sap.com>
+Verified+1: Matthias Gorning <matthias.gorning@sap.com>
+Submitted-by: Matthias Gorning <matthias.gorning@sap.com>
+Submitted-at: Mon, 04 Feb 2013 04:35:01 -0500
+Reviewed-on: https://git.eclipse.org/r/9455
+Project: gmp/org.eclipse.gmp.graphiti
+Branch: refs/heads/master
