@@ -65,7 +65,7 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/eclipse/updates/4.2-M-builds/M20130116-1800/">
+      <rm:uri format="{0}/eclipse/updates/4.2-M-builds/M20130131-1000/">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
