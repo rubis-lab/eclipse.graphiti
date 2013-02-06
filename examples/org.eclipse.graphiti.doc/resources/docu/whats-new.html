@@ -35,13 +35,93 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Kepler</h1>
-	<p>Last revised December 18, 2012</p>
+	<p>Last revised February 6, 2013</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.10.0 within the
 		Kepler release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M5 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M5</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">Some smaller enhancements have been implemented,
+				but the main focus for this milestone has been set mainly on
+				bugfixing.</td>
+		</tr>
+		<tr id="bug 396793">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=396793">Text
+					Decorators</a></td>
+			<td class="content">Graphiti now supports a new decorator type:
+				text decorators. Shapes can now be marked with custom texts without
+				diagram modifications. The text decorations can be placed at a
+				defined location on the shape and allow a custom font, font size and
+				custom colors to be used.</td>
+		</tr>
+		<tr id="bug 396893">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=396893">Configurable
+					Drop Target Listeners</a></td>
+			<td class="content">The registration of drop target listeners
+				can now influenced by clients inside the diagram editor. The class <i>DiagramEditor</i>
+				now provides new protected methods that clients can override to
+				change which drop target listeners shall be registered or not.
+			</td>
+		</tr>
+		<tr id="bug 390331">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=390331">Bug
+					390331 </a></td>
+			<td class="content">A bug in the call hierarchy of patterns has
+				been fixed that caused the <i>preDelete</i>, <i>postDelete</i>, <i>preRemove</i>
+				and <i>postRemove</i> methods in the pattern not to be called. <b>Note:</b>
+				this is not an API change, but may cause a <b>change in the
+					behavior</b> for those clients that already overrode those methods
+				(previously had no effect) or established pre- and post hooks in
+				other ways for their patterns.
+			</td>
+		</tr>
+		<tr id="bug 396026">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=396026">Bug
+					396026 </a></td>
+			<td class="content">Ensured that the pattern APIs (with the
+				exception of the configuration stuff and ID patterns) are now
+				official API and no longer have the experimental header.</td>
+		</tr>
+		<tr id="bug 396247">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=396247">Bug
+					396247 </a></td>
+			<td class="content">A bug in the correlation between diagram
+				types and image providers has been fixed. Before it was possible for
+				any diagram type to use all images from all image providers no
+				matter if the image provider was registered by the diagram type.
+				This could have caused issues with respect to the sequence in which
+				diagrams were opened. <b>Note:</b> this is a <b>change in the
+					API for retrieving images</b>.
+			</td>
+		</tr>
+		<tr id="bug 397303">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=397303">Bug
+					397303 </a></td>
+			<td class="content">An accessibility issue with showing the
+				context button pad in high contrast mode has been fixed (pad
+				background and border were painted in standard colors).</td>
+		</tr>
+		<tr id="bug 397346">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=397346">Bug
+					397346 </a></td>
+			<td class="content">A focus issue within direct editing has been
+				fixed.</td>
+		</tr>
 		<!-- ---------------------------------------- M4 ------------------------------- -->
 		<tr>
 			<td colspan="2">
