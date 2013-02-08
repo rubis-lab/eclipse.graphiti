@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *            DefaultSaveImageFeature
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
  *                         and called features via editor command stack to check it
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -40,8 +41,6 @@ import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeatureProvider;
-import org.eclipse.graphiti.features.impl.DefaultPrintFeature;
-import org.eclipse.graphiti.features.impl.DefaultSaveImageFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**

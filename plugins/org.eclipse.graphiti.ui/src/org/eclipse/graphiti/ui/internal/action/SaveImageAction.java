@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    jpasch - Bug 323025 ActionBarContributor cleanup
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -18,12 +19,19 @@
 package org.eclipse.graphiti.ui.internal.action;
 
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.context.ISaveImageContext;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.features.context.impl.SaveImageContext;
+import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
+import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
+import org.eclipse.graphiti.internal.command.ICommand;
 import org.eclipse.graphiti.ui.internal.Messages;
-import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.action.Action;
+import org.eclipse.ui.IWorkbenchPart;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -31,11 +39,8 @@ import org.eclipse.jface.action.Action;
  */
 public class SaveImageAction extends Action {
 
-	private ISaveImageFeature saveImageFeature;
-
-	private ISaveImageContext context;
-
-	private DiagramEditor graphicsEditor;
+	private IWorkbenchPart part;
+	private IConfigurationProvider configurationProvider;
 	
 	public static final String TOOL_TIP = Messages.SaveImageAction_1_xmsg;
 	
@@ -45,11 +50,11 @@ public class SaveImageAction extends Action {
 	
 	public static final String ACTION_DEFINITION_ID = "org.eclipse.graphiti.ui.internal.action.SaveImageAction"; //$NON-NLS-1$
 
-	public SaveImageAction(ISaveImageFeature saveImageFeature, ISaveImageContext context, DiagramEditor graphicsEditor) {
+	public SaveImageAction(IWorkbenchPart part, IConfigurationProvider configurationProvider) {
 		super();
-		this.saveImageFeature = saveImageFeature;
-		this.context = context;
-		this.graphicsEditor = graphicsEditor;
+		this.part = part;
+		this.configurationProvider = configurationProvider;
+
 		setText(TEXT);
 		setToolTipText(TOOL_TIP);
 		setId(ACTION_ID);
@@ -58,17 +63,47 @@ public class SaveImageAction extends Action {
 
 	@Override
 	public boolean isEnabled() {
-		return saveImageFeature.canSave(context);
+		IFeatureProvider featureProvider = getFeatureProvider();
+		if (featureProvider == null) {
+			return false;
+		}
+		ISaveImageFeature feature = featureProvider.getSaveImageFeature();
+		ISaveImageContext context = createSaveImageContext();
+		if (feature == null || !feature.canSave(context)) {
+			return false;
+		}
+
+		if (part.getAdapter(GraphicalViewer.class) == null) {
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override
 	public void run() {
-		saveImageFeature.preSave(context);
+		ISaveImageContext context = createSaveImageContext();
+		IFeatureProvider featureProvider = getFeatureProvider();
+		ISaveImageFeature feature = featureProvider.getSaveImageFeature();
+		if (feature != null) {
+			FeatureCommandWithContext command = new GenericFeatureCommandWithContext(feature, context);
+			executeOnCommandStack(command);
+		}
+	}
 
-		// get viewer and start save-image-dialog
-		GraphicalViewer viewer = (GraphicalViewer) graphicsEditor.getAdapter(GraphicalViewer.class);
-		GraphitiUiInternal.getUiService().startSaveAsImageDialog(viewer);
+	private ISaveImageContext createSaveImageContext() {
+		SaveImageContext context = new SaveImageContext();
+		return context;
+	}
 
-		saveImageFeature.postSave(context);
+	private IFeatureProvider getFeatureProvider() {
+		return configurationProvider.getDiagramTypeProvider().getFeatureProvider();
+	}
+
+	private void executeOnCommandStack(ICommand command) {
+		CommandStack commandStack = configurationProvider.getDiagramEditor().getEditDomain().getCommandStack();
+		GefCommandWrapper wrapperCommand = new GefCommandWrapper(command, configurationProvider.getDiagramEditor()
+				.getEditingDomain());
+		commandStack.execute(wrapperCommand);
 	}
 }
