@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 371527 - Recursive attempt to activate part while in the middle of activating part
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -17,19 +18,19 @@
 package org.eclipse.graphiti.ui.internal.action;
 
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.ui.actions.PrintAction;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.context.IPrintContext;
 import org.eclipse.graphiti.features.context.impl.PrintContext;
-import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
-import org.eclipse.graphiti.ui.internal.util.ui.print.PrintFigureDialog;
-import org.eclipse.graphiti.ui.internal.util.ui.print.PrintFigureScaleableOperation;
+import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
+import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
+import org.eclipse.graphiti.internal.command.ICommand;
+import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.window.Window;
-import org.eclipse.swt.printing.Printer;
-import org.eclipse.swt.printing.PrinterData;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
@@ -53,7 +54,7 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	private static IAction TEMPLATE_ACTION = ActionFactory.PRINT.create(PlatformUI.getWorkbench()
 			.getActiveWorkbenchWindow());
 
-	private IPrintFeature printFeature;
+	private IConfigurationProvider configurationProvider;
 
 	// last time when we checked whether a printer is available with
 	// super.calculateEnabled()
@@ -72,10 +73,9 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	 *            belongs. From the WorkbenchPart the GraphicalViewer will be
 	 *            determined.
 	 */
-	public PrintGraphicalViewerAction(IWorkbenchPart part,
-			IPrintFeature printFeature) {
+	public PrintGraphicalViewerAction(IWorkbenchPart part, IConfigurationProvider configurationProvider) {
 		super(part);
-		this.printFeature = printFeature;
+		this.configurationProvider = configurationProvider;
 
 		// set all values of the TEMPLATE_ACTION for this Action.
 		setId(TEMPLATE_ACTION.getId());
@@ -95,8 +95,19 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	 */
 	@Override
 	protected boolean calculateEnabled() {
-		if (getWorkbenchPart().getAdapter(GraphicalViewer.class) == null)
+		IFeatureProvider featureProvider = getFeatureProvider();
+		if (featureProvider == null) {
 			return false;
+		}
+		IPrintFeature feature = featureProvider.getPrintFeature();
+		IPrintContext context = createPrintContext();
+		if (feature == null || !feature.canPrint(context)) {
+			return false;
+		}
+
+		if (getWorkbenchPart().getAdapter(GraphicalViewer.class) == null) {
+			return false;
+		}
 
 		long currentTime = System.currentTimeMillis();
 		long diffTime = (currentTime - lastPrinterCheckTime) / 1000;
@@ -126,7 +137,6 @@ public class PrintGraphicalViewerAction extends PrintAction {
 			});
 		}
 		return cachedEnabled;
-		// TODO ask also feature for canPrint() ?
 	}
 
 	/**
@@ -137,32 +147,28 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	 */
 	@Override
 	public void run() {
-		IPrintContext printContext = new PrintContext();
-		printFeature.prePrint(printContext);
-
-		Shell shell = GraphitiUiInternal.getWorkbenchService().getShell();
-
-		// get viewer
-		GraphicalViewer viewer = (GraphicalViewer) getWorkbenchPart().getAdapter(GraphicalViewer.class);
-
-		// create default PrinterData
-		PrinterData printerData = Printer.getDefaultPrinterData();
-		if (printerData == null || (printerData.name == null && printerData.driver == null)) {
-			printerData = Printer.getPrinterList()[0];
+		IPrintContext context = createPrintContext();
+		final IFeatureProvider featureProvider = getFeatureProvider();
+		IPrintFeature feature = featureProvider.getPrintFeature();
+		if (feature != null) {
+			final FeatureCommandWithContext command = new GenericFeatureCommandWithContext(feature, context);
+			executeOnCommandStack(command);
 		}
+	}
 
-		// open PrintFigureDialog
-		PrintFigureDialog printImageDialog = new PrintFigureDialog(shell, viewer, new Printer(printerData));
-		printImageDialog.open();
-		if (printImageDialog.getReturnCode() != Window.CANCEL) {
+	private IPrintContext createPrintContext() {
+		PrintContext context = new PrintContext();
+		return context;
+	}
 
-			// start the printing
-			PrintFigureScaleableOperation op = new PrintFigureScaleableOperation(printImageDialog.getPrinter(),
-					printImageDialog.getFigure(), printImageDialog.getScaledImage(), printImageDialog.getPreferences());
-			op.run(getWorkbenchPart().getTitle());
-			printImageDialog.cleanUp();
-		}
+	private IFeatureProvider getFeatureProvider() {
+		return configurationProvider.getDiagramTypeProvider().getFeatureProvider();
+	}
 
-		printFeature.postPrint(printContext);
+	private void executeOnCommandStack(ICommand command) {
+		CommandStack commandStack = configurationProvider.getDiagramEditor().getEditDomain().getCommandStack();
+		GefCommandWrapper wrapperCommand = new GefCommandWrapper(command, configurationProvider.getDiagramEditor()
+				.getEditingDomain());
+		commandStack.execute(wrapperCommand);
 	}
 }

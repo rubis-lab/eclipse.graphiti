@@ -40,6 +40,22 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/features/DefaultPrintFeature.java" type="org.eclipse.graphiti.ui.features.DefaultPrintFeature">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IPrintFeature"/>
+                <message_argument value="DefaultPrintFeature"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/features/DefaultSaveImageFeature.java" type="org.eclipse.graphiti.ui.features.DefaultSaveImageFeature">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="ISaveImageFeature"/>
+                <message_argument value="DefaultSaveImageFeature"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/internal/command/EclipseProgress.java" type="org.eclipse.graphiti.ui.internal.command.EclipseProgress">
         <filter id="574619656">
             <message_arguments>

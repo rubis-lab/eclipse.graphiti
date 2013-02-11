@@ -31,6 +31,7 @@
  *    fvelasco - Bug 323349 - Enable external invocation of features
  *    mwenz - Bug 393113 - Auto-focus does not work for connections
  *    mwenz - Bug 396893 - Enable the registration of the drop target listeners configurable
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -94,13 +95,10 @@ import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeature;
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IContext;
-import org.eclipse.graphiti.features.context.ISaveImageContext;
-import org.eclipse.graphiti.features.context.impl.SaveImageContext;
 import org.eclipse.graphiti.internal.command.AddFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
@@ -610,16 +608,17 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
-		IFeatureProvider fp = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
-		if (fp != null) {
-			ISaveImageFeature sf = fp.getSaveImageFeature();
+		IPrintFeature printFeature = getConfigurationProvider().getFeatureProvider().getPrintFeature();
+		if (printFeature != null) {
+			registerAction(new PrintGraphicalViewerAction(getConfigurationProvider().getWorkbenchPart(),
+					getConfigurationProvider()));
+		}
 
-			if (sf != null) {
-				ISaveImageContext context = new SaveImageContext();
-				action = new SaveImageAction(sf, context, this);
-				actionRegistry.registerAction(action);
-				selectionActions.add(action.getId());
-			}
+		ISaveImageFeature saveImageFeature = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider()
+				.getSaveImageFeature();
+		if (saveImageFeature != null) {
+			registerAction(new SaveImageAction(getConfigurationProvider().getWorkbenchPart(),
+					getConfigurationProvider()));
 		}
 
 		registerAction(new ZoomInAction(zoomManager));
@@ -763,15 +762,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	protected void initializeGraphicalViewer() {
 
 		super.initializeGraphicalViewer();
-
-		// register Actions
-		IFeatureProvider featureProvider = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
-		if (featureProvider != null) {
-			IPrintFeature pf = featureProvider.getPrintFeature();
-			if (pf != null) {
-				registerAction(new PrintGraphicalViewerAction(getConfigurationProvider().getWorkbenchPart(), pf));
-			}
-		}
 
 		// this will cause the ActionBarContributor to refresh with the
 		// new actions (there is no specific refresh-action).
