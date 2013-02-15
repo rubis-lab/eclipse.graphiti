@@ -1,0 +1,9 @@
+Change-Id: I3e62a426551f3707443837804c50414f5f4a8501
+Verified+1: Hudson CI
+Code-Review+2: Michael Wenz <michael.wenz@sap.com>
+IP-Clean+1: Michael Wenz <michael.wenz@sap.com>
+Submitted-by: Michael Wenz <michael.wenz@sap.com>
+Submitted-at: Fri, 15 Feb 2013 08:41:21 -0500
+Reviewed-on: https://git.eclipse.org/r/10091
+Project: gmp/org.eclipse.gmp.graphiti
+Branch: refs/heads/352120_Diagrams_in_Views
