@@ -14,6 +14,7 @@
  *    mwenz - Bug 359928 - DiagramEditorBehavior does not initialize adapterActive field
  *    Bug 336488 - DiagramEditor API - Rename from DiagramEditorBehavior to DefaultUpdateBehavior
  *    mwenz - Bug 389426 - Add factory method for creating EMF workspace synchronizer delegate
+ *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *
  * </copyright>
  *
@@ -45,9 +46,8 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
 
@@ -131,8 +131,8 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 					if (editingDomain.getResourceSet().getURIConverter().exists(uri, null)) {
 						// file content has changes
 						setResourceChanged(true);
-						final IEditorPart activeEditor = diagramEditor.getSite().getPage().getActiveEditor();
-						if (activeEditor == diagramEditor) {
+						final IWorkbenchPart activePart = diagramEditor.getWorkbenchPart().getSite().getPage().getActivePart();
+						if (activePart == diagramEditor) {
 							getShell().getDisplay().asyncExec(new Runnable() {
 								public void run() {
 									handleActivate();
@@ -142,8 +142,8 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 					} else {
 						// file has been deleted
 						if (!diagramEditor.isDirty()) {
-							final IEditorInput editorInput = diagramEditor.getEditorInput();
-							if (editorInput instanceof IDiagramEditorInput) {
+							final IDiagramEditorInput editorInput = diagramEditor.getDiagramEditorInput();
+							if (editorInput != null) {
 								final IDiagramEditorInput input = (IDiagramEditorInput) editorInput;
 								URI inputUri = input.getUri();
 								URI diagUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(uri);
@@ -153,8 +153,8 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 							}
 						} else {
 							setResourceDeleted(true);
-							final IEditorPart activeEditor = diagramEditor.getSite().getPage().getActiveEditor();
-							if (activeEditor == diagramEditor) {
+							final IWorkbenchPart activePart = diagramEditor.getWorkbenchPart().getSite().getPage().getActivePart();
+							if (activePart == diagramEditor) {
 								getShell().getDisplay().asyncExec(new Runnable() {
 									public void run() {
 										handleActivate();
@@ -488,7 +488,7 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 		if (page == null) {
 			return;
 		}
-		page.closeEditor(diagramEditor, false);
+		diagramEditor.shutdown();
 	}
 
 	private IOperationHistory getOperationHistory() {
@@ -501,5 +501,13 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 			}
 		}
 		return history;
+	}
+
+	/**
+	 * @since 0.10
+	 */
+	public void setEditingDomain(TransactionalEditingDomain editingDomain) {
+		this.editingDomain = editingDomain;
+		initializeEditingDomain(editingDomain);
 	}
 }

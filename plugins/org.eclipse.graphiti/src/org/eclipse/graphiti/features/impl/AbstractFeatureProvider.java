@@ -14,6 +14,7 @@
  *                         and called features via editor command stack to check it
  *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *    fvelasco - Bug 391506 - Canceling a feature with OperationCanceledException provoked an extra undo
+ *    pjpaulin - Bug 352120 - Modified diagram linking to avoid NullPointerException. This needs to be reviewed.
  *
  * </copyright>
  *
@@ -25,13 +26,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.core.runtime.Assert;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddBendpointFeature;
 import org.eclipse.graphiti.features.IAddFeature;
@@ -594,16 +589,25 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 				if (businessObjects != null) {
 					for (int i = 0; i < businessObjects.length; i++) {
 						EObject bo = (EObject) businessObjects[i];
-						Resource resource = bo.eResource();
-						Assert.isNotNull(resource, " Business object " + bo + " is not contained in a resource"); //$NON-NLS-1$ //$NON-NLS-2$
-						ResourceSet resourceSet = resource.getResourceSet();
-						Assert.isNotNull(resourceSet, " Resource " + resource + " is not contained in a resource set"); //$NON-NLS-1$ //$NON-NLS-2$
-						TransactionalEditingDomain editingDomain = getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
-						ResourceSet editorResourceSet = editingDomain.getResourceSet();
-						if (!resourceSet.equals(editorResourceSet)) {
-							URI boUri = EcoreUtil.getURI(bo);
-							bo = editorResourceSet.getEObject(boUri, true);
-						}
+
+						/*
+						 * TODO For our use case with DiagramComposite the
+						 * resource was being returned as null. This is one area
+						 * where I need some guidance from the Graphiti team.
+						 */
+
+						// Resource resource = bo.eResource();
+						//						Assert.isNotNull(resource, " Business object " + bo + " is not contained in a resource"); //$NON-NLS-1$ //$NON-NLS-2$
+						// ResourceSet resourceSet = resource.getResourceSet();
+						//						Assert.isNotNull(resourceSet, " Resource " + resource + " is not contained in a resource set"); //$NON-NLS-1$ //$NON-NLS-2$
+						// TransactionalEditingDomain editingDomain =
+						// getDiagramTypeProvider().getDiagramEditor().getEditingDomain();
+						// ResourceSet editorResourceSet =
+						// editingDomain.getResourceSet();
+						// if (!resourceSet.equals(editorResourceSet)) {
+						// URI boUri = EcoreUtil.getURI(bo);
+						// bo = editorResourceSet.getEObject(boUri, true);
+						// }
 						if (bo != null) {
 							link.getBusinessObjects().add(bo);
 						}

@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 387971 - Features cant't be invoked from contextMenu
+ *    pjpaulin - Bug 352120 - Changed to instantiate DiagramEditorImpl
  *
  * </copyright>
  *
@@ -22,7 +23,7 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramEditorImpl;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Display;
@@ -42,7 +43,7 @@ import org.eclipse.ui.part.FileEditorInput;
 public class MultiPageEditor extends FormEditor implements IResourceChangeListener, ISelectionListener {
 
 	/** The text editor used in page 0. */
-	private DiagramEditor editor;
+	private IEditorPart editor;
 	private TextEditor editor2;
 
 	/**
@@ -58,7 +59,7 @@ public class MultiPageEditor extends FormEditor implements IResourceChangeListen
 	 */
 	void createPage0() {
 		try {
-			editor = new DiagramEditor();
+			editor = new DiagramEditorImpl();
 			int index = addPage(editor, getEditorInput());
 			setPageText(index, editor.getTitle());
 		} catch (PartInitException e) {

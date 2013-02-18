@@ -16,6 +16,7 @@
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    cbrand - Bug 377783 - Dump for figures in connection layer needed
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    pjpaulin - Bug 352120 - Add certain menu options only if local transaction
  *
  * </copyright>
  *
@@ -118,7 +119,9 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	@Override
 	public void buildContextMenu(IMenuManager manager) {
 		GEFActionConstants.addStandardActionGroups(manager);
-		addDefaultMenuGroupUndo(manager);
+
+		if (this.getEditor().isLocalEditingDomain())
+			addDefaultMenuGroupUndo(manager);
 		addDefaultMenuGroupSave(manager);
 		addDefaultMenuGroupEdit(manager);
 		addDefaultMenuGroupPrint(manager);
@@ -185,9 +188,11 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	protected void addDefaultMenuGroupRest(IMenuManager manager) {
 		addAlignmentSubMenu(manager, GEFActionConstants.GROUP_REST);
 
-		addActionToMenuIfAvailable(manager, UpdateAction.ACTION_ID, GEFActionConstants.GROUP_REST);
+		if (this.getEditor().isLocalEditingDomain())
+			addActionToMenuIfAvailable(manager, UpdateAction.ACTION_ID, GEFActionConstants.GROUP_REST);
 		addActionToMenuIfAvailable(manager, RemoveAction.ACTION_ID, GEFActionConstants.GROUP_REST);
-		addActionToMenuIfAvailable(manager, DeleteAction.ACTION_ID, GEFActionConstants.GROUP_REST);
+		if (this.getEditor().isLocalEditingDomain())
+			addActionToMenuIfAvailable(manager, DeleteAction.ACTION_ID, GEFActionConstants.GROUP_REST);
 
 		PictogramElement pes[] = getEditor().getSelectedPictogramElements();
 		ICustomContext context = new CustomContext(pes);

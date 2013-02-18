@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *
  * </copyright>
  *
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
-import org.eclipse.ui.IEditorInput;
 
 /**
  * Manages changes done to the resources tied to the diagram outside of the
@@ -73,8 +73,8 @@ public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchr
 		// (ResourceSetimpl(deb.getEditingDomain().getResourceSet())).getURIResourceMap().remove(resource.getURI());
 		// Map<URI, Resource> uriResourceMap = ((ResourceSetImpl)deb.getEditingDomain().getResourceSet()).getURIResourceMap();
 		resource.setURI(newURI);
-		IEditorInput editorInput = diagramEditor.getEditorInput();
-		if (editorInput instanceof IDiagramEditorInput) {
+		IDiagramEditorInput editorInput = diagramEditor.getDiagramEditorInput();
+		if (editorInput != null) {
 			((IDiagramEditorInput) editorInput).updateUri(newURI);
 		}
 		diagramEditor.refreshContent();

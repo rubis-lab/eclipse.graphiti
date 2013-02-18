@@ -9,7 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
- *
+ *    pjpaulin - Bug 352120 - Added required methods to inner-class IDiagramEditor
+ *    
  * </copyright>
  *
  *******************************************************************************/
@@ -17,6 +18,9 @@ package org.eclipse.graphiti.tests.cases;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.EventObject;
+
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
@@ -138,6 +142,42 @@ public class FeatureParametersTest extends GFAbstractTestCase {
 
 			public TransactionalEditingDomain getEditingDomain() {
 				return null;
+			}
+
+			public void disableAdapters() {
+			}
+
+			public void enableAdapters() {
+			}
+
+			public void commandStackChanged(EventObject event) {
+			}
+
+			public boolean isAlive() {
+				return false;
+			}
+
+			public void selectBufferedPictogramElements() {
+			}
+
+			public void refreshContent() {
+			}
+
+			public void editingDomainInitialized() {
+			}
+
+			@SuppressWarnings("rawtypes")
+			public Object getAdapter(Class type) {
+				return null;
+			}
+
+			public boolean isLocalEditingDomain() {
+				return true;
+			}
+
+			public void doSave(IProgressMonitor monitor) {
+				// TODO Auto-generated method stub
+
 			}
 		};
 

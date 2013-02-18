@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *
  * </copyright>
  *
@@ -23,9 +24,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPartSite;
 
 /**
  * Closes editor if model element was deleted. For instance, if only the diagram
@@ -55,9 +55,9 @@ public final class ElementDeleteListener extends AdapterImpl {
 					+ editorName + " with events " + msg.toString()); //$NON-NLS-1$
 		}
 
-		final IEditorInput in = diagramEditor.getEditorInput();
+		final IDiagramEditorInput in = diagramEditor.getDiagramEditorInput();
 		if (in != null) {
-			final IEditorSite site = diagramEditor.getEditorSite();
+			final IWorkbenchPartSite site = diagramEditor.getWorkbenchPart().getSite();
 			if (site == null) {
 				return;
 			}
@@ -87,7 +87,7 @@ public final class ElementDeleteListener extends AdapterImpl {
 							final String editorName = diagramEditor.getTitle();
 							T.racer().debug("Closing editor " + editorName); //$NON-NLS-1$
 						}
-						page.closeEditor(diagramEditor, false);
+						diagramEditor.shutdown();
 					}
 				}
 			});

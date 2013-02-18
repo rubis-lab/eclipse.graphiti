@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *
  * </copyright>
  *
@@ -180,7 +181,7 @@ public class DiagramEditPart extends ContainerShapeEditPart implements IDiagramE
 	 */
 	@Override
 	public void refresh() {
-		DiagramEditor editor = (DiagramEditor) getConfigurationProvider().getWorkbenchPart();
+		DiagramEditor editor = getConfigurationProvider().getDiagramEditor();
 		editor.getRefreshBehavior().initRefresh();
 		super.refresh();
 	}
