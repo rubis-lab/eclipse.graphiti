@@ -15,6 +15,7 @@
  *    Bug 336488 - DiagramEditor API - Rename from DiagramEditorBehavior to DefaultUpdateBehavior
  *    mwenz - Bug 389426 - Add factory method for creating EMF workspace synchronizer delegate
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -52,24 +53,24 @@ import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * The default implementation for the {@link DiagramEditor} behavior extension
+ * The default implementation for the {@link IDiagramEditorUI} behavior extension
  * that controls update behavior of the editor and defines the EMF adapters that
  * watch over model object modifications. Clients may subclass to change the
- * behavior; use {@link DiagramEditor#createUpdateBehavior()} to return the
+ * behavior; use {@link IDiagramEditorUI#createUpdateBehavior()} to return the
  * instance that shall be used.<br>
- * Note that there is always a 1:1 relation with a {@link DiagramEditor}.
+ * Note that there is always a 1:1 relation with a {@link IDiagramEditorUI}.
  * 
  * @since 0.9
  */
 public class DefaultUpdateBehavior extends PlatformObject implements IEditingDomainProvider, IOperationHistoryListener {
 
 	/**
-	 * The associated {@link DiagramEditor}
+	 * The associated {@link IDiagramEditorUI}
 	 */
-	protected final DiagramEditor diagramEditor;
+	protected final IDiagramEditorUI diagramEditor;
 
 	/**
-	 * The editing domain that is used throughout the {@link DiagramEditor} is
+	 * The editing domain that is used throughout the {@link IDiagramEditorUI} is
 	 * kept here and only here.
 	 */
 	private TransactionalEditingDomain editingDomain;
@@ -179,12 +180,13 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 
 	/**
 	 * Creates a new {@link DefaultUpdateBehavior} instance associated with the
-	 * given {@link DiagramEditor}.
+	 * given {@link IDiagramEditorUI}.
 	 * 
 	 * @param diagramEditor
 	 *            the part this model editor works on
+	 * @since 0.10
 	 */
-	public DefaultUpdateBehavior(DiagramEditor diagramEditor) {
+	public DefaultUpdateBehavior(IDiagramEditorUI diagramEditor) {
 		super();
 		this.diagramEditor = diagramEditor;
 	}

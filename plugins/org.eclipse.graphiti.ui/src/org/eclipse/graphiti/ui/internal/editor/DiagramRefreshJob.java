@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -28,7 +29,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionDecoratorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.DiagramEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
@@ -52,9 +53,9 @@ class DiagramRefreshJob extends UIJob {
 
 	private boolean refreshAll = false;
 
-	private DiagramEditor ed;
+	private IDiagramEditorUI ed;
 
-	DiagramRefreshJob(String name, DiagramEditor ed) {
+	DiagramRefreshJob(String name, IDiagramEditorUI ed) {
 		super(name);
 		this.ed = ed;
 	}

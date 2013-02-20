@@ -12,6 +12,7 @@
  *    mwenz - Bug 346932 - Navigation history broken
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 378342 - Cannot store more than a diagram per file
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -35,14 +36,14 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 
 /**
- * The editor input object for {@link DiagramEditor}s. Wraps the {@link URI} of
+ * The editor input object for {@link IDiagramEditorUI}s. Wraps the {@link URI} of
  * a {@link Diagram} and an ID of a diagram type provider for displaying it with
  * a Graphiti diagram editor.<br>
  * 
  * @see {@link IEditorInput}
  * @see {@link IPersistableElement}
  * @see {@link DiagramEditorInputFactory}
- * @see {@link DiagramEditor}
+ * @see {@link IDiagramEditorUI}
  */
 public class DiagramEditorInput implements IEditorInput, IPersistableElement, IDiagramEditorInput {
 
@@ -102,7 +103,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 	 * @param providerId
 	 *            A {@link String} which holds the diagram type id. When it is
 	 *            null, it is set later in
-	 *            {@link DiagramEditor#setInput(IEditorInput)}
+	 *            {@link IDiagramEditorUI#setInput(IEditorInput)}
 	 * @throws IllegalArgumentException
 	 *             if <code>uriString</code> parameter is null <br>
 	 * 

@@ -40,6 +40,68 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/platform/IDiagramEditor.java" type="org.eclipse.graphiti.platform.IDiagramEditor">
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="commandStackChanged(EventObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="disableAdapters()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="doSave(IProgressMonitor)"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="editingDomainInitialized()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="enableAdapters()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="getAdapter(Class)"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="isAlive()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="isLocalEditingDomain()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="refreshContent()"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="selectBufferedPictogramElements()"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/services/IGaService.java" type="org.eclipse.graphiti.services.IGaService">
         <filter id="405901410">
             <message_arguments>

@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -18,13 +19,13 @@ package org.eclipse.graphiti.examples.tutorial.property;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 /**
  * Registered to adapt an {@link EditPart} that gets selected in the
- * {@link DiagramEditor} to A {@link IPropertySource} object that is used as
+ * {@link IDiagramEditorUI} to A {@link IPropertySource} object that is used as
  * input for the properties view.
  */
 public class GraphitiEditPartToIPropertySourceAdapterFactory implements IAdapterFactory {

@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *    cbrand - Bug 377783 - Dump for figures in connection layer needed
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -24,7 +25,7 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 
 /**
@@ -58,7 +59,7 @@ public class DebugFeature extends AbstractCustomFeature {
 		PictogramElement[] pes = context.getPictogramElements();
 		if (pes != null && pes.length > 0 && pes[0] != null) {
 			PictogramElement pe = pes[0];
-			DiagramEditor diagramEditor = (DiagramEditor) getDiagramEditor();
+			IDiagramEditorUI diagramEditor = (IDiagramEditorUI) getDiagramEditor();
 			GraphicalEditPart ep = diagramEditor.getEditPartForPictogramElement(pe);
 			IFigure figure = diagramEditor.getFigureForPictogramElement(pe);
 

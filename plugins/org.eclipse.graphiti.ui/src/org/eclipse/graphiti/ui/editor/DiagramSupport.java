@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    pjpaulin - initial API, implementation and documentation
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -144,7 +145,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  */
 public class DiagramSupport {
 
-	private DiagramEditor container;
+	private IDiagramEditorUI container;
 
 	private final DefaultUpdateBehavior updateBehavior;
 	private final DefaultPaletteBehavior paletteBehaviour;
@@ -167,7 +168,7 @@ public class DiagramSupport {
 
 	private String editorInitializationError = null;
 
-	DiagramSupport(DiagramEditor container) {
+	DiagramSupport(IDiagramEditorUI container) {
 		this.container = container;
 		markerBehavior = createMarkerBehavior();
 		updateBehavior = createUpdateBehavior();
@@ -1010,7 +1011,7 @@ public class DiagramSupport {
 	 * Hook that is called to unregister the listeners for changes of the
 	 * business objects (domain objects).
 	 * 
-	 * @see DiagramEditorImpl#registerBusinessObjectsListener()
+	 * @see DiagramEditor#registerBusinessObjectsListener()
 	 */
 	void unregisterBusinessObjectsListener() {
 		if (domainModelListener != null) {
@@ -1105,7 +1106,7 @@ public class DiagramSupport {
 	}
 
 	/**
-	 * Disposes this {@link DiagramEditorImpl} instance and frees all used
+	 * Disposes this {@link DiagramEditor} instance and frees all used
 	 * resources and clears all references. Also delegates to all the behavior
 	 * extensions to also free their resources (e.g. and most important is the
 	 * {@link TransactionalEditingDomain} held by the

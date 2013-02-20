@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -34,7 +35,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.parts.DiagramEditPart;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -90,7 +91,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 
 	private final GFUpdateListener gfUpdateListener = new GFUpdateListener();
 
-	private DiagramEditor diagramEditor = null;
+	private IDiagramEditorUI diagramEditor = null;
 
 	private boolean init = true;
 
@@ -176,7 +177,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 	 * @param diagramEditor
 	 *            the diagram editor
 	 */
-	public GFFigureCanvas(Composite parent, DiagramEditor diagramEditor) {
+	public GFFigureCanvas(Composite parent, IDiagramEditorUI diagramEditor) {
 		this(parent, SWT.DOUBLE_BUFFERED, new LightweightSystem(), diagramEditor);
 	}
 
@@ -191,7 +192,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 	 *            the diagram editor
 	 * @since 3.1
 	 */
-	public GFFigureCanvas(Composite parent, int style, DiagramEditor diagramEditor) {
+	public GFFigureCanvas(Composite parent, int style, IDiagramEditorUI diagramEditor) {
 		this(parent, style, new LightweightSystem(), diagramEditor);
 	}
 
@@ -206,7 +207,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 	 * @param diagramEditor
 	 *            the diagram editor
 	 */
-	public GFFigureCanvas(Composite parent, LightweightSystem lws, DiagramEditor diagramEditor) {
+	public GFFigureCanvas(Composite parent, LightweightSystem lws, IDiagramEditorUI diagramEditor) {
 		this(parent, SWT.DOUBLE_BUFFERED, lws, diagramEditor);
 	}
 
@@ -223,7 +224,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 	 *            the diagram editor
 	 * @since 3.1
 	 */
-	public GFFigureCanvas(Composite parent, int style, LightweightSystem lws, DiagramEditor diagramEditor) {
+	public GFFigureCanvas(Composite parent, int style, LightweightSystem lws, IDiagramEditorUI diagramEditor) {
 		super(parent, checkStyle(style | SWT.NO_REDRAW_RESIZE | SWT.NO_BACKGROUND | SWT.V_SCROLL | SWT.H_SCROLL));
 		getHorizontalBar().setVisible(false);
 		getVerticalBar().setVisible(false);
