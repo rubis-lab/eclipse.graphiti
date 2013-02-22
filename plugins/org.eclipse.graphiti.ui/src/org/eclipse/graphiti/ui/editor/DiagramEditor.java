@@ -31,6 +31,7 @@
  *    fvelasco - Bug 323349 - Enable external invocation of features
  *    mwenz - Bug 393113 - Auto-focus does not work for connections
  *    mwenz - Bug 396893 - Enable the registration of the drop target listeners configurable
+ *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
  *
  * </copyright>
  *
@@ -237,11 +238,11 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	public static final String DIAGRAM_CONTEXT_ID = "org.eclipse.graphiti.ui.diagramEditor"; //$NON-NLS-1$
 
-	private final DefaultUpdateBehavior updateBehavior;
-	private final DefaultPaletteBehavior paletteBehaviour;
-	private final DefaultPersistencyBehavior persistencyBehavior;
-	private final DefaultMarkerBehavior markerBehavior;
-	private final DefaultRefreshBehavior refreshBehavior;
+	private DefaultUpdateBehavior updateBehavior;
+	private DefaultPaletteBehavior paletteBehaviour;
+	private DefaultPersistencyBehavior persistencyBehavior;
+	private DefaultMarkerBehavior markerBehavior;
+	private DefaultRefreshBehavior refreshBehavior;
 
 	private CommandStackEventListener gefCommandStackListener;
 	private DiagramChangeListener diagramChangeListener;
@@ -268,11 +269,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	public DiagramEditor() {
 		super();
-		markerBehavior = createMarkerBehavior();
-		updateBehavior = createUpdateBehavior();
-		paletteBehaviour = createPaletteBehaviour();
-		persistencyBehavior = createPersistencyBehavior();
-		refreshBehavior = createRefreshBehavior();
 	}
 
 	// ------------------ Behaviors --------------------------------------------
@@ -287,6 +283,18 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	protected DefaultMarkerBehavior createMarkerBehavior() {
 		return new DefaultMarkerBehavior(this);
+	}
+
+	/**
+	 * Returns the instance of the marker behavior that is used with this
+	 * editor. To change the behavior override {@link #createMarkerBehavior()}.
+	 * 
+	 * @return the used instance of the marker behavior, by default a
+	 *         {@link DefaultMarkerBehavior}.
+	 * @since 0.10
+	 */
+	protected DefaultMarkerBehavior getMarkerBehavior() {
+		return markerBehavior;
 	}
 
 	/**
@@ -326,6 +334,19 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
+	 * Returns the instance of the palette behavior that is used with this
+	 * editor. To change the behavior override {@link #createPaletteBehaviour()}
+	 * .
+	 * 
+	 * @return the used instance of the palette behavior, by default a
+	 *         {@link DefaultPaletteBehavior}.
+	 * @since 0.10
+	 */
+	protected DefaultPaletteBehavior getPaletteBehavior() {
+		return paletteBehaviour;
+	}
+
+	/**
 	 * Creates the behavior extension that deals with the persistence handling.
 	 * See {@link DefaultPersistencyBehavior} for details and the default
 	 * implementation. Override to change the persistence behavior.
@@ -335,6 +356,19 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	protected DefaultPersistencyBehavior createPersistencyBehavior() {
 		return new DefaultPersistencyBehavior(this);
+	}
+
+	/**
+	 * Returns the instance of the persistency behavior that is used with this
+	 * editor. To change the behavior override
+	 * {@link #createPersistencyBehavior()}.
+	 * 
+	 * @return the used instance of the persistency behavior, by default a
+	 *         {@link DefaultPersistencyBehavior}.
+	 * @since 0.10
+	 */
+	protected DefaultPersistencyBehavior getPersistencyBehavior() {
+		return persistencyBehavior;
 	}
 
 	/**
@@ -390,8 +424,12 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void disableAdapters() {
-		markerBehavior.disableProblemIndicationUpdate();
-		updateBehavior.setAdapterActive(false);
+		if (markerBehavior != null) {
+			markerBehavior.disableProblemIndicationUpdate();
+		}
+		if (updateBehavior != null) {
+			updateBehavior.setAdapterActive(false);
+		}
 	}
 
 	/**
@@ -406,8 +444,12 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void enableAdapters() {
-		markerBehavior.enableProblemIndicationUpdate();
-		updateBehavior.setAdapterActive(true);
+		if (markerBehavior != null) {
+			markerBehavior.enableProblemIndicationUpdate();
+		}
+		if (updateBehavior != null) {
+			updateBehavior.setAdapterActive(true);
+		}
 	}
 
 	// ------------------ Initializazion ---------------------------------------
@@ -440,6 +482,16 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * 
 	 */
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		// Intialize behavior objects first, they are needed already within the
+		// init method. We cannont create these objects in the constructor of
+		// diagram editor because that woudl prevent injecting them, see
+		// Bugzilla 394315
+		markerBehavior = createMarkerBehavior();
+		updateBehavior = createUpdateBehavior();
+		paletteBehaviour = createPaletteBehaviour();
+		persistencyBehavior = createPersistencyBehavior();
+		refreshBehavior = createRefreshBehavior();
+
 		// Eclipse may call us with other inputs when a file is to be
 		// opened. Try to convert this to a valid diagram input.
 		if (!(input instanceof IDiagramEditorInput)) {
@@ -1260,7 +1312,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			paletteBehaviour.dispose();
 		}
 
-		markerBehavior.dispose();
+		if (markerBehavior != null) {
+			markerBehavior.dispose();
+		}
 
 		// unregister selection listener, registered during createPartControl()
 		if (getSite() != null && getSite().getPage() != null) {
@@ -1971,7 +2025,11 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public TransactionalEditingDomain getEditingDomain() {
-		return updateBehavior.getEditingDomain();
+		if (updateBehavior != null) {
+			return updateBehavior.getEditingDomain();
+		} else {
+			return null;
+		}
 	}
 
 	/**
