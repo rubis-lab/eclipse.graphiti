@@ -15,6 +15,7 @@
  *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
  *    mgorning - Bug 386913 - Support also Single-Click-Features
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -72,7 +73,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
@@ -537,7 +538,7 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 					if (singleClickFeature != null && singleClickFeature.canExecute(scc)) {
 						GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(
 								singleClickFeature, scc);
-						DiagramEditor diagramEditor = getConfigurationProvider().getDiagramEditor();
+						IDiagramEditorUI diagramEditor = getConfigurationProvider().getDiagramEditor();
 						CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
 						commandStack
 								.execute(new GefCommandWrapper(commandWithContext, diagramEditor.getEditingDomain()));
@@ -558,7 +559,7 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 				if (doubleClickFeature != null && doubleClickFeature.canExecute(dcc)) {
 					GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(
 							doubleClickFeature, dcc);
-					DiagramEditor diagramEditor = getConfigurationProvider().getDiagramEditor();
+					IDiagramEditorUI diagramEditor = getConfigurationProvider().getDiagramEditor();
 					CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
 					commandStack.execute(new GefCommandWrapper(commandWithContext, diagramEditor.getEditingDomain()));
 				}
@@ -732,7 +733,7 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 	}
 
 	private Point getRelativeMouseLocation() {
-		DiagramEditor editor = getConfigurationProvider().getDiagramEditor();
+		IDiagramEditorUI editor = getConfigurationProvider().getDiagramEditor();
 
 		// get current mouse location from the viewer
 		Point mouseLocation = new Point(editor.getMouseLocation());

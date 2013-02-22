@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - Bug 341898 - initial API, implementation and documentation
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -20,7 +21,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.graphiti.features.IFeatureProviderHolder;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 
 /**
  * This is an abstract marker class that indicates that an {@link EditPart} is a
@@ -28,7 +29,7 @@ import org.eclipse.graphiti.ui.editor.DiagramEditor;
  * {@link IAdapterFactory} against Graphiti edit parts. This is useful e.g. for
  * providing standard property sheets (or
  * org.eclipse.ui.views.properties.tabbed.AdvancedPropertySections inside tabbed
- * property sheets) for a selection in the Graphiti {@link DiagramEditor};
+ * property sheets) for a selection in the Graphiti {@link IDiagramEditorUI};
  * simply use this class as for the adaptableType attribute of the adapter
  * factory definition in plugin.xml.
  * <p>

@@ -14,6 +14,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *    pjpaulin - Bug 352120 - Added non-GEF methods required for a diagram container.
+ *    pjpaulin - Bug 352120 - Removed @noimplement and @noextend. Created filters for new methods.
  *
  * </copyright>
  *

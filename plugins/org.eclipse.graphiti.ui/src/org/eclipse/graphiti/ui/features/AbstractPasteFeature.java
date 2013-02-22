@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 375533 - Problems with copy&paste in the tutorial
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -29,7 +30,7 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IPasteContext;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.internal.Messages;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.util.clipboard.ModelClipboard;
 
 /**
@@ -114,7 +115,7 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 
 	/**
 	 * Checks if the given {@link EObject} can be resolved in the local
-	 * {@link EditingDomain} of the current {@link DiagramEditor}. Pasting an
+	 * {@link EditingDomain} of the current {@link IDiagramEditorUI}. Pasting an
 	 * EObject that is not resolvable (e.g. it was just created in another
 	 * editor and has not yet been persisted) may cause issues with the
 	 * graphical presentation of the new object: the Graphiti update will not

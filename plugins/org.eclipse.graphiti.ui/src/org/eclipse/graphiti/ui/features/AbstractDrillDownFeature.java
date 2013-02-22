@@ -15,6 +15,7 @@
  *    Bug 336488 - DiagramEditor API
  *    cbrand - Bug 377475 - Fix AbstractCustomFeature.execute and canExecute
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -34,6 +35,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -127,7 +129,7 @@ public abstract class AbstractDrillDownFeature extends AbstractCustomFeature {
 	 * Returns the editor id of the diagram editor to open by default
 	 * {@link DiagramEditor#DIAGRAM_EDITOR_ID}. Users can override and return a
 	 * different editor id, must be the id of a subclass of
-	 * {@link DiagramEditor}.
+	 * {@link IDiagramEditorUI}.
 	 * 
 	 * @param diagram
 	 *            the diagram for which the editor will be opened

@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -21,7 +22,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
 
 /**
@@ -30,13 +31,13 @@ import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
  */
 public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchronizer.Delegate {
 
-	private DiagramEditor diagramEditor;
+	private IDiagramEditorUI diagramEditor;
 
 	/**
 	 * The DiagramEditorBehavior reacts on a setResourceChanged(true) if he gets
 	 * activated.
 	 */
-	public DomainModelWorkspaceSynchronizerDelegate(DiagramEditor diagramEditor) {
+	public DomainModelWorkspaceSynchronizerDelegate(IDiagramEditorUI diagramEditor) {
 		this.diagramEditor = diagramEditor;
 	}
 

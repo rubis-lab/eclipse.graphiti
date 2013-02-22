@@ -13,6 +13,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Felix Velasco - Bug 374918 - Let default paste use LocalSelectionTransfer
  *    mwenz - Bug 378342 - Cannot store more than a diagram per file
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -71,7 +72,7 @@ import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
@@ -269,17 +270,17 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		}
 	}
 
-	protected DiagramEditor openDiagram(final String type) {
+	protected IDiagramEditorUI openDiagram(final String type) {
 		return openDiagram(type, "xmi", "diagram");
 	}
 
-	protected DiagramEditor openDiagram(final String type, final String fileExtension, final String diagramName) {
-		DiagramEditor diagramEditor = syncExec(new Result<DiagramEditor>() {
-			public DiagramEditor run() {
+	protected IDiagramEditorUI openDiagram(final String type, final String fileExtension, final String diagramName) {
+		IDiagramEditorUI diagramEditor = syncExec(new Result<IDiagramEditorUI>() {
+			public IDiagramEditorUI run() {
 				final Diagram newDiagram = createDiagram(type, fileExtension, diagramName);
 				assertTrue("create diagram does not work", newDiagram != null);
 
-				DiagramEditor diagramEditor = (DiagramEditor) GraphitiUiInternal.getWorkbenchService()
+				IDiagramEditorUI diagramEditor = (IDiagramEditorUI) GraphitiUiInternal.getWorkbenchService()
 						.openDiagramEditor(newDiagram);
 				return diagramEditor;
 			}
@@ -450,7 +451,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return event;
 	}
 
-	protected IConfigurationProvider getConfigProviderMock(IDiagramTypeProvider dtp, DiagramEditor ed) {
+	protected IConfigurationProvider getConfigProviderMock(IDiagramTypeProvider dtp, IDiagramEditorUI ed) {
 		IConfigurationProvider configurationProviderMock = createNiceMock(IConfigurationProviderInternal.class);
 		expect(configurationProviderMock.getDiagramTypeProvider()).andReturn(dtp).anyTimes();
 		expect(configurationProviderMock.getDiagramEditor()).andReturn(ed).anyTimes();

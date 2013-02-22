@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Ali Akar, mwenz - Bug 348420 - Opening a user contributed editor
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -19,7 +20,7 @@ package org.eclipse.graphiti.ui.internal.services;
 
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.platform.IDiagramEditor;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.swt.widgets.Shell;
@@ -83,7 +84,7 @@ public interface IWorkbenchService {
 	 *            be used by the editor.
 	 * @param editorId
 	 *            the unique Eclipse editor id of the diagram editor to open.
-	 *            This id must belong to a subclass of {@link DiagramEditor} .
+	 *            This id must belong to a subclass of {@link IDiagramEditorUI} .
 	 * @return the editor instance
 	 * @since 0.8.0
 	 */

@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -19,7 +20,7 @@ package org.eclipse.graphiti.ui.internal.config;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.ResourceRegistry;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
@@ -43,7 +44,7 @@ public class ConfigurationProvider implements IConfigurationProviderInternal {
 
 	private IWorkbenchPart _workbenchPart;
 
-	private DiagramEditor diagramEditor;
+	private IDiagramEditorUI diagramEditor;
 
 	private IDiagramTypeProvider diagramTypeProvider;
 
@@ -60,7 +61,7 @@ public class ConfigurationProvider implements IConfigurationProviderInternal {
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
 	 */
-	public ConfigurationProvider(DiagramEditor diagramEditor, IDiagramTypeProvider diagramTypeProvider) {
+	public ConfigurationProvider(IDiagramEditorUI diagramEditor, IDiagramTypeProvider diagramTypeProvider) {
 		this.diagramEditor = diagramEditor;
 		setDiagramTypeProvider(diagramTypeProvider);
 	}
@@ -157,7 +158,7 @@ public class ConfigurationProvider implements IConfigurationProviderInternal {
 	 * @see org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal#
 	 * getDiagramEditor()
 	 */
-	public DiagramEditor getDiagramEditor() {
+	public IDiagramEditorUI getDiagramEditor() {
 		return diagramEditor;
 	}
 

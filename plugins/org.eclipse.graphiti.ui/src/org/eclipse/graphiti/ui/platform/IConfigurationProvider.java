@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -19,7 +20,7 @@ package org.eclipse.graphiti.ui.platform;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProviderHolder;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**
@@ -96,5 +97,5 @@ public interface IConfigurationProvider extends IFeatureProviderHolder {
 	 * 
 	 * @return the editor which is connected with this configuration-provider
 	 */
-	public DiagramEditor getDiagramEditor();
+	public IDiagramEditorUI getDiagramEditor();
 }

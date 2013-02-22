@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -25,7 +26,7 @@ import org.eclipse.gef.AccessibleEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ExposeHelper;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScalableRootEditPart;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -52,7 +53,7 @@ public class GFScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer
 	 * @param diagramEditor
 	 *            the diagram editor
 	 */
-	public GFScrollingGraphicalViewer(DiagramEditor diagramEditor) {
+	public GFScrollingGraphicalViewer(IDiagramEditorUI diagramEditor) {
 		super(diagramEditor);
 	}
 
