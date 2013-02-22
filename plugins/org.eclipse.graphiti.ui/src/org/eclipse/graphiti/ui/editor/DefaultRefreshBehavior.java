@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -38,33 +39,34 @@ import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * The default implementation for the {@link DiagramEditor} behavior extension
+ * The default implementation for the {@link IDiagramEditorUI} behavior extension
  * that controls the refresh behavior of the Graphiti diagram editor. Clients
  * may subclass to change the behavior; use
- * {@link DiagramEditor#createRefreshBehavior()} to return the instance that
+ * {@link IDiagramEditorUI#createRefreshBehavior()} to return the instance that
  * shall be used.<br>
- * Note that there is always a 1:1 relation with a {@link DiagramEditor}.
+ * Note that there is always a 1:1 relation with a {@link IDiagramEditorUI}.
  * 
  * @since 0.9
  */
 public class DefaultRefreshBehavior {
 
 	/**
-	 * The associated {@link DiagramEditor}. Set on construction of this class.
+	 * The associated {@link IDiagramEditorUI}. Set on construction of this class.
 	 */
-	protected final DiagramEditor diagramEditor;
+	protected final IDiagramEditorUI diagramEditor;
 
 	private RefreshPerformanceCache refreshPerformanceCache = new RefreshPerformanceCache();
 
 	/**
 	 * Creates a new standard refresh behaviour for a Graphiti diagram editor.
-	 * The passed {@link DiagramEditor} is closely linked to this instance (1:1
-	 * relation) and both instances will have a common lifecycle.
+	 * The passed {@link IDiagramEditorUI} is closely linked to this instance
+	 * (1:1 relation) and both instances will have a common lifecycle.
 	 * 
 	 * @param diagramEditor
-	 *            The associated {@link DiagramEditor}.
+	 *            The associated {@link IDiagramEditorUI}.
+	 * @since 0.10
 	 */
-	public DefaultRefreshBehavior(DiagramEditor diagramEditor) {
+	public DefaultRefreshBehavior(IDiagramEditorUI diagramEditor) {
 		super();
 		this.diagramEditor = diagramEditor;
 	}
@@ -82,8 +84,8 @@ public class DefaultRefreshBehavior {
 
 	/**
 	 * Handles the auto update at startup of the editor and is called by the
-	 * Graphiti {@link DiagramEditor} when the input is set (
-	 * {@link DiagramEditor#setInput(org.eclipse.ui.IEditorInput)}). The default
+	 * Graphiti {@link IDiagramEditorUI} when the input is set (
+	 * {@link IDiagramEditorUI#setInput(org.eclipse.ui.IEditorInput)}). The default
 	 * implementation checks the desired behavior as defined in
 	 * {@link IDiagramTypeProvider#isAutoUpdateAtStartup()} and calls
 	 * {@link #autoUpdate(Diagram, IDiagramTypeProvider)} in case an update
@@ -102,7 +104,7 @@ public class DefaultRefreshBehavior {
 	 * Handles the auto update at rest of the editor (the editor performs a
 	 * reload of the EMF resources because e.g. the underlying file has been
 	 * changed by another editor) and is called by the Graphiti
-	 * {@link DiagramEditor} after the {@link Diagram} has been reloaded. The
+	 * {@link IDiagramEditorUI} after the {@link Diagram} has been reloaded. The
 	 * default implementation checks the desired behavior as defined in
 	 * {@link IDiagramTypeProvider#isAutoUpdateAtReset()} and calls
 	 * {@link #autoUpdate(Diagram, IDiagramTypeProvider)} in case an update

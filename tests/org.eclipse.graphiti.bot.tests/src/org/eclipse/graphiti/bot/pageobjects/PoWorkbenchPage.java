@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 374918 - Let default paste use LocalSelectionTransfer
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -33,6 +34,7 @@ import org.eclipse.graphiti.bot.tests.AbstractGFTests;
 import org.eclipse.graphiti.bot.tests.GFOtherTests;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.swt.SWT;
@@ -70,7 +72,7 @@ public class PoWorkbenchPage extends PageObject{
 			public Integer run() {
 				try {
 					IEditorPart ed = IDE.openEditor(getWorkbenchPage(), diagFile, org.eclipse.graphiti.ui.editor.DiagramEditor.DIAGRAM_EDITOR_ID);
-					GFOtherTests.assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditor);
+					GFOtherTests.assertTrue("Editor must be a diagram editor: " + ed, ed instanceof IDiagramEditorUI);
 				} catch (PartInitException e) {
 					GFOtherTests.fail(e.getMessage());
 				}
@@ -90,7 +92,7 @@ public class PoWorkbenchPage extends PageObject{
 					IEditorInput input = DiagramEditorInput.createEditorInput(diagram, GraphitiUi.getExtensionManager()
 							.getDiagramTypeProviderId(diagram.getDiagramTypeId()));
 					IEditorPart ed = IDE.openEditor(page, input, DiagramEditor.DIAGRAM_EDITOR_ID);
-					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof DiagramEditor);
+					assertTrue("Editor must be a diagram editor: " + ed, ed instanceof IDiagramEditorUI);
 				} catch (PartInitException e) {
 					fail(e.getMessage());
 				}
@@ -122,7 +124,7 @@ public class PoWorkbenchPage extends PageObject{
 		diagramEditor.saveAndClose();
 	}
 	
-	public void shutdownEditor(final DiagramEditor diagramEditor) {
+	public void shutdownEditor(final IDiagramEditorUI diagramEditor) {
 		// Close popups.
 		syncExec(new VoidResult() {
 			public void run() {

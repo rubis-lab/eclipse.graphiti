@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -40,8 +41,8 @@ import org.eclipse.swt.events.KeyEvent;
  * the way GEF handles the palette within its editors, see
  * {@link GraphicalEditorWithFlyoutPalette} for more information on that. To
  * exchange the default implementation you have to return an instance of your
- * subclass in the method {@link DiagramEditor#createPaletteBehaviour()}.<br>
- * Note that there is always a 1:1 relation with a {@link DiagramEditor}.
+ * subclass in the method {@link IDiagramEditorUI#createPaletteBehaviour()}.<br>
+ * Note that there is always a 1:1 relation with a {@link IDiagramEditorUI}.
  * 
  * @since 0.9
  */
@@ -71,21 +72,22 @@ public class DefaultPaletteBehavior {
 	protected static final int DEFAULT_PALETTE_SIZE = 130;
 
 	/**
-	 * The associated {@link DiagramEditor}
+	 * The associated {@link IDiagramEditorUI}
 	 */
-	protected final DiagramEditor diagramEditor;
+	protected final IDiagramEditorUI diagramEditor;
 
 	private PaletteRoot paletteRoot;
 
 	/**
 	 * Creates a new standard palette behaviour for a Graphiti diagram editor.
-	 * The passed {@link DiagramEditor} is closely linked to this instance (1:1
-	 * relation) and both instances will have a common lifecycle.
+	 * The passed {@link IDiagramEditorUI} is closely linked to this instance
+	 * (1:1 relation) and both instances will have a common lifecycle.
 	 * 
 	 * @param diagramEditor
-	 *            The associated {@link DiagramEditor}.
+	 *            The associated {@link IDiagramEditorUI}.
+	 * @since 0.10
 	 */
-	public DefaultPaletteBehavior(DiagramEditor diagramEditor) {
+	public DefaultPaletteBehavior(IDiagramEditorUI diagramEditor) {
 		super();
 		this.diagramEditor = diagramEditor;
 	}
@@ -105,7 +107,7 @@ public class DefaultPaletteBehavior {
 
 	/**
 	 * Returns the already existing {@link PaletteRoot} instance for the
-	 * {@link DiagramEditor} associated the this palette behavior or creates a
+	 * {@link IDiagramEditorUI} associated the this palette behavior or creates a
 	 * new {@link PaletteRoot} instance in case none exists.
 	 * 
 	 * @return a new Graphiti specific {@link PaletteRoot} instance
@@ -261,9 +263,10 @@ public class DefaultPaletteBehavior {
 	/**
 	 * Returns the associated Graphiti diagram editor.
 	 * 
-	 * @return the associated {@link DiagramEditor} instance
+	 * @return the associated {@link IDiagramEditorUI} instance
+	 * @since 0.10
 	 */
-	protected DiagramEditor getDiagramEditor() {
+	protected IDiagramEditorUI getDiagramEditor() {
 		return diagramEditor;
 	}
 

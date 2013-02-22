@@ -16,6 +16,7 @@
  *    mwenz - Bug 363796 - Make setting of selection width of connections public
  *    mwenz - Bug 358255 - Add Border/Background decorators
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -74,7 +75,7 @@ import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCurvedCo
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateFreeformConnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaContainerFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaShapeFeature;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
@@ -122,7 +123,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testSelectionTool() throws Exception {
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		createClassesAndConnection(x, y, diagramEditor.getDiagramTypeProvider(), null, SHAPE_NAME);
 		Thread.sleep(DELAY);
 		syncExec(new VoidResult() {
@@ -139,7 +140,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testHidePalette() throws Exception {
 		boolean oldValue = TestToolBehavior.showFlyoutPalette;
 		TestToolBehavior.setShowFlyoutPalette(true);
-		DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		assertNotNull(diagramEditor.getEditDomain().getPaletteViewer());
 		page.shutdownEditor(diagramEditor);
 		TestToolBehavior.setShowFlyoutPalette(false);
@@ -151,7 +152,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 	@Test
 	public void testLineSelectionWidth() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final ICreateService createService = Graphiti.getCreateService();
 		executeInRecordingCommand(diagramEditor, new Runnable() {
 			public void run() {
@@ -169,7 +170,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testMarqueeTool() throws Exception {
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		createClassesAndConnection(x, y, diagramEditor.getDiagramTypeProvider(), "Marquee", SHAPE_NAME);
 		Thread.sleep(DELAY);
 		// Select the newly added shapes with the marquee tool.
@@ -215,7 +216,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testGFFigureCanvas() throws Exception {
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		syncExec(new VoidResult() {
 			public void run() {
 				// find diagram
@@ -311,7 +312,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		 */
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -386,7 +387,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testContextPadHiding() throws Exception {
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -532,7 +533,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -674,7 +675,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testContextButtons() throws Exception {
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -780,7 +781,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int height = 60;
 		final int DIL = 30;
 
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -855,7 +856,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testDirectEditingMultiText() throws Exception {
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -901,7 +902,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testDirectEditingSingleText() throws Exception {
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -956,7 +957,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testDropIntoContainer() throws Exception {
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -1001,7 +1002,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		final int yContainer3 = 300;
 		final int containerSize = 100;
 		final int rectangleSize = 60;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -1093,7 +1094,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testCreateConnection() throws Exception {
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -1163,7 +1164,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testCancelConnection() throws Exception {
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -1219,7 +1220,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testResizeAndPosition() throws Exception {
 		final int x = 100;
 		final int y = 100;
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -1254,7 +1255,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 	@Test
 	public void testSketchAll() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		PaletteFinder paletteFinder = new PaletteFinder(diagramEditor.getEditDomain());
 		List<PaletteEntry> objectCreationTools = paletteFinder.findEntries(new AbstractToolEntryMatcher() {
 
@@ -1297,7 +1298,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		// Test for Bug 355027: Move of connection decorators when zoom level !=
 		// 100 behaves weird
 		page.closeAllEditors();
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider())
 				.getInnerFeatureProvider();
@@ -1410,7 +1411,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	@Test
 	public void testCurvedConnection() throws Exception {
 		page.closeAllEditors();
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider())
 				.getInnerFeatureProvider();
@@ -1471,7 +1472,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	@Test
 	public void testRenderingDecorators() throws Exception {
 		page.closeAllEditors();
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider())
 				.getInnerFeatureProvider();
@@ -1593,7 +1594,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 	public void testCompositeConnection() throws Exception {
 		page.closeAllEditors();
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider())
 				.getInnerFeatureProvider();

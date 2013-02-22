@@ -10,6 +10,7 @@
  * Contributors:
  *    Bug 336488 - DiagramEditor API
  *    Felix Velasco - mwenz - Bug 379788 - Memory leak in DefaultMarkerBehavior
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -38,20 +39,20 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * The default implementation for the {@link DiagramEditor} behavior extension
+ * The default implementation for the {@link IDiagramEditorUI} behavior extension
  * that controls how markers are handled in the editor. Clients may subclass to
- * change the marker behavior; use {@link DiagramEditor#createMarkerBehavior()}
+ * change the marker behavior; use {@link IDiagramEditorUI#createMarkerBehavior()}
  * to return the instance that shall be used.<br>
- * Note that there is always a 1:1 relation with a {@link DiagramEditor}.
+ * Note that there is always a 1:1 relation with a {@link IDiagramEditorUI}.
  * 
  * @since 0.9
  */
 public class DefaultMarkerBehavior {
 
 	/**
-	 * The associated {@link DiagramEditor}
+	 * The associated {@link IDiagramEditorUI}
 	 */
-	protected DiagramEditor diagramEditor;
+	protected IDiagramEditorUI diagramEditor;
 
 	/**
 	 * The marker helper instance is responsible for creating workspace resource
@@ -71,12 +72,13 @@ public class DefaultMarkerBehavior {
 
 	/**
 	 * Creates a new instance of {@link DefaultMarkerBehavior} that is
-	 * associated with the given {@link DiagramEditor}.
+	 * associated with the given {@link IDiagramEditorUI}.
 	 * 
 	 * @param diagramEditor
-	 *            the associated {@link DiagramEditor}
+	 *            the associated {@link IDiagramEditorUI}
+	 * @since 0.10
 	 */
-	public DefaultMarkerBehavior(DiagramEditor diagramEditor) {
+	public DefaultMarkerBehavior(IDiagramEditorUI diagramEditor) {
 		super();
 		this.diagramEditor = diagramEditor;
 	}

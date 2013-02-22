@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.graphiti.examples.common.IExampleImageConstants;
 import org.eclipse.graphiti.examples.common.outline.tree.PictogramsTreeEditPartFactory;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScrollableThumbnail;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.Action;
@@ -81,7 +81,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IPr
 
 	private SelectionSynchronizer _selectionSynchronizer;
 
-	private DiagramEditor _diagramEditor;
+	private IDiagramEditorUI _diagramEditor;
 
 	// The thumbnail to display
 	private FixedScrollableThumbnail _thumbnail;
@@ -107,9 +107,9 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IPr
 	 * 
 	 * @param diagramEditor
 	 *            the attached diagram editor
-	 * @since 0.9
+	 * @since 0.10
 	 */
-	public GraphicsEditorOutlinePage(DiagramEditor diagramEditor) {
+	public GraphicsEditorOutlinePage(IDiagramEditorUI diagramEditor) {
 		super(new TreeViewer());
 		_graphicalViewer = diagramEditor.getGraphicalViewer();
 		_actionRegistry = (ActionRegistry) diagramEditor.getAdapter(ActionRegistry.class);

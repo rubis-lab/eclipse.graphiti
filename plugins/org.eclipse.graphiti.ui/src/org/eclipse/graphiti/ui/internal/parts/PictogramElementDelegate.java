@@ -21,6 +21,7 @@
  *    mwenz - Bug 358255 - Add Border/Background decorators
  *    mgorning - Bug 368124 - ConnectionDecorator with Text causes problems 
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -106,7 +107,7 @@ import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.IImageDecorator;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.DecoratorImageFigure;
@@ -1530,7 +1531,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		return forceRefresh;
 	}
 
-	private DiagramEditor getEditor() {
+	private IDiagramEditorUI getEditor() {
 		return getConfigurationProvider().getDiagramEditor();
 	}
 

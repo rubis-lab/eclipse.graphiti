@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -19,12 +20,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.platform.AbstractPropertySectionFilter;
 
 /**
  * Filters out all other object than {@link EReference}s that get selected in
- * the {@link DiagramEditor} for displaying properties.
+ * the {@link IDiagramEditorUI} for displaying properties.
  */
 public class TutorialEReferenceFilter extends AbstractPropertySectionFilter {
 

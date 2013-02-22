@@ -18,7 +18,7 @@ package org.eclipse.graphiti.examples.common.outline;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 // The generic outline uses internal functionality of Graphiti. For concrete
@@ -31,8 +31,8 @@ public class ContentOutlinePageAdapterFactory implements IAdapterFactory {
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		if (GFPreferences.getInstance().isGenericOutlineActive()) {
 			if (IContentOutlinePage.class.equals(adapterType)) {
-				if (adaptableObject instanceof DiagramEditor) {
-					DiagramEditor diagramEditor = (DiagramEditor) adaptableObject;
+				if (adaptableObject instanceof IDiagramEditorUI) {
+					IDiagramEditorUI diagramEditor = (IDiagramEditorUI) adaptableObject;
 					if (diagramEditor.getDiagramTypeProvider() != null) { // diagram
 																			// editor
 																			// initialized?
