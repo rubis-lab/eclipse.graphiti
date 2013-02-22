@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -24,7 +25,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPartSite;
 
 /**
@@ -36,9 +36,12 @@ import org.eclipse.ui.IWorkbenchPartSite;
  */
 public final class ElementDeleteListener extends AdapterImpl {
 
-	private DiagramEditor diagramEditor;
+	private IDiagramEditorUI diagramEditor;
 
-	public ElementDeleteListener(DiagramEditor d) {
+	/**
+	 * @since 0.10
+	 */
+	public ElementDeleteListener(IDiagramEditorUI d) {
 		this.diagramEditor = d;
 	}
 
@@ -82,7 +85,6 @@ public final class ElementDeleteListener extends AdapterImpl {
 					}
 					if (diagram == null || EcoreUtil.getRootContainer(diagram) == null) {
 						// diagram is gone so try to close
-						final IWorkbenchPage page = site.getPage();
 						if (T.racer().debug()) {
 							final String editorName = diagramEditor.getTitle();
 							T.racer().debug("Closing editor " + editorName); //$NON-NLS-1$

@@ -12,6 +12,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *    mgorning - Bug 377419 - Hide text in underlying GA while DirectEditing is enabled
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -29,7 +30,7 @@ import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.func.IDirectEditing;
 import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.graphiti.func.Proposal;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.figures.GFMultilineText;
 import org.eclipse.graphiti.ui.internal.figures.GFText;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
@@ -64,7 +65,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 
 	private IDirectEditingFeature directEditingFeature;
 
-	private DiagramEditor diagramEditor;
+	private IDiagramEditorUI diagramEditor;
 
 	private Font cellEditorFont = null;
 

@@ -12,6 +12,7 @@
  *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
  *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
  *    mwenz - Bug 393074 - Save Editor Progress Monitor Argument
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -49,21 +50,21 @@ import org.eclipse.jface.operation.ModalContext;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * The default implementation for the {@link DiagramEditor} behavior extension
+ * The default implementation for the {@link IDiagramEditorUI} behavior extension
  * that controls the persistence behavior of the Graphiti diagram Editor.
  * Clients may subclass to change the behavior; use
- * {@link DiagramEditor#createPersistencyBehavior()} to return the instance that
+ * {@link IDiagramEditorUI#createPersistencyBehavior()} to return the instance that
  * shall be used.<br>
- * Note that there is always a 1:1 relation with a {@link DiagramEditor}.
+ * Note that there is always a 1:1 relation with a {@link IDiagramEditorUI}.
  * 
  * @since 0.9
  */
 public class DefaultPersistencyBehavior {
 
 	/**
-	 * The associated {@link DiagramEditor}
+	 * The associated {@link IDiagramEditorUI}
 	 */
-	protected final DiagramEditor diagramEditor;
+	protected final IDiagramEditorUI diagramEditor;
 
 	/**
 	 * Used to store the command that was executed before the editor was saved.
@@ -74,12 +75,13 @@ public class DefaultPersistencyBehavior {
 
 	/**
 	 * Creates a new instance of {@link DefaultPersistencyBehavior} that is
-	 * associated with the given {@link DiagramEditor}.
+	 * associated with the given {@link IDiagramEditorUI}.
 	 * 
 	 * @param diagramEditor
-	 *            the associated {@link DiagramEditor}
+	 *            the associated {@link IDiagramEditorUI}
+	 * @since 0.10
 	 */
-	public DefaultPersistencyBehavior(DiagramEditor diagramEditor) {
+	public DefaultPersistencyBehavior(IDiagramEditorUI diagramEditor) {
 		this.diagramEditor = diagramEditor;
 	}
 
@@ -133,14 +135,14 @@ public class DefaultPersistencyBehavior {
 	/**
 	 * This method is called to save a diagram. The default implementation here
 	 * saves all changes done to any of the EMF resources loaded within the
-	 * {@link DiagramEditor} so that the complete state of all modified objects
+	 * {@link IDiagramEditorUI} so that the complete state of all modified objects
 	 * will be persisted in the file system.<br>
 	 * The default implementation also sets the current version information
 	 * (currently 0.10.0) to the diagram before saving it and wraps the save
 	 * operation inside a {@link IRunnableWithProgress} that cares about sending
 	 * only one {@link Resource} change event holding all modified files.
 	 * Besides also all adapters are temporarily switched off (see
-	 * {@link DiagramEditor#disableAdapters()}).<br>
+	 * {@link IDiagramEditorUI#disableAdapters()}).<br>
 	 * To only modify the actual saving clients should rather override
 	 * {@link #save(TransactionalEditingDomain, Map)}.
 	 * 
@@ -189,7 +191,7 @@ public class DefaultPersistencyBehavior {
 
 	/**
 	 * Returns if the editor needs to be saved or not. Is queried by the
-	 * {@link DiagramEditor#isDirty()} method. The default implementation checks
+	 * {@link IDiagramEditorUI#isDirty()} method. The default implementation checks
 	 * if the top of the current undo stack is equal to the stored top command
 	 * of the undo stack at the time of the last saving of the editor.
 	 * 

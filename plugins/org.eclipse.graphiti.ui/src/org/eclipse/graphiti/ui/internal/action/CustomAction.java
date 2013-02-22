@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -22,7 +23,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.command.CommandContainer;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ICommand;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.jface.action.Action;
 
@@ -36,9 +37,9 @@ public class CustomAction extends Action {
 
 	private ICustomContext context;
 
-	private DiagramEditor diagramEditor;
+	private IDiagramEditorUI diagramEditor;
 
-	public CustomAction(ICustomFeature customFeature, ICustomContext context, DiagramEditor diagramEditor) {
+	public CustomAction(ICustomFeature customFeature, ICustomContext context, IDiagramEditorUI diagramEditor) {
 		super();
 		this.customFeature = customFeature;
 		this.context = context;

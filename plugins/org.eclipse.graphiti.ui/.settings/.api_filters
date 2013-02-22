@@ -1,25 +1,117 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.graphiti.ui" version="2">
+    <resource path="META-INF/MANIFEST.MF">
+        <filter id="923795461">
+            <message_arguments>
+                <message_argument value="0.10.0"/>
+                <message_argument value="0.9.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DefaultMarkerBehavior.java" type="org.eclipse.graphiti.ui.editor.DefaultMarkerBehavior">
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultMarkerBehavior"/>
+                <message_argument value="DefaultMarkerBehavior(DiagramEditor)"/>
+            </message_arguments>
+        </filter>
+        <filter id="388161617">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultMarkerBehavior"/>
+                <message_argument value="diagramEditor"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DefaultPaletteBehavior.java" type="org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior">
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior"/>
+                <message_argument value="DefaultPaletteBehavior(DiagramEditor)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior"/>
+                <message_argument value="getDiagramEditor()"/>
+            </message_arguments>
+        </filter>
+        <filter id="388161617">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior"/>
+                <message_argument value="diagramEditor"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/DefaultPersistencyBehavior.java" type="org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior">
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior"/>
+                <message_argument value="DefaultPersistencyBehavior(DiagramEditor)"/>
+            </message_arguments>
+        </filter>
         <filter id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior"/>
                 <message_argument value="save(TransactionalEditingDomain, Map&lt;Resource,Map&lt;?,?&gt;&gt;)"/>
             </message_arguments>
         </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/ui/editor/DiagramEditor.java" type="org.eclipse.graphiti.ui.editor.DiagramEditor">
-        <filter comment="Changing from a class to an interface. Need to explore other options." id="337809484">
+        <filter id="388161617">
             <message_arguments>
-                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
-                <message_argument value="4"/>
-                <message_argument value="8"/>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior"/>
+                <message_argument value="diagramEditor"/>
             </message_arguments>
         </filter>
-        <filter id="574619656">
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DefaultRefreshBehavior.java" type="org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior">
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior"/>
+                <message_argument value="DefaultRefreshBehavior(DiagramEditor)"/>
+            </message_arguments>
+        </filter>
+        <filter id="388161617">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior"/>
+                <message_argument value="diagramEditor"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DefaultUpdateBehavior.java" type="org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior">
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior"/>
+                <message_argument value="DefaultUpdateBehavior(DiagramEditor)"/>
+            </message_arguments>
+        </filter>
+        <filter id="388161617">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior"/>
+                <message_argument value="diagramEditor"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DiagramComposite.java" type="org.eclipse.graphiti.ui.editor.DiagramComposite">
+        <filter id="574660632">
+            <message_arguments>
+                <message_argument value="IDiagramEditorUI"/>
+                <message_argument value="IDiagramEditor"/>
+                <message_argument value="DiagramComposite"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/ElementDeleteListener.java" type="org.eclipse.graphiti.ui.editor.ElementDeleteListener">
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.ElementDeleteListener"/>
+                <message_argument value="ElementDeleteListener(DiagramEditor)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/IDiagramEditorUI.java" type="org.eclipse.graphiti.ui.editor.IDiagramEditorUI">
+        <filter id="571473929">
             <message_arguments>
                 <message_argument value="IDiagramEditor"/>
-                <message_argument value="DiagramEditor"/>
+                <message_argument value="IDiagramEditorUI"/>
             </message_arguments>
         </filter>
     </resource>
@@ -73,7 +165,7 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/internal/editor/DiagramEditorDummy.java" type="org.eclipse.graphiti.ui.internal.editor.DiagramEditorDummy">
-        <filter comment="Allow direct implementation accross Graphiti projects to make dummy editor available" id="574619656">
+        <filter id="574619656">
             <message_arguments>
                 <message_argument value="IDiagramEditor"/>
                 <message_argument value="DiagramEditorDummy"/>

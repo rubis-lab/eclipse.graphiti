@@ -13,6 +13,7 @@
  *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    mwenz - Bug 397303 - Accessibility issue with Graphiti diagram in High Contrast Mode
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -31,7 +32,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.internal.contextbuttons.IContextButtonPadDeclaration;
 import org.eclipse.graphiti.internal.contextbuttons.IContextButtonPadDeclaration.PadStyle;
 import org.eclipse.graphiti.internal.contextbuttons.PositionedContextButton;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
@@ -87,7 +88,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	/**
 	 * The editor as described in {@link #getEditor()}.
 	 */
-	private DiagramEditor editor;
+	private IDiagramEditorUI editor;
 
 	/**
 	 * The edit-part as described in {@link #getEditPart()}.
@@ -173,7 +174,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	 * @param resourceRegistry
 	 */
 	public ContextButtonPad(ContextButtonManagerForPad contextButtonManagerForPad,
-			IContextButtonPadDeclaration declaration, double zoomLevel, DiagramEditor editor, EditPart editPart,
+			IContextButtonPadDeclaration declaration, double zoomLevel, IDiagramEditorUI editor, EditPart editPart,
 			IResourceRegistry resourceRegistry) {
 		this.declaration = declaration;
 		this.zoomLevel = zoomLevel;
@@ -220,7 +221,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	 * 
 	 * @return The editor, which can be used to access the environment.
 	 */
-	public final DiagramEditor getEditor() {
+	public final IDiagramEditorUI getEditor() {
 		return editor;
 	}
 

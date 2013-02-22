@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    pjpaulin - initial API, implementation and documentation
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -56,7 +57,7 @@ import org.eclipse.ui.IWorkbenchPartSite;
  * 
  * @since 0.10
  */
-public class DiagramComposite extends GraphicalComposite implements DiagramEditor {
+public class DiagramComposite extends GraphicalComposite implements IDiagramEditorUI {
 
 	private DiagramSupport diagramSupport;
 

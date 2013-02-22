@@ -22,7 +22,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.graphiti.examples.common.outline.ContentOutlinePageAdapterFactory;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -58,7 +58,7 @@ public class ExamplesCommonPlugin extends AbstractUIPlugin {
 		super.start(context);
 
 		IAdapterManager manager = Platform.getAdapterManager();
-		manager.registerAdapters(new ContentOutlinePageAdapterFactory(), DiagramEditor.class);
+		manager.registerAdapters(new ContentOutlinePageAdapterFactory(), IDiagramEditorUI.class);
 	}
 
 	// ======================== static access methods ==========================

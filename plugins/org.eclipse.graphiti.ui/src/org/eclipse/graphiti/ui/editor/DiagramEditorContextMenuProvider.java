@@ -17,6 +17,7 @@
  *    cbrand - Bug 377783 - Dump for figures in connection layer needed
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    pjpaulin - Bug 352120 - Add certain menu options only if local transaction
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -442,7 +443,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 		return this.diagramTypeProvider;
 	}
 
-	private DiagramEditor getEditor() {
-		return (DiagramEditor) getDiagramTypeProvider().getDiagramEditor();
+	private IDiagramEditorUI getEditor() {
+		return (IDiagramEditorUI) getDiagramTypeProvider().getDiagramEditor();
 	}
 }

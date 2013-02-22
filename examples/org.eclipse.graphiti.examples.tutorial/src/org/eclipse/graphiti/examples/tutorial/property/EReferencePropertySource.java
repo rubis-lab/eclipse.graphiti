@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -16,14 +17,14 @@
 package org.eclipse.graphiti.examples.tutorial.property;
 
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 
 /**
  * Defines the properties that shall be displayed for {@link EReference}s
- * selected in the {@link DiagramEditor}.
+ * selected in the {@link IDiagramEditorUI}.
  */
 public class EReferencePropertySource implements IPropertySource {
 

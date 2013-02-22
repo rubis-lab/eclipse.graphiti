@@ -13,6 +13,7 @@
  *    mgorning - Bug 371671 - addGraphicalRepresentation returns null in dark mode
  *    mwenz - Felix Velasco - Bug 374918 - Let default paste use LocalSelectionTransfer
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
  *
  * </copyright>
  *
@@ -74,6 +75,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.testtool.ecore.TestDiagramTypeProvider;
 import org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
 import org.eclipse.graphiti.ui.features.AbstractPasteFeature;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
@@ -182,7 +184,7 @@ public class GFPackageTests extends AbstractGFTests {
 		assertNotNull(myConfigurableFeatureProviderWrapper.getAddFeature(addContext));
 
 		// test canLayout
-		DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		PictogramElement pe = getPictogramElement(diagramEditor);
 		LayoutContext layoutContext = new LayoutContext(pe);
 		assertFalse(myConfigurableFeatureProviderWrapper.canLayout(layoutContext).toBoolean());
@@ -195,7 +197,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 		String s = null;
 		TestDiagramTypeProvider myDiagramTypeProvider = new TestDiagramTypeProvider();
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 		myDiagramTypeProvider.init(diagram, diagramEditor);
 		PictogramElement pe = getPictogramElement(diagramEditor);
@@ -340,7 +342,7 @@ public class GFPackageTests extends AbstractGFTests {
 	@Test
 	public void testGraphitiPasteTwoDiagrams() throws Exception {
 		TestDiagramTypeProvider myDiagramTypeProvider = new TestDiagramTypeProvider();
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 		myDiagramTypeProvider.init(diagram, diagramEditor);
 		PictogramElement pe = getPictogramElement(diagramEditor);
@@ -365,7 +367,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 		// Test paste in a second diagram
 		TestDiagramTypeProvider myDiagramTypeProvider2 = new TestDiagramTypeProvider();
-		final DiagramEditor diagramEditor2 = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE, "xmi", "diagram2");
+		final IDiagramEditorUI diagramEditor2 = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE, "xmi", "diagram2");
 		final Diagram diagram2 = diagramEditor2.getDiagramTypeProvider().getDiagram();
 		myDiagramTypeProvider2.init(diagram2, diagramEditor2);
 		final MyPasteFeature myPasteFeature = new MyPasteFeature(myDiagramTypeProvider2.getFeatureProvider(), diagram2);
@@ -391,7 +393,7 @@ public class GFPackageTests extends AbstractGFTests {
 		page.closeAllEditors();
 	}
 
-	private PictogramElement getPictogramElement(DiagramEditor diagramEditor) {
+	private PictogramElement getPictogramElement(IDiagramEditorUI diagramEditor) {
 
 		Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 		addClassesAndReferencesToDiagram(diagramEditor);
@@ -403,7 +405,7 @@ public class GFPackageTests extends AbstractGFTests {
 		return pe;
 	}
 
-	private void addClassesAndReferencesToDiagram(final DiagramEditor diagramEditor) {
+	private void addClassesAndReferencesToDiagram(final IDiagramEditorUI diagramEditor) {
 		syncExec(new VoidResult() {
 			public void run() {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
@@ -517,7 +519,7 @@ public class GFPackageTests extends AbstractGFTests {
 		expect(diagramMock.getConnections()).andReturn(connections).anyTimes();
 		replay(diagramMock);
 
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramEditorUI diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 
 		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
