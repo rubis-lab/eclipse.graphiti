@@ -180,7 +180,7 @@ public class DiagramSupport {
 
 	void selectPictogramElements(PictogramElement[] pictogramElements) {
 		List<EditPart> editParts = new ArrayList<EditPart>();
-		Map<?, ?> editPartRegistry = this.container.getGraphicalViewer().getEditPartRegistry();
+		Map<?, ?> editPartRegistry = container.getGraphicalViewer().getEditPartRegistry();
 		if (editPartRegistry != null) {
 			for (int i = 0; i < pictogramElements.length; i++) {
 				PictogramElement pe = pictogramElements[i];
@@ -196,7 +196,7 @@ public class DiagramSupport {
 					editParts.add((EditPart) obj);
 				}
 			}
-			this.container.getWorkbenchPart().getSite().getSelectionProvider()
+			container.getWorkbenchPart().getSite().getSelectionProvider()
 					.setSelection(new StructuredSelection(editParts));
 			if (editParts.size() > 0) {
 				final EditPart editpart = editParts.get(0);
@@ -215,7 +215,7 @@ public class DiagramSupport {
 
 	PictogramElement[] getSelectedPictogramElements() {
 		PictogramElement pe[] = new PictogramElement[0];
-		ISelectionProvider selectionProvider = this.container.getWorkbenchPart().getSite().getSelectionProvider();
+		ISelectionProvider selectionProvider = container.getWorkbenchPart().getSite().getSelectionProvider();
 		if (selectionProvider != null) {
 			ISelection s = selectionProvider.getSelection();
 			if (s instanceof IStructuredSelection) {
@@ -238,19 +238,19 @@ public class DiagramSupport {
 
 	void setPictogramElementForSelection(PictogramElement pictogramElement) {
 		if (pictogramElement == null) {
-			this.pictogramElementsForSelection = null;
+			pictogramElementsForSelection = null;
 		} else {
-			this.pictogramElementsForSelection = new PictogramElement[] { pictogramElement };
+			pictogramElementsForSelection = new PictogramElement[] { pictogramElement };
 		}
 	}
 
 	void setPictogramElementsForSelection(PictogramElement[] pictogramElements) {
-		this.pictogramElementsForSelection = pictogramElements;
+		pictogramElementsForSelection = pictogramElements;
 	}
 
 	ResourceSet getResourceSet() {
 		ResourceSet ret = null;
-		TransactionalEditingDomain editingDomain = this.container.getEditingDomain();
+		TransactionalEditingDomain editingDomain = container.getEditingDomain();
 		if (editingDomain != null) {
 			ret = editingDomain.getResourceSet();
 		}
@@ -258,19 +258,19 @@ public class DiagramSupport {
 	}
 
 	IDiagramTypeProvider getDiagramTypeProvider() {
-		IConfigurationProvider cfgProvider = getConfigurationProvider();
-		if (cfgProvider != null)
+		IConfigurationProvider cfgProvider = container.getConfigurationProvider();
+		if (cfgProvider != null) {
 			return cfgProvider.getDiagramTypeProvider();
+		}
 		return null;
 	}
 
 	TransactionalEditingDomain getEditingDomain() {
-		return this.getUpdateBehavior().getEditingDomain();
+		return container.getUpdateBehavior().getEditingDomain();
 	}
 
 	void refresh() {
-		this.getRefreshBehavior().refresh();
-
+		getRefreshBehavior().refresh();
 	}
 
 	boolean isDirty() {
@@ -283,7 +283,7 @@ public class DiagramSupport {
 	}
 
 	void refreshRenderingDecorators(PictogramElement pe) {
-		this.getRefreshBehavior().refreshRenderingDecorators(pe);
+		container.getRefreshBehavior().refreshRenderingDecorators(pe);
 	}
 
 	void refreshPalette() {
@@ -293,7 +293,7 @@ public class DiagramSupport {
 	Object executeFeature(IFeature feature, IContext context) {
 		Object returnValue = null;
 
-		DefaultEditDomain domain = this.container.getEditDomain();
+		DefaultEditDomain domain = container.getEditDomain();
 
 		// Make sure the editor is valid
 		Assert.isNotNull(domain);
@@ -339,9 +339,9 @@ public class DiagramSupport {
 	}
 
 	boolean isAlive() {
-		IConfigurationProvider cp = getConfigurationProvider();
+		IConfigurationProvider cp = container.getConfigurationProvider();
 		if (cp != null) {
-			TransactionalEditingDomain editingDomain = this.container.getEditingDomain();
+			TransactionalEditingDomain editingDomain = container.getEditingDomain();
 			Diagram diagram = cp.getDiagram();
 			if (editingDomain != null && GraphitiInternal.getEmfService().isObjectAlive(diagram)) {
 				return true;
@@ -351,29 +351,29 @@ public class DiagramSupport {
 	}
 
 	void selectBufferedPictogramElements() {
-		if (getPictogramElementsForSelection() != null) {
-			selectPictogramElements(getPictogramElementsForSelection());
-			setPictogramElementsForSelection(null);
+		if (container.getPictogramElementsForSelection() != null) {
+			container.selectPictogramElements(getPictogramElementsForSelection());
+			container.setPictogramElementsForSelection(null);
 		}
 	}
 
 	void refreshContent() {
-		Diagram currentDiagram = getDiagramTypeProvider().getDiagram();
+		Diagram currentDiagram = container.getDiagramTypeProvider().getDiagram();
 		if (GraphitiInternal.getEmfService().isObjectAlive(currentDiagram)) {
-			refresh();
+			container.refresh();
 		} else {
-			IDiagramEditorInput diagramEditorInput = this.container.getDiagramEditorInput();
+			IDiagramEditorInput diagramEditorInput = container.getDiagramEditorInput();
 			// resolve diagram in reloaded resource
-			Diagram diagram = this.getPersistencyBehavior().loadDiagram(diagramEditorInput.getUri());
+			Diagram diagram = container.getPersistencyBehavior().loadDiagram(diagramEditorInput.getUri());
 			IDiagramTypeProvider diagramTypeProvider = getConfigurationProvider().getDiagramTypeProvider();
 			diagramTypeProvider.resourceReloaded(diagram);
 			// clean performance hashtables which have references
-			this.getRefreshBehavior().initRefresh();
+			container.getRefreshBehavior().initRefresh();
 			// to old proxies
-			setPictogramElementsForSelection(null);
+			container.setPictogramElementsForSelection(null);
 			// create new edit parts
-			this.container.getGraphicalViewer().setContents(diagram);
-			this.getRefreshBehavior().handleAutoUpdateAtReset();
+			container.getGraphicalViewer().setContents(diagram);
+			container.getRefreshBehavior().handleAutoUpdateAtReset();
 		}
 	}
 
@@ -382,7 +382,7 @@ public class DiagramSupport {
 	}
 
 	Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
-		IConfigurationProvider cfgProvider = getConfigurationProvider();
+		IConfigurationProvider cfgProvider = container.getConfigurationProvider();
 
 		if (cfgProvider != null) {
 			IToolBehaviorProvider tbp = cfgProvider.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
@@ -394,14 +394,14 @@ public class DiagramSupport {
 			}
 		}
 
-		GraphicalViewer viewer = this.container.getGraphicalViewer();
+		GraphicalViewer viewer = container.getGraphicalViewer();
 		if (type == ZoomManager.class && viewer != null) {
 			return viewer.getProperty(ZoomManager.class.toString());
 		}
 
 		if (type == IPropertySheetPage.class) {
-			if (cfgProvider != null && this.container instanceof ITabbedPropertySheetPageContributor) {
-				ITabbedPropertySheetPageContributor contributor = (ITabbedPropertySheetPageContributor) this.container;
+			if (cfgProvider != null && container instanceof ITabbedPropertySheetPageContributor) {
+				ITabbedPropertySheetPageContributor contributor = (ITabbedPropertySheetPageContributor) container;
 				if (contributor.getContributorId() != null) {
 					return new TabbedPropertySheetPage(contributor);
 				}
@@ -410,16 +410,16 @@ public class DiagramSupport {
 		}
 
 		if (type == Diagram.class) {
-			return getDiagramTypeProvider().getDiagram();
+			return container.getDiagramTypeProvider().getDiagram();
 		}
 		if (type == KeyHandler.class) {
-			return getCommonKeyHandler();
+			return container.getCommonKeyHandler();
 		}
 		if (type == SelectionSynchronizer.class) {
-			return this.container.getSelectionSynchronizer();
+			return container.getSelectionSynchronizer();
 		}
 		if (type == IContextButtonManager.class) {
-			return ((IConfigurationProviderInternal) getConfigurationProvider()).getContextButtonManager();
+			return ((IConfigurationProviderInternal) container.getConfigurationProvider()).getContextButtonManager();
 		}
 		if (type == IDiagramEditor.class) {
 			return this;
@@ -433,14 +433,14 @@ public class DiagramSupport {
 	}
 
 	EditPart getContentEditPart() {
-		if (this.container.getGraphicalViewer() != null) {
-			return this.container.getGraphicalViewer().getContents();
+		if (container.getGraphicalViewer() != null) {
+			return container.getGraphicalViewer().getContents();
 		}
 		return null;
 	}
 
 	GraphicalEditPart getEditPartForPictogramElement(PictogramElement pe) {
-		Map<?, ?> editPartRegistry = this.container.getGraphicalViewer().getEditPartRegistry();
+		Map<?, ?> editPartRegistry = container.getGraphicalViewer().getEditPartRegistry();
 		if (editPartRegistry != null) {
 			Object obj = editPartRegistry.get(pe);
 			if (obj instanceof GraphicalEditPart) {
@@ -475,8 +475,8 @@ public class DiagramSupport {
 		ret.x += viewLocation.x;
 		ret.y += viewLocation.y;
 
-		ZoomManager zoomManager = (ZoomManager) this.container.getGraphicalViewer().getProperty(
-				ZoomManager.class.toString());
+		ZoomManager zoomManager = (ZoomManager) container.getGraphicalViewer()
+				.getProperty(ZoomManager.class.toString());
 		ret = ret.getScaled(1 / zoomManager.getZoom());
 
 		return ret;
@@ -492,14 +492,15 @@ public class DiagramSupport {
 
 	void setDirectEditingActive(boolean directEditingActive) {
 		this.directEditingActive = directEditingActive;
-		((IConfigurationProviderInternal) this.getConfigurationProvider()).getContextButtonManager()
+		((IConfigurationProviderInternal) container.getConfigurationProvider()).getContextButtonManager()
 				.hideContextButtonsInstantly();
 	}
 
 	double getZoomLevel() {
-		ZoomManager zoomManager = (ZoomManager) getAdapter(ZoomManager.class);
-		if (zoomManager == null)
+		ZoomManager zoomManager = (ZoomManager) container.getAdapter(ZoomManager.class);
+		if (zoomManager == null) {
 			return 1;
+		}
 
 		/*
 		 * avoid long running calculations for large diagrams and zoom factors
@@ -509,7 +510,7 @@ public class DiagramSupport {
 	}
 
 	IFigure getFigureForPictogramElement(PictogramElement pe) {
-		GraphicalEditPart ep = getEditPartForPictogramElement(pe);
+		GraphicalEditPart ep = container.getEditPartForPictogramElement(pe);
 		if (ep != null) {
 			return ep.getFigure();
 		}
@@ -673,36 +674,34 @@ public class DiagramSupport {
 		// setting ContextMenuProvider
 		ContextMenuProvider contextMenuProvider = createContextMenuProvider();
 		if (contextMenuProvider != null) {
-			this.container.getGraphicalViewer().setContextMenu(contextMenuProvider);
+			container.getGraphicalViewer().setContextMenu(contextMenuProvider);
 			// the registration allows an extension of the context-menu by other
 			// plugins
 			if (shouldRegisterContextMenu()) {
-				this.container.getWorkbenchPart().getSite()
-						.registerContextMenu(contextMenuProvider, this.container.getGraphicalViewer());
+				container.getWorkbenchPart().getSite()
+						.registerContextMenu(contextMenuProvider, container.getGraphicalViewer());
 			}
 		}
 
 		// set contents
-		this.container.getGraphicalViewer().setEditPartFactory(
+		container.getGraphicalViewer().setEditPartFactory(
 				((IConfigurationProviderInternal) getConfigurationProvider()).getEditPartFactory());
-		this.container.getGraphicalViewer().setContents(getConfigurationProvider().getDiagram());
+		container.getGraphicalViewer().setContents(getConfigurationProvider().getDiagram());
 
 		getPaletteBehavior().initializeViewer();
 
-		this.container.getGraphicalViewer().getControl().addMouseMoveListener(new MouseMoveListener() {
+		container.getGraphicalViewer().getControl().addMouseMoveListener(new MouseMoveListener() {
 
 			public void mouseMove(MouseEvent e) {
 				setMouseLocation(e.x, e.y);
 			}
 		});
 
-		this.container.getGraphicalViewer()
-				.addDropTargetListener(
-						(TransferDropTargetListener) new ObjectsTransferDropTargetListener(this.container
-								.getGraphicalViewer()));
+		container.getGraphicalViewer().addDropTargetListener(
+				(TransferDropTargetListener) new ObjectsTransferDropTargetListener(container.getGraphicalViewer()));
 
-		this.container.getGraphicalViewer().addDropTargetListener(
-				new GFTemplateTransferDropTargetListener(this.container.getGraphicalViewer(), this.container));
+		container.getGraphicalViewer().addDropTargetListener(
+				new GFTemplateTransferDropTargetListener(container.getGraphicalViewer(), container));
 
 	}
 
@@ -717,8 +716,8 @@ public class DiagramSupport {
 	 * @return A new instance of {@link ContextMenuProvider}.
 	 */
 	ContextMenuProvider createContextMenuProvider() {
-		return new DiagramEditorContextMenuProvider(this.container.getGraphicalViewer(),
-				this.container.getActionRegistry(), getDiagramTypeProvider());
+		return new DiagramEditorContextMenuProvider(container.getGraphicalViewer(), container.getActionRegistry(),
+				container.getDiagramTypeProvider());
 	}
 
 	/**
@@ -750,16 +749,16 @@ public class DiagramSupport {
 		if (action == null) {
 			return;
 		}
-		this.container.getActionRegistry().registerAction(action);
+		container.getActionRegistry().registerAction(action);
 
 		if (action.getActionDefinitionId() != null) {
-			IHandlerService hs = (IHandlerService) this.container.getWorkbenchPart().getSite()
+			IHandlerService hs = (IHandlerService) container.getWorkbenchPart().getSite()
 					.getService(IHandlerService.class);
 			hs.activateHandler(action.getActionDefinitionId(), new ActionHandler(action));
 		}
 
 		@SuppressWarnings("unchecked")
-		List<String> selectionActions = this.container.getSelectionActions();
+		List<String> selectionActions = container.getSelectionActions();
 		selectionActions.add(action.getId());
 	}
 
@@ -773,28 +772,28 @@ public class DiagramSupport {
 	 *            the GEF zoom manager to use
 	 */
 	void initActionRegistry(ZoomManager zoomManager) {
-		final ActionRegistry actionRegistry = this.container.getActionRegistry();
+		final ActionRegistry actionRegistry = container.getActionRegistry();
 		@SuppressWarnings("unchecked")
-		final List<String> selectionActions = this.container.getSelectionActions();
+		final List<String> selectionActions = container.getSelectionActions();
 
 		// register predefined actions (e.g. update, remove, delete, ...)
-		IAction action = new UpdateAction(this.container.getWorkbenchPart(), getConfigurationProvider());
+		IAction action = new UpdateAction(container.getWorkbenchPart(), getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
-		action = new RemoveAction(this.container.getWorkbenchPart(), getConfigurationProvider());
+		action = new RemoveAction(container.getWorkbenchPart(), getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
-		action = new DeleteAction(this.container.getWorkbenchPart(), getConfigurationProvider());
+		action = new DeleteAction(container.getWorkbenchPart(), getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
-		action = new CopyAction(this.container.getWorkbenchPart(), getConfigurationProvider());
+		action = new CopyAction(container.getWorkbenchPart(), getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
-		action = new PasteAction(this.container.getWorkbenchPart(), getConfigurationProvider());
+		action = new PasteAction(container.getWorkbenchPart(), getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
@@ -804,7 +803,7 @@ public class DiagramSupport {
 
 			if (sf != null) {
 				ISaveImageContext context = new SaveImageContext();
-				action = new SaveImageAction(sf, context, this.container);
+				action = new SaveImageAction(sf, context, container);
 				actionRegistry.registerAction(action);
 				selectionActions.add(action.getId());
 			}
@@ -812,28 +811,27 @@ public class DiagramSupport {
 
 		registerAction(new ZoomInAction(zoomManager));
 		registerAction(new ZoomOutAction(zoomManager));
-		registerAction(new DirectEditAction(this.container.getWorkbenchPart()));
+		registerAction(new DirectEditAction(container.getWorkbenchPart()));
 
-		registerAction(new AlignmentAction(this.container.getWorkbenchPart(), PositionConstants.LEFT));
-		registerAction(new AlignmentAction(this.container.getWorkbenchPart(), PositionConstants.RIGHT));
-		registerAction(new AlignmentAction(this.container.getWorkbenchPart(), PositionConstants.TOP));
-		registerAction(new AlignmentAction(this.container.getWorkbenchPart(), PositionConstants.BOTTOM));
-		registerAction(new AlignmentAction(this.container.getWorkbenchPart(), PositionConstants.CENTER));
-		registerAction(new AlignmentAction(this.container.getWorkbenchPart(), PositionConstants.MIDDLE));
-		registerAction(new MatchWidthAction(this.container.getWorkbenchPart()));
-		registerAction(new MatchHeightAction(this.container.getWorkbenchPart()));
-		IAction showGrid = new ToggleGridAction(this.container.getGraphicalViewer());
-		this.container.getActionRegistry().registerAction(showGrid);
+		registerAction(new AlignmentAction(container.getWorkbenchPart(), PositionConstants.LEFT));
+		registerAction(new AlignmentAction(container.getWorkbenchPart(), PositionConstants.RIGHT));
+		registerAction(new AlignmentAction(container.getWorkbenchPart(), PositionConstants.TOP));
+		registerAction(new AlignmentAction(container.getWorkbenchPart(), PositionConstants.BOTTOM));
+		registerAction(new AlignmentAction(container.getWorkbenchPart(), PositionConstants.CENTER));
+		registerAction(new AlignmentAction(container.getWorkbenchPart(), PositionConstants.MIDDLE));
+		registerAction(new MatchWidthAction(container.getWorkbenchPart()));
+		registerAction(new MatchHeightAction(container.getWorkbenchPart()));
+		IAction showGrid = new ToggleGridAction(container.getGraphicalViewer());
+		container.getActionRegistry().registerAction(showGrid);
 
 		// Bug 323351: Add button to toggle a flag if the context pad buttons
 		// shall be shown or not
-		IAction toggleContextButtonPad = new ToggleContextButtonPadAction(this.container);
+		IAction toggleContextButtonPad = new ToggleContextButtonPadAction(container);
 		toggleContextButtonPad.setChecked(false);
 		actionRegistry.registerAction(toggleContextButtonPad);
 		// End bug 323351
 
-		IHandlerService hs = (IHandlerService) this.container.getWorkbenchPart().getSite()
-				.getService(IHandlerService.class);
+		IHandlerService hs = (IHandlerService) container.getSite().getService(IHandlerService.class);
 		hs.activateHandler(FeatureExecutionHandler.COMMAND_ID, new FeatureExecutionHandler(getConfigurationProvider()));
 	}
 
@@ -865,7 +863,7 @@ public class DiagramSupport {
 
 	void configureGraphicalViewer() {
 
-		ScrollingGraphicalViewer viewer = (ScrollingGraphicalViewer) this.container.getGraphicalViewer();
+		ScrollingGraphicalViewer viewer = (ScrollingGraphicalViewer) container.getGraphicalViewer();
 
 		ScalableRootEditPartAnimated rootEditPart = new ScalableRootEditPartAnimated(viewer) {
 
@@ -886,17 +884,17 @@ public class DiagramSupport {
 		zoomLevels.add(ZoomManager.FIT_WIDTH);
 		zoomLevels.add(ZoomManager.FIT_HEIGHT);
 		zoomManager.setZoomLevelContributions(zoomLevels);
-		IToolBehaviorProvider toolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
+		IToolBehaviorProvider toolBehaviorProvider = container.getConfigurationProvider().getDiagramTypeProvider()
 				.getCurrentToolBehaviorProvider();
 		zoomManager.setZoomLevels(toolBehaviorProvider.getZoomLevels());
 
-		this.initActionRegistry(zoomManager);
+		container.initActionRegistry(zoomManager);
 
 		// set the keyhandler.
-		viewer.setKeyHandler((new GraphicalViewerKeyHandler(viewer)).setParent(getCommonKeyHandler()));
+		viewer.setKeyHandler((new GraphicalViewerKeyHandler(viewer)).setParent(container.getCommonKeyHandler()));
 
 		// settings for grid and guides
-		Diagram diagram = getConfigurationProvider().getDiagram();
+		Diagram diagram = container.getConfigurationProvider().getDiagram();
 
 		boolean snapToGrid = diagram.isSnapToGrid();
 		int horizontalGridUnit = diagram.getGridUnit();
@@ -914,9 +912,9 @@ public class DiagramSupport {
 		viewer.setProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED, toolBehaviorProvider.isShowGuides());
 
 		// context button manager
-		IConfigurationProviderInternal configurationProvider = (IConfigurationProviderInternal) this
+		IConfigurationProviderInternal configurationProvider = (IConfigurationProviderInternal) container
 				.getConfigurationProvider();
-		configurationProvider.setContextButtonManager(new ContextButtonManagerForPad(this.container,
+		configurationProvider.setContextButtonManager(new ContextButtonManagerForPad(container,
 				configurationProvider.getResourceRegistry()));
 
 		/* sw: make scroll bars always visible */
@@ -939,7 +937,7 @@ public class DiagramSupport {
 	 * @since 0.9
 	 */
 	@Deprecated
-	DiagramScrollingBehavior getDiagramScrollingBehavior() {
+	private DiagramScrollingBehavior getDiagramScrollingBehavior() {
 		if (this.diagramScrollingBehavior == null) {
 			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
 					.getCurrentToolBehaviorProvider();
@@ -970,7 +968,7 @@ public class DiagramSupport {
 		return null;
 	}
 
-	void postCreatePartControl() {
+	void createPartControl() {
 		getDiagramTypeProvider().postInit();
 		gefCommandStackListener = new CommandStackEventListener() {
 
@@ -987,7 +985,7 @@ public class DiagramSupport {
 				}
 			}
 		};
-		this.container.getEditDomain().getCommandStack().addCommandStackEventListener(gefCommandStackListener);
+		container.getEditDomain().getCommandStack().addCommandStackEventListener(gefCommandStackListener);
 	}
 
 	CommandStackEventListener getGefCommandStackListener() {
@@ -1002,7 +1000,7 @@ public class DiagramSupport {
 	void unregisterDiagramResourceSetListener() {
 		if (diagramChangeListener != null) {
 			diagramChangeListener.stopListening();
-			TransactionalEditingDomain eDomain = this.container.getEditingDomain();
+			TransactionalEditingDomain eDomain = container.getEditingDomain();
 			eDomain.removeResourceSetListener(diagramChangeListener);
 		}
 	}
@@ -1015,7 +1013,7 @@ public class DiagramSupport {
 	 */
 	void unregisterBusinessObjectsListener() {
 		if (domainModelListener != null) {
-			TransactionalEditingDomain eDomain = this.container.getEditingDomain();
+			TransactionalEditingDomain eDomain = container.getEditingDomain();
 			eDomain.removeResourceSetListener(domainModelListener);
 		}
 	}
@@ -1028,8 +1026,8 @@ public class DiagramSupport {
 	 * unregistered in {@link #unregisterDiagramResourceSetListener()}.
 	 */
 	void registerDiagramResourceSetListener() {
-		diagramChangeListener = new DiagramChangeListener(this.container);
-		TransactionalEditingDomain eDomain = this.container.getEditingDomain();
+		diagramChangeListener = new DiagramChangeListener(container);
+		TransactionalEditingDomain eDomain = container.getEditingDomain();
 		eDomain.addResourceSetListener(diagramChangeListener);
 	}
 
@@ -1041,8 +1039,8 @@ public class DiagramSupport {
 	 * unregistered in {@link #unregisterBusinessObjectsListener()}.
 	 */
 	void registerBusinessObjectsListener() {
-		domainModelListener = new DomainModelChangeListener(this.container);
-		TransactionalEditingDomain eDomain = this.container.getEditingDomain();
+		domainModelListener = new DomainModelChangeListener(container);
+		TransactionalEditingDomain eDomain = container.getEditingDomain();
 		eDomain.addResourceSetListener(domainModelListener);
 	}
 
@@ -1056,7 +1054,7 @@ public class DiagramSupport {
 		}
 
 		diagramEditorInput = (IDiagramEditorInput) input;
-		Diagram diagram = this.getPersistencyBehavior().loadDiagram(diagramEditorInput.getUri());
+		Diagram diagram = getPersistencyBehavior().loadDiagram(diagramEditorInput.getUri());
 
 		// can happen if editor is started with invalid URI
 		if (diagram == null) {
@@ -1077,10 +1075,6 @@ public class DiagramSupport {
 			return;
 		}
 
-		Assert.isNotNull(providerId, "DiagramEditorInput does not convey a Provider ID '" + diagramEditorInput //$NON-NLS-1$
-				+ "'. . See the error log for details."); //$NON-NLS-1$
-
-		// get according diagram-type-provider
 		// Get according diagram-type-provider
 		IDiagramTypeProvider diagramTypeProvider = GraphitiUi.getExtensionManager().createDiagramTypeProvider(
 				providerId);
@@ -1089,16 +1083,16 @@ public class DiagramSupport {
 			return;
 		}
 
-		diagramTypeProvider.init(diagram, this.container);
-		IConfigurationProviderInternal configurationProvider = new ConfigurationProvider(this.container,
+		diagramTypeProvider.init(diagram, container);
+		IConfigurationProviderInternal configurationProvider = new ConfigurationProvider(container,
 				diagramTypeProvider);
-		this.setConfigurationProvider(configurationProvider);
-		this.getRefreshBehavior().handleAutoUpdateAtStartup();
+		setConfigurationProvider(configurationProvider);
+		getRefreshBehavior().handleAutoUpdateAtStartup();
 
 		registerBusinessObjectsListener();
 		registerDiagramResourceSetListener();
 
-		this.container.refreshTitle();
+		container.refreshTitle();
 	}
 
 	IDiagramEditorInput getInput() {
@@ -1114,29 +1108,29 @@ public class DiagramSupport {
 	 * <code>super.dispose()</code> in case you override this method!
 	 */
 	void preSuperDispose() {
-		unregisterDiagramResourceSetListener();
-		unregisterBusinessObjectsListener();
+		container.unregisterDiagramResourceSetListener();
+		container.unregisterBusinessObjectsListener();
 
-		if (getConfigurationProvider() != null) {
-			getConfigurationProvider().dispose();
+		if (container.getConfigurationProvider() != null) {
+			container.getConfigurationProvider().dispose();
 		}
 
-		if (paletteBehaviour != null) {
-			paletteBehaviour.dispose();
+		if (container.getPaletteBehaviour() != null) {
+			container.getPaletteBehaviour().dispose();
 		}
 
-		markerBehavior.dispose();
+		container.getMarkerBehavior().dispose();
 
 		// unregister selection listener, registered during createPartControl()
-		if (this.container instanceof ISelectionListener) {
-			if (this.container.getSite() != null && this.container.getSite().getPage() != null) {
-				this.container.getSite().getPage().removeSelectionListener((ISelectionListener) this.container);
+		if (container instanceof ISelectionListener) {
+			if (container.getSite() != null && container.getSite().getPage() != null) {
+				container.getSite().getPage().removeSelectionListener((ISelectionListener) container);
 			}
 		}
 
-		if (this.container.getEditDomain() != null && this.container.getEditDomain().getCommandStack() != null) {
-			this.container.getEditDomain().getCommandStack().removeCommandStackEventListener(gefCommandStackListener);
-			this.container.getEditDomain().getCommandStack().dispose();
+		if (container.getEditDomain() != null && container.getEditDomain().getCommandStack() != null) {
+			container.getEditDomain().getCommandStack().removeCommandStackEventListener(gefCommandStackListener);
+			container.getEditDomain().getCommandStack().dispose();
 		}
 
 		DefaultUpdateBehavior behavior = getUpdateBehavior();
@@ -1144,10 +1138,9 @@ public class DiagramSupport {
 	}
 
 	void postSuperDispose() {
-		if (this.container.getEditDomain() != null) {
-			this.container.getEditDomain().setCommandStack(null);
+		if (container.getEditDomain() != null) {
+			container.getEditDomain().setCommandStack(null);
 		}
-
 	}
 
 	/**
@@ -1158,10 +1151,9 @@ public class DiagramSupport {
 	 * @since 0.9
 	 */
 	void migrateDiagramModelIfNecessary() {
-		final Diagram diagram = getDiagramTypeProvider().getDiagram();
+		final Diagram diagram = container.getDiagramTypeProvider().getDiagram();
 		if (Graphiti.getMigrationService().shouldMigrate080To090(diagram)) {
-			this.container.getEditingDomain().getCommandStack()
-					.execute(new RecordingCommand(this.container.getEditingDomain()) {
+			container.getEditingDomain().getCommandStack().execute(new RecordingCommand(container.getEditingDomain()) {
 						@Override
 						protected void doExecute() {
 							Graphiti.getMigrationService().migrate080To090(diagram);
@@ -1232,17 +1224,17 @@ public class DiagramSupport {
 	 */
 	void createGraphicalViewer(Composite parent) {
 		GraphicalViewer viewer;
-		if (this.getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
-			viewer = new GFScrollingGraphicalViewer(this.container);
+		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
+			viewer = new GFScrollingGraphicalViewer(container);
 			((GFScrollingGraphicalViewer) viewer).createGFControl(parent);
 		} else {
-			viewer = new GraphitiScrollingGraphicalViewer(this.container);
+			viewer = new GraphitiScrollingGraphicalViewer(container);
 			viewer.createControl(parent);
 		}
-		this.container.setGraphicalViewer(viewer);
-		configureGraphicalViewer();
-		this.container.hookGraphicalViewer();
-		initializeGraphicalViewer();
+		container.setGraphicalViewer(viewer);
+		container.configureGraphicalViewer();
+		container.hookGraphicalViewer();
+		container.initializeGraphicalViewer();
 	}
 
 	String getEditorInitializationError() {

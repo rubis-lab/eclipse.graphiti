@@ -28,6 +28,8 @@ import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.KeyHandler;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
@@ -87,11 +89,11 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramEdit
 		getUpdateBehavior().init();
 		init();
 		this.diagramSupport.migrateDiagramModelIfNecessary();
-		this.diagramSupport.postCreatePartControl();
+		this.diagramSupport.createPartControl();
 	}
 
 	@Override
-	protected void initializeGraphicalViewer() {
+	public void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
 		this.diagramSupport.initializeGraphicalViewer();
 	}
@@ -102,7 +104,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramEdit
 	}
 
 	@Override
-	protected void configureGraphicalViewer() {
+	public void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 		this.diagramSupport.configureGraphicalViewer();
 	}
@@ -377,5 +379,37 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramEdit
 
 	public void doSave(IProgressMonitor monitor) {
 		this.diagramSupport.getPersistencyBehavior().saveDiagram(monitor);
+	}
+
+	public void initActionRegistry(ZoomManager zoomManager) {
+		diagramSupport.initActionRegistry(zoomManager);
+	}
+
+	public KeyHandler getCommonKeyHandler() {
+		return diagramSupport.getCommonKeyHandler();
+	}
+
+	public DefaultPersistencyBehavior getPersistencyBehavior() {
+		return diagramSupport.getPersistencyBehavior();
+	}
+
+	public void unregisterDiagramResourceSetListener() {
+		diagramSupport.unregisterDiagramResourceSetListener();
+	}
+
+	public void unregisterBusinessObjectsListener() {
+		diagramSupport.unregisterBusinessObjectsListener();
+	}
+
+	public DefaultPaletteBehavior getPaletteBehaviour() {
+		return diagramSupport.getPaletteBehavior();
+	}
+
+	public DefaultMarkerBehavior getMarkerBehavior() {
+		return diagramSupport.getMarkerBehavior();
+	}
+
+	public PictogramElement[] getPictogramElementsForSelection() {
+		return diagramSupport.getPictogramElementsForSelection();
 	}
 }

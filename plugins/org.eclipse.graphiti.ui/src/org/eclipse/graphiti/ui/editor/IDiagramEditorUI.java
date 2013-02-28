@@ -48,6 +48,8 @@ import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.KeyHandler;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
@@ -290,4 +292,24 @@ public interface IDiagramEditorUI extends IDiagramEditor {
 	void setGraphicalViewer(GraphicalViewer viewer);
 
 	void hookGraphicalViewer();
+
+	void configureGraphicalViewer();
+
+	void initializeGraphicalViewer();
+
+	void initActionRegistry(ZoomManager zoomManager);
+
+	KeyHandler getCommonKeyHandler();
+
+	DefaultPersistencyBehavior getPersistencyBehavior();
+
+	void unregisterDiagramResourceSetListener();
+
+	void unregisterBusinessObjectsListener();
+
+	DefaultPaletteBehavior getPaletteBehaviour();
+
+	DefaultMarkerBehavior getMarkerBehavior();
+
+	PictogramElement[] getPictogramElementsForSelection();
 }
