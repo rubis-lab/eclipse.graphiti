@@ -10,7 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -21,7 +21,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.swt.dnd.DND;
 
 /**
@@ -35,9 +35,9 @@ import org.eclipse.swt.dnd.DND;
  */
 public class GFTemplateTransferDropTargetListener extends TemplateTransferDropTargetListener {
 
-	private IDiagramEditorUI editor;
+	private IDiagramContainerUI editor;
 
-	public GFTemplateTransferDropTargetListener(EditPartViewer viewer, IDiagramEditorUI editor) {
+	public GFTemplateTransferDropTargetListener(EditPartViewer viewer, IDiagramContainerUI editor) {
 		super(viewer);
 		// it is important to set this value to true
 		setEnablementDeterminedByCommand(true);
@@ -58,7 +58,7 @@ public class GFTemplateTransferDropTargetListener extends TemplateTransferDropTa
 		} else
 			getCurrentEvent().detail = DND.DROP_NONE;
 
-		if (!editor.isDirectEditingActive()) {
+		if (!editor.getDiagramSupport().isDirectEditingActive()) {
 			selectAddedObject();
 		}
 	}

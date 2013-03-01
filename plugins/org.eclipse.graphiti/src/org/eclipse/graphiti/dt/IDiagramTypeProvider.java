@@ -24,6 +24,7 @@ import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.notification.INotificationService;
+import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.platform.IExtension;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
@@ -48,9 +49,19 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 * @param diagram
 	 *            the currently opened diagram
 	 * @param diagramEditor
-	 *            TODO
+	 * @deprecated Use {@link #init(Diagram, IDiagramContainer)} instead
 	 */
 	void init(Diagram diagram, IDiagramEditor diagramEditor);
+
+	/**
+	 * Implement this method to initialize the diagram type provider.
+	 * 
+	 * @param diagram
+	 *            the currently opened diagram
+	 * @param diagramEditor
+	 * @since 0.10
+	 */
+	void init(Diagram diagram, IDiagramContainer diagramContainer);
 
 	/**
 	 * Returns the diagram.
@@ -139,8 +150,17 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 * Returns the current diagram editor.
 	 * 
 	 * @return current diagram editor
+	 * @deprecated Use {@link #getDiagramContainer()} instead
 	 */
 	IDiagramEditor getDiagramEditor();
+
+	/**
+	 * Returns the current diagram container.
+	 * 
+	 * @return current diagram container
+	 * @since 0.10
+	 */
+	IDiagramContainer getDiagramContainer();
 
 	/**
 	 * Dispose.

@@ -13,7 +13,7 @@
  *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
  *    mwenz - Bug 389379 - Editor Dirty Handling (gets broken after context button execution)
  *    fvelasco - Bug 396247 - ImageDescriptor changes
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -38,7 +38,7 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.internal.contextbuttons.PositionedContextButton;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.editor.GFDragConnectionTool;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
@@ -235,13 +235,13 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	}
 
 	/**
-	 * Returns the {@link IDiagramEditorUI} for which the context button is
+	 * Returns the {@link IDiagramContainerUI} for which the context button is
 	 * displayed.
 	 * 
-	 * @return The {@link IDiagramEditorUI} for which the context button is
+	 * @return The {@link IDiagramContainerUI} for which the context button is
 	 *         displayed.
 	 */
-	public final IDiagramEditorUI getEditor() {
+	public final IDiagramContainerUI getEditor() {
 		return getContextButtonPad().getEditor();
 	}
 

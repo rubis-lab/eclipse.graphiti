@@ -13,7 +13,7 @@
  *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    mwenz - Bug 397303 - Accessibility issue with Graphiti diagram in High Contrast Mode
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -32,7 +32,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.internal.contextbuttons.IContextButtonPadDeclaration;
 import org.eclipse.graphiti.internal.contextbuttons.IContextButtonPadDeclaration.PadStyle;
 import org.eclipse.graphiti.internal.contextbuttons.PositionedContextButton;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
@@ -88,7 +88,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	/**
 	 * The editor as described in {@link #getEditor()}.
 	 */
-	private IDiagramEditorUI editor;
+	private IDiagramContainerUI editor;
 
 	/**
 	 * The edit-part as described in {@link #getEditPart()}.
@@ -174,7 +174,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	 * @param resourceRegistry
 	 */
 	public ContextButtonPad(ContextButtonManagerForPad contextButtonManagerForPad,
-			IContextButtonPadDeclaration declaration, double zoomLevel, IDiagramEditorUI editor, EditPart editPart,
+			IContextButtonPadDeclaration declaration, double zoomLevel, IDiagramContainerUI editor, EditPart editPart,
 			IResourceRegistry resourceRegistry) {
 		this.declaration = declaration;
 		this.zoomLevel = zoomLevel;
@@ -221,7 +221,7 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	 * 
 	 * @return The editor, which can be used to access the environment.
 	 */
-	public final IDiagramEditorUI getEditor() {
+	public final IDiagramContainerUI getEditor() {
 		return editor;
 	}
 
@@ -715,8 +715,8 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 	 */
 	public boolean isMouseInOverlappingArea() {
 		// determine mouse location in correct coordinates
-		Point editorMouseLocation = new Point(getEditor().getMouseLocation());
-		Point viewPortMouseLocation = getEditor().calculateRealMouseLocation(editorMouseLocation);
+		Point editorMouseLocation = new Point(getEditor().getDiagramSupport().getMouseLocation());
+		Point viewPortMouseLocation = getEditor().getDiagramSupport().calculateRealMouseLocation(editorMouseLocation);
 		Point mouseLocation = viewPortMouseLocation.scale(getZoomLevel());
 		// hide if mouse location outside overlapping containment rectangles
 		boolean containsPointOverlapping = containsPointOverlapping(mouseLocation.x, mouseLocation.y);

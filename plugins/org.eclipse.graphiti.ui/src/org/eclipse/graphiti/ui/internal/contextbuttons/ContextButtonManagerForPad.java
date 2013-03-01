@@ -13,7 +13,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mgorning - Bug 369370 - visibility of context button pad for graphical entities
  *    mwenz - Bug 392309 - Scrollbars appear when a tooltip is being displayed on a decorator
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -46,7 +46,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart;
 import org.eclipse.swt.SWT;
@@ -70,7 +70,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 * The editor on which this context button manager works, see
 	 * {@link #getEditor()}. It is set in the constructor.
 	 */
-	private IDiagramEditorUI editor;
+	private IDiagramContainerUI editor;
 
 	/**
 	 * A backward-map from the edit-part figures to their edit-parts as
@@ -122,9 +122,9 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 		}
 
 		private void reactOnMouse(MouseEvent me) {
-			IDiagramEditorUI ed = getEditor();
+			IDiagramContainerUI ed = getEditor();
 
-			if (ed.isDirectEditingActive()) {
+			if (ed.getDiagramSupport().isDirectEditingActive()) {
 				return;
 			}
 			Tool activeTool = ed.getEditDomain().getActiveTool();
@@ -160,7 +160,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 *            {@link #getEditor()}.
 	 * @param iResourceRegistry
 	 */
-	public ContextButtonManagerForPad(IDiagramEditorUI editor, IResourceRegistry resourceRegistry) {
+	public ContextButtonManagerForPad(IDiagramContainerUI editor, IResourceRegistry resourceRegistry) {
 		this.editor = editor;
 		this.resourceRegistry = resourceRegistry;
 
@@ -180,7 +180,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 * 
 	 * @return The editor this context button manager works on.
 	 */
-	public IDiagramEditorUI getEditor() {
+	public IDiagramContainerUI getEditor() {
 		return editor;
 	}
 

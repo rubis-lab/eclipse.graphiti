@@ -15,7 +15,7 @@
  *    Bug 336488 - DiagramEditor API - Rename from DiagramEditorBehavior to DefaultUpdateBehavior
  *    mwenz - Bug 389426 - Add factory method for creating EMF workspace synchronizer delegate
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -53,24 +53,28 @@ import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * The default implementation for the {@link IDiagramEditorUI} behavior extension
+ * The default implementation for the {@link IDiagramContainerUI} behavior extension
  * that controls update behavior of the editor and defines the EMF adapters that
  * watch over model object modifications. Clients may subclass to change the
- * behavior; use {@link IDiagramEditorUI#createUpdateBehavior()} to return the
+ * behavior; use {@link IDiagramContainerUI#createUpdateBehavior()} to return the
  * instance that shall be used.<br>
- * Note that there is always a 1:1 relation with a {@link IDiagramEditorUI}.
+ * Note that there is always a 1:1 relation with a {@link IDiagramContainerUI}.
  * 
  * @since 0.9
  */
 public class DefaultUpdateBehavior extends PlatformObject implements IEditingDomainProvider, IOperationHistoryListener {
 
 	/**
-	 * The associated {@link IDiagramEditorUI}
+	 * The associated {@link IDiagramContainerUI}
 	 */
-	protected final IDiagramEditorUI diagramEditor;
+	protected final IDiagramContainerUI diagramEditor;
+	/**
+	 * @since 0.10
+	 */
+	protected final DiagramSupport diagramSupport;
 
 	/**
-	 * The editing domain that is used throughout the {@link IDiagramEditorUI} is
+	 * The editing domain that is used throughout the {@link IDiagramContainerUI} is
 	 * kept here and only here.
 	 */
 	private TransactionalEditingDomain editingDomain;
@@ -180,15 +184,16 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 
 	/**
 	 * Creates a new {@link DefaultUpdateBehavior} instance associated with the
-	 * given {@link IDiagramEditorUI}.
+	 * given {@link IDiagramContainerUI}.
 	 * 
 	 * @param diagramEditor
 	 *            the part this model editor works on
 	 * @since 0.10
 	 */
-	public DefaultUpdateBehavior(IDiagramEditorUI diagramEditor) {
+	public DefaultUpdateBehavior(IDiagramContainerUI diagramEditor, DiagramSupport diagramSupport) {
 		super();
 		this.diagramEditor = diagramEditor;
+		this.diagramSupport = diagramSupport;
 	}
 
 	/**
@@ -310,7 +315,7 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 			getOperationHistory().dispose(undoContext, true, true, true);
 
 			// Disable adapters temporarily.
-			diagramEditor.disableAdapters();
+			diagramSupport.disableAdapters();
 
 			try {
 				// We unload our resources such that refreshEditorContent does a
@@ -319,10 +324,10 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 				for (Resource resource : resources) {
 					resource.unload();
 				}
-				diagramEditor.refreshContent();
+				diagramSupport.refreshContent();
 			} finally {
 				// Re-enable adapters again
-				diagramEditor.enableAdapters();
+				diagramSupport.enableAdapters();
 			}
 		}
 	}
@@ -359,7 +364,7 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 		}
 
 		// Retrieve the object from the editor input
-		final EObject object = (EObject) diagramEditor.getAdapter(Diagram.class);
+		final EObject object = (EObject) diagramSupport.getAdapter(Diagram.class);
 		// Register for object deletion
 		if (object != null) {
 			elementDeleteListener = new ElementDeleteListener(diagramEditor);
@@ -399,7 +404,7 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 		workspaceSynchronizer = new WorkspaceSynchronizer(getEditingDomain(), createWorkspaceSynchronizerDelegate());
 
 		// Problem analysis
-		diagramEditor.editingDomainInitialized();
+		diagramSupport.editingDomainInitialized();
 	}
 
 	/**
@@ -435,7 +440,7 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 			r.eAdapters().remove(updateAdapter);
 		}
 
-		EObject object = (EObject) diagramEditor.getAdapter(Diagram.class);
+		EObject object = (EObject) diagramSupport.getAdapter(Diagram.class);
 		if (object != null) {
 			object.eAdapters().remove(elementDeleteListener);
 		}
@@ -490,7 +495,7 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 		if (page == null) {
 			return;
 		}
-		diagramEditor.shutdown();
+		diagramEditor.close();
 	}
 
 	private IOperationHistory getOperationHistory() {

@@ -11,7 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -32,7 +32,7 @@ import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramEditor;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
@@ -101,15 +101,15 @@ public abstract class GFPropertySection extends AbstractPropertySection implemen
 	 */
 	protected IDiagramEditor getDiagramEditor() {
 		IWorkbenchPart part = getPart();
-		if (part instanceof IDiagramEditorUI) {
-			return (IDiagramEditorUI) part;
+		if (part instanceof IDiagramContainerUI) {
+			return (IDiagramContainerUI) part;
 		}
 		IContributedContentsView contributedView = (IContributedContentsView) part.getAdapter(IContributedContentsView.class);
 		if (contributedView != null) {
 			part = contributedView.getContributingPart();
 		}
-		if (part instanceof IDiagramEditorUI) {
-			return (IDiagramEditorUI) part;
+		if (part instanceof IDiagramContainerUI) {
+			return (IDiagramContainerUI) part;
 		}
 
 		return null;

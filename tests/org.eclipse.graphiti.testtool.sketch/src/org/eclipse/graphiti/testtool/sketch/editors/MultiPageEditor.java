@@ -11,7 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 387971 - Features cant't be invoked from contextMenu
  *    pjpaulin - Bug 352120 - Changed to instantiate DiagramEditorImpl
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
