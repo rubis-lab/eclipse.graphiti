@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.eclipse.graphiti.examples.common" version="2">
+    <resource path="META-INF/MANIFEST.MF">
+        <filter id="923795461">
+            <message_arguments>
+                <message_argument value="0.10.0"/>
+                <message_argument value="0.9.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="META-INF/MANIFEST.MF" type="org.eclipse.graphiti.examples.common.handler.OpenDiagramFromFileHandler">
+        <filter id="305324134">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.examples.common.handler.OpenDiagramFromFileHandler"/>
+                <message_argument value="org.eclipse.graphiti.examples.common_0.10.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/examples/common/handler/OpenDiagramEditorFromFileHandler.java" type="org.eclipse.graphiti.examples.common.handler.OpenDiagramEditorFromFileHandler">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.examples.common.handler.OpenDiagramEditorFromFileHandler"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/examples/common/outline/GraphicsEditorOutlinePage.java" type="org.eclipse.graphiti.examples.common.outline.GraphicsEditorOutlinePage">
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.examples.common.outline.GraphicsEditorOutlinePage"/>
+                <message_argument value="GraphicsEditorOutlinePage(DiagramEditor)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

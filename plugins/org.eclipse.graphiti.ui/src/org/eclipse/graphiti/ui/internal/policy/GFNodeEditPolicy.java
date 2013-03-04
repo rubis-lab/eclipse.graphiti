@@ -80,7 +80,7 @@ public class GFNodeEditPolicy extends GraphicalNodeEditPolicy {
 		IFigure hostFigure = getHostFigure();
 		PolylineConnection c = new DummyPolylineConnection(hostFigure);
 
-		c.setLineWidth((int) (2 * configurationProvider.getDiagramEditor().getZoomLevel()));
+		c.setLineWidth((int) (2 * configurationProvider.getDiagramSupport().getZoomLevel()));
 		c.setForegroundColor(GFColorConstants.HANDLE_BG);
 		c.setLineStyle(SWT.LINE_DASH);
 		return c;

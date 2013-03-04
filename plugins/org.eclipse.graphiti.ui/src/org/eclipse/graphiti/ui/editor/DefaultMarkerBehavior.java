@@ -10,7 +10,7 @@
  * Contributors:
  *    Bug 336488 - DiagramEditor API
  *    Felix Velasco - mwenz - Bug 379788 - Memory leak in DefaultMarkerBehavior
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -39,20 +39,22 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * The default implementation for the {@link IDiagramEditorUI} behavior extension
+ * The default implementation for the {@link DiagramSupport} behavior extension
  * that controls how markers are handled in the editor. Clients may subclass to
- * change the marker behavior; use {@link IDiagramEditorUI#createMarkerBehavior()}
+ * change the marker behavior; use {@link DiagramSupport#createMarkerBehavior()}
  * to return the instance that shall be used.<br>
- * Note that there is always a 1:1 relation with a {@link IDiagramEditorUI}.
+ * Note that there is always a 1:1 relation with a {@link DiagramSupport}.
  * 
  * @since 0.9
  */
 public class DefaultMarkerBehavior {
 
 	/**
-	 * The associated {@link IDiagramEditorUI}
+	 * The associated {@link DiagramSupport}
+	 * 
+	 * @since 0.10
 	 */
-	protected IDiagramEditorUI diagramEditor;
+	protected DiagramSupport diagramSupport;
 
 	/**
 	 * The marker helper instance is responsible for creating workspace resource
@@ -72,15 +74,15 @@ public class DefaultMarkerBehavior {
 
 	/**
 	 * Creates a new instance of {@link DefaultMarkerBehavior} that is
-	 * associated with the given {@link IDiagramEditorUI}.
+	 * associated with the given {@link DiagramSupport}.
 	 * 
-	 * @param diagramEditor
-	 *            the associated {@link IDiagramEditorUI}
+	 * @param diagramSupport
+	 *            the associated {@link DiagramSupport}
 	 * @since 0.10
 	 */
-	public DefaultMarkerBehavior(IDiagramEditorUI diagramEditor) {
+	public DefaultMarkerBehavior(DiagramSupport diagramSupport) {
 		super();
-		this.diagramEditor = diagramEditor;
+		this.diagramSupport = diagramSupport;
 	}
 
 	/**
@@ -89,7 +91,7 @@ public class DefaultMarkerBehavior {
 	 * change.
 	 */
 	public void initialize() {
-		diagramEditor.getResourceSet().eAdapters().add(problemIndicationAdapter);
+		diagramSupport.getResourceSet().eAdapters().add(problemIndicationAdapter);
 	}
 
 	/**
@@ -128,11 +130,11 @@ public class DefaultMarkerBehavior {
 	 * {@link EditUIMarkerHelper} to check and set markers for {@link EObject}s.
 	 */
 	void updateProblemIndication() {
-		if (diagramEditor == null) {
+		if (diagramSupport == null) {
 			// Already disposed
 			return;
 		}
-		TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+		TransactionalEditingDomain editingDomain = diagramSupport.getEditingDomain();
 		if (updateProblemIndication && editingDomain != null) {
 			ResourceSet resourceSet = editingDomain.getResourceSet();
 			final BasicDiagnostic diagnostic = new BasicDiagnostic(Diagnostic.OK, GraphitiUIPlugin.PLUGIN_ID, 0, null,
@@ -193,11 +195,11 @@ public class DefaultMarkerBehavior {
 	 */
 	public void dispose() {
 		disableProblemIndicationUpdate();
-		diagramEditor.getResourceSet().eAdapters().remove(problemIndicationAdapter);
+		diagramSupport.getResourceSet().eAdapters().remove(problemIndicationAdapter);
 
 		problemIndicationAdapter = null;
 		markerHelper = null;
-		diagramEditor = null;
+		diagramSupport = null;
 		resourceToDiagnosticMap.clear();
 		resourceToDiagnosticMap = null;
 	}

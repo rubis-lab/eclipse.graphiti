@@ -47,7 +47,6 @@ import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -55,17 +54,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
-import org.eclipse.gef.KeyStroke;
-import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
@@ -79,20 +73,14 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.action.RemoveAction;
-import org.eclipse.graphiti.ui.internal.editor.DomainModelChangeListener;
-import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.part.MultiPageEditorPart;
@@ -150,7 +138,7 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributo
  * @since 0.10
  * 
  */
-public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements IDiagramEditorUI,
+public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements IDiagramContainerUI,
 		ITabbedPropertySheetPageContributor, IEditingDomainProvider {
 
 	private String contributorId;
@@ -174,137 +162,11 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		this.diagramSupport = new DiagramSupport(this);
 	}
 
-	// ------------------ Behaviors --------------------------------------------
-
 	/**
-	 * Creates the behavior extension that deals with markers. See
-	 * {@link DefaultMarkerBehavior} for details and the default implementation.
-	 * Override to change the marker behavior.
-	 * 
-	 * @return a new instance of {@link DefaultMarkerBehavior}
-	 * @since 0.9
+	 * @since 0.10
 	 */
-	protected DefaultMarkerBehavior createMarkerBehavior() {
-		return this.diagramSupport.createMarkerBehavior();
-	}
-
-	/**
-	 * Creates the behavior extension that deals with the update handling. See
-	 * {@link DefaultUpdateBehavior} for details and the default implementation.
-	 * Override to change the update behavior.
-	 * 
-	 * @return a new instance of {@link DefaultUpdateBehavior}
-	 * @since 0.9
-	 */
-	protected DefaultUpdateBehavior createUpdateBehavior() {
-		return this.diagramSupport.createUpdateBehavior();
-	}
-
-	/**
-	 * Returns the instance of the update behavior that is used with this
-	 * editor. To change the behavior override {@link #createUpdateBehavior()}.
-	 * 
-	 * @return the used instance of the update behavior, by default a
-	 *         {@link DefaultUpdateBehavior}.
-	 * @since 0.9
-	 */
-	public final DefaultUpdateBehavior getUpdateBehavior() {
-		return this.diagramSupport.getUpdateBehavior();
-	}
-
-	/**
-	 * Creates the behavior extension that deals with the palette handling. See
-	 * {@link DefaultPaletteBehavior} for details and the default
-	 * implementation. Override to change the palette behavior.
-	 * 
-	 * @return a new instance of {@link DefaultPaletteBehavior}
-	 * @since 0.9
-	 */
-	protected DefaultPaletteBehavior createPaletteBehaviour() {
-		return this.diagramSupport.createPaletteBehaviour();
-	}
-
-	/**
-	 * Creates the behavior extension that deals with the persistence handling.
-	 * See {@link DefaultPersistencyBehavior} for details and the default
-	 * implementation. Override to change the persistence behavior.
-	 * 
-	 * @return a new instance of {@link DefaultPersistencyBehavior}
-	 * @since 0.9
-	 */
-	protected DefaultPersistencyBehavior createPersistencyBehavior() {
-		return this.diagramSupport.createPersistencyBehavior();
-	}
-
-	/**
-	 * Creates the behavior extension that deals with the refresh handling. See
-	 * {@link DefaultRefreshBehavior} for details and the default
-	 * implementation. Override to change the refresh behavior.
-	 * 
-	 * @return a new instance of {@link DefaultRefreshBehavior}
-	 * @since 0.9
-	 */
-	protected DefaultRefreshBehavior createRefreshBehavior() {
-		return this.diagramSupport.createRefreshBehavior();
-	}
-
-	/**
-	 * Returns the instance of the refresh behavior that is used with this
-	 * editor. To change the behavior override {@link #createRefreshBehavior()}.
-	 * 
-	 * @return the used instance of the refresh behavior, by default a
-	 *         {@link DefaultRefreshBehavior}.
-	 * @since 0.9
-	 */
-	public final DefaultRefreshBehavior getRefreshBehavior() {
-		return this.diagramSupport.getRefreshBehavior();
-	}
-
-	// ---------------------- Synchronization hooks between behaviors ------- //
-
-	/**
-	 * Hook that is called by the holder of the
-	 * {@link TransactionalEditingDomain} ({@link DefaultUpdateBehavior} or a
-	 * subclass of it) after the editing domain has been initialized. Can be
-	 * used to e.g. register additional listeners on the domain.<br>
-	 * The default implementation notifies the marker behavior extension to
-	 * register its listeners.
-	 * 
-	 * @since 0.9
-	 */
-	public void editingDomainInitialized() {
-		this.diagramSupport.editingDomainInitialized();
-	}
-
-	/**
-	 * Should be called (e.g. by the various behavior instances) before mass EMF
-	 * resource operations are triggered (e.g. saving all resources). Can be
-	 * used to disable eventing for performance reasons. See
-	 * {@link #enableAdapters()} as well.<br>
-	 * Important note: make sure that you re-enable eventing using
-	 * {@link #enableAdapters()} after the operation has finished (best in a
-	 * finally clause to do that also in case of exceptions), otherwise strange
-	 * errors may happen.
-	 * 
-	 * @since 0.9
-	 */
-	public void disableAdapters() {
-		this.diagramSupport.disableAdapters();
-	}
-
-	/**
-	 * Should be called by the various behavior instances after mass EMF
-	 * resource operations have been triggered (e.g. saving all resources). Can
-	 * be used to re-enable eventing after it was disabled for performance
-	 * reasons. See {@link #disableAdapters()} as well.<br>
-	 * Must be called after {@link #disableAdapters()} has been called and the
-	 * operation has finshed (best in a finally clause to also enable the
-	 * exception case), otherwise strange errors may occur within the editor.
-	 * 
-	 * @since 0.9
-	 */
-	public void enableAdapters() {
-		this.diagramSupport.enableAdapters();
+	public DiagramSupport getDiagramSupport() {
+		return diagramSupport;
 	}
 
 	// ------------------ Initializazion ---------------------------------------
@@ -337,6 +199,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * 
 	 */
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		// TODO check move parts to DiagramSupport
+
 		// Eclipse may call us with other inputs when a file is to be
 		// opened. Try to convert this to a valid diagram input.
 		if (!(input instanceof IDiagramEditorInput)) {
@@ -347,7 +211,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			}
 		}
 
-		this.getUpdateBehavior().createEditingDomain();
+		diagramSupport.getUpdateBehavior().createEditingDomain();
 
 		// The GEF GraphicalEditor init(...) functionality, adapted to provide a
 		// nice error message to the user in case of an error when opening an
@@ -363,10 +227,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		initializeActionRegistry();
 		// ... End of GEF functionality taken over
 
-		getUpdateBehavior().init();
+		diagramSupport.getUpdateBehavior().init();
 		this.diagramSupport.migrateDiagramModelIfNecessary();
 
-		migrateDiagramModelIfNecessary();
+		diagramSupport.migrateDiagramModelIfNecessary();
 		IContextService contextService = (IContextService) getSite().getService(IContextService.class);
 		contextService.activateContext(getDiagramTypeProvider().getContextId());
 	}
@@ -396,6 +260,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	protected DiagramEditorInput convertToDiagramEditorInput(IEditorInput input) throws PartInitException {
+		// TODO
 		IEditorInput newInput = EditorInputAdapter.adaptToDiagramEditorInput(input);
 		if (!(newInput instanceof IDiagramEditorInput)) {
 			throw new PartInitException("Unknown editor input: " + input); //$NON-NLS-1$
@@ -421,22 +286,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
-		this.diagramSupport.setInput((IDiagramEditorInput) input);
-	}
-
-	/**
-	 * Initializes the action registry with the predefined actions (update,
-	 * remove, delete, copy, paste, zooming, direct editing, alignment and
-	 * toggling actions for the diagram grip and hiding of the context button
-	 * pad.
-	 * 
-	 * @param zoomManager
-	 *            the GEF zoom manager to use
-	 * 
-	 * @since 0.9
-	 */
-	protected void initActionRegistry(ZoomManager zoomManager) {
-		this.diagramSupport.initActionRegistry(zoomManager);
+		diagramSupport.setInput((IDiagramEditorInput) input);
 	}
 
 	/**
@@ -446,12 +296,12 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * dirty state of the editor.
 	 */
 	public void createPartControl(Composite parent) {
-		if (this.diagramSupport.getEditorInitializationError() != null) {
-			this.diagramSupport.createErrorPartControl(parent);
+		if (diagramSupport.getEditorInitializationError() != null) {
+			diagramSupport.createErrorPartControl(parent);
 			return;
 		}
 		super.createPartControl(parent);
-		this.diagramSupport.postCreatePartControl();
+		diagramSupport.createPartControl();
 	}
 
 	/**
@@ -462,7 +312,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 *            the parent composite
 	 */
 	protected void createGraphicalViewer(Composite parent) {
-		this.diagramSupport.createGraphicalViewer(parent);
+		diagramSupport.createGraphicalViewer(parent);
 	}
 
 	/**
@@ -470,11 +320,12 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * done, which is dependent of the IConfigurationProviderInternal.
 	 * 
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette#initializeGraphicalViewer()
+	 * @since 0.10
 	 */
-	protected void initializeGraphicalViewer() {
+	public void initializeGraphicalViewer() {
 
 		super.initializeGraphicalViewer();
-		this.diagramSupport.initializeGraphicalViewer();
+		diagramSupport.initializeGraphicalViewer();
 
 		// this will cause the ActionBarContributor to refresh with the
 		// new actions (there is no specific refresh-action).
@@ -492,7 +343,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
-		this.diagramSupport.configureGraphicalViewer();
+		diagramSupport.configureGraphicalViewer();
 	}
 
 	// ------------------- Dirty state -----------------------------------------
@@ -517,7 +368,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 *            the Eclipse progress monitor to report progress with.
 	 */
 	public void doSave(IProgressMonitor monitor) {
-		this.diagramSupport.getPersistencyBehavior().saveDiagram(monitor);
+		diagramSupport.getPersistencyBehavior().saveDiagram(monitor);
 	}
 
 	/**
@@ -529,7 +380,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 *         otherwise.
 	 */
 	public boolean isDirty() {
-		return this.diagramSupport.isDirty();
+		return diagramSupport.isDirty();
 	}
 
 	// ---------------------- Palette --------------------------------------- //
@@ -543,7 +394,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @return the {@link PaletteViewerProvider} to use
 	 */
 	protected final PaletteViewerProvider createPaletteViewerProvider() {
-		return this.diagramSupport.createPaletteViewerProvider();
+		return diagramSupport.createPaletteViewerProvider();
 	}
 
 	/**
@@ -554,7 +405,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @return the {@link PaletteViewerProvider} preferences to use.
 	 */
 	protected final FlyoutPreferences getPalettePreferences() {
-		return this.diagramSupport.getPalettePreferences();
+		return diagramSupport.getPalettePreferences();
 	}
 
 	/**
@@ -564,98 +415,18 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @return the {@link PaletteRoot} to use
 	 */
 	protected final PaletteRoot getPaletteRoot() {
-		return this.diagramSupport.getPaletteRoot();
+		return diagramSupport.getPaletteRoot();
 	}
 
 	/**
-	 * Refreshes to palette to correctly reflect all available creation tools
+	 * Refreshes the palette to correctly reflect all available creation tools
 	 * for the available create features and the currently enabled selection
 	 * tools
 	 * 
 	 * @since 0.9
 	 */
 	public final void refreshPalette() {
-		this.diagramSupport.refreshPalette();
-	}
-
-	// ---------------------- Context Menu ---------------------------------- //
-
-	/**
-	 * Returns a new {@link ContextMenuProvider}. Clients can return null, if no
-	 * context-menu shall be displayed.
-	 * 
-	 * @return A new instance of {@link ContextMenuProvider}.
-	 * @since 0.9
-	 */
-	protected ContextMenuProvider createContextMenuProvider() {
-		return this.diagramSupport.createContextMenuProvider();
-	}
-
-	/**
-	 * Allows subclasses to prevent that the diagram context menu should be
-	 * registered for extensions at Eclipse. By default others can provide
-	 * extensions to the menu (default return value of this method is
-	 * <code>true</code>). By returning <code>false</code> any extension of the
-	 * context menu can be prevented.
-	 * <p>
-	 * For details see Bugzilla 345347
-	 * (https://bugs.eclipse.org/bugs/show_bug.cgi?id=345347).
-	 * 
-	 * @return <code>true</code> in case extensions shall be allowed (default),
-	 *         <code>false</code> otherwise.
-	 * @since 0.9
-	 */
-	protected boolean shouldRegisterContextMenu() {
-		return this.diagramSupport.shouldRegisterContextMenu();
-	}
-
-	// ---------------------- Listeners ------------------------------------- //
-
-	/**
-	 * Hook to register listeners for diagram changes. The listener will be
-	 * notified with all events and has to filter for the ones regarding the
-	 * diagram.<br>
-	 * Note that additional listeners registered here should also be
-	 * unregistered in {@link #unregisterDiagramResourceSetListener()}.
-	 * 
-	 * @since 0.9
-	 */
-	protected void registerDiagramResourceSetListener() {
-		this.diagramSupport.registerDiagramResourceSetListener();
-	}
-
-	/**
-	 * Hook that is called to register listeners for changes of the business
-	 * objects (domain objects) in the resource set of the editor. The default
-	 * implementation registers the {@link DomainModelChangeListener}.<br>
-	 * Note that additional listeners registered here should also be
-	 * unregistered in {@link #unregisterBusinessObjectsListener()}.
-	 * 
-	 * @since 0.9
-	 */
-	protected void registerBusinessObjectsListener() {
-		this.diagramSupport.registerBusinessObjectsListener();
-	}
-
-	/**
-	 * Hook to unregister the listeners for diagram changes.
-	 * 
-	 * @see #registerDiagramResourceSetListener()
-	 * @since 0.9
-	 */
-	protected void unregisterDiagramResourceSetListener() {
-		this.diagramSupport.unregisterDiagramResourceSetListener();
-	}
-
-	/**
-	 * Hook that is called to unregister the listeners for changes of the
-	 * business objects (domain objects).
-	 * 
-	 * @see DiagramEditor#registerBusinessObjectsListener()
-	 * @since 0.9
-	 */
-	protected void unregisterBusinessObjectsListener() {
-		this.diagramSupport.unregisterBusinessObjectsListener();
+		diagramSupport.refreshPalette();
 	}
 
 	// ---------------------- Refresh --------------------------------------- //
@@ -666,7 +437,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void refreshTitle() {
-		String name = getConfigurationProvider().getDiagramTypeProvider().getDiagramTitle();
+		String name = getDiagramTypeProvider().getDiagramTitle();
 		if (name == null || name.length() == 0) {
 			name = getConfigurationElement().getAttribute("name"); //$NON-NLS-1$
 		}
@@ -694,7 +465,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void refresh() {
-		this.diagramSupport.refresh();
+		diagramSupport.refresh();
 	}
 
 	/**
@@ -704,7 +475,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void refreshContent() {
-		this.diagramSupport.refreshContent();
+		diagramSupport.refreshContent();
 	}
 
 	/**
@@ -720,10 +491,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void refreshRenderingDecorators(PictogramElement pe) {
-		this.diagramSupport.refreshRenderingDecorators(pe);
+		diagramSupport.refreshRenderingDecorators(pe);
 	}
 
-	// ====================== standard behaviour ==============================
+	// ====================== standard behavior ==============================
 
 	/**
 	 * Implements the Eclipse {@link IAdaptable} interface. This implementation
@@ -739,9 +510,13 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @return the adapter instance
 	 */
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
-		Object returnObj = this.diagramSupport.getAdapter(type);
-		if (returnObj != null)
+		Object returnObj = diagramSupport.getAdapter(type);
+		if (returnObj != null) {
 			return returnObj;
+		}
+		if (type == SelectionSynchronizer.class) {
+			return getSelectionSynchronizer();
+		}
 		return super.getAdapter(type);
 	}
 
@@ -754,7 +529,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * <code>super.dispose()</code> in case you override this method!
 	 */
 	public void dispose() {
-		this.diagramSupport.preSuperDispose();
+		diagramSupport.preSuperDispose();
 
 		RuntimeException exc = null;
 		if (getEditDomain() != null) {
@@ -767,7 +542,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			}
 		}
 
-		this.diagramSupport.postSuperDispose();
+		diagramSupport.postSuperDispose();
 
 		if (exc != null) {
 			throw exc;
@@ -785,7 +560,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		}
 
 		super.setFocus();
-		getUpdateBehavior().handleActivate();
+		diagramSupport.getUpdateBehavior().handleActivate();
 	}
 
 	// ---------------------- Selection ------------------------------------- //
@@ -799,7 +574,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public PictogramElement[] getSelectedPictogramElements() {
-		return this.diagramSupport.getSelectedPictogramElements();
+		return diagramSupport.getSelectedPictogramElements();
 	}
 
 	/**
@@ -828,7 +603,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			IEditorPart activeEditor = getSite().getPage().getActiveEditor();
 			if (activeEditor != null) {
 				if (activeEditor instanceof MultiPageEditorPart) {
-					Object selectedPage = ((MultiPageEditorPart) activeEditor).getAdapter(DiagramEditor.class);
+					Object selectedPage = ((MultiPageEditorPart) activeEditor).getAdapter(getClass());
 					if (selectedPage instanceof DiagramEditor) {
 						// Editor is active and diagram sub editor is its active
 						// page
@@ -907,28 +682,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void selectPictogramElements(PictogramElement[] pictogramElements) {
-		this.diagramSupport.selectPictogramElements(pictogramElements);
-	}
-
-	/**
-	 * Returns the {@link PictogramElement}s that are set for later selection.
-	 * <p>
-	 * The methods {@link #getPictogramElementsForSelection()},
-	 * {@link #setPictogramElementForSelection(PictogramElement)},
-	 * {@link #setPictogramElementsForSelection(PictogramElement[])} and
-	 * {@link #selectBufferedPictogramElements()} offer the possibility to use a
-	 * deferred selection mechanism: via the setters, {@link PictogramElement}s
-	 * can be stored for a selection operation that is triggered lateron during
-	 * a general refresh via the method
-	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
-	 * in the Graphiti framework in direct editing to restore the previous
-	 * selection, but can also be used by clients.
-	 * 
-	 * @return the {@link PictogramElement}s stored for later selection
-	 * @since 0.9
-	 */
-	protected PictogramElement[] getPictogramElementsForSelection() {
-		return this.diagramSupport.getPictogramElementsForSelection();
+		diagramSupport.selectPictogramElements(pictogramElements);
 	}
 
 	/**
@@ -951,7 +705,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void setPictogramElementForSelection(PictogramElement pictogramElement) {
-		this.diagramSupport.setPictogramElementForSelection(pictogramElement);
+		diagramSupport.setPictogramElementForSelection(pictogramElement);
 	}
 
 	/**
@@ -974,7 +728,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void setPictogramElementsForSelection(PictogramElement pictogramElements[]) {
-		this.diagramSupport.setPictogramElementsForSelection(pictogramElements);
+		diagramSupport.setPictogramElementsForSelection(pictogramElements);
 	}
 
 	/**
@@ -997,68 +751,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void selectBufferedPictogramElements() {
-		this.diagramSupport.selectBufferedPictogramElements();
-	}
-
-	// ---------------------- Mouse location -------------------------------- //
-
-	/**
-	 * Gets the current mouse location as a {@link Point}.
-	 * 
-	 * @return the mouse location
-	 * @since 0.9
-	 */
-	public Point getMouseLocation() {
-		return this.diagramSupport.getMouseLocation();
-	}
-
-	/**
-	 * Calculates the mouse location depending on scrollbars and zoom factor.
-	 * 
-	 * @param nativeLocation
-	 *            the native location given as {@link Point}
-	 * @return the {@link Point} of the real mouse location
-	 * @since 0.9
-	 */
-	public Point calculateRealMouseLocation(Point nativeLocation) {
-		return this.diagramSupport.calculateRealMouseLocation(nativeLocation);
+		diagramSupport.selectBufferedPictogramElements();
 	}
 
 	// ---------------------- Other ----------------------------------------- //
-
-	/**
-	 * Returns the KeyHandler with common bindings to be used for both the
-	 * Outline and the Graphical Viewer.
-	 * 
-	 * @return The KeyHandler with common bindings for both the Outline and the
-	 *         Graphical Viewer.
-	 * @since 0.9
-	 */
-	protected KeyHandler getCommonKeyHandler() {
-		if (keyHandler == null) {
-			keyHandler = new KeyHandler();
-			keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0),
-					getActionRegistry().getAction(ActionFactory.DELETE.getId()));
-			keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, SWT.SHIFT),
-					getActionRegistry().getAction(RemoveAction.ACTION_ID));
-			keyHandler.put(KeyStroke.getPressed(SWT.F2, 0),
-					getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
-			keyHandler.put(KeyStroke.getPressed('c', SWT.CTRL),
-					getActionRegistry().getAction(ActionFactory.COPY.getId()));
-			keyHandler.put(KeyStroke.getPressed('v', SWT.CTRL),
-					getActionRegistry().getAction(ActionFactory.PASTE.getId()));
-			// _keyHandler.put(KeyStroke.getPressed((char) 1, 'a', SWT.CTRL),
-			// getActionRegistry().getAction(ActionFactory.SELECT_ALL.getId()));
-		}
-		return keyHandler;
-	}
-
-	/**
-	 * @since 0.10
-	 */
-	public IConfigurationProvider getConfigurationProvider() {
-		return this.diagramSupport.getConfigurationProvider();
-	}
 
 	/**
 	 * Returns the contents {@link EditPart} of this Editor. This is the topmost
@@ -1068,6 +764,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public EditPart getContentEditPart() {
+		// TODO remove
+
 		return this.diagramSupport.getContentEditPart();
 	}
 
@@ -1100,7 +798,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public IDiagramTypeProvider getDiagramTypeProvider() {
-		return this.diagramSupport.getDiagramTypeProvider();
+		return diagramSupport.getDiagramTypeProvider();
 	}
 
 	/**
@@ -1118,21 +816,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
-	 * Method to retrieve the GEF {@link EditPart} for a given
-	 * {@link PictogramElement}.
-	 * 
-	 * @param pe
-	 *            the {@link PictogramElement} to retrieve the GEF
-	 *            representation for
-	 * @return the GEF {@link GraphicalEditPart} that represents the given
-	 *         {@link PictogramElement}.
-	 * @since 0.9
-	 */
-	public GraphicalEditPart getEditPartForPictogramElement(PictogramElement pe) {
-		return this.diagramSupport.getEditPartForPictogramElement(pe);
-	}
-
-	/**
 	 * Method to retrieve the Draw2D {@link IFigure} for a given
 	 * {@link PictogramElement}.
 	 * 
@@ -1145,6 +828,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public IFigure getFigureForPictogramElement(PictogramElement pe) {
+		// TODO remove
 		return this.diagramSupport.getFigureForPictogramElement(pe);
 	}
 
@@ -1186,27 +870,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
-	 * Returns the zoom level currently used in the editor.
-	 * 
-	 * @return the zoom level
-	 * @since 0.9
-	 */
-	public double getZoomLevel() {
-		return this.diagramSupport.getZoomLevel();
-	}
-
-	/**
-	 * We provide migration from 0.8.0 to 0.9.0. You can override if you want to
-	 * migrate manually. WARNING: If your diagram is under version control, this
-	 * method can cause a check out dialog to be opened etc.
-	 * 
-	 * @since 0.9
-	 */
-	protected void migrateDiagramModelIfNecessary() {
-		this.diagramSupport.migrateDiagramModelIfNecessary();
-	}
-
-	/**
 	 * Checks if this editor is alive.
 	 * 
 	 * @return <code>true</code>, if editor contains a model connector and a
@@ -1215,45 +878,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	public boolean isAlive() {
 		return this.diagramSupport.isAlive();
-	}
-
-	/**
-	 * Registers the given action with the Eclipse {@link ActionRegistry}.
-	 * 
-	 * @param action
-	 *            the action to register
-	 * @since 0.9
-	 */
-	protected void registerAction(IAction action) {
-		this.diagramSupport.registerAction(action);
-	}
-
-	/**
-	 * Returns if direct editing is currently active for this editor.
-	 * 
-	 * @return <code>true</code> in case direct editing is currently active
-	 *         within this editor, <code>false</code> otherwise.
-	 * 
-	 * @since 0.9
-	 */
-	public boolean isDirectEditingActive() {
-		return this.diagramSupport.isDirectEditingActive();
-	}
-
-	/**
-	 * Sets that direct editing is now active in the editor or not. Note that
-	 * this flag set to <code>true</code> does not actually start direct editing
-	 * it is simply an indication that prevents certain operations from running
-	 * (e.g. refresh)
-	 * 
-	 * @param directEditingActive
-	 *            <code>true</code> to set the flag to direct editing currently
-	 *            active, <code>false</code> otherwise.
-	 * 
-	 * @since 0.9
-	 */
-	public void setDirectEditingActive(boolean directEditingActive) {
-		this.diagramSupport.setDirectEditingActive(directEditingActive);
 	}
 
 	/**
@@ -1267,7 +891,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public TransactionalEditingDomain getEditingDomain() {
-		return this.diagramSupport.getEditingDomain();
+		return diagramSupport.getEditingDomain();
 	}
 
 	/**
@@ -1291,7 +915,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public Object executeFeature(IFeature feature, IContext context) {
-		return this.diagramSupport.executeFeature(feature, context);
+		return diagramSupport.executeFeature(feature, context);
 	}
 
 	/**
@@ -1303,7 +927,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public ResourceSet getResourceSet() {
-		return this.diagramSupport.getResourceSet();
+		return diagramSupport.getResourceSet();
 	}
 
 	/**
@@ -1312,7 +936,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	public IDiagramEditorInput getDiagramEditorInput() {
 		return this.diagramSupport.getInput();
 	}
-
 
 	/**
 	 * @since 0.10
@@ -1324,7 +947,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	/**
 	 * @since 0.10
 	 */
-	public void shutdown() {
+	public void close() {
 		getSite().getPage().closeEditor(this, false);
 	}
 
@@ -1333,15 +956,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	/**
 	 * @since 0.10
 	 */
-	public void setGEFEditDomain(DefaultEditDomain editDomain) {
-		this.setEditDomain(editDomain);
-	}
-
-	/**
-	 * @since 0.10
-	 */
-	public void initializeGEFGraphicalViewer() {
-		this.initializeGraphicalViewer();
+	public void setEditDomain(DefaultEditDomain editDomain) {
+		super.setEditDomain(editDomain);
 	}
 
 	public ActionRegistry getActionRegistry() {
@@ -1351,10 +967,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	@SuppressWarnings("rawtypes")
 	public List getSelectionActions() {
 		return super.getSelectionActions();
-	}
-
-	public SelectionSynchronizer getSelectionSynchronizer() {
-		return super.getSelectionSynchronizer();
 	}
 
 	public void commandStackChanged(EventObject event) {
@@ -1367,12 +979,5 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 	public void hookGraphicalViewer() {
 		super.hookGraphicalViewer();
-	}
-
-	/**
-	 * @since 0.10
-	 */
-	public boolean isLocalEditingDomain() {
-		return true;
 	}
 }

@@ -11,7 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -36,13 +36,13 @@ import org.eclipse.ui.IWorkbenchPartSite;
  */
 public final class ElementDeleteListener extends AdapterImpl {
 
-	private IDiagramEditorUI diagramEditor;
+	private IDiagramContainerUI diagramEditor;
 
 	/**
 	 * @since 0.10
 	 */
-	public ElementDeleteListener(IDiagramEditorUI d) {
-		this.diagramEditor = d;
+	public ElementDeleteListener(IDiagramContainerUI diagramEditor) {
+		this.diagramEditor = diagramEditor;
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public final class ElementDeleteListener extends AdapterImpl {
 							final String editorName = diagramEditor.getTitle();
 							T.racer().debug("Closing editor " + editorName); //$NON-NLS-1$
 						}
-						diagramEditor.shutdown();
+						diagramEditor.close();
 					}
 				}
 			});

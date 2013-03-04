@@ -174,7 +174,7 @@
 	</extension>
 
 	<extension point="org.eclipse.ui.handlers">
-		<handler commandId="org.eclipse.graphiti.examples.common.commands.openDiagramFromFile" class="org.eclipse.graphiti.examples.common.handler.OpenDiagramFromFileHandler">
+		<handler commandId="org.eclipse.graphiti.examples.common.commands.openDiagramFromFile" class="org.eclipse.graphiti.examples.common.handler.OpenDiagramEditorFromFileHandler">
 			<enabledWhen>
 				<reference definitionId="org.eclipse.graphiti.examples.common.definitions.OneProjectSelected" /> 
 			</enabledWhen>

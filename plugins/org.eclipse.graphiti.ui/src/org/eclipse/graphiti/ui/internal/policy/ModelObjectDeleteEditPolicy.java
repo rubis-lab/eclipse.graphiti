@@ -83,7 +83,7 @@ public class ModelObjectDeleteEditPolicy extends ComponentEditPolicy {
 
 		GenericFeatureCommandWithContext command = new GenericFeatureCommandWithContext(feature, context);
 
-		return new GefCommandWrapper(command, getConfigurationProvider().getDiagramEditor().getEditingDomain());
+		return new GefCommandWrapper(command, getConfigurationProvider().getDiagramSupport().getEditingDomain());
 
 	}
 }

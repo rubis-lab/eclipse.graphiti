@@ -35,7 +35,7 @@ import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.graphiti.examples.common.IExampleImageConstants;
 import org.eclipse.graphiti.examples.common.outline.tree.PictogramsTreeEditPartFactory;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScrollableThumbnail;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.Action;
@@ -81,7 +81,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IPr
 
 	private SelectionSynchronizer _selectionSynchronizer;
 
-	private IDiagramEditorUI _diagramEditor;
+	private IDiagramContainerUI _diagramEditor;
 
 	// The thumbnail to display
 	private FixedScrollableThumbnail _thumbnail;
@@ -109,7 +109,7 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IPr
 	 *            the attached diagram editor
 	 * @since 0.10
 	 */
-	public GraphicsEditorOutlinePage(IDiagramEditorUI diagramEditor) {
+	public GraphicsEditorOutlinePage(IDiagramContainerUI diagramEditor) {
 		super(new TreeViewer());
 		_graphicalViewer = diagramEditor.getGraphicalViewer();
 		_actionRegistry = (ActionRegistry) diagramEditor.getAdapter(ActionRegistry.class);
