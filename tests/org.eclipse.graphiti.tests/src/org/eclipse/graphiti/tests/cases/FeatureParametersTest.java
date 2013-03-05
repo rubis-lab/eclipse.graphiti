@@ -40,7 +40,7 @@ import org.eclipse.graphiti.features.impl.AbstractAddFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 import org.junit.Test;
 
@@ -94,7 +94,7 @@ public class FeatureParametersTest extends GFAbstractTestCase {
 	public void testContextPropertiesPassedToAddFeature() throws Exception {
 		final AbstractAddFeatureExtension addFeature = new AbstractAddFeatureExtension(null);
 
-		IDiagramEditor diagramEditor = new IDiagramEditor() {
+		IDiagramContainer diagramEditor = new IDiagramContainer() {
 			public void setPictogramElementsForSelection(PictogramElement[] pictogramElements) {
 			}
 
