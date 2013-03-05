@@ -75,7 +75,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
-import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
 
@@ -226,7 +226,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		boolean b = false;
 		IUpdateFeature updateFeature = getUpdateFeature(context);
 		if (updateFeature != null) {
-			IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
+			IDiagramContainer diagramEditor = getDiagramTypeProvider().getDiagramContainer();
 			diagramEditor.executeFeature(updateFeature, context);
 			b = true;
 		}
@@ -246,7 +246,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		boolean b = false;
 		ILayoutFeature layoutSemanticsFeature = getLayoutFeature(context);
 		if (layoutSemanticsFeature != null) {
-			IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
+			IDiagramContainer diagramEditor = getDiagramTypeProvider().getDiagramContainer();
 			diagramEditor.executeFeature(layoutSemanticsFeature, context);
 			b = true;
 		}
@@ -305,7 +305,7 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		PictogramElement returnValue = null;
 		if (canAdd(context).toBoolean()) {
 			IAddFeature feature = getAddFeature(context);
-			IDiagramEditor diagramEditor = getDiagramTypeProvider().getDiagramEditor();
+			IDiagramContainer diagramEditor = getDiagramTypeProvider().getDiagramContainer();
 			Object result = diagramEditor.executeFeature(feature, context);
 			if (result instanceof PictogramElement) {
 				returnValue = (PictogramElement) result;

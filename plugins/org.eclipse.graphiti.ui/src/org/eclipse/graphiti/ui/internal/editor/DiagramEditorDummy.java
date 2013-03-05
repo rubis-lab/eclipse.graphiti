@@ -36,7 +36,7 @@ import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.platform.IDiagramContainer;
 
 /**
  * 
@@ -45,7 +45,7 @@ import org.eclipse.graphiti.platform.IDiagramEditor;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class DiagramEditorDummy implements IDiagramEditor {
+public class DiagramEditorDummy implements IDiagramContainer {
 
 	private IDiagramTypeProvider diagramTypeProvider;
 	private TransactionalEditingDomain editingDomain;
