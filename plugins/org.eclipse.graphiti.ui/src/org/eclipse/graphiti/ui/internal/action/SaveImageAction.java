@@ -11,7 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    jpasch - Bug 323025 ActionBarContributor cleanup
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -21,7 +21,7 @@ package org.eclipse.graphiti.ui.internal.action;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.context.ISaveImageContext;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.action.Action;
@@ -36,7 +36,7 @@ public class SaveImageAction extends Action {
 
 	private ISaveImageContext context;
 
-	private IDiagramEditorUI graphicsEditor;
+	private IDiagramContainerUI graphicsEditor;
 	
 	public static final String TOOL_TIP = Messages.SaveImageAction_1_xmsg;
 	
@@ -46,7 +46,7 @@ public class SaveImageAction extends Action {
 	
 	public static final String ACTION_DEFINITION_ID = "org.eclipse.graphiti.ui.internal.action.SaveImageAction"; //$NON-NLS-1$
 
-	public SaveImageAction(ISaveImageFeature saveImageFeature, ISaveImageContext context, IDiagramEditorUI graphicsEditor) {
+	public SaveImageAction(ISaveImageFeature saveImageFeature, ISaveImageContext context, IDiagramContainerUI graphicsEditor) {
 		super();
 		this.saveImageFeature = saveImageFeature;
 		this.context = context;

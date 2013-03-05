@@ -10,7 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -24,16 +24,16 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 
-	private IDiagramEditorUI diagramEditor;
+	private IDiagramContainerUI diagramEditor;
 
-	public GraphitiScrollingGraphicalViewer(IDiagramEditorUI diagramEditor) {
+	public GraphitiScrollingGraphicalViewer(IDiagramContainerUI diagramEditor) {
 		this.setDiagramEditor(diagramEditor);
 	}
 
@@ -171,11 +171,11 @@ public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 		}
 	}
 
-	private void setDiagramEditor(IDiagramEditorUI diagramEditor) {
+	private void setDiagramEditor(IDiagramContainerUI diagramEditor) {
 		this.diagramEditor = diagramEditor;
 	}
 
-	protected IDiagramEditorUI getDiagramEditor() {
+	protected IDiagramContainerUI getDiagramEditor() {
 		return diagramEditor;
 	}
 }

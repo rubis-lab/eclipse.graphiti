@@ -174,10 +174,6 @@ public class DiagramEditorDummy implements IDiagramEditor {
 	public void editingDomainInitialized() {
 	}
 
-	public boolean isLocalEditingDomain() {
-		return true;
-	}
-
 	public void doSave(IProgressMonitor monitor) {
 		// TODO Auto-generated method stub
 

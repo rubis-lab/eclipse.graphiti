@@ -10,7 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -24,7 +24,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.tools.ConnectionDragCreationTool;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.graphiti.ui.internal.requests.ContextButtonDragRequest;
 
@@ -81,7 +81,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		return request;
 	}
 
-	private IDiagramEditorUI diagramEditor;
+	private IDiagramContainerUI diagramEditor;
 
 	private ContextButtonEntry contextButtonEntry;
 
@@ -95,7 +95,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	 * @param contextButtonEntry
 	 *            the context button entry
 	 */
-	public void startConnection(EditPart targetEditPart, IDiagramEditorUI diagramEditor, ContextButtonEntry contextButtonEntry) {
+	public void startConnection(EditPart targetEditPart, IDiagramContainerUI diagramEditor, ContextButtonEntry contextButtonEntry) {
 
 		this.diagramEditor = diagramEditor;
 		this.contextButtonEntry = contextButtonEntry;
@@ -127,7 +127,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	 * @param targetTargetEditPart
 	 *            the target target edit part
 	 */
-	public void continueConnection(EditPart targetEditPart, IDiagramEditorUI diagramEditor, ContextButtonEntry contextButtonEntry,
+	public void continueConnection(EditPart targetEditPart, IDiagramContainerUI diagramEditor, ContextButtonEntry contextButtonEntry,
 			EditPart targetTargetEditPart) {
 
 		this.diagramEditor = diagramEditor;
@@ -167,7 +167,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		request.setType(getCommandName());
 		//
 
-		Point absoluteMousePosition = diagramEditor.getMouseLocation();
+		Point absoluteMousePosition = diagramEditor.getDiagramSupport().getMouseLocation();
 		request.setLocation(absoluteMousePosition);
 
 	}

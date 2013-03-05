@@ -13,7 +13,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -40,7 +40,7 @@ import org.eclipse.graphiti.internal.features.context.impl.base.DoubleClickConte
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.DiagramSupport;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart;
@@ -266,9 +266,9 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 
 			if (doubleClickFeature != null && doubleClickFeature.canExecute(dcc)) {
 				GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(doubleClickFeature, dcc);
-				IDiagramEditorUI diagramEditor = getConfigurationProvider().getDiagramEditor();
-				CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
-				commandStack.execute(new GefCommandWrapper(commandWithContext, diagramEditor.getEditingDomain()));
+				DiagramSupport diagramSupport = getConfigurationProvider().getDiagramSupport();
+				CommandStack commandStack = diagramSupport.getEditDomain().getCommandStack();
+				commandStack.execute(new GefCommandWrapper(commandWithContext, diagramSupport.getEditingDomain()));
 			}
 		}
 

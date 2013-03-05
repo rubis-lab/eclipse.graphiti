@@ -9,7 +9,7 @@
  *
  * Contributors:
  *    pjpaulin - initial API, implementation and documentation
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -57,7 +57,7 @@ import org.eclipse.ui.IWorkbenchPartSite;
  * 
  * @since 0.10
  */
-public class DiagramComposite extends GraphicalComposite implements IDiagramEditorUI {
+public class DiagramComposite extends GraphicalComposite implements IDiagramContainerUI {
 
 	private DiagramSupport diagramSupport;
 
@@ -87,11 +87,11 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramEdit
 		getUpdateBehavior().init();
 		init();
 		this.diagramSupport.migrateDiagramModelIfNecessary();
-		this.diagramSupport.postCreatePartControl();
+		this.diagramSupport.createPartControl();
 	}
 
 	@Override
-	protected void initializeGraphicalViewer() {
+	public void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
 		this.diagramSupport.initializeGraphicalViewer();
 	}
@@ -136,7 +136,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramEdit
 		return this.getParentPart();
 	}
 
-	public void shutdown() {
+	public void close() {
 		// TODO Auto-generated method stub
 	}
 
@@ -322,8 +322,8 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramEdit
 
 	/* GEF methods that need to be part of the IGEFDiagramContainer interface. */
 
-	public void setGEFEditDomain(DefaultEditDomain editDomain) {
-		this.setEditDomain(editDomain);
+	public void setEditDomain(DefaultEditDomain editDomain) {
+		super.setEditDomain(editDomain);
 	}
 
 	public void initializeGEFGraphicalViewer() {
@@ -377,5 +377,9 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramEdit
 
 	public void doSave(IProgressMonitor monitor) {
 		this.diagramSupport.getPersistencyBehavior().saveDiagram(monitor);
+	}
+
+	public DiagramSupport getDiagramSupport() {
+		return diagramSupport;
 	}
 }

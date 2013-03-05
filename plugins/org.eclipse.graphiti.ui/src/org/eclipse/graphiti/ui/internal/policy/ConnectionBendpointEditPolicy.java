@@ -93,7 +93,7 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 			IAddBendpointFeature addBendpointFeature = getFeatureProvider().getAddBendpointFeature(context);
 			if (addBendpointFeature != null) {
 				ret = new GefCommandWrapper(new GenericFeatureCommandWithContext(addBendpointFeature, context),
-						getConfigurationProvider().getDiagramEditor().getEditingDomain());
+						getConfigurationProvider().getDiagramSupport().getEditingDomain());
 			}
 		}
 		// workaround: no snapping to original position
@@ -115,7 +115,7 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 			IRemoveBendpointFeature removeBendpointFeature = getFeatureProvider().getRemoveBendpointFeature(context);
 			if (removeBendpointFeature != null) {
 				ret = new GefCommandWrapper(new GenericFeatureCommandWithContext(removeBendpointFeature, context),
-						getConfigurationProvider().getDiagramEditor().getEditingDomain());
+						getConfigurationProvider().getDiagramSupport().getEditingDomain());
 			}
 		}
 
@@ -153,7 +153,7 @@ public class ConnectionBendpointEditPolicy extends BendpointEditPolicyFixed {
 			IMoveBendpointFeature moveBendpointFeature = getFeatureProvider().getMoveBendpointFeature(context);
 			if (moveBendpointFeature != null) {
 				ret = new GefCommandWrapper(new GenericFeatureCommandWithContext(moveBendpointFeature, context),
-						getConfigurationProvider().getDiagramEditor().getEditingDomain());
+						getConfigurationProvider().getDiagramSupport().getEditingDomain());
 			}
 		}
 

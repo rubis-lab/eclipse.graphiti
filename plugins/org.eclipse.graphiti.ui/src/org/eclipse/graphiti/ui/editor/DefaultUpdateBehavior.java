@@ -15,7 +15,7 @@
  *    Bug 336488 - DiagramEditor API - Rename from DiagramEditorBehavior to DefaultUpdateBehavior
  *    mwenz - Bug 389426 - Add factory method for creating EMF workspace synchronizer delegate
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -53,24 +53,24 @@ import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * The default implementation for the {@link IDiagramEditorUI} behavior extension
+ * The default implementation for the {@link IDiagramContainerUI} behavior extension
  * that controls update behavior of the editor and defines the EMF adapters that
  * watch over model object modifications. Clients may subclass to change the
- * behavior; use {@link IDiagramEditorUI#createUpdateBehavior()} to return the
+ * behavior; use {@link IDiagramContainerUI#createUpdateBehavior()} to return the
  * instance that shall be used.<br>
- * Note that there is always a 1:1 relation with a {@link IDiagramEditorUI}.
+ * Note that there is always a 1:1 relation with a {@link IDiagramContainerUI}.
  * 
  * @since 0.9
  */
 public class DefaultUpdateBehavior extends PlatformObject implements IEditingDomainProvider, IOperationHistoryListener {
 
 	/**
-	 * The associated {@link IDiagramEditorUI}
+	 * @since 0.10
 	 */
-	protected final IDiagramEditorUI diagramEditor;
+	protected final DiagramSupport diagramSupport;
 
 	/**
-	 * The editing domain that is used throughout the {@link IDiagramEditorUI} is
+	 * The editing domain that is used throughout the {@link IDiagramContainerUI} is
 	 * kept here and only here.
 	 */
 	private TransactionalEditingDomain editingDomain;
@@ -129,11 +129,13 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 				if (msg.getNewBooleanValue() == Boolean.FALSE) {
 					final Resource resource = (Resource) msg.getNotifier();
 					final URI uri = resource.getURI();
+					IDiagramContainerUI diagramContainer = diagramSupport.getDiagramContainer();
 					if (editingDomain.getResourceSet().getURIConverter().exists(uri, null)) {
 						// file content has changes
 						setResourceChanged(true);
-						final IWorkbenchPart activePart = diagramEditor.getWorkbenchPart().getSite().getPage().getActivePart();
-						if (activePart == diagramEditor) {
+						final IWorkbenchPart activePart = diagramContainer.getWorkbenchPart().getSite().getPage()
+								.getActivePart();
+						if (activePart == diagramContainer) {
 							getShell().getDisplay().asyncExec(new Runnable() {
 								public void run() {
 									handleActivate();
@@ -142,8 +144,8 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 						}
 					} else {
 						// file has been deleted
-						if (!diagramEditor.isDirty()) {
-							final IDiagramEditorInput editorInput = diagramEditor.getDiagramEditorInput();
+						if (!diagramContainer.isDirty()) {
+							final IDiagramEditorInput editorInput = diagramContainer.getDiagramEditorInput();
 							if (editorInput != null) {
 								final IDiagramEditorInput input = (IDiagramEditorInput) editorInput;
 								URI inputUri = input.getUri();
@@ -154,8 +156,9 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 							}
 						} else {
 							setResourceDeleted(true);
-							final IWorkbenchPart activePart = diagramEditor.getWorkbenchPart().getSite().getPage().getActivePart();
-							if (activePart == diagramEditor) {
+							final IWorkbenchPart activePart = diagramContainer.getWorkbenchPart().getSite().getPage()
+									.getActivePart();
+							if (activePart == diagramContainer) {
 								getShell().getDisplay().asyncExec(new Runnable() {
 									public void run() {
 										handleActivate();
@@ -180,15 +183,15 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 
 	/**
 	 * Creates a new {@link DefaultUpdateBehavior} instance associated with the
-	 * given {@link IDiagramEditorUI}.
+	 * given {@link IDiagramContainerUI}.
 	 * 
 	 * @param diagramEditor
 	 *            the part this model editor works on
 	 * @since 0.10
 	 */
-	public DefaultUpdateBehavior(IDiagramEditorUI diagramEditor) {
+	public DefaultUpdateBehavior(DiagramSupport diagramSupport) {
 		super();
-		this.diagramEditor = diagramEditor;
+		this.diagramSupport = diagramSupport;
 	}
 
 	/**
@@ -304,13 +307,13 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	 * Handles what to do with changed resources on editor activation.
 	 */
 	protected void handleChangedResources() {
-		if (!diagramEditor.isDirty() || handleDirtyConflict()) {
+		if (!diagramSupport.getDiagramContainer().isDirty() || handleDirtyConflict()) {
 			IUndoContext undoContext = ((IWorkspaceCommandStack) getEditingDomain().getCommandStack())
 					.getDefaultUndoContext();
 			getOperationHistory().dispose(undoContext, true, true, true);
 
 			// Disable adapters temporarily.
-			diagramEditor.disableAdapters();
+			diagramSupport.disableAdapters();
 
 			try {
 				// We unload our resources such that refreshEditorContent does a
@@ -319,10 +322,10 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 				for (Resource resource : resources) {
 					resource.unload();
 				}
-				diagramEditor.refreshContent();
+				diagramSupport.refreshContent();
 			} finally {
 				// Re-enable adapters again
-				diagramEditor.enableAdapters();
+				diagramSupport.enableAdapters();
 			}
 		}
 	}
@@ -359,10 +362,10 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 		}
 
 		// Retrieve the object from the editor input
-		final EObject object = (EObject) diagramEditor.getAdapter(Diagram.class);
+		final EObject object = (EObject) diagramSupport.getAdapter(Diagram.class);
 		// Register for object deletion
 		if (object != null) {
-			elementDeleteListener = new ElementDeleteListener(diagramEditor);
+			elementDeleteListener = new ElementDeleteListener(diagramSupport.getDiagramContainer());
 			object.eAdapters().add(elementDeleteListener);
 		}
 
@@ -399,7 +402,7 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 		workspaceSynchronizer = new WorkspaceSynchronizer(getEditingDomain(), createWorkspaceSynchronizerDelegate());
 
 		// Problem analysis
-		diagramEditor.editingDomainInitialized();
+		diagramSupport.editingDomainInitialized();
 	}
 
 	/**
@@ -416,7 +419,7 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	 * @since 0.10
 	 */
 	protected WorkspaceSynchronizer.Delegate createWorkspaceSynchronizerDelegate() {
-		return new DomainModelWorkspaceSynchronizerDelegate(diagramEditor);
+		return new DomainModelWorkspaceSynchronizerDelegate(diagramSupport.getDiagramContainer());
 	}
 
 	/**
@@ -435,7 +438,7 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 			r.eAdapters().remove(updateAdapter);
 		}
 
-		EObject object = (EObject) diagramEditor.getAdapter(Diagram.class);
+		EObject object = (EObject) diagramSupport.getAdapter(Diagram.class);
 		if (object != null) {
 			object.eAdapters().remove(elementDeleteListener);
 		}
@@ -467,20 +470,21 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 		switch (event.getEventType()) {
 		case OperationHistoryEvent.REDONE:
 		case OperationHistoryEvent.UNDONE:
-			diagramEditor.updateDirtyState();
+			diagramSupport.getDiagramContainer().updateDirtyState();
 			break;
 		}
 	}
 
 	private Shell getShell() {
-		return diagramEditor.getSite().getShell();
+		return diagramSupport.getDiagramContainer().getSite().getShell();
 	}
 
 	private void closeEditor() {
-		if (diagramEditor == null) {
+		IDiagramContainerUI diagramContainer = diagramSupport.getDiagramContainer();
+		if (diagramContainer == null) {
 			return;
 		}
-		IWorkbenchPartSite site = diagramEditor.getSite();
+		IWorkbenchPartSite site = diagramContainer.getSite();
 		// Since we run asynchronously we have to check if our UI is still
 		// there.
 		if (site == null) {
@@ -490,7 +494,7 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 		if (page == null) {
 			return;
 		}
-		diagramEditor.shutdown();
+		diagramContainer.close();
 	}
 
 	private IOperationHistory getOperationHistory() {

@@ -25,6 +25,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.notification.DefaultNotificationService;
 import org.eclipse.graphiti.notification.INotificationService;
 import org.eclipse.graphiti.platform.AbstractExtension;
+import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
@@ -34,13 +35,14 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
  * The Class AbstractDiagramTypeProvider.
  * 
  */
+@SuppressWarnings("deprecation")
 public abstract class AbstractDiagramTypeProvider extends AbstractExtension implements IDiagramTypeProvider {
 
 	private IToolBehaviorProvider[] availableToolBehaviorProviders = null;
 
 	private Diagram diagram;
 
-	private IDiagramEditor diagramEditor;
+	private IDiagramContainer diagramContainer;
 
 	private IFeatureProvider featureProvider;
 
@@ -88,9 +90,9 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 			}
 			this.currentToolBehaviorIndex = index;
 
-			IDiagramEditor de = getDiagramEditor();
-			de.refresh();
-			de.refreshPalette();
+			IDiagramContainer diagramContainer = getDiagramContainer();
+			diagramContainer.refresh();
+			diagramContainer.refreshPalette();
 		}
 	}
 
@@ -106,8 +108,18 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 		return name;
 	}
 
+	/**
+	 * @deprecated Use {@link #getDiagramContainer()} instead
+	 */
 	public IDiagramEditor getDiagramEditor() {
-		return this.diagramEditor;
+		return getDiagramContainer();
+	}
+
+	/**
+	 * @since 0.10
+	 */
+	public IDiagramContainer getDiagramContainer() {
+		return diagramContainer;
 	}
 
 	public IFeatureProvider getFeatureProvider() {
@@ -131,14 +143,26 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 		this.contextId = contextId;
 	}
 
+	/**
+	 * @deprecated Use {@link #init(Diagram, IDiagramContainer)} instead
+	 */
 	public void init(Diagram diagram, IDiagramEditor diagramEditor) {
 		setDiagram(diagram);
 		GraphitiInternal.getEmfService().wireDTPToDiagram(diagram, this);
-		setDiagramEditor(diagramEditor);
+		setDiagramContainer((IDiagramContainer) diagramEditor);
 	}
 
-	private void setDiagramEditor(IDiagramEditor diagramEditor) {
-		this.diagramEditor = diagramEditor;
+	/**
+	 * @since 0.10
+	 */
+	public void init(Diagram diagram, IDiagramContainer diagramContainer) {
+		setDiagram(diagram);
+		GraphitiInternal.getEmfService().wireDTPToDiagram(diagram, this);
+		setDiagramContainer(diagramContainer);
+	}
+
+	private void setDiagramContainer(IDiagramContainer diagramContainer) {
+		this.diagramContainer = diagramContainer;
 	}
 
 	/**
