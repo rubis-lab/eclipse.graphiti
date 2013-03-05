@@ -11,7 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    jpasch - Bug 323025 ActionBarContributor cleanup
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -21,7 +21,7 @@ package org.eclipse.graphiti.ui.internal.action;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.context.ISaveImageContext;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.DiagramSupport;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.action.Action;
@@ -36,7 +36,7 @@ public class SaveImageAction extends Action {
 
 	private ISaveImageContext context;
 
-	private IDiagramEditorUI graphicsEditor;
+	private DiagramSupport diagramSupport;
 	
 	public static final String TOOL_TIP = Messages.SaveImageAction_1_xmsg;
 	
@@ -46,11 +46,12 @@ public class SaveImageAction extends Action {
 	
 	public static final String ACTION_DEFINITION_ID = "org.eclipse.graphiti.ui.internal.action.SaveImageAction"; //$NON-NLS-1$
 
-	public SaveImageAction(ISaveImageFeature saveImageFeature, ISaveImageContext context, IDiagramEditorUI graphicsEditor) {
+	public SaveImageAction(ISaveImageFeature saveImageFeature, ISaveImageContext context,
+ DiagramSupport diagramSupport) {
 		super();
 		this.saveImageFeature = saveImageFeature;
 		this.context = context;
-		this.graphicsEditor = graphicsEditor;
+		this.diagramSupport = diagramSupport;
 		setText(TEXT);
 		setToolTipText(TOOL_TIP);
 		setId(ACTION_ID);
@@ -67,7 +68,7 @@ public class SaveImageAction extends Action {
 		saveImageFeature.preSave(context);
 
 		// get viewer and start save-image-dialog
-		GraphicalViewer viewer = (GraphicalViewer) graphicsEditor.getAdapter(GraphicalViewer.class);
+		GraphicalViewer viewer = (GraphicalViewer) diagramSupport.getDiagramContainer().getGraphicalViewer();
 		GraphitiUiInternal.getUiService().startSaveAsImageDialog(viewer);
 
 		saveImageFeature.postSave(context);

@@ -10,7 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -20,7 +20,8 @@ package org.eclipse.graphiti.ui.internal.config;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.ResourceRegistry;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
@@ -44,7 +45,7 @@ public class ConfigurationProvider implements IConfigurationProviderInternal {
 
 	private IWorkbenchPart _workbenchPart;
 
-	private IDiagramEditorUI diagramEditor;
+	private DiagramSupport diagramSupport;
 
 	private IDiagramTypeProvider diagramTypeProvider;
 
@@ -61,8 +62,8 @@ public class ConfigurationProvider implements IConfigurationProviderInternal {
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
 	 */
-	public ConfigurationProvider(IDiagramEditorUI diagramEditor, IDiagramTypeProvider diagramTypeProvider) {
-		this.diagramEditor = diagramEditor;
+	public ConfigurationProvider(DiagramSupport diagramSupport, IDiagramTypeProvider diagramTypeProvider) {
+		this.diagramSupport = diagramSupport;
 		setDiagramTypeProvider(diagramTypeProvider);
 	}
 
@@ -158,8 +159,23 @@ public class ConfigurationProvider implements IConfigurationProviderInternal {
 	 * @see org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal#
 	 * getDiagramEditor()
 	 */
-	public IDiagramEditorUI getDiagramEditor() {
-		return diagramEditor;
+	public IDiagramContainerUI getDiagramEditor() {
+		return diagramSupport.getDiagramContainer();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.ui.platform.IConfigurationProvider#getDiagramContainer
+	 * ()
+	 */
+	public IDiagramContainerUI getDiagramContainer() {
+		return diagramSupport.getDiagramContainer();
+	}
+
+	public DiagramSupport getDiagramSupport() {
+		return diagramSupport;
 	}
 
 	// ===================== overwriteable behaviour ==========================

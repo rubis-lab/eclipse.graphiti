@@ -32,7 +32,7 @@ import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramSupport;
 import org.eclipse.swt.widgets.Display;
 
 /**
@@ -43,10 +43,10 @@ import org.eclipse.swt.widgets.Display;
  */
 public class DomainModelChangeListener implements ResourceSetListener {
 
-	private IDiagramEditor diagramEditor;
+	private DiagramSupport diagramSupport;
 
-	public DomainModelChangeListener(IDiagramEditor diagramEditor) {
-		setDiagramEditor(diagramEditor);
+	public DomainModelChangeListener(DiagramSupport diagramSupport) {
+		setDiagramSupport(diagramSupport);
 	}
 
 	public NotificationFilter getFilter() {
@@ -132,14 +132,14 @@ public class DomainModelChangeListener implements ResourceSetListener {
 	}
 
 	private IDiagramTypeProvider getDiagramTypeProvider() {
-		return getDiagramEditor().getDiagramTypeProvider();
+		return getDiagramSupport().getDiagramTypeProvider();
 	}
 
-	private IDiagramEditor getDiagramEditor() {
-		return diagramEditor;
+	private DiagramSupport getDiagramSupport() {
+		return diagramSupport;
 	}
 
-	private void setDiagramEditor(IDiagramEditor diagramEditor) {
-		this.diagramEditor = diagramEditor;
+	private void setDiagramSupport(DiagramSupport diagramSupport) {
+		this.diagramSupport = diagramSupport;
 	}
 }

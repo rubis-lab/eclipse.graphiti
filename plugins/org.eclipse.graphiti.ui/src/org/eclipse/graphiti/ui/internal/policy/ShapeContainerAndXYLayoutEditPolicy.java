@@ -59,7 +59,7 @@ public class ShapeContainerAndXYLayoutEditPolicy extends ShapeXYLayoutEditPolicy
 				IMoveShapeFeature layoutShapeFeature = featureProvider.getMoveShapeFeature(context);
 				if (layoutShapeFeature != null) {
 					result = new GefCommandWrapper(new MoveShapeFeatureCommandWithContext(layoutShapeFeature, context),
-							getConfigurationProvider().getDiagramEditor().getEditingDomain());
+							getConfigurationProvider().getDiagramSupport().getEditingDomain());
 				}
 			}
 		}

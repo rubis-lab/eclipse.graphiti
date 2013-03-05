@@ -10,7 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -26,7 +26,7 @@ import org.eclipse.gef.AccessibleEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ExposeHelper;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.DiagramSupport;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScalableRootEditPart;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -53,8 +53,8 @@ public class GFScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer
 	 * @param diagramEditor
 	 *            the diagram editor
 	 */
-	public GFScrollingGraphicalViewer(IDiagramEditorUI diagramEditor) {
-		super(diagramEditor);
+	public GFScrollingGraphicalViewer(DiagramSupport diagramSupport) {
+		super(diagramSupport);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class GFScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer
 	 * @return the control
 	 */
 	public final Control createGFControl(Composite parent) {
-		GFFigureCanvas canvas = new GFFigureCanvas(parent, getLightweightSystem(), getDiagramEditor());
+		GFFigureCanvas canvas = new GFFigureCanvas(parent, getLightweightSystem(), getDiagramSupport());
 		canvas.setData(new String("name"), canvas.getClass().toString()); //$NON-NLS-1$
 		setControl(canvas);
 		installRootFigure();

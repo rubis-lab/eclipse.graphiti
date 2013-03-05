@@ -11,7 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -22,7 +22,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.DiagramSupport;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
 
 /**
@@ -31,18 +31,18 @@ import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
  */
 public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchronizer.Delegate {
 
-	private IDiagramEditorUI diagramEditor;
+	private DiagramSupport diagramSupport;
 
 	/**
 	 * The DiagramEditorBehavior reacts on a setResourceChanged(true) if he gets
 	 * activated.
 	 */
-	public DomainModelWorkspaceSynchronizerDelegate(IDiagramEditorUI diagramEditor) {
-		this.diagramEditor = diagramEditor;
+	public DomainModelWorkspaceSynchronizerDelegate(DiagramSupport diagramSupport) {
+		this.diagramSupport = diagramSupport;
 	}
 
 	public void dispose() { 
-		diagramEditor = null;
+		diagramSupport = null;
 
 	}
 
@@ -50,13 +50,13 @@ public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchr
 		IFile file = WorkspaceSynchronizer.getUnderlyingFile(resource);
 		// Since we cannot get timestamp information, we have to be pessimistic
 		if (file == null){
-			diagramEditor.getUpdateBehavior().setResourceChanged(true);
+			diagramSupport.getUpdateBehavior().setResourceChanged(true);
 			return true;
 		}
 		// if file does not exist the getLocalTimeStamp method will return
 		// NULL_TIMESTAMP and we will also get a refresh
 		if (file.getLocalTimeStamp() != resource.getTimeStamp()) {
-			diagramEditor.getUpdateBehavior().setResourceChanged(true);
+			diagramSupport.getUpdateBehavior().setResourceChanged(true);
 			return true;
 		}
 		return true;
@@ -74,11 +74,11 @@ public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchr
 		// (ResourceSetimpl(deb.getEditingDomain().getResourceSet())).getURIResourceMap().remove(resource.getURI());
 		// Map<URI, Resource> uriResourceMap = ((ResourceSetImpl)deb.getEditingDomain().getResourceSet()).getURIResourceMap();
 		resource.setURI(newURI);
-		IDiagramEditorInput editorInput = diagramEditor.getDiagramEditorInput();
+		IDiagramEditorInput editorInput = diagramSupport.getDiagramContainer().getDiagramEditorInput();
 		if (editorInput != null) {
 			((IDiagramEditorInput) editorInput).updateUri(newURI);
 		}
-		diagramEditor.refreshContent();
+		diagramSupport.refreshContent();
 		return true;
 	}
 

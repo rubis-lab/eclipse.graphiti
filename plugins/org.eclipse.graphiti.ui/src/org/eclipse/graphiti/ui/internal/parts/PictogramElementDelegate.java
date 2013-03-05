@@ -21,7 +21,7 @@
  *    mwenz - Bug 358255 - Add Border/Background decorators
  *    mgorning - Bug 368124 - ConnectionDecorator with Text causes problems 
  *    fvelasco - Bug 396247 - ImageDescriptor changes
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -107,7 +107,7 @@ import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.IImageDecorator;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.DiagramSupport;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.figures.DecoratorImageFigure;
@@ -206,7 +206,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	public IFigure createFigure() {
 		PictogramElement pe = getPictogramElement();
 		IFigure ret = createFigureForPictogramElement(pe);
-		if (getEditor().getRefreshBehavior().isMultipleRefreshSupressionActive()) {
+		if (getDiagramSupport().getRefreshBehavior().isMultipleRefreshSupressionActive()) {
 			return ret;
 		} else {
 			refreshFigureForPictogramElement(pe);
@@ -326,7 +326,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	public void refreshFigureForEditPart() {
 
 		// DR: Avoid multiple refresh of the same edit part
-		DefaultRefreshBehavior refreshBehavior = getEditor().getRefreshBehavior();
+		DefaultRefreshBehavior refreshBehavior = getDiagramSupport().getRefreshBehavior();
 		if (!isForceRefresh() && refreshBehavior.isMultipleRefreshSupressionActive()) {
 			if (!refreshBehavior.shouldRefresh(getContainerEditPart())) {
 				return;
@@ -448,7 +448,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			return;
 		}
 
-		DefaultRefreshBehavior refreshBehavior = getEditor().getRefreshBehavior();
+		DefaultRefreshBehavior refreshBehavior = getDiagramSupport().getRefreshBehavior();
 		if (!isForceRefresh() && refreshBehavior.isMultipleRefreshSupressionActive()) {
 			if (!refreshBehavior.shouldRefresh(graphicsAlgorithm)) {
 				return;
@@ -1174,7 +1174,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	private void refreshFigureForPictogramElement(PictogramElement pe) {
 
 		if (pe != null) {
-			DefaultRefreshBehavior refreshBehavior = getEditor().getRefreshBehavior();
+			DefaultRefreshBehavior refreshBehavior = getDiagramSupport().getRefreshBehavior();
 			if (!isForceRefresh() && refreshBehavior.isMultipleRefreshSupressionActive()) {
 				if (!refreshBehavior.shouldRefresh(pe)) {
 					return;
@@ -1531,8 +1531,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		return forceRefresh;
 	}
 
-	private IDiagramEditorUI getEditor() {
-		return getConfigurationProvider().getDiagramEditor();
+	private DiagramSupport getDiagramSupport() {
+		return getConfigurationProvider().getDiagramSupport();
 	}
 
 	protected void addDecorators(final GraphicsAlgorithm graphicsAlgorithm, final PictogramElement pe,

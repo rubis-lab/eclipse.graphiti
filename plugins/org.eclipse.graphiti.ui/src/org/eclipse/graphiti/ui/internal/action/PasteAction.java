@@ -11,7 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 339525 - Enrich paste context with location information
  *    mwenz - Bug 374701 - IPasteContext showing invalid location under certain circumstances
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -26,7 +26,7 @@ import org.eclipse.graphiti.features.context.impl.PasteContext;
 import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.ui.IWorkbenchPart;
@@ -94,9 +94,10 @@ public class PasteAction extends AbstractPreDefinedAction {
 		PasteContext context = new PasteContext(pes);
 		Point pasteLocation = new Point(-1, -1);
 		IWorkbenchPart workbenchPart = getWorkbenchPart();
-		if (workbenchPart instanceof IDiagramEditorUI) {
-			IDiagramEditorUI diagramEditor = (IDiagramEditorUI) workbenchPart;
-			pasteLocation = diagramEditor.calculateRealMouseLocation(diagramEditor.getMouseLocation());
+		if (workbenchPart instanceof IDiagramContainerUI) {
+			IDiagramContainerUI diagramContainer = (IDiagramContainerUI) workbenchPart;
+			pasteLocation = diagramContainer.getDiagramSupport().calculateRealMouseLocation(
+					diagramContainer.getDiagramSupport().getMouseLocation());
 		}
 		context.setLocation(pasteLocation.x, pasteLocation.y);
 		return context;

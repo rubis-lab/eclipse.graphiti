@@ -25,6 +25,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -111,9 +112,20 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	 * Returns the diagram editor instance this pattern lives in.
 	 * 
 	 * @return The diagram editor
+	 * @deprecated Use {@link #getDiagramContainer()} instead
 	 */
 	protected IDiagramEditor getDiagramEditor() {
 		return getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
+	}
+
+	/**
+	 * Returns the diagram container instance this pattern lives in.
+	 * 
+	 * @return The diagram container
+	 * @since 0.10
+	 */
+	protected IDiagramContainer getDiagramContainer() {
+		return getFeatureProvider().getDiagramTypeProvider().getDiagramContainer();
 	}
 
 	/**

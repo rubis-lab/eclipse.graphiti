@@ -24,7 +24,7 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.platform.IDiagramContainer;
 
 /**
  * The Class AbstractContextEntry.
@@ -65,9 +65,10 @@ public class AbstractContextEntry implements IContextEntry {
 	}
 
 	public void execute() {
-		IDiagramEditor diagramEditor = getFeature().getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
+		IDiagramContainer diagramContainer = getFeature().getFeatureProvider().getDiagramTypeProvider()
+				.getDiagramContainer();
 		try {
-			diagramEditor.executeFeature(getFeature(), getContext());
+			diagramContainer.executeFeature(getFeature(), getContext());
 		} catch (Exception e) {
 			if (e instanceof RollbackException) {
 				// Just log it as info (operation was cancelled on purpose) 

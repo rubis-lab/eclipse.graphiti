@@ -12,7 +12,7 @@
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *    mgorning - Bug 343983 - Notification for Cancelled Reconnection Events
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -33,7 +33,7 @@ import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
@@ -63,8 +63,9 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 
 		ILocation targetLocation = null;
 		if (location != null) {
-			IDiagramEditorUI diagramEditor = (IDiagramEditorUI) getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
-			Point realLocation = diagramEditor.calculateRealMouseLocation(location);
+			IDiagramContainerUI diagramEditor = (IDiagramContainerUI) getFeatureProvider().getDiagramTypeProvider()
+					.getDiagramContainer();
+			Point realLocation = diagramEditor.getDiagramSupport().calculateRealMouseLocation(location);
 			targetLocation = new LocationImpl(realLocation.x, realLocation.y);
 		}
 		this.ctx = new ReconnectionContext(connection, oldAnchor, newAnchor, targetLocation);

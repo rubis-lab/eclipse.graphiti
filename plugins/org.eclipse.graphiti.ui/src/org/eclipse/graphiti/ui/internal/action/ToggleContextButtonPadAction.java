@@ -10,14 +10,14 @@
  * Contributors:
  *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.action;
 
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.DiagramSupport;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.jface.action.Action;
@@ -28,7 +28,7 @@ import org.eclipse.jface.action.Action;
  */
 public class ToggleContextButtonPadAction extends Action {
 
-	private IDiagramEditorUI graphicsEditor;
+	private DiagramSupport diagramSupport;
 	
 	public static final String TOOL_TIP = Messages.ToggleContextButtonPadAction_0_xmsg;
 	
@@ -36,9 +36,9 @@ public class ToggleContextButtonPadAction extends Action {
 	
 	public static final String ACTION_ID = "toggle_context_button_pad"; //$NON-NLS-1$
 	
-	public ToggleContextButtonPadAction(IDiagramEditorUI graphicsEditor) {
+	public ToggleContextButtonPadAction(DiagramSupport diagramSupport) {
 		super();
-		this.graphicsEditor = graphicsEditor;
+		this.diagramSupport = diagramSupport;
 		setText(TEXT);
 		setToolTipText(TOOL_TIP);
 		setId(ACTION_ID);
@@ -46,7 +46,8 @@ public class ToggleContextButtonPadAction extends Action {
 
 	@Override
 	public void run() {
-		IContextButtonManager contextButtonManager = (IContextButtonManager) graphicsEditor.getAdapter(IContextButtonManager.class);
+		IContextButtonManager contextButtonManager = (IContextButtonManager) diagramSupport
+				.getAdapter(IContextButtonManager.class);
 		contextButtonManager.setContextButtonShowing(!isChecked());
 	}
 }
