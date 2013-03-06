@@ -61,7 +61,7 @@ public class DebugFeature extends AbstractCustomFeature {
 			PictogramElement pe = pes[0];
 			IDiagramContainerUI diagramEditor = (IDiagramContainerUI) getDiagramContainer();
 			GraphicalEditPart ep = diagramEditor.getDiagramSupport().getEditPartForPictogramElement(pe);
-			IFigure figure = diagramEditor.getFigureForPictogramElement(pe);
+			IFigure figure = diagramEditor.getDiagramSupport().getFigureForPictogramElement(pe);
 
 			switch (getType()) {
 			case TYPE_DUMP_PICTOGRAM_DATA:

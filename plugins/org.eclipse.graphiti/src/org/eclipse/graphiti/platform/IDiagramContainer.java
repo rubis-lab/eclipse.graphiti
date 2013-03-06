@@ -16,7 +16,6 @@
 package org.eclipse.graphiti.platform;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
@@ -84,13 +83,6 @@ public interface IDiagramContainer extends IDiagramEditor {
 	 * @return The transactional editing domain which is used in the container
 	 */
 	public TransactionalEditingDomain getEditingDomain();
-
-	/**
-	 * Gets the resource set.
-	 * 
-	 * @return The resource set which is used in the container
-	 */
-	public ResourceSet getResourceSet();
 
 	/*
 	 * Refreshing and UI
@@ -177,14 +169,6 @@ public interface IDiagramContainer extends IDiagramEditor {
 	 * {@link IEditorPart#PROP_DIRTY} property change.
 	 */
 	void updateDirtyState();
-
-	/**
-	 * Checks if this container is alive.
-	 * 
-	 * @return <code>true</code>, if the container contains a model connector
-	 *         and a valid Diagram, <code>false</code> otherwise.
-	 */
-	public boolean isAlive();
 
 	/**
 	 * Notify the container that it should shut down or clear it's state.

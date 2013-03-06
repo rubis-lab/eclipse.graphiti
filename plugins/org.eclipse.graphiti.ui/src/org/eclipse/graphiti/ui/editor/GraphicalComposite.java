@@ -184,16 +184,6 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
     }
 
     /**
-     * Does nothing be default. This method should be overridden if {@link #isSaveAsAllowed()} has
-     * been overridden to return <code>true</code>.
-     * 
-     * @see org.eclipse.ui.ISaveablePart#doSaveAs()
-     */
-    public void doSaveAs() {
-        throw new RuntimeException("doSaveAs must be overridden"); //$NON-NLS-1$
-    }
-
-    /**
      * @see org.eclipse.ui.part.WorkbenchPart#firePropertyChange(int)
      */
     protected void firePropertyChange(int property) {
@@ -207,7 +197,7 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
      * 
      * @return the action registry
      */
-    protected ActionRegistry getActionRegistry() {
+	public ActionRegistry getActionRegistry() {
         if (actionRegistry == null)
             actionRegistry = new ActionRegistry();
         return actionRegistry;
@@ -288,7 +278,7 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
      * @see #updateActions(List)
      * @return the list of selection-dependant action IDs
      */
-    protected List getSelectionActions() {
+	public List getSelectionActions() {
         return selectionActions;
     }
 
@@ -321,7 +311,7 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
      * SelectionSynchronizer, which can be used to keep 2 or more EditPartViewers in sync. The
      * viewer is also registered as the ISelectionProvider for the Editor's PartSite.
      */
-    protected void hookGraphicalViewer() {
+	public void hookGraphicalViewer() {
         getSelectionSynchronizer().addViewer(getGraphicalViewer());
 		if (getWorkbenchPart() != null) {
 			this.getWorkbenchPart().getSite().setSelectionProvider(getGraphicalViewer());
@@ -369,16 +359,6 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
     }
 
     /**
-     * Returns <code>false</code> by default. Subclasses must return <code>true</code> to allow
-     * {@link #doSaveAs()} to be called.
-     * 
-     * @see org.eclipse.ui.ISaveablePart#isSaveAsAllowed()
-     */
-    public boolean isSaveAsAllowed() {
-        return false;
-    }
-
-    /**
      * @see org.eclipse.ui.ISelectionListener#selectionChanged(IWorkbenchPart, ISelection)
      */
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
@@ -404,8 +384,8 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
      * @param ed
      *            the domain
      */
-    protected void setEditDomain(DefaultEditDomain ed) {
-        this.editDomain = ed;
+	public void setEditDomain(DefaultEditDomain editDomain) {
+		this.editDomain = editDomain;
     }
 
     public boolean setFocus() {
@@ -418,7 +398,7 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
      * @param viewer
      *            the graphical viewer
      */
-    protected void setGraphicalViewer(GraphicalViewer viewer) {
+	public void setGraphicalViewer(GraphicalViewer viewer) {
         getEditDomain().addViewer(viewer);
         this.graphicalViewer = viewer;
     }

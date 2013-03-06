@@ -175,7 +175,19 @@
         <filter id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="getContentEditPart()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
                 <message_argument value="getEditPartForPictogramElement(PictogramElement)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="getFigureForPictogramElement(PictogramElement)"/>
             </message_arguments>
         </filter>
         <filter id="338792546">
@@ -199,6 +211,12 @@
         <filter id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="getResourceSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
                 <message_argument value="getUpdateBehavior()"/>
             </message_arguments>
         </filter>
@@ -212,6 +230,12 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
                 <message_argument value="initActionRegistry(ZoomManager)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="isAlive()"/>
             </message_arguments>
         </filter>
         <filter id="338792546">
@@ -242,6 +266,12 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
                 <message_argument value="registerDiagramResourceSetListener()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="selectBufferedPictogramElements()"/>
             </message_arguments>
         </filter>
         <filter id="338792546">

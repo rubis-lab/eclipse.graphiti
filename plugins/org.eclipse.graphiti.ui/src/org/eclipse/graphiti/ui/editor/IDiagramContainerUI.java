@@ -43,12 +43,10 @@ import java.util.EventObject;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
@@ -131,18 +129,6 @@ public interface IDiagramContainerUI extends IDiagramContainer, IAdaptable {
 	 * @return The input containing the URI for the diagram
 	 */
 	public IDiagramEditorInput getDiagramEditorInput();
-
-	/**
-	 * Method to retrieve the Draw2D {@link IFigure} for a given
-	 * {@link PictogramElement}.
-	 * 
-	 * @param pe
-	 *            The {@link PictogramElement} to retrieve the Draw2D
-	 *            representation for
-	 * @return the Draw2D {@link IFigure} that represents the given
-	 *         {@link PictogramElement}.
-	 */
-	public IFigure getFigureForPictogramElement(PictogramElement pe);
 
 	/**
 	 * Returns the GEF action registry for the container.

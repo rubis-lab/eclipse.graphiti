@@ -16,31 +16,15 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
-import java.util.EventObject;
-import java.util.List;
-
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.DefaultEditDomain;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
-import org.eclipse.gef.ui.palette.PaletteViewerProvider;
-import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
-import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
 
@@ -81,7 +65,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 	public void setInput(TransactionalEditingDomain editingDomain, IDiagramEditorInput input) {
 
 		// assign editing domain to update behavior
-		getUpdateBehavior().setEditingDomain(editingDomain);
+		diagramSupport.getUpdateBehavior().setEditingDomain(editingDomain);
 		this.diagramSupport.setInput(input);
 
 		if (this.diagramSupport.getEditorInitializationError() != null) {
@@ -89,7 +73,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 			return;
 		}
 
-		getUpdateBehavior().init();
+		diagramSupport.getUpdateBehavior().init();
 		init();
 		this.diagramSupport.migrateDiagramModelIfNecessary();
 		this.diagramSupport.createPartControl();
@@ -187,7 +171,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 		}
 
 		if (super.setFocus()) {
-			getUpdateBehavior().handleActivate();
+			diagramSupport.getUpdateBehavior().handleActivate();
 			return true;
 		}
 		return false;
@@ -195,195 +179,70 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	/* Methods routed directly to DiagramSupport */
 
-	public final DefaultUpdateBehavior getUpdateBehavior() {
-		return this.diagramSupport.getUpdateBehavior();
-	}
-
-	public final DefaultRefreshBehavior getRefreshBehavior() {
-		return this.diagramSupport.getRefreshBehavior();
-	}
-
-	public void editingDomainInitialized() {
-		this.diagramSupport.editingDomainInitialized();
-	}
-
-	public void disableAdapters() {
-		this.diagramSupport.disableAdapters();
-	}
-
-	public void enableAdapters() {
-		this.diagramSupport.enableAdapters();
-	}
-
-	public boolean isDirty() {
-		return this.diagramSupport.isDirty();
-	}
-
-	protected final PaletteViewerProvider createPaletteViewerProvider() {
-		return this.diagramSupport.createPaletteViewerProvider();
-	}
-
-	protected final FlyoutPreferences getPalettePreferences() {
-		return this.diagramSupport.getPalettePreferences();
-	}
-
-	protected final PaletteRoot getPaletteRoot() {
-		return this.diagramSupport.getPaletteRoot();
-	}
-
 	public final void refreshPalette() {
-		this.diagramSupport.refreshPalette();
+		diagramSupport.refreshPalette();
 	}
 
 	public void refresh() {
-		this.diagramSupport.refresh();
+		diagramSupport.refresh();
 	}
 
 	public void refreshContent() {
-		this.diagramSupport.refreshContent();
+		diagramSupport.refreshContent();
 	}
 
 	public void refreshRenderingDecorators(PictogramElement pe) {
-		this.diagramSupport.refreshRenderingDecorators(pe);
+		diagramSupport.refreshRenderingDecorators(pe);
 	}
 
 	public PictogramElement[] getSelectedPictogramElements() {
-		return this.diagramSupport.getSelectedPictogramElements();
+		return diagramSupport.getSelectedPictogramElements();
 	}
 
 	public void selectPictogramElements(PictogramElement[] pictogramElements) {
-		this.diagramSupport.selectPictogramElements(pictogramElements);
+		diagramSupport.selectPictogramElements(pictogramElements);
 	}
 
 	public void setPictogramElementForSelection(PictogramElement pictogramElement) {
-		this.diagramSupport.setPictogramElementForSelection(pictogramElement);
+		diagramSupport.setPictogramElementForSelection(pictogramElement);
 	}
 
 	public void setPictogramElementsForSelection(PictogramElement pictogramElements[]) {
-		this.diagramSupport.setPictogramElementsForSelection(pictogramElements);
-	}
-
-	public void selectBufferedPictogramElements() {
-		this.diagramSupport.selectBufferedPictogramElements();
-	}
-
-	public Point getMouseLocation() {
-		return this.diagramSupport.getMouseLocation();
-	}
-
-	public Point calculateRealMouseLocation(Point nativeLocation) {
-		return this.diagramSupport.calculateRealMouseLocation(nativeLocation);
-	}
-
-	public IConfigurationProvider getConfigurationProvider() {
-		return this.diagramSupport.getConfigurationProvider();
-	}
-
-	public EditPart getContentEditPart() {
-		return this.diagramSupport.getContentEditPart();
+		diagramSupport.setPictogramElementsForSelection(pictogramElements);
 	}
 
 	public IDiagramTypeProvider getDiagramTypeProvider() {
-		return this.diagramSupport.getDiagramTypeProvider();
-	}
-
-	public GraphicalEditPart getEditPartForPictogramElement(PictogramElement pe) {
-		return this.diagramSupport.getEditPartForPictogramElement(pe);
-	}
-
-	public IFigure getFigureForPictogramElement(PictogramElement pe) {
-		return this.diagramSupport.getFigureForPictogramElement(pe);
-	}
-
-	public double getZoomLevel() {
-		return this.diagramSupport.getZoomLevel();
-	}
-
-	public boolean isAlive() {
-		return this.diagramSupport.isAlive();
-	}
-
-	public boolean isDirectEditingActive() {
-		return this.diagramSupport.isDirectEditingActive();
-	}
-
-	public void setDirectEditingActive(boolean directEditingActive) {
-		this.diagramSupport.setDirectEditingActive(directEditingActive);
+		return diagramSupport.getDiagramTypeProvider();
 	}
 
 	public TransactionalEditingDomain getEditingDomain() {
-		return this.diagramSupport.getEditingDomain();
+		return diagramSupport.getEditingDomain();
 	}
 
 	public Object executeFeature(IFeature feature, IContext context) {
-		return this.diagramSupport.executeFeature(feature, context);
-	}
-
-	public ResourceSet getResourceSet() {
-		return this.diagramSupport.getResourceSet();
+		return diagramSupport.executeFeature(feature, context);
 	}
 
 	public IDiagramEditorInput getDiagramEditorInput() {
-		return this.diagramSupport.getInput();
+		return diagramSupport.getInput();
 	}
 
-	/* GEF methods that need to be part of the IGEFDiagramContainer interface. */
-
-	public void setEditDomain(DefaultEditDomain editDomain) {
-		super.setEditDomain(editDomain);
-	}
-
-	public ActionRegistry getActionRegistry() {
-		return super.getActionRegistry();
-	}
-
-	@SuppressWarnings("rawtypes")
-	public List getSelectionActions() {
-		return super.getSelectionActions();
-	}
-
-	public SelectionSynchronizer getSelectionSynchronizer() {
-		return super.getSelectionSynchronizer();
-	}
-
-	public void commandStackChanged(EventObject event) {
-		super.commandStackChanged(event);
-	}
-
-	public void setGraphicalViewer(GraphicalViewer viewer) {
-		super.setGraphicalViewer(viewer);
-	}
-
-	public void hookGraphicalViewer() {
-		super.hookGraphicalViewer();
-	}
+	/* Methods from container interface */
 
 	public IWorkbenchPartSite getSite() {
-		return this.getWorkbenchPart().getSite();
+		return getWorkbenchPart().getSite();
 	}
 
 	public String getTitle() {
-		return this.getWorkbenchPart().getTitle();
+		return getWorkbenchPart().getTitle();
 	}
 
 	public String getTitleToolTip() {
 		return getWorkbenchPart().getTitleToolTip();
 	}
 
-	public void addPropertyListener(IPropertyListener listener) {
-		this.getWorkbenchPart().addPropertyListener(listener);
-	}
-
-	public void removePropertyListener(IPropertyListener listener) {
-		this.getWorkbenchPart().removePropertyListener(listener);
-	}
-
-	public boolean isLocalEditingDomain() {
-		return false;
-	}
-
 	public void doSave(IProgressMonitor monitor) {
-		this.diagramSupport.getPersistencyBehavior().saveDiagram(monitor);
+		diagramSupport.getPersistencyBehavior().saveDiagram(monitor);
 	}
 
 	public DiagramSupport getDiagramSupport() {

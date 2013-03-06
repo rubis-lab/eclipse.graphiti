@@ -46,18 +46,14 @@ import java.util.List;
 import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.DefaultEditDomain;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
@@ -144,8 +140,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	private String contributorId;
 	private DiagramSupport diagramSupport;
 
-	private KeyHandler keyHandler;
-
 	/**
 	 * The ID of the {@link DiagramEditor} as it is registered with the
 	 * org.eclipse.ui.editors extension point.
@@ -164,6 +158,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
+	 * Returns the associated {@link DiagramSupport} instance to this editor.
+	 * 
+	 * @return The associated {@link DiagramSupport} instance
+	 * 
 	 * @since 0.10
 	 */
 	public DiagramSupport getDiagramSupport() {
@@ -260,7 +258,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	protected DiagramEditorInput convertToDiagramEditorInput(IEditorInput input) throws PartInitException {
-		// TODO
 		IEditorInput newInput = EditorInputAdapter.adaptToDiagramEditorInput(input);
 		if (!(newInput instanceof IDiagramEditorInput)) {
 			throw new PartInitException("Unknown editor input: " + input); //$NON-NLS-1$
@@ -298,18 +295,20 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	public void createPartControl(Composite parent) {
 		if (diagramSupport.getEditorInitializationError() != null) {
 			diagramSupport.createErrorPartControl(parent);
-			return;
+		} else {
+			super.createPartControl(parent);
+			diagramSupport.createPartControl();
 		}
-		super.createPartControl(parent);
-		diagramSupport.createPartControl();
 	}
 
 	/**
 	 * Creates the GraphicalViewer on the specified {@link Composite} and
-	 * initializes it.
+	 * initializes it. This method needs to be implemented here to fulfill the
+	 * interface of the underlying GEF editor but only delegates to
+	 * {@link DiagramSupport#createGraphicalViewer(Composite)}.
 	 * 
 	 * @param parent
-	 *            the parent composite
+	 *            The parent composite
 	 */
 	protected void createGraphicalViewer(Composite parent) {
 		diagramSupport.createGraphicalViewer(parent);
@@ -361,7 +360,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 	/**
 	 * Called to perform the saving of the editor. The default implementation
-	 * delegates to
+	 * delegates via {@link DiagramSupport} to
 	 * {@link DefaultPersistencyBehavior#saveDiagram(IProgressMonitor)}.
 	 * 
 	 * @param monitor
@@ -373,8 +372,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 	/**
 	 * Returns if the editor is currently dirty and needs to be saved or not.
-	 * The default implementation delegates to
-	 * {@link DefaultPersistencyBehavior#isDirty()}.
+	 * The default implementation delegates to {@link DiagramSupport#isDirty()}.
 	 * 
 	 * @return <code>true</code> in case the editor is dirty, <code>false</code>
 	 *         otherwise.
@@ -691,13 +689,13 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * The methods {@link #getPictogramElementsForSelection()},
 	 * {@link #setPictogramElementForSelection(PictogramElement)},
 	 * {@link #setPictogramElementsForSelection(PictogramElement[])} and
-	 * {@link #selectBufferedPictogramElements()} offer the possibility to use a
-	 * deferred selection mechanism: via the setters, {@link PictogramElement}s
-	 * can be stored for a selection operation that is triggered lateron during
-	 * a general refresh via the method
-	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
-	 * in the Graphiti framework in direct editing to restore the previous
-	 * selection, but can also be used by clients.
+	 * {@link DiagramSupport#selectBufferedPictogramElements()} offer the
+	 * possibility to use a deferred selection mechanism: via the setters,
+	 * {@link PictogramElement}s can be stored for a selection operation that is
+	 * triggered lateron during a general refresh via the method
+	 * {@link DiagramSupport#selectBufferedPictogramElements()}. This mechanism
+	 * is used e.g. in the Graphiti framework in direct editing to restore the
+	 * previous selection, but can also be used by clients.
 	 * 
 	 * @param pictogramElement
 	 *            the {@link PictogramElement} that shall be stored for later
@@ -714,13 +712,13 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * The methods {@link #getPictogramElementsForSelection()},
 	 * {@link #setPictogramElementForSelection(PictogramElement)},
 	 * {@link #setPictogramElementsForSelection(PictogramElement[])} and
-	 * {@link #selectBufferedPictogramElements()} offer the possibility to use a
-	 * deferred selection mechanism: via the setters, {@link PictogramElement}s
-	 * can be stored for a selection operation that is triggered lateron during
-	 * a general refresh via the method
-	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
-	 * in the Graphiti framework in direct editing to restore the previous
-	 * selection, but can also be used by clients.
+	 * {@link DiagramSupport#selectBufferedPictogramElements()} offer the
+	 * possibility to use a deferred selection mechanism: via the setters,
+	 * {@link PictogramElement}s can be stored for a selection operation that is
+	 * triggered lateron during a general refresh via the method
+	 * {@link DiagramSupport#selectBufferedPictogramElements()}. This mechanism
+	 * is used e.g. in the Graphiti framework in direct editing to restore the
+	 * previous selection, but can also be used by clients.
 	 * 
 	 * @param pictogramElements
 	 *            the {@link PictogramElement}s that shall be stored for later
@@ -731,43 +729,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		diagramSupport.setPictogramElementsForSelection(pictogramElements);
 	}
 
-	/**
-	 * Triggers the selection for the {@link PictogramElement}s that are stored
-	 * for later selection. Can be called e.g during a general refresh of the
-	 * editor or after another operation needing another selection is finished
-	 * (an example in the framework is direct editing).
-	 * <p>
-	 * The methods {@link #getPictogramElementsForSelection()},
-	 * {@link #setPictogramElementForSelection(PictogramElement)},
-	 * {@link #setPictogramElementsForSelection(PictogramElement[])} and
-	 * {@link #selectBufferedPictogramElements()} offer the possibility to use a
-	 * deferred selection mechanism: via the setters, {@link PictogramElement}s
-	 * can be stored for a selection operation that is triggered lateron during
-	 * a general refresh via the method
-	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
-	 * in the Graphiti framework in direct editing to restore the previous
-	 * selection, but can also be used by clients.
-	 * 
-	 * @since 0.9
-	 */
-	public void selectBufferedPictogramElements() {
-		diagramSupport.selectBufferedPictogramElements();
-	}
-
 	// ---------------------- Other ----------------------------------------- //
-
-	/**
-	 * Returns the contents {@link EditPart} of this Editor. This is the topmost
-	 * EditPart in the {@link GraphicalViewer}.
-	 * 
-	 * @return The contents {@link EditPart} of this Editor.
-	 * @since 0.9
-	 */
-	public EditPart getContentEditPart() {
-		// TODO remove
-
-		return diagramSupport.getContentEditPart();
-	}
 
 	/**
 	 * Returns the ID for contributions in the tabbed property sheets by
@@ -819,23 +781,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
-	 * Method to retrieve the Draw2D {@link IFigure} for a given
-	 * {@link PictogramElement}.
-	 * 
-	 * @param pe
-	 *            the {@link PictogramElement} to retrieve the Draw2D
-	 *            representation for
-	 * @return the Draw2D {@link IFigure} that represents the given
-	 *         {@link PictogramElement}.
-	 * 
-	 * @since 0.9
-	 */
-	public IFigure getFigureForPictogramElement(PictogramElement pe) {
-		// TODO remove
-		return diagramSupport.getFigureForPictogramElement(pe);
-	}
-
-	/**
 	 * Returns the GEF {@link GraphicalViewer} as it is needed in some Graphiti
 	 * feature implementations. This is simply a public rewrite of the according
 	 * super method.
@@ -870,17 +815,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			return dtp.getCurrentToolBehaviorProvider();
 		}
 		return null;
-	}
-
-	/**
-	 * Checks if this editor is alive.
-	 * 
-	 * @return <code>true</code>, if editor contains a model connector and a
-	 *         valid Diagram, <code>false</code> otherwise.
-	 * @since 0.9
-	 */
-	public boolean isAlive() {
-		return diagramSupport.isAlive();
 	}
 
 	/**
@@ -925,21 +859,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
-	 * The EMF {@link ResourceSet} used within this {@link DiagramEditor}. The
-	 * resource set is always associated in a 1:1 releation to the
-	 * {@link TransactionalEditingDomain}.
-	 * <p>
-	 * Note that this is a pure delegation method. Overrides should happen in
-	 * {@link DiagramSupport}.
-	 * 
-	 * @return the resource set used within this editor
-	 * @since 0.9
-	 */
-	public ResourceSet getResourceSet() {
-		return diagramSupport.getResourceSet();
-	}
-
-	/**
 	 * @since 0.10
 	 */
 	public IDiagramEditorInput getDiagramEditorInput() {
@@ -947,6 +866,10 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
+	 * Returns the {@link IWorkbenchPart} for this container. Since this editor
+	 * itself is already a part the default implementation simply returns this.
+	 * 
+	 * @return This part
 	 * @since 0.10
 	 */
 	public IWorkbenchPart getWorkbenchPart() {

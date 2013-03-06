@@ -438,7 +438,8 @@ public class GFOtherTests extends AbstractGFTests {
 		@Override
 		protected Collection<Diagram> getDiagrams() {
 			final Collection<Diagram> ret = new HashSet<Diagram>();
-			for (final TreeIterator<?> i = getDiagramEditor().getResourceSet().getAllContents(); i.hasNext();) {
+			for (final TreeIterator<?> i = getDiagramEditor().getEditingDomain().getResourceSet().getAllContents(); i
+					.hasNext();) {
 				final Object child = i.next();
 				if (child instanceof Diagram) {
 					ret.add((Diagram) child);

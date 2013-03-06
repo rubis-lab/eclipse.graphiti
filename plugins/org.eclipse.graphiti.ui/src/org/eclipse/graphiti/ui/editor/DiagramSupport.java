@@ -926,7 +926,7 @@ public class DiagramSupport {
 		return Math.max(0.05D, zoomManager.getZoom());
 	}
 
-	IFigure getFigureForPictogramElement(PictogramElement pe) {
+	public IFigure getFigureForPictogramElement(PictogramElement pe) {
 		GraphicalEditPart ep = getEditPartForPictogramElement(pe);
 		if (ep != null) {
 			return ep.getFigure();

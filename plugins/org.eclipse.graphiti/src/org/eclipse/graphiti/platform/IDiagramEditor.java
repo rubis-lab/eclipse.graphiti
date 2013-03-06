@@ -21,7 +21,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.platform;
 
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
@@ -77,13 +76,6 @@ public interface IDiagramEditor {
 	 * @return transactional editing domain which is linked to the editor
 	 */
 	TransactionalEditingDomain getEditingDomain();
-
-	/**
-	 * Gets the resource set.
-	 * 
-	 * @return resource set
-	 */
-	ResourceSet getResourceSet();
 
 	/**
 	 * Gets the diagram type provider.
