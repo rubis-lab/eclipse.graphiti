@@ -43,26 +43,22 @@ import java.util.EventObject;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.DefaultEditDomain;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramContainer;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IPropertyListener;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchPartConstants;
 import org.eclipse.ui.IWorkbenchPartSite;
 
 /**
- * This is the main interface for the Graphiti diagram editor. It can be
+ * This is the main UI interface for the Graphiti diagram containers. It can be
  * implemented by any class that would like to display a Graphiti diagram.
  * 
- * A DiagramEditor takes in a {@link DiagramEditorInput} that points to the
+ * A DiagramContainer takes in a {@link DiagramEditorInput} that points to the
  * diagram to display. This input is not technically an IEditorInput, as
  * diagrams may be displayed in non-editor parts.
  * 
@@ -85,12 +81,18 @@ public interface IDiagramContainerUI extends IDiagramContainer, IAdaptable {
 	 * 
 	 * @return the {@link DefaultEditDomain} used in this editor
 	 * @see GraphicalEditor#getEditDomain()
-	 * 
-	 * @since 0.9
 	 */
-	DefaultEditDomain getEditDomain();
+	public DefaultEditDomain getEditDomain();
 
-	void setEditDomain(DefaultEditDomain editDomain);
+	/**
+	 * Sets the GEF edit domain to the container. Needed for initializing the
+	 * container from the {@link DiagramSupport} instance.
+	 * 
+	 * @param editDomain
+	 *            The {@link DefaultEditDomain} to set
+	 * @see GraphicalEditor#setEditDomain()
+	 */
+	public void setEditDomain(DefaultEditDomain editDomain);
 
 	/**
 	 * Returns the GEF {@link GraphicalViewer} as it is needed in some Graphiti
@@ -100,119 +102,101 @@ public interface IDiagramContainerUI extends IDiagramContainer, IAdaptable {
 	 * @return the {@link GraphicalViewer} used within this editor instance
 	 * @see GraphicalEditor#getGraphicalViewer()
 	 */
-	GraphicalViewer getGraphicalViewer();
+	public GraphicalViewer getGraphicalViewer();
 
 	/**
-	 * Updates the UI to correctly reflect the dirty state of the editor. The
-	 * default implementation does this by firing a
-	 * {@link IEditorPart#PROP_DIRTY} property change.
+	 * Returns the instance of the Eclipse {@link IWorkbenchPart} that displays
+	 * this container. E.g. for an editor this will be the editor itself.
 	 * 
-	 * @since 0.9
+	 * @return The {@link IWorkbenchPart} that is displaying the diagram.
 	 */
-	void updateDirtyState();
-
+	public IWorkbenchPart getWorkbenchPart();
 
 	/**
-	 * Request that the diagram model be persisted.
+	 * Returns the {@link IWorkbenchPartSite} of the Eclipse
+	 * {@link IWorkbenchPart} that displays this container. E.g. for an editor
+	 * this will be the editor site.
 	 * 
-	 */
-	void doSave(IProgressMonitor monitor);
-
-	/**
-	 * Returns the contents {@link EditPart} of this Editor. This is the topmost
-	 * EditPart in the {@link GraphicalViewer}.
-	 * 
-	 * @return The contents {@link EditPart} of this Editor.
-	 * @since 0.9
-	 */
-	EditPart getContentEditPart();
-
-	/**
-	 * @return the {@link IWorkbenchPart} that is displaying the diagram.
-	 */
-	IWorkbenchPart getWorkbenchPart();
-
-	/**
-	 * @return the site for the {@link IWorkbenchPart} that is displaying the
+	 * @return The site for the {@link IWorkbenchPart} that is displaying the
 	 *         diagram.
-	 * @since 0.10
 	 */
-	IWorkbenchPartSite getSite();
+	public IWorkbenchPartSite getSite();
 
 	/**
-	 * @return the title for the {@link IWorkbenchPart} that is displaying the
-	 *         diagram.
-	 * @since 0.10
-	 */
-	String getTitle();
-
-	/**
-	 * Adds a listener for changes to properties of this workbench part. Has no
-	 * effect if an identical listener is already registered.
-	 * <p>
-	 * The property ids are defined in {@link IWorkbenchPartConstants}.
-	 * </p>
+	 * Returns the {@link IDiagramEditorInput} instance used for this container.
+	 * Basically it is used as an Eclipse {@link IEditorInput} object only in
+	 * case the container is an editor; for other types of containers the input
+	 * is simply used as a holder for a URI pointing to a diagram.
 	 * 
-	 * @param listener
-	 *            a property listener
-	 * @since 0.10
+	 * @return The input containing the URI for the diagram
 	 */
-	public void addPropertyListener(IPropertyListener listener);
-
-	/**
-	 * Removes the given property listener from this workbench part. Has no
-	 * effect if an identical listener is not registered.
-	 * 
-	 * @param listener
-	 *            a property listener
-	 * @since 0.10
-	 */
-	public void removePropertyListener(IPropertyListener listener);
-
-	/**
-	 * @return the input containing the model for the diagram
-	 */
-	IDiagramEditorInput getDiagramEditorInput();
-
-	/**
-	 * Notify the container that it should shut down or clear it's state.
-	 */
-	void close();
+	public IDiagramEditorInput getDiagramEditorInput();
 
 	/**
 	 * Method to retrieve the Draw2D {@link IFigure} for a given
 	 * {@link PictogramElement}.
 	 * 
 	 * @param pe
-	 *            the {@link PictogramElement} to retrieve the Draw2D
+	 *            The {@link PictogramElement} to retrieve the Draw2D
 	 *            representation for
 	 * @return the Draw2D {@link IFigure} that represents the given
 	 *         {@link PictogramElement}.
-	 * 
-	 * @since 0.9
 	 */
-	IFigure getFigureForPictogramElement(PictogramElement pe);
-
-	ActionRegistry getActionRegistry();
-
-	@SuppressWarnings("rawtypes")
-	List getSelectionActions();
-
-	void commandStackChanged(EventObject event);
-
-	void setGraphicalViewer(GraphicalViewer viewer);
-
-	void hookGraphicalViewer();
-
-	DiagramSupport getDiagramSupport();
-
-	void initializeGraphicalViewer();
+	public IFigure getFigureForPictogramElement(PictogramElement pe);
 
 	/**
-	 * Checks if this editor is alive.
+	 * Returns the GEF action registry for the container.
 	 * 
-	 * @return <code>true</code>, if editor contains a model connector and a
-	 *         valid Diagram, <code>false</code> otherwise.
+	 * @return The {@link ActionRegistry}
 	 */
-	boolean isAlive();
+	public ActionRegistry getActionRegistry();
+
+	/**
+	 * Returns the actions used for selection of the parent GEF editor, for an
+	 * editor based upon the GEF editor this simply returns the standard GEF
+	 * selection actions by delegating to the super editor class.
+	 * 
+	 * @return A {@link List} containing the selection actions
+	 * @see GraphicalEditor#getSelectionActions()
+	 */
+	@SuppressWarnings("rawtypes")
+	public List getSelectionActions();
+
+	/**
+	 * Notification that the command stack changed. This might e.g. trigger an
+	 * update of the dirty state of the container.
+	 * 
+	 * @param event
+	 *            An event instance describing what happened
+	 * @see GraphicalEditor#commandStackChanged(EventObject event)
+	 */
+	public void commandStackChanged(EventObject event);
+
+	/**
+	 * Sets the {@link GraphicalViewer} to be used inside the container. The
+	 * viewer is created by the {@link DiagramSupport} instance and needs to be
+	 * set in the GEF container.
+	 * 
+	 * @param viewer
+	 *            The viewer to use.
+	 * @see GraphicalEditor#setGraphicalViewer(GraphicalViewer viewer)
+	 */
+	public void setGraphicalViewer(GraphicalViewer viewer);
+
+	/**
+	 * Hooks the {@link GraphicalViewer} to be used inside the container.
+	 * 
+	 * @param viewer
+	 *            The viewer to use.
+	 * @see GraphicalEditor#hookGraphicalViewer(GraphicalViewer viewer)
+	 */
+	public void hookGraphicalViewer();
+
+	/**
+	 * Returns the {@link DiagramSupport} instance associated with this
+	 * container.
+	 * 
+	 * @return The associated {@link DiagramSupport} instance
+	 */
+	public DiagramSupport getDiagramSupport();
 }

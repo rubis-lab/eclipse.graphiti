@@ -176,8 +176,20 @@ public class FeatureParametersTest extends GFAbstractTestCase {
 			}
 
 			public void doSave(IProgressMonitor monitor) {
-				// TODO Auto-generated method stub
+			}
 
+			public String getTitle() {
+				return "Title";
+			}
+
+			public String getTitleToolTip() {
+				return "ToolTip";
+			}
+
+			public void updateDirtyState() {
+			}
+
+			public void close() {
 			}
 		};
 

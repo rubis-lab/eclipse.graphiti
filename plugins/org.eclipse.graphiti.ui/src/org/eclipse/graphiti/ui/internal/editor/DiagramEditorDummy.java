@@ -175,7 +175,19 @@ public class DiagramEditorDummy implements IDiagramContainer {
 	}
 
 	public void doSave(IProgressMonitor monitor) {
-		// TODO Auto-generated method stub
+	}
 
+	public String getTitle() {
+		return "Dummy Editor"; //$NON-NLS-1$
+	}
+
+	public String getTitleToolTip() {
+		return "Dummy Editor"; //$NON-NLS-1$
+	}
+
+	public void updateDirtyState() {
+	}
+
+	public void close() {
 	}
 }

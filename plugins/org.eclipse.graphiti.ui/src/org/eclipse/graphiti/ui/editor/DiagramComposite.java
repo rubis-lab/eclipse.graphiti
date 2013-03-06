@@ -326,10 +326,6 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 		super.setEditDomain(editDomain);
 	}
 
-	public void initializeGEFGraphicalViewer() {
-		this.initializeGraphicalViewer();
-	}
-
 	public ActionRegistry getActionRegistry() {
 		return super.getActionRegistry();
 	}
@@ -361,6 +357,10 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	public String getTitle() {
 		return this.getWorkbenchPart().getTitle();
+	}
+
+	public String getTitleToolTip() {
+		return getWorkbenchPart().getTitleToolTip();
 	}
 
 	public void addPropertyListener(IPropertyListener listener) {

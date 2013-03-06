@@ -99,8 +99,8 @@
     <resource path="src/org/eclipse/graphiti/ui/editor/DiagramComposite.java" type="org.eclipse.graphiti.ui.editor.DiagramComposite">
         <filter id="574660632">
             <message_arguments>
-                <message_argument value="IDiagramEditorUI"/>
-                <message_argument value="IDiagramEditor"/>
+                <message_argument value="IDiagramContainerUI"/>
+                <message_argument value="IDiagramContainer"/>
                 <message_argument value="DiagramComposite"/>
             </message_arguments>
         </filter>
@@ -285,6 +285,14 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/IDiagramContainerUI.java" type="org.eclipse.graphiti.ui.editor.IDiagramContainerUI">
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="IDiagramContainer"/>
+                <message_argument value="IDiagramContainerUI"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/features/AbstractCopyFeature.java" type="org.eclipse.graphiti.ui.features.AbstractCopyFeature">
         <filter id="574619656">
             <message_arguments>
@@ -335,10 +343,9 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/internal/editor/DiagramEditorDummy.java" type="org.eclipse.graphiti.ui.internal.editor.DiagramEditorDummy">
-        <filter id="574660632">
+        <filter id="574619656">
             <message_arguments>
                 <message_argument value="IDiagramContainer"/>
-                <message_argument value="IDiagramEditor"/>
                 <message_argument value="DiagramEditorDummy"/>
             </message_arguments>
         </filter>
