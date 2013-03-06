@@ -160,6 +160,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	public DiagramEditor() {
 		super();
 		diagramSupport = new DiagramSupport(this);
+		diagramSupport.setParentPart(this);
 	}
 
 	/**

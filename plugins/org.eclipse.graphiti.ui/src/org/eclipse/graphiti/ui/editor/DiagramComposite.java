@@ -61,10 +61,15 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	private DiagramSupport diagramSupport;
 
-	public DiagramComposite(IWorkbenchPart parentPart, Composite parent, int style) {
-		super(parentPart, parent, style);
-		this.diagramSupport = new DiagramSupport(this);
-		this.setEditDomain(new DefaultEditDomain(null));
+	public DiagramComposite(IWorkbenchPart ownedPart, Composite parent, int style) {
+		super(parent, style);
+		diagramSupport = new DiagramSupport(this);
+		diagramSupport.setParentPart(ownedPart);
+		setEditDomain(new DefaultEditDomain(null));
+	}
+
+	public DiagramComposite(Composite parent, int style) {
+		this(null, parent, style);
 	}
 
 	public void setInput(IDiagramEditorInput input) {
@@ -132,8 +137,9 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 		// TODO Auto-generated method stub
 	}
 
+	@Override
 	public IWorkbenchPart getWorkbenchPart() {
-		return this.getParentPart();
+		return diagramSupport.getParentPart();
 	}
 
 	public void close() {
@@ -149,8 +155,9 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	public void dispose() {
 		// unregister selection listener, registered during createPartControl()
-		if (this.getParentPart().getSite() != null && this.getParentPart().getSite().getPage() != null) {
-			this.getParentPart().getSite().getPage().removeSelectionListener(this);
+		if (getWorkbenchPart() != null && getWorkbenchPart().getSite() != null
+				&& getWorkbenchPart().getSite().getPage() != null) {
+			getWorkbenchPart().getSite().getPage().removeSelectionListener(this);
 		}
 
 		this.diagramSupport.preSuperDispose();

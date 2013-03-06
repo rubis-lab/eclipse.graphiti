@@ -128,6 +128,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
@@ -167,6 +168,8 @@ public class DiagramSupport {
 	private IDiagramEditorInput diagramEditorInput;
 
 	private String editorInitializationError = null;
+
+	private IWorkbenchPart parentPart;
 
 	DiagramSupport(IDiagramContainerUI diagramContainer) {
 		this.diagramContainer = diagramContainer;
@@ -428,8 +431,8 @@ public class DiagramSupport {
 		IFeatureProvider featureProvider = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
 		if (featureProvider != null) {
 			IPrintFeature pf = featureProvider.getPrintFeature();
-			if (pf != null) {
-				registerAction(new PrintGraphicalViewerAction(diagramContainer.getWorkbenchPart(), pf));
+			if (pf != null && parentPart != null) {
+				registerAction(new PrintGraphicalViewerAction(parentPart, pf));
 			}
 		}
 
@@ -440,8 +443,8 @@ public class DiagramSupport {
 			graphicalViewer.setContextMenu(contextMenuProvider);
 			// the registration allows an extension of the context-menu by other
 			// plugins
-			if (shouldRegisterContextMenu()) {
-				diagramContainer.getWorkbenchPart().getSite().registerContextMenu(contextMenuProvider, graphicalViewer);
+			if (shouldRegisterContextMenu() && parentPart != null) {
+				parentPart.getSite().registerContextMenu(contextMenuProvider, graphicalViewer);
 			}
 		}
 
@@ -632,8 +635,11 @@ public class DiagramSupport {
 					editParts.add((EditPart) obj);
 				}
 			}
-			diagramContainer.getWorkbenchPart().getSite().getSelectionProvider()
+			if (parentPart != null)
+			{
+				parentPart.getSite().getSelectionProvider()
 					.setSelection(new StructuredSelection(editParts));
+			}
 			if (editParts.size() > 0) {
 				final EditPart editpart = editParts.get(0);
 				// if the editPart is newly created it is possible that his
@@ -651,7 +657,14 @@ public class DiagramSupport {
 
 	public PictogramElement[] getSelectedPictogramElements() {
 		PictogramElement pe[] = new PictogramElement[0];
-		ISelectionProvider selectionProvider = diagramContainer.getWorkbenchPart().getSite().getSelectionProvider();
+		ISelectionProvider selectionProvider = null;
+
+		if (parentPart == null) {
+			selectionProvider = diagramContainer.getGraphicalViewer();
+		} else {
+			selectionProvider = parentPart.getSite().getSelectionProvider();
+		}
+
 		if (selectionProvider != null) {
 			ISelection s = selectionProvider.getSelection();
 			if (s instanceof IStructuredSelection) {
@@ -925,7 +938,7 @@ public class DiagramSupport {
 		this.configurationProvider = configurationProvider;
 
 		// initialize configuration-provider depending on this editor
-		configurationProvider.setWorkbenchPart(diagramContainer.getWorkbenchPart());
+		configurationProvider.setWorkbenchPart(parentPart);
 
 		if (diagramContainer.getGraphicalViewer() != null) {
 			initializeGraphicalViewer();
@@ -983,13 +996,13 @@ public class DiagramSupport {
 	 * @since 0.9
 	 */
 	void registerAction(IAction action) {
-		if (action == null) {
+		if (action == null || parentPart == null) {
 			return;
 		}
 		diagramContainer.getActionRegistry().registerAction(action);
 
 		if (action.getActionDefinitionId() != null) {
-			IHandlerService hs = (IHandlerService) diagramContainer.getWorkbenchPart().getSite()
+			IHandlerService hs = (IHandlerService) parentPart.getSite()
 					.getService(IHandlerService.class);
 			hs.activateHandler(action.getActionDefinitionId(), new ActionHandler(action));
 		}
@@ -1009,29 +1022,33 @@ public class DiagramSupport {
 	 *            the GEF zoom manager to use
 	 */
 	void initActionRegistry(ZoomManager zoomManager) {
+		if (parentPart == null)
+		{
+			return;
+		}
 		// TODO check if this should be moved to container
 		final ActionRegistry actionRegistry = diagramContainer.getActionRegistry();
 		@SuppressWarnings("unchecked")
 		final List<String> selectionActions = diagramContainer.getSelectionActions();
 
 		// register predefined actions (e.g. update, remove, delete, ...)
-		IAction action = new UpdateAction(diagramContainer.getWorkbenchPart(), getConfigurationProvider());
+		IAction action = new UpdateAction(parentPart, getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
-		action = new RemoveAction(diagramContainer.getWorkbenchPart(), getConfigurationProvider());
+		action = new RemoveAction(parentPart, getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
-		action = new DeleteAction(diagramContainer.getWorkbenchPart(), getConfigurationProvider());
+		action = new DeleteAction(parentPart, getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
-		action = new CopyAction(diagramContainer.getWorkbenchPart(), getConfigurationProvider());
+		action = new CopyAction(parentPart, getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
-		action = new PasteAction(diagramContainer.getWorkbenchPart(), getConfigurationProvider());
+		action = new PasteAction(parentPart, getConfigurationProvider());
 		actionRegistry.registerAction(action);
 		selectionActions.add(action.getId());
 
@@ -1049,16 +1066,16 @@ public class DiagramSupport {
 
 		registerAction(new ZoomInAction(zoomManager));
 		registerAction(new ZoomOutAction(zoomManager));
-		registerAction(new DirectEditAction(diagramContainer.getWorkbenchPart()));
+		registerAction(new DirectEditAction(parentPart));
 
-		registerAction(new AlignmentAction(diagramContainer.getWorkbenchPart(), PositionConstants.LEFT));
-		registerAction(new AlignmentAction(diagramContainer.getWorkbenchPart(), PositionConstants.RIGHT));
-		registerAction(new AlignmentAction(diagramContainer.getWorkbenchPart(), PositionConstants.TOP));
-		registerAction(new AlignmentAction(diagramContainer.getWorkbenchPart(), PositionConstants.BOTTOM));
-		registerAction(new AlignmentAction(diagramContainer.getWorkbenchPart(), PositionConstants.CENTER));
-		registerAction(new AlignmentAction(diagramContainer.getWorkbenchPart(), PositionConstants.MIDDLE));
-		registerAction(new MatchWidthAction(diagramContainer.getWorkbenchPart()));
-		registerAction(new MatchHeightAction(diagramContainer.getWorkbenchPart()));
+		registerAction(new AlignmentAction(parentPart, PositionConstants.LEFT));
+		registerAction(new AlignmentAction(parentPart, PositionConstants.RIGHT));
+		registerAction(new AlignmentAction(parentPart, PositionConstants.TOP));
+		registerAction(new AlignmentAction(parentPart, PositionConstants.BOTTOM));
+		registerAction(new AlignmentAction(parentPart, PositionConstants.CENTER));
+		registerAction(new AlignmentAction(parentPart, PositionConstants.MIDDLE));
+		registerAction(new MatchWidthAction(parentPart));
+		registerAction(new MatchHeightAction(parentPart));
 		IAction showGrid = new ToggleGridAction(diagramContainer.getGraphicalViewer());
 		diagramContainer.getActionRegistry().registerAction(showGrid);
 
@@ -1069,7 +1086,7 @@ public class DiagramSupport {
 		actionRegistry.registerAction(toggleContextButtonPad);
 		// End bug 323351
 
-		IHandlerService hs = (IHandlerService) diagramContainer.getWorkbenchPart().getSite()
+		IHandlerService hs = (IHandlerService) parentPart.getSite()
 				.getService(IHandlerService.class);
 		hs.activateHandler(FeatureExecutionHandler.COMMAND_ID, new FeatureExecutionHandler(getConfigurationProvider()));
 	}
@@ -1279,5 +1296,13 @@ public class DiagramSupport {
 	 */
 	public DefaultEditDomain getEditDomain() {
 		return diagramContainer.getEditDomain();
+	}
+
+	public void setParentPart(IWorkbenchPart parentPart) {
+		this.parentPart = parentPart;
+	}
+
+	public IWorkbenchPart getParentPart() {
+		return parentPart;
 	}
 }

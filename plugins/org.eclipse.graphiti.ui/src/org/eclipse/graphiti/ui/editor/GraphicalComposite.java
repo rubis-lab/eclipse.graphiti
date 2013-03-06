@@ -42,6 +42,7 @@ import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetPage;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.ISelectionService;
@@ -85,14 +86,13 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
     private List selectionActions = new ActionIDList();
     private List stackActions = new ActionIDList();
     private List propertyActions = new ActionIDList();
-    private IWorkbenchPart parentPart;
 
     /**
      * Constructs the editor part
      */
-    public GraphicalComposite(IWorkbenchPart parentPart, Composite parent, int style) {
+	public GraphicalComposite(Composite parent, int style) {
         super(parent, style);
-        this.parentPart = parentPart;
+		setLayout(new FillLayout());
     }
 
     /**
@@ -120,25 +120,27 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
      */
     @SuppressWarnings("unchecked")
     protected void createActions() {
-        ActionRegistry registry = getActionRegistry();
-        IAction action;
+		if (getWorkbenchPart() != null) {
+			ActionRegistry registry = getActionRegistry();
+			IAction action;
 
-        action = new UndoAction(this.parentPart);
-        registry.registerAction(action);
-        getStackActions().add(action.getId());
+			action = new UndoAction(this.getWorkbenchPart());
+			registry.registerAction(action);
+			getStackActions().add(action.getId());
 
-        action = new RedoAction(this.parentPart);
-        registry.registerAction(action);
-        getStackActions().add(action.getId());
+			action = new RedoAction(this.getWorkbenchPart());
+			registry.registerAction(action);
+			getStackActions().add(action.getId());
 
-        action = new SelectAllAction(this.parentPart);
-        registry.registerAction(action);
+			action = new SelectAllAction(this.getWorkbenchPart());
+			registry.registerAction(action);
 
-        action = new DeleteAction(this.parentPart);
-        registry.registerAction(action);
-        getSelectionActions().add(action.getId());
+			action = new DeleteAction(this.getWorkbenchPart());
+			registry.registerAction(action);
+			getSelectionActions().add(action.getId());
 
-        registry.registerAction(new PrintAction(this.parentPart));
+			registry.registerAction(new PrintAction(this.getWorkbenchPart()));
+		}
     }
 
     /**
@@ -173,7 +175,8 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
      */
     public void dispose() {
         getCommandStack().removeCommandStackListener(this);
-        this.parentPart.getSite().getWorkbenchWindow().getSelectionService()
+		if (getWorkbenchPart() != null)
+			this.getWorkbenchPart().getSite().getWorkbenchWindow().getSelectionService()
                 .removeSelectionListener(this);
         getEditDomain().setActiveTool(null);
         getActionRegistry().dispose();
@@ -320,14 +323,17 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
      */
     protected void hookGraphicalViewer() {
         getSelectionSynchronizer().addViewer(getGraphicalViewer());
-        this.parentPart.getSite().setSelectionProvider(getGraphicalViewer());
+		if (getWorkbenchPart() != null) {
+			this.getWorkbenchPart().getSite().setSelectionProvider(getGraphicalViewer());
+		}
     }
 
     protected void init() {
         getCommandStack().addCommandStackListener(this);
-        this.parentPart.getSite().getWorkbenchWindow().getSelectionService()
-                .addSelectionListener(this);
-        initializeActionRegistry();
+		if (getWorkbenchPart() != null) {
+			this.getWorkbenchPart().getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(this);
+			initializeActionRegistry();
+		}
         this.createControl();
     }
 
@@ -377,7 +383,8 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
      */
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
         // If not the active part, ignore selection changed.
-        if (this.parentPart.equals(this.parentPart.getSite().getPage().getActivePart()))
+		if (getWorkbenchPart() != null
+				&& getWorkbenchPart().equals(getWorkbenchPart().getSite().getPage().getActivePart()))
             updateActions(selectionActions);
     }
 
@@ -435,7 +442,5 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
         }
     }
 
-    protected IWorkbenchPart getParentPart() {
-        return this.parentPart;
-    }
+	protected abstract IWorkbenchPart getWorkbenchPart();
 }
