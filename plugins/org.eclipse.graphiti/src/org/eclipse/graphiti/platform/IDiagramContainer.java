@@ -16,11 +16,7 @@
 package org.eclipse.graphiti.platform;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IFeature;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
@@ -73,24 +69,6 @@ public interface IDiagramContainer extends IDiagramEditor {
 	 *            The pictogram elements to select
 	 */
 	public void setPictogramElementsForSelection(PictogramElement[] pictogramElements);
-
-	/*
-	 * EMF
-	 */
-
-	/**
-	 * Gets the transactional editing domain.
-	 * 
-	 * @return The transactional editing domain which is used in the container
-	 */
-	public TransactionalEditingDomain getEditingDomain();
-
-	/**
-	 * Gets the resource set.
-	 * 
-	 * @return The resource set which is used in the container
-	 */
-	public ResourceSet getResourceSet();
 
 	/*
 	 * Refreshing and UI
@@ -202,19 +180,5 @@ public interface IDiagramContainer extends IDiagramEditor {
 	 */
 	public IDiagramTypeProvider getDiagramTypeProvider();
 
-	/**
-	 * Executes the given feature in the given context using the command stack
-	 * and editing domain of the container. In case of an IAddFeature being
-	 * passed this method will also trigger the selection of the newly added
-	 * shape.
-	 * 
-	 * @param feature
-	 *            The feature to execute
-	 * @param context
-	 *            The context object to use with the feature
-	 * @return an object representing the result of the feature call (depends on
-	 *         the concrete implementation)
-	 * 
-	 */
-	public Object executeFeature(IFeature feature, IContext context);
+	public IDiagramBehavior getDiagramSupport();
 }

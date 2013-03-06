@@ -68,7 +68,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
@@ -122,8 +122,8 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		}
 	}
 
-	public static void executeInRecordingCommand(IDiagramEditor diagramEditor, final Runnable run) {
-		TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+	public static void executeInRecordingCommand(IDiagramBehavior diagramBehavior, final Runnable run) {
+		TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 			@Override
@@ -143,10 +143,10 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		});
 	}
 
-	public static void executeInRecordingCommandInUIThread(final IDiagramEditor diagramEditor, final Runnable run) {
+	public static void executeInRecordingCommandInUIThread(final IDiagramBehavior diagramBehavior, final Runnable run) {
 		syncExec(new VoidResult() {
 			public void run() {
-				executeInRecordingCommand(diagramEditor, run);
+				executeInRecordingCommand(diagramBehavior, run);
 			}
 		});
 	}
@@ -428,7 +428,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 			public void run() {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramTypeProvider.getDiagramEditor(), new Runnable() {
+				executeInRecordingCommand(diagramTypeProvider.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, x, y, shapename, x, y + 300,
 								"ConnectionDecorator");

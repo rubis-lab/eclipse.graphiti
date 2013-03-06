@@ -51,7 +51,7 @@ public class PoDiagramEditor extends PageObject{
 	
 	public void dirtify() {
 		final IDiagramContainerUI diagramEditor = getActiveDiagramEditor();
-		AbstractGFTests.executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+		AbstractGFTests.executeInRecordingCommandInUIThread(diagramEditor.getDiagramSupport(), new Runnable() {
 			public void run() {
 				ContainerShape cs1 = Graphiti.getPeService()
 						.createContainerShape(diagramEditor.getDiagramTypeProvider().getDiagram(), true);
