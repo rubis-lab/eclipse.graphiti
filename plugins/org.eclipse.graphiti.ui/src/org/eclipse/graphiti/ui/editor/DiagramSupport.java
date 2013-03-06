@@ -128,6 +128,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
@@ -167,6 +168,8 @@ public class DiagramSupport {
 	private IDiagramEditorInput diagramEditorInput;
 
 	private String editorInitializationError = null;
+
+	private IWorkbenchPart parentPart;
 
 	DiagramSupport(IDiagramContainerUI diagramContainer) {
 		this.diagramContainer = diagramContainer;
@@ -428,7 +431,7 @@ public class DiagramSupport {
 		IFeatureProvider featureProvider = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
 		if (featureProvider != null) {
 			IPrintFeature pf = featureProvider.getPrintFeature();
-			if (pf != null) {
+			if (pf != null && diagramContainer.getWorkbenchPart() != null) {
 				registerAction(new PrintGraphicalViewerAction(diagramContainer.getWorkbenchPart(), pf));
 			}
 		}
@@ -440,7 +443,7 @@ public class DiagramSupport {
 			graphicalViewer.setContextMenu(contextMenuProvider);
 			// the registration allows an extension of the context-menu by other
 			// plugins
-			if (shouldRegisterContextMenu()) {
+			if (shouldRegisterContextMenu() && diagramContainer.getWorkbenchPart() != null) {
 				diagramContainer.getWorkbenchPart().getSite().registerContextMenu(contextMenuProvider, graphicalViewer);
 			}
 		}
@@ -632,8 +635,11 @@ public class DiagramSupport {
 					editParts.add((EditPart) obj);
 				}
 			}
-			diagramContainer.getWorkbenchPart().getSite().getSelectionProvider()
+			if (diagramContainer.getWorkbenchPart() != null)
+			{
+				diagramContainer.getWorkbenchPart().getSite().getSelectionProvider()
 					.setSelection(new StructuredSelection(editParts));
+			}
 			if (editParts.size() > 0) {
 				final EditPart editpart = editParts.get(0);
 				// if the editPart is newly created it is possible that his
@@ -651,7 +657,14 @@ public class DiagramSupport {
 
 	public PictogramElement[] getSelectedPictogramElements() {
 		PictogramElement pe[] = new PictogramElement[0];
-		ISelectionProvider selectionProvider = diagramContainer.getWorkbenchPart().getSite().getSelectionProvider();
+		ISelectionProvider selectionProvider = null;
+
+		if (diagramContainer.getWorkbenchPart() == null) {
+			selectionProvider = diagramContainer.getGraphicalViewer();
+		} else {
+			selectionProvider = diagramContainer.getWorkbenchPart().getSite().getSelectionProvider();
+		}
+
 		if (selectionProvider != null) {
 			ISelection s = selectionProvider.getSelection();
 			if (s instanceof IStructuredSelection) {
@@ -983,7 +996,7 @@ public class DiagramSupport {
 	 * @since 0.9
 	 */
 	void registerAction(IAction action) {
-		if (action == null) {
+		if (action == null || diagramContainer.getWorkbenchPart() == null) {
 			return;
 		}
 		diagramContainer.getActionRegistry().registerAction(action);
@@ -1009,6 +1022,10 @@ public class DiagramSupport {
 	 *            the GEF zoom manager to use
 	 */
 	void initActionRegistry(ZoomManager zoomManager) {
+		if (diagramContainer.getWorkbenchPart() == null)
+		{
+			return;
+		}
 		// TODO check if this should be moved to container
 		final ActionRegistry actionRegistry = diagramContainer.getActionRegistry();
 		@SuppressWarnings("unchecked")
@@ -1279,5 +1296,13 @@ public class DiagramSupport {
 	 */
 	public DefaultEditDomain getEditDomain() {
 		return diagramContainer.getEditDomain();
+	}
+
+	public void setParentPart(IWorkbenchPart parentPart) {
+		this.parentPart = parentPart;
+	}
+
+	public IWorkbenchPart getParentPart() {
+		return parentPart;
 	}
 }
