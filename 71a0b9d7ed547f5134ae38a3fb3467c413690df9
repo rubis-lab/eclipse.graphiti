@@ -1,0 +1,9 @@
+Verified+1: Hudson CI
+Code-Review+2: Felix Velasco <felix.velasco@gmail.com>
+Code-Review+1: Michael Wenz <michael.wenz@sap.com>
+IP-Clean+1: Michael Wenz <michael.wenz@sap.com>
+Submitted-by: Felix Velasco <felix.velasco@gmail.com>
+Submitted-at: Wed, 06 Mar 2013 06:30:34 -0500
+Reviewed-on: https://git.eclipse.org/r/10883
+Project: gmp/org.eclipse.gmp.graphiti
+Branch: refs/heads/352120_Diagrams_in_Views
