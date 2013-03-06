@@ -9,7 +9,7 @@
  *
  * Contributors:
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -41,8 +41,8 @@ import org.eclipse.swt.events.KeyEvent;
  * the way GEF handles the palette within its editors, see
  * {@link GraphicalEditorWithFlyoutPalette} for more information on that. To
  * exchange the default implementation you have to return an instance of your
- * subclass in the method {@link IDiagramEditorUI#createPaletteBehaviour()}.<br>
- * Note that there is always a 1:1 relation with a {@link IDiagramEditorUI}.
+ * subclass in the method {@link DiagramSupport#createPaletteBehaviour()}.<br>
+ * Note that there is always a 1:1 relation with a {@link DiagramSupport}.
  * 
  * @since 0.9
  */
@@ -72,24 +72,26 @@ public class DefaultPaletteBehavior {
 	protected static final int DEFAULT_PALETTE_SIZE = 130;
 
 	/**
-	 * The associated {@link IDiagramEditorUI}
+	 * The associated {@link DiagramSupport}
+	 * 
+	 * @since 0.10
 	 */
-	protected final IDiagramEditorUI diagramEditor;
+	protected final DiagramSupport diagramSupport;
 
 	private PaletteRoot paletteRoot;
 
 	/**
 	 * Creates a new standard palette behaviour for a Graphiti diagram editor.
-	 * The passed {@link IDiagramEditorUI} is closely linked to this instance
-	 * (1:1 relation) and both instances will have a common lifecycle.
+	 * The passed {@link DiagramSupport} is closely linked to this instance (1:1
+	 * relation) and both instances will have a common lifecycle.
 	 * 
 	 * @param diagramEditor
-	 *            The associated {@link IDiagramEditorUI}.
+	 *            The associated {@link DiagramSupport}.
 	 * @since 0.10
 	 */
-	public DefaultPaletteBehavior(IDiagramEditorUI diagramEditor) {
+	public DefaultPaletteBehavior(DiagramSupport diagramSupport) {
 		super();
-		this.diagramEditor = diagramEditor;
+		this.diagramSupport = diagramSupport;
 	}
 
 	/**
@@ -102,12 +104,12 @@ public class DefaultPaletteBehavior {
 	 * @see org.eclipse.graphiti.ui.editor.GraphicalEditorIncludingPalette#getPaletteRoot()
 	 */
 	protected PaletteRoot createPaletteRoot() {
-		return new GFPaletteRoot(diagramEditor.getDiagramTypeProvider());
+		return new GFPaletteRoot(diagramSupport.getDiagramTypeProvider());
 	}
 
 	/**
 	 * Returns the already existing {@link PaletteRoot} instance for the
-	 * {@link IDiagramEditorUI} associated the this palette behavior or creates a
+	 * {@link DiagramSupport} associated the this palette behavior or creates a
 	 * new {@link PaletteRoot} instance in case none exists.
 	 * 
 	 * @return a new Graphiti specific {@link PaletteRoot} instance
@@ -127,7 +129,7 @@ public class DefaultPaletteBehavior {
 	 */
 	public void initializeViewer() {
 		// Set preference-store for palette
-		PaletteViewer paletteViewer = diagramEditor.getEditDomain().getPaletteViewer();
+		PaletteViewer paletteViewer = diagramSupport.getEditDomain().getPaletteViewer();
 		if (paletteViewer != null) {
 			IPreferenceStore store = GraphitiUIPlugin.getDefault().getPreferenceStore();
 			paletteViewer.setPaletteViewerPreferences(new DefaultPaletteViewerPreferences(store));
@@ -156,7 +158,7 @@ public class DefaultPaletteBehavior {
 			public int getPaletteState() {
 				// TODO ? Move isShowFlyoutPalette from TBP to
 				// DefaultPaletteBehaviour?
-				if (!diagramEditor.getDiagramTypeProvider().getCurrentToolBehaviorProvider().isShowFlyoutPalette()) {
+				if (!diagramSupport.getDiagramTypeProvider().getCurrentToolBehaviorProvider().isShowFlyoutPalette()) {
 					return 8; // FlyoutPaletteComposite.STATE_HIDDEN is private
 				}
 				return getPreferenceStore().getInt(PROPERTY_PALETTE_STATE);
@@ -194,7 +196,7 @@ public class DefaultPaletteBehavior {
 	 *         PaletteViewer.
 	 */
 	protected PaletteViewerProvider createPaletteViewerProvider() {
-		return new PaletteViewerProvider(diagramEditor.getEditDomain()) {
+		return new PaletteViewerProvider(diagramSupport.getEditDomain()) {
 			private KeyHandler paletteKeyHandler = null;
 
 			protected void configurePaletteViewer(PaletteViewer viewer) {
@@ -225,7 +227,7 @@ public class DefaultPaletteBehavior {
 							if (event.keyCode == SWT.Selection) {
 								Tool tool = getEditDomain().getPaletteViewer().getActiveTool().createTool();
 								if (tool instanceof CreationTool || tool instanceof ConnectionCreationTool) {
-									tool.keyUp(event, diagramEditor.getGraphicalViewer());
+									tool.keyUp(event, diagramSupport.getDiagramContainer().getGraphicalViewer());
 									// Deactivate current selection
 									getEditDomain().getPaletteViewer().setActiveTool(null);
 									return true;
@@ -258,16 +260,6 @@ public class DefaultPaletteBehavior {
 	 */
 	public void dispose() {
 		paletteRoot = null;
-	}
-
-	/**
-	 * Returns the associated Graphiti diagram editor.
-	 * 
-	 * @return the associated {@link IDiagramEditorUI} instance
-	 * @since 0.10
-	 */
-	protected IDiagramEditorUI getDiagramEditor() {
-		return diagramEditor;
 	}
 
 	private IPreferenceStore getPreferenceStore() {

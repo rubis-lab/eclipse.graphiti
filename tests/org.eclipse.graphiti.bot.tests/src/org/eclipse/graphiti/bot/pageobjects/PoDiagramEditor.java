@@ -11,7 +11,7 @@ import org.eclipse.graphiti.bot.tests.AbstractGFTests;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
@@ -50,7 +50,7 @@ public class PoDiagramEditor extends PageObject{
 	}
 	
 	public void dirtify() {
-		final IDiagramEditorUI diagramEditor = getActiveDiagramEditor();
+		final IDiagramContainerUI diagramEditor = getActiveDiagramEditor();
 		AbstractGFTests.executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
 			public void run() {
 				ContainerShape cs1 = Graphiti.getPeService()
@@ -64,8 +64,8 @@ public class PoDiagramEditor extends PageObject{
 		});
 	}
 	
-	public IDiagramEditorUI getActiveDiagramEditor(){
-		return (IDiagramEditorUI) getGefEditor().getReference().getEditor(false);
+	public IDiagramContainerUI getActiveDiagramEditor(){
+		return (IDiagramContainerUI) getGefEditor().getReference().getEditor(false);
 	}
 	
 	/**

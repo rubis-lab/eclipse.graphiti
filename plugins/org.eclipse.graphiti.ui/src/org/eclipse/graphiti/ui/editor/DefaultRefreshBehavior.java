@@ -9,7 +9,7 @@
  *
  * Contributors:
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -39,36 +39,38 @@ import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * The default implementation for the {@link IDiagramEditorUI} behavior extension
+ * The default implementation for the {@link DiagramSupport} behavior extension
  * that controls the refresh behavior of the Graphiti diagram editor. Clients
  * may subclass to change the behavior; use
- * {@link IDiagramEditorUI#createRefreshBehavior()} to return the instance that
+ * {@link DiagramSupport#createRefreshBehavior()} to return the instance that
  * shall be used.<br>
- * Note that there is always a 1:1 relation with a {@link IDiagramEditorUI}.
+ * Note that there is always a 1:1 relation with a {@link DiagramSupport}.
  * 
  * @since 0.9
  */
 public class DefaultRefreshBehavior {
 
 	/**
-	 * The associated {@link IDiagramEditorUI}. Set on construction of this class.
+	 * The associated {@link DiagramSupport}. Set on construction of this class.
+	 * 
+	 * @since 0.10
 	 */
-	protected final IDiagramEditorUI diagramEditor;
+	protected final DiagramSupport diagramSupport;
 
 	private RefreshPerformanceCache refreshPerformanceCache = new RefreshPerformanceCache();
 
 	/**
 	 * Creates a new standard refresh behaviour for a Graphiti diagram editor.
-	 * The passed {@link IDiagramEditorUI} is closely linked to this instance
-	 * (1:1 relation) and both instances will have a common lifecycle.
+	 * The passed {@link DiagramSupport} is closely linked to this instance (1:1
+	 * relation) and both instances will have a common lifecycle.
 	 * 
 	 * @param diagramEditor
-	 *            The associated {@link IDiagramEditorUI}.
+	 *            The associated {@link DiagramSupport}.
 	 * @since 0.10
 	 */
-	public DefaultRefreshBehavior(IDiagramEditorUI diagramEditor) {
+	public DefaultRefreshBehavior(DiagramSupport diagramSupport) {
 		super();
-		this.diagramEditor = diagramEditor;
+		this.diagramSupport = diagramSupport;
 	}
 
 	/**
@@ -84,9 +86,9 @@ public class DefaultRefreshBehavior {
 
 	/**
 	 * Handles the auto update at startup of the editor and is called by the
-	 * Graphiti {@link IDiagramEditorUI} when the input is set (
-	 * {@link IDiagramEditorUI#setInput(org.eclipse.ui.IEditorInput)}). The default
-	 * implementation checks the desired behavior as defined in
+	 * Graphiti {@link DiagramSupport} when the input is set (
+	 * {@link DiagramSupport#setInput(org.eclipse.ui.IEditorInput)}). The
+	 * default implementation checks the desired behavior as defined in
 	 * {@link IDiagramTypeProvider#isAutoUpdateAtStartup()} and calls
 	 * {@link #autoUpdate(Diagram, IDiagramTypeProvider)} in case an update
 	 * shall be done.
@@ -94,7 +96,7 @@ public class DefaultRefreshBehavior {
 	 * @since 0.9
 	 */
 	protected void handleAutoUpdateAtStartup() {
-		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+		IDiagramTypeProvider diagramTypeProvider = diagramSupport.getDiagramTypeProvider();
 		if (diagramTypeProvider.isAutoUpdateAtStartup()) {
 			autoUpdate();
 		}
@@ -104,7 +106,7 @@ public class DefaultRefreshBehavior {
 	 * Handles the auto update at rest of the editor (the editor performs a
 	 * reload of the EMF resources because e.g. the underlying file has been
 	 * changed by another editor) and is called by the Graphiti
-	 * {@link IDiagramEditorUI} after the {@link Diagram} has been reloaded. The
+	 * {@link DiagramSupport} after the {@link Diagram} has been reloaded. The
 	 * default implementation checks the desired behavior as defined in
 	 * {@link IDiagramTypeProvider#isAutoUpdateAtReset()} and calls
 	 * {@link #autoUpdate(Diagram, IDiagramTypeProvider)} in case an update
@@ -113,7 +115,7 @@ public class DefaultRefreshBehavior {
 	 * @since 0.9
 	 */
 	protected void handleAutoUpdateAtReset() {
-		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+		IDiagramTypeProvider diagramTypeProvider = diagramSupport.getDiagramTypeProvider();
 		if (diagramTypeProvider.isAutoUpdateAtReset()) {
 			autoUpdate();
 		}
@@ -130,7 +132,7 @@ public class DefaultRefreshBehavior {
 	 * @since 0.9
 	 */
 	protected void autoUpdate() {
-		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+		IDiagramTypeProvider diagramTypeProvider = diagramSupport.getDiagramTypeProvider();
 		Diagram diagram = diagramTypeProvider.getDiagram();
 		IFeatureProvider featureProvider = diagramTypeProvider.getFeatureProvider();
 		IUpdateContext updateCtx = new UpdateContext(diagram);
@@ -144,7 +146,7 @@ public class DefaultRefreshBehavior {
 	 * case direct editing is active it is cancelled.
 	 */
 	public void refresh() {
-		if (!diagramEditor.isAlive()) {
+		if (!diagramSupport.isAlive()) {
 			return;
 		}
 
@@ -165,14 +167,14 @@ public class DefaultRefreshBehavior {
 
 		long start = System.currentTimeMillis();
 
-		final EditPart contentEditPart = diagramEditor.getContentEditPart();
+		final EditPart contentEditPart = diagramSupport.getContentEditPart();
 		if (contentEditPart == null) {
 			return;
 		}
 
 		internalRefreshEditPart(contentEditPart);
 
-		diagramEditor.refreshTitle();
+		diagramSupport.getDiagramContainer().refreshTitle();
 
 		long stop = System.currentTimeMillis();
 		long time = (stop - start);
@@ -182,9 +184,9 @@ public class DefaultRefreshBehavior {
 		}
 
 		// prove if switch to direct editing is required
-		IDirectEditingInfo dei = diagramEditor.getConfigurationProvider().getFeatureProvider().getDirectEditingInfo();
+		IDirectEditingInfo dei = diagramSupport.getConfigurationProvider().getFeatureProvider().getDirectEditingInfo();
 		if (dei.isActive()) {
-			EditPart editPart = (EditPart) diagramEditor.getGraphicalViewer().getEditPartRegistry()
+			EditPart editPart = (EditPart) diagramSupport.getDiagramContainer().getGraphicalViewer().getEditPartRegistry()
 					.get(dei.getMainPictogramElement());
 			if (editPart instanceof ShapeEditPart) {
 				ShapeEditPart shapeEditPart = (ShapeEditPart) editPart;
@@ -193,7 +195,7 @@ public class DefaultRefreshBehavior {
 				dei.reset();
 			}
 		}
-		diagramEditor.selectBufferedPictogramElements();
+		diagramSupport.selectBufferedPictogramElements();
 	}
 
 	/**
@@ -207,7 +209,7 @@ public class DefaultRefreshBehavior {
 		if (pe == null || !pe.isActive()) {
 			return;
 		}
-		GraphicalEditPart editPart = diagramEditor.getEditPartForPictogramElement(pe);
+		GraphicalEditPart editPart = diagramSupport.getEditPartForPictogramElement(pe);
 		if (editPart != null && editPart instanceof IPictogramElementEditPart) {
 			IPictogramElementEditPart ep = (IPictogramElementEditPart) editPart;
 			IPictogramElementDelegate delegate = ep.getPictogramElementDelegate();
@@ -226,7 +228,7 @@ public class DefaultRefreshBehavior {
 	 *            the {@link PictogramElement} to refresh the decorators for
 	 */
 	public void refreshRenderingDecorators(PictogramElement pe) {
-		GraphicalEditPart ep = diagramEditor.getEditPartForPictogramElement(pe);
+		GraphicalEditPart ep = diagramSupport.getEditPartForPictogramElement(pe);
 		if (ep instanceof IShapeEditPart) {
 			IShapeEditPart sep = (IShapeEditPart) ep;
 			sep.refreshDecorators();
@@ -254,7 +256,7 @@ public class DefaultRefreshBehavior {
 		long start = System.currentTimeMillis();
 
 		try {
-			((IConfigurationProviderInternal) diagramEditor.getConfigurationProvider()).getContextButtonManager()
+			((IConfigurationProviderInternal) diagramSupport.getConfigurationProvider()).getContextButtonManager()
 					.hideContextButtonsInstantly();
 
 			editPart.refresh();

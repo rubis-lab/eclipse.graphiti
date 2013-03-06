@@ -15,7 +15,7 @@
                 <message_argument value="DefaultMarkerBehavior(DiagramEditor)"/>
             </message_arguments>
         </filter>
-        <filter id="388161617">
+        <filter id="338755678">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DefaultMarkerBehavior"/>
                 <message_argument value="diagramEditor"/>
@@ -29,16 +29,16 @@
                 <message_argument value="DefaultPaletteBehavior(DiagramEditor)"/>
             </message_arguments>
         </filter>
+        <filter id="338755678">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior"/>
+                <message_argument value="diagramEditor"/>
+            </message_arguments>
+        </filter>
         <filter id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior"/>
                 <message_argument value="getDiagramEditor()"/>
-            </message_arguments>
-        </filter>
-        <filter id="388161617">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior"/>
-                <message_argument value="diagramEditor"/>
             </message_arguments>
         </filter>
     </resource>
@@ -49,16 +49,16 @@
                 <message_argument value="DefaultPersistencyBehavior(DiagramEditor)"/>
             </message_arguments>
         </filter>
+        <filter id="338755678">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior"/>
+                <message_argument value="diagramEditor"/>
+            </message_arguments>
+        </filter>
         <filter id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior"/>
                 <message_argument value="save(TransactionalEditingDomain, Map&lt;Resource,Map&lt;?,?&gt;&gt;)"/>
-            </message_arguments>
-        </filter>
-        <filter id="388161617">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior"/>
-                <message_argument value="diagramEditor"/>
             </message_arguments>
         </filter>
     </resource>
@@ -69,7 +69,7 @@
                 <message_argument value="DefaultRefreshBehavior(DiagramEditor)"/>
             </message_arguments>
         </filter>
-        <filter id="388161617">
+        <filter id="338755678">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior"/>
                 <message_argument value="diagramEditor"/>
@@ -81,6 +81,12 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior"/>
                 <message_argument value="DefaultUpdateBehavior(DiagramEditor)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338755678">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior"/>
+                <message_argument value="diagramEditor"/>
             </message_arguments>
         </filter>
         <filter id="388161617">
@@ -99,19 +105,183 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DiagramEditor.java" type="org.eclipse.graphiti.ui.editor.DiagramEditor">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="calculateRealMouseLocation(Point)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="createContextMenuProvider()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="createMarkerBehavior()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="createPaletteBehaviour()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="createPersistencyBehavior()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="createRefreshBehavior()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="createUpdateBehavior()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="disableAdapters()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="editingDomainInitialized()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="enableAdapters()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="getCommonKeyHandler()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="getEditPartForPictogramElement(PictogramElement)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="getMouseLocation()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="getPictogramElementsForSelection()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="getRefreshBehavior()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="getUpdateBehavior()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="getZoomLevel()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="initActionRegistry(ZoomManager)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="isDirectEditingActive()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="migrateDiagramModelIfNecessary()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="registerAction(IAction)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="registerBusinessObjectsListener()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="registerDiagramResourceSetListener()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="setDirectEditingActive(boolean)"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="shouldRegisterContextMenu()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="unregisterBusinessObjectsListener()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="unregisterDiagramResourceSetListener()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DiagramEditorContextMenuProvider.java" type="org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider">
+        <filter id="338722907">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider"/>
+                <message_argument value="DiagramEditorContextMenuProvider(EditPartViewer, ActionRegistry, IDiagramTypeProvider)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/ElementDeleteListener.java" type="org.eclipse.graphiti.ui.editor.ElementDeleteListener">
         <filter id="338722907">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.ElementDeleteListener"/>
                 <message_argument value="ElementDeleteListener(DiagramEditor)"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/ui/editor/IDiagramEditorUI.java" type="org.eclipse.graphiti.ui.editor.IDiagramEditorUI">
-        <filter id="571473929">
-            <message_arguments>
-                <message_argument value="IDiagramEditor"/>
-                <message_argument value="IDiagramEditorUI"/>
             </message_arguments>
         </filter>
     </resource>
@@ -165,8 +335,9 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/internal/editor/DiagramEditorDummy.java" type="org.eclipse.graphiti.ui.internal.editor.DiagramEditorDummy">
-        <filter id="574619656">
+        <filter id="574660632">
             <message_arguments>
+                <message_argument value="IDiagramContainer"/>
                 <message_argument value="IDiagramEditor"/>
                 <message_argument value="DiagramEditorDummy"/>
             </message_arguments>

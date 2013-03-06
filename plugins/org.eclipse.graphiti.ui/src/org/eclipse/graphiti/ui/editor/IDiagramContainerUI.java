@@ -31,7 +31,7 @@
  *    fvelasco - Bug 323349 - Enable external invocation of features
  *    mwenz - Bug 393113 - Auto-focus does not work for connections
  *    pjpaulin - Bug 352120 - Changed from a class to an interface - API BREAKAGE HERE
- *    pjpaulin - Bug 352120 - Renamed to IDiagramEditorUI so that DiagramEditor class can remain
+ *    pjpaulin - Bug 352120 - Renamed to IDiagramContainerUI so that DiagramEditor class can remain
  *
  * </copyright>
  *
@@ -42,18 +42,16 @@ package org.eclipse.graphiti.ui.editor;
 import java.util.EventObject;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
-import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.platform.IDiagramEditor;
-import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
+import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.IWorkbenchPart;
@@ -70,7 +68,7 @@ import org.eclipse.ui.IWorkbenchPartSite;
  * 
  * @since 0.10
  */
-public interface IDiagramEditorUI extends IDiagramEditor {
+public interface IDiagramContainerUI extends IDiagramContainer, IAdaptable {
 
 	/**
 	 * The ID of the context as it is registed with the org.eclipse.ui.contexts
@@ -92,7 +90,7 @@ public interface IDiagramEditorUI extends IDiagramEditor {
 	 */
 	DefaultEditDomain getEditDomain();
 
-	void setGEFEditDomain(DefaultEditDomain editDomain);
+	void setEditDomain(DefaultEditDomain editDomain);
 
 	/**
 	 * Returns the GEF {@link GraphicalViewer} as it is needed in some Graphiti
@@ -113,7 +111,12 @@ public interface IDiagramEditorUI extends IDiagramEditor {
 	 */
 	void updateDirtyState();
 
-	IConfigurationProvider getConfigurationProvider();
+
+	/**
+	 * Request that the diagram model be persisted.
+	 * 
+	 */
+	void doSave(IProgressMonitor monitor);
 
 	/**
 	 * Returns the contents {@link EditPart} of this Editor. This is the topmost
@@ -123,27 +126,6 @@ public interface IDiagramEditorUI extends IDiagramEditor {
 	 * @since 0.9
 	 */
 	EditPart getContentEditPart();
-
-	/**
-	 * Method to retrieve the GEF {@link EditPart} for a given
-	 * {@link PictogramElement}.
-	 * 
-	 * @param pe
-	 *            the {@link PictogramElement} to retrieve the GEF
-	 *            representation for
-	 * @return the GEF {@link GraphicalEditPart} that represents the given
-	 *         {@link PictogramElement}.
-	 * @since 0.9
-	 */
-	GraphicalEditPart getEditPartForPictogramElement(PictogramElement pe);
-
-	/**
-	 * Gets the current mouse location as a {@link Point}.
-	 * 
-	 * @return the mouse location
-	 * @since 0.9
-	 */
-	Point getMouseLocation();
 
 	/**
 	 * @return the {@link IWorkbenchPart} that is displaying the diagram.
@@ -188,16 +170,6 @@ public interface IDiagramEditorUI extends IDiagramEditor {
 	public void removePropertyListener(IPropertyListener listener);
 
 	/**
-	 * Returns the instance of the update behavior that is used with this
-	 * editor. To change the behavior override {@link #createUpdateBehavior()}.
-	 * 
-	 * @return the used instance of the update behavior, by default a
-	 *         {@link DefaultUpdateBehavior}.
-	 * @since 0.9
-	 */
-	DefaultUpdateBehavior getUpdateBehavior();
-
-	/**
 	 * @return the input containing the model for the diagram
 	 */
 	IDiagramEditorInput getDiagramEditorInput();
@@ -205,59 +177,7 @@ public interface IDiagramEditorUI extends IDiagramEditor {
 	/**
 	 * Notify the container that it should shut down or clear it's state.
 	 */
-	void shutdown();
-
-	/**
-	 * Calculates the mouse location depending on scrollbars and zoom factor.
-	 * 
-	 * @param nativeLocation
-	 *            the native location given as {@link Point}
-	 * @return the {@link Point} of the real mouse location
-	 * @since 0.9
-	 */
-	Point calculateRealMouseLocation(Point nativeLocation);
-
-	/**
-	 * Returns the instance of the refresh behavior that is used with this
-	 * editor. To change the behavior override {@link #createRefreshBehavior()}.
-	 * 
-	 * @return the used instance of the refresh behavior, by default a
-	 *         {@link DefaultRefreshBehavior}.
-	 * @since 0.9
-	 */
-	DefaultRefreshBehavior getRefreshBehavior();
-
-	/**
-	 * Returns if direct editing is currently active for this editor.
-	 * 
-	 * @return <code>true</code> in case direct editing is currently active
-	 *         within this editor, <code>false</code> otherwise.
-	 * 
-	 * @since 0.9
-	 */
-	boolean isDirectEditingActive();
-
-	/**
-	 * Sets that direct editing is now active in the editor or not. Note that
-	 * this flag set to <code>true</code> does not actually start direct editing
-	 * it is simply an indication that prevents certain operations from running
-	 * (e.g. refresh)
-	 * 
-	 * @param directEditingActive
-	 *            <code>true</code> to set the flag to direct editing currently
-	 *            active, <code>false</code> otherwise.
-	 * 
-	 * @since 0.9
-	 */
-	void setDirectEditingActive(boolean directEditingActive);
-
-	/**
-	 * Returns the zoom level currently used in the editor.
-	 * 
-	 * @return the zoom level
-	 * @since 0.9
-	 */
-	double getZoomLevel();
+	void close();
 
 	/**
 	 * Method to retrieve the Draw2D {@link IFigure} for a given
@@ -273,21 +193,26 @@ public interface IDiagramEditorUI extends IDiagramEditor {
 	 */
 	IFigure getFigureForPictogramElement(PictogramElement pe);
 
-	/**
-	 * Public accessor that should redirect to protected method.
-	 */
-	void initializeGEFGraphicalViewer();
-
 	ActionRegistry getActionRegistry();
 
 	@SuppressWarnings("rawtypes")
 	List getSelectionActions();
-
-	SelectionSynchronizer getSelectionSynchronizer();
 
 	void commandStackChanged(EventObject event);
 
 	void setGraphicalViewer(GraphicalViewer viewer);
 
 	void hookGraphicalViewer();
+
+	DiagramSupport getDiagramSupport();
+
+	void initializeGraphicalViewer();
+
+	/**
+	 * Checks if this editor is alive.
+	 * 
+	 * @return <code>true</code>, if editor contains a model connector and a
+	 *         valid Diagram, <code>false</code> otherwise.
+	 */
+	boolean isAlive();
 }

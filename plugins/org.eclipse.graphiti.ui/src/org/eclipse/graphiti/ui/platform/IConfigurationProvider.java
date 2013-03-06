@@ -10,7 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -20,7 +20,8 @@ package org.eclipse.graphiti.ui.platform;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProviderHolder;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**
@@ -96,6 +97,16 @@ public interface IConfigurationProvider extends IFeatureProviderHolder {
 	 * Gets the diagram editor.
 	 * 
 	 * @return the editor which is connected with this configuration-provider
+	 * @deprecated Use {@link #getDiagramContainer()} instead
 	 */
-	public IDiagramEditorUI getDiagramEditor();
+	public IDiagramContainerUI getDiagramEditor();
+
+	/**
+	 * Gets the diagram container.
+	 * 
+	 * @return the container which is connected with this configuration-provider
+	 */
+	public IDiagramContainerUI getDiagramContainer();
+
+	public DiagramSupport getDiagramSupport();
 }

@@ -12,7 +12,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *    mgorning - Bug 377419 - Hide text in underlying GA while DirectEditing is enabled
- *    pjpaulin - Bug 352120 - Now uses IDiagramEditorUI interface
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -30,7 +30,7 @@ import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.func.IDirectEditing;
 import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.graphiti.func.Proposal;
-import org.eclipse.graphiti.ui.editor.IDiagramEditorUI;
+import org.eclipse.graphiti.ui.editor.DiagramSupport;
 import org.eclipse.graphiti.ui.internal.figures.GFMultilineText;
 import org.eclipse.graphiti.ui.internal.figures.GFText;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
@@ -65,7 +65,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 
 	private IDirectEditingFeature directEditingFeature;
 
-	private IDiagramEditorUI diagramEditor;
+	private DiagramSupport diagramSupport;
 
 	private Font cellEditorFont = null;
 
@@ -85,7 +85,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 
 	public GFDirectEditManager(ShapeEditPart part, TextCellLocator cellEditorLocator) {
 		super(part, null, cellEditorLocator);
-		diagramEditor = part.getConfigurationProvider().getDiagramEditor();
+		diagramSupport = part.getConfigurationProvider().getDiagramSupport();
 	}
 
 	public IDirectEditingContext getDirectEditingContext() {
@@ -299,7 +299,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 			mt.setSuppressText(false);
 		}
 
-		diagramEditor.setDirectEditingActive(false);
+		diagramSupport.setDirectEditingActive(false);
 
 		ZoomManager zoomMgr = (ZoomManager) getEditPart().getViewer().getProperty(ZoomManager.class.toString());
 		if (zoomMgr != null) {
@@ -316,7 +316,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 			actionBars = null;
 		}
 
-		if (diagramEditor.isAlive()) {
+		if (diagramSupport.isAlive()) {
 			super.bringDown();
 			disposeCellEditorFont();
 			GraphitiUiInternal.getWorkbenchService().getActiveStatusLineManager().setErrorMessage(null);
@@ -333,7 +333,7 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 			mt.setSuppressText(true);
 		}
 
-		diagramEditor.setDirectEditingActive(true);
+		diagramSupport.setDirectEditingActive(true);
 		// this is a bugfix
 		// celleditor not shown initially when figure has insets
 		// or mouse is not directly over control
