@@ -21,13 +21,10 @@ import static org.junit.Assert.assertEquals;
 import java.util.EventObject;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICopyFeature;
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IPasteFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -40,6 +37,7 @@ import org.eclipse.graphiti.features.impl.AbstractAddFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 import org.junit.Test;
@@ -127,20 +125,7 @@ public class FeatureParametersTest extends GFAbstractTestCase {
 				return null;
 			}
 
-			public ResourceSet getResourceSet() {
-				return null;
-			}
-
 			public IDiagramTypeProvider getDiagramTypeProvider() {
-				return null;
-			}
-
-			public Object executeFeature(IFeature feature, IContext context) {
-				feature.execute(context);
-				return null;
-			}
-
-			public TransactionalEditingDomain getEditingDomain() {
 				return null;
 			}
 
@@ -190,6 +175,10 @@ public class FeatureParametersTest extends GFAbstractTestCase {
 			}
 
 			public void close() {
+			}
+
+			public IDiagramBehavior getDiagramSupport() {
+				return null;
 			}
 		};
 

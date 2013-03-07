@@ -33,7 +33,7 @@ import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.graphiti.internal.command.DirectEditingFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ICommand;
 import org.eclipse.graphiti.internal.util.LookManager;
-import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
+import org.eclipse.graphiti.ui.editor.IDiagramBehaviorUI;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
@@ -138,10 +138,10 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 				value, acceptedProposal);
 
 		final IFeatureProvider fp = directEditingFeature.getFeatureProvider();
-		final IDiagramContainerUI diagramEditor = (IDiagramContainerUI) fp.getDiagramTypeProvider()
-				.getDiagramContainer();
-		final CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
-		commandStack.execute(new GefCommandWrapper(cmd, diagramEditor.getEditingDomain()));
+		final IDiagramBehaviorUI diagramBehavior = (IDiagramBehaviorUI) fp.getDiagramTypeProvider()
+				.getDiagramBehavior();
+		final CommandStack commandStack = diagramBehavior.getEditDomain().getCommandStack();
+		commandStack.execute(new GefCommandWrapper(cmd, diagramBehavior.getEditingDomain()));
 		// CommandExec.getSingleton().executeCommand(cmd, fp.getConnection());
 
 		return null;

@@ -22,7 +22,6 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
@@ -34,8 +33,6 @@ import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IFeature;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
@@ -309,18 +306,6 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	public void setDirectEditingActive(boolean directEditingActive) {
 		this.diagramSupport.setDirectEditingActive(directEditingActive);
-	}
-
-	public TransactionalEditingDomain getEditingDomain() {
-		return this.diagramSupport.getEditingDomain();
-	}
-
-	public Object executeFeature(IFeature feature, IContext context) {
-		return this.diagramSupport.executeFeature(feature, context);
-	}
-
-	public ResourceSet getResourceSet() {
-		return this.diagramSupport.getResourceSet();
 	}
 
 	public IDiagramEditorInput getDiagramEditorInput() {
