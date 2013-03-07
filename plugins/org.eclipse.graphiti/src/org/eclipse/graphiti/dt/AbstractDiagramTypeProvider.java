@@ -25,6 +25,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.notification.DefaultNotificationService;
 import org.eclipse.graphiti.notification.INotificationService;
 import org.eclipse.graphiti.platform.AbstractExtension;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
@@ -42,7 +43,7 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 
 	private Diagram diagram;
 
-	private IDiagramContainer diagramContainer;
+	private IDiagramBehavior diagramBehavior;
 
 	private IFeatureProvider featureProvider;
 
@@ -90,9 +91,9 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 			}
 			this.currentToolBehaviorIndex = index;
 
-			IDiagramContainer diagramContainer = getDiagramContainer();
-			diagramContainer.refresh();
-			diagramContainer.refreshPalette();
+			IDiagramBehavior diagramBehavior = getDiagramBehavior();
+			diagramBehavior.refresh();
+			diagramBehavior.refreshPalette();
 		}
 	}
 
@@ -109,17 +110,17 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	}
 
 	/**
-	 * @deprecated Use {@link #getDiagramContainer()} instead
+	 * @deprecated Use {@link #getDiagramBehavior()} instead
 	 */
 	public IDiagramEditor getDiagramEditor() {
-		return getDiagramContainer();
+		return getDiagramBehavior().getDiagramContainer();
 	}
 
 	/**
 	 * @since 0.10
 	 */
-	public IDiagramContainer getDiagramContainer() {
-		return diagramContainer;
+	public IDiagramBehavior getDiagramBehavior() {
+		return diagramBehavior;
 	}
 
 	public IFeatureProvider getFeatureProvider() {
@@ -144,25 +145,25 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	}
 
 	/**
-	 * @deprecated Use {@link #init(Diagram, IDiagramContainer)} instead
+	 * @deprecated Use {@link #init(Diagram, IDiagramBehavior)} instead
 	 */
 	public void init(Diagram diagram, IDiagramEditor diagramEditor) {
 		setDiagram(diagram);
 		GraphitiInternal.getEmfService().wireDTPToDiagram(diagram, this);
-		setDiagramContainer((IDiagramContainer) diagramEditor);
+		setDiagramBehavior(((IDiagramContainer) diagramEditor).getDiagramSupport());
 	}
 
 	/**
 	 * @since 0.10
 	 */
-	public void init(Diagram diagram, IDiagramContainer diagramContainer) {
+	public void init(Diagram diagram, IDiagramBehavior diagramBehavior) {
 		setDiagram(diagram);
 		GraphitiInternal.getEmfService().wireDTPToDiagram(diagram, this);
-		setDiagramContainer(diagramContainer);
+		setDiagramBehavior(diagramBehavior);
 	}
 
-	private void setDiagramContainer(IDiagramContainer diagramContainer) {
-		this.diagramContainer = diagramContainer;
+	private void setDiagramBehavior(IDiagramBehavior diagramBehavior) {
+		this.diagramBehavior = diagramBehavior;
 	}
 
 	/**

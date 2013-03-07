@@ -52,6 +52,12 @@
         <filter id="405901410">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="executeFeature(IFeature, IContext)"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
                 <message_argument value="getEditingDomain()"/>
             </message_arguments>
         </filter>
@@ -59,6 +65,24 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
                 <message_argument value="getResourceSet()"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="refresh()"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="refreshPalette()"/>
+            </message_arguments>
+        </filter>
+        <filter id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
+                <message_argument value="refreshRenderingDecorators(PictogramElement)"/>
             </message_arguments>
         </filter>
     </resource>

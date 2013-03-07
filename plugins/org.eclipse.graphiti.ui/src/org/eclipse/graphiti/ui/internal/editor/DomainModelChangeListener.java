@@ -112,14 +112,14 @@ public class DomainModelChangeListener implements ResourceSetListener {
 					// Bug 352109: Enable unconditional auto refresh for case 3)
 					// standard refresh with saved editor
 					if (getDiagramTypeProvider().isAutoUpdateAtRuntimeWhenEditorIsSaved()
-							|| getDiagramTypeProvider().getDiagramEditor().isDirty()) {
+							|| getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().isDirty()) {
 						// The notification service takes care of not only the
 						// linked BOs but also asks the diagram provider about
 						// related BOs.
 						getDiagramTypeProvider().getNotificationService().updatePictogramElements(dirtyPes);
 					}
 				} else {
-					getDiagramTypeProvider().getDiagramEditor().refresh();
+					getDiagramTypeProvider().getDiagramBehavior().refresh();
 				}
 			}
 

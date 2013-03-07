@@ -46,7 +46,7 @@ import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
+import org.eclipse.graphiti.ui.editor.IDiagramBehaviorUI;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.util.ui.PopupMenu;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
@@ -163,9 +163,9 @@ public class CreateConnectionCommand extends AbstractCommand {
 		CustomContext customContext = new CustomContext();
 		customContext.setPictogramElements(new PictogramElement[] { sourceObject, targetObject });
 
-		IDiagramContainerUI diagramContainer = (IDiagramContainerUI) getFeatureProvider().getDiagramTypeProvider()
-				.getDiagramContainer();
-		Point newLocation = diagramContainer.getDiagramSupport().calculateRealMouseLocation(location);
+		IDiagramBehaviorUI diagramBehavior = (IDiagramBehaviorUI) getFeatureProvider().getDiagramTypeProvider()
+				.getDiagramBehavior();
+		Point newLocation = diagramBehavior.calculateRealMouseLocation(location);
 		customContext.setLocation(newLocation.x, newLocation.y);
 
 		List<GenericFeatureCommandWithContext> commands = new ArrayList<GenericFeatureCommandWithContext>();
@@ -373,9 +373,9 @@ public class CreateConnectionCommand extends AbstractCommand {
 		if (location == null) {
 			return null;
 		}
-		IDiagramContainerUI diagramEditor = (IDiagramContainerUI) getFeatureProvider().getDiagramTypeProvider()
-				.getDiagramContainer();
-		Point realLocation = diagramEditor.getDiagramSupport().calculateRealMouseLocation(location);
+		IDiagramBehaviorUI diagramBehavior = (IDiagramBehaviorUI) getFeatureProvider().getDiagramTypeProvider()
+				.getDiagramBehavior();
+		Point realLocation = diagramBehavior.calculateRealMouseLocation(location);
 		ILocation currentLocation = new LocationImpl(realLocation.x, realLocation.y);
 		return currentLocation;
 	}

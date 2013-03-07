@@ -19,9 +19,11 @@ package org.eclipse.graphiti.ui.editor;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
+import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IFeature;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.swt.widgets.Composite;
@@ -179,20 +181,40 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	/* Methods routed directly to DiagramSupport */
 
-	public final void refreshPalette() {
-		diagramSupport.refreshPalette();
+	public final DefaultUpdateBehavior getUpdateBehavior() {
+		return this.diagramSupport.getUpdateBehavior();
 	}
 
-	public void refresh() {
-		diagramSupport.refresh();
+	public final DefaultRefreshBehavior getRefreshBehavior() {
+		return this.diagramSupport.getRefreshBehavior();
 	}
 
-	public void refreshContent() {
-		diagramSupport.refreshContent();
+	public void editingDomainInitialized() {
+		this.diagramSupport.editingDomainInitialized();
 	}
 
-	public void refreshRenderingDecorators(PictogramElement pe) {
-		diagramSupport.refreshRenderingDecorators(pe);
+	public void disableAdapters() {
+		this.diagramSupport.disableAdapters();
+	}
+
+	public void enableAdapters() {
+		this.diagramSupport.enableAdapters();
+	}
+
+	public boolean isDirty() {
+		return this.diagramSupport.isDirty();
+	}
+
+	protected final PaletteViewerProvider createPaletteViewerProvider() {
+		return this.diagramSupport.createPaletteViewerProvider();
+	}
+
+	protected final FlyoutPreferences getPalettePreferences() {
+		return this.diagramSupport.getPalettePreferences();
+	}
+
+	protected final PaletteRoot getPaletteRoot() {
+		return this.diagramSupport.getPaletteRoot();
 	}
 
 	public PictogramElement[] getSelectedPictogramElements() {
@@ -212,15 +234,27 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 	}
 
 	public IDiagramTypeProvider getDiagramTypeProvider() {
-		return diagramSupport.getDiagramTypeProvider();
+		return this.diagramSupport.getDiagramTypeProvider();
 	}
 
-	public TransactionalEditingDomain getEditingDomain() {
-		return diagramSupport.getEditingDomain();
+	public GraphicalEditPart getEditPartForPictogramElement(PictogramElement pe) {
+		return this.diagramSupport.getEditPartForPictogramElement(pe);
 	}
 
-	public Object executeFeature(IFeature feature, IContext context) {
-		return diagramSupport.executeFeature(feature, context);
+	public double getZoomLevel() {
+		return this.diagramSupport.getZoomLevel();
+	}
+
+	public boolean isAlive() {
+		return this.diagramSupport.isAlive();
+	}
+
+	public boolean isDirectEditingActive() {
+		return this.diagramSupport.isDirectEditingActive();
+	}
+
+	public void setDirectEditingActive(boolean directEditingActive) {
+		this.diagramSupport.setDirectEditingActive(directEditingActive);
 	}
 
 	public IDiagramEditorInput getDiagramEditorInput() {

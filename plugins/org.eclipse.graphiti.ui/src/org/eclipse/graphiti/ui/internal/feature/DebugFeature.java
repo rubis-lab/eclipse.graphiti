@@ -25,7 +25,7 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
+import org.eclipse.graphiti.ui.editor.IDiagramBehaviorUI;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 
 /**
@@ -59,9 +59,9 @@ public class DebugFeature extends AbstractCustomFeature {
 		PictogramElement[] pes = context.getPictogramElements();
 		if (pes != null && pes.length > 0 && pes[0] != null) {
 			PictogramElement pe = pes[0];
-			IDiagramContainerUI diagramEditor = (IDiagramContainerUI) getDiagramContainer();
-			GraphicalEditPart ep = diagramEditor.getDiagramSupport().getEditPartForPictogramElement(pe);
-			IFigure figure = diagramEditor.getDiagramSupport().getFigureForPictogramElement(pe);
+			IDiagramBehaviorUI diagramBehavior = (IDiagramBehaviorUI) getDiagramBehavior();
+			GraphicalEditPart ep = diagramBehavior.getEditPartForPictogramElement(pe);
+			IFigure figure = diagramBehavior.getFigureForPictogramElement(pe);
 
 			switch (getType()) {
 			case TYPE_DUMP_PICTOGRAM_DATA:

@@ -22,20 +22,11 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.editor;
 
-import java.util.EventObject;
-
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IAddFeature;
-import org.eclipse.graphiti.features.IFeature;
-import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.context.IContext;
-import org.eclipse.graphiti.internal.datatypes.impl.DimensionImpl;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.platform.IDiagramContainer;
 
 /**
@@ -49,22 +40,12 @@ public class DiagramEditorDummy implements IDiagramContainer {
 
 	private IDiagramTypeProvider diagramTypeProvider;
 	private TransactionalEditingDomain editingDomain;
+	private IDiagramBehavior diagramBehavior;
 
 	public DiagramEditorDummy(IDiagramTypeProvider diagramTypeProvider, TransactionalEditingDomain eDomain) {
 		setDiagramTypeProvider(diagramTypeProvider);
 		editingDomain = eDomain;
-	}
-
-	public TransactionalEditingDomain getEditingDomain() {
-		return editingDomain;
-	}
-
-	public ResourceSet getResourceSet() {
-		return null;
-	}
-
-	public IDimension getCurrentSize() {
-		return new DimensionImpl(0, 0);
+		diagramBehavior = new DiagramBehaviorDummy(this);
 	}
 
 	public IDiagramTypeProvider getDiagramTypeProvider() {
@@ -77,12 +58,6 @@ public class DiagramEditorDummy implements IDiagramContainer {
 
 	public boolean isDirty() {
 		return false;
-	}
-
-	public void refresh() {
-	}
-
-	public void refresh(PictogramElement pe) {
 	}
 
 	public void refreshTitle() {
@@ -104,74 +79,8 @@ public class DiagramEditorDummy implements IDiagramContainer {
 		this.diagramTypeProvider = diagramTypeProvider;
 	}
 
-	public void refreshRenderingDecorators(PictogramElement pe) {
-	}
-
-	public void refreshPalette() {
-	}
-
-	public ILocation getCurrentMouseLocation() {
-		return null;
-	}
-
-	/**
-	 * Can be called to execute the given {@link IFeature} using the given
-	 * {@link IContext}; also the Graphiti framework uses this method to call
-	 * additional features from with feature processing. In the latter case this
-	 * method is called from with an EMF Transaction so that modifications are
-	 * wrapped inside this Transaction. In case the method is called directly by
-	 * a user, it needs to be ensured that the call happens with an EMF
-	 * transaction, otherwise an according EMF Transactions exception will be
-	 * thrown.
-	 * 
-	 * @param feature
-	 *            the {@link IFeature} to execute
-	 * @param context
-	 *            the {@link IContext} to use while executing the feature
-	 * @return in case of an {@link IAddFeature} being passed as feature the
-	 *         newly added {@link PictogramElement} will be returned (in case
-	 *         the add method returning it), in all other cases
-	 *         <code>null</code>
-	 */
-	public Object executeFeature(IFeature feature, IContext context) {
-		Object returnValue = null;
-		if (feature != null && context != null && feature.canExecute(context)) {
-			if (feature instanceof IAddFeature) {
-				IAddFeature addFeature = (IAddFeature) feature;
-				returnValue = addFeature.add((IAddContext) context);
-			} else {
-				feature.execute(context);
-			}
-		}
-
-		return returnValue;
-	}
-
-	public void disableAdapters() {
-	}
-
-	public void enableAdapters() {
-	}
-
-	public void commandStackChanged(EventObject event) {
-	}
-
 	public boolean isAlive() {
 		return false;
-	}
-
-	public void selectBufferedPictogramElements() {
-	}
-
-	@SuppressWarnings("rawtypes")
-	public Object getAdapter(Class adapter) {
-		return null;
-	}
-
-	public void refreshContent() {
-	}
-
-	public void editingDomainInitialized() {
 	}
 
 	public void doSave(IProgressMonitor monitor) {
@@ -189,5 +98,9 @@ public class DiagramEditorDummy implements IDiagramContainer {
 	}
 
 	public void close() {
+	}
+
+	public IDiagramBehavior getDiagramSupport() {
+		return diagramBehavior;
 	}
 }

@@ -136,7 +136,7 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 		ChessToolBehaviorProvider toolBehaviorProvider = (ChessToolBehaviorProvider) getFeatureProvider()
 				.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 		toolBehaviorProvider.clearAllowedSquaresForMove();
-		getDiagramEditor().refresh();
+		getDiagramBehavior().refresh();
 	}
 
 	private void showFeedback(ICreateConnectionContext context) {
@@ -168,7 +168,7 @@ public class CreateChessMoveFeature extends AbstractCreateConnectionFeature {
 		toolBehaviorProvider.addToAllowedSquaresForMove(allowedSquares);
 		for (Square square : allowedSquares) {
 			PictogramElement pe = getFeatureProvider().getPictogramElementForBusinessObject(square);
-			getDiagramEditor().refreshRenderingDecorators(pe);
+			getDiagramBehavior().refreshRenderingDecorators(pe);
 		}
 	}
 
