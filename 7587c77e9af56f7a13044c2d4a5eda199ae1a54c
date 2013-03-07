@@ -1,0 +1,9 @@
+Verified+1: Hudson CI
+Code-Review+2: Michael Wenz <michael.wenz@sap.com>
+IP-Clean+1: Michael Wenz <michael.wenz@sap.com>
+Code-Review+1: Patrick Paulin <patrick@modumind.com>
+Submitted-by: Michael Wenz <michael.wenz@sap.com>
+Submitted-at: Thu, 07 Mar 2013 12:37:01 -0500
+Reviewed-on: https://git.eclipse.org/r/10936
+Project: gmp/org.eclipse.gmp.graphiti
+Branch: refs/heads/352120_Diagrams_in_Views
