@@ -8,8 +8,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    pjpaulin - initial API, implementation and documentation
- *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    pjpaulin - Bug 352120 - Initial API, implementation and documentation
  *
  * </copyright>
  *
@@ -23,6 +22,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.AssertionFailedException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
@@ -58,6 +58,7 @@ import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
+import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.graphiti.DiagramScrollingBehavior;
@@ -132,6 +133,7 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.handlers.IHandlerService;
+import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
@@ -139,9 +141,9 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 /**
  * Provides the common functionality needed to display and manage diagrams.
  * 
- * Diagrams can be displayed either in a simple SWT {@link Composite} or in an
- * {@link IEditorPart}, so it's not possible to provide common functionality
- * through sub-classing.
+ * Diagrams can be displayed either in a simple SWT {@link Composite}, in a
+ * {@link ViewPart} or in an {@link IEditorPart}, so it's not possible to
+ * provide common functionality through sub-classing.
  * 
  * @since 0.10
  */
@@ -172,7 +174,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	private IWorkbenchPart parentPart;
 
-	DiagramBehavior(IDiagramContainerUI diagramContainer) {
+	public DiagramBehavior(IDiagramContainerUI diagramContainer) {
 		this.diagramContainer = diagramContainer;
 		markerBehavior = createMarkerBehavior();
 		updateBehavior = createUpdateBehavior();
@@ -182,6 +184,12 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	}
 
+	/**
+	 * Returns the associated container displaying the diagram of this behavior
+	 * object.
+	 * 
+	 * @return The associated {@link IDiagramContainerUI} instance.
+	 */
 	public IDiagramContainerUI getDiagramContainer() {
 		return diagramContainer;
 	}
@@ -193,11 +201,19 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @return a new instance of {@link DefaultMarkerBehavior}
 	 */
-	DefaultMarkerBehavior createMarkerBehavior() {
+	protected DefaultMarkerBehavior createMarkerBehavior() {
 		return new DefaultMarkerBehavior(this);
 	}
 
-	DefaultMarkerBehavior getMarkerBehavior() {
+	/**
+	 * Returns the instance of the marker behavior that is used with this
+	 * behavior. To change the behavior override {@link #createMarkerBehavior()}
+	 * .
+	 * 
+	 * @return the used instance of the marker behavior, by default a
+	 *         {@link DefaultMarkerBehavior}.
+	 */
+	protected DefaultMarkerBehavior getMarkerBehavior() {
 		return markerBehavior;
 	}
 
@@ -208,10 +224,18 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @return a new instance of {@link DefaultUpdateBehavior}
 	 */
-	DefaultUpdateBehavior createUpdateBehavior() {
+	protected DefaultUpdateBehavior createUpdateBehavior() {
 		return new DefaultUpdateBehavior(this);
 	}
 
+	/**
+	 * Returns the instance of the update behavior that is used with this
+	 * behavior. To change the behavior override {@link #createUpdateBehavior()}
+	 * .
+	 * 
+	 * @return the used instance of the marker behavior, by default a
+	 *         {@link DefaultUpdateBehavior}.
+	 */
 	public DefaultUpdateBehavior getUpdateBehavior() {
 		return updateBehavior;
 	}
@@ -223,11 +247,19 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @return a new instance of {@link DefaultPaletteBehavior}
 	 */
-	DefaultPaletteBehavior createPaletteBehaviour() {
+	protected DefaultPaletteBehavior createPaletteBehaviour() {
 		return new DefaultPaletteBehavior(this);
 	}
 
-	DefaultPaletteBehavior getPaletteBehavior() {
+	/**
+	 * Returns the instance of the palette behavior that is used with this
+	 * behavior. To change the behavior override
+	 * {@link #createPaletteBehaviour()} .
+	 * 
+	 * @return the used instance of the palette behavior, by default a
+	 *         {@link DefaultPaletteBehavior}.
+	 */
+	protected DefaultPaletteBehavior getPaletteBehavior() {
 		return paletteBehaviour;
 	}
 
@@ -238,11 +270,19 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @return a new instance of {@link DefaultPersistencyBehavior}
 	 */
-	DefaultPersistencyBehavior createPersistencyBehavior() {
+	protected DefaultPersistencyBehavior createPersistencyBehavior() {
 		return new DefaultPersistencyBehavior(this);
 	}
 
-	DefaultPersistencyBehavior getPersistencyBehavior() {
+	/**
+	 * Returns the instance of the persistency behavior that is used with this
+	 * behavior. To change the behavior override
+	 * {@link #createPersistencyBehavior()} .
+	 * 
+	 * @return the used instance of the persistency behavior, by default a
+	 *         {@link DefaultPersistencyBehavior}.
+	 */
+	protected DefaultPersistencyBehavior getPersistencyBehavior() {
 		return persistencyBehavior;
 	}
 
@@ -253,26 +293,43 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @return a new instance of {@link DefaultRefreshBehavior}
 	 */
-	DefaultRefreshBehavior createRefreshBehavior() {
+	protected DefaultRefreshBehavior createRefreshBehavior() {
 		return new DefaultRefreshBehavior(this);
 	}
 
+	/**
+	 * Returns the instance of the refresh behavior that is used with this
+	 * behavior. To change the behavior override
+	 * {@link #createRefreshBehavior()} .
+	 * 
+	 * @return the used instance of the refresh behavior, by default a
+	 *         {@link DefaultRefreshBehavior}.
+	 */
 	public DefaultRefreshBehavior getRefreshBehavior() {
 		return refreshBehavior;
 	}
 
 	// ------------------ Initialization ---------------------------------------
 
-	void setInput(IDiagramEditorInput input) {
-		// TODO use URI within this class
+	/**
+	 * Sets the given {@link IDiagramEditorInput} object as the input for this
+	 * behavior instance. The default implementation here cares about loading
+	 * the diagram from the EMF {@link Resource} the input points to, sets the
+	 * ID of the {@link IDiagramTypeProvider} for the diagram given in the
+	 * input, registers listeners (by delegating to
+	 * {@link #registerDiagramResourceSetListener()} and
+	 * {@link #registerBusinessObjectsListener()}) and does the refreshing of
+	 * the UI.
+	 * 
+	 * @param input
+	 *            the {@link DiagramEditorInput} instance to use within this
+	 *            behavior.
+	 */
+	protected void setInput(IDiagramEditorInput input) {
 		// Check the input
 		if (input == null) {
 			throw new IllegalArgumentException("The IEditorInput must not be null"); //$NON-NLS-1$
 		}
-		if (!(input instanceof IDiagramEditorInput)) {
-			throw new IllegalArgumentException("The IEditorInput has the wrong type: " + input.getClass()); //$NON-NLS-1$
-		}
-
 		diagramEditorInput = (IDiagramEditorInput) input;
 		Diagram diagram = getPersistencyBehavior().loadDiagram(diagramEditorInput.getUri());
 
@@ -298,7 +355,6 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		Assert.isNotNull(providerId, "DiagramEditorInput does not convey a Provider ID '" + diagramEditorInput //$NON-NLS-1$
 				+ "'. . See the error log for details."); //$NON-NLS-1$
 
-		// get according diagram-type-provider
 		// Get according diagram-type-provider
 		IDiagramTypeProvider diagramTypeProvider = GraphitiUi.getExtensionManager().createDiagramTypeProvider(
 				providerId);
@@ -318,8 +374,10 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		diagramContainer.refreshTitle();
 	}
 
-	void createPartControl() {
-		// TODO rename
+	/**
+	 * Adds the needed GEF listeners after the edit domain is initialized
+	 */
+	protected void addGefListeners() {
 		getDiagramTypeProvider().postInit();
 		gefCommandStackListener = new CommandStackEventListener() {
 
@@ -346,7 +404,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * @param parent
 	 *            the parent composite
 	 */
-	void createGraphicalViewer(Composite parent) {
+	protected void createGraphicalViewer(Composite parent) {
 		GraphicalViewer viewer;
 		if (getDiagramScrollingBehavior() == DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE) {
 			viewer = new GFScrollingGraphicalViewer(this);
@@ -361,7 +419,15 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		initializeGraphicalViewer();
 	}
 
-	void configureGraphicalViewer() {
+	/**
+	 * Called to configure the behavior viewer, before it receives its content.
+	 * The default-implementation is for example doing the following: configure
+	 * the ZoomManager, registering Actions... Here everything is done, which is
+	 * independent of the {@link IConfigurationProvider}.
+	 * 
+	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#configureGraphicalViewer()
+	 */
+	protected void configureGraphicalViewer() {
 
 		ScrollingGraphicalViewer viewer = (ScrollingGraphicalViewer) diagramContainer.getGraphicalViewer();
 
@@ -426,7 +492,14 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		}
 	}
 
-	void initializeGraphicalViewer() {
+	/**
+	 * Called to initialize the behavior viewer with its content. Here
+	 * everything is done, which is dependent of the
+	 * {@link IConfigurationProvider}.
+	 * 
+	 * @see org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette#initializeGraphicalViewer()
+	 */
+	protected void initializeGraphicalViewer() {
 
 		// register Actions
 		IFeatureProvider featureProvider = getConfigurationProvider().getDiagramTypeProvider().getFeatureProvider();
@@ -506,11 +579,26 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return result;
 	}
 
-	String getEditorInitializationError() {
+	/**
+	 * Returns if an error has occured while initializing this behavior and its
+	 * components. In case this method reports <code>true</code> and error UI
+	 * may be shown instead of the normal diagram viewer.
+	 * 
+	 * @return <code>true</code> in case an error has occured,
+	 *         <code>false</code> otherwise
+	 */
+	protected String getEditorInitializationError() {
 		return editorInitializationError;
 	}
 
-	void createErrorPartControl(Composite parent) {
+	/**
+	 * Creates the default error page in case an error occurred while
+	 * initializing this behavior.
+	 * 
+	 * @param parent
+	 *            The parent {@link Composite} to add the UI to
+	 */
+	protected void createErrorPartControl(Composite parent) {
 		Display display = parent.getDisplay();
 
 		// Define colors as desired, in high contrast mode use system defaults
@@ -564,9 +652,14 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	}
 
 	// ------------------- Dirty state -----------------------------------------
-	// ------------------- Dirty state -----------------------------------------
 
-	boolean isDirty() {
+	/**
+	 * Returns the dirty state of this behavior object
+	 * 
+	 * @return <code>true</code> in case the command stack reports modification,
+	 *         <code>false</code> otherwise.
+	 */
+	protected boolean isDirty() {
 		TransactionalEditingDomain editingDomain = getEditingDomain();
 		// Check that the editor is not yet disposed
 		if (editingDomain != null && editingDomain.getCommandStack() != null) {
@@ -585,7 +678,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @return the {@link PaletteViewerProvider} to use
 	 */
-	final PaletteViewerProvider createPaletteViewerProvider() {
+	protected final PaletteViewerProvider createPaletteViewerProvider() {
 		if (editorInitializationError != null) {
 			// Editor input is erroneous, show error page instead of diagram and
 			// do not initialize the palette to avoid exceptions
@@ -601,7 +694,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @return the {@link PaletteViewerProvider} preferences to use.
 	 */
-	final FlyoutPreferences getPalettePreferences() {
+	protected final FlyoutPreferences getPalettePreferences() {
 		return getPaletteBehavior().getPalettePreferences();
 	}
 
@@ -611,7 +704,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @return the {@link PaletteRoot} to use
 	 */
-	final PaletteRoot getPaletteRoot() {
+	protected final PaletteRoot getPaletteRoot() {
 		return getPaletteBehavior().getPaletteRoot();
 	}
 
@@ -659,7 +752,6 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		if (GraphitiInternal.getEmfService().isObjectAlive(currentDiagram)) {
 			refresh();
 		} else {
-			// TODO use URI in this class instead of input
 			IDiagramEditorInput diagramEditorInput = diagramContainer.getDiagramEditorInput();
 			// resolve diagram in reloaded resource
 			Diagram diagram = getPersistencyBehavior().loadDiagram(diagramEditorInput.getUri());
@@ -675,10 +767,15 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		}
 	}
 
-	// ====================== standard behavior ==============================
 	// ---------------------- Selection ------------------------------------- //
 
-	void selectPictogramElements(PictogramElement[] pictogramElements) {
+	/**
+	 * Selects the given {@link PictogramElement}s in the diagram.
+	 * 
+	 * @param pictogramElements
+	 *            an array of {@link PictogramElement}s to select.
+	 */
+	protected void selectPictogramElements(PictogramElement[] pictogramElements) {
 		List<EditPart> editParts = new ArrayList<EditPart>();
 		Map<?, ?> editPartRegistry = diagramContainer.getGraphicalViewer().getEditPartRegistry();
 		if (editPartRegistry != null) {
@@ -716,6 +813,12 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		}
 	}
 
+	/**
+	 * Returns the {@link PictogramElement}s that are currently selected in the
+	 * diagram.
+	 * 
+	 * @return an array of {@link PictogramElement}s.
+	 */
 	public PictogramElement[] getSelectedPictogramElements() {
 		PictogramElement pe[] = new PictogramElement[0];
 		ISelectionProvider selectionProvider = null;
@@ -746,6 +849,24 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return pe;
 	}
 
+	/**
+	 * Sets one {@link PictogramElement} for later selection.
+	 * <p>
+	 * The methods {@link #getPictogramElementsForSelection()},
+	 * {@link #setPictogramElementForSelection(PictogramElement)},
+	 * {@link #setPictogramElementsForSelection(PictogramElement[])} and
+	 * {@link #selectBufferedPictogramElements()} offer the possibility to use a
+	 * deferred selection mechanism: via the setters, {@link PictogramElement}s
+	 * can be stored for a selection operation that is triggered lateron during
+	 * a general refresh via the method
+	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
+	 * in the Graphiti framework in direct editing to restore the previous
+	 * selection, but can also be used by clients.
+	 * 
+	 * @param pictogramElement
+	 *            the {@link PictogramElement} that shall be stored for later
+	 *            selection
+	 */
 	public void setPictogramElementForSelection(PictogramElement pictogramElement) {
 		if (pictogramElement == null) {
 			pictogramElementsForSelection = null;
@@ -754,10 +875,45 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		}
 	}
 
-	void setPictogramElementsForSelection(PictogramElement[] pictogramElements) {
+	/**
+	 * Sets {@link PictogramElement}s for later selection.
+	 * <p>
+	 * The methods {@link #getPictogramElementsForSelection()},
+	 * {@link #setPictogramElementForSelection(PictogramElement)},
+	 * {@link #setPictogramElementsForSelection(PictogramElement[])} and
+	 * {@link #selectBufferedPictogramElements()} offer the possibility to use a
+	 * deferred selection mechanism: via the setters, {@link PictogramElement}s
+	 * can be stored for a selection operation that is triggered later on during
+	 * a general refresh via the method
+	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
+	 * in the Graphiti framework in direct editing to restore the previous
+	 * selection, but can also be used by clients.
+	 * 
+	 * @param pictogramElements
+	 *            the {@link PictogramElement}s that shall be stored for later
+	 *            selection
+	 */
+	protected void setPictogramElementsForSelection(PictogramElement[] pictogramElements) {
 		pictogramElementsForSelection = pictogramElements;
 	}
 
+	/**
+	 * Triggers the selection for the {@link PictogramElement}s that are stored
+	 * for later selection. Can be called e.g during a general refresh of the
+	 * editor or after another operation needing another selection is finished
+	 * (an example in the framework is direct editing).
+	 * <p>
+	 * The methods {@link #getPictogramElementsForSelection()},
+	 * {@link #setPictogramElementForSelection(PictogramElement)},
+	 * {@link #setPictogramElementsForSelection(PictogramElement[])} and
+	 * {@link #selectBufferedPictogramElements()} offer the possibility to use a
+	 * deferred selection mechanism: via the setters, {@link PictogramElement}s
+	 * can be stored for a selection operation that is triggered later on during
+	 * a general refresh via the method
+	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
+	 * in the Graphiti framework in direct editing to restore the previous
+	 * selection, but can also be used by clients.
+	 */
 	public void selectBufferedPictogramElements() {
 		if (getPictogramElementsForSelection() != null) {
 			selectPictogramElements(getPictogramElementsForSelection());
@@ -781,7 +937,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @return the {@link PictogramElement}s stored for later selection
 	 */
-	PictogramElement[] getPictogramElementsForSelection() {
+	protected PictogramElement[] getPictogramElementsForSelection() {
 		return pictogramElementsForSelection;
 	}
 
@@ -815,6 +971,13 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return ret;
 	}
 
+	/**
+	 * Returns the {@link IDiagramTypeProvider} instance associated with this
+	 * {@link DiagramBehavior}. There is always a 1:1 relation between the
+	 * behavior and the provider.
+	 * 
+	 * @return the associated {@link IDiagramTypeProvider} instance.
+	 */
 	public IDiagramTypeProvider getDiagramTypeProvider() {
 		IConfigurationProvider cfgProvider = getConfigurationProvider();
 		if (cfgProvider != null)
@@ -880,16 +1043,41 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return returnValue;
 	}
 
-	void disableAdapters() {
+	/**
+	 * Should be called (e.g. by the various behavior instances) before mass EMF
+	 * resource operations are triggered (e.g. saving all resources). Can be
+	 * used to disable eventing for performance reasons. See
+	 * {@link #enableAdapters()} as well.<br>
+	 * Important note: make sure that you re-enable eventing using
+	 * {@link #enableAdapters()} after the operation has finished (best in a
+	 * finally clause to do that also in case of exceptions), otherwise strange
+	 * errors may happen.
+	 */
+	protected void disableAdapters() {
 		markerBehavior.disableProblemIndicationUpdate();
 		updateBehavior.setAdapterActive(false);
 	}
 
-	void enableAdapters() {
+	/**
+	 * Should be called by the various behavior instances after mass EMF
+	 * resource operations have been triggered (e.g. saving all resources). Can
+	 * be used to re-enable eventing after it was disabled for performance
+	 * reasons. See {@link #disableAdapters()} as well.<br>
+	 * Must be called after {@link #disableAdapters()} has been called and the
+	 * operation has finshed (best in a finally clause to also enable the
+	 * exception case), otherwise strange errors may occur within the editor.
+	 */
+	protected void enableAdapters() {
 		markerBehavior.enableProblemIndicationUpdate();
 		updateBehavior.setAdapterActive(true);
 	}
 
+	/**
+	 * Checks if this behavior is alive.
+	 * 
+	 * @return <code>true</code>, if editor contains a model connector and a
+	 *         valid Diagram, <code>false</code> otherwise.
+	 */
 	public boolean isAlive() {
 		IConfigurationProvider cp = getConfigurationProvider();
 		if (cp != null) {
@@ -902,10 +1090,31 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return false;
 	}
 
-	void editingDomainInitialized() {
+	/**
+	 * Hook that is called by the holder of the
+	 * {@link TransactionalEditingDomain} ({@link DefaultUpdateBehavior} or a
+	 * subclass of it) after the editing domain has been initialized. Can be
+	 * used to e.g. register additional listeners on the domain.<br>
+	 * The default implementation notifies the marker behavior extension to
+	 * register its listeners.
+	 */
+	protected void editingDomainInitialized() {
 		markerBehavior.initialize();
 	}
 
+	/**
+	 * Implements the Eclipse {@link IAdaptable} interface. This implementation
+	 * first delegates to the {@link IToolBehaviorProvider#getAdapter(Class)}
+	 * method and checks if something is returned. In case the return value is
+	 * <code>null</code> it returns adapters for ZoomManager,
+	 * IPropertySheetPage, Diagram, KeyHandler, SelectionSynchronizer and
+	 * IContextButtonManager. It also delegates to the super implementation in
+	 * {@link GraphicalEditorWithFlyoutPalette#getAdapter(Class)}.
+	 * 
+	 * @param type
+	 *            the type to which shall be adapted
+	 * @return the adapter instance
+	 */
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
 		IConfigurationProvider cfgProvider = getConfigurationProvider();
 
@@ -950,10 +1159,23 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return null;
 	}
 
-	IConfigurationProvider getConfigurationProvider() {
-		return this.configurationProvider;
+	/**
+	 * Returns the {@link ConfigurationProvider} for this behavior. It is mainly
+	 * a wrapper around varius objects that are connected to the diagram
+	 * behavior.
+	 * 
+	 * @return an {@link IConfigurationProvider} instance.
+	 */
+	protected IConfigurationProvider getConfigurationProvider() {
+		return configurationProvider;
 	}
 
+	/**
+	 * Returns the contents {@link EditPart} of this behavior. This is the
+	 * topmost EditPart in the {@link GraphicalViewer}.
+	 * 
+	 * @return The contents {@link EditPart} of this behavior.
+	 */
 	public EditPart getContentEditPart() {
 		if (diagramContainer.getGraphicalViewer() != null) {
 			return diagramContainer.getGraphicalViewer().getContents();
@@ -961,6 +1183,16 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return null;
 	}
 
+	/**
+	 * Method to retrieve the GEF {@link EditPart} for a given
+	 * {@link PictogramElement}.
+	 * 
+	 * @param pe
+	 *            the {@link PictogramElement} to retrieve the GEF
+	 *            representation for
+	 * @return the GEF {@link GraphicalEditPart} that represents the given
+	 *         {@link PictogramElement}.
+	 */
 	public GraphicalEditPart getEditPartForPictogramElement(PictogramElement pe) {
 		Map<?, ?> editPartRegistry = diagramContainer.getGraphicalViewer().getEditPartRegistry();
 		if (editPartRegistry != null) {
@@ -973,6 +1205,11 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return null;
 	}
 
+	/**
+	 * Gets the current mouse location as a {@link Point}.
+	 * 
+	 * @return the mouse location
+	 */
 	public Point getMouseLocation() {
 		if (mouseLocation == null) {
 			mouseLocation = new Point();
@@ -980,6 +1217,13 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return mouseLocation;
 	}
 
+	/**
+	 * Calculates the mouse location depending on scrollbars and zoom factor.
+	 * 
+	 * @param nativeLocation
+	 *            the native location given as {@link Point}
+	 * @return the {@link Point} of the real mouse location
+	 */
 	public Point calculateRealMouseLocation(Point nativeLocation) {
 		Point ret = new Point(nativeLocation);
 		Point viewLocation;
@@ -1000,16 +1244,37 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return ret;
 	}
 
+	/**
+	 * Returns if direct editing is currently active for this behavior.
+	 * 
+	 * @return <code>true</code> in case direct editing is currently active
+	 *         within this editor, <code>false</code> otherwise.
+	 */
 	public boolean isDirectEditingActive() {
 		return directEditingActive;
 	}
 
+	/**
+	 * Sets that direct editing is now active in the behavior or not. Note that
+	 * this flag set to <code>true</code> does not actually start direct editing
+	 * it is simply an indication that prevents certain operations from running
+	 * (e.g. refresh)
+	 * 
+	 * @param directEditingActive
+	 *            <code>true</code> to set the flag to direct editing currently
+	 *            active, <code>false</code> otherwise.
+	 */
 	public void setDirectEditingActive(boolean directEditingActive) {
 		this.directEditingActive = directEditingActive;
 		((IConfigurationProviderInternal) getConfigurationProvider()).getContextButtonManager()
 				.hideContextButtonsInstantly();
 	}
 
+	/**
+	 * Returns the zoom level currently used in the diagram.
+	 * 
+	 * @return the zoom level
+	 */
 	public double getZoomLevel() {
 		ZoomManager zoomManager = (ZoomManager) getAdapter(ZoomManager.class);
 		if (zoomManager == null)
@@ -1040,7 +1305,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return null;
 	}
 
-	void setConfigurationProvider(IConfigurationProviderInternal configurationProvider) {
+	private void setConfigurationProvider(IConfigurationProviderInternal configurationProvider) {
 		this.configurationProvider = configurationProvider;
 
 		// initialize configuration-provider depending on this editor
@@ -1069,8 +1334,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @return A new instance of {@link ContextMenuProvider}.
 	 */
-	ContextMenuProvider createContextMenuProvider() {
-		// TODO move to DiagramComposite?
+	protected ContextMenuProvider createContextMenuProvider() {
 		return new DiagramEditorContextMenuProvider(diagramContainer.getGraphicalViewer(),
 				diagramContainer.getActionRegistry(),
 				getConfigurationProvider());
@@ -1090,7 +1354,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 *         <code>false</code> otherwise.
 	 * @since 0.9
 	 */
-	boolean shouldRegisterContextMenu() {
+	protected boolean shouldRegisterContextMenu() {
 		return true;
 	}
 
@@ -1101,7 +1365,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 *            the action to register
 	 * @since 0.9
 	 */
-	void registerAction(IAction action) {
+	protected void registerAction(IAction action) {
 		if (action == null || parentPart == null) {
 			return;
 		}
@@ -1127,12 +1391,11 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * @param zoomManager
 	 *            the GEF zoom manager to use
 	 */
-	void initActionRegistry(ZoomManager zoomManager) {
+	protected void initActionRegistry(ZoomManager zoomManager) {
 		if (parentPart == null)
 		{
 			return;
 		}
-		// TODO check if this should be moved to container
 		final ActionRegistry actionRegistry = diagramContainer.getActionRegistry();
 		@SuppressWarnings("unchecked")
 		final List<String> selectionActions = diagramContainer.getSelectionActions();
@@ -1210,8 +1473,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 			keyHandler = new KeyHandler();
 			keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0),
 					diagramContainer.getActionRegistry().getAction(ActionFactory.DELETE.getId()));
-			keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, SWT.SHIFT),
- diagramContainer.getActionRegistry()
+			keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, SWT.SHIFT), diagramContainer.getActionRegistry()
 					.getAction(RemoveAction.ACTION_ID));
 			keyHandler.put(KeyStroke.getPressed(SWT.F2, 0),
 					diagramContainer.getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
@@ -1233,10 +1495,9 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 *             limitations.
 	 * 
 	 * @see DefaultToolBehaviorProvider#getDiagramScrollingBehavior()
-	 * @since 0.9
 	 */
 	@Deprecated
-	DiagramScrollingBehavior getDiagramScrollingBehavior() {
+	private DiagramScrollingBehavior getDiagramScrollingBehavior() {
 		if (diagramScrollingBehavior == null) {
 			IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
 					.getCurrentToolBehaviorProvider();
@@ -1267,16 +1528,12 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return null;
 	}
 
-	CommandStackEventListener getGefCommandStackListener() {
-		return gefCommandStackListener;
-	}
-
 	/**
 	 * Hook to unregister the listeners for diagram changes.
 	 * 
 	 * @see #registerDiagramResourceSetListener()
 	 */
-	void unregisterDiagramResourceSetListener() {
+	protected void unregisterDiagramResourceSetListener() {
 		if (diagramChangeListener != null) {
 			diagramChangeListener.stopListening();
 			TransactionalEditingDomain eDomain = getEditingDomain();
@@ -1290,7 +1547,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @see DiagramBehavior#registerBusinessObjectsListener()
 	 */
-	void unregisterBusinessObjectsListener() {
+	protected void unregisterBusinessObjectsListener() {
 		if (domainModelListener != null) {
 			TransactionalEditingDomain eDomain = getEditingDomain();
 			eDomain.removeResourceSetListener(domainModelListener);
@@ -1304,7 +1561,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Note that additional listeners registered here should also be
 	 * unregistered in {@link #unregisterDiagramResourceSetListener()}.
 	 */
-	void registerDiagramResourceSetListener() {
+	protected void registerDiagramResourceSetListener() {
 		diagramChangeListener = new DiagramChangeListener(this);
 		TransactionalEditingDomain eDomain = getEditingDomain();
 		eDomain.addResourceSetListener(diagramChangeListener);
@@ -1317,18 +1574,23 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Note that additional listeners registered here should also be
 	 * unregistered in {@link #unregisterBusinessObjectsListener()}.
 	 */
-	void registerBusinessObjectsListener() {
+	protected void registerBusinessObjectsListener() {
 		domainModelListener = new DomainModelChangeListener(this);
 		TransactionalEditingDomain eDomain = getEditingDomain();
 		eDomain.addResourceSetListener(domainModelListener);
 	}
 
-	IDiagramEditorInput getInput() {
-		// TODO move to editor
+	/**
+	 * Returns the {@link DiagramEditorInput} instance used in this behavior.
+	 * 
+	 * @return An {@link IDiagramEditorInput} instance.
+	 */
+	protected IDiagramEditorInput getInput() {
 		return this.diagramEditorInput;
 	}
 
 	/**
+	 * The part of the dispose that should happen before the GEF dispose.
 	 * Disposes this {@link DiagramBehavior} instance and frees all used
 	 * resources and clears all references. Also delegates to all the behavior
 	 * extensions to also free their resources (e.g. and most important is the
@@ -1336,8 +1598,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * {@link DefaultPersistencyBehavior}. Always delegate to
 	 * <code>super.dispose()</code> in case you override this method!
 	 */
-	void preSuperDispose() {
-		// TODO check separation into pre and post methods
+	protected void disposeBeforeGefDispose() {
 		unregisterDiagramResourceSetListener();
 		unregisterBusinessObjectsListener();
 
@@ -1367,8 +1628,12 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		behavior.dispose();
 	}
 
-	void postSuperDispose() {
-		// TODO TODO check separation into pre and post methods
+	/**
+	 * The part of the dispose that should happen after the GEF dispose. Empties
+	 * the command stack of the edit domain. Always delegate to
+	 * <code>super.dispose()</code> in case you override this method!
+	 */
+	protected void disposeAfterGefDispose() {
 		if (getEditDomain() != null) {
 			getEditDomain().setCommandStack(null);
 		}
@@ -1382,7 +1647,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * 
 	 * @since 0.9
 	 */
-	void migrateDiagramModelIfNecessary() {
+	protected void migrateDiagramModelIfNecessary() {
 		final Diagram diagram = getDiagramTypeProvider().getDiagram();
 		if (Graphiti.getMigrationService().shouldMigrate080To090(diagram)) {
 			getEditingDomain().getCommandStack().execute(new RecordingCommand(getEditingDomain()) {
@@ -1404,11 +1669,25 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return diagramContainer.getEditDomain();
 	}
 
-	public void setParentPart(IWorkbenchPart parentPart) {
+	/**
+	 * Sets the parent {@link IWorkbenchPart} for this behavior. Can be used to
+	 * embed this behavior in various UIs.
+	 * 
+	 * @param parentPart
+	 */
+	protected void setParentPart(IWorkbenchPart parentPart) {
 		this.parentPart = parentPart;
 	}
 
-	public IWorkbenchPart getParentPart() {
+	/**
+	 * Returns the parent {@link IWorkbenchPart} this behavior is embedded into.
+	 * May be <code>null</code> in case the behavior is embedded in a non part
+	 * UI, like a popup.
+	 * 
+	 * @return The parent {@link IWorkbenchPart} or <code>null</code> in case it
+	 *         does not exist
+	 */
+	protected IWorkbenchPart getParentPart() {
 		return parentPart;
 	}
 }
