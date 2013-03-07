@@ -22,7 +22,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
 
 /**
@@ -31,18 +31,18 @@ import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
  */
 public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchronizer.Delegate {
 
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 
 	/**
 	 * The DiagramEditorBehavior reacts on a setResourceChanged(true) if he gets
 	 * activated.
 	 */
-	public DomainModelWorkspaceSynchronizerDelegate(DiagramSupport diagramSupport) {
-		this.diagramSupport = diagramSupport;
+	public DomainModelWorkspaceSynchronizerDelegate(DiagramBehavior diagramBehavior) {
+		this.diagramBehavior = diagramBehavior;
 	}
 
 	public void dispose() { 
-		diagramSupport = null;
+		diagramBehavior = null;
 
 	}
 
@@ -50,13 +50,13 @@ public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchr
 		IFile file = WorkspaceSynchronizer.getUnderlyingFile(resource);
 		// Since we cannot get timestamp information, we have to be pessimistic
 		if (file == null){
-			diagramSupport.getUpdateBehavior().setResourceChanged(true);
+			diagramBehavior.getUpdateBehavior().setResourceChanged(true);
 			return true;
 		}
 		// if file does not exist the getLocalTimeStamp method will return
 		// NULL_TIMESTAMP and we will also get a refresh
 		if (file.getLocalTimeStamp() != resource.getTimeStamp()) {
-			diagramSupport.getUpdateBehavior().setResourceChanged(true);
+			diagramBehavior.getUpdateBehavior().setResourceChanged(true);
 			return true;
 		}
 		return true;
@@ -74,11 +74,11 @@ public class DomainModelWorkspaceSynchronizerDelegate implements WorkspaceSynchr
 		// (ResourceSetimpl(deb.getEditingDomain().getResourceSet())).getURIResourceMap().remove(resource.getURI());
 		// Map<URI, Resource> uriResourceMap = ((ResourceSetImpl)deb.getEditingDomain().getResourceSet()).getURIResourceMap();
 		resource.setURI(newURI);
-		IDiagramEditorInput editorInput = diagramSupport.getDiagramContainer().getDiagramEditorInput();
+		IDiagramEditorInput editorInput = diagramBehavior.getDiagramContainer().getDiagramEditorInput();
 		if (editorInput != null) {
 			((IDiagramEditorInput) editorInput).updateUri(newURI);
 		}
-		diagramSupport.refreshContent();
+		diagramBehavior.refreshContent();
 		return true;
 	}
 

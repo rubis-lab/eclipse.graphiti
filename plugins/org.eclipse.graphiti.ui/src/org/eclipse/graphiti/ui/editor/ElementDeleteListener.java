@@ -36,13 +36,13 @@ import org.eclipse.ui.IWorkbenchPartSite;
  */
 public final class ElementDeleteListener extends AdapterImpl {
 
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 
 	/**
 	 * @since 0.10
 	 */
-	public ElementDeleteListener(DiagramSupport diagramSupport) {
-		this.diagramSupport = diagramSupport;
+	public ElementDeleteListener(DiagramBehavior diagramBehavior) {
+		this.diagramBehavior = diagramBehavior;
 	}
 
 	@Override
@@ -53,14 +53,14 @@ public final class ElementDeleteListener extends AdapterImpl {
 	@Override
 	public void notifyChanged(Notification msg) {
 		if (T.racer().debug()) {
-			final String editorName = diagramSupport.getDiagramContainer().getTitle();
+			final String editorName = diagramBehavior.getDiagramContainer().getTitle();
 			T.racer().debug("Delete listener called of editor " //$NON-NLS-1$
 					+ editorName + " with events " + msg.toString()); //$NON-NLS-1$
 		}
 
-		final IDiagramEditorInput in = diagramSupport.getDiagramContainer().getDiagramEditorInput();
+		final IDiagramEditorInput in = diagramBehavior.getDiagramContainer().getDiagramEditorInput();
 		if (in != null) {
-			final IWorkbenchPartSite site = diagramSupport.getDiagramContainer().getWorkbenchPart().getSite();
+			final IWorkbenchPartSite site = diagramBehavior.getDiagramContainer().getWorkbenchPart().getSite();
 			if (site == null) {
 				return;
 			}
@@ -70,7 +70,7 @@ public final class ElementDeleteListener extends AdapterImpl {
 			// which may provoke deadlocks.
 			shell.getDisplay().asyncExec(new Runnable() {
 				public void run() {
-					if (diagramSupport == null) {
+					if (diagramBehavior == null) {
 						return; // disposed
 					}
 					if (shell.isDisposed()) {
@@ -78,7 +78,7 @@ public final class ElementDeleteListener extends AdapterImpl {
 					}
 					Diagram diagram = null;
 					try {
-						diagram = (Diagram) diagramSupport.getAdapter(Diagram.class);
+						diagram = (Diagram) diagramBehavior.getAdapter(Diagram.class);
 					} catch (final Exception e) {
 						// Ignore, exception indicates that the diagram has
 						// been deleted
@@ -86,10 +86,10 @@ public final class ElementDeleteListener extends AdapterImpl {
 					if (diagram == null || EcoreUtil.getRootContainer(diagram) == null) {
 						// diagram is gone so try to close
 						if (T.racer().debug()) {
-							final String editorName = diagramSupport.getDiagramContainer().getTitle();
+							final String editorName = diagramBehavior.getDiagramContainer().getTitle();
 							T.racer().debug("Closing editor " + editorName); //$NON-NLS-1$
 						}
-						diagramSupport.getDiagramContainer().close();
+						diagramBehavior.getDiagramContainer().close();
 					}
 				}
 			});

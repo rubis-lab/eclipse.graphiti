@@ -84,7 +84,7 @@ public interface IDiagramContainerUI extends IDiagramContainer, IAdaptable {
 
 	/**
 	 * Sets the GEF edit domain to the container. Needed for initializing the
-	 * container from the {@link DiagramSupport} instance.
+	 * container from the {@link DiagramBehavior} instance.
 	 * 
 	 * @param editDomain
 	 *            The {@link DefaultEditDomain} to set
@@ -160,7 +160,7 @@ public interface IDiagramContainerUI extends IDiagramContainer, IAdaptable {
 
 	/**
 	 * Sets the {@link GraphicalViewer} to be used inside the container. The
-	 * viewer is created by the {@link DiagramSupport} instance and needs to be
+	 * viewer is created by the {@link DiagramBehavior} instance and needs to be
 	 * set in the GEF container.
 	 * 
 	 * @param viewer
@@ -179,10 +179,10 @@ public interface IDiagramContainerUI extends IDiagramContainer, IAdaptable {
 	public void hookGraphicalViewer();
 
 	/**
-	 * Returns the {@link DiagramSupport} instance associated with this
+	 * Returns the {@link DiagramBehavior} instance associated with this
 	 * container.
 	 * 
-	 * @return The associated {@link DiagramSupport} instance
+	 * @return The associated {@link DiagramBehavior} instance
 	 */
-	public DiagramSupport getDiagramSupport();
+	public DiagramBehavior getDiagramBehavior();
 }

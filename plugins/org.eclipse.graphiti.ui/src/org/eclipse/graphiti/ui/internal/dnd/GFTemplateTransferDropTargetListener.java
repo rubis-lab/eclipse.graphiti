@@ -21,7 +21,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.swt.dnd.DND;
 
 /**
@@ -35,13 +35,13 @@ import org.eclipse.swt.dnd.DND;
  */
 public class GFTemplateTransferDropTargetListener extends TemplateTransferDropTargetListener {
 
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 
-	public GFTemplateTransferDropTargetListener(EditPartViewer viewer, DiagramSupport diagramSupport) {
+	public GFTemplateTransferDropTargetListener(EditPartViewer viewer, DiagramBehavior diagramBehavior) {
 		super(viewer);
 		// it is important to set this value to true
 		setEnablementDeterminedByCommand(true);
-		this.diagramSupport = diagramSupport;
+		this.diagramBehavior = diagramBehavior;
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class GFTemplateTransferDropTargetListener extends TemplateTransferDropTa
 		} else
 			getCurrentEvent().detail = DND.DROP_NONE;
 
-		if (!diagramSupport.isDirectEditingActive()) {
+		if (!diagramBehavior.isDirectEditingActive()) {
 			selectAddedObject();
 		}
 	}

@@ -53,7 +53,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionEditPart;
@@ -69,10 +69,10 @@ import org.eclipse.swt.widgets.Display;
 public class DiagramChangeListener implements ResourceSetListener {
 
 	private DiagramRefreshJob diagramRefreshJob;
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 
-	public DiagramChangeListener(DiagramSupport diagramSupport) {
-		this.diagramSupport = diagramSupport;
+	public DiagramChangeListener(DiagramBehavior diagramBehavior) {
+		this.diagramBehavior = diagramBehavior;
 	}
 
 	public NotificationFilter getFilter() {
@@ -92,13 +92,13 @@ public class DiagramChangeListener implements ResourceSetListener {
 	}
 
 	public void resourceSetChanged(ResourceSetChangeEvent event) {
-		if (!diagramSupport.getRefreshBehavior().isAutoRefresh()) {
+		if (!diagramBehavior.getRefreshBehavior().isAutoRefresh()) {
 			return;
 		}
 		DiagramRefreshJob refreshDiagramJob = getRefreshDiagramJob();
 
 		if (!refreshDiagramJob.isRefreshAll()) {
-			GraphicalViewer graphicalViewer = diagramSupport.getDiagramContainer().getGraphicalViewer();
+			GraphicalViewer graphicalViewer = diagramBehavior.getDiagramContainer().getGraphicalViewer();
 			if (graphicalViewer == null) {
 				return;
 			}
@@ -192,7 +192,7 @@ public class DiagramChangeListener implements ResourceSetListener {
 	}
 
 	private void addRelevantChildEditPartsToRefreshJob(PictogramElement pe) {
-		Map<?, ?> editPartRegistry = diagramSupport.getDiagramContainer().getGraphicalViewer().getEditPartRegistry();
+		Map<?, ?> editPartRegistry = diagramBehavior.getDiagramContainer().getGraphicalViewer().getEditPartRegistry();
 		DiagramRefreshJob refreshJob = getRefreshDiagramJob();
 
 		if (pe instanceof AnchorContainer) {
@@ -299,7 +299,7 @@ public class DiagramChangeListener implements ResourceSetListener {
 
 	private DiagramRefreshJob getRefreshDiagramJob() {
 		if (diagramRefreshJob == null) {
-			diagramRefreshJob = new DiagramRefreshJob(Messages.DiagramEditor_0_xmsg, diagramSupport);
+			diagramRefreshJob = new DiagramRefreshJob(Messages.DiagramEditor_0_xmsg, diagramBehavior);
 		}
 		return diagramRefreshJob;
 	}
@@ -344,18 +344,18 @@ public class DiagramChangeListener implements ResourceSetListener {
 // */
 //class DiagramChangeListener extends EContentAdapter {
 //	private DiagramRefreshJob diagramRefreshJob;
-//	private DiagramEditorInternal diagramSupport;
+//	private DiagramEditorInternal diagramBehavior;
 //
-//	DiagramChangeListener(DiagramEditorInternal diagramSupport) {
+//	DiagramChangeListener(DiagramEditorInternal diagramBehavior) {
 //		super();
-//		this.ed = diagramSupport;
+//		this.ed = diagramBehavior;
 //	}
 //
 //	@Override
 //	public void notifyChanged(Notification notification) {
 //		super.notifyChanged(notification);
 //
-//		if (!diagramSupport.isAutoRefresh()) {
+//		if (!diagramBehavior.isAutoRefresh()) {
 //			return;
 //		}
 //		if (GFTestConfiguration.isCPUProfilingTraceActive()) {
@@ -367,7 +367,7 @@ public class DiagramChangeListener implements ResourceSetListener {
 //	}
 //
 //	private void addRelevantChildEditPartsToRefreshJob(PictogramElement pe) {
-//		Map editPartRegistry = diagramSupport.getGraphicalViewer().getEditPartRegistry();
+//		Map editPartRegistry = diagramBehavior.getGraphicalViewer().getEditPartRegistry();
 //		DiagramRefreshJob refreshJob = getRefreshDiagramJob();
 //
 //		if (pe instanceof AnchorContainer) {
@@ -439,7 +439,7 @@ public class DiagramChangeListener implements ResourceSetListener {
 //
 //	private DiagramRefreshJob getRefreshDiagramJob() {
 //		if (diagramRefreshJob == null) {
-//			diagramRefreshJob = new DiagramRefreshJob(Messages.DiagramEditor_0_xmsg, diagramSupport);
+//			diagramRefreshJob = new DiagramRefreshJob(Messages.DiagramEditor_0_xmsg, diagramBehavior);
 //		}
 //		return diagramRefreshJob;
 //	}
@@ -448,7 +448,7 @@ public class DiagramChangeListener implements ResourceSetListener {
 //		boolean singleEditPart = false;
 //		DiagramRefreshJob refreshDiagramJob = getRefreshDiagramJob();
 //		if (!refreshDiagramJob.isRefreshAll()) {
-//			GraphicalViewer graphicalViewer = diagramSupport.getGraphicalViewer();
+//			GraphicalViewer graphicalViewer = diagramBehavior.getGraphicalViewer();
 //			if (graphicalViewer == null) {
 //				return;
 //			}

@@ -145,7 +145,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  * 
  * @since 0.10
  */
-public class DiagramSupport implements IDiagramBehaviorUI {
+public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	private IDiagramContainerUI diagramContainer;
 
@@ -172,7 +172,7 @@ public class DiagramSupport implements IDiagramBehaviorUI {
 
 	private IWorkbenchPart parentPart;
 
-	DiagramSupport(IDiagramContainerUI diagramContainer) {
+	DiagramBehavior(IDiagramContainerUI diagramContainer) {
 		this.diagramContainer = diagramContainer;
 		markerBehavior = createMarkerBehavior();
 		updateBehavior = createUpdateBehavior();
@@ -764,7 +764,7 @@ public class DiagramSupport implements IDiagramBehaviorUI {
 	}
 
 	/**
-	 * The EMF {@link ResourceSet} used within this {@link DiagramSupport}. The
+	 * The EMF {@link ResourceSet} used within this {@link DiagramBehavior}. The
 	 * resource set is always associated in a 1:1 relation to the
 	 * {@link TransactionalEditingDomain}.
 	 * 
@@ -788,7 +788,7 @@ public class DiagramSupport implements IDiagramBehaviorUI {
 
 	/**
 	 * Executes the given {@link IFeature} with the given {@link IContext} in
-	 * the scope of this {@link DiagramSupport}, meaning within its
+	 * the scope of this {@link DiagramBehavior}, meaning within its
 	 * {@link TransactionalEditingDomain} and on its
 	 * {@link org.eclipse.emf.common.command.CommandStack}.
 	 * 
@@ -1252,7 +1252,7 @@ public class DiagramSupport implements IDiagramBehaviorUI {
 	 * Hook that is called to unregister the listeners for changes of the
 	 * business objects (domain objects).
 	 * 
-	 * @see DiagramSupport#registerBusinessObjectsListener()
+	 * @see DiagramBehavior#registerBusinessObjectsListener()
 	 */
 	void unregisterBusinessObjectsListener() {
 		if (domainModelListener != null) {
@@ -1293,7 +1293,7 @@ public class DiagramSupport implements IDiagramBehaviorUI {
 	}
 
 	/**
-	 * Disposes this {@link DiagramSupport} instance and frees all used
+	 * Disposes this {@link DiagramBehavior} instance and frees all used
 	 * resources and clears all references. Also delegates to all the behavior
 	 * extensions to also free their resources (e.g. and most important is the
 	 * {@link TransactionalEditingDomain} held by the

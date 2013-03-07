@@ -41,8 +41,8 @@ import org.eclipse.swt.events.KeyEvent;
  * the way GEF handles the palette within its editors, see
  * {@link GraphicalEditorWithFlyoutPalette} for more information on that. To
  * exchange the default implementation you have to return an instance of your
- * subclass in the method {@link DiagramSupport#createPaletteBehaviour()}.<br>
- * Note that there is always a 1:1 relation with a {@link DiagramSupport}.
+ * subclass in the method {@link DiagramBehavior#createPaletteBehaviour()}.<br>
+ * Note that there is always a 1:1 relation with a {@link DiagramBehavior}.
  * 
  * @since 0.9
  */
@@ -72,26 +72,26 @@ public class DefaultPaletteBehavior {
 	protected static final int DEFAULT_PALETTE_SIZE = 130;
 
 	/**
-	 * The associated {@link DiagramSupport}
+	 * The associated {@link DiagramBehavior}
 	 * 
 	 * @since 0.10
 	 */
-	protected final DiagramSupport diagramSupport;
+	protected final DiagramBehavior diagramBehavior;
 
 	private PaletteRoot paletteRoot;
 
 	/**
 	 * Creates a new standard palette behaviour for a Graphiti diagram editor.
-	 * The passed {@link DiagramSupport} is closely linked to this instance (1:1
+	 * The passed {@link DiagramBehavior} is closely linked to this instance (1:1
 	 * relation) and both instances will have a common lifecycle.
 	 * 
 	 * @param diagramEditor
-	 *            The associated {@link DiagramSupport}.
+	 *            The associated {@link DiagramBehavior}.
 	 * @since 0.10
 	 */
-	public DefaultPaletteBehavior(DiagramSupport diagramSupport) {
+	public DefaultPaletteBehavior(DiagramBehavior diagramBehavior) {
 		super();
-		this.diagramSupport = diagramSupport;
+		this.diagramBehavior = diagramBehavior;
 	}
 
 	/**
@@ -104,12 +104,12 @@ public class DefaultPaletteBehavior {
 	 * @see org.eclipse.graphiti.ui.editor.GraphicalEditorIncludingPalette#getPaletteRoot()
 	 */
 	protected PaletteRoot createPaletteRoot() {
-		return new GFPaletteRoot(diagramSupport.getDiagramTypeProvider());
+		return new GFPaletteRoot(diagramBehavior.getDiagramTypeProvider());
 	}
 
 	/**
 	 * Returns the already existing {@link PaletteRoot} instance for the
-	 * {@link DiagramSupport} associated the this palette behavior or creates a
+	 * {@link DiagramBehavior} associated the this palette behavior or creates a
 	 * new {@link PaletteRoot} instance in case none exists.
 	 * 
 	 * @return a new Graphiti specific {@link PaletteRoot} instance
@@ -129,7 +129,7 @@ public class DefaultPaletteBehavior {
 	 */
 	public void initializeViewer() {
 		// Set preference-store for palette
-		PaletteViewer paletteViewer = diagramSupport.getEditDomain().getPaletteViewer();
+		PaletteViewer paletteViewer = diagramBehavior.getEditDomain().getPaletteViewer();
 		if (paletteViewer != null) {
 			IPreferenceStore store = GraphitiUIPlugin.getDefault().getPreferenceStore();
 			paletteViewer.setPaletteViewerPreferences(new DefaultPaletteViewerPreferences(store));
@@ -158,7 +158,7 @@ public class DefaultPaletteBehavior {
 			public int getPaletteState() {
 				// TODO ? Move isShowFlyoutPalette from TBP to
 				// DefaultPaletteBehaviour?
-				if (!diagramSupport.getDiagramTypeProvider().getCurrentToolBehaviorProvider().isShowFlyoutPalette()) {
+				if (!diagramBehavior.getDiagramTypeProvider().getCurrentToolBehaviorProvider().isShowFlyoutPalette()) {
 					return 8; // FlyoutPaletteComposite.STATE_HIDDEN is private
 				}
 				return getPreferenceStore().getInt(PROPERTY_PALETTE_STATE);
@@ -196,7 +196,7 @@ public class DefaultPaletteBehavior {
 	 *         PaletteViewer.
 	 */
 	protected PaletteViewerProvider createPaletteViewerProvider() {
-		return new PaletteViewerProvider(diagramSupport.getEditDomain()) {
+		return new PaletteViewerProvider(diagramBehavior.getEditDomain()) {
 			private KeyHandler paletteKeyHandler = null;
 
 			protected void configurePaletteViewer(PaletteViewer viewer) {
@@ -227,7 +227,7 @@ public class DefaultPaletteBehavior {
 							if (event.keyCode == SWT.Selection) {
 								Tool tool = getEditDomain().getPaletteViewer().getActiveTool().createTool();
 								if (tool instanceof CreationTool || tool instanceof ConnectionCreationTool) {
-									tool.keyUp(event, diagramSupport.getDiagramContainer().getGraphicalViewer());
+									tool.keyUp(event, diagramBehavior.getDiagramContainer().getGraphicalViewer());
 									// Deactivate current selection
 									getEditDomain().getPaletteViewer().setActiveTool(null);
 									return true;

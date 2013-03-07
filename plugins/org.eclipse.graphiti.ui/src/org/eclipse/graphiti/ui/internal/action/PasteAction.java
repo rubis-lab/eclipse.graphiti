@@ -96,8 +96,8 @@ public class PasteAction extends AbstractPreDefinedAction {
 		IWorkbenchPart workbenchPart = getWorkbenchPart();
 		if (workbenchPart instanceof IDiagramContainerUI) {
 			IDiagramContainerUI diagramContainer = (IDiagramContainerUI) workbenchPart;
-			pasteLocation = diagramContainer.getDiagramSupport().calculateRealMouseLocation(
-					diagramContainer.getDiagramSupport().getMouseLocation());
+			pasteLocation = diagramContainer.getDiagramBehavior().calculateRealMouseLocation(
+					diagramContainer.getDiagramBehavior().getMouseLocation());
 		}
 		context.setLocation(pasteLocation.x, pasteLocation.y);
 		return context;

@@ -40,7 +40,7 @@ import org.eclipse.graphiti.internal.features.context.impl.base.DoubleClickConte
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart;
@@ -266,9 +266,9 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 
 			if (doubleClickFeature != null && doubleClickFeature.canExecute(dcc)) {
 				GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(doubleClickFeature, dcc);
-				DiagramSupport diagramSupport = getConfigurationProvider().getDiagramSupport();
-				CommandStack commandStack = diagramSupport.getEditDomain().getCommandStack();
-				commandStack.execute(new GefCommandWrapper(commandWithContext, diagramSupport.getEditingDomain()));
+				DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
+				CommandStack commandStack = diagramBehavior.getEditDomain().getCommandStack();
+				commandStack.execute(new GefCommandWrapper(commandWithContext, diagramBehavior.getEditingDomain()));
 			}
 		}
 

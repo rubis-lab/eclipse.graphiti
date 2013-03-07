@@ -455,7 +455,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		IConfigurationProvider configurationProviderMock = createNiceMock(IConfigurationProviderInternal.class);
 		expect(configurationProviderMock.getDiagramTypeProvider()).andReturn(dtp).anyTimes();
 		expect(configurationProviderMock.getDiagramEditor()).andReturn(ed).anyTimes();
-		expect(configurationProviderMock.getDiagramSupport()).andReturn(ed.getDiagramSupport()).anyTimes();
+		expect(configurationProviderMock.getDiagramBehavior()).andReturn(ed.getDiagramBehavior()).anyTimes();
 		replay(configurationProviderMock);
 		return configurationProviderMock;
 	}

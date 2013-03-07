@@ -46,7 +46,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart;
 import org.eclipse.swt.SWT;
@@ -70,7 +70,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 * The container on which this context button manager works, see
 	 * {@link #getContainer()}. It is set in the constructor.
 	 */
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 
 	/**
 	 * A backward-map from the edit-part figures to their edit-parts as
@@ -122,12 +122,12 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 		}
 
 		private void reactOnMouse(MouseEvent me) {
-			DiagramSupport diagramSupport = getDiagramSupport();
+			DiagramBehavior diagramBehavior = getDiagramBehavior();
 
-			if (diagramSupport.isDirectEditingActive()) {
+			if (diagramBehavior.isDirectEditingActive()) {
 				return;
 			}
-			Tool activeTool = diagramSupport.getEditDomain().getActiveTool();
+			Tool activeTool = diagramBehavior.getEditDomain().getActiveTool();
 			if (activeTool instanceof CreationTool || activeTool instanceof AbstractConnectionCreationTool) {
 				return;
 			}
@@ -160,11 +160,11 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 *            {@link #getContainer()}.
 	 * @param iResourceRegistry
 	 */
-	public ContextButtonManagerForPad(DiagramSupport diagramSupport, IResourceRegistry resourceRegistry) {
-		this.diagramSupport = diagramSupport;
+	public ContextButtonManagerForPad(DiagramBehavior diagramBehavior, IResourceRegistry resourceRegistry) {
+		this.diagramBehavior = diagramBehavior;
 		this.resourceRegistry = resourceRegistry;
 
-		ZoomManager zoomMgr = (ZoomManager) getDiagramSupport().getDiagramContainer().getGraphicalViewer()
+		ZoomManager zoomMgr = (ZoomManager) getDiagramBehavior().getDiagramContainer().getGraphicalViewer()
 				.getProperty(ZoomManager.class.toString());
 		if (zoomMgr != null) {
 			zoomMgr.addZoomListener(zoomListener);
@@ -181,8 +181,8 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	 * 
 	 * @return The container this context button manager works on.
 	 */
-	public DiagramSupport getDiagramSupport() {
-		return diagramSupport;
+	public DiagramBehavior getDiagramBehavior() {
+		return diagramBehavior;
 	}
 
 	/**
@@ -271,7 +271,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 	public void hideContextButtonsInstantly() {
 		if (getActiveContextButtonPad() != null) {
 			synchronized (this) {
-				ScalableFreeformRootEditPart rootEditPart = (ScalableFreeformRootEditPart) getDiagramSupport()
+				ScalableFreeformRootEditPart rootEditPart = (ScalableFreeformRootEditPart) getDiagramBehavior()
 						.getDiagramContainer().getGraphicalViewer().getRootEditPart();
 				IFigure feedbackLayer = rootEditPart.getLayer(LayerConstants.HANDLE_LAYER);
 				feedbackLayer.remove(getActiveContextButtonPad());
@@ -351,7 +351,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 			hideContextButtonsInstantly();
 
 			// determine zoom level
-			ScalableFreeformRootEditPart rootEditPart = (ScalableFreeformRootEditPart) getDiagramSupport()
+			ScalableFreeformRootEditPart rootEditPart = (ScalableFreeformRootEditPart) getDiagramBehavior()
 					.getDiagramContainer().getGraphicalViewer().getRootEditPart();
 			double zoom = rootEditPart.getZoomManager().getZoom();
 			if (zoom < MINIMUM_ZOOM_LEVEL) {
@@ -373,7 +373,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 			PictogramElementContext context = new PictogramElementContext(pe);
 
 			// retrieve context button pad data
-			IToolBehaviorProvider toolBehaviorProvider = getDiagramSupport().getDiagramTypeProvider()
+			IToolBehaviorProvider toolBehaviorProvider = getDiagramBehavior().getDiagramTypeProvider()
 					.getCurrentToolBehaviorProvider();
 			IContextButtonPadData contextButtonPadData = toolBehaviorProvider.getContextButtonPad(context);
 			if (contextButtonPadData == null) {
@@ -400,7 +400,7 @@ public class ContextButtonManagerForPad implements IContextButtonManager {
 
 			// create context button pad and add to handle layer
 			EditPart activeEditPart = getFigure2EditPart().get(figure);
-			ContextButtonPad contextButtonPad = new ContextButtonPad(this, declaration, zoom, getDiagramSupport(),
+			ContextButtonPad contextButtonPad = new ContextButtonPad(this, declaration, zoom, getDiagramBehavior(),
 					activeEditPart, resourceRegistry);
 			setActive(figure, contextButtonPad);
 

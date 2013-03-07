@@ -73,7 +73,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
@@ -538,10 +538,10 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 					if (singleClickFeature != null && singleClickFeature.canExecute(scc)) {
 						GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(
 								singleClickFeature, scc);
-						DiagramSupport diagramSupport = getConfigurationProvider().getDiagramSupport();
-						CommandStack commandStack = diagramSupport.getEditDomain().getCommandStack();
+						DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
+						CommandStack commandStack = diagramBehavior.getEditDomain().getCommandStack();
 						commandStack
-.execute(new GefCommandWrapper(commandWithContext, diagramSupport
+.execute(new GefCommandWrapper(commandWithContext, diagramBehavior
 								.getEditingDomain()));
 					}
 				}
@@ -560,9 +560,9 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 				if (doubleClickFeature != null && doubleClickFeature.canExecute(dcc)) {
 					GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(
 							doubleClickFeature, dcc);
-					DiagramSupport diagramSupport = getConfigurationProvider().getDiagramSupport();
-					CommandStack commandStack = diagramSupport.getEditDomain().getCommandStack();
-					commandStack.execute(new GefCommandWrapper(commandWithContext, diagramSupport.getEditingDomain()));
+					DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
+					CommandStack commandStack = diagramBehavior.getEditDomain().getCommandStack();
+					commandStack.execute(new GefCommandWrapper(commandWithContext, diagramBehavior.getEditingDomain()));
 				}
 
 			}
@@ -580,7 +580,7 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 	@Override
 	public void refresh() {
 
-		if (getConfigurationProvider().getDiagramSupport().isAlive()) {
+		if (getConfigurationProvider().getDiagramBehavior().isAlive()) {
 
 			long start = System.currentTimeMillis();
 			super.refresh();
@@ -718,7 +718,7 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 		directEditManager.setDirectEditingContext(directEditingContext);
 		directEditManager.show();
 
-		getConfigurationProvider().getDiagramSupport().setPictogramElementForSelection(getPictogramElement());
+		getConfigurationProvider().getDiagramBehavior().setPictogramElementForSelection(getPictogramElement());
 	}
 
 	private Anchor getChopboxAnchor(AnchorContainer anchorContainer) {
@@ -734,20 +734,20 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 	}
 
 	private Point getRelativeMouseLocation() {
-		DiagramSupport diagramSupport = getConfigurationProvider().getDiagramSupport();
+		DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
 
 		// get current mouse location from the viewer
-		Point mouseLocation = new Point(diagramSupport.getMouseLocation());
+		Point mouseLocation = new Point(diagramBehavior.getMouseLocation());
 
 		// calculate location in pictogram model in dependence from scroll and
 		// zoom
-		mouseLocation = diagramSupport.calculateRealMouseLocation(mouseLocation);
+		mouseLocation = diagramBehavior.calculateRealMouseLocation(mouseLocation);
 
 		Rectangle bounds = getFigure().getBounds().getCopy();
 
 		// set bounds location in dependence from scroll and zoom
 		// bounds dimension is not of interest
-		bounds.setLocation(diagramSupport.calculateRealMouseLocation(bounds.getLocation()));
+		bounds.setLocation(diagramBehavior.calculateRealMouseLocation(bounds.getLocation()));
 
 		// get bounds in dependence to the main figure
 		// this method also considers sroll and zoom
@@ -774,7 +774,7 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 				.getDiagramTypeProvider()
 				.getCurrentToolBehaviorProvider()
 				.getSelection(getPictogramElement(),
-						configurationProvider.getDiagramSupport().getSelectedPictogramElements());
+						configurationProvider.getDiagramBehavior().getSelectedPictogramElements());
 		if (alternativeSelection != null && request instanceof SelectionRequest) {
 			Object object = configurationProvider.getDiagramEditor().getGraphicalViewer().getEditPartRegistry()
 					.get(alternativeSelection);

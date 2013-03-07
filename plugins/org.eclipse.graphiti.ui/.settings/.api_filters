@@ -96,6 +96,15 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DiagramBehavior.java" type="org.eclipse.graphiti.ui.editor.DiagramBehavior">
+        <filter id="574660632">
+            <message_arguments>
+                <message_argument value="IDiagramBehaviorUI"/>
+                <message_argument value="IDiagramBehavior"/>
+                <message_argument value="DiagramBehavior"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/DiagramComposite.java" type="org.eclipse.graphiti.ui.editor.DiagramComposite">
         <filter id="574660632">
             <message_arguments>

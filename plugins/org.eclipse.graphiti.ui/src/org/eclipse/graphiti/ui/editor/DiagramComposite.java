@@ -45,12 +45,12 @@ import org.eclipse.ui.IWorkbenchPartSite;
  */
 public class DiagramComposite extends GraphicalComposite implements IDiagramContainerUI {
 
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 
 	public DiagramComposite(IWorkbenchPart ownedPart, Composite parent, int style) {
 		super(parent, style);
-		diagramSupport = new DiagramSupport(this);
-		diagramSupport.setParentPart(ownedPart);
+		diagramBehavior = new DiagramBehavior(this);
+		diagramBehavior.setParentPart(ownedPart);
 		setEditDomain(new DefaultEditDomain(null));
 	}
 
@@ -67,35 +67,35 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 	public void setInput(TransactionalEditingDomain editingDomain, IDiagramEditorInput input) {
 
 		// assign editing domain to update behavior
-		diagramSupport.getUpdateBehavior().setEditingDomain(editingDomain);
-		this.diagramSupport.setInput(input);
+		getUpdateBehavior().setEditingDomain(editingDomain);
+		this.diagramBehavior.setInput(input);
 
-		if (this.diagramSupport.getEditorInitializationError() != null) {
-			this.diagramSupport.createErrorPartControl(this);
+		if (this.diagramBehavior.getEditorInitializationError() != null) {
+			this.diagramBehavior.createErrorPartControl(this);
 			return;
 		}
 
-		diagramSupport.getUpdateBehavior().init();
+		diagramBehavior.getUpdateBehavior().init();
 		init();
-		this.diagramSupport.migrateDiagramModelIfNecessary();
-		this.diagramSupport.createPartControl();
+		this.diagramBehavior.migrateDiagramModelIfNecessary();
+		this.diagramBehavior.createPartControl();
 	}
 
 	@Override
 	public void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
-		this.diagramSupport.initializeGraphicalViewer();
+		this.diagramBehavior.initializeGraphicalViewer();
 	}
 
 	@Override
 	protected void createGraphicalViewer() {
-		this.diagramSupport.createGraphicalViewer(this);
+		this.diagramBehavior.createGraphicalViewer(this);
 	}
 
 	@Override
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
-		this.diagramSupport.configureGraphicalViewer();
+		this.diagramBehavior.configureGraphicalViewer();
 	}
 
 	public void refreshTitle() {
@@ -125,7 +125,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	@Override
 	public IWorkbenchPart getWorkbenchPart() {
-		return diagramSupport.getParentPart();
+		return diagramBehavior.getParentPart();
 	}
 
 	public void close() {
@@ -133,7 +133,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 	}
 
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
-		Object returnObj = this.diagramSupport.getAdapter(type);
+		Object returnObj = this.diagramBehavior.getAdapter(type);
 		if (returnObj != null)
 			return returnObj;
 		return super.getAdapter(type);
@@ -146,7 +146,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 			getWorkbenchPart().getSite().getPage().removeSelectionListener(this);
 		}
 
-		this.diagramSupport.preSuperDispose();
+		this.diagramBehavior.preSuperDispose();
 
 		RuntimeException exc = null;
 		try {
@@ -155,7 +155,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 			exc = e;
 		}
 
-		this.diagramSupport.postSuperDispose();
+		this.diagramBehavior.postSuperDispose();
 
 		if (exc != null) {
 			throw exc;
@@ -173,92 +173,92 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 		}
 
 		if (super.setFocus()) {
-			diagramSupport.getUpdateBehavior().handleActivate();
+			diagramBehavior.getUpdateBehavior().handleActivate();
 			return true;
 		}
 		return false;
 	}
 
-	/* Methods routed directly to DiagramSupport */
+	/* Methods routed directly to DiagramBehavior */
 
 	public final DefaultUpdateBehavior getUpdateBehavior() {
-		return this.diagramSupport.getUpdateBehavior();
+		return this.diagramBehavior.getUpdateBehavior();
 	}
 
 	public final DefaultRefreshBehavior getRefreshBehavior() {
-		return this.diagramSupport.getRefreshBehavior();
+		return this.diagramBehavior.getRefreshBehavior();
 	}
 
 	public void editingDomainInitialized() {
-		this.diagramSupport.editingDomainInitialized();
+		this.diagramBehavior.editingDomainInitialized();
 	}
 
 	public void disableAdapters() {
-		this.diagramSupport.disableAdapters();
+		this.diagramBehavior.disableAdapters();
 	}
 
 	public void enableAdapters() {
-		this.diagramSupport.enableAdapters();
+		this.diagramBehavior.enableAdapters();
 	}
 
 	public boolean isDirty() {
-		return this.diagramSupport.isDirty();
+		return this.diagramBehavior.isDirty();
 	}
 
 	protected final PaletteViewerProvider createPaletteViewerProvider() {
-		return this.diagramSupport.createPaletteViewerProvider();
+		return this.diagramBehavior.createPaletteViewerProvider();
 	}
 
 	protected final FlyoutPreferences getPalettePreferences() {
-		return this.diagramSupport.getPalettePreferences();
+		return this.diagramBehavior.getPalettePreferences();
 	}
 
 	protected final PaletteRoot getPaletteRoot() {
-		return this.diagramSupport.getPaletteRoot();
+		return this.diagramBehavior.getPaletteRoot();
 	}
 
 	public PictogramElement[] getSelectedPictogramElements() {
-		return diagramSupport.getSelectedPictogramElements();
+		return this.diagramBehavior.getSelectedPictogramElements();
 	}
 
 	public void selectPictogramElements(PictogramElement[] pictogramElements) {
-		diagramSupport.selectPictogramElements(pictogramElements);
+		this.diagramBehavior.selectPictogramElements(pictogramElements);
 	}
 
 	public void setPictogramElementForSelection(PictogramElement pictogramElement) {
-		diagramSupport.setPictogramElementForSelection(pictogramElement);
+		this.diagramBehavior.setPictogramElementForSelection(pictogramElement);
 	}
 
 	public void setPictogramElementsForSelection(PictogramElement pictogramElements[]) {
-		diagramSupport.setPictogramElementsForSelection(pictogramElements);
+		this.diagramBehavior.setPictogramElementsForSelection(pictogramElements);
 	}
 
 	public IDiagramTypeProvider getDiagramTypeProvider() {
-		return this.diagramSupport.getDiagramTypeProvider();
+		return this.diagramBehavior.getDiagramTypeProvider();
 	}
 
 	public GraphicalEditPart getEditPartForPictogramElement(PictogramElement pe) {
-		return this.diagramSupport.getEditPartForPictogramElement(pe);
+		return this.diagramBehavior.getEditPartForPictogramElement(pe);
 	}
 
 	public double getZoomLevel() {
-		return this.diagramSupport.getZoomLevel();
+		return this.diagramBehavior.getZoomLevel();
 	}
 
 	public boolean isAlive() {
-		return this.diagramSupport.isAlive();
+		return this.diagramBehavior.isAlive();
 	}
 
 	public boolean isDirectEditingActive() {
-		return this.diagramSupport.isDirectEditingActive();
+		return this.diagramBehavior.isDirectEditingActive();
 	}
 
 	public void setDirectEditingActive(boolean directEditingActive) {
-		this.diagramSupport.setDirectEditingActive(directEditingActive);
+		this.diagramBehavior.setDirectEditingActive(directEditingActive);
 	}
 
 	public IDiagramEditorInput getDiagramEditorInput() {
-		return diagramSupport.getInput();
+		return this.diagramBehavior.getInput();
 	}
 
 	/* Methods from container interface */
@@ -276,10 +276,10 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 	}
 
 	public void doSave(IProgressMonitor monitor) {
-		diagramSupport.getPersistencyBehavior().saveDiagram(monitor);
+		this.diagramBehavior.getPersistencyBehavior().saveDiagram(monitor);
 	}
 
-	public DiagramSupport getDiagramSupport() {
-		return diagramSupport;
+	public DiagramBehavior getDiagramBehavior() {
+		return diagramBehavior;
 	}
 }

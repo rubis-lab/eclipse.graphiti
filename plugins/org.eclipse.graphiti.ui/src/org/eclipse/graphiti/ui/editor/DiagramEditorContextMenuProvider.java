@@ -241,7 +241,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 				IFeature feature = cmEntry.getFeature();
 				if (feature instanceof ICustomFeature && feature.isAvailable(context)) {
 					IAction action = new CustomAction((ICustomFeature) feature, context,
-							configurationProvider.getDiagramSupport());
+							configurationProvider.getDiagramBehavior());
 					if (textParentEntry != null) {
 						text = textParentEntry + " " + text; //$NON-NLS-1$
 					}
@@ -438,7 +438,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 		return ret;
 	}
 
-	private DiagramSupport getEditor() {
-		return configurationProvider.getDiagramSupport();
+	private DiagramBehavior getEditor() {
+		return configurationProvider.getDiagramBehavior();
 	}
 }

@@ -150,7 +150,7 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	public void init(Diagram diagram, IDiagramEditor diagramEditor) {
 		setDiagram(diagram);
 		GraphitiInternal.getEmfService().wireDTPToDiagram(diagram, this);
-		setDiagramBehavior(((IDiagramContainer) diagramEditor).getDiagramSupport());
+		setDiagramBehavior(((IDiagramContainer) diagramEditor).getDiagramBehavior());
 	}
 
 	/**

@@ -23,7 +23,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.command.CommandContainer;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ICommand;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.jface.action.Action;
 
@@ -37,13 +37,13 @@ public class CustomAction extends Action {
 
 	private ICustomContext context;
 
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 
-	public CustomAction(ICustomFeature customFeature, ICustomContext context, DiagramSupport diagramSupport) {
+	public CustomAction(ICustomFeature customFeature, ICustomContext context, DiagramBehavior diagramBehavior) {
 		super();
 		this.customFeature = customFeature;
 		this.context = context;
-		this.diagramSupport = diagramSupport;
+		this.diagramBehavior = diagramBehavior;
 		setText(customFeature.getName());
 		setToolTipText(customFeature.getDescription());
 	}
@@ -61,7 +61,7 @@ public class CustomAction extends Action {
 	}
 
 	protected void executeOnCommandStack(ICommand command) {
-		CommandStack commandStack = diagramSupport.getEditDomain().getCommandStack();
-		commandStack.execute(new GefCommandWrapper(command, diagramSupport.getEditingDomain()));
+		CommandStack commandStack = diagramBehavior.getEditDomain().getCommandStack();
+		commandStack.execute(new GefCommandWrapper(command, diagramBehavior.getEditingDomain()));
 	}
 }

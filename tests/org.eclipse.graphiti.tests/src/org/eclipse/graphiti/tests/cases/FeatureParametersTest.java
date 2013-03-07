@@ -172,7 +172,7 @@ public class FeatureParametersTest extends GFAbstractTestCase {
 			public void close() {
 			}
 
-			public IDiagramBehavior getDiagramSupport() {
+			public IDiagramBehavior getDiagramBehavior() {
 				return diagramBehavior;
 			}
 		};

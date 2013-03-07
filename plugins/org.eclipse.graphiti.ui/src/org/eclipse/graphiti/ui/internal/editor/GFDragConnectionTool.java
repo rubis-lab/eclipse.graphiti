@@ -24,7 +24,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.tools.ConnectionDragCreationTool;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.graphiti.ui.internal.requests.ContextButtonDragRequest;
 
@@ -60,8 +60,8 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	@Override
 	protected boolean handleButtonUp(int button) {
 		boolean b = super.handleButtonUp(button);
-		setViewer(diagramSupport.getDiagramContainer().getGraphicalViewer());
-		diagramSupport.getEditDomain().setActiveTool(diagramSupport.getEditDomain().getDefaultTool());
+		setViewer(diagramBehavior.getDiagramContainer().getGraphicalViewer());
+		diagramBehavior.getEditDomain().setActiveTool(diagramBehavior.getEditDomain().getDefaultTool());
 		return b;
 
 	}
@@ -81,7 +81,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		return request;
 	}
 
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 
 	private ContextButtonEntry contextButtonEntry;
 
@@ -95,10 +95,10 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	 * @param contextButtonEntry
 	 *            the context button entry
 	 */
-	public void startConnection(EditPart targetEditPart, DiagramSupport diagramSupport,
+	public void startConnection(EditPart targetEditPart, DiagramBehavior diagramBehavior,
 			ContextButtonEntry contextButtonEntry) {
 
-		this.diagramSupport = diagramSupport;
+		this.diagramBehavior = diagramBehavior;
 		this.contextButtonEntry = contextButtonEntry;
 		activate();
 		setConnectionSource(targetEditPart);
@@ -112,7 +112,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		}
 
 		handleDrag();
-		setViewer(diagramSupport.getDiagramContainer().getGraphicalViewer());
+		setViewer(diagramBehavior.getDiagramContainer().getGraphicalViewer());
 		unlockTargetEditPart();
 	}
 
@@ -128,11 +128,11 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	 * @param targetTargetEditPart
 	 *            the target target edit part
 	 */
-	public void continueConnection(EditPart targetEditPart, DiagramSupport diagramSupport,
+	public void continueConnection(EditPart targetEditPart, DiagramBehavior diagramBehavior,
 			ContextButtonEntry contextButtonEntry,
 			EditPart targetTargetEditPart) {
 
-		this.diagramSupport = diagramSupport;
+		this.diagramBehavior = diagramBehavior;
 		this.contextButtonEntry = contextButtonEntry;
 		activate();
 		setConnectionSource(targetEditPart);
@@ -148,7 +148,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		}
 
 		handleDrag();
-		setViewer(diagramSupport.getDiagramContainer().getGraphicalViewer());
+		setViewer(diagramBehavior.getDiagramContainer().getGraphicalViewer());
 		unlockTargetEditPart();
 	}
 
@@ -169,7 +169,7 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		request.setType(getCommandName());
 		//
 
-		Point absoluteMousePosition = diagramSupport.getMouseLocation();
+		Point absoluteMousePosition = diagramBehavior.getMouseLocation();
 		request.setLocation(absoluteMousePosition);
 
 	}

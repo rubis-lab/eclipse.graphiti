@@ -72,7 +72,7 @@ public abstract class AbstractPreDefinedAction extends SelectionAction implement
 
 	protected void executeOnCommandStack(ICommand command) {
 		CommandStack commandStack = getConfigurationProvider().getDiagramEditor().getEditDomain().getCommandStack();
-		commandStack.execute(new GefCommandWrapper(command, getConfigurationProvider().getDiagramSupport()
+		commandStack.execute(new GefCommandWrapper(command, getConfigurationProvider().getDiagramBehavior()
 				.getEditingDomain()));
 	}
 

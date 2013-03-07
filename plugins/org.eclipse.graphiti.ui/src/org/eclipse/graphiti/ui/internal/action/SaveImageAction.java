@@ -21,7 +21,7 @@ package org.eclipse.graphiti.ui.internal.action;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.context.ISaveImageContext;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.jface.action.Action;
@@ -36,7 +36,7 @@ public class SaveImageAction extends Action {
 
 	private ISaveImageContext context;
 
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 	
 	public static final String TOOL_TIP = Messages.SaveImageAction_1_xmsg;
 	
@@ -47,11 +47,11 @@ public class SaveImageAction extends Action {
 	public static final String ACTION_DEFINITION_ID = "org.eclipse.graphiti.ui.internal.action.SaveImageAction"; //$NON-NLS-1$
 
 	public SaveImageAction(ISaveImageFeature saveImageFeature, ISaveImageContext context,
- DiagramSupport diagramSupport) {
+ DiagramBehavior diagramBehavior) {
 		super();
 		this.saveImageFeature = saveImageFeature;
 		this.context = context;
-		this.diagramSupport = diagramSupport;
+		this.diagramBehavior = diagramBehavior;
 		setText(TEXT);
 		setToolTipText(TOOL_TIP);
 		setId(ACTION_ID);
@@ -68,7 +68,7 @@ public class SaveImageAction extends Action {
 		saveImageFeature.preSave(context);
 
 		// get viewer and start save-image-dialog
-		GraphicalViewer viewer = (GraphicalViewer) diagramSupport.getDiagramContainer().getGraphicalViewer();
+		GraphicalViewer viewer = (GraphicalViewer) diagramBehavior.getDiagramContainer().getGraphicalViewer();
 		GraphitiUiInternal.getUiService().startSaveAsImageDialog(viewer);
 
 		saveImageFeature.postSave(context);

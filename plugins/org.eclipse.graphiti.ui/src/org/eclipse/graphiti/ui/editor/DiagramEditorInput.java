@@ -103,7 +103,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 	 * @param providerId
 	 *            A {@link String} which holds the diagram type id. When it is
 	 *            null, it is set later in
-	 *            {@link DiagramSupport#setInput(IEditorInput)}
+	 *            {@link DiagramBehavior#setInput(IEditorInput)}
 	 * @throws IllegalArgumentException
 	 *             if <code>uriString</code> parameter is null <br>
 	 * 

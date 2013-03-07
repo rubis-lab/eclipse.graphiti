@@ -38,7 +38,7 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.internal.contextbuttons.PositionedContextButton;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.editor.GFDragConnectionTool;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
@@ -242,8 +242,8 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	 * @return The {@link IDiagramContainerUI} for which the context button is
 	 *         displayed.
 	 */
-	public final DiagramSupport getDiagramSupport() {
-		return getContextButtonPad().getDiagramSupport();
+	public final DiagramBehavior getDiagramBehavior() {
+		return getContextButtonPad().getDiagramBehavior();
 	}
 
 	/**
@@ -564,10 +564,10 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 			// creates a new drag-connection tool on each mouse move
 			mouseDragMoveListener = new MouseMoveListener() {
 				public void mouseMove(org.eclipse.swt.events.MouseEvent e) {
-					EditPart targetEditPart = getDiagramSupport().getDiagramContainer().getGraphicalViewer()
+					EditPart targetEditPart = getDiagramBehavior().getDiagramContainer().getGraphicalViewer()
 							.findObjectAt(new Point(e.x, e.y));
 					createNewGFDragConnectionTool().continueConnection(getEditPart(),
- getDiagramSupport(), getEntry(),
+ getDiagramBehavior(), getEntry(),
 							targetEditPart);
 				}
 			};
@@ -576,9 +576,9 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 			mouseDragUpListener = new MouseAdapter() {
 				@Override
 				public void mouseUp(org.eclipse.swt.events.MouseEvent e) {
-					getDiagramSupport().getDiagramContainer().getGraphicalViewer().getControl()
+					getDiagramBehavior().getDiagramContainer().getGraphicalViewer().getControl()
 							.removeMouseListener(mouseDragUpListener);
-					getDiagramSupport().getDiagramContainer().getGraphicalViewer().getControl()
+					getDiagramBehavior().getDiagramContainer().getGraphicalViewer().getControl()
 							.removeMouseMoveListener(mouseDragMoveListener);
 					mouseDragUpListener = null;
 					mouseDragMoveListener = null;
@@ -586,9 +586,9 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 			};
 
 			// adds the mouse-drag listeners
-			getDiagramSupport().getDiagramContainer().getGraphicalViewer().getControl()
+			getDiagramBehavior().getDiagramContainer().getGraphicalViewer().getControl()
 					.addMouseListener(mouseDragUpListener);
-			getDiagramSupport().getDiagramContainer().getGraphicalViewer().getControl()
+			getDiagramBehavior().getDiagramContainer().getGraphicalViewer().getControl()
 					.addMouseMoveListener(mouseDragMoveListener);
 		}
 	}
@@ -601,7 +601,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	 *         active tool.
 	 */
 	private GFDragConnectionTool createNewGFDragConnectionTool() {
-		DefaultEditDomain editDomain = getDiagramSupport().getEditDomain();
+		DefaultEditDomain editDomain = getDiagramBehavior().getEditDomain();
 		GFDragConnectionTool dragConnectionTool = new GFDragConnectionTool();
 		dragConnectionTool.setEditDomain(editDomain);
 		editDomain.setActiveTool(dragConnectionTool);

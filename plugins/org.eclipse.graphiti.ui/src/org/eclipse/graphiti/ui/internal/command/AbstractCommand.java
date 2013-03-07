@@ -48,6 +48,6 @@ public abstract class AbstractCommand extends Command implements IConfigurationP
 	}
 
 	protected TransactionalEditingDomain getTransactionalEditingDomain() {
-		return configurationProvider.getDiagramSupport().getEditingDomain();
+		return configurationProvider.getDiagramBehavior().getEditingDomain();
 	}
 }

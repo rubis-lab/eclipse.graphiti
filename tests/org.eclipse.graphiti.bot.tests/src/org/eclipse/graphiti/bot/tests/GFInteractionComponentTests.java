@@ -154,14 +154,14 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	public void testLineSelectionWidth() throws Exception {
 		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final ICreateService createService = Graphiti.getCreateService();
-		executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
+		executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 			public void run() {
 				ContainerShape containerShape = createService.createContainerShape(diagramEditor
 						.getDiagramTypeProvider().getDiagram(), true);
 				createService.createPolyline(containerShape, new int[] { 0, 0, 10, 0 });
 			}
 		});
-		diagramEditor.getDiagramSupport().refresh();
+		diagramEditor.getDiagramBehavior().refresh();
 		assertTrue(TestToolBehavior.lineSelectionWidthCalled);
 		page.getGefEditor().saveAndClose();
 	}
@@ -223,7 +223,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						// add a class to the diagram
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
@@ -320,7 +320,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						// add a class to the diagram
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
@@ -369,8 +369,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				GraphicsAlgorithm containerShapeGa = pictogramElement.getGraphicsAlgorithm();
 				Rectangle rectangle = new Rectangle(containerShapeGa.getX(), containerShapeGa.getY(),
 						containerShapeGa.getWidth(), containerShapeGa.getHeight());
-				org.eclipse.draw2d.geometry.Point mouseLocation = diagramEditor.getDiagramSupport()
-						.calculateRealMouseLocation(diagramEditor.getDiagramSupport().getMouseLocation());
+				org.eclipse.draw2d.geometry.Point mouseLocation = diagramEditor.getDiagramBehavior()
+						.calculateRealMouseLocation(diagramEditor.getDiagramBehavior().getMouseLocation());
 				boolean mouseIsInsideShape = rectangle.contains(mouseLocation);
 				assertEquals(" Wrong mouse coordinates :  ", true, mouseIsInsideShape);
 				break;
@@ -394,7 +394,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
@@ -540,7 +540,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
@@ -682,7 +682,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
@@ -882,8 +882,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		syncExec(new VoidResult() {
 			public void run() {
-				diagramEditor.getDiagramSupport().getMouseLocation().x = 150;
-				diagramEditor.getDiagramSupport().getMouseLocation().y = 150;
+				diagramEditor.getDiagramBehavior().getMouseLocation().x = 150;
+				diagramEditor.getDiagramBehavior().getMouseLocation().y = 150;
 				SWTBotGefEditPart ep = ed.getGefEditor().mainEditPart().children().get(0);
 				ep.activateDirectEdit();
 			}
@@ -928,8 +928,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		syncExec(new VoidResult() {
 			public void run() {
-				diagramEditor.getDiagramSupport().getMouseLocation().x = 150;
-				diagramEditor.getDiagramSupport().getMouseLocation().y = 150;
+				diagramEditor.getDiagramBehavior().getMouseLocation().x = 150;
+				diagramEditor.getDiagramBehavior().getMouseLocation().y = 150;
 				SWTBotGefEditPart ep = ed.getGefEditor().mainEditPart().children().get(0);
 				ep.activateDirectEdit();
 			}
@@ -1228,7 +1228,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
 					}
@@ -1345,7 +1345,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				final CreateConnectionContext ccc = new CreateConnectionContext();
 				ccc.setSourceAnchor(sourceAnchor);
 				ccc.setTargetAnchor(targetAnchor);
-				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						for (ICreateConnectionFeature ccf : ccfs) {
 							if (ccf.canCreate(ccc)) {
@@ -1454,7 +1454,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				final CreateConnectionContext ccc = new CreateConnectionContext();
 				ccc.setSourceAnchor(sourceAnchor);
 				ccc.setTargetAnchor(targetAnchor);
-				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						for (ICreateConnectionFeature ccf : ccfs) {
 							if (ccf.canCreate(ccc)) {
@@ -1525,7 +1525,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					CustomContext context = new CustomContext(new PictogramElement[] { shape1 });
 					DisplayDecoratorFeature feature = new DisplayDecoratorFeature(fp, context,
 							DisplayDecoratorFeature.TYPE_IMAGE);
-					diagramEditor.getDiagramSupport().executeFeature(feature, context);
+					diagramEditor.getDiagramBehavior().executeFeature(feature, context);
 				}
 
 				// Add border decorator to two
@@ -1533,7 +1533,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					CustomContext context = new CustomContext(new PictogramElement[] { shape2 });
 					DisplayDecoratorFeature feature = new DisplayDecoratorFeature(fp, context,
 							DisplayDecoratorFeature.TYPE_BORDER);
-					diagramEditor.getDiagramSupport().executeFeature(feature, context);
+					diagramEditor.getDiagramBehavior().executeFeature(feature, context);
 				}
 
 				// Add color decorator to three
@@ -1541,12 +1541,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					CustomContext context = new CustomContext(new PictogramElement[] { shape3 });
 					DisplayDecoratorFeature feature = new DisplayDecoratorFeature(fp, context,
 							DisplayDecoratorFeature.TYPE_COLOR);
-					diagramEditor.getDiagramSupport().executeFeature(feature, context);
+					diagramEditor.getDiagramBehavior().executeFeature(feature, context);
 				}
 				
 				// Check if image is shown
 				{
-					GraphicalEditPart shape1EditPart = diagramEditor.getDiagramSupport()
+					GraphicalEditPart shape1EditPart = diagramEditor.getDiagramBehavior()
 							.getEditPartForPictogramElement(shape1);
 					IPictogramElementDelegate delegate = ((ContainerShapeEditPart) shape1EditPart)
 							.getPictogramElementDelegate();
@@ -1567,7 +1567,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 				// Check if border is shown
 				{
-					GraphicalEditPart shape2EditPart = diagramEditor.getDiagramSupport()
+					GraphicalEditPart shape2EditPart = diagramEditor.getDiagramBehavior()
 							.getEditPartForPictogramElement(shape2);
 					Color color = ((LineBorder) shape2EditPart.getFigure().getBorder()).getColor();
 					assertEquals(IColorConstant.ORANGE.getBlue(), color.getBlue());
@@ -1577,7 +1577,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 				// Check if color is shown
 				{
-					GraphicalEditPart shape3EditPart = diagramEditor.getDiagramSupport()
+					GraphicalEditPart shape3EditPart = diagramEditor.getDiagramBehavior()
 							.getEditPartForPictogramElement(shape3);
 					Color foregroundColor = shape3EditPart.getFigure().getForegroundColor();
 					assertEquals(IColorConstant.DARK_GREEN.getBlue(), foregroundColor.getBlue());
@@ -1640,7 +1640,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				final CreateConnectionContext ccc = new CreateConnectionContext();
 				ccc.setSourceAnchor(sourceAnchor);
 				ccc.setTargetAnchor(targetAnchor);
-				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						for (ICreateConnectionFeature ccf : ccfs) {
 							if (ccf.canCreate(ccc)) {

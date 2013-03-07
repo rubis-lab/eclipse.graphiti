@@ -133,7 +133,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		ITabbedPropertySheetPageContributor, IEditingDomainProvider {
 
 	private String contributorId;
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 
 	/**
 	 * The ID of the {@link DiagramEditor} as it is registered with the
@@ -148,8 +148,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	public DiagramEditor() {
 		super();
-		diagramSupport = new DiagramSupport(this);
-		diagramSupport.setParentPart(this);
+		diagramBehavior = new DiagramBehavior(this);
+		diagramBehavior.setParentPart(this);
 	}
 
 	/**
@@ -159,8 +159,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * 
 	 * @since 0.10
 	 */
-	public DiagramSupport getDiagramSupport() {
-		return diagramSupport;
+	public DiagramBehavior getDiagramBehavior() {
+		return diagramBehavior;
 	}
 
 	// ------------------ Initializazion ---------------------------------------
@@ -193,7 +193,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * 
 	 */
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-		// TODO check move parts to DiagramSupport
+		// TODO check move parts to DiagramBehavior
 
 		// Eclipse may call us with other inputs when a file is to be
 		// opened. Try to convert this to a valid diagram input.
@@ -205,14 +205,14 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			}
 		}
 
-		diagramSupport.getUpdateBehavior().createEditingDomain();
+		diagramBehavior.getUpdateBehavior().createEditingDomain();
 
 		// The GEF GraphicalEditor init(...) functionality, adapted to provide a
 		// nice error message to the user in case of an error when opening an
 		// editor with e.g. an invalid diagram, see Bug 376008
 		setSite(site);
 		setInput(input);
-		if (diagramSupport.getEditorInitializationError() != null) {
+		if (diagramBehavior.getEditorInitializationError() != null) {
 			// In case of error simply show an primitive editor with a label
 			return;
 		}
@@ -221,9 +221,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		initializeActionRegistry();
 		// ... End of GEF functionality taken over
 
-		diagramSupport.getUpdateBehavior().init();
+		diagramBehavior.getUpdateBehavior().init();
 
-		diagramSupport.migrateDiagramModelIfNecessary();
+		diagramBehavior.migrateDiagramModelIfNecessary();
 		IContextService contextService = (IContextService) getSite().getService(IContextService.class);
 		contextService.activateContext(getDiagramTypeProvider().getContextId());
 	}
@@ -278,7 +278,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
-		diagramSupport.setInput((IDiagramEditorInput) input);
+		diagramBehavior.setInput((IDiagramEditorInput) input);
 	}
 
 	/**
@@ -288,11 +288,11 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * dirty state of the editor.
 	 */
 	public void createPartControl(Composite parent) {
-		if (diagramSupport.getEditorInitializationError() != null) {
-			diagramSupport.createErrorPartControl(parent);
+		if (diagramBehavior.getEditorInitializationError() != null) {
+			diagramBehavior.createErrorPartControl(parent);
 		} else {
 			super.createPartControl(parent);
-			diagramSupport.createPartControl();
+			diagramBehavior.createPartControl();
 		}
 	}
 
@@ -306,7 +306,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 *            The parent composite
 	 */
 	protected void createGraphicalViewer(Composite parent) {
-		diagramSupport.createGraphicalViewer(parent);
+		diagramBehavior.createGraphicalViewer(parent);
 	}
 
 	/**
@@ -319,7 +319,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	public void initializeGraphicalViewer() {
 
 		super.initializeGraphicalViewer();
-		diagramSupport.initializeGraphicalViewer();
+		diagramBehavior.initializeGraphicalViewer();
 
 		// this will cause the ActionBarContributor to refresh with the
 		// new actions (there is no specific refresh-action).
@@ -337,7 +337,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
-		diagramSupport.configureGraphicalViewer();
+		diagramBehavior.configureGraphicalViewer();
 	}
 
 	// ------------------- Dirty state -----------------------------------------
@@ -362,7 +362,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 *            the Eclipse progress monitor to report progress with.
 	 */
 	public void doSave(IProgressMonitor monitor) {
-		diagramSupport.getPersistencyBehavior().saveDiagram(monitor);
+		diagramBehavior.getPersistencyBehavior().saveDiagram(monitor);
 	}
 
 	/**
@@ -373,7 +373,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 *         otherwise.
 	 */
 	public boolean isDirty() {
-		return diagramSupport.isDirty();
+		return diagramBehavior.isDirty();
 	}
 
 	// ---------------------- Palette --------------------------------------- //
@@ -387,7 +387,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @return the {@link PaletteViewerProvider} to use
 	 */
 	protected final PaletteViewerProvider createPaletteViewerProvider() {
-		return diagramSupport.createPaletteViewerProvider();
+		return diagramBehavior.createPaletteViewerProvider();
 	}
 
 	/**
@@ -398,7 +398,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @return the {@link PaletteViewerProvider} preferences to use.
 	 */
 	protected final FlyoutPreferences getPalettePreferences() {
-		return diagramSupport.getPalettePreferences();
+		return diagramBehavior.getPalettePreferences();
 	}
 
 	/**
@@ -408,7 +408,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @return the {@link PaletteRoot} to use
 	 */
 	protected final PaletteRoot getPaletteRoot() {
-		return diagramSupport.getPaletteRoot();
+		return diagramBehavior.getPaletteRoot();
 	}
 
 	// ---------------------- Refresh --------------------------------------- //
@@ -455,7 +455,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @return the adapter instance
 	 */
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
-		Object returnObj = diagramSupport.getAdapter(type);
+		Object returnObj = diagramBehavior.getAdapter(type);
 		if (returnObj != null) {
 			return returnObj;
 		}
@@ -474,7 +474,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * <code>super.dispose()</code> in case you override this method!
 	 */
 	public void dispose() {
-		diagramSupport.preSuperDispose();
+		diagramBehavior.preSuperDispose();
 
 		RuntimeException exc = null;
 		if (getEditDomain() != null) {
@@ -487,7 +487,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			}
 		}
 
-		diagramSupport.postSuperDispose();
+		diagramBehavior.postSuperDispose();
 
 		if (exc != null) {
 			throw exc;
@@ -505,7 +505,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		}
 
 		super.setFocus();
-		diagramSupport.getUpdateBehavior().handleActivate();
+		diagramBehavior.getUpdateBehavior().handleActivate();
 	}
 
 	// ---------------------- Selection ------------------------------------- //
@@ -519,7 +519,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public PictogramElement[] getSelectedPictogramElements() {
-		return diagramSupport.getSelectedPictogramElements();
+		return diagramBehavior.getSelectedPictogramElements();
 	}
 
 	/**
@@ -627,7 +627,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void selectPictogramElements(PictogramElement[] pictogramElements) {
-		diagramSupport.selectPictogramElements(pictogramElements);
+		diagramBehavior.selectPictogramElements(pictogramElements);
 	}
 
 	/**
@@ -650,7 +650,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void setPictogramElementForSelection(PictogramElement pictogramElement) {
-		diagramSupport.setPictogramElementForSelection(pictogramElement);
+		diagramBehavior.setPictogramElementForSelection(pictogramElement);
 	}
 
 	/**
@@ -673,7 +673,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public void setPictogramElementsForSelection(PictogramElement pictogramElements[]) {
-		diagramSupport.setPictogramElementsForSelection(pictogramElements);
+		diagramBehavior.setPictogramElementsForSelection(pictogramElements);
 	}
 
 	// ---------------------- Other ----------------------------------------- //
@@ -703,14 +703,14 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * and the provider.
 	 * <p>
 	 * Note that this is a pure delegation method. Overrides should happen in
-	 * {@link DiagramSupport}.
+	 * {@link DiagramBehavior}.
 	 * 
 	 * @return the associated {@link IDiagramTypeProvider} instance.
 	 * 
 	 * @since 0.9
 	 */
 	public IDiagramTypeProvider getDiagramTypeProvider() {
-		return diagramSupport.getDiagramTypeProvider();
+		return diagramBehavior.getDiagramTypeProvider();
 	}
 
 	/**
@@ -775,14 +775,14 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public TransactionalEditingDomain getEditingDomain() {
-		return diagramSupport.getEditingDomain();
+		return diagramBehavior.getEditingDomain();
 	}
 
 	/**
 	 * @since 0.10
 	 */
 	public IDiagramEditorInput getDiagramEditorInput() {
-		return diagramSupport.getInput();
+		return diagramBehavior.getInput();
 	}
 
 	/**

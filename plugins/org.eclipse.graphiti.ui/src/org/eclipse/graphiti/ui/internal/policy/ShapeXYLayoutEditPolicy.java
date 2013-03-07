@@ -77,7 +77,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.command.AddModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
@@ -136,7 +136,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 					rectangle.x, rectangle.y);
 			if (cmd != null) {
 				IConfigurationProvider configurationProvider = getConfigurationProvider();
-				return new GefCommandWrapper(cmd, configurationProvider.getDiagramSupport().getEditingDomain());
+				return new GefCommandWrapper(cmd, configurationProvider.getDiagramBehavior().getEditingDomain());
 			}
 		}
 		return null;
@@ -281,8 +281,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			IContextButtonManager contextButtonManager = getConfigurationProvider().getContextButtonManager();
 			contextButtonManager.hideContextButtonsInstantly();
 
-			DiagramSupport diagramSupport = getConfigurationProvider().getDiagramSupport();
-			return new GefCommandWrapper(ret, diagramSupport.getEditingDomain());
+			DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
+			return new GefCommandWrapper(ret, diagramBehavior.getEditingDomain());
 		} else {
 			return null;
 		}
@@ -492,7 +492,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		 * not in the selection of moved objects
 		 */
 		boolean isExecuteAllowed = true;
-		PictogramElement[] selectedPictogramElements = getConfigurationProvider().getDiagramSupport()
+		PictogramElement[] selectedPictogramElements = getConfigurationProvider().getDiagramBehavior()
 				.getSelectedPictogramElements();
 		List<PictogramElement> pes = Arrays.asList(selectedPictogramElements);
 		if (pes.size() > 1) {

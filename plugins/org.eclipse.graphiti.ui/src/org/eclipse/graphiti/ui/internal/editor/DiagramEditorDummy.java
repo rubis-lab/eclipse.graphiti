@@ -100,7 +100,7 @@ public class DiagramEditorDummy implements IDiagramContainer {
 	public void close() {
 	}
 
-	public IDiagramBehavior getDiagramSupport() {
+	public IDiagramBehavior getDiagramBehavior() {
 		return diagramBehavior;
 	}
 }

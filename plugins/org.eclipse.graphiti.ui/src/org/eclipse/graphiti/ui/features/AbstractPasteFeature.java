@@ -30,7 +30,7 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IPasteContext;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.internal.Messages;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.util.clipboard.ModelClipboard;
 
 /**
@@ -117,7 +117,7 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 
 	/**
 	 * Checks if the given {@link EObject} can be resolved in the local
-	 * {@link EditingDomain} of the current {@link DiagramSupport}. Pasting an
+	 * {@link EditingDomain} of the current {@link DiagramBehavior}. Pasting an
 	 * EObject that is not resolvable (e.g. it was just created in another
 	 * editor and has not yet been persisted) may cause issues with the
 	 * graphical presentation of the new object: the Graphiti update will not

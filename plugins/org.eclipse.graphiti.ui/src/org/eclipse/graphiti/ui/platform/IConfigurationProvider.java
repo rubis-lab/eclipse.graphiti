@@ -20,7 +20,7 @@ package org.eclipse.graphiti.ui.platform;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProviderHolder;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.ui.IWorkbenchPart;
 
@@ -108,5 +108,10 @@ public interface IConfigurationProvider extends IFeatureProviderHolder {
 	 */
 	public IDiagramContainerUI getDiagramContainer();
 
-	public DiagramSupport getDiagramSupport();
+	/**
+	 * Returns the associated behavior object.
+	 * 
+	 * @return The associated instance of {@link DiagramBehavior}.
+	 */
+	public DiagramBehavior getDiagramBehavior();
 }

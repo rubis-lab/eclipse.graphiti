@@ -40,7 +40,7 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.swt.SWT;
@@ -182,8 +182,8 @@ public class DiagramEditPart extends ContainerShapeEditPart implements IDiagramE
 	 */
 	@Override
 	public void refresh() {
-		DiagramSupport diagramSupport = getConfigurationProvider().getDiagramSupport();
-		diagramSupport.getRefreshBehavior().initRefresh();
+		DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
+		diagramBehavior.getRefreshBehavior().initRefresh();
 		super.refresh();
 	}
 }

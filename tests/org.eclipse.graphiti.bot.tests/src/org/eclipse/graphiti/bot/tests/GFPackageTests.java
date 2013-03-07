@@ -322,7 +322,7 @@ public class GFPackageTests extends AbstractGFTests {
 		if (linkForPictogramElement != null) {
 			final EList<EObject> businessObject = linkForPictogramElement.getBusinessObjects();
 			if (businessObject != null && !businessObject.isEmpty()) {
-				executeInRecordingCommandInUIThread(diagramEditor.getDiagramSupport(), new Runnable() {
+				executeInRecordingCommandInUIThread(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						businessObject.removeAll(businessObject);
 					}
@@ -411,7 +411,7 @@ public class GFPackageTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200,
 								"ConnectionDecorator");
@@ -525,7 +525,7 @@ public class GFPackageTests extends AbstractGFTests {
 		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 		final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-		executeInRecordingCommandInUIThread(diagramEditor.getDiagramSupport(), new Runnable() {
+		executeInRecordingCommandInUIThread(diagramEditor.getDiagramBehavior(), new Runnable() {
 			public void run() {
 				addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200,
 						"ConnectionDecorator");

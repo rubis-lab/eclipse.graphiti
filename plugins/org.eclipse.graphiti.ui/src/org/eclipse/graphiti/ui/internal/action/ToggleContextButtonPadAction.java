@@ -17,7 +17,7 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.action;
 
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.jface.action.Action;
@@ -28,7 +28,7 @@ import org.eclipse.jface.action.Action;
  */
 public class ToggleContextButtonPadAction extends Action {
 
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 	
 	public static final String TOOL_TIP = Messages.ToggleContextButtonPadAction_0_xmsg;
 	
@@ -36,9 +36,9 @@ public class ToggleContextButtonPadAction extends Action {
 	
 	public static final String ACTION_ID = "toggle_context_button_pad"; //$NON-NLS-1$
 	
-	public ToggleContextButtonPadAction(DiagramSupport diagramSupport) {
+	public ToggleContextButtonPadAction(DiagramBehavior diagramBehavior) {
 		super();
-		this.diagramSupport = diagramSupport;
+		this.diagramBehavior = diagramBehavior;
 		setText(TEXT);
 		setToolTipText(TOOL_TIP);
 		setId(ACTION_ID);
@@ -46,7 +46,7 @@ public class ToggleContextButtonPadAction extends Action {
 
 	@Override
 	public void run() {
-		IContextButtonManager contextButtonManager = (IContextButtonManager) diagramSupport
+		IContextButtonManager contextButtonManager = (IContextButtonManager) diagramBehavior
 				.getAdapter(IContextButtonManager.class);
 		contextButtonManager.setContextButtonShowing(!isChecked());
 	}

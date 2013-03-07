@@ -20,7 +20,7 @@ package org.eclipse.graphiti.ui.internal.config;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.ResourceRegistry;
@@ -45,7 +45,7 @@ public class ConfigurationProvider implements IConfigurationProviderInternal {
 
 	private IWorkbenchPart _workbenchPart;
 
-	private DiagramSupport diagramSupport;
+	private DiagramBehavior diagramBehavior;
 
 	private IDiagramTypeProvider diagramTypeProvider;
 
@@ -62,8 +62,8 @@ public class ConfigurationProvider implements IConfigurationProviderInternal {
 	 * @param diagramTypeProvider
 	 *            the diagram type provider
 	 */
-	public ConfigurationProvider(DiagramSupport diagramSupport, IDiagramTypeProvider diagramTypeProvider) {
-		this.diagramSupport = diagramSupport;
+	public ConfigurationProvider(DiagramBehavior diagramBehavior, IDiagramTypeProvider diagramTypeProvider) {
+		this.diagramBehavior = diagramBehavior;
 		setDiagramTypeProvider(diagramTypeProvider);
 	}
 
@@ -160,7 +160,7 @@ public class ConfigurationProvider implements IConfigurationProviderInternal {
 	 * getDiagramEditor()
 	 */
 	public IDiagramContainerUI getDiagramEditor() {
-		return diagramSupport.getDiagramContainer();
+		return diagramBehavior.getDiagramContainer();
 	}
 
 	/*
@@ -171,11 +171,11 @@ public class ConfigurationProvider implements IConfigurationProviderInternal {
 	 * ()
 	 */
 	public IDiagramContainerUI getDiagramContainer() {
-		return diagramSupport.getDiagramContainer();
+		return diagramBehavior.getDiagramContainer();
 	}
 
-	public DiagramSupport getDiagramSupport() {
-		return diagramSupport;
+	public DiagramBehavior getDiagramBehavior() {
+		return diagramBehavior;
 	}
 
 	// ===================== overwriteable behaviour ==========================

@@ -151,5 +151,5 @@ public interface IDiagramContainer extends IDiagramEditor {
 	 * 
 	 * @return The associated instance of {@link IDiagramBehavior}.
 	 */
-	public IDiagramBehavior getDiagramSupport();
+	public IDiagramBehavior getDiagramBehavior();
 }

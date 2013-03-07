@@ -26,7 +26,7 @@ import org.eclipse.gef.AccessibleEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ExposeHelper;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.graphiti.ui.editor.DiagramSupport;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.fixed.FixedScalableRootEditPart;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -53,8 +53,8 @@ public class GFScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer
 	 * @param diagramEditor
 	 *            the diagram editor
 	 */
-	public GFScrollingGraphicalViewer(DiagramSupport diagramSupport) {
-		super(diagramSupport);
+	public GFScrollingGraphicalViewer(DiagramBehavior diagramBehavior) {
+		super(diagramBehavior);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class GFScrollingGraphicalViewer extends GraphitiScrollingGraphicalViewer
 	 * @return the control
 	 */
 	public final Control createGFControl(Composite parent) {
-		GFFigureCanvas canvas = new GFFigureCanvas(parent, getLightweightSystem(), getDiagramSupport());
+		GFFigureCanvas canvas = new GFFigureCanvas(parent, getLightweightSystem(), getDiagramBehavior());
 		canvas.setData(new String("name"), canvas.getClass().toString()); //$NON-NLS-1$
 		setControl(canvas);
 		installRootFigure();
