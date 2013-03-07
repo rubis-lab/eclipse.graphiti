@@ -54,6 +54,9 @@ import org.eclipse.ui.actions.ActionFactory;
  * supports graphical editing.
  * 
  * @since 0.10
+ * @experimental This API is in an experimental state and should be used by
+ *               clients only with care, as it not final and can be removed or
+ *               changed without prior notice!
  */
 @SuppressWarnings("rawtypes")
 public abstract class GraphicalComposite extends Composite implements CommandStackListener,
