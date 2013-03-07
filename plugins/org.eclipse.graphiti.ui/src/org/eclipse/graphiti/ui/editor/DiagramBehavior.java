@@ -463,11 +463,47 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 			}
 		});
 
-		graphicalViewer.addDropTargetListener((TransferDropTargetListener) new ObjectsTransferDropTargetListener(
-				graphicalViewer));
+		List<TransferDropTargetListener> objectDropTargetListeners = createBusinessObjectDropTargetListeners();
+		for (TransferDropTargetListener dropTargetListener : objectDropTargetListeners) {
+			graphicalViewer.addDropTargetListener(dropTargetListener);
+		}
 
-		graphicalViewer.addDropTargetListener(new GFTemplateTransferDropTargetListener(graphicalViewer, this));
+		TransferDropTargetListener paletteDropTargetListener = createPaletteDropTargetListener();
+		if (paletteDropTargetListener != null) {
+			graphicalViewer.addDropTargetListener(paletteDropTargetListener);
+		}
+	}
 
+	/**
+	 * Creates the drop target listener that is used for adding new objects from
+	 * the palette via drag and drop. Clients may change the default behavior by
+	 * providing their own drop target listener or disable drag and drop from
+	 * the palette by returning null.
+	 * 
+	 * @return An instance of the {@link TransferDropTargetListener} that
+	 *         handles dropping new objects from the palette or
+	 *         <code>null</code> to disable dropping from the palette.
+	 * @since 0.10
+	 */
+	protected TransferDropTargetListener createPaletteDropTargetListener() {
+		return new GFTemplateTransferDropTargetListener(diagramContainer.getGraphicalViewer(), this);
+	}
+
+	/**
+	 * Creates a list of drop target listeners that enable dropping domain
+	 * objects into the diagram, e.g. from the project explorer. By adding
+	 * additional listeners other sources may be enabled, simply returning an
+	 * empty list will disable drag and drop into the editor.
+	 * 
+	 * @return a {@link List} containing all the
+	 *         {@link TransferDropTargetListener} that shall be registered in
+	 *         the editor.
+	 * @since 0.10
+	 */
+	protected List<TransferDropTargetListener> createBusinessObjectDropTargetListeners() {
+		ArrayList<TransferDropTargetListener> result = new ArrayList<TransferDropTargetListener>(1);
+		result.add(new ObjectsTransferDropTargetListener(diagramContainer.getGraphicalViewer()));
+		return result;
 	}
 
 	String getEditorInitializationError() {
