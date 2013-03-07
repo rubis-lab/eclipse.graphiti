@@ -51,7 +51,7 @@ public class ClearDecoratorsFeature extends AbstractCustomFeature {
 			SketchToolBehavior toolBehaviorProvider = (SketchToolBehavior) getFeatureProvider()
 					.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 			toolBehaviorProvider.clearDecorators(pe);
-			getDiagramEditor().refreshRenderingDecorators(pe);
+			getDiagramBehavior().refreshRenderingDecorators(pe);
 		}
 	}
 

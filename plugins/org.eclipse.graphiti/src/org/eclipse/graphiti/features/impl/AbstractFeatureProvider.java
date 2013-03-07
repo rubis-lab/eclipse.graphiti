@@ -75,7 +75,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
-import org.eclipse.graphiti.platform.IDiagramContainer;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
 
@@ -226,8 +226,8 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		boolean b = false;
 		IUpdateFeature updateFeature = getUpdateFeature(context);
 		if (updateFeature != null) {
-			IDiagramContainer diagramContainer = getDiagramTypeProvider().getDiagramContainer();
-			diagramContainer.executeFeature(updateFeature, context);
+			IDiagramBehavior diagramBehavior = getDiagramTypeProvider().getDiagramBehavior();
+			diagramBehavior.executeFeature(updateFeature, context);
 			b = true;
 		}
 		IReason reason = new Reason(b);
@@ -246,8 +246,8 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		boolean b = false;
 		ILayoutFeature layoutSemanticsFeature = getLayoutFeature(context);
 		if (layoutSemanticsFeature != null) {
-			IDiagramContainer diagramContainer = getDiagramTypeProvider().getDiagramContainer();
-			diagramContainer.executeFeature(layoutSemanticsFeature, context);
+			IDiagramBehavior diagramBehavior = getDiagramTypeProvider().getDiagramBehavior();
+			diagramBehavior.executeFeature(layoutSemanticsFeature, context);
 			b = true;
 		}
 		IReason res = new Reason(b);
@@ -305,8 +305,8 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		PictogramElement returnValue = null;
 		if (canAdd(context).toBoolean()) {
 			IAddFeature feature = getAddFeature(context);
-			IDiagramContainer diagramContainer = getDiagramTypeProvider().getDiagramContainer();
-			Object result = diagramContainer.executeFeature(feature, context);
+			IDiagramBehavior diagramBehavior = getDiagramTypeProvider().getDiagramBehavior();
+			Object result = diagramBehavior.executeFeature(feature, context);
 			if (result instanceof PictogramElement) {
 				returnValue = (PictogramElement) result;
 			}

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
@@ -144,7 +145,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  * 
  * @since 0.10
  */
-public class DiagramSupport {
+public class DiagramSupport implements IDiagramBehaviorUI {
 
 	private IDiagramContainerUI diagramContainer;
 
@@ -306,7 +307,7 @@ public class DiagramSupport {
 			return;
 		}
 
-		diagramTypeProvider.init(diagram, diagramContainer);
+		diagramTypeProvider.init(diagram, this);
 		IConfigurationProviderInternal configurationProvider = new ConfigurationProvider(this, diagramTypeProvider);
 		setConfigurationProvider(configurationProvider);
 		getRefreshBehavior().handleAutoUpdateAtStartup();
@@ -580,19 +581,43 @@ public class DiagramSupport {
 
 	// ---------------------- Refresh --------------------------------------- //
 
+	/**
+	 * Triggers a complete refresh of the behavior visualization (content,
+	 * title, tooltip, palette and decorators) by delegating to
+	 * {@link DefaultRefreshBehavior#refresh()}.
+	 */
 	public void refresh() {
 		getRefreshBehavior().refresh();
 
 	}
 
-	void refreshRenderingDecorators(PictogramElement pe) {
+	/**
+	 * Refreshes the rendering decorators (image decorators and the like) by
+	 * delegating to
+	 * {@link DefaultRefreshBehavior#refreshRenderingDecorators(PictogramElement)}
+	 * for the given {@link PictogramElement}.
+	 * 
+	 * @param pe
+	 *            the {@link PictogramElement} for which the decorators shall be
+	 *            refreshed.
+	 */
+	public void refreshRenderingDecorators(PictogramElement pe) {
 		getRefreshBehavior().refreshRenderingDecorators(pe);
 	}
 
-	void refreshPalette() {
+	/**
+	 * Refreshes the palette to correctly reflect all available creation tools
+	 * for the available create features and the currently enabled selection
+	 * tools.
+	 */
+	public void refreshPalette() {
 		getPaletteBehavior().refreshPalette();
 	}
 
+	/**
+	 * Refreshes the content of the editor (what's shown inside the diagram
+	 * itself).
+	 */
 	public void refreshContent() {
 		Diagram currentDiagram = getDiagramTypeProvider().getDiagram();
 		if (GraphitiInternal.getEmfService().isObjectAlive(currentDiagram)) {
@@ -726,11 +751,26 @@ public class DiagramSupport {
 
 	// ---------------------- Other ----------------------------------------- //
 
+	/**
+	 * Returns the EMF {@link TransactionalEditingDomain} used within this
+	 * behavior object by delegating to the update behavior extension, by
+	 * default {@link DefaultUpdateBehavior#getEditingDomain()}.
+	 * 
+	 * @return the {@link TransactionalEditingDomain} instance used in the
+	 *         behavior
+	 */
 	public TransactionalEditingDomain getEditingDomain() {
 		return getUpdateBehavior().getEditingDomain();
 	}
 
-	ResourceSet getResourceSet() {
+	/**
+	 * The EMF {@link ResourceSet} used within this {@link DiagramSupport}. The
+	 * resource set is always associated in a 1:1 relation to the
+	 * {@link TransactionalEditingDomain}.
+	 * 
+	 * @return the resource set used within this behavior object
+	 */
+	public ResourceSet getResourceSet() {
 		ResourceSet ret = null;
 		TransactionalEditingDomain editingDomain = getEditingDomain();
 		if (editingDomain != null) {
@@ -746,7 +786,27 @@ public class DiagramSupport {
 		return null;
 	}
 
-	Object executeFeature(IFeature feature, IContext context) {
+	/**
+	 * Executes the given {@link IFeature} with the given {@link IContext} in
+	 * the scope of this {@link DiagramSupport}, meaning within its
+	 * {@link TransactionalEditingDomain} and on its
+	 * {@link org.eclipse.emf.common.command.CommandStack}.
+	 * 
+	 * @param feature
+	 *            the feature to execute
+	 * @param context
+	 *            the context to use. In case the passed feature is a
+	 *            {@link IAddFeature} this context needs to be an instance of
+	 *            {@link IAddContext}, otherwise an
+	 *            {@link AssertionFailedException} will be thrown.
+	 * @return in case of an {@link IAddFeature} being passed as feature the
+	 *         newly added {@link PictogramElement} will be returned (in case
+	 *         the add method returning it), in all other cases
+	 *         <code>null</code>
+	 * 
+	 * @since 0.9
+	 */
+	public Object executeFeature(IFeature feature, IContext context) {
 		Object returnValue = null;
 
 		DefaultEditDomain domain = diagramContainer.getEditDomain();
@@ -926,7 +986,17 @@ public class DiagramSupport {
 		return Math.max(0.05D, zoomManager.getZoom());
 	}
 
-	IFigure getFigureForPictogramElement(PictogramElement pe) {
+	/**
+	 * Method to retrieve the Draw2D {@link IFigure} for a given
+	 * {@link PictogramElement}.
+	 * 
+	 * @param pe
+	 *            the {@link PictogramElement} to retrieve the Draw2D
+	 *            representation for
+	 * @return the Draw2D {@link IFigure} that represents the given
+	 *         {@link PictogramElement}.
+	 */
+	public IFigure getFigureForPictogramElement(PictogramElement pe) {
 		GraphicalEditPart ep = getEditPartForPictogramElement(pe);
 		if (ep != null) {
 			return ep.getFigure();

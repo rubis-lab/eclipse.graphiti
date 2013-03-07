@@ -77,7 +77,8 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 	 *             if not called from UI thread
 	 */
 	protected Object[] getFromClipboard() {
-		return ModelClipboard.getDefault().getContentAsEObjects(getDiagramContainer().getResourceSet());
+		return ModelClipboard.getDefault().getContentAsEObjects(
+				getDiagramBehavior().getEditingDomain().getResourceSet());
 	}
 
 	/**
@@ -94,7 +95,7 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 	 * @see #isCompositionAllowed(EObject, EObject[])
 	 */
 	protected Object[] getCopiesFromClipBoard(Object target) {
-		return ModelClipboard.getDefault().duplicateAndPaste(target, getDiagramContainer().getEditingDomain())
+		return ModelClipboard.getDefault().duplicateAndPaste(target, getDiagramBehavior().getEditingDomain())
 				.toArray();
 	}
 
@@ -143,9 +144,9 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 		// create a new Resource instance for newly created and not yet
 		// saved Resources, no matter if they already exist within the
 		// ResourceSet or not
-		EObject resolved = getDiagramContainer().getResourceSet().getEObject(uri, false);
+		EObject resolved = getDiagramBehavior().getEditingDomain().getResourceSet().getEObject(uri, false);
 		if (resolved == null) {
-			resolved = getDiagramContainer().getResourceSet().getEObject(uri, true);
+			resolved = getDiagramBehavior().getEditingDomain().getResourceSet().getEObject(uri, true);
 		}
 		return resolved != null;
 	}

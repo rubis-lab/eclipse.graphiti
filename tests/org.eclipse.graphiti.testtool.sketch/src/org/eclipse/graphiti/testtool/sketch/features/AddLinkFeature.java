@@ -60,7 +60,7 @@ public class AddLinkFeature extends AbstractAddFeature {
 					"Do you really want to link the object?");
 			if (sure) {
 				URI uri = EcoreUtil.getURI((EObject) newObject);
-				EObject newEObject = getDiagramEditor().getResourceSet().getEObject(uri, true);
+				EObject newEObject = getDiagramBehavior().getEditingDomain().getResourceSet().getEObject(uri, true);
 				ContainerShape targetContainer = context.getTargetContainer();
 				PictogramLink link = Graphiti.getLinkService().getLinkForPictogramElement(targetContainer);
 				if (link == null) {

@@ -18,10 +18,7 @@ package org.eclipse.graphiti.tests.cases;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.EventObject;
-
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -40,6 +37,7 @@ import org.eclipse.graphiti.features.impl.AbstractAddFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.features.impl.AbstractFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 import org.junit.Test;
@@ -94,6 +92,37 @@ public class FeatureParametersTest extends GFAbstractTestCase {
 	public void testContextPropertiesPassedToAddFeature() throws Exception {
 		final AbstractAddFeatureExtension addFeature = new AbstractAddFeatureExtension(null);
 
+		final IDiagramContainer[] diagramContainerAux = new IDiagramContainer[1];
+
+		final IDiagramBehavior diagramBehavior = new IDiagramBehavior() {
+
+			public IDiagramContainer getDiagramContainer() {
+				return diagramContainerAux[0];
+			}
+
+			public void refresh() {
+			}
+
+			public void refreshPalette() {
+			}
+
+			public void refreshContent() {
+			}
+
+			public void refreshRenderingDecorators(PictogramElement pe) {
+			}
+
+			public Object executeFeature(IFeature feature, IContext context) {
+				feature.execute(context);
+				return null;
+			}
+
+			public TransactionalEditingDomain getEditingDomain() {
+				return null;
+			}
+
+		};
+
 		IDiagramContainer diagramEditor = new IDiagramContainer() {
 			public void setPictogramElementsForSelection(PictogramElement[] pictogramElements) {
 			}
@@ -110,15 +139,6 @@ public class FeatureParametersTest extends GFAbstractTestCase {
 			public void refreshTitle() {
 			}
 
-			public void refreshRenderingDecorators(PictogramElement pe) {
-			}
-
-			public void refreshPalette() {
-			}
-
-			public void refresh() {
-			}
-
 			public boolean isDirty() {
 				return false;
 			}
@@ -127,52 +147,12 @@ public class FeatureParametersTest extends GFAbstractTestCase {
 				return null;
 			}
 
-			public ResourceSet getResourceSet() {
-				return null;
-			}
-
 			public IDiagramTypeProvider getDiagramTypeProvider() {
 				return null;
 			}
 
-			public Object executeFeature(IFeature feature, IContext context) {
-				feature.execute(context);
-				return null;
-			}
-
-			public TransactionalEditingDomain getEditingDomain() {
-				return null;
-			}
-
-			public void disableAdapters() {
-			}
-
-			public void enableAdapters() {
-			}
-
-			public void commandStackChanged(EventObject event) {
-			}
-
 			public boolean isAlive() {
 				return false;
-			}
-
-			public void selectBufferedPictogramElements() {
-			}
-
-			public void refreshContent() {
-			}
-
-			public void editingDomainInitialized() {
-			}
-
-			@SuppressWarnings("rawtypes")
-			public Object getAdapter(Class type) {
-				return null;
-			}
-
-			public boolean isLocalEditingDomain() {
-				return true;
 			}
 
 			public void doSave(IProgressMonitor monitor) {
@@ -191,11 +171,15 @@ public class FeatureParametersTest extends GFAbstractTestCase {
 
 			public void close() {
 			}
+
+			public IDiagramBehavior getDiagramSupport() {
+				return diagramBehavior;
+			}
 		};
 
 		AbstractDiagramTypeProvider diagramTypeProvider = new AbstractDiagramTypeProvider() {
 		};
-		diagramTypeProvider.init(null, diagramEditor);
+		diagramTypeProvider.init(null, diagramBehavior);
 
 		AbstractFeatureProvider featureProvider = new AbstractFeatureProvider(diagramTypeProvider) {
 			@Override
