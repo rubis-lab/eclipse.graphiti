@@ -89,7 +89,7 @@ public class DisplayDecoratorFeature extends AbstractCustomFeature {
 			SketchToolBehavior toolBehaviorProvider = (SketchToolBehavior) getFeatureProvider()
 					.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 			toolBehaviorProvider.addDecorators(pe, decorator);
-			getDiagramEditor().refreshRenderingDecorators(pe);
+			getDiagramBehavior().refreshRenderingDecorators(pe);
 		}
 	}
 

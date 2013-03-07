@@ -109,7 +109,7 @@ public class GFPackageTests extends AbstractGFTests {
 			// Bug 363539: assure that feature execution in dummy editor works
 			final boolean[] canExecuteCalled = { false };
 			final boolean[] executeCalled = { false };
-			dtp.getDiagramEditor().executeFeature(new AbstractFeature(dtp.getFeatureProvider()) {
+			dtp.getDiagramBehavior().executeFeature(new AbstractFeature(dtp.getFeatureProvider()) {
 				public boolean canExecute(IContext context) {
 					canExecuteCalled[0] = true;
 					return true;
@@ -135,7 +135,7 @@ public class GFPackageTests extends AbstractGFTests {
 				}
 			};
 
-			Object result = dtp.getDiagramEditor().executeFeature(addFeature, new AddContext());
+			Object result = dtp.getDiagramBehavior().executeFeature(addFeature, new AddContext());
 			assertTrue(result instanceof Shape);
 		}
 	}
@@ -322,7 +322,7 @@ public class GFPackageTests extends AbstractGFTests {
 		if (linkForPictogramElement != null) {
 			final EList<EObject> businessObject = linkForPictogramElement.getBusinessObjects();
 			if (businessObject != null && !businessObject.isEmpty()) {
-				executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+				executeInRecordingCommandInUIThread(diagramEditor.getDiagramSupport(), new Runnable() {
 					public void run() {
 						businessObject.removeAll(businessObject);
 					}
@@ -411,7 +411,7 @@ public class GFPackageTests extends AbstractGFTests {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor, new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
 					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200,
 								"ConnectionDecorator");
@@ -525,7 +525,7 @@ public class GFPackageTests extends AbstractGFTests {
 		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 		final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-		executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+		executeInRecordingCommandInUIThread(diagramEditor.getDiagramSupport(), new Runnable() {
 			public void run() {
 				addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200,
 						"ConnectionDecorator");

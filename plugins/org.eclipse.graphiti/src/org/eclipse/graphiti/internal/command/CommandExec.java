@@ -130,8 +130,8 @@ public class CommandExec {
 	 */
 	public static void executeFeatureWithContext(IFeature feature, IContext context) {
 		GenericFeatureCommandWithContext genericFeatureCommandWithContext = new GenericFeatureCommandWithContext(feature, context);
-		TransactionalEditingDomain editingDomain = feature.getFeatureProvider().getDiagramTypeProvider().getDiagramEditor()
-				.getEditingDomain();
+		TransactionalEditingDomain editingDomain = feature.getFeatureProvider().getDiagramTypeProvider()
+				.getDiagramBehavior().getEditingDomain();
 		CommandExec.getSingleton().executeCommand(genericFeatureCommandWithContext, editingDomain);
 	}
 

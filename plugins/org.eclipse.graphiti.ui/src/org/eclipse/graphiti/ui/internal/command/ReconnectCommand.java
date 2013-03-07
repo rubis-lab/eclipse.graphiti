@@ -33,7 +33,7 @@ import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
+import org.eclipse.graphiti.ui.editor.IDiagramBehaviorUI;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 
 /**
@@ -63,9 +63,9 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 
 		ILocation targetLocation = null;
 		if (location != null) {
-			IDiagramContainerUI diagramEditor = (IDiagramContainerUI) getFeatureProvider().getDiagramTypeProvider()
-					.getDiagramContainer();
-			Point realLocation = diagramEditor.getDiagramSupport().calculateRealMouseLocation(location);
+			IDiagramBehaviorUI diagramBehavior = (IDiagramBehaviorUI) getFeatureProvider().getDiagramTypeProvider()
+					.getDiagramBehavior();
+			Point realLocation = diagramBehavior.calculateRealMouseLocation(location);
 			targetLocation = new LocationImpl(realLocation.x, realLocation.y);
 		}
 		this.ctx = new ReconnectionContext(connection, oldAnchor, newAnchor, targetLocation);

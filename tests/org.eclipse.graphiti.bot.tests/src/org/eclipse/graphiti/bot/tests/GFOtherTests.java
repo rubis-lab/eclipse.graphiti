@@ -179,7 +179,7 @@ public class GFOtherTests extends AbstractGFTests {
 				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor, new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
 					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, 100, 100, "Connection", 700, 200, "ConnectionDecorator");
 					}
@@ -195,7 +195,7 @@ public class GFOtherTests extends AbstractGFTests {
 				final Shape shape = findShapeForEClass(currentDiagram, "Connection");
 				// waitForRefresh();
 				diagramEditor.selectPictogramElements(new PictogramElement[] { shape });
-				executeInRecordingCommand(diagramEditor, new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
 					public void run() {
 						moveClassShape(fp, currentDiagram, 10, 30, "Connection");
 						removeClassShape(fp, currentDiagram, "ConnectionDecorator");
@@ -204,8 +204,8 @@ public class GFOtherTests extends AbstractGFTests {
 
 				// Test refreshes
 				diagramEditor.getDiagramSupport().refreshContent();
-				diagramEditor.refreshPalette();
-				diagramEditor.refreshRenderingDecorators(shape);
+				diagramEditor.getDiagramSupport().refreshPalette();
+				diagramEditor.getDiagramSupport().refreshRenderingDecorators(shape);
 				diagramEditor.refreshTitleToolTip();
 			}
 
@@ -234,7 +234,7 @@ public class GFOtherTests extends AbstractGFTests {
 		final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 		final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-		executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+		executeInRecordingCommandInUIThread(diagramEditor.getDiagramSupport(), new Runnable() {
 			public void run() {
 				/*
 				 * Reuse of functionality originally written to add classes for
@@ -263,7 +263,7 @@ public class GFOtherTests extends AbstractGFTests {
 		if (bo instanceof EClass) {
 			final EClass eClass = (EClass) bo;
 			// Change the tooltip to something else and check it
-			executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+			executeInRecordingCommandInUIThread(diagramEditor.getDiagramSupport(), new Runnable() {
 				public void run() {
 					eClass.setName("Changed");
 					Text text = (Text) tooltipShape.getChildren().get(1).getGraphicsAlgorithm();
@@ -293,7 +293,7 @@ public class GFOtherTests extends AbstractGFTests {
 		bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape3);
 		if (bo instanceof EClass) {
 			final EClass eClass = (EClass) bo;
-			executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+			executeInRecordingCommandInUIThread(diagramEditor.getDiagramSupport(), new Runnable() {
 				public void run() {
 					// Change the tooltip to null and check it
 					eClass.setName(""); // Empty name means no tooltip
@@ -322,7 +322,7 @@ public class GFOtherTests extends AbstractGFTests {
 		final Diagram diagram = diagramTypeProvider.getDiagram();
 		syncExec(new VoidResult() {
 			public void run() {
-				executeInRecordingCommand(diagramEditor, new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
 					public void run() {
 						addClassToDiagram(fp, diagram, 500, 500, "Shape");
 						addClassToDiagram(fp, diagram, 100, 100, "ContainerShape");
@@ -333,7 +333,7 @@ public class GFOtherTests extends AbstractGFTests {
 				});
 
 				// get UnDoStack
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+				TransactionalEditingDomain editingDomain = diagramEditor.getDiagramSupport().getEditingDomain();
 				org.eclipse.emf.common.command.CommandStack cmdStack = editingDomain.getCommandStack();
 
 				// process "undo" until UnDoStack is empty
@@ -360,7 +360,7 @@ public class GFOtherTests extends AbstractGFTests {
 		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final IFeatureProvider fp = diagramEditor.getDiagramTypeProvider().getFeatureProvider();
 		final Diagram diagram = fp.getDiagramTypeProvider().getDiagram();
-		executeInRecordingCommand(diagramEditor, new Runnable() {
+		executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
 			public void run() {
 				addClassToDiagram(fp, diagram, 500, 500, "Shape");
 				// enforce roll-back
@@ -438,7 +438,8 @@ public class GFOtherTests extends AbstractGFTests {
 		@Override
 		protected Collection<Diagram> getDiagrams() {
 			final Collection<Diagram> ret = new HashSet<Diagram>();
-			for (final TreeIterator<?> i = getDiagramEditor().getResourceSet().getAllContents(); i.hasNext();) {
+			for (final TreeIterator<?> i = getDiagramBehavior().getEditingDomain().getResourceSet().getAllContents(); i
+					.hasNext();) {
 				final Object child = i.next();
 				if (child instanceof Diagram) {
 					ret.add((Diagram) child);
@@ -1128,7 +1129,7 @@ public class GFOtherTests extends AbstractGFTests {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 
 				final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
-				executeInRecordingCommand(diagramEditor, new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramSupport(), new Runnable() {
 					public void run() {
 						EClass eClass = createEClass(diagram, "Class1");
 

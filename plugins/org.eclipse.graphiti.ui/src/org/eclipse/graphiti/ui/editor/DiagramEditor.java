@@ -43,21 +43,17 @@ import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
@@ -66,10 +62,6 @@ import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IAddFeature;
-import org.eclipse.graphiti.features.IFeature;
-import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
@@ -143,8 +135,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 
 	private String contributorId;
 	private DiagramSupport diagramSupport;
-
-	private KeyHandler keyHandler;
 
 	/**
 	 * The ID of the {@link DiagramEditor} as it is registered with the
@@ -418,17 +408,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		return diagramSupport.getPaletteRoot();
 	}
 
-	/**
-	 * Refreshes the palette to correctly reflect all available creation tools
-	 * for the available create features and the currently enabled selection
-	 * tools
-	 * 
-	 * @since 0.9
-	 */
-	public final void refreshPalette() {
-		diagramSupport.refreshPalette();
-	}
-
 	// ---------------------- Refresh --------------------------------------- //
 
 	/**
@@ -455,43 +434,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	public void refreshTitleToolTip() {
 		setTitleToolTip(getTitleToolTip());
-	}
-
-	/**
-	 * Triggers a complete refresh of the editor (content, title, tooltip,
-	 * palette and decorators) by delegating to
-	 * {@link DefaultRefreshBehavior#refresh()}.
-	 * 
-	 * @since 0.9
-	 */
-	public void refresh() {
-		diagramSupport.refresh();
-	}
-
-	/**
-	 * Refreshes the content of the editor (what's shown inside the diagram
-	 * itself).
-	 * 
-	 * @since 0.9
-	 */
-	public void refreshContent() {
-		diagramSupport.refreshContent();
-	}
-
-	/**
-	 * Refreshes the rendering decorators (image decorators and the like) by
-	 * delegating to
-	 * {@link DefaultRefreshBehavior#refreshRenderingDecorators(PictogramElement)}
-	 * for the given {@link PictogramElement}.
-	 * 
-	 * @param pe
-	 *            the {@link PictogramElement} for which the decorators shall be
-	 *            refreshed.
-	 * 
-	 * @since 0.9
-	 */
-	public void refreshRenderingDecorators(PictogramElement pe) {
-		diagramSupport.refreshRenderingDecorators(pe);
 	}
 
 	// ====================== standard behavior ==============================
@@ -819,23 +761,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	}
 
 	/**
-	 * Method to retrieve the Draw2D {@link IFigure} for a given
-	 * {@link PictogramElement}.
-	 * 
-	 * @param pe
-	 *            the {@link PictogramElement} to retrieve the Draw2D
-	 *            representation for
-	 * @return the Draw2D {@link IFigure} that represents the given
-	 *         {@link PictogramElement}.
-	 * 
-	 * @since 0.9
-	 */
-	public IFigure getFigureForPictogramElement(PictogramElement pe) {
-		// TODO remove
-		return diagramSupport.getFigureForPictogramElement(pe);
-	}
-
-	/**
 	 * Returns the GEF {@link GraphicalViewer} as it is needed in some Graphiti
 	 * feature implementations. This is simply a public rewrite of the according
 	 * super method.
@@ -895,48 +820,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	public TransactionalEditingDomain getEditingDomain() {
 		return diagramSupport.getEditingDomain();
-	}
-
-	/**
-	 * Executes the given {@link IFeature} with the given {@link IContext} in
-	 * the scope of this {@link DiagramEditor}, meaning within its
-	 * {@link TransactionalEditingDomain} and on its
-	 * {@link org.eclipse.emf.common.command.CommandStack}.
-	 * <p>
-	 * Note that this is a pure delegation method. Overrides should happen in
-	 * {@link DiagramSupport}.
-	 * 
-	 * @param feature
-	 *            the feature to execute
-	 * @param context
-	 *            the context to use. In case the passed feature is a
-	 *            {@link IAddFeature} this context needs to be an instance of
-	 *            {@link IAddContext}, otherwise an
-	 *            {@link AssertionFailedException} will be thrown.
-	 * @return in case of an {@link IAddFeature} being passed as feature the
-	 *         newly added {@link PictogramElement} will be returned (in case
-	 *         the add method returning it), in all other cases
-	 *         <code>null</code>
-	 * 
-	 * @since 0.9
-	 */
-	public Object executeFeature(IFeature feature, IContext context) {
-		return diagramSupport.executeFeature(feature, context);
-	}
-
-	/**
-	 * The EMF {@link ResourceSet} used within this {@link DiagramEditor}. The
-	 * resource set is always associated in a 1:1 releation to the
-	 * {@link TransactionalEditingDomain}.
-	 * <p>
-	 * Note that this is a pure delegation method. Overrides should happen in
-	 * {@link DiagramSupport}.
-	 * 
-	 * @return the resource set used within this editor
-	 * @since 0.9
-	 */
-	public ResourceSet getResourceSet() {
-		return diagramSupport.getResourceSet();
 	}
 
 	/**

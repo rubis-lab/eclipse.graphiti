@@ -16,11 +16,7 @@
 package org.eclipse.graphiti.platform;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IFeature;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
@@ -75,24 +71,6 @@ public interface IDiagramContainer extends IDiagramEditor {
 	public void setPictogramElementsForSelection(PictogramElement[] pictogramElements);
 
 	/*
-	 * EMF
-	 */
-
-	/**
-	 * Gets the transactional editing domain.
-	 * 
-	 * @return The transactional editing domain which is used in the container
-	 */
-	public TransactionalEditingDomain getEditingDomain();
-
-	/**
-	 * Gets the resource set.
-	 * 
-	 * @return The resource set which is used in the container
-	 */
-	public ResourceSet getResourceSet();
-
-	/*
 	 * Refreshing and UI
 	 */
 
@@ -112,11 +90,6 @@ public interface IDiagramContainer extends IDiagramEditor {
 	public String getTitleToolTip();
 
 	/**
-	 * Refreshes the container.
-	 */
-	public void refresh();
-
-	/**
 	 * Refreshes the title text of this container. It depends on the container
 	 * type what and if anything is refreshed, for an editor e.g. the part tab
 	 * will be refreshed.
@@ -129,28 +102,6 @@ public interface IDiagramContainer extends IDiagramEditor {
 	 * part tab tooltip will be refreshed.
 	 */
 	public void refreshTitleToolTip();
-
-	/**
-	 * Refreshes all rendering decorators for the given pictogram element. That
-	 * means: 1. delete current decorators 2. ask the tool behaviour provider
-	 * for decorator data 3. create new decorators with this data and render
-	 * this new decorators
-	 * 
-	 * @param pe
-	 *            The pictogram element to refresh the decorators for
-	 */
-	public void refreshRenderingDecorators(PictogramElement pe);
-
-	/**
-	 * Refreshes the containers's palette.
-	 */
-	public void refreshPalette();
-
-	/**
-	 * Refreshes the content of the container (what's shown inside the diagram
-	 * itself).
-	 */
-	public void refreshContent();
 
 	/*
 	 * Lifecycle
@@ -203,18 +154,10 @@ public interface IDiagramContainer extends IDiagramEditor {
 	public IDiagramTypeProvider getDiagramTypeProvider();
 
 	/**
-	 * Executes the given feature in the given context using the command stack
-	 * and editing domain of the container. In case of an IAddFeature being
-	 * passed this method will also trigger the selection of the newly added
-	 * shape.
+	 * Returns the associated diagram behavior instance, that describes and
+	 * implements the standard diagram behavior.
 	 * 
-	 * @param feature
-	 *            The feature to execute
-	 * @param context
-	 *            The context object to use with the feature
-	 * @return an object representing the result of the feature call (depends on
-	 *         the concrete implementation)
-	 * 
+	 * @return The associated instance of {@link IDiagramBehavior}.
 	 */
-	public Object executeFeature(IFeature feature, IContext context);
+	public IDiagramBehavior getDiagramSupport();
 }

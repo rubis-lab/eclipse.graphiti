@@ -24,6 +24,7 @@ import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.notification.INotificationService;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.platform.IExtension;
@@ -61,7 +62,7 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 * @param diagramEditor
 	 * @since 0.10
 	 */
-	void init(Diagram diagram, IDiagramContainer diagramContainer);
+	void init(Diagram diagram, IDiagramBehavior diagramBehavior);
 
 	/**
 	 * Returns the diagram.
@@ -150,17 +151,17 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 * Returns the current diagram editor.
 	 * 
 	 * @return current diagram editor
-	 * @deprecated Use {@link #getDiagramContainer()} instead
+	 * @deprecated Use {@link #getDiagramBehavior()} instead
 	 */
 	IDiagramEditor getDiagramEditor();
 
 	/**
-	 * Returns the current diagram container.
+	 * Returns the current diagram behavior instance.
 	 * 
-	 * @return current diagram container
+	 * @return The current {@link IDiagramBehavior}
 	 * @since 0.10
 	 */
-	IDiagramContainer getDiagramContainer();
+	public IDiagramBehavior getDiagramBehavior();
 
 	/**
 	 * Dispose.

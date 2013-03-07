@@ -20,6 +20,7 @@ import org.eclipse.graphiti.dt.IDiagramType;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.ui.services.IExtensionManager;
 import org.junit.Test;
@@ -43,7 +44,7 @@ public class ExtensionManagerTest extends AbstractGFTests {
 		IDiagramTypeProvider dtp = extensionManager.createDiagramTypeProvider(diagramTypeProviders[0]);
 		assertNotNull("diagram type provider couldn't be created", dtp);
 
-		dtp.init(null, null);
+		dtp.init(null, (IDiagramBehavior) null);
 		IFeatureProvider fp = dtp.getFeatureProvider();
 		assertNotNull("feature provider not available", fp);
 	}
