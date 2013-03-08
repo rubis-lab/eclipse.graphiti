@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    pjpaulin - Bug 352120 - Changed to create action with actual workbench part
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -24,12 +25,10 @@ import java.util.concurrent.TimeUnit;
 
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.PrintGraphicalViewerAction;
-import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
@@ -50,10 +49,8 @@ public class GFDialogTests extends AbstractGFTests {
 		asyncExec(new VoidResult() {
 			public void run() {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
-				IFeatureProvider fp = dtp.getFeatureProvider();
-				IPrintFeature pf = fp.getPrintFeature();
-				IAction printGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor.getWorkbenchPart(),
-						pf);
+				IAction printGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor.getDiagramBehavior(),
+						getConfigProviderMock(dtp, diagramEditor));
 				// check if default printer is configured, otherwise SWT throws
 				// a "no more handles" error in Printer.checkNull(..)
 				enabled[0] = printGraphicalViewerAction.isEnabled();
@@ -64,8 +61,7 @@ public class GFDialogTests extends AbstractGFTests {
 		});
 		signal.await(5, TimeUnit.SECONDS);
 		// If the action is not enabled since there is no printer available on
-		// the system,
-		// we simply return.
+		// the system, we simply return.
 		if (!enabled[0]) {
 			return;
 		}
@@ -82,10 +78,18 @@ public class GFDialogTests extends AbstractGFTests {
 	@Test
 	public void testSaveDialog() throws Exception {
 		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final boolean[] enabled = new boolean[1];
 
 		asyncExec(new VoidResult() {
 			public void run() {
-				GraphitiUiInternal.getUiService().startSaveAsImageDialog(diagramEditor.getGraphicalViewer());
+				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
+				IAction saveImageAction = new SaveImageAction(diagramEditor.getDiagramBehavior(),
+						getConfigProviderMock(dtp, diagramEditor));
+				// check if default printer is configured, otherwise SWT throws
+				// a "no more handles" error in Printer.checkNull(..)
+				enabled[0] = saveImageAction.isEnabled();
+				if (enabled[0])
+					saveImageAction.run();
 			}
 		});
 

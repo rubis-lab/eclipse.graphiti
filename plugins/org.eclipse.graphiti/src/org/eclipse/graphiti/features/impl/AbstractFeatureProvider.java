@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@
  *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *    fvelasco - Bug 391506 - Canceling a feature with OperationCanceledException provoked an extra undo
  *    pjpaulin - Bug 352120 - Modified diagram linking to avoid NullPointerException. This needs to be reviewed.
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -343,13 +344,9 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 		return new DefaultReconnectionFeature(this);
 	}
 
-	public IPrintFeature getPrintFeature() {
-		return new DefaultPrintFeature(this);
-	}
+	public abstract IPrintFeature getPrintFeature();
 
-	public ISaveImageFeature getSaveImageFeature() {
-		return new DefaultSaveImageFeature(this);
-	}
+	public abstract ISaveImageFeature getSaveImageFeature();
 
 	public IFeature[] getDragAndDropFeatures(IPictogramElementContext context) {
 		return new IFeature[0];

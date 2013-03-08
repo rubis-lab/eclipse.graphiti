@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,13 +9,14 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.util.ui.print;
 
-import org.eclipse.graphiti.ui.internal.util.ui.DefaultPreferences;
+import org.eclipse.graphiti.ui.print.IPrintPreferences;
 
 /**
  * This class is a simple container for the preferences for the print dialog.
@@ -23,7 +24,7 @@ import org.eclipse.graphiti.ui.internal.util.ui.DefaultPreferences;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class DefaultPrintPreferences implements DefaultPreferences {
+public class DefaultPrintPreferences implements IPrintPreferences {
 
 	// double preferences
 	public static final int SCALE_FACTOR_X = 0;
@@ -78,7 +79,7 @@ public class DefaultPrintPreferences implements DefaultPreferences {
 		setDefaults();
 	}
 
-	// =================== interface DefaultPreferences =======================
+	// =================== interface IPrintPreferences =======================
 
 	public void setDefaults() {
 		for (int i = 0; i < NUM_OF_INT_PREFERENCES; i++)

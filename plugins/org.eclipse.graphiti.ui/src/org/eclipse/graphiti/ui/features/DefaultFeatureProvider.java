@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -27,9 +28,11 @@ import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.IMoveConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.IPasteFeature;
+import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.IRemoveBendpointFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
+import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddBendpointContext;
 import org.eclipse.graphiti.features.context.ICopyContext;
@@ -127,6 +130,16 @@ public class DefaultFeatureProvider extends AbstractFeatureProvider {
 
 	public IPasteFeature getPasteFeature(IPasteContext context) {
 		return null;
+	}
+
+	@Override
+	public IPrintFeature getPrintFeature() {
+		return new DefaultPrintFeature(this);
+	}
+
+	@Override
+	public ISaveImageFeature getSaveImageFeature() {
+		return new DefaultSaveImageFeature(this);
 	}
 
 	@Override

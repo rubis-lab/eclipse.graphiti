@@ -472,6 +472,9 @@ public class PredefinedColoredAreas implements IPredefinedRenderingStyle {
 		gcas.add(gca);
 	}
 
+	/**
+	 * @since 0.10
+	 */
 	protected static GradientColoredArea createGradientColoredArea(String colorStart, int locationValueStart,
 			LocationType locationTypeStart, String colorEnd, int locationValueEnd, LocationType locationTypeEnd) {
 		/*
