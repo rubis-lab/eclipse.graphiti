@@ -52,13 +52,13 @@ public class DoubleDiagramDialog extends Dialog {
 		layout.numColumns = 2;
 
 		URI diagramURI = URI.createPlatformResourceURI(firstResource.getFullPath().toString(), true);
-		DiagramComposite diagramComposite = new DiagramComposite(null, control, SWT.BORDER);
+		DiagramComposite diagramComposite = new DiagramComposite(control, SWT.BORDER);
 
 		IDiagramEditorInput input = new DiagramEditorInput(diagramURI, null);
 		diagramComposite.setInput(input);
 
 		URI diagramURI2 = URI.createPlatformResourceURI(secondResource.getFullPath().toString(), true);
-		DiagramComposite diagramComposite2 = new DiagramComposite(null, control, SWT.BORDER);
+		DiagramComposite diagramComposite2 = new DiagramComposite(control, SWT.BORDER);
 
 		IDiagramEditorInput input2 = new DiagramEditorInput(diagramURI2, null);
 		diagramComposite2.setInput(input2);
