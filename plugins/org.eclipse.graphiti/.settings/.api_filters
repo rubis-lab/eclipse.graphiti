@@ -1,50 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.graphiti" version="2">
-    <resource path="META-INF/MANIFEST.MF">
-        <filter id="923795461">
+    <resource path="META-INF/MANIFEST.MF" type="org.eclipse.graphiti.features.impl.DefaultPrintFeature">
+        <filter id="305324134">
             <message_arguments>
-                <message_argument value="0.10.0"/>
-                <message_argument value="0.9.0"/>
+                <message_argument value="org.eclipse.graphiti.features.impl.DefaultPrintFeature"/>
+                <message_argument value="org.eclipse.graphiti_0.10.0"/>
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src/org/eclipse/graphiti/features/context/impl/DeleteContext.java" type="org.eclipse.graphiti.features.context.impl.DeleteContext">
-        <filter id="576720909">
+    <resource path="META-INF/MANIFEST.MF" type="org.eclipse.graphiti.features.impl.DefaultSaveImageFeature">
+        <filter id="305324134">
             <message_arguments>
-                <message_argument value="PictogramElementContext"/>
-                <message_argument value="DeleteContext"/>
+                <message_argument value="org.eclipse.graphiti.features.impl.DefaultSaveImageFeature"/>
+                <message_argument value="org.eclipse.graphiti_0.10.0"/>
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src/org/eclipse/graphiti/features/context/impl/DirectEditingContext.java" type="org.eclipse.graphiti.features.context.impl.DirectEditingContext">
-        <filter id="576720909">
+    <resource path="src/org/eclipse/graphiti/features/impl/AbstractFeatureProvider.java" type="org.eclipse.graphiti.features.impl.AbstractFeatureProvider">
+        <filter id="421650549">
             <message_arguments>
-                <message_argument value="DetailedPictogramElementContext"/>
-                <message_argument value="DirectEditingContext"/>
+                <message_argument value="org.eclipse.graphiti.features.impl.AbstractFeatureProvider"/>
+                <message_argument value="getPrintFeature()"/>
             </message_arguments>
         </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/features/context/impl/LayoutContext.java" type="org.eclipse.graphiti.features.context.impl.LayoutContext">
-        <filter id="576720909">
+        <filter id="421650549">
             <message_arguments>
-                <message_argument value="PictogramElementContext"/>
-                <message_argument value="LayoutContext"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/features/context/impl/RemoveContext.java" type="org.eclipse.graphiti.features.context.impl.RemoveContext">
-        <filter id="576720909">
-            <message_arguments>
-                <message_argument value="PictogramElementContext"/>
-                <message_argument value="RemoveContext"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/features/context/impl/UpdateContext.java" type="org.eclipse.graphiti.features.context.impl.UpdateContext">
-        <filter id="576720909">
-            <message_arguments>
-                <message_argument value="PictogramElementContext"/>
-                <message_argument value="UpdateContext"/>
+                <message_argument value="org.eclipse.graphiti.features.impl.AbstractFeatureProvider"/>
+                <message_argument value="getSaveImageFeature()"/>
             </message_arguments>
         </filter>
     </resource>
@@ -127,7 +109,7 @@
                 <message_argument value="getSelectionInfoForShape(Shape)"/>
             </message_arguments>
         </filter>
-        <filter comment="getToolTip changes its return type to Object" id="338792546">
+        <filter id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.tb.DefaultToolBehaviorProvider"/>
                 <message_argument value="getToolTip(GraphicsAlgorithm)"/>
@@ -209,7 +191,7 @@
                 <message_argument value="getSelectionInfoForShape(Shape)"/>
             </message_arguments>
         </filter>
-        <filter comment="getToolTip changes its return type to Object" id="405901410">
+        <filter id="405901410">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.tb.IToolBehaviorProvider"/>
                 <message_argument value="getToolTip(GraphicsAlgorithm)"/>
@@ -286,13 +268,6 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.tb.SelectionInfoImpl"/>
                 <message_argument value="setSecondarySelectionBackgroundColor(IColorConstant)"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/util/PredefinedColoredAreas.java" type="org.eclipse.graphiti.util.PredefinedColoredAreas">
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="createGradientColoredArea(String, int, LocationType, String, int, LocationType)"/>
             </message_arguments>
         </filter>
     </resource>

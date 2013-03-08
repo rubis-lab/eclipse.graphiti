@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 323359 Avoid usage of java.lang.text, ICU4J etc.
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -17,6 +18,7 @@
 package org.eclipse.graphiti.ui.internal.util.ui;
 
 import org.eclipse.graphiti.ui.internal.Messages;
+import org.eclipse.graphiti.ui.print.IPrintPreferences;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -29,7 +31,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * A Combo control allowing only non-negative decimal input. Writes its state to
- * a DefaultPreferences object passed in the constructor.
+ * a IPrintPreferences object passed in the constructor.
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
@@ -38,7 +40,7 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 
 	public static final String decimalNumberFormat = "###0.00"; //$NON-NLS-1$
 
-	private DefaultPreferences _preferences;
+	private IPrintPreferences _preferences;
 	private int _index;
 	private Combo _text;
 	private boolean _internalModify = false;
@@ -47,7 +49,7 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 	/**
 	 * Creates a new DoubleFieldWithDropDown.
 	 */
-	public DoubleFieldWithDropDown(Composite parent, int style, DefaultPreferences prefs, int index, double[] defaults) {
+	public DoubleFieldWithDropDown(Composite parent, int style, IPrintPreferences prefs, int index, double[] defaults) {
 		super(parent, style);
 		_preferences = prefs;
 		_index = index;
@@ -74,7 +76,7 @@ public class DoubleFieldWithDropDown extends Composite implements ModifyListener
 	}
 
 	/**
-	 * Updates control according to value in the DefaultPreferences. If it is
+	 * Updates control according to value in the IPrintPreferences. If it is
 	 * the first update with an empty textfield, the preference value is set. If
 	 * it is not the first time an empty text field occurs, nothing happens
 	 * avoiding the confusing behaviour of updating to 0.00 when the user

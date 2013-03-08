@@ -506,7 +506,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		if (featureProvider != null) {
 			IPrintFeature pf = featureProvider.getPrintFeature();
 			if (pf != null && parentPart != null) {
-				registerAction(new PrintGraphicalViewerAction(parentPart, pf));
+				registerAction(new PrintGraphicalViewerAction(this, getConfigurationProvider()));
 			}
 		}
 
@@ -1427,7 +1427,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 			if (sf != null) {
 				ISaveImageContext context = new SaveImageContext();
-				action = new SaveImageAction(sf, context, this);
+				action = new SaveImageAction(this, getConfigurationProvider());
 				actionRegistry.registerAction(action);
 				selectionActions.add(action.getId());
 			}

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    jpasch - Bug 345315  Missing units for "Choose scale-factor
  *    mgorning - Bug 352874 - Exports of Diagrams > 3000x3000 px
  *    mwenz - Bug 375037 - ArrayIndexOutOfBoundsException when exporting diagram to SVG
+ *    mwenz - Bug 370888 - API Access to export and print
  *
  * </copyright>
  *
@@ -27,6 +28,7 @@ import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.util.ui.DoubleFieldWithDropDown;
+import org.eclipse.graphiti.ui.saveasimage.ISaveAsImageConfiguration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -46,7 +48,8 @@ import org.eclipse.swt.widgets.Shell;
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class ExportDiagramDialog extends AbstractFigureSelectionDialog implements ModifyListener {
+public class ExportDiagramDialog extends AbstractFigureSelectionDialog implements ModifyListener,
+		ISaveAsImageConfiguration {
 
 	private String[] IMAGE_FILE_EXTENSIONS = new String[] { "BMP", "GIF", "JPG", "PNG", "RLE" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
@@ -83,6 +86,10 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 	 */
 	public ExportDiagramDialog(Shell shell, GraphicalViewer graphicalViewer) {
 		super(shell, graphicalViewer);
+	}
+
+	public int configure() {
+		return open();
 	}
 
 	public void addExporters(Map<String, Boolean> diagramExporterTypes) {
