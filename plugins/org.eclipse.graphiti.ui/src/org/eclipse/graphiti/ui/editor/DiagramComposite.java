@@ -81,7 +81,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 		diagramBehavior.getUpdateBehavior().init();
 		init();
 		this.diagramBehavior.migrateDiagramModelIfNecessary();
-		this.diagramBehavior.createPartControl();
+		this.diagramBehavior.addGefListeners();
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 			getWorkbenchPart().getSite().getPage().removeSelectionListener(this);
 		}
 
-		this.diagramBehavior.preSuperDispose();
+		this.diagramBehavior.disposeBeforeGefDispose();
 
 		RuntimeException exc = null;
 		try {
@@ -158,7 +158,7 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 			exc = e;
 		}
 
-		this.diagramBehavior.postSuperDispose();
+		this.diagramBehavior.disposeAfterGefDispose();
 
 		if (exc != null) {
 			throw exc;

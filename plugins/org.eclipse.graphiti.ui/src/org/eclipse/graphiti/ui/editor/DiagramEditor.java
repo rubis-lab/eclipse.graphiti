@@ -279,6 +279,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
+		if (!(input instanceof IDiagramEditorInput)) {
+			throw new IllegalArgumentException("The IEditorInput has the wrong type: " + input.getClass()); //$NON-NLS-1$
+		}
 		diagramBehavior.setInput((IDiagramEditorInput) input);
 	}
 
@@ -293,7 +296,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			diagramBehavior.createErrorPartControl(parent);
 		} else {
 			super.createPartControl(parent);
-			diagramBehavior.createPartControl();
+			diagramBehavior.addGefListeners();
 		}
 	}
 
@@ -475,7 +478,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * <code>super.dispose()</code> in case you override this method!
 	 */
 	public void dispose() {
-		diagramBehavior.preSuperDispose();
+		diagramBehavior.disposeBeforeGefDispose();
 
 		RuntimeException exc = null;
 		if (getEditDomain() != null) {
@@ -488,7 +491,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			}
 		}
 
-		diagramBehavior.postSuperDispose();
+		diagramBehavior.disposeAfterGefDispose();
 
 		if (exc != null) {
 			throw exc;
