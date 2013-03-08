@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    pjpaulin - Bug 352120 - Initial API, implementation and documentation
+ *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
  *
  * </copyright>
  *
@@ -151,11 +152,11 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	private IDiagramContainerUI diagramContainer;
 
-	private final DefaultUpdateBehavior updateBehavior;
-	private final DefaultPaletteBehavior paletteBehaviour;
-	private final DefaultPersistencyBehavior persistencyBehavior;
-	private final DefaultMarkerBehavior markerBehavior;
-	private final DefaultRefreshBehavior refreshBehavior;
+	private DefaultUpdateBehavior updateBehavior;
+	private DefaultPaletteBehavior paletteBehaviour;
+	private DefaultPersistencyBehavior persistencyBehavior;
+	private DefaultMarkerBehavior markerBehavior;
+	private DefaultRefreshBehavior refreshBehavior;
 
 	private PictogramElement pictogramElementsForSelection[];
 	private IConfigurationProviderInternal configurationProvider;
@@ -176,12 +177,6 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	public DiagramBehavior(IDiagramContainerUI diagramContainer) {
 		this.diagramContainer = diagramContainer;
-		markerBehavior = createMarkerBehavior();
-		updateBehavior = createUpdateBehavior();
-		paletteBehaviour = createPaletteBehaviour();
-		persistencyBehavior = createPersistencyBehavior();
-		refreshBehavior = createRefreshBehavior();
-
 	}
 
 	/**
@@ -310,6 +305,31 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	}
 
 	// ------------------ Initialization ---------------------------------------
+
+	/**
+	 * Hook to initialize the default sub behavior instances used by this editor
+	 * behavior. The default implementation simply delegates to the create
+	 * methods for the various objects. In case other default behavior
+	 * implementation should be used, clients should override these create
+	 * methods instead of this method.
+	 * 
+	 * @see #createMarkerBehavior()
+	 * @see #createUpdateBehavior()
+	 * @see #createPaletteBehaviour()
+	 * @see #createPersistencyBehavior()
+	 * @see #createRefreshBehavior()
+	 */
+	protected void initDefaultBehaviors() {
+		// Intialize behavior objects first, they are needed already within the
+		// init method. We cannont create these objects in the constructor of
+		// diagram editor because that woudl prevent injecting them, see
+		// Bugzilla 394315
+		markerBehavior = createMarkerBehavior();
+		updateBehavior = createUpdateBehavior();
+		paletteBehaviour = createPaletteBehaviour();
+		persistencyBehavior = createPersistencyBehavior();
+		refreshBehavior = createRefreshBehavior();
+	}
 
 	/**
 	 * Sets the given {@link IDiagramEditorInput} object as the input for this
