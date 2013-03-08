@@ -10,6 +10,7 @@
  * Contributors:
  *    pjpaulin - initial API, implementation and documentation
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
  *
  * </copyright>
  *
@@ -49,11 +50,11 @@ import org.eclipse.ui.IWorkbenchPartSite;
 public class DiagramComposite extends GraphicalComposite implements IDiagramContainerUI {
 
 	private DiagramBehavior diagramBehavior;
+	private IWorkbenchPart ownedPart;
 
 	public DiagramComposite(IWorkbenchPart ownedPart, Composite parent, int style) {
 		super(parent, style);
-		diagramBehavior = new DiagramBehavior(this);
-		diagramBehavior.setParentPart(ownedPart);
+		this.ownedPart = ownedPart;
 		setEditDomain(new DefaultEditDomain(null));
 	}
 
@@ -61,13 +62,27 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 		this(null, parent, style);
 	}
 
+	protected DiagramBehavior createDiagramBehavior(IWorkbenchPart parentPart) {
+		DiagramBehavior diagramBehavior = new DiagramBehavior(this);
+		diagramBehavior.initDefaultBehaviors();
+		diagramBehavior.setParentPart(parentPart);
+
+		return diagramBehavior;
+	}
+
 	public void setInput(IDiagramEditorInput input) {
+		if (diagramBehavior == null) {
+			diagramBehavior = createDiagramBehavior(ownedPart);
+		}
 		TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService()
 				.createResourceSetAndEditingDomain();
 		this.setInput(editingDomain, input);
 	}
 
 	public void setInput(TransactionalEditingDomain editingDomain, IDiagramEditorInput input) {
+		if (diagramBehavior == null) {
+			diagramBehavior = createDiagramBehavior(ownedPart);
+		}
 
 		// assign editing domain to update behavior
 		getUpdateBehavior().setEditingDomain(editingDomain);
@@ -149,7 +164,9 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 			getWorkbenchPart().getSite().getPage().removeSelectionListener(this);
 		}
 
-		this.diagramBehavior.disposeBeforeGefDispose();
+		if (diagramBehavior != null) {
+			diagramBehavior.disposeBeforeGefDispose();
+		}
 
 		RuntimeException exc = null;
 		try {
@@ -158,7 +175,9 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 			exc = e;
 		}
 
-		this.diagramBehavior.disposeAfterGefDispose();
+		if (diagramBehavior != null) {
+			diagramBehavior.disposeAfterGefDispose();
+		}
 
 		if (exc != null) {
 			throw exc;
