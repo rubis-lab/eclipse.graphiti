@@ -10,6 +10,8 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -38,7 +40,7 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
 import org.eclipse.swt.SWT;
@@ -180,8 +182,8 @@ public class DiagramEditPart extends ContainerShapeEditPart implements IDiagramE
 	 */
 	@Override
 	public void refresh() {
-		DiagramEditor editor = (DiagramEditor) getConfigurationProvider().getWorkbenchPart();
-		editor.getRefreshBehavior().initRefresh();
+		DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
+		diagramBehavior.getRefreshBehavior().initRefresh();
 		super.refresh();
 	}
 }

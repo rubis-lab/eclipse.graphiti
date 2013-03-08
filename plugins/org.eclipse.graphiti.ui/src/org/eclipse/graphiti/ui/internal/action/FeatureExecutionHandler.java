@@ -101,7 +101,7 @@ public class FeatureExecutionHandler extends AbstractHandler {
 
 	protected void executeOnCommandStack(ICommand command) {
 		CommandStack commandStack = getConfigurationProvider().getDiagramEditor().getEditDomain().getCommandStack();
-		commandStack.execute(new GefCommandWrapper(command, getConfigurationProvider().getDiagramEditor()
+		commandStack.execute(new GefCommandWrapper(command, getConfigurationProvider().getDiagramBehavior()
 				.getEditingDomain()));
 	}
 }

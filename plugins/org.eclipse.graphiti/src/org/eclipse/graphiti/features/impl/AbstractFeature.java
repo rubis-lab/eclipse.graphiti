@@ -31,6 +31,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILinkService;
@@ -148,9 +149,20 @@ public abstract class AbstractFeature implements IFeature {
 	 * Gets the diagram editor.
 	 * 
 	 * @return the diagram editor
+	 * @deprecated Use {@link #getDiagramBehavior()} instead
 	 */
 	protected IDiagramEditor getDiagramEditor() {
 		return getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
+	}
+
+	/**
+	 * Gets the diagram behavior.
+	 * 
+	 * @return the diagram behavior
+	 * @since 0.10
+	 */
+	protected IDiagramBehavior getDiagramBehavior() {
+		return getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior();
 	}
 
 	/**

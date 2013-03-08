@@ -10,6 +10,8 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 387971 - Features cant't be invoked from contextMenu
+ *    pjpaulin - Bug 352120 - Changed to instantiate DiagramEditorImpl
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -42,7 +44,7 @@ import org.eclipse.ui.part.FileEditorInput;
 public class MultiPageEditor extends FormEditor implements IResourceChangeListener, ISelectionListener {
 
 	/** The text editor used in page 0. */
-	private DiagramEditor editor;
+	private IEditorPart editor;
 	private TextEditor editor2;
 
 	/**

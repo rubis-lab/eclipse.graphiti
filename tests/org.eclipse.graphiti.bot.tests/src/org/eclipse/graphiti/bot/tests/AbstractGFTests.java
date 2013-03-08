@@ -13,6 +13,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Felix Velasco - Bug 374918 - Let default paste use LocalSelectionTransfer
  *    mwenz - Bug 378342 - Cannot store more than a diagram per file
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -67,11 +68,11 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
@@ -121,8 +122,8 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		}
 	}
 
-	public static void executeInRecordingCommand(IDiagramEditor diagramEditor, final Runnable run) {
-		TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+	public static void executeInRecordingCommand(IDiagramBehavior diagramBehavior, final Runnable run) {
+		TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 
 			@Override
@@ -142,10 +143,10 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		});
 	}
 
-	public static void executeInRecordingCommandInUIThread(final IDiagramEditor diagramEditor, final Runnable run) {
+	public static void executeInRecordingCommandInUIThread(final IDiagramBehavior diagramBehavior, final Runnable run) {
 		syncExec(new VoidResult() {
 			public void run() {
-				executeInRecordingCommand(diagramEditor, run);
+				executeInRecordingCommand(diagramBehavior, run);
 			}
 		});
 	}
@@ -269,17 +270,17 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		}
 	}
 
-	protected DiagramEditor openDiagram(final String type) {
-		return openDiagram(type, "xmi", "diagram");
+	protected IDiagramContainerUI openDiagramEditor(final String type) {
+		return openDiagramEditor(type, "xmi", "diagram");
 	}
 
-	protected DiagramEditor openDiagram(final String type, final String fileExtension, final String diagramName) {
-		DiagramEditor diagramEditor = syncExec(new Result<DiagramEditor>() {
-			public DiagramEditor run() {
+	protected IDiagramContainerUI openDiagramEditor(final String type, final String fileExtension, final String diagramName) {
+		IDiagramContainerUI diagramEditor = syncExec(new Result<IDiagramContainerUI>() {
+			public IDiagramContainerUI run() {
 				final Diagram newDiagram = createDiagram(type, fileExtension, diagramName);
 				assertTrue("create diagram does not work", newDiagram != null);
 
-				DiagramEditor diagramEditor = (DiagramEditor) GraphitiUiInternal.getWorkbenchService()
+				IDiagramContainerUI diagramEditor = (IDiagramContainerUI) GraphitiUiInternal.getWorkbenchService()
 						.openDiagramEditor(newDiagram);
 				return diagramEditor;
 			}
@@ -427,7 +428,7 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 			public void run() {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramTypeProvider.getDiagramEditor(), new Runnable() {
+				executeInRecordingCommand(diagramTypeProvider.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, x, y, shapename, x, y + 300,
 								"ConnectionDecorator");
@@ -450,10 +451,11 @@ public abstract class AbstractGFTests extends SWTBotGefTestCase {
 		return event;
 	}
 
-	protected IConfigurationProvider getConfigProviderMock(IDiagramTypeProvider dtp, DiagramEditor ed) {
+	protected IConfigurationProvider getConfigProviderMock(IDiagramTypeProvider dtp, IDiagramContainerUI ed) {
 		IConfigurationProvider configurationProviderMock = createNiceMock(IConfigurationProviderInternal.class);
 		expect(configurationProviderMock.getDiagramTypeProvider()).andReturn(dtp).anyTimes();
 		expect(configurationProviderMock.getDiagramEditor()).andReturn(ed).anyTimes();
+		expect(configurationProviderMock.getDiagramBehavior()).andReturn(ed.getDiagramBehavior()).anyTimes();
 		replay(configurationProviderMock);
 		return configurationProviderMock;
 	}

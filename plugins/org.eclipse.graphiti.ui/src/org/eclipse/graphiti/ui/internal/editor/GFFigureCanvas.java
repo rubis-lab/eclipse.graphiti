@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -34,7 +35,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.parts.DiagramEditPart;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -90,7 +91,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 
 	private final GFUpdateListener gfUpdateListener = new GFUpdateListener();
 
-	private DiagramEditor diagramEditor = null;
+	private DiagramBehavior diagramBehavior = null;
 
 	private boolean init = true;
 
@@ -176,8 +177,8 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 	 * @param diagramEditor
 	 *            the diagram editor
 	 */
-	public GFFigureCanvas(Composite parent, DiagramEditor diagramEditor) {
-		this(parent, SWT.DOUBLE_BUFFERED, new LightweightSystem(), diagramEditor);
+	public GFFigureCanvas(Composite parent, DiagramBehavior diagramBehavior) {
+		this(parent, SWT.DOUBLE_BUFFERED, new LightweightSystem(), diagramBehavior);
 	}
 
 	/**
@@ -191,8 +192,8 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 	 *            the diagram editor
 	 * @since 3.1
 	 */
-	public GFFigureCanvas(Composite parent, int style, DiagramEditor diagramEditor) {
-		this(parent, style, new LightweightSystem(), diagramEditor);
+	public GFFigureCanvas(Composite parent, int style, DiagramBehavior diagramBehavior) {
+		this(parent, style, new LightweightSystem(), diagramBehavior);
 	}
 
 	/**
@@ -206,8 +207,8 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 	 * @param diagramEditor
 	 *            the diagram editor
 	 */
-	public GFFigureCanvas(Composite parent, LightweightSystem lws, DiagramEditor diagramEditor) {
-		this(parent, SWT.DOUBLE_BUFFERED, lws, diagramEditor);
+	public GFFigureCanvas(Composite parent, LightweightSystem lws, DiagramBehavior diagramBehavior) {
+		this(parent, SWT.DOUBLE_BUFFERED, lws, diagramBehavior);
 	}
 
 	/**
@@ -223,12 +224,12 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 	 *            the diagram editor
 	 * @since 3.1
 	 */
-	public GFFigureCanvas(Composite parent, int style, LightweightSystem lws, DiagramEditor diagramEditor) {
+	public GFFigureCanvas(Composite parent, int style, LightweightSystem lws, DiagramBehavior diagramBehavior) {
 		super(parent, checkStyle(style | SWT.NO_REDRAW_RESIZE | SWT.NO_BACKGROUND | SWT.V_SCROLL | SWT.H_SCROLL));
 		getHorizontalBar().setVisible(false);
 		getVerticalBar().setVisible(false);
 		this.lws = lws;
-		this.diagramEditor = diagramEditor;
+		this.diagramBehavior = diagramBehavior;
 		lws.setControl(this);
 		hook();
 	}
@@ -700,11 +701,11 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 	}
 
 	private double getZoomLevel() {
-		return diagramEditor.getZoomLevel();
+		return diagramBehavior.getZoomLevel();
 	}
 
 	private Rectangle getDiagramBoundsFromDiagramEditPart() {
-		EditPart ep = diagramEditor.getContentEditPart();
+		EditPart ep = diagramBehavior.getContentEditPart();
 		if (ep instanceof DiagramEditPart && ((DiagramEditPart) ep).getFigure().getChildren().size() > 0) {
 			return ((DiagramEditPart) ep).getFigure().getBounds();
 		} else {
@@ -713,7 +714,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 	}
 
 	public Rectangle getDiagramBoundsFromEditPartChildren() {
-		EditPart ep = diagramEditor.getContentEditPart();
+		EditPart ep = diagramBehavior.getContentEditPart();
 		if (!(ep instanceof DiagramEditPart) || ((DiagramEditPart) ep).getFigure().getChildren().size() == 0) {
 			return new Rectangle();
 		}
@@ -952,7 +953,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 			// this.setBackgroundColor(ColorConstants.red);
 			// this.setOpaque(true);
 			/* <-- debug settings */
-			EditPart ep = diagramEditor.getContentEditPart();
+			EditPart ep = diagramBehavior.getContentEditPart();
 			((DiagramEditPart) ep).getFigure().add(this);
 		}
 
@@ -973,7 +974,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 		 * Removes the.
 		 */
 		protected void remove() {
-			EditPart ep = diagramEditor.getContentEditPart();
+			EditPart ep = diagramBehavior.getContentEditPart();
 			IFigure diagram = ((DiagramEditPart) ep).getFigure();
 			diagram.getChildren().remove(this);
 		}

@@ -16,6 +16,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
  *    mgorning - Bug 383512 - Moving (Resizing) Problem - Polyline/Polygon on first level
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -76,7 +77,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.command.AddModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
@@ -135,7 +136,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 					rectangle.x, rectangle.y);
 			if (cmd != null) {
 				IConfigurationProvider configurationProvider = getConfigurationProvider();
-				return new GefCommandWrapper(cmd, configurationProvider.getDiagramEditor().getEditingDomain());
+				return new GefCommandWrapper(cmd, configurationProvider.getDiagramBehavior().getEditingDomain());
 			}
 		}
 		return null;
@@ -280,8 +281,8 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			IContextButtonManager contextButtonManager = getConfigurationProvider().getContextButtonManager();
 			contextButtonManager.hideContextButtonsInstantly();
 
-			DiagramEditor editor = getConfigurationProvider().getDiagramEditor();
-			return new GefCommandWrapper(ret, editor.getEditingDomain());
+			DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
+			return new GefCommandWrapper(ret, diagramBehavior.getEditingDomain());
 		} else {
 			return null;
 		}
@@ -491,7 +492,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		 * not in the selection of moved objects
 		 */
 		boolean isExecuteAllowed = true;
-		PictogramElement[] selectedPictogramElements = getConfigurationProvider().getDiagramEditor()
+		PictogramElement[] selectedPictogramElements = getConfigurationProvider().getDiagramBehavior()
 				.getSelectedPictogramElements();
 		List<PictogramElement> pes = Arrays.asList(selectedPictogramElements);
 		if (pes.size() > 1) {

@@ -15,6 +15,7 @@
  *    Bug 336488 - DiagramEditor API
  *    cbrand - Bug 377475 - Fix AbstractCustomFeature.execute and canExecute
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *

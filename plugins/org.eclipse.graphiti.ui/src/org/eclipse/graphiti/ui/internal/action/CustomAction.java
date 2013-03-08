@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -22,7 +23,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.internal.command.CommandContainer;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ICommand;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.jface.action.Action;
 
@@ -36,13 +37,13 @@ public class CustomAction extends Action {
 
 	private ICustomContext context;
 
-	private DiagramEditor diagramEditor;
+	private DiagramBehavior diagramBehavior;
 
-	public CustomAction(ICustomFeature customFeature, ICustomContext context, DiagramEditor diagramEditor) {
+	public CustomAction(ICustomFeature customFeature, ICustomContext context, DiagramBehavior diagramBehavior) {
 		super();
 		this.customFeature = customFeature;
 		this.context = context;
-		this.diagramEditor = diagramEditor;
+		this.diagramBehavior = diagramBehavior;
 		setText(customFeature.getName());
 		setToolTipText(customFeature.getDescription());
 	}
@@ -60,7 +61,7 @@ public class CustomAction extends Action {
 	}
 
 	protected void executeOnCommandStack(ICommand command) {
-		CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
-		commandStack.execute(new GefCommandWrapper(command, diagramEditor.getEditingDomain()));
+		CommandStack commandStack = diagramBehavior.getEditDomain().getCommandStack();
+		commandStack.execute(new GefCommandWrapper(command, diagramBehavior.getEditingDomain()));
 	}
 }

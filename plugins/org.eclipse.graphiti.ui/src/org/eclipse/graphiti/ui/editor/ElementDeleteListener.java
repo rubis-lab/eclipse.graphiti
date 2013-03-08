@@ -10,6 +10,8 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -23,9 +25,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorSite;
-import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPartSite;
 
 /**
  * Closes editor if model element was deleted. For instance, if only the diagram
@@ -36,10 +36,13 @@ import org.eclipse.ui.IWorkbenchPage;
  */
 public final class ElementDeleteListener extends AdapterImpl {
 
-	private DiagramEditor diagramEditor;
+	private DiagramBehavior diagramBehavior;
 
-	public ElementDeleteListener(DiagramEditor d) {
-		this.diagramEditor = d;
+	/**
+	 * @since 0.10
+	 */
+	public ElementDeleteListener(DiagramBehavior diagramBehavior) {
+		this.diagramBehavior = diagramBehavior;
 	}
 
 	@Override
@@ -50,14 +53,14 @@ public final class ElementDeleteListener extends AdapterImpl {
 	@Override
 	public void notifyChanged(Notification msg) {
 		if (T.racer().debug()) {
-			final String editorName = diagramEditor.getTitle();
+			final String editorName = diagramBehavior.getDiagramContainer().getTitle();
 			T.racer().debug("Delete listener called of editor " //$NON-NLS-1$
 					+ editorName + " with events " + msg.toString()); //$NON-NLS-1$
 		}
 
-		final IEditorInput in = diagramEditor.getEditorInput();
+		final IDiagramEditorInput in = diagramBehavior.getDiagramContainer().getDiagramEditorInput();
 		if (in != null) {
-			final IEditorSite site = diagramEditor.getEditorSite();
+			final IWorkbenchPartSite site = diagramBehavior.getDiagramContainer().getWorkbenchPart().getSite();
 			if (site == null) {
 				return;
 			}
@@ -67,7 +70,7 @@ public final class ElementDeleteListener extends AdapterImpl {
 			// which may provoke deadlocks.
 			shell.getDisplay().asyncExec(new Runnable() {
 				public void run() {
-					if (diagramEditor == null) {
+					if (diagramBehavior == null) {
 						return; // disposed
 					}
 					if (shell.isDisposed()) {
@@ -75,19 +78,18 @@ public final class ElementDeleteListener extends AdapterImpl {
 					}
 					Diagram diagram = null;
 					try {
-						diagram = (Diagram) diagramEditor.getAdapter(Diagram.class);
+						diagram = (Diagram) diagramBehavior.getAdapter(Diagram.class);
 					} catch (final Exception e) {
 						// Ignore, exception indicates that the diagram has
 						// been deleted
 					}
 					if (diagram == null || EcoreUtil.getRootContainer(diagram) == null) {
 						// diagram is gone so try to close
-						final IWorkbenchPage page = site.getPage();
 						if (T.racer().debug()) {
-							final String editorName = diagramEditor.getTitle();
+							final String editorName = diagramBehavior.getDiagramContainer().getTitle();
 							T.racer().debug("Closing editor " + editorName); //$NON-NLS-1$
 						}
-						page.closeEditor(diagramEditor, false);
+						diagramBehavior.getDiagramContainer().close();
 					}
 				}
 			});

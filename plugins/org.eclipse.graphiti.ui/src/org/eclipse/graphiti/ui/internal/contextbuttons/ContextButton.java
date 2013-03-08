@@ -13,6 +13,7 @@
  *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
  *    mwenz - Bug 389379 - Editor Dirty Handling (gets broken after context button execution)
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -37,7 +38,8 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.internal.contextbuttons.PositionedContextButton;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.IContextButtonEntry;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.editor.GFDragConnectionTool;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtil;
 import org.eclipse.graphiti.ui.internal.util.DataTypeTransformation;
@@ -234,14 +236,14 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	}
 
 	/**
-	 * Returns the {@link DiagramEditor} for which the context button is
+	 * Returns the {@link IDiagramContainerUI} for which the context button is
 	 * displayed.
 	 * 
-	 * @return The {@link DiagramEditor} for which the context button is
+	 * @return The {@link IDiagramContainerUI} for which the context button is
 	 *         displayed.
 	 */
-	public final DiagramEditor getEditor() {
-		return getContextButtonPad().getEditor();
+	public final DiagramBehavior getDiagramBehavior() {
+		return getContextButtonPad().getDiagramBehavior();
 	}
 
 	/**
@@ -562,8 +564,11 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 			// creates a new drag-connection tool on each mouse move
 			mouseDragMoveListener = new MouseMoveListener() {
 				public void mouseMove(org.eclipse.swt.events.MouseEvent e) {
-					EditPart targetEditPart = getEditor().getGraphicalViewer().findObjectAt(new Point(e.x, e.y));
-					createNewGFDragConnectionTool().continueConnection(getEditPart(), getEditor(), getEntry(), targetEditPart);
+					EditPart targetEditPart = getDiagramBehavior().getDiagramContainer().getGraphicalViewer()
+							.findObjectAt(new Point(e.x, e.y));
+					createNewGFDragConnectionTool().continueConnection(getEditPart(),
+ getDiagramBehavior(), getEntry(),
+							targetEditPart);
 				}
 			};
 
@@ -571,16 +576,20 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 			mouseDragUpListener = new MouseAdapter() {
 				@Override
 				public void mouseUp(org.eclipse.swt.events.MouseEvent e) {
-					getEditor().getGraphicalViewer().getControl().removeMouseListener(mouseDragUpListener);
-					getEditor().getGraphicalViewer().getControl().removeMouseMoveListener(mouseDragMoveListener);
+					getDiagramBehavior().getDiagramContainer().getGraphicalViewer().getControl()
+							.removeMouseListener(mouseDragUpListener);
+					getDiagramBehavior().getDiagramContainer().getGraphicalViewer().getControl()
+							.removeMouseMoveListener(mouseDragMoveListener);
 					mouseDragUpListener = null;
 					mouseDragMoveListener = null;
 				}
 			};
 
 			// adds the mouse-drag listeners
-			getEditor().getGraphicalViewer().getControl().addMouseListener(mouseDragUpListener);
-			getEditor().getGraphicalViewer().getControl().addMouseMoveListener(mouseDragMoveListener);
+			getDiagramBehavior().getDiagramContainer().getGraphicalViewer().getControl()
+					.addMouseListener(mouseDragUpListener);
+			getDiagramBehavior().getDiagramContainer().getGraphicalViewer().getControl()
+					.addMouseMoveListener(mouseDragMoveListener);
 		}
 	}
 
@@ -592,7 +601,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	 *         active tool.
 	 */
 	private GFDragConnectionTool createNewGFDragConnectionTool() {
-		DefaultEditDomain editDomain = getEditor().getEditDomain();
+		DefaultEditDomain editDomain = getDiagramBehavior().getEditDomain();
 		GFDragConnectionTool dragConnectionTool = new GFDragConnectionTool();
 		dragConnectionTool.setEditDomain(editDomain);
 		editDomain.setActiveTool(dragConnectionTool);

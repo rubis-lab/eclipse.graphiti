@@ -174,7 +174,7 @@
 	</extension>
 
 	<extension point="org.eclipse.ui.handlers">
-		<handler commandId="org.eclipse.graphiti.examples.common.commands.openDiagramFromFile" class="org.eclipse.graphiti.examples.common.handler.OpenDiagramFromFileHandler">
+		<handler commandId="org.eclipse.graphiti.examples.common.commands.openDiagramFromFile" class="org.eclipse.graphiti.examples.common.handler.OpenDiagramEditorFromFileHandler">
 			<enabledWhen>
 				<reference definitionId="org.eclipse.graphiti.examples.common.definitions.OneProjectSelected" /> 
 			</enabledWhen>
@@ -209,4 +209,39 @@
 		</definition>
 	</extension>
 
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.eclipse.graphiti.examples.common.handler.PreviewDiagramHandler"
+            id="org.eclipse.graphiti.examples.previewCommand"
+            name="%PreviewCommand.name">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+         <command
+               commandId="org.eclipse.graphiti.examples.previewCommand"
+               label="%PreviewCommand.label"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+                  <with variable="selection">
+				     <count value="2"/>
+				     <iterate ifEmpty="false">
+				     <and>
+			            <test
+			                  property="org.eclipse.core.resources.extension"
+			                  value="diagram">
+			            </test>
+				        <adapt type="org.eclipse.core.resources.IFile">
+				       </adapt>
+				       </and>
+				     </iterate>
+				  </with>
+			</visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
 </plugin>

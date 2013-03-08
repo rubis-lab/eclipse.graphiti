@@ -9,6 +9,8 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    pjpaulin - Bug 352120 - Changed to create action with actual workbench part
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -24,7 +26,7 @@ import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IPrintFeature;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.PrintGraphicalViewerAction;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
@@ -42,7 +44,7 @@ public class GFDialogTests extends AbstractGFTests {
 
 	@Test
 	public void testPrintDialog() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final boolean[] enabled = new boolean[1];
 		final CountDownLatch signal = new CountDownLatch(1);
 		asyncExec(new VoidResult() {
@@ -50,7 +52,8 @@ public class GFDialogTests extends AbstractGFTests {
 				IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
 				IFeatureProvider fp = dtp.getFeatureProvider();
 				IPrintFeature pf = fp.getPrintFeature();
-				IAction printGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor, pf);
+				IAction printGraphicalViewerAction = new PrintGraphicalViewerAction(diagramEditor.getWorkbenchPart(),
+						pf);
 				// check if default printer is configured, otherwise SWT throws
 				// a "no more handles" error in Printer.checkNull(..)
 				enabled[0] = printGraphicalViewerAction.isEnabled();
@@ -78,7 +81,7 @@ public class GFDialogTests extends AbstractGFTests {
 
 	@Test
 	public void testSaveDialog() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		asyncExec(new VoidResult() {
 			public void run() {

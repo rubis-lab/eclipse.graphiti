@@ -32,7 +32,7 @@ import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.swt.widgets.Display;
 
 /**
@@ -43,10 +43,10 @@ import org.eclipse.swt.widgets.Display;
  */
 public class DomainModelChangeListener implements ResourceSetListener {
 
-	private IDiagramEditor diagramEditor;
+	private DiagramBehavior diagramBehavior;
 
-	public DomainModelChangeListener(IDiagramEditor diagramEditor) {
-		setDiagramEditor(diagramEditor);
+	public DomainModelChangeListener(DiagramBehavior diagramBehavior) {
+		setDiagramBehavior(diagramBehavior);
 	}
 
 	public NotificationFilter getFilter() {
@@ -112,14 +112,14 @@ public class DomainModelChangeListener implements ResourceSetListener {
 					// Bug 352109: Enable unconditional auto refresh for case 3)
 					// standard refresh with saved editor
 					if (getDiagramTypeProvider().isAutoUpdateAtRuntimeWhenEditorIsSaved()
-							|| getDiagramTypeProvider().getDiagramEditor().isDirty()) {
+							|| getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().isDirty()) {
 						// The notification service takes care of not only the
 						// linked BOs but also asks the diagram provider about
 						// related BOs.
 						getDiagramTypeProvider().getNotificationService().updatePictogramElements(dirtyPes);
 					}
 				} else {
-					getDiagramTypeProvider().getDiagramEditor().refresh();
+					getDiagramTypeProvider().getDiagramBehavior().refresh();
 				}
 			}
 
@@ -132,14 +132,14 @@ public class DomainModelChangeListener implements ResourceSetListener {
 	}
 
 	private IDiagramTypeProvider getDiagramTypeProvider() {
-		return getDiagramEditor().getDiagramTypeProvider();
+		return getDiagramBehavior().getDiagramTypeProvider();
 	}
 
-	private IDiagramEditor getDiagramEditor() {
-		return diagramEditor;
+	private DiagramBehavior getDiagramBehavior() {
+		return diagramBehavior;
 	}
 
-	private void setDiagramEditor(IDiagramEditor diagramEditor) {
-		this.diagramEditor = diagramEditor;
+	private void setDiagramBehavior(DiagramBehavior diagramBehavior) {
+		this.diagramBehavior = diagramBehavior;
 	}
 }

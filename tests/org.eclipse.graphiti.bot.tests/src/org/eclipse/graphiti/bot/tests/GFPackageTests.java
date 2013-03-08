@@ -13,6 +13,7 @@
  *    mgorning - Bug 371671 - addGraphicalRepresentation returns null in dark mode
  *    mwenz - Felix Velasco - Bug 374918 - Let default paste use LocalSelectionTransfer
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -74,6 +75,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.testtool.ecore.TestDiagramTypeProvider;
 import org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.features.AbstractPasteFeature;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
@@ -107,7 +109,7 @@ public class GFPackageTests extends AbstractGFTests {
 			// Bug 363539: assure that feature execution in dummy editor works
 			final boolean[] canExecuteCalled = { false };
 			final boolean[] executeCalled = { false };
-			dtp.getDiagramEditor().executeFeature(new AbstractFeature(dtp.getFeatureProvider()) {
+			dtp.getDiagramBehavior().executeFeature(new AbstractFeature(dtp.getFeatureProvider()) {
 				public boolean canExecute(IContext context) {
 					canExecuteCalled[0] = true;
 					return true;
@@ -133,7 +135,7 @@ public class GFPackageTests extends AbstractGFTests {
 				}
 			};
 
-			Object result = dtp.getDiagramEditor().executeFeature(addFeature, new AddContext());
+			Object result = dtp.getDiagramBehavior().executeFeature(addFeature, new AddContext());
 			assertTrue(result instanceof Shape);
 		}
 	}
@@ -182,7 +184,7 @@ public class GFPackageTests extends AbstractGFTests {
 		assertNotNull(myConfigurableFeatureProviderWrapper.getAddFeature(addContext));
 
 		// test canLayout
-		DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		PictogramElement pe = getPictogramElement(diagramEditor);
 		LayoutContext layoutContext = new LayoutContext(pe);
 		assertFalse(myConfigurableFeatureProviderWrapper.canLayout(layoutContext).toBoolean());
@@ -195,7 +197,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 		String s = null;
 		TestDiagramTypeProvider myDiagramTypeProvider = new TestDiagramTypeProvider();
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 		myDiagramTypeProvider.init(diagram, diagramEditor);
 		PictogramElement pe = getPictogramElement(diagramEditor);
@@ -320,7 +322,7 @@ public class GFPackageTests extends AbstractGFTests {
 		if (linkForPictogramElement != null) {
 			final EList<EObject> businessObject = linkForPictogramElement.getBusinessObjects();
 			if (businessObject != null && !businessObject.isEmpty()) {
-				executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+				executeInRecordingCommandInUIThread(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						businessObject.removeAll(businessObject);
 					}
@@ -340,7 +342,7 @@ public class GFPackageTests extends AbstractGFTests {
 	@Test
 	public void testGraphitiPasteTwoDiagrams() throws Exception {
 		TestDiagramTypeProvider myDiagramTypeProvider = new TestDiagramTypeProvider();
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 		myDiagramTypeProvider.init(diagram, diagramEditor);
 		PictogramElement pe = getPictogramElement(diagramEditor);
@@ -365,7 +367,7 @@ public class GFPackageTests extends AbstractGFTests {
 
 		// Test paste in a second diagram
 		TestDiagramTypeProvider myDiagramTypeProvider2 = new TestDiagramTypeProvider();
-		final DiagramEditor diagramEditor2 = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE, "xmi", "diagram2");
+		final IDiagramContainerUI diagramEditor2 = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE, "xmi", "diagram2");
 		final Diagram diagram2 = diagramEditor2.getDiagramTypeProvider().getDiagram();
 		myDiagramTypeProvider2.init(diagram2, diagramEditor2);
 		final MyPasteFeature myPasteFeature = new MyPasteFeature(myDiagramTypeProvider2.getFeatureProvider(), diagram2);
@@ -391,7 +393,7 @@ public class GFPackageTests extends AbstractGFTests {
 		page.closeAllEditors();
 	}
 
-	private PictogramElement getPictogramElement(DiagramEditor diagramEditor) {
+	private PictogramElement getPictogramElement(IDiagramContainerUI diagramEditor) {
 
 		Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 		addClassesAndReferencesToDiagram(diagramEditor);
@@ -403,13 +405,13 @@ public class GFPackageTests extends AbstractGFTests {
 		return pe;
 	}
 
-	private void addClassesAndReferencesToDiagram(final DiagramEditor diagramEditor) {
+	private void addClassesAndReferencesToDiagram(final IDiagramContainerUI diagramEditor) {
 		syncExec(new VoidResult() {
 			public void run() {
 				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor, new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200,
 								"ConnectionDecorator");
@@ -517,13 +519,13 @@ public class GFPackageTests extends AbstractGFTests {
 		expect(diagramMock.getConnections()).andReturn(connections).anyTimes();
 		replay(diagramMock);
 
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
 
 		IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 		final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-		executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+		executeInRecordingCommandInUIThread(diagramEditor.getDiagramBehavior(), new Runnable() {
 			public void run() {
 				addClassesAndReferenceToDiagram(fp, currentDiagram, -100, -100, "Connection", -700, -200,
 						"ConnectionDecorator");

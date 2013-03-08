@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -28,7 +29,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.internal.util.T;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionDecoratorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.DiagramEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
@@ -52,11 +53,11 @@ class DiagramRefreshJob extends UIJob {
 
 	private boolean refreshAll = false;
 
-	private DiagramEditor ed;
+	private DiagramBehavior diagramBehavior;
 
-	DiagramRefreshJob(String name, DiagramEditor ed) {
+	DiagramRefreshJob(String name, DiagramBehavior diagramBehavior) {
 		super(name);
-		this.ed = ed;
+		this.diagramBehavior = diagramBehavior;
 	}
 
 	void addEditPart(EditPart ep) {
@@ -94,21 +95,22 @@ class DiagramRefreshJob extends UIJob {
 			}
 		}
 
-		ed.getRefreshBehavior().initRefresh();
+		diagramBehavior.getRefreshBehavior().initRefresh();
 		// prove if switch to auto activate direct editing is required
 		// if yes, call always global editor refresh -> this refresh will activate the direct editing
-		IDirectEditingInfo dei = ed.getDiagramTypeProvider().getFeatureProvider().getDirectEditingInfo();
+		IDirectEditingInfo dei = diagramBehavior.getDiagramTypeProvider().getFeatureProvider().getDirectEditingInfo();
 		if (refreshAll || dei.isActive()) {
-			ed.refresh();
+			diagramBehavior.refresh();
 		} else {
 			for (EditPart ep : editParts) {
 				if (!hasNewParent(ep)) {
-					ed.getRefreshBehavior().internalRefreshEditPart(ep);
+					diagramBehavior.getRefreshBehavior().internalRefreshEditPart(ep);
 				}
 			}
 			// refresh all active connection decorators
 			@SuppressWarnings({ "unchecked" })
-			Set<Entry> entrySet = ed.getGraphicalViewer().getEditPartRegistry().entrySet();
+			Set<Entry> entrySet = diagramBehavior.getDiagramContainer().getGraphicalViewer().getEditPartRegistry()
+					.entrySet();
 			for (Entry e : entrySet) {
 				Object value = e.getValue();
 				if (value instanceof ConnectionDecoratorEditPart) {
@@ -116,7 +118,7 @@ class DiagramRefreshJob extends UIJob {
 					ep.refresh();
 				}
 			}
-			ed.selectBufferedPictogramElements();
+			diagramBehavior.selectBufferedPictogramElements();
 		}
 
 		refreshAll = false;

@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 375533 - Problems with copy&paste in the tutorial
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -29,7 +30,7 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IPasteContext;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.internal.Messages;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.util.clipboard.ModelClipboard;
 
 /**
@@ -76,7 +77,8 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 	 *             if not called from UI thread
 	 */
 	protected Object[] getFromClipboard() {
-		return ModelClipboard.getDefault().getContentAsEObjects(getDiagramEditor().getResourceSet());
+		return ModelClipboard.getDefault().getContentAsEObjects(
+				getDiagramBehavior().getEditingDomain().getResourceSet());
 	}
 
 	/**
@@ -93,7 +95,8 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 	 * @see #isCompositionAllowed(EObject, EObject[])
 	 */
 	protected Object[] getCopiesFromClipBoard(Object target) {
-		return ModelClipboard.getDefault().duplicateAndPaste(target, getDiagramEditor().getEditingDomain()).toArray();
+		return ModelClipboard.getDefault().duplicateAndPaste(target, getDiagramBehavior().getEditingDomain())
+				.toArray();
 	}
 
 	/**
@@ -114,7 +117,7 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 
 	/**
 	 * Checks if the given {@link EObject} can be resolved in the local
-	 * {@link EditingDomain} of the current {@link DiagramEditor}. Pasting an
+	 * {@link EditingDomain} of the current {@link DiagramBehavior}. Pasting an
 	 * EObject that is not resolvable (e.g. it was just created in another
 	 * editor and has not yet been persisted) may cause issues with the
 	 * graphical presentation of the new object: the Graphiti update will not
@@ -141,9 +144,9 @@ public abstract class AbstractPasteFeature extends AbstractFeature implements IP
 		// create a new Resource instance for newly created and not yet
 		// saved Resources, no matter if they already exist within the
 		// ResourceSet or not
-		EObject resolved = getDiagramEditor().getResourceSet().getEObject(uri, false);
+		EObject resolved = getDiagramBehavior().getEditingDomain().getResourceSet().getEObject(uri, false);
 		if (resolved == null) {
-			resolved = getDiagramEditor().getResourceSet().getEObject(uri, true);
+			resolved = getDiagramBehavior().getEditingDomain().getResourceSet().getEObject(uri, true);
 		}
 		return resolved != null;
 	}

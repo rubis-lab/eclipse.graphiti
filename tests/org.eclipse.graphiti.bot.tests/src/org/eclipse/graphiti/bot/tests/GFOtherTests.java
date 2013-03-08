@@ -19,6 +19,7 @@
  *    mwenz - Bug 367204 - Correctly return the added PE inAbstractFeatureProvider's addIfPossible method
  *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
  *    mwenz - Bug 378342 - Cannot store more than a diagram per file
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -121,6 +122,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInputFactory;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.features.AbstractDrillDownFeature;
 import org.eclipse.graphiti.ui.internal.IResourceRegistry;
 import org.eclipse.graphiti.ui.internal.IResourceRegistryHolder;
@@ -169,7 +171,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testOnEcoreDiagram() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -177,7 +179,7 @@ public class GFOtherTests extends AbstractGFTests {
 				final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor, new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						addClassesAndReferenceToDiagram(fp, currentDiagram, 100, 100, "Connection", 700, 200, "ConnectionDecorator");
 					}
@@ -193,7 +195,7 @@ public class GFOtherTests extends AbstractGFTests {
 				final Shape shape = findShapeForEClass(currentDiagram, "Connection");
 				// waitForRefresh();
 				diagramEditor.selectPictogramElements(new PictogramElement[] { shape });
-				executeInRecordingCommand(diagramEditor, new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						moveClassShape(fp, currentDiagram, 10, 30, "Connection");
 						removeClassShape(fp, currentDiagram, "ConnectionDecorator");
@@ -201,9 +203,9 @@ public class GFOtherTests extends AbstractGFTests {
 				});
 
 				// Test refreshes
-				diagramEditor.refreshContent();
-				diagramEditor.refreshPalette();
-				diagramEditor.refreshRenderingDecorators(shape);
+				diagramEditor.getDiagramBehavior().refreshContent();
+				diagramEditor.getDiagramBehavior().refreshPalette();
+				diagramEditor.getDiagramBehavior().refreshRenderingDecorators(shape);
 				diagramEditor.refreshTitleToolTip();
 			}
 
@@ -224,7 +226,7 @@ public class GFOtherTests extends AbstractGFTests {
 		 * selectionFigure which is in case of the tutorial different from the
 		 * figure holding the tooltip. See Bugzilla 348662 for details.
 		 */
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_TUTORIAL);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_TUTORIAL);
 
 		/*
 		 * Open a new diagram containing just one class
@@ -232,7 +234,7 @@ public class GFOtherTests extends AbstractGFTests {
 		final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 		final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-		executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+		executeInRecordingCommandInUIThread(diagramEditor.getDiagramBehavior(), new Runnable() {
 			public void run() {
 				/*
 				 * Reuse of functionality originally written to add classes for
@@ -261,7 +263,7 @@ public class GFOtherTests extends AbstractGFTests {
 		if (bo instanceof EClass) {
 			final EClass eClass = (EClass) bo;
 			// Change the tooltip to something else and check it
-			executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+			executeInRecordingCommandInUIThread(diagramEditor.getDiagramBehavior(), new Runnable() {
 				public void run() {
 					eClass.setName("Changed");
 					Text text = (Text) tooltipShape.getChildren().get(1).getGraphicsAlgorithm();
@@ -291,7 +293,7 @@ public class GFOtherTests extends AbstractGFTests {
 		bo = diagramTypeProvider.getFeatureProvider().getBusinessObjectForPictogramElement(tooltipShape3);
 		if (bo instanceof EClass) {
 			final EClass eClass = (EClass) bo;
-			executeInRecordingCommandInUIThread(diagramEditor, new Runnable() {
+			executeInRecordingCommandInUIThread(diagramEditor.getDiagramBehavior(), new Runnable() {
 				public void run() {
 					// Change the tooltip to null and check it
 					eClass.setName(""); // Empty name means no tooltip
@@ -314,13 +316,13 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testUndoRedo() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
 		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 		final Diagram diagram = diagramTypeProvider.getDiagram();
 		syncExec(new VoidResult() {
 			public void run() {
-				executeInRecordingCommand(diagramEditor, new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						addClassToDiagram(fp, diagram, 500, 500, "Shape");
 						addClassToDiagram(fp, diagram, 100, 100, "ContainerShape");
@@ -331,7 +333,7 @@ public class GFOtherTests extends AbstractGFTests {
 				});
 
 				// get UnDoStack
-				TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+				TransactionalEditingDomain editingDomain = diagramEditor.getDiagramBehavior().getEditingDomain();
 				org.eclipse.emf.common.command.CommandStack cmdStack = editingDomain.getCommandStack();
 
 				// process "undo" until UnDoStack is empty
@@ -355,10 +357,10 @@ public class GFOtherTests extends AbstractGFTests {
 	 */
 	@Test
 	public void testRollback() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final IFeatureProvider fp = diagramEditor.getDiagramTypeProvider().getFeatureProvider();
 		final Diagram diagram = fp.getDiagramTypeProvider().getDiagram();
-		executeInRecordingCommand(diagramEditor, new Runnable() {
+		executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 			public void run() {
 				addClassToDiagram(fp, diagram, 500, 500, "Shape");
 				// enforce roll-back
@@ -373,7 +375,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testAbstractDrillDownFeature() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		Object rootModelObject = diagramEditor.getGraphicalViewer().getContents().getModel();
 		assertTrue(rootModelObject instanceof Diagram);
 		Diagram diagram = (Diagram) rootModelObject;
@@ -436,7 +438,8 @@ public class GFOtherTests extends AbstractGFTests {
 		@Override
 		protected Collection<Diagram> getDiagrams() {
 			final Collection<Diagram> ret = new HashSet<Diagram>();
-			for (final TreeIterator<?> i = getDiagramEditor().getResourceSet().getAllContents(); i.hasNext();) {
+			for (final TreeIterator<?> i = getDiagramBehavior().getEditingDomain().getResourceSet().getAllContents(); i
+					.hasNext();) {
 				final Object child = i.next();
 				if (child instanceof Diagram) {
 					ret.add((Diagram) child);
@@ -468,7 +471,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 	@Test
 	public void testOnSketchDiagram() throws Exception {
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -1106,7 +1109,7 @@ public class GFOtherTests extends AbstractGFTests {
 	public void testAutoUpdateAtStartup() throws Exception {
 		// Test for Bug 356218 - DefaultUpdateDiagramFeature correctly
 		// triggered via editor command stack
-		DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_WITH_AUTO_UPDATE_AT_STARTUP);
+		IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_WITH_AUTO_UPDATE_AT_STARTUP);
 		Thread.sleep(1000);
 		assertFalse(diagramEditor.isDirty());
 	}
@@ -1117,7 +1120,7 @@ public class GFOtherTests extends AbstractGFTests {
 		 * Test for Bug 367204 - AbstractFeatureProvider's addIfPossible method
 		 * should return added {@link PictogramElement}
 		 */
-		final DiagramEditor diagramEditor = openDiagram(ITestConstants.DIAGRAM_TYPE_ID_TUTORIAL);
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_TUTORIAL);
 
 		syncExec(new VoidResult() {
 			public void run() {
@@ -1126,7 +1129,7 @@ public class GFOtherTests extends AbstractGFTests {
 				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
 
 				final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
-				executeInRecordingCommand(diagramEditor, new Runnable() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
 					public void run() {
 						EClass eClass = createEClass(diagram, "Class1");
 
@@ -1147,7 +1150,7 @@ public class GFOtherTests extends AbstractGFTests {
 	 * exceptions
 	 */
 	@Test
-	public void testOpenEditorWithInvalidUrl() throws Exception {
+	public void testOpenDiagramEditorWithInvalidUrl() throws Exception {
 		IFile diagFile = createInitialDiagramFile();
 		diagFile.delete(true, new NullProgressMonitor());
 
@@ -1187,7 +1190,7 @@ public class GFOtherTests extends AbstractGFTests {
 	 * Test for Bug 378342 - Cannot store more than a diagram per file
 	 */
 	@Test
-	public void testOpenDiagramWithTwoDiagramsInResource() throws Exception {
+	public void testOpenDiagramEditorWithTwoDiagramsInResource() throws Exception {
 		String fileName = createDiagramFileName("xmi");
 		URI diagramUri = createDiagramFileUri(fileName);
 		// Create a resource set and EditingDomain
@@ -1227,8 +1230,8 @@ public class GFOtherTests extends AbstractGFTests {
 					{
 						DiagramEditorInput input1 = new DiagramEditorInput(diagramUri1,
 								"org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider");
-						DiagramEditor editor1;
-						editor1 = (DiagramEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+						IDiagramContainerUI editor1;
+						editor1 = (IDiagramContainerUI) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 								.openEditor(input1, DiagramEditor.DIAGRAM_EDITOR_ID);
 						assertEquals("Diagram1", editor1.getDiagramTypeProvider().getDiagram().getName());
 					}
@@ -1237,19 +1240,19 @@ public class GFOtherTests extends AbstractGFTests {
 					{
 						DiagramEditorInput input2 = new DiagramEditorInput(diagramUri2,
 								"org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider");
-						DiagramEditor editor2 = (DiagramEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						IDiagramContainerUI editor2 = (IDiagramContainerUI) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 								.getActivePage().openEditor(input2, DiagramEditor.DIAGRAM_EDITOR_ID);
 						assertEquals("Diagram2", editor2.getDiagramTypeProvider().getDiagram().getName());
 					}
 
 					page.closeAllEditors();
 
-					DiagramEditor editor3;
+					IDiagramContainerUI editor3;
 					{
 						// Open editor for default diagram in file
 						DiagramEditorInput input3 = new DiagramEditorInput(resourceUri,
 								"org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider");
-						editor3 = (DiagramEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+						editor3 = (IDiagramContainerUI) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 								.openEditor(input3, DiagramEditor.DIAGRAM_EDITOR_ID);
 						assertEquals("Diagram1", editor3.getDiagramTypeProvider().getDiagram().getName());
 					}
@@ -1258,7 +1261,7 @@ public class GFOtherTests extends AbstractGFTests {
 					{
 						DiagramEditorInput input4 = new DiagramEditorInput(diagramUri1,
 								"org.eclipse.graphiti.testtool.sketch.SketchDiagramTypeProvider");
-						DiagramEditor editor4 = (DiagramEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						IDiagramContainerUI editor4 = (IDiagramContainerUI) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 								.getActivePage().openEditor(input4, DiagramEditor.DIAGRAM_EDITOR_ID);
 						assertEquals("Diagram1", editor4.getDiagramTypeProvider().getDiagram().getName());
 						assertEquals(editor3, editor4);

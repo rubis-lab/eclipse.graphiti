@@ -16,6 +16,8 @@
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    cbrand - Bug 377783 - Dump for figures in connection layer needed
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    pjpaulin - Bug 352120 - Add certain menu options only if local transaction
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -30,7 +32,6 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.graphiti.datatypes.ILocation;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IPrintFeature;
@@ -57,6 +58,7 @@ import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
 import org.eclipse.graphiti.ui.internal.parts.CompositeConnectionEditPart;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.ILocationInfo;
 import org.eclipse.jface.action.ActionContributionItem;
@@ -80,7 +82,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 
 	private final ActionRegistry actionRegistry;
 
-	private final IDiagramTypeProvider diagramTypeProvider;
+	private final IConfigurationProvider configurationProvider;
 
 	/**
 	 * Creates a new DiagramEditorContextMenuProvider.
@@ -93,18 +95,19 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            to the menu-items.
 	 * @param configurationProvider
 	 *            the configuration provider
-	 * @since 0.9
+	 * @since 0.10
 	 */
-	public DiagramEditorContextMenuProvider(EditPartViewer viewer, ActionRegistry registry, IDiagramTypeProvider diagramTypeProvider) {
+	public DiagramEditorContextMenuProvider(EditPartViewer viewer, ActionRegistry registry,
+			IConfigurationProvider configurationProvider) {
 		super(viewer);
 		if (registry == null) {
 			throw new IllegalArgumentException("Argument registry must not be null"); //$NON-NLS-1$
 		}
 		this.actionRegistry = registry;
-		if (diagramTypeProvider == null) {
+		if (configurationProvider == null) {
 			throw new IllegalArgumentException("Argument configurationProvider must not be null"); //$NON-NLS-1$
 		}
-		this.diagramTypeProvider = diagramTypeProvider;
+		this.configurationProvider = configurationProvider;
 	}
 
 	/**
@@ -118,6 +121,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	@Override
 	public void buildContextMenu(IMenuManager manager) {
 		GEFActionConstants.addStandardActionGroups(manager);
+
 		addDefaultMenuGroupUndo(manager);
 		addDefaultMenuGroupSave(manager);
 		addDefaultMenuGroupEdit(manager);
@@ -166,7 +170,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            the manager
 	 */
 	protected void addDefaultMenuGroupPrint(IMenuManager manager) {
-		IFeatureProvider fp = getDiagramTypeProvider().getFeatureProvider();
+		IFeatureProvider fp = configurationProvider.getDiagramTypeProvider().getFeatureProvider();
 		if (fp != null) {
 			IPrintFeature pf = fp.getPrintFeature();
 
@@ -200,12 +204,12 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 			}
 		}
 
-		IToolBehaviorProvider tb = getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+		IToolBehaviorProvider tb = configurationProvider.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 
 		IContextMenuEntry[] contextMenuEntries = tb.getContextMenu(context);
 
 		if (GFPreferences.getInstance().areDebugActionsActive()) {
-			IFeatureProvider fp = getDiagramTypeProvider().getFeatureProvider();
+			IFeatureProvider fp = configurationProvider.getDiagramTypeProvider().getFeatureProvider();
 			ContextMenuEntry debugEntry = new ContextMenuEntry(null, context);
 			debugEntry.setText("Debug"); //$NON-NLS-1$
 			debugEntry.setSubmenu(true);
@@ -236,14 +240,15 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 			if (cmEntry.getChildren().length == 0) {
 				IFeature feature = cmEntry.getFeature();
 				if (feature instanceof ICustomFeature && feature.isAvailable(context)) {
-					IAction action = new CustomAction((ICustomFeature) feature, context, getEditor());
+					IAction action = new CustomAction((ICustomFeature) feature, context,
+							configurationProvider.getDiagramBehavior());
 					if (textParentEntry != null) {
 						text = textParentEntry + " " + text; //$NON-NLS-1$
 					}
 					action.setText(text);
 					action.setDescription(cmEntry.getDescription());
 					ImageDescriptor image = GraphitiUi.getImageService().getImageDescriptorForId(
-							diagramTypeProvider.getProviderId(), cmEntry.getIconId());
+							configurationProvider.getDiagramTypeProvider().getProviderId(), cmEntry.getIconId());
 					action.setImageDescriptor(image);
 					appendContributionItem(manager, groupID, new ActionContributionItem(action));
 				}
@@ -433,11 +438,7 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 		return ret;
 	}
 
-	private IDiagramTypeProvider getDiagramTypeProvider() {
-		return this.diagramTypeProvider;
-	}
-
-	private DiagramEditor getEditor() {
-		return (DiagramEditor) getDiagramTypeProvider().getDiagramEditor();
+	private DiagramBehavior getEditor() {
+		return configurationProvider.getDiagramBehavior();
 	}
 }

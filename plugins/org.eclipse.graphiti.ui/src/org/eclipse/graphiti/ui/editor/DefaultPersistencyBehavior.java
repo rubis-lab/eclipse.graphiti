@@ -12,6 +12,7 @@
  *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
  *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
  *    mwenz - Bug 393074 - Save Editor Progress Monitor Argument
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -49,21 +50,23 @@ import org.eclipse.jface.operation.ModalContext;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * The default implementation for the {@link DiagramEditor} behavior extension
+ * The default implementation for the {@link DiagramBehavior} behavior extension
  * that controls the persistence behavior of the Graphiti diagram Editor.
  * Clients may subclass to change the behavior; use
- * {@link DiagramEditor#createPersistencyBehavior()} to return the instance that
- * shall be used.<br>
- * Note that there is always a 1:1 relation with a {@link DiagramEditor}.
+ * {@link DiagramBehavior#createPersistencyBehavior()} to return the instance
+ * that shall be used.<br>
+ * Note that there is always a 1:1 relation with a {@link DiagramBehavior}.
  * 
  * @since 0.9
  */
 public class DefaultPersistencyBehavior {
 
 	/**
-	 * The associated {@link DiagramEditor}
+	 * The associated {@link DiagramBehavior}
+	 * 
+	 * @since 0.10
 	 */
-	protected final DiagramEditor diagramEditor;
+	protected final DiagramBehavior diagramBehavior;
 
 	/**
 	 * Used to store the command that was executed before the editor was saved.
@@ -74,13 +77,14 @@ public class DefaultPersistencyBehavior {
 
 	/**
 	 * Creates a new instance of {@link DefaultPersistencyBehavior} that is
-	 * associated with the given {@link DiagramEditor}.
+	 * associated with the given {@link DiagramBehavior}.
 	 * 
 	 * @param diagramEditor
-	 *            the associated {@link DiagramEditor}
+	 *            the associated {@link DiagramBehavior}
+	 * @since 0.10
 	 */
-	public DefaultPersistencyBehavior(DiagramEditor diagramEditor) {
-		this.diagramEditor = diagramEditor;
+	public DefaultPersistencyBehavior(DiagramBehavior diagramBehavior) {
+		this.diagramBehavior = diagramBehavior;
 	}
 
 	/**
@@ -98,7 +102,7 @@ public class DefaultPersistencyBehavior {
 	 */
 	public Diagram loadDiagram(URI uri) {
 		if (uri != null) {
-			final TransactionalEditingDomain editingDomain = diagramEditor.getEditingDomain();
+			final TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
 			if (editingDomain != null) {
 				// First try the URI resolution without loading not yet loaded
 				// resources because calling with loadOnDemand will _always_
@@ -133,14 +137,14 @@ public class DefaultPersistencyBehavior {
 	/**
 	 * This method is called to save a diagram. The default implementation here
 	 * saves all changes done to any of the EMF resources loaded within the
-	 * {@link DiagramEditor} so that the complete state of all modified objects
+	 * {@link DiagramBehavior} so that the complete state of all modified objects
 	 * will be persisted in the file system.<br>
 	 * The default implementation also sets the current version information
 	 * (currently 0.10.0) to the diagram before saving it and wraps the save
 	 * operation inside a {@link IRunnableWithProgress} that cares about sending
 	 * only one {@link Resource} change event holding all modified files.
 	 * Besides also all adapters are temporarily switched off (see
-	 * {@link DiagramEditor#disableAdapters()}).<br>
+	 * {@link DiagramBehavior#disableAdapters()}).<br>
 	 * To only modify the actual saving clients should rather override
 	 * {@link #save(TransactionalEditingDomain, Map)}.
 	 * 
@@ -153,51 +157,51 @@ public class DefaultPersistencyBehavior {
 		}
 
 		// set version info.
-		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
+		final Diagram diagram = diagramBehavior.getDiagramTypeProvider().getDiagram();
 		setDiagramVersion(diagram);
 
 		Map<Resource, Map<?, ?>> saveOptions = createSaveOptions();
 		final Set<Resource> savedResources = new HashSet<Resource>();
 		final IRunnableWithProgress operation = createOperation(savedResources, saveOptions);
 
-		diagramEditor.disableAdapters();
+		diagramBehavior.disableAdapters();
 
 		try {
 			// This runs the options in a background thread reporting progress
 			// to the progress monitor passed into this method (see Bug 393074)
 			ModalContext.run(operation, true, monitor, Display.getCurrent());
 
-			BasicCommandStack commandStack = (BasicCommandStack) diagramEditor.getEditingDomain().getCommandStack();
+			BasicCommandStack commandStack = (BasicCommandStack) diagramBehavior.getEditingDomain().getCommandStack();
 			commandStack.saveIsDone();
 
 			// Store the last executed command on the undo stack as save point
 			// and refresh the dirty state of the editor
 			savedCommand = commandStack.getUndoCommand();
-			diagramEditor.updateDirtyState();
+			diagramBehavior.getDiagramContainer().updateDirtyState();
 		} catch (final Exception exception) {
 			// Something went wrong that shouldn't.
 			T.racer().error(exception.getMessage(), exception);
 		} finally {
-			diagramEditor.enableAdapters();
+			diagramBehavior.enableAdapters();
 		}
 
 		Resource[] savedResourcesArray = savedResources.toArray(new Resource[savedResources.size()]);
-		diagramEditor.commandStackChanged(null);
-		IDiagramTypeProvider provider = diagramEditor.getConfigurationProvider().getDiagramTypeProvider();
-		provider.resourcesSaved(diagramEditor.getDiagramTypeProvider().getDiagram(), savedResourcesArray);
+		diagramBehavior.getDiagramContainer().commandStackChanged(null);
+		IDiagramTypeProvider provider = diagramBehavior.getConfigurationProvider().getDiagramTypeProvider();
+		provider.resourcesSaved(provider.getDiagram(), savedResourcesArray);
 	}
 
 	/**
 	 * Returns if the editor needs to be saved or not. Is queried by the
-	 * {@link DiagramEditor#isDirty()} method. The default implementation checks
-	 * if the top of the current undo stack is equal to the stored top command
-	 * of the undo stack at the time of the last saving of the editor.
+	 * {@link DiagramBehavior#isDirty()} method. The default implementation
+	 * checks if the top of the current undo stack is equal to the stored top
+	 * command of the undo stack at the time of the last saving of the editor.
 	 * 
 	 * @return <code>true</code> in case the editor needs to be saved,
 	 *         <code>false</code> otherwise.
 	 */
 	public boolean isDirty() {
-		BasicCommandStack commandStack = (BasicCommandStack) diagramEditor.getEditingDomain().getCommandStack();
+		BasicCommandStack commandStack = (BasicCommandStack) diagramBehavior.getEditingDomain().getCommandStack();
 		return savedCommand != commandStack.getUndoCommand();
 	}
 
@@ -211,7 +215,7 @@ public class DefaultPersistencyBehavior {
 		// Save only resources that have actually changed.
 		final Map<Object, Object> saveOption = new HashMap<Object, Object>();
 		saveOption.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
-		EList<Resource> resources = diagramEditor.getEditingDomain().getResourceSet().getResources();
+		EList<Resource> resources = diagramBehavior.getEditingDomain().getResourceSet().getResources();
 		final Map<Resource, Map<?, ?>> saveOptions = new HashMap<Resource, Map<?, ?>>();
 		for (Resource resource : resources) {
 			saveOptions.put(resource, saveOption);
@@ -243,7 +247,7 @@ public class DefaultPersistencyBehavior {
 			public void run(IProgressMonitor monitor) {
 				// Save the resources to the file system.
 				try {
-					savedResources.addAll(save(diagramEditor.getEditingDomain(), saveOptions, monitor));
+					savedResources.addAll(save(diagramBehavior.getEditingDomain(), saveOptions, monitor));
 				} catch (final WrappedException e) {
 					final MultiStatus errorStatus = new MultiStatus(GraphitiUIPlugin.PLUGIN_ID, 0, e.getMessage(),
 							e.exception());
@@ -289,8 +293,8 @@ public class DefaultPersistencyBehavior {
 		// Only trigger a command if the version really changes to avoid an
 		// empty entry in the command stack / undo stack
 		if (!IDiagramVersion.CURRENT.equals(diagram.getVersion())) {
-			CommandStack commandStack = diagramEditor.getEditingDomain().getCommandStack();
-			commandStack.execute(new RecordingCommand(diagramEditor.getEditingDomain()) {
+			CommandStack commandStack = diagramBehavior.getEditingDomain().getCommandStack();
+			commandStack.execute(new RecordingCommand(diagramBehavior.getEditingDomain()) {
 				@Override
 				protected void doExecute() {
 					diagram.eSet(PictogramsPackage.eINSTANCE.getDiagram_Version(), IDiagramVersion.CURRENT);

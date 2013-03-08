@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.graphiti.examples.common.outline.ContentOutlinePageAdapterFactory;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -58,7 +58,8 @@ public class ExamplesCommonPlugin extends AbstractUIPlugin {
 		super.start(context);
 
 		IAdapterManager manager = Platform.getAdapterManager();
-		manager.registerAdapters(new ContentOutlinePageAdapterFactory(), DiagramEditor.class);
+		manager.registerAdapters(new ContentOutlinePageAdapterFactory(), IDiagramContainerUI.class);
+		// TODO check if replacement above is ok
 	}
 
 	// ======================== static access methods ==========================

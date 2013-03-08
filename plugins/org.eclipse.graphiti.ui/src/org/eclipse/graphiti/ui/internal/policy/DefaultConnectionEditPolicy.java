@@ -119,7 +119,7 @@ public class DefaultConnectionEditPolicy extends ConnectionEditPolicy {
 			IMoveShapeFeature layoutShapeFeature = featureProvider.getMoveShapeFeature(context);
 			if (layoutShapeFeature != null) {
 				result = new GefCommandWrapper(new MoveShapeFeatureCommandWithContext(layoutShapeFeature, context),
-						getConfigurationProvider().getDiagramEditor().getEditingDomain());
+						getConfigurationProvider().getDiagramBehavior().getEditingDomain());
 			}
 		}
 
@@ -242,7 +242,7 @@ public class DefaultConnectionEditPolicy extends ConnectionEditPolicy {
 
 		GenericFeatureCommandWithContext command = new GenericFeatureCommandWithContext(feature, context);
 
-		return new GefCommandWrapper(command, getConfigurationProvider().getDiagramEditor().getEditingDomain());
+		return new GefCommandWrapper(command, getConfigurationProvider().getDiagramBehavior().getEditingDomain());
 	}
 
 	/**

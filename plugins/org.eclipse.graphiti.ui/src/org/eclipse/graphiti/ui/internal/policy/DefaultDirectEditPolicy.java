@@ -12,6 +12,8 @@
  *    Bug 336488 - DiagramEditor API
  *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *    mwenz - Bug 397346 - Digram Editor loses focus on closing of MessageDialog in Graphiti 
+ *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -31,7 +33,7 @@ import org.eclipse.graphiti.func.IProposal;
 import org.eclipse.graphiti.internal.command.DirectEditingFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ICommand;
 import org.eclipse.graphiti.internal.util.LookManager;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramBehaviorUI;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
@@ -84,7 +86,7 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 			MessageDialog.openError(GraphitiUiInternal.getWorkbenchService().getShell(),
 					Messages.DefaultDirectEditPolicy_0_xmsg, message);
 			if (configurationProvider.getDiagramEditor() != null) {
-				configurationProvider.getDiagramEditor().setFocus();
+				configurationProvider.getDiagramEditor().getWorkbenchPart().setFocus();
 			}
 			return null;
 		}
@@ -136,9 +138,10 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 				value, acceptedProposal);
 
 		final IFeatureProvider fp = directEditingFeature.getFeatureProvider();
-		final DiagramEditor diagramEditor = (DiagramEditor) fp.getDiagramTypeProvider().getDiagramEditor();
-		final CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
-		commandStack.execute(new GefCommandWrapper(cmd, diagramEditor.getEditingDomain()));
+		final IDiagramBehaviorUI diagramBehavior = (IDiagramBehaviorUI) fp.getDiagramTypeProvider()
+				.getDiagramBehavior();
+		final CommandStack commandStack = diagramBehavior.getEditDomain().getCommandStack();
+		commandStack.execute(new GefCommandWrapper(cmd, diagramBehavior.getEditingDomain()));
 		// CommandExec.getSingleton().executeCommand(cmd, fp.getConnection());
 
 		return null;

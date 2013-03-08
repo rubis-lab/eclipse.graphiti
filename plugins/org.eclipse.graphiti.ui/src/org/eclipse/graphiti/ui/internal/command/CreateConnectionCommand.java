@@ -16,6 +16,7 @@
  *    mgorning - Bug 329517 - state call backs during creation of a connection
  *    Bug 336488 - DiagramEditor API
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *
  * </copyright>
  *
@@ -45,7 +46,7 @@ import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramBehaviorUI;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.util.ui.PopupMenu;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
@@ -162,8 +163,9 @@ public class CreateConnectionCommand extends AbstractCommand {
 		CustomContext customContext = new CustomContext();
 		customContext.setPictogramElements(new PictogramElement[] { sourceObject, targetObject });
 
-		DiagramEditor diagramEditor = (DiagramEditor) getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
-		Point newLocation = diagramEditor.calculateRealMouseLocation(location);
+		IDiagramBehaviorUI diagramBehavior = (IDiagramBehaviorUI) getFeatureProvider().getDiagramTypeProvider()
+				.getDiagramBehavior();
+		Point newLocation = diagramBehavior.calculateRealMouseLocation(location);
 		customContext.setLocation(newLocation.x, newLocation.y);
 
 		List<GenericFeatureCommandWithContext> commands = new ArrayList<GenericFeatureCommandWithContext>();
@@ -371,9 +373,9 @@ public class CreateConnectionCommand extends AbstractCommand {
 		if (location == null) {
 			return null;
 		}
-		DiagramEditor diagramEditor = (DiagramEditor) getFeatureProvider().getDiagramTypeProvider()
-				.getDiagramEditor();
-		Point realLocation = diagramEditor.calculateRealMouseLocation(location);
+		IDiagramBehaviorUI diagramBehavior = (IDiagramBehaviorUI) getFeatureProvider().getDiagramTypeProvider()
+				.getDiagramBehavior();
+		Point realLocation = diagramBehavior.calculateRealMouseLocation(location);
 		ILocation currentLocation = new LocationImpl(realLocation.x, realLocation.y);
 		return currentLocation;
 	}

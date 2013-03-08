@@ -12,6 +12,8 @@
  *    mwenz - Bug 352709 - invalid image provider id crashes diagram editor
  *    fvelasco - Bug 323349 - Enable external invocation of features
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *
  * </copyright>
  *
  *******************************************************************************/
@@ -41,7 +43,7 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.internal.util.T;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.editor.DiagramEditorDummy;
 import org.eclipse.graphiti.ui.internal.util.ui.print.IDiagramsExporter;
 import org.eclipse.graphiti.ui.platform.IImageProvider;
@@ -242,7 +244,7 @@ public class ExtensionManager implements IExtensionManager {
 					}
 					String context = element.getAttribute(EP_ATTRIBUTE_CONTEXT);
 					if (context == null) {
-						context = DiagramEditor.DIAGRAM_CONTEXT_ID;
+						context = IDiagramContainerUI.DIAGRAM_CONTEXT_ID;
 					}
 					if (name != null) {
 						// read direct references to image extensions and try to
