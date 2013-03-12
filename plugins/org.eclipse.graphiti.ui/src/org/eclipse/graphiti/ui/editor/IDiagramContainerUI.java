@@ -65,8 +65,8 @@ import org.eclipse.ui.IWorkbenchPartSite;
 public interface IDiagramContainerUI extends IDiagramContainer, IAdaptable {
 
 	/**
-	 * The ID of the context as it is registed with the org.eclipse.ui.contexts
-	 * extension point.
+	 * The ID of the context as it is registered with the
+	 * org.eclipse.ui.contexts extension point.
 	 * 
 	 * @since 0.10
 	 */

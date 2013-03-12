@@ -102,18 +102,27 @@ public abstract class GFPropertySection extends AbstractPropertySection implemen
 	 */
 	protected IDiagramEditor getDiagramEditor() {
 		IWorkbenchPart part = getPart();
-		if (part instanceof IDiagramEditor) {
-			return (IDiagramEditor) part;
+
+		IDiagramEditor ret = checkAdapter(part, IDiagramEditor.class);
+		if (ret != null) {
+			return ret;
 		}
 		IContributedContentsView contributedView = (IContributedContentsView) part.getAdapter(IContributedContentsView.class);
 		if (contributedView != null) {
 			part = contributedView.getContributingPart();
 		}
-		if (part instanceof IDiagramEditor) {
-			return (IDiagramEditor) part;
+
+		ret = checkAdapter(part, IDiagramEditor.class);
+		return ret;
+	}
+
+	@SuppressWarnings("unchecked")
+	private <U> U checkAdapter(IAdaptable adaptable, Class<U> clazz) {
+		if (clazz.isInstance(adaptable)) {
+			return (U) adaptable;
 		}
 
-		return null;
+		return (U) adaptable.getAdapter(clazz);
 	}
 
 	/**
@@ -122,19 +131,18 @@ public abstract class GFPropertySection extends AbstractPropertySection implemen
 	 */
 	protected IDiagramContainer getDiagramContainer() {
 		IWorkbenchPart part = getPart();
-		if (part instanceof IDiagramContainer) {
-			return (IDiagramContainer) part;
+		IDiagramContainer ret = checkAdapter(part, IDiagramContainer.class);
+		if (ret != null) {
+			return ret;
 		}
+
 		IContributedContentsView contributedView = (IContributedContentsView) part
 				.getAdapter(IContributedContentsView.class);
 		if (contributedView != null) {
 			part = contributedView.getContributingPart();
 		}
-		if (part instanceof IDiagramContainer) {
-			return (IDiagramContainer) part;
-		}
-
-		return null;
+		ret = checkAdapter(part, IDiagramContainer.class);
+		return ret;
 	}
 
 	/**
