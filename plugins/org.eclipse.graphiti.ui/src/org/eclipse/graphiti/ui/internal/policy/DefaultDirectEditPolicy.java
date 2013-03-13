@@ -85,8 +85,9 @@ public class DefaultDirectEditPolicy extends DirectEditPolicy {
 		if (message != null && message.length() != 0) {
 			MessageDialog.openError(GraphitiUiInternal.getWorkbenchService().getShell(),
 					Messages.DefaultDirectEditPolicy_0_xmsg, message);
-			if (configurationProvider.getDiagramEditor() != null) {
-				configurationProvider.getDiagramEditor().getWorkbenchPart().setFocus();
+			if (configurationProvider.getDiagramContainer() != null
+					&& configurationProvider.getDiagramContainer().getWorkbenchPart() != null) {
+				configurationProvider.getDiagramContainer().getWorkbenchPart().setFocus();
 			}
 			return null;
 		}
