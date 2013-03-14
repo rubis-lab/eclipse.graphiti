@@ -143,14 +143,26 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	public static final String DIAGRAM_EDITOR_ID = "org.eclipse.graphiti.ui.editor.DiagramEditor"; //$NON-NLS-1$
 
 	/**
-	 * Creates a new diagram editor and cares about the creation of the
-	 * different behavior extensions by delegating to the various
-	 * create*Behavior() methods.
+	 * Creates a new diagram editor and cares about the creation of behavior
+	 * extension by delegating to the createDiagramBehavior() method.
 	 */
 	public DiagramEditor() {
 		super();
-		diagramBehavior = new DiagramBehavior(this);
-		diagramBehavior.setParentPart(this);
+		diagramBehavior = createDiagramBehavior();
+	}
+
+	/**
+	 * Creates the diagram behavior that deals with the main functionality. See
+	 * {@link DiagramBehavior} for details and the base implementation. Override
+	 * to change the behavior.
+	 * 
+	 * @return a new instance of {@link DiagramBehavior}
+	 * @since 0.10
+	 */
+	protected DiagramBehavior createDiagramBehavior() {
+		DiagramBehavior diagramBehavior = new DiagramBehavior(this);
+
+		return diagramBehavior;
 	}
 
 	/**

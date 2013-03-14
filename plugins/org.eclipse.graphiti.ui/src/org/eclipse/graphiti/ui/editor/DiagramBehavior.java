@@ -181,7 +181,9 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		paletteBehaviour = createPaletteBehaviour();
 		persistencyBehavior = createPersistencyBehavior();
 		refreshBehavior = createRefreshBehavior();
-
+		if (diagramContainer instanceof IWorkbenchPart) {
+			setParentPart((IWorkbenchPart) diagramContainer);
+		}
 	}
 
 	/**

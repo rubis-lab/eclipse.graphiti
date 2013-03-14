@@ -50,15 +50,50 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	private DiagramBehavior diagramBehavior;
 
+	/**
+	 * Creates a new diagram composite and cares about the creation of behavior
+	 * extension by delegating to the createDiagramBehavior() method.
+	 * 
+	 * If the DiagramComposite is not the only control in the IWorkbenchpart,
+	 * you may simply pass null as owned part, or use the other, simpler,
+	 * constructor.
+	 * 
+	 */
 	public DiagramComposite(IWorkbenchPart ownedPart, Composite parent, int style) {
 		super(parent, style);
-		diagramBehavior = new DiagramBehavior(this);
-		diagramBehavior.setParentPart(ownedPart);
+		diagramBehavior = createDiagramBehavior(ownedPart);
 		setEditDomain(new DefaultEditDomain(null));
 	}
 
+	/**
+	 * Creates a new diagram composite and cares about the creation of behavior
+	 * extension by delegating to the createDiagramBehavior() method.
+	 * 
+	 * This constructor does not take control of the containing part. It should
+	 * be used if there are more than one diagram in a given editor, or if the
+	 * diagram is in a dialog, for instance.
+	 * 
+	 */
 	public DiagramComposite(Composite parent, int style) {
 		this(null, parent, style);
+	}
+
+	/**
+	 * Creates the diagram behavior that deals with the main functionality. See
+	 * {@link DiagramBehavior} for details and the base implementation. Override
+	 * to change the behavior.
+	 * 
+	 * @param ownedPart
+	 *            The IWorkbenchPart where this diagram lies. <b>May be null</b>
+	 *            if the diagram is not in a IWorkbenchPart, or is not the only
+	 *            diagram in it.
+	 * @return a new instance of {@link DiagramBehavior}
+	 */
+	protected DiagramBehavior createDiagramBehavior(IWorkbenchPart ownedPart) {
+		DiagramBehavior diagramBehavior = new DiagramBehavior(this);
+		diagramBehavior.setParentPart(ownedPart);
+
+		return diagramBehavior;
 	}
 
 	public void setInput(IDiagramEditorInput input) {
