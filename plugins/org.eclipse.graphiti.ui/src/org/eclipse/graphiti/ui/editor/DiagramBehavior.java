@@ -29,6 +29,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -174,14 +175,14 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	private IWorkbenchPart parentPart;
 
-	public DiagramBehavior(IDiagramContainerUI diagramContainer) {
+	public DiagramBehavior(IDiagramContainerUI diagramContainer, IWorkbenchPart parentPart) {
 		this.diagramContainer = diagramContainer;
+		this.parentPart = parentPart;
 		markerBehavior = createMarkerBehavior();
 		updateBehavior = createUpdateBehavior();
 		paletteBehaviour = createPaletteBehaviour();
 		persistencyBehavior = createPersistencyBehavior();
 		refreshBehavior = createRefreshBehavior();
-
 	}
 
 	/**
@@ -1667,16 +1668,6 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 */
 	public DefaultEditDomain getEditDomain() {
 		return diagramContainer.getEditDomain();
-	}
-
-	/**
-	 * Sets the parent {@link IWorkbenchPart} for this behavior. Can be used to
-	 * embed this behavior in various UIs.
-	 * 
-	 * @param parentPart
-	 */
-	protected void setParentPart(IWorkbenchPart parentPart) {
-		this.parentPart = parentPart;
 	}
 
 	/**
