@@ -61,6 +61,20 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 		this(null, parent, style);
 	}
 
+	/**
+	 * Creates the diagram behavior that deals with the main functionality. See
+	 * {@link DiagramBehavior} for details and the base implementation. Override
+	 * to change the behavior.
+	 * 
+	 * @return a new instance of {@link DiagramBehavior}
+	 */
+	protected DiagramBehavior createDiagramBehavior(IWorkbenchPart ownedPart) {
+		DiagramBehavior diagramBehavior = new DiagramBehavior(this);
+		diagramBehavior.setParentPart(ownedPart);
+
+		return diagramBehavior;
+	}
+
 	public void setInput(IDiagramEditorInput input) {
 		TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService()
 				.createResourceSetAndEditingDomain();

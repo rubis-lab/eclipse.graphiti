@@ -149,8 +149,22 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	public DiagramEditor() {
 		super();
-		diagramBehavior = new DiagramBehavior(this);
+		diagramBehavior = createDiagramBehavior();
+	}
+
+	/**
+	 * Creates the diagram behavior that deals with the main functionality. See
+	 * {@link DiagramBehavior} for details and the base implementation. Override
+	 * to change the behavior.
+	 * 
+	 * @return a new instance of {@link DiagramBehavior}
+	 * @since 0.10
+	 */
+	protected DiagramBehavior createDiagramBehavior() {
+		DiagramBehavior diagramBehavior = new DiagramBehavior(this);
 		diagramBehavior.setParentPart(this);
+
+		return diagramBehavior;
 	}
 
 	/**
