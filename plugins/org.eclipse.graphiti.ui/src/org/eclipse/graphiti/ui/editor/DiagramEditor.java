@@ -33,6 +33,7 @@
  *    mwenz - Bug 396893 - Enable the registration of the drop target listeners configurable
  *    pjpaulin - Bug 352120 - Main implementation of DiagramEditor - API BREAKAGE HERE
  *    pjpaulin - Bug 352120 - Renamed from DiagramEditorImpl so that classes extending DiagramEditor do not break
+ *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
  *
  * </copyright>
  *
@@ -149,8 +150,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	public DiagramEditor() {
 		super();
-		diagramBehavior = new DiagramBehavior(this);
-		diagramBehavior.setParentPart(this);
 	}
 
 	/**
@@ -194,7 +193,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * 
 	 */
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-		// TODO check move parts to DiagramBehavior
+		diagramBehavior = createDiagramBehavior();
 
 		// Eclipse may call us with other inputs when a file is to be
 		// opened. Try to convert this to a valid diagram input.
@@ -227,6 +226,23 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		diagramBehavior.migrateDiagramModelIfNecessary();
 		IContextService contextService = (IContextService) getSite().getService(IContextService.class);
 		contextService.activateContext(getDiagramTypeProvider().getContextId());
+	}
+
+	/**
+	 * Creates the behavior object that cares about the common (behavioral)
+	 * coding shared between editors, views and other composites. See
+	 * {@link DiagramBehavior} for details and the default implementation.
+	 * Override to change the behavior.
+	 * 
+	 * @return a new instance of {@link DiagramBehavior}
+	 * @since 0.10
+	 */
+	protected DiagramBehavior createDiagramBehavior() {
+		DiagramBehavior diagramBehavior = new DiagramBehavior(this);
+		diagramBehavior.setParentPart(this);
+		diagramBehavior.initDefaultBehaviors();
+
+		return diagramBehavior;
 	}
 
 	/**
@@ -478,7 +494,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * <code>super.dispose()</code> in case you override this method!
 	 */
 	public void dispose() {
-		diagramBehavior.disposeBeforeGefDispose();
+		if (diagramBehavior != null) {
+			diagramBehavior.disposeBeforeGefDispose();
+		}
 
 		RuntimeException exc = null;
 		if (getEditDomain() != null) {
@@ -491,7 +509,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 			}
 		}
 
-		diagramBehavior.disposeAfterGefDispose();
+		if (diagramBehavior != null) {
+			diagramBehavior.disposeAfterGefDispose();
+		}
 
 		if (exc != null) {
 			throw exc;
