@@ -9,7 +9,7 @@
   <rm:locator pattern="^org\.eclipse\.gef\.*" searchPathRef="binaries.gef"/>
   <rm:locator pattern="^org\.eclipse\.draw2d\.*" searchPathRef="binaries.gef"/>
   <rm:locator pattern="^org\.eclipse\.swtbot\.*" searchPathRef="binaries.swtbot"/>
-  <rm:locator pattern="^org\.hamcrest\.*" searchPathRef="binaries.swtbot"/>
+  <rm:locator pattern="^org\.hamcrest\.*" searchPathRef="orbit"/>
   <rm:locator searchPathRef="binaries.platform" failOnError="false"/>
   <rm:locator searchPathRef="orbit"/>
   <rm:searchPath name="releng">
@@ -56,7 +56,7 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/tools/orbit/downloads/drops/I20130308052141/repository">
+      <rm:uri format="{0}/tools/orbit/downloads/drops/I20130308121626/repository">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
@@ -65,7 +65,7 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/eclipse/updates/4.3-I-builds/I20130219-1600/">
+      <rm:uri format="{0}/eclipse/updates/4.3milestones/S-4.3M6-201303141330/">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
