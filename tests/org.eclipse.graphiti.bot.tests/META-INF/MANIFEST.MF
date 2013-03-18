@@ -5,7 +5,6 @@ Bundle-SymbolicName: org.eclipse.graphiti.bot.tests;singleton:=true
 Bundle-Version: 0.10.0.qualifier
 Require-Bundle: org.easymock;bundle-version="2.4.0",
  org.junit,
- org.hamcrest;bundle-version="1.1.0",
  org.apache.log4j;bundle-version="1.2.13",
  org.eclipse.swtbot.eclipse.gef.finder;bundle-version="2.0.0",
  org.eclipse.emf.transaction;bundle-version="[1.4.0,2.0.0)",
