@@ -35,13 +35,80 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Kepler</h1>
-	<p>Last revised February 6, 2013</p>
+	<p>Last revised March 19, 2013</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.10.0 within the
 		Kepler release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M6 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M6</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focu sof this milestone was set on the
+				implementation of the Diagrams in Views feature and providing a new
+				API for saving diagrams as images and printing.</td>
+		</tr>
+		<tr id="bug 352120">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352120">Diagrams in Views</a></td>
+			<td class="content">Graphiti now supports also diagrams in views
+				or on plain composites. Before it was only possible to have diagrams
+				within editors. Common functionality has been extracted to a new <i>DiagramBehavior</i>
+				class that can be re-used between editors, view and composites. The
+				standard <i>DiagramEditor</i> has been adapted along with it's super
+				interfaces to use the new functionality. Also new base classes have
+				been introduced that allow clients to create their own diagram views
+				or composites. <b>Note that this is an incompatible API change</b>.
+				The changes that clients need to take to adapt to the new Graphiti
+				version are described <a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=352120#c30">
+					in comment 30</a> in the bug.
+			</td>
+		</tr>
+		<tr id="bug 370888">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=370888">API
+					Access to Export and Print</a></td>
+			<td class="content">Graphiti now offers an official API that
+				allows clients to modify the save as image and print functionality.
+				The according Graphiti features provide now the default
+				implementation that has previously been part of internal classes and
+				can be subclassed to modify parts or the complete functionality.</td>
+		</tr>
+		<tr id="bug 394315">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=394315">Enable
+					Injecting Behavior Objects in <i>DiagramEditor</i>
+			</a></td>
+			<td class="content">Graphiti now allows clients to inject the
+				behavior objects used in <i>DiagramEditor</i> and <i>DiagramBeahvior</i>.
+				Before it was only possible to exchange them by overriding their
+				creation method.
+			</td>
+		</tr>
+		<tr id="bug 403109">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=403109">Bug
+					403109</a></td>
+			<td class="content">This bug appeared after the diagrams in
+				views changes and caused that clients were no longer able to create
+				property sheets for their diagram editors, because they were not
+				able to retrieve the diagram container. This is now possible again
+				by introducing an adapt mechanism.</td>
+		</tr>
+		<tr id="bug 403112">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=403112">Bug
+					403112</a></td>
+			<td class="content">This bug appeared after the diagrams in
+				views changes and caused that direct editing was not possible for
+				diagrams in views when no editor was currently open.</td>
+		</tr>
 		<!-- ---------------------------------------- M5 ------------------------------- -->
 		<tr>
 			<td colspan="2">
