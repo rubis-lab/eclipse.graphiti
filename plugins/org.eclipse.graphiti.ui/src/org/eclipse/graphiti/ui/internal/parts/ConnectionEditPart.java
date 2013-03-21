@@ -14,6 +14,7 @@
  *    mwenz - Bug 341898 - Support for AdvancedPropertySheet
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    Hallvard Traetteberg - Félix Velasco - Bug 403272 - Set the location of DoubleClickContext for DoubleClickFeature
  *
  * </copyright>
  *
@@ -26,12 +27,14 @@ import java.util.List;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.XYAnchor;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.requests.CreateConnectionRequest;
+import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -259,6 +262,12 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 		if (request.getType().equals(REQ_OPEN)) {
 
 			DoubleClickContext dcc = new DoubleClickContext(getPictogramElement(), shape, shape.getGraphicsAlgorithm());
+			DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
+			if (request instanceof LocationRequest) {
+				Point location = ((LocationRequest) request).getLocation();
+				location = diagramBehavior.calculateRealMouseLocation(location);
+				dcc.setLocation(location.x, location.y);
+			}
 			IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
 					.getCurrentToolBehaviorProvider();
 
@@ -266,7 +275,6 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 
 			if (doubleClickFeature != null && doubleClickFeature.canExecute(dcc)) {
 				GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(doubleClickFeature, dcc);
-				DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
 				CommandStack commandStack = diagramBehavior.getEditDomain().getCommandStack();
 				commandStack.execute(new GefCommandWrapper(commandWithContext, diagramBehavior.getEditingDomain()));
 			}

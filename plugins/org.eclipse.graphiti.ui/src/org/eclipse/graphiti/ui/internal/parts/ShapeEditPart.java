@@ -16,6 +16,7 @@
  *    mgorning - Bug 386913 - Support also Single-Click-Features
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    Hallvard Traetteberg - Félix Velasco - Bug 403272 - Set the location of DoubleClickContext for DoubleClickFeature
  *
  * </copyright>
  *
@@ -44,6 +45,7 @@ import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.DirectEditRequest;
+import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gef.tools.DragEditPartsTracker;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -332,7 +334,7 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 	 */
 	@Override
 	public RootEditPart getRoot() {
-		return getConfigurationProvider().getDiagramEditor().getGraphicalViewer().getRootEditPart();
+		return getConfigurationProvider().getDiagramContainer().getGraphicalViewer().getRootEditPart();
 	}
 
 	// ======================= overwriteable behaviour ========================
@@ -540,8 +542,7 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 								singleClickFeature, scc);
 						DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
 						CommandStack commandStack = diagramBehavior.getEditDomain().getCommandStack();
-						commandStack
-.execute(new GefCommandWrapper(commandWithContext, diagramBehavior
+						commandStack.execute(new GefCommandWrapper(commandWithContext, diagramBehavior
 								.getEditingDomain()));
 					}
 				}
@@ -552,6 +553,13 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 				DoubleClickContext dcc = new DoubleClickContext(getPictogramElement(), locationInfo.getShape(),
 						locationInfo.getGraphicsAlgorithm());
 
+				DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
+				if (request instanceof LocationRequest) {
+					Point location = ((LocationRequest) request).getLocation();
+					location = diagramBehavior.calculateRealMouseLocation(location);
+					dcc.setLocation(location.x, location.y);
+				}
+
 				IToolBehaviorProvider currentToolBehaviorProvider = getConfigurationProvider().getDiagramTypeProvider()
 						.getCurrentToolBehaviorProvider();
 
@@ -560,7 +568,6 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 				if (doubleClickFeature != null && doubleClickFeature.canExecute(dcc)) {
 					GenericFeatureCommandWithContext commandWithContext = new GenericFeatureCommandWithContext(
 							doubleClickFeature, dcc);
-					DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
 					CommandStack commandStack = diagramBehavior.getEditDomain().getCommandStack();
 					commandStack.execute(new GefCommandWrapper(commandWithContext, diagramBehavior.getEditingDomain()));
 				}
@@ -776,7 +783,7 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 				.getSelection(getPictogramElement(),
 						configurationProvider.getDiagramBehavior().getSelectedPictogramElements());
 		if (alternativeSelection != null && request instanceof SelectionRequest) {
-			Object object = configurationProvider.getDiagramEditor().getGraphicalViewer().getEditPartRegistry()
+			Object object = configurationProvider.getDiagramContainer().getGraphicalViewer().getEditPartRegistry()
 					.get(alternativeSelection);
 			if (object instanceof EditPart) {
 				return (EditPart) object;
