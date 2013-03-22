@@ -28,7 +28,7 @@ import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.ICommand;
 import org.eclipse.graphiti.platform.IDiagramBehavior;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.action.IAction;
@@ -75,7 +75,7 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	 *            determined.
 	 */
 	public PrintGraphicalViewerAction(IDiagramBehavior diagramBehavior, IConfigurationProvider configurationProvider) {
-		super(((DiagramEditor) diagramBehavior.getDiagramContainer()).getWorkbenchPart());
+		super(((IDiagramContainerUI) diagramBehavior.getDiagramContainer()).getWorkbenchPart());
 		this.configurationProvider = configurationProvider;
 
 		// set all values of the TEMPLATE_ACTION for this Action.
