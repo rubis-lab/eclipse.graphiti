@@ -1163,7 +1163,12 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		}
 
 		if (type == Diagram.class) {
-			return getDiagramTypeProvider().getDiagram();
+			IDiagramTypeProvider diagramTypeProvider = getDiagramTypeProvider();
+			if (diagramTypeProvider != null) {
+				return diagramTypeProvider.getDiagram();
+			} else {
+				return null;
+			}
 		}
 		if (type == KeyHandler.class) {
 			return getCommonKeyHandler();
