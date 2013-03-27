@@ -15,15 +15,15 @@
 <p>As described in the chapter “<a href="add-feature.htm">providing add functionality</a>” 
 the values of the business objects (e.g. the EClass name) are stored in the graphics 
 algorithm of the pictogram elements. But this is done only once. If the business 
-model changes the example editor does not realize the changes.</p>
-<p>For that purpose we need an update feature which is used by the editor to react 
+model changes the example diagram does not realize the changes.</p>
+<p>For that purpose we need an update feature which is used by the diagram to react 
 on business model changes.</p>
 <p>The behavior of the update is straight forward, when the user is changing the 
 domain model directly via the diagram. For example if the user changes a text in 
 the diagram using direct-editing or the property-sheet, then this text should be 
 changed in the diagram immediately. </p>
 <p>However, if the domain-model is changed outside the diagram (e.g. in a separate 
-editor, maybe even by another user), then it is questionable, if the diagram should 
+editor or viewer, maybe even by another user), then it is questionable, if the diagram should 
 be updated immediately. Often an immediate update would destroy a previously good 
 layout or hide previously important information. Therefore Graphiti supports two 
 update-strategies:</p>
@@ -48,17 +48,17 @@ the following methods in the
 	<li>If
 	<a href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtStartup()">
 	isAutoUpdateAtStartup</a> returns true, then the diagram will be updated, when 
-	it is initially opened in the graphical editor. This will make the editor dirty.
+	it is initially opened in the graphical editor or viewr. This will make the tool dirty.
 	</li>
 	<li>If
 	<a href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtRuntime()">
 	isAutoUpdateAtRuntime</a> returns true, then the diagram will be updated, when 
-	it is already open in the graphical editor, but only if the editor is already 
+	it is already open in the graphical editor or viewer, but only if the tool is already 
 	dirty.</li>
 	<li>If
 	<a href="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html#isAutoUpdateAtReset()">
 	isAutoUpdateAtReset</a> returns true, then the diagram will be updated, if the 
-	editor is already dirty and the user chooses to discard his changes (reset the 
+	tool is already dirty and the user chooses to discard his changes (reset the 
 	diagram), when a change from outside the diagram occurs.</li>
 </ul>
 <h2>Creating an Update Feature</h2>
@@ -86,7 +86,7 @@ AbstractUpdateFeature</a></p>
 	contain the latest values from the business objects. </li>
 </ul>
 <p class="Note">Hint: An update feature can and should also be used (called) if 
-any functionality of the editor (e.g. any custom feature) modifies parts of the 
+any functionality of the editor or viewer (e.g. any custom feature) modifies parts of the 
 domain model. This works just like the model view controller pattern.</p>
 <p>In this example we want to update the EClass name. You can see the complete implementation 
 of the update feature here:</p>
