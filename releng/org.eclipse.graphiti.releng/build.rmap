@@ -9,6 +9,7 @@
   <rm:locator pattern="^org\.eclipse\.gef\.*" searchPathRef="binaries.gef"/>
   <rm:locator pattern="^org\.eclipse\.draw2d\.*" searchPathRef="binaries.gef"/>
   <rm:locator pattern="^org\.eclipse\.swtbot\.*" searchPathRef="binaries.swtbot"/>
+  <rm:locator pattern="^org\.hamcrest\.library\.*" searchPathRef="binaries.swtbot"/>
   <rm:locator searchPathRef="binaries.platform" failOnError="false"/>
   <rm:locator searchPathRef="orbit"/>
   <rm:searchPath name="releng">
@@ -107,7 +108,7 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/technology/swtbot/helios/dev-build/update-site">
+      <rm:uri format="{0}/technology/swtbot/releases/latest/">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>

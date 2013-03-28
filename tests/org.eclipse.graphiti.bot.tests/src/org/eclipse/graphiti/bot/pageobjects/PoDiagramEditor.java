@@ -16,9 +16,11 @@ import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.results.Result;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -37,18 +39,14 @@ public class PoDiagramEditor extends PageObject{
 	}
 	
 	public boolean isVisible() {
-		// return syncExec(new Result<Boolean>() {
-		// public Boolean run() {
-		// Widget widget = getGefEditor().getWidget();
-		// if (widget == null)
-		// return false;
-		// return ((Control)widget).isVisible();
-		// }
-		// });
-
-		// FIXME: temporarily disabled to fix test errors caused by mixed
-		// versions of org.hamcrest (1.1.0) and org.hamcrest.core (1.3.0)
-		return true;
+		return syncExec(new Result<Boolean>() {
+			public Boolean run() {
+				Widget widget = getGefEditor().getWidget();
+				if (widget == null)
+					return false;
+				return ((Control) widget).isVisible();
+			}
+		});
 	}
 	
 	public void dirtify() {
