@@ -10,6 +10,8 @@
         <cs:dependency name="org.eclipse.pde.source" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.platform" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.platform.source" componentType="eclipse.feature"/>
+        <cs:dependency name="org.hamcrest.core" componentType="osgi.bundle" versionDesignator="[1.1.0,1.3.0)"/>
+        <cs:dependency name="org.junit" componentType="osgi.bundle" versionDesignator="[4.8.2,4.8.3)"/>
     </cs:dependencies>
     <cs:actions>
         <cs:public name="copy.sites" actor="ant">
