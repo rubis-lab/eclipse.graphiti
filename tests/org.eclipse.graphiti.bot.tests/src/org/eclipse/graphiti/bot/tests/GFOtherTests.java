@@ -32,7 +32,6 @@ import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1014,7 +1013,7 @@ public class GFOtherTests extends AbstractGFTests {
 		diagFile.move(destination, true, new NullProgressMonitor());
 		diagFile.getProject().refreshLocal(IProject.DEPTH_INFINITE, new NullProgressMonitor());
 		IFile file = diagFile.getProject().getFolder(folder.getName()).getFile(diagFile.getName());
-		assertThat(file, notNullValue());
+		assertNotNull(file);
 		return file;
 	}
 
