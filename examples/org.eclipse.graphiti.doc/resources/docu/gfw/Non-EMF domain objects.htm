@@ -12,7 +12,7 @@
 
 <h1>Non-EMF Domain Objects</h1>
 <p>By default Graphiti supports domain models from the EMF world and offers automated 
-support for reacting to changes and updating the editor. Since not only EObjects 
+support for reacting to changes and updating the editor or viewer. Since not only EObjects 
 but simple POJOs can be passed to all relevant framework APIs, it is also possible 
 to use non-EMF domain objects with Graphiti. This page describes the differences 
 the user of Graphiti has to deal with when using non-EMF domain models.</p>
@@ -24,7 +24,7 @@ framework. Here&#39;s the process how to do this:</p>
 	<li>Create an appropriate specific domain listener class. As an example you 
 	can have a look at <span class="inlinecode">DomainModelChangeListener</span> 
 	in the Graphiti framework; this class does this job for EMF models.</li>
-	<li>Subclass <span class="inlinecode">DiagramEditor</span> and override its 
+	<li>Subclass <span class="inlinecode">DiagramBehavior</span> and override its 
 	method <span class="inlinecode">registerBusinessObjectsListener</span>. In that method create
 	an instance of your listener from step 1 and register it.</li>
 	<li>Create an appropriate notification service class by subclassing
@@ -70,10 +70,10 @@ implement undo and redo functionalities also for non-EMF domain changes; neverth
 this functionality might also by used for EMF domain models in case they need to 
 implement additional undo/redo functionality.</p>
 <p>Still there is one thing to be aware of: All changes done inside the Graphiti 
-diagram editor (no matter if EMF changes or non-EMF changes) will write an
+diagram editor or viewer (no matter if EMF changes or non-EMF changes) will write an
 <span class="inlinecode">IExecutionInfo</span> entry to the stack that will be available 
 with the according feature and context for undo/redo. External changes (e.g. changes 
-done from the standard property sheet) will not break the editor, but will not necessarily 
+done from the standard property sheet) will not break the tool, but will not necessarily 
 lead to data being available inside the <span class="inlinecode">IExecutionInfo</span> 
 object written:</p>
 <ul>
@@ -83,10 +83,10 @@ object written:</p>
 	other hand all changes done in that case will automatically be undone/redone 
 	by the EMF command stack, so there should be no need to do additional stuff</li>
 	<li>Non-EMF changes done e.g. from a standard property sheet will naturally 
-	not go through the EMF command stack of the editor, so no
+	not go through the EMF command stack of the tools, so no
 	<span class="inlinecode">IExecutionInfo</span> stack entry will be written (in 
 	fact also no EMF command stack entry will be written so there is no issue within 
-	the editor). In this case users are responsible to add their own undo/redo functionality 
+	the tool). In this case users are responsible to add their own undo/redo functionality 
 	relying on whatever technology they use for their domain model.</li>
 </ul>
 

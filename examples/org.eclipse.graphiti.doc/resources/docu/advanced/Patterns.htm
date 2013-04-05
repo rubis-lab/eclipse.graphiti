@@ -12,15 +12,15 @@
 	<h1>Patterns</h1>
 	<p>Patterns are an alternative approach to write graphical tools
 		using Graphiti. The standard Graphiti way to write the functionality
-		for an editor by providing features should be thoroughly understood
-		before continuing with patterns.</p>
+		for an editor or viewer by providing features should be thoroughly
+		understood before continuing with patterns.</p>
 	<p>In general, features are a very nice concept, because they allow
 		tool builders to structure their coding into small pieces each dealing
 		with a certain aspect or functionality for one specific domain object.
 		On the other hand, the fine granularity and the Java single
 		inheritance limitation make it hard to reuse coding between different
 		features. This is something you will sooner or later (at least for
-		non-trivial editors) naturally would like to do. Especially finding
+		non-trivial diagrams) naturally would like to do. Especially finding
 		the relevant shapes and graphics algorithms inside a diagram for a
 		type of shape is something you will need in several features dealing
 		with one domain object (e.g. add, layout and update features). Using
@@ -42,7 +42,7 @@
 		combination with a pattern and to overrule pattern functionality. The
 		following image shows the basic setup of a feature-based tool on the
 		left and a pattern-based on the right.</p>
-	<img alt="Graphiti editors with features and patterns compared"
+	<img alt="Graphiti diagrams with features and patterns compared"
 		src="images/FeaturesAndPatterns.png">
 	<p>The following sections describe the steps when building a
 		pattern-based tool and compare them to a feature-based one.</p>
@@ -199,8 +199,8 @@
 	<!-- End code ------------------------------------------------------------------------------- -->
 	<p>
 		The method <i>getCreateName()</i> should return the name of the object
-		as it should be shown in the Diagram editor palette for the name of
-		the object to create.
+		as it should be shown in the Diagram palette for the name of the
+		object to create.
 	</p>
 	<p>
 		The method <i>isMainBusinessObjectApplicable()</i> must check if the
@@ -272,7 +272,7 @@
 	<p>Implementing the functionality for each of the methods follows
 		the same rules and principles as for features, e.g. it offers the same
 		default functionality. Therefore you should have understood how to
-		build a Graphiti-based editor using features. In principle it is as
+		build a Graphiti-based diagrams using features. In principle it is as
 		easy as copying the coding from the feature methods to the according
 		pattern method to migrate a tool from features to patterns.</p>
 	<h2>Mixing-in Features</h2>

@@ -14,9 +14,9 @@
 	<h2>Copy &amp; Paste Functionality</h2>
 	<p>The copy &amp; paste of graphical elements is integrated with
 		the general copy and paste concept for models</p>
-	<p>Note, that copy &amp; paste in graphical editors is always
-		executed on the graphical model-elements. This gives the freedom to
-		implement copy &amp; paste with different semantics</p>
+	<p>Note, that copy &amp; paste in diagrams is always executed on
+		the graphical model-elements. This gives the freedom to implement copy
+		&amp; paste with different semantics</p>
 	<ul>
 		<li>On paste a duplicate of the graphical pictogram element and
 			of the underlying business-model element is created. However, it is
@@ -264,14 +264,15 @@
 	</p>
 	<p class="Note">
 		<b>Note: </b>Tools might need to check if a pasted object can be
-		resolved in the scope of the target Diagram Editor; objects might e.g.
-		not be reolvable in case they were just created inside another editor
-		and were not yet saved to any resource. In case a pasted object cannot
-		be resolved some special handling might be necessary. This could e.g.
-		be that it is not allowed to paste such objects or that the domain
-		object needs to be created together with its representation in the
-		target diagram; in any case this needs to be handled by the domain
-		editor in a suitable way. The graphiti framework offers the method <a
+		resolved in the scope of the target diagram editor or viewer; objects
+		might e.g. not be reolvable in case they were just created inside
+		another editor and were not yet saved to any resource. In case a
+		pasted object cannot be resolved some special handling might be
+		necessary. This could e.g. be that it is not allowed to paste such
+		objects or that the domain object needs to be created together with
+		its representation in the target diagram; in any case this needs to be
+		handled by the domain editor in a suitable way. The graphiti framework
+		offers the method <a
 			href="../../../javadoc/org/eclipse/graphiti/ui/features/AbstractPasteFeature.html#isResolvable(org.eclipse.emf.ecore.EObject)">
 			isResolvable</a> to determine this. An example is shown in the
 		implemented version of the tutorial; it shows how to disable paste in
