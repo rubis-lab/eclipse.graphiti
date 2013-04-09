@@ -11,6 +11,7 @@
  *    pjpaulin - initial API, implementation and documentation
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
+ *    pjpaulin - Bug 405314 -  Should be able to override DefaultBehavior implementation without configuration
  *
  * </copyright>
  *
@@ -62,10 +63,8 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 		this(null, parent, style);
 	}
 
-	protected DiagramBehavior createDiagramBehavior(IWorkbenchPart parentPart) {
+	protected DiagramBehavior createDiagramBehavior() {
 		DiagramBehavior diagramBehavior = new DiagramBehavior(this);
-		diagramBehavior.setParentPart(parentPart);
-		diagramBehavior.initDefaultBehaviors();
 
 		return diagramBehavior;
 	}
@@ -78,7 +77,9 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	public void setInput(TransactionalEditingDomain editingDomain, IDiagramEditorInput input) {
 		if (diagramBehavior == null) {
-			diagramBehavior = createDiagramBehavior(ownedPart);
+			diagramBehavior = createDiagramBehavior();
+			diagramBehavior.setParentPart(ownedPart);
+			diagramBehavior.initDefaultBehaviors();
 		}
 
 		// assign editing domain to update behavior

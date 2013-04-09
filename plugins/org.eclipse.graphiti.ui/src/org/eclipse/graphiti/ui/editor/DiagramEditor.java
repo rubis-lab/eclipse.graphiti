@@ -34,6 +34,7 @@
  *    pjpaulin - Bug 352120 - Main implementation of DiagramEditor - API BREAKAGE HERE
  *    pjpaulin - Bug 352120 - Renamed from DiagramEditorImpl so that classes extending DiagramEditor do not break
  *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
+ *    mwenz - Bug 405314 -  Should be able to override DefaultBehavior implementation without configuration
  *
  * </copyright>
  *
@@ -194,6 +195,8 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		diagramBehavior = createDiagramBehavior();
+		diagramBehavior.setParentPart(this);
+		diagramBehavior.initDefaultBehaviors();
 
 		// Eclipse may call us with other inputs when a file is to be
 		// opened. Try to convert this to a valid diagram input.
@@ -239,8 +242,6 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	protected DiagramBehavior createDiagramBehavior() {
 		DiagramBehavior diagramBehavior = new DiagramBehavior(this);
-		diagramBehavior.setParentPart(this);
-		diagramBehavior.initDefaultBehaviors();
 
 		return diagramBehavior;
 	}
