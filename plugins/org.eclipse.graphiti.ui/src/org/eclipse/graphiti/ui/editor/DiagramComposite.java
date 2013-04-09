@@ -62,10 +62,8 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 		this(null, parent, style);
 	}
 
-	protected DiagramBehavior createDiagramBehavior(IWorkbenchPart parentPart) {
+	protected DiagramBehavior createDiagramBehavior() {
 		DiagramBehavior diagramBehavior = new DiagramBehavior(this);
-		diagramBehavior.setParentPart(parentPart);
-		diagramBehavior.initDefaultBehaviors();
 
 		return diagramBehavior;
 	}
@@ -78,7 +76,9 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	public void setInput(TransactionalEditingDomain editingDomain, IDiagramEditorInput input) {
 		if (diagramBehavior == null) {
-			diagramBehavior = createDiagramBehavior(ownedPart);
+			diagramBehavior = createDiagramBehavior();
+			diagramBehavior.setParentPart(ownedPart);
+			diagramBehavior.initDefaultBehaviors();
 		}
 
 		// assign editing domain to update behavior
