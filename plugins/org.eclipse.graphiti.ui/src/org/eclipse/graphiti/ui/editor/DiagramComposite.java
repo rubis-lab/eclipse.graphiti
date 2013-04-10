@@ -11,6 +11,7 @@
  *    pjpaulin - initial API, implementation and documentation
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
+ *    pjpaulin - Bug 405314 - Should be able to override DefaultBehavior implementation without configuration
  *
  * </copyright>
  *
