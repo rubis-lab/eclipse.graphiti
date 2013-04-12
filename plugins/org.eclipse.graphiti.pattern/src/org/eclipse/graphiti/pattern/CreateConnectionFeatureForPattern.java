@@ -127,4 +127,14 @@ public class CreateConnectionFeatureForPattern extends AbstractCreateConnectionF
 	public void canceledAttaching(ICreateConnectionContext context) {
 		delegate.canceledAttaching(context);
 	}
+
+	/**
+	 * Gets the pattern.
+	 * 
+	 * @return the pattern
+	 * @since 0.10
+	 */
+	public IConnectionPattern getPattern() {
+		return delegate;
+	}
 }
