@@ -432,7 +432,10 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 		editingDomain.getResourceSet().eAdapters().remove(resourceSetUpdateAdapter);
 		resourceSetUpdateAdapter = null;
 
-		getOperationHistory().removeOperationHistoryListener(this);
+		IOperationHistory operationHistory = getOperationHistory();
+		if (operationHistory != null) {
+			operationHistory.removeOperationHistoryListener(this);
+		}
 
 		for (Resource r : editingDomain.getResourceSet().getResources()) {
 			r.eAdapters().remove(updateAdapter);
