@@ -10,6 +10,7 @@
  * Contributors:
  *    pjpaulin - Bug 352120 - Initial API, implementation and documentation
  *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
+ *    mwenz - Bug 401859 - Graphiti DiagramEditor#dispose() does not release the editor related objects
  *
  * </copyright>
  *
@@ -173,6 +174,8 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	private String editorInitializationError = null;
 
 	private IWorkbenchPart parentPart;
+
+	private ContextMenuProvider contextMenuProvider = null;
 
 	public DiagramBehavior(IDiagramContainerUI diagramContainer) {
 		this.diagramContainer = diagramContainer;
@@ -530,7 +533,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		}
 
 		// setting ContextMenuProvider
-		ContextMenuProvider contextMenuProvider = createContextMenuProvider();
+		contextMenuProvider = createContextMenuProvider();
 		GraphicalViewer graphicalViewer = diagramContainer.getGraphicalViewer();
 		if (contextMenuProvider != null) {
 			graphicalViewer.setContextMenu(contextMenuProvider);
@@ -1650,6 +1653,11 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 		DefaultUpdateBehavior behavior = getUpdateBehavior();
 		behavior.dispose();
+
+		if (contextMenuProvider != null) {
+			contextMenuProvider.dispose();
+			contextMenuProvider = null;
+		}
 	}
 
 	/**
