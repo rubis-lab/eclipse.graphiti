@@ -77,6 +77,7 @@
           </topic>
           <topic href="javadoc/org/eclipse/graphiti/pattern/package-summary.html" label="org.eclipse.graphiti.pattern">
 	          <topic href="javadoc/org/eclipse/graphiti/pattern/config/package-summary.html" label="org.eclipse.graphiti.pattern.config"/>
+	          <topic href="javadoc/org/eclipse/graphiti/pattern/id/package-summary.html" label="org.eclipse.graphiti.pattern.id"/>
 	          <topic href="javadoc/org/eclipse/graphiti/pattern/mapping/package-summary.html" label="org.eclipse.graphiti.pattern.mapping">
 		          <topic href="javadoc/org/eclipse/graphiti/pattern/mapping/data/package-summary.html" label="org.eclipse.graphiti.pattern.mapping.data"/>
 	          </topic>
@@ -92,6 +93,8 @@
              <topic href="javadoc/org/eclipse/graphiti/ui/editor/package-summary.html" label="org.eclipse.graphiti.ui.editor"/>
              <topic href="javadoc/org/eclipse/graphiti/ui/features/package-summary.html" label="org.eclipse.graphiti.ui.features"/>
              <topic href="javadoc/org/eclipse/graphiti/ui/platform/package-summary.html" label="org.eclipse.graphiti.ui.platform"/>
+             <topic href="javadoc/org/eclipse/graphiti/ui/print/package-summary.html" label="org.eclipse.graphiti.ui.print"/>
+             <topic href="javadoc/org/eclipse/graphiti/ui/saveasimage/package-summary.html" label="org.eclipse.graphiti.ui.saveasimage"/>
              <topic href="javadoc/org/eclipse/graphiti/ui/services/package-summary.html" label="org.eclipse.graphiti.ui.services"/>
           </topic>
           <topic href="javadoc/org/eclipse/graphiti/util/package-summary.html" label="org.eclipse.graphiti.util"/>
