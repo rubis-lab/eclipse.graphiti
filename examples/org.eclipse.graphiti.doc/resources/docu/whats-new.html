@@ -35,13 +35,55 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Kepler</h1>
-	<p>Last revised March 19, 2013</p>
+	<p>Last revised Mai 7, 2013</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.10.0 within the
 		Kepler release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M7 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M7</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus of this milestone was set on
+				bugfixing.</td>
+		</tr>
+		<tr id="bug 405314">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=405314">Bug
+					405314</a></td>
+			<td class="content">It is now less cumbersome to create a custom
+				implementation of DefaultBehavior and use it within a custom diagram
+				editor or view.</td>
+		</tr>
+		<tr id="bug 403272">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=403272">Bug
+					403272</a></td>
+			<td class="content">The location of the double click (mouse
+				position) is now forwarded to the double click context instance
+				provided to the double click feature.</td>
+		</tr>
+		<tr id="bug 401859">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=401859">Bug
+					401859</a></td>
+			<td class="content">The Graphiti diagram editor now correctly
+				disposes its context menu provider when the editor is closed.</td>
+		</tr>
+		<tr id="bug 399777">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=399777">Bug
+					399777</a></td>
+			<td class="content">The Graphiti framework class <i>CreateConnectionFeatureForPattern</i>
+				used in pattern based features with patters now offers a method to
+				retrieve the delegate pattern.
+			</td>
+		</tr>
 		<!-- ---------------------------------------- M6 ------------------------------- -->
 		<tr>
 			<td colspan="2">
@@ -49,7 +91,7 @@ table.news tr td.content {
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">The main focu sof this milestone was set on the
+			<td colspan="2">The main focus of this milestone was set on the
 				implementation of the Diagrams in Views feature and providing a new
 				API for saving diagrams as images and printing.</td>
 		</tr>
