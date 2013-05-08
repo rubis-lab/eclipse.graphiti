@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.commands.operations.IOperationHistory;
 import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.commands.operations.IUndoableOperation;
 import org.eclipse.core.runtime.IStatus;
@@ -32,7 +33,7 @@ import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalCommandStack;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.emf.workspace.impl.WorkspaceCommandStackImpl;
+import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.graphiti.features.IFeature;
@@ -119,6 +120,19 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		Map<String, DefaultExecutionInfo> options = new HashMap<String, DefaultExecutionInfo>(2);
 		options.put(OPTION_EXECUTION_INFO, executionInfo);
 
+		// Store contexts of redo operations for restoring after a feature that
+		// has done no changes has been executed to re-enable redo. Executing a
+		// feature will remove the contexts from the operations - see Bug 405710
+		IUndoContext[][] contexts = new IUndoContext[0][];
+		if (emfCommandStack instanceof IWorkspaceCommandStack) {
+			IUndoableOperation[] originalRedoOperations = ((IWorkspaceCommandStack) emfCommandStack)
+					.getOperationHistory().getRedoHistory(IOperationHistory.GLOBAL_UNDO_CONTEXT);
+			contexts = new IUndoContext[originalRedoOperations.length][];
+			for (int i = 0; i < originalRedoOperations.length; i++) {
+				contexts[i] = originalRedoOperations[i].getContexts();
+			}
+		}
+
 		tbp.preExecute(executionInfo);
 		try {
 			getEmfCommandStack().execute(gfPreparableCommand, options);
@@ -174,14 +188,26 @@ public class GFCommandStack extends CommandStack implements CommandStackListener
 		}
 
 		// If no changes were done revert the undo stack entry
-		if (!changesDone) {
-			// Use the default context and retrieve the last operation
-			WorkspaceCommandStackImpl workspaceCommandStackImpl = (WorkspaceCommandStackImpl) getEmfCommandStack();
+		if (!changesDone && emfCommandStack instanceof IWorkspaceCommandStack) {
+			// Retrieve the last operation using the default context
+			IWorkspaceCommandStack workspaceCommandStackImpl = (IWorkspaceCommandStack) getEmfCommandStack();
 			IUndoContext context = workspaceCommandStackImpl.getDefaultUndoContext();
 			IUndoableOperation operation = workspaceCommandStackImpl.getOperationHistory().getUndoOperation(context);
 
 			// Replace the found operation with an empty set
 			workspaceCommandStackImpl.getOperationHistory().replaceOperation(operation, new IUndoableOperation[0]);
+
+			// Restore the original contexts of the redo operations to re-enable
+			// undo as there is no new entry on the undo stack - see Bug 405710
+			IUndoableOperation[] newRedoOperations = workspaceCommandStackImpl.getOperationHistory().getRedoHistory(
+					IOperationHistory.GLOBAL_UNDO_CONTEXT);
+			for (int i = 0; i < newRedoOperations.length; i++) {
+				for (int j = 0; j < contexts[i].length; j++) {
+					if (!newRedoOperations[i].hasContext(contexts[i][j])) {
+						newRedoOperations[i].addContext(contexts[i][j]);
+					}
+				}
+			}
 
 			// Update the editor actions bars, especially Edit --> Undo
 			notifyListeners(gefCommand, CommandStack.POST_MASK);
