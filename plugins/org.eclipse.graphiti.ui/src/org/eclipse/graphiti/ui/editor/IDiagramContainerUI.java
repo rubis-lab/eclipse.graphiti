@@ -60,6 +60,14 @@ import org.eclipse.ui.IWorkbenchPartSite;
  * diagram to display. This input is not technically an IEditorInput, as
  * diagrams may be displayed in non-editor parts.
  * 
+ * As a temporary workaround for Bugzilla 407510 a class implementing
+ * IDiagramContainerUI must additionally implement the methods 'public void
+ * configureGraphicalViewer()' and 'public void initializeGraphicalViewer()'
+ * that initialize the GEF editor used inside the container. This methods should
+ * have been added to the interface, but that was no longer possible because the
+ * bug was only detected in a late phase after API freeze. This will be fixed
+ * with the 0.11.0 version of Graphiti.
+ * 
  * @since 0.10
  */
 public interface IDiagramContainerUI extends IDiagramContainer, IAdaptable {

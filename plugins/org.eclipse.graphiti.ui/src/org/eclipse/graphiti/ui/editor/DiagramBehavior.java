@@ -11,12 +11,14 @@
  *    pjpaulin - Bug 352120 - Initial API, implementation and documentation
  *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
  *    mwenz - Bug 401859 - Graphiti DiagramEditor#dispose() does not release the editor related objects
+ *    mwenz - Bug 407510 - Color background without Grid Layer turned to gray
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -72,8 +74,6 @@ import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IContext;
-import org.eclipse.graphiti.features.context.ISaveImageContext;
-import org.eclipse.graphiti.features.context.impl.SaveImageContext;
 import org.eclipse.graphiti.internal.command.AddFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.FeatureCommandWithContext;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
@@ -84,6 +84,7 @@ import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.action.CopyAction;
 import org.eclipse.graphiti.ui.internal.action.DeleteAction;
 import org.eclipse.graphiti.ui.internal.action.FeatureExecutionHandler;
@@ -436,9 +437,41 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 			viewer.createControl(parent);
 		}
 		diagramContainer.setGraphicalViewer(viewer);
-		configureGraphicalViewer();
+		// FIXME: pull method configureGraphicalViewer up to IDiagramContainerUI
+		// and call it on the interface
+		if (diagramContainer instanceof DiagramEditor) {
+			((DiagramEditor) diagramContainer).configureGraphicalViewer();
+		} else if (diagramContainer instanceof DiagramComposite) {
+			((DiagramComposite) diagramContainer).configureGraphicalViewer();
+		} else {
+			try {
+				Method method = diagramContainer.getClass().getMethod("configureGraphicalViewer");
+				method.invoke(diagramContainer);
+			} catch (Exception e) {
+				T.racer()
+						.error("A class implementing IDiagramContainerUI must additionally implement also the method 'public void configureGraphicalViewer()' that initializes the GEF editor used inside the container. The method should have been added to the interface, but that was no longer possible because the bug was only detected in a late phase.",
+								e);
+			}
+		}
+		// end
 		diagramContainer.hookGraphicalViewer();
-		initializeGraphicalViewer();
+		// FIXME: pull method initializeGraphicalViewer up to
+		// IDiagramContainerUI and call it on the interface
+		if (diagramContainer instanceof DiagramEditor) {
+			((DiagramEditor) diagramContainer).initializeGraphicalViewer();
+		} else if (diagramContainer instanceof DiagramComposite) {
+			((DiagramComposite) diagramContainer).initializeGraphicalViewer();
+		} else {
+			try {
+				Method method = diagramContainer.getClass().getMethod("initializeGraphicalViewer");
+				method.invoke(diagramContainer);
+			} catch (Exception e) {
+				T.racer()
+						.error("A class implementing IDiagramContainerUI must additionally implement also the method 'public void initializeGraphicalViewer()' that initializes the GEF editor used inside the container. The method should have been added to the interface, but that was no longer possible because the bug was only detected in a late phase.",
+								e);
+			}
+		}
+		// end
 	}
 
 	/**
@@ -1453,7 +1486,6 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 			ISaveImageFeature sf = fp.getSaveImageFeature();
 
 			if (sf != null) {
-				ISaveImageContext context = new SaveImageContext();
 				action = new SaveImageAction(this, getConfigurationProvider());
 				actionRegistry.registerAction(action);
 				selectionActions.add(action.getId());
