@@ -11,7 +11,8 @@
  *    SAP AG - initial API, implementation and documentation
  *    mgorning - Bug 365536 - Using BoxRelativeAnchor with relativeWidth = 1 display ellipsis in related Text
  *    mgorning - Bug 374190 - Vertically aligned text disappears after the height of TextImpl is increased
- *    mgorning - Bug 368124 - ConnectionDecorator with Text causes problems 
+ *    mgorning - Bug 368124 - ConnectionDecorator with Text causes problems
+ *    mwenz - Bug 405920 - Text background color is ignored on rotated text
  *
  * </copyright>
  *
@@ -105,6 +106,14 @@ public class GFText extends Label implements RotatableDecoration {
 			angle = Graphiti.getGaService().getAngle(text, true);
 
 			if (angle != 0) {
+				// Fix for Bug 405920. Set the background color for rotated
+				// texts on basis of the original rectangle. Needs to be
+				// reworked as part of the general rework of this class with Bug
+				// 375922
+				if (isOpaque()) {
+					graphics.fillRectangle(getBounds());
+				}
+
 				Rectangle rect = new Rectangle();
 				graphics.getClip(rect);
 				graphics.pushState();
