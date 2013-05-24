@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+    <copyright>
+   
+    Copyright (c) 2013, 2013 SAP AG.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       mwenz - initial implementation
+   
+    </copyright>
+   
+ -->
+ 
+ <plugin>
+
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypes">
+      <diagramType
+            name="Diagram Viewer Diagram Type"
+            type="diagramViewer"
+            id="org.eclipse.graphiti.examples.diagramviewer.diagramViewerDiagramType">
+      </diagramType>
+   </extension>
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypeProviders">
+      <diagramTypeProvider
+            name="Diagram Viewer Diagram Type Provider"
+            class="org.eclipse.graphiti.examples.diagramviewer.diagram.DiagramViewerDiagramTypeProvider"
+            id="org.eclipse.graphiti.examples.diagramviewer.diagramViewerDiagramTypeProvider">
+         <diagramType
+               id="org.eclipse.graphiti.examples.diagramviewer.diagramViewerDiagramType">
+         </diagramType>
+      </diagramTypeProvider>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.editors">
+ 	  <editor
+          class="org.eclipse.graphiti.examples.diagramviewer.editor.DiagramViewerEditor"
+          contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+          default="true"
+          extensions="diagram"
+          icon="icons/diagram.gif"
+          id="org.eclipse.graphiti.examples.diagramviewer.editor.DiagramViewer"
+          matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorMatchingStrategy"
+          name="%editor.name">
+       <contentTypeBinding
+             contentTypeId="org.eclipse.graphiti.content.diagram">
+       </contentTypeBinding>
+      </editor>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.graphiti.ui.Graphiti_Category"
+            class="org.eclipse.graphiti.examples.diagramviewer.view.DiagramViewerView"
+            id="org.eclipse.graphiti.examples.diagramviewer.view.DiagramViewer"
+            name="%view.name"
+            restorable="true">
+      </view>
+   </extension>
+
+	<extension point="org.eclipse.ui.commands">
+		<command 
+			id="org.eclipse.graphiti.examples.diagramviewer.commands.view.openDiagramViewer"
+			name="Show in Diagram Viewer (View)" /> 
+	</extension>
+
+	<extension point="org.eclipse.ui.handlers">
+		<handler 
+			commandId="org.eclipse.graphiti.examples.diagramviewer.commands.view.openDiagramViewer"
+			class="org.eclipse.graphiti.examples.diagramviewer.view.OpenDiagramViewerHandler">
+			<enabledWhen>
+				<reference definitionId="org.eclipse.graphiti.examples.diagramviewer.definitions.view.OneDiagramNodeSelected" /> 
+			</enabledWhen>
+			<activeWhen>
+				<reference definitionId="org.eclipse.graphiti.examples.diagramviewer.definitions.view.OneDiagramNodeSelected" /> 
+			</activeWhen>
+		</handler>
+	</extension>
+
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+			<command commandId="org.eclipse.graphiti.examples.diagramviewer.commands.view.openDiagramViewer">
+				<visibleWhen>
+					<reference definitionId="org.eclipse.graphiti.examples.diagramviewer.definitions.view.OneDiagramNodeSelected" /> 
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
+
+	<extension point="org.eclipse.core.expressions.definitions">
+		<definition id="org.eclipse.graphiti.examples.diagramviewer.definitions.view.OneDiagramNodeSelected">
+			<and>
+				<count value="1" /> 
+				<iterate ifEmpty="false" operator="and">
+					<adapt type="org.eclipse.core.resources.IResource">
+						<test property="org.eclipse.core.resources.name" value="*.diagram"/>
+					</adapt>
+				</iterate>
+			</and>
+		</definition>
+	</extension>
+</plugin>

@@ -23,6 +23,7 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -139,7 +140,10 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	@Override
 	public IWorkbenchPart getWorkbenchPart() {
-		return diagramBehavior.getParentPart();
+		if (diagramBehavior != null) {
+			return diagramBehavior.getParentPart();
+		}
+		return null;
 	}
 
 	public void close() {
@@ -147,21 +151,29 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 	}
 
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
-		Object returnObj = this.diagramBehavior.getAdapter(type);
-		if (returnObj != null)
-			return returnObj;
+		if (diagramBehavior != null) {
+			Object returnObj = diagramBehavior.getAdapter(type);
+			if (returnObj != null) {
+				return returnObj;
+			}
+		}
 		return super.getAdapter(type);
 	}
 
 	public void dispose() {
 		// unregister selection listener, registered during createPartControl()
-		if (getWorkbenchPart() != null && getWorkbenchPart().getSite() != null
-				&& getWorkbenchPart().getSite().getPage() != null) {
-			getWorkbenchPart().getSite().getPage().removeSelectionListener(this);
+		if (diagramBehavior != null) {
+			if (getWorkbenchPart() != null && getWorkbenchPart().getSite() != null
+					&& getWorkbenchPart().getSite().getPage() != null) {
+				getWorkbenchPart().getSite().getPage().removeSelectionListener(this);
+			}
+
+			diagramBehavior.disposeBeforeGefDispose();
 		}
 
-		if (diagramBehavior != null) {
-			diagramBehavior.disposeBeforeGefDispose();
+		ActionRegistry actionRegistry = getActionRegistry();
+		if (actionRegistry != null) {
+			actionRegistry.dispose();
 		}
 
 		RuntimeException exc = null;
