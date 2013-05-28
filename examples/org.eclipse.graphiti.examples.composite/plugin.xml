@@ -1,26 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
+<!--
+    <copyright>
+   
+    Copyright (c) 2013 SRC.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       pjpaulin - initial API, implementation and documentation
+   
+    </copyright>
+   
+ -->
 <plugin>
-   <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="org.eclipse.graphiti.examples.common.perspective.GFPerspective">
-         <view
-               id="org.eclipse.graphiti.examples.composite.diagramViewExample"
-               minimized="false"
-               relationship="stack"
-               relative="org.eclipse.ui.views.ProgressView">
-         </view>
-      </perspectiveExtension>
-   </extension>
-   <extension
-         point="org.eclipse.ui.views">
-      <view
-            class="org.eclipse.graphiti.examples.composite.DiagramCompositeViewExample"
-            id="org.eclipse.graphiti.examples.composite.diagramViewExample"
-            name="Diagram View Example"
-            restorable="true">
-      </view>
-   </extension>
 
+	<!-- Add the additional view to the Graphiti perspective -->
+	<extension point="org.eclipse.ui.perspectiveExtensions">
+		<perspectiveExtension
+			targetID="org.eclipse.graphiti.examples.common.perspective.GFPerspective">
+			<view
+				id="org.eclipse.graphiti.examples.composite.diagramViewExample"
+				minimized="false"
+				relationship="stack"
+				relative="org.eclipse.ui.views.ProgressView">
+			</view>
+		</perspectiveExtension>
+	</extension>
+	
+	<!-- A view displaying a Graphiti diagram -->
+	<extension point="org.eclipse.ui.views">
+		<view
+			class="org.eclipse.graphiti.examples.composite.view.DiagramCompositeViewExample"
+			id="org.eclipse.graphiti.examples.composite.diagramViewExample"
+			name="%view.name"
+			restorable="true">
+		</view>
+	</extension>
+	
+	<!-- The command to open the popup with 2 diagrams -->
+	<extension point="org.eclipse.ui.commands">
+		<command
+			defaultHandler="org.eclipse.graphiti.examples.composite.dialog.PreviewDiagramHandler"
+			id="org.eclipse.graphiti.examples.composite.previewCommand"
+			name="%previewCommand.name">
+		</command>
+	</extension>
+	
+	<!-- Context menu entry when 2 diagram files are selected to open a popup showing both diagrams -->
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+			<command
+				commandId="org.eclipse.graphiti.examples.composite.previewCommand"
+				label="%previewCommand.label"
+				style="push">
+				<visibleWhen checkEnabled="false">
+					<with variable="selection">
+						<count value="2"/>
+						<iterate ifEmpty="false">
+							<and>
+								<test
+									property="org.eclipse.core.resources.extension"
+									value="diagram">
+								</test>
+								<adapt type="org.eclipse.core.resources.IFile">
+								</adapt>
+							</and>
+						</iterate>
+					</with>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+	</extension>
 </plugin>
