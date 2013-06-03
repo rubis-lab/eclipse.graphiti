@@ -64,7 +64,9 @@ public class GFPerspective implements IPerspectiveFactory {
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
 		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
 		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
-		layout.addShowViewShortcut(IPageLayout.ID_PROGRESS_VIEW);
+		if (isViewAvailable(IPageLayout.ID_PROGRESS_VIEW)) {
+			layout.addShowViewShortcut(IPageLayout.ID_PROGRESS_VIEW);
+		}
 		layout.addShowViewShortcut(IPageLayout.ID_TASK_LIST);
 
 		layout.addActionSet(IPageLayout.ID_NAVIGATE_ACTION_SET);
@@ -82,11 +84,11 @@ public class GFPerspective implements IPerspectiveFactory {
 
 		// Top left.
 		IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, (float) 0.26, editorArea);//$NON-NLS-1$
-		if (isViewAvailable(IPageLayout.ID_PROJECT_EXPLORER)) {
-			topLeft.addView(IPageLayout.ID_PROJECT_EXPLORER);
-		}
 		if (isViewAvailable("org.eclipse.jdt.ui.PackageExplorer")) { //$NON-NLS-1$
 			topLeft.addView("org.eclipse.jdt.ui.PackageExplorer"); //$NON-NLS-1$
+		}
+		if (isViewAvailable(IPageLayout.ID_PROJECT_EXPLORER)) {
+			topLeft.addView(IPageLayout.ID_PROJECT_EXPLORER);
 		}
 		topLeft.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 
