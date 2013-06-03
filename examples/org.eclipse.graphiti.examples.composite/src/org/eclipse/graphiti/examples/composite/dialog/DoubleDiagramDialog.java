@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2013, 2013 Felix Velasco.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,7 @@
  * </copyright>
  *
  *******************************************************************************/
-package org.eclipse.graphiti.examples.common.handler;
+package org.eclipse.graphiti.examples.composite.dialog;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
@@ -28,7 +28,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * @author fvelasco
+ * A very simple example of a popup that shows 2 Graphiti diagrams side by side.
+ * The popup allows basic modifications of the diagrams but does not care about
+ * dirty handling.
  * 
  * @since 0.10
  */
@@ -69,7 +71,6 @@ public class DoubleDiagramDialog extends Dialog {
 	@Override
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
-		shell.setText("Show diagrams");
+		shell.setText("Two Diagrams Popup (Graphiti Example)");
 	}
-
 }

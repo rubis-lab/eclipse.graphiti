@@ -1,8 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Graphiti Example using a Composite
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.graphiti.examples.composite;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.10.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-Activator: org.eclipse.graphiti.examples.composite.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

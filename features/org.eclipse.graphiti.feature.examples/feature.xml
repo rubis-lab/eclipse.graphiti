@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 <copyright>
-Copyright (c) 2005, 2011 SAP AG.
+Copyright (c) 2005, 2013 SAP AG.
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v1.0
 which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ Contributors:
        mwenz - Update of Eclipse license
        mwenz - Added capabilities plugin
        mwenz - Use central Eclipse license feature
+       mwenz - Added composite example
 </copyright>
  -->
 <feature
@@ -79,6 +80,13 @@ http://www.eclipse.org/legal/epl-v10.html
 
    <plugin
          id="org.eclipse.graphiti.examples.filesystem.mm"
+         download-size="0"
+         install-size="0"
+         version="0.10.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.graphiti.examples.composite"
          download-size="0"
          install-size="0"
          version="0.10.0.qualifier"
