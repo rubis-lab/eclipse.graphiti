@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Diagrams beyond Editors</title>
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
+</head>
+
+<body>
+
+	<h1>Diagrams beyond Editors</h1>
+	<p>Starting with Graphiti 0.10.0 it is possible to add diagrams to
+		other UIs besides editors. Before that release there was no way to
+		display a diagram outside of an editor. Prominent use cases are e.g.
+		to place a diagram inside an Eclipse view or onto a popup. But it would
+		also be possible to add a diagram into a any other SWT UI just as a
+		composite.</p>
+	<p>
+		Different from the editor use case where Graphiti brings everything
+		that is needed to display and edit diagrams in an editor, clients have
+		to define the UI part (e.g. the Eclipse view) by themselves. There are
+		no base classes corresponding to <a
+			href="../../../javadoc/org/eclipse/graphiti/ui/editor/DiagramEditor.html">DiagramEditor</a>
+		like <i>DiagramView</i> or <i>DiagramPopup</i>. This is because the
+		usage varieties are much greater than with editors. But a large part
+		of the functionality can be reused from the editor. This was enabled
+		in the Graphiti framework by splitting the former <i>GraphitiEditor</i>
+		class into two parts: one consisting of the new <a
+			href="../../../javadoc/org/eclipse/graphiti/ui/editor/DiagramEditor.html">DiagramEditor</a>
+		class providing the functionality that is only needed for Eclipse
+		editors and a new class <a
+			href="../../../javadoc/org/eclipse/graphiti/ui/editor/DiagramBehavior.html">DiagramBehavior</a>
+		that provides functionality that may be used independently from the
+		editor. The latter is embedded both into the editor and into the new <a
+			href="../../../javadoc/org/eclipse/graphiti/ui/editor/DiagramComposite.html">DiagramComposite</a>
+		class that users might embed into other kinds of UIs, like Eclipse
+		views or popups. This architecture allows the Graphiti framework to
+		provide the standard functionality of Graphiti diagrams within editors
+		and views and clients to be flexible in respect to their view
+		implementations.
+	</p>
+	<img
+		alt="Relationship between DiagramEditor, DiagramComposite and DiagramBehavior"
+		src="images/EditorAPI.png" width="600px">
+	<p>
+		There are some basic examples on how to use a diagram composite within an
+		Eclipse view and a popup included in the SDK download. For details see
+		the section on <a href="../examples/Composite.htm">the composite
+			example</a>.
+	</p>
+	<p>
+		One important aspect to keep in mind is that the diagram composite
+		always embeds a complete GEF diagram viewer instance (<a
+			href="../../../javadoc/org/eclipse/graphiti/ui/editor/DiagramBehavior.html">DiagramBehavior</a>
+		cares about embedding that). Since GEF diagram viewers are tightly
+		coupled with editors, also the Graphiti diagram composite incorporates
+		much of the functionality and the lifecycle requirements of an editor.
+		Also since GEF uses standard Eclipse 3.x APIs it is not possible to
+		embed such a diagram composite into an E4 part without using the
+		3.x compatibility layer. Using the compatibility layer, this is of
+		course possible.
+	</p>
+	<p>
+		While <a
+			href="../../../javadoc/org/eclipse/graphiti/ui/editor/DiagramComposite.html">DiagramComposites</a>
+		embed the complete functionality of a Graphiti diagram editor and
+		enable the user to trigger all features that would also be available
+		in an editor, it is up the the client implementing the view, popup or
+		other integrating part to embed the functionality into the
+		environment. Clients will have to care about things like:
+	</p>
+	<ul>
+		<li>Should changes be allowed in the view? This could be disabled
+			in the view implementation or by using a read-only <a
+			hreflang="../../../javadoc/org/eclipse/graphiti/dt/IDiagramTypeProvider.html">DiagramTypeProvider</a>
+			(one that has a feature provider without any modifying features). Of
+			course changes might also be possible.
+		</li>
+		<li>In case changes are allowed the save handling must be
+			implemented by the client.</li>
+		<li>Tool bars and menus in the main tool bar and menu need to be
+			added and enabled. Associated keybindings need to be established.</li>
+		<li>A way how to open the view needs to be implemented. An
+			already existing view might be populated with a new diagram. Clients
+			are in this case fully responsible for disposing old diagrams, their
+			diagram type providers and all other used resources.</li>
+		<li>...</li>
+	</ul>
+	<p>More examples on how to achieve things like described above will
+		be added in future versions of Graphiti.</p>
+	<p>
+		The <a
+			href="../../../javadoc/org/eclipse/graphiti/ui/editor/DiagramBehavior.html">DiagramBehavior</a>
+		instance used inside an editor and a view might be reused between the
+		different viewing locations and can share client adaptations to the
+		default behavior that clients can implement by replacing the various <i>Default...Behavior</i>
+		objects. This possibility has been established for Graphiti editors in
+		Graphiti 0.9.0 and has been taken over for diagram composites as well.
+	</p>
+</body>
+</html>
