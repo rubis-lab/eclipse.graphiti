@@ -139,7 +139,10 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	@Override
 	public IWorkbenchPart getWorkbenchPart() {
-		return diagramBehavior.getParentPart();
+		if (diagramBehavior != null) {
+			return diagramBehavior.getParentPart();
+		}
+		return null;
 	}
 
 	public void close() {
@@ -147,9 +150,12 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 	}
 
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
-		Object returnObj = this.diagramBehavior.getAdapter(type);
-		if (returnObj != null)
-			return returnObj;
+		if (diagramBehavior != null) {
+			Object returnObj = diagramBehavior.getAdapter(type);
+			if (returnObj != null) {
+				return returnObj;
+			}
+		}
 		return super.getAdapter(type);
 	}
 
