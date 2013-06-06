@@ -26,6 +26,7 @@
     <topic label="Further Topics">
        <topic href="resources/docu/advanced/Patterns.htm" label="Patterns"/>
        <topic href="resources/docu/advanced/IssueAnalysis.htm" label="Analysing Issues"/>
+       <topic href="resources/docu/advanced/BeyondEditors.htm" label="Diagrams beyond Editors"/>
     </topic>
     <topic label="Examples">
        <topic href="resources/docu/examples/Tutorial.htm" label="Tutorial">
@@ -33,6 +34,8 @@
        <topic href="resources/docu/examples/Chess.htm" label="Chess Example">
        </topic>
        <topic href="resources/docu/examples/Filesystem.htm" label="Filesystem Example">
+       </topic>
+       <topic href="resources/docu/examples/Composite.htm" label="Diagram Composites">
        </topic>
     </topic>
     <topic href="resources/docu/tools/Overview.html" label="Overview on Graphiti Tools">
