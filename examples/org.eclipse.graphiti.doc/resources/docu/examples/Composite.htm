@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Composite Example</title>
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
+</head>
+
+<body>
+
+	<h1>Composite Example</h1>
+	<p>This example plug-in demonstrates very basic usages of the
+		diagram composite API introduced with Graphiti 0.10.0. This API allows
+		clients to add Graphiti diagrams to views or other UIs so that users
+		can display and edit the diagrams there.</p>
+	<p>
+		The example plug-in <i>org.eclipse.graphiti.examples.composite</i> is
+		available as executable but also as source in the SDK download and
+		within our repository under the examples folder. It demonstrates the
+		basics of placeing diagrams into other locations than editors.
+	</p>
+	<h2>Diagrams in View</h2>
+	<p>
+		The plug-in adds a view <i>org.eclipse.graphiti.examples.composite.view.DiagramCompositeViewExample</i>
+		to the Eclipse views extension point and to the Graphiti test
+		perspective. The view is populated with a Graphiti <a
+			href="../../../org/eclipse/graphiti/ui/editor/DiagramComposite.html">DiagramComposite</a>
+		that will display a diagram that is also contained in the plugin (<i>test.diagram</i>
+		in the root folder of the plugin). The URL of that diagram is
+		hard-coded in the view and cannot be replaced. In a real usage
+		scenario the handling would of course be similar to the handling of an
+		editor. An operation to show the view is triggered on a diagram, the
+		diagram URI is retrieved and passed to the composite.
+	</p>
+	<img alt="Screenshot of the Diagram View" src="images/DiagramView.png"
+		width="600px">
+	<p>The only other things that this simply example cares about is
+		delegating the focus and adapter retrieval mechanism (both standard
+		Eclipse) to the diagram composite. For a real usage scenario much more
+		is needed, e.g. the view does not care about changes that are done to
+		the diagram in the view; users can modify the diagram but there is no
+		way to persist them.</p>
+	<h2>Diagrams in a Popup</h2>
+	<p>
+		The plug-in also adds a dialog that can be invoked by a context menu
+		entry in the project explorer (select two Graphiti diagrams with <i>.diagram</i>)
+		file extension and select the entry <i>Show Diagrams in Popup</i>) to
+		display the two selected diagrams side-by-side in a popup.
+	</p>
+	<img alt="Screenshot of the Diagrams Popup" src="images/DiagramPopup.png"
+		width="600px">
+	<p>
+		The implementation of the popup is in the class <i>org.eclipse.graphiti.examples.composite.dialog.DoubleDiagramDialog</i>
+		and is also kept very simple; e.g. just as the views example it does
+		not care about persisting any changes the user did to the diagrams on
+		the popup. It simply takes two resources (the diagram files), tries to
+		extract a diagram URI for each and created a <a
+			href="../../../org/eclipse/graphiti/ui/editor/DiagramComposite.html">DiagramComposite</a>
+		passing the URI.
+	</p>
+</body>
+</html>
