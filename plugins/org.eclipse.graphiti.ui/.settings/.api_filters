@@ -190,6 +190,12 @@
         <filter id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+                <message_argument value="getConfigurationProvider()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
                 <message_argument value="getContentEditPart()"/>
             </message_arguments>
         </filter>
@@ -221,12 +227,6 @@
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
                 <message_argument value="getRefreshBehavior()"/>
-            </message_arguments>
-        </filter>
-        <filter id="338792546">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
-                <message_argument value="getResourceSet()"/>
             </message_arguments>
         </filter>
         <filter id="338792546">
