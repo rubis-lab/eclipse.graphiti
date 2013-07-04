@@ -9,12 +9,6 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/pattern/AbstractConnectionPattern.java" type="org.eclipse.graphiti.pattern.AbstractConnectionPattern">
-        <filter id="338792546">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.pattern.AbstractConnectionPattern"/>
-                <message_argument value="getText(IStructureMapping, PictogramLink)"/>
-            </message_arguments>
-        </filter>
         <filter id="574660632">
             <message_arguments>
                 <message_argument value="IConnectionPattern"/>
@@ -24,18 +18,6 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/pattern/AbstractPattern.java" type="org.eclipse.graphiti.pattern.AbstractPattern">
-        <filter id="338792546">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.pattern.AbstractPattern"/>
-                <message_argument value="getImage(IStructureMapping, PictogramLink)"/>
-            </message_arguments>
-        </filter>
-        <filter id="338792546">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.pattern.AbstractPattern"/>
-                <message_argument value="getText(IStructureMapping, PictogramLink)"/>
-            </message_arguments>
-        </filter>
         <filter id="574660632">
             <message_arguments>
                 <message_argument value="IPattern"/>
