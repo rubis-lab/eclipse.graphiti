@@ -16,7 +16,7 @@ Contributors:
 <feature
       id="org.eclipse.graphiti.feature.tests"
       label="%featureName"
-      version="0.10.0.qualifier"
+      version="0.10.1.qualifier"
       provider-name="%providerName"
       image="eclipse_update_120.jpg"
       license-feature="org.eclipse.license"
@@ -39,35 +39,35 @@ Contributors:
          id="org.eclipse.graphiti.tests"
          download-size="0"
          install-size="0"
-         version="0.10.0.qualifier"
+         version="0.10.1.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.ui.tests"
          download-size="0"
          install-size="0"
-         version="0.10.0.qualifier"
+         version="0.10.1.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.bot.tests"
          download-size="0"
          install-size="0"
-         version="0.10.0.qualifier"
+         version="0.10.1.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.testtool.ecore"
          download-size="0"
          install-size="0"
-         version="0.10.0.qualifier"
+         version="0.10.1.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.graphiti.testtool.sketch"
          download-size="0"
          install-size="0"
-         version="0.10.0.qualifier"
+         version="0.10.1.qualifier"
          unpack="false"/>
 
 </feature>

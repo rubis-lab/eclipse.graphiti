@@ -37,6 +37,8 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
  * Creates sample data
+ * 
+ * @since 0.10
  */
 public final class OpenDiagramEditorFromFileHandler extends AbstractHandler {
 

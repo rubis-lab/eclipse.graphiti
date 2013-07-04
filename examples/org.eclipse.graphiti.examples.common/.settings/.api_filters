@@ -3,7 +3,7 @@
     <resource path="META-INF/MANIFEST.MF">
         <filter id="923795461">
             <message_arguments>
-                <message_argument value="0.10.0"/>
+                <message_argument value="0.10.1"/>
                 <message_argument value="0.9.0"/>
             </message_arguments>
         </filter>
@@ -12,14 +12,7 @@
         <filter id="305324134">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.examples.common.handler.OpenDiagramFromFileHandler"/>
-                <message_argument value="org.eclipse.graphiti.examples.common_0.10.0"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/examples/common/handler/OpenDiagramEditorFromFileHandler.java" type="org.eclipse.graphiti.examples.common.handler.OpenDiagramEditorFromFileHandler">
-        <filter id="1110441988">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.examples.common.handler.OpenDiagramEditorFromFileHandler"/>
+                <message_argument value="org.eclipse.graphiti.examples.common_0.10.1"/>
             </message_arguments>
         </filter>
     </resource>
