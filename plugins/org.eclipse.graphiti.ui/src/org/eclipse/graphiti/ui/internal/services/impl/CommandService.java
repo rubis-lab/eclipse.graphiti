@@ -37,6 +37,7 @@ import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.graphiti.ui.internal.command.GFCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
+import org.eclipse.graphiti.ui.internal.command.ReconnectCommand;
 import org.eclipse.graphiti.ui.internal.editor.EmfOnGefCommand;
 import org.eclipse.graphiti.ui.internal.editor.GefOnEmfCommand;
 import org.eclipse.graphiti.ui.internal.services.ICommandService;
@@ -81,6 +82,11 @@ public class CommandService implements ICommandService {
 			for (IFeatureAndContext feature : features) {
 				executionInfo.addFeatureAndContext(feature);
 			}
+		}
+		if (gefCommand instanceof ReconnectCommand) {
+			ReconnectCommand reconnectCommand = (ReconnectCommand) gefCommand;
+			executionInfo.addFeatureAndContext(new DefaultFeatureAndContext(reconnectCommand.getFeature(),
+					reconnectCommand.getContext()));
 		}
 		if (gefCommand instanceof GefCommandWrapper) {
 			GefCommandWrapper gefCommandWrapper = (GefCommandWrapper) gefCommand;
