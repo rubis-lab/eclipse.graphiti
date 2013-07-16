@@ -26,12 +26,21 @@ import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
+import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+import org.eclipse.graphiti.features.impl.DefaultReconnectionFeature;
 import org.eclipse.graphiti.internal.command.CommandContainer;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
+import org.eclipse.graphiti.ui.internal.command.ReconnectCommand;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.editor.GFCommandStack;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
@@ -99,6 +108,60 @@ public class CustomUndoableFeatureTest extends GFAbstractTestCase {
 		assertTrue("Redo() must have been called", feature.redoCalled);
 	}
 
+	@Test
+	public void testReconnect() {
+		TransactionalEditingDomain editingDomain = GraphitiUi.getEmfService().createResourceSetAndEditingDomain();
+		IToolBehaviorProvider toolBehaviorProvider = EasyMock.createNiceMock(IToolBehaviorProvider.class);
+		EasyMock.replay(toolBehaviorProvider);
+
+		IDiagramTypeProvider diagramTypeProvider = EasyMock.createNiceMock(IDiagramTypeProvider.class);
+		IFeatureProvider featureProvider = EasyMock.createNiceMock(IFeatureProvider.class);
+		TestReconnectionFeature feature = new TestReconnectionFeature(featureProvider);
+		EasyMock.expect(featureProvider.getReconnectionFeature(EasyMock.<IReconnectionContext> anyObject()))
+				.andReturn(feature).anyTimes();
+		EasyMock.replay(featureProvider);
+
+		EasyMock.expect(diagramTypeProvider.getCurrentToolBehaviorProvider()).andReturn(toolBehaviorProvider).anyTimes();
+		EasyMock.expect(diagramTypeProvider.getFeatureProvider()).andReturn(featureProvider).anyTimes();
+		EasyMock.replay(diagramTypeProvider);
+
+		IDiagramContainerUI diagramContainer = EasyMock.createNiceMock(IDiagramContainerUI.class);
+
+		DiagramBehavior diagramBehavior = new MockDiagramBehavior(diagramContainer, editingDomain);
+
+		IConfigurationProvider configurationProvider = EasyMock.createNiceMock(IConfigurationProviderInternal.class);
+		EasyMock.expect(configurationProvider.getDiagramTypeProvider()).andReturn(diagramTypeProvider).anyTimes();
+		EasyMock.expect(configurationProvider.getDiagramBehavior()).andReturn(diagramBehavior).anyTimes();
+		EasyMock.replay(configurationProvider);
+		GFCommandStack commandStack = new GFCommandStack(configurationProvider, editingDomain);
+
+		ICustomContext context = EasyMock.createNiceMock(ICustomContext.class);
+		EasyMock.replay(context);
+
+		Connection connection = EasyMock.createNiceMock(Connection.class);
+		Anchor oldAnchor = EasyMock.createNiceMock(Anchor.class);
+		Anchor newAnchor = EasyMock.createNiceMock(Anchor.class);
+		PictogramElement newTargetPictogramElement = EasyMock.createNiceMock(PictogramElement.class);
+
+		ReconnectCommand reconnectCommand = new ReconnectCommand(configurationProvider, connection, oldAnchor,
+				newAnchor, newTargetPictogramElement, ReconnectionContext.RECONNECT_SOURCE, null);
+		commandStack.execute(reconnectCommand);
+
+		// Check that feature can be undone
+		assertTrue("Executed command must be undoable", commandStack.canUndo());
+
+		// Check that undo is called
+		commandStack.undo();
+		assertTrue("Undo() must have been called", feature.undoCalled);
+
+		// Check that feature can be redone
+		assertTrue("Executed command must be redoable", commandStack.canRedo());
+
+		// Check that redo is called
+		commandStack.redo();
+		assertTrue("Redo() must have been called", feature.redoCalled);
+	}
+
 	private class TestCustomFeature extends AbstractCustomFeature implements ICustomUndoableFeature {
 
 		public boolean undoCalled = false;
@@ -138,4 +201,67 @@ public class CustomUndoableFeatureTest extends GFAbstractTestCase {
 			assertEquals("Context object must be the same as in execute", this.context, context);
 		}
 	}
+
+	private class TestReconnectionFeature extends DefaultReconnectionFeature implements ICustomUndoableFeature {
+
+		public boolean undoCalled = false;
+		public boolean redoCalled = false;
+		private IReconnectionContext context = null;
+
+		public TestReconnectionFeature(IFeatureProvider fp) {
+			super(fp);
+		}
+
+		@Override
+		public boolean canReconnect(IReconnectionContext context) {
+			return true;
+		}
+
+		@Override
+		public boolean canUndo(IContext context) {
+			return true;
+		}
+
+		public void undo(IContext context) {
+			undoCalled = true;
+			assertEquals("Context object must be the same as in execute", this.context, context);
+		}
+
+		public boolean canRedo(IContext context) {
+			return true;
+		}
+
+		public void redo(IContext context) {
+			redoCalled = true;
+			assertEquals("Context object must be the same as in execute", this.context, context);
+		}
+
+		public void preReconnect(IReconnectionContext context) {
+			// Do nothing
+			this.context = context;
+		}
+
+		public void postReconnect(IReconnectionContext context) {
+		}
+
+		public void canceledReconnect(IReconnectionContext context) {
+		}
+
+	}
+
+	public class MockDiagramBehavior extends DiagramBehavior {
+
+		private TransactionalEditingDomain editingDomain;
+
+		public MockDiagramBehavior(IDiagramContainerUI diagramContainer, TransactionalEditingDomain editingDomain) {
+			super(diagramContainer);
+			this.editingDomain = editingDomain;
+		}
+
+		@Override
+		public TransactionalEditingDomain getEditingDomain() {
+			return editingDomain;
+		}
+	}
+
 }
