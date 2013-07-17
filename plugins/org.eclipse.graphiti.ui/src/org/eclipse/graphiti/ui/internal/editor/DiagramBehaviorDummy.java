@@ -24,13 +24,22 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.platform.IDiagramContainer;
 
+/**
+ * 
+ * can be used in the dark feature processing mode
+ * 
+ * @noinstantiate This class is not intended to be instantiated by clients.
+ * @noextend This class is not intended to be subclassed by clients.
+ */
 public class DiagramBehaviorDummy implements IDiagramBehavior {
 
 	private IDiagramContainer diagramContainer;
+	private TransactionalEditingDomain editingDomain;
 
-	public DiagramBehaviorDummy(IDiagramContainer diagramContainer) {
+	public DiagramBehaviorDummy(IDiagramContainer diagramContainer, TransactionalEditingDomain editingDomain) {
 		super();
 		this.diagramContainer = diagramContainer;
+		this.editingDomain = editingDomain;
 	}
 
 	public IDiagramContainer getDiagramContainer() {
@@ -83,7 +92,6 @@ public class DiagramBehaviorDummy implements IDiagramBehavior {
 	}
 
 	public TransactionalEditingDomain getEditingDomain() {
-		// TODO Auto-generated method stub
-		return null;
+		return editingDomain;
 	}
 }
