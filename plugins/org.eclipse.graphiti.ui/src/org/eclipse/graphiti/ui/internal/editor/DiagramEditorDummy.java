@@ -39,13 +39,11 @@ import org.eclipse.graphiti.platform.IDiagramContainer;
 public class DiagramEditorDummy implements IDiagramContainer {
 
 	private IDiagramTypeProvider diagramTypeProvider;
-	private TransactionalEditingDomain editingDomain;
 	private IDiagramBehavior diagramBehavior;
 
 	public DiagramEditorDummy(IDiagramTypeProvider diagramTypeProvider, TransactionalEditingDomain eDomain) {
 		setDiagramTypeProvider(diagramTypeProvider);
-		editingDomain = eDomain;
-		diagramBehavior = new DiagramBehaviorDummy(this);
+		diagramBehavior = new DiagramBehaviorDummy(this, eDomain);
 	}
 
 	public IDiagramTypeProvider getDiagramTypeProvider() {

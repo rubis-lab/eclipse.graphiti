@@ -441,6 +441,14 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/editor/DiagramBehaviorDummy.java" type="org.eclipse.graphiti.ui.internal.editor.DiagramBehaviorDummy">
+        <filter id="574619656">
+            <message_arguments>
+                <message_argument value="IDiagramBehavior"/>
+                <message_argument value="DiagramBehaviorDummy"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/internal/editor/DiagramEditorDummy.java" type="org.eclipse.graphiti.ui.internal.editor.DiagramEditorDummy">
         <filter id="574619656">
             <message_arguments>
