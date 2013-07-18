@@ -70,7 +70,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
@@ -210,6 +212,65 @@ public class GFOtherTests extends AbstractGFTests {
 			}
 
 		});
+
+		page.shutdownEditor(diagramEditor);
+	}
+
+	@Test
+	public void testDontSave() throws Exception {
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+
+		syncExec(new VoidResult() {
+			public void run() {
+
+				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
+					public void run() {
+						addClassToDiagram(fp, currentDiagram, 100, 100, "Shape");
+					}
+				});
+			}
+		});
+
+		diagramEditor.doSave(new NullProgressMonitor());
+
+		{
+			ResourceSet rs = new ResourceSetImpl();
+			URI uri = diagramEditor.getDiagramEditorInput().getUri();
+			Resource res2 = rs.getResource(uri, true);
+			assertEquals("Save has failed", 2, res2.getContents().size());
+		}
+
+		syncExec(new VoidResult() {
+			public void run() {
+
+				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
+					public void run() {
+						addClassToDiagram(fp, currentDiagram, 200, 200, "Shape");
+					}
+				});
+			}
+		});
+
+		Resource res = diagramEditor.getDiagramTypeProvider().getDiagram().eResource();
+		assertEquals("Shape was not created", 3, res.getContents().size());
+		AdapterFactoryEditingDomain editingDomain = (AdapterFactoryEditingDomain) diagramEditor.getDiagramBehavior()
+				.getEditingDomain();
+		editingDomain.getResourceToReadOnlyMap().put(res, true);
+
+		diagramEditor.doSave(new NullProgressMonitor());
+		
+		{
+			ResourceSet rs = new ResourceSetImpl();
+			URI uri = diagramEditor.getDiagramEditorInput().getUri();
+			Resource res2 = rs.getResource(uri, true);
+			assertEquals("File in disk was saved after being set as read-only", 2, res2.getContents().size());
+		}
 
 		page.shutdownEditor(diagramEditor);
 	}

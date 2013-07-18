@@ -16,6 +16,7 @@
  *    mwenz - Bug 372753 - save shouldn't (necessarily) flush the command stack
  *    mwenz - Bug 371513 - Save failed with NPE when switching editors
  *    mwenz - Bug 393074 - Save Editor Progress Monitor Argument
+ *    fvelasco - Bug 412838 - Check for read-only resources before saving
  *
  * </copyright>
  *
@@ -62,6 +63,7 @@ import org.eclipse.emf.transaction.impl.TransactionalEditingDomainImpl;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.emf.workspace.WorkspaceEditingDomainFactory;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.internal.editor.GFWorkspaceCommandStackImpl;
 import org.eclipse.graphiti.ui.internal.services.IEmfService;
 import org.eclipse.graphiti.ui.internal.util.ModelElementNameComparator;
@@ -220,11 +222,11 @@ public class EmfService implements IEmfService {
 
 	@SuppressWarnings("unchecked")
 	public Set<Resource> save(TransactionalEditingDomain editingDomain) throws WrappedException {
-		return save(editingDomain, Collections.EMPTY_MAP, new NullProgressMonitor());
+		return save(editingDomain, Collections.EMPTY_MAP, null, new NullProgressMonitor());
 	}
 
 	public Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> options,
-			IProgressMonitor monitor) {
+			final DefaultPersistencyBehavior dpBehavior, IProgressMonitor monitor) {
 
 		final Map<URI, Throwable> failedSaves = new HashMap<URI, Throwable>();
 		final Set<Resource> savedResources = new HashSet<Resource>();
@@ -263,7 +265,11 @@ public class EmfService implements IEmfService {
 							 * resource on the disk (including the diagram). -->
 							 * a not yet loaded resource must not be saved
 							 */
-							if ((!resource.isTrackingModification() || resource.isModified()) && resource.isLoaded()) {
+							boolean shouldSave = (dpBehavior == null) ? !editingDomain.isReadOnly(resource)
+									: dpBehavior.shouldSave(resource);
+
+							if (shouldSave && (!resource.isTrackingModification() || resource.isModified())
+									&& resource.isLoaded()) {
 								try {
 									resource.save(options.get(resource));
 									savedResources.add(resource);

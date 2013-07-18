@@ -13,6 +13,7 @@
  *    Bug 336488 - DiagramEditor API
  *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
  *    mwenz - Bug 393074 - Save Editor Progress Monitor Argument
+ *    fvelasco - Bug 412838 - Check for read-only resources before saving
  *
  * </copyright>
  *
@@ -32,6 +33,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 /**
@@ -138,10 +140,14 @@ public interface IEmfService extends org.eclipse.graphiti.ui.services.IEmfServic
 	 *            The {@link TransactionalEditingDomain} to be saved.
 	 * @param options
 	 *            Save options for each of the {@link Resource}s to save.
+	 * @param dpBehavior
+	 *            the persistency bevahior to test which resources to save
 	 * @return
+	 * 
+	 * @since 0.11
 	 */
 	public abstract Set<Resource> save(final TransactionalEditingDomain editingDomain,
-			final Map<Resource, Map<?, ?>> options, IProgressMonitor monitor);
+			final Map<Resource, Map<?, ?>> options, DefaultPersistencyBehavior dpBehavior, IProgressMonitor monitor);
 
 	/**
 	 * Creates an extended string presentation of the given {@link EObject},
