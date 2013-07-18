@@ -169,7 +169,7 @@ public class DefaultPersistencyBehavior {
 		try {
 			// This runs the options in a background thread reporting progress
 			// to the progress monitor passed into this method (see Bug 393074)
-			ModalContext.run(operation, true, monitor, Display.getCurrent());
+			ModalContext.run(operation, true, monitor, Display.getDefault());
 
 			BasicCommandStack commandStack = (BasicCommandStack) diagramBehavior.getEditingDomain().getCommandStack();
 			commandStack.saveIsDone();
@@ -271,14 +271,14 @@ public class DefaultPersistencyBehavior {
 	 *            the EMF save options used for the saving.
 	 * @param monitor
 	 *            The progress monitor to use for reporting progress
-	 * @return a {@link Set} of all EMF {@link Resource}s that where actually
+	 * @return a {@link Set} of all EMF {@link Resource}s that were actually
 	 *         saved.
 	 * @since 0.10 The parameter monitor has been added compared to the 0.9
 	 *        version of this method
 	 */
 	protected Set<Resource> save(TransactionalEditingDomain editingDomain, Map<Resource, Map<?, ?>> saveOptions,
 			IProgressMonitor monitor) {
-		return GraphitiUiInternal.getEmfService().save(editingDomain, saveOptions, monitor);
+		return GraphitiUiInternal.getEmfService().save(editingDomain, saveOptions, this, monitor);
 	}
 
 	/**
@@ -301,5 +301,19 @@ public class DefaultPersistencyBehavior {
 				}
 			});
 		}
+	}
+
+	/**
+	 * Checks whether a resource should be save during the diagram save process.
+	 * By default, just passes the check to the editing domain.
+	 * 
+	 * @param resource
+	 *            the {@link Resource} to check
+	 * @return true if the resource must be saved, i.e., it's not read-only
+	 * 
+	 * @since 0.11
+	 */
+	public boolean shouldSave(Resource resource) {
+		return !diagramBehavior.getEditingDomain().isReadOnly(resource);
 	}
 }
