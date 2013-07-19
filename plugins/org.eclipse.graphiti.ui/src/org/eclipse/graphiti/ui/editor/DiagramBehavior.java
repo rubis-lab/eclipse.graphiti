@@ -12,6 +12,7 @@
  *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
  *    mwenz - Bug 401859 - Graphiti DiagramEditor#dispose() does not release the editor related objects
  *    mwenz - Bug 407510 - Color background without Grid Layer turned to gray
+ *    fvelasco - Bug 403664 - Enable DoubleClickFeature on the diagram background
  *
  * </copyright>
  *
@@ -486,14 +487,15 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 		ScrollingGraphicalViewer viewer = (ScrollingGraphicalViewer) diagramContainer.getGraphicalViewer();
 
-		ScalableRootEditPartAnimated rootEditPart = new ScalableRootEditPartAnimated(viewer) {
+		ScalableRootEditPartAnimated rootEditPart = new ScalableRootEditPartAnimated(viewer,
+				(IConfigurationProviderInternal) getConfigurationProvider()) {
 
-			protected GridLayer createGridLayer() {
-				return new org.eclipse.graphiti.ui.internal.util.draw2d.GridLayer(
-						(IConfigurationProviderInternal) getConfigurationProvider());
-			}
+					protected GridLayer createGridLayer() {
+						return new org.eclipse.graphiti.ui.internal.util.draw2d.GridLayer(
+								(IConfigurationProviderInternal) getConfigurationProvider());
+					}
 
-		};
+				};
 
 		// configure ZoomManager
 		viewer.setRootEditPart(rootEditPart); // support

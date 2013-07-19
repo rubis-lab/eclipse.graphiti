@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 327669 - removed dependencies to GEF internal stuff
+ *    fvelasco - Bug 403664 - Enable DoubleClickFeature on the diagram background
  *
  * </copyright>
  *
@@ -17,6 +18,7 @@
 package org.eclipse.graphiti.ui.internal.editor;
 
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
+import org.eclipse.gef.tools.PanningSelectionTool;
 import org.eclipse.graphiti.ui.internal.Messages;
 
 /**
@@ -60,7 +62,7 @@ public class GFPanningSelectionToolEntry extends PanningSelectionToolEntry {
 		if (shortDesc == null || shortDesc.length() == 0) {
 			setDescription(Messages.GFPanningSelectionToolEntry_0_xmsg);
 		}
-		setToolClass(GFPanningSelectionTool.class);
+		setToolClass(PanningSelectionTool.class);
 	}
 
 }
