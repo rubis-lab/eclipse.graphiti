@@ -71,6 +71,7 @@ import org.eclipse.graphiti.services.ICreateService;
 import org.eclipse.graphiti.testtool.ecore.TestToolBehavior;
 import org.eclipse.graphiti.testtool.sketch.SketchFeatureProvider;
 import org.eclipse.graphiti.testtool.sketch.features.DisplayDecoratorFeature;
+import org.eclipse.graphiti.testtool.sketch.features.DoubleClickFeature;
 import org.eclipse.graphiti.testtool.sketch.features.ToggleDecorator;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCompositeConnectionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateCurvedConnectionFeature;
@@ -1706,6 +1707,25 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		});
 
 		Thread.sleep(SHORT_DELAY);
+		page.shutdownEditor(diagramEditor);
+	}
+
+	@Test
+	public void testDoubleClickOnDiagram() throws Exception {
+		page.closeAllEditors();
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+
+		DoubleClickFeature.executed = false;
+		Thread.sleep(DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				ed.getGefEditor().doubleClick(50, 50);
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+		assertTrue("Double click was not executed on the diagram", DoubleClickFeature.executed);
+
 		page.shutdownEditor(diagramEditor);
 	}
 }

@@ -32,6 +32,7 @@ import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
+import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -75,6 +76,7 @@ import org.eclipse.graphiti.testtool.sketch.features.ChangeAlignmentFeature;
 import org.eclipse.graphiti.testtool.sketch.features.ClearDecoratorsFeature;
 import org.eclipse.graphiti.testtool.sketch.features.CornerDimensionFeature;
 import org.eclipse.graphiti.testtool.sketch.features.DisplayDecoratorFeature;
+import org.eclipse.graphiti.testtool.sketch.features.DoubleClickFeature;
 import org.eclipse.graphiti.testtool.sketch.features.LineStyleFeature;
 import org.eclipse.graphiti.testtool.sketch.features.LineWidthFeature;
 import org.eclipse.graphiti.testtool.sketch.features.SetImageAttributesFeature;
@@ -607,6 +609,17 @@ public class SketchToolBehavior extends DefaultToolBehaviorProvider implements I
 			}
 		}
 		return super.getCommandFeature(context, hint);
+	}
+
+	@Override
+	public ICustomFeature getDoubleClickFeature(IDoubleClickContext context) {
+		ICustomFeature customFeature = new DoubleClickFeature(getFeatureProvider());
+
+		if (customFeature.canExecute(context)) {
+			return customFeature;
+		}
+
+		return super.getDoubleClickFeature(context);
 	}
 
 }
