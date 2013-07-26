@@ -92,9 +92,6 @@
 
 		<echo message="Copying site.p2.zip to last_success area" />
 		<copydir dest="${root}/last_success/site.p2.zip/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2.zip" />
-		<rename dest="${root}/last_success/site.p2.zip/org.eclipse.graphiti.site_0.10.1.${build_id}.zip" 
-			src="${root}/last_success/site.p2.zip/org.eclipse.graphiti.site_0.10.1.qualifier.zip"/>
-
 	</target>
 	
 	<!-- Sub targets for copy.sites -->
