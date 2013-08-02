@@ -101,7 +101,7 @@ public class PluginWizardTests extends AbstractGFTests {
 	    view.show();
 		SWTBotTree tree = view.bot().tree();
 		SWTBotTreeItem[] allItems = tree.getAllItems();
-		assertTrue(allItems.length == 0);
+		assertTrue("Items found in problems view: " + allItems.toString(), allItems.length == 0);
 
 		// Check that org.eclipse.ui is not part of the dependencies (no
 		// activator is generated), test for Bug 388211
