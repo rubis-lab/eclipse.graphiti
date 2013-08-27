@@ -13,6 +13,7 @@
  *    Bug 336488 - DiagramEditor API
  *    mwenz - Bug 378342 - Cannot store more than a diagram per file
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    fvelasco - Bug 415888 - DiagramEditorInput should adapt to IResource
  *
  * </copyright>
  *
@@ -20,6 +21,7 @@
 package org.eclipse.graphiti.ui.editor;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.URI;
@@ -242,7 +244,7 @@ public class DiagramEditorInput implements IEditorInput, IPersistableElement, ID
 	 *         this object does not have an adapter for the given class
 	 */
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
-		if (IFile.class.isAssignableFrom(adapter)) {
+		if (IFile.class.isAssignableFrom(adapter) || IResource.class.equals(adapter)) {
 		 	return GraphitiUiInternal.getEmfService().getFile(getUri());
 	    } 
 		return null;
