@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 415884 - Cannot query size of a multi-line text 
  *
  * </copyright>
  *
@@ -18,7 +19,9 @@ package org.eclipse.graphiti.ui.internal.services.impl;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.datatypes.IRectangle;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -99,7 +102,15 @@ public class UiLayoutService implements IUiLayoutService {
 
 	}
 
+	public IDimension calculateTextSize(String text, Font font, boolean handleMultiline) {
+		return GraphitiUiInternal.getGefService().calculateTextSize(text, font, handleMultiline);
+	}
+
 	public IDimension calculateTextSize(String text, Font font) {
-		return GraphitiUiInternal.getGefService().calculateTextSize(text, font);
+		return calculateTextSize(text, font, false);
+	}
+
+	public IDimension calculateTextSize(AbstractText text) {
+		return calculateTextSize(text.getValue(), text.getFont(), (text instanceof MultiText));
 	}
 }
