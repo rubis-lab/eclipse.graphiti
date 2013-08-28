@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 415884 - Cannot query size of a multi-line text
  *
  * </copyright>
  *
@@ -124,14 +125,33 @@ public interface IGefService {
 	double getDistance(Point[] points);
 
 	/**
-	 * Calculates and returns the size of the text.
+	 * Calculates and returns the size of the text ignoring any new line
+	 * characters in the string.
 	 * 
 	 * @param text
 	 * @param font
 	 * 
 	 * @return the size of the text
+	 * 
+	 * @see #calculateTextSize(String, Font, boolean)
 	 */
 	IDimension calculateTextSize(String text, Font font);
+
+	/**
+	 * Calculates and returns the size of the text.
+	 * 
+	 * @param text
+	 * @param font
+	 * @param handleMultiline
+	 *            Defines if line breaks in the string should be used in the
+	 *            calculation of the size or not. In case <code>true</code>, a
+	 *            new line character in the string will increase the size of the
+	 *            returned dimensions by one line, in case <code>false</code> a
+	 *            new line character will be ignored.
+	 * 
+	 * @return the size of the text
+	 */
+	IDimension calculateTextSize(String text, Font font, boolean handleMultiline);
 
 	/**
 	 * @param draw2dPoints

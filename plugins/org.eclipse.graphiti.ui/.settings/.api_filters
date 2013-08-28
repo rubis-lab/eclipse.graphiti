@@ -173,6 +173,18 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/services/IUiLayoutService.java" type="org.eclipse.graphiti.ui.services.IUiLayoutService">
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.services.IUiLayoutService"/>
+                <message_argument value="calculateTextSize(AbstractText)"/>
+            </message_arguments>
+        </filter>
+        <filter id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.services.IUiLayoutService"/>
+                <message_argument value="calculateTextSize(String, Font, boolean)"/>
+            </message_arguments>
+        </filter>
         <filter id="571473929">
             <message_arguments>
                 <message_argument value="ILayoutService"/>

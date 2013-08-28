@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 415884 - Cannot query size of a multi-line text
  *
  * </copyright>
  *
@@ -501,6 +502,10 @@ public class GefService implements IGefService {
 	}
 
 	public IDimension calculateTextSize(String text, Font font) {
+		return calculateTextSize(text, font, false);
+	}
+
+	public IDimension calculateTextSize(String text, Font font, boolean handleMultiline) {
 		IDimension dimension = null;
 		if (text == null || font == null || font.getName() == null) {
 			return dimension;
@@ -508,7 +513,13 @@ public class GefService implements IGefService {
 
 		org.eclipse.swt.graphics.Font swtFont = DataTypeTransformation.toSwtFont(font);
 		if (swtFont != null) {
-			Dimension se = TextUtilities.INSTANCE.getStringExtents(text, swtFont);
+			Dimension se;
+			if (handleMultiline) {
+				se = TextUtilities.INSTANCE.getTextExtents(text, swtFont);
+			} else {
+				se = TextUtilities.INSTANCE.getStringExtents(text, swtFont);
+			}
+
 			if (se != null) {
 				dimension = new DimensionImpl(se.width, se.height);
 			}
