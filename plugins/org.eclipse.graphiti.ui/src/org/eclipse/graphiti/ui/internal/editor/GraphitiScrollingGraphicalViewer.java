@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    fvelasco - Bug 323356 - Mouse-wheel support for scrolling and zooming
  *
  * </copyright>
  *
@@ -21,13 +22,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.MouseWheelHandler;
+import org.eclipse.gef.MouseWheelZoomHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
+import org.eclipse.graphiti.ui.internal.util.gef.MouseWheelHorizontalScrollHandler;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.SWT;
 
 public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 
@@ -35,6 +40,8 @@ public class GraphitiScrollingGraphicalViewer extends ScrollingGraphicalViewer {
 
 	public GraphitiScrollingGraphicalViewer(DiagramBehavior diagramBehavior) {
 		this.setDiagramBehavior(diagramBehavior);
+		setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.MOD1), MouseWheelZoomHandler.SINGLETON);
+		setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.MOD2), MouseWheelHorizontalScrollHandler.SINGLETON);
 	}
 
 	@Override
