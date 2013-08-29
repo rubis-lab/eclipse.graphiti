@@ -37,6 +37,7 @@ public class ZoomManagerWithAnimation extends ZoomManager {
 
 	ScrollingGraphicalViewer viewer = null;
 	private static int totalSteps = 5;
+	private volatile double targetZoom = 1.0;
 
 	/**
 	 * Creates a new ZoomManagerWithAnimation.
@@ -53,10 +54,34 @@ public class ZoomManagerWithAnimation extends ZoomManager {
 	 */
 	@Override
 	protected void primSetZoom(double zoom) {
+		if (zoom == targetZoom)
+			return;
+
+		targetZoom = zoom;
 		// int totalSteps = getTotalSteps();
 		double currentZoom = getZoom();
 		zoomSqrt(currentZoom, zoom, totalSteps);
-		super.primSetZoom(zoom); // the last one is the original value, so rounding-errors are avoided
+		if (zoom == targetZoom) {
+			super.primSetZoom(targetZoom); // the last one is the original
+											// value, so rounding-errors are
+											// avoided
+		}
+	}
+
+	@Override
+	public double getNextZoomLevel() {
+		for (int i = 0; i < getZoomLevels().length; i++)
+			if (getZoomLevels()[i] > targetZoom)
+				return getZoomLevels()[i];
+		return getMaxZoom();
+	}
+
+	@Override
+	public double getPreviousZoomLevel() {
+		for (int i = 1; i < getZoomLevels().length; i++)
+			if (getZoomLevels()[i] >= targetZoom)
+				return getZoomLevels()[i - 1];
+		return getMinZoom();
 	}
 
 	/**
@@ -91,11 +116,14 @@ public class ZoomManagerWithAnimation extends ZoomManager {
 	/**
 	 * Calculates the zoom-steps using a square root algorithm.
 	 */
-	private void zoomSqrt(double currentZoom, double targetZoom, int totalSteps) {
+	private void zoomSqrt(double currentZoom, double currentTargetZoom, int totalSteps) {
 		double currentZoom2 = Math.sqrt(currentZoom);
-		double targetZoom2 = Math.sqrt(targetZoom);
+		double targetZoom2 = Math.sqrt(currentTargetZoom);
 		double delta = (targetZoom2 - currentZoom2) / totalSteps;
 		for (int i = 0; i < totalSteps; i++) {
+			if (currentTargetZoom != targetZoom)
+				break;
+
 			currentZoom2 += delta;
 			super.primSetZoom(currentZoom2 * currentZoom2);
 			stepPerformed();
