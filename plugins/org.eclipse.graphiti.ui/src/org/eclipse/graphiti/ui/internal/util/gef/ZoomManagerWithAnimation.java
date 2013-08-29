@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.util.gef;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.eclipse.draw2d.ScalableFigure;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -37,6 +39,7 @@ public class ZoomManagerWithAnimation extends ZoomManager {
 
 	ScrollingGraphicalViewer viewer = null;
 	private static int totalSteps = 5;
+	private AtomicBoolean isAnimating = new AtomicBoolean(false);
 
 	/**
 	 * Creates a new ZoomManagerWithAnimation.
@@ -53,10 +56,15 @@ public class ZoomManagerWithAnimation extends ZoomManager {
 	 */
 	@Override
 	protected void primSetZoom(double zoom) {
-		// int totalSteps = getTotalSteps();
-		double currentZoom = getZoom();
-		zoomSqrt(currentZoom, zoom, totalSteps);
-		super.primSetZoom(zoom); // the last one is the original value, so rounding-errors are avoided
+		if (isAnimating.compareAndSet(false, true)) {
+			// int totalSteps = getTotalSteps();
+			double currentZoom = getZoom();
+			zoomSqrt(currentZoom, zoom, totalSteps);
+			super.primSetZoom(zoom);
+			// the last one is the original value, so rounding-errors are
+			// avoided
+			isAnimating.set(false);
+		}
 	}
 
 	/**
