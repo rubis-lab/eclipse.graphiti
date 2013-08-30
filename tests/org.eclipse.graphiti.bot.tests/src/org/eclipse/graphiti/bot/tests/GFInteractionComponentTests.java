@@ -309,6 +309,97 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	}
 
 	@Test
+	public void testScrolling() throws Exception {
+		final int x = 100;
+		final int y = 100;
+		final int deltaX = 200;
+		final int deltaY = 200;
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+
+		final GFFigureCanvas gfFigureCanvas = ed.getGFCanvas();
+		final org.eclipse.draw2d.geometry.Point[] position = new org.eclipse.draw2d.geometry.Point[1];
+
+		syncExec(new VoidResult() {
+			public void run() {
+				// find diagram
+				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
+					public void run() {
+						// add a lot of classes to the diagram
+						for (int i = 0; i < 10; i++)
+							for (int j = 0; j < 10; j++)
+								addClassToDiagram(fp, currentDiagram, x + deltaX * i, y + deltaY * j, SHAPE_NAME + "_"
+										+ i + "_" + j);
+					}
+				});
+			}
+		});
+		Thread.sleep(DELAY);
+		syncExec(new VoidResult() {
+			public void run() {
+				position[0] = gfFigureCanvas.getViewport().getViewLocation();
+			}
+		});
+		org.eclipse.draw2d.geometry.Point initialPos = position[0];
+
+		syncExec(new VoidResult() {
+			public void run() {
+				
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 150, p.y + 150);
+					r.mouseWheel(10);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				position[0] = gfFigureCanvas.getViewport().getViewLocation();
+			}
+		});
+		org.eclipse.draw2d.geometry.Point currentPos = position[0];
+		assertEquals(initialPos.x, currentPos.x);
+		assertTrue(currentPos.y > initialPos.y);
+		initialPos = currentPos;
+
+		syncExec(new VoidResult() {
+			public void run() {
+
+				Robot r;
+				try {
+					r = new Robot();
+					r.keyPress(KeyEvent.VK_SHIFT);
+					r.mouseWheel(-10);
+					r.keyRelease(KeyEvent.VK_SHIFT);
+
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				position[0] = gfFigureCanvas.getViewport().getViewLocation();
+			}
+		});
+		currentPos = position[0];
+		assertEquals(initialPos.y, currentPos.y);
+		assertTrue(currentPos.x > initialPos.x);
+
+		page.shutdownEditor(diagramEditor);
+	}
+
+	@Test
 	public void testMouseLocation() throws Exception {
 		/*
 		 * regression test for CSN 0120031469 0003790113 2008
