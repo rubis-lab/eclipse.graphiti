@@ -19,6 +19,8 @@ import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.MouseWheelHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
+import org.eclipse.graphiti.ui.internal.editor.GFFigureCanvas;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.ScrollBar;
 
@@ -39,12 +41,23 @@ public class MouseWheelHorizontalScrollHandler implements MouseWheelHandler {
 	 */
 	public void handleMouseWheel(Event event, EditPartViewer viewer) {
 		if (viewer instanceof ScrollingGraphicalViewer) {
-			FigureCanvas canvas = (FigureCanvas) viewer.getControl();
-			ScrollBar hBar = canvas.getHorizontalBar();
+			Control control = viewer.getControl();
+			if (control instanceof FigureCanvas) {
+				FigureCanvas canvas = (FigureCanvas) control;
+				ScrollBar hBar = canvas.getHorizontalBar();
 
-			int value = hBar.getSelection() + (hBar.getIncrement() * event.count);
-			canvas.scrollToX(value);
-			event.doit = false;
+				int value = hBar.getSelection() + (hBar.getIncrement() * event.count);
+				canvas.scrollToX(value);
+				event.doit = false;
+			} else if (control instanceof GFFigureCanvas) {
+				GFFigureCanvas canvas = (GFFigureCanvas) control;
+				ScrollBar hBar = canvas.getHorizontalBar();
+
+				int value = hBar.getSelection() + (hBar.getIncrement() * event.count);
+				int y = canvas.getViewport().getViewLocation().y;
+				canvas.scrollTo(value, y);
+				event.doit = false;
+			}
 		}
 	}
 
