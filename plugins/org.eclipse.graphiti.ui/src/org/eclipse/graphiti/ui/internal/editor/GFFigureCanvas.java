@@ -809,12 +809,7 @@ public class GFFigureCanvas extends Canvas implements IAdaptable {
 	public void scrollTo(int x, int y) {
 		x = verifyScrollBarOffset(getViewport().getHorizontalRangeModel(), x);
 		y = verifyScrollBarOffset(getViewport().getVerticalRangeModel(), y);
-		if (x == getViewport().getViewLocation().x)
-			scrollToY(null, y);
-		else if (y == getViewport().getViewLocation().y)
-			scrollToX(null, x);
-		else
-			getViewport().setViewLocation(x, y);
+		getViewport().setViewLocation(x, y);
 	}
 
 	/**
