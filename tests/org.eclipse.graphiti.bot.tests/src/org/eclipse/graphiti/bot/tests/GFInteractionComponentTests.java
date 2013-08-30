@@ -25,6 +25,8 @@
 package org.eclipse.graphiti.bot.tests;
 
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertThat;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -35,17 +37,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.ToolEntry;
+import org.eclipse.graphiti.DiagramScrollingBehavior;
 import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.DefaultFeatureProviderWrapper;
@@ -92,6 +97,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
@@ -101,6 +107,8 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.hamcrest.Description;
 import org.junit.Test;
 
@@ -305,6 +313,197 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(SHORT_DELAY);
+		page.shutdownEditor(diagramEditor);
+	}
+
+	@Test
+	public void testScrolling() throws Exception {
+		final int x = 100;
+		final int y = 100;
+		final int deltaX = 200;
+		final int deltaY = 200;
+		TestToolBehavior.scrollingBehavior = DiagramScrollingBehavior.GEF_DEFAULT;
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+
+		IEditorReference reference = ed.getGefEditor().getReference();
+		IEditorPart editor = reference.getEditor(true);
+		GraphicalViewer graphicalViewer = (GraphicalViewer) editor.getAdapter(GraphicalViewer.class);
+		final Control control = graphicalViewer.getControl();
+		assertThat(control, instanceOf(FigureCanvas.class));
+		final FigureCanvas canvas = (FigureCanvas) control;
+
+		final org.eclipse.draw2d.geometry.Point[] position = new org.eclipse.draw2d.geometry.Point[1];
+
+		syncExec(new VoidResult() {
+			public void run() {
+				// find diagram
+				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
+					public void run() {
+						// add a lot of classes to the diagram
+						for (int i = 0; i < 10; i++)
+							for (int j = 0; j < 10; j++)
+								addClassToDiagram(fp, currentDiagram, x + deltaX * i, y + deltaY * j, SHAPE_NAME + "_"
+										+ i + "_" + j);
+					}
+				});
+			}
+		});
+		Thread.sleep(DELAY);
+		syncExec(new VoidResult() {
+			public void run() {
+				position[0] = canvas.getViewport().getViewLocation();
+			}
+		});
+		org.eclipse.draw2d.geometry.Point initialPos = position[0];
+
+		syncExec(new VoidResult() {
+			public void run() {
+
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 150, p.y + 150);
+					r.mouseWheel(10);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				position[0] = canvas.getViewport().getViewLocation();
+			}
+		});
+		org.eclipse.draw2d.geometry.Point currentPos = position[0];
+		assertEquals(initialPos.x, currentPos.x);
+		assertTrue(currentPos.y > initialPos.y);
+		initialPos = currentPos;
+
+		syncExec(new VoidResult() {
+			public void run() {
+
+				Robot r;
+				try {
+					r = new Robot();
+					r.keyPress(KeyEvent.VK_SHIFT);
+					r.mouseWheel(-10);
+					r.keyRelease(KeyEvent.VK_SHIFT);
+
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				position[0] = canvas.getViewport().getViewLocation();
+			}
+		});
+		currentPos = position[0];
+		assertEquals(initialPos.y, currentPos.y);
+		assertTrue(currentPos.x > initialPos.x);
+
+		TestToolBehavior.scrollingBehavior = DiagramScrollingBehavior.GEF_DEFAULT;
+
+		page.shutdownEditor(diagramEditor);
+	}
+
+	@Test
+	public void testScrollingGFFigureCanvas() throws Exception {
+		final int x = 100;
+		final int y = 100;
+		final int deltaX = 200;
+		final int deltaY = 200;
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+
+		final GFFigureCanvas gfFigureCanvas = ed.getGFCanvas();
+		final org.eclipse.draw2d.geometry.Point[] position = new org.eclipse.draw2d.geometry.Point[1];
+
+		syncExec(new VoidResult() {
+			public void run() {
+				// find diagram
+				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
+					public void run() {
+						// add a lot of classes to the diagram
+						for (int i = 0; i < 10; i++)
+							for (int j = 0; j < 10; j++)
+								addClassToDiagram(fp, currentDiagram, x + deltaX * i, y + deltaY * j, SHAPE_NAME + "_"
+										+ i + "_" + j);
+					}
+				});
+			}
+		});
+		Thread.sleep(DELAY);
+		syncExec(new VoidResult() {
+			public void run() {
+				position[0] = gfFigureCanvas.getViewport().getViewLocation();
+			}
+		});
+		org.eclipse.draw2d.geometry.Point initialPos = position[0];
+
+		syncExec(new VoidResult() {
+			public void run() {
+				
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 150, p.y + 150);
+					r.mouseWheel(10);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				position[0] = gfFigureCanvas.getViewport().getViewLocation();
+			}
+		});
+		org.eclipse.draw2d.geometry.Point currentPos = position[0];
+		assertEquals(initialPos.x, currentPos.x);
+		assertTrue(currentPos.y > initialPos.y);
+		initialPos = currentPos;
+
+		syncExec(new VoidResult() {
+			public void run() {
+
+				Robot r;
+				try {
+					r = new Robot();
+					r.keyPress(KeyEvent.VK_SHIFT);
+					r.mouseWheel(-10);
+					r.keyRelease(KeyEvent.VK_SHIFT);
+
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				position[0] = gfFigureCanvas.getViewport().getViewLocation();
+			}
+		});
+		currentPos = position[0];
+		assertEquals(initialPos.y, currentPos.y);
+		assertTrue(currentPos.x > initialPos.x);
+
 		page.shutdownEditor(diagramEditor);
 	}
 
