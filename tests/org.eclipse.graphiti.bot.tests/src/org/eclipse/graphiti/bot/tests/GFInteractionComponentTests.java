@@ -366,7 +366,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				Robot r;
 				try {
 					r = new Robot();
-					Point p = ed.getOrigin();
+					Point p = canvas.toDisplay(0, 0);
 					r.mouseMove(p.x + 150, p.y + 150);
 					r.mouseWheel(10);
 				} catch (AWTException e) {
@@ -412,7 +412,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		assertEquals(initialPos.y, currentPos.y);
 		assertThat(currentPos.x, greaterThan(initialPos.x));
 
-		TestToolBehavior.scrollingBehavior = DiagramScrollingBehavior.GEF_DEFAULT;
+		TestToolBehavior.scrollingBehavior = DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE;
 
 		page.shutdownEditor(diagramEditor);
 	}
