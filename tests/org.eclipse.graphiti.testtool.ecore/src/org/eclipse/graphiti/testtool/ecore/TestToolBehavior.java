@@ -38,6 +38,7 @@ public class TestToolBehavior extends DefaultToolBehaviorProvider {
 	public static boolean showFlyoutPalette = true;
 	public static int lineSelectionWidth = DEFAULT_LINE_SELECTION_WIDTH;
 	public static boolean lineSelectionWidthCalled = false;
+	public static DiagramScrollingBehavior scrollingBehavior = DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE;
 
 	public static void setShowFlyoutPalette(boolean showFlyoutPalette) {
 		TestToolBehavior.showFlyoutPalette = showFlyoutPalette;
@@ -65,7 +66,7 @@ public class TestToolBehavior extends DefaultToolBehaviorProvider {
 
 		ContextButtonEntry button = new ContextButtonEntry(connecFeature, cc);
 		button.setText("Connection");
-		button.setDescription("Create a new Conenction");
+		button.setDescription("Create a new Connection");
 		button.addDragAndDropFeature(connecFeature);
 		data.getDomainSpecificContextButtons().add(button);
 
@@ -82,7 +83,7 @@ public class TestToolBehavior extends DefaultToolBehaviorProvider {
 
 	@Override
 	public DiagramScrollingBehavior getDiagramScrollingBehavior() {
-		return DiagramScrollingBehavior.SCROLLBARS_ALWAYS_VISIBLE;
+		return scrollingBehavior;
 	}
 
 	@Override
