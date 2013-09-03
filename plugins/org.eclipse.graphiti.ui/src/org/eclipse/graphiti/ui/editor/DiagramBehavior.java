@@ -1214,7 +1214,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 			return ((IConfigurationProviderInternal) getConfigurationProvider()).getContextButtonManager();
 		}
 		if (type == IDiagramEditor.class) {
-			return this;
+			return getDiagramContainer();
 		}
 
 		return null;
