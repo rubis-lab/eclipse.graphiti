@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2012, 2012 SAP AG.
+ * Copyright (c) 2012, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 416708 - IdPattern canDirectEdit method disallows direct editing in case the id is set for the pictogram element
  *
  * </copyright>
  *
@@ -887,10 +888,10 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 			String id = getId(pictogramElement);
 			if (id == null) {
 				id = getId(context.getGraphicsAlgorithm());
+			}
 
-				if (id != null) {
-					return canDirectEdit(context, id);
-				}
+			if (id != null) {
+				return canDirectEdit(context, id);
 			}
 		}
 		return false;
@@ -938,10 +939,10 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 			String id = getId(pictogramElement);
 			if (id == null) {
 				id = getId(context.getGraphicsAlgorithm());
+			}
 
-				if (id != null) {
-					return getInitialValue(context, id);
-				}
+			if (id != null) {
+				return getInitialValue(context, id);
 			}
 		}
 		return "";
@@ -993,10 +994,10 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 			String id = getId(pictogramElement);
 			if (id == null) {
 				id = getId(context.getGraphicsAlgorithm());
+			}
 
-				if (id != null) {
-					return checkValueValid(value, context, id);
-				}
+			if (id != null) {
+				return checkValueValid(value, context, id);
 			}
 		}
 		return null;
@@ -1050,10 +1051,10 @@ public abstract class IdPattern extends TypedPattern implements IPattern {
 			String id = getId(pictogramElement);
 			if (id == null) {
 				id = getId(context.getGraphicsAlgorithm());
+			}
 
-				if (id != null) {
-					setValue(value, context, id);
-				}
+			if (id != null) {
+				setValue(value, context, id);
 			}
 		}
 	}
