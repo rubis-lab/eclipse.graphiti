@@ -64,7 +64,7 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/eclipse/updates/4.3-M-builds/M-4.3.1RC2-201308291300/">
+      <rm:uri format="{0}/eclipse/updates/4.3-M-builds/M-4.3.1RC3-201309050705/">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
@@ -73,7 +73,7 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/modeling/emf/emf/updates/2.9milestones/">
+      <rm:uri format="{0}/modeling/emf/emf/updates/2.9.x/">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
