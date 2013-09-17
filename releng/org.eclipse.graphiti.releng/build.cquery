@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<cq:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="build.rmap">
+<?xml version="1.0" encoding="UTF-8"?><cq:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="build.rmap">
     <cq:rootRequest name="org.eclipse.graphiti.releng" componentType="buckminster"/>
     <cq:advisorNode namePattern="^org\.eclipse\.graphiti(\..+)?\.source*" skipComponent="true"/>
     <cq:advisorNode namePattern="^org\.eclipse\.swt\.motif\.solaris\.sparc\.source*" skipComponent="true"/>
     <cq:advisorNode namePattern="^org\.eclipse\.swt\.photon\.qnx\.x86\.source*" skipComponent="true"/>
     <cq:advisorNode namePattern=".*" useMaterialization="false" useTargetPlatform="false"/>
+    <cq:advisorNode namePattern="^org\.eclipse\.gef\.*" versionOverride="[3.9.1,3.10.0)"/>
 </cq:componentQuery>
