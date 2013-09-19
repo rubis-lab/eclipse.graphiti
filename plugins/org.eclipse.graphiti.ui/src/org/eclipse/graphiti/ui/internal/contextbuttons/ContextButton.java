@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  *    mwenz - Bug 389379 - Editor Dirty Handling (gets broken after context button execution)
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    fvelasco - Bug 417577 - state call backs review
  *
  * </copyright>
  *
@@ -113,6 +114,8 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	private MouseListener mouseDragUpListener;
 
 	private String providerId;
+
+	private GFDragConnectionTool dragConnectionTool;
 
 	// ============================ inner classes =============================
 
@@ -566,8 +569,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 				public void mouseMove(org.eclipse.swt.events.MouseEvent e) {
 					EditPart targetEditPart = getDiagramBehavior().getDiagramContainer().getGraphicalViewer()
 							.findObjectAt(new Point(e.x, e.y));
-					createNewGFDragConnectionTool().continueConnection(getEditPart(),
- getDiagramBehavior(), getEntry(),
+					getGFDragConnectionTool().continueConnection(getEditPart(),
 							targetEditPart);
 				}
 			};
@@ -582,6 +584,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 							.removeMouseMoveListener(mouseDragMoveListener);
 					mouseDragUpListener = null;
 					mouseDragMoveListener = null;
+					dragConnectionTool = null;
 				}
 			};
 
@@ -600,11 +603,17 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	 * @return A new GFDragConnectionTool, which is initialized and set as
 	 *         active tool.
 	 */
-	private GFDragConnectionTool createNewGFDragConnectionTool() {
-		DefaultEditDomain editDomain = getDiagramBehavior().getEditDomain();
-		GFDragConnectionTool dragConnectionTool = new GFDragConnectionTool();
-		dragConnectionTool.setEditDomain(editDomain);
-		editDomain.setActiveTool(dragConnectionTool);
+	private GFDragConnectionTool getGFDragConnectionTool() {
+		if (dragConnectionTool == null) {
+			GFDragConnectionTool dragConnectionTool = new GFDragConnectionTool(getDiagramBehavior(), getEntry());
+
+			DefaultEditDomain editDomain = getDiagramBehavior().getEditDomain();
+			dragConnectionTool.setEditDomain(editDomain);
+			editDomain.setActiveTool(dragConnectionTool);
+
+			this.dragConnectionTool = dragConnectionTool;
+		}
+
 		return dragConnectionTool;
 	}
 

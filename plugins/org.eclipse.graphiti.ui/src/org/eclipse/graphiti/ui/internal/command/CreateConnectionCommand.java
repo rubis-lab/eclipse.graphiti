@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@
  *    Bug 336488 - DiagramEditor API
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    fvelasco - Bug 417577 - state call backs review
  *
  * </copyright>
  *
@@ -210,6 +211,7 @@ public class CreateConnectionCommand extends AbstractCommand {
 		if (b) {
 			GenericFeatureCommandWithContext result = (GenericFeatureCommandWithContext) popupMenu.getResult();
 			try {
+				commands.remove(result);
 				CommandExec.getSingleton().executeCommand(result, getTransactionalEditingDomain());
 			} catch (Exception e) {
 				// Wrap in runtime exception (handled outside)
@@ -219,9 +221,13 @@ public class CreateConnectionCommand extends AbstractCommand {
 					throw new RuntimeException(e);
 				}
 			}
-
 		}
 
+		for (GenericFeatureCommandWithContext command : commands) {
+			if (command.getFeature() instanceof ICreateConnectionFeature) {
+				((ICreateConnectionFeature) command.getFeature()).canceledAttaching(connectionContext);
+			}
+		}
 	}
 
 	public boolean canStartConnection() {

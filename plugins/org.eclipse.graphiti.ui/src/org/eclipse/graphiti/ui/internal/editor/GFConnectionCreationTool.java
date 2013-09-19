@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,12 +11,15 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
  *    mgorning - Bug 329517 - state call backs during creation of a connection
+ *    fvelasco - Bug 417577 - state call backs review
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.editor;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,6 +39,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.swt.events.KeyEvent;
@@ -68,7 +72,8 @@ public class GFConnectionCreationTool extends ConnectionCreationTool {
 			final CreateConnectionContext context = new CreateConnectionContext();
 			IFeatureProvider featureProvider = createFeature.getFeatureProvider();
 			IDiagramTypeProvider diagramTypeProvider = featureProvider.getDiagramTypeProvider();
-			PictogramElement[] selectedPictogramElements = diagramTypeProvider.getDiagramEditor()
+			IDiagramBehavior diagramBehavior = diagramTypeProvider.getDiagramBehavior();
+			PictogramElement[] selectedPictogramElements = diagramBehavior.getDiagramContainer()
 					.getSelectedPictogramElements();
 			if (selectedPictogramElements.length == 2) {
 				PictogramElement sourcePictogramElement = selectedPictogramElements[0];
@@ -126,8 +131,7 @@ public class GFConnectionCreationTool extends ConnectionCreationTool {
 		if (cmd != null) {
 			cmd.deactivate();
 		}
-		ICreateConnectionFeature ccf = getCreateConnectionFeature();
-		if (ccf != null) {
+		for (ICreateConnectionFeature ccf : getCreateConnectionFeatures()) {
 			ccf.endConnecting();
 		}
 		super.deactivate();
@@ -136,8 +140,7 @@ public class GFConnectionCreationTool extends ConnectionCreationTool {
 	@Override
 	public void activate() {
 		super.activate();
-		ICreateConnectionFeature ccf = getCreateConnectionFeature();
-		if (ccf != null) {
+		for (ICreateConnectionFeature ccf : getCreateConnectionFeatures()) {
 			ccf.startConnecting();
 		}
 	}
@@ -164,18 +167,20 @@ public class GFConnectionCreationTool extends ConnectionCreationTool {
 		return null;
 	}
 
-	private ICreateConnectionFeature getCreateConnectionFeature() {
+	private Iterable<ICreateConnectionFeature> getCreateConnectionFeatures() {
 		if (getTargetRequest() instanceof CreateConnectionRequest) {
+			List<ICreateConnectionFeature> ret = new ArrayList<ICreateConnectionFeature>();
 			CreateConnectionRequest r = (CreateConnectionRequest) getTargetRequest();
 			@SuppressWarnings("unchecked")
 			List<IFeature> features = (List<IFeature>) r.getNewObject();
 			for (IFeature feature : features) {
 				if (feature instanceof ICreateConnectionFeature) {
 					ICreateConnectionFeature ccf = (ICreateConnectionFeature) feature;
-					return ccf;
+					ret.add(ccf);
 				}
 			}
+			return ret;
 		}
-		return null;
+		return Collections.emptyList();
 	}
 }
