@@ -114,6 +114,8 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 
 	private String providerId;
 
+	private GFDragConnectionTool dragConnectionTool;
+
 	// ============================ inner classes =============================
 
 	/**
@@ -566,8 +568,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 				public void mouseMove(org.eclipse.swt.events.MouseEvent e) {
 					EditPart targetEditPart = getDiagramBehavior().getDiagramContainer().getGraphicalViewer()
 							.findObjectAt(new Point(e.x, e.y));
-					createNewGFDragConnectionTool().continueConnection(getEditPart(),
- getDiagramBehavior(), getEntry(),
+					getGFDragConnectionTool().continueConnection(getEditPart(),
 							targetEditPart);
 				}
 			};
@@ -582,6 +583,7 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 							.removeMouseMoveListener(mouseDragMoveListener);
 					mouseDragUpListener = null;
 					mouseDragMoveListener = null;
+					dragConnectionTool = null;
 				}
 			};
 
@@ -600,11 +602,17 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 	 * @return A new GFDragConnectionTool, which is initialized and set as
 	 *         active tool.
 	 */
-	private GFDragConnectionTool createNewGFDragConnectionTool() {
-		DefaultEditDomain editDomain = getDiagramBehavior().getEditDomain();
-		GFDragConnectionTool dragConnectionTool = new GFDragConnectionTool();
-		dragConnectionTool.setEditDomain(editDomain);
-		editDomain.setActiveTool(dragConnectionTool);
+	private GFDragConnectionTool getGFDragConnectionTool() {
+		if (dragConnectionTool == null) {
+			GFDragConnectionTool dragConnectionTool = new GFDragConnectionTool(getDiagramBehavior(), getEntry());
+
+			DefaultEditDomain editDomain = getDiagramBehavior().getEditDomain();
+			dragConnectionTool.setEditDomain(editDomain);
+			editDomain.setActiveTool(dragConnectionTool);
+
+			this.dragConnectionTool = dragConnectionTool;
+		}
+
 		return dragConnectionTool;
 	}
 

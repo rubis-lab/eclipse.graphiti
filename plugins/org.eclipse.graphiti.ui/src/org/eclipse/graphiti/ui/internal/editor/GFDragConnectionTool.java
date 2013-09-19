@@ -36,6 +36,11 @@ import org.eclipse.graphiti.ui.internal.requests.ContextButtonDragRequest;
  */
 public class GFDragConnectionTool extends ConnectionDragCreationTool {
 
+	public GFDragConnectionTool(DiagramBehavior diagramBehavior, ContextButtonEntry contextButtonEntry) {
+		this.diagramBehavior = diagramBehavior;
+		this.contextButtonEntry = contextButtonEntry;
+	}
+
 	/**
 	 * changed order: feedback gets deleted after command is executed (popup!).
 	 * 
@@ -48,6 +53,15 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		setCurrentCommand(endCommand);
 		executeCurrentCommand();
 		eraseSourceFeedback();
+
+		Request request = getTargetRequest();
+
+		if (request instanceof CreateConnectionRequest) {
+			Command startCommand = ((CreateConnectionRequest) request).getStartCommand();
+			if (startCommand instanceof CreateConnectionCommand)
+				((CreateConnectionCommand) startCommand).deactivate();
+
+		}
 
 		return true;
 	}
@@ -95,11 +109,8 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	 * @param contextButtonEntry
 	 *            the context button entry
 	 */
-	public void startConnection(EditPart targetEditPart, DiagramBehavior diagramBehavior,
-			ContextButtonEntry contextButtonEntry) {
+	public void startConnection(EditPart targetEditPart) {
 
-		this.diagramBehavior = diagramBehavior;
-		this.contextButtonEntry = contextButtonEntry;
 		activate();
 		setConnectionSource(targetEditPart);
 		lockTargetEditPart(targetEditPart);
@@ -128,13 +139,9 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	 * @param targetTargetEditPart
 	 *            the target target edit part
 	 */
-	public void continueConnection(EditPart targetEditPart, DiagramBehavior diagramBehavior,
-			ContextButtonEntry contextButtonEntry,
+	public void continueConnection(EditPart targetEditPart,
 			EditPart targetTargetEditPart) {
 
-		this.diagramBehavior = diagramBehavior;
-		this.contextButtonEntry = contextButtonEntry;
-		activate();
 		setConnectionSource(targetEditPart);
 		lockTargetEditPart(targetEditPart);
 
@@ -147,36 +154,31 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 			setState(STATE_CONNECTION_STARTED);
 		}
 
-		handleDrag();
 		setViewer(diagramBehavior.getDiagramContainer().getGraphicalViewer());
+		handleDrag();
 		unlockTargetEditPart();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.gef.tools.AbstractConnectionCreationTool#updateTargetRequest
-	 * ()
-	 */
+	protected boolean handleMove() {
+		if (isInState(STATE_CONNECTION_STARTED | STATE_INITIAL | STATE_ACCESSIBLE_DRAG_IN_PROGRESS)) {
+			updateTargetRequest();
+			updateTargetUnderMouse();
+			showSourceFeedback();
+			showTargetFeedback();
+			setCurrentCommand(getCommand());
+		}
+		return true;
+	}
+
 	@Override
-	protected void updateTargetRequest() {
-		// setViewer(diagramEditor.getGraphicalViewer());
-		// unlockTargetEditPart();
-		updateTargetUnderMouse();
-
-		CreateConnectionRequest request = (CreateConnectionRequest) getTargetRequest();
-		request.setType(getCommandName());
-		//
-
+	protected Point getLocation() {
 		Point absoluteMousePosition = diagramBehavior.getMouseLocation();
-		request.setLocation(absoluteMousePosition);
-
+		return absoluteMousePosition;
 	}
 
 	@Override
 	protected void setState(int state) {
-		if (state == STATE_CONNECTION_STARTED) {
+		if (state == STATE_CONNECTION_STARTED && getState() != state) {
 			Command cmd = getCurrentCommand();
 			if (cmd instanceof CreateConnectionCommand) {
 				((CreateConnectionCommand) cmd).connectionStarted();

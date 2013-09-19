@@ -30,6 +30,7 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.tools.ConnectionDragCreationTool;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -40,6 +41,7 @@ import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFChopboxAnchor;
 import org.eclipse.graphiti.ui.internal.util.gef.MultiCreationFactory;
@@ -226,6 +228,39 @@ public class AdvancedAnchorEditPart extends AbstractGraphicalEditPart implements
 
 				return true;
 			}
+
+			@Override
+			protected void setState(int state) {
+				if (isInState(STATE_INITIAL) && state == STATE_CONNECTION_STARTED) {
+					CreateConnectionCommand cmd = getCreateConnectionCommand();
+					if (cmd != null) {
+						cmd.connectionStarted();
+					}
+				}
+
+				super.setState(state);
+			}
+
+			@Override
+			public void deactivate() {
+				CreateConnectionCommand cmd = getCreateConnectionCommand();
+				if (cmd != null) {
+					cmd.deactivate();
+				}
+				super.deactivate();
+			}
+
+			private CreateConnectionCommand getCreateConnectionCommand() {
+				if (getTargetRequest() instanceof CreateConnectionRequest) {
+					CreateConnectionRequest r = (CreateConnectionRequest) getTargetRequest();
+					if (r.getStartCommand() instanceof CreateConnectionCommand) {
+						CreateConnectionCommand cmd = (CreateConnectionCommand) r.getStartCommand();
+						return cmd;
+					}
+				}
+				return null;
+			}
+
 		};
 		tool.setFactory(new MultiCreationFactory(Arrays.asList(dragAndDropFeatures)));
 		return tool;
