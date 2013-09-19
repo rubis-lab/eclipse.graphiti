@@ -19,6 +19,7 @@ package org.eclipse.graphiti.ui.internal.parts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -30,9 +31,13 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.tools.ConnectionDragCreationTool;
+import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.features.IFeatureAndContext;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.internal.features.context.impl.base.PictogramElementContext;
 import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -40,6 +45,7 @@ import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFChopboxAnchor;
 import org.eclipse.graphiti.ui.internal.util.gef.MultiCreationFactory;
@@ -221,11 +227,58 @@ public class AdvancedAnchorEditPart extends AbstractGraphicalEditPart implements
 			protected boolean handleCreateConnection() {
 				Command endCommand = getCommand();
 				setCurrentCommand(endCommand);
+				if (endCommand == null || !endCommand.canExecute()) {
+					for (IFeatureAndContext ifac : getCreateConnectionFeaturesAndContext()) {
+						ICreateConnectionFeature ccf = (ICreateConnectionFeature) ifac.getFeature();
+						ccf.canceledAttaching((ICreateConnectionContext) ifac.getContext());
+					}
+				}
 				executeCurrentCommand();
 				eraseSourceFeedback();
 
 				return true;
 			}
+
+			@Override
+			protected void setState(int state) {
+				if (isInState(STATE_INITIAL) && state == STATE_CONNECTION_STARTED) {
+					for (IFeatureAndContext ifac : getCreateConnectionFeaturesAndContext()) {
+						ICreateConnectionFeature ccf = (ICreateConnectionFeature) ifac.getFeature();
+						ccf.startConnecting();
+						ccf.attachedToSource((ICreateConnectionContext) ifac.getContext());
+					}
+				}
+
+				super.setState(state);
+			}
+
+			@Override
+			public void handleFinished() {
+				for (IFeatureAndContext ifac : getCreateConnectionFeaturesAndContext()) {
+					ICreateConnectionFeature ccf = (ICreateConnectionFeature) ifac.getFeature();
+					ccf.endConnecting();
+				}
+
+				super.handleFinished();
+			}
+
+			private Iterable<IFeatureAndContext> getCreateConnectionFeaturesAndContext() {
+				if (getTargetRequest() instanceof CreateConnectionRequest) {
+					List<IFeatureAndContext> ret = new ArrayList<IFeatureAndContext>();
+					CreateConnectionRequest r = (CreateConnectionRequest) getTargetRequest();
+					if (r.getStartCommand() instanceof CreateConnectionCommand) {
+						CreateConnectionCommand cmd = (CreateConnectionCommand) r.getStartCommand();
+						for (IFeatureAndContext ifac : cmd.getFeaturesAndContexts()) {
+							if (ifac.getFeature() instanceof ICreateConnectionFeature) {
+								ret.add(ifac);
+							}
+						}
+					}
+					return ret;
+				}
+				return Collections.emptyList();
+			}
+
 		};
 		tool.setFactory(new MultiCreationFactory(Arrays.asList(dragAndDropFeatures)));
 		return tool;

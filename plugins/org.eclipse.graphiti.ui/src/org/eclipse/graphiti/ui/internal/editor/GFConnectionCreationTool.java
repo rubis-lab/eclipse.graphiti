@@ -17,6 +17,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.editor;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -126,8 +128,7 @@ public class GFConnectionCreationTool extends ConnectionCreationTool {
 		if (cmd != null) {
 			cmd.deactivate();
 		}
-		ICreateConnectionFeature ccf = getCreateConnectionFeature();
-		if (ccf != null) {
+		for (ICreateConnectionFeature ccf : getCreateConnectionFeatures()) {
 			ccf.endConnecting();
 		}
 		super.deactivate();
@@ -136,8 +137,7 @@ public class GFConnectionCreationTool extends ConnectionCreationTool {
 	@Override
 	public void activate() {
 		super.activate();
-		ICreateConnectionFeature ccf = getCreateConnectionFeature();
-		if (ccf != null) {
+		for (ICreateConnectionFeature ccf : getCreateConnectionFeatures()) {
 			ccf.startConnecting();
 		}
 	}
@@ -164,18 +164,20 @@ public class GFConnectionCreationTool extends ConnectionCreationTool {
 		return null;
 	}
 
-	private ICreateConnectionFeature getCreateConnectionFeature() {
+	private Iterable<ICreateConnectionFeature> getCreateConnectionFeatures() {
 		if (getTargetRequest() instanceof CreateConnectionRequest) {
+			List<ICreateConnectionFeature> ret = new ArrayList<ICreateConnectionFeature>();
 			CreateConnectionRequest r = (CreateConnectionRequest) getTargetRequest();
 			@SuppressWarnings("unchecked")
 			List<IFeature> features = (List<IFeature>) r.getNewObject();
 			for (IFeature feature : features) {
 				if (feature instanceof ICreateConnectionFeature) {
 					ICreateConnectionFeature ccf = (ICreateConnectionFeature) feature;
-					return ccf;
+					ret.add(ccf);
 				}
 			}
+			return ret;
 		}
-		return null;
+		return Collections.emptyList();
 	}
 }

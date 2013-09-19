@@ -17,12 +17,19 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.editor;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.tools.ConnectionDragCreationTool;
+import org.eclipse.graphiti.features.ICreateConnectionFeature;
+import org.eclipse.graphiti.features.IFeatureAndContext;
+import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
@@ -36,6 +43,11 @@ import org.eclipse.graphiti.ui.internal.requests.ContextButtonDragRequest;
  */
 public class GFDragConnectionTool extends ConnectionDragCreationTool {
 
+	public GFDragConnectionTool(DiagramBehavior diagramBehavior, ContextButtonEntry contextButtonEntry) {
+		this.diagramBehavior = diagramBehavior;
+		this.contextButtonEntry = contextButtonEntry;
+	}
+
 	/**
 	 * changed order: feedback gets deleted after command is executed (popup!).
 	 * 
@@ -46,9 +58,14 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 
 		Command endCommand = getCommand();
 		setCurrentCommand(endCommand);
+		if (endCommand == null || !endCommand.canExecute()) {
+			for (IFeatureAndContext ifac : getCreateConnectionFeaturesAndContext()) {
+				ICreateConnectionFeature ccf = (ICreateConnectionFeature) ifac.getFeature();
+				ccf.canceledAttaching((ICreateConnectionContext) ifac.getContext());
+			}
+		}
 		executeCurrentCommand();
 		eraseSourceFeedback();
-
 		return true;
 	}
 
@@ -64,6 +81,16 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		diagramBehavior.getEditDomain().setActiveTool(diagramBehavior.getEditDomain().getDefaultTool());
 		return b;
 
+	}
+
+	@Override
+	protected void handleFinished() {
+		for (IFeatureAndContext ifac : getCreateConnectionFeaturesAndContext()) {
+			ICreateConnectionFeature ccf = (ICreateConnectionFeature) ifac.getFeature();
+			ccf.endConnecting();
+		}
+
+		super.handleFinished();
 	}
 
 	/*
@@ -86,37 +113,6 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	private ContextButtonEntry contextButtonEntry;
 
 	/**
-	 * Start connection.
-	 * 
-	 * @param targetEditPart
-	 *            the target edit part
-	 * @param diagramEditor
-	 *            the diagram editor
-	 * @param contextButtonEntry
-	 *            the context button entry
-	 */
-	public void startConnection(EditPart targetEditPart, DiagramBehavior diagramBehavior,
-			ContextButtonEntry contextButtonEntry) {
-
-		this.diagramBehavior = diagramBehavior;
-		this.contextButtonEntry = contextButtonEntry;
-		activate();
-		setConnectionSource(targetEditPart);
-		lockTargetEditPart(targetEditPart);
-
-		((CreateConnectionRequest) getTargetRequest()).setSourceEditPart(getTargetEditPart());
-		Command command = getCommand();
-		if (command != null) {
-			setCurrentCommand(command);
-			setState(STATE_CONNECTION_STARTED);
-		}
-
-		handleDrag();
-		setViewer(diagramBehavior.getDiagramContainer().getGraphicalViewer());
-		unlockTargetEditPart();
-	}
-
-	/**
 	 * Continue connection.
 	 * 
 	 * @param targetEditPart
@@ -128,13 +124,9 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 	 * @param targetTargetEditPart
 	 *            the target target edit part
 	 */
-	public void continueConnection(EditPart targetEditPart, DiagramBehavior diagramBehavior,
-			ContextButtonEntry contextButtonEntry,
+	public void continueConnection(EditPart targetEditPart,
 			EditPart targetTargetEditPart) {
 
-		this.diagramBehavior = diagramBehavior;
-		this.contextButtonEntry = contextButtonEntry;
-		activate();
 		setConnectionSource(targetEditPart);
 		lockTargetEditPart(targetEditPart);
 
@@ -144,45 +136,51 @@ public class GFDragConnectionTool extends ConnectionDragCreationTool {
 		Command command = getCommand();
 		if (command != null) {
 			setCurrentCommand(command);
-			setState(STATE_CONNECTION_STARTED);
+			if (stateTransition(STATE_INITIAL, STATE_CONNECTION_STARTED)) {
+				for (IFeatureAndContext ifac : getCreateConnectionFeaturesAndContext()) {
+					ICreateConnectionFeature ccf = (ICreateConnectionFeature) ifac.getFeature();
+					ccf.startConnecting();
+					ccf.attachedToSource((ICreateConnectionContext) ifac.getContext());
+				}
+			}
 		}
 
-		handleDrag();
 		setViewer(diagramBehavior.getDiagramContainer().getGraphicalViewer());
+		handleDrag();
 		unlockTargetEditPart();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.gef.tools.AbstractConnectionCreationTool#updateTargetRequest
-	 * ()
-	 */
-	@Override
-	protected void updateTargetRequest() {
-		// setViewer(diagramEditor.getGraphicalViewer());
-		// unlockTargetEditPart();
-		updateTargetUnderMouse();
-
-		CreateConnectionRequest request = (CreateConnectionRequest) getTargetRequest();
-		request.setType(getCommandName());
-		//
-
-		Point absoluteMousePosition = diagramBehavior.getMouseLocation();
-		request.setLocation(absoluteMousePosition);
-
-	}
-
-	@Override
-	protected void setState(int state) {
-		if (state == STATE_CONNECTION_STARTED) {
-			Command cmd = getCurrentCommand();
-			if (cmd instanceof CreateConnectionCommand) {
-				((CreateConnectionCommand) cmd).connectionStarted();
+	private Iterable<IFeatureAndContext> getCreateConnectionFeaturesAndContext() {
+		if (getTargetRequest() instanceof CreateConnectionRequest) {
+			List<IFeatureAndContext> ret = new ArrayList<IFeatureAndContext>();
+			CreateConnectionRequest r = (CreateConnectionRequest) getTargetRequest();
+			if (r.getStartCommand() instanceof CreateConnectionCommand) {
+				CreateConnectionCommand cmd = (CreateConnectionCommand) r.getStartCommand();
+				for (IFeatureAndContext ifac : cmd.getFeaturesAndContexts()) {
+					if (ifac.getFeature() instanceof ICreateConnectionFeature) {
+						ret.add(ifac);
+					}
+				}
 			}
+			return ret;
 		}
-		super.setState(state);
+		return Collections.emptyList();
 	}
 
+	protected boolean handleMove() {
+		if (isInState(STATE_CONNECTION_STARTED | STATE_INITIAL | STATE_ACCESSIBLE_DRAG_IN_PROGRESS)) {
+			updateTargetRequest();
+			updateTargetUnderMouse();
+			showSourceFeedback();
+			showTargetFeedback();
+			setCurrentCommand(getCommand());
+		}
+		return true;
+	}
+
+	@Override
+	protected Point getLocation() {
+		Point absoluteMousePosition = diagramBehavior.getMouseLocation();
+		return absoluteMousePosition;
+	}
 }
