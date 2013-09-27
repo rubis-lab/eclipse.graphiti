@@ -45,4 +45,4 @@ Export-Package: org.eclipse.graphiti;version="0.11.0",
  org.eclipse.graphiti.util;version="0.11.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipse.graphiti.internal.GraphitiPlugin
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

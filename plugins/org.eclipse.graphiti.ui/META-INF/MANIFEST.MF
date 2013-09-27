@@ -47,4 +47,4 @@ Export-Package: org.eclipse.graphiti.ui.editor;version="0.11.0",
  org.eclipse.graphiti.ui.print;version="0.11.0",
  org.eclipse.graphiti.ui.saveasimage;version="0.11.0",
  org.eclipse.graphiti.ui.services;version="0.11.0"
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -20,4 +20,4 @@ Export-Package: org.eclipse.graphiti.examples.tutorial,
  org.eclipse.graphiti.examples.tutorial.diagram,
  org.eclipse.graphiti.examples.tutorial.features,
  org.eclipse.graphiti.examples.tutorial.property
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
