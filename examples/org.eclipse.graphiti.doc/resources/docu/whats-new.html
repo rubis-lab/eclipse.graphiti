@@ -35,13 +35,98 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Luna</h1>
-	<p>Last revised July 26, 2013</p>
+	<p>Last revised October 1, 2013</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.11.0 within the
 		Luna release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M2 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M2</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on bugfixing and implementing round-offs.</td>
+		</tr>
+		<tr id="bug 323356">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=323356">Mouse
+					wheel support for scrolling and zooming</a></td>
+			<td class="content">Graphiti now supports the use of the mouse
+				wheel for scrolling and zooming inside diagrams.</td>
+		</tr>
+		<tr id="bug 415888">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=415888"><i>DiagramEditorInput</i>
+					adapts to <i>IResource</i></a></td>
+			<td class="content">The <i>DiagramEditorInput</i> object now
+				supports calls to the method <i>getAdapter(...)</i> passing an <i>IResource.class</i>
+				object and returns the underlying Eclipse resource in case it can be
+				retrieved.
+			</td>
+		</tr>
+		<tr id="bug 414437">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=414437">Bug
+					414437 </a></td>
+			<td class="content">Fixed a bug that caused the zoom animation
+				to jump in some cases.</td>
+		</tr>
+		<tr id="bug 414954">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=414954">Bug
+					414954 </a></td>
+			<td class="content">Fixed a wrong link on the Graphiti web page
+				to the online documentation and the New & Noteworthy documents.</td>
+		</tr>
+		<tr id="bug 415884">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=415884">Bug
+					415884 </a></td>
+			<td class="content">Fixed a bug in the size calculation for
+				texts that are placed into multi text graphics algorithms. Line
+				breaks and other special characters were not counted correctly, e.g.
+				did not increase the needed height.</td>
+		</tr>
+		<tr id="bug 416419">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=416419">Bug
+					416419 </a></td>
+			<td class="content">Fixed a wrong return value in
+				DiagramBehavior; getAdapter to IDiagramEditor returned the behavior
+				instance.</td>
+		</tr>
+		<tr id="bug 416708">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=416708">Bug
+					416708 </a></td>
+			<td class="content">Fixed a bug in the <i>IdPattern</i> that
+				might cause direct editing not to get active in certain situations.
+			</td>
+		</tr>
+		<tr id="bug 417577">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=417577">Bug
+					417577 </a></td>
+			<td class="content">Fixed a bug that caused that the state
+				callback were not called while creating a connection and using the
+				drag new connection functionality.</td>
+		</tr>
+		<tr id="bug 418333">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=418333">Bug
+					418333 </a></td>
+			<td class="content">Graphiti now needs Java 1.6 as minimal
+				supported runtime, since the Equinox Core plugins require that
+				version as well in Luna M2. Running the Graphiti framework on top of
+				Java 1.5 is no longer possible. <b>Note that this is an
+					incompatible change.</b>
+			</td>
+		</tr>
 		<!-- ---------------------------------------- M1 ------------------------------- -->
 		<tr>
 			<td colspan="2">
