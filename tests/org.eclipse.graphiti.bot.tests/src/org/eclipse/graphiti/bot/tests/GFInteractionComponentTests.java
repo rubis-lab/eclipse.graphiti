@@ -607,6 +607,23 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		});
 		Thread.sleep(DELAY);
 
+		// Fix for Bug 418398: Move mouse pointer to other position, otherwise
+		// no event will be sent
+		syncExec(new VoidResult() {
+			public void run() {
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 10, p.y + 10);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+		// End of fix
+
 		syncExec(new VoidResult() {
 			public void run() {
 				Robot r;
@@ -721,20 +738,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	 */
 	@Test
 	public void testContextPadHidingViaToolbar() throws Exception {
-		/*
-		 * TODO: Workaround for not displayed toolbar starting with Eclipse 4.3
-		 * M1
-		 */
-		syncExec(new VoidResult() {
-			public void run() {
-				SWTWorkbenchBot swtWorkbenchBot = new SWTWorkbenchBot();
-				swtWorkbenchBot.menu("&Window").menu("Hide &Toolbar").click();
-				swtWorkbenchBot.menu("&Window").menu("Show &Toolbar").click();
-			}
-		});
-		Thread.sleep(DELAY);
-		/* End workaround */
-
 		final int x = 100;
 		final int y = 100;
 		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
