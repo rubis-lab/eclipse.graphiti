@@ -113,10 +113,11 @@
     </rm:provider>
   </rm:searchPath>
   <rm:searchPath name="eclipse.license">
-    <rm:provider componentTypes="eclipse.feature" readerType="local">
-      <rm:uri format="{0}/../../platform/eclipse.platform.releng/features/{1}">
-        <bc:propertyRef key="workspace.root"/>
-        <bc:propertyRef key="buckminster.component"/>
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri mutable="false" format="{0}/cbi/updates/license/">
+        <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
   </rm:searchPath>
