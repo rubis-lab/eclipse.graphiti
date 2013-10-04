@@ -203,6 +203,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		IFigure figure = ed.getFigureWithLabel(SHAPE_NAME);
 		// Drag might not be accurate, add tolerance +-1
 		assertTrue((x + 149 <= figure.getBounds().x) && (figure.getBounds().x <= x + 151));
+		ed.getGefEditor().activateDefaultTool();
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -607,6 +608,23 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		});
 		Thread.sleep(DELAY);
 
+		// Fix for Bug 418398: Move mouse pointer to other position, otherwise
+		// no event will be sent
+		syncExec(new VoidResult() {
+			public void run() {
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 50, p.y + 50);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+		// End of fix
+
 		syncExec(new VoidResult() {
 			public void run() {
 				Robot r;
@@ -713,6 +731,21 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		});
 		Thread.sleep(DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 50, p.y + 50);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -721,20 +754,6 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	 */
 	@Test
 	public void testContextPadHidingViaToolbar() throws Exception {
-		/*
-		 * TODO: Workaround for not displayed toolbar starting with Eclipse 4.3
-		 * M1
-		 */
-		syncExec(new VoidResult() {
-			public void run() {
-				SWTWorkbenchBot swtWorkbenchBot = new SWTWorkbenchBot();
-				swtWorkbenchBot.menu("&Window").menu("Hide &Toolbar").click();
-				swtWorkbenchBot.menu("&Window").menu("Show &Toolbar").click();
-			}
-		});
-		Thread.sleep(DELAY);
-		/* End workaround */
-
 		final int x = 100;
 		final int y = 100;
 		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
@@ -858,6 +877,21 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		});
 		Thread.sleep(DELAY);
+
+		syncExec(new VoidResult() {
+			public void run() {
+				Robot r;
+				try {
+					r = new Robot();
+					Point p = ed.getOrigin();
+					r.mouseMove(p.x + 50, p.y + 50);
+				} catch (AWTException e) {
+					fail(e.getMessage());
+				}
+			}
+		});
+		Thread.sleep(SHORT_DELAY);
+
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -1053,6 +1087,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		ed.drag(xOfShape1 + DIL, yOfShape1 + DIL, (xOfShape1 + 2 * DIL + xOfShape3) / 2,
 				(yOfShape2 + yOfShape1 + 2 * DIL) / 2);
 		Thread.sleep(DELAY);
+		ed.getGefEditor().activateDefaultTool();
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -1291,6 +1326,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				- rectangleSize / 2 - 10, 100 + containerSize / 2);
 		ed.drag(100 + containerSize / 2, 100 + containerSize / 2, 100 + containerSize / 2, 300 + containerSize / 2);
 		Thread.sleep(DELAY);
+		ed.getGefEditor().activateDefaultTool();
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -1361,6 +1397,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 			}
 		});
 		Thread.sleep(DELAY);
+		ed.getGefEditor().activateDefaultTool();
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -1408,6 +1445,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					ed.getGefEditor().click(350, 150);
 				} finally {
 					SketchCreateFreeformConnectionFeature.setCancelling(false);
+					ed.getGefEditor().activateDefaultTool();
 				}
 			}
 		});
@@ -1417,6 +1455,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 
 		CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
 		assertFalse(commandStack.canRedo());
+		ed.getGefEditor().activateDefaultTool();
 		page.shutdownEditor(diagramEditor);
 	}
 
@@ -1494,6 +1533,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		}
 		Thread.sleep(DELAY);
 		assertEquals(objectCreationTools.size(), ed.getGefEditor().mainEditPart().children().size());
+		ed.getGefEditor().activateDefaultTool();
 		page.shutdownEditor(diagramEditor);
 	}
 
