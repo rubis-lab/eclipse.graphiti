@@ -4,5 +4,6 @@
     <cq:advisorNode namePattern="^org\.eclipse\.graphiti(\..+)?\.source*" skipComponent="true"/>
     <cq:advisorNode namePattern="^org\.eclipse\.swt\.motif\.solaris\.sparc\.source*" skipComponent="true"/>
     <cq:advisorNode namePattern="^org\.eclipse\.swt\.photon\.qnx\.x86\.source*" skipComponent="true"/>
+    <cq:advisorNode namePattern="^org\.eclipse\.license*" componentType="eclipse.feature" skipComponent="true"/>
     <cq:advisorNode namePattern=".*" useMaterialization="false" useTargetPlatform="false"/>
 </cq:componentQuery>
