@@ -85,7 +85,6 @@ import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateFreeform
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaContainerFeature;
 import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaShapeFeature;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
-import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.internal.contextbuttons.ContextButtonPad;
@@ -584,282 +583,291 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		page.shutdownEditor(diagramEditor);
 	}
 
-	/*
-	 * Test for Bugzilla 323351
-	 */
-	@Test
-	public void testContextPadHiding() throws Exception {
-		final int x = 100;
-		final int y = 100;
-		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+	// /*
+	// * Test for Bugzilla 323351
+	// */
+	// @Test
+	// @Ignore("Unstable, see Bugzilla 418398")
+	// public void testContextPadHiding() throws Exception {
+	// final int x = 100;
+	// final int y = 100;
+	// final IDiagramContainerUI diagramEditor =
+	// openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// IDiagramTypeProvider diagramTypeProvider =
+	// diagramEditor.getDiagramTypeProvider();
+	// final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+	// final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+	// executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new
+	// Runnable() {
+	// public void run() {
+	// addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
+	// }
+	// });
+	// }
+	// });
+	// Thread.sleep(DELAY);
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// Robot r;
+	// try {
+	// r = new Robot();
+	// Point p = ed.getOrigin();
+	// r.mouseMove(p.x + 150, p.y + 150);
+	// } catch (AWTException e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	// });
+	// Thread.sleep(DELAY);
+	//
+	// assertNotNull(findContextButtonPad());
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// Robot r;
+	// try {
+	// r = new Robot();
+	// Point p = ed.getOrigin();
+	// r.mouseMove(p.x + 50, p.y + 50);
+	// } catch (AWTException e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	// });
+	// Thread.sleep(DELAY);
+	//
+	// assertNull(findContextButtonPad());
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// Robot r;
+	// try {
+	// r = new Robot();
+	// r.setAutoDelay(20);
+	// r.keyPress(KeyEvent.VK_CONTROL);
+	// Point p = ed.getOrigin();
+	// r.mouseMove(p.x + 150, p.y + 150);
+	// } catch (AWTException e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	// });
+	// Thread.sleep(DELAY);
+	//
+	// assertNull(findContextButtonPad());
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// Robot r;
+	// try {
+	// r = new Robot();
+	// r.setAutoDelay(20);
+	// r.keyRelease(KeyEvent.VK_CONTROL);
+	// } catch (AWTException e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	// });
+	// Thread.sleep(DELAY);
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// try {
+	// final Robot robot = new Robot();
+	// robot.setAutoDelay(10);
+	// try {
+	// robot.mousePress(InputEvent.BUTTON1_MASK);
+	// robot.mouseRelease(InputEvent.BUTTON1_MASK);
+	// robot.keyPress(KeyEvent.VK_DELETE);
+	// } catch (RuntimeException e) {
+	// fail(e.getMessage());
+	// } finally {
+	// robot.keyRelease(KeyEvent.VK_DELETE);
+	// }
+	// } catch (Exception e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	// });
+	//
+	// Thread.sleep(DELAY);
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// try {
+	// final Robot robot = new Robot();
+	// robot.setAutoDelay(1);
+	//
+	// try {
+	// robot.keyPress(KeyEvent.VK_ENTER);
+	// } catch (RuntimeException e) {
+	// fail(e.getMessage());
+	// } finally {
+	// robot.keyRelease(KeyEvent.VK_ENTER);
+	// }
+	// } catch (Exception e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	//
+	// });
+	// Thread.sleep(DELAY);
+	// page.shutdownEditor(diagramEditor);
+	// }
 
-		syncExec(new VoidResult() {
-			public void run() {
-				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
-				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
-				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
-					public void run() {
-						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
-					}
-				});
-			}
-		});
-		Thread.sleep(DELAY);
-
-		syncExec(new VoidResult() {
-			public void run() {
-				Robot r;
-				try {
-					r = new Robot();
-					Point p = ed.getOrigin();
-					r.mouseMove(p.x + 150, p.y + 150);
-				} catch (AWTException e) {
-					fail(e.getMessage());
-				}
-			}
-		});
-		Thread.sleep(DELAY);
-
-		assertNotNull(findContextButtonPad());
-
-		syncExec(new VoidResult() {
-			public void run() {
-				Robot r;
-				try {
-					r = new Robot();
-					Point p = ed.getOrigin();
-					r.mouseMove(p.x + 50, p.y + 50);
-				} catch (AWTException e) {
-					fail(e.getMessage());
-				}
-			}
-		});
-		Thread.sleep(DELAY);
-
-		assertNull(findContextButtonPad());
-
-		syncExec(new VoidResult() {
-			public void run() {
-				Robot r;
-				try {
-					r = new Robot();
-					r.setAutoDelay(20);
-					r.keyPress(KeyEvent.VK_CONTROL);
-					Point p = ed.getOrigin();
-					r.mouseMove(p.x + 150, p.y + 150);
-				} catch (AWTException e) {
-					fail(e.getMessage());
-				}
-			}
-		});
-		Thread.sleep(DELAY);
-
-		assertNull(findContextButtonPad());
-
-		syncExec(new VoidResult() {
-			public void run() {
-				Robot r;
-				try {
-					r = new Robot();
-					r.setAutoDelay(20);
-					r.keyRelease(KeyEvent.VK_CONTROL);
-				} catch (AWTException e) {
-					fail(e.getMessage());
-				}
-			}
-		});
-		Thread.sleep(DELAY);
-
-		syncExec(new VoidResult() {
-			public void run() {
-				try {
-					final Robot robot = new Robot();
-					robot.setAutoDelay(10);
-					try {
-						robot.mousePress(InputEvent.BUTTON1_MASK);
-						robot.mouseRelease(InputEvent.BUTTON1_MASK);
-						robot.keyPress(KeyEvent.VK_DELETE);
-					} catch (RuntimeException e) {
-						fail(e.getMessage());
-					} finally {
-						robot.keyRelease(KeyEvent.VK_DELETE);
-					}
-				} catch (Exception e) {
-					fail(e.getMessage());
-				}
-			}
-		});
-
-		Thread.sleep(DELAY);
-
-		syncExec(new VoidResult() {
-			public void run() {
-				try {
-					final Robot robot = new Robot();
-					robot.setAutoDelay(1);
-
-					try {
-						robot.keyPress(KeyEvent.VK_ENTER);
-					} catch (RuntimeException e) {
-						fail(e.getMessage());
-					} finally {
-						robot.keyRelease(KeyEvent.VK_ENTER);
-					}
-				} catch (Exception e) {
-					fail(e.getMessage());
-				}
-			}
-
-		});
-		Thread.sleep(DELAY);
-		page.shutdownEditor(diagramEditor);
-	}
-
-	/*
-	 * Test for Bugzilla 323351
-	 */
-	@Test
-	public void testContextPadHidingViaToolbar() throws Exception {
-		/*
-		 * TODO: Workaround for not displayed toolbar starting with Eclipse 4.3
-		 * M1
-		 */
-		syncExec(new VoidResult() {
-			public void run() {
-				SWTWorkbenchBot swtWorkbenchBot = new SWTWorkbenchBot();
-				swtWorkbenchBot.menu("&Window").menu("Hide &Toolbar").click();
-				swtWorkbenchBot.menu("&Window").menu("Show &Toolbar").click();
-			}
-		});
-		Thread.sleep(DELAY);
-		/* End workaround */
-
-		final int x = 100;
-		final int y = 100;
-		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
-
-		syncExec(new VoidResult() {
-			public void run() {
-				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
-				final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
-				final Diagram currentDiagram = diagramTypeProvider.getDiagram();
-				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
-					public void run() {
-						addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
-					}
-				});
-			}
-		});
-		Thread.sleep(DELAY);
-
-		syncExec(new VoidResult() {
-			public void run() {
-				Robot r;
-				try {
-					r = new Robot();
-					Point p = ed.getOrigin();
-					r.mouseMove(p.x + 10, p.y + 10);
-				} catch (AWTException e) {
-					fail(e.getMessage());
-				}
-			}
-		});
-		Thread.sleep(SHORT_DELAY);
-
-		syncExec(new VoidResult() {
-			public void run() {
-				Robot r;
-				try {
-					r = new Robot();
-					Point p = ed.getOrigin();
-					r.mouseMove(p.x + 150, p.y + 150);
-				} catch (AWTException e) {
-					fail(e.getMessage());
-				}
-			}
-		});
-		Thread.sleep(SHORT_DELAY);
-
-		assertNotNull(findContextButtonPad());
-
-		syncExec(new VoidResult() {
-			public void run() {
-				Robot r;
-				try {
-					r = new Robot();
-					Point p = ed.getOrigin();
-					r.mouseMove(p.x + 10, p.y + 10);
-				} catch (AWTException e) {
-					fail(e.getMessage());
-				}
-			}
-		});
-		Thread.sleep(DELAY);
-
-		assertNull(findContextButtonPad());
-
-		syncExec(new VoidResult() {
-			public void run() {
-				Robot r;
-				try {
-					r = new Robot();
-					r.setAutoDelay(20);
-					new SWTWorkbenchBot().toolbarToggleButtonWithTooltip(Messages.ToggleContextButtonPadAction_0_xmsg)
-							.click();
-					Point p = ed.getOrigin();
-					r.mouseMove(p.x + 150, p.y + 150);
-				} catch (AWTException e) {
-					fail(e.getMessage());
-				}
-			}
-		});
-		Thread.sleep(DELAY);
-
-		assertNull(findContextButtonPad());
-
-		syncExec(new VoidResult() {
-			public void run() {
-				try {
-					final Robot robot = new Robot();
-					robot.setAutoDelay(1);
-					try {
-						robot.mousePress(InputEvent.BUTTON1_MASK);
-						robot.mouseRelease(InputEvent.BUTTON1_MASK);
-						robot.keyPress(KeyEvent.VK_DELETE);
-					} catch (RuntimeException e) {
-						fail(e.getMessage());
-					} finally {
-						robot.keyRelease(KeyEvent.VK_DELETE);
-					}
-				} catch (Exception e) {
-					fail(e.getMessage());
-				}
-			}
-		});
-
-		syncExec(new VoidResult() {
-			public void run() {
-				try {
-					final Robot robot = new Robot();
-					robot.setAutoDelay(1);
-
-					try {
-						robot.keyPress(KeyEvent.VK_ENTER);
-					} catch (RuntimeException e) {
-						fail(e.getMessage());
-					} finally {
-						robot.keyRelease(KeyEvent.VK_ENTER);
-					}
-				} catch (Exception e) {
-					fail(e.getMessage());
-				}
-			}
-
-		});
-		Thread.sleep(DELAY);
-		page.shutdownEditor(diagramEditor);
-	}
+	// /*
+	// * Test for Bugzilla 323351
+	// */
+	// @Test
+	// @Ignore("Unstable, see Bugzilla 418398")
+	// public void testContextPadHidingViaToolbar() throws Exception {
+	// /*
+	// * TODO: Workaround for not displayed toolbar starting with Eclipse 4.3
+	// * M1
+	// */
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// SWTWorkbenchBot swtWorkbenchBot = new SWTWorkbenchBot();
+	// swtWorkbenchBot.menu("&Window").menu("Hide &Toolbar").click();
+	// swtWorkbenchBot.menu("&Window").menu("Show &Toolbar").click();
+	// }
+	// });
+	// Thread.sleep(DELAY);
+	// /* End workaround */
+	//
+	// final int x = 100;
+	// final int y = 100;
+	// final IDiagramContainerUI diagramEditor =
+	// openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// IDiagramTypeProvider diagramTypeProvider =
+	// diagramEditor.getDiagramTypeProvider();
+	// final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+	// final Diagram currentDiagram = diagramTypeProvider.getDiagram();
+	// executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new
+	// Runnable() {
+	// public void run() {
+	// addClassToDiagram(fp, currentDiagram, x, y, SHAPE_NAME);
+	// }
+	// });
+	// }
+	// });
+	// Thread.sleep(DELAY);
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// Robot r;
+	// try {
+	// r = new Robot();
+	// Point p = ed.getOrigin();
+	// r.mouseMove(p.x + 10, p.y + 10);
+	// } catch (AWTException e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	// });
+	// Thread.sleep(SHORT_DELAY);
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// Robot r;
+	// try {
+	// r = new Robot();
+	// Point p = ed.getOrigin();
+	// r.mouseMove(p.x + 150, p.y + 150);
+	// } catch (AWTException e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	// });
+	// Thread.sleep(SHORT_DELAY);
+	//
+	// assertNotNull(findContextButtonPad());
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// Robot r;
+	// try {
+	// r = new Robot();
+	// Point p = ed.getOrigin();
+	// r.mouseMove(p.x + 10, p.y + 10);
+	// } catch (AWTException e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	// });
+	// Thread.sleep(DELAY);
+	//
+	// assertNull(findContextButtonPad());
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// Robot r;
+	// try {
+	// r = new Robot();
+	// r.setAutoDelay(20);
+	// new
+	// SWTWorkbenchBot().toolbarToggleButtonWithTooltip(Messages.ToggleContextButtonPadAction_0_xmsg)
+	// .click();
+	// Point p = ed.getOrigin();
+	// r.mouseMove(p.x + 150, p.y + 150);
+	// } catch (AWTException e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	// });
+	// Thread.sleep(DELAY);
+	//
+	// assertNull(findContextButtonPad());
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// try {
+	// final Robot robot = new Robot();
+	// robot.setAutoDelay(1);
+	// try {
+	// robot.mousePress(InputEvent.BUTTON1_MASK);
+	// robot.mouseRelease(InputEvent.BUTTON1_MASK);
+	// robot.keyPress(KeyEvent.VK_DELETE);
+	// } catch (RuntimeException e) {
+	// fail(e.getMessage());
+	// } finally {
+	// robot.keyRelease(KeyEvent.VK_DELETE);
+	// }
+	// } catch (Exception e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	// });
+	//
+	// syncExec(new VoidResult() {
+	// public void run() {
+	// try {
+	// final Robot robot = new Robot();
+	// robot.setAutoDelay(1);
+	//
+	// try {
+	// robot.keyPress(KeyEvent.VK_ENTER);
+	// } catch (RuntimeException e) {
+	// fail(e.getMessage());
+	// } finally {
+	// robot.keyRelease(KeyEvent.VK_ENTER);
+	// }
+	// } catch (Exception e) {
+	// fail(e.getMessage());
+	// }
+	// }
+	//
+	// });
+	// Thread.sleep(DELAY);
+	// page.shutdownEditor(diagramEditor);
+	// }
 
 	private ContextButtonPad findContextButtonPad() {
 		SWTBotGefEditPart rootEditPart = ed.getGefEditor().rootEditPart();
