@@ -114,7 +114,7 @@
   </rm:searchPath>
   <rm:searchPath name="eclipse.license">
     <rm:provider componentTypes="eclipse.feature" readerType="git">
-      <rm:property key="git.remote.uri" value="http://git.eclipse.org/gitroot/platform/eclipse.platform.releng.git"/>
+      <rm:property key="git.remote.uri" value="http://git.eclipse.org/gitroot/cbi/org.eclipse.license.git"/>
       <rm:uri format="{0}/license,features/{1}">
         <bc:propertyRef key="workspace.root"/>
         <bc:propertyRef key="buckminster.component"/>
