@@ -111,6 +111,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.hamcrest.Description;
+import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings("restriction")
@@ -588,6 +589,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	 * Test for Bugzilla 323351
 	 */
 	@Test
+	@Ignore
+	// Unstable, see Bugzilla 418398
 	public void testContextPadHiding() throws Exception {
 		final int x = 100;
 		final int y = 100;
@@ -720,6 +723,8 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 	 * Test for Bugzilla 323351
 	 */
 	@Test
+	@Ignore
+	// Unstable, see Bugzilla 418398
 	public void testContextPadHidingViaToolbar() throws Exception {
 		/*
 		 * TODO: Workaround for not displayed toolbar starting with Eclipse 4.3
