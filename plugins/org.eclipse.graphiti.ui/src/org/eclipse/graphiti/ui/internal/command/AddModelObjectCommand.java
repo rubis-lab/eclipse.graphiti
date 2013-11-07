@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
+ *    Philip Alldredge - Bug 418676 - Undo is not disabled when canUndo is false for Palette features
  *
  * </copyright>
  *
@@ -118,7 +119,13 @@ public class AddModelObjectCommand extends AbstractCommand {
 
 	@Override
 	public boolean canUndo() {
-		return false;
+		// The operation can be undone if all the features that could be used to
+		// add can be undone.
+		boolean undoable = true;
+		for (final IFeatureAndContext fc : getFeaturesAndContexts()) {
+			undoable = undoable && fc.getFeature().canUndo(fc.getContext());
+		}
+		return true;
 	}
 
 	public IFeatureAndContext[] getFeaturesAndContexts() {
