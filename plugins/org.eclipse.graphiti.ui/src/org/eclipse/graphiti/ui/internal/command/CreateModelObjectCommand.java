@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 340627 - Features should be able to indicate cancellation
+ *    Philip Alldredge - Bug 418676 - Undo is not disabled when canUndo is false for Palette features
  *
  * </copyright>
  *
@@ -71,7 +72,8 @@ public class CreateModelObjectCommand extends GFCommand {
 
 	@Override
 	public boolean canUndo() {
-		return true;
+		boolean ret = ((ICreateFeature) getFeature()).canUndo((ICreateContext) getContext());
+		return ret;
 	}
 
 	@Override

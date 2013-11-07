@@ -18,6 +18,7 @@
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    fvelasco - Bug 417577 - state call backs review
+ *    Philip Alldredge - Bug 418676 - Undo is not disabled when canUndo is false for Palette features
  *
  * </copyright>
  *
@@ -282,6 +283,20 @@ public class CreateConnectionCommand extends AbstractCommand {
 	 */
 	public void setTarget(PictogramElement pe) {
 		targetObject = pe;
+	}
+
+	@Override
+	public boolean canUndo() {
+		IContext context = createContext();
+		for (IFeature feature : features) {
+			if (feature instanceof ICreateConnectionFeature) {
+				if (feature.canUndo(context)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	@Override
