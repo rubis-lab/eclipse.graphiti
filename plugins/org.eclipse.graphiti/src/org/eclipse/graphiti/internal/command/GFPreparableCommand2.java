@@ -33,6 +33,11 @@ public class GFPreparableCommand2 extends RecordingCommand {
 	}
 
 	@Override
+	public boolean canUndo() {
+		return getCommand().canUndo() && super.canUndo();
+	}
+
+	@Override
 	protected void doExecute() {
 		getCommand().execute();
 	}
