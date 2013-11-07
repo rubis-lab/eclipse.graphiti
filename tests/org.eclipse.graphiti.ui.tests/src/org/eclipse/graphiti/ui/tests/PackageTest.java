@@ -12,17 +12,12 @@
  *    mwenz - Bug 323155 - Check usage scenarios for DefaultPrintFeature and
  *            DefaultSaveImageFeature
  *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
- *
+ *    Philip Alldredge - Bug 418676 - Undo is not disabled when canUndo is false for Palette features
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.tests;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.createNiceMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.reset;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -120,7 +115,6 @@ import org.eclipse.graphiti.tb.ContextMenuEntry;
 import org.eclipse.graphiti.tb.DynamicContextMenuEntry;
 import org.eclipse.graphiti.tb.IContextEntry;
 import org.eclipse.graphiti.tb.ImageDecorator;
-import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 import org.eclipse.graphiti.ui.internal.command.AddModelObjectCommand;
 import org.eclipse.graphiti.ui.internal.command.ContextEntryCommand;
 import org.eclipse.graphiti.ui.internal.command.CreateModelObjectCommand;
@@ -439,8 +433,6 @@ public class PackageTest extends GFAbstractTestCase {
 
 		AddModelObjectCommand myAddModelObjectCommand = new AddModelObjectCommand(configurationProviderMock, containerShapeMock, selection,
 				rectangle);
-
-		assertFalse(myAddModelObjectCommand.canUndo());
 
 		myAddModelObjectCommand.canExecute();
 

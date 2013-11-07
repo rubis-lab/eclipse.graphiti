@@ -13,6 +13,7 @@
  *    mgorning - Bug 343983 - Notification for Cancelled Reconnection Events
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    Philip Alldredge - Bug 418676 - Undo is not disabled when canUndo is false for Palette features
  *
  * </copyright>
  *
@@ -82,6 +83,13 @@ public class ReconnectCommand extends AbstractCommand implements IFeatureAndCont
 		return false;
 	}
 
+	@Override
+	public boolean canUndo() {
+		if (feature != null) {
+			return feature.canUndo(ctx);
+		}
+		return false;
+	}
 	/**
 	 * Reconnect the connection to newSource (if setNewSource(...) was invoked
 	 * before) or newTarget (if setNewTarget(...) was invoked before).
