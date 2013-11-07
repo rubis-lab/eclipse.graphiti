@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Philip Alldredge - Bug 418676 - Undo is not disabled when canUndo is false for Palette features
  *
  * </copyright>
  *
@@ -30,6 +31,11 @@ public class GFPreparableCommand2 extends RecordingCommand {
 	public GFPreparableCommand2(TransactionalEditingDomain editingDomain, Command command) {
 		super(editingDomain, command.getDescription());
 		this.setCommand(command);
+	}
+
+	@Override
+	public boolean canUndo() {
+		return getCommand().canUndo() && super.canUndo();
 	}
 
 	@Override
