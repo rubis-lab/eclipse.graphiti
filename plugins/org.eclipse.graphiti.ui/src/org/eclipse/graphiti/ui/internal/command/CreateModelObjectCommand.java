@@ -71,7 +71,8 @@ public class CreateModelObjectCommand extends GFCommand {
 
 	@Override
 	public boolean canUndo() {
-		return true;
+		boolean ret = ((ICreateFeature) getFeature()).canUndo((ICreateContext) getContext());
+		return ret;
 	}
 
 	@Override

@@ -285,6 +285,19 @@ public class CreateConnectionCommand extends AbstractCommand {
 	}
 
 	@Override
+	public boolean canUndo() {
+		IContext context = null;
+		for (IFeature feature : features) {
+			GenericFeatureCommandWithContext ccc = new GenericFeatureCommandWithContext(feature, context);
+			if (ccc.canUndo()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	@Override
 	public void undo() {
 		// connection.disconnect();
 	}
