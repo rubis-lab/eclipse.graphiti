@@ -92,6 +92,7 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 				 */
 				if (executionInfo == null) {
 					executionInfo = new DefaultExecutionInfo();
+
 					GraphitiUiInternal.getCommandService().completeExecutionInfo((DefaultExecutionInfo) executionInfo,
 							GraphitiUiInternal.getCommandService().transformFromEmfToGefCommand(command));
 				}
