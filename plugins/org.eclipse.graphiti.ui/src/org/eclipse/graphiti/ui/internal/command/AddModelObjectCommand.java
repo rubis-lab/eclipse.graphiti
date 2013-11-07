@@ -116,11 +116,6 @@ public class AddModelObjectCommand extends AbstractCommand {
 		}
 	}
 
-	@Override
-	public boolean canUndo() {
-		return false;
-	}
-
 	public IFeatureAndContext[] getFeaturesAndContexts() {
 		List<IFeatureAndContext> features = new ArrayList<IFeatureAndContext>();
 
