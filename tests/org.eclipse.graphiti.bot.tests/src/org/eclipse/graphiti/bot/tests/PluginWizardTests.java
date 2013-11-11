@@ -93,6 +93,8 @@ public class PluginWizardTests extends AbstractGFTests {
 		shell.activate();
 		bot.button("Yes").click();
 
+		Thread.sleep(1000);
+
 		newProject = ResourcesPlugin.getWorkspace().getRoot().getProject("org.eclipse.graphiti.test1");
 		assertTrue(newProject.exists());
 
