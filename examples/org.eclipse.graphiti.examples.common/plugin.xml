@@ -11,6 +11,7 @@
     Contributors:
        SAP AG - initial API, implementation and documentation
        mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
+       mwenz - Bug 418409 - Graphiti new project and new diagram wizards have disappeared from toolbar new entry
    
     </copyright>
    
@@ -100,13 +101,7 @@
 
 	<extension
 		point = "org.eclipse.ui.newWizards">
-		<category
-			id = "org.eclipse.graphiti.examples.project.category"
-			parentCategory="org.eclipse.ui.Examples"
-			name="%category.name">
-		</category>
 		<wizard
-        category="org.eclipse.ui.Examples/org.eclipse.graphiti.examples.project.category"
         class="org.eclipse.graphiti.examples.common.ui.CreateSampleProjectWizard"
         finalPerspective="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
         icon="icons/rialto16.gif"
@@ -117,7 +112,6 @@
 			<selection class="org.eclipse.core.resources.IResource"/>
 		</wizard>
 		<wizard
-        category="org.eclipse.ui.Examples/org.eclipse.graphiti.examples.project.category"
         class="org.eclipse.graphiti.examples.common.ui.CreateDiagramWizard"
         finalPerspective="org.eclipse.graphiti.examples.common.perspective.GFPerspective"
         icon="icons/pid16.gif"
