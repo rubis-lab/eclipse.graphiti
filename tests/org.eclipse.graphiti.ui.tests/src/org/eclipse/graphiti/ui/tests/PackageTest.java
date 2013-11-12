@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.tests;
 
-import static org.easymock.EasyMock.createMock;		
-import static org.easymock.EasyMock.createNiceMock;		
-import static org.easymock.EasyMock.expect;		
-import static org.easymock.EasyMock.replay;		
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.reset;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -440,6 +440,7 @@ public class PackageTest extends GFAbstractTestCase {
 		AddModelObjectCommand myAddModelObjectCommand = new AddModelObjectCommand(configurationProviderMock, containerShapeMock, selection,
 				rectangle);
 
+
 		myAddModelObjectCommand.canExecute();
 
 		reset(diagramTypeProviderMock);
@@ -449,6 +450,8 @@ public class PackageTest extends GFAbstractTestCase {
 		myAddModelObjectCommand.canExecute();
 
 		myAddModelObjectCommand.execute();
+
+		assertTrue(myAddModelObjectCommand.canUndo());
 
 		IContextEntry contextEntryMock = createNiceMock(IContextEntry.class);
 		replay(contextEntryMock);

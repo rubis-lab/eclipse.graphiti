@@ -22,7 +22,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ PackageTest.class, CommandStackTest.class, MigrationServiceTest.class,
-		CustomUndoableFeatureTest.class, RollbackTest.class, LayoutServiceTest.class })
+		CustomUndoableFeatureTest.class, RollbackTest.class, LayoutServiceTest.class, CommandTest.class })
 public class AllTests {
 
 	// test comment3
