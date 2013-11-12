@@ -25,6 +25,4 @@ import org.junit.runners.Suite;
 		CustomUndoableFeatureTest.class, RollbackTest.class, LayoutServiceTest.class })
 public class AllTests {
 
-	// test comment3
-
 }
