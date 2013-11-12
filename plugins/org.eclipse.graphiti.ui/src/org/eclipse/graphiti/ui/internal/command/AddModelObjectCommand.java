@@ -119,13 +119,13 @@ public class AddModelObjectCommand extends AbstractCommand {
 
 	@Override
 	public boolean canUndo() {
-		// The operation can be undone if all the features that could be used to
-		// add
+		// The operation can be undone if all the features that used to add can
+		// be undone
 		boolean undoable = true;
 		for (final IFeatureAndContext fc : getFeaturesAndContexts()) {
 			undoable = undoable && fc.getFeature().canUndo(fc.getContext());
 		}
-		return true;
+		return undoable;
 	}
 
 	public IFeatureAndContext[] getFeaturesAndContexts() {

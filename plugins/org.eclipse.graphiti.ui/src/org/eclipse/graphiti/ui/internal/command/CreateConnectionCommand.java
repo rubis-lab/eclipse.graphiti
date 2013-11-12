@@ -289,6 +289,7 @@ public class CreateConnectionCommand extends AbstractCommand {
 	public boolean canUndo() {
 		final CreateConnectionContext context = createContext();
 		context.setTargetPictogramElement(targetObject);
+		context.setTargetAnchor(getAnchor(targetObject));
 		context.setTargetLocation(getCurrentLocation());
 
 		for (IFeature feature : features) {
