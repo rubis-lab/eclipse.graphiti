@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.tests;
 
+import static org.junit.Assert.fail;
+
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.algorithms.AlgorithmsFactory;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
@@ -45,7 +47,7 @@ public class LayoutServiceTest extends GFAbstractTestCase {
 		IDimension textSize1 = GraphitiUi.getUiLayoutService().calculateTextSize("Plain text", font);
 		IDimension textSize2 = GraphitiUi.getUiLayoutService().calculateTextSize("Plain text \n continued", font);
 
-		Assert.assertTrue(isEquivalentHeight(textSize1, textSize2));
+		checkEquivalentHeight(textSize1, textSize2);
 		Assert.assertTrue(textSize1.getWidth() < textSize2.getWidth());
 	}
 
@@ -54,7 +56,7 @@ public class LayoutServiceTest extends GFAbstractTestCase {
 		IDimension textSize1 = GraphitiUi.getUiLayoutService().calculateTextSize("Plain text", font, true);
 		IDimension textSize2 = GraphitiUi.getUiLayoutService().calculateTextSize("Plain text \n continued", font, true);
 
-		Assert.assertFalse(isEquivalentHeight(textSize1, textSize2));
+		checkEquivalentHeight(textSize1, textSize2);
 	}
 
 	@Test
@@ -70,7 +72,7 @@ public class LayoutServiceTest extends GFAbstractTestCase {
 		IDimension textSize1 = GraphitiUi.getUiLayoutService().calculateTextSize(text1);
 		IDimension textSize2 = GraphitiUi.getUiLayoutService().calculateTextSize(text2);
 
-		Assert.assertTrue(isEquivalentHeight(textSize1, textSize2));
+		checkEquivalentHeight(textSize1, textSize2);
 		Assert.assertTrue(textSize1.getWidth() < textSize2.getWidth());
 	}
 
@@ -87,10 +89,10 @@ public class LayoutServiceTest extends GFAbstractTestCase {
 		IDimension textSize1 = GraphitiUi.getUiLayoutService().calculateTextSize(text1);
 		IDimension textSize2 = GraphitiUi.getUiLayoutService().calculateTextSize(text2);
 
-		Assert.assertFalse(isEquivalentHeight(textSize1, textSize2));
+		checkEquivalentHeight(textSize1, textSize2);
 	}
 
-	private boolean isEquivalentHeight(IDimension dimension1, IDimension dimension2) {
+	private void checkEquivalentHeight(IDimension dimension1, IDimension dimension2) {
 		// On Linux the heights of the dimensions differ by one (15 and 16),
 		// while on Windows they are the same
 		// --> accept the difference on Linux as valid
@@ -100,6 +102,8 @@ public class LayoutServiceTest extends GFAbstractTestCase {
 
 		int difference = Math.abs(height1 - height2);
 
-		return difference <= 1;
+		if (!(difference <= 1)) {
+			fail("ERROR: Difference too large: height1: " + height1 + ", height2: " + height2);
+		}
 	}
 }
