@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.tests;
 
+import static org.junit.Assert.fail;
+
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.algorithms.AlgorithmsFactory;
 import org.eclipse.graphiti.mm.algorithms.MultiText;
@@ -30,6 +32,7 @@ import org.junit.Test;
 
 public class LayoutServiceTest extends GFAbstractTestCase {
 
+	private static final String LINE_SEPARATOR = org.eclipse.swt.widgets.Text.DELIMITER; // System.getProperty("line.separator");
 	private static Font font;
 
 	@BeforeClass
@@ -43,18 +46,21 @@ public class LayoutServiceTest extends GFAbstractTestCase {
 	@Test
 	public void testPlainCalculation() throws Exception {
 		IDimension textSize1 = GraphitiUi.getUiLayoutService().calculateTextSize("Plain text", font);
-		IDimension textSize2 = GraphitiUi.getUiLayoutService().calculateTextSize("Plain text \n continued", font);
+		IDimension textSize2 = GraphitiUi.getUiLayoutService().calculateTextSize(
+				"Plain text " + LINE_SEPARATOR + " continued", font);
 
-		Assert.assertTrue(isEquivalentHeight(textSize1, textSize2));
+		checkEquivalentHeight(textSize1, textSize2);
 		Assert.assertTrue(textSize1.getWidth() < textSize2.getWidth());
 	}
 
 	@Test
 	public void testNewLineCalculation() throws Exception {
 		IDimension textSize1 = GraphitiUi.getUiLayoutService().calculateTextSize("Plain text", font, true);
-		IDimension textSize2 = GraphitiUi.getUiLayoutService().calculateTextSize("Plain text \n continued", font, true);
+		IDimension textSize2 = GraphitiUi.getUiLayoutService().calculateTextSize(
+				"Plain text " + LINE_SEPARATOR + " continued", font, true);
 
-		Assert.assertFalse(isEquivalentHeight(textSize1, textSize2));
+		checkExpectedHeight(textSize1, 16);
+		checkExpectedHeight(textSize2, 32);
 	}
 
 	@Test
@@ -65,12 +71,12 @@ public class LayoutServiceTest extends GFAbstractTestCase {
 
 		Text text2 = AlgorithmsFactory.eINSTANCE.createText();
 		text2.setFont(font);
-		text2.setValue("Plain text \n continued");
+		text2.setValue("Plain text " + LINE_SEPARATOR + " continued");
 
 		IDimension textSize1 = GraphitiUi.getUiLayoutService().calculateTextSize(text1);
 		IDimension textSize2 = GraphitiUi.getUiLayoutService().calculateTextSize(text2);
 
-		Assert.assertTrue(isEquivalentHeight(textSize1, textSize2));
+		checkEquivalentHeight(textSize1, textSize2);
 		Assert.assertTrue(textSize1.getWidth() < textSize2.getWidth());
 	}
 
@@ -82,17 +88,19 @@ public class LayoutServiceTest extends GFAbstractTestCase {
 
 		MultiText text2 = AlgorithmsFactory.eINSTANCE.createMultiText();
 		text2.setFont(font);
-		text2.setValue("Plain text \n continued");
+		text2.setValue("Plain text " + LINE_SEPARATOR + " continued");
 
 		IDimension textSize1 = GraphitiUi.getUiLayoutService().calculateTextSize(text1);
 		IDimension textSize2 = GraphitiUi.getUiLayoutService().calculateTextSize(text2);
 
-		Assert.assertFalse(isEquivalentHeight(textSize1, textSize2));
+		checkExpectedHeight(textSize1, 16);
+		checkExpectedHeight(textSize2, 32);
 	}
 
-	private boolean isEquivalentHeight(IDimension dimension1, IDimension dimension2) {
-		// On Linux the heights of the dimensions differ by one (15 and 16),
-		// while on Windows they are the same
+	private void checkEquivalentHeight(IDimension dimension1, IDimension dimension2) {
+		// On Linux the heights of the dimensions differ by one or two (15 and
+		// 16 or 17), while on Windows they are the same; the difference of two
+		// appeared first after moving to the own HIPP instance
 		// --> accept the difference on Linux as valid
 
 		int height1 = dimension1.getHeight();
@@ -100,6 +108,23 @@ public class LayoutServiceTest extends GFAbstractTestCase {
 
 		int difference = Math.abs(height1 - height2);
 
-		return difference <= 1;
+		if (!(difference <= 2)) {
+			fail("ERROR: Difference too large: height1: " + height1 + ", height2: " + height2);
+		}
+	}
+
+	private void checkExpectedHeight(IDimension dimension, int expectedHeight) {
+		// On Linux the heights of the dimensions differ by one or two (15 and
+		// 16 or 17), while on Windows they are the same; the difference of two
+		// appeared first after moving to the own HIPP instance
+		// --> accept the difference on Linux as valid
+
+		int height = dimension.getHeight();
+
+		int difference = Math.abs(height - expectedHeight);
+
+		if (!(difference <= 2)) {
+			fail("ERROR: Difference too large: height: " + height + ", expected height: " + expectedHeight);
+		}
 	}
 }
