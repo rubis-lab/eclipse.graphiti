@@ -100,6 +100,10 @@ public class LayoutServiceTest extends GFAbstractTestCase {
 
 		int difference = Math.abs(height1 - height2);
 
-		return difference <= 1;
+		boolean result = (difference <= 1);
+		if (!result) {
+			System.err.println("ERROR: Difference too large: height1: " + height1 + ", height2: " + height2);
+		}
+		return result;
 	}
 }
