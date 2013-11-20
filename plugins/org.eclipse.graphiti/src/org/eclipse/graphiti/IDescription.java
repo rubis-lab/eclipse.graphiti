@@ -27,5 +27,4 @@ public interface IDescription {
 	 * @return the description
 	 */
 	String getDescription();
-
 }
