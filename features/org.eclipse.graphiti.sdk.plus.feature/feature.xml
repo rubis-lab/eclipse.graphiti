@@ -19,7 +19,7 @@ Contributors:
       version="0.10.1.qualifier"
       provider-name="%providerName"
       license-feature="org.eclipse.license"
-      license-feature-version="1.0.0.qualifier">
+      license-feature-version="1.0.0.v20131003-1638">
 
    <description>
       %description
