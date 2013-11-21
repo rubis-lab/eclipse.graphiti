@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@
  *    mgorning - Bug 386913 - Support also Single-Click-Features
  *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *    fvelasco - Bug 323349 - Enable external invocation of features
+ *    mwenz - Bug 421754 - Absolute position of active Shape nested in inactive ContainerShape is calculated incorrectly
  * </copyright>
  *
  *******************************************************************************/
@@ -246,9 +247,11 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	protected ILocation getAbsoluteLocation(GraphicsAlgorithm ga) {
 		ILocation ret = new LocationImpl(0, 0);
 		while (ga != null) {
-			ret.setX(ret.getX() + ga.getX());
-			ret.setY(ret.getY() + ga.getY());
 			PictogramElement pe = ga.getPictogramElement();
+			if (pe == null || pe.isActive()) {
+				ret.setX(ret.getX() + ga.getX());
+				ret.setY(ret.getY() + ga.getY());
+			}
 			if (pe != null) {
 				PictogramElement parent = Graphiti.getPeService().getPictogramElementParent(pe);
 				if (parent != null) {
