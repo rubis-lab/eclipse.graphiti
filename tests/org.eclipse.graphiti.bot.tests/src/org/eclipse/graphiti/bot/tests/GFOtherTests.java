@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@
  *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
  *    mwenz - Bug 378342 - Cannot store more than a diagram per file
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 391046 - Deadlock while saving prior to refactoring operation
  *
  * </copyright>
  *
@@ -31,7 +32,6 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable.syncExec;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,6 +52,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -85,6 +86,7 @@ import org.eclipse.graphiti.bot.tests.util.ITestConstants;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.datatypes.IRectangle;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.DefaultFeatureProviderWrapper;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IRemoveFeature;
@@ -120,6 +122,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.testtool.sketch.features.create.SketchCreateGaContainerFeature;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInputFactory;
@@ -1331,6 +1334,50 @@ public class GFOtherTests extends AbstractGFTests {
 				}
 			}
 		});
+	}
+
+	/*
+	 * Test for Bug 391046. Editor save would block if called from within a
+	 * scheduling rule, e.g. during Eclipse refactoring operation. Solution is
+	 * to pass the outer scheduling rule to the model context job doing the
+	 * save.
+	 */
+	@Test
+	public void testSaveTransfersSchedulingRule() throws Exception {
+		page.closeAllEditors();
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
+		final IDiagramTypeProvider dtp = diagramEditor.getDiagramTypeProvider();
+		final IFeatureProvider fp = ((DefaultFeatureProviderWrapper) dtp.getFeatureProvider())
+				.getInnerFeatureProvider();
+		final CommandStack commandStack = diagramEditor.getEditDomain().getCommandStack();
+
+		// Create something on the diagram to make it dirty
+		syncExec(new VoidResult() {
+			public void run() {
+				ICreateFeature createFeature = new SketchCreateGaContainerFeature(fp, "Rounded Rectangle Container",
+						"draw rounded rectangle", RoundedRectangle.class);
+				Rectangle rectangle = new Rectangle(50, 50, 100, 50);
+				ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
+				Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
+						createFeature, createContext, rectangle);
+				commandStack.execute(createCommand);
+				ContainerShape shape1 = (ContainerShape) dtp.getDiagram().getChildren().get(0);
+				assertNotNull(shape1);
+
+			}
+		});
+
+		// Call the editor save from within a scheduling rule
+		syncExec(new VoidResult() {
+			@Override
+			public void run() {
+				Job.getJobManager().beginRule(ResourcesPlugin.getWorkspace().getRoot(), null);
+				diagramEditor.doSave(null);
+				Job.getJobManager().endRule(ResourcesPlugin.getWorkspace().getRoot());
+			}
+		});
+
+		page.shutdownEditor(diagramEditor);
 	}
 
 	private IFile createPersistentDiagram() throws Exception {
