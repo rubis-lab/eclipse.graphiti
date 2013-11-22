@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  *    mwenz - Bug 352220 - Possibility to disable guides
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    mwenz - Bug 364126 - Make GaServiceImpl extensible
+ *    mwenz - Bug 421813 - Relative position to diagram of active Shape nested in inactive ContainerShape is calculated incorrectly
  *
  * </copyright>
  *
@@ -1167,7 +1168,9 @@ public final class PeServiceImpl implements IPeService {
 
 		if (!(shape instanceof ConnectionDecorator)) {
 			while (shape != null && !(shape instanceof Diagram)) {
-				ret = ret + getXOfPictogramElement(shape);
+				if (shape.isActive()) {
+					ret = ret + getXOfPictogramElement(shape);
+				}
 				shape = shape.getContainer();
 			}
 		} else {
@@ -1222,7 +1225,9 @@ public final class PeServiceImpl implements IPeService {
 		int ret = 0;
 		if (!(shape instanceof ConnectionDecorator)) {
 			while (shape != null && !(shape instanceof Diagram)) {
-				ret = ret + getYOfPictogramElement(shape);
+				if (shape.isActive()) {
+					ret = ret + getYOfPictogramElement(shape);
+				}
 				shape = shape.getContainer();
 			}
 		} else {
