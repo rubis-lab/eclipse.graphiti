@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2011, 2012 SAP AG.
+ * Copyright (c) 2011, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    mwenz - Bug 376008 - Iterating through navigation history causes exceptions
  *    mwenz - Bug 393074 - Save Editor Progress Monitor Argument
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz/Rob Cernich - Bug 391046 - Deadlock while saving prior to refactoring operation
  *
  * </copyright>
  *
@@ -34,6 +35,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStack;
@@ -54,6 +57,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.operation.IThreadListener;
 import org.eclipse.jface.operation.ModalContext;
 import org.eclipse.swt.widgets.Display;
 
@@ -250,20 +254,7 @@ public class DefaultPersistencyBehavior {
 			final Map<Resource, Map<?, ?>> saveOptions) {
 		// Do the work within an operation because this is a long running
 		// activity that modifies the workbench.
-		final IRunnableWithProgress operation = new IRunnableWithProgress() {
-			// This is the method that gets invoked when the operation runs.
-			public void run(IProgressMonitor monitor) {
-				// Save the resources to the file system.
-				try {
-					savedResources.addAll(save(diagramBehavior.getEditingDomain(), saveOptions, monitor));
-				} catch (final WrappedException e) {
-					final MultiStatus errorStatus = new MultiStatus(GraphitiUIPlugin.PLUGIN_ID, 0, e.getMessage(),
-							e.exception());
-					GraphitiUIPlugin.getDefault().getLog().log(errorStatus);
-					T.racer().error(e.getMessage(), e.exception());
-				}
-			}
-		};
+		final IRunnableWithProgress operation = new SaveOperation(saveOptions, savedResources);
 		return operation;
 	}
 
@@ -422,5 +413,47 @@ public class DefaultPersistencyBehavior {
 		 */
 		return !diagramBehavior.getEditingDomain().isReadOnly(resource)
 				&& (!resource.isTrackingModification() || resource.isModified()) && resource.isLoaded();
+	}
+
+	/**
+	 * The workspace operation used to do the actual save.
+	 * 
+	 * @since 0.11
+	 */
+	protected final class SaveOperation implements IRunnableWithProgress, IThreadListener {
+		private final Map<Resource, Map<?, ?>> saveOptions;
+		private final Set<Resource> savedResources;
+
+		private SaveOperation(Map<Resource, Map<?, ?>> saveOptions, Set<Resource> savedResources) {
+			this.saveOptions = saveOptions;
+			this.savedResources = savedResources;
+		}
+
+		// This is the method that gets invoked when the operation runs.
+		public void run(IProgressMonitor monitor) {
+			// Save the resources to the file system.
+			try {
+				savedResources.addAll(save(diagramBehavior.getEditingDomain(), saveOptions, monitor));
+			} catch (final WrappedException e) {
+				final MultiStatus errorStatus = new MultiStatus(GraphitiUIPlugin.PLUGIN_ID, 0, e.getMessage(),
+						e.exception());
+				GraphitiUIPlugin.getDefault().getLog().log(errorStatus);
+				T.racer().error(e.getMessage(), e.exception());
+			}
+		}
+
+		/*
+		 * Transfer the rule from the calling thread to the callee. This should
+		 * be invoked before executing the callee and after the callee has
+		 * executed, thus transferring the rule back to the calling thread. See
+		 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=391046
+		 */
+		@Override
+		public void threadChange(Thread thread) {
+			ISchedulingRule rule = Job.getJobManager().currentRule();
+			if (rule != null) {
+				Job.getJobManager().transferRule(rule, thread);
+			}
+		}
 	}
 }
