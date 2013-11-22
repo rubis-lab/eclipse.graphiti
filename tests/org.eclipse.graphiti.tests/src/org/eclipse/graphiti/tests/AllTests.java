@@ -12,6 +12,7 @@
  *    Henrik Rentz-Reichert - mwenz - Bug 376544 - bug in re-connecting a connection with identical start and end anchor
  *    mwenz - Bug 394801 - AddGraphicalRepresentation doesn't carry properties
  *    mwenz - Bug 421754 - Absolute position of active Shape nested in inactive ContainerShape is calculated incorrectly
+ *    mwenz - Bug 421813 - Relative position to diagram of active Shape nested in inactive ContainerShape is calculated incorrectly
  *
  * </copyright>
  *
@@ -26,13 +27,14 @@ import org.eclipse.graphiti.tests.cases.LinkServiceTest;
 import org.eclipse.graphiti.tests.cases.PeServiceTest;
 import org.eclipse.graphiti.tests.cases.ReconnectionTest;
 import org.eclipse.graphiti.tests.tb.DefaultToolBehaviorProviderTests;
+import org.eclipse.graphiti.tests.internal.services.impl.PeServiceImplTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ DefaultFeaturesTest.class, GaServiceTest.class, LinkServiceTest.class, PeServiceTest.class,
 		CreateServiceTest.class, ReconnectionTest.class, FeatureParametersTest.class,
-		DefaultToolBehaviorProviderTests.class })
+		DefaultToolBehaviorProviderTests.class, PeServiceImplTest.class })
 public class AllTests {
 
 }
