@@ -50,16 +50,21 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveAnchorFeature;
 import org.eclipse.graphiti.features.IMoveConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
+import org.eclipse.graphiti.features.IResizeConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IMoveAnchorContext;
 import org.eclipse.graphiti.features.context.IMoveConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
+import org.eclipse.graphiti.features.context.IResizeConnectionDecoratorContext;
+import org.eclipse.graphiti.features.context.IResizeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.impl.AreaAnchorContext;
 import org.eclipse.graphiti.features.context.impl.CreateContext;
 import org.eclipse.graphiti.features.context.impl.MoveConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
+import org.eclipse.graphiti.features.context.impl.ResizeConnectionDecoratorContext;
+import org.eclipse.graphiti.features.context.impl.ResizeContext;
 import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
 import org.eclipse.graphiti.internal.command.CommandContainer;
 import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
@@ -151,9 +156,14 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			return new NonResizableEditPolicy();
 		}
 		PictogramElement pictogramElement = ((ShapeEditPart) child).getPictogramElement();
-		Shape shape = (Shape) pictogramElement;
-		ResizeShapeContext resizeShapeContext = new ResizeShapeContext(shape);
-		return new GFResizableEditPolicy(getConfigurationProvider(), resizeShapeContext);
+		IResizeContext resizeContext;
+		if (pictogramElement instanceof ConnectionDecorator) {
+			resizeContext = new ResizeConnectionDecoratorContext((ConnectionDecorator) pictogramElement);
+		} else {
+			Shape shape = (Shape) pictogramElement;
+			resizeContext = new ResizeShapeContext(shape);
+		}
+		return new GFResizableEditPolicy(getConfigurationProvider(), resizeContext);
 	}
 
 	/**
@@ -180,9 +190,33 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 			// connection decorators
 			if (model instanceof ConnectionDecorator) {
-				ICommand cmd = getMoveConnectionDecoratorCommand((ConnectionDecorator) model, rectangle, 0, 0);
-				if (cmd != null) {
-					ret.add(cmd);
+				ConnectionDecorator decorator = (ConnectionDecorator) model;
+				ContainerShape containerShape = decorator.getContainer();
+
+				{
+					Rectangle rc = rectangle;
+
+					// modify the constraint in case if it is a Polyline
+					// graphics algorithm and the uppermost point is not at
+					// y==0 or the leftmost point is not at x==0
+					// see also Bug 383512
+					rc = modifyRectangleForPolyline(rectangle, decorator, rc);
+
+					ICommand cmd = getMoveConnectionDecoratorCommand(decorator, rectangle, 0, 0);
+					if (cmd != null) {
+						ret.add(cmd);
+					}
+
+					if (isDifferentSize(decorator, rectangle)) {
+						IResizeContext context = createResizeContext(decorator, rectangle,
+								request.getResizeDirection());
+
+						IResizeConnectionDecoratorFeature resizeConnectionDecoratorFeature = featureProvider
+								.getResizeConnectionDecoratorFeature((IResizeConnectionDecoratorContext) context);
+						if (resizeConnectionDecoratorFeature != null) {
+							ret.add(new ResizeShapeFeatureCommandWithContext(resizeConnectionDecoratorFeature, context));
+						}
+					}
 				}
 			} else
 			// anchors
@@ -213,41 +247,18 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 					// graphics algorithm and the uppermost point is not at
 					// y==0 or the leftmost point is not at x==0
 					// see also Bug 383512
-					if (shape.getGraphicsAlgorithm() instanceof Polyline) {
-						Polyline polyline = (Polyline) shape.getGraphicsAlgorithm();
-						EList<org.eclipse.graphiti.mm.algorithms.styles.Point> points = polyline.getPoints();
-						if (points.size() > 0) {
-							org.eclipse.graphiti.mm.algorithms.styles.Point firstPoint = points.get(0);
-							int minX = firstPoint.getX();
-							int minY = firstPoint.getY();
-							for (org.eclipse.graphiti.mm.algorithms.styles.Point point : points) {
-								minX = Math.min(point.getX(), minX);
-								minY = Math.min(point.getY(), minY);
-							}
-
-							if (minX > 0 || minY > 0) {
-								rc = rectangle.getCopy();
-								if (minX > 0) {
-									rc.x -= minX;
-								}
-								if (minY > 0) {
-									rc.y -= minY;
-								}
-							}
-						}
-					}
+					rc = modifyRectangleForPolyline(rectangle, shape, rc);
 
 					IMoveShapeContext context = createMoveShapeContext(shape, containerShape, containerShape, rc);
 
 					IMoveShapeFeature moveShapeFeature = featureProvider.getMoveShapeFeature(context);
 					if (moveShapeFeature != null) {
 						if (child instanceof ShapeEditPart) {
-							// Check if size has changed. If yes we do a
-							// resize and no move. In this case do
-							// not add a move feature to the command because
-							// Move might not be allowed while
-							// Resize is allowed. Adding both Move and
-							// Resize leads to Resizing not possible.
+							// Check if size has changed. If yes we do a resize
+							// and no move. In this case do not add a move
+							// feature to the command because Move might not be
+							// allowed while Resize is allowed. Adding both Move
+							// and Resize leads to Resizing not possible.
 							if (!isDifferentSize(shape, rectangle)) {
 								// Not in resize
 								ret.add(new MoveShapeFeatureCommandWithContext(moveShapeFeature, context));
@@ -258,10 +269,11 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 				{
 					if (isDifferentSize(shape, rectangle)) {
-						IResizeShapeContext context = createResizeShapeContext(shape, rectangle,
+						IResizeContext context = createResizeContext(shape, rectangle,
 								request.getResizeDirection());
 
-						IResizeShapeFeature resizeShapeFeature = featureProvider.getResizeShapeFeature(context);
+						IResizeShapeFeature resizeShapeFeature = featureProvider
+								.getResizeShapeFeature((IResizeShapeContext) context);
 						if (resizeShapeFeature != null) {
 							ret.add(new ResizeShapeFeatureCommandWithContext(resizeShapeFeature, context));
 							// } else if (child instanceof ShapeEditPart) {
@@ -286,6 +298,33 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		} else {
 			return null;
 		}
+	}
+
+	private Rectangle modifyRectangleForPolyline(Rectangle rectangle, Shape shape, Rectangle rc) {
+		if (shape.getGraphicsAlgorithm() instanceof Polyline) {
+			Polyline polyline = (Polyline) shape.getGraphicsAlgorithm();
+			EList<org.eclipse.graphiti.mm.algorithms.styles.Point> points = polyline.getPoints();
+			if (points.size() > 0) {
+				org.eclipse.graphiti.mm.algorithms.styles.Point firstPoint = points.get(0);
+				int minX = firstPoint.getX();
+				int minY = firstPoint.getY();
+				for (org.eclipse.graphiti.mm.algorithms.styles.Point point : points) {
+					minX = Math.min(point.getX(), minX);
+					minY = Math.min(point.getY(), minY);
+				}
+
+				if (minX > 0 || minY > 0) {
+					rc = rectangle.getCopy();
+					if (minX > 0) {
+						rc.x -= minX;
+					}
+					if (minY > 0) {
+						rc.y -= minY;
+					}
+				}
+			}
+		}
+		return rc;
 	}
 
 	/**
@@ -326,8 +365,13 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		return ret;
 	}
 
-	protected IResizeShapeContext createResizeShapeContext(Shape shape, Object constraint, int resizeDirection) {
-		ResizeShapeContext ret = new ResizeShapeContext(shape);
+	protected IResizeContext createResizeContext(Shape shape, Object constraint, int resizeDirection) {
+		ResizeContext ret;
+		if (shape instanceof ConnectionDecorator) {
+			ret = new ResizeConnectionDecoratorContext((ConnectionDecorator) shape);
+		} else {
+			ret = new ResizeShapeContext(shape);
+		}
 
 		Point loc = null;
 		Dimension dim = null;

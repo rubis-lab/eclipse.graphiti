@@ -19,6 +19,7 @@
  */
 package org.eclipse.graphiti.features;
 
+import org.eclipse.graphiti.features.context.IResizeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 
 /**
@@ -32,8 +33,21 @@ public interface IResizeFeature extends IFeature {
 	/**
 	 * Provides configuration object, which describes the resize behavior
 	 * 
-	 * @param context the resizing context
+	 * @param context
+	 *            the resizing context
 	 * @return configuration object
+	 * @deprecated Replaced by {@link #getResizeConfiguration(IResizeContext)}
 	 */
 	IResizeConfiguration getResizeConfiguration(IResizeShapeContext context);
+
+	/**
+	 * Provides configuration object, which describes the resize behavior
+	 * 
+	 * @param context
+	 *            the resizing context
+	 * @return configuration object
+	 * @since 0.11 replaces IResizeConfiguration
+	 *        getResizeConfiguration(IResizeShapeContext context)
+	 */
+	IResizeConfiguration getResizeConfiguration(IResizeContext context);
 }

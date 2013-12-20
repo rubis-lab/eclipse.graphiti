@@ -32,6 +32,7 @@ import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
+import org.eclipse.graphiti.features.context.IResizeConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -149,6 +150,14 @@ public class DefaultFeatureProviderWrapper implements IFeatureProvider {
 
 	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(IMoveConnectionDecoratorContext context) {
 		return getInnerFeatureProvider().getMoveConnectionDecoratorFeature(context);
+	}
+
+	/**
+	 * @since 0.11
+	 */
+	public IResizeConnectionDecoratorFeature getResizeConnectionDecoratorFeature(
+			IResizeConnectionDecoratorContext context) {
+		return getInnerFeatureProvider().getResizeConnectionDecoratorFeature(context);
 	}
 
 	public IMoveShapeFeature getMoveShapeFeature(IMoveShapeContext context) {

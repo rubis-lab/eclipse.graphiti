@@ -22,9 +22,25 @@ import org.eclipse.graphiti.features.context.IResizeContext;
  */
 public class ResizeContext extends AreaContext implements IResizeContext {
 
+	private int direction = DIRECTION_UNSPECIFIED;
+
 	/**
 	 * Creates a new {@link ResizeContext}.
 	 */
 	public ResizeContext() {
+	}
+
+	/**
+	 * @since 0.11
+	 */
+	public int getDirection() {
+		return direction;
+	}
+
+	/**
+	 * @since 0.11
+	 */
+	public void setDirection(int direction) {
+		this.direction = direction;
 	}
 }

@@ -48,6 +48,7 @@ import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IRemoveBendpointFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
+import org.eclipse.graphiti.features.IResizeConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
@@ -65,6 +66,7 @@ import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
+import org.eclipse.graphiti.features.context.IResizeConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -159,6 +161,11 @@ public abstract class AbstractFeatureProvider implements IFeatureProvider {
 	}
 
 	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(IMoveConnectionDecoratorContext context) {
+		return null;
+	}
+
+	public IResizeConnectionDecoratorFeature getResizeConnectionDecoratorFeature(
+			IResizeConnectionDecoratorContext context) {
 		return null;
 	}
 

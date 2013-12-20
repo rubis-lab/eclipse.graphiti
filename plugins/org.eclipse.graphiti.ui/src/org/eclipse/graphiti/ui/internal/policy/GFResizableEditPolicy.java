@@ -28,7 +28,11 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.graphiti.features.IResizeConfiguration;
+import org.eclipse.graphiti.features.IResizeConnectionDecoratorFeature;
+import org.eclipse.graphiti.features.IResizeFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
+import org.eclipse.graphiti.features.context.IResizeConnectionDecoratorContext;
+import org.eclipse.graphiti.features.context.IResizeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -42,15 +46,15 @@ import org.eclipse.graphiti.ui.internal.util.draw2d.TransparentGhostFigure;
  */
 public class GFResizableEditPolicy extends ResizableEditPolicy {
 	private GFEditPolicyDelegate delegate;
-	private IResizeShapeContext resizeShapeContext;
+	private IResizeContext resizeContext;
 
 	public GFResizableEditPolicy(IConfigurationProviderInternal cfgProvider) {
 		setDelegate(new GFEditPolicyDelegate(cfgProvider));
 	}
 
-	public GFResizableEditPolicy(IConfigurationProviderInternal configurationProvider, IResizeShapeContext resizeShapeContext) {
+	public GFResizableEditPolicy(IConfigurationProviderInternal configurationProvider, IResizeContext resizeContext) {
 		this(configurationProvider);
-		setResizeShapeContext(resizeShapeContext);
+		setResizeContext(resizeContext);
 	}
 
 	@Override
@@ -63,9 +67,13 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 	@Override
 	protected List<?> createSelectionHandles() {
 		boolean resizeAllowed = false;
-		if (getResizeShapeContext() != null) {
-			resizeAllowed = !(getResizeShapeFeature() == null || !getResizeShapeFeature().canResizeShape(
-					getResizeShapeContext()));
+		if (getResizeContext() instanceof IResizeShapeContext) {
+			resizeAllowed = !(getResizeFeature() == null || !((IResizeShapeFeature) getResizeFeature())
+					.canResizeShape(
+					(IResizeShapeContext) getResizeContext()));
+		} else if (getResizeContext() instanceof IResizeConnectionDecoratorContext) {
+			resizeAllowed = !(getResizeFeature() == null || !((IResizeConnectionDecoratorFeature) getResizeFeature())
+					.canResizeConnectionDecorator((IResizeConnectionDecoratorContext) getResizeContext()));
 		}
 
 		GraphicalEditPart owner = (GraphicalEditPart) getHost();
@@ -98,11 +106,11 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 	@Override
 	public int getResizeDirections() {
 		int ret = 0;
-		if (!(getResizeShapeContext() == null)) {
-			IResizeShapeFeature resizeShapeFeature = getResizeShapeFeature();
-			if (resizeShapeFeature != null) {
-				IResizeConfiguration resizeConfiguration = resizeShapeFeature
-						.getResizeConfiguration(getResizeShapeContext());
+		if (!(getResizeContext() == null)) {
+			IResizeFeature resizeFeature = getResizeFeature();
+			if (resizeFeature != null) {
+				IResizeConfiguration resizeConfiguration = resizeFeature
+						.getResizeConfiguration(getResizeContext());
 				if (resizeConfiguration.isHorizontalResizeAllowed()) {
 					ret = ret | PositionConstants.EAST_WEST;
 				}
@@ -114,23 +122,28 @@ public class GFResizableEditPolicy extends ResizableEditPolicy {
 		return ret;
 	}
 
-	private IResizeShapeContext getResizeShapeContext() {
-		return this.resizeShapeContext;
+	private IResizeContext getResizeContext() {
+		return this.resizeContext;
 	}
 
-	private IResizeShapeFeature getResizeShapeFeature() {
-		if (getResizeShapeContext() == null) {
+	private IResizeFeature getResizeFeature() {
+		if (getResizeContext() instanceof IResizeShapeContext) {
+			return getConfigurationProvider().getFeatureProvider().getResizeShapeFeature(
+					(IResizeShapeContext) getResizeContext());
+		} else if (getResizeContext() instanceof IResizeConnectionDecoratorContext) {
+			return getConfigurationProvider().getFeatureProvider().getResizeConnectionDecoratorFeature(
+					(IResizeConnectionDecoratorContext) getResizeContext());
+		} else {
 			return null;
 		}
-		return getConfigurationProvider().getFeatureProvider().getResizeShapeFeature(getResizeShapeContext());
 	}
 
 	private void setDelegate(GFEditPolicyDelegate delegate) {
 		this.delegate = delegate;
 	}
 
-	private void setResizeShapeContext(IResizeShapeContext resizeShapeContext) {
-		this.resizeShapeContext = resizeShapeContext;
+	private void setResizeContext(IResizeContext resizeContext) {
+		this.resizeContext = resizeContext;
 	}
 
 	/*

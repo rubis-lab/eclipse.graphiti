@@ -31,6 +31,7 @@ import org.eclipse.graphiti.features.IPasteFeature;
 import org.eclipse.graphiti.features.IPrintFeature;
 import org.eclipse.graphiti.features.IRemoveBendpointFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
+import org.eclipse.graphiti.features.IResizeConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
@@ -45,6 +46,7 @@ import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IPasteContext;
 import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
+import org.eclipse.graphiti.features.context.IResizeConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -56,6 +58,7 @@ import org.eclipse.graphiti.features.impl.DefaultMoveConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveBendpointFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
+import org.eclipse.graphiti.features.impl.DefaultResizeConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
 import org.eclipse.graphiti.features.impl.DefaultUpdateDiagramFeature;
 import org.eclipse.graphiti.features.impl.UpdateNoBoFeature;
@@ -119,6 +122,13 @@ public class DefaultFeatureProvider extends AbstractFeatureProvider {
 	@Override
 	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(IMoveConnectionDecoratorContext context) {
 		IMoveConnectionDecoratorFeature ret = new DefaultMoveConnectionDecoratorFeature(this);
+		return ret;
+	}
+
+	@Override
+	public IResizeConnectionDecoratorFeature getResizeConnectionDecoratorFeature(
+			IResizeConnectionDecoratorContext context) {
+		IResizeConnectionDecoratorFeature ret = new DefaultResizeConnectionDecoratorFeature(this);
 		return ret;
 	}
 

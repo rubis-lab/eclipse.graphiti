@@ -21,6 +21,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IResizeConfiguration;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.features.context.IResizeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
 import org.eclipse.graphiti.internal.Messages;
@@ -101,7 +102,17 @@ public class DefaultResizeShapeFeature extends AbstractFeature implements IResiz
 
 	private static final String NAME = Messages.DefaultResizeShapeFeature_0_xfld;
 
+	/**
+	 * @deprecated Replaced by {@link #getResizeConfiguration(IResizeContext)}
+	 */
 	public IResizeConfiguration getResizeConfiguration(IResizeShapeContext context) {
+		return new DefaultResizeConfiguration();
+	}
+
+	/**
+	 * @since 0.11
+	 */
+	public IResizeConfiguration getResizeConfiguration(IResizeContext context) {
 		return new DefaultResizeConfiguration();
 	}
 }

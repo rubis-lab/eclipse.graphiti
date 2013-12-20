@@ -37,6 +37,7 @@ import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
+import org.eclipse.graphiti.features.context.IResizeConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -163,6 +164,19 @@ public interface IFeatureProvider extends IMappingProvider {
 	 * @see IMoveShapeFeature
 	 */
 	IMoveShapeFeature getMoveShapeFeature(IMoveShapeContext context);
+
+	/**
+	 * Resize connection decorator features respond to user's resize requests.
+	 * 
+	 * @param context
+	 *            the context
+	 * 
+	 * @return resize feature according to the given context
+	 * 
+	 * @see IResizeConnectionDecoratorFeature
+	 * @since 0.11
+	 */
+	IResizeConnectionDecoratorFeature getResizeConnectionDecoratorFeature(IResizeConnectionDecoratorContext context);
 
 	/**
 	 * Move features respond to user's move requests.

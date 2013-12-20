@@ -26,7 +26,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 public class ResizeShapeContext extends ResizeContext implements IResizeShapeContext {
 
 	private Shape shape;
-	private int direction = DIRECTION_UNSPECIFIED;
 
 	/**
 	 * Creates a new {@link ResizeShapeContext}.
@@ -64,19 +63,5 @@ public class ResizeShapeContext extends ResizeContext implements IResizeShapeCon
 	public String toString() {
 		String ret = super.toString();
 		return ret + " shape: " + getShape(); //$NON-NLS-1$
-	}
-
-	/**
-	 * @since 0.9
-	 */
-	public int getDirection() {
-		return direction;
-	}
-
-	/**
-	 * @since 0.9
-	 */
-	public void setDirection(int direction) {
-		this.direction = direction;
 	}
 }

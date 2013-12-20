@@ -1,46 +1,42 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2013, 2013 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    SAP AG - initial API, implementation and documentation
- *    mgorning - Bug 342262 - enhanced resize behavior for container shapes
+ *    SAP AG - initial API, implementation and documentation (Bug 424458)
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.features.context;
 
-import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 
 /**
- * The Interface IResizeShapeContext.
+ * The Interface IResizeConnectionDecoratorContext.
  * 
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
+ * @since 0.11
  */
-public interface IResizeShapeContext extends IResizeContext, IPictogramElementContext {
+public interface IResizeConnectionDecoratorContext extends IAreaContext, IResizeContext {
 
 	/**
-	 * Gets the shape.
+	 * Gets the connection decorator.
 	 * 
-	 * @return the shape
+	 * @return the connection decorator
 	 */
-	Shape getShape();
+	ConnectionDecorator getConnectionDecorator();
 
 	/**
-	 * Returns the specified direction. The direction is specified using
-	 * {@link IResizeShapeContext#NORTH}, {@link IResizeShapeContext#NORTH_EAST}
-	 * , etc.
+	 * Checks if execute is allowed.
 	 * 
-	 * @return the direction
-	 * 
-	 * @since 0.9
+	 * @return true, if execute is allowed
 	 */
-	int getDirection();
+	boolean isExecuteAllowed();
 }

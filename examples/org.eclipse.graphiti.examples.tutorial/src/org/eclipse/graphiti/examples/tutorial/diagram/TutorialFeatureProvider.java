@@ -45,6 +45,7 @@ import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.IPasteFeature;
 import org.eclipse.graphiti.features.IReconnectionFeature;
+import org.eclipse.graphiti.features.IResizeConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -56,9 +57,12 @@ import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IPasteContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
+import org.eclipse.graphiti.features.context.IResizeConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -117,6 +121,17 @@ public class TutorialFeatureProvider extends DefaultFeatureProvider {
 			return new TutorialResizeEClassFeature(this);
 		}
 		return super.getResizeShapeFeature(context);
+	}
+
+	@Override
+	public IResizeConnectionDecoratorFeature getResizeConnectionDecoratorFeature(
+			IResizeConnectionDecoratorContext context) {
+		ConnectionDecorator connectionDecorator = context.getConnectionDecorator();
+		if (connectionDecorator instanceof ConnectionDecorator
+				&& connectionDecorator.getGraphicsAlgorithm() instanceof AbstractText) {
+			return new ResizeConnectionLabelFeature(this);
+		}
+		return super.getResizeConnectionDecoratorFeature(context);
 	}
 
 	@Override
