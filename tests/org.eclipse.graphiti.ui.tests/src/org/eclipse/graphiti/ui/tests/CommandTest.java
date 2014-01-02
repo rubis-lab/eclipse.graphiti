@@ -419,6 +419,11 @@ public class CommandTest extends GFAbstractTestCase {
 			public boolean canReconnect(IReconnectionContext context) {
 				return false;
 			}
+
+			@Override
+			public boolean canStartReconnect(IReconnectionContext context) {
+				return false;
+			}
 		};
 
 		IFeatureProvider featureProviderMock = createNiceMock(IFeatureProvider.class);

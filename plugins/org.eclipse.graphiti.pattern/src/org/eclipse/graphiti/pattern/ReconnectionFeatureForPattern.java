@@ -12,6 +12,7 @@
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *    mgorning - Bug 343983 - Notification for Cancelled Reconnection Events
  *    mwenz - Bug 325084 - Provide documentation for Patterns
+ *    mlypik - Bug 401792 - Disable starting reconnection
  *
  * </copyright>
  *
@@ -129,5 +130,13 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 		if (delegate instanceof ICustomUndoablePattern) {
 			((ICustomUndoablePattern) delegate).redo(this, context);
 		}
+	}
+
+	/**
+	 * @since 0.11
+	 */
+	@Override
+	public boolean canStartReconnect(IReconnectionContext context) {
+		return true;
 	}
 }

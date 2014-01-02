@@ -13,6 +13,7 @@
  *    mwenz - Bug 364035 - DefaultReconnectionFeature#reconnect should use getNewAnchor(context)
  *                         not context.getNewAnchor()
  *    Henrik Rentz-Reichert - mwenz - Bug 376544 - bug in re-connecting a connection with identical start and end anchor
+ *    mlypik - Bug 401792 - Disable starting reconnection
  *
  * </copyright>
  *
@@ -204,5 +205,22 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 	 * @since 0.9
 	 */
 	public void canceledReconnect(IReconnectionContext context) {
+	}
+
+	/**
+	 * Called by the framework after the connection has been selected.
+	 * Determines whether connection endpoint can be dragged to start
+	 * reconnection.
+	 * 
+	 * @param context
+	 *            the context object holding information about the connection
+	 *            and old anchor
+	 * @return <code>true</code>
+	 * 
+	 * @since 0.11
+	 */
+	@Override
+	public boolean canStartReconnect(IReconnectionContext context) {
+		return true;
 	}
 }

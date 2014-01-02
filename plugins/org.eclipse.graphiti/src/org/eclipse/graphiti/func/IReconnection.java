@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mgorning - Bug 343983 - Notification for Cancelled Reconnection Events
+ *    mlypik - Bug 401792 - Disable starting reconnection
  *
  * </copyright>
  *
@@ -71,4 +72,16 @@ public interface IReconnection {
 	 * @since 0.9
 	 */
 	void canceledReconnect(IReconnectionContext context);
+
+	/**
+	 * Can start reconnect.
+	 * 
+	 * @param context
+	 *            the context
+	 * 
+	 * @return true, if successful
+	 * 
+	 * @since 0.11
+	 */
+	boolean canStartReconnect(IReconnectionContext context);
 }
