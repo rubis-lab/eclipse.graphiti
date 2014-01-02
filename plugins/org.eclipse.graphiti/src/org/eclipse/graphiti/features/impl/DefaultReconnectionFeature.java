@@ -205,4 +205,21 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 	 */
 	public void canceledReconnect(IReconnectionContext context) {
 	}
+
+	/**
+	 * Called by the framework after the connection has been selected.
+	 * Determines whether connection endpoint can be dragged to start
+	 * reconnection.
+	 * 
+	 * @param context
+	 *            the context object holding information about the connection
+	 *            and old anchor
+	 * @return <code>true</code>
+	 * 
+	 * @since 0.11
+	 */
+	@Override
+	public boolean canStartReconnect(IReconnectionContext context) {
+		return true;
+	}
 }

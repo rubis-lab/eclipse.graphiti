@@ -130,4 +130,12 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 			((ICustomUndoablePattern) delegate).redo(this, context);
 		}
 	}
+
+	/**
+	 * @since 0.11
+	 */
+	@Override
+	public boolean canStartReconnect(IReconnectionContext context) {
+		return true;
+	}
 }

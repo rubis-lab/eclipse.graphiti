@@ -71,4 +71,16 @@ public interface IReconnection {
 	 * @since 0.9
 	 */
 	void canceledReconnect(IReconnectionContext context);
+
+	/**
+	 * Can reconnect.
+	 * 
+	 * @param context
+	 *            the context
+	 * 
+	 * @return true, if successful
+	 * 
+	 * @since 0.11
+	 */
+	boolean canStartReconnect(IReconnectionContext context);
 }

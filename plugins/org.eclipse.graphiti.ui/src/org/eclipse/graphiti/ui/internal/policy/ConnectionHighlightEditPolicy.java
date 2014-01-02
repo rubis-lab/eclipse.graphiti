@@ -32,6 +32,8 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Handle;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
+import org.eclipse.graphiti.features.IReconnectionFeature;
+import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.tb.ISelectionInfo;
@@ -212,8 +214,20 @@ public class ConnectionHighlightEditPolicy extends ConnectionEndpointEditPolicy 
 	@Override
 	protected List<Handle> createSelectionHandles() {
 		List<Handle> list = new ArrayList<Handle>();
-		list.add(new GFConnectionEndpointHandle((ConnectionEditPart) getHost(), ConnectionLocator.SOURCE));
-		list.add(new GFConnectionEndpointHandle((ConnectionEditPart) getHost(), ConnectionLocator.TARGET));
+		Connection connection = (Connection) getHost().getModel();
+		ReconnectionContext sourceCtx = new ReconnectionContext(connection, connection.getStart(), null, null);
+		ReconnectionContext targetCtx = new ReconnectionContext(connection, connection.getEnd(), null, null);
+		IReconnectionFeature sourceReconnectionFeature = getConfigurationProvider().getFeatureProvider()
+				.getReconnectionFeature(sourceCtx);
+		IReconnectionFeature targetReconnectionFeature = getConfigurationProvider().getFeatureProvider()
+				.getReconnectionFeature(targetCtx);
+		// add endpoint handles only if they can start reconnect
+		if (sourceReconnectionFeature.canStartReconnect(sourceCtx)) {
+			list.add(new GFConnectionEndpointHandle((ConnectionEditPart) getHost(), ConnectionLocator.SOURCE));
+		}
+		if (targetReconnectionFeature.canStartReconnect(targetCtx)) {
+			list.add(new GFConnectionEndpointHandle((ConnectionEditPart) getHost(), ConnectionLocator.TARGET));
+		}
 		return list;
 	}
 }
