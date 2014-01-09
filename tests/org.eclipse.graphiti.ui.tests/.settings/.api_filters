@@ -13,5 +13,17 @@
                 <message_argument value="ICreateConnectionFeature"/>
             </message_arguments>
         </filter>
+        <filter id="574664731">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.tests.CommandTest.testCreateodelObjectCommand_canUndo_callsFeature()"/>
+                <message_argument value="ICreateFeature"/>
+            </message_arguments>
+        </filter>
+        <filter id="574664731">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.tests.CommandTest.testReconnectCommand_canUndo_callsFeature()"/>
+                <message_argument value="IReconnectionFeature"/>
+            </message_arguments>
+        </filter>
     </resource>
 </component>
