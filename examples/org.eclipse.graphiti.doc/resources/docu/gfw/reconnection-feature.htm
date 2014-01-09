@@ -32,7 +32,14 @@ IReconnectionFeature</a>. Instead of implementing it directly it should extend t
 standard implementation <a href="../../../javadoc/org/eclipse/graphiti/features/impl/DefaultReconnectionFeature.html">DefaultReconnectionFeature</a>.</p>
 <p>The most important methods here are:</p>
 <ul>
-	<li>The method
+		<li>The method <a
+			href="../../../javadoc/org/eclipse/graphiti/func/IReconnection.html#canStartReconnect(org.eclipse.graphiti.features.context.IReconnectionContext)">canStartReconnect</a>
+			checks whether reconnection should be possible at all for the
+			connection. The default implementation returns <i>true</i>, in case <i>false</i>
+			is returned for this method, no selection handles at all will appear
+			when the connection is selected.
+		</li>
+	<li>The method 
 	<a href="../../../javadoc/org/eclipse/graphiti/func/IReconnection.html#canReconnect(org.eclipse.graphiti.features.context.IReconnectionContext)">
 	canReconnect</a> has to check whether the reconnection is allowed for the given 
 	context.</li>
@@ -49,7 +56,7 @@ at all.</p>
 <p>
 <img alt="" height="158" src="visio/reconnection-2.png" width="507"></p>
 <p>
-<strong>Figure: Reconnection is not possible</strong></p>
+<strong>Figure: Reconnection is not possible but reconnection is not completely disabled</strong></p>
 <p>&nbsp;</p>
 <p>You can see the complete implementation of the reconnection feature here:</p>
 <!-- Begin code ------------------------------------------------------------------------------- -->
