@@ -17,6 +17,7 @@
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    Hallvard Traetteberg - Félix Velasco - Bug 403272 - Set the location of DoubleClickContext for DoubleClickFeature
+ *    mwenz - Bug 425750 - getSelection not working
  *
  * </copyright>
  *
@@ -775,18 +776,23 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 	 */
 	@Override
 	public EditPart getTargetEditPart(Request request) {
-		IConfigurationProvider configurationProvider = getConfigurationProvider();
+		if (request instanceof SelectionRequest
+				|| (request != null && request.getType() != null && "selection".equalsIgnoreCase(request.getType()
+						.toString()))) {
 
-		PictogramElement alternativeSelection = configurationProvider
-				.getDiagramTypeProvider()
-				.getCurrentToolBehaviorProvider()
-				.getSelection(getPictogramElement(),
-						configurationProvider.getDiagramBehavior().getSelectedPictogramElements());
-		if (alternativeSelection != null && request instanceof SelectionRequest) {
-			Object object = configurationProvider.getDiagramContainer().getGraphicalViewer().getEditPartRegistry()
-					.get(alternativeSelection);
-			if (object instanceof EditPart) {
-				return (EditPart) object;
+			IConfigurationProvider configurationProvider = getConfigurationProvider();
+
+			PictogramElement alternativeSelection = configurationProvider
+					.getDiagramTypeProvider()
+					.getCurrentToolBehaviorProvider()
+					.getSelection(getPictogramElement(),
+							configurationProvider.getDiagramBehavior().getSelectedPictogramElements());
+			if (alternativeSelection != null) {
+				Object object = configurationProvider.getDiagramContainer().getGraphicalViewer().getEditPartRegistry()
+						.get(alternativeSelection);
+				if (object instanceof EditPart) {
+					return (EditPart) object;
+				}
 			}
 		}
 
