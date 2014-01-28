@@ -27,6 +27,7 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
+import org.eclipse.ui.IPageLayout;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -99,7 +100,7 @@ public class PluginWizardTests extends AbstractGFTests {
 		assertTrue(newProject.exists());
 
 		// Check problems view for any errors
-		SWTBotView view = bot.viewByTitle("Problems");
+		SWTBotView view = bot.viewById(IPageLayout.ID_PROBLEM_VIEW);
 	    view.show();
 		SWTBotTree tree = view.bot().tree();
 		SWTBotTreeItem[] allItems = tree.getAllItems();
