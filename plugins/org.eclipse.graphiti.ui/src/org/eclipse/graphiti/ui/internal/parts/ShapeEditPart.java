@@ -777,7 +777,8 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 	@Override
 	public EditPart getTargetEditPart(Request request) {
 		if (request instanceof SelectionRequest
-				|| (request != null && request.getType() != null && "selection".equalsIgnoreCase(request.getType()
+				|| (request != null && request.getType() != null && RequestConstants.REQ_SELECTION
+						.equalsIgnoreCase(request.getType()
 						.toString()))) {
 
 			IConfigurationProvider configurationProvider = getConfigurationProvider();
