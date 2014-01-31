@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 355347 - Remove setters of Graphiti's Font Interface
+ *    mwenz - Bug 423573 - Angles should never be integer
  *
  * </copyright>
  *
@@ -618,6 +619,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		Text text = gas.createDefaultText(d, s1);
 		assertNotNull(text);
 		assertNotNull(gas.getAngle(text, false));
+		assertNotNull(gas.getRotation(text, false));
 		assertNotNull(gas.getLineWidth(text, false));
 		assertNotNull(gas.getLineStyle(text, false));
 		assertNotNull(gas.getFont(text, false));
@@ -658,7 +660,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		style.setLineWidth(3);
 		text.setStyle(style);
 
-		// Rest information on text, such that the style is queried.
+		// Reset information on text, such that the style is queried.
 		text.setAngle(null);
 		text.setLineWidth(null);
 		text.setLineStyle(LineStyle.UNSPECIFIED);
@@ -671,6 +673,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 
 		assertNotNull(text);
 		assertEquals(2, gas.getAngle(text, true));
+		assertEquals(2, gas.getRotation(text, true), 0);
 		assertEquals(3, gas.getLineWidth(text, true));
 		assertEquals(LineStyle.DASH, gas.getLineStyle(text, true));
 		assertEquals(font, gas.getFont(text, true));

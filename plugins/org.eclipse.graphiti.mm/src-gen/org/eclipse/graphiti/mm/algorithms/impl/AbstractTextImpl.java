@@ -1,7 +1,7 @@
 /**
  * <copyright>
  * 
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 423573 - Angles should never be integer
+ *    
  * 
  * </copyright>
  */
@@ -28,6 +30,7 @@ import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
 import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
 
 /**
@@ -43,6 +46,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.impl.AbstractTextImpl#getAngle <em>Angle</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.impl.AbstractTextImpl#getValue <em>Value</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.impl.AbstractTextImpl#getStyleRegions <em>Style Regions</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.algorithms.impl.AbstractTextImpl#getRotation <em>Rotation</em>}</li>
  * </ul>
  * </p>
  *
@@ -150,6 +154,26 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 	protected EList<TextStyleRegion> styleRegions;
 
 	/**
+	 * The default value of the '{@link #getRotation() <em>Rotation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRotation()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Double ROTATION_EDEFAULT = new Double(0.0);
+
+	/**
+	 * The cached value of the '{@link #getRotation() <em>Rotation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRotation()
+	 * @generated
+	 * @ordered
+	 */
+	protected Double rotation = ROTATION_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -249,22 +273,31 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated not
 	 */
 	public Integer getAngle() {
-		return angle;
+		Double rotation = getRotation();
+		if (rotation == null) {
+			return null;
+		}
+		return (int) Math.round(rotation);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated not
 	 */
 	public void setAngle(Integer newAngle) {
 		Integer oldAngle = angle;
-		angle = newAngle;
+		angle = ANGLE_EDEFAULT;
+		if (newAngle != null) {
+			setRotation(newAngle.doubleValue());
+		} else {
+			setRotation(null);
+		}
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.ABSTRACT_TEXT__ANGLE, oldAngle, angle));
 	}
@@ -307,6 +340,35 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Double getRotation() {
+		return rotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated not
+	 */
+	public void setRotation(Double newRotation) {
+		Double oldRotation = rotation;
+		rotation = newRotation;
+		Integer oldAngle = angle;
+		if (newRotation != null) {
+			angle = new Long(Math.round(newRotation)).intValue();
+		} else {
+			angle = null;
+		}
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.ABSTRACT_TEXT__ROTATION, oldRotation, rotation));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylesPackage.STYLE__ANGLE, oldAngle, angle));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -337,6 +399,8 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 				return getValue();
 			case AlgorithmsPackage.ABSTRACT_TEXT__STYLE_REGIONS:
 				return getStyleRegions();
+			case AlgorithmsPackage.ABSTRACT_TEXT__ROTATION:
+				return getRotation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -369,6 +433,9 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 				getStyleRegions().clear();
 				getStyleRegions().addAll((Collection<? extends TextStyleRegion>)newValue);
 				return;
+			case AlgorithmsPackage.ABSTRACT_TEXT__ROTATION:
+				setRotation((Double)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -399,6 +466,9 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 			case AlgorithmsPackage.ABSTRACT_TEXT__STYLE_REGIONS:
 				getStyleRegions().clear();
 				return;
+			case AlgorithmsPackage.ABSTRACT_TEXT__ROTATION:
+				setRotation(ROTATION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -423,6 +493,8 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 			case AlgorithmsPackage.ABSTRACT_TEXT__STYLE_REGIONS:
 				return styleRegions != null && !styleRegions.isEmpty();
+			case AlgorithmsPackage.ABSTRACT_TEXT__ROTATION:
+				return ROTATION_EDEFAULT == null ? rotation != null : !ROTATION_EDEFAULT.equals(rotation);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -445,6 +517,8 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 		result.append(angle);
 		result.append(", value: ");
 		result.append(value);
+		result.append(", rotation: ");
+		result.append(rotation);
 		result.append(')');
 		return result.toString();
 	}

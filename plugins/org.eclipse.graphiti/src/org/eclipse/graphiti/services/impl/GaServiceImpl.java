@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    mwenz - Bug 355347 - Remove setters of Graphiti's Font Interface
  *    jpasch - Bug 352542 - Add "plain"-create methods for working with styles
  *    mwenz - Bug 364126 - Make GaServiceImpl extensible
+ *    mwenz - Bug 423573 - Angles should never be integer
  *
  * </copyright>
  *
@@ -122,6 +123,21 @@ public class GaServiceImpl implements IGaService {
 			}
 		} else {
 			return angle;
+		}
+	}
+
+	private static final Double getRotation(Style style) {
+		Double rotation = style.getRotation();
+		if (rotation == null) {
+			StyleContainer styleContainer = style.getStyleContainer();
+			if (styleContainer instanceof Style) {
+				Style parentStyle = (Style) styleContainer;
+				return getRotation(parentStyle);
+			} else {
+				return null;
+			}
+		} else {
+			return rotation;
 		}
 	}
 
@@ -1145,6 +1161,8 @@ public class GaServiceImpl implements IGaService {
 	 * @see
 	 * org.eclipse.graphiti.services.IGaService#getAngle(org.eclipse.graphiti
 	 * .mm.pictograms.AbstractText, boolean)
+	 * 
+	 * @deprecated replaced by {@link #getRotation(AbstractText, boolean)}
 	 */
 	public final int getAngle(AbstractText at, boolean checkStyles) {
 		Integer angle = at.getAngle();
@@ -1153,6 +1171,33 @@ public class GaServiceImpl implements IGaService {
 				Style style = at.getStyle();
 				if (style != null) {
 					Integer styleValue = getAngle(style);
+					if (styleValue != null)
+						return styleValue;
+				}
+			}
+		} else {
+			return angle;
+		}
+		return 0; // default value
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IGaService#getRotation(org.eclipse.graphiti
+	 * .mm.pictograms.AbstractText, boolean)
+	 */
+	/**
+	 * @since 0.11
+	 */
+	public final double getRotation(AbstractText at, boolean checkStyles) {
+		Double angle = at.getRotation();
+		if (angle == null) {
+			if (checkStyles) {
+				Style style = at.getStyle();
+				if (style != null) {
+					Double styleValue = getRotation(style);
 					if (styleValue != null)
 						return styleValue;
 				}
@@ -1399,7 +1444,7 @@ public class GaServiceImpl implements IGaService {
 		abstractStyle.setTransparency(null);
 		if (abstractStyle instanceof AbstractText) {
 			AbstractText text = (AbstractText) abstractStyle;
-			text.setAngle(null);
+			text.setRotation(null);
 			text.setFont(null);
 			text.setHorizontalAlignment(Orientation.UNSPECIFIED);
 			text.setVerticalAlignment(Orientation.UNSPECIFIED);
@@ -1410,7 +1455,7 @@ public class GaServiceImpl implements IGaService {
 			image.setStretchV(null);
 		} else if (abstractStyle instanceof Style) {
 			Style style = (Style) abstractStyle;
-			style.setAngle(null);
+			style.setRotation(null);
 			style.setFont(null);
 			style.setHorizontalAlignment(Orientation.UNSPECIFIED);
 			style.setVerticalAlignment(Orientation.UNSPECIFIED);

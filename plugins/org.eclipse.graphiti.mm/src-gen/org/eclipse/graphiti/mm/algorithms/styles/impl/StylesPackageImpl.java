@@ -1,7 +1,7 @@
 /**
  * <copyright>
  * 
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 423573 - Angles should never be integer
  * 
  * </copyright>
  */
@@ -359,6 +360,15 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 	 */
 	public EReference getStyle_StyleContainer() {
 		return (EReference)styleEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStyle_Rotation() {
+		return (EAttribute)styleEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -916,6 +926,7 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 		createEAttribute(styleEClass, STYLE__STRETCH_V);
 		createEAttribute(styleEClass, STYLE__PROPORTIONAL);
 		createEReference(styleEClass, STYLE__STYLE_CONTAINER);
+		createEAttribute(styleEClass, STYLE__ROTATION);
 
 		abstractStyleEClass = createEClass(ABSTRACT_STYLE);
 		createEReference(abstractStyleEClass, ABSTRACT_STYLE__BACKGROUND);
@@ -1037,6 +1048,7 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
 		initEAttribute(getStyle_StretchV(), ecorePackage.getEBooleanObject(), "stretchV", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getStyle_Proportional(), ecorePackage.getEBooleanObject(), "proportional", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getStyle_StyleContainer(), theMmPackage.getStyleContainer(), theMmPackage.getStyleContainer_Styles(), "styleContainer", null, 1, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getStyle_Rotation(), ecorePackage.getEDoubleObject(), "rotation", "0", 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(abstractStyleEClass, AbstractStyle.class, "AbstractStyle", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAbstractStyle_Background(), this.getColor(), null, "background", null, 0, 1, AbstractStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
