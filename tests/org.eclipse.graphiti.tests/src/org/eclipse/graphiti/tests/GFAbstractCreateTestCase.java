@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 423573 - Angles should never be integer
  *
  * </copyright>
  *
@@ -63,7 +64,8 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 		assertNull(style.getStretchH());
 		assertNull(style.getStretchV());
 		assertNull(style.getFont());
-		assertNull(style.getAngle());
+		assertNull(style.getAngle()); // Ok
+		assertNull(style.getRotation());
 	}
 	
 	protected void checkInheritedStyleDefaultsFromMetamodel(Style style) {
@@ -80,7 +82,8 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 		assertNull(style.getStretchH());
 		assertNull(style.getStretchV());
 		assertNull(style.getFont());
-		assertNull(style.getAngle());
+		assertNull(style.getAngle()); // Ok
+		assertNull(style.getRotation());
 	}
 	
 	protected void checkPlainGraphicsAlgorithmDefaults(GraphicsAlgorithm ga) {
@@ -114,6 +117,7 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 	protected void checkTextDefaults(AbstractText text, String value) {
 		checkGraphicsAlgorithmDefaults(text);
 		assertEquals(new Integer(0), text.getAngle());
+		assertEquals(new Double(0d), text.getRotation());
 		assertEquals(Orientation.ALIGNMENT_LEFT, text.getHorizontalAlignment());
 		assertEquals(Orientation.ALIGNMENT_CENTER, text.getVerticalAlignment());
 		assertFalse(text.getFilled());
@@ -123,6 +127,7 @@ public class GFAbstractCreateTestCase extends GFAbstractTestCase {
 	protected void checkPlainTextDefaults(AbstractText text, String value) {
 		checkPlainGraphicsAlgorithmDefaults(text);
 		assertNull(text.getAngle());
+		assertNull(text.getRotation());
 		assertEquals(Orientation.UNSPECIFIED, text.getHorizontalAlignment());
 		assertEquals(Orientation.UNSPECIFIED, text.getVerticalAlignment());
 		assertEquals(value, text.getValue());

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    mgorning - Bug 374190 - Vertically aligned text disappears after the height of TextImpl is increased
  *    mgorning - Bug 368124 - ConnectionDecorator with Text causes problems
  *    mwenz - Bug 405920 - Text background color is ignored on rotated text
+ *    mwenz - Bug 423573 - Angles should never be integer
  *
  * </copyright>
  *
@@ -102,10 +103,10 @@ public class GFText extends Label implements RotatableDecoration {
 				return;
 			}
 
-			int angle = 0;
-			angle = Graphiti.getGaService().getAngle(text, true);
+			double rotation = 0;
+			rotation = Graphiti.getGaService().getRotation(text, true);
 
-			if (angle != 0) {
+			if (rotation != 0) {
 				// Fix for Bug 405920. Set the background color for rotated
 				// texts on basis of the original rectangle. Needs to be
 				// reworked as part of the general rework of this class with Bug
@@ -126,7 +127,7 @@ public class GFText extends Label implements RotatableDecoration {
 				// the offset to x
 				// and y based on
 				// angle
-				graphics.rotate(angle);
+				graphics.rotate(new Float(rotation));
 				rect = new Rectangle(0, 0, 5000, 5000); // TODO calculate the
 				// real clip rectangle
 				// from the angle

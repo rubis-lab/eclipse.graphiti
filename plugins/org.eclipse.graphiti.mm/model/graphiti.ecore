@@ -200,11 +200,18 @@
           unique="false" eType="#//algorithms/styles/Orientation" defaultValueLiteral="ALIGNMENT_CENTER"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="angle" ordered="false"
           unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
-          defaultValueLiteral="0"/>
+          defaultValueLiteral="0">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="@deprecated This attribute exists because of compatibility (after&#xD;&#xA;removing old diagrams would not be readable any more). It is replaced&#xD;&#xA;by the new attribute rotation."/>
+        </eAnnotations>
+      </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
           unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="styleRegions" upperBound="-1"
           eType="#//algorithms/styles/TextStyleRegion" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="rotation" ordered="false"
+          unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"
+          defaultValueLiteral="0"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="MultiText" eSuperTypes="#//algorithms/AbstractText"/>
     <eSubpackages name="styles" nsURI="http://eclipse.org/graphiti/mm/algorithms/styles"
@@ -253,7 +260,11 @@
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="verticalAlignment"
             ordered="false" unique="false" eType="#//algorithms/styles/Orientation"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="angle" ordered="false"
-            unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+            unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="@deprecated This attribute exists because of compatibility (after&#xD;&#xA;removing old diagrams would not be readable any more). It is replaced&#xD;&#xA;by the new attribute rotation."/>
+          </eAnnotations>
+        </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="stretchH" ordered="false"
             unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="stretchV" ordered="false"
@@ -262,6 +273,9 @@
             unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
         <eStructuralFeatures xsi:type="ecore:EReference" name="styleContainer" ordered="false"
             unique="false" lowerBound="1" eType="#//StyleContainer" eOpposite="#//StyleContainer/styles"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="rotation" ordered="false"
+            unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"
+            defaultValueLiteral="0"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="AbstractStyle" abstract="true">
         <eStructuralFeatures xsi:type="ecore:EReference" name="background" ordered="false"

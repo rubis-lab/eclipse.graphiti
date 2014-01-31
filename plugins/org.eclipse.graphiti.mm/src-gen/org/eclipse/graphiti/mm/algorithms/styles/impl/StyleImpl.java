@@ -1,7 +1,7 @@
 /**
  * <copyright>
  * 
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 423573 - Angles should never be integer
  * 
  * </copyright>
  */
@@ -16,17 +17,12 @@ package org.eclipse.graphiti.mm.algorithms.styles.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import org.eclipse.graphiti.mm.MmPackage;
 import org.eclipse.graphiti.mm.StyleContainer;
-
 import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
@@ -35,7 +31,6 @@ import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.algorithms.styles.RenderingStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
-
 import org.eclipse.graphiti.mm.impl.StyleContainerImpl;
 
 /**
@@ -63,6 +58,7 @@ import org.eclipse.graphiti.mm.impl.StyleContainerImpl;
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.impl.StyleImpl#getStretchV <em>Stretch V</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.impl.StyleImpl#getProportional <em>Proportional</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.impl.StyleImpl#getStyleContainer <em>Style Container</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.impl.StyleImpl#getRotation <em>Rotation</em>}</li>
  * </ul>
  * </p>
  *
@@ -386,6 +382,26 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 	 * @ordered
 	 */
 	protected Boolean proportional = PROPORTIONAL_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getRotation() <em>Rotation</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see #getRotation()
+	 * @generated not
+	 * @ordered
+	 */
+	protected static final Double ROTATION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getRotation() <em>Rotation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRotation()
+	 * @generated
+	 * @ordered
+	 */
+	protected Double rotation = ROTATION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -826,22 +842,31 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated not
 	 */
 	public Integer getAngle() {
-		return angle;
+		Double rotation = getRotation();
+		if (rotation == null) {
+			return null;
+		}
+		return (int) Math.round(rotation);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated not
 	 */
 	public void setAngle(Integer newAngle) {
 		Integer oldAngle = angle;
-		angle = newAngle;
+		angle = ANGLE_EDEFAULT;
+		if (newAngle != null) {
+			setRotation(newAngle.doubleValue());
+		} else {
+			setRotation(null);
+		}
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, StylesPackage.STYLE__ANGLE, oldAngle, angle));
 	}
@@ -965,6 +990,36 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Double getRotation() {
+		return rotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated not
+	 */
+	public void setRotation(Double newRotation) {
+		Double oldRotation = rotation;
+		rotation = newRotation;
+		Integer oldAngle = angle;
+		if (newRotation != null) {
+			angle = new Long(Math.round(newRotation)).intValue();
+		} else {
+			angle = null;
+		}
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, StylesPackage.STYLE__ROTATION, oldRotation, rotation));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylesPackage.STYLE__ANGLE, oldAngle, angle));
+		}
+
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -1055,6 +1110,8 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 			case StylesPackage.STYLE__STYLE_CONTAINER:
 				if (resolve) return getStyleContainer();
 				return basicGetStyleContainer();
+			case StylesPackage.STYLE__ROTATION:
+				return getRotation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1120,6 +1177,9 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 				return;
 			case StylesPackage.STYLE__STYLE_CONTAINER:
 				setStyleContainer((StyleContainer)newValue);
+				return;
+			case StylesPackage.STYLE__ROTATION:
+				setRotation((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1187,6 +1247,9 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 			case StylesPackage.STYLE__STYLE_CONTAINER:
 				setStyleContainer((StyleContainer)null);
 				return;
+			case StylesPackage.STYLE__ROTATION:
+				setRotation(ROTATION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1235,6 +1298,8 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 				return PROPORTIONAL_EDEFAULT == null ? proportional != null : !PROPORTIONAL_EDEFAULT.equals(proportional);
 			case StylesPackage.STYLE__STYLE_CONTAINER:
 				return basicGetStyleContainer() != null;
+			case StylesPackage.STYLE__ROTATION:
+				return ROTATION_EDEFAULT == null ? rotation != null : !ROTATION_EDEFAULT.equals(rotation);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1321,6 +1386,8 @@ public class StyleImpl extends StyleContainerImpl implements Style {
 		result.append(stretchV);
 		result.append(", proportional: ");
 		result.append(proportional);
+		result.append(", rotation: ");
+		result.append(rotation);
 		result.append(')');
 		return result.toString();
 	}

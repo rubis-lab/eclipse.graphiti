@@ -1,7 +1,7 @@
 /**
  * <copyright>
  * 
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 423573 - Angles should never be integer
  * 
  * </copyright>
  */
@@ -815,13 +816,24 @@ public interface AlgorithmsPackage extends EPackage {
 	int ABSTRACT_TEXT__STYLE_REGIONS = GRAPHICS_ALGORITHM_FEATURE_COUNT + 5;
 
 	/**
+	 * The feature id for the '<em><b>Rotation</b></em>' attribute. <!--
+	 * begin-user-doc -->
+	 * 
+	 * @since 0.11 <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TEXT__ROTATION = GRAPHICS_ALGORITHM_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the '<em>Abstract Text</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_TEXT_FEATURE_COUNT = GRAPHICS_ALGORITHM_FEATURE_COUNT + 6;
+	int ABSTRACT_TEXT_FEATURE_COUNT = GRAPHICS_ALGORITHM_FEATURE_COUNT + 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.algorithms.impl.TextImpl <em>Text</em>}' class.
@@ -1040,6 +1052,16 @@ public interface AlgorithmsPackage extends EPackage {
 	 * @since 0.10
 	 */
 	int TEXT__STYLE_REGIONS = ABSTRACT_TEXT__STYLE_REGIONS;
+
+	/**
+	 * The feature id for the '<em><b>Rotation</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 * @since 0.11
+	 */
+	int TEXT__ROTATION = ABSTRACT_TEXT__ROTATION;
 
 	/**
 	 * The number of structural features of the '<em>Text</em>' class.
@@ -2201,6 +2223,16 @@ public interface AlgorithmsPackage extends EPackage {
 	int MULTI_TEXT__STYLE_REGIONS = ABSTRACT_TEXT__STYLE_REGIONS;
 
 	/**
+	 * The feature id for the '<em><b>Rotation</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 * @since 0.11
+	 */
+	int MULTI_TEXT__ROTATION = ABSTRACT_TEXT__ROTATION;
+
+	/**
 	 * The number of structural features of the '<em>Multi Text</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2556,6 +2588,19 @@ public interface AlgorithmsPackage extends EPackage {
 	EReference getAbstractText_StyleRegions();
 
 	/**
+	 * Returns the meta object for the attribute '
+	 * {@link org.eclipse.graphiti.mm.algorithms.AbstractText#getRotation
+	 * <em>Rotation</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Rotation</em>'.
+	 * @see org.eclipse.graphiti.mm.algorithms.AbstractText#getRotation()
+	 * @see #getAbstractText()
+	 * @generated
+	 * @since 0.11
+	 */
+	EAttribute getAbstractText_Rotation();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.algorithms.MultiText <em>Multi Text</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2867,6 +2912,15 @@ public interface AlgorithmsPackage extends EPackage {
 		 * @since 0.10
 		 */
 		EReference ABSTRACT_TEXT__STYLE_REGIONS = eINSTANCE.getAbstractText_StyleRegions();
+
+		/**
+		 * The meta object literal for the '<em><b>Rotation</b></em>' attribute
+		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 * @since 0.11
+		 */
+		EAttribute ABSTRACT_TEXT__ROTATION = eINSTANCE.getAbstractText_Rotation();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.algorithms.impl.MultiTextImpl <em>Multi Text</em>}' class.
