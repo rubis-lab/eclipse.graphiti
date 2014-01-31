@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 355347 - Remove setters of Graphiti's Font Interface
  *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
+ *    mwenz - Bug 423573 - Angles should never be integer
  *
  * </copyright>
  *
@@ -101,8 +102,21 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	 * @param checkStyles
 	 *            the check styles
 	 * @return the angle
+	 * @deprecated replaced by {@link #getRotation(AbstractText, boolean)}
 	 */
 	public int getAngle(AbstractText at, boolean checkStyles);
+
+	/**
+	 * Gets the angle.
+	 * 
+	 * @param at
+	 *            the abstract text
+	 * @param checkStyles
+	 *            the check styles
+	 * @return the angle
+	 * @since 0.11
+	 */
+	public double getRotation(AbstractText at, boolean checkStyles);
 
 	/**
 	 * Gets the background color.

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *            DefaultSaveImageFeature
  *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
  *    Philip Alldredge - Bug 418676 - Undo is not disabled when canUndo is false for Palette features
+ *    mwenz - Bug 423573 - Angles should never be integer
  * </copyright>
  *
  *******************************************************************************/
@@ -1040,10 +1041,10 @@ public class PackageTest extends GFAbstractTestCase {
 
 		IGaService gaService = Graphiti.getGaService();
 
-		gaService.getAngle(abstractTextMock, false);
-		gaService.getAngle(abstractTextMock, false);
-		gaService.getAngle(abstractTextMock, true);
-		gaService.getAngle(abstractTextMock, true);
+		assertEquals(0, gaService.getAngle(abstractTextMock, false), 0);
+		assertEquals(0, gaService.getAngle(abstractTextMock, false), 0);
+		assertEquals(0, gaService.getAngle(abstractTextMock, true), 0);
+		assertEquals(-1, gaService.getAngle(abstractTextMock, true), 0);
 
 		// verify(styleMock);
 
@@ -1540,4 +1541,34 @@ public class PackageTest extends GFAbstractTestCase {
 
 	}
 
+	@Test
+	public void testGaServiceGetRotation() throws Exception {
+		Style styleMock = createNiceMock(Style.class);
+		expect(styleMock.getRotation()).andReturn(null);
+		expect(styleMock.getStyleContainer()).andReturn(styleMock);
+		expect(styleMock.getRotation()).andReturn(null);
+		expect(styleMock.getStyleContainer()).andReturn(null);
+		expect(styleMock.getRotation()).andReturn(new Double(-1));
+		replay(styleMock);
+
+		AbstractText abstractTextMock = createNiceMock(AbstractText.class);
+		// run 1
+		expect(abstractTextMock.getRotation()).andReturn(null);
+		// run 2
+		expect(abstractTextMock.getRotation()).andReturn(new Double(0));
+		// run 3
+		expect(abstractTextMock.getRotation()).andReturn(null);
+		expect(abstractTextMock.getStyle()).andReturn(styleMock);
+		// run 4
+		expect(abstractTextMock.getRotation()).andReturn(null);
+		expect(abstractTextMock.getStyle()).andReturn(styleMock);
+		replay(abstractTextMock);
+
+		IGaService gaService = Graphiti.getGaService();
+
+		assertEquals(0, gaService.getRotation(abstractTextMock, false), 0d);
+		assertEquals(0, gaService.getRotation(abstractTextMock, false), 0d);
+		assertEquals(0, gaService.getRotation(abstractTextMock, true), 0d);
+		assertEquals(-1, gaService.getRotation(abstractTextMock, true), 0d);
+	}
 }

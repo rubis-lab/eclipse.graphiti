@@ -1,7 +1,7 @@
 /**
  * <copyright>
  * 
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 423573 - Angles should never be integer
  * 
  * </copyright>
  */
@@ -33,6 +34,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getAngle <em>Angle</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getValue <em>Value</em>}</li>
  *   <li>{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getStyleRegions <em>Style Regions</em>}</li>
+ *   <li>{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getRotation <em>Rotation</em>}</li>
  * </ul>
  * </p>
  *
@@ -130,14 +132,18 @@ public interface AbstractText extends GraphicsAlgorithm {
 	void setVerticalAlignment(Orientation value);
 
 	/**
-	 * Returns the value of the '<em><b>Angle</b></em>' attribute.
-	 * The default value is <code>"0"</code>.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Angle</b></em>' attribute. The default
+	 * value is <code>"0"</code>. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Angle</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Angle</em>' attribute isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
-	 * <!-- end-user-doc -->
+	 * <!-- end-user-doc --> <!-- begin-model-doc -->
+	 * 
+	 * @deprecated This attribute exists because of compatibility (after
+	 *             removing old diagrams would not be readable any more). It is
+	 *             replaced by the new attribute rotation.
+	 * @see #getRotation() <!-- end-model-doc -->
 	 * @return the value of the '<em>Angle</em>' attribute.
 	 * @see #setAngle(Integer)
 	 * @see org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage#getAbstractText_Angle()
@@ -147,10 +153,16 @@ public interface AbstractText extends GraphicsAlgorithm {
 	Integer getAngle();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getAngle <em>Angle</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Angle</em>' attribute.
+	 * Sets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.AbstractText#getAngle
+	 * <em>Angle</em>}' attribute. <!-- begin-user-doc -->
+	 * 
+	 * @deprecated This attribute exists because of compatibility (after
+	 *             removing old diagrams would not be readable any more). It is
+	 *             replaced by the new attribute rotation.
+	 * @see AbstractText#setRotation(Double) <!-- end-user-doc -->
+	 * @param value
+	 *            the new value of the '<em>Angle</em>' attribute.
 	 * @see #getAngle()
 	 * @generated
 	 */
@@ -198,5 +210,37 @@ public interface AbstractText extends GraphicsAlgorithm {
 	 * @generated
 	 */
 	EList<TextStyleRegion> getStyleRegions();
+
+	/**
+	 * Returns the value of the '<em><b>Rotation</b></em>' attribute. The
+	 * default value is <code>"0"</code>. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Rotation</em>' attribute isn't clear, there
+	 * really should be more of a description here...
+	 * </p>
+	 * 
+	 * @since 0.11 <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Rotation</em>' attribute.
+	 * @see #setRotation(Double)
+	 * @see org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage#getAbstractText_Rotation()
+	 * @model default="0" unique="false" ordered="false"
+	 * @generated
+	 */
+	Double getRotation();
+
+	/**
+	 * Sets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.AbstractText#getRotation
+	 * <em>Rotation</em>}' attribute. <!-- begin-user-doc -->
+	 * 
+	 * @since 0.11 <!-- end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Rotation</em>' attribute.
+	 * @see #getRotation()
+	 * @generated
+	 */
+	void setRotation(Double value);
 
 } // AbstractText

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="testtool.sketch" name="S3" snapToGrid="true" version="0.10.0">
+  <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
+  <children visible="true" active="true">
+    <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.2" lineWidth="2" transparency="0.3" width="101" height="101" x="50" y="50">
+      <graphicsAlgorithmChildren xsi:type="al:MultiText" foreground="//@colors.3" lineWidth="1" filled="false" transparency="0.0" width="101" height="101" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" value="new element" angle="45"/>
+    </graphicsAlgorithm>
+    <anchors xsi:type="pi:ChopboxAnchor"/>
+  </children>
+  <colors red="227" green="238" blue="249"/>
+  <colors red="255" green="255" blue="255"/>
+  <colors/>
+  <colors blue="255"/>
+  <fonts name="Arial" size="8"/>
+  <fonts name="Comic Sans MS" size="14"/>
+  <fonts name="Arial" size="8" italic="true"/>
+</pi:Diagram>

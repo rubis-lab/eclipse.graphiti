@@ -1,7 +1,7 @@
 /**
  * <copyright>
  * 
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 423573 - Angles should never be integer
  * 
  * </copyright>
  */
@@ -488,6 +489,15 @@ public class AlgorithmsPackageImpl extends EPackageImpl implements AlgorithmsPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getAbstractText_Rotation() {
+		return (EAttribute)abstractTextEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMultiText() {
 		return multiTextEClass;
 	}
@@ -561,6 +571,7 @@ public class AlgorithmsPackageImpl extends EPackageImpl implements AlgorithmsPac
 		createEAttribute(abstractTextEClass, ABSTRACT_TEXT__ANGLE);
 		createEAttribute(abstractTextEClass, ABSTRACT_TEXT__VALUE);
 		createEReference(abstractTextEClass, ABSTRACT_TEXT__STYLE_REGIONS);
+		createEAttribute(abstractTextEClass, ABSTRACT_TEXT__ROTATION);
 
 		multiTextEClass = createEClass(MULTI_TEXT);
 	}
@@ -656,6 +667,7 @@ public class AlgorithmsPackageImpl extends EPackageImpl implements AlgorithmsPac
 		initEAttribute(getAbstractText_Angle(), ecorePackage.getEIntegerObject(), "angle", "0", 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getAbstractText_Value(), ecorePackage.getEString(), "value", null, 1, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getAbstractText_StyleRegions(), theStylesPackage.getTextStyleRegion(), null, "styleRegions", null, 0, -1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractText_Rotation(), ecorePackage.getEDoubleObject(), "rotation", "0", 0, 1, AbstractText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(multiTextEClass, MultiText.class, "MultiText", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 	}

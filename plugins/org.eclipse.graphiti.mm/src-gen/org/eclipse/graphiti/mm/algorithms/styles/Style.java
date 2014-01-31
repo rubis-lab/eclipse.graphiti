@@ -1,7 +1,7 @@
 /**
  * <copyright>
  * 
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 423573 - Angles should never be integer
  * 
  * </copyright>
  */
@@ -17,26 +18,52 @@ package org.eclipse.graphiti.mm.algorithms.styles;
 import org.eclipse.graphiti.mm.StyleContainer;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Style</b></em>'.
- * <!-- end-user-doc -->
- *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getFont <em>Font</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getHorizontalAlignment <em>Horizontal Alignment</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getVerticalAlignment <em>Vertical Alignment</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getAngle <em>Angle</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getStretchH <em>Stretch H</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getStretchV <em>Stretch V</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getProportional <em>Proportional</em>}</li>
- *   <li>{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getStyleContainer <em>Style Container</em>}</li>
- * </ul>
- * </p>
- *
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Style</b></em>'.
+ * 
+ * @noextend This interface is not intended to be extended by clients.
+ * @noimplement This interface is not intended to be implemented by clients.
+ *              <!-- end-user-doc -->
+ * 
+ *              <p>
+ *              The following features are supported:
+ *              <ul>
+ *              <li>
+ *              {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getId
+ *              <em>Id</em>}</li>
+ *              <li>
+ *              {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getDescription
+ *              <em>Description</em>}</li>
+ *              <li>
+ *              {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getFont
+ *              <em>Font</em>}</li>
+ *              <li>
+ *              {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getHorizontalAlignment
+ *              <em>Horizontal Alignment</em>}</li>
+ *              <li>
+ *              {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getVerticalAlignment
+ *              <em>Vertical Alignment</em>}</li>
+ *              <li>
+ *              {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getAngle
+ *              <em>Angle</em>}</li>
+ *              <li>
+ *              {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getStretchH
+ *              <em>Stretch H</em>}</li>
+ *              <li>
+ *              {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getStretchV
+ *              <em>Stretch V</em>}</li>
+ *              <li>
+ *              {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getProportional
+ *              <em>Proportional</em>}</li>
+ *              <li>
+ *              {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getStyleContainer
+ *              <em>Style Container</em>}</li>
+ *              <li>
+ *              {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getRotation
+ *              <em>Rotation</em>}</li>
+ *              </ul>
+ *              </p>
+ * 
  * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getStyle()
  * @model
  * @generated
@@ -186,6 +213,11 @@ public interface Style extends StyleContainer, AbstractStyle {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * @deprecated This attribute exists because of compatibility (after
+	 * removing old diagrams would not be readable any more). It is replaced
+	 * by the new attribute rotation.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Angle</em>' attribute.
 	 * @see #setAngle(Integer)
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getStyle_Angle()
@@ -195,10 +227,16 @@ public interface Style extends StyleContainer, AbstractStyle {
 	Integer getAngle();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getAngle <em>Angle</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Angle</em>' attribute.
+	 * Sets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getAngle
+	 * <em>Angle</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * @deprecated This attribute exists because of compatibility (after
+	 *             removing old diagrams would not be readable any more). It is
+	 *             replaced by the new attribute rotation. <!-- end-model-doc
+	 *             -->
+	 * @param value
+	 *            the new value of the '<em>Angle</em>' attribute.
 	 * @see #getAngle()
 	 * @generated
 	 */
@@ -309,5 +347,35 @@ public interface Style extends StyleContainer, AbstractStyle {
 	 * @generated
 	 */
 	void setStyleContainer(StyleContainer value);
+
+	/**
+	 * Returns the value of the '<em><b>Rotation</b></em>' attribute. The
+	 * default value is <code>"0"</code>. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Rotation</em>' attribute isn't clear, there
+	 * really should be more of a description here...
+	 * </p>
+	 * 
+	 * @since 0.11 <!-- end-user-doc -->
+	 * @return the value of the '<em>Rotation</em>' attribute.
+	 * @see #setRotation(Double)
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getStyle_Rotation()
+	 * @model default="0" unique="false" ordered="false"
+	 * @generated
+	 */
+	Double getRotation();
+
+	/**
+	 * Sets the value of the '
+	 * {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getRotation
+	 * <em>Rotation</em>}' attribute. <!-- begin-user-doc -->
+	 * 
+	 * @since 0.11 <!-- end-user-doc -->
+	 * @param value
+	 *            the new value of the '<em>Rotation</em>' attribute.
+	 * @see #getRotation()
+	 * @generated
+	 */
+	void setRotation(Double value);
 
 } // Style

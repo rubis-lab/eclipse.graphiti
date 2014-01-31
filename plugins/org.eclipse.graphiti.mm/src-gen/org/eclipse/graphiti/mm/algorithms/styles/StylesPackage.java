@@ -1,7 +1,7 @@
 /**
  * <copyright>
  * 
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  * 
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 423573 - Angles should never be integer
  * 
  * </copyright>
  */
@@ -281,13 +282,22 @@ public interface StylesPackage extends EPackage {
 	int STYLE__STYLE_CONTAINER = MmPackage.STYLE_CONTAINER_FEATURE_COUNT + 17;
 
 	/**
+	 * The feature id for the '<em><b>Rotation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STYLE__ROTATION = MmPackage.STYLE_CONTAINER_FEATURE_COUNT + 18;
+
+	/**
 	 * The number of structural features of the '<em>Style</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STYLE_FEATURE_COUNT = MmPackage.STYLE_CONTAINER_FEATURE_COUNT + 18;
+	int STYLE_FEATURE_COUNT = MmPackage.STYLE_CONTAINER_FEATURE_COUNT + 19;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.algorithms.styles.impl.AbstractStyleImpl <em>Abstract Style</em>}' class.
@@ -1082,6 +1092,17 @@ public interface StylesPackage extends EPackage {
 	EReference getStyle_StyleContainer();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getRotation <em>Rotation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Rotation</em>'.
+	 * @see org.eclipse.graphiti.mm.algorithms.styles.Style#getRotation()
+	 * @see #getStyle()
+	 * @generated
+	 */
+	EAttribute getStyle_Rotation();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle <em>Abstract Style</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1841,6 +1862,14 @@ public interface StylesPackage extends EPackage {
 		 * @generated
 		 */
 		EReference STYLE__STYLE_CONTAINER = eINSTANCE.getStyle_StyleContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Rotation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STYLE__ROTATION = eINSTANCE.getStyle_Rotation();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.algorithms.styles.impl.AbstractStyleImpl <em>Abstract Style</em>}' class.

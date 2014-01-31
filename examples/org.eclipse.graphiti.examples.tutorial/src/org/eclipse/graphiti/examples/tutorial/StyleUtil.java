@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 423573 - Angles should never be integer
  *
  * </copyright>
  *
@@ -112,7 +113,7 @@ public class StyleUtil {
 
 	private static void setCommonTextValues(Diagram diagram, IGaService gaService, Style style) {
 		style.setFilled(false);
-		style.setAngle(0);
+		style.setRotation(0d);
 		style.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 		style.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
 		style.setForeground(gaService.manageColor(diagram, E_CLASS_TEXT_FOREGROUND));
