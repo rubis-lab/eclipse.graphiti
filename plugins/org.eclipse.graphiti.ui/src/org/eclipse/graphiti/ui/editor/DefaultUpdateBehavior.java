@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@
  *    mwenz - Bug 389426 - Add factory method for creating EMF workspace synchronizer delegate
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 427444 - Issues with drill-down diagram editor when diagram file is deleted
  *
  * </copyright>
  *
@@ -36,6 +37,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
@@ -81,10 +83,12 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	private ElementDeleteListener elementDeleteListener = null;
 
 	/**
-	 * The update adapter is added to every {@link Resource} adapters in the
-	 * {@link ResourceSet} of the {@link TransactionalEditingDomain}. When
-	 * notified, it adds an {@link DefaultUpdateBehavior#updateAdapter} to the
-	 * adapters of the ResourceSet.
+	 * This resource set update adapter is added to the {@link ResourceSet} of
+	 * the {@link TransactionalEditingDomain}. When notified, the resource set
+	 * adapter adds the passed adapter (the
+	 * {@link DefaultUpdateBehavior#updateAdapter} instance held in
+	 * {@link DefaultUpdateBehavior}) to the adapters of a newly added Resource
+	 * in the ResourceSet or removes the adapter from a removed resource.
 	 * 
 	 * @see DefaultUpdateBehavior#initializeEditingDomain(TransactionalEditingDomain)
 	 */
@@ -115,71 +119,18 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	private boolean adapterActive = true;
 
 	/**
-	 * The default update that cares about refreshing the diagram editor in case
-	 * of resource changes. May be disabled by overriding
-	 * {@link #isAdapterActive()} and returning false.
+	 * Stores the update adapter that cares about refreshing the diagram editor
+	 * in case of resource changes. May be disabled by overriding
+	 * {@link #isAdapterActive()} and returning false. The instance will be
+	 * created in the
+	 * {@link #initializeEditingDomain(TransactionalEditingDomain)} method and
+	 * can be exchanged with an own implementation by overriding
+	 * {@link #createUpdateAdapter()}.
+	 * 
+	 * @see #init()
+	 * @see #initializeEditingDomain(TransactionalEditingDomain)
 	 */
-	private Adapter updateAdapter = new AdapterImpl() {
-		@Override
-		public void notifyChanged(Notification msg) {
-			if (!isAdapterActive()) {
-				return;
-			}
-			if (msg.getFeatureID(Resource.class) == Resource.RESOURCE__IS_LOADED) {
-				if (msg.getNewBooleanValue() == Boolean.FALSE) {
-					final Resource resource = (Resource) msg.getNotifier();
-					final URI uri = resource.getURI();
-					IDiagramContainerUI diagramContainer = diagramBehavior.getDiagramContainer();
-					if (editingDomain.getResourceSet().getURIConverter().exists(uri, null)) {
-						// file content has changes
-						setResourceChanged(true);
-						final IWorkbenchPart activePart = diagramContainer.getWorkbenchPart().getSite().getPage()
-								.getActivePart();
-						if (activePart == diagramContainer) {
-							getShell().getDisplay().asyncExec(new Runnable() {
-								public void run() {
-									handleActivate();
-								}
-							});
-						}
-					} else {
-						// file has been deleted
-						if (!diagramContainer.isDirty()) {
-							final IDiagramEditorInput editorInput = diagramContainer.getDiagramEditorInput();
-							if (editorInput != null) {
-								final IDiagramEditorInput input = (IDiagramEditorInput) editorInput;
-								URI inputUri = input.getUri();
-								URI diagUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(uri);
-								if (diagUri.equals(inputUri)) {
-									startCloseEditorJob();
-								}
-							}
-						} else {
-							setResourceDeleted(true);
-							final IWorkbenchPart activePart = diagramContainer.getWorkbenchPart().getSite().getPage()
-									.getActivePart();
-							if (activePart == diagramContainer) {
-								getShell().getDisplay().asyncExec(new Runnable() {
-									public void run() {
-										handleActivate();
-									}
-								});
-							}
-						}
-					}
-				}
-			}
-			super.notifyChanged(msg);
-		}
-
-		private void startCloseEditorJob() {
-			Display.getDefault().asyncExec(new Runnable() {
-				public void run() {
-					closeContainer();
-				}
-			});
-		}
-	};
+	private Adapter updateAdapter = null;
 
 	/**
 	 * Creates a new {@link DefaultUpdateBehavior} instance associated with the
@@ -358,7 +309,13 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	 */
 	public void init() {
 		for (final Resource r : getEditingDomain().getResourceSet().getResources()) {
-			r.eAdapters().add(updateAdapter);
+			// Bug 427444: The update adapter should have already been added to
+			// all resources in the resource set, do not add it again. Instead
+			// of removing the add operation here we ensure the adapter is
+			// really added.
+			if (!r.eAdapters().contains(updateAdapter)) {
+				r.eAdapters().add(updateAdapter);
+			}
 		}
 
 		// Retrieve the object from the editor input
@@ -370,6 +327,29 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 		}
 
 		getOperationHistory().addOperationHistoryListener(this);
+	}
+
+	/**
+	 * Hook to create an {@link DefaultUpdateBehavior#updateAdapter} that cares
+	 * about updating the diagram editor. The default implementation simply
+	 * creates a {@link DefaultUpdateAdapter}.
+	 * 
+	 * @return The newly created adapter
+	 * @since 0.11
+	 */
+	protected Adapter createUpdateAdapter() {
+		return new DefaultUpdateAdapter();
+	}
+
+	/**
+	 * Returns the {@link #updateAdapter} of this instance or <code>null</code>
+	 * in case the adapter has not yet been initialized.
+	 * 
+	 * @return
+	 * @since 0.11
+	 */
+	protected Adapter getUpdateAdapter() {
+		return updateAdapter;
 	}
 
 	/**
@@ -393,6 +373,8 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	protected void initializeEditingDomain(TransactionalEditingDomain domain) {
 		editingDomain = domain;
 		final ResourceSet resourceSet = domain.getResourceSet();
+
+		updateAdapter = createUpdateAdapter();
 
 		resourceSetUpdateAdapter = new ResourceSetUpdateAdapter(updateAdapter);
 		resourceSet.eAdapters().add(resourceSetUpdateAdapter);
@@ -518,5 +500,91 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	public void setEditingDomain(TransactionalEditingDomain editingDomain) {
 		this.editingDomain = editingDomain;
 		initializeEditingDomain(editingDomain);
+	}
+
+	/**
+	 * The default implementation of the update adapter that cares about
+	 * refreshing the diagram editor in case of resource changes. The default
+	 * implementation will trigger the update of the diagram editor in case the
+	 * EMF resource has been changed externally; in case the resource was
+	 * deleted the default implementation will close the editor if there are no
+	 * unsaved changes or ask the user what to do in case of unsaved changes.
+	 * 
+	 * @since 0.11
+	 */
+	protected class DefaultUpdateAdapter extends AdapterImpl {
+
+		@Override
+		public void notifyChanged(Notification msg) {
+			if (!isAdapterActive()) {
+				return;
+			}
+			if (msg.getFeatureID(Resource.class) == Resource.RESOURCE__IS_LOADED) {
+				if (msg.getNewBooleanValue() == Boolean.FALSE) {
+					final Resource resource = (Resource) msg.getNotifier();
+					final URI uri = resource.getURI();
+					IDiagramContainerUI diagramContainer = diagramBehavior.getDiagramContainer();
+					if (editingDomain.getResourceSet().getURIConverter().exists(uri, null)) {
+						// file content has changes
+						setResourceChanged(true);
+						final IWorkbenchPart activePart = diagramContainer.getWorkbenchPart().getSite().getPage()
+								.getActivePart();
+						if (activePart == diagramContainer) {
+							getShell().getDisplay().asyncExec(new Runnable() {
+								public void run() {
+									handleActivate();
+								}
+							});
+						}
+					} else {
+						// File has been deleted
+						if (!diagramContainer.isDirty()) {
+							// Close diagram editor in case the diagram is
+							// stored in the deleted resource
+							Diagram diagram = diagramContainer.getDiagramTypeProvider().getDiagram();
+							if (diagram != null) {
+								URI diagramUri = EcoreUtil.getURI(diagram);
+								if (diagramUri != null) {
+									URI uriOfDiagramFile = diagramUri.trimFragment();
+									// Bug 427444: To find out if the diagram
+									// resource has been deleted check if the
+									// base URI of the diagram object is the
+									// same as the URI of the resource
+									if (uriOfDiagramFile.equals(uri)) {
+										closeEditorAsynchronously();
+									}
+								}
+							}
+						} else {
+							// Ask user what to da with unsaved changes in the
+							// editor
+							setResourceDeleted(true);
+							final IWorkbenchPart activePart = diagramContainer.getWorkbenchPart().getSite().getPage()
+									.getActivePart();
+							if (activePart == diagramContainer) {
+								getShell().getDisplay().asyncExec(new Runnable() {
+									public void run() {
+										handleActivate();
+									}
+								});
+							}
+						}
+					}
+				}
+			}
+			super.notifyChanged(msg);
+		}
+
+		/**
+		 * Triggers closing of the editor by scheduling an asynchronous call to
+		 * {@link DefaultUpdateBehavior#closeContainer()}.
+		 */
+		protected void closeEditorAsynchronously() {
+			Display.getDefault().asyncExec(new Runnable() {
+				public void run() {
+					closeContainer();
+				}
+			});
+		}
 	}
 }
