@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@
  *    Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
  *    mwenz - Bug 381437 - IllegalArgumentException when edit menu missing
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    mwenz - Bug 424636 - DiagramEditorActionBarContributor.contributeToMenu() throws IllegalArgumentException
  *
  * </copyright>
  *
@@ -30,6 +31,7 @@ import org.eclipse.gef.ui.actions.MatchWidthRetargetAction;
 import org.eclipse.gef.ui.actions.ZoomComboContributionItem;
 import org.eclipse.gef.ui.actions.ZoomInRetargetAction;
 import org.eclipse.gef.ui.actions.ZoomOutRetargetAction;
+import org.eclipse.graphiti.features.ISaveImageFeature;
 import org.eclipse.graphiti.platform.IPlatformImageConstants;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.RemoveAction;
@@ -233,12 +235,29 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 			}
 		}
 
+		addSaveAsImageEntryToMenu(menubar);
+	}
 
+	/**
+	 * Adds the save as image menu entry to the main menu. The default
+	 * implementation adds it to the file menu right after the export submenu.
+	 * Clients can override to change the location of the entry, e.g. because in
+	 * their RCP application there is no export entry.
+	 * 
+	 * @param menubar
+	 *            The main menu bar to add to
+	 * @since 0.11
+	 * @see ISaveImageFeature
+	 */
+	protected void addSaveAsImageEntryToMenu(IMenuManager menubar) {
 		IMenuManager fileMenu = menubar.findMenuUsingPath(IWorkbenchActionConstants.M_FILE);
 		if (fileMenu != null) {
 			// Might not be available in RCP case
-			fileMenu.insertAfter(ActionFactory.EXPORT.getId(), getAction(SaveImageAction.ACTION_ID));
+			String exportId = ActionFactory.EXPORT.getId();
+			if (fileMenu.find(exportId) != null) {
+				// Bug 424636: Might not be available in RCP case
+				fileMenu.insertAfter(exportId, getAction(SaveImageAction.ACTION_ID));
+			}
 		}
 	}
-
 }
