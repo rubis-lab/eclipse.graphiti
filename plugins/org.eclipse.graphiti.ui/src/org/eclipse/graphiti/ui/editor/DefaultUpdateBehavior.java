@@ -36,10 +36,12 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.editor.DomainModelWorkspaceSynchronizerDelegate;
@@ -145,13 +147,24 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 					} else {
 						// file has been deleted
 						if (!diagramContainer.isDirty()) {
-							final IDiagramEditorInput editorInput = diagramContainer.getDiagramEditorInput();
-							if (editorInput != null) {
-								final IDiagramEditorInput input = (IDiagramEditorInput) editorInput;
-								URI inputUri = input.getUri();
-								URI diagUri = GraphitiUiInternal.getEmfService().mapDiagramFileUriToDiagramUri(uri);
-								if (diagUri.equals(inputUri)) {
-									startCloseEditorJob();
+							// Close diagram editor in case the diagram is
+							// stored in the deleted resource
+							IDiagramTypeProvider diagramTypeProvider = diagramContainer.getDiagramTypeProvider();
+							if (diagramTypeProvider != null) {
+								Diagram diagram = diagramTypeProvider.getDiagram();
+								if (diagram != null) {
+									URI diagramUri = EcoreUtil.getURI(diagram);
+									if (diagramUri != null) {
+										URI uriOfDiagramFile = diagramUri.trimFragment();
+										// Bug 427444: To find out if the
+										// diagram resource has been deleted
+										// check if the base URI of the diagram
+										// object is the same as the URI of the
+										// resource
+										if (uriOfDiagramFile.equals(uri)) {
+											startCloseEditorJob();
+										}
+									}
 								}
 							}
 						} else {
@@ -358,7 +371,13 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	 */
 	public void init() {
 		for (final Resource r : getEditingDomain().getResourceSet().getResources()) {
-			r.eAdapters().add(updateAdapter);
+			// Bug 427444: The update adapter should have already been added to
+			// all resources in the resource set, do not add it again. Instead
+			// of removing the add operation here we ensure the adapter is
+			// really added.
+			if (!r.eAdapters().contains(updateAdapter)) {
+				r.eAdapters().add(updateAdapter);
+			}
 		}
 
 		// Retrieve the object from the editor input
