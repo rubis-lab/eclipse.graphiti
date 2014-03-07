@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@
  *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *    fvelasco - Bug 323349 - Enable external invocation of features
  *    mwenz - Bug 421754 - Absolute position of active Shape nested in inactive ContainerShape is calculated incorrectly
+ *    mwenz - Bug 428068 - Automatically unselect a tool entry in palette like 'connection creation' after execution
  * </copyright>
  *
  *******************************************************************************/
@@ -51,6 +52,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.palette.IConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
@@ -568,5 +570,22 @@ public class DefaultToolBehaviorProvider implements IToolBehaviorProvider {
 	 */
 	public int getLineSelectionWidth(Polyline polyline) {
 		return DEFAULT_LINE_SELECTION_WIDTH;
+	}
+
+	/**
+	 * Defines if the tool created for the given
+	 * {@link IConnectionCreationToolEntry} stays active after a connection has
+	 * been created or not. The default behavior in the GEF framework is
+	 * <code>true</code>, which is also the return value of this default
+	 * implementation.
+	 * 
+	 * @return <code>true</code> in case the tool should stay active after
+	 *         execution, <code>false</code> otherwise.
+	 * 
+	 * @since 0.11
+	 */
+	@Override
+	public boolean isStayActiveAfterExecution(IConnectionCreationToolEntry connectionCreationToolEntry) {
+		return true;
 	}
 }

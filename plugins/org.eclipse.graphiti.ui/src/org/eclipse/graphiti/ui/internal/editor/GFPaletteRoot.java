@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    mwenz - Bug 341224: Allow to hide the selection and marquee tools in the palette
  *    Bug 336488 - DiagramEditor API
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    mwenz - Bug 428068 - Automatically unselect a tool entry in palette like 'connection creation' after execution
  *
  * </copyright>
  *
@@ -33,6 +34,7 @@ import org.eclipse.gef.palette.PaletteSeparator;
 import org.eclipse.gef.palette.PaletteStack;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.CreationFactory;
+import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.palette.IConnectionCreationToolEntry;
@@ -193,6 +195,11 @@ public class GFPaletteRoot extends PaletteRoot {
 			ConnectionCreationToolEntry pe = new ConnectionCreationToolEntry(label, description, multiCreationFactory,
 					getImageDescriptor(creationToolEntry, true), getImageDescriptor(creationToolEntry, false));
 			pe.setToolClass(GFConnectionCreationTool.class);
+
+			if (!diagramTypeProvider.getCurrentToolBehaviorProvider().isStayActiveAfterExecution(
+					connectionCreationToolEntry)) {
+				pe.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, true);
+			}
 			return pe;
 		}
 		return null;
