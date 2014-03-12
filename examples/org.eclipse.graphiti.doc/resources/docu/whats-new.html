@@ -35,13 +35,86 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Luna</h1>
-	<p>Last revised January 28, 2014</p>
+	<p>Last revised March 12, 2014</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.11.0 within the
 		Luna release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M6 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M6</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on bugfixing and implementing round-offs.</td>
+		</tr>
+		<tr id="bug 423573">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=423573">Rotation
+					angle is more precise</a></td>
+			<td class="content">The <i>angle</i> attribute that was used for
+				rotation of text graphics algorithms was stored as an integer which
+				lead to rounding issues and imprecise rendering. The <i>angle</i>
+				attribute has been deprecated and replaced by a <i>rotation</i>
+				attribute of type double. The framework internally cares about
+				compatibility with old diagrams by reading the old <i>angel</i>
+				attribute and storing it in the <i>rotation</i> attribute. Both <i>getAngle()</i>
+				and <i>getRotation()</i> methods on the graphics algorithms return
+				the value of the <i>rotation</i> field (in case of <i>getAngle()</i>
+				rounded to integer).</b>
+			</td>
+		</tr>
+		<tr id="bug 427444">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=427444">More
+					flexibility in DefaultUpdateBehavior</a></td>
+			<td class="content">Clients are now more flexible in how they
+				can influence the update behavior by overriding <i>DefaultUpdateBehavior</i>:
+				the update adapter caring about updating to new file contents can
+				now be changed by clients. Also two bugs in the registration of the
+				update adapter (duplicate registration for initial resources) and
+				only reacting to the deletion of the first diagram in a resource to
+				close the editor were fixed.
+			</td>
+		</tr>
+		<tr id="bug 428068">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=428068">Unselecting
+					a connection tool in palette</a></td>
+			<td class="content">It is now possible to de-select a connection
+				creation tool the editor palette. The new method <i>isStayActiveAfterExecution(IConnectionCreationToolEntry)</i>
+				was added to the <i>IToolBehaviorProvider</i> interface. The default
+				is as <i>true</i> as it was before.</b>
+			</td>
+		</tr>
+		<tr id="bug 424636">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=424636">Bug
+					424636</a></td>
+			<td class="content">This fixes a bug in <i>DiagramEditorActionBarContributor</i>
+				that appeared in RCP applications when the <i>org.eclipse.ui.export</i>
+				functionality is not available. The contributor tried to add the
+				Graphiti save as image menu entry right after the Eclipse export
+				entry which caused an <i>IllegalArgumentException</i> in case it was
+				not available. The situation is now checked and the entry is only
+				added in case we find the location. Clients may override the new
+				method <i>addSaveAsImageEntryToMenu()</i> to define their own
+				location for the menu entry.</b>
+			</td>
+		</tr>
+		<tr id="bug 429215">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=429215">Bug
+					429215</a></td>
+			<td class="content">A potential <i>NullPointerException</i> in <i>DefaultMarkerBehavior</i>
+				has been fixed. I could happen in case a not correctly initialized
+				editor was closed.</b>
+			</td>
+		</tr>
 		<!-- ---------------------------------------- M5 ------------------------------- -->
 		<tr>
 			<td colspan="2">
