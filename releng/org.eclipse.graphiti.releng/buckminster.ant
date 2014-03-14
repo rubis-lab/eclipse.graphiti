@@ -14,13 +14,13 @@
 		<echo message="Set files-classpath to: ${root}/buildroot/target.platform" />
 		
 		 <!-- clean and create output location --> 
-		<delete dir="${root}/buildroot/buckminster.workspace/../../org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.doc/javadoc"/>
-		<echo message="Deleted old folder: ${root}/buildroot/buckminster.workspace/../../org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.doc/javadoc" />
-		<mkdir dir="${root}/buildroot/buckminster.workspace/../../org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.doc/javadoc"/>
-		<echo message="Created folder: ${root}/buildroot/buckminster.workspace/../../org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.doc/javadoc" />
+		<delete dir="${root}/buildroot/buckminster.workspace/../../graphiti/org.eclipse.graphiti/examples/org.eclipse.graphiti.doc/javadoc"/>
+		<echo message="Deleted old folder: ${root}/buildroot/buckminster.workspace/../../graphiti/org.eclipse.graphiti/examples/org.eclipse.graphiti.doc/javadoc" />
+		<mkdir dir="${root}/buildroot/buckminster.workspace/../../graphiti/org.eclipse.graphiti/examples/org.eclipse.graphiti.doc/javadoc"/>
+		<echo message="Created folder: ${root}/buildroot/buckminster.workspace/../../graphiti/org.eclipse.graphiti/examples/org.eclipse.graphiti.doc/javadoc" />
 		
 		<!-- generate the javadoc -->
-		<javadoc  destdir="${root}/buildroot/buckminster.workspace/../../org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.doc/javadoc"  
+		<javadoc  destdir="${root}/buildroot/buckminster.workspace/../../graphiti/org.eclipse.graphiti/examples/org.eclipse.graphiti.doc/javadoc"  
 			classpathref="files-classpath"
 			author="true"
 			version="true"
@@ -47,7 +47,7 @@
 			<link href="http://download.eclipse.org/modeling/emf/transaction/javadoc/workspace/1.4.0/"/>
 			
 			<!-- Graphiti sources -->   
-			<fileset dir="${root}/org.eclipse.gmp/org.eclipse.gmp.graphiti/plugins/" defaultexcludes="true">    
+			<fileset dir="${root}/graphiti/org.eclipse.graphiti/plugins/" defaultexcludes="true">    
 				<include name="**/*.java"/>    
 				<exclude name="**/internal/**"/>    
 				<exclude name="**/tests/**"/>
