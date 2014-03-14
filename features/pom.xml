@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.eclipse.graphiti</groupId>
+  <artifactId>features</artifactId>
+  <version>0.12.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <parent>
+    <groupId>org.eclipse.graphiti</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.12.0-SNAPSHOT</version>
+  </parent>
+  <modules>
+    <module>org.eclipse.graphiti.export.feature</module>
+    <module>org.eclipse.graphiti.feature</module>
+    <module>org.eclipse.graphiti.feature.examples</module>
+    <module>org.eclipse.graphiti.feature.tools</module>
+    <module>org.eclipse.graphiti.sdk.feature</module>
+    <module>org.eclipse.graphiti.sdk.plus.feature</module>
+    <module>org.eclipse.graphiti.site</module>
+    <module>org.eclipse.graphiti.tests-feature</module>
+  </modules>
+</project>

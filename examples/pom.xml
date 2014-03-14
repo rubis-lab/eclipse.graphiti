@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.eclipse.graphiti</groupId>
+  <artifactId>examples</artifactId>
+  <version>0.12.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <parent>
+    <groupId>org.eclipse.graphiti</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.12.0-SNAPSHOT</version>
+  </parent>
+
+  <modules>
+    <module>org.eclipse.graphiti.doc</module>
+    <module>org.eclipse.graphiti.examples.chess</module>
+    <module>org.eclipse.graphiti.examples.common</module>
+    <module>org.eclipse.graphiti.examples.composite</module>
+    <module>org.eclipse.graphiti.examples.filesystem</module>
+    <module>org.eclipse.graphiti.examples.filesystem.mm</module>
+    <module>org.eclipse.graphiti.examples.tutorial</module>
+    <module>org.eclipse.graphiti.ui.capabilities</module>
+  </modules>
+</project>
