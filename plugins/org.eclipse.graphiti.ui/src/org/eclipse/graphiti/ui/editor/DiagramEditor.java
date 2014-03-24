@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,6 +35,7 @@
  *    pjpaulin - Bug 352120 - Renamed from DiagramEditorImpl so that classes extending DiagramEditor do not break
  *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
  *    pjpaulin - Bug 405314 - Should be able to override DefaultBehavior implementation without configuration
+ *    mwenz - Bug 430687 - UpdateBehaviour createEditingDomain should be able to access diagram input (sphinx compatibility)
  *
  * </copyright>
  *
@@ -174,8 +175,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * {@link DiagramEditorInput}. In case this fails, a
 	 * {@link PartInitException} is thrown.</li>
 	 * <li>creating the editing domain by delegating to the update behavior
-	 * extension, see {@link DefaultUpdateBehavior#createEditingDomain()} for
-	 * details</li>
+	 * extension, see
+	 * {@link DefaultUpdateBehavior#createEditingDomain(IDiagramEditorInput)}
+	 * for details</li>
 	 * <li>initializing the underlying GEF editor by delegating to super</li>
 	 * <li>initializing the update behavior extension (the order is important
 	 * here as this must happen after initializing the GEF editor!)</li>
@@ -198,23 +200,26 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 		diagramBehavior.setParentPart(this);
 		diagramBehavior.initDefaultBehaviors();
 
-		// Eclipse may call us with other inputs when a file is to be
-		// opened. Try to convert this to a valid diagram input.
-		if (!(input instanceof IDiagramEditorInput)) {
-			input = convertToDiagramEditorInput(input);
-			if (input == null) {
+		IDiagramEditorInput diagramEditorInput;
+		if (input instanceof IDiagramEditorInput) {
+			diagramEditorInput = (IDiagramEditorInput) input;
+		} else {
+			// Eclipse may call us with other inputs when a file is to be
+			// opened. Try to convert this to a valid diagram input.
+			diagramEditorInput = convertToDiagramEditorInput(input);
+			if (diagramEditorInput == null) {
 				throw new PartInitException(
 						"No DiagramEditorInput instance is available but it is required. The method convertToDiagramEditorInput illegally returned null."); //$NON-NLS-1$
 			}
 		}
 
-		diagramBehavior.getUpdateBehavior().createEditingDomain();
+		diagramBehavior.getUpdateBehavior().createEditingDomain(diagramEditorInput);
 
 		// The GEF GraphicalEditor init(...) functionality, adapted to provide a
 		// nice error message to the user in case of an error when opening an
 		// editor with e.g. an invalid diagram, see Bug 376008
 		setSite(site);
-		setInput(input);
+		setInput((IEditorInput) diagramEditorInput);
 		if (diagramBehavior.getEditorInitializationError() != null) {
 			// In case of error simply show an primitive editor with a label
 			return;

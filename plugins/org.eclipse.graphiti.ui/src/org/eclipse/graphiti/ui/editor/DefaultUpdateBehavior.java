@@ -17,6 +17,7 @@
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 427444 - Issues with drill-down diagram editor when diagram file is deleted
+ *    mwenz - Bug 430687 - UpdateBehaviour createEditingDomain should be able to access diagram input (sphinx compatibility)
  *
  * </copyright>
  *
@@ -44,6 +45,7 @@ import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer.Delegate;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.editor.DomainModelWorkspaceSynchronizerDelegate;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
@@ -353,11 +355,28 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	 * Created the {@link TransactionalEditingDomain} that shall be used within
 	 * the diagram editor and initializes it by delegating to
 	 * {@link #initializeEditingDomain(TransactionalEditingDomain)}.
+	 * 
+	 * @deprecated use {@link #createEditingDomain(IDiagramEditorInput)} instead
 	 */
 	protected void createEditingDomain() {
 		TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService()
 				.createResourceSetAndEditingDomain();
 		initializeEditingDomain(editingDomain);
+	}
+
+	/**
+	 * Created the {@link TransactionalEditingDomain} that shall be used within
+	 * the diagram editor and initializes it by delegating to
+	 * {@link #initializeEditingDomain(TransactionalEditingDomain)}.
+	 * 
+	 * @param input
+	 *            The {@link IDiagramEditorInput} instance that was used to open
+	 *            the {@link IDiagramContainer}.
+	 * 
+	 * @since 0.11
+	 */
+	protected void createEditingDomain(IDiagramEditorInput input) {
+		createEditingDomain();
 	}
 
 	/**
