@@ -31,7 +31,7 @@
                 <cs:property key="root" value="${WORKSPACE}"/>
             </cs:properties>
             <cs:products>
-                <cs:public name="javadoc.output" base="${WORKSPACE}/org.eclipse.gmp/org.eclipse.gmp.graphiti/examples/org.eclipse.graphiti.doc/javadoc/"/>
+                <cs:public name="javadoc.output" base="${WORKSPACE}/graphiti/org.eclipse.graphiti/examples/org.eclipse.graphiti.doc/javadoc/"/>
             </cs:products>
         </cs:public>
         <cs:public name="create.site.index" actor="ant">
