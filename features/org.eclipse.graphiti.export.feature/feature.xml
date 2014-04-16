@@ -18,7 +18,7 @@ Contributors:
       provider-name="%providerName"
       plugin="org.eclipse.graphiti.export.batik"
       license-feature="org.eclipse.license"
-      license-feature-version="1.0.1.qualifier">
+      license-feature-version="0.0.0">
 
    <description>
       %description
