@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    fvelasco - Bug 417577 - state call backs review
  *    Philip Alldredge - Bug 418676 - Undo is not disabled when canUndo is false for Palette features
+ *    mwenz - Bug 424020 - Infinite loop when IConnectionCreateFeature returns true for the diagram
  *
  * </copyright>
  *
@@ -232,9 +233,15 @@ public class CreateConnectionCommand extends AbstractCommand {
 	}
 
 	public boolean canStartConnection() {
-		// allow connections only from anchor to anchor
 
 		CreateConnectionContext connectionContext = createContext();
+		// allow connections only from anchor to anchor
+		if (connectionContext.getSourceAnchor() == null) {
+			// Prevent infinite loop in case no source anchor is available (e.g.
+			// when connection starts on diagram root), see
+			// https://bugs.eclipse.org/bugs/show_bug.cgi?id=424020
+			return false;
+		}
 		sourceLocation = connectionContext.getSourceLocation(); // store
 																// location for
 																// later usage
