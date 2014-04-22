@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 416039 - TextStyle rendering does not fall back to abstract text font
  *
  * </copyright>
  *
@@ -639,11 +640,22 @@ public class GFFigureUtil {
 			int currentOffset, IConfigurationProviderInternal configurationProvider, AbstractText text) {
 		if (bidiLevel == -1) {
 			TextLayout tl = new TextLayout(Display.getDefault());
-			if (mirrored)
+			if (mirrored) {
 				tl.setOrientation(SWT.RIGHT_TO_LEFT);
-			tl.setFont(g.getFont());
-			tl.setText(draw);
+			}
+
 			List<Font> fontsToDispose = new ArrayList<Font>();
+			org.eclipse.graphiti.mm.algorithms.styles.Font textFont = text.getFont();
+			if (textFont != null) {
+				// Use the font of the provided AbstractText as fallback (see
+				// https://bugs.eclipse.org/bugs/show_bug.cgi?id=416039)
+				tl.setFont(DataTypeTransformation.toSwtFont(textFont));
+				fontsToDispose.add(tl.getFont());
+			} else {
+				// Use default font in case AbstractText has no font
+				tl.setFont(g.getFont());
+			}
+			tl.setText(draw);
 
 			for (TextStyleRegion style : text.getStyleRegions()) {
 				int start = style.getStart() - currentOffset;
