@@ -10,36 +10,45 @@
 
 <body>
 
-<h1>Why Should I Need Dark Feature Processing?</h1>
-<p>Dark feature processing can be used to modify diagram data as well as business 
-data through existing Graphiti features, without the need to have any Graphiti editor or viewer being
-open.</p>
-<h1>What Do I Have to Do to Process My Features “Dark”?</h1>
-<p>You just have to create the suitable diagram type provider (DTP) and feature 
-provider combination for the diagram to be modified. The service class <i>ExtensionManager</i> 
-provides some useful methods: <i>createDiagramTypeProvider(IDiagram)</i> can be 
-called to receive a DTP loaded with all the infrastructure to process your existing 
-features. But keep in mind that these features can not show any kind of UI because 
-there is no real visible editor running.</p>
-<h1>Pitfalls</h1>
-<ul>
-	<li>Dark processed features really have to be dark! No pop up dialogs, please…</li>
-	<li>No selection</li>
-	<li>No (auto) direct editing</li>
-</ul>
-<p>So eventually you have to prepare your features to fit that needs.</p>
-<h1>Example</h1>
-<p>An example for dark feature procession can be found in the final version of this 
-tutorial plugin as it is contained in the SDK download of Graphiti. The
-<span class="inlinecode">AddAllClassesCommand</span> uses this method to add all 
-existing classes of the current project to a new diagram. The functionality is triggered 
-from a context menu entry on the <em>All Classes</em> node in the project explorer. 
-For the complete functionality please also have a look into the class
-<span class="inlinecode">CreateDiagramWithAllClassesHandler</span> and the registration 
-of the handler and the command in<span class="inlinecode"> plugin.xml</span>. Besides 
-an additional reference to the plugin <em>org.eclipse.emf.transaction</em> is needed 
-to make the extension compile. The coding can be found in the SDK download of Graphiti. The two classes can be found in the package <em>org.eclipse.graphiti.examples.tutorial.handlers.</em></p>
-<p>&nbsp;</p>
+	<h1>Why Should I Need Dark Feature Processing?</h1>
+	<p>Dark feature processing can be used to modify diagram data as
+		well as business data through existing Graphiti features, without the
+		need to have any Graphiti editor or viewer being open.</p>
+	<h1>What Do I Have to Do to Process My Features “Dark”?</h1>
+	<p>
+		You just have to create the suitable diagram type provider (DTP) and
+		feature provider combination for the diagram to be modified. The
+		service class <i>ExtensionManager</i> provides some useful methods: <i>createDiagramTypeProvider(IDiagram)</i>
+		can be called to receive a DTP loaded with all the stuff needed to
+		process your existing features. But keep in mind that these features
+		can not show any kind of UI because there is no real visible editor
+		running.
+	</p>
+	<h1>Pitfalls</h1>
+	<ul>
+		<li>Dark processed features really have to be dark! No pop up
+			dialogs, please…</li>
+		<li>No selection</li>
+		<li>No (auto) direct editing</li>
+	</ul>
+	<p>So eventually you have to prepare your features to fit these
+		needs.</p>
+	<h1>Example</h1>
+	<p>
+		An example for dark feature procession can be found in the final
+		version of this tutorial plugin as it is contained in the SDK download
+		of Graphiti. The <span class="inlinecode">AddAllClassesCommand</span>
+		uses this method to add all existing classes of the current project to
+		a new diagram. The functionality is triggered from the context menu
+		entry <i>Create Diagram with all Classes</i> on the <em>EClasses</em>
+		node in the project explorer. For the complete functionality have a
+		look into the class <span class="inlinecode">CreateDiagramWithAllClassesHandler</span>
+		and the registration of the handler and the command in<span
+			class="inlinecode"> plugin.xml</span>. Besides an additional
+		reference to the plugin <em>org.eclipse.emf.transaction</em> is needed
+		to make the extension compile. The coding can be found in the SDK
+		download of Graphiti. The two classes can be found in the package <em>org.eclipse.graphiti.examples.tutorial.handlers.</em>
+	</p>
 
 </body>
 
