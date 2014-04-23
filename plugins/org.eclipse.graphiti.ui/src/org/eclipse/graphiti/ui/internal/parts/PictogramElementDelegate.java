@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    Andreas Graf/mwenz - Bug 396793 - Text decorators
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 412858 - canUpdate is not consulted before calling updateNeeded during startup
  *
  * </copyright>
  *
@@ -411,7 +412,16 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		IUpdateContext updateCtx = new UpdateContext(pe);
 		IUpdateFeature updateFeature = featureProvider.getUpdateFeature(updateCtx);
 		if (updateFeature != null) {
+			boolean canUpdate = updateFeature.canUpdate(updateCtx);
+			// TODO to finally fix Bugzilla 412858 add the if statement in next
+			// version of Graphiti
+			// if (canUpdate) {
 			ret = updateFeature.updateNeeded(updateCtx);
+			// }
+			if (ret != null && ret.toBoolean() && !canUpdate) {
+				String msg = "canUpdate(...) returned false but updateNeeded(...) provided an update reason. Update is done for compatibility reasons, but this is deprecated and will no longer work in the next version of Graphiti (> 0.11.0), see Bugzilla 412858";
+				T.racer().error(msg);
+			}
 		}
 
 		if (getPreferences().isRecursiveCheckForUpdateActive()) {
