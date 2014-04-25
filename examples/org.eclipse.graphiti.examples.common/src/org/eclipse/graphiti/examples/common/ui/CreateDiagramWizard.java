@@ -19,6 +19,7 @@ package org.eclipse.graphiti.examples.common.ui;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
@@ -94,6 +95,8 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 		} else if (element instanceof IFolder) {
 			diagramFolder = (IFolder) element;
 			project = diagramFolder.getProject();
+		} else if (element instanceof IAdaptable) {
+			project = (IProject) ((IAdaptable) element).getAdapter(IProject.class);
 		}
 
 		if (project == null || !project.isAccessible()) {
