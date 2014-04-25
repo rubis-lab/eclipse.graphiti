@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  *    mwenz - Bug 351053 - Remove the need for WorkspaceCommandStackImpl
  *    mwenz - Bug 371717 - IllegalStateException When updating cells on Diagram
  *    mwenz - Bug 389380 - Undo/Redo handling wrong Command executed by undo action
+ *    mwenz - Bug 430609 - Re-entrance in diagram update causes transaction error
  *
  * </copyright>
  *
@@ -40,8 +41,6 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
  * @noextend This class is not intended to be subclassed by clients.
  */
 public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
-
-	private volatile boolean topLevelCommand = true;
 
 	private Stack<IExecutionInfo> undoStackForExecutionInfo = new Stack<IExecutionInfo>();
 
@@ -78,48 +77,46 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 				options.remove(GFCommandStack.OPTION_EXECUTION_INFO);
 			}
 		}
-		if (topLevelCommand) {
-			topLevelCommand = false;
-			try {
-				super.execute(command, options);
 
-				/*
-				 * Add the execution info to the stack; in case it is not
-				 * provided, create it first. Must happen here and not in the
-				 * else branch below because the super.execute call add the EMF
-				 * command to the history and therefore to the command stack
-				 * (thus is the entry relevant for undo)
-				 */
-				if (executionInfo == null) {
-					executionInfo = new DefaultExecutionInfo();
-					GraphitiUiInternal.getCommandService().completeExecutionInfo((DefaultExecutionInfo) executionInfo,
-							GraphitiUiInternal.getCommandService().transformFromEmfToGefCommand(command));
-				}
+		if (getDomain().getActiveTransaction() == null) {
+			// No active transaction means we have to execute the command as a
+			// top-level command
+			super.execute(command, options);
 
-				/*
-				 * Remove the feature and context combinations from the
-				 * execution list whose features did not do any changes. The
-				 * commands for those features are not placed on the editor
-				 * command stack and must also not appear in the stack for
-				 * additional undo steps. See Bugzilla 389380 for details. In
-				 * case no entry is left in the execution info, it must not be
-				 * written to the stack in order to keep the standard and the
-				 * additional undo stack in sync.
-				 */
-				executionInfo = GraphitiUiInternal.getCommandService().removeFeaturesWithoutChanges(executionInfo);
-				if (executionInfo.getExecutionList().length > 0) {
-					undoStackForExecutionInfo.push(executionInfo);
-				}
-			} finally {
-				topLevelCommand = true;
+			/*
+			 * Add the execution info to the stack; in case it is not provided,
+			 * create it first. Must happen here and not in the else branch
+			 * below because the super.execute call add the EMF command to the
+			 * history and therefore to the command stack (thus is the entry
+			 * relevant for undo)
+			 */
+			if (executionInfo == null) {
+				executionInfo = new DefaultExecutionInfo();
+				GraphitiUiInternal.getCommandService().completeExecutionInfo((DefaultExecutionInfo) executionInfo,
+						GraphitiUiInternal.getCommandService().transformFromEmfToGefCommand(command));
+			}
+
+			/*
+			 * Remove the feature and context combinations from the execution
+			 * list whose features did not do any changes. The commands for
+			 * those features are not placed on the editor command stack and
+			 * must also not appear in the stack for additional undo steps. See
+			 * Bugzilla 389380 for details. In case no entry is left in the
+			 * execution info, it must not be written to the stack in order to
+			 * keep the standard and the additional undo stack in sync.
+			 */
+			executionInfo = GraphitiUiInternal.getCommandService().removeFeaturesWithoutChanges(executionInfo);
+			if (executionInfo.getExecutionList().length > 0) {
+				undoStackForExecutionInfo.push(executionInfo);
 			}
 		} else {
+			// An active transaction already exists, execute the command within
+			// the its scope
 			command.execute();
 			if (getMostRecentCommand() != null) {
 				getMostRecentCommand().chain(command);
 			}
 		}
-
 	}
 
 	@Override
