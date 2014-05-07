@@ -1,0 +1,7 @@
+Verified+1: Hudson CI
+Code-Review+2: Michael Wenz <michael.wenz@sap.com>
+Submitted-by: Michael Wenz <michael.wenz@sap.com>
+Submitted-at: Wed, 07 May 2014 04:44:35 -0400
+Reviewed-on: https://git.eclipse.org/r/26104
+Project: graphiti/org.eclipse.graphiti
+Branch: refs/heads/master
