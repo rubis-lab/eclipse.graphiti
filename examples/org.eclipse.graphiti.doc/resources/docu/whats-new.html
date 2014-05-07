@@ -35,13 +35,107 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Luna</h1>
-	<p>Last revised March 12, 2014</p>
+	<p>Last revised May 07, 2014</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.11.0 within the
 		Luna release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M7 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M7</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on bugfixing.</td>
+		</tr>
+		<tr id="bug 408725">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=408725">Bug
+					408725 </a></td>
+			<td class="content">Renaming the Graphiti project from
+				modeling.gmp.graphiti to modeling.graphiti has been finalized. The
+				rename was needed because of the elimination of all container
+				projects in the modeling project. For Graphiti the former container
+				project GMP has been deleted; Graphiti is now i direct subproject of
+				the modeling main project. This change affected the name of the Git
+				repository, Wiki locations, build job names and our Bugzilla
+				component. For details see the bug.</td>
+		</tr>
+		<tr id="bug 412858">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=412858">Bug
+					412858 </a></td>
+			<td class="content">An error in the update feature handling has
+				been found that can only be fixed in a potentially incompatible way.
+				In some situations the method <i>canUpdate</i> was not consulted
+				before calling the method <i>updateNeeded</i>. In order not to break
+				any existing tools relying on the current erroneous behavior, only a
+				first step to fix this bug was undertaken. From now on a Eclipse
+				error log entry will be written whenever a tool returns false on <i>canUpdate</i>
+				but returns a <i>true</i> update reason for calling <i>updateNeeded</i>.
+				This allows tool to continue to use their current implementation
+				until the actual bug in the Graphiti framework will be fixed in the
+				next development cycle for Eclipse Mars (probably Graphiti 0.12.0).
+				More detail on the fix and the error message can be found in the
+				linked Bugzilla (the fix is described in <a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=412858#c3">comment
+					3</a>, the error message in <a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=412858#c4">comment
+					4</a>).
+			</td>
+		</tr>
+		<tr id="bug 416039">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=416039">Bug
+					416039 </a></td>
+			<td class="content">The rendering in styled texts did not fall
+				back to the font settings used in the text object itself in case no
+				special font has been set for the styled text.</td>
+		</tr>
+		<tr id="bug 424020">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=424020">Bug
+					424020 </a></td>
+			<td class="content">A potential infinite loop in the create
+				connection functionality has been fixed. It was caused by returning
+				<i>true</i> for the method <i>canStartConnection</i> on the diagram.
+			</td>
+		</tr>
+		<tr id="bug 430609">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=430609">Bug
+					430609 </a></td>
+			<td class="content">A bug in the EMF transaction handling in
+				Graphiti has been fixed that could cause an EMF Transactions
+				IllegalStateException has been fixed. In some rare situations the
+				framework tried to execute a feature without starting a transaction
+				although no transaction was active.</td>
+		</tr>
+		<tr id="bug 430687">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=430687">Bug
+					430687 </a></td>
+			<td class="content">Any subclasses of <i>DefaultUpdateBehavior</i>
+				were not able to access the diagram input in the method <i>createEditingDomain</i>.
+				This has been fixed by introducing an additional parameter for the
+				input to an additional <i>createEditingDomain</i> method, so this
+				change will not affect any existing tools already overriding this
+				method.
+			</td>
+		</tr>
+		<tr id="bug 432681">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=432681">Bug
+					432681 </a></td>
+			<td class="content">Inconsistencies in the Graphiti Git
+				repository regarding new lines and settings for new files regarding
+				new lines has been fixed. Until now both Windows and UNIX line
+				endings were mixed.</td>
+		</tr>
 		<!-- ---------------------------------------- M6 ------------------------------- -->
 		<tr>
 			<td colspan="2">
@@ -65,7 +159,7 @@ table.news tr td.content {
 				attribute and storing it in the <i>rotation</i> attribute. Both <i>getAngle()</i>
 				and <i>getRotation()</i> methods on the graphics algorithms return
 				the value of the <i>rotation</i> field (in case of <i>getAngle()</i>
-				rounded to integer).</b>
+				rounded to integer).
 			</td>
 		</tr>
 		<tr id="bug 427444">
@@ -88,7 +182,7 @@ table.news tr td.content {
 			<td class="content">It is now possible to de-select a connection
 				creation tool the editor palette. The new method <i>isStayActiveAfterExecution(IConnectionCreationToolEntry)</i>
 				was added to the <i>IToolBehaviorProvider</i> interface. The default
-				is as <i>true</i> as it was before.</b>
+				is as <i>true</i> as it was before.
 			</td>
 		</tr>
 		<tr id="bug 424636">
@@ -103,7 +197,7 @@ table.news tr td.content {
 				not available. The situation is now checked and the entry is only
 				added in case we find the location. Clients may override the new
 				method <i>addSaveAsImageEntryToMenu()</i> to define their own
-				location for the menu entry.</b>
+				location for the menu entry.
 			</td>
 		</tr>
 		<tr id="bug 429215">
@@ -112,7 +206,7 @@ table.news tr td.content {
 					429215</a></td>
 			<td class="content">A potential <i>NullPointerException</i> in <i>DefaultMarkerBehavior</i>
 				has been fixed. I could happen in case a not correctly initialized
-				editor was closed.</b>
+				editor was closed.
 			</td>
 		</tr>
 		<!-- ---------------------------------------- M5 ------------------------------- -->
@@ -132,7 +226,7 @@ table.news tr td.content {
 			<td class="content">It is now possible to completely disable the
 				reconnection feature in Graphiti. When that is done the user is not
 				even allowed to start dragging on an anchor. So far it was only
-				possible to prevent the drop operation.</b>
+				possible to prevent the drop operation.
 			</td>
 		</tr>
 		<tr id="bug 425750">
@@ -140,7 +234,7 @@ table.news tr td.content {
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=425750">Bug
 					425750 </a></td>
 			<td class="content">A bug in the selection changing feature has
-				been fixed.</b>
+				been fixed.
 			</td>
 		</tr>
 		<!-- ---------------------------------------- M4 ------------------------------- -->
@@ -158,7 +252,7 @@ table.news tr td.content {
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=391046">Bug
 					391046 </a></td>
 			<td class="content">A bug that might have caused deadlocks while
-				saving a Graphiti diagram has been fixed.</b>
+				saving a Graphiti diagram has been fixed.
 			</td>
 		</tr>
 		<tr id="bug 421612">
@@ -166,7 +260,7 @@ table.news tr td.content {
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=421612">Bug
 					421612 </a></td>
 			<td class="content">Graphiti now uses its own Hudson instance
-				(HIPP) at Eclipse.</b>
+				(HIPP) at Eclipse.
 			</td>
 		</tr>
 		<tr id="bug 421754">
@@ -175,7 +269,7 @@ table.news tr td.content {
 					421754 </a></td>
 			<td class="content">A bug in the calculation of the absolute
 				position of a shape has been fixed. The calculation returned a wrong
-				position in case the shape was nested inside an inactive container.</b>
+				position in case the shape was nested inside an inactive container.
 			</td>
 		</tr>
 		<tr id="bug 421813">
@@ -184,7 +278,7 @@ table.news tr td.content {
 					421813 </a></td>
 			<td class="content">A bug in the calculation of the relative
 				position of a shape has been fixed. The calculation returned a wrong
-				position in case the shape was nested inside an inactive container.</b>
+				position in case the shape was nested inside an inactive container.
 			</td>
 		</tr>
 		<!-- ---------------------------------------- M3 ------------------------------- -->
@@ -211,7 +305,7 @@ table.news tr td.content {
 					418409 </a></td>
 			<td class="content">The Graphiti new sample project and sample
 				diagram wizards are available again in the Eclipse new wizards
-				popup. They had disappeared in M2.</b>
+				popup. They had disappeared in M2.
 			</td>
 		</tr>
 		<tr id="bug 418676">
@@ -219,7 +313,7 @@ table.news tr td.content {
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=418676">Bug
 					418676 </a></td>
 			<td class="content">A bug has been fixed that caused that <i>canUndo()</i>
-				was not called in the feature or pattern has been fixed.</b>
+				was not called in the feature or pattern has been fixed.
 			</td>
 		</tr>
 		<!-- ---------------------------------------- M2 ------------------------------- -->
@@ -261,7 +355,7 @@ table.news tr td.content {
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=414954">Bug
 					414954 </a></td>
 			<td class="content">Fixed a wrong link on the Graphiti web page
-				to the online documentation and the New & Noteworthy documents.</td>
+				to the online documentation and the New and Noteworthy documents.</td>
 		</tr>
 		<tr id="bug 415884">
 			<td class="title"><a
