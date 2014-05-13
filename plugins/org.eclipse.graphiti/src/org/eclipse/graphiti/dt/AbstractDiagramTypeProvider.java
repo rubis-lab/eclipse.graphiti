@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    mwenz - Bug 329523 - Add notification of DiagramTypeProvider after saving a diagram
  *    mwenz - Bug 352109 - Enable auto-update option for saved editor
  *    fvelasco - Bug 323349 - Enable external invocation of features
+ *    mwenz - Bug 434684 - DiagramProvider should rewire Diagram on refresh
  * </copyright>
  *
  *******************************************************************************/
@@ -148,8 +149,7 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	 * @deprecated Use {@link #init(Diagram, IDiagramBehavior)} instead
 	 */
 	public void init(Diagram diagram, IDiagramEditor diagramEditor) {
-		setDiagram(diagram);
-		GraphitiInternal.getEmfService().wireDTPToDiagram(diagram, this);
+		setAndWireDiagram(diagram);
 		setDiagramBehavior(((IDiagramContainer) diagramEditor).getDiagramBehavior());
 	}
 
@@ -157,8 +157,7 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	 * @since 0.10
 	 */
 	public void init(Diagram diagram, IDiagramBehavior diagramBehavior) {
-		setDiagram(diagram);
-		GraphitiInternal.getEmfService().wireDTPToDiagram(diagram, this);
+		setAndWireDiagram(diagram);
 		setDiagramBehavior(diagramBehavior);
 	}
 
@@ -170,8 +169,9 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	 * @param diagram
 	 *            The diagram to set.
 	 */
-	private void setDiagram(Diagram diagram) {
+	private void setAndWireDiagram(Diagram diagram) {
 		this.diagram = diagram;
+		GraphitiInternal.getEmfService().wireDTPToDiagram(diagram, this);
 	}
 
 	/**
@@ -231,7 +231,7 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	}
 
 	public void resourceReloaded(Diagram diagram) {
-		setDiagram(diagram);
+		setAndWireDiagram(diagram);
 	}
 
 	public void resourcesSaved(Diagram diagram, Resource[] savedResources) {
