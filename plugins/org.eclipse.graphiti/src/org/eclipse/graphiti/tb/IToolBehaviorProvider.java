@@ -133,7 +133,9 @@ public interface IToolBehaviorProvider {
 	/**
 	 * Returns decorators which will be used at rendering time to decorate the
 	 * graphical representation of the given pictogram element.<br>
-	 * Currently only decorators of type {@link IImageDecorator} are supported.
+	 * Decorators of type {@link IImageDecorator}, {@link IColorDecorator} and
+	 * {@link IBorderDecorator} are supported. Currently only {@link Shape}s are
+	 * supported for decorating.
 	 * 
 	 * @param pe
 	 *            the pictogram element
