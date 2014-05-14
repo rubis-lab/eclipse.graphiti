@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2012, 2013 SAP AG.
+ * Copyright (c) 2012, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    mwenz - Bug 358255 - initial API, implementation and documentation
  *    mwenz - Bug 396793 - Text decorators
+ *    mwenz - Bug 434458 - Connections don't support Color decorators
  *
  * </copyright>
  *
@@ -17,10 +18,14 @@
 package org.eclipse.graphiti.testtool.sketch.features;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
+import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -68,6 +73,27 @@ public class DisplayDecoratorFeature extends AbstractCustomFeature {
 
 	@Override
 	public boolean canExecute(ICustomContext context) {
+		if (context instanceof ICustomContext) {
+			PictogramElement[] pes = ((ICustomContext) context).getPictogramElements();
+			if (pes == null || pes.length > 1) {
+				return false;
+			}
+			PictogramElement pe = pes[0];
+			if (pe instanceof Connection) {
+				switch (type) {
+				case TYPE_IMAGE:
+					return false;
+				case TYPE_BORDER:
+					return false;
+				case TYPE_COLOR:
+					return true;
+				case TYPE_TEXT:
+					return false;
+				default:
+					return false;
+				}
+			}
+		}
 		return true;
 	}
 
@@ -98,7 +124,14 @@ public class DisplayDecoratorFeature extends AbstractCustomFeature {
 
 			SketchToolBehavior toolBehaviorProvider = (SketchToolBehavior) getFeatureProvider()
 					.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-			toolBehaviorProvider.addDecorators(pe, decorator);
+			if (pe instanceof CompositeConnection) {
+				EList<CurvedConnection> children = ((CompositeConnection) pe).getChildren();
+				for (CurvedConnection curvedConnection : children) {
+					toolBehaviorProvider.addDecorators(curvedConnection, decorator);
+				}
+			} else {
+				toolBehaviorProvider.addDecorators(pe, decorator);
+			}
 			getDiagramBehavior().refreshRenderingDecorators(pe);
 		}
 	}
@@ -111,7 +144,7 @@ public class DisplayDecoratorFeature extends AbstractCustomFeature {
 				return false;
 			}
 			PictogramElement pe = pes[0];
-			if (pe instanceof Shape && !(pe instanceof Diagram)) {
+			if (pe instanceof Shape && !(pe instanceof Diagram) || pe instanceof Connection) {
 				return true;
 			}
 		}

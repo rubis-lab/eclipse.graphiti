@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2012, 2012 SAP AG.
+ * Copyright (c) 2012, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,16 +9,21 @@
  *
  * Contributors:
  *    mwenz - Bug 358255 - initial API, implementation and documentation
+ *    mwenz - Bug 434458 - Connections don't support Color decorators
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.testtool.sketch.features;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
+import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -50,7 +55,14 @@ public class ClearDecoratorsFeature extends AbstractCustomFeature {
 
 			SketchToolBehavior toolBehaviorProvider = (SketchToolBehavior) getFeatureProvider()
 					.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-			toolBehaviorProvider.clearDecorators(pe);
+			if (pe instanceof CompositeConnection) {
+				EList<CurvedConnection> children = ((CompositeConnection) pe).getChildren();
+				for (CurvedConnection curvedConnection : children) {
+					toolBehaviorProvider.clearDecorators(curvedConnection);
+				}
+			} else {
+				toolBehaviorProvider.clearDecorators(pe);
+			}
 			getDiagramBehavior().refreshRenderingDecorators(pe);
 		}
 	}
@@ -63,7 +75,7 @@ public class ClearDecoratorsFeature extends AbstractCustomFeature {
 				return false;
 			}
 			PictogramElement pe = pes[0];
-			if (pe instanceof Shape && !(pe instanceof Diagram)) {
+			if (pe instanceof Shape && !(pe instanceof Diagram) || pe instanceof Connection) {
 				return true;
 			}
 		}

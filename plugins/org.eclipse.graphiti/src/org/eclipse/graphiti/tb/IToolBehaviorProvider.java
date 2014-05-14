@@ -15,6 +15,7 @@
  *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *    fvelasco - Bug 323349 - Enable external invocation of features
  *    mwenz - Bug 428068 - Automatically unselect a tool entry in palette like 'connection creation' after execution
+ *    mwenz - Bug 434458 - Connections don't support Color decorators
  * </copyright>
  *
  *******************************************************************************/
@@ -132,8 +133,13 @@ public interface IToolBehaviorProvider {
 
 	/**
 	 * Returns decorators which will be used at rendering time to decorate the
-	 * graphical representation of the given pictogram element.<br>
-	 * Currently only decorators of type {@link IImageDecorator} are supported.
+	 * graphical representation of the given pictogram element. Adding or
+	 * removing decorators will not make the diagram dirty.<br>
+	 * Decorators of type {@link IImageDecorator}, {@link IColorDecorator} and
+	 * {@link IBorderDecorator} are supported for {@link Shape}s; for
+	 * {@link Connection}s only {@link IColorDecorator}s are supported and they
+	 * can only be used to change the foreground color of the {@link Connection}
+	 * .
 	 * 
 	 * @param pe
 	 *            the pictogram element
