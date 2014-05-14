@@ -24,6 +24,7 @@
  *    Andreas Graf/mwenz - Bug 396793 - Text decorators
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 412858 - canUpdate is not consulted before calling updateNeeded during startup
+ *    mwenz - Bug 434458 - Connections don't support Color decorators
  *
  * </copyright>
  *
@@ -1609,8 +1610,7 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 	protected void addDecorators(final GraphicsAlgorithm graphicsAlgorithm, final PictogramElement pe,
 			final IFigure figure, IToolBehaviorProvider toolBehaviorProvider) {
-		if (pe.isActive() && !(pe instanceof Anchor) && !(pe instanceof Connection)
-				&& graphicsAlgorithm.equals(pe.getGraphicsAlgorithm())) {
+		if (pe.isActive() && !(pe instanceof Anchor) && graphicsAlgorithm.equals(pe.getGraphicsAlgorithm())) {
 
 			removeDecorators(figure);
 			refreshFigureColors(figure, graphicsAlgorithm);
@@ -1622,6 +1622,10 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				List<IFigure> decList = new ArrayList<IFigure>();
 				decoratorMap.put(figure, decList);
 				for (int i = 0; i < decorators.length; i++) {
+					if (pe instanceof Connection && !(decorators[i] instanceof IColorDecorator)) {
+						// For connections only color decorators are supported
+						continue;
+					}
 					IDecorator decorator = decorators[i];
 					IFigure decorateFigure = decorateFigure(figure, decorator);
 					if (decorateFigure != null) {
