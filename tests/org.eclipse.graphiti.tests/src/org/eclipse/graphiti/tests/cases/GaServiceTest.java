@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 355347 - Remove setters of Graphiti's Font Interface
  *    mwenz - Bug 423573 - Angles should never be integer
+ *    mwenz - Bug 423913 - Style#unsetFilled sets filled to true instead of null
  *
  * </copyright>
  *
@@ -49,6 +50,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.services.impl.GaServiceImpl;
 import org.eclipse.graphiti.tests.GFAbstractCreateTestCase;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.graphiti.util.PredefinedColoredAreas;
@@ -750,5 +752,19 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		assertNull(style.getRenderingStyle());
 		assertFalse(style.isSetFilled());
 		assertNull(style.getTransparency()); // is it in state unsettable
+	}
+
+	@Test
+	public void testIsFilledForBug423913() {
+		GaServiceImpl gaService = new GaServiceImpl();
+		Rectangle rectangle = gaService.createPlainRectangle(null);
+		Style style1 = gaService.createPlainStyle(null, "style1");
+		style1.setFilled(false);
+		Style style2 = gaService.createPlainStyle(style1, "style2");
+		rectangle.setStyle(style2);
+
+		boolean filled = gaService.isFilled(rectangle, true);
+
+		assertFalse(filled);
 	}
 }

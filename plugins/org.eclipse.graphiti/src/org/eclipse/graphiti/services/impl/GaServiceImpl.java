@@ -13,6 +13,7 @@
  *    jpasch - Bug 352542 - Add "plain"-create methods for working with styles
  *    mwenz - Bug 364126 - Make GaServiceImpl extensible
  *    mwenz - Bug 423573 - Angles should never be integer
+ *    mwenz - Bug 423913 - Style#unsetFilled sets filled to true instead of null
  *
  * </copyright>
  *
@@ -278,7 +279,7 @@ public class GaServiceImpl implements IGaService {
 
 	private static final Boolean isFilled(Style style) {
 		Boolean filled = style.getFilled();
-		if (filled == null) {
+		if (filled == null || !style.isSetFilled()) {
 			StyleContainer styleContainer = style.getStyleContainer();
 			if (styleContainer instanceof Style) {
 				Style parentStyle = (Style) styleContainer;
@@ -1433,7 +1434,7 @@ public class GaServiceImpl implements IGaService {
 	 */
 	public final void resetAll(AbstractStyle abstractStyle) {
 		abstractStyle.setBackground(null);
-		// Boolean filled is set to unsettable (not to null)
+		// Boolean filled is set to unset (not to null)
 		abstractStyle.unsetFilled();
 		abstractStyle.setForeground(null);
 		abstractStyle.setLineStyle(LineStyle.UNSPECIFIED);
