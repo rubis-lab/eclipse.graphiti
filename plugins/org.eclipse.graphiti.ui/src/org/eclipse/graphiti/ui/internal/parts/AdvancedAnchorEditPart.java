@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    Felix Velasco (mwenz) - Bug 349416 - Support drag&drop operations on FixPointAnchors
  *                                         the same way as for BoxRelativeAnchors
  *    fvelasco - Bug 417577 - state call backs review
+ *    mwenz - Bug 434436 - Highlighting of Anchors on hover does not seem to work
  *
  * </copyright>
  *
@@ -46,6 +47,7 @@ import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.platform.ga.IVisualState;
 import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommand;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFChopboxAnchor;
@@ -283,5 +285,29 @@ public class AdvancedAnchorEditPart extends AbstractGraphicalEditPart implements
 		};
 		tool.setFactory(new MultiCreationFactory(Arrays.asList(dragAndDropFeatures)));
 		return tool;
+	}
+
+	@Override
+	public void eraseSourceFeedback(Request request) {
+		super.eraseSourceFeedback(request);
+		delegate.getVisualState().setHoverFeedback(IVisualState.HOVER_OFF);
+	}
+
+	@Override
+	public void eraseTargetFeedback(Request request) {
+		super.eraseTargetFeedback(request);
+		delegate.getVisualState().setHoverFeedback(IVisualState.HOVER_OFF);
+	}
+
+	@Override
+	public void showSourceFeedback(Request request) {
+		super.showSourceFeedback(request);
+		delegate.getVisualState().setHoverFeedback(IVisualState.HOVER_ON);
+	}
+
+	@Override
+	public void showTargetFeedback(Request request) {
+		super.showTargetFeedback(request);
+		delegate.getVisualState().setHoverFeedback(IVisualState.HOVER_ON);
 	}
 }

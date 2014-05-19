@@ -12,6 +12,7 @@
  *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
  *    cbrand - Bug 370440 - Over scaling of connections and lines after canvas zoom
  *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
+ *    mwenz - Bug 434436 - Highlighting of Anchors on hover does not seem to work
  *
  * </copyright>
  *
@@ -448,19 +449,28 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 				parentSelected = visualState.getSelectionFeedback() == IVisualState.SELECTION_PRIMARY;
 			}
 			PictogramElement pe = getPictogramElementDelegate().getPictogramElement();
-			if (!(pe instanceof org.eclipse.graphiti.mm.pictograms.Shape))
-				return false;
-			org.eclipse.graphiti.mm.pictograms.Shape s = (org.eclipse.graphiti.mm.pictograms.Shape) pe;
-			ISelectionInfo selectionInfo = tbp.getSelectionInfoForShape(s);
-			IColorConstant hoverColor = null;
-			hoverColor = selectionInfo.getHoverColor();
-			if (parentSelected)
-				hoverColor = selectionInfo.getHoverColorParentSelected();
-			if (hoverColor != null) {
-				Color hoverColorSwt = DataTypeTransformation.toSwtColor(getConfigurationProvider()
-						.getResourceRegistry(), hoverColor);
-				graphics.setBackgroundColor(hoverColorSwt);
-				return true;
+
+			ISelectionInfo selectionInfo = null;
+			if (pe instanceof org.eclipse.graphiti.mm.pictograms.Shape) {
+				org.eclipse.graphiti.mm.pictograms.Shape s = (org.eclipse.graphiti.mm.pictograms.Shape) pe;
+				selectionInfo = tbp.getSelectionInfoForShape(s);
+			} else if (pe instanceof Anchor) {
+				Anchor anchor = (Anchor) pe;
+				selectionInfo = tbp.getSelectionInfoForAnchor(anchor);
+			}
+
+			if (selectionInfo != null) {
+				IColorConstant hoverColor = null;
+				hoverColor = selectionInfo.getHoverColor();
+				if (parentSelected) {
+					hoverColor = selectionInfo.getHoverColorParentSelected();
+				}
+				if (hoverColor != null) {
+					Color hoverColorSwt = DataTypeTransformation.toSwtColor(getConfigurationProvider()
+							.getResourceRegistry(), hoverColor);
+					graphics.setBackgroundColor(hoverColorSwt);
+					return true;
+				}
 			}
 
 		}
