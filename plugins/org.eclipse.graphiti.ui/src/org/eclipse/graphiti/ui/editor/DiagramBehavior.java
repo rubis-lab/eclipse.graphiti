@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2013 SRC
+ * Copyright (c) 2014 SRC
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    mwenz - Bug 401859 - Graphiti DiagramEditor#dispose() does not release the editor related objects
  *    mwenz - Bug 407510 - Color background without Grid Layer turned to gray
  *    fvelasco - Bug 403664 - Enable DoubleClickFeature on the diagram background
+ *    mwenz - Bug 433650 - Editor in in dirty state after a Save
  *
  * </copyright>
  *
@@ -33,7 +34,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -712,16 +712,11 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Returns the dirty state of this behavior object
 	 * 
-	 * @return <code>true</code> in case the command stack reports modification,
-	 *         <code>false</code> otherwise.
+	 * @return <code>true</code> in case the stored saved command is different
+	 *         from the next undo command.
 	 */
 	protected boolean isDirty() {
-		TransactionalEditingDomain editingDomain = getEditingDomain();
-		// Check that the editor is not yet disposed
-		if (editingDomain != null && editingDomain.getCommandStack() != null) {
-			return ((BasicCommandStack) editingDomain.getCommandStack()).isSaveNeeded();
-		}
-		return false;
+		return getPersistencyBehavior().isDirty();
 	}
 
 	// ---------------------- Palette --------------------------------------- //

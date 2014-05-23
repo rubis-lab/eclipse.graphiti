@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@
  *    mwenz - Bug 378342 - Cannot store more than a diagram per file
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 391046 - Deadlock while saving prior to refactoring operation
+ *    mwenz - Bug 433650 - Editor in in dirty state after a Save
  *
  * </copyright>
  *
@@ -1376,6 +1377,50 @@ public class GFOtherTests extends AbstractGFTests {
 				Job.getJobManager().endRule(ResourcesPlugin.getWorkspace().getRoot());
 			}
 		});
+
+		page.shutdownEditor(diagramEditor);
+	}
+
+	/*
+	 * Test for Bug 433650 - Editor in in dirty state after a Save
+	 */
+	@Test
+	public void testIsDirtyIsFalseAfterDoSaveUndoSave() throws Exception {
+		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
+		final IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+		final IFeatureProvider fp = diagramTypeProvider.getFeatureProvider();
+		final Diagram diagram = diagramTypeProvider.getDiagram();
+		syncExec(new VoidResult() {
+			public void run() {
+				executeInRecordingCommand(diagramEditor.getDiagramBehavior(), new Runnable() {
+					public void run() {
+						addClassToDiagram(fp, diagram, 500, 500, "Shape");
+						addClassToDiagram(fp, diagram, 100, 100, "ContainerShape");
+						removeClassShape(fp, diagram, "ContainerShape");
+						moveClassShape(fp, diagram, 0, 0, "Shape");
+
+					}
+				});
+			}
+		});
+
+		diagramEditor.doSave(new NullProgressMonitor());
+
+		syncExec(new VoidResult() {
+			public void run() {
+
+				// get UnDoStack
+				TransactionalEditingDomain editingDomain = diagramEditor.getDiagramBehavior().getEditingDomain();
+				org.eclipse.emf.common.command.CommandStack cmdStack = editingDomain.getCommandStack();
+
+				// Do "undo"
+				cmdStack.undo();
+				assertEquals("Undo/Redo failed: Diagram not empty at end of UndoStack", 0, diagram.getChildren().size());
+			}
+		});
+
+		diagramEditor.doSave(new NullProgressMonitor());
+		assertFalse(diagramEditor.isDirty());
 
 		page.shutdownEditor(diagramEditor);
 	}
