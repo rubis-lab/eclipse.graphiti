@@ -30,5 +30,5 @@ public interface IDiagramVersion {
 	 */
 	public static final String VERSION_ENABLE_TEXT_BACKGROUND = "0.9.0"; //$NON-NLS-1$
 
-	public static final String CURRENT = "0.11.0"; //$NON-NLS-1$
+	public static final String CURRENT = "0.12.0"; //$NON-NLS-1$
 }
