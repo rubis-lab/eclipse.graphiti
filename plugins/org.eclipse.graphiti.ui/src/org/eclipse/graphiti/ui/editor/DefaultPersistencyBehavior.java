@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2011, 2013 SAP AG.
+ * Copyright (c) 2011, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  *    mwenz - Bug 393074 - Save Editor Progress Monitor Argument
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz/Rob Cernich - Bug 391046 - Deadlock while saving prior to refactoring operation
+ *    mwenz - Bug 437933 - NullPointerException in DefaultPersistencyBehavior.isDirty()
  *
  * </copyright>
  *
@@ -213,7 +214,18 @@ public class DefaultPersistencyBehavior {
 	 *         <code>false</code> otherwise.
 	 */
 	public boolean isDirty() {
-		BasicCommandStack commandStack = (BasicCommandStack) diagramBehavior.getEditingDomain().getCommandStack();
+		TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
+		if (editingDomain == null) {
+			// Right in the middle of closing the editor, it cannot be dirty
+			// without an editing domain
+			return false;
+		}
+		BasicCommandStack commandStack = (BasicCommandStack) editingDomain.getCommandStack();
+		if (commandStack == null) {
+			// Right in the middle of closing the editor, it cannot be dirty
+			// without a command stack
+			return false;
+		}
 		return savedCommand != commandStack.getUndoCommand();
 	}
 
