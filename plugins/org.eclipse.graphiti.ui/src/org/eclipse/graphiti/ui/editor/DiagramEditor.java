@@ -36,6 +36,7 @@
  *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
  *    pjpaulin - Bug 405314 - Should be able to override DefaultBehavior implementation without configuration
  *    mwenz - Bug 430687 - UpdateBehaviour createEditingDomain should be able to access diagram input (sphinx compatibility)
+ *    Hernan Gonzales (mwenz) - Bug 436601 - Race condition on save
  *
  * </copyright>
  *
@@ -387,6 +388,7 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 */
 	public void doSave(IProgressMonitor monitor) {
 		diagramBehavior.getPersistencyBehavior().saveDiagram(monitor);
+		diagramBehavior.getUpdateBehavior().setResourceChanged(false);
 	}
 
 	/**
