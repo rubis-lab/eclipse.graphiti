@@ -8,4 +8,5 @@
     <cq:advisorNode namePattern="^org\.apache\.batik\.util\.gui\.source*" skipComponent="true"/>
     <cq:advisorNode namePattern="^org\.apache\.batik\.css\.source*" skipComponent="true"/>
     <cq:advisorNode namePattern=".*" useMaterialization="false" useTargetPlatform="false"/>
+    <cq:advisorNode namePattern="^org\.eclipse\.gef\.*" versionOverride="[3.9.100,3.10.0)"/>
 </cq:componentQuery>
