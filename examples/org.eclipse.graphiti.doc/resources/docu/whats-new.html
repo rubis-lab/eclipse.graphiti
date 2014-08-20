@@ -34,11 +34,11 @@ table.news tr td.content {
 
 <body>
 
-	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Luna</h1>
-	<p>Last revised May 27, 2014</p>
+	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Mars</h1>
+	<p>Last revised August 20, 2014</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.12.0 within the
-		Luna release train.</p>
+		Mars release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
@@ -48,66 +48,26 @@ table.news tr td.content {
 				<h2>M1</h2>
 			</td>
 		</tr>
-		<!-- 
 		<tr>
 			<td colspan="2">The main focus for this milestone has been set
-				on bugfixing and implementing round-offs.</td>
+				on bugfixing.</td>
 		</tr>
-		<tr id="bug 403664">
+		<tr id="bug 437933">
 			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=403664">Double
-					click feature for diagrams</a></td>
-			<td class="content">It is now possible for clients to register a
-				double click feature also on diagram level. Until now that was only
-				possible on concrete shapes.</td>
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=437933">Bug
+					437933</a></td>
+			<td class="content">A potential NullPointerExecption in the
+				method isDirty() in DefaultPersistencyBehavior has been fixed.</td>
 		</tr>
-		<tr id="bug 412838">
+		<tr id="bug 436601">
 			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=412838">Hook
-					to check read-only state of EMF resource</a></td>
-			<td class="content">It is now possible for clients to override a
-				hook method for checking if any of the EMF resources used in the
-				editor is read-only. Until now having a resource contained in the
-				platform itself (e.g. EMF core) loaded in the editor caused an
-				exception while trying to save.</td>
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=436601">Bug
+					436601</a></td>
+			<td class="content">A potential race condition in the save logic
+				of DiagramEditor has been fixed. It could have caused erroneous
+				update and refresh behaviors in the editor that are hard to track
+				down.</td>
 		</tr>
-		<tr id="bug 413139">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=413139">Convert
-					image to bytes service</a></td>
-			<td class="content">Clients may now use a Graphit service method
-				that converts an image into a byte array. The functionality was up
-				to now hidden in the save as image feature.</td>
-		</tr>
-		<tr id="bug 403622">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=403622">Bug
-					403622 </a></td>
-			<td class="content">Tests that were disabled for dependency
-				issues between Eclipse Kepler and SWTBot are now enabled again.</td>
-		</tr>
-		<tr id="bug 411891">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=411891">Bug
-					411891 </a></td>
-			<td class="content">Fixed a dependency bug so that the Graphiti
-				SDK can now be installed into Eclipse Juno.</td>
-		</tr>
-		<tr id="bug 412877">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=412877">Bug
-					412877 </a></td>
-			<td class="content">Fixed a bug that caused reconnection
-				features not to appear on the undo/redo stack in some cases.</td>
-		</tr>
-		<tr id="bug 413166">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=413166">Bug
-					413166 </a></td>
-			<td class="content">Fixed a bug that caused DiagramEditorDummy
-				not to return the editing domain.</td>
-		</tr>
-		-->
 	</table>
 	<!-- ---------------------------------------- END OF TABLE ------------------------------- -->
 	<p>&nbsp;</p>
