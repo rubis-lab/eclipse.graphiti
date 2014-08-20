@@ -34,14 +34,40 @@ table.news tr td.content {
 
 <body>
 
-	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Luna</h1>
-	<p>Last revised May 27, 2014</p>
+	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Luna SR1</h1>
+	<p>Last revised August 20, 2014</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.11.1 within the
 		Luna release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- RC2 ------------------------------ -->
+		<tr>
+			<td colspan="2">
+				<h2>SR1</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this version has been set on
+				bugfixing.</td>
+		</tr>
+		<tr id="bug 437933">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=437933">Bug
+					437933</a></td>
+			<td class="content">A potential NullPointerExecption in the
+				method isDirty() in DefaultPersistencyBehavior has been fixed.</td>
+		</tr>
+		<tr id="bug 436601">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=436601">Bug
+					436601</a></td>
+			<td class="content">A potential race condition in the save logic
+				of DiagramEditor has been fixed. It could have caused erroneous
+				update and refresh behaviors in the editor that are hard to track
+				down.</td>
+		</tr>
 		<!-- ---------------------------------------- RC2 ------------------------------ -->
 		<tr>
 			<td colspan="2">
