@@ -10,7 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 423573 - Angles should never be integer
- *    
+ *    Robert Brodt (mwenz) - Bug 440796 - AbstractText.setRotation() sends incorrect notification to transaction change recorder
  * 
  * </copyright>
  */
@@ -30,7 +30,6 @@ import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
-import org.eclipse.graphiti.mm.algorithms.styles.StylesPackage;
 import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
 
 /**
@@ -360,7 +359,8 @@ public abstract class AbstractTextImpl extends GraphicsAlgorithmImpl implements 
 		}
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.ABSTRACT_TEXT__ROTATION, oldRotation, rotation));
-			eNotify(new ENotificationImpl(this, Notification.SET, StylesPackage.STYLE__ANGLE, oldAngle, angle));
+			eNotify(new ENotificationImpl(this, Notification.SET, AlgorithmsPackage.ABSTRACT_TEXT__ANGLE, oldAngle,
+					angle));
 		}
 	}
 
