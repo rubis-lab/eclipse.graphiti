@@ -15,7 +15,9 @@
  *******************************************************************************/
 package org.eclipse.graphiti.features;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 
 /**
  * The Interface IMappingProvider.
@@ -27,7 +29,10 @@ public interface IMappingProvider {
 
 	/**
 	 * Returns all business objects which are linked to the given pictogram
-	 * element.
+	 * element. Equality is determined by calling the
+	 * {@link EcoreUtil#equals(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EObject)}
+	 * method, but this might be changed by clients by overriding
+	 * {@link IToolBehaviorProvider#equalsBusinessObjects(Object, Object)}.
 	 * 
 	 * @param pictogramElement
 	 *            The pictogram element for which to return the business
@@ -40,7 +45,11 @@ public interface IMappingProvider {
 
 	/**
 	 * Returns the first of possibly several business objects which are linked
-	 * to the given pictogram element. This is a convenience method for
+	 * to the given pictogram element. Equality is determined by calling the
+	 * {@link EcoreUtil#equals(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EObject)}
+	 * method, but this might be changed by clients by overriding
+	 * {@link IToolBehaviorProvider#equalsBusinessObjects(Object, Object)}. This
+	 * is a convenience method for
 	 * {@link #getAllBusinessObjectsForPictogramElement(PictogramElement)},
 	 * because in many usecases only a single business object is linked.
 	 * 
