@@ -412,17 +412,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		IFeatureProvider featureProvider = getConfigurationProvider().getFeatureProvider();
 		IUpdateContext updateCtx = new UpdateContext(pe);
 		IUpdateFeature updateFeature = featureProvider.getUpdateFeature(updateCtx);
-		if (updateFeature != null) {
-			boolean canUpdate = updateFeature.canUpdate(updateCtx);
-			// TODO to finally fix Bugzilla 412858 add the if statement in next
-			// version of Graphiti
-			// if (canUpdate) {
+		if (updateFeature != null && updateFeature.canUpdate(updateCtx)) {
 			ret = updateFeature.updateNeeded(updateCtx);
-			// }
-			if (ret != null && ret.toBoolean() && !canUpdate) {
-				String msg = "canUpdate(...) returned false but updateNeeded(...) provided an update reason. Update is done for compatibility reasons, but this is deprecated and will no longer work in the next version of Graphiti (> 0.11.0), see Bugzilla 412858";
-				T.racer().error(msg);
-			}
 		}
 
 		if (getPreferences().isRecursiveCheckForUpdateActive()) {
