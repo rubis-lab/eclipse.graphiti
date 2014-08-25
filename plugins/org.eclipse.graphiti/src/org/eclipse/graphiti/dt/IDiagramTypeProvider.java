@@ -25,7 +25,6 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.notification.INotificationService;
 import org.eclipse.graphiti.platform.IDiagramBehavior;
-import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.platform.IExtension;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
@@ -42,16 +41,6 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
  *           Extend {@link AbstractDiagramTypeProvider} instead
  */
 public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder {
-
-	/**
-	 * Implement this method to initialize the diagram type provider.
-	 * 
-	 * @param diagram
-	 *            the currently opened diagram
-	 * @param diagramEditor
-	 * @deprecated Use {@link #init(Diagram, IDiagramBehavior)} instead
-	 */
-	void init(Diagram diagram, IDiagramEditor diagramEditor);
 
 	/**
 	 * Implement this method to initialize the diagram type provider.
@@ -145,14 +134,6 @@ public interface IDiagramTypeProvider extends IExtension, IFeatureProviderHolder
 	 *         of the diagram) when a change from outside of the editor happens.
 	 */
 	boolean isAutoUpdateAtReset();
-
-	/**
-	 * Returns the current diagram editor.
-	 * 
-	 * @return current diagram editor
-	 * @deprecated Use {@link #getDiagramBehavior()} instead
-	 */
-	IDiagramEditor getDiagramEditor();
 
 	/**
 	 * Returns the current diagram behavior instance.

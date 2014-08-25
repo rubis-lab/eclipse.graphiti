@@ -60,7 +60,8 @@ public class GFCreationTool extends CreationTool {
 			final CreateContext context = new CreateContext();
 			IFeatureProvider featureProvider = createFeature.getFeatureProvider();
 			IDiagramTypeProvider diagramTypeProvider = featureProvider.getDiagramTypeProvider();
-			PictogramElement[] selectedPictogramElements = diagramTypeProvider.getDiagramEditor().getSelectedPictogramElements();
+			PictogramElement[] selectedPictogramElements = diagramTypeProvider.getDiagramBehavior()
+					.getDiagramContainer().getSelectedPictogramElements();
 			ContainerShape containerShape = null;
 			if (selectedPictogramElements != null) {
 				for (int i = 0; i < selectedPictogramElements.length; i++) {

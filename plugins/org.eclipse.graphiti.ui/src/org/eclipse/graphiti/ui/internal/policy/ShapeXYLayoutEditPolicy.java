@@ -533,7 +533,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	}
 
 	private void updateCreateContext(CreateContext ctx) {
-		GraphicalViewer viewer = getConfigurationProvider().getDiagramEditor().getGraphicalViewer();
+		GraphicalViewer viewer = getConfigurationProvider().getDiagramContainer().getGraphicalViewer();
 		boolean gridVisible = (Boolean) viewer.getProperty(SnapToGrid.PROPERTY_GRID_VISIBLE);
 		boolean snapToGrid = (Boolean) viewer.getProperty(SnapToGrid.PROPERTY_GRID_ENABLED);
 		if (gridVisible && snapToGrid) {

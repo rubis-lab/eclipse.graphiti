@@ -94,14 +94,6 @@ public interface IConfigurationProvider extends IFeatureProviderHolder {
 	public IDiagramTypeProvider getDiagramTypeProvider();
 
 	/**
-	 * Gets the diagram editor.
-	 * 
-	 * @return the editor which is connected with this configuration-provider
-	 * @deprecated Use {@link #getDiagramContainer()} instead
-	 */
-	public IDiagramContainerUI getDiagramEditor();
-
-	/**
 	 * Gets the diagram container.
 	 * 
 	 * @return the container which is connected with this configuration-provider

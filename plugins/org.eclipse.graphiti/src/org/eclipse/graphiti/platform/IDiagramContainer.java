@@ -31,7 +31,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  * 
  * @since 0.10
  */
-public interface IDiagramContainer extends IDiagramEditor {
+public interface IDiagramContainer {
 
 	/*
 	 * Selection handling
