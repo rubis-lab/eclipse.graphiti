@@ -63,7 +63,8 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
+import org.eclipse.graphiti.platform.IDiagramContainer;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tests.reuse.GFAbstractTestCase;
 import org.junit.After;
@@ -93,15 +94,14 @@ public class DefaultFeaturesTest extends GFAbstractTestCase {
 	public static void prepareClass() {
 		fpMock = createNiceMock(IFeatureProvider.class);
 		IDiagramTypeProvider dtpMock = createMock(IDiagramTypeProvider.class);
-		IDiagramEditor editorMock = createNiceMock(IDiagramEditor.class); // nice
-																			// mock
-																			// returns
-																			// defaults
+		IDiagramBehavior editorBehaviorMock = createNiceMock(IDiagramBehavior.class);
+		IDiagramContainer diagramContainerMock = createNiceMock(IDiagramContainer.class);
 		expect(fpMock.getDiagramTypeProvider()).andReturn(dtpMock).anyTimes();
 		expect(fpMock.getRemoveFeature(isA(RemoveContext.class))).andReturn(new DefaultRemoveFeature(fpMock));
-		expect(dtpMock.getDiagramEditor()).andReturn(editorMock).anyTimes();
+		expect(dtpMock.getDiagramBehavior()).andReturn(editorBehaviorMock).anyTimes();
+		expect(editorBehaviorMock.getDiagramContainer()).andReturn(diagramContainerMock).anyTimes();
 		expect(fpMock.getUpdateFeature(isA(UpdateContext.class))).andReturn(abstractUpdateFeature).anyTimes();
-		replay(fpMock, dtpMock, editorMock);
+		replay(fpMock, dtpMock, editorBehaviorMock, diagramContainerMock);
 	}
 
 	@Before

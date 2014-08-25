@@ -32,7 +32,6 @@ import org.eclipse.graphiti.internal.command.CommandExec;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramContainer;
-import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
@@ -94,26 +93,6 @@ public abstract class GFPropertySection extends AbstractPropertySection implemen
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		refresh();
-	}
-
-	/**
-	 * @return the {@link IDiagramEditor} diagram editor.
-	 * @deprecated Use {@link #getDiagramContainer()} instead
-	 */
-	protected IDiagramEditor getDiagramEditor() {
-		IWorkbenchPart part = getPart();
-
-		IDiagramEditor ret = checkAdapter(part, IDiagramEditor.class);
-		if (ret != null) {
-			return ret;
-		}
-		IContributedContentsView contributedView = (IContributedContentsView) part.getAdapter(IContributedContentsView.class);
-		if (contributedView != null) {
-			part = contributedView.getContributingPart();
-		}
-
-		ret = checkAdapter(part, IDiagramEditor.class);
-		return ret;
 	}
 
 	@SuppressWarnings("unchecked")

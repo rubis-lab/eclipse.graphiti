@@ -57,7 +57,7 @@ import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.ManhattanConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.platform.IDiagramEditor;
+import org.eclipse.graphiti.platform.IDiagramBehavior;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ICreateService;
 import org.eclipse.graphiti.services.ILayoutService;
@@ -85,14 +85,14 @@ public class PeServiceTest extends GFAbstractTestCase {
 	public static void prepareClass() {
 		fpMock = createNiceMock(IFeatureProvider.class);
 		IDiagramTypeProvider dtpMock = createMock(IDiagramTypeProvider.class);
-		IDiagramEditor editorMock = createNiceMock(IDiagramEditor.class); // nice
+		IDiagramBehavior editorBehaviorMock = createNiceMock(IDiagramBehavior.class); // nice
 																			// mock
 																			// returns
 																			// defaults
 		expect(fpMock.getDiagramTypeProvider()).andReturn(dtpMock).anyTimes();
 		expect(fpMock.getRemoveFeature(isA(RemoveContext.class))).andReturn(new DefaultRemoveFeature(fpMock));
-		expect(dtpMock.getDiagramEditor()).andReturn(editorMock).anyTimes();
-		replay(fpMock, dtpMock, editorMock);
+		expect(dtpMock.getDiagramBehavior()).andReturn(editorBehaviorMock).anyTimes();
+		replay(fpMock, dtpMock, editorBehaviorMock);
 	}
 
 	private Diagram d;

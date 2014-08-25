@@ -26,7 +26,6 @@ import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.platform.IDiagramBehavior;
-import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
@@ -106,16 +105,6 @@ public abstract class AbstractBasePattern implements IFeatureProviderHolder {
 	 */
 	protected Object getBusinessObjectForPictogramElement(PictogramElement pe) {
 		return getFeatureProvider().getBusinessObjectForPictogramElement(pe);
-	}
-
-	/**
-	 * Returns the diagram editor instance this pattern lives in.
-	 * 
-	 * @return The diagram editor
-	 * @deprecated Use {@link #getDiagramBehavior()} instead
-	 */
-	protected IDiagramEditor getDiagramEditor() {
-		return getFeatureProvider().getDiagramTypeProvider().getDiagramEditor();
 	}
 
 	/**

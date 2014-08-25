@@ -81,7 +81,6 @@ import org.eclipse.graphiti.internal.command.GenericFeatureCommandWithContext;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
@@ -1207,9 +1206,6 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		}
 		if (type == IContextButtonManager.class) {
 			return ((IConfigurationProviderInternal) getConfigurationProvider()).getContextButtonManager();
-		}
-		if (type == IDiagramEditor.class) {
-			return getDiagramContainer();
 		}
 
 		return null;

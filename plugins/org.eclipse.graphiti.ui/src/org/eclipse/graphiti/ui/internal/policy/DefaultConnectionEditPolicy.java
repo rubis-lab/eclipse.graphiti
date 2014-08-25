@@ -106,7 +106,7 @@ public class DefaultConnectionEditPolicy extends ConnectionEditPolicy {
 
 			Point location = request.getLocation();
 
-			GraphicalViewer graphicalViewer = getConfigurationProvider().getDiagramEditor().getGraphicalViewer();
+			GraphicalViewer graphicalViewer = getConfigurationProvider().getDiagramContainer().getGraphicalViewer();
 			EditPart findEditPartAt = GraphitiUiInternal.getGefService().findEditPartAt(graphicalViewer, request.getLocation(), false);
 			if (findEditPartAt != null && findEditPartAt.getModel() instanceof ContainerShape) {
 				targetContainerShape = (ContainerShape) findEditPartAt.getModel();
@@ -163,7 +163,7 @@ public class DefaultConnectionEditPolicy extends ConnectionEditPolicy {
 		Command cmd = UnexecutableCommand.INSTANCE;
 		ContainerShape targetContainerShape;
 
-		GraphicalViewer graphicalViewer = getConfigurationProvider().getDiagramEditor().getGraphicalViewer();
+		GraphicalViewer graphicalViewer = getConfigurationProvider().getDiagramContainer().getGraphicalViewer();
 		EditPart findEditPartAt = GraphitiUiInternal.getGefService().findEditPartAt(graphicalViewer, request.getLocation(), false);
 		if (findEditPartAt != null && findEditPartAt.getModel() instanceof ContainerShape) {
 			targetContainerShape = (ContainerShape) findEditPartAt.getModel();
