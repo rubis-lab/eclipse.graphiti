@@ -145,7 +145,8 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 		if (oldContainerShape != newContainerShape) {
 			// remember selection, because it is lost when temporarily removing
 			// the shapes.
-			PictogramElement[] currentSelection = getDiagramEditor().getSelectedPictogramElements();
+			PictogramElement[] currentSelection = getDiagramBehavior().getDiagramContainer()
+					.getSelectedPictogramElements();
 			// the following is a workaround due to an MMR bug
 			if (oldContainerShape != null) {
 				Collection<Shape> children = oldContainerShape.getChildren();
@@ -160,7 +161,7 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 						avoidNegativeCoordinates());
 			}
 			// restore selection
-			getDiagramEditor().setPictogramElementsForSelection(currentSelection);
+			getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(currentSelection);
 		} else { // move within the same container
 			if (shapeToMove.getGraphicsAlgorithm() != null) {
 				Graphiti.getGaService().setLocation(shapeToMove.getGraphicsAlgorithm(), x, y,
@@ -224,7 +225,8 @@ public class DefaultMoveShapeFeature extends AbstractMoveShapeFeature {
 		if (deltaX != 0 || deltaY != 0) {
 			List<Anchor> anchors = getAnchors(shapeToMove);
 
-			PictogramElement[] selectedPictogramElements = getDiagramEditor().getSelectedPictogramElements();
+			PictogramElement[] selectedPictogramElements = getDiagramBehavior().getDiagramContainer()
+					.getSelectedPictogramElements();
 			if (selectedPictogramElements != null) {
 				for (int i = 0; i < selectedPictogramElements.length; i++) {
 					PictogramElement selPe = selectedPictogramElements[i];

@@ -190,7 +190,7 @@ public class GFPackageTests extends AbstractGFTests {
 		TestDiagramTypeProvider myDiagramTypeProvider = new TestDiagramTypeProvider();
 		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
-		myDiagramTypeProvider.init(diagram, diagramEditor);
+		myDiagramTypeProvider.init(diagram, diagramEditor.getDiagramBehavior());
 		PictogramElement pe = getPictogramElement(diagramEditor);
 		EList<Shape> shapes = diagram.getChildren();
 		assertNotNull(pe);
@@ -335,7 +335,7 @@ public class GFPackageTests extends AbstractGFTests {
 		TestDiagramTypeProvider myDiagramTypeProvider = new TestDiagramTypeProvider();
 		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE);
 		final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
-		myDiagramTypeProvider.init(diagram, diagramEditor);
+		myDiagramTypeProvider.init(diagram, diagramEditor.getDiagramBehavior());
 		PictogramElement pe = getPictogramElement(diagramEditor);
 		assertNotNull(pe);
 		PictogramElement[] pes = new PictogramElement[] { pe };
@@ -360,7 +360,7 @@ public class GFPackageTests extends AbstractGFTests {
 		TestDiagramTypeProvider myDiagramTypeProvider2 = new TestDiagramTypeProvider();
 		final IDiagramContainerUI diagramEditor2 = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_ECORE, "xmi", "diagram2");
 		final Diagram diagram2 = diagramEditor2.getDiagramTypeProvider().getDiagram();
-		myDiagramTypeProvider2.init(diagram2, diagramEditor2);
+		myDiagramTypeProvider2.init(diagram2, diagramEditor2.getDiagramBehavior());
 		final MyPasteFeature myPasteFeature = new MyPasteFeature(myDiagramTypeProvider2.getFeatureProvider(), diagram2);
 		final PasteContext pasteContext = new PasteContext(pes);
 		pasteContext.setLocation(100, 200);

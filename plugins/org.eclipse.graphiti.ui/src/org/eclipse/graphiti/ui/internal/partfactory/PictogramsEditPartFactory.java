@@ -71,7 +71,7 @@ public class PictogramsEditPartFactory extends AbstractConfigurationProviderHold
 		EditPart ret = null;
 		IConfigurationProviderInternal configurationProvider = getConfigurationProvider();
 
-		Map<?, ?> epRegistry = getConfigurationProvider().getDiagramEditor().getGraphicalViewer()
+		Map<?, ?> epRegistry = getConfigurationProvider().getDiagramContainer().getGraphicalViewer()
 				.getEditPartRegistry();
 		if (epRegistry != null && epRegistry.containsKey(model)) {
 			T.racer().warning("PictogramsEditPartFactory.createEditPart()", "edit part for this model already exists"); //$NON-NLS-1$ //$NON-NLS-2$
