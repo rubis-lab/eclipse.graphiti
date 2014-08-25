@@ -618,7 +618,7 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 	public void getter() {
 		Text text = gas.createDefaultText(d, s1);
 		assertNotNull(text);
-		assertNotNull(gas.getAngle(text, false));
+		assertNotNull(gas.getRotation(text, false));
 		assertNotNull(gas.getRotation(text, false));
 		assertNotNull(gas.getLineWidth(text, false));
 		assertNotNull(gas.getLineStyle(text, false));
@@ -672,7 +672,6 @@ public class GaServiceTest extends GFAbstractCreateTestCase {
 		text.unsetFilled();
 
 		assertNotNull(text);
-		assertEquals(2, gas.getAngle(text, true));
 		assertEquals(2, gas.getRotation(text, true), 0);
 		assertEquals(3, gas.getLineWidth(text, true));
 		assertEquals(LineStyle.DASH, gas.getLineStyle(text, true));

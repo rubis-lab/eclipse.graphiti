@@ -1159,32 +1159,6 @@ public class GaServiceImpl implements IGaService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.eclipse.graphiti.services.IGaService#getAngle(org.eclipse.graphiti
-	 * .mm.pictograms.AbstractText, boolean)
-	 * 
-	 * @deprecated replaced by {@link #getRotation(AbstractText, boolean)}
-	 */
-	public final int getAngle(AbstractText at, boolean checkStyles) {
-		Integer angle = at.getAngle();
-		if (angle == null) {
-			if (checkStyles) {
-				Style style = at.getStyle();
-				if (style != null) {
-					Integer styleValue = getAngle(style);
-					if (styleValue != null)
-						return styleValue;
-				}
-			}
-		} else {
-			return angle;
-		}
-		return 0; // default value
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
 	 * org.eclipse.graphiti.services.IGaService#getRotation(org.eclipse.graphiti
 	 * .mm.pictograms.AbstractText, boolean)
 	 */
