@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.graphiti.ui" version="2">
+    <resource path="META-INF/MANIFEST.MF">
+        <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="923795461">
+            <message_arguments>
+                <message_argument value="0.12.0"/>
+                <message_argument value="0.11.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/DiagramBehavior.java" type="org.eclipse.graphiti.ui.editor.DiagramBehavior">
         <filter id="574660632">
             <message_arguments>
@@ -18,6 +26,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DiagramEditor.java" type="org.eclipse.graphiti.ui.editor.DiagramEditor">
+        <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="337682486">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/IDiagramBehaviorUI.java" type="org.eclipse.graphiti.ui.editor.IDiagramBehaviorUI">
         <filter id="571473929">
             <message_arguments>
@@ -27,6 +42,11 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/IDiagramContainerUI.java" type="org.eclipse.graphiti.ui.editor.IDiagramContainerUI">
+        <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="404791350">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.IDiagramContainerUI"/>
+            </message_arguments>
+        </filter>
         <filter id="571473929">
             <message_arguments>
                 <message_argument value="IDiagramContainer"/>
@@ -148,6 +168,14 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/platform/GFPropertySection.java" type="org.eclipse.graphiti.ui.platform.GFPropertySection">
+        <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.platform.GFPropertySection"/>
+                <message_argument value="getDiagramEditor()"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/platform/GraphitiConnectionEditPart.java" type="org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart">
         <filter id="574619656">
             <message_arguments>
@@ -165,6 +193,12 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/platform/IConfigurationProvider.java" type="org.eclipse.graphiti.ui.platform.IConfigurationProvider">
+        <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.platform.IConfigurationProvider"/>
+                <message_argument value="getDiagramEditor()"/>
+            </message_arguments>
+        </filter>
         <filter id="571473929">
             <message_arguments>
                 <message_argument value="IFeatureProviderHolder"/>

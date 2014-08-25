@@ -41,7 +41,7 @@ public class SwitchModeFeature extends AbstractCustomFeature {
 
 	@Override
 	public boolean canExecute(ICustomContext context) {
-		if (getDiagramEditor().isDirty()) {
+		if (getDiagramBehavior().getDiagramContainer().isDirty()) {
 			return false;
 		}
 

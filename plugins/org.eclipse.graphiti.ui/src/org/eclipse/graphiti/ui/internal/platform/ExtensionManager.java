@@ -460,7 +460,7 @@ public class ExtensionManager implements IExtensionManager {
 		if (dtp != null) {
 			TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(diagram);
 			DiagramEditorDummy diagramEditor = new DiagramEditorDummy(dtp, editingDomain);
-			dtp.init(diagram, diagramEditor);
+			dtp.init(diagram, diagramEditor.getDiagramBehavior());
 		}
 		return dtp;
 	}

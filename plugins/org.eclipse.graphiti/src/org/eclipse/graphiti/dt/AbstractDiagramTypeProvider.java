@@ -27,8 +27,6 @@ import org.eclipse.graphiti.notification.DefaultNotificationService;
 import org.eclipse.graphiti.notification.INotificationService;
 import org.eclipse.graphiti.platform.AbstractExtension;
 import org.eclipse.graphiti.platform.IDiagramBehavior;
-import org.eclipse.graphiti.platform.IDiagramContainer;
-import org.eclipse.graphiti.platform.IDiagramEditor;
 import org.eclipse.graphiti.platform.ga.IGraphicsAlgorithmRendererFactory;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
@@ -111,13 +109,6 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	}
 
 	/**
-	 * @deprecated Use {@link #getDiagramBehavior()} instead
-	 */
-	public IDiagramEditor getDiagramEditor() {
-		return getDiagramBehavior().getDiagramContainer();
-	}
-
-	/**
 	 * @since 0.10
 	 */
 	public IDiagramBehavior getDiagramBehavior() {
@@ -143,14 +134,6 @@ public abstract class AbstractDiagramTypeProvider extends AbstractExtension impl
 	 */
 	public void setContextId(String contextId) {
 		this.contextId = contextId;
-	}
-
-	/**
-	 * @deprecated Use {@link #init(Diagram, IDiagramBehavior)} instead
-	 */
-	public void init(Diagram diagram, IDiagramEditor diagramEditor) {
-		setAndWireDiagram(diagram);
-		setDiagramBehavior(((IDiagramContainer) diagramEditor).getDiagramBehavior());
 	}
 
 	/**

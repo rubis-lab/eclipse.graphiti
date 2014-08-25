@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.graphiti.pattern" version="2">
+    <resource path="META-INF/MANIFEST.MF">
+        <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="923795461">
+            <message_arguments>
+                <message_argument value="0.12.0"/>
+                <message_argument value="0.11.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/pattern/AbstractBasePattern.java" type="org.eclipse.graphiti.pattern.AbstractBasePattern">
+        <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.pattern.AbstractBasePattern"/>
+                <message_argument value="getDiagramEditor()"/>
+            </message_arguments>
+        </filter>
         <filter id="574619656">
             <message_arguments>
                 <message_argument value="IFeatureProviderHolder"/>

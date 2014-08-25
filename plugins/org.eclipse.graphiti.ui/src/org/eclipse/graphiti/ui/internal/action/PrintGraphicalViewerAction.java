@@ -167,7 +167,7 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	}
 
 	private void executeOnCommandStack(ICommand command) {
-		CommandStack commandStack = configurationProvider.getDiagramEditor().getEditDomain().getCommandStack();
+		CommandStack commandStack = configurationProvider.getDiagramContainer().getEditDomain().getCommandStack();
 		GefCommandWrapper wrapperCommand = new GefCommandWrapper(command, configurationProvider.getDiagramBehavior()
 				.getEditingDomain());
 		commandStack.execute(wrapperCommand);

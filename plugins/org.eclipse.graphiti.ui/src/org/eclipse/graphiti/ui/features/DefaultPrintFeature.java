@@ -102,7 +102,7 @@ public class DefaultPrintFeature extends AbstractPrintFeature implements IPrintF
 	 * @return the viewer holding the diagram to print.
 	 */
 	protected GraphicalViewer getGraphicalViewer(IPrintContext context) {
-		DiagramEditor diagramEditor = (DiagramEditor) getDiagramEditor();
+		DiagramEditor diagramEditor = (DiagramEditor) getDiagramBehavior().getDiagramContainer();
 		return (GraphicalViewer) diagramEditor.getAdapter(GraphicalViewer.class);
 	}
 
