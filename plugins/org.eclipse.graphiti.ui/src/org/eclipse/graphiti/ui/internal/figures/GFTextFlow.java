@@ -44,8 +44,8 @@ public class GFTextFlow extends TextFlow {
 	@Override
 	public void paint(Graphics graphics) {
 
-		int angle = 0;
-		angle = Graphiti.getGaService().getAngle(multiText, true);
+		double angle = 0;
+		angle = Graphiti.getGaService().getRotation(multiText, true);
 
 		if (angle != 0) {
 			if (getLocalBackgroundColor() != null)
@@ -88,8 +88,8 @@ public class GFTextFlow extends TextFlow {
 		if (suppressText) {
 			return;
 		}
-		int angle = 0;
-		angle = Graphiti.getGaService().getAngle(multiText, true);
+		double angle = 0;
+		angle = Graphiti.getGaService().getRotation(multiText, true);
 
 		if (bidiLevel == -1 && angle != 0) {
 			g.pushState();
@@ -97,7 +97,7 @@ public class GFTextFlow extends TextFlow {
 			int xOff = getParent().getBounds().width() / 2;
 			int yOff = getBounds().height() / 2;
 			g.translate(xOff, yOff);
-			g.rotate(angle);
+			g.rotate(new Double(angle).floatValue());
 
 			if (multiText.getStyleRegions().isEmpty()) {
 				g.drawText(draw, x - xOff, y - yOff);

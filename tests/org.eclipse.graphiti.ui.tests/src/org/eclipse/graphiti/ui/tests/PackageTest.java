@@ -1010,16 +1010,16 @@ public class PackageTest extends GFAbstractTestCase {
 		// ####################################################
 
 		Style styleContainerMock = createNiceMock(Style.class);
-		expect(styleContainerMock.getAngle()).andReturn(null);
+		expect(styleContainerMock.getRotation()).andReturn(null);
 		expect(styleContainerMock.getStyleContainer()).andReturn(null);
 		replay(styleContainerMock);
 
 		Style styleMock = createNiceMock(Style.class);
-		expect(styleMock.getAngle()).andReturn(null);
+		expect(styleMock.getRotation()).andReturn(null);
 		expect(styleMock.getStyleContainer()).andReturn(styleMock);
-		expect(styleMock.getAngle()).andReturn(null);
+		expect(styleMock.getRotation()).andReturn(null);
 		expect(styleMock.getStyleContainer()).andReturn(null);
-		expect(styleMock.getAngle()).andReturn(new Integer(-1));
+		expect(styleMock.getRotation()).andReturn(new Double(-1));
 		replay(styleMock);
 
 		AbstractText abstractTextMock = createNiceMock(AbstractText.class);
@@ -1041,10 +1041,10 @@ public class PackageTest extends GFAbstractTestCase {
 
 		IGaService gaService = Graphiti.getGaService();
 
-		assertEquals(0, gaService.getAngle(abstractTextMock, false), 0);
-		assertEquals(0, gaService.getAngle(abstractTextMock, false), 0);
-		assertEquals(0, gaService.getAngle(abstractTextMock, true), 0);
-		assertEquals(-1, gaService.getAngle(abstractTextMock, true), 0);
+		assertEquals(0, gaService.getRotation(abstractTextMock, false), 0);
+		assertEquals(0, gaService.getRotation(abstractTextMock, false), 0);
+		assertEquals(0, gaService.getRotation(abstractTextMock, true), 0);
+		assertEquals(-1, gaService.getRotation(abstractTextMock, true), 0);
 
 		// verify(styleMock);
 

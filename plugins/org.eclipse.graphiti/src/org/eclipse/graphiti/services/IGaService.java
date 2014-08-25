@@ -95,19 +95,7 @@ public interface IGaService extends IGaCreateService, IGaLayoutService {
 	public Style findStyle(StyleContainer styleContainer, String id);
 
 	/**
-	 * Gets the angle.
-	 * 
-	 * @param at
-	 *            the abstract text
-	 * @param checkStyles
-	 *            the check styles
-	 * @return the angle
-	 * @deprecated replaced by {@link #getRotation(AbstractText, boolean)}
-	 */
-	public int getAngle(AbstractText at, boolean checkStyles);
-
-	/**
-	 * Gets the angle.
+	 * Gets the rotation angle.
 	 * 
 	 * @param at
 	 *            the abstract text
