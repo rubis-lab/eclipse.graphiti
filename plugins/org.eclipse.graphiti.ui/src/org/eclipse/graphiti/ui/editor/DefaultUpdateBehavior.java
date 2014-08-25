@@ -356,19 +356,6 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	 * the diagram editor and initializes it by delegating to
 	 * {@link #initializeEditingDomain(TransactionalEditingDomain)}.
 	 * 
-	 * @deprecated use {@link #createEditingDomain(IDiagramEditorInput)} instead
-	 */
-	protected void createEditingDomain() {
-		TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService()
-				.createResourceSetAndEditingDomain();
-		initializeEditingDomain(editingDomain);
-	}
-
-	/**
-	 * Created the {@link TransactionalEditingDomain} that shall be used within
-	 * the diagram editor and initializes it by delegating to
-	 * {@link #initializeEditingDomain(TransactionalEditingDomain)}.
-	 * 
 	 * @param input
 	 *            The {@link IDiagramEditorInput} instance that was used to open
 	 *            the {@link IDiagramContainer}.
@@ -376,7 +363,9 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 	 * @since 0.11
 	 */
 	protected void createEditingDomain(IDiagramEditorInput input) {
-		createEditingDomain();
+		TransactionalEditingDomain editingDomain = GraphitiUiInternal.getEmfService()
+				.createResourceSetAndEditingDomain();
+		initializeEditingDomain(editingDomain);
 	}
 
 	/**

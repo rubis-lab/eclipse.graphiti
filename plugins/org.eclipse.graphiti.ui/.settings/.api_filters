@@ -8,6 +8,14 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DefaultUpdateBehavior.java" type="org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior">
+        <filter comment="Bug 429532 - [0.12] Remove deprecated stuff" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior"/>
+                <message_argument value="createEditingDomain()"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/DiagramBehavior.java" type="org.eclipse.graphiti.ui.editor.DiagramBehavior">
         <filter id="574660632">
             <message_arguments>
