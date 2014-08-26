@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.graphiti.pattern" version="2">
-    <resource path="META-INF/MANIFEST.MF">
-        <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="923795461">
-            <message_arguments>
-                <message_argument value="0.12.0"/>
-                <message_argument value="0.11.0"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src/org/eclipse/graphiti/pattern/AbstractBasePattern.java" type="org.eclipse.graphiti.pattern.AbstractBasePattern">
         <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="338792546">
             <message_arguments>
@@ -19,24 +11,6 @@
             <message_arguments>
                 <message_argument value="IFeatureProviderHolder"/>
                 <message_argument value="AbstractBasePattern"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/pattern/AbstractConnectionPattern.java" type="org.eclipse.graphiti.pattern.AbstractConnectionPattern">
-        <filter id="574660632">
-            <message_arguments>
-                <message_argument value="IConnectionPattern"/>
-                <message_argument value="IAdd"/>
-                <message_argument value="AbstractConnectionPattern"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/pattern/AbstractPattern.java" type="org.eclipse.graphiti.pattern.AbstractPattern">
-        <filter id="574660632">
-            <message_arguments>
-                <message_argument value="IPattern"/>
-                <message_argument value="ICreate"/>
-                <message_argument value="AbstractPattern"/>
             </message_arguments>
         </filter>
     </resource>

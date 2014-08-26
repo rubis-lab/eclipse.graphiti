@@ -1,36 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.graphiti.ui" version="2">
-    <resource path="META-INF/MANIFEST.MF">
-        <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="923795461">
-            <message_arguments>
-                <message_argument value="0.12.0"/>
-                <message_argument value="0.11.0"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/DefaultUpdateBehavior.java" type="org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior">
         <filter comment="Bug 429532 - [0.12] Remove deprecated stuff" id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior"/>
                 <message_argument value="createEditingDomain()"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/ui/editor/DiagramBehavior.java" type="org.eclipse.graphiti.ui.editor.DiagramBehavior">
-        <filter id="574660632">
-            <message_arguments>
-                <message_argument value="IDiagramBehaviorUI"/>
-                <message_argument value="IDiagramBehavior"/>
-                <message_argument value="DiagramBehavior"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/ui/editor/DiagramComposite.java" type="org.eclipse.graphiti.ui.editor.DiagramComposite">
-        <filter id="574660632">
-            <message_arguments>
-                <message_argument value="IDiagramContainerUI"/>
-                <message_argument value="IDiagramContainer"/>
-                <message_argument value="DiagramComposite"/>
             </message_arguments>
         </filter>
     </resource>
@@ -118,15 +92,6 @@
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src/org/eclipse/graphiti/ui/internal/config/ConfigurationProvider.java" type="org.eclipse.graphiti.ui.internal.config.ConfigurationProvider">
-        <filter id="574660632">
-            <message_arguments>
-                <message_argument value="IConfigurationProviderInternal"/>
-                <message_argument value="IFeatureProviderHolder"/>
-                <message_argument value="ConfigurationProvider"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src/org/eclipse/graphiti/ui/internal/editor/DiagramBehaviorDummy.java" type="org.eclipse.graphiti.ui.internal.editor.DiagramBehaviorDummy">
         <filter id="574619656">
             <message_arguments>
@@ -164,15 +129,6 @@
             <message_arguments>
                 <message_argument value="IDiagramType"/>
                 <message_argument value="DiagramTypeImpl"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src/org/eclipse/graphiti/ui/internal/services/impl/UiLayoutService.java" type="org.eclipse.graphiti.ui.internal.services.impl.UiLayoutService">
-        <filter comment="test" id="574660632">
-            <message_arguments>
-                <message_argument value="IUiLayoutService"/>
-                <message_argument value="ILayoutService"/>
-                <message_argument value="UiLayoutService"/>
             </message_arguments>
         </filter>
     </resource>
@@ -215,18 +171,6 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/services/IUiLayoutService.java" type="org.eclipse.graphiti.ui.services.IUiLayoutService">
-        <filter id="403804204">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.ui.services.IUiLayoutService"/>
-                <message_argument value="calculateTextSize(AbstractText)"/>
-            </message_arguments>
-        </filter>
-        <filter id="403804204">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.ui.services.IUiLayoutService"/>
-                <message_argument value="calculateTextSize(String, Font, boolean)"/>
-            </message_arguments>
-        </filter>
         <filter id="571473929">
             <message_arguments>
                 <message_argument value="ILayoutService"/>
