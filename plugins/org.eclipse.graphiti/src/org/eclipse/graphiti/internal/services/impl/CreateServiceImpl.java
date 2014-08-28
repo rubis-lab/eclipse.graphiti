@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  *    mwenz - Bug 355347 - Remove setters of Graphiti's Font Interface
  *    jpasch - Bug 352542 - Add "plain"-create methods for working with styles
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
+ *    mwenz - Bug 417454 - Proposal to add an additional createDiagram() method to IPeCreateService
  *
  * </copyright>
  *
@@ -561,6 +562,17 @@ public final class CreateServiceImpl extends AbstractServiceHolder implements IC
 	 */
 	public ContainerShape createContainerShape(ContainerShape parentContainerShape, boolean active) {
 		return getPeService().createContainerShape(parentContainerShape, active);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IPeCreateService#createDiagram(java.lang
+	 * .String, java.lang.String)
+	 */
+	public Diagram createDiagram(String diagramTypeId, String diagramName) {
+		return getPeService().createDiagram(diagramTypeId, diagramName);
 	}
 
 	/*

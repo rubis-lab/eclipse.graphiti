@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    mwenz - Bug 364126 - Make GaServiceImpl extensible
  *    mwenz - Bug 421813 - Relative position to diagram of active Shape nested in inactive ContainerShape is calculated incorrectly
+ *    mwenz - Bug 417454 - Proposal to add an additional createDiagram() method to IPeCreateService
  *
  * </copyright>
  *
@@ -152,6 +153,17 @@ public final class PeServiceImpl implements IPeService {
 		ret.setActive(active);
 		ret.setContainer(parentContainerShape);
 		return ret;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.graphiti.services.IPeService#createDiagram(java.lang.String,
+	 * java.lang.String)
+	 */
+	public Diagram createDiagram(String diagramTypeId, String diagramName) {
+		return createDiagram(diagramTypeId, diagramName, LookManager.getLook().getMinorGridLineDistance(), false);
 	}
 
 	/*

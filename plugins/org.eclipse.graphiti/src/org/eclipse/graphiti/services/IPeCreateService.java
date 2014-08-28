@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    Patch 184530 from Bug 331829 contributed by Henrik Rentz-Reichert
  *    mwenz - Bug 331715: Support for rectangular grids in diagrams
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
+ *    mwenz - Bug 417454 - Proposal to add an additional createDiagram() method to IPeCreateService
  *
  * </copyright>
  *
@@ -102,6 +103,20 @@ public interface IPeCreateService {
 	 * @return the new container shape
 	 */
 	ContainerShape createContainerShape(ContainerShape parentContainerShape, boolean active);
+
+	/**
+	 * Creates a diagram. Snapping to the grid is disabled by default.
+	 * 
+	 * @param diagramTypeId
+	 *            the type id of the diagram
+	 * @param diagramName
+	 *            the name of the diagram
+	 * @return the new diagram
+	 * @see #createDiagram(String diagramTypeId, String diagramName, boolean
+	 *      snap)
+	 * @since 0.12
+	 */
+	Diagram createDiagram(String diagramTypeId, String diagramName);
 
 	/**
 	 * Creates a diagram.
