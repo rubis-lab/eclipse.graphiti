@@ -14,6 +14,7 @@
  *    mwenz - Bug 407510 - Color background without Grid Layer turned to gray
  *    fvelasco - Bug 403664 - Enable DoubleClickFeature on the diagram background
  *    mwenz - Bug 433650 - Editor in in dirty state after a Save
+ *    mwenz - Bug 439689 - DiagramEdtior.setPictogramElementForSelection adds SelectionBorders to invisible PictogramElements
  *
  * </copyright>
  *
@@ -832,16 +833,23 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		if (editPartRegistry != null) {
 			for (int i = 0; i < pictogramElements.length; i++) {
 				PictogramElement pe = pictogramElements[i];
-				Object obj = editPartRegistry.get(pe);
 				/*
-				 * Add all EditParts to a list to be selected. Bug 324556: Only
-				 * add EditParts that allow selection to the list, e.g.
-				 * invisible objects will cause an IllegalArgumentException in
-				 * AbstractEditPart.setSelected (GEF) when setSelected is
-				 * called.
+				 * Bug 439689 - Check for visible state of PictogramElement as
+				 * it might have changed and the edit part state might not have
+				 * been updated yet.
 				 */
-				if (obj instanceof EditPart && ((EditPart) obj).isSelectable()) {
-					editParts.add((EditPart) obj);
+				if (pe != null && pe.isVisible()) {
+					Object obj = editPartRegistry.get(pe);
+					/*
+					 * Add all EditParts to a list to be selected. Bug 324556:
+					 * Only add EditParts that allow selection to the list, e.g.
+					 * invisible objects will cause an IllegalArgumentException
+					 * in AbstractEditPart.setSelected (GEF) when setSelected is
+					 * called.
+					 */
+					if (obj instanceof EditPart && ((EditPart) obj).isSelectable()) {
+						editParts.add((EditPart) obj);
+					}
 				}
 			}
 			if (parentPart != null)
