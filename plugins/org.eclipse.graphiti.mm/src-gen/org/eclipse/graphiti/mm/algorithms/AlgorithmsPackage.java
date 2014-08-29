@@ -806,12 +806,12 @@ public interface AlgorithmsPackage extends EPackage {
 	int ABSTRACT_TEXT__VALUE = GRAPHICS_ALGORITHM_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Style Regions</b></em>' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Style Regions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * @since 0.10
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.10
 	 */
 	int ABSTRACT_TEXT__STYLE_REGIONS = GRAPHICS_ALGORITHM_FEATURE_COUNT + 5;
 
@@ -1044,12 +1044,12 @@ public interface AlgorithmsPackage extends EPackage {
 	int TEXT__VALUE = ABSTRACT_TEXT__VALUE;
 
 	/**
-	 * The feature id for the '<em><b>Style Regions</b></em>' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Style Regions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * @since 0.10
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.10
 	 */
 	int TEXT__STYLE_REGIONS = ABSTRACT_TEXT__STYLE_REGIONS;
 
@@ -2213,12 +2213,12 @@ public interface AlgorithmsPackage extends EPackage {
 	int MULTI_TEXT__VALUE = ABSTRACT_TEXT__VALUE;
 
 	/**
-	 * The feature id for the '<em><b>Style Regions</b></em>' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The feature id for the '<em><b>Style Regions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * @since 0.10
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.10
 	 */
 	int MULTI_TEXT__STYLE_REGIONS = ABSTRACT_TEXT__STYLE_REGIONS;
 
@@ -2574,29 +2574,26 @@ public interface AlgorithmsPackage extends EPackage {
 	EAttribute getAbstractText_Value();
 
 	/**
-	 * Returns the meta object for the containment reference list '
-	 * {@link org.eclipse.graphiti.mm.algorithms.AbstractText#getStyleRegions
-	 * <em>Style Regions</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference list '
-	 *         <em>Style Regions</em>'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getStyleRegions <em>Style Regions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * @since 0.10
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Style Regions</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.AbstractText#getStyleRegions()
 	 * @see #getAbstractText()
 	 * @generated
-	 * @since 0.10
 	 */
 	EReference getAbstractText_StyleRegions();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.graphiti.mm.algorithms.AbstractText#getRotation
-	 * <em>Rotation</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getRotation <em>Rotation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * @since 0.11
+	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Rotation</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.AbstractText#getRotation()
 	 * @see #getAbstractText()
 	 * @generated
-	 * @since 0.11
 	 */
 	EAttribute getAbstractText_Rotation();
 
@@ -2904,21 +2901,20 @@ public interface AlgorithmsPackage extends EPackage {
 		EAttribute ABSTRACT_TEXT__VALUE = eINSTANCE.getAbstractText_Value();
 
 		/**
-		 * The meta object literal for the '<em><b>Style Regions</b></em>'
-		 * containment reference list feature. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
-		 * 
-		 * @generated
+		 * The meta object literal for the '<em><b>Style Regions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
 		 * @since 0.10
+		 * <!-- end-user-doc -->
+		 * @generated
 		 */
 		EReference ABSTRACT_TEXT__STYLE_REGIONS = eINSTANCE.getAbstractText_StyleRegions();
 
 		/**
-		 * The meta object literal for the '<em><b>Rotation</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
-		 * @generated
+		 * The meta object literal for the '<em><b>Rotation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
 		 * @since 0.11
+		 * <!-- end-user-doc -->
+		 * @generated
 		 */
 		EAttribute ABSTRACT_TEXT__ROTATION = eINSTANCE.getAbstractText_Rotation();
 

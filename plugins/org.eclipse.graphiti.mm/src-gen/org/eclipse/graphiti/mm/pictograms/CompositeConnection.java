@@ -17,22 +17,21 @@ package org.eclipse.graphiti.mm.pictograms;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '
- * <em><b>Composite Connection</b></em>'. <br>
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Composite Connection</b></em>'. <br>
  * <b>Note that this is an experimental API and might change without further
  * notice.</b> @experimental
  * 
- * @since 0.9<!-- end-user-doc -->
- * 
- *        <p>
- *        The following features are supported:
- *        <ul>
- *        <li>
- *        {@link org.eclipse.graphiti.mm.pictograms.CompositeConnection#getChildren
- *        <em>Children</em>}</li>
- *        </ul>
- *        </p>
- * 
+ * @since 0.9
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.eclipse.graphiti.mm.pictograms.CompositeConnection#getChildren <em>Children</em>}</li>
+ * </ul>
+ * </p>
+ *
  * @see org.eclipse.graphiti.mm.pictograms.PictogramsPackage#getCompositeConnection()
  * @model
  * @generated

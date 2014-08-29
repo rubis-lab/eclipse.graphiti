@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.graphiti.mm.algorithms.styles.*;
 import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
@@ -54,7 +55,7 @@ public class StylesFactoryImpl extends EFactoryImpl implements StylesFactory {
 	 */
 	public static StylesFactory init() {
 		try {
-			StylesFactory theStylesFactory = (StylesFactory)EPackage.Registry.INSTANCE.getEFactory("http://eclipse.org/graphiti/mm/algorithms/styles"); 
+			StylesFactory theStylesFactory = (StylesFactory)EPackage.Registry.INSTANCE.getEFactory(StylesPackage.eNS_URI);
 			if (theStylesFactory != null) {
 				return theStylesFactory;
 			}

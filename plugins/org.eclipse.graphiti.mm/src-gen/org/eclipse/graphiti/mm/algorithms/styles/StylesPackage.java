@@ -32,11 +32,11 @@ import org.eclipse.graphiti.mm.MmPackage;
  *   <li>each enum,</li>
  *   <li>and each data type</li>
  * </ul>
+ * @noextend This interface is not intended to be extended by clients.
+ * @noimplement This interface is not intended to be implemented by clients.
  * <!-- end-user-doc -->
  * @see org.eclipse.graphiti.mm.algorithms.styles.StylesFactory
  * @model kind="package"
- * @noextend This interface is not intended to be extended by clients.
- * @noimplement This interface is not intended to be implemented by clients.
  * @generated
  */
 public interface StylesPackage extends EPackage {
@@ -759,10 +759,10 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.algorithms.styles.impl.TextStyleImpl <em>Text Style</em>}' class.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.TextStyleImpl
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl#getTextStyle()
-	 * @since 0.10
 	 * @generated
 	 */
 	int TEXT_STYLE = 11;
@@ -770,19 +770,19 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Underline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
-	 * @since 0.10
 	 */
 	int TEXT_STYLE__UNDERLINE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Underline Style</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE__UNDERLINE_STYLE = 1;
@@ -790,19 +790,19 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Strikeout</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE__STRIKEOUT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Font</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Font</b></em>' reference. <!--
+	 * begin-user-doc -->
+	 * 
+	 * @since 0.10 <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE__FONT = 3;
@@ -810,9 +810,9 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Foreground</b></em>' reference.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE__FOREGROUND = 4;
@@ -820,9 +820,9 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Background</b></em>' reference.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE__BACKGROUND = 5;
@@ -830,9 +830,9 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Underline Color</b></em>' reference.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE__UNDERLINE_COLOR = 6;
@@ -840,9 +840,9 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Strikeout Color</b></em>' reference.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE__STRIKEOUT_COLOR = 7;
@@ -850,9 +850,9 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Text Style</em>' class.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE_FEATURE_COUNT = 8;
@@ -860,10 +860,10 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.algorithms.styles.impl.TextStyleRegionImpl <em>Text Style Region</em>}' class.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.TextStyleRegionImpl
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl#getTextStyleRegion()
-	 * @since 0.10
 	 * @generated
 	 */
 	int TEXT_STYLE_REGION = 12;
@@ -871,9 +871,9 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Start</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE_REGION__START = 0;
@@ -881,9 +881,9 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>End</b></em>' attribute.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE_REGION__END = 1;
@@ -891,9 +891,9 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Style</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE_REGION__STYLE = 2;
@@ -901,9 +901,9 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Text Style Region</em>' class.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @since 0.10
 	 * @ordered
 	 */
 	int TEXT_STYLE_REGION_FEATURE_COUNT = 3;
@@ -942,11 +942,11 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * The meta object id for the '{@link org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle <em>Underline Style</em>}' enum.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl#getUnderlineStyle()
 	 * @generated
-	 * @since 0.10
 	 */
 	int UNDERLINE_STYLE = 16;
 
@@ -1093,9 +1093,8 @@ public interface StylesPackage extends EPackage {
 	EReference getStyle_StyleContainer();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.eclipse.graphiti.mm.algorithms.styles.Style#getRotation
-	 * <em>Rotation</em>}'. <!-- begin-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.algorithms.styles.Style#getRotation <em>Rotation</em>}'.
+	 * <!-- begin-user-doc -->
 	 * 
 	 * @since 0.11 <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Rotation</em>'.
@@ -1542,154 +1541,154 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyle <em>Text Style</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Text Style</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle
 	 * @generated
-	 * @since 0.10
 	 */
 	EClass getTextStyle();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyle#isUnderline <em>Underline</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Underline</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle#isUnderline()
 	 * @see #getTextStyle()
 	 * @generated
-	 * @since 0.10
 	 */
 	EAttribute getTextStyle_Underline();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getUnderlineStyle <em>Underline Style</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Underline Style</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getUnderlineStyle()
 	 * @see #getTextStyle()
 	 * @generated
-	 * @since 0.10
 	 */
 	EAttribute getTextStyle_UnderlineStyle();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyle#isStrikeout <em>Strikeout</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Strikeout</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle#isStrikeout()
 	 * @see #getTextStyle()
 	 * @generated
-	 * @since 0.10
 	 */
 	EAttribute getTextStyle_Strikeout();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getFont <em>Font</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Font</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getFont()
 	 * @see #getTextStyle()
 	 * @generated
-	 * @since 0.10
 	 */
 	EReference getTextStyle_Font();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getForeground <em>Foreground</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Foreground</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getForeground()
 	 * @see #getTextStyle()
 	 * @generated
-	 * @since 0.10
 	 */
 	EReference getTextStyle_Foreground();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getBackground <em>Background</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Background</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getBackground()
 	 * @see #getTextStyle()
 	 * @generated
-	 * @since 0.10
 	 */
 	EReference getTextStyle_Background();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getUnderlineColor <em>Underline Color</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Underline Color</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getUnderlineColor()
 	 * @see #getTextStyle()
 	 * @generated
-	 * @since 0.10
 	 */
 	EReference getTextStyle_UnderlineColor();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getStrikeoutColor <em>Strikeout Color</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Strikeout Color</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle#getStrikeoutColor()
 	 * @see #getTextStyle()
 	 * @generated
-	 * @since 0.10
 	 */
 	EReference getTextStyle_StrikeoutColor();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion <em>Text Style Region</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Text Style Region</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion
 	 * @generated
-	 * @since 0.10
 	 */
 	EClass getTextStyleRegion();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion#getStart <em>Start</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Start</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion#getStart()
 	 * @see #getTextStyleRegion()
 	 * @generated
-	 * @since 0.10
 	 */
 	EAttribute getTextStyleRegion_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion#getEnd <em>End</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>End</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion#getEnd()
 	 * @see #getTextStyleRegion()
 	 * @generated
-	 * @since 0.10
 	 */
 	EAttribute getTextStyleRegion_End();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion#getStyle <em>Style</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Style</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion#getStyle()
 	 * @see #getTextStyleRegion()
 	 * @generated
-	 * @since 0.10
 	 */
 	EReference getTextStyleRegion_Style();
 
@@ -1726,11 +1725,11 @@ public interface StylesPackage extends EPackage {
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle <em>Underline Style</em>}'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the meta object for enum '<em>Underline Style</em>'.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle
 	 * @generated
-	 * @since 0.10
 	 */
 	EEnum getUnderlineStyle();
 
@@ -1752,9 +1751,9 @@ public interface StylesPackage extends EPackage {
 	 *   <li>each enum,</li>
 	 *   <li>and each data type</li>
 	 * </ul>
-	 * <!-- end-user-doc -->
 	 * @noextend This interface is not intended to be extended by clients.
- 	 * @noimplement This interface is not intended to be implemented by clients.
+	 * @noimplement This interface is not intended to be implemented by clients.
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	interface Literals {
@@ -1867,8 +1866,8 @@ public interface StylesPackage extends EPackage {
 		EReference STYLE__STYLE_CONTAINER = eINSTANCE.getStyle_StyleContainer();
 
 		/**
-		 * The meta object literal for the '<em><b>Rotation</b></em>' attribute
-		 * feature. <!-- begin-user-doc -->
+		 * The meta object literal for the '<em><b>Rotation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
 		 * 
 		 * @since 0.11 <!-- end-user-doc -->
 		 * @generated
@@ -2219,10 +2218,10 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.algorithms.styles.impl.TextStyleImpl <em>Text Style</em>}' class.
 		 * <!-- begin-user-doc -->
+		 * @since 0.10
 		 * <!-- end-user-doc -->
 		 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.TextStyleImpl
 		 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl#getTextStyle()
-		 * @since 0.10
 		 * @generated
 		 */
 		EClass TEXT_STYLE = eINSTANCE.getTextStyle();
@@ -2230,8 +2229,8 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Underline</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
 		 * @since 0.10
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TEXT_STYLE__UNDERLINE = eINSTANCE.getTextStyle_Underline();
@@ -2239,8 +2238,8 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Underline Style</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
 		 * @since 0.10
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TEXT_STYLE__UNDERLINE_STYLE = eINSTANCE.getTextStyle_UnderlineStyle();
@@ -2248,8 +2247,8 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Strikeout</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
 		 * @since 0.10
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TEXT_STYLE__STRIKEOUT = eINSTANCE.getTextStyle_Strikeout();
@@ -2257,17 +2256,17 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Font</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
+		 * @since 0.10
 		 * <!-- end-user-doc -->
 		 * @generated
-		 * @since 0.10
 		 */
 		EReference TEXT_STYLE__FONT = eINSTANCE.getTextStyle_Font();
 
 		/**
 		 * The meta object literal for the '<em><b>Foreground</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
 		 * @since 0.10
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference TEXT_STYLE__FOREGROUND = eINSTANCE.getTextStyle_Foreground();
@@ -2275,17 +2274,17 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Background</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
+		 * @since 0.10
 		 * <!-- end-user-doc -->
 		 * @generated
-		 * @since 0.10
 		 */
 		EReference TEXT_STYLE__BACKGROUND = eINSTANCE.getTextStyle_Background();
 
 		/**
 		 * The meta object literal for the '<em><b>Underline Color</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
 		 * @since 0.10
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference TEXT_STYLE__UNDERLINE_COLOR = eINSTANCE.getTextStyle_UnderlineColor();
@@ -2293,8 +2292,8 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Strikeout Color</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
 		 * @since 0.10
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference TEXT_STYLE__STRIKEOUT_COLOR = eINSTANCE.getTextStyle_StrikeoutColor();
@@ -2302,10 +2301,10 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.algorithms.styles.impl.TextStyleRegionImpl <em>Text Style Region</em>}' class.
 		 * <!-- begin-user-doc -->
+		 * @since 0.10
 		 * <!-- end-user-doc -->
 		 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.TextStyleRegionImpl
 		 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl#getTextStyleRegion()
-		 * @since 0.10
 		 * @generated
 		 */
 		EClass TEXT_STYLE_REGION = eINSTANCE.getTextStyleRegion();
@@ -2313,8 +2312,8 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Start</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
 		 * @since 0.10
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TEXT_STYLE_REGION__START = eINSTANCE.getTextStyleRegion_Start();
@@ -2322,8 +2321,8 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>End</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
 		 * @since 0.10
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute TEXT_STYLE_REGION__END = eINSTANCE.getTextStyleRegion_End();
@@ -2331,8 +2330,8 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Style</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
 		 * @since 0.10
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference TEXT_STYLE_REGION__STYLE = eINSTANCE.getTextStyleRegion_Style();
@@ -2370,11 +2369,11 @@ public interface StylesPackage extends EPackage {
 		/**
 		 * The meta object literal for the '{@link org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle <em>Underline Style</em>}' enum.
 		 * <!-- begin-user-doc -->
+		 * @since 0.10
 		 * <!-- end-user-doc -->
 		 * @see org.eclipse.graphiti.mm.algorithms.styles.UnderlineStyle
 		 * @see org.eclipse.graphiti.mm.algorithms.styles.impl.StylesPackageImpl#getUnderlineStyle()
 		 * @generated
-		 * @since 0.10
 		 */
 		EEnum UNDERLINE_STYLE = eINSTANCE.getUnderlineStyle();
 

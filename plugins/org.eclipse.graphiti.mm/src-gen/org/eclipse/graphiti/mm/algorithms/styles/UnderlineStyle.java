@@ -24,11 +24,11 @@ import org.eclipse.emf.common.util.Enumerator;
  * <!-- begin-user-doc -->
  * A representation of the literals of the enumeration '<em><b>Underline Style</b></em>',
  * and utility methods for working with them.
+ * @since 0.10
  * <!-- end-user-doc -->
  * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getUnderlineStyle()
  * @model
  * @generated
- * @since 0.10
  */
 public enum UnderlineStyle implements Enumerator {
 	/**

@@ -39,7 +39,7 @@ public class MmFactoryImpl extends EFactoryImpl implements MmFactory {
 	 */
 	public static MmFactory init() {
 		try {
-			MmFactory theMmFactory = (MmFactory)EPackage.Registry.INSTANCE.getEFactory("http://eclipse.org/graphiti/mm"); 
+			MmFactory theMmFactory = (MmFactory)EPackage.Registry.INSTANCE.getEFactory(MmPackage.eNS_URI);
 			if (theMmFactory != null) {
 				return theMmFactory;
 			}

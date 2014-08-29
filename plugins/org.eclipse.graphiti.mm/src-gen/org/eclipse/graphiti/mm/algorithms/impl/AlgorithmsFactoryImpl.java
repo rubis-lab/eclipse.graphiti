@@ -39,7 +39,7 @@ public class AlgorithmsFactoryImpl extends EFactoryImpl implements AlgorithmsFac
 	 */
 	public static AlgorithmsFactory init() {
 		try {
-			AlgorithmsFactory theAlgorithmsFactory = (AlgorithmsFactory)EPackage.Registry.INSTANCE.getEFactory("http://eclipse.org/graphiti/mm/algorithms"); 
+			AlgorithmsFactory theAlgorithmsFactory = (AlgorithmsFactory)EPackage.Registry.INSTANCE.getEFactory(AlgorithmsPackage.eNS_URI);
 			if (theAlgorithmsFactory != null) {
 				return theAlgorithmsFactory;
 			}

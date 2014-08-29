@@ -129,20 +129,20 @@ public interface StylesFactory extends EFactory {
 	/**
 	 * Returns a new object of class '<em>Text Style</em>'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>Text Style</em>'.
 	 * @generated
-	 * @since 0.10
 	 */
 	TextStyle createTextStyle();
 
 	/**
 	 * Returns a new object of class '<em>Text Style Region</em>'.
 	 * <!-- begin-user-doc -->
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return a new object of class '<em>Text Style Region</em>'.
 	 * @generated
-	 * @since 0.10
 	 */
 	TextStyleRegion createTextStyleRegion();
 

@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.graphiti.mm.pictograms.*;
 import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.CompositeConnection;
@@ -51,7 +52,7 @@ public class PictogramsFactoryImpl extends EFactoryImpl implements PictogramsFac
 	 */
 	public static PictogramsFactory init() {
 		try {
-			PictogramsFactory thePictogramsFactory = (PictogramsFactory)EPackage.Registry.INSTANCE.getEFactory("http://eclipse.org/graphiti/mm/pictograms"); 
+			PictogramsFactory thePictogramsFactory = (PictogramsFactory)EPackage.Registry.INSTANCE.getEFactory(PictogramsPackage.eNS_URI);
 			if (thePictogramsFactory != null) {
 				return thePictogramsFactory;
 			}

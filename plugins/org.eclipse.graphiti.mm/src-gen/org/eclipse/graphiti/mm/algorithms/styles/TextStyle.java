@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Text Style</b></em>'.
+ * @since 0.10
  * <!-- end-user-doc -->
  *
  * <p>
@@ -38,7 +39,6 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getTextStyle()
  * @model
  * @generated
- * @since 0.10
  */
 public interface TextStyle extends EObject {
 	/**

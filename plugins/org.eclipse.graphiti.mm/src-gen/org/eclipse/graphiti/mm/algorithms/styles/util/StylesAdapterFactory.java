@@ -19,6 +19,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.mm.StyleContainer;
+import org.eclipse.graphiti.mm.algorithms.styles.*;
 import org.eclipse.graphiti.mm.algorithms.styles.AbstractStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.AdaptedGradientColoredAreas;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
@@ -326,11 +327,11 @@ public class StylesAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyle
 	 * @generated
-	 * @since 0.10
 	 */
 	public Adapter createTextStyleAdapter() {
 		return null;
@@ -341,11 +342,11 @@ public class StylesAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * @since 0.10
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion
 	 * @generated
-	 * @since 0.10
 	 */
 	public Adapter createTextStyleRegionAdapter() {
 		return null;

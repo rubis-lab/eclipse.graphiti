@@ -23,6 +23,8 @@ import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Abstract Text</b></em>'.
+ * @noextend This interface is not intended to be extended by clients.
+ * @noimplement This interface is not intended to be implemented by clients.
  * <!-- end-user-doc -->
  *
  * <p>
@@ -41,8 +43,6 @@ import org.eclipse.graphiti.mm.algorithms.styles.TextStyleRegion;
  * @see org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage#getAbstractText()
  * @model abstract="true"
  * @generated
- * @noextend This interface is not intended to be extended by clients.
- * @noimplement This interface is not intended to be implemented by clients.
  */
 public interface AbstractText extends GraphicsAlgorithm {
 	/**
@@ -153,16 +153,14 @@ public interface AbstractText extends GraphicsAlgorithm {
 	Integer getAngle();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.eclipse.graphiti.mm.algorithms.AbstractText#getAngle
-	 * <em>Angle</em>}' attribute. <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getAngle <em>Angle</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * 
 	 * @deprecated This attribute exists because of compatibility (after
 	 *             removing old diagrams would not be readable any more). It is
 	 *             replaced by the new attribute rotation.
 	 * @see AbstractText#setRotation(Double) <!-- end-user-doc -->
-	 * @param value
-	 *            the new value of the '<em>Angle</em>' attribute.
+	 * @param value the new value of the '<em>Angle</em>' attribute.
 	 * @see #getAngle()
 	 * @generated
 	 */
@@ -212,15 +210,15 @@ public interface AbstractText extends GraphicsAlgorithm {
 	EList<TextStyleRegion> getStyleRegions();
 
 	/**
-	 * Returns the value of the '<em><b>Rotation</b></em>' attribute. The
-	 * default value is <code>"0"</code>. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Rotation</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Rotation</em>' attribute isn't clear, there
 	 * really should be more of a description here...
 	 * </p>
 	 * 
 	 * @since 0.11 <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Rotation</em>' attribute.
 	 * @see #setRotation(Double)
 	 * @see org.eclipse.graphiti.mm.algorithms.AlgorithmsPackage#getAbstractText_Rotation()
@@ -230,14 +228,11 @@ public interface AbstractText extends GraphicsAlgorithm {
 	Double getRotation();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.eclipse.graphiti.mm.algorithms.AbstractText#getRotation
-	 * <em>Rotation</em>}' attribute. <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.eclipse.graphiti.mm.algorithms.AbstractText#getRotation <em>Rotation</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * 
 	 * @since 0.11 <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Rotation</em>' attribute.
+	 * @param value the new value of the '<em>Rotation</em>' attribute.
 	 * @see #getRotation()
 	 * @generated
 	 */

@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Text Style Region</b></em>'.
+ * @since 0.10
  * <!-- end-user-doc -->
  *
  * <p>
@@ -33,7 +34,6 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.graphiti.mm.algorithms.styles.StylesPackage#getTextStyleRegion()
  * @model
  * @generated
- * @since 0.10
  */
 public interface TextStyleRegion extends EObject {
 	/**
