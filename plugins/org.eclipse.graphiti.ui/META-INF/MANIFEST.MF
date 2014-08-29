@@ -8,13 +8,13 @@ Bundle-Activator: org.eclipse.graphiti.ui.internal.GraphitiUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.graphiti;bundle-version="0.12.0",
- org.eclipse.emf.edit.ui;bundle-version="[2.7.0,3.0.0)",
- org.eclipse.emf.workspace;bundle-version="[1.4.0,2.0.0)",
- org.eclipse.gef;bundle-version="[3.7.0,4.0.0)",
- org.eclipse.ui.ide;bundle-version="[3.7.0,4.0.0)";resolution:=optional,
- org.eclipse.ui.navigator;bundle-version="[3.5.100,4.0.0)",
- org.eclipse.ui.views.properties.tabbed;bundle-version="[3.5.200,4.0.0)",
- org.eclipse.core.expressions;bundle-version="[3.4.300,4.0.0)"
+ org.eclipse.emf.edit.ui;bundle-version="[2.10.0,3.0.0)",
+ org.eclipse.emf.workspace;bundle-version="[1.5.1,2.0.0)",
+ org.eclipse.gef;bundle-version="[3.9.100,4.0.0)",
+ org.eclipse.ui.ide;bundle-version="[3.10.0,4.0.0)";resolution:=optional,
+ org.eclipse.ui.navigator;bundle-version="[3.5.400,4.0.0)",
+ org.eclipse.ui.views.properties.tabbed;bundle-version="[3.6.0,4.0.0)",
+ org.eclipse.core.expressions;bundle-version="[3.4.600,4.0.0)"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.graphiti.ui.editor;version="0.12.0",
  org.eclipse.graphiti.ui.features;version="0.12.0",
