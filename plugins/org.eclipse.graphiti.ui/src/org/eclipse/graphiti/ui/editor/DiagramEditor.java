@@ -37,6 +37,7 @@
  *    pjpaulin - Bug 405314 - Should be able to override DefaultBehavior implementation without configuration
  *    mwenz - Bug 430687 - UpdateBehaviour createEditingDomain should be able to access diagram input (sphinx compatibility)
  *    Hernan Gonzales (mwenz) - Bug 436601 - Race condition on save
+ *    mwenz - Bug 407894 - Luna: After DiagramsInViews change graphical viewer is configured and initialized only by a workaround
  *
  * </copyright>
  *
@@ -359,8 +360,9 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * independent of the IConfigurationProviderInternal.
 	 * 
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#configureGraphicalViewer()
+	 * @since 0.12
 	 */
-	protected void configureGraphicalViewer() {
+	public void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 		diagramBehavior.configureGraphicalViewer();
 	}

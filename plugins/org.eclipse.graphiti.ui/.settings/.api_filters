@@ -24,6 +24,18 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/IDiagramContainerUI.java" type="org.eclipse.graphiti.ui.editor.IDiagramContainerUI">
+        <filter comment="Bug 407894 - After DiagramsInViews change graphical viewer is configured and initialized only by a workaround" id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.IDiagramContainerUI"/>
+                <message_argument value="configureGraphicalViewer()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Bug 407894 - After DiagramsInViews change graphical viewer is configured and initialized only by a workaround" id="403804204">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.ui.editor.IDiagramContainerUI"/>
+                <message_argument value="initializeGraphicalViewer()"/>
+            </message_arguments>
+        </filter>
         <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="404791350">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.IDiagramContainerUI"/>
