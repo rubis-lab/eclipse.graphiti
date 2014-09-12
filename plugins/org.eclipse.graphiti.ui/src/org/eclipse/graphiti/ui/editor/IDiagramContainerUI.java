@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,6 +32,7 @@
  *    mwenz - Bug 393113 - Auto-focus does not work for connections
  *    pjpaulin - Bug 352120 - Changed from a class to an interface - API BREAKAGE HERE
  *    pjpaulin - Bug 352120 - Renamed to IDiagramContainerUI so that DiagramEditor class can remain
+ *    mwenz - Bug 407894 - Luna: After DiagramsInViews change graphical viewer is configured and initialized only by a workaround
  *
  * </copyright>
  *
@@ -111,10 +112,32 @@ public interface IDiagramContainerUI extends IDiagramContainer, IAdaptable {
 	public GraphicalViewer getGraphicalViewer();
 
 	/**
+	 * Called to configure the {@link GraphicalViewer} of this container, before
+	 * it receives its content. The default-implementation is for example doing
+	 * the following: configure the ZoomManager, registering Actions... Here
+	 * everything is done, which is independent of the
+	 * IConfigurationProviderInternal.
+	 * 
+	 * @since 0.12
+	 */
+	public void configureGraphicalViewer();
+
+	/**
+	 * Called to initialize the {@link GraphicalViewer} of this container with
+	 * its content. Here everything is done, which is dependent of the
+	 * IConfigurationProviderInternal.
+	 * 
+	 * @see org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette#initializeGraphicalViewer()
+	 * @since 0.12
+	 */
+	public void initializeGraphicalViewer();
+
+	/**
 	 * Returns the instance of the Eclipse {@link IWorkbenchPart} that displays
 	 * this container. E.g. for an editor this will be the editor itself.
 	 * 
 	 * @return The {@link IWorkbenchPart} that is displaying the diagram.
+	 * @since 0.12
 	 */
 	public IWorkbenchPart getWorkbenchPart();
 

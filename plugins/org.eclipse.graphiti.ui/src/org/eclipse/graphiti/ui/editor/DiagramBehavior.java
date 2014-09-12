@@ -15,13 +15,13 @@
  *    fvelasco - Bug 403664 - Enable DoubleClickFeature on the diagram background
  *    mwenz - Bug 433650 - Editor in in dirty state after a Save
  *    mwenz - Bug 439689 - DiagramEdtior.setPictogramElementForSelection adds SelectionBorders to invisible PictogramElements
+ *    mwenz - Bug 407894 - Luna: After DiagramsInViews change graphical viewer is configured and initialized only by a workaround
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -85,7 +85,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.action.CopyAction;
 import org.eclipse.graphiti.ui.internal.action.DeleteAction;
 import org.eclipse.graphiti.ui.internal.action.FeatureExecutionHandler;
@@ -438,41 +437,9 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 			viewer.createControl(parent);
 		}
 		diagramContainer.setGraphicalViewer(viewer);
-		// FIXME: pull method configureGraphicalViewer up to IDiagramContainerUI
-		// and call it on the interface
-		if (diagramContainer instanceof DiagramEditor) {
-			((DiagramEditor) diagramContainer).configureGraphicalViewer();
-		} else if (diagramContainer instanceof DiagramComposite) {
-			((DiagramComposite) diagramContainer).configureGraphicalViewer();
-		} else {
-			try {
-				Method method = diagramContainer.getClass().getMethod("configureGraphicalViewer");
-				method.invoke(diagramContainer);
-			} catch (Exception e) {
-				T.racer()
-						.error("A class implementing IDiagramContainerUI must additionally implement also the method 'public void configureGraphicalViewer()' that initializes the GEF editor used inside the container. The method should have been added to the interface, but that was no longer possible because the bug was only detected in a late phase.",
-								e);
-			}
-		}
-		// end
+		diagramContainer.configureGraphicalViewer();
 		diagramContainer.hookGraphicalViewer();
-		// FIXME: pull method initializeGraphicalViewer up to
-		// IDiagramContainerUI and call it on the interface
-		if (diagramContainer instanceof DiagramEditor) {
-			((DiagramEditor) diagramContainer).initializeGraphicalViewer();
-		} else if (diagramContainer instanceof DiagramComposite) {
-			((DiagramComposite) diagramContainer).initializeGraphicalViewer();
-		} else {
-			try {
-				Method method = diagramContainer.getClass().getMethod("initializeGraphicalViewer");
-				method.invoke(diagramContainer);
-			} catch (Exception e) {
-				T.racer()
-						.error("A class implementing IDiagramContainerUI must additionally implement also the method 'public void initializeGraphicalViewer()' that initializes the GEF editor used inside the container. The method should have been added to the interface, but that was no longer possible because the bug was only detected in a late phase.",
-								e);
-			}
-		}
-		// end
+		diagramContainer.initializeGraphicalViewer();
 	}
 
 	/**

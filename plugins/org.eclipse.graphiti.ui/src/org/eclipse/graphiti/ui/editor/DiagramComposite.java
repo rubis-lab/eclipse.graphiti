@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2013 SRC
+ * Copyright (c) 2014 SRC
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
  *    pjpaulin - Bug 405314 - Should be able to override DefaultBehavior implementation without configuration
+ *    mwenz - Bug 407894 - Luna: After DiagramsInViews change graphical viewer is configured and initialized only by a workaround
  *
  * </copyright>
  *
@@ -106,8 +107,11 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 		this.diagramBehavior.createGraphicalViewer(this);
 	}
 
+	/**
+	 * @since 0.12
+	 */
 	@Override
-	protected void configureGraphicalViewer() {
+	public void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 		this.diagramBehavior.configureGraphicalViewer();
 	}
