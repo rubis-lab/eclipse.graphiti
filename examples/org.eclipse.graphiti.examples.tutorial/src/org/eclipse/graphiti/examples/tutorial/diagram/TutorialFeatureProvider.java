@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 434658 - execute a feature in an asynchronous job
  *
  * </copyright>
  *
@@ -29,6 +30,7 @@ import org.eclipse.graphiti.examples.tutorial.features.TutorialCreateEReferenceF
 import org.eclipse.graphiti.examples.tutorial.features.TutorialDirectEditEClassFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialDrillDownEClassFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialLayoutEClassFeature;
+import org.eclipse.graphiti.examples.tutorial.features.TutorialLongRunningCustomFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialMoveEClassFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialPasteEClassFeature;
 import org.eclipse.graphiti.examples.tutorial.features.TutorialReconnectionFeature;
@@ -133,7 +135,7 @@ public class TutorialFeatureProvider extends DefaultFeatureProvider {
 	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
 		return new ICustomFeature[] { new TutorialRenameEClassFeature(this), new TutorialDrillDownEClassFeature(this),
 				new TutorialAssociateDiagramEClassFeature(this), new TutorialCollapseDummyFeature(this),
-				new TutorialChangeColorEClassFeature(this) };
+				new TutorialChangeColorEClassFeature(this), new TutorialLongRunningCustomFeature(this) };
 	}
 
 	@Override
