@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,12 +11,14 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *    mwenz - Bug 325084 - Provide documentation for Patterns
+ *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.pattern;
 
+import org.eclipse.graphiti.features.ICustomAbortableUndoRedoFeature;
 import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -31,8 +33,10 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  * 
  * @noextend This class is not intended to be subclassed by clients.
  * @noinstantiate This class is not intended to be instantiated by clients.
+ * @since 0.12
  */
-public class AddFeatureForPattern extends AbstractAddFeature implements ICustomUndoableFeature {
+public class AddFeatureForPattern extends AbstractAddFeature implements ICustomUndoableFeature,
+		ICustomAbortableUndoRedoFeature {
 	private IAdd pattern;
 
 	/**
@@ -56,6 +60,17 @@ public class AddFeatureForPattern extends AbstractAddFeature implements ICustomU
 		return pattern.add(context);
 	}
 
+	/**
+	 * @since 0.12
+	 */
+	@Override
+	public boolean isAbort() {
+		if (pattern instanceof ICustomAbortableUndoRedoPattern) {
+			return ((ICustomAbortableUndoRedoPattern) pattern).isAbort();
+		}
+		return false;
+	}
+
 	@Override
 	public boolean canUndo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {
@@ -65,7 +80,25 @@ public class AddFeatureForPattern extends AbstractAddFeature implements ICustomU
 	}
 
 	/**
+	 * @since 0.12
+	 */
+	@Override
+	public void preUndo(IContext context) {
+	}
+
+	/**
+	 * @since 0.12
+	 */
+	@Override
+	public void postUndo(IContext context) {
+		if (pattern instanceof ICustomUndoRedoPattern) {
+			((ICustomUndoRedoPattern) pattern).postUndo(this, context);
+		}
+	}
+
+	/**
 	 * @since 0.8
+	 * @deprecated use {@link #postUndo(IContext)} instead
 	 */
 	public void undo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {
@@ -84,11 +117,26 @@ public class AddFeatureForPattern extends AbstractAddFeature implements ICustomU
 	}
 
 	/**
-	 * @since 0.8
+	 * @since 0.12
 	 */
-	public void redo(IContext context) {
+	@Override
+	public void preRedo(IContext context) {
+	}
+
+	/**
+	 * @since 0.12
+	 */
+	@Override
+	public void postRedo(IContext context) {
 		if (pattern instanceof ICustomUndoablePattern) {
 			((ICustomUndoablePattern) pattern).redo(this, context);
 		}
+	}
+
+	/**
+	 * @since 0.8
+	 * @deprecated use {@link #postRedo(IContext)} instead
+	 */
+	public void redo(IContext context) {
 	}
 }

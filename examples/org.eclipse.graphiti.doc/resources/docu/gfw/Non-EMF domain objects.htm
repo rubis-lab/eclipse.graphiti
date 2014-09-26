@@ -49,26 +49,28 @@ to care about implementing undo/redo for their domain model changes by themself.
 (The changes done to the graphical representation (Graphiti<em> PictogramElements</em> 
 and <em>GraphicsAlgorithms)</em> are still handled automatically.)</p>
 <p>In order to provide undo/redo for non-EMF domain models users can implement the 
-new interface <span class="inlinecode">ICustomUndoableFeature</span> within their 
+interface <span class="inlinecode">ICustomUndoRedoFeature</span> within their 
 features. In case a feature implements this interface the Graphiti command stack 
 will care about the EMF undo/redo and additionally to the standard EMF-undo/redo 
 call the appropriate methods (<span class="inlinecode">canUndo</span> and
-<span class="inlinecode">undo</span> resp. <span class="inlinecode">canRedo</span> 
-and <span class="inlinecode">redo</span>) within the feature.</p>
+<span class="inlinecode">preUndo</span>/<span class="inlinecode">postUndo</span> resp. 
+<span class="inlinecode">canRedo</span> and <span class="inlinecode">preRedo</span>/
+<span class="inlinecode">postRedo</span>) within the feature.</p>
 <p>Inside the feature coding for those methods users can use the information passed 
 (the executed feature instance will be called with the instance of its context) 
 to undo the operations done while executing the feature. Within the features
 <span class="inlinecode">execute</span> method users might add additional information 
 needed to perform the undo to the context object.</p>
-<p>The decision to implement <span class="inlinecode">ICustomUndoableFeature</span> 
+<p>The decision to implement <span class="inlinecode">ICustomUndoRedoFeature</span> 
 can be taken individually for each feature.</p>
 <p>For the pattern approach a similar interface has been introduced:
-<span class="inlinecode">ICustomUndoablePattern</span>, for which the before mentioned 
+<span class="inlinecode">ICustomUndoRedoPattern</span>, for which the before mentioned 
 also applies accordingly.</p>
 <p>By introducing this functionality it is now possible for users of Graphiti to 
 implement undo and redo functionalities also for non-EMF domain changes; nevertheless 
 this functionality might also by used for EMF domain models in case they need to 
-implement additional undo/redo functionality.</p>
+implement additional undo/redo functionality that is executed either before or after the
+EMF undo/redo.</p>
 <p>Still there is one thing to be aware of: All changes done inside the Graphiti 
 diagram editor or viewer (no matter if EMF changes or non-EMF changes) will write an
 <span class="inlinecode">IExecutionInfo</span> entry to the stack that will be available 

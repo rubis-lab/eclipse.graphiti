@@ -15,6 +15,7 @@
  *    mwenz - Bug 371717 - IllegalStateException When updating cells on Diagram
  *    mwenz - Bug 389380 - Undo/Redo handling wrong Command executed by undo action
  *    mwenz - Bug 430609 - Re-entrance in diagram update causes transaction error
+ *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
  *
  * </copyright>
  *
@@ -25,10 +26,13 @@ import java.util.Map;
 import java.util.Stack;
 
 import org.eclipse.core.commands.operations.IOperationHistory;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.workspace.impl.WorkspaceCommandStackImpl;
 import org.eclipse.graphiti.IExecutionInfo;
+import org.eclipse.graphiti.features.ICustomAbortableUndoRedoFeature;
+import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureAndContext;
@@ -137,14 +141,49 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 
 	@Override
 	public void redo() {
-		// Care about EMF redo
-		super.redo();
-
-		// Check if non-EMF redo is needed and care about it
+		IFeatureAndContext[] executionList = null;
+		boolean[] canRedo = null;
 		if (!redoStackForExecutionInfo.isEmpty()) {
 			IExecutionInfo ei = redoStackForExecutionInfo.pop();
 			undoStackForExecutionInfo.push(ei);
-			IFeatureAndContext[] executionList = ei.getExecutionList();
+			executionList = ei.getExecutionList();
+			canRedo = new boolean[executionList.length];
+			for (int i = 0; i < executionList.length; i++) {
+				IFeature feature = executionList[i].getFeature();
+				IContext context = executionList[i].getContext();
+				if (feature instanceof ICustomUndoRedoFeature) {
+					canRedo[i] = feature.canUndo(context);
+				} else {
+					canRedo[i] = false;
+				}
+			}
+		}
+
+		// Care about non-EMF pre-redo
+		if (executionList != null) {
+			// Traverse operation forwards
+			for (int i = executionList.length - 1; i >= 0; i--) {
+				IFeature feature = executionList[i].getFeature();
+				IContext context = executionList[i].getContext();
+				if (feature instanceof ICustomUndoRedoFeature) {
+					ICustomUndoRedoFeature undoableFeature = (ICustomUndoRedoFeature) feature;
+					if (canRedo[i]) {
+						undoableFeature.preRedo(context);
+						if (undoableFeature instanceof ICustomAbortableUndoRedoFeature) {
+							if (((ICustomAbortableUndoRedoFeature) undoableFeature).isAbort()) {
+								throw new OperationCanceledException();
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Trigger EMF redo
+		super.redo();
+
+		// Check if non-EMF redo is needed and care about it
+		if (executionList != null) {
 			// Traverse operation forwards
 			for (int i = 0; i < executionList.length; i++) {
 				IFeature feature = executionList[i].getFeature();
@@ -156,20 +195,66 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 					}
 				}
 			}
+			for (int i = 0; i < executionList.length; i++) {
+				IFeature feature = executionList[i].getFeature();
+				IContext context = executionList[i].getContext();
+				if (feature instanceof ICustomUndoRedoFeature) {
+					ICustomUndoRedoFeature undoableFeature = (ICustomUndoRedoFeature) feature;
+					if (canRedo[i]) {
+						undoableFeature.postRedo(context);
+					}
+				}
+			}
 		}
 	}
 
 	@Override
 	public void undo() {
-		// Care about EMF undo
-		super.undo();
-
-		// Check if non-EMF undo is needed and care about it
+		IFeatureAndContext[] executionList = null;
+		boolean[] canUndo = null;
 		if (!undoStackForExecutionInfo.isEmpty()) {
 			IExecutionInfo ei = undoStackForExecutionInfo.pop();
 			redoStackForExecutionInfo.push(ei);
-			IFeatureAndContext[] executionList = ei.getExecutionList();
+			executionList = ei.getExecutionList();
+			canUndo = new boolean[executionList.length];
+			for (int i = 0; i < executionList.length; i++) {
+				IFeature feature = executionList[i].getFeature();
+				IContext context = executionList[i].getContext();
+				if (feature instanceof ICustomUndoRedoFeature) {
+					canUndo[i] = feature.canUndo(context);
+				} else {
+					canUndo[i] = false;
+				}
+			}
+		}
+
+		// Care about non-EMF pre-undo
+		if (executionList != null) {
 			// Traverse operations backwards
+			for (int i = executionList.length - 1; i >= 0; i--) {
+				IFeature feature = executionList[i].getFeature();
+				IContext context = executionList[i].getContext();
+				if (feature instanceof ICustomUndoRedoFeature) {
+					ICustomUndoRedoFeature undoableFeature = (ICustomUndoRedoFeature) feature;
+					if (canUndo[i]) {
+						undoableFeature.preUndo(context);
+						if (undoableFeature instanceof ICustomAbortableUndoRedoFeature) {
+							if (((ICustomAbortableUndoRedoFeature) undoableFeature).isAbort()) {
+								throw new OperationCanceledException();
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Trigger EMF undo
+		super.undo();
+
+		// Care about non-EMF undo and post-undo
+		if (executionList != null) {
+			// Traverse operations backwards (individually for undo and
+			// post-undo)
 			for (int i = executionList.length - 1; i >= 0; i--) {
 				IFeature feature = executionList[i].getFeature();
 				IContext context = executionList[i].getContext();
@@ -177,6 +262,16 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 					ICustomUndoableFeature undoableFeature = (ICustomUndoableFeature) feature;
 					if (undoableFeature.canUndo(context)) {
 						undoableFeature.undo(context);
+					}
+				}
+			}
+			for (int i = executionList.length - 1; i >= 0; i--) {
+				IFeature feature = executionList[i].getFeature();
+				IContext context = executionList[i].getContext();
+				if (feature instanceof ICustomUndoRedoFeature) {
+					ICustomUndoRedoFeature undoableFeature = (ICustomUndoRedoFeature) feature;
+					if (canUndo[i]) {
+						undoableFeature.postUndo(context);
 					}
 				}
 			}

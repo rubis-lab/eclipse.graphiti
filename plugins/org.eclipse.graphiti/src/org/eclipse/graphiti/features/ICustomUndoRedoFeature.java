@@ -1,14 +1,13 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2014, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    mwenz - Bug 324859 - initial API, implementation and documentation
  *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
  *
  * </copyright>
@@ -22,9 +21,9 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
  * This interface can by used and implemented by customers within any feature to
- * signal the need for additional undo or redo work. When a feature implements
- * this interface, and the framework performs an undo or a redo, the framework
- * will call the contained methods.
+ * signal the need for additional work that needs to be done before or after
+ * undo and redo. When a feature implements this interface, and the framework
+ * performs an undo or a redo, the framework will call the contained methods.
  * <p>
  * Implementing this interface is especially helpful if customers want to
  * implement undo/redo functionality for non-EMF changes, e.g. for non-EMF
@@ -35,14 +34,21 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  * feature may use the context object (e.g. the contained properties set) passed
  * to the contained methods while executing the feature in order to collect any
  * information needed for undo.
+ * <p>
+ * In case you want to cancel undo/redo operations in {@link #preUndo(IContext)}/{@link #preRedo(IContext)}, you need to implement
+ * {@link ICustomAbortableUndoRedoFeature} which offers an
+ * {@link ICustomAbortableUndoRedoFeature#isAbort()} method that causes the
+ * cancellation of undo/redo operation in case <code>true</code> is returned.
  * 
- * @since 0.8.0
- * @deprecated Use {@link ICustomUndoRedoFeature} instead
+ * @see ICustomAbortableUndoRedoFeature
+ * @since 0.12
  */
-public interface ICustomUndoableFeature {
+public interface ICustomUndoRedoFeature {
 
 	/**
-	 * Decides if the changes done by a processed feature can be undone.
+	 * Decides if the changes done by a processed feature can be undone. This
+	 * method is called once by the Graphiti framework just before any undo work
+	 * is started, e.g. before {@link #preUndo(IContext)}.
 	 * <p>
 	 * Note that as soon as any feature reports <code>false</code> here, also
 	 * all previous entries in the command stack are no longer reachable for
@@ -61,17 +67,31 @@ public interface ICustomUndoableFeature {
 	boolean canUndo(IContext context);
 
 	/**
-	 * This method will be called to actually do the work needed for undo.
-	 * Customers may revert their non-EMF changes done by the feature here.
+	 * This method will be called by the Graphiti framework before the EMF undo
+	 * is triggered. Customers may revert their non-EMF changes done by the
+	 * feature here or in {@link #postUndo(IContext)}.
 	 * 
 	 * @param context
 	 *            this is the instance of the {@link IContext} object that was
 	 *            in use when executing the feature
 	 */
-	void undo(IContext context);
+	void preUndo(IContext context);
 
 	/**
-	 * Decides if the processed feature can be re-done.
+	 * This method will be called by the Graphiti framework after the EMF undo
+	 * is finished. Customers may revert their non-EMF changes done by the
+	 * feature here or in {@link #preUndo(IContext)}.
+	 * 
+	 * @param context
+	 *            this is the instance of the {@link IContext} object that was
+	 *            in use when executing the feature
+	 */
+	void postUndo(IContext context);
+
+	/**
+	 * Decides if the processed feature can be re-done. This method is called
+	 * once by the Graphiti framework just before any redo work is started, e.g.
+	 * before {@link #preRedo(IContext)}.
 	 * <p>
 	 * Note that as soon as any feature reports <code>false</code> here, also
 	 * all consecutive entries in the command stack are no longer reachable for
@@ -86,14 +106,26 @@ public interface ICustomUndoableFeature {
 	boolean canRedo(IContext context);
 
 	/**
-	 * This method will be called to actually do the work needed for redo.
-	 * Customers may re-apply their non-EMF changes done by the feature here.
-	 * (Usually it might be sufficient to delegate to the execution method of
-	 * the feature.)
+	 * This method will be called by the Graphiti framework before the EMF undo
+	 * has triggered. Customers may re-apply their non-EMF changes done by the
+	 * feature here or in {@link #postRedo(IContext)}. (Usually it might be
+	 * sufficient to delegate to the execution method of the feature.)
 	 * 
 	 * @param context
 	 *            this is the instance of the {@link IContext} object that was
 	 *            in use when executing the feature
 	 */
-	void redo(IContext context);
+	void preRedo(IContext context);
+
+	/**
+	 * This method will be called by the Graphiti framework after the EMF undo
+	 * has finished. Customers may re-apply their non-EMF changes done by the
+	 * feature here or in {@link #preRedo(IContext)}. (Usually it might be
+	 * sufficient to delegate to the execution method of the feature.)
+	 * 
+	 * @param context
+	 *            this is the instance of the {@link IContext} object that was
+	 *            in use when executing the feature
+	 */
+	void postRedo(IContext context);
 }
