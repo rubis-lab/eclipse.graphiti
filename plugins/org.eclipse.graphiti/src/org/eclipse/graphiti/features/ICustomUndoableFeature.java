@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    mwenz - Bug 324859 - initial API, implementation and documentation
+ *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
  *
  * </copyright>
  *
@@ -36,6 +37,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  * information needed for undo.
  * 
  * @since 0.8.0
+ * @deprecated Use {@link ICustomUndoRedoFeature} instead
  */
 public interface ICustomUndoableFeature {
 

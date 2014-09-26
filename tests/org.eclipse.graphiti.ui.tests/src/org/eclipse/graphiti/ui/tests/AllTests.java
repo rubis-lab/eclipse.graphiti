@@ -13,6 +13,7 @@
  *    mwenz - Bug 415884 - Cannot query size of a multi-line text
  *    mwenz - Bug 423573 - Angles should never be integer
  *    mwenz - Bug 416039 - TextStyle rendering does not fall back to abstract text font
+ *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
  *
  * </copyright>
  *
@@ -27,6 +28,6 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ PackageTest.class, CommandStackTest.class, MigrationServiceTest.class,
 		CustomUndoableFeatureTest.class, RollbackTest.class, LayoutServiceTest.class, CommandTest.class,
-		CompatibilityTests.class, GFFigureUtilTest.class })
+		CompatibilityTests.class, GFFigureUtilTest.class, CustomUndoRedoFeatureTest.class })
 public class AllTests {
 }
