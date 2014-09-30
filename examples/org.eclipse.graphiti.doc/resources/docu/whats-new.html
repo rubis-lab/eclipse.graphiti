@@ -35,13 +35,118 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Mars</h1>
-	<p>Last revised August 20, 2014</p>
+	<p>Last revised September 30, 2014</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.12.0 within the
 		Mars release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M2 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M2</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on implementing improvements and bugfixing.</td>
+		</tr>
+		<tr id="bug 417454">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=417454">Additional
+					<i>createDiagram</i> method
+			</a></td>
+			<td class="content">To ease diagram creation a new service metod
+				has been introduced.</td>
+		</tr>
+		<tr id="bug 433269">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=433269">TextBuilder
+			</a></td>
+			<td class="content">A <i>TextBuilder</i> helper class has been
+				introduced to ease the creation of <i>TextStyleRegions</i>.
+			</td>
+		</tr>
+		<tr id="bug 434658">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=434658">Asynchronous
+					feature execution </a></td>
+			<td class="content">To enable the asynchronous execution of long
+				running custom features a new base class <i>AbstractAsynchronousCustomFeature</i>
+				has been introduced.
+			</td>
+		</tr>
+		<tr id="bug 407894">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=407894">Bug
+					407894</a></td>
+			<td class="content">The configuration and initialization of the
+				graphival viewer inside diagram editors and viewers that happened so
+				far by a hack has been made more robust. This required a minor <b>API
+					change</b>.
+			</td>
+		</tr>
+		<tr id="bug 412858">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=412858">Bug
+					412858</a></td>
+			<td class="content">The bug that <i>canUpdate</i> was not called
+				before <i>updatedNeeded</i> in some situations has finally been
+				fixed. Clients might need to adapt to the new behavior, before they
+				only got a warning that they do not behave correctly.
+			</td>
+		</tr>
+		<tr id="bug 429531">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=429531">Bug
+					429531</a></td>
+			<td class="content">The Graphiti EMF model has been alingned
+				with the generated coding. This caused no behavioral changes but
+				removed the need for manual corrections (like version tags,
+				comments) after re-generating.</td>
+		</tr>
+		<tr id="bug 429532">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=429532">Bug
+					429532</a></td>
+			<td class="content">Deprecations introduced in previous releases
+				in the Graphiti coding have been removed. This required a <b>API
+					change</b>.
+			</td>
+		</tr>
+		<tr id="bug 442879">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=442879">Bug
+					442879</a></td>
+			<td class="content">The Graphiti dependencies to other project
+				like Eclipse platforms, EMF, GMF have been increased. Now at least
+				the versions that are part of the Luna release train are required.</td>
+		</tr>
+		<tr id="bug 442895">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=442895">Bug
+					442895</a></td>
+			<td class="content">Graphiti now uses Batik 1.7.0 for SVG
+				export, before it used Batik 1.6.0..</td>
+		</tr>
+		<tr id="bug 439689">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=439689">Bug
+					439689</a></td>
+			<td class="content">A bug that caused invisible pictogram
+				elements to become marked with a selection border on setting the
+				selection in the editor has been fixed.</td>
+		</tr>
+		<tr id="bug 440796">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=440796">Bug
+					440796</a></td>
+			<td class="content">A bug that caused incorrect notifications on
+				changing the rotation attribute of <i>AbstractText</i> has been
+				fixed.
+			</td>
+		</tr>
 		<!-- ---------------------------------------- M1 ------------------------------- -->
 		<tr>
 			<td colspan="2">
