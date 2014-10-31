@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 371527 - Recursive attempt to activate part while in the middle of activating part
  *    mwenz - Bug 370888 - API Access to export and print
+ *    mwenz - Bug 449384 - PrintGraphicalViewerAction calculateEnabled() freezes Editor
  *
  * </copyright>
  *
@@ -32,7 +33,6 @@ import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 
@@ -56,12 +56,6 @@ public class PrintGraphicalViewerAction extends PrintAction {
 			.getActiveWorkbenchWindow());
 
 	private IConfigurationProvider configurationProvider;
-
-	// last time when we checked whether a printer is available with
-	// super.calculateEnabled()
-	private long lastPrinterCheckTime = 0;
-
-	private boolean cachedEnabled = true;
 
 	/**
 	 * Creates a new PrintGraphicalViewerAction. It initializes it with the
@@ -110,34 +104,14 @@ public class PrintGraphicalViewerAction extends PrintAction {
 			return false;
 		}
 
-		long currentTime = System.currentTimeMillis();
-		long diffTime = (currentTime - lastPrinterCheckTime) / 1000;
-
-		// super.calculateEnabled() only checks whether a printer is
-		// available. But calculateEnabled() is called very often and in
-		// some environments this can lead to performance issues. See also
-		// bugzilla 355401. Therefore we cache the result and call the super
-		// method earliest after 5 minutes.
-		if (diffTime > 300) {
-			lastPrinterCheckTime = currentTime;
-
-			// Fix for Bug 371527: Do not trigger the super call directly,
-			// because on some systems (e.g. Linux) it will take some time. In
-			// between the event loop will be polled and another activation
-			// request (user mouse click on another part) might come in. In this
-			// case a recursive attempt to activate part runtime exception will
-			// be thrown; instead trigger the enablement check via a async call
-			// so that the current activation can return immediately. On other
-			// systems this is not really needed but does not harm because the
-			// cachedEnabled is filled directly after the activation returns
-			// instead of immediately which makes no difference to the user
-			Display.getCurrent().asyncExec(new Runnable() {
-				public void run() {
-					cachedEnabled = PrintGraphicalViewerAction.super.calculateEnabled();
-				}
-			});
-		}
-		return cachedEnabled;
+		/*
+		 * Do not check for the availability of printers to enable/disable the
+		 * action as the super method would do. E.g. on Linux this might cause
+		 * the UI to be hanging when opening an editor.
+		 * 
+		 * See https://bugs.eclipse.org/bugs/show_bug.cgi?id=449384
+		 */
+		return true;
 	}
 
 	/**
