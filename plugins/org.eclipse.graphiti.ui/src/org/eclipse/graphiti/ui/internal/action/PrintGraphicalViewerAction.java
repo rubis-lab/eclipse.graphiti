@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,12 +11,17 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 371527 - Recursive attempt to activate part while in the middle of activating part
  *    mwenz - Bug 370888 - API Access to export and print
+ *    mwenz - Bug 449384 - PrintGraphicalViewerAction calculateEnabled() freezes Editor
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.action;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.ui.actions.PrintAction;
@@ -32,7 +37,6 @@ import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.internal.command.GefCommandWrapper;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 
@@ -61,7 +65,7 @@ public class PrintGraphicalViewerAction extends PrintAction {
 	// super.calculateEnabled()
 	private long lastPrinterCheckTime = 0;
 
-	private boolean cachedEnabled = true;
+	private boolean cachedEnabled = false;
 
 	/**
 	 * Creates a new PrintGraphicalViewerAction. It initializes it with the
@@ -131,11 +135,14 @@ public class PrintGraphicalViewerAction extends PrintAction {
 			// systems this is not really needed but does not harm because the
 			// cachedEnabled is filled directly after the activation returns
 			// instead of immediately which makes no difference to the user
-			Display.getCurrent().asyncExec(new Runnable() {
-				public void run() {
+			Job job = new Job("Check print enablement") {
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
 					cachedEnabled = PrintGraphicalViewerAction.super.calculateEnabled();
+					return Status.OK_STATUS;
 				}
-			});
+			};
+			job.schedule();
 		}
 		return cachedEnabled;
 	}
