@@ -14,6 +14,24 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/pattern/AbstractConnectionPattern.java" type="org.eclipse.graphiti.pattern.AbstractConnectionPattern">
+        <filter id="574668824">
+            <message_arguments>
+                <message_argument value="IConnectionPattern"/>
+                <message_argument value="AbstractConnectionPattern"/>
+                <message_argument value="IAdd"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/pattern/AbstractPattern.java" type="org.eclipse.graphiti.pattern.AbstractPattern">
+        <filter id="574668824">
+            <message_arguments>
+                <message_argument value="IPattern"/>
+                <message_argument value="AbstractPattern"/>
+                <message_argument value="ICreate"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/pattern/IConnectionPattern.java" type="org.eclipse.graphiti.pattern.IConnectionPattern">
         <filter id="571473929">
             <message_arguments>

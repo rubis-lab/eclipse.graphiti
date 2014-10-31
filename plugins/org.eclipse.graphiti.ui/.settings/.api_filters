@@ -8,10 +8,35 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DiagramBehavior.java" type="org.eclipse.graphiti.ui.editor.DiagramBehavior">
+        <filter id="574668824">
+            <message_arguments>
+                <message_argument value="IDiagramBehaviorUI"/>
+                <message_argument value="DiagramBehavior"/>
+                <message_argument value="IDiagramBehavior"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/editor/DiagramComposite.java" type="org.eclipse.graphiti.ui.editor.DiagramComposite">
+        <filter id="574668824">
+            <message_arguments>
+                <message_argument value="IDiagramContainerUI"/>
+                <message_argument value="DiagramComposite"/>
+                <message_argument value="IDiagramContainer"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/DiagramEditor.java" type="org.eclipse.graphiti.ui.editor.DiagramEditor">
         <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="337682486">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
+            </message_arguments>
+        </filter>
+        <filter id="574668824">
+            <message_arguments>
+                <message_argument value="IDiagramContainerUI"/>
+                <message_argument value="DiagramEditor"/>
+                <message_argument value="IDiagramContainer"/>
             </message_arguments>
         </filter>
     </resource>
@@ -104,6 +129,15 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/config/ConfigurationProvider.java" type="org.eclipse.graphiti.ui.internal.config.ConfigurationProvider">
+        <filter id="574668824">
+            <message_arguments>
+                <message_argument value="IConfigurationProviderInternal"/>
+                <message_argument value="ConfigurationProvider"/>
+                <message_argument value="IFeatureProviderHolder"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/graphiti/ui/internal/editor/DiagramBehaviorDummy.java" type="org.eclipse.graphiti.ui.internal.editor.DiagramBehaviorDummy">
         <filter id="574619656">
             <message_arguments>
@@ -141,6 +175,15 @@
             <message_arguments>
                 <message_argument value="IDiagramType"/>
                 <message_argument value="DiagramTypeImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/graphiti/ui/internal/services/impl/UiLayoutService.java" type="org.eclipse.graphiti.ui.internal.services.impl.UiLayoutService">
+        <filter id="574668824">
+            <message_arguments>
+                <message_argument value="IUiLayoutService"/>
+                <message_argument value="UiLayoutService"/>
+                <message_argument value="ILayoutService"/>
             </message_arguments>
         </filter>
     </resource>

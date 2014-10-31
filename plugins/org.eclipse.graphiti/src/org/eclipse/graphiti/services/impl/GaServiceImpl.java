@@ -111,21 +111,6 @@ public class GaServiceImpl implements IGaService {
 		return c;
 	}
 
-	private static final Integer getAngle(Style style) {
-		Integer angle = style.getAngle();
-		if (angle == null) {
-			StyleContainer styleContainer = style.getStyleContainer();
-			if (styleContainer instanceof Style) {
-				Style parentStyle = (Style) styleContainer;
-				return getAngle(parentStyle);
-			} else {
-				return null;
-			}
-		} else {
-			return angle;
-		}
-	}
-
 	private static final Double getRotation(Style style) {
 		Double rotation = style.getRotation();
 		if (rotation == null) {

@@ -35,7 +35,6 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
  * The Class AbstractDiagramTypeProvider.
  * 
  */
-@SuppressWarnings("deprecation")
 public abstract class AbstractDiagramTypeProvider extends AbstractExtension implements IDiagramTypeProvider {
 
 	private IToolBehaviorProvider[] availableToolBehaviorProviders = null;
