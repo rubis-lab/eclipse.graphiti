@@ -35,13 +35,40 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Mars</h1>
-	<p>Last revised September 30, 2014</p>
+	<p>Last revised November 11, 2014</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.12.0 within the
 		Mars release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M3 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M3</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on implementing improvements and bugfixing.</td>
+		</tr>
+		<tr id="bug 443304">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=443304">Improve
+					undo/redo handling </a></td>
+			<td class="content">The client options to influence undo/redo
+				handling have been improved. There are now hooks before and after
+				the actual EMF undo to implement own functionality. Also it is
+				possible to abort undo/redo.</td>
+		</tr>
+		<tr id="bug 449384">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=449384">Bug
+					449384</a></td>
+			<td class="content">A bug in the enablement check of the print
+				action that on Linux systems potentially caused a hanging Diagram
+				editor during opening has been fixed.</td>
+		</tr>
 		<!-- ---------------------------------------- M2 ------------------------------- -->
 		<tr>
 			<td colspan="2">
@@ -57,7 +84,7 @@ table.news tr td.content {
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=417454">Additional
 					<i>createDiagram</i> method
 			</a></td>
-			<td class="content">To ease diagram creation a new service metod
+			<td class="content">To ease diagram creation a new service method
 				has been introduced.</td>
 		</tr>
 		<tr id="bug 433269">
