@@ -7,5 +7,6 @@
     <cq:advisorNode namePattern="^org\.apache\.batik\.util\.source*" skipComponent="true"/>
     <cq:advisorNode namePattern="^org\.apache\.batik\.util\.gui\.source*" skipComponent="true"/>
     <cq:advisorNode namePattern="^org\.apache\.batik\.css\.source*" skipComponent="true"/>
+    <cq:advisorNode namePattern="^org\.w3c\.dom\.smil\.source*" skipComponent="true"/>
     <cq:advisorNode namePattern=".*" useMaterialization="false" useTargetPlatform="false"/>
 </cq:componentQuery>
