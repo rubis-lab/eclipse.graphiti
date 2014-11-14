@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 450993 - ContextButtonPad DomainSpecificContextButtons Graphical glitch if Shape to small
  *
  * </copyright>
  *
@@ -495,7 +496,7 @@ public abstract class AbstractContextButtonPadDeclaration implements IContextBut
 			top.y = innerTop.y - top.height;
 		}
 
-		if (getDomainButtonsRight().size() != 0) {
+		if (getDomainButtonsRight().size() != 0 || getDomainButtonsBottom().size() != 0) {
 			right = new Rectangle();
 			right.width = getPadConstantSize();
 			right.height = getPadDynamicSize(getDomainButtonsRight().size());
@@ -618,6 +619,8 @@ public abstract class AbstractContextButtonPadDeclaration implements IContextBut
 	 *         the top and bottom pad).
 	 */
 	private int getPadDynamicSize(int numberOfButtons) {
-		return (2 * getPadPaddingOutside()) + (numberOfButtons * getButtonSize()) + ((numberOfButtons - 1) * getButtonPadding());
+		return (2 * getPadPaddingOutside())
+				+ (numberOfButtons > 0 ? numberOfButtons * getButtonSize() : getPadReferenceRectangle().height)
+				+ (numberOfButtons > 1 ? (numberOfButtons - 1) * getButtonPadding() : 0);
 	}
 }
