@@ -16,6 +16,7 @@
  *    mwenz - Bug 381437 - IllegalArgumentException when edit menu missing
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    mwenz - Bug 424636 - DiagramEditorActionBarContributor.contributeToMenu() throws IllegalArgumentException
+ *    mwenz - Bug 450884 - View Menu Does not Have an ID
  *
  * </copyright>
  *
@@ -60,6 +61,14 @@ import org.eclipse.ui.actions.RetargetAction;
  * @noinstantiate This class is not intended to be instantiated by clients.
  */
 public class DiagramEditorActionBarContributor extends ActionBarContributor {
+
+	/**
+	 * The menu ID of the Graphiti view menu that is added by this action bar
+	 * contributor to the main menu.
+	 * 
+	 * @since 0.12
+	 */
+	public static final String MENU_ID_VIEW = "org.eclipse.graphiti.menu.view";
 
 	/**
 	 * Creates and initialises all Actions. See the corresponding method in the
@@ -208,7 +217,7 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		}
 
 		// Create view menu ...
-		MenuManager viewMenu = new MenuManager(Messages.GraphicsActionBarContributor_0_xmen);
+		MenuManager viewMenu = new MenuManager(Messages.GraphicsActionBarContributor_0_xmen, MENU_ID_VIEW);
 		viewMenu.add(getAction(GEFActionConstants.ZOOM_IN));
 		viewMenu.add(getAction(GEFActionConstants.ZOOM_OUT));
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
