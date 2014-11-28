@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    mwenz - Bug 347421 - Make setDoneChanges accessible to sub classes
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    mgorning - Bug 376572 - Generic context buttons name changeable via getName() method
+ *    mwenz - Bug 453553 - Provide an abort possibility for delete and remove features in case 'pre' methods fail
  *
  * </copyright>
  *
@@ -22,6 +23,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IDeleteFeature;
@@ -115,6 +117,9 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 		}
 
 		preDelete(context);
+		if (isDeleteAbort()) {
+			throw new OperationCanceledException();
+		}
 		if (pe instanceof CompositeConnection) {
 			// Find all domain objects for the children connections of the
 			// composite connection...
@@ -190,6 +195,14 @@ public class DefaultDeleteFeature extends AbstractFeature implements IDeleteFeat
 	 * .context.IDeleteContext)
 	 */
 	public void preDelete(IDeleteContext context) {
+	}
+
+	/**
+	 * @since 0.12
+	 */
+	@Override
+	public boolean isDeleteAbort() {
+		return false;
 	}
 
 	/*

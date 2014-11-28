@@ -15,6 +15,7 @@
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *    mwenz - Bug 325084 - Provide documentation for Patterns
  *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
+ *    mwenz - Bug 453553 - Provide an abort possibility for delete and remove features in case 'pre' methods fail
  *
  * </copyright>
  *
@@ -64,6 +65,12 @@ public class DeleteFeatureForPattern extends DefaultDeleteFeature implements ICu
 	@Override
 	public void preDelete(IDeleteContext context) {
 		delegate.getPattern().preDelete(context);
+	}
+
+	@Override
+	public boolean isDeleteAbort() {
+		IPattern pattern = delegate.getPattern();
+		return pattern.isDeleteAbort();
 	}
 
 	@Override
