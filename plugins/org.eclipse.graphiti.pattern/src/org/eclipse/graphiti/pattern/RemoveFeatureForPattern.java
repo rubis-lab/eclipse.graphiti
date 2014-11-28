@@ -16,6 +16,7 @@
  *    mwenz - Bug 325084 - Provide documentation for Patterns
  *    mwenz - Bug 390331 - preDelete and postDelete not called for Patterns 
  *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
+ *    mwenz - Bug 453553 - Provide an abort possibility for delete and remove features in case 'pre' methods fail
  *
  * </copyright>
  *
@@ -65,6 +66,12 @@ public class RemoveFeatureForPattern extends DefaultRemoveFeature implements ICu
 	@Override
 	public void preRemove(IRemoveContext context) {
 		delegate.getPattern().preRemove(context);
+	}
+
+	@Override
+	public boolean isRemoveAbort() {
+		IPattern pattern = delegate.getPattern();
+		return pattern.isRemoveAbort();
 	}
 
 	@Override

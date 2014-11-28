@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,8 @@
  *    mwenz - Bug 325084 - Provide documentation for Patterns
  *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
  *    cbrand - Bug 385190 - Introduce constructor without parameters for patterns
- *    mwenz - Bug 390331 - preDelete and postDelete not called for Patterns 
+ *    mwenz - Bug 390331 - preDelete and postDelete not called for Patterns
+ *    mwenz - Bug 453553 - Provide an abort possibility for delete and remove features in case 'pre' methods fail 
  *
  * </copyright>
  *
@@ -687,7 +688,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * The difference of the delete feature returned here to the standard
 	 * {@link DefaultDeleteFeature} is simply that the instance returned here
 	 * cares about the delegation to the pattern's
-	 * {@link #preDelete(IDeleteContext)} and
+	 * {@link #preDelete(IDeleteContext)}, {@link #isDeleteAbort()} and
 	 * {@link #postDelete(IDeleteContext)} methods. Clients overriding this
 	 * method should re-implement that pattern, in case the delegation is
 	 * desired.
@@ -697,6 +698,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * @return the {@link IDeleteFeature} instance to use for this pattern
 	 * @see #canDelete(IDeleteContext)
 	 * @see #preDelete(IDeleteContext)
+	 * @see #isDeleteAbort()
 	 * @see #delete(IDeleteContext)
 	 * @see #postDelete(IDeleteContext)
 	 */
@@ -706,6 +708,11 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 			public void preDelete(IDeleteContext context) {
 				super.preDelete(context);
 				AbstractPattern.this.preDelete(context);
+			}
+
+			@Override
+			public boolean isDeleteAbort() {
+				return AbstractPattern.this.isDeleteAbort();
 			}
 
 			@Override
@@ -785,7 +792,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * The difference of the remove feature returned here to the standard
 	 * {@link DefaultRemoveFeature} is simply that the instance returned here
 	 * cares about the delegation to the pattern's
-	 * {@link #preRemove(IRemoveContext)} and
+	 * {@link #preRemove(IRemoveContext)}, {@link #isRemoveAbort()} and
 	 * {@link #postRemove(IRemoveContext)} methods. Clients overriding this
 	 * method should re-implement that pattern, in case the delegation is
 	 * desired.
@@ -795,6 +802,7 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 	 * @return the {@link IRemoveFeature} instance to use for this pattern
 	 * @see #canRemove(IRemoveContext)
 	 * @see #preRemove(IRemoveContext)
+	 * @see #isRemoveAbort()
 	 * @see #remove(IRemoveContext)
 	 * @see #postRemove(IRemoveContext)
 	 */
@@ -804,6 +812,11 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 			public void preRemove(IRemoveContext context) {
 				super.preRemove(context);
 				AbstractPattern.this.preRemove(context);
+			}
+
+			@Override
+			public boolean isRemoveAbort() {
+				return AbstractPattern.this.isRemoveAbort();
 			}
 
 			@Override
@@ -1106,5 +1119,21 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 			}
 		}
 		return ret;
+	}
+
+	/**
+	 * @since 0.12
+	 */
+	@Override
+	public boolean isDeleteAbort() {
+		return false;
+	}
+
+	/**
+	 * @since 0.12
+	 */
+	@Override
+	public boolean isRemoveAbort() {
+		return false;
 	}
 }
