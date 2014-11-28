@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,8 @@
  *    mwenz - Bug 325084 - Provide documentation for Patterns
  *    cbrand - Bug 376585 - Clean-up deprecations in Graphiti
  *    cbrand - Bug 385190 - Introduce constructor without parameters for patterns
- *    mwenz - Bug 390331 - preDelete and postDelete not called for Patterns 
+ *    mwenz - Bug 390331 - preDelete and postDelete not called for Patterns
+ *    mwenz - Bug 453553 - Provide an abort possibility for delete and remove features in case 'pre' methods fail 
  *
  * </copyright>
  *
@@ -1106,5 +1107,21 @@ public abstract class AbstractPattern extends AbstractBasePattern implements IPa
 			}
 		}
 		return ret;
+	}
+
+	/**
+	 * @since 0.12
+	 */
+	@Override
+	public boolean isDeleteAbort() {
+		return false;
+	}
+
+	/**
+	 * @since 0.12
+	 */
+	@Override
+	public boolean isRemoveAbort() {
+		return false;
 	}
 }

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2014 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    mgorning - Bug 376572 - Generic context buttons name changeable via getName() method
  *    mwenz - Bug 380400 - Remove final from DefaultRemoveFeature.remove
+ *    mwenz - Bug 453553 - Provide an abort possibility for delete and remove features in case 'pre' methods fail
  *
  * </copyright>
  *
@@ -21,6 +22,7 @@ package org.eclipse.graphiti.features.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -68,6 +70,9 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 			return;
 		}
 		preRemove(context);
+		if (isRemoveAbort()) {
+			throw new OperationCanceledException();
+		}
 
 		PictogramElement pe = context.getPictogramElement();
 
@@ -94,6 +99,14 @@ public class DefaultRemoveFeature extends AbstractFeature implements IRemoveFeat
 	}
 
 	public void preRemove(IRemoveContext context) {
+	}
+
+	/**
+	 * @since 0.12
+	 */
+	@Override
+	public boolean isRemoveAbort() {
+		return false;
 	}
 
 	/**
