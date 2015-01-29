@@ -367,6 +367,33 @@ public class PeServiceTest extends GFAbstractTestCase {
 		assertEquals(new DimensionImpl(100, 100), dim3);
 	}
 
+	// Test for Bug 458465
+	@Test
+	public void testWhenShapeWasSentToBack_andGetLocationInfo_thenShapeInFrontIsReturned() {
+		ICreateService createService = Graphiti.getCreateService();
+		ILayoutService layoutService = Graphiti.getLayoutService();
+
+		ContainerShape cs = createService.createContainerShape(d, true);
+		Rectangle r = createService.createRectangle(cs);
+		layoutService.setLocationAndSize(r, 100, 100, 100, 100);
+
+		Shape s1 = createService.createShape(cs, true);
+		Rectangle r1 = createService.createRectangle(s1);
+		layoutService.setLocationAndSize(r1, 10, 10, 80, 80);
+
+		Shape s2 = createService.createShape(cs, true);
+		Rectangle r2 = createService.createRectangle(s2);
+		layoutService.setLocationAndSize(r2, 20, 20, 60, 60);
+
+		ILocationInfo locationInfo = layoutService.getLocationInfo(d, 150, 150);
+		assertEquals(s2, locationInfo.getShape());
+		assertEquals(r2, locationInfo.getGraphicsAlgorithm());
+
+		locationInfo = layoutService.getLocationInfo(d, 115, 115);
+		assertEquals(s1, locationInfo.getShape());
+		assertEquals(r1, locationInfo.getGraphicsAlgorithm());
+	}
+
 	@Test
 	public void checkProperties() {
 		ICreateService createService = Graphiti.getCreateService();
