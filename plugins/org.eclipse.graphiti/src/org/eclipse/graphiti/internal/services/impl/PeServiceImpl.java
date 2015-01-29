@@ -969,7 +969,8 @@ public final class PeServiceImpl implements IPeService {
 		if (shape instanceof ContainerShape) {
 			ContainerShape containerShape = (ContainerShape) shape;
 			List<Shape> children = containerShape.getChildren();
-			for (Shape childShape : children) {
+			for (int i = children.size() - 1; i >= 0; i--) {
+				Shape childShape = children.get(i);
 				GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
 				if (childGa != null) {
 					int newX = x - childGa.getX();
