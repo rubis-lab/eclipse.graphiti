@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,26 +11,25 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 336516 - Anchors with polyline GA caused NPE
  *    mgorning - Bug 355968 - Only ChopboxAnchors should compute the reference point as the center of its GA
+ *    mwenz - Bug 459511 - NPE in LineSeg.getLineIntersectionsWithLineSegs when owner of GFChopboxAnchor is a Polygon
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.util.draw2d;
 
+import org.eclipse.draw2d.AbstractPointListShape;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Polygon;
-import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.handles.HandleBounds;
 import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
+import org.eclipse.graphiti.ui.internal.figures.GFAbstractPointListShape;
 import org.eclipse.graphiti.ui.internal.figures.GFEllipse;
 import org.eclipse.graphiti.ui.internal.figures.GFEllipseDecoration;
-import org.eclipse.graphiti.ui.internal.figures.GFPolygon;
-import org.eclipse.graphiti.ui.internal.figures.GFPolyline;
 
 /**
  * A chopbox anchor supporting insets
@@ -101,17 +100,11 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 			return r.getCenter().translate((int) (r.width * dx / Math.sqrt(1 + k)),
 					(int) (r.height * dy / Math.sqrt(1 + 1 / k)));
 		}
-		if (getOwner() instanceof GFPolygon || getOwner() instanceof Polygon || getOwner() instanceof GFPolyline
-				|| getOwner() instanceof Polyline) {
-
+		if (getOwner() instanceof GFAbstractPointListShape || getOwner() instanceof AbstractPointListShape) {
 			Point foreignReference = reference.getCopy();
 
 			// the midpoint
 			Point ownReference = getReferencePoint().getCopy();
-
-			// nice feature!
-			// ownReference = normalizeToStraightlineTolerance(foreignReference,
-			// ownReference, STRAIGHT_LINE_TOLERANCE);
 
 			Point location = getLocation(ownReference, foreignReference);
 			if (location == null || getBox().expand(1, 1).contains(foreignReference)
@@ -189,7 +182,7 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 	 *         through ownReference and foreignReference points
 	 */
 	protected PointList getIntersectionPoints(Point ownReference, Point foreignReference) {
-		final PointList polygon = getPolylinePoints();
+		final PointList polygon = getClosedPointListOfPointListShape();
 		return (new LineSeg(ownReference, foreignReference)).getLineIntersectionsWithLineSegs(polygon);
 	}
 
@@ -201,14 +194,21 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 	 * @return the <code>PointList</code> list of all the vertices of the
 	 *         figure.
 	 */
-	protected PointList getPolylinePoints() {
-		if (getOwner() instanceof GFPolyline) {
-			PointList polyList = ((GFPolyline) getOwner()).getPoints().getCopy();
+	protected PointList getClosedPointListOfPointListShape() {
+		PointList polyList;
+		if (getOwner() instanceof GFAbstractPointListShape) {
+			polyList = ((GFAbstractPointListShape) getOwner()).getPoints().getCopy();
+		} else if (getOwner() instanceof AbstractPointListShape) {
+			polyList = ((AbstractPointListShape) getOwner()).getPoints().getCopy();
+		} else {
+			polyList = new PointList();
+		}
+
+		if (polyList.size() > 0) {
 			polyList.addPoint(polyList.getFirstPoint());
 			getOwner().translateToAbsolute(polyList);
-			return polyList;
 		}
-		return null;
+		return polyList;
 	}
 
 	/**
