@@ -27,10 +27,9 @@ import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.handles.HandleBounds;
 import org.eclipse.graphiti.mm.pictograms.AdvancedAnchor;
+import org.eclipse.graphiti.ui.internal.figures.GFAbstractPointListShape;
 import org.eclipse.graphiti.ui.internal.figures.GFEllipse;
 import org.eclipse.graphiti.ui.internal.figures.GFEllipseDecoration;
-import org.eclipse.graphiti.ui.internal.figures.GFPolygon;
-import org.eclipse.graphiti.ui.internal.figures.GFPolyline;
 
 /**
  * A chopbox anchor supporting insets
@@ -101,7 +100,7 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 			return r.getCenter().translate((int) (r.width * dx / Math.sqrt(1 + k)),
 					(int) (r.height * dy / Math.sqrt(1 + 1 / k)));
 		}
-		if (getOwner() instanceof GFPolygon || getOwner() instanceof Polygon || getOwner() instanceof GFPolyline
+		if (getOwner() instanceof GFAbstractPointListShape || getOwner() instanceof Polygon
 				|| getOwner() instanceof Polyline) {
 
 			Point foreignReference = reference.getCopy();
@@ -202,13 +201,13 @@ public class GFChopboxAnchor extends ChopboxAnchorFixed {
 	 *         figure.
 	 */
 	protected PointList getPolylinePoints() {
-		if (getOwner() instanceof GFPolyline) {
-			PointList polyList = ((GFPolyline) getOwner()).getPoints().getCopy();
+		if (getOwner() instanceof GFAbstractPointListShape) {
+			PointList polyList = ((GFAbstractPointListShape) getOwner()).getPoints().getCopy();
 			polyList.addPoint(polyList.getFirstPoint());
 			getOwner().translateToAbsolute(polyList);
 			return polyList;
 		}
-		return null;
+		return new PointList();
 	}
 
 	/**
