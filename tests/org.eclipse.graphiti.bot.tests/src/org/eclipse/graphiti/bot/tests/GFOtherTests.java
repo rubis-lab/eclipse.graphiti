@@ -457,8 +457,7 @@ public class GFOtherTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(x, 50, 100, 100);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature,
-							createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 					x += 150;
 				}
@@ -562,8 +561,7 @@ public class GFOtherTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(x, 50, 100, 100);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature,
-							createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 					x -= 150;
 				}
@@ -1360,7 +1358,7 @@ public class GFOtherTests extends AbstractGFTests {
 				Rectangle rectangle = new Rectangle(50, 50, 100, 50);
 				ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 				Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-						createFeature, createContext, rectangle);
+						createFeature, createContext);
 				commandStack.execute(createCommand);
 				ContainerShape shape1 = (ContainerShape) dtp.getDiagram().getChildren().get(0);
 				assertNotNull(shape1);
