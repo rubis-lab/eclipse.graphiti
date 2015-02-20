@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
+ *    mwenz - Bug 460019 - Problem with CreateDiagramWizard_ErrorOccuredTitle
  *
  * </copyright>
  *
@@ -26,7 +27,7 @@ public class Messages extends NLS {
 	public static String CompartmentPattern_CompartmentChangesText;
 	public static String CreateDiagramWizard_DiagramNameField;
 	public static String CreateDiagramWizard_DiagramTypeField;
-	public static String CreateDiagramWizard_ErrorOccuredTitle;
+	public static String CreateDiagramWizard_ErrorOccurredTitle;
 	public static String CreateDiagramWizard_NoProjectFoundError;
 	public static String CreateDiagramWizard_NoProjectFoundErrorTitle;
 	public static String CreateDiagramWizard_OpeningEditorError;

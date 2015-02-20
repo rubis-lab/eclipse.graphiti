@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.eclipse.graphiti.examples.common" version="2">
+    <resource path="src/org/eclipse/graphiti/examples/common/Messages.java" type="org.eclipse.graphiti.examples.common.Messages">
+        <filter comment="Corrected message name" id="338755678">
+            <message_arguments>
+                <message_argument value="org.eclipse.graphiti.examples.common.Messages"/>
+                <message_argument value="CreateDiagramWizard_ErrorOccuredTitle"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Fix message name" id="1143996420">
+            <message_arguments>
+                <message_argument value="CreateDiagramWizard_ErrorOccurredTitle"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

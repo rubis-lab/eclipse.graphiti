@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 460019 - Problem with CreateDiagramWizard_ErrorOccuredTitle
  *
  * </copyright>
  *
@@ -151,7 +152,7 @@ public class CreateDiagramWizard extends BasicNewResourceWizard {
 		} catch (PartInitException e) {
 			String error = Messages.CreateDiagramWizard_OpeningEditorError;
 			IStatus status = new Status(IStatus.ERROR, ExamplesCommonPlugin.getID(), error, e);
-			ErrorDialog.openError(getShell(), Messages.CreateDiagramWizard_ErrorOccuredTitle, null, status);
+			ErrorDialog.openError(getShell(), Messages.CreateDiagramWizard_ErrorOccurredTitle, null, status);
 			return false;
 		}
 
