@@ -362,7 +362,7 @@ public class CommandTest extends GFAbstractTestCase {
 		replay(configurationProviderMock);
 
 		CreateModelObjectCommand myCreateModelObjectCommand = new CreateModelObjectCommand(configurationProviderMock,
-				createFeatures[0], null, null);
+				createFeatures[0], null);
 
 		assertTrue(myCreateModelObjectCommand.canUndo());
 

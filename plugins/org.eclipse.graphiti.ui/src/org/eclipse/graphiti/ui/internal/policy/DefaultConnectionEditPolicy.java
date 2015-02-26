@@ -184,8 +184,9 @@ public class DefaultConnectionEditPolicy extends ConnectionEditPolicy {
 			rectangle.setLocation(request.getLocation());
 		}
 
-		if (request.getSize() != null)
+		if (request.getSize() != null) {
 			rectangle.setSize(request.getSize());
+		}
 
 		Connection connection = (Connection) getHost().getModel();
 
@@ -193,7 +194,7 @@ public class DefaultConnectionEditPolicy extends ConnectionEditPolicy {
 			ICreateContext context = ShapeXYLayoutEditPolicy.createCreateContext(targetContainerShape, rectangle);
 			((CreateContext) context).setTargetConnection(connection);
 			ICreateFeature createFeature = (ICreateFeature) createdObject;
-			cmd = new CreateModelObjectCommand(getConfigurationProvider(), createFeature, context, rectangle);
+			cmd = new CreateModelObjectCommand(getConfigurationProvider(), createFeature, context);
 			cmd.setLabel(createFeature.getDescription());
 		} else if (request.getNewObjectType() == ISelection.class) {
 			cmd = new AddModelObjectCommand(getConfigurationProvider(), targetContainerShape, (ISelection) createdObject, rectangle,

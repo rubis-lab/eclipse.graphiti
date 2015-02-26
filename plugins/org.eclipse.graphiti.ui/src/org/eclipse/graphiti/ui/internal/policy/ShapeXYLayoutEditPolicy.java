@@ -444,7 +444,7 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 			ICreateContext context = createCreateContext((ContainerShape) parentObject, rectangle);
 			updateCreateContext((CreateContext) context);
 			ICreateFeature createFeature = (ICreateFeature) createdObject;
-			cmd = new CreateModelObjectCommand(getConfigurationProvider(), createFeature, context, rectangle);
+			cmd = new CreateModelObjectCommand(getConfigurationProvider(), createFeature, context);
 			cmd.setLabel(createFeature.getDescription());
 		} else if (request.getNewObjectType() == ISelection.class) {
 			cmd = new AddModelObjectCommand(getConfigurationProvider(), (ContainerShape) parentObject,

@@ -17,7 +17,6 @@
  *******************************************************************************/
 package org.eclipse.graphiti.ui.internal.command;
 
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.internal.command.CommandExec;
@@ -30,14 +29,11 @@ import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
  */
 public class CreateModelObjectCommand extends GFCommand {
 
-	private final Rectangle rectangle;
-
-	public CreateModelObjectCommand(IConfigurationProvider configurationProvider, ICreateFeature feature, ICreateContext context,
-			Rectangle rectangle) {
+	public CreateModelObjectCommand(IConfigurationProvider configurationProvider, ICreateFeature feature,
+			ICreateContext context) {
 		super(configurationProvider);
 		setFeature(feature);
 		setContext(context);
-		this.rectangle = rectangle;
 	}
 
 	@Override
@@ -48,8 +44,6 @@ public class CreateModelObjectCommand extends GFCommand {
 
 	@Override
 	public void execute() {
-		// create business-content
-		// feature.create(context);
 		GenericFeatureCommandWithContext genericFeatureCommandWithContext = new GenericFeatureCommandWithContext(getFeature(), getContext());
 		try {
 			CommandExec.getSingleton().executeCommand(genericFeatureCommandWithContext, getTransactionalEditingDomain());
@@ -61,13 +55,6 @@ public class CreateModelObjectCommand extends GFCommand {
 				throw new RuntimeException(e);
 			}
 		}
-	}
-
-	/**
-	 * @return Returns the rectangle.
-	 */
-	protected Rectangle getRectangle() {
-		return rectangle;
 	}
 
 	@Override

@@ -487,8 +487,8 @@ public class PackageTest extends GFAbstractTestCase {
 		ICreateContext createContextMock = createNiceMock(ICreateContext.class);
 		replay(createContextMock);
 
-		CreateModelObjectCommand myCreateModelObjectCommand = new CreateModelObjectCommand(configurationProviderMock, createFeatureMock,
-				createContextMock, rectangle);
+		CreateModelObjectCommand myCreateModelObjectCommand = new CreateModelObjectCommand(configurationProviderMock,
+				createFeatureMock, createContextMock);
 
 		myCreateModelObjectCommand.canExecute();
 

@@ -1010,25 +1010,25 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(xOfShape1, yOfShape1, width, height);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 
 					rectangle = new Rectangle(xOfShape2, yOfShape2, width, height);
 					createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 
 					rectangle = new Rectangle(xOfShape3, yOfShape3, width, height);
 					createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 
 					rectangle = new Rectangle(xOfShape4, yOfShape4, width, height);
 					createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 				}
 			}
@@ -1085,7 +1085,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(x, y, 100, 100);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 				}
 			}
@@ -1129,7 +1129,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						Rectangle rectangle = new Rectangle(x, y, 100, 100);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 						break;
 					}
@@ -1184,13 +1184,13 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						Rectangle rectangle = new Rectangle(x, y, 100, 100);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 					} else if ("Rectangle Container".equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(x + 300, y - 50, 200, 200);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 					}
 				}
@@ -1230,32 +1230,32 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 								rectangleSize, rectangleSize);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 
 						rectangle = new Rectangle(xContainer2 + containerSize, yContainer2 + containerSize,
 								rectangleSize, rectangleSize);
 						createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 					} else if ("Rectangle Container".equals(createFeature.getName())) {
 						Rectangle rectangle = new Rectangle(xContainer1, yContainer1, containerSize, containerSize);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 
 						rectangle = new Rectangle(xContainer2, yContainer2, containerSize, containerSize);
 						createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 
 						rectangle = new Rectangle(xContainer3, yContainer3, containerSize, containerSize);
 						createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 					}
 				}
@@ -1319,12 +1319,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						Rectangle rectangle = new Rectangle(x, y, 100, 100);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 						rectangle = new Rectangle(x + 200, y, 100, 100);
 						createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 					}
 				}
@@ -1389,12 +1389,12 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 						Rectangle rectangle = new Rectangle(x, y, 100, 100);
 						ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 						rectangle = new Rectangle(x + 200, y, 100, 100);
 						createContext = createCreateContext(dtp.getDiagram(), rectangle);
 						createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-								createFeature, createContext, rectangle);
+								createFeature, createContext);
 						commandStack.execute(createCommand);
 					}
 				}
@@ -1526,7 +1526,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				Rectangle rectangle = new Rectangle(0, 0, 300, 200);
 				ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 				Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-						createFeature, createContext, rectangle);
+						createFeature, createContext);
 				commandStack.execute(createCommand);
 				ContainerShape outerShape = (ContainerShape) dtp.getDiagram().getChildren().get(0);
 
@@ -1536,7 +1536,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				rectangle = new Rectangle(50, 50, 51, 51);
 				createContext = createCreateContext(outerShape, rectangle);
 				createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor), createFeature,
-						createContext, rectangle);
+						createContext);
 				commandStack.execute(createCommand);
 				Shape leftShape = outerShape.getChildren().get(0);
 
@@ -1545,7 +1545,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 				rectangle = new Rectangle(150, 50, 51, 51);
 				createContext = createCreateContext(outerShape, rectangle);
 				createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor), createFeature,
-						createContext, rectangle);
+						createContext);
 				commandStack.execute(createCommand);
 				Shape rightShape = outerShape.getChildren().get(1);
 
@@ -1639,7 +1639,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(100, 100, 100, 50);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 				}
 				ContainerShape shape1 = (ContainerShape) dtp.getDiagram().getChildren().get(0);
@@ -1652,7 +1652,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(500, 200, 100, 50);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 				}
 				ContainerShape shape2 = (ContainerShape) dtp.getDiagram().getChildren().get(1);
@@ -1700,7 +1700,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(50, 50, 100, 50);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 				}
 				ContainerShape shape1 = (ContainerShape) dtp.getDiagram().getChildren().get(0);
@@ -1713,7 +1713,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(200, 50, 100, 50);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 				}
 				ContainerShape shape2 = (ContainerShape) dtp.getDiagram().getChildren().get(1);
@@ -1726,7 +1726,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(50, 150, 100, 50);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 				}
 				ContainerShape shape3 = (ContainerShape) dtp.getDiagram().getChildren().get(2);
@@ -1739,7 +1739,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(200, 150, 100, 50);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 				}
 				ContainerShape shape4 = (ContainerShape) dtp.getDiagram().getChildren().get(3);
@@ -1876,7 +1876,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(100, 100, 100, 50);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 				}
 				ContainerShape shape1 = (ContainerShape) dtp.getDiagram().getChildren().get(0);
@@ -1889,7 +1889,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 					Rectangle rectangle = new Rectangle(500, 200, 100, 50);
 					ICreateContext createContext = createCreateContext(dtp.getDiagram(), rectangle);
 					Command createCommand = new CreateModelObjectCommand(getConfigProviderMock(dtp, diagramEditor),
-							createFeature, createContext, rectangle);
+							createFeature, createContext);
 					commandStack.execute(createCommand);
 				}
 				ContainerShape shape2 = (ContainerShape) dtp.getDiagram().getChildren().get(1);
