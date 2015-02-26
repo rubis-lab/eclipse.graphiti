@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2014 SRC
+ * Copyright (c) 2015 SRC
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@
  *    mwenz - Bug 433650 - Editor in in dirty state after a Save
  *    mwenz - Bug 439689 - DiagramEdtior.setPictogramElementForSelection adds SelectionBorders to invisible PictogramElements
  *    mwenz - Bug 407894 - Luna: After DiagramsInViews change graphical viewer is configured and initialized only by a workaround
+ *    mwenz - Bug 433779 - DiagramBehaviour.setInput() is not extensible
  *
  * </copyright>
  *
@@ -160,7 +161,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	private DefaultRefreshBehavior refreshBehavior;
 
 	private PictogramElement pictogramElementsForSelection[];
-	private IConfigurationProviderInternal configurationProvider;
+	private IConfigurationProvider configurationProvider;
 	private Point mouseLocation;
 	private KeyHandler keyHandler;
 	private DiagramScrollingBehavior diagramScrollingBehavior;
@@ -179,6 +180,23 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	private ContextMenuProvider contextMenuProvider = null;
 
 	public DiagramBehavior(IDiagramContainerUI diagramContainer) {
+		super();
+		this.setDiagramContainer(diagramContainer);
+	}
+
+	/**
+	 * Setter for the associated {@link IDiagramContainerUI container}
+	 * displaying the diagram of this behavior. Note that once the container has
+	 * been set it must not be changed any more.
+	 * 
+	 * @param diagramContainer
+	 *            the diagramContainer to set
+	 * @since 0.12
+	 */
+	protected void setDiagramContainer(IDiagramContainerUI diagramContainer) {
+		if (this.diagramContainer != null) {
+			throw new IllegalStateException("diagramContainer must not be changed once it has been set");
+		}
 		this.diagramContainer = diagramContainer;
 	}
 
@@ -353,48 +371,77 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		if (input == null) {
 			throw new IllegalArgumentException("The IEditorInput must not be null"); //$NON-NLS-1$
 		}
-		diagramEditorInput = (IDiagramEditorInput) input;
-		Diagram diagram = getPersistencyBehavior().loadDiagram(diagramEditorInput.getUri());
-
-		// can happen if editor is started with invalid URI
+		setDiagramEditorInput((IDiagramEditorInput) input);
+		
+		// Retrieve the diagram
+		Diagram diagram = getPersistencyBehavior().loadDiagram(getInput().getUri());
 		if (diagram == null) {
-			editorInitializationError = "No Diagram found for URI '" + diagramEditorInput.getUri().toString(); //$NON-NLS-1$
+			// Can happen if editor is started with invalid URI
+			setEditorInitializationError("No Diagram found for URI '" + getInput().getUri().toString()); //$NON-NLS-1$
 			return;
 		}
 
-		String providerId = diagramEditorInput.getProviderId();
-		// if provider is null then take the first installed provider for
-		// this diagram type
-		if (providerId == null) {
-			providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
-			diagramEditorInput.setProviderId(providerId);
-		}
+		IDiagramTypeProvider diagramTypeProvider = initDiagramTypeProvider(diagram);
+		initConfigurationProvider(diagramTypeProvider);
 
-		if (providerId == null) {
-			editorInitializationError = "DiagramEditorInput does not convey a Provider ID '" + diagramEditorInput; //$NON-NLS-1$
-			return;
-		}
-
-		Assert.isNotNull(providerId, "DiagramEditorInput does not convey a Provider ID '" + diagramEditorInput //$NON-NLS-1$
-				+ "'. . See the error log for details."); //$NON-NLS-1$
-
-		// Get according diagram-type-provider
-		IDiagramTypeProvider diagramTypeProvider = GraphitiUi.getExtensionManager().createDiagramTypeProvider(
-				providerId);
-		if (diagramTypeProvider == null) {
-			editorInitializationError = "Could not find diagram type provider for " + diagram.getDiagramTypeId(); //$NON-NLS-1$
-			return;
-		}
-
-		diagramTypeProvider.init(diagram, this);
-		IConfigurationProviderInternal configurationProvider = new ConfigurationProvider(this, diagramTypeProvider);
-		setConfigurationProvider(configurationProvider);
 		getRefreshBehavior().handleAutoUpdateAtStartup();
+		getDiagramContainer().refreshTitle();
 
 		registerBusinessObjectsListener();
 		registerDiagramResourceSetListener();
+	}
 
-		diagramContainer.refreshTitle();
+	/**
+	 * Creates and initializes a new {@link IDiagramTypeProvider} for the given
+	 * {@link Diagram} and diagram type provider ID.
+	 * 
+	 * @param diagram
+	 *            The diagram
+	 * @param providerId
+	 *            The diagram type provider ID
+	 * 
+	 * @since 0.12
+	 */
+	protected IDiagramTypeProvider initDiagramTypeProvider(Diagram diagram) {
+		String providerId = getDiagramTypeProviderId(diagram);
+		IDiagramTypeProvider diagramTypeProvider = GraphitiUi.getExtensionManager().createDiagramTypeProvider(
+				providerId);
+		if (diagramTypeProvider == null) {
+			setEditorInitializationError("Could not find diagram type provider for " + diagram.getDiagramTypeId()); //$NON-NLS-1$
+			return null;
+		}
+		diagramTypeProvider.init(diagram, this);
+		return diagramTypeProvider;
+	}
+
+	/**
+	 * Gets the diagram type provider ID for the diagram. The default
+	 * implementation checks if the input defines one and will use that that,
+	 * otherwise it will retrieve the ID of the first diagram type provider that
+	 * is registered for the type of the passed diagram.
+	 * 
+	 * In case no ID is found this method will set the editor initialization
+	 * error and throw an {@link AssertionFailedException}.
+	 * 
+	 * @param diagram
+	 *            The diagram to find the ID for.
+	 * @since 0.12
+	 */
+	protected String getDiagramTypeProviderId(Diagram diagram) {
+		String providerId = getInput().getProviderId();
+		// If provider is null then take the first installed provider for this
+		// diagram type
+		if (providerId == null) {
+			providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
+			getInput().setProviderId(providerId);
+		}
+
+		if (providerId == null) {
+			String message = "DiagramEditorInput does not convey a Provider ID '" + getInput() + ". See the error log for details."; //$NON-NLS-1$ $NON-NLS-1$
+			setEditorInitializationError(message);
+			Assert.isNotNull(providerId, message);
+		}
+		return providerId;
 	}
 
 	/**
@@ -407,6 +454,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 			public void stackChanged(CommandStackEvent event) {
 				// Only fire if triggered from UI thread
 				if (Display.getCurrent() != null) {
+					IDiagramContainerUI diagramContainer = getDiagramContainer();
 					diagramContainer.updateDirtyState();
 
 					// Promote the changes to the command stack also to the
@@ -436,6 +484,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 			viewer = new GraphitiScrollingGraphicalViewer(this);
 			viewer.createControl(parent);
 		}
+		IDiagramContainerUI diagramContainer = getDiagramContainer();
 		diagramContainer.setGraphicalViewer(viewer);
 		diagramContainer.configureGraphicalViewer();
 		diagramContainer.hookGraphicalViewer();
@@ -452,7 +501,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 */
 	protected void configureGraphicalViewer() {
 
-		ScrollingGraphicalViewer viewer = (ScrollingGraphicalViewer) diagramContainer.getGraphicalViewer();
+		ScrollingGraphicalViewer viewer = (ScrollingGraphicalViewer) getDiagramContainer().getGraphicalViewer();
 
 		ScalableRootEditPartAnimated rootEditPart = new ScalableRootEditPartAnimated(viewer, getConfigurationProvider()) {
 
@@ -535,7 +584,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 		// setting ContextMenuProvider
 		contextMenuProvider = createContextMenuProvider();
-		GraphicalViewer graphicalViewer = diagramContainer.getGraphicalViewer();
+		GraphicalViewer graphicalViewer = getDiagramContainer().getGraphicalViewer();
 		if (contextMenuProvider != null) {
 			graphicalViewer.setContextMenu(contextMenuProvider);
 			// the registration allows an extension of the context-menu by other
@@ -582,7 +631,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * @since 0.10
 	 */
 	protected TransferDropTargetListener createPaletteDropTargetListener() {
-		return new GFTemplateTransferDropTargetListener(diagramContainer.getGraphicalViewer(), this);
+		return new GFTemplateTransferDropTargetListener(getDiagramContainer().getGraphicalViewer(), this);
 	}
 
 	/**
@@ -598,20 +647,34 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 */
 	protected List<TransferDropTargetListener> createBusinessObjectDropTargetListeners() {
 		ArrayList<TransferDropTargetListener> result = new ArrayList<TransferDropTargetListener>(1);
-		result.add(new ObjectsTransferDropTargetListener(diagramContainer.getGraphicalViewer()));
+		result.add(new ObjectsTransferDropTargetListener(getDiagramContainer().getGraphicalViewer()));
 		return result;
 	}
 
 	/**
-	 * Returns if an error has occured while initializing this behavior and its
-	 * components. In case this method reports <code>true</code> and error UI
-	 * may be shown instead of the normal diagram viewer.
+	 * Returns the error text of the error that occurred while initializing this
+	 * behavior and its components. In case this method reports the error text
+	 * and error UI may be shown instead of the normal diagram viewer.
 	 * 
-	 * @return <code>true</code> in case an error has occured,
-	 *         <code>false</code> otherwise
+	 * @return The error text in case an error has occurred, <code>null</code>
+	 *         otherwise
 	 */
 	protected String getEditorInitializationError() {
 		return editorInitializationError;
+	}
+
+	/**
+	 * Sets the error text for an error that occured during the initialization
+	 * of this {@link DiagramEditor}. Setting a <code>non-null</code> value
+	 * indicates an error has occurred, setting <code>null</code> indicates
+	 * everything went fine.
+	 * 
+	 * @param editorInitializationError
+	 *            The error message
+	 * @since 0.12
+	 */
+	protected void setEditorInitializationError(String editorInitializationError) {
+		this.editorInitializationError = editorInitializationError;
 	}
 
 	/**
@@ -665,7 +728,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 		StyledText widget = new StyledText(composite, SWT.READ_ONLY | SWT.MULTI);
 		widget.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		widget.setText(editorInitializationError);
+		widget.setText(getEditorInitializationError());
 		widget.setBackground(backgroundColor);
 		widget.setForeground(foregroundColor);
 		widget.setCaret(null);
@@ -697,7 +760,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * @return the {@link PaletteViewerProvider} to use
 	 */
 	protected final PaletteViewerProvider createPaletteViewerProvider() {
-		if (editorInitializationError != null) {
+		if (getEditorInitializationError() != null) {
 			// Editor input is erroneous, show error page instead of diagram and
 			// do not initialize the palette to avoid exceptions
 			return null;
@@ -770,7 +833,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		if (GraphitiInternal.getEmfService().isObjectAlive(currentDiagram)) {
 			refresh();
 		} else {
-			IDiagramEditorInput diagramEditorInput = diagramContainer.getDiagramEditorInput();
+			IDiagramEditorInput diagramEditorInput = getDiagramContainer().getDiagramEditorInput();
 			// resolve diagram in reloaded resource
 			Diagram diagram = getPersistencyBehavior().loadDiagram(diagramEditorInput.getUri());
 			IDiagramTypeProvider diagramTypeProvider = getConfigurationProvider().getDiagramTypeProvider();
@@ -780,7 +843,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 			// to old proxies
 			setPictogramElementsForSelection(null);
 			// create new edit parts
-			diagramContainer.getGraphicalViewer().setContents(diagram);
+			getDiagramContainer().getGraphicalViewer().setContents(diagram);
 			getRefreshBehavior().handleAutoUpdateAtReset();
 		}
 	}
@@ -795,7 +858,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 */
 	protected void selectPictogramElements(PictogramElement[] pictogramElements) {
 		List<EditPart> editParts = new ArrayList<EditPart>();
-		Map<?, ?> editPartRegistry = diagramContainer.getGraphicalViewer().getEditPartRegistry();
+		Map<?, ?> editPartRegistry = getDiagramContainer().getGraphicalViewer().getEditPartRegistry();
 		if (editPartRegistry != null) {
 			for (int i = 0; i < pictogramElements.length; i++) {
 				PictogramElement pe = pictogramElements[i];
@@ -831,7 +894,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 				// Otherwise the reveal method can't work correctly.
 				Display.getDefault().asyncExec(new Runnable() {
 					public void run() {
-						diagramContainer.getGraphicalViewer().reveal(editpart);
+						getDiagramContainer().getGraphicalViewer().reveal(editpart);
 					}
 				});
 			}
@@ -849,7 +912,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		ISelectionProvider selectionProvider = null;
 
 		if (parentPart == null) {
-			selectionProvider = diagramContainer.getGraphicalViewer();
+			selectionProvider = getDiagramContainer().getGraphicalViewer();
 		} else {
 			selectionProvider = parentPart.getSite().getSelectionProvider();
 		}
@@ -1033,7 +1096,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	public Object executeFeature(IFeature feature, IContext context) {
 		Object returnValue = null;
 
-		DefaultEditDomain domain = diagramContainer.getEditDomain();
+		DefaultEditDomain domain = getDiagramContainer().getEditDomain();
 
 		// Make sure the editor is valid
 		Assert.isNotNull(domain);
@@ -1077,8 +1140,10 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * {@link #enableAdapters()} after the operation has finished (best in a
 	 * finally clause to do that also in case of exceptions), otherwise strange
 	 * errors may happen.
+	 * 
+	 * @since 0.12
 	 */
-	protected void disableAdapters() {
+	public void disableAdapters() {
 		markerBehavior.disableProblemIndicationUpdate();
 		updateBehavior.setAdapterActive(false);
 	}
@@ -1091,8 +1156,10 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Must be called after {@link #disableAdapters()} has been called and the
 	 * operation has finshed (best in a finally clause to also enable the
 	 * exception case), otherwise strange errors may occur within the editor.
+	 * 
+	 * @since 0.12
 	 */
-	protected void enableAdapters() {
+	public void enableAdapters() {
 		markerBehavior.enableProblemIndicationUpdate();
 		updateBehavior.setAdapterActive(true);
 	}
@@ -1153,6 +1220,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 			}
 		}
 
+		IDiagramContainerUI diagramContainer = getDiagramContainer();
 		GraphicalViewer viewer = diagramContainer.getGraphicalViewer();
 		if (type == ZoomManager.class && viewer != null) {
 			return viewer.getProperty(ZoomManager.class.toString());
@@ -1188,12 +1256,13 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Returns the {@link ConfigurationProvider} for this behavior. It is mainly
-	 * a wrapper around varius objects that are connected to the diagram
+	 * a wrapper around various objects that are connected to the diagram
 	 * behavior.
 	 * 
 	 * @return an {@link IConfigurationProvider} instance.
+	 * @since 0.12
 	 */
-	protected IConfigurationProvider getConfigurationProvider() {
+	public IConfigurationProvider getConfigurationProvider() {
 		return configurationProvider;
 	}
 
@@ -1204,8 +1273,8 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * @return The contents {@link EditPart} of this behavior.
 	 */
 	public EditPart getContentEditPart() {
-		if (diagramContainer.getGraphicalViewer() != null) {
-			return diagramContainer.getGraphicalViewer().getContents();
+		if (getDiagramContainer().getGraphicalViewer() != null) {
+			return getDiagramContainer().getGraphicalViewer().getContents();
 		}
 		return null;
 	}
@@ -1221,7 +1290,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 *         {@link PictogramElement}.
 	 */
 	public GraphicalEditPart getEditPartForPictogramElement(PictogramElement pe) {
-		Map<?, ?> editPartRegistry = diagramContainer.getGraphicalViewer().getEditPartRegistry();
+		Map<?, ?> editPartRegistry = getDiagramContainer().getGraphicalViewer().getEditPartRegistry();
 		if (editPartRegistry != null) {
 			Object obj = editPartRegistry.get(pe);
 			if (obj instanceof GraphicalEditPart) {
@@ -1264,7 +1333,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		ret.x += viewLocation.x;
 		ret.y += viewLocation.y;
 
-		ZoomManager zoomManager = (ZoomManager) diagramContainer.getGraphicalViewer()
+		ZoomManager zoomManager = (ZoomManager) getDiagramContainer().getGraphicalViewer()
 				.getProperty(ZoomManager.class.toString());
 		ret = ret.getScaled(1 / zoomManager.getZoom());
 
@@ -1332,23 +1401,45 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		return null;
 	}
 
-	private void setConfigurationProvider(IConfigurationProviderInternal configurationProvider) {
-		this.configurationProvider = configurationProvider;
+	/**
+	 * Initializes the given {@link IConfigurationProvider} for this
+	 * {@link DiagramBehavior} instance and sets it.
+	 * 
+	 * @param configurationProvider
+	 *            The configuration provider
+	 * 
+	 * @since 0.12
+	 */
+	protected void initConfigurationProvider(IDiagramTypeProvider diagramTypeProvider) {
+		configurationProvider = createConfigurationProvider(diagramTypeProvider);
 
 		// initialize configuration-provider depending on this editor
 		configurationProvider.setWorkbenchPart(parentPart);
 
-		if (diagramContainer.getGraphicalViewer() != null) {
+		if (getDiagramContainer().getGraphicalViewer() != null) {
 			initializeGraphicalViewer();
 		}
 
-		if (diagramContainer instanceof IEditorPart) {
-			DefaultEditDomain editDomain = new DefaultEditDomain((IEditorPart) diagramContainer);
-			diagramContainer.setEditDomain(editDomain);
+		if (getDiagramContainer() instanceof IEditorPart) {
+			DefaultEditDomain editDomain = new DefaultEditDomain((IEditorPart) getDiagramContainer());
+			getDiagramContainer().setEditDomain(editDomain);
 		}
 
 		CommandStack commandStack = new GFCommandStack(configurationProvider, getEditingDomain());
 		getEditDomain().setCommandStack(commandStack);
+	}
+
+	/**
+	 * Creates a new {@link ConfigurationProvider} for this
+	 * {@link DiagramBehavior} and the given {@link IDiagramTypeProvider}. The
+	 * default implementation will create a default
+	 * {@link ConfigurationProvider} which should suite for all Graphiti
+	 * clients.
+	 * 
+	 * @since 0.12
+	 */
+	protected IConfigurationProvider createConfigurationProvider(IDiagramTypeProvider diagramTypeProvider) {
+		return new ConfigurationProvider(this, diagramTypeProvider);
 	}
 
 	private void setMouseLocation(int x, int y) {
@@ -1362,8 +1453,8 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * @return A new instance of {@link ContextMenuProvider}.
 	 */
 	protected ContextMenuProvider createContextMenuProvider() {
-		return new DiagramEditorContextMenuProvider(diagramContainer.getGraphicalViewer(),
-				diagramContainer.getActionRegistry(),
+		return new DiagramEditorContextMenuProvider(getDiagramContainer().getGraphicalViewer(),
+				getDiagramContainer().getActionRegistry(),
 				getConfigurationProvider());
 	}
 
@@ -1396,6 +1487,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		if (action == null || parentPart == null) {
 			return;
 		}
+		IDiagramContainerUI diagramContainer = getDiagramContainer();
 		diagramContainer.getActionRegistry().registerAction(action);
 
 		if (action.getActionDefinitionId() != null) {
@@ -1423,6 +1515,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		{
 			return;
 		}
+		IDiagramContainerUI diagramContainer = getDiagramContainer();
 		final ActionRegistry actionRegistry = diagramContainer.getActionRegistry();
 		@SuppressWarnings("unchecked")
 		final List<String> selectionActions = diagramContainer.getSelectionActions();
@@ -1497,6 +1590,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	protected KeyHandler getCommonKeyHandler() {
 		if (keyHandler == null) {
 			keyHandler = new KeyHandler();
+			IDiagramContainerUI diagramContainer = getDiagramContainer();
 			keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0),
 					diagramContainer.getActionRegistry().getAction(ActionFactory.DELETE.getId()));
 			keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, SWT.SHIFT), diagramContainer.getActionRegistry()
@@ -1533,7 +1627,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	}
 
 	private FigureCanvas getFigureCanvas() {
-		GraphicalViewer viewer = diagramContainer.getGraphicalViewer();
+		GraphicalViewer viewer = getDiagramContainer().getGraphicalViewer();
 		if (viewer != null) {
 			Control control = viewer.getControl();
 			if (control instanceof FigureCanvas) {
@@ -1544,7 +1638,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	}
 
 	private GFFigureCanvas getGFFigureCanvas() {
-		GraphicalViewer viewer = diagramContainer.getGraphicalViewer();
+		GraphicalViewer viewer = getDiagramContainer().getGraphicalViewer();
 		if (viewer != null) {
 			Control control = viewer.getControl();
 			if (control instanceof GFFigureCanvas) {
@@ -1616,6 +1710,17 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	}
 
 	/**
+	 * Setter for the field storing the editor input.
+	 * 
+	 * @param diagramEditorInput
+	 *            The new input
+	 * @since 0.12
+	 */
+	protected void setDiagramEditorInput(IDiagramEditorInput diagramEditorInput) {
+		this.diagramEditorInput = diagramEditorInput;
+	}
+
+	/**
 	 * The part of the dispose that should happen before the GEF dispose.
 	 * Disposes this {@link DiagramBehavior} instance and frees all used
 	 * resources and clears all references. Also delegates to all the behavior
@@ -1639,6 +1744,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		markerBehavior.dispose();
 
 		// unregister selection listener, registered during createPartControl()
+		IDiagramContainerUI diagramContainer = getDiagramContainer();
 		if (diagramContainer instanceof ISelectionListener) {
 			if (diagramContainer.getSite() != null && diagramContainer.getSite().getPage() != null) {
 				diagramContainer.getSite().getPage().removeSelectionListener((ISelectionListener) diagramContainer);
@@ -1697,7 +1803,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * @return The GEF edit domain used used in the container
 	 */
 	public DefaultEditDomain getEditDomain() {
-		return diagramContainer.getEditDomain();
+		return getDiagramContainer().getEditDomain();
 	}
 
 	/**

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2011, 2012 SAP AG.
+ * Copyright (c) 2011, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 433779 - DiagramBehaviour.setInput() is not extensible
  *
  * </copyright>
  *
@@ -93,9 +94,9 @@ public class DefaultRefreshBehavior {
 	 * {@link #autoUpdate(Diagram, IDiagramTypeProvider)} in case an update
 	 * shall be done.
 	 * 
-	 * @since 0.9
+	 * @since 0.12 originally introduced with Graphiti 0.9
 	 */
-	protected void handleAutoUpdateAtStartup() {
+	public void handleAutoUpdateAtStartup() {
 		IDiagramTypeProvider diagramTypeProvider = diagramBehavior.getDiagramTypeProvider();
 		if (diagramTypeProvider.isAutoUpdateAtStartup()) {
 			autoUpdate();
@@ -112,9 +113,9 @@ public class DefaultRefreshBehavior {
 	 * {@link #autoUpdate(Diagram, IDiagramTypeProvider)} in case an update
 	 * shall be done.
 	 * 
-	 * @since 0.9
+	 * @since 0.12 originally introduced with Graphiti 0.9
 	 */
-	protected void handleAutoUpdateAtReset() {
+	public void handleAutoUpdateAtReset() {
 		IDiagramTypeProvider diagramTypeProvider = diagramBehavior.getDiagramTypeProvider();
 		if (diagramTypeProvider.isAutoUpdateAtReset()) {
 			autoUpdate();
@@ -123,7 +124,7 @@ public class DefaultRefreshBehavior {
 
 	/**
 	 * Handles the auto update of the editor and triggers an update of the
-	 * {@link Diagram} by delegating to the {@link IUpdateFeature} regsitered
+	 * {@link Diagram} by delegating to the {@link IUpdateFeature} registered
 	 * for the {@link Diagram}. In the end {@link #refresh()} is called to
 	 * reflect the update in the editor UI. This method is called by
 	 * {@link #handleAutoUpdateAtStartup()} and
