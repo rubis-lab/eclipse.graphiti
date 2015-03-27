@@ -807,7 +807,11 @@ public class DiagramEditor extends GraphicalEditorWithFlyoutPalette implements I
 	 * @since 0.9
 	 */
 	public TransactionalEditingDomain getEditingDomain() {
-		return diagramBehavior.getEditingDomain();
+		if (diagramBehavior != null) {
+			return diagramBehavior.getEditingDomain();
+		} else {
+			return null;
+		}
 	}
 
 	/**
