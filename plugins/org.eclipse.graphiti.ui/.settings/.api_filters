@@ -27,11 +27,6 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/graphiti/ui/editor/DiagramEditor.java" type="org.eclipse.graphiti.ui.editor.DiagramEditor">
-        <filter comment="Bug 429532 - Remove deprecations in 0.12.0" id="337682486">
-            <message_arguments>
-                <message_argument value="org.eclipse.graphiti.ui.editor.DiagramEditor"/>
-            </message_arguments>
-        </filter>
         <filter id="574668824">
             <message_arguments>
                 <message_argument value="IDiagramContainerUI"/>
