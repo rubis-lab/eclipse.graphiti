@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 391046 - Deadlock while saving prior to refactoring operation
  *    mwenz - Bug 433650 - Editor in in dirty state after a Save
+ *    mwenz - Bug 441676 - Read-only attribute is not respected in Graphiti
  *
  * </copyright>
  *
@@ -47,6 +48,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -73,7 +75,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
@@ -262,9 +263,10 @@ public class GFOtherTests extends AbstractGFTests {
 
 		Resource res = diagramEditor.getDiagramTypeProvider().getDiagram().eResource();
 		assertEquals("Shape was not created", 3, res.getContents().size());
-		AdapterFactoryEditingDomain editingDomain = (AdapterFactoryEditingDomain) diagramEditor.getDiagramBehavior()
-				.getEditingDomain();
-		editingDomain.getResourceToReadOnlyMap().put(res, true);
+		IFile file = GraphitiUiInternal.getEmfService().getFile(res.getURI());
+		ResourceAttributes resourceAttributes = new ResourceAttributes();
+		resourceAttributes.setReadOnly(true);
+		file.setResourceAttributes(resourceAttributes);
 
 		diagramEditor.doSave(new NullProgressMonitor());
 		
