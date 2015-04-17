@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@
  *    mwenz - Bug 389380 - Undo/Redo handling wrong Command executed by undo action
  *    mwenz - Bug 430609 - Re-entrance in diagram update causes transaction error
  *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
+ *    mwenz - Bug 464596 - BasicIndexOutOfBoundsException in BasicEList.get
  *
  * </copyright>
  *
@@ -180,7 +181,9 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 		}
 
 		// Trigger EMF redo
-		super.redo();
+		if (super.canRedo()) {
+			super.redo();
+		}
 
 		// Check if non-EMF redo is needed and care about it
 		if (executionList != null) {
@@ -249,7 +252,9 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 		}
 
 		// Trigger EMF undo
-		super.undo();
+		if (super.canUndo()) {
+			super.undo();
+		}
 
 		// Care about non-EMF undo and post-undo
 		if (executionList != null) {
