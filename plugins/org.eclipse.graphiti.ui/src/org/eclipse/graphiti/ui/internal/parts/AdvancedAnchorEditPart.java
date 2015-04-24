@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *                                         the same way as for BoxRelativeAnchors
  *    fvelasco - Bug 417577 - state call backs review
  *    mwenz - Bug 434436 - Highlighting of Anchors on hover does not seem to work
+ *    mwenz - Bug 459386 - Refresh Connection when getDiagramBehavior().refreshRenderingDecorators(PEInstance) is called
  *
  * </copyright>
  *
@@ -309,5 +310,9 @@ public class AdvancedAnchorEditPart extends AbstractGraphicalEditPart implements
 	public void showTargetFeedback(Request request) {
 		super.showTargetFeedback(request);
 		delegate.getVisualState().setHoverFeedback(IVisualState.HOVER_ON);
+	}
+
+	public void refreshDecorators() {
+		delegate.refreshDecorators();
 	}
 }

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 459386 - Refresh Connection when getDiagramBehavior().refreshRenderingDecorators(PEInstance) is called
  *
  * </copyright>
  *
@@ -35,9 +36,4 @@ public interface IShapeEditPart extends IAnchorContainerEditPart {
 	 *            the child edit part
 	 */
 	void deleteChildAndRefresh(EditPart childEditPart);
-
-	/**
-	 * 
-	 */
-	void refreshDecorators();
 }

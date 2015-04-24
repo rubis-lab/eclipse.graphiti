@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 412858 - canUpdate is not consulted before calling updateNeeded during startup
  *    mwenz - Bug 434458 - Connections don't support Color decorators
+ *    mwenz - Bug 459386 - Refresh Connection when getDiagramBehavior().refreshRenderingDecorators(PEInstance) is called
  *
  * </copyright>
  *
@@ -1686,5 +1687,13 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 	protected GFPreferences getPreferences() {
 		return GFPreferences.getInstance();
+	}
+
+	public void refreshDecorators() {
+		PictogramElement pe = getPictogramElement();
+		GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
+		IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider()
+				.getCurrentToolBehaviorProvider();
+		addDecorators(ga, pe, getFigureForGraphicsAlgorithm(ga), tbp);
 	}
 }

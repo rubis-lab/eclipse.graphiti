@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG and others.
+ * Copyright (c) 2005, 2015 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    Hallvard Traetteberg - Félix Velasco - Bug 403272 - Set the location of DoubleClickContext for DoubleClickFeature
+ *    mwenz - Bug 459386 - Refresh Connection when getDiagramBehavior().refreshRenderingDecorators(PEInstance) is called
  *
  * </copyright>
  *
@@ -283,4 +284,7 @@ public abstract class ConnectionEditPart extends GraphitiConnectionEditPart impl
 		super.performRequest(request);
 	}
 
+	public void refreshDecorators() {
+		delegate.refreshDecorators();
+	}
 }

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 459386 - Refresh Connection when getDiagramBehavior().refreshRenderingDecorators(PEInstance) is called
  *
  * </copyright>
  *
@@ -21,12 +22,10 @@ import java.util.List;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.internal.services.GraphitiInternal;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 
 /**
@@ -74,12 +73,5 @@ public class AnchorContainerDelegate extends PictogramElementDelegate implements
 			}
 		}
 		return result;
-	}
-
-	public void refreshDecorators() {
-		PictogramElement pe = getPictogramElement();
-		GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
-		IToolBehaviorProvider tbp = getConfigurationProvider().getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-		addDecorators(ga, pe, getFigureForGraphicsAlgorithm(ga), tbp);
 	}
 }

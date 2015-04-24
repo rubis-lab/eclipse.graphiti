@@ -11,6 +11,7 @@
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 433779 - DiagramBehaviour.setInput() is not extensible
+ *    mwenz - Bug 459386 - Refresh Connection when getDiagramBehavior().refreshRenderingDecorators(PEInstance) is called
  *
  * </copyright>
  *
@@ -33,9 +34,9 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
 import org.eclipse.graphiti.ui.internal.editor.RefreshPerformanceCache;
+import org.eclipse.graphiti.ui.internal.parts.IAnchorContainerEditPart;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementDelegate;
 import org.eclipse.graphiti.ui.internal.parts.IPictogramElementEditPart;
-import org.eclipse.graphiti.ui.internal.parts.IShapeEditPart;
 import org.eclipse.graphiti.ui.internal.parts.ShapeEditPart;
 import org.eclipse.swt.widgets.Display;
 
@@ -230,9 +231,9 @@ public class DefaultRefreshBehavior {
 	 */
 	public void refreshRenderingDecorators(PictogramElement pe) {
 		GraphicalEditPart ep = diagramBehavior.getEditPartForPictogramElement(pe);
-		if (ep instanceof IShapeEditPart) {
-			IShapeEditPart sep = (IShapeEditPart) ep;
-			sep.refreshDecorators();
+		if (ep instanceof IAnchorContainerEditPart) {
+			IAnchorContainerEditPart acep = (IAnchorContainerEditPart) ep;
+			acep.refreshDecorators();
 		}
 	}
 
