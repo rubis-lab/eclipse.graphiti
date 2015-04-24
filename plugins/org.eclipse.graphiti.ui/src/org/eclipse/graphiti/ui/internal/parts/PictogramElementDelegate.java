@@ -26,6 +26,7 @@
  *    mwenz - Bug 412858 - canUpdate is not consulted before calling updateNeeded during startup
  *    mwenz - Bug 434458 - Connections don't support Color decorators
  *    mwenz - Bug 459386 - Refresh Connection when getDiagramBehavior().refreshRenderingDecorators(PEInstance) is called
+ *    mwenz - Bug 464857 - Images created by GFImageFigure are not destroyed
  *
  * </copyright>
  *
@@ -232,6 +233,10 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		for (IFigure figure : elementFigureHash.values()) {
 			removeDecorators(figure);
+			if (figure instanceof ImageFigure) {
+				// Trigger disposal of currently displayed image (bug 464857)
+				((ImageFigure) figure).setImage(null);
+			}
 		}
 
 		disposeFonts();

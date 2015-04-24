@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Veit Hoffmann (mwenz) - Bug 342869 - Image doesn't scale the contained SWT Image on resize
+ *    mwenz - Bug 464857 - Images created by GFImageFigure are not destroyed
  *
  * </copyright>
  *
@@ -32,6 +33,7 @@ public class GFImageFigure extends ImageFigureAntialias {
 	private GraphicsAlgorithm graphicsAlgorithm;
 
 	private Image fillImage = null;
+	private boolean isSelfCreatedImage = false;
 
 	public GFImageFigure(GraphicsAlgorithm graphicsAlgorithm) {
 		this.graphicsAlgorithm = graphicsAlgorithm;
@@ -39,6 +41,7 @@ public class GFImageFigure extends ImageFigureAntialias {
 
 	@Override
 	public void setImage(Image image) {
+		disposeSelfCreatedImage();
 		if (image != null
 				&& graphicsAlgorithm instanceof org.eclipse.graphiti.mm.algorithms.Image) {
 			org.eclipse.graphiti.mm.algorithms.Image imageGA = (org.eclipse.graphiti.mm.algorithms.Image) graphicsAlgorithm;
@@ -75,25 +78,30 @@ public class GFImageFigure extends ImageFigureAntialias {
 				// create scaled image
 				double d = imageWidth * scalefactorX;
 				double e = imageHeight * scalefactorY;
-				Image oldFillImage = fillImage;
-				fillImage = new Image(Display.getCurrent(),
-						originalImageData.scaledTo((int) d, (int) e));
-				super.setImage(fillImage);
-				// keep track of the old fill image on resize and dispose it to
-				// avoid memory leaks
 				// We don't change the image in
 				// GraphitiUIPlugin.getDefault().getImageRegistry() because
 				// scaling down makes image quality bad
-				if (oldFillImage != null && !oldFillImage.isDisposed()) {
-					oldFillImage.dispose();
-				}
+				fillImage = new Image(Display.getCurrent(),
+						originalImageData.scaledTo((int) d, (int) e));
+				isSelfCreatedImage = true;
 			} else {
-				super.setImage(image);
+				fillImage = image;
 			}
 		} else {
-			super.setImage(image);
+			fillImage = image;
 		}
+		super.setImage(fillImage);
+	}
 
+	private void disposeSelfCreatedImage() {
+		// keep track of any self-created fill image and dispose it to avoid
+		// resource leaks
+		if (isSelfCreatedImage) {
+			if (fillImage != null && !fillImage.isDisposed()) {
+				fillImage.dispose();
+			}
+			isSelfCreatedImage = false;
+		}
 	}
 
 	@Override
