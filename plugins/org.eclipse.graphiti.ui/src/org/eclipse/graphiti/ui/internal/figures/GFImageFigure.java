@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    Veit Hoffmann (mwenz) - Bug 342869 - Image doesn't scale the contained SWT Image on resize
+ *    mwenz - Bug 464857 - Images created by GFImageFigure are not destroyed
  *
  * </copyright>
  *
@@ -75,25 +76,32 @@ public class GFImageFigure extends ImageFigureAntialias {
 				// create scaled image
 				double d = imageWidth * scalefactorX;
 				double e = imageHeight * scalefactorY;
-				Image oldFillImage = fillImage;
 				fillImage = new Image(Display.getCurrent(),
 						originalImageData.scaledTo((int) d, (int) e));
-				super.setImage(fillImage);
-				// keep track of the old fill image on resize and dispose it to
-				// avoid memory leaks
-				// We don't change the image in
-				// GraphitiUIPlugin.getDefault().getImageRegistry() because
-				// scaling down makes image quality bad
-				if (oldFillImage != null && !oldFillImage.isDisposed()) {
-					oldFillImage.dispose();
-				}
+				disposeOldImage();
 			} else {
-				super.setImage(image);
+				fillImage = image;
+				// Must not dispose here as this leads to Graphics is disposed
+				// exceptions when images are reused, see
+				// https://bugs.eclipse.org/bugs/show_bug.cgi?id=464857#c7
 			}
 		} else {
-			super.setImage(image);
+			fillImage = image;
+			disposeOldImage();
 		}
+		super.setImage(fillImage);
+	}
 
+	private void disposeOldImage() {
+		// keep track of the old fill image on resize and dispose it to avoid
+		// memory leaks
+		// We don't change the image in
+		// GraphitiUIPlugin.getDefault().getImageRegistry() because scaling down
+		// makes image quality bad
+		Image oldImage = getImage();
+		if (oldImage != null && !oldImage.isDisposed()) {
+			oldImage.dispose();
+		}
 	}
 
 	@Override
