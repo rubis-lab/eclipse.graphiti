@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 412858 - canUpdate is not consulted before calling updateNeeded during startup
  *    mwenz - Bug 434458 - Connections don't support Color decorators
+ *    mwenz - Bug 464857 - Images created by GFImageFigure are not destroyed
  *
  * </copyright>
  *
@@ -231,6 +232,10 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		for (IFigure figure : elementFigureHash.values()) {
 			removeDecorators(figure);
+			if (figure instanceof ImageFigure) {
+				// Trigger disposal of currently displayed image (bug 464857)
+				((ImageFigure) figure).setImage(null);
+			}
 		}
 
 		disposeFonts();
