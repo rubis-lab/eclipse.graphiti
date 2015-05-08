@@ -67,6 +67,9 @@ public class DeleteFeatureForPattern extends DefaultDeleteFeature implements ICu
 		delegate.getPattern().preDelete(context);
 	}
 
+	/**
+	 * @since 0.12
+	 */
 	@Override
 	public boolean isDeleteAbort() {
 		IPattern pattern = delegate.getPattern();

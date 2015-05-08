@@ -68,6 +68,9 @@ public class RemoveFeatureForPattern extends DefaultRemoveFeature implements ICu
 		delegate.getPattern().preRemove(context);
 	}
 
+	/**
+	 * @since 0.12
+	 */
 	@Override
 	public boolean isRemoveAbort() {
 		IPattern pattern = delegate.getPattern();

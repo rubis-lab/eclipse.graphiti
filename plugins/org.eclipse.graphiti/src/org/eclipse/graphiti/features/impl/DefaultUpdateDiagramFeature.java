@@ -114,6 +114,9 @@ public class DefaultUpdateDiagramFeature extends AbstractUpdateFeature implement
 		return hasDoneChanges;
 	}
 
+	/**
+	 * @since 0.12
+	 */
 	@Override
 	public boolean canUndo(IContext context) {
 		PictogramElement pe = ((IUpdateContext) context).getPictogramElement();
