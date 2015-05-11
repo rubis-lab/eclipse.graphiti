@@ -76,19 +76,48 @@
 	<target name="copy.sites" >
 		
 		<echo message="Deleting old packed update site from last_success area" />
-		<delete dir="${root}/last_success/site.packed/" failonerror="true" />
+		<delete dir="${root}/last_success/site.packed/" failonerror="false" />
+		
+		<echo message="Deleting old signed update site from last_success area" />
+		<delete dir="${root}/last_success/site.signed/" failonerror="false" />
 		
 		<echo message="Deleting old ZIP archive from last_success area" />
 		<delete dir="${root}/last_success/site.p2.zip/" failonerror="true" />
 
-		<echo message="Copying site.packed to last_success area" />
-		<copydir dest="${root}/last_success/site.packed/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.packed" />
+		<if>
+			<available file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.packed" type="dir" />
+				 <then>
+					<echo message="Copying site.packed to last_success area" />
+					<copydir dest="${root}/last_success/site.packed/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.packed" />
 
-		<echo message="Add update site stuff and user-readable description to site.packed folder (copy from site.p2 folder)" />
-		<copy todir="${root}/last_success/site.packed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/artifacts.jar" />
-		<copy todir="${root}/last_success/site.packed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/content.jar" />
-		<copy todir="${root}/last_success/site.packed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/index.html" />
-		<copy todir="${root}/last_success/site.packed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/index.xml" />
+					<echo message="Add update site stuff and user-readable description to site.packed folder (copy from site.p2 folder)" />
+					<copy todir="${root}/last_success/site.packed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/artifacts.jar" />
+					<copy todir="${root}/last_success/site.packed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/content.jar" />
+					<copy todir="${root}/last_success/site.packed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/index.html" />
+					<copy todir="${root}/last_success/site.packed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/index.xml" />
+			  </then>
+			  <else>
+			    <echo message="Folder 'site.packed' does not exist, skipping" />
+
+			  	<if>
+					<available file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.signed" type="dir" />
+				 		<then>
+							<echo message="Copying site.signed to last_success area" />
+							<copydir dest="${root}/last_success/site.signed/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.signed" />
+
+							<echo message="Add update site stuff and user-readable description to site.signed folder (copy from site.p2 folder)" />
+							<copy todir="${root}/last_success/site.signed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/artifacts.jar" />
+							<copy todir="${root}/last_success/site.signed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/content.jar" />
+							<copy todir="${root}/last_success/site.signed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/index.html" />
+							<copy todir="${root}/last_success/site.signed/" file="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2/index.xml" />
+			  			</then>
+			  			<else>
+			    			<echo message="Folder 'site.signed' does not exist" />
+			  			</else>
+					</if>
+			  </else>
+		</if>
+
 
 		<echo message="Copying site.p2.zip to last_success area" />
 		<copydir dest="${root}/last_success/site.p2.zip/" src="${root}/buildroot/buckminster.build/org.eclipse.graphiti.site_1.0.0-eclipse.feature/site.p2.zip" />
