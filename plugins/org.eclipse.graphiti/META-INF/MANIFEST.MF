@@ -2,47 +2,47 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.graphiti;singleton:=true
-Bundle-Version: 0.11.2.qualifier
+Bundle-Version: 0.11.3.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.graphiti.mm;bundle-version="0.11.2";visibility:=reexport,
+Require-Bundle: org.eclipse.graphiti.mm;bundle-version="0.11.3";visibility:=reexport,
  org.eclipse.emf.transaction;bundle-version="[1.4.0,2.0.0)"
-Export-Package: org.eclipse.graphiti;version="0.11.2",
- org.eclipse.graphiti.datatypes;version="0.11.2",
- org.eclipse.graphiti.dt;version="0.11.2",
- org.eclipse.graphiti.features;version="0.11.2",
- org.eclipse.graphiti.features.context;version="0.11.2",
- org.eclipse.graphiti.features.context.impl;version="0.11.2",
- org.eclipse.graphiti.features.custom;version="0.11.2",
- org.eclipse.graphiti.features.impl;version="0.11.2",
- org.eclipse.graphiti.func;version="0.11.2",
- org.eclipse.graphiti.internal;version="0.11.2";
+Export-Package: org.eclipse.graphiti;version="0.11.3",
+ org.eclipse.graphiti.datatypes;version="0.11.3",
+ org.eclipse.graphiti.dt;version="0.11.3",
+ org.eclipse.graphiti.features;version="0.11.3",
+ org.eclipse.graphiti.features.context;version="0.11.3",
+ org.eclipse.graphiti.features.context.impl;version="0.11.3",
+ org.eclipse.graphiti.features.custom;version="0.11.3",
+ org.eclipse.graphiti.features.impl;version="0.11.3",
+ org.eclipse.graphiti.func;version="0.11.3",
+ org.eclipse.graphiti.internal;version="0.11.3";
   x-friends:="org.eclipse.graphiti.ui,
    org.eclipse.graphiti.pattern,
    org.eclipse.graphiti.bot.tests,
    org.eclipse.graphiti.ui.tests",
- org.eclipse.graphiti.internal.command;version="0.11.2";
+ org.eclipse.graphiti.internal.command;version="0.11.3";
   x-friends:="org.eclipse.graphiti.ui,
    org.eclipse.graphiti.tests,
    org.eclipse.graphiti.bot.tests,
    org.eclipse.graphiti.ui.tests",
- org.eclipse.graphiti.internal.contextbuttons;version="0.11.2";x-friends:="org.eclipse.graphiti.ui",
- org.eclipse.graphiti.internal.datatypes.impl;version="0.11.2";x-friends:="org.eclipse.graphiti.ui,org.eclipse.graphiti.tests,org.eclipse.graphiti.ui.tests",
- org.eclipse.graphiti.internal.features.context.impl.base;version="0.11.2";x-friends:="org.eclipse.graphiti.ui,org.eclipse.graphiti.pattern",
- org.eclipse.graphiti.internal.pref;version="0.11.2";x-friends:="org.eclipse.graphiti.ui",
- org.eclipse.graphiti.internal.services;version="0.11.2";x-friends:="org.eclipse.graphiti.ui",
- org.eclipse.graphiti.internal.services.impl;version="0.11.2";x-internal:=true,
- org.eclipse.graphiti.internal.util;version="0.11.2";x-friends:="org.eclipse.graphiti.ui,org.eclipse.graphiti.pattern,org.eclipse.graphiti.bot.tests",
- org.eclipse.graphiti.notification;version="0.11.2",
- org.eclipse.graphiti.palette;version="0.11.2",
- org.eclipse.graphiti.palette.impl;version="0.11.2",
- org.eclipse.graphiti.platform;version="0.11.2",
- org.eclipse.graphiti.platform.ga;version="0.11.2",
- org.eclipse.graphiti.services;version="0.11.2",
- org.eclipse.graphiti.services.impl;version="0.11.2",
- org.eclipse.graphiti.tb;version="0.11.2",
- org.eclipse.graphiti.util;version="0.11.2"
+ org.eclipse.graphiti.internal.contextbuttons;version="0.11.3";x-friends:="org.eclipse.graphiti.ui",
+ org.eclipse.graphiti.internal.datatypes.impl;version="0.11.3";x-friends:="org.eclipse.graphiti.ui,org.eclipse.graphiti.tests,org.eclipse.graphiti.ui.tests",
+ org.eclipse.graphiti.internal.features.context.impl.base;version="0.11.3";x-friends:="org.eclipse.graphiti.ui,org.eclipse.graphiti.pattern",
+ org.eclipse.graphiti.internal.pref;version="0.11.3";x-friends:="org.eclipse.graphiti.ui",
+ org.eclipse.graphiti.internal.services;version="0.11.3";x-friends:="org.eclipse.graphiti.ui",
+ org.eclipse.graphiti.internal.services.impl;version="0.11.3";x-internal:=true,
+ org.eclipse.graphiti.internal.util;version="0.11.3";x-friends:="org.eclipse.graphiti.ui,org.eclipse.graphiti.pattern,org.eclipse.graphiti.bot.tests",
+ org.eclipse.graphiti.notification;version="0.11.3",
+ org.eclipse.graphiti.palette;version="0.11.3",
+ org.eclipse.graphiti.palette.impl;version="0.11.3",
+ org.eclipse.graphiti.platform;version="0.11.3",
+ org.eclipse.graphiti.platform.ga;version="0.11.3",
+ org.eclipse.graphiti.services;version="0.11.3",
+ org.eclipse.graphiti.services.impl;version="0.11.3",
+ org.eclipse.graphiti.tb;version="0.11.3",
+ org.eclipse.graphiti.util;version="0.11.3"
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipse.graphiti.internal.GraphitiPlugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
