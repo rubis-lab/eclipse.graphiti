@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@
  *    mwenz - Bug 416039 - TextStyle rendering does not fall back to abstract text font
  *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
  *    mwenz - Bug 453553 - Provide an abort possibility for delete and remove features in case 'pre' methods fail
+ *    mwenz - Bug 467476 - NullPointerException in GFPaletteRoot.createModelIndependentTools
  *
  * </copyright>
  *
@@ -23,6 +24,7 @@ package org.eclipse.graphiti.ui.tests;
 
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeatureTest;
 import org.eclipse.graphiti.ui.features.DefaultRemoveFeatureTest;
+import org.eclipse.graphiti.ui.internal.editor.GFPaletteRootTest;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtilTest;
 import org.eclipse.graphiti.ui.tests.compatibility.CompatibilityTests;
 import org.junit.runner.RunWith;
@@ -32,6 +34,6 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({ PackageTest.class, CommandStackTest.class, MigrationServiceTest.class,
 		CustomUndoableFeatureTest.class, RollbackTest.class, LayoutServiceTest.class, CommandTest.class,
 		CompatibilityTests.class, GFFigureUtilTest.class, CustomUndoRedoFeatureTest.class,
-		DefaultDeleteFeatureTest.class, DefaultRemoveFeatureTest.class })
+		DefaultDeleteFeatureTest.class, DefaultRemoveFeatureTest.class, GFPaletteRootTest.class })
 public class AllTests {
 }

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    Bug 336488 - DiagramEditor API
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    mwenz - Bug 428068 - Automatically unselect a tool entry in palette like 'connection creation' after execution
+ *    mwenz - Bug 467476 - NullPointerException in GFPaletteRoot.createModelIndependentTools
  *
  * </copyright>
  *
@@ -72,13 +73,18 @@ public class GFPaletteRoot extends PaletteRoot {
 	private IDiagramTypeProvider diagramTypeProvider;
 
 	/**
-	 * Creates a new GenericPaletteRoot for the given Model. It is constructed
-	 * by calling createModelIndependentTools() and createCreationTools().
+	 * Creates a new GFPaletteRoot for the diagram identified by the given
+	 * {@link IDiagramTypeProvider}. It is constructed by calling
+	 * createModelIndependentTools() and createCreationTools().
 	 * 
-	 * @param configurationProvider
-	 *            the configuration provider
+	 * @param diagramTypeProvider
+	 *            the diagram type provider
 	 */
 	public GFPaletteRoot(IDiagramTypeProvider diagramTypeProvider) {
+		super();
+		if (diagramTypeProvider == null) {
+			throw new IllegalArgumentException("diagramTypeProvider must not be null");
+		}
 		this.diagramTypeProvider = diagramTypeProvider;
 		updatePaletteEntries();
 	}
