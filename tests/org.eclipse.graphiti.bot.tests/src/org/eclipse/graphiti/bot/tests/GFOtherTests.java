@@ -1230,7 +1230,7 @@ public class GFOtherTests extends AbstractGFTests {
 
 			if (data[0] instanceof ActionContributionItem) {
 				ActionContributionItem item = (ActionContributionItem) data[0];
-				if (item.getId().equals(ActionFactory.BACKWARD_HISTORY.getId())) { // Found!
+				if (item != null && ActionFactory.BACKWARD_HISTORY.getId().equals(item.getId())) { // Found!
 					toolbarDropDownButton.click();
 					break;
 				}
