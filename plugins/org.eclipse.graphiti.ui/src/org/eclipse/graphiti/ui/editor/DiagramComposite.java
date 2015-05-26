@@ -165,9 +165,8 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	public void dispose() {
 		// unregister selection listener, registered during createPartControl()
-		if (getWorkbenchPart() != null && getWorkbenchPart().getSite() != null
-				&& getWorkbenchPart().getSite().getPage() != null) {
-			getWorkbenchPart().getSite().getPage().removeSelectionListener(this);
+		if (getSite() != null && getSite().getPage() != null) {
+			getSite().getPage().removeSelectionListener(this);
 		}
 
 		if (diagramBehavior != null) {
@@ -292,15 +291,24 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 	/* Methods from container interface */
 
 	public IWorkbenchPartSite getSite() {
-		return getWorkbenchPart().getSite();
+		if (getWorkbenchPart() != null) {
+			return getWorkbenchPart().getSite();
+		}
+		return null;
 	}
 
 	public String getTitle() {
-		return getWorkbenchPart().getTitle();
+		if (getWorkbenchPart() != null) {
+			return getWorkbenchPart().getTitle();
+		}
+		return null;
 	}
 
 	public String getTitleToolTip() {
-		return getWorkbenchPart().getTitleToolTip();
+		if (getWorkbenchPart() != null) {
+			return getWorkbenchPart().getTitleToolTip();
+		}
+		return null;
 	}
 
 	public void doSave(IProgressMonitor monitor) {

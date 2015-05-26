@@ -554,8 +554,11 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 					if (editingDomain.getResourceSet().getURIConverter().exists(uri, null)) {
 						// file content has changes
 						setResourceChanged(true);
-						final IWorkbenchPart activePart = diagramContainer.getWorkbenchPart().getSite().getPage()
-								.getActivePart();
+
+						IWorkbenchPart activePart = null;
+						if (diagramContainer.getSite() != null) {
+							activePart = diagramContainer.getSite().getPage().getActivePart();
+						}
 						if (activePart == diagramContainer) {
 							getShell().getDisplay().asyncExec(new Runnable() {
 								public void run() {
@@ -586,8 +589,11 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 							// Ask user what to da with unsaved changes in the
 							// editor
 							setResourceDeleted(true);
-							final IWorkbenchPart activePart = diagramContainer.getWorkbenchPart().getSite().getPage()
-									.getActivePart();
+
+							IWorkbenchPart activePart = null;
+							if (diagramContainer.getSite() != null) {
+								activePart = diagramContainer.getSite().getPage().getActivePart();
+							}
 							if (activePart == diagramContainer) {
 								getShell().getDisplay().asyncExec(new Runnable() {
 									public void run() {

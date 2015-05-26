@@ -60,7 +60,7 @@ public final class ElementDeleteListener extends AdapterImpl {
 
 		final IDiagramEditorInput in = diagramBehavior.getDiagramContainer().getDiagramEditorInput();
 		if (in != null) {
-			final IWorkbenchPartSite site = diagramBehavior.getDiagramContainer().getWorkbenchPart().getSite();
+			final IWorkbenchPartSite site = diagramBehavior.getDiagramContainer().getSite();
 			if (site == null) {
 				return;
 			}

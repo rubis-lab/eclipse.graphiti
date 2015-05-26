@@ -175,7 +175,9 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IPr
 
 		// register listeners
 		_selectionSynchronizer.addViewer(getViewer());
-		_diagramEditor.getWorkbenchPart().addPropertyListener(this);
+		if (_diagramEditor.getWorkbenchPart() != null) {
+			_diagramEditor.getWorkbenchPart().addPropertyListener(this);
+		}
 
 		initContents();
 	}
@@ -187,7 +189,9 @@ public class GraphicsEditorOutlinePage extends ContentOutlinePage implements IPr
 	public void dispose() {
 		// deregister listeners
 		_selectionSynchronizer.removeViewer(getViewer());
-		_diagramEditor.getWorkbenchPart().removePropertyListener(this);
+		if (_diagramEditor.getWorkbenchPart() != null) {
+			_diagramEditor.getWorkbenchPart().removePropertyListener(this);
+		}
 
 		if (_thumbnail != null)
 			_thumbnail.deactivate();
