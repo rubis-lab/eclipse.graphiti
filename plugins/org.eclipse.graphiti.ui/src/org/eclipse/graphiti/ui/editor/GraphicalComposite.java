@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2013 SRC
+ * Copyright (c) 2015 SRC
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    pjpaulin - initial API, implementation and documentation
+ *    jsivadier - Bug 467502 - Improve DiagramComposite implementation without IWorkbenchPart
  *
  * </copyright>
  *
@@ -124,25 +125,26 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
     @SuppressWarnings("unchecked")
     protected void createActions() {
 		if (getWorkbenchPart() != null) {
+			IWorkbenchPart workbenchPart = getWorkbenchPart();
 			ActionRegistry registry = getActionRegistry();
 			IAction action;
 
-			action = new UndoAction(this.getWorkbenchPart());
+			action = new UndoAction(workbenchPart);
 			registry.registerAction(action);
 			getStackActions().add(action.getId());
 
-			action = new RedoAction(this.getWorkbenchPart());
+			action = new RedoAction(workbenchPart);
 			registry.registerAction(action);
 			getStackActions().add(action.getId());
 
-			action = new SelectAllAction(this.getWorkbenchPart());
+			action = new SelectAllAction(workbenchPart);
 			registry.registerAction(action);
 
-			action = new DeleteAction(this.getWorkbenchPart());
+			action = new DeleteAction(workbenchPart);
 			registry.registerAction(action);
 			getSelectionActions().add(action.getId());
 
-			registry.registerAction(new PrintAction(this.getWorkbenchPart()));
+			registry.registerAction(new PrintAction(workbenchPart));
 		}
     }
 
@@ -182,7 +184,7 @@ public abstract class GraphicalComposite extends Composite implements CommandSta
 			this.getWorkbenchPart().getSite().getWorkbenchWindow().getSelectionService()
                 .removeSelectionListener(this);
         getEditDomain().setActiveTool(null);
-        getActionRegistry().dispose();
+		getActionRegistry().dispose();
         super.dispose();
     }
 

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    jsivadier - Bug 467502 - Improve DiagramComposite implementation without IWorkbenchPart
  *
  * </copyright>
  *
@@ -60,7 +61,7 @@ public final class ElementDeleteListener extends AdapterImpl {
 
 		final IDiagramEditorInput in = diagramBehavior.getDiagramContainer().getDiagramEditorInput();
 		if (in != null) {
-			final IWorkbenchPartSite site = diagramBehavior.getDiagramContainer().getWorkbenchPart().getSite();
+			final IWorkbenchPartSite site = diagramBehavior.getDiagramContainer().getSite();
 			if (site == null) {
 				return;
 			}

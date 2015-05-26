@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 427444 - Issues with drill-down diagram editor when diagram file is deleted
  *    mwenz - Bug 430687 - UpdateBehaviour createEditingDomain should be able to access diagram input (sphinx compatibility)
+ *    jsivadier - Bug 467502 - Improve DiagramComposite implementation without IWorkbenchPart
  *
  * </copyright>
  *
@@ -554,8 +555,11 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 					if (editingDomain.getResourceSet().getURIConverter().exists(uri, null)) {
 						// file content has changes
 						setResourceChanged(true);
-						final IWorkbenchPart activePart = diagramContainer.getWorkbenchPart().getSite().getPage()
-								.getActivePart();
+
+						IWorkbenchPart activePart = null;
+						if (diagramContainer.getSite() != null) {
+							activePart = diagramContainer.getSite().getPage().getActivePart();
+						}
 						if (activePart == diagramContainer) {
 							getShell().getDisplay().asyncExec(new Runnable() {
 								public void run() {
@@ -586,8 +590,11 @@ public class DefaultUpdateBehavior extends PlatformObject implements IEditingDom
 							// Ask user what to da with unsaved changes in the
 							// editor
 							setResourceDeleted(true);
-							final IWorkbenchPart activePart = diagramContainer.getWorkbenchPart().getSite().getPage()
-									.getActivePart();
+
+							IWorkbenchPart activePart = null;
+							if (diagramContainer.getSite() != null) {
+								activePart = diagramContainer.getSite().getPage().getActivePart();
+							}
 							if (activePart == diagramContainer) {
 								getShell().getDisplay().asyncExec(new Runnable() {
 									public void run() {

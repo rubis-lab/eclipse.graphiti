@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2014 SRC
+ * Copyright (c) 2015 SRC
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
  *    pjpaulin - Bug 405314 - Should be able to override DefaultBehavior implementation without configuration
  *    mwenz - Bug 407894 - Luna: After DiagramsInViews change graphical viewer is configured and initialized only by a workaround
+ *    jsivadier - Bug 467502 - Improve DiagramComposite implementation without IWorkbenchPart
  *
  * </copyright>
  *
@@ -165,9 +166,8 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 
 	public void dispose() {
 		// unregister selection listener, registered during createPartControl()
-		if (getWorkbenchPart() != null && getWorkbenchPart().getSite() != null
-				&& getWorkbenchPart().getSite().getPage() != null) {
-			getWorkbenchPart().getSite().getPage().removeSelectionListener(this);
+		if (getSite() != null && getSite().getPage() != null) {
+			getSite().getPage().removeSelectionListener(this);
 		}
 
 		if (diagramBehavior != null) {
@@ -292,15 +292,24 @@ public class DiagramComposite extends GraphicalComposite implements IDiagramCont
 	/* Methods from container interface */
 
 	public IWorkbenchPartSite getSite() {
-		return getWorkbenchPart().getSite();
+		if (getWorkbenchPart() != null) {
+			return getWorkbenchPart().getSite();
+		}
+		return null;
 	}
 
 	public String getTitle() {
-		return getWorkbenchPart().getTitle();
+		if (getWorkbenchPart() != null) {
+			return getWorkbenchPart().getTitle();
+		}
+		return null;
 	}
 
 	public String getTitleToolTip() {
-		return getWorkbenchPart().getTitleToolTip();
+		if (getWorkbenchPart() != null) {
+			return getWorkbenchPart().getTitleToolTip();
+		}
+		return null;
 	}
 
 	public void doSave(IProgressMonitor monitor) {
