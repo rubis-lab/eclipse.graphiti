@@ -35,13 +35,38 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Mars</h1>
-	<p>Last revised Mai 19, 2015</p>
+	<p>Last revised Mai 26, 2015</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.12.0 within the
 		Mars release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- RC2 ------------------------------ -->
+		<tr>
+			<td colspan="2">
+				<h2>RC2</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on fixing bugs.</td>
+		</tr>
+		<tr id="bug 467502">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=467502">Bug
+					467502</a></td>
+			<td class="content">A potential NullPointerException in
+				DiagramComposite.getWorkbenchPart().getSite() has been fixed.</td>
+		</tr>
+		<tr id="bug 467824">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=467824">Bug
+					467824</a></td>
+			<td class="content">To consume a security fix in
+				org.apache.batik.dom Graphiti needed to update the batik dependency
+				from 1.7.0 to 1.7.1</td>
+		</tr>
 		<!-- ---------------------------------------- RC1 ------------------------------ -->
 		<tr>
 			<td colspan="2">
