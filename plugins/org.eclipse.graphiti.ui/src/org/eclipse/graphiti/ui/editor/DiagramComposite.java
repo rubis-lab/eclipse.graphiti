@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2014 SRC
+ * Copyright (c) 2015 SRC
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    mwenz - Bug 394315 - Enable injecting behavior objects in DiagramEditor
  *    pjpaulin - Bug 405314 - Should be able to override DefaultBehavior implementation without configuration
  *    mwenz - Bug 407894 - Luna: After DiagramsInViews change graphical viewer is configured and initialized only by a workaround
+ *    jsivadier - Bug 467502 - Improve DiagramComposite implementation without IWorkbenchPart
  *
  * </copyright>
  *

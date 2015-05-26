@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    fvelasco - Bug 396247 - ImageDescriptor changes
+ *    jsivadier - Bug 467502 - Improve DiagramComposite implementation without IWorkbenchPart
  *
  * </copyright>
  *
