@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
+
 	<name>Graphiti Parent</name>
-	<groupId>org.eclipse.modeling.graphiti</groupId>
+	<groupId>org.eclipse.graphiti</groupId>
 	<artifactId>parent</artifactId>
 	<version>0.12.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
- 
+
 	<properties>
 		<tycho-version>0.22.0</tycho-version>
-		<platform-version-name>mars</platform-version-name>
 		<platform-site>http://download.eclipse.org/eclipse/updates/${platform-path}</platform-site>
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/${orbit-version}/repository/</orbit-site>
 		<gef-site>http://download.eclipse.org/tools/gef/updates/${gef-path}</gef-site>
@@ -26,11 +25,8 @@
 		<profile>
 			<id>mars</id>
 			<activation>
-				<property>
-					<name>platform-version-name</name>
-					<value>mars</value>
-				</property>
-  			</activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<platform-path>4.5milestones/S-4.5RC2a-201505222000/</platform-path>
 				<orbit-version>R20150519210750</orbit-version>
@@ -85,18 +81,25 @@
 			<url>${license-site}</url>
 		</repository>
 	</repositories>
-	
+
 	<modules>
+		<module>../plugins/org.eclipse.graphiti.mm</module>
 	</modules>
-	
+
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-packaging-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-					<format>'v'yyyyMMdd-HHmm</format>
+					<format>yyyyMMddHHmm</format>
 				</configuration>
 			</plugin>
 		</plugins>
