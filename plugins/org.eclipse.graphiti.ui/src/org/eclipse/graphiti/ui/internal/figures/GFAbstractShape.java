@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    cbrand - Bug 370440 - Over scaling of connections and lines after canvas zoom
  *    mgorning - Bug 391523 - Revise getSelectionInfo...() in IToolBehaviorProvider
  *    mwenz - Bug 434436 - Highlighting of Anchors on hover does not seem to work
+ *    mwenz - Bug 469689 - The GFAbstractShape doesn't handle IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN properly
  *
  * </copyright>
  *
@@ -413,19 +414,12 @@ public abstract class GFAbstractShape extends Shape implements HandleBounds, IVi
 			styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
 
 		int actionTargetFeedback = getVisualState().getActionTargetFeedback();
-		// if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
-		// styleAdaptation =
-		// IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED;
-		// else if (actionTargetFeedback ==
-		// IVisualState.ACTION_TARGET_FORBIDDEN)
-		// styleAdaptation =
-		// IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN;
+		if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED) {
+			styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_ALLOWED;
+		} else if (actionTargetFeedback == IVisualState.ACTION_TARGET_FORBIDDEN) {
+			styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_ACTION_FORBIDDEN;
+		}
 
-		// TODO why is every actionTargetFeedback folded to
-		// STYLE_ADAPTATION_SECONDARY_SELECTED?
-		//
-		if (actionTargetFeedback == IVisualState.ACTION_TARGET_ALLOWED)
-			styleAdaptation = IPredefinedRenderingStyle.STYLE_ADAPTATION_SECONDARY_SELECTED;
 		return styleAdaptation;
 	}
 
