@@ -87,6 +87,7 @@
 		<module>../plugins/org.eclipse.graphiti</module>
 		<module>../plugins/org.eclipse.graphiti.ui</module>
 		<module>../plugins/org.eclipse.graphiti.pattern</module>
+		<module>../plugins/org.eclipse.graphiti.tools.newprojectwizard</module>
 	</modules>
 
 	<build>
