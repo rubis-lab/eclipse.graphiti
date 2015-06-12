@@ -84,6 +84,7 @@
 
 	<modules>
 		<module>../plugins/org.eclipse.graphiti.mm</module>
+		<module>../plugins/org.eclipse.graphiti</module>
 	</modules>
 
 	<build>
