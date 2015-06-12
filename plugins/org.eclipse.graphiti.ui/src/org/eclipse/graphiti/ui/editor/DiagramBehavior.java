@@ -17,6 +17,7 @@
  *    mwenz - Bug 439689 - DiagramEdtior.setPictogramElementForSelection adds SelectionBorders to invisible PictogramElements
  *    mwenz - Bug 407894 - Luna: After DiagramsInViews change graphical viewer is configured and initialized only by a workaround
  *    mwenz - Bug 433779 - DiagramBehaviour.setInput() is not extensible
+ *    mwenz - Bug 470038 - NullPointerException in DiagramBehavior.unregisterDiagramResourceSetListener
  *
  * </copyright>
  *
@@ -1656,8 +1657,10 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	protected void unregisterDiagramResourceSetListener() {
 		if (diagramChangeListener != null) {
 			diagramChangeListener.stopListening();
-			TransactionalEditingDomain eDomain = getEditingDomain();
-			eDomain.removeResourceSetListener(diagramChangeListener);
+			TransactionalEditingDomain editingDomain = getEditingDomain();
+			if (editingDomain != null) {
+				editingDomain.removeResourceSetListener(diagramChangeListener);
+			}
 		}
 	}
 
