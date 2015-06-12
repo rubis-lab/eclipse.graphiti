@@ -86,6 +86,7 @@
 		<module>../plugins/org.eclipse.graphiti.mm</module>
 		<module>../plugins/org.eclipse.graphiti</module>
 		<module>../plugins/org.eclipse.graphiti.ui</module>
+		<module>../plugins/org.eclipse.graphiti.pattern</module>
 	</modules>
 
 	<build>
