@@ -18,6 +18,7 @@
  *    mwenz - Bug 407894 - Luna: After DiagramsInViews change graphical viewer is configured and initialized only by a workaround
  *    mwenz - Bug 433779 - DiagramBehaviour.setInput() is not extensible
  *    mwenz - Bug 470038 - NullPointerException in DiagramBehavior.unregisterDiagramResourceSetListener
+ *    mwenz - Bug 470150 - NullPointerException in DiagramBehavior.getAdapter
  *
  * </copyright>
  *
@@ -882,10 +883,8 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 					}
 				}
 			}
-			if (parentPart != null)
-			{
-				parentPart.getSite().getSelectionProvider()
-					.setSelection(new StructuredSelection(editParts));
+			if (parentPart != null) {
+				parentPart.getSite().getSelectionProvider().setSelection(new StructuredSelection(editParts));
 			}
 			if (editParts.size() > 0) {
 				final EditPart editpart = editParts.get(0);
@@ -1212,11 +1211,14 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		IConfigurationProvider cfgProvider = getConfigurationProvider();
 
 		if (cfgProvider != null) {
-			IToolBehaviorProvider tbp = cfgProvider.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-			if (tbp != null) {
-				Object ret = tbp.getAdapter(type);
-				if (ret != null) {
-					return ret;
+			IDiagramTypeProvider diagramTypeProvider = cfgProvider.getDiagramTypeProvider();
+			if (diagramTypeProvider != null) {
+				IToolBehaviorProvider toolBehaviorProvider = diagramTypeProvider.getCurrentToolBehaviorProvider();
+				if (toolBehaviorProvider != null) {
+					Object ret = toolBehaviorProvider.getAdapter(type);
+					if (ret != null) {
+						return ret;
+					}
 				}
 			}
 		}
