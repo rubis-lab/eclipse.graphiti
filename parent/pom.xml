@@ -89,6 +89,7 @@
 		<module>../plugins/org.eclipse.graphiti.pattern</module>
 		<module>../plugins/org.eclipse.graphiti.tools.newprojectwizard</module>
 		<module>../plugins/org.eclipse.graphiti.export.batik</module>
+		<module>../examples/org.eclipse.graphiti.examples.common</module>
 	</modules>
 
 	<build>
