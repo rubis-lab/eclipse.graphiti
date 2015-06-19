@@ -98,6 +98,7 @@
 		<module>../examples/org.eclipse.graphiti.ui.capabilities</module>
 		<module>../examples/org.eclipse.graphiti.doc</module>
 		<module>../features/org.eclipse.graphiti.feature</module>
+		<module>../features/org.eclipse.graphiti.feature.examples</module>
 	</modules>
 
 	<build>
