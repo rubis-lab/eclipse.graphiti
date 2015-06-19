@@ -95,6 +95,7 @@
 		<module>../examples/org.eclipse.graphiti.examples.composite</module>
 		<module>../examples/org.eclipse.graphiti.examples.filesystem.mm</module>
 		<module>../examples/org.eclipse.graphiti.examples.filesystem</module>
+		<module>../examples/org.eclipse.graphiti.ui.capabilities</module>
 	</modules>
 
 	<build>
