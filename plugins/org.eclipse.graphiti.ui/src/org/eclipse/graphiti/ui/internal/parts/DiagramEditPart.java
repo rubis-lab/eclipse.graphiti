@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Eliminated assumption that diagram is in an IEditorPart
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 470455 - Difficulty in creating associations
  *
  * </copyright>
  *
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.Graphics;
@@ -185,5 +187,18 @@ public class DiagramEditPart extends ContainerShapeEditPart implements IDiagramE
 		DiagramBehavior diagramBehavior = getConfigurationProvider().getDiagramBehavior();
 		diagramBehavior.getRefreshBehavior().initRefresh();
 		super.refresh();
+	}
+	
+	/*
+	 * Do not allow to start connections from the diagram itself to avoid
+	 * infinite loops, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=424020
+	 * 
+	 * This fix was made after follow-up bug
+	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=470455 to fix the original
+	 * issue from 424020 while preserving functionality required as in 470455.
+	 */
+	@Override
+	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
+		return null;
 	}
 }
