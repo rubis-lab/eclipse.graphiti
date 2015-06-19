@@ -100,6 +100,7 @@
 		<module>../features/org.eclipse.graphiti.feature</module>
 		<module>../features/org.eclipse.graphiti.feature.examples</module>
 		<module>../features/org.eclipse.graphiti.feature.tools</module>
+		<module>../features/org.eclipse.graphiti.sdk.feature</module>
 	</modules>
 
 	<build>
