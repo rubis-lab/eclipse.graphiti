@@ -92,6 +92,7 @@
 		<module>../examples/org.eclipse.graphiti.examples.common</module>
 		<module>../examples/org.eclipse.graphiti.examples.tutorial</module>
 		<module>../examples/org.eclipse.graphiti.examples.chess</module>
+		<module>../examples/org.eclipse.graphiti.examples.composite</module>
 	</modules>
 
 	<build>
