@@ -16,6 +16,7 @@
  *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
  *    mwenz - Bug 453553 - Provide an abort possibility for delete and remove features in case 'pre' methods fail
  *    mwenz - Bug 467476 - NullPointerException in GFPaletteRoot.createModelIndependentTools
+ *    mwenz - Bug 470455 - Difficulty in creating associations
  *
  * </copyright>
  *
@@ -24,6 +25,7 @@ package org.eclipse.graphiti.ui.tests;
 
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeatureTest;
 import org.eclipse.graphiti.ui.features.DefaultRemoveFeatureTest;
+import org.eclipse.graphiti.ui.internal.command.CreateConnectionCommandTest;
 import org.eclipse.graphiti.ui.internal.editor.GFPaletteRootTest;
 import org.eclipse.graphiti.ui.internal.figures.GFFigureUtilTest;
 import org.eclipse.graphiti.ui.tests.compatibility.CompatibilityTests;
@@ -34,6 +36,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({ PackageTest.class, CommandStackTest.class, MigrationServiceTest.class,
 		CustomUndoableFeatureTest.class, RollbackTest.class, LayoutServiceTest.class, CommandTest.class,
 		CompatibilityTests.class, GFFigureUtilTest.class, CustomUndoRedoFeatureTest.class,
-		DefaultDeleteFeatureTest.class, DefaultRemoveFeatureTest.class, GFPaletteRootTest.class })
+		DefaultDeleteFeatureTest.class, DefaultRemoveFeatureTest.class, GFPaletteRootTest.class,
+		CreateConnectionCommandTest.class })
 public class AllTests {
 }
