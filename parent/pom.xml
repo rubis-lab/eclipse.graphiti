@@ -103,6 +103,7 @@
 		<module>../features/org.eclipse.graphiti.sdk.feature</module>
 		<module>../features/org.eclipse.graphiti.export.feature</module>
 		<module>../features/org.eclipse.graphiti.sdk.plus.feature</module>
+		<module>../features/org.eclipse.graphiti.site</module>
 	</modules>
 
 	<build>
