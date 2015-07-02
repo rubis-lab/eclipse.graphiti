@@ -106,6 +106,7 @@
 		<module>../features/org.eclipse.graphiti.site</module>
 		<module>../tests/org.eclipse.graphiti.tests</module>
 		<module>../tests/org.eclipse.graphiti.ui.tests</module>
+		<module>../tests/org.eclipse.graphiti.testtool.ecore</module>
 	</modules>
 
 	<build>
