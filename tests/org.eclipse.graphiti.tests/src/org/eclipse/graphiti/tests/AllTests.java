@@ -26,7 +26,7 @@ import org.eclipse.graphiti.tests.cases.GaServiceTest;
 import org.eclipse.graphiti.tests.cases.LinkServiceTest;
 import org.eclipse.graphiti.tests.cases.PeServiceTest;
 import org.eclipse.graphiti.tests.cases.ReconnectionTest;
-import org.eclipse.graphiti.tests.tb.DefaultToolBehaviorProviderTests;
+import org.eclipse.graphiti.tests.tb.DefaultToolBehaviorProviderTest;
 import org.eclipse.graphiti.tests.internal.services.impl.PeServiceImplTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -34,7 +34,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ DefaultFeaturesTest.class, GaServiceTest.class, LinkServiceTest.class, PeServiceTest.class,
 		CreateServiceTest.class, ReconnectionTest.class, FeatureParametersTest.class,
-		DefaultToolBehaviorProviderTests.class, PeServiceImplTest.class })
+		DefaultToolBehaviorProviderTest.class, PeServiceImplTest.class })
 public class AllTests {
 
 }

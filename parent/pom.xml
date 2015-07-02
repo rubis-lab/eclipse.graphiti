@@ -28,7 +28,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<platform-path>4.5milestones/S-4.5RC2a-201505222000/</platform-path>
+				<platform-path>4.5milestones/S-4.5RC4-201506032000/</platform-path>
 				<orbit-version>R20150519210750</orbit-version>
 				<gef-path>milestones/</gef-path>
 				<emf-path>2.11milestones/</emf-path>
@@ -104,6 +104,7 @@
 		<module>../features/org.eclipse.graphiti.export.feature</module>
 		<module>../features/org.eclipse.graphiti.sdk.plus.feature</module>
 		<module>../features/org.eclipse.graphiti.site</module>
+		<module>../tests/org.eclipse.graphiti.tests</module>
 	</modules>
 
 	<build>

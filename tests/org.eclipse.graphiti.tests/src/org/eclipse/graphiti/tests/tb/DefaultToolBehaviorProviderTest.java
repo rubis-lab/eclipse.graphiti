@@ -29,7 +29,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.junit.Test;
 
-public class DefaultToolBehaviorProviderTests {
+public class DefaultToolBehaviorProviderTest {
 
 	private ICreateService createService = Graphiti.getCreateService();
 	private IGaService gaService = Graphiti.getGaService();
