@@ -105,6 +105,7 @@
 		<module>../features/org.eclipse.graphiti.sdk.plus.feature</module>
 		<module>../features/org.eclipse.graphiti.site</module>
 		<module>../tests/org.eclipse.graphiti.tests</module>
+		<module>../tests/org.eclipse.graphiti.ui.tests</module>
 	</modules>
 
 	<build>

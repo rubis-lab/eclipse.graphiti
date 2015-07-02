@@ -75,10 +75,10 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 	public void testMig070To080() {
 
 		// Load diagram file.
-		URL resource = getClass().getClassLoader().getResource("org/eclipse/graphiti/ui/tests/testUtil.diagram"); //$NON-NLS-1$
-		URI createFileURI = URI.createFileURI(resource.getFile());
+		URL url = getClass().getClassLoader().getResource("org/eclipse/graphiti/ui/tests/testUtil.diagram"); //$NON-NLS-1$
+		URI uri = URI.createURI(url.toString());
 		ResourceSet resourceSet = editingDomain.getResourceSet();
-		Resource diagramResource = resourceSet.getResource(createFileURI, true);
+		Resource diagramResource = resourceSet.getResource(uri, true);
 
 		final Diagram diagram = (Diagram) diagramResource.getEObject("/0"); //$NON-NLS-1$
 		assertTrue(diagram.getFonts().isEmpty());
@@ -103,10 +103,10 @@ public class MigrationServiceTest extends GFAbstractTestCase {
 	public void testMig070To0802() {
 
 		// Load diagram file.
-		URL resource = getClass().getClassLoader().getResource("org/eclipse/graphiti/ui/tests/tut.diagram"); //$NON-NLS-1$
-		URI createFileURI = URI.createFileURI(resource.getFile());
+		URL url = getClass().getClassLoader().getResource("org/eclipse/graphiti/ui/tests/tut.diagram"); //$NON-NLS-1$
+		URI uri = URI.createURI(url.toString());
 		ResourceSet resourceSet = editingDomain.getResourceSet();
-		Resource diagramResource = resourceSet.getResource(createFileURI, true);
+		Resource diagramResource = resourceSet.getResource(uri, true);
 
 		final Diagram diagram = (Diagram) diagramResource.getEObject("/0"); //$NON-NLS-1$
 		assertTrue(diagram.getFonts().isEmpty());

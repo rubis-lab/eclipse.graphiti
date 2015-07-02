@@ -631,7 +631,7 @@ public class GFFigureUtil {
 		}
 	}
 
-	protected static void drawRichText(Graphics g, String draw, int x, int y,
+	public static void drawRichText(Graphics g, String draw, int x, int y,
 			IConfigurationProviderInternal configurationProvider, AbstractText text) {
 		drawRichText(g, draw, x, y, -1, false, 0, configurationProvider, text);
 	}
