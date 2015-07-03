@@ -29,6 +29,7 @@
 			</activation>
 			<properties>
 				<platform-path>4.5milestones/S-4.5RC4-201506032000/</platform-path>
+				<platform-version>4.5</platform-version>
 				<orbit-version>R20150519210750</orbit-version>
 				<gef-path>milestones/</gef-path>
 				<emf-path>2.11milestones/</emf-path>
@@ -108,6 +109,7 @@
 		<module>../tests/org.eclipse.graphiti.ui.tests</module>
 		<module>../tests/org.eclipse.graphiti.testtool.ecore</module>
 		<module>../tests/org.eclipse.graphiti.testtool.sketch</module>
+		<module>../tests/org.eclipse.graphiti.bot.tests</module>
 	</modules>
 
 	<build>
