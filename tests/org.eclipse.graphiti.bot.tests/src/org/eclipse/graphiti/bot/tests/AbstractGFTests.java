@@ -87,6 +87,17 @@ import org.junit.BeforeClass;
 
 public abstract class AbstractGFTests extends SWTBotGefTestCase {
 
+	static {
+		// startAppIntoAnotherThread();
+		UIThreadRunnable.syncExec(new VoidResult() {
+			public void run() {
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().forceActive();
+			}
+		});
+		// waitForDisplayToAppear(5000); // wait for the display before you do
+		// anything
+	}
+		
 	public static final IPath SOURCE_FOLDER = new Path("src"); //$NON-NLS-1$
 	private static IPath DIAGRAMS_FOLDER = SOURCE_FOLDER.append("diagrams");
 	final protected PoDiagramEditor ed = new PoDiagramEditor();
