@@ -54,7 +54,7 @@ public class ExtensionManagerTest extends AbstractGFTests {
 		// Create a diagram type provider which defines an invalid image provider. The DTP must be created nevertheless.
 		// See Bug 352709
 		IDiagramTypeProvider diagramTypeProvider = GraphitiUi.getExtensionManager().createDiagramTypeProvider(
-				"org.eclipse.graphiti.ui.tests.dtpWithInvalidImageProvider");
+				"org.eclipse.graphiti.bot.tests.dtpWithInvalidImageProvider");
 		assertNotNull("Diagram type Provider must not be null", diagramTypeProvider);
 	}
 	
