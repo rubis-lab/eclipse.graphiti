@@ -63,6 +63,13 @@ public class PluginWizardTests extends AbstractGFTests {
 
 	@Test
 	public void testPluginWizardRun() throws Exception {
+		// Check problems view and remember number of errors before test
+		SWTBotView view = bot.viewById(IPageLayout.ID_PROBLEM_VIEW);
+		view.show();
+		SWTBotTree tree = view.bot().tree();
+		SWTBotTreeItem[] allItems = tree.getAllItems();
+		int numberOfErrorsBeforeTest = allItems.length;
+
 		// Start wizard
 		bot.menu("File").menu("New").menu("Project...").click();
 		SWTBotShell shell = bot.shell("New Project");
@@ -105,11 +112,13 @@ public class PluginWizardTests extends AbstractGFTests {
 		assertTrue(newProject.exists());
 
 		// Check problems view for any errors
-		SWTBotView view = bot.viewById(IPageLayout.ID_PROBLEM_VIEW);
+		view = bot.viewById(IPageLayout.ID_PROBLEM_VIEW);
 	    view.show();
-		SWTBotTree tree = view.bot().tree();
-		SWTBotTreeItem[] allItems = tree.getAllItems();
-		assertTrue("Items found in problems view: " + allItems.toString(), allItems.length == 0);
+		tree = view.bot().tree();
+		allItems = tree.getAllItems();
+		assertTrue("Items found in problems view: " + allItems.toString()
+				+ ", expected were (number of errors before test: " + numberOfErrorsBeforeTest,
+				allItems.length == numberOfErrorsBeforeTest);
 
 		// Check that org.eclipse.ui is not part of the dependencies (no
 		// activator is generated), test for Bug 388211
