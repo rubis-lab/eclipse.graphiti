@@ -56,5 +56,17 @@
          </diagramType>
       </diagramTypeProvider>
    </extension>
-
+   <extension point="org.eclipse.graphiti.ui.diagramTypeProviders">
+      <diagramTypeProvider
+         class="org.eclipse.graphiti.ui.tests.DTPwithInvalidImageProvider"
+         description="Test for an invalid image provider"
+         id="org.eclipse.graphiti.ui.tests.dtpWithInvalidImageProvider"
+         name="Diagram Type Provider with invalid Image Provider">
+         <diagramType id="org.eclipse.graphiti.ui.tests.dtWithInvalidImageProvider">
+         </diagramType>
+         <!-- Define an invalid image provider to see that editor can be opened nevertheless -->
+         <imageProvider id="invalid">
+         </imageProvider>
+      </diagramTypeProvider>
+   </extension>
 </plugin>
