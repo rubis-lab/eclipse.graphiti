@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    mwenz - Bug 413139 - Visibility of convertImageToBytes in DefaultSaveImageFeature
+ *    mjagielski - Bug 472219 - ImageService is not handling imageFilePath with protocol bundleentry
  *
  * </copyright>
  *
@@ -18,10 +19,13 @@
 package org.eclipse.graphiti.ui.internal.services.impl;
 
 import java.io.ByteArrayOutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
+import org.eclipse.graphiti.ui.internal.T;
 import org.eclipse.graphiti.ui.internal.platform.ExtensionManager;
 import org.eclipse.graphiti.ui.platform.IImageProvider;
 import org.eclipse.graphiti.ui.platform.PlatformImageProvider;
@@ -194,10 +198,20 @@ public class ImageService implements IImageService {
 		for (IImageProvider imageProvider : imageProviders) {
 			String imageFilePath = imageProvider.getImageFilePath(imageId);
 			if (imageFilePath != null) {
-				String pluginId = imageProvider.getPluginId();
-				if (pluginId != null) {
-					// try to create Image from ImageDescriptor (initialize the ImageRegistry on the fly)
-					imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(pluginId, imageFilePath);
+				if (imageFilePath.startsWith("bundleentry://")) {
+					try {
+						URL imageFileUrl = new URL(imageFilePath);
+						imageDescriptor = ImageDescriptor.createFromURL(imageFileUrl);
+					} catch (MalformedURLException e) {
+						T.racer().error("Bundle entry url for image could not be parsed, url was: " + imageFilePath, e);
+					}
+				} else {
+					String pluginId = imageProvider.getPluginId();
+					if (pluginId != null) {
+						// try to create Image from ImageDescriptor (initialize
+						// the ImageRegistry on the fly)
+						imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(pluginId, imageFilePath);
+					}
 				}
 				break;
 			}
