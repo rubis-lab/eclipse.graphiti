@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    mwenz - Bug 413139 - Visibility of convertImageToBytes in DefaultSaveImageFeature
+ *    mjagielski - Bug 472219 - ImageService is not handling imageFilePath with protocol bundleentry
  *
  * </copyright>
  *
@@ -18,6 +19,8 @@
 package org.eclipse.graphiti.ui.internal.services.impl;
 
 import java.io.ByteArrayOutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -194,10 +197,19 @@ public class ImageService implements IImageService {
 		for (IImageProvider imageProvider : imageProviders) {
 			String imageFilePath = imageProvider.getImageFilePath(imageId);
 			if (imageFilePath != null) {
-				String pluginId = imageProvider.getPluginId();
-				if (pluginId != null) {
-					// try to create Image from ImageDescriptor (initialize the ImageRegistry on the fly)
-					imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(pluginId, imageFilePath);
+				if (imageFilePath.startsWith("bundleentry://")) {
+					try {
+						URL imageFileUrl = new URL(imageFilePath);
+						imageDescriptor = ImageDescriptor.createFromURL(imageFileUrl);
+					} catch (MalformedURLException e) {
+					}
+				} else {
+					String pluginId = imageProvider.getPluginId();
+					if (pluginId != null) {
+						// try to create Image from ImageDescriptor (initialize
+						// the ImageRegistry on the fly)
+						imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(pluginId, imageFilePath);
+					}
 				}
 				break;
 			}
