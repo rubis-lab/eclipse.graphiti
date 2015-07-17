@@ -16,8 +16,8 @@ Contributors:
 -->
 <feature
       id="org.eclipse.graphiti.site"
-      label="Graphiti 0.12.0 Update Site"
-      version="0.12.0.qualifier"
+      label="Graphiti 0.13.0 Update Site"
+      version="0.13.0.qualifier"
       provider-name="%providerName"
       image="eclipse_update_120.jpg"
       license-feature="org.eclipse.license"
@@ -37,7 +37,7 @@ http://www.eclipse.org/legal/epl-v10.html
    </copyright>
 
    <url>
-      <update url="http://www.eclipse.org/downloads/download.php?file=/graphiti/updates/0.12.0/&amp;protocol=http&amp;format=xml"/>
+      <update url="http://www.eclipse.org/downloads/download.php?file=/graphiti/updates/0.13.0/&amp;protocol=http&amp;format=xml"/>
    </url>
 
    <includes
