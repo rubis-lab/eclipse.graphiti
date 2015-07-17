@@ -38,6 +38,9 @@ public class Messages extends NLS {
 	public static String DefaultDeleteFeature_4_xmsg;
 	public static String DefaultDeleteFeature_5_xfld;
 	public static String DefaultDirectEditPolicy_0_xmsg;
+	public static String DefaultPersistencyBehavior_2;
+	public static String DefaultPersistencyBehavior_3;
+	public static String DefaultPersistencyBehavior_4;
 	public static String DeleteAction_0_xmsg;
 	public static String DeleteAction_1_xfld;
 	public static String DiagramEditor_0_xmsg;
