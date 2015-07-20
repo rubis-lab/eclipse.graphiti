@@ -114,6 +114,11 @@ public class PluginWizardTests extends AbstractGFTests {
 		// Check that org.eclipse.ui is not part of the dependencies (no
 		// activator is generated), test for Bug 388211
 		IPluginModelBase newPluginModel = PluginRegistry.findModel(newProject);
+		counter = 0;
+		while ((newPluginModel == null || newPluginModel.getPluginBase() == null) && counter < 20) {
+			counter++;
+			Thread.sleep(1000);
+		}
 		IPluginImport[] imports = newPluginModel.getPluginBase().getImports();
 		for (IPluginImport pluginImport : imports) {
 			if ("org.eclipse.ui".equals(pluginImport.getId())) {
