@@ -198,12 +198,12 @@ public class ImageService implements IImageService {
 		for (IImageProvider imageProvider : imageProviders) {
 			String imageFilePath = imageProvider.getImageFilePath(imageId);
 			if (imageFilePath != null) {
-				if (imageFilePath.startsWith("bundleentry://")) {
+				if (imageFilePath.startsWith("bundleentry://") || imageFilePath.startsWith("bundleresource://")) {
 					try {
 						URL imageFileUrl = new URL(imageFilePath);
 						imageDescriptor = ImageDescriptor.createFromURL(imageFileUrl);
 					} catch (MalformedURLException e) {
-						T.racer().error("Bundle entry url for image could not be parsed, url was: " + imageFilePath, e);
+						T.racer().error("Bundle entry/resource url for image could not be parsed, url was: " + imageFilePath, e);
 					}
 				} else {
 					String pluginId = imageProvider.getPluginId();
