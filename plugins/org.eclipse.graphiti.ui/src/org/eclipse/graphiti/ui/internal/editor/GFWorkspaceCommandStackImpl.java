@@ -17,6 +17,7 @@
  *    mwenz - Bug 430609 - Re-entrance in diagram update causes transaction error
  *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
  *    mwenz - Bug 464596 - BasicIndexOutOfBoundsException in BasicEList.get
+ *    Laurent Le Moux - mwenz - Bug 475240 - Malfunctioning redo GFWorkspaceCommandStackImpl
  *
  * </copyright>
  *
@@ -153,7 +154,7 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 				IFeature feature = executionList[i].getFeature();
 				IContext context = executionList[i].getContext();
 				if (feature instanceof ICustomUndoRedoFeature) {
-					canRedo[i] = feature.canUndo(context);
+					canRedo[i] = ((ICustomUndoRedoFeature) feature).canRedo(context);
 				} else {
 					canRedo[i] = false;
 				}
