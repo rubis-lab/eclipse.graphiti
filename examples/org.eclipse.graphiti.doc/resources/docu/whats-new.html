@@ -34,345 +34,14 @@ table.news tr td.content {
 
 <body>
 
-	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Mars</h1>
-	<p>Last revised June 12, 2015</p>
+	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Neon</h1>
+	<p>Last revised August 18, 2015</p>
 	<p>This document describes the new development topics that were
-		addressed during the milestones towards the release 0.12.0 within the
-		Mars release train.</p>
+		addressed during the milestones towards the release 0.13.0 within the
+		Neon release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
-		<!-- ---------------------------------------- RC3 ------------------------------ -->
-		<tr>
-			<td colspan="2">
-				<h2>RC3</h2>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">The main focus for this milestone has been set
-				on fixing bugs.</td>
-		</tr>
-		<tr id="bug 467824">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=467824">Bug
-					467824</a></td>
-			<td class="content">Graphiti needs to consume
-				org.apache.batik.dom version 1.7.1 instead of 1.7.0 in order to fix
-				a security releated issue in that library.</td>
-		</tr>
-		<!-- ---------------------------------------- RC2 ------------------------------ -->
-		<tr>
-			<td colspan="2">
-				<h2>RC2</h2>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">The main focus for this milestone has been set
-				on fixing bugs.</td>
-		</tr>
-		<tr id="bug 467502">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=467502">Bug
-					467502</a></td>
-			<td class="content">A potential NullPointerException in
-				DiagramComposite.getWorkbenchPart().getSite() has been fixed.</td>
-		</tr>
-		<tr id="bug 467824">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=467824">Bug
-					467824</a></td>
-			<td class="content">To consume a security fix in
-				org.apache.batik.dom Graphiti needed to update the batik dependency
-				from 1.7.0 to 1.7.1</td>
-		</tr>
-		<!-- ---------------------------------------- RC1 ------------------------------ -->
-		<tr>
-			<td colspan="2">
-				<h2>RC1</h2>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">The main focus for this milestone has been set
-				on fixing bugs.</td>
-		</tr>
-		<tr id="bug 464857">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=464857">Bug
-					464857</a></td>
-			<td class="content">A bug in image handling causing a resource
-				leak has been fixed.</td>
-		</tr>
-		<tr id="bug 466953">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=466953">Bug
-					466953</a></td>
-			<td class="content">A potential NullPointerException in
-				disposing the configuration provider has been fixed.</td>
-		</tr>
-		<tr id="bug 467476">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=467476">Bug
-					467476</a></td>
-			<td class="content">A bug that allows the wrong initialization
-				of the Graphiti palette root instance has been fixed.</td>
-		</tr>
-		<!-- ---------------------------------------- M7 ------------------------------- -->
-		<tr>
-			<td colspan="2">
-				<h2>M7</h2>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">The main focus for this milestone has been set
-				on fixing bugs.</td>
-		</tr>
-		<tr id="bug 459386">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=459386">Bug
-					459386</a></td>
-			<td class="content">A bug causing rendering decorators on
-				connections not being refreshed has been fixed.</td>
-		</tr>
-		<tr id="bug 459511">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=459511">Bug
-					459511</a></td>
-			<td class="content">A NullPointerException in intersection
-				calculation for anchors using a Polygon as graphics algorithm has
-				been fixed.</td>
-		</tr>
-		<tr id="bug 463303">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=463303">Bug
-					463303</a></td>
-			<td class="content">A NullPointerException in retrieving the
-				editing domain for closing down editors has been fixed.</td>
-		</tr>
-		<tr id="bug 464596">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=464596">Bug
-					464596</a></td>
-			<td class="content">An IndexOutOfBoundsException has been fixed
-				in undo/redo handling.</td>
-		</tr>
-		<!-- ---------------------------------------- M6 ------------------------------- -->
-		<tr>
-			<td colspan="2">
-				<h2>M6</h2>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">The main focus for this milestone has been set
-				on fixing bugs.</td>
-		</tr>
-		<tr id="bug 433779">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=433779">Behavior
-					classes rework</a></td>
-			<td class="content">The class <i>DiagramBehavior</i> and <i>DiagramRefreshBehavior</i>
-				have been reworked to allow for easier subclassing and overriding.
-				Some before protected or private members and methods are now
-				accessible from subclasses and/or other behavior classes. This is a
-				<b>minor API change</b>.
-			</td>
-		</tr>
-		<tr id="bug 460019">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=460019">Bug
-					460019</a></td>
-			<td class="content">A bug in one of the translatable texts has
-				been fixed.</td>
-		</tr>
-		<tr id="bug 460486">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=460486">Bug
-					460486</a></td>
-			<td class="content">A bug in one of the translatable texts has
-				been fixed.</td>
-		</tr>
-		<!-- ---------------------------------------- M5 ------------------------------- -->
-		<tr>
-			<td colspan="2">
-				<h2>M5</h2>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">The main focus for this milestone has been set
-				on fixing bugs.</td>
-		</tr>
-		<tr id="bug 458465">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=458465">Bug
-					458465</a></td>
-			<td class="content">A bug in finding the child shape in a
-				container has been fixed. In case of shapes that were sent to back,
-				a wrong shape might have been returned.</td>
-		</tr>
-		<!-- ---------------------------------------- M4 ------------------------------- -->
-		<tr>
-			<td colspan="2">
-				<h2>M4</h2>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">The main focus for this milestone has been set
-				on implementing improvements and fixing bugs.</td>
-		</tr>
-		<tr id="bug 453553">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=453553">
-					Provide an abort possibility for delete and remove features</a></td>
-			<td class="content">Delete and remove features now also support
-				abortion after the preDelete and preRemove hooks.</td>
-		</tr>
-		<tr id="bug 450884">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=450884">Bug
-					450884</a></td>
-			<td class="content">The Graphiti "view" menu added in the editor
-				now has an ID that clients can use in case the want to add own
-				entries.</td>
-		</tr>
-		<tr id="bug 450993">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=450993">Bug
-					450993</a></td>
-			<td class="content">A rendering issue with the context button
-				pad has been fixed that occurred when the associated shape was not
-				high enough.</td>
-		</tr>
-		<!-- ---------------------------------------- M3 ------------------------------- -->
-		<tr>
-			<td colspan="2">
-				<h2>M3</h2>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">The main focus for this milestone has been set
-				on implementing improvements and bugfixing.</td>
-		</tr>
-		<tr id="bug 443304">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=443304">Improve
-					undo/redo handling </a></td>
-			<td class="content">The client options to influence undo/redo
-				handling have been improved. There are now hooks before and after
-				the actual EMF undo to implement own functionality. Also it is
-				possible to abort undo/redo.</td>
-		</tr>
-		<tr id="bug 449384">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=449384">Bug
-					449384</a></td>
-			<td class="content">A bug in the enablement check of the print
-				action that on Linux systems potentially caused a hanging Diagram
-				editor during opening has been fixed.</td>
-		</tr>
-		<!-- ---------------------------------------- M2 ------------------------------- -->
-		<tr>
-			<td colspan="2">
-				<h2>M2</h2>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">The main focus for this milestone has been set
-				on implementing improvements and bugfixing.</td>
-		</tr>
-		<tr id="bug 417454">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=417454">Additional
-					<i>createDiagram</i> method
-			</a></td>
-			<td class="content">To ease diagram creation a new service method
-				has been introduced.</td>
-		</tr>
-		<tr id="bug 433269">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=433269">TextBuilder
-			</a></td>
-			<td class="content">A <i>TextBuilder</i> helper class has been
-				introduced to ease the creation of <i>TextStyleRegions</i>.
-			</td>
-		</tr>
-		<tr id="bug 434658">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=434658">Asynchronous
-					feature execution </a></td>
-			<td class="content">To enable the asynchronous execution of long
-				running custom features a new base class <i>AbstractAsynchronousCustomFeature</i>
-				has been introduced.
-			</td>
-		</tr>
-		<tr id="bug 407894">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=407894">Bug
-					407894</a></td>
-			<td class="content">The configuration and initialization of the
-				graphival viewer inside diagram editors and viewers that happened so
-				far by a hack has been made more robust. This required a minor <b>API
-					change</b>.
-			</td>
-		</tr>
-		<tr id="bug 412858">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=412858">Bug
-					412858</a></td>
-			<td class="content">The bug that <i>canUpdate</i> was not called
-				before <i>updatedNeeded</i> in some situations has finally been
-				fixed. Clients might need to adapt to the new behavior, before they
-				only got a warning that they do not behave correctly.
-			</td>
-		</tr>
-		<tr id="bug 429531">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=429531">Bug
-					429531</a></td>
-			<td class="content">The Graphiti EMF model has been alingned
-				with the generated coding. This caused no behavioral changes but
-				removed the need for manual corrections (like version tags,
-				comments) after re-generating.</td>
-		</tr>
-		<tr id="bug 429532">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=429532">Bug
-					429532</a></td>
-			<td class="content">Deprecations introduced in previous releases
-				in the Graphiti coding have been removed. This required a <b>API
-					change</b>.
-			</td>
-		</tr>
-		<tr id="bug 442879">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=442879">Bug
-					442879</a></td>
-			<td class="content">The Graphiti dependencies to other project
-				like Eclipse platforms, EMF, GEF have been increased. Now at least
-				the versions that are part of the Luna release train are required.</td>
-		</tr>
-		<tr id="bug 442895">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=442895">Bug
-					442895</a></td>
-			<td class="content">Graphiti now uses Batik 1.7.0 for SVG
-				export, before it used Batik 1.6.0..</td>
-		</tr>
-		<tr id="bug 439689">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=439689">Bug
-					439689</a></td>
-			<td class="content">A bug that caused invisible pictogram
-				elements to become marked with a selection border on setting the
-				selection in the editor has been fixed.</td>
-		</tr>
-		<tr id="bug 440796">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=440796">Bug
-					440796</a></td>
-			<td class="content">A bug that caused incorrect notifications on
-				changing the rotation attribute of <i>AbstractText</i> has been
-				fixed.
-			</td>
-		</tr>
 		<!-- ---------------------------------------- M1 ------------------------------- -->
 		<tr>
 			<td colspan="2">
@@ -383,21 +52,60 @@ table.news tr td.content {
 			<td colspan="2">The main focus for this milestone has been set
 				on bugfixing.</td>
 		</tr>
-		<tr id="bug 437933">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=437933">Bug
-					437933</a></td>
-			<td class="content">A potential NullPointerExecption in the
-				method isDirty() in DefaultPersistencyBehavior has been fixed.</td>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on fixing bugs.</td>
 		</tr>
-		<tr id="bug 436601">
+		<tr id="bug 441676">
 			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=436601">Bug
-					436601</a></td>
-			<td class="content">A potential race condition in the save logic
-				of DiagramEditor has been fixed. It could have caused erroneous
-				update and refresh behaviors in the editor that are hard to track
-				down.</td>
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=441676">Bug
+					441676</a></td>
+			<td class="content">The read-only state of EMF resource files is
+				now respected on saving the editor. Errors that happened during the
+				save are displayed in a popup; clients may override and react to
+				such errors in a more suitable way.</td>
+		</tr>
+		<tr id="bug 470038">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=470038">Bug
+					470038</a></td>
+			<td class="content">A potential NullPointerException in
+				DiagramBehavior on unregistering listeners has been fixed.</td>
+		</tr>
+		<tr id="bug 470150">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=470150">Bug
+					470150</a></td>
+			<td class="content">A potential NullPointerException in
+				DiagramBehavior adaptation mechanism has been fixed.</td>
+		</tr>
+		<tr id="bug 470455">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=470455">Bug
+					470455</a></td>
+			<td class="content">A bug causing problems in creating
+				connections when the top shape has no anchor has been fixed.</td>
+		</tr>
+		<tr id="bug 472219">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=472219">Bug
+					472219</a></td>
+			<td class="content">ImageServices now handles bundleentry and
+				bundleresource urls correctly.</td>
+		</tr>
+		<tr id="bug 475133">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=475133">Bug
+					475133</a></td>
+			<td class="content">A potential NullPointerException in
+				ShapeEditPart while creating edit policies has been fixed.</td>
+		</tr>
+		<tr id="bug 475240">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=475240">Bug
+					475240</a></td>
+			<td class="content">A bug in the undo/redo handling of Graphiti
+				has been fixed.</td>
 		</tr>
 	</table>
 	<!-- ---------------------------------------- END OF TABLE ------------------------------- -->
