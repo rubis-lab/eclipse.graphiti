@@ -81,6 +81,14 @@
 			<layout>p2</layout>
 			<url>${license-site}</url>
 		</repository>
+		<repository>
+			<id>jbosstools-experiments</id>
+			<url>https://repository.jboss.org/nexus/content/repositories/jbosstools-experiments/</url>
+			</repository>
+			<repository>
+			<id>jbosstools-experiments-snapshots</id>
+			<url>https://repository.jboss.org/nexus/content/repositories/jbosstools-experiments-snapshots/</url>
+		</repository>
 	</repositories>
 
 	<modules>
@@ -138,6 +146,23 @@
 						<goals>
 							<goal>plugin-source</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.cbi</groupId>
+				<artifactId>apitools-plugin</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>api-reports</id>
+						<goals>
+							<goal>generate-reports</goal>
+						</goals>
+						<phase>verify</phase>
+						<configuration>
+							<baseline>/home/mistria/jbdevstudio/studio/plugins</baseline>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
