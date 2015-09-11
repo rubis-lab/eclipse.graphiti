@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2011, 2014 SAP AG.
+ * Copyright (c) 2011, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz/Rob Cernich - Bug 391046 - Deadlock while saving prior to refactoring operation
  *    mwenz - Bug 437933 - NullPointerException in DefaultPersistencyBehavior.isDirty()
+ *    mwenz - Bug 473087 - ClassCastException in DefaultPersistencyBehavior.loadDiagram
  *
  * </copyright>
  *
@@ -140,8 +141,10 @@ public class DefaultPersistencyBehavior {
 					T.racer().debug("Diagram with URI '" + uri.toString() + "' could not be loaded", e); //$NON-NLS-1$ //$NON-NLS-2$
 					return null;
 				}
-				modelElement.eResource().setTrackingModification(true);
-				return (Diagram) modelElement;
+				if (modelElement instanceof Diagram) {
+					modelElement.eResource().setTrackingModification(true);
+					return (Diagram) modelElement;
+				}
 			}
 		}
 		return null;
