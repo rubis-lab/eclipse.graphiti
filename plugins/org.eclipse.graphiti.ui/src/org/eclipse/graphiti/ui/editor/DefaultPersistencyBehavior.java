@@ -16,6 +16,7 @@
  *    mwenz/Rob Cernich - Bug 391046 - Deadlock while saving prior to refactoring operation
  *    mwenz - Bug 437933 - NullPointerException in DefaultPersistencyBehavior.isDirty()
  *    mwenz - Bug 441676 - Read-only attribute is not respected in Graphiti
+ *    mwenz - Bug 473087 - ClassCastException in DefaultPersistencyBehavior.loadDiagram
  *
  * </copyright>
  *
@@ -143,8 +144,10 @@ public class DefaultPersistencyBehavior {
 					T.racer().debug("Diagram with URI '" + uri.toString() + "' could not be loaded", e); //$NON-NLS-1$ //$NON-NLS-2$
 					return null;
 				}
-				modelElement.eResource().setTrackingModification(true);
-				return (Diagram) modelElement;
+				if (modelElement instanceof Diagram) {
+					modelElement.eResource().setTrackingModification(true);
+					return (Diagram) modelElement;
+				}
 			}
 		}
 		return null;
