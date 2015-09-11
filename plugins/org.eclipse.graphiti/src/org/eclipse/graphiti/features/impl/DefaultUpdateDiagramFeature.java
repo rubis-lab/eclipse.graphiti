@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    mwenz - Bug 356218 - Added hasDoneChanges updates to update diagram feature
  *                         and called features via editor command stack to check it
  *    Laurent Le Moux (mwenz) - Bug 453553 - Provide an abort possibility for delete and remove features in case 'pre' methods fail
+ *    Nicole Behlen (mwenz) - Bug 477132 - Stackoverflow in DefaultUpdateDiagramFeature.canUndo
  *
  * </copyright>
  *
@@ -20,6 +21,7 @@ package org.eclipse.graphiti.features.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.features.ICustomAbortableUndoRedoFeature;
@@ -120,11 +122,13 @@ public class DefaultUpdateDiagramFeature extends AbstractUpdateFeature implement
 	@Override
 	public boolean canUndo(IContext context) {
 		PictogramElement pe = ((IUpdateContext) context).getPictogramElement();
-		Map<IUpdateFeature, IUpdateContext> connToUpdate = findFeaturesToUpdateChildren(pe, false);
-		for (IUpdateFeature feature : connToUpdate.keySet()) {
-			if (feature instanceof ICustomAbortableUndoRedoFeature) {
-				ICustomAbortableUndoRedoFeature abortableFeature = (ICustomAbortableUndoRedoFeature) feature;
-				if (!abortableFeature.canUndo(context)) {
+		Map<IUpdateFeature, IUpdateContext> childrenFeaturesAndContexts = findFeaturesToUpdateChildren(pe, false);
+		for (Entry<IUpdateFeature, IUpdateContext> childFeatureAndContext : childrenFeaturesAndContexts.entrySet()) {
+			IUpdateFeature childFeature = childFeatureAndContext.getKey();
+			if (childFeature instanceof ICustomAbortableUndoRedoFeature) {
+				ICustomAbortableUndoRedoFeature childAbortableFeature = (ICustomAbortableUndoRedoFeature) childFeature;
+				IUpdateContext childContext = childFeatureAndContext.getValue();
+				if (!childAbortableFeature.canUndo(childContext)) {
 					// One sub feature cannot be undone
 					// --> disable undo for composite
 					return false;
@@ -193,12 +197,13 @@ public class DefaultUpdateDiagramFeature extends AbstractUpdateFeature implement
 	@Override
 	public boolean canRedo(IContext context) {
 		PictogramElement pe = ((IUpdateContext) context).getPictogramElement();
-		Map<IUpdateFeature, IUpdateContext> connToUpdate = findFeaturesToUpdateChildren(pe, false);
-
-		for (IUpdateFeature feature : connToUpdate.keySet()) {
-			if (feature instanceof ICustomAbortableUndoRedoFeature) {
-				ICustomAbortableUndoRedoFeature abortableFeature = (ICustomAbortableUndoRedoFeature) feature;
-				if (!abortableFeature.canRedo(context)) {
+		Map<IUpdateFeature, IUpdateContext> childrenFeaturesAndContexts = findFeaturesToUpdateChildren(pe, false);
+		for (Entry<IUpdateFeature, IUpdateContext> childFeatureAndContext : childrenFeaturesAndContexts.entrySet()) {
+			IUpdateFeature childFeature = childFeatureAndContext.getKey();
+			if (childFeature instanceof ICustomAbortableUndoRedoFeature) {
+				ICustomAbortableUndoRedoFeature childAbortableFeature = (ICustomAbortableUndoRedoFeature) childFeature;
+				IUpdateContext childContext = childFeatureAndContext.getValue();
+				if (!childAbortableFeature.canRedo(childContext)) {
 					// One sub feature cannot be redone
 					// --> disable redo for composite
 					return false;
