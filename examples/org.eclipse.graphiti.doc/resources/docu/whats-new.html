@@ -35,17 +35,17 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Mars</h1>
-	<p>Last revised August 18, 2015</p>
+	<p>Last revised September 15, 2015</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.12.1 within the
 		Mars release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
-		<!-- ---------------------------------------- SR1 ------------------------------ -->
+		<!-- ---------------------------------------- Mars.1 ------------------------------ -->
 		<tr>
 			<td colspan="2">
-				<h2>SR1</h2>
+				<h2>Mars.1</h2>
 			</td>
 		</tr>
 		<tr>
@@ -80,6 +80,13 @@ table.news tr td.content {
 			<td class="content">ImageServices now handles bundleentry and
 				bundleresource urls correctly.</td>
 		</tr>
+		<tr id="bug 473087">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=473087">Bug
+					473087</a></td>
+			<td class="content">A potential ClassCastException in diagram
+				loading has been fixed.</td>
+		</tr>
 		<tr id="bug 475133">
 			<td class="title"><a
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=475133">Bug
@@ -93,6 +100,28 @@ table.news tr td.content {
 					475240</a></td>
 			<td class="content">A bug in the undo/redo handling of Graphiti
 				has been fixed.</td>
+		</tr>
+		<tr id="bug 477083">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477083">Bug
+					477083</a></td>
+			<td class="content">A bug in transaction reuse handling has been
+				fixed. Read-only transactions and transactions owned by other
+				threads will not be used any more.</td>
+		</tr>
+		<tr id="bug 477132">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477132">Bug
+					477132</a></td>
+			<td class="content">A potential stack overflow in diagram update
+				has been fixed.</td>
+		</tr>
+		<tr id="bug 477420">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477420">Bug
+					477420</a></td>
+			<td class="content">A potential NullPointerException painting
+				the diagram grid has been fixed.</td>
 		</tr>
 		<!-- ---------------------------------------- RC3 ------------------------------ -->
 		<tr>
