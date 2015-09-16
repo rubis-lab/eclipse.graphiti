@@ -19,6 +19,7 @@
  *    mwenz - Bug 433779 - DiagramBehaviour.setInput() is not extensible
  *    mwenz - Bug 470038 - NullPointerException in DiagramBehavior.unregisterDiagramResourceSetListener
  *    mwenz - Bug 470150 - NullPointerException in DiagramBehavior.getAdapter
+ *    mwenz - Bug 477526 - NullPointerException in DiagramBehavior.addGefListeners
  *
  * </copyright>
  *
@@ -457,13 +458,15 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 				// Only fire if triggered from UI thread
 				if (Display.getCurrent() != null) {
 					IDiagramContainerUI diagramContainer = getDiagramContainer();
-					diagramContainer.updateDirtyState();
+					if (diagramContainer != null) {
+						diagramContainer.updateDirtyState();
 
-					// Promote the changes to the command stack also to the
-					// action bars and registered actions to correctly reflect
-					// e.g. undo/redo in the menu (introduced to enable removing
-					// NOP commands from the command stack
-					diagramContainer.commandStackChanged(event);
+						// Promote the changes to the command stack also to the
+						// action bars and registered actions to correctly
+						// reflect e.g. undo/redo in the menu (introduced to
+						// enable removing NOP commands from the command stack
+						diagramContainer.commandStackChanged(event);
+					}
 				}
 			}
 		};
