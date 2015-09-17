@@ -12,6 +12,7 @@
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    mwenz - Bug 413139 - Visibility of convertImageToBytes in DefaultSaveImageFeature
  *    mjagielski - Bug 472219 - ImageService is not handling imageFilePath with protocol bundleentry
+ *    Laurent Le Moux (mwenz) - Bug 423018 - Direct Graphiti diagram exporter
  *
  * </copyright>
  *
@@ -24,21 +25,51 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.SWTGraphics;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.Handle;
+import org.eclipse.gef.LayerConstants;
+import org.eclipse.gef.editparts.LayerManager;
+import org.eclipse.gef.editparts.ScalableRootEditPart;
+import org.eclipse.gef.ui.parts.AbstractEditPartViewer;
+import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
+import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
+import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
+import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
 import org.eclipse.graphiti.ui.internal.T;
+import org.eclipse.graphiti.ui.internal.config.ConfigurationProvider;
+import org.eclipse.graphiti.ui.internal.config.IConfigurationProviderInternal;
+import org.eclipse.graphiti.ui.internal.parts.DiagramEditPart;
 import org.eclipse.graphiti.ui.internal.platform.ExtensionManager;
+import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.graphiti.ui.platform.IImageProvider;
 import org.eclipse.graphiti.ui.platform.PlatformImageProvider;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.ui.services.IImageService;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
@@ -203,7 +234,9 @@ public class ImageService implements IImageService {
 						URL imageFileUrl = new URL(imageFilePath);
 						imageDescriptor = ImageDescriptor.createFromURL(imageFileUrl);
 					} catch (MalformedURLException e) {
-						T.racer().error("Bundle entry/resource url for image could not be parsed, url was: " + imageFilePath, e);
+						T.racer()
+								.error("Bundle entry/resource url for image could not be parsed, url was: "
+										+ imageFilePath, e);
 					}
 				} else {
 					String pluginId = imageProvider.getPluginId();
@@ -318,5 +351,151 @@ public class ImageService implements IImageService {
 		}
 
 		return newImageData;
+	}
+
+	@Override
+	public byte[] convertDiagramToBytes(Diagram diagram, int format) {
+		DummyEditor dummyEditor = new DummyEditor();
+		dummyEditor.getGraphicalViewer().setRootEditPart(new ScalableRootEditPart());
+		ImageGenerationDiagramBehavior imageGenerationDiagramBehavior = new ImageGenerationDiagramBehavior(dummyEditor,
+				diagram);
+		dummyEditor.getGraphicalViewer().setEditPartFactory(
+				((IConfigurationProviderInternal) imageGenerationDiagramBehavior.getConfigurationProvider())
+						.getEditPartFactory());
+
+		// Recursively launch all figure creations
+		dummyEditor.getGraphicalViewer().setContents(diagram);
+
+		// Set the Graphiti diagram bounds...
+		int width = diagram.getGraphicsAlgorithm().getWidth(), height = diagram.getGraphicsAlgorithm().getHeight();
+		IFigure diagramFigure = ((LayerManager) dummyEditor.getGraphicalViewer().getRootEditPart())
+				.getLayer(LayerConstants.PRINTABLE_LAYERS);
+		diagramFigure.setBounds(new Rectangle(0, 0, width, height));
+		// ...and trigger the figures validation
+		diagramFigure.validate();
+
+		// Set bounds to final narrowed image size
+		DiagramEditPart diagramEditPart = (DiagramEditPart) dummyEditor.getGraphicalViewer().getRootEditPart()
+				.getChildren().get(0);
+		int XMin = width;
+		int YMin = height;
+		int XMax = 0;
+		int YMax = 0;
+		for (Object o : diagramEditPart.getFigure().getChildren()) {
+			Figure f = (Figure) o;
+			if (f.getLocation().x < XMin) {
+				XMin = f.getLocation().x;
+			}
+			if (f.getLocation().y < YMin) {
+				YMin = f.getLocation().y;
+			}
+			if (f.getLocation().x + f.getBounds().width > XMax) {
+				XMax = f.getLocation().x + f.getBounds().width;
+			}
+			if (f.getLocation().y + f.getBounds().height > YMax) {
+				YMax = f.getLocation().y + f.getBounds().height;
+			}
+		}
+
+		width = XMin + XMax;
+		height = YMin + YMax;
+		// Workaround for default diagram creation limited to 1000 x 1000 bounds
+		if (width > diagramFigure.getBounds().width || height > diagramFigure.getBounds().height) {
+			diagramFigure.setBounds(new Rectangle(0, 0, width, height));
+			diagramFigure.validate();
+		}
+		Image diagramImage = new Image(Display.getDefault(), width, height);
+		GC gc = new GC(diagramImage);
+		SWTGraphics graphics = new SWTGraphics(gc);
+		diagramFigure.paint(graphics);
+		graphics.dispose();
+		gc.dispose();
+
+		return convertImageToBytes(diagramImage, format);
+	}
+	
+	private class ImageGenerationDiagramBehavior extends DiagramBehavior {
+
+		private IConfigurationProviderInternal configurationProvider = null;
+
+		public ImageGenerationDiagramBehavior(IDiagramContainerUI diagramContainer, Diagram diagram) {
+			super(diagramContainer);
+
+			// Extract the diagram type from the given diagram and try to find
+			// the associated diagram type provider. That instance will have the
+			// correct image provider associated so that images will be rendered
+			// correctly.
+			// This will work only in case the graphical tool for the diagram
+			// type is installed.
+			IDiagramTypeProvider diagramTypeProvider = null;
+			String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());
+			if (providerId != null) {
+				diagramTypeProvider = ExtensionManager.getSingleton().createDiagramTypeProvider(
+					providerId);
+			}
+			if (diagramTypeProvider == null) {
+				// In case no tool was found, use a dummy diagram type provider
+				// for the rendering. This will fail to show the correct images
+				// but will render Graphiti graphics algorithms correctly.
+				diagramTypeProvider = new AbstractDiagramTypeProvider() {
+					@Override
+					public IFeatureProvider getFeatureProvider() {
+						// To avoid NPE...
+						return new DefaultFeatureProvider(this);
+					}
+				};
+
+				// TODO register a dummy image provider that always returns a
+				// 'not available' image
+			}
+
+			diagramTypeProvider.init(diagram, this);
+			configurationProvider = new ConfigurationProvider(this, diagramTypeProvider);
+		}
+
+		@Override
+		public IConfigurationProvider getConfigurationProvider() {
+			return configurationProvider;
+		}
+
+		@Override
+		public boolean isAlive() {
+			// To trigger refresh without check on non-existing edit domain
+			return true;
+		}
+
+		@Override
+		public DefaultRefreshBehavior getRefreshBehavior() {
+			return new DefaultRefreshBehavior(this); // To avoid NPE...
+		}
+	}
+
+	private class DummyGraphicalViewer extends AbstractEditPartViewer implements GraphicalViewer {
+
+		@Override
+		public EditPart findObjectAtExcluding(Point location, @SuppressWarnings("rawtypes") Collection exclusionSet,
+				Conditional conditional) {
+			return null;
+		}
+
+		@Override
+		public Handle findHandleAt(Point p) {
+			return null;
+		}
+
+		@Override
+		public Control createControl(Composite parent) {
+			return null;
+		}
+	}
+
+	private class DummyEditor extends DiagramEditor {
+
+		private DummyGraphicalViewer dummyGraphicalViewer = new DummyGraphicalViewer();
+
+		@Override
+		public GraphicalViewer getGraphicalViewer() {
+			return dummyGraphicalViewer;
+		}
 	}
 }
