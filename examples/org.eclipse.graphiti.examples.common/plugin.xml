@@ -3,7 +3,7 @@
 <!--
     <copyright>
    
-    Copyright (c) 2005, 2010 SAP AG.
+    Copyright (c) 2005, 2015 SAP AG.
     All rights reserved. This program and the accompanying materials
     are made available under the terms of the Eclipse Public License v1.0
     which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
        SAP AG - initial API, implementation and documentation
        mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
        mwenz - Bug 418409 - Graphiti new project and new diagram wizards have disappeared from toolbar new entry
+       mwenz - Bug 423018 - Direct Graphiti diagram exporter
    
     </copyright>
    
@@ -202,5 +203,41 @@
 				</iterate>
 			</and>
 		</definition>
+	</extension>
+
+	<!-- Command to save a diagram file as image -->
+	<extension point="org.eclipse.ui.commands">
+		<command
+			defaultHandler="org.eclipse.graphiti.examples.common.handler.SaveDiagramAsImageHandler"
+			id="org.eclipse.graphiti.examples.common.saveAsImageCommand"
+			name="%saveAsImageCommand.name">
+		</command>
+	</extension>
+	
+	<!-- Context menu entry when 1 diagram file is selected to save the diagram as image -->
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+			<command
+				commandId="org.eclipse.graphiti.examples.common.saveAsImageCommand"
+				label="%saveAsImageCommand.label"
+				style="push">
+				<visibleWhen checkEnabled="false">
+					<with variable="selection">
+						<count value="1"/>
+						<iterate ifEmpty="false">
+							<and>
+								<test
+									property="org.eclipse.core.resources.extension"
+									value="diagram">
+								</test>
+								<adapt type="org.eclipse.core.resources.IFile">
+								</adapt>
+							</and>
+						</iterate>
+					</with>
+				</visibleWhen>
+			</command>
+		</menuContribution>
 	</extension>
 </plugin>

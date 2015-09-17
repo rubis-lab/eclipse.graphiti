@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Laurent Le Moux (mwenz) - Bug 423018 - Direct Graphiti diagram exporter
  *
  * </copyright>
  *
@@ -33,7 +34,7 @@ public final class EmfService implements IEmfService {
 	private WeakHashMap<Diagram, WeakReference<IDiagramTypeProvider>> diagToProvider = new WeakHashMap<Diagram, WeakReference<IDiagramTypeProvider>>();
 
 	public boolean isObjectAlive(EObject obj) {
-		return obj != null && obj.eResource() != null;
+		return obj != null;
 	}
 
 	public IDiagramTypeProvider getDTPForDiagram(Diagram d) {

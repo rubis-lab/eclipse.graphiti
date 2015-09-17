@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 336075 - DiagramEditor accepts URIEditorInput
  *    mwenz - Bug 460019 - Problem with CreateDiagramWizard_ErrorOccuredTitle
+ *    mwenz - Bug 423018 - Direct Graphiti diagram exporter
  *
  * </copyright>
  *
@@ -70,6 +71,25 @@ public class Messages extends NLS {
 	public static String RenameActionProvider_ProvideNameDescription;
 	public static String RenameActionProvider_ProvideNameTitle;
 	public static String RenameActionProvider_RenameEClassText;
+	/**
+	 * @since 0.13
+	 */
+	public static String SaveDiagramAsImageHandler_NoDiagramFoundError;
+	/**
+	 * @since 0.13
+	 */
+	public static String SaveDiagramAsImageHandler_NoDiagramFoundDialogText;
+
+	/**
+	 * @since 0.13
+	 */
+	public static String SaveDiagramAsImageHandler_DialogTitle;
+
+	/**
+	 * @since 0.13
+	 */
+	public static String SaveDiagramAsImageHandler_SaveFileError;
+
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
