@@ -142,4 +142,23 @@
 			parentId="org.eclipse.ui.contexts.window">
 		</context>
 	</extension>
+
+	<extension point="org.eclipse.graphiti.ui.diagramTypeProviders">
+		<diagramTypeProvider
+			class="org.eclipse.graphiti.ui.internal.services.impl.DummyExportAsImageDiagramTypeProvider"
+			description="A dummy diagram provider used for exporting diagrams a image without editor"
+			id="org.eclipse.graphiti.ui.internal.ExportDiagramAsImageDummyDiagramTypeProvider"
+			name="DummyExportDiagramAsImage">
+			<imageProvider
+				id="org.eclipse.graphiti.ui.internal.ExportDiagramAsImageDummyImageProvider">
+			</imageProvider>
+		</diagramTypeProvider>
+	</extension>
+
+	<extension point="org.eclipse.graphiti.ui.imageProviders">
+		<imageProvider
+			class="org.eclipse.graphiti.ui.internal.services.impl.ExportDiagramAsImageDummyImageProvider"
+			id="org.eclipse.graphiti.ui.internal.ExportDiagramAsImageDummyImageProvider">
+		</imageProvider>
+	</extension>
 </plugin>
