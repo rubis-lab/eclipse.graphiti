@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,12 +11,14 @@
  *    SAP AG - initial API, implementation and documentation
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    mwenz - Bug 413139 - Visibility of convertImageToBytes in DefaultSaveImageFeature
+ *    Laurent Le Moux (mwenz) - Bug 423018 - Direct Graphiti diagram exporter
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.services;
 
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageLoader;
@@ -138,4 +140,19 @@ public interface IImageService {
 	 * @since 0.11
 	 */
 	byte[] convertImageToBytes(Image image, int format);
+
+	/**
+	 * Converts the given diagram into an image byte array in the given format.<br>
+	 * This allows end users to export diagrams without having to run the
+	 * associated GEF editor.
+	 * 
+	 * @param diagram
+	 *            The diagram to convert to a byte array
+	 * @param format
+	 *            The format to use see {@link ImageLoader}
+	 * @return A byte array containing the diagram image
+	 * 
+	 * @since 0.13
+	 */
+	byte[] convertDiagramToBytes(Diagram diagram, int format);
 }
