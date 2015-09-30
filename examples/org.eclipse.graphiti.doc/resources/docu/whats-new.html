@@ -35,13 +35,73 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Neon</h1>
-	<p>Last revised August 18, 2015</p>
+	<p>Last revised September 30, 2015</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.13.0 within the
 		Neon release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M2 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M2</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on bugfixing.</td>
+		</tr>
+		<tr id="bug 473087">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=473087">Bug
+					473087</a></td>
+			<td class="content">A potential ClassCastException in diagram
+				loading has been fixed.</td>
+		</tr>
+		<tr id="bug 477083">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477083">Bug
+					477083</a></td>
+			<td class="content">A bug in transaction reuse handling has been
+				fixed. Read-only transactions and transactions owned by other
+				threads will not be used any more.</td>
+		</tr>
+		<tr id="bug 477132">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477132">Bug
+					477132</a></td>
+			<td class="content">A potential stack overflow in diagram update
+				has been fixed.</td>
+		</tr>
+		<tr id="bug 477420">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477420">Bug
+					477420</a></td>
+			<td class="content">A potential NullPointerException painting
+				the diagram grid has been fixed.</td>
+		</tr>
+		<tr id="bug 477421">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477421">Bug
+					477421</a></td>
+			<td class="content">A potential SWTException in the font cache
+				handling in combination with scaling has been fixed.</td>
+		</tr>
+		<tr id="bug 477526">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477526">Bug
+					477526</a></td>
+			<td class="content">A potential NullPointerException in the
+				Graphiti GEF change handling has been fixed.</td>
+		</tr>
+		<tr id="bug 477659">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477659">Bug
+					477659</a></td>
+			<td class="content">A potential NullPointerException in the
+				editor default refresh behavior has been fixed.</td>
+		</tr>
 		<!-- ---------------------------------------- M1 ------------------------------- -->
 		<tr>
 			<td colspan="2">
@@ -63,7 +123,7 @@ table.news tr td.content {
 			<td class="content">The read-only state of EMF resource files is
 				now respected on saving the editor. Errors that happened during the
 				save are displayed in a popup; clients may override and react to
-				such errors in a more suitable way.</td>
+				such errors in a more suitable way. <b>Minor API enhancement.</b></td>
 		</tr>
 		<tr id="bug 470038">
 			<td class="title"><a
