@@ -20,6 +20,7 @@
  *    mwenz - Bug 470038 - NullPointerException in DiagramBehavior.unregisterDiagramResourceSetListener
  *    mwenz - Bug 470150 - NullPointerException in DiagramBehavior.getAdapter
  *    mwenz - Bug 477526 - NullPointerException in DiagramBehavior.addGefListeners
+ *    mwenz - Bug 480961 - NullPointerException below ScrollingGraphicalViewer.reveal
  *
  * </copyright>
  *
@@ -897,7 +898,13 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 				// Otherwise the reveal method can't work correctly.
 				Display.getDefault().asyncExec(new Runnable() {
 					public void run() {
-						getDiagramContainer().getGraphicalViewer().reveal(editpart);
+						GraphicalViewer graphicalViewer = getDiagramContainer().getGraphicalViewer();
+						// Bug 480961 - Prevent NullPointerException in
+						// async call (might be no longer available when
+						// the async call is executed).
+						if (graphicalViewer.getControl() != null) {
+							graphicalViewer.reveal(editpart);
+						}
 					}
 				});
 			}
