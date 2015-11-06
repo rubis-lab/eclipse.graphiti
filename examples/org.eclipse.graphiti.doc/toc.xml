@@ -28,6 +28,10 @@
        <topic href="resources/docu/advanced/Patterns.htm" label="Patterns"/>
        <topic href="resources/docu/advanced/IssueAnalysis.htm" label="Analysing Issues"/>
        <topic href="resources/docu/advanced/BeyondEditors.htm" label="Diagrams beyond Editors"/>
+       <topic label="Functionality without an Open Diagram">
+           <topic label="Dark Feature Processing" href="resources/docu/gfw/dark-feature-processing.htm"/>
+           <topic label="Export Diagram as Image" href="resources/docu/gfw/export-diagram-as-image.htm"/>
+       </topic>
     </topic>
     <topic label="Examples">
        <topic href="resources/docu/examples/Tutorial.htm" label="Tutorial">
