@@ -35,13 +35,47 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Neon</h1>
-	<p>Last revised September 30, 2015</p>
+	<p>Last revised November 10, 2015</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.13.0 within the
 		Neon release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M3 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M3</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on fixing bugs and incorporating a contribution.</td>
+		</tr>
+		<tr id="bug 423018">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=423018">Direct
+					Diagram Export</a></td>
+			<td class="content">Graphiti now supports to export any diagram
+				without the need to hav a diagram open in an editor, view or plain
+				composite. The functionality can now be triggered programmatically
+				and included in non-graphical parts of Graphiti-based tools. The
+				digram will be rendered using the associated diagram type provider
+				and tool-provided functionality (e.g. images and platform graphics
+				algorithms) in case the tool is installed in Eclipse. In case no
+				diagram type provider can be found for a diagram (e.g. because the
+				tool is not installed) a default one will be used; of course, in
+				that case any images or platform graphics algorithms cannot be
+				rendered and a dummy image or shape will be rendered. This change
+				comes with a minor API enhancement.</td>
+		</tr>
+		<tr id="bug 480961">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=480961">Bug
+					480961</a></td>
+			<td class="content">A potential NullPointerException in
+				ScrollingGraphicalViewer has been fixed.</td>
+		</tr>
 		<!-- ---------------------------------------- M2 ------------------------------- -->
 		<tr>
 			<td colspan="2">
