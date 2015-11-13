@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    jpasch - Bug 352542 - Add "plain"-create methods for working with styles
  *    mwenz - Bug 364126 - Make GaServiceImpl extensible
  *    mwenz - Bug 423573 - Angles should never be integer
+ *    mwenz - Bug 481935 - [M3] Fix NPE in GaServiceImpl line 362 on move in Chess editor
  *
  * </copyright>
  *
@@ -358,7 +359,7 @@ public class GaServiceImpl implements IGaService {
 		if (ga instanceof Polyline) {
 			Polyline pl = (Polyline) ga;
 			ret = calculatePolylineMinSize(pl);
-		} else {
+		} else if (ga != null) {
 			ret = new DimensionImpl(ga.getWidth(), ga.getHeight());
 		}
 		return ret;
