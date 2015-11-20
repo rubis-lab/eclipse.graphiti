@@ -28,14 +28,14 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<platform-path>4.5milestones/S-4.5RC4-201506032000/</platform-path>
-				<platform-version>4.5</platform-version>
-				<orbit-version>R20150519210750</orbit-version>
+				<platform-path>4.6milestones/S-4.6M3-201510291100/</platform-path>
+				<platform-version>4.6</platform-version>
+				<orbit-version>S20151016170251</orbit-version>
 				<gef-path>milestones/</gef-path>
-				<emf-path>2.11milestones/</emf-path>
-				<emf-transactions-path>milestones/S201505060251/</emf-transactions-path>
-				<emf-validation-path>milestones/S201505060134/</emf-validation-path>
-				<swtbot-path>snapshots/</swtbot-path>
+				<emf-path>2.12milestones/</emf-path>
+				<emf-transactions-path>releases/R201506010221/</emf-transactions-path>
+				<emf-validation-path>releases/R201505312255/</emf-validation-path>
+				<swtbot-path>releases/2.3.0/</swtbot-path>
 			</properties>
 		</profile>
 	</profiles>
