@@ -13,4 +13,58 @@
 	<name>Graphiti Documentation</name>
 	<artifactId>org.eclipse.graphiti.doc</artifactId>
 	<packaging>eclipse-plugin</packaging>
+
+
+	<properties>
+		<platform.api>org.eclipse.platform.doc.isv/reference/api</platform.api>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-document-bundle-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>eclipse-javadoc</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>javadoc</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/examples/org.eclipse.graphiti.doc/javadoc</outputDirectory>
+							<tocFile>${project.basedir}/examples/org.eclipse.graphiti.doc/api_docs.xml</tocFile>
+							<tocOptions>
+								<mainLabel>Graphiti API</mainLabel>
+							</tocOptions>
+							<javadocOptions>
+								<!-- enable in case you need a proxy for web access
+								<jvmOptions>
+									<jvmOption>-Dhttp.proxySet=true</jvmOption>
+									<jvmOption>-Dhttp.proxyHost=proxy.example.com</jvmOption>
+									<jvmOption>-Dhttp.proxyPort=81</jvmOption>
+									<jvmOption>-DhttpnonProxyHosts=*.example.com</jvmOption>
+								</jvmOptions>
+								-->
+								<additionalArguments>
+									<additionalArgument>${javadoc-args}</additionalArgument>
+									<additionalArgument>
+										-link
+											http://docs.oracle.com/javase/8/docs/api/
+									</additionalArgument>
+									<additionalArgument>
+										-linkoffline 
+											../../${platform.api}
+											http://help.eclipse.org/mars/topic/org.eclipse.platform.doc.isv/reference/api/
+									</additionalArgument>
+									<additionalArgument>-public</additionalArgument>
+								</additionalArguments>
+							</javadocOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+    </build>
 </project>
