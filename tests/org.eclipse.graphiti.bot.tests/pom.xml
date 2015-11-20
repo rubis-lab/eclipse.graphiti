@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.eclipse.graphiti</groupId>
 		<artifactId>parent</artifactId>
-		<version>0.12.0-SNAPSHOT</version>
+		<version>0.13.0-SNAPSHOT</version>
 		<relativePath>../../parent</relativePath>
 	</parent>
 
@@ -58,17 +58,17 @@
 							<requirement>
 								<type>eclipse-feature</type>
 								<id>org.eclipse.graphiti.sdk.plus.feature</id>
-								<versionRange>0.12.0</versionRange>
+								<versionRange>0.13.0</versionRange>
 							</requirement>
 							<requirement>
 								<type>eclipse-feature</type>
 								<id>org.eclipse.graphiti.feature.examples</id>
-								<versionRange>0.12.0</versionRange>
+								<versionRange>0.13.0</versionRange>
 							</requirement>
 							<requirement>
 								<type>eclipse-feature</type>
 								<id>org.eclipse.graphiti.feature.tools</id>
-								<versionRange>0.12.0</versionRange>
+								<versionRange>0.13.0</versionRange>
 							</requirement>
 						</extraRequirements>
 					</dependency-resolution>

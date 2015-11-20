@@ -6,7 +6,7 @@
 	<name>Graphiti Parent</name>
 	<groupId>org.eclipse.graphiti</groupId>
 	<artifactId>parent</artifactId>
-	<version>0.12.0-SNAPSHOT</version>
+	<version>0.13.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
