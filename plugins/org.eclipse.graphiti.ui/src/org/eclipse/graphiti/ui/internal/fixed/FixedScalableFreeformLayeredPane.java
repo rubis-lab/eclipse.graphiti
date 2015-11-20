@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
+ *    mwenz - Bug 477421 - SWTException in ScaledGraphics.getCachedFontData
  *
  * </copyright>
  *
@@ -29,30 +30,30 @@ public class FixedScalableFreeformLayeredPane extends ScalableFreeformLayeredPan
 	/**
 	 * Paint client area.
 	 * 
+	 * Change from super method: Do not call the super method in case of scale
+	 * == 1.0; instead always use FixedScaledGraphics for consistency. Also
+	 * check disposed state of FixedScaledGraphics.
+	 * 
 	 * @param graphics
 	 *            the graphics
 	 * 
 	 * @see org.eclipse.draw2d.Figure#paintClientArea(Graphics)
 	 */
-	@SuppressWarnings("unused")
 	@Override
 	protected void paintClientArea(Graphics graphics) {
-		if (getChildren().isEmpty())
+		if (getChildren().isEmpty()) {
 			return;
-		if (false && getScale() == 1.0) { // deactivated; always use
-			// FixedScaledGraphics for
-			// consistency
-			super.paintClientArea(graphics);
-		} else {
-			Graphics g = new FixedScaledGraphics(graphics);
-			boolean optimizeClip = getBorder() == null || getBorder().isOpaque();
-			if (!optimizeClip)
-				g.clipRect(getBounds().getShrinked(getInsets()));
-			g.scale(getScale());
-			g.pushState();
+		}
+		FixedScaledGraphics g = new FixedScaledGraphics(graphics);
+		boolean optimizeClip = getBorder() == null || getBorder().isOpaque();
+		if (!optimizeClip)
+			g.clipRect(getBounds().getShrinked(getInsets()));
+		g.scale(getScale());
+		g.pushState();
+		if (!g.isDisposed()) {
 			paintChildren(g);
 			g.dispose();
-			graphics.restoreState();
 		}
+		graphics.restoreState();
 	}
 }

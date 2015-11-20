@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2011, 2014 SAP AG.
+ * Copyright (c) 2011, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,15 +15,15 @@
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz/Rob Cernich - Bug 391046 - Deadlock while saving prior to refactoring operation
  *    mwenz - Bug 437933 - NullPointerException in DefaultPersistencyBehavior.isDirty()
+ *    mwenz - Bug 441676 - Read-only attribute is not respected in Graphiti
+ *    mwenz - Bug 473087 - ClassCastException in DefaultPersistencyBehavior.loadDiagram
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -34,8 +34,10 @@ import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -56,7 +58,9 @@ import org.eclipse.graphiti.internal.IDiagramVersion;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramsPackage;
 import org.eclipse.graphiti.ui.internal.GraphitiUIPlugin;
+import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.T;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.operation.IThreadListener;
 import org.eclipse.jface.operation.ModalContext;
@@ -140,8 +144,10 @@ public class DefaultPersistencyBehavior {
 					T.racer().debug("Diagram with URI '" + uri.toString() + "' could not be loaded", e); //$NON-NLS-1$ //$NON-NLS-2$
 					return null;
 				}
-				modelElement.eResource().setTrackingModification(true);
-				return (Diagram) modelElement;
+				if (modelElement instanceof Diagram) {
+					modelElement.eResource().setTrackingModification(true);
+					return (Diagram) modelElement;
+				}
 			}
 		}
 		return null;
@@ -153,7 +159,7 @@ public class DefaultPersistencyBehavior {
 	 * {@link DiagramBehavior} so that the complete state of all modified
 	 * objects will be persisted in the file system.<br>
 	 * The default implementation also sets the current version information
-	 * (currently 0.12.0) to the diagram before saving it and wraps the save
+	 * (currently 0.13.0) to the diagram before saving it and wraps the save
 	 * operation inside a {@link IRunnableWithProgress} that cares about sending
 	 * only one {@link Resource} change event holding all modified files.
 	 * Besides also all adapters are temporarily switched off (see
@@ -191,7 +197,13 @@ public class DefaultPersistencyBehavior {
 			// and refresh the dirty state of the editor
 			savedCommand = commandStack.getUndoCommand();
 			diagramBehavior.getDiagramContainer().updateDirtyState();
-		} catch (final Exception exception) {
+		} catch (InvocationTargetException e) {
+			if (e.getCause() instanceof SaveException) {
+				showSaveError(((SaveException) e.getCause()).getStatus());
+			} else {
+				T.racer().error("Save failed", e);
+			}
+		} catch (Exception exception) {
 			// Something went wrong that shouldn't.
 			T.racer().error(exception.getMessage(), exception);
 		} finally {
@@ -313,17 +325,16 @@ public class DefaultPersistencyBehavior {
 
 						final EList<Resource> resources = editingDomain.getResourceSet().getResources();
 						// Copy list to an array to prevent
-						// ConcurrentModificationExceptions
-						// during the saving of the dirty resources
+						// ConcurrentModificationExceptions during the saving of
+						// the dirty resources
 						Resource[] resourcesArray = new Resource[resources.size()];
 						resourcesArray = resources.toArray(resourcesArray);
 						for (int i = 0; i < resourcesArray.length; i++) {
 							// In case resource modification tracking is
-							// switched on,
-							// we can check if a resource has been modified, so
-							// that we only need to save
-							// really changed resources; otherwise we need to
-							// save all resources in the set
+							// switched on, we can check if a resource has been
+							// modified, so that we only need to save really
+							// changed resources; otherwise we need to save all
+							// resources in the set
 							final Resource resource = resourcesArray[i];
 
 							if (shouldSave(resource)) {
@@ -348,7 +359,12 @@ public class DefaultPersistencyBehavior {
 		try {
 			ResourcesPlugin.getWorkspace().run(wsRunnable, null);
 			if (!failedSaves.isEmpty()) {
-				throw new WrappedException(createMessage(failedSaves), new RuntimeException());
+				SaveException exception = createException(failedSaves);
+				IStatus[] statuses = exception.getStatus().getChildren();
+				for (IStatus status : statuses) {
+					T.racer().error("Resources could not be saved", status.getException());
+				}
+				throw exception;
 			}
 		} catch (final CoreException e) {
 			final Throwable cause = e.getStatus().getException();
@@ -361,32 +377,21 @@ public class DefaultPersistencyBehavior {
 		return savedResources;
 	}
 
-	private String createMessage(Map<URI, Throwable> failedSaves) {
-		final StringBuilder buf = new StringBuilder("The following resources could not be saved:"); //$NON-NLS-1$
-		for (final Entry<URI, Throwable> entry : failedSaves.entrySet()) {
-			buf.append("\nURI: ").append(entry.getKey().toString()).append(", cause: \n").append(getExceptionAsString(entry.getValue())); //$NON-NLS-1$ //$NON-NLS-2$
+	private SaveException createException(Map<URI, Throwable> failedSaves) {
+		MultiStatus multiStatus = new MultiStatus(GraphitiUIPlugin.PLUGIN_ID, 0,
+				Messages.DefaultPersistencyBehavior_2, null);
+		for (Entry<URI, Throwable> entry : failedSaves.entrySet()) {
+			IStatus status = new Status(IStatus.ERROR, GraphitiUIPlugin.PLUGIN_ID, entry.getKey().toString(),
+					entry.getValue());
+			multiStatus.add(status);
 		}
-		return buf.toString();
-	}
-
-	private String getExceptionAsString(Throwable t) {
-		final StringWriter stringWriter = new StringWriter();
-		final PrintWriter printWriter = new PrintWriter(stringWriter);
-		t.printStackTrace(printWriter);
-		final String result = stringWriter.toString();
-		try {
-			stringWriter.close();
-		} catch (final IOException e) {
-			// $JL-EXC$ ignore
-		}
-		printWriter.close();
-		return result;
+		return new SaveException(multiStatus);
 	}
 
 	/**
 	 * Called in {@link #saveDiagram(IProgressMonitor)} to update the Graphiti
 	 * diagram version before saving a diagram. Currently the diagram version is
-	 * set to 0.12.0
+	 * set to 0.13.0
 	 * 
 	 * @param diagram
 	 *            the {@link Diagram} to update the version attribute for
@@ -423,8 +428,25 @@ public class DefaultPersistencyBehavior {
 		 * _all_ content from the resource on the disk (including the diagram).
 		 * --> a not yet loaded resource must not be saved
 		 */
-		return !diagramBehavior.getEditingDomain().isReadOnly(resource)
-				&& (!resource.isTrackingModification() || resource.isModified()) && resource.isLoaded();
+		/*
+		 * Bug 441676 - Removed check for isReadOnly on resource level. When
+		 * read-only resources are saved an exception should be thrown to
+		 * indicate to the user that something went wrong.
+		 */
+		return (!resource.isTrackingModification() || resource.isModified()) && resource.isLoaded();
+	}
+
+	/**
+	 * @since 0.13
+	 */
+	protected void showSaveError(final IStatus status) {
+		Display.getDefault().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				new ErrorDialog(Display.getDefault().getActiveShell(), Messages.DefaultPersistencyBehavior_3,
+						Messages.DefaultPersistencyBehavior_4, status, IStatus.ERROR).open();
+			}
+		});
 	}
 
 	/**
@@ -447,9 +469,9 @@ public class DefaultPersistencyBehavior {
 			try {
 				savedResources.addAll(save(diagramBehavior.getEditingDomain(), saveOptions, monitor));
 			} catch (final WrappedException e) {
-				final MultiStatus errorStatus = new MultiStatus(GraphitiUIPlugin.PLUGIN_ID, 0, e.getMessage(),
+				Status errorStatus = new Status(IStatus.ERROR, GraphitiUIPlugin.PLUGIN_ID, 0, e.getMessage(),
 						e.exception());
-				GraphitiUIPlugin.getDefault().getLog().log(errorStatus);
+				showSaveError(errorStatus);
 				T.racer().error(e.getMessage(), e.exception());
 			}
 		}
@@ -466,6 +488,28 @@ public class DefaultPersistencyBehavior {
 			if (rule != null) {
 				Job.getJobManager().transferRule(rule, thread);
 			}
+		}
+	}
+
+	/**
+	 * @since 0.13
+	 */
+	protected final class SaveException extends RuntimeException {
+
+		private static final long serialVersionUID = 5342549194820431664L;
+
+		private MultiStatus status;
+
+		public SaveException(MultiStatus status) {
+			super(Messages.DefaultPersistencyBehavior_4);
+			this.status = status;
+		}
+
+		/**
+		 * @return the status
+		 */
+		public MultiStatus getStatus() {
+			return status;
 		}
 	}
 }

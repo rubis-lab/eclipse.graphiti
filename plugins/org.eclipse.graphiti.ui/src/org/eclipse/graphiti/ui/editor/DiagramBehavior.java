@@ -17,6 +17,10 @@
  *    mwenz - Bug 439689 - DiagramEdtior.setPictogramElementForSelection adds SelectionBorders to invisible PictogramElements
  *    mwenz - Bug 407894 - Luna: After DiagramsInViews change graphical viewer is configured and initialized only by a workaround
  *    mwenz - Bug 433779 - DiagramBehaviour.setInput() is not extensible
+ *    mwenz - Bug 470038 - NullPointerException in DiagramBehavior.unregisterDiagramResourceSetListener
+ *    mwenz - Bug 470150 - NullPointerException in DiagramBehavior.getAdapter
+ *    mwenz - Bug 477526 - NullPointerException in DiagramBehavior.addGefListeners
+ *    mwenz - Bug 480961 - NullPointerException below ScrollingGraphicalViewer.reveal
  *
  * </copyright>
  *
@@ -455,13 +459,15 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 				// Only fire if triggered from UI thread
 				if (Display.getCurrent() != null) {
 					IDiagramContainerUI diagramContainer = getDiagramContainer();
-					diagramContainer.updateDirtyState();
+					if (diagramContainer != null) {
+						diagramContainer.updateDirtyState();
 
-					// Promote the changes to the command stack also to the
-					// action bars and registered actions to correctly reflect
-					// e.g. undo/redo in the menu (introduced to enable removing
-					// NOP commands from the command stack
-					diagramContainer.commandStackChanged(event);
+						// Promote the changes to the command stack also to the
+						// action bars and registered actions to correctly
+						// reflect e.g. undo/redo in the menu (introduced to
+						// enable removing NOP commands from the command stack
+						diagramContainer.commandStackChanged(event);
+					}
 				}
 			}
 		};
@@ -881,10 +887,8 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 					}
 				}
 			}
-			if (parentPart != null)
-			{
-				parentPart.getSite().getSelectionProvider()
-					.setSelection(new StructuredSelection(editParts));
+			if (parentPart != null) {
+				parentPart.getSite().getSelectionProvider().setSelection(new StructuredSelection(editParts));
 			}
 			if (editParts.size() > 0) {
 				final EditPart editpart = editParts.get(0);
@@ -894,7 +898,13 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 				// Otherwise the reveal method can't work correctly.
 				Display.getDefault().asyncExec(new Runnable() {
 					public void run() {
-						getDiagramContainer().getGraphicalViewer().reveal(editpart);
+						GraphicalViewer graphicalViewer = getDiagramContainer().getGraphicalViewer();
+						// Bug 480961 - Prevent NullPointerException in
+						// async call (might be no longer available when
+						// the async call is executed).
+						if (graphicalViewer.getControl() != null) {
+							graphicalViewer.reveal(editpart);
+						}
 					}
 				});
 			}
@@ -1211,11 +1221,14 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		IConfigurationProvider cfgProvider = getConfigurationProvider();
 
 		if (cfgProvider != null) {
-			IToolBehaviorProvider tbp = cfgProvider.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-			if (tbp != null) {
-				Object ret = tbp.getAdapter(type);
-				if (ret != null) {
-					return ret;
+			IDiagramTypeProvider diagramTypeProvider = cfgProvider.getDiagramTypeProvider();
+			if (diagramTypeProvider != null) {
+				IToolBehaviorProvider toolBehaviorProvider = diagramTypeProvider.getCurrentToolBehaviorProvider();
+				if (toolBehaviorProvider != null) {
+					Object ret = toolBehaviorProvider.getAdapter(type);
+					if (ret != null) {
+						return ret;
+					}
 				}
 			}
 		}
@@ -1656,8 +1669,10 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	protected void unregisterDiagramResourceSetListener() {
 		if (diagramChangeListener != null) {
 			diagramChangeListener.stopListening();
-			TransactionalEditingDomain eDomain = getEditingDomain();
-			eDomain.removeResourceSetListener(diagramChangeListener);
+			TransactionalEditingDomain editingDomain = getEditingDomain();
+			if (editingDomain != null) {
+				editingDomain.removeResourceSetListener(diagramChangeListener);
+			}
 		}
 	}
 

@@ -17,6 +17,8 @@
  *    mwenz - Bug 430609 - Re-entrance in diagram update causes transaction error
  *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
  *    mwenz - Bug 464596 - BasicIndexOutOfBoundsException in BasicEList.get
+ *    Laurent Le Moux - mwenz - Bug 475240 - Malfunctioning redo GFWorkspaceCommandStackImpl
+ *    mwenz - Bug 477083 - Read-write transaction not created if another thread is using runExclusive()
  *
  * </copyright>
  *
@@ -30,6 +32,7 @@ import org.eclipse.core.commands.operations.IOperationHistory;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.transaction.RollbackException;
+import org.eclipse.emf.transaction.impl.InternalTransaction;
 import org.eclipse.emf.workspace.impl.WorkspaceCommandStackImpl;
 import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.features.ICustomAbortableUndoRedoFeature;
@@ -83,7 +86,11 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 			}
 		}
 
-		if (getDomain().getActiveTransaction() == null) {
+		InternalTransaction activeTransaction = getDomain().getActiveTransaction();
+		boolean usableTransactionExists = activeTransaction != null && !activeTransaction.isReadOnly()
+				&& activeTransaction.getOwner().equals(Thread.currentThread());
+
+		if (!usableTransactionExists) {
 			// No active transaction means we have to execute the command as a
 			// top-level command
 			super.execute(command, options);
@@ -153,7 +160,7 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 				IFeature feature = executionList[i].getFeature();
 				IContext context = executionList[i].getContext();
 				if (feature instanceof ICustomUndoRedoFeature) {
-					canRedo[i] = feature.canUndo(context);
+					canRedo[i] = ((ICustomUndoRedoFeature) feature).canRedo(context);
 				} else {
 					canRedo[i] = false;
 				}

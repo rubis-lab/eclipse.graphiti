@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  *    Bug 336488 - DiagramEditor API
  *    Benjamin Schmeling - mwenz - Bug 367483 - Support composite connections
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 481936 - Fix NPE in DiagramChangeListener line 261 on move in Chess editor
  *
  * </copyright>
  *
@@ -258,7 +259,7 @@ public class DiagramChangeListener implements ResourceSetListener {
 				Diagram diagram = ((Connection)pe).getParent();
 				return diagram;
 			}
-			if (pe.isActive()) {
+			if (pe != null && pe.isActive()) {
 				return pe;
 			}
 		}

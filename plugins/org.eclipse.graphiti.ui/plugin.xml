@@ -12,6 +12,7 @@
     Contributors:
        SAP AG - initial API, implementation and documentation
        Felix Velasco (mwenz) - Bug 323351 - Enable to suppress/reactivate the speed buttons
+       Laurent Le Moux, mwenz - Bug 423018 - Direct Graphiti diagram exporter
    
     </copyright>
    
@@ -141,5 +142,24 @@
 			name="Graphiti Diagram"
 			parentId="org.eclipse.ui.contexts.window">
 		</context>
+	</extension>
+
+	<extension point="org.eclipse.graphiti.ui.diagramTypeProviders">
+		<diagramTypeProvider
+			class="org.eclipse.graphiti.ui.internal.services.impl.DummyExportAsImageDiagramTypeProvider"
+			description="A dummy diagram provider used for exporting diagrams as image without editor installed for that diagram type"
+			id="org.eclipse.graphiti.ui.internal.ExportDiagramAsImageDummyDiagramTypeProvider"
+			name="DummyExportDiagramAsImage">
+			<imageProvider
+				id="org.eclipse.graphiti.ui.internal.ExportDiagramAsImageDummyImageProvider">
+			</imageProvider>
+		</diagramTypeProvider>
+	</extension>
+
+	<extension point="org.eclipse.graphiti.ui.imageProviders">
+		<imageProvider
+			class="org.eclipse.graphiti.ui.internal.services.impl.ExportDiagramAsImageDummyImageProvider"
+			id="org.eclipse.graphiti.ui.internal.ExportDiagramAsImageDummyImageProvider">
+		</imageProvider>
 	</extension>
 </plugin>

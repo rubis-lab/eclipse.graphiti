@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 331715: Support for rectangular grids in diagrams
  *    Bug 336488 - DiagramEditor API
+ *    mwenz - Bug 477420 - NullPointerException in GridLayer.paintGrid (57)
  *
  * </copyright>
  *
@@ -53,11 +54,13 @@ public class GridLayer extends org.eclipse.gef.editparts.GridLayer {
 		}
 		GraphicsAlgorithm graphicsAlgorithm = diagram.getGraphicsAlgorithm();
 
-		org.eclipse.graphiti.mm.algorithms.styles.Color background = Graphiti.getGaService().getBackgroundColor(graphicsAlgorithm, true);
-		if (background.getBlue() != getBackgroundColor().getBlue() || background.getRed() != getBackgroundColor().getRed()
-				|| background.getGreen() != getBackgroundColor().getGreen()
-
-		) {
+		org.eclipse.graphiti.mm.algorithms.styles.Color background = Graphiti.getGaService().getBackgroundColor(
+				graphicsAlgorithm, true);
+		if (background != null
+				&& getBackgroundColor() != null
+				&& (background.getBlue() != getBackgroundColor().getBlue()
+						|| background.getRed() != getBackgroundColor().getRed() || background.getGreen() != getBackgroundColor()
+						.getGreen())) {
 			updateFromDiagram();
 		}
 

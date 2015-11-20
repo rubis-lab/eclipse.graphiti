@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 477659 - NullPointerException in DefaultRefreshBehavior.internalRefreshEditPart
  *
  * </copyright>
  *
@@ -103,7 +104,7 @@ class DiagramRefreshJob extends UIJob {
 			diagramBehavior.refresh();
 		} else {
 			for (EditPart ep : editParts) {
-				if (!hasNewParent(ep)) {
+				if (ep != null && !hasNewParent(ep)) {
 					diagramBehavior.getRefreshBehavior().internalRefreshEditPart(ep);
 				}
 			}
@@ -129,7 +130,8 @@ class DiagramRefreshJob extends UIJob {
 
 	private boolean hasNewParent(EditPart ep) {
 
-		if (ep == null || !(ep instanceof ShapeEditPart) || (ep instanceof DiagramEditPart) || (ep instanceof ConnectionDecoratorEditPart)) {
+		if (!(ep instanceof ShapeEditPart) || (ep instanceof DiagramEditPart)
+				|| (ep instanceof ConnectionDecoratorEditPart)) {
 			return false;
 		}
 

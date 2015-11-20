@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    Hallvard Traetteberg - Félix Velasco - Bug 403272 - Set the location of DoubleClickContext for DoubleClickFeature
  *    mwenz - Bug 425750 - getSelection not working
+ *    mwenz - Bug 475133 - NullPointerException in ShapeEditPart.createEditPolicies
  *
  * </copyright>
  *
@@ -83,6 +84,7 @@ import org.eclipse.graphiti.ui.internal.contextbuttons.IContextButtonManager;
 import org.eclipse.graphiti.ui.internal.parts.directedit.GFDirectEditManager;
 import org.eclipse.graphiti.ui.internal.parts.directedit.TextCellLocator;
 import org.eclipse.graphiti.ui.internal.policy.DefaultEditPolicyFactory;
+import org.eclipse.graphiti.ui.internal.policy.IEditPolicyFactory;
 import org.eclipse.graphiti.ui.internal.util.draw2d.GFChopboxAnchor;
 import org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
@@ -637,18 +639,21 @@ public class ShapeEditPart extends GraphitiShapeEditPart implements IShapeEditPa
 	 */
 	@Override
 	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, getConfigurationProvider().getEditPolicyFactory()
-				.createShapeHighlightEditPolicy());
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, getConfigurationProvider().getEditPolicyFactory()
-				.createShapeForbidLayoutEditPolicy());
-		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, getConfigurationProvider().getEditPolicyFactory()
-				.createDirectEditPolicy());
-		installEditPolicy(EditPolicy.COMPONENT_ROLE, getConfigurationProvider().getEditPolicyFactory()
-				.createModelObjectDeleteEditPolicy(getConfigurationProvider()));
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, getConfigurationProvider().getEditPolicyFactory()
-				.createConnectionEditPolicy());
-		installEditPolicy(DefaultEditPolicyFactory.HOVER_POLICY_KEY, getConfigurationProvider().getEditPolicyFactory()
-				.createShapeHoverEditPolicy());
+		IConfigurationProviderInternal configurationProvider = getConfigurationProvider();
+		if (configurationProvider != null) {
+			IEditPolicyFactory editPolicyFactory = configurationProvider.getEditPolicyFactory();
+			if (editPolicyFactory != null) {
+				installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE,
+						editPolicyFactory.createShapeHighlightEditPolicy());
+				installEditPolicy(EditPolicy.LAYOUT_ROLE, editPolicyFactory.createShapeForbidLayoutEditPolicy());
+				installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, editPolicyFactory.createDirectEditPolicy());
+				installEditPolicy(EditPolicy.COMPONENT_ROLE,
+						editPolicyFactory.createModelObjectDeleteEditPolicy(configurationProvider));
+				installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, editPolicyFactory.createConnectionEditPolicy());
+				installEditPolicy(DefaultEditPolicyFactory.HOVER_POLICY_KEY,
+						editPolicyFactory.createShapeHoverEditPolicy());
+			}
+		}
 	}
 
 	/**

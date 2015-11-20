@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Export Diagram as an Image without an Open Diagram</title>
+<link href="../book.css" rel="Stylesheet" type="text/css">
+<link href="../code.css" rel="Stylesheet" type="text/css">
+</head>
+
+<body>
+
+	<h1>Export Diagram as an Image without an Open Diagram</h1>
+	<p>Besides the diagram export functionality that is available as the export
+	   feature in the context menu of a diagram editor (or other diagram container),
+	   there is some generic support in Graphiti for exporting a diagram as an
+	   image file without having a diagram open; this functionality was introduced
+	   with Graphiti 0.13.0 as part of the Eclipse Neon release.</p>
+	<h1>Usage of the generic export</h1>
+	<p>Graphiti provides in the
+	   <a href="../../../javadoc/org/eclipse/graphiti/ui/services/IImageService.html">IImageService</a>
+	   a new method byte[] <i>convertDiagramToBytes(Diagram diagram, int format)</i>
+	   that can be used without having a diagram opened. The task of the tool
+	   implementation to be added on top of the framework offering is to load the
+	   diagram and store the returned binary data array in a file (or use it in any
+	   other appropriate way). That functionality can be triggered by any tool-defined
+	   means, e.g. from a context menu entry on the file in the Navigator.</p>
+	<p>The diagram export itself is totally independent from any currently opened
+	   diagram and does not even require a Graphiti tool being installed for the diagram
+	   type to export. However in case no diagram type provider for the diagram is found,
+	   a generic one is used; that means that for any images or platform graphics
+	   algorithms used inside that diagram the rendering cannot be correct. In such a
+	   case a dummy image respectively platform graphics algorithm (stating that the
+	   correct rendering is not available) will be used for rendering.</p>
+	<h1>Example</h1>
+	<p>
+		An example for triggering that functionality (including the loading of the
+		diagram can be found the class
+		<a href="http://git.eclipse.org/c/graphiti/org.eclipse.graphiti.git/tree/examples/org.eclipse.graphiti.examples.common/src/org/eclipse/graphiti/examples/common/handler/SaveDiagramAsImageHandler.java">SaveDiagramAsImageHandler</a>,
+		which is part of the <i>org.eclipse.graphiti.examples.common</i> plugin in ths SDK.
+		It shows how to laod a Graphiti diagram resource from a file, extract the diagram from
+		it and how to store the binary into an image file.</p>
+    </body>
+</html>

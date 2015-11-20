@@ -63,7 +63,6 @@
 	<topic label="Color Schemas" href="resources/docu/gfw/color-schemas.htm"/>
 	<topic label="Polygon and Polyline" href="resources/docu/gfw/polygon-and-polyline.htm"/>
 	<topic label="User-defined Properties" href="resources/docu/gfw/user-defined-properties.htm"/>
-	<topic label="Dark Feature Processing" href="resources/docu/gfw/dark-feature-processing.htm"/>
  <topic href="resources/docu/gfw/Non-EMF domain objects.htm" label="Support for non-EMF Models">
  </topic>
 	<topic label="Prepared Example Project" href="resources/docu/gfw/example-projects.htm"/>

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 477421 - SWTException in ScaledGraphics.getCachedFontData
  *
  * </copyright>
  *
@@ -30,6 +31,7 @@ import org.eclipse.swt.graphics.Path;
 public class FixedScaledGraphics extends ScaledGraphics {
 
 	private Graphics graphics;
+	private boolean isDisposed = false;
 
 	/**
 	 * Instantiates a new fixed scaled graphics.
@@ -42,6 +44,10 @@ public class FixedScaledGraphics extends ScaledGraphics {
 		this.graphics = graphics;
 	}
 
+	public boolean isDisposed() {
+		return isDisposed;
+	}
+
 	// ========================================================================
 	// ===================== overwritten changed methods ======================
 	// ========================================================================
@@ -52,6 +58,18 @@ public class FixedScaledGraphics extends ScaledGraphics {
 	// Just forward to the wrapped Graphics
 	public void fillGradient(int x, int y, int w, int h, boolean vertical) {
 		graphics.fillGradient(x, y, w, h, vertical);
+	}
+
+	/*
+	 * Overridden to store disposed state in order to be able to avoid future
+	 * "SWTException: Graphic is disposed" exceptions
+	 * 
+	 * @see org.eclipse.draw2d.ScaledGraphics#dispose()
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		isDisposed = true;
 	}
 
 	// ========================================================================
