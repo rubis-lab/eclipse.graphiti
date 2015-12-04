@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *    mwenz - Bug 325084 - Provide documentation for Patterns
  *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
+ *    mwenz - Bug 481994 - Some XxxFeatureForPattern classes call ICustomUndoablePattern#redo instead of ICustomUndoRedoPattern#postRedo
  *
  * </copyright>
  *
@@ -37,7 +38,7 @@ import org.eclipse.graphiti.func.IProposalSupport;
  */
 public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature implements ICustomUndoableFeature,
 		ICustomAbortableUndoRedoFeature {
-	private IDirectEditing delegate;
+	private IDirectEditing pattern;
 
 	/**
 	 * Creates a new {@link DirectEditingFeatureForPattern}.
@@ -49,64 +50,64 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	 */
 	public DirectEditingFeatureForPattern(IFeatureProvider featureProvider, IDirectEditing pattern) {
 		super(featureProvider);
-		delegate = pattern;
+		this.pattern = pattern;
 	}
 
 	@Override
 	public boolean canDirectEdit(IDirectEditingContext context) {
-		return delegate.canDirectEdit(context);
+		return pattern.canDirectEdit(context);
 	}
 
 	@Override
 	public String checkValueValid(String value, IDirectEditingContext context) {
-		return delegate.checkValueValid(value, context);
+		return pattern.checkValueValid(value, context);
 	}
 
 	@Override
 	public String completeValue(String value, int caretPos, String choosenValue, IDirectEditingContext context) {
-		return delegate.completeValue(value, caretPos, choosenValue, context);
+		return pattern.completeValue(value, caretPos, choosenValue, context);
 	}
 
 	@Override
 	public String[] getPossibleValues(IDirectEditingContext context) {
-		return delegate.getPossibleValues(context);
+		return pattern.getPossibleValues(context);
 	}
 
 	@Override
 	public String[] getValueProposals(String value, int caretPos, IDirectEditingContext context) {
-		return delegate.getValueProposals(value, caretPos, context);
+		return pattern.getValueProposals(value, caretPos, context);
 	}
 
 	@Override
 	public boolean isAutoCompletionEnabled() {
-		return delegate.isAutoCompletionEnabled();
+		return pattern.isAutoCompletionEnabled();
 	}
 
 	@Override
 	public boolean isCompletionAvailable() {
-		return delegate.isCompletionAvailable();
+		return pattern.isCompletionAvailable();
 	}
 
 	@Override
 	public boolean stretchFieldToFitText() {
-		return delegate.stretchFieldToFitText();
+		return pattern.stretchFieldToFitText();
 	}
 
 	public int getEditingType() {
-		return delegate.getEditingType();
+		return pattern.getEditingType();
 	}
 
 	public String getInitialValue(IDirectEditingContext context) {
-		return delegate.getInitialValue(context);
+		return pattern.getInitialValue(context);
 	}
 
 	public void setValue(String value, IDirectEditingContext context) {
-		delegate.setValue(value, context);
+		pattern.setValue(value, context);
 	}
 
 	@Override
 	public IProposalSupport getProposalSupport() {
-		return delegate.getProposalSupport();
+		return pattern.getProposalSupport();
 	}
 
 	/**
@@ -114,16 +115,18 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	 */
 	@Override
 	public boolean isAbort() {
-		if (delegate instanceof ICustomAbortableUndoRedoPattern) {
-			return ((ICustomAbortableUndoRedoPattern) delegate).isAbort();
+		if (pattern instanceof ICustomAbortableUndoRedoPattern) {
+			return ((ICustomAbortableUndoRedoPattern) pattern).isAbort();
 		}
 		return false;
 	}
 
 	@Override
 	public boolean canUndo(IContext context) {
-		if (delegate instanceof ICustomUndoablePattern) {
-			return ((ICustomUndoablePattern) delegate).canUndo(this, context);
+		if (pattern instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) pattern).canUndo(this, context);
+		} else if (pattern instanceof ICustomUndoRedoPattern) {
+			return ((ICustomUndoRedoPattern) pattern).canUndo(this, context);
 		}
 		return super.canUndo(context);
 	}
@@ -133,6 +136,9 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	 */
 	@Override
 	public void preUndo(IContext context) {
+		if (pattern instanceof ICustomUndoRedoPattern) {
+			((ICustomUndoRedoPattern) pattern).preUndo(this, context);
+		}
 	}
 
 	/**
@@ -140,8 +146,8 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	 */
 	@Override
 	public void postUndo(IContext context) {
-		if (delegate instanceof ICustomUndoRedoPattern) {
-			((ICustomUndoRedoPattern) delegate).postUndo(this, context);
+		if (pattern instanceof ICustomUndoRedoPattern) {
+			((ICustomUndoRedoPattern) pattern).postUndo(this, context);
 		}
 	}
 
@@ -150,8 +156,8 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	 * @deprecated use {@link #postUndo(IContext)} instead
 	 */
 	public void undo(IContext context) {
-		if (delegate instanceof ICustomUndoablePattern) {
-			((ICustomUndoablePattern) delegate).undo(this, context);
+		if (pattern instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) pattern).undo(this, context);
 		}
 	}
 
@@ -159,8 +165,10 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	 * @since 0.8
 	 */
 	public boolean canRedo(IContext context) {
-		if (delegate instanceof ICustomUndoablePattern) {
-			return ((ICustomUndoablePattern) delegate).canRedo(this, context);
+		if (pattern instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) pattern).canRedo(this, context);
+		} else if (pattern instanceof ICustomUndoRedoPattern) {
+			return ((ICustomUndoRedoPattern) pattern).canRedo(this, context);
 		}
 		return true;
 	}
@@ -170,6 +178,9 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	 */
 	@Override
 	public void preRedo(IContext context) {
+		if (pattern instanceof ICustomUndoRedoPattern) {
+			((ICustomUndoRedoPattern) pattern).preRedo(this, context);
+		}
 	}
 
 	/**
@@ -177,8 +188,8 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	 */
 	@Override
 	public void postRedo(IContext context) {
-		if (delegate instanceof ICustomUndoRedoPattern) {
-			((ICustomUndoRedoPattern) delegate).postRedo(this, context);
+		if (pattern instanceof ICustomUndoRedoPattern) {
+			((ICustomUndoRedoPattern) pattern).postRedo(this, context);
 		}
 	}
 
@@ -187,8 +198,8 @@ public class DirectEditingFeatureForPattern extends AbstractDirectEditingFeature
 	 * @deprecated use {@link #postRedo(IContext)} instead
 	 */
 	public void redo(IContext context) {
-		if (delegate instanceof ICustomUndoablePattern) {
-			((ICustomUndoablePattern) delegate).redo(this, context);
+		if (pattern instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) pattern).redo(this, context);
 		}
 	}
 }
