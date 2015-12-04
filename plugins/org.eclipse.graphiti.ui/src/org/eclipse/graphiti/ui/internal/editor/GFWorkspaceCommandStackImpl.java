@@ -19,6 +19,7 @@
  *    mwenz - Bug 464596 - BasicIndexOutOfBoundsException in BasicEList.get
  *    Laurent Le Moux - mwenz - Bug 475240 - Malfunctioning redo GFWorkspaceCommandStackImpl
  *    mwenz - Bug 477083 - Read-write transaction not created if another thread is using runExclusive()
+ *    mwenz - Bug 481994 - canUndo/canRedo called twice
  *
  * </copyright>
  *
@@ -159,10 +160,12 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 			for (int i = 0; i < executionList.length; i++) {
 				IFeature feature = executionList[i].getFeature();
 				IContext context = executionList[i].getContext();
-				if (feature instanceof ICustomUndoRedoFeature) {
+				if (feature instanceof ICustomUndoableFeature) {
+					canRedo[i] = ((ICustomUndoableFeature) feature).canRedo(context);
+				} else if (feature instanceof ICustomUndoRedoFeature) {
 					canRedo[i] = ((ICustomUndoRedoFeature) feature).canRedo(context);
 				} else {
-					canRedo[i] = false;
+					canRedo[i] = true;
 				}
 			}
 		}
@@ -200,7 +203,7 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 				IContext context = executionList[i].getContext();
 				if (feature instanceof ICustomUndoableFeature) {
 					ICustomUndoableFeature undoableFeature = (ICustomUndoableFeature) feature;
-					if (undoableFeature.canRedo(context)) {
+					if (canRedo[i]) {
 						undoableFeature.redo(context);
 					}
 				}
@@ -230,11 +233,7 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 			for (int i = 0; i < executionList.length; i++) {
 				IFeature feature = executionList[i].getFeature();
 				IContext context = executionList[i].getContext();
-				if (feature instanceof ICustomUndoRedoFeature) {
-					canUndo[i] = feature.canUndo(context);
-				} else {
-					canUndo[i] = false;
-				}
+				canUndo[i] = feature.canUndo(context);
 			}
 		}
 
@@ -272,7 +271,7 @@ public class GFWorkspaceCommandStackImpl extends WorkspaceCommandStackImpl {
 				IContext context = executionList[i].getContext();
 				if (feature instanceof ICustomUndoableFeature) {
 					ICustomUndoableFeature undoableFeature = (ICustomUndoableFeature) feature;
-					if (undoableFeature.canUndo(context)) {
+					if (canUndo[i]) {
 						undoableFeature.undo(context);
 					}
 				}
