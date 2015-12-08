@@ -35,13 +35,54 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Neon</h1>
-	<p>Last revised November 10, 2015</p>
+	<p>Last revised December 8, 2015</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.13.0 within the
 		Neon release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M4 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M4</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on fixing bugs.</td>
+		</tr>
+		<tr id="bug 460485">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=460485"> Bug
+					460485</a></td>
+			<td class="content">A typo in a UI text has been fixed.</td>
+		</tr>
+		<tr id="bug 481935">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=481935"> Bug
+					481935</a></td>
+			<td class="content">A potential NullPointerException in
+				GaServiceImpl has been fixed.</td>
+		</tr>
+		<tr id="bug 481936">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=481936"> Bug
+					481936</a></td>
+			<td class="content">A potential NullPointerException in
+				DiagramChangeListener has been fixed.</td>
+		</tr>
+		<tr id="bug 481994">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=481994"> Bug
+					481994</a></td>
+			<td class="content">A bug has been fixed that caused in patterns
+				implementing custom undoable functionality that e.g. instead of
+				postRedo redo is called. There were several wrong delegations in
+				this area that were fixed and might cause slight differences in
+				behavior in rare cases. <b>Minor API behavior change!</b>
+			</td>
+		</tr>
 		<!-- ---------------------------------------- M3 ------------------------------- -->
 		<tr>
 			<td colspan="2">
