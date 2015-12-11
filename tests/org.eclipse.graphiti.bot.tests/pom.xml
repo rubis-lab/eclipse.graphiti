@@ -15,17 +15,8 @@
 	<packaging>eclipse-test-plugin</packaging>
 
 	<properties>
-		<local-p2-site>file:/${basedir}/../../features/org.eclipse.graphiti.site/target/repository</local-p2-site>
 		<ui.test.vmargs>-Xmx512m -XX:MaxPermSize=256m</ui.test.vmargs>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>local-p2</id>
-			<layout>p2</layout>
-			<url>${local-p2-site}</url>
-		</repository>
-	</repositories>
 
 	<profiles>
 		<profile>
