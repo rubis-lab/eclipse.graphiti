@@ -14,7 +14,6 @@
 	<artifactId>org.eclipse.graphiti.doc</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
-
 	<properties>
 		<platform.api>org.eclipse.platform.doc.isv/reference/api</platform.api>
 	</properties>
@@ -33,8 +32,8 @@
 							<goal>javadoc</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.basedir}/examples/org.eclipse.graphiti.doc/javadoc</outputDirectory>
-							<tocFile>${project.basedir}/examples/org.eclipse.graphiti.doc/api_docs.xml</tocFile>
+							<outputDirectory>${project.basedir}/javadoc</outputDirectory>
+							<tocFile>${project.basedir}/api_docs.xml</tocFile>
 							<tocOptions>
 								<mainLabel>Graphiti API</mainLabel>
 							</tocOptions>
