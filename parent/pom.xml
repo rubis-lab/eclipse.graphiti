@@ -38,6 +38,58 @@
 				<swtbot-path>releases/2.3.0/</swtbot-path>
 			</properties>
 		</profile>
+		<profile>
+			<id>build-server</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.dash.m4e</groupId>
+						<artifactId>eclipse-signing-maven-plugin</artifactId>
+						<version>1.0.4</version>
+						<executions>
+							<!-- Pack the p2 repository. -->
+							<execution>
+								<id>pack</id>
+								<phase>package</phase>
+								<goals>
+									<goal>pack</goal>
+								</goals>
+							</execution>
+							<!-- Sign the p2 repository -->
+							<execution>
+								<id>sign</id>
+								<configuration>
+									<signerInputDirectory>/shared/download-staging.priv/modeling/graphiti</signerInputDirectory>
+								</configuration>
+								<phase>package</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+							<!-- Repack the p2 repository -->
+							<execution>
+								<id>repack</id>
+								<configuration>
+									<inputFile>${project.build.directory}/signed/site_assembly.zip</inputFile> <!-- this is output from signer mojo -->
+								</configuration>
+								<phase>package</phase>
+								<goals>
+									<goal>pack</goal>
+								</goals>
+							</execution>
+							<!-- Signing and packing alters checksums so fix them -->
+							<execution>
+								<id>fixCheckSums</id>
+								<phase>package</phase>
+								<goals>
+									<goal>fixCheckSums</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
 	<repositories>
