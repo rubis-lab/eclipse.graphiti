@@ -65,5 +65,42 @@
 				</executions>
 			</plugin>
 		</plugins>
-    </build>
+		
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<!-- JavaDoc generation: ignore goal in Eclipse build to avoid error marker -->
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.eclipse.tycho.extras
+										</groupId>
+										<artifactId>
+											tycho-document-bundle-plugin
+										</artifactId>
+										<versionRange>
+											[0.22.0,)
+										</versionRange>
+										<goals>
+											<goal>javadoc</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
