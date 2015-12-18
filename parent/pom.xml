@@ -222,6 +222,32 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>deploy</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<echo message="Deleting old ZIP archive from last_success area" />
+								<delete dir="${project.basedir}/../../last_success/archive/" failonerror="false" />
+								
+								<echo message="Deleting old update site from last_success area" />
+								<delete dir="${project.basedir}/../../last_success/updatesite/" failonerror="false" />
+
+								<echo message="Copying updatesite.zip to last_success area" />
+								<copydir dest="${project.basedir}/../../last_success/archive/" src="${project.basedir}/../../graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/org.eclipse.graphiti.site_*.zip" />
+
+								<unzip src="${project.basedir}/../../graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/org.eclipse.graphiti.site_*.zip" dest="${project.basedir}/../../last_success/updatesite/"/>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>
