@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>Graphiti Releng</name>
+	<groupId>org.eclipse.graphiti</groupId>
+	<artifactId>releng</artifactId>
+	<version>0.13.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>CopyToLastSuccessArea</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<echo message="Deleting old ZIP archive from last_success area"/>
+								<delete dir="${WORKSPACE}/last_success/archive/" failonerror="false"/>
+
+								<echo message="Deleting old update site from last_success area"/>
+								<delete dir="${WORKSPACE}/last_success/updatesite/" failonerror="false"/>
+
+								<echo message="Copying updatesite.zip to last_success area"/>
+								<copy todir="${WORKSPACE}/last_success/archive/">
+									<fileset dir="${WORKSPACE}/graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/" includes="org.eclipse.graphiti.site-*.zip" />
+								</copy>
+
+								<echo message="Unpacking archive to last_success updatesite area"/>
+								<unzip src="${WORKSPACE}/graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/org.eclipse.graphiti.site-0.13.0-SNAPSHOT.zip" dest="${WORKSPACE}/last_success/updatesite/"/>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
