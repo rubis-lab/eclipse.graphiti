@@ -13,4 +13,38 @@
 	<name>Graphiti Update Site</name>
 	<artifactId>org.eclipse.graphiti.site</artifactId>
 	<packaging>eclipse-repository</packaging>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>CopyToLastSuccessArea</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<echo message="Deleting old ZIP archive from last_success area"/>
+								<delete dir="${WORKSPACE}/last_success/archive/" failonerror="false"/>
+								
+								<echo message="Deleting old update site from last_success area"/>
+								<delete dir="${WORKSPACE}/last_success/updatesite/" failonerror="false"/>
+
+								<echo message="Copying updatesite.zip to last_success area"/>
+								<copy todir="${WORKSPACE}/last_success/archive/">
+									<fileset dir="${project.basedir}/target/" includes="org.eclipse.graphiti.site-*.zip" />
+								</copy>
+
+								<echo message="Copying archive to last_success area"/>
+								<unzip src="${project.basedir}/target/org.eclipse.graphiti.site-0.13.0-SNAPSHOT.zip" dest="${WORKSPACE}/last_success/updatesite/"/>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
