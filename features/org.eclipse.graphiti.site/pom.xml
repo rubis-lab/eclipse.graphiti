@@ -13,4 +13,45 @@
 	<name>Graphiti Update Site</name>
 	<artifactId>org.eclipse.graphiti.site</artifactId>
 	<packaging>eclipse-repository</packaging>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jboss.tools.tycho-plugins</groupId>
+				<artifactId>repository-utils</artifactId>
+				<version>${jboss-tycho-plugins-version}</version>
+				<executions>
+					<execution>
+						<id>generate-facade</id>
+						<phase>package</phase>
+						<goals>
+							<goal>generate-repository-facade</goal>
+						</goals>
+						<configuration>
+							<siteTemplateFolder>siteTemplate/</siteTemplateFolder>
+							<!-- Symbols are used while expanding index.html template -->
+							<symbols>
+								<update.site.name>Graphiti ${project.version} Update Site</update.site.name>
+								<update.site.description>
+									For information about installing or updating software, see the <a href="http://help.eclipse.org/galileo/index.jsp?topic=/org.eclipse.platform.doc.user/tasks/tasks-124.htm">Eclipse Platform Help</a>.
+								</update.site.description>
+							</symbols>
+							<p2StatsUrl>http://server.org/url/where/to/push/stats</p2StatsUrl>
+							<associateSites>
+								<site>http://download.eclipse.org/releases/neon</site>
+							</associateSites>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
