@@ -35,10 +35,28 @@
 
 								<echo message="Unpacking archive to last_success updatesite area"/>
 								<unzip src="${WORKSPACE}/graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/org.eclipse.graphiti.site-0.13.0-SNAPSHOT.zip" dest="${WORKSPACE}/last_success/updatesite/"/>
+
+								<echo message="Creating human readable index.html and index.xml files" />
+								<unzip src="${WORKSPACE}/last_success/updatesite/content.jar"
+									dest="${WORKSPACE}/last_success/updatesite/" />
+								<xslt style="${project.basedir}/xsl/content2html.xsl"
+									in="${WORKSPACE}/last_success/updatesite/content.xml"
+									out="${WORKSPACE}/last_success/updatesite/index.html" />
+								<xslt style="${project.basedir}/xsl/content2xml.xsl"
+									in="${WORKSPACE}/last_success/updatesite/content.xml"
+									out="${WORKSPACE}/last_success/updatesite/index.xml" />
+								<delete file="${WORKSPACE}/last_success/updatesite/content.xml" />
 							</tasks>
 						</configuration>
 					</execution>
 				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant-trax</artifactId>
+						<version>1.8.0</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
