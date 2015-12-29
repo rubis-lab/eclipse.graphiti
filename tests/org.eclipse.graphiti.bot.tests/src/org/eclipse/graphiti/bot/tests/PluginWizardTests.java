@@ -112,10 +112,13 @@ public class PluginWizardTests extends AbstractGFTests {
 		assertTrue(newProject.exists());
 
 		// Check problems view for any errors
-		view = bot.viewById(IPageLayout.ID_PROBLEM_VIEW);
-	    view.show();
-		tree = view.bot().tree();
-		allItems = tree.getAllItems();
+		allItems = extractAllItemsFromProblemsView();
+		counter = 0;
+		while ((allItems == null || allItems.length != numberOfErrorsBeforeTest) && counter < 20) {
+			counter++;
+			Thread.sleep(1000);
+			allItems = extractAllItemsFromProblemsView();
+		}
 		assertTrue("Items found in problems view: " + allItems.toString()
 				+ ", expected were (number of errors before test: " + numberOfErrorsBeforeTest,
 				allItems.length == numberOfErrorsBeforeTest);
@@ -134,5 +137,14 @@ public class PluginWizardTests extends AbstractGFTests {
 				fail("'org.eclipse.ui' should not be part of the dependencies");
 			}
 		}
+	}
+
+	private SWTBotTreeItem[] extractAllItemsFromProblemsView() {
+		SWTBotTreeItem[] allItems;
+		SWTBotView view = bot.viewById(IPageLayout.ID_PROBLEM_VIEW);
+		view.show();
+		SWTBotTree tree = view.bot().tree();
+		allItems = tree.getAllItems();
+		return allItems;
 	}
 }

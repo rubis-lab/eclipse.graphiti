@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  *    mwenz - Bug 325084 - Provide documentation for Patterns
  *    mlypik - Bug 401792 - Disable starting reconnection
  *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
+ *    mwenz - Bug 481994 - Some XxxFeatureForPattern classes call ICustomUndoablePattern#redo instead of ICustomUndoRedoPattern#postRedo
  *
  * </copyright>
  *
@@ -41,7 +42,7 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 		ICustomUndoableFeature, ICustomAbortableUndoRedoFeature {
 
 	private static final String NAME = Messages.ReconnectionFeatureForPattern_0_xfld;
-	private IReconnection delegate;
+	private IReconnection pattern;
 
 	/**
 	 * Creates a new {@link ReconnectionFeatureForPattern}.
@@ -53,30 +54,30 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 */
 	public ReconnectionFeatureForPattern(IFeatureProvider fp, IReconnection pattern) {
 		super(fp);
-		this.delegate = pattern;
+		this.pattern = pattern;
 	}
 
 	public boolean canReconnect(IReconnectionContext context) {
-		return delegate.canReconnect(context);
+		return pattern.canReconnect(context);
 	}
 
 	public void postReconnect(IReconnectionContext context) {
-		delegate.postReconnect(context);
+		pattern.postReconnect(context);
 	}
 
 	public void preReconnect(IReconnectionContext context) {
-		delegate.preReconnect(context);
+		pattern.preReconnect(context);
 	}
 
 	public void reconnect(IReconnectionContext context) {
-		delegate.reconnect(context);
+		pattern.reconnect(context);
 	}
 
 	/**
 	 * @since 0.9
 	 */
 	public void canceledReconnect(IReconnectionContext context) {
-		delegate.canceledReconnect(context);
+		pattern.canceledReconnect(context);
 	}
 
 	public boolean canExecute(IContext context) {
@@ -103,16 +104,18 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 */
 	@Override
 	public boolean isAbort() {
-		if (delegate instanceof ICustomAbortableUndoRedoPattern) {
-			return ((ICustomAbortableUndoRedoPattern) delegate).isAbort();
+		if (pattern instanceof ICustomAbortableUndoRedoPattern) {
+			return ((ICustomAbortableUndoRedoPattern) pattern).isAbort();
 		}
 		return false;
 	}
 
 	@Override
 	public boolean canUndo(IContext context) {
-		if (delegate instanceof ICustomUndoablePattern) {
-			return ((ICustomUndoablePattern) delegate).canUndo(this, context);
+		if (pattern instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) pattern).canUndo(this, context);
+		} else if (pattern instanceof ICustomUndoRedoPattern) {
+			return ((ICustomUndoRedoPattern) pattern).canUndo(this, context);
 		}
 		return super.canUndo(context);
 	}
@@ -122,6 +125,9 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 */
 	@Override
 	public void preUndo(IContext context) {
+		if (pattern instanceof ICustomUndoRedoPattern) {
+			((ICustomUndoRedoPattern) pattern).preUndo(this, context);
+		}
 	}
 
 	/**
@@ -129,8 +135,8 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 */
 	@Override
 	public void postUndo(IContext context) {
-		if (delegate instanceof ICustomUndoRedoPattern) {
-			((ICustomUndoRedoPattern) delegate).postUndo(this, context);
+		if (pattern instanceof ICustomUndoRedoPattern) {
+			((ICustomUndoRedoPattern) pattern).postUndo(this, context);
 		}
 	}
 
@@ -139,8 +145,8 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 * @deprecated use {@link #postUndo(IContext)} instead
 	 */
 	public void undo(IContext context) {
-		if (delegate instanceof ICustomUndoablePattern) {
-			((ICustomUndoablePattern) delegate).undo(this, context);
+		if (pattern instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) pattern).undo(this, context);
 		}
 	}
 
@@ -148,8 +154,10 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 * @since 0.8
 	 */
 	public boolean canRedo(IContext context) {
-		if (delegate instanceof ICustomUndoablePattern) {
-			return ((ICustomUndoablePattern) delegate).canRedo(this, context);
+		if (pattern instanceof ICustomUndoablePattern) {
+			return ((ICustomUndoablePattern) pattern).canRedo(this, context);
+		} else if (pattern instanceof ICustomUndoRedoPattern) {
+			return ((ICustomUndoRedoPattern) pattern).canRedo(this, context);
 		}
 		return true;
 	}
@@ -159,6 +167,9 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 */
 	@Override
 	public void preRedo(IContext context) {
+		if (pattern instanceof ICustomUndoRedoPattern) {
+			((ICustomUndoRedoPattern) pattern).preRedo(this, context);
+		}
 	}
 
 	/**
@@ -166,8 +177,8 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 */
 	@Override
 	public void postRedo(IContext context) {
-		if (delegate instanceof ICustomUndoRedoPattern) {
-			((ICustomUndoRedoPattern) delegate).postRedo(this, context);
+		if (pattern instanceof ICustomUndoRedoPattern) {
+			((ICustomUndoRedoPattern) pattern).postRedo(this, context);
 		}
 	}
 
@@ -176,8 +187,8 @@ public class ReconnectionFeatureForPattern extends AbstractFeature implements IR
 	 * @deprecated use {@link #postRedo(IContext)} instead
 	 */
 	public void redo(IContext context) {
-		if (delegate instanceof ICustomUndoablePattern) {
-			((ICustomUndoablePattern) delegate).redo(this, context);
+		if (pattern instanceof ICustomUndoablePattern) {
+			((ICustomUndoablePattern) pattern).redo(this, context);
 		}
 	}
 

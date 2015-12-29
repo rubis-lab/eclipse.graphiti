@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2015 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    mwenz - Bug 324859 - Need Undo/Redo support for Non-EMF based domain objects
  *    mwenz - Bug 325084 - Provide documentation for Patterns
  *    mwenz - Bug 443304 - Improve undo/redo handling in Graphiti features
+ *    mwenz - Bug 481994 - Some XxxFeatureForPattern classes call ICustomUndoablePattern#redo instead of ICustomUndoRedoPattern#postRedo
  *
  * </copyright>
  *
@@ -75,6 +76,8 @@ public class LayoutFeatureForPattern extends AbstractLayoutFeature implements IC
 		IPattern pattern = delegate.getPattern();
 		if (pattern instanceof ICustomUndoablePattern) {
 			return ((ICustomUndoablePattern) pattern).canUndo(this, context);
+		} else if (pattern instanceof ICustomUndoRedoPattern) {
+			return ((ICustomUndoRedoPattern) pattern).canUndo(this, context);
 		}
 		return super.canUndo(context);
 	}
@@ -84,6 +87,10 @@ public class LayoutFeatureForPattern extends AbstractLayoutFeature implements IC
 	 */
 	@Override
 	public void preUndo(IContext context) {
+		IPattern pattern = delegate.getPattern();
+		if (pattern instanceof ICustomUndoRedoPattern) {
+			((ICustomUndoRedoPattern) pattern).preUndo(this, context);
+		}
 	}
 
 	/**
@@ -115,6 +122,8 @@ public class LayoutFeatureForPattern extends AbstractLayoutFeature implements IC
 		IPattern pattern = delegate.getPattern();
 		if (pattern instanceof ICustomUndoablePattern) {
 			return ((ICustomUndoablePattern) pattern).canRedo(this, context);
+		} else if (pattern instanceof ICustomUndoRedoPattern) {
+			return ((ICustomUndoRedoPattern) pattern).canRedo(this, context);
 		}
 		return true;
 	}
@@ -124,6 +133,10 @@ public class LayoutFeatureForPattern extends AbstractLayoutFeature implements IC
 	 */
 	@Override
 	public void preRedo(IContext context) {
+		IPattern pattern = delegate.getPattern();
+		if (pattern instanceof ICustomUndoRedoPattern) {
+			((ICustomUndoRedoPattern) pattern).preRedo(this, context);
+		}
 	}
 
 	/**
