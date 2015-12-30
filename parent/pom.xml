@@ -13,33 +13,17 @@
 		<tycho-version>0.24.0</tycho-version>
 		<tycho-extras-version>${tycho-version}</tycho-extras-version>
 		<jboss-tycho-plugins-version>0.22.0</jboss-tycho-plugins-version>
-		<platform-site>http://download.eclipse.org/eclipse/updates/${platform-path}</platform-site>
-		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/${orbit-version}/repository/</orbit-site>
-		<gef-site>http://download.eclipse.org/tools/gef/updates/${gef-path}</gef-site>
-		<emf-site>http://download.eclipse.org/modeling/emf/emf/updates/${emf-path}</emf-site>
-		<emf-transactions-site>http://download.eclipse.org/modeling/emf/transaction/updates/${emf-transactions-path}</emf-transactions-site>
-		<emf-validation-site>http://download.eclipse.org/modeling/emf/validation/updates/${emf-validation-path}</emf-validation-site>
-		<swtbot-site>http://download.eclipse.org/technology/swtbot/${swtbot-path}</swtbot-site>
+		<platform-site>http://download.eclipse.org/eclipse/updates/4.6milestones/S-4.6M3-201510291100/</platform-site>
+		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/S20151016170251/repository/</orbit-site>
+		<gef-site>http://download.eclipse.org/tools/gef/updates/milestones</gef-site>
+		<emf-site>http://download.eclipse.org/modeling/emf/emf/updates/2.12milestones/</emf-site>
+		<emf-transactions-site>http://download.eclipse.org/modeling/emf/transaction/updates/releases/R201506010221/</emf-transactions-site>
+		<emf-validation-site>http://download.eclipse.org/modeling/emf/validation/updates/releases/R201505312255/</emf-validation-site>
+		<swtbot-site>http://download.eclipse.org/technology/swtbot/releases/2.3.0/</swtbot-site>
 		<license-site>http://download.eclipse.org/cbi/updates/license/</license-site>
 	</properties>
 
 	<profiles>
-		<profile>
-			<id>mars</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<platform-path>4.6milestones/S-4.6M3-201510291100/</platform-path>
-				<platform-version>4.6</platform-version>
-				<orbit-version>S20151016170251</orbit-version>
-				<gef-path>milestones/</gef-path>
-				<emf-path>2.12milestones/</emf-path>
-				<emf-transactions-path>releases/R201506010221/</emf-transactions-path>
-				<emf-validation-path>releases/R201505312255/</emf-validation-path>
-				<swtbot-path>releases/2.3.0/</swtbot-path>
-			</properties>
-		</profile>
 		<profile>
 			<id>eclipse-signing</id>
 			<build>
