@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti SVG Export</name>
+	<name>SVG Export</name>
 	<artifactId>org.eclipse.graphiti.export.batik</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>

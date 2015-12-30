@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti Pattern</name>
+	<name>Pattern</name>
 	<artifactId>org.eclipse.graphiti.pattern</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>

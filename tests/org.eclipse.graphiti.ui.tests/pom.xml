@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Unit Tests for Graphiti UI</name>
+	<name>UI Unit Tests</name>
 	<artifactId>org.eclipse.graphiti.ui.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
 

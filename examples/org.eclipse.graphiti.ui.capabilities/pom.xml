@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti Examples for Capabilities</name>
+	<name>Example for Capabilities</name>
 	<artifactId>org.eclipse.graphiti.ui.capabilities</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>

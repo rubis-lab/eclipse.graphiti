@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Unit Tests for Graphiti Core</name>
+	<name>Core Unit Tests</name>
 	<artifactId>org.eclipse.graphiti.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
 

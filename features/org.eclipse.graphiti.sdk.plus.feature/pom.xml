@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti SDK Plus Feature</name>
+	<name>SDK Plus Feature</name>
 	<artifactId>org.eclipse.graphiti.sdk.plus.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
 </project>

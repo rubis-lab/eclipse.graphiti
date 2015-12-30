@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti Export Feature</name>
+	<name>Export Feature</name>
 	<artifactId>org.eclipse.graphiti.export.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
 

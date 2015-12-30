@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti Examples Filesystem Editor</name>
+	<name>Example Filesystem Editor</name>
 	<artifactId>org.eclipse.graphiti.examples.filesystem</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>

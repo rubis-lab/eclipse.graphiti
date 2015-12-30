@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti Sample Ecore</name>
+	<name>Testtool Ecore</name>
 	<artifactId>org.eclipse.graphiti.testtool.ecore</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>

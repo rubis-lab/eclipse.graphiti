@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Robot UI Tests for Graphiti</name>
+	<name>SWTBot UI Tests</name>
 	<artifactId>org.eclipse.graphiti.bot.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
 

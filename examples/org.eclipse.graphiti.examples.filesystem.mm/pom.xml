@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti Examples Filesystem Model</name>
+	<name>Example Filesystem Model</name>
 	<artifactId>org.eclipse.graphiti.examples.filesystem.mm</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>

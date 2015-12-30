@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti Feature</name>
+	<name>Runtime Feature</name>
 	<artifactId>org.eclipse.graphiti.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
 

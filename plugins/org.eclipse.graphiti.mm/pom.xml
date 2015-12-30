@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti Metamodel Plug-in</name>
+	<name>Metamodel</name>
 	<artifactId>org.eclipse.graphiti.mm</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>

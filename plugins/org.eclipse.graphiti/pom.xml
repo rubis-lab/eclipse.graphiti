@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti</name>
+	<name>Core</name>
 	<artifactId>org.eclipse.graphiti</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>

@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti Update Site</name>
+	<name>Update Site</name>
 	<artifactId>org.eclipse.graphiti.site</artifactId>
 	<packaging>eclipse-repository</packaging>
 

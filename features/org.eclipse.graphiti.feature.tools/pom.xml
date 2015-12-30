@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti Tools Feature</name>
+	<name>Tools Feature</name>
 	<artifactId>org.eclipse.graphiti.feature.tools</artifactId>
 	<packaging>eclipse-feature</packaging>
 

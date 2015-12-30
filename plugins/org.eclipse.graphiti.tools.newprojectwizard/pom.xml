@@ -10,7 +10,7 @@
 		<relativePath>../../parent</relativePath>
 	</parent>
 
-	<name>Graphiti New Project Wizard</name>
+	<name>New Project Wizard</name>
 	<artifactId>org.eclipse.graphiti.tools.newprojectwizard</artifactId>
 	<packaging>eclipse-plugin</packaging>
 </project>
