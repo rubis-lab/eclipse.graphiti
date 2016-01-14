@@ -32,6 +32,15 @@
 								<copy todir="${WORKSPACE}/last_success/archive/">
 									<fileset dir="${WORKSPACE}/graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/" includes="org.eclipse.graphiti.site-*.zip" />
 								</copy>
+								
+								<echo message="Renaming updatesite ZIP file"/>
+								<move todir="${WORKSPACE}/last_success/archive/" includeemptydirs="false">
+									<fileset dir="${WORKSPACE}/last_success/archive/">
+										<include name="org.eclipse.graphiti.site-*SNAPSHOT.zip"/>
+									</fileset>
+									<mapper type="glob" from="*SNAPSHOT.zip" to="*${BUILD_ALIAS}.zip"/>
+								</move>
+
 
 								<echo message="Unpacking archive to last_success updatesite area"/>
 								<unzip src="${WORKSPACE}/graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/org.eclipse.graphiti.site-0.13.0-SNAPSHOT.zip" dest="${WORKSPACE}/last_success/updatesite/"/>
