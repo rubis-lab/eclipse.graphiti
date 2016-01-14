@@ -30,11 +30,14 @@
 
 								<echo message="Copying updatesite.zip to last_success area"/>
 								<copy todir="${WORKSPACE}/last_success/archive/">
-									<fileset dir="${WORKSPACE}/graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/" includes="org.eclipse.graphiti.site-*.zip" />
+									<fileset dir="${WORKSPACE}/graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/" includes="org.eclipse.graphiti.site-${update.site.version}-SNAPSHOT.zip" />
 								</copy>
+								
+								<echo message="Renaming updatesite ZIP file"/>
+								<rename src="${WORKSPACE}/last_success/archive/org.eclipse.graphiti.site-${update.site.version}-SNAPSHOT.zip" dest="${WORKSPACE}/last_success/archive/org.eclipse.graphiti.site-${project.version}.zip"/>
 
 								<echo message="Unpacking archive to last_success updatesite area"/>
-								<unzip src="${WORKSPACE}/graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/org.eclipse.graphiti.site-0.13.0-SNAPSHOT.zip" dest="${WORKSPACE}/last_success/updatesite/"/>
+								<unzip src="${WORKSPACE}/graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/org.eclipse.graphiti.site-${update.site.version}-SNAPSHOT.zip" dest="${WORKSPACE}/last_success/updatesite/"/>
 							</tasks>
 						</configuration>
 					</execution>
