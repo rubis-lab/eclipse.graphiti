@@ -55,7 +55,7 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/tools/orbit/downloads/drops/R20150821153341/repository/">
+      <rm:uri format="{0}/tools/orbit/downloads/drops/R20151118145958/repository/">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
@@ -64,7 +64,7 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/eclipse/updates/4.5-M-builds/M-4.5.1RC3-201509040015/">
+      <rm:uri format="{0}/eclipse/updates/4.5-M-builds/M-4.5.2RC1-201601131000/">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
@@ -98,7 +98,7 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/tools/gef/updates/milestones/">
+      <rm:uri format="{0}/tools/gef/updates/releases">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
