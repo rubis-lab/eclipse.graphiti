@@ -3,7 +3,7 @@
     <resource path="META-INF/MANIFEST.MF">
         <filter id="923795461">
             <message_arguments>
-                <message_argument value="0.12.1"/>
+                <message_argument value="0.12.2"/>
                 <message_argument value="0.11.0"/>
             </message_arguments>
         </filter>
@@ -18,7 +18,7 @@
         <filter id="305324134">
             <message_arguments>
                 <message_argument value="org.eclipse.graphiti.platform.IDiagramEditor"/>
-                <message_argument value="org.eclipse.graphiti_0.12.1"/>
+                <message_argument value="org.eclipse.graphiti_0.12.2"/>
             </message_arguments>
         </filter>
     </resource>
