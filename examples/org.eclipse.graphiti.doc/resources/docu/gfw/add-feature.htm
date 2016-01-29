@@ -56,10 +56,12 @@ system is used by Graphiti for the positions (locations) in the graphics
 algorithms.</p>
 <p class="Note">Note: Graphiti always uses <strong>relative</strong> <strong>
 <a href="http://en.wikipedia.org/wiki/Cartesian_coordinate_system">Cartesian 
-coordinates</a>. T</strong>hat means, the graphical objects are placed in a 
+coordinates</a></strong>. That means, the graphical objects are placed in a 
 coordinate system which defines its origin coordinates &mdash; normally (0,0) &mdash; 
-on the top left. These coordinates are <strong>relative to the parent graphics 
-algorithm</strong>. Every graphics algorithm has a parent, except the graphics 
+on the top left. The coordinate system of graphics algorithms for active shapes is always
+relative to the next active parent container shape while the coordinate system of graphics
+algorithms of inactive shapes is relative to their direct parent container shape</strong>.
+ Every graphics algorithm has a parent, except the graphics 
 algorithm of the diagram. The <strong>location</strong> of a graphics algorithm 
 is defined by (x,y) and the <strong>size</strong> by (width, height).</p>
 <p>When a shape is moved, its location is updated by the default features of the 
