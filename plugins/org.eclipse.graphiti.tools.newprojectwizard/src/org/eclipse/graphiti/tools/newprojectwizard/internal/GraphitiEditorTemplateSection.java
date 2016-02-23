@@ -277,20 +277,22 @@ public class GraphitiEditorTemplateSection extends OptionTemplateSection {
 		ArrayList<IPluginReference> result = new ArrayList<IPluginReference>();
 
 		IPluginReference[] superDependencies = super.getDependencies(schemaVersion);
-		for (IPluginReference dependency : superDependencies) {
-			if ("org.eclipse.ui".equals(dependency.getId())) { //$NON-NLS-1$
-				if (!getBooleanOption(KEY_GENERATE_ACTIVATOR)) {
-					/*
-					 * Skip dependency to og.eclipse.ui, because no activator
-					 * shall be created and we don't need this dependency for
-					 * anything else; in contrary it is harmful if one tries to
-					 * create an e4 RCP app, see
-					 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=388211
-					 */
-					continue;
+		if (superDependencies != null) {
+			for (IPluginReference dependency : superDependencies) {
+				if ("org.eclipse.ui".equals(dependency.getId())) { //$NON-NLS-1$
+					if (!getBooleanOption(KEY_GENERATE_ACTIVATOR)) {
+						/*
+						 * Skip dependency to og.eclipse.ui, because no
+						 * activator shall be created and we don't need this
+						 * dependency for anything else; in contrary it is
+						 * harmful if one tries to create an e4 RCP app, see
+						 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=388211
+						 */
+						continue;
+					}
 				}
+				result.add(dependency);
 			}
-			result.add(dependency);
 		}
 
 		result.add(new PluginReference("org.eclipse.graphiti", null, 0)); //$NON-NLS-1$
