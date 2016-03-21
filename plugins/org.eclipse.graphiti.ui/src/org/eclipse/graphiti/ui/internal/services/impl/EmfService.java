@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@
  *    mwenz - Bug 371513 - Save failed with NPE when switching editors
  *    mwenz - Bug 393074 - Save Editor Progress Monitor Argument
  *    fvelasco - Bug 412838 - Check for read-only resources before saving
+ *    mwenz - Bug 489681 - EmfService.getFile fails with some URIs
  *
  * </copyright>
  *
@@ -167,40 +168,47 @@ public class EmfService implements IEmfService {
 		return result;
 	}
 	
-
-	@Deprecated
-	public IFile getFile(URI uri, TransactionalEditingDomain editingDomain) {
-		return getFile(uri);
-	}
-	
-	@Deprecated
-	public IFile getFile(URI uri, ResourceSet resourceSet) {
-		return getFile(uri);
-	}
-
 	public IFile getFile(URI uri) {
 		if (uri == null) {
 			return null;
 		}
 
-		final IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-
-		// File URIs
-		final String filePath = getWorkspaceFilePath(uri.trimFragment());
-		if (filePath == null) {
-			final IPath location = Path.fromOSString(uri.toString());
-			final IFile file = workspaceRoot.getFileForLocation(location);
+		String filePath = getWorkspaceFilePath(uri.trimFragment());
+		if (filePath != null) {
+			// Platform resource URIs
+			IResource workspaceResource = getWorkspaceRoot().findMember(filePath);
+			if (workspaceResource instanceof IFile) {
+				return (IFile) workspaceResource;
+			}
+		} else {
+			// File URIs
+			IFile file = getFileForUriString(uri.toFileString());
 			if (file != null) {
 				return file;
 			}
-			return null;
+			file = getFileForUriString(uri.toString());
+			if (file != null) {
+				return file;
+			}
 		}
+		return null;
+	}
 
-		// Platform resource URIs
-		else {
-			final IResource workspaceResource = workspaceRoot.findMember(filePath);
-			return (IFile) workspaceResource;
+	protected IFile getFileForUriString(String uriString) {
+		if (uriString != null) {
+			IPath location = Path.fromOSString(uriString);
+			if (location != null) {
+				IFile file = getWorkspaceRoot().getFileForLocation(location);
+				if (file != null) {
+					return file;
+				}
+			}
 		}
+		return null;
+	}
+
+	private IWorkspaceRoot getWorkspaceRoot() {
+		return ResourcesPlugin.getWorkspace().getRoot();
 	}
 
 	private String getWorkspaceFilePath(URI uri) {
