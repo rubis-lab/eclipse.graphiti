@@ -35,13 +35,72 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Neon</h1>
-	<p>Last revised February 2, 2016</p>
+	<p>Last revised March 22, 2015</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.13.0 within the
 		Neon release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M6 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M6</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on fixing bugs.</td>
+		</tr>
+		<tr id="bug 433998">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=433998">New
+					alternative implementaion for PeService.deletePictogramElement() </a></td>
+			<td class="content">In cases with large pictogram and or domain
+				models the logic to delete a pictogram element implemented in
+				PeService so far is slow. This is due to checking and updating all
+				cross references. In cases where clients know that there are no such
+				cross references now a new and much faster implementation can be
+				used alternatively. The old implementation is still the default one.</td>
+		</tr>
+		<tr id="bug 481619">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=481619">Bug
+					481619 </a></td>
+			<td class="content">A bug in PictogramElementDelegate caused an
+				layout manager set in a Platform Graphics Algorithm to be overriden
+				with XYLayout has been fixed.</td>
+		</tr>
+		<tr id="bug 486051">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=486051">Bug
+					486051 </a></td>
+			<td class="content">A bug in the EmfService object alive check
+				has been fixed.</td>
+		</tr>
+		<tr id="bug 487125">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=487125">Bug
+					487125 </a></td>
+			<td class="content">A bug in the new plugin wizard extension for
+				Graphite diagram editors has been fixed.</td>
+		</tr>
+		<tr id="bug 489834">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=489834">Bug
+					489834 </a></td>
+			<td class="content">A bug in the DefaultReconnectionFeature has
+				been fixed that prevented changing the connection end anchor was
+				fixed.</td>
+		</tr>
+		<tr id="bug 489681">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=489681">Bug
+					489681 </a></td>
+			<td class="content">A bug in EmfService has been fixed. For some
+				URIs a file could not be determined although it existed and was
+				accessible.</td>
+		</tr>
 		<!-- ---------------------------------------- M5 ------------------------------- -->
 		<tr>
 			<td colspan="2">
