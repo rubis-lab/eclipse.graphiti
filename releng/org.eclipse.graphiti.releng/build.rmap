@@ -64,7 +64,7 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/eclipse/updates/4.6-I-builds/I20160525-2000/">
+      <rm:uri format="{0}/eclipse/updates/4.6milestones/S-4.6RC4-201606031000/">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
@@ -98,7 +98,7 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="{0}/tools/gef/updates/milestones/4.0.0M7_gef-master_1912/">
+      <rm:uri format="{0}/tools/gef/updates/legacy/milestones/4.0.0M7_gef-master_1912/">
         <bc:propertyRef key="eclipse.downloads"/>
       </rm:uri>
     </rm:provider>
