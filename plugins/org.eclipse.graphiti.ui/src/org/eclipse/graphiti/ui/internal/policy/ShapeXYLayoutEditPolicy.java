@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@
  *    mgorning - Bug 363186 - Allow modification of selection and hover state also for anchors
  *    mgorning - Bug 383512 - Moving (Resizing) Problem - Polyline/Polygon on first level
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 496822 - NullPointerException in ShapeXYLayoutEditPolicy.getMoveConnectionDecoratorCommand
  *
  * </copyright>
  *
@@ -477,14 +478,18 @@ public class ShapeXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
 		if (decorator.isLocationRelative()) {
 			Point connectionMidpoint = GraphitiUiInternal.getGefService().getConnectionPointAt(connection, location);
-			x = x - connectionMidpoint.x;
-			y = y - connectionMidpoint.y;
+			if (connectionMidpoint != null) {
+				x = x - connectionMidpoint.x;
+				y = y - connectionMidpoint.y;
+			}
 		} else {
 			// absoluteLocation
 			Point absolutePointOnConnection = GraphitiUiInternal.getGefService().getAbsolutePointOnConnection(
 					connection, location);
-			x = x - absolutePointOnConnection.x;
-			y = y - absolutePointOnConnection.y;
+			if (absolutePointOnConnection != null) {
+				x = x - absolutePointOnConnection.x;
+				y = y - absolutePointOnConnection.y;
+			}
 		}
 
 		/**
