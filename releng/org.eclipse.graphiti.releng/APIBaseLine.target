@@ -9,13 +9,13 @@
 <repository location="http://download.eclipse.org/releases/mars"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.graphiti.feature.examples.feature.group" version="0.12.0.v20150603-0807"/>
-<unit id="org.eclipse.graphiti.export.feature.feature.group" version="0.12.0.v20150603-0807"/>
-<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.12.0.v20150603-0807"/>
-<unit id="org.eclipse.graphiti.feature.feature.group" version="0.12.0.v20150603-0807"/>
-<unit id="org.eclipse.graphiti.feature.tools.feature.group" version="0.12.0.v20150603-0807"/>
-<unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.12.0.v20150603-0807"/>
-<repository location="http://download.eclipse.org/graphiti/updates/0.12.0"/>
+<unit id="org.eclipse.graphiti.feature.examples.feature.group" version="0.13.0.v20160608-1043"/>
+<unit id="org.eclipse.graphiti.export.feature.feature.group" version="0.13.0.v20160608-1043"/>
+<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.13.0.v20160608-1043"/>
+<unit id="org.eclipse.graphiti.feature.feature.group" version="0.13.0.v20160608-1043"/>
+<unit id="org.eclipse.graphiti.feature.tools.feature.group" version="0.13.0.v20160608-1043"/>
+<unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.13.0.v20160608-1043"/>
+<repository location="http://download.eclipse.org/graphiti/updates/0.13.0"/>
 </location>
 </locations>
 </target>
