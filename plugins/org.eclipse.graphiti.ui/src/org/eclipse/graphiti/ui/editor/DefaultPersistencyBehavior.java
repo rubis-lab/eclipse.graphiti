@@ -159,7 +159,7 @@ public class DefaultPersistencyBehavior {
 	 * {@link DiagramBehavior} so that the complete state of all modified
 	 * objects will be persisted in the file system.<br>
 	 * The default implementation also sets the current version information
-	 * (currently 0.13.0) to the diagram before saving it and wraps the save
+	 * (currently 0.14.0) to the diagram before saving it and wraps the save
 	 * operation inside a {@link IRunnableWithProgress} that cares about sending
 	 * only one {@link Resource} change event holding all modified files.
 	 * Besides also all adapters are temporarily switched off (see
@@ -391,7 +391,7 @@ public class DefaultPersistencyBehavior {
 	/**
 	 * Called in {@link #saveDiagram(IProgressMonitor)} to update the Graphiti
 	 * diagram version before saving a diagram. Currently the diagram version is
-	 * set to 0.13.0
+	 * set to 0.14.0
 	 * 
 	 * @param diagram
 	 *            the {@link Diagram} to update the version attribute for
