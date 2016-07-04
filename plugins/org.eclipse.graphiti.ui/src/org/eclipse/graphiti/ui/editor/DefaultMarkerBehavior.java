@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2011, 2014 SAP AG.
+ * Copyright (c) 2011, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    Felix Velasco - mwenz - Bug 379788 - Memory leak in DefaultMarkerBehavior
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 429215 - NPE in DefaultMarkerBehavior.dispose
+ *    mwenz - Bug 497237 - NullPointerException in DefaultMarkerBehavior.dispose
  *
  * </copyright>
  *
@@ -196,11 +197,15 @@ public class DefaultMarkerBehavior {
 	 */
 	public void dispose() {
 		disableProblemIndicationUpdate();
-		ResourceSet resourceSet = diagramBehavior.getResourceSet();
 		// Check for null to prevent NPE, see
-		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=429215
-		if (resourceSet != null) {
-			resourceSet.eAdapters().remove(problemIndicationAdapter);
+		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=497237
+		if (diagramBehavior != null) {
+			ResourceSet resourceSet = diagramBehavior.getResourceSet();
+			// Check for null to prevent NPE, see
+			// https://bugs.eclipse.org/bugs/show_bug.cgi?id=429215
+			if (resourceSet != null) {
+				resourceSet.eAdapters().remove(problemIndicationAdapter);
+			}
 		}
 
 		problemIndicationAdapter = null;
