@@ -117,6 +117,9 @@ import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.util.TransferDropTargetListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -147,11 +150,11 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 /**
  * Provides the common functionality needed to display and manage diagrams.
- * 
+ *
  * Diagrams can be displayed either in a simple SWT {@link Composite}, in a
  * {@link ViewPart} or in an {@link IEditorPart}, so it's not possible to
  * provide common functionality through sub-classing.
- * 
+ *
  * @since 0.10
  */
 public class DiagramBehavior implements IDiagramBehaviorUI {
@@ -183,6 +186,8 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	private ContextMenuProvider contextMenuProvider = null;
 
+	private ResourceManager resourceManager = new LocalResourceManager(JFaceResources.getResources());
+
 	public DiagramBehavior(IDiagramContainerUI diagramContainer) {
 		super();
 		this.setDiagramContainer(diagramContainer);
@@ -192,7 +197,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Setter for the associated {@link IDiagramContainerUI container}
 	 * displaying the diagram of this behavior. Note that once the container has
 	 * been set it must not be changed any more.
-	 * 
+	 *
 	 * @param diagramContainer
 	 *            the diagramContainer to set
 	 * @since 0.12
@@ -207,7 +212,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Returns the associated container displaying the diagram of this behavior
 	 * object.
-	 * 
+	 *
 	 * @return The associated {@link IDiagramContainerUI} instance.
 	 */
 	public IDiagramContainerUI getDiagramContainer() {
@@ -218,7 +223,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Creates the behavior extension that deals with markers. See
 	 * {@link DefaultMarkerBehavior} for details and the default implementation.
 	 * Override to change the marker behavior.
-	 * 
+	 *
 	 * @return a new instance of {@link DefaultMarkerBehavior}
 	 */
 	protected DefaultMarkerBehavior createMarkerBehavior() {
@@ -229,7 +234,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Returns the instance of the marker behavior that is used with this
 	 * behavior. To change the behavior override {@link #createMarkerBehavior()}
 	 * .
-	 * 
+	 *
 	 * @return the used instance of the marker behavior, by default a
 	 *         {@link DefaultMarkerBehavior}.
 	 */
@@ -241,7 +246,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Creates the behavior extension that deals with the update handling. See
 	 * {@link DefaultUpdateBehavior} for details and the default implementation.
 	 * Override to change the update behavior.
-	 * 
+	 *
 	 * @return a new instance of {@link DefaultUpdateBehavior}
 	 */
 	protected DefaultUpdateBehavior createUpdateBehavior() {
@@ -252,7 +257,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Returns the instance of the update behavior that is used with this
 	 * behavior. To change the behavior override {@link #createUpdateBehavior()}
 	 * .
-	 * 
+	 *
 	 * @return the used instance of the marker behavior, by default a
 	 *         {@link DefaultUpdateBehavior}.
 	 */
@@ -264,7 +269,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Creates the behavior extension that deals with the palette handling. See
 	 * {@link DefaultPaletteBehavior} for details and the default
 	 * implementation. Override to change the palette behavior.
-	 * 
+	 *
 	 * @return a new instance of {@link DefaultPaletteBehavior}
 	 */
 	protected DefaultPaletteBehavior createPaletteBehaviour() {
@@ -275,7 +280,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Returns the instance of the palette behavior that is used with this
 	 * behavior. To change the behavior override
 	 * {@link #createPaletteBehaviour()} .
-	 * 
+	 *
 	 * @return the used instance of the palette behavior, by default a
 	 *         {@link DefaultPaletteBehavior}.
 	 */
@@ -287,7 +292,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Creates the behavior extension that deals with the persistence handling.
 	 * See {@link DefaultPersistencyBehavior} for details and the default
 	 * implementation. Override to change the persistence behavior.
-	 * 
+	 *
 	 * @return a new instance of {@link DefaultPersistencyBehavior}
 	 */
 	protected DefaultPersistencyBehavior createPersistencyBehavior() {
@@ -298,7 +303,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Returns the instance of the persistency behavior that is used with this
 	 * behavior. To change the behavior override
 	 * {@link #createPersistencyBehavior()} .
-	 * 
+	 *
 	 * @return the used instance of the persistency behavior, by default a
 	 *         {@link DefaultPersistencyBehavior}.
 	 */
@@ -310,7 +315,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Creates the behavior extension that deals with the refresh handling. See
 	 * {@link DefaultRefreshBehavior} for details and the default
 	 * implementation. Override to change the refresh behavior.
-	 * 
+	 *
 	 * @return a new instance of {@link DefaultRefreshBehavior}
 	 */
 	protected DefaultRefreshBehavior createRefreshBehavior() {
@@ -321,7 +326,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Returns the instance of the refresh behavior that is used with this
 	 * behavior. To change the behavior override
 	 * {@link #createRefreshBehavior()} .
-	 * 
+	 *
 	 * @return the used instance of the refresh behavior, by default a
 	 *         {@link DefaultRefreshBehavior}.
 	 */
@@ -337,7 +342,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * methods for the various objects. In case other default behavior
 	 * implementation should be used, clients should override these create
 	 * methods instead of this method.
-	 * 
+	 *
 	 * @see #createMarkerBehavior()
 	 * @see #createUpdateBehavior()
 	 * @see #createPaletteBehaviour()
@@ -365,7 +370,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * {@link #registerDiagramResourceSetListener()} and
 	 * {@link #registerBusinessObjectsListener()}) and does the refreshing of
 	 * the UI.
-	 * 
+	 *
 	 * @param input
 	 *            the {@link DiagramEditorInput} instance to use within this
 	 *            behavior.
@@ -376,7 +381,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 			throw new IllegalArgumentException("The IEditorInput must not be null"); //$NON-NLS-1$
 		}
 		setDiagramEditorInput((IDiagramEditorInput) input);
-		
+
 		// Retrieve the diagram
 		Diagram diagram = getPersistencyBehavior().loadDiagram(getInput().getUri());
 		if (diagram == null) {
@@ -398,12 +403,12 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Creates and initializes a new {@link IDiagramTypeProvider} for the given
 	 * {@link Diagram} and diagram type provider ID.
-	 * 
+	 *
 	 * @param diagram
 	 *            The diagram
 	 * @param providerId
 	 *            The diagram type provider ID
-	 * 
+	 *
 	 * @since 0.12
 	 */
 	protected IDiagramTypeProvider initDiagramTypeProvider(Diagram diagram) {
@@ -423,10 +428,10 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * implementation checks if the input defines one and will use that that,
 	 * otherwise it will retrieve the ID of the first diagram type provider that
 	 * is registered for the type of the passed diagram.
-	 * 
+	 *
 	 * In case no ID is found this method will set the editor initialization
 	 * error and throw an {@link AssertionFailedException}.
-	 * 
+	 *
 	 * @param diagram
 	 *            The diagram to find the ID for.
 	 * @since 0.12
@@ -477,7 +482,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Creates the GraphicalViewer on the specified {@link Composite} and
 	 * initializes it.
-	 * 
+	 *
 	 * @param parent
 	 *            the parent composite
 	 */
@@ -502,7 +507,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * The default-implementation is for example doing the following: configure
 	 * the ZoomManager, registering Actions... Here everything is done, which is
 	 * independent of the {@link IConfigurationProvider}.
-	 * 
+	 *
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#configureGraphicalViewer()
 	 */
 	protected void configureGraphicalViewer() {
@@ -574,7 +579,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Called to initialize the behavior viewer with its content. Here
 	 * everything is done, which is dependent of the
 	 * {@link IConfigurationProvider}.
-	 * 
+	 *
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette#initializeGraphicalViewer()
 	 */
 	protected void initializeGraphicalViewer() {
@@ -630,7 +635,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * the palette via drag and drop. Clients may change the default behavior by
 	 * providing their own drop target listener or disable drag and drop from
 	 * the palette by returning null.
-	 * 
+	 *
 	 * @return An instance of the {@link TransferDropTargetListener} that
 	 *         handles dropping new objects from the palette or
 	 *         <code>null</code> to disable dropping from the palette.
@@ -645,7 +650,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * objects into the diagram, e.g. from the project explorer. By adding
 	 * additional listeners other sources may be enabled, simply returning an
 	 * empty list will disable drag and drop into the editor.
-	 * 
+	 *
 	 * @return a {@link List} containing all the
 	 *         {@link TransferDropTargetListener} that shall be registered in
 	 *         the editor.
@@ -661,7 +666,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Returns the error text of the error that occurred while initializing this
 	 * behavior and its components. In case this method reports the error text
 	 * and error UI may be shown instead of the normal diagram viewer.
-	 * 
+	 *
 	 * @return The error text in case an error has occurred, <code>null</code>
 	 *         otherwise
 	 */
@@ -674,7 +679,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * of this {@link DiagramEditor}. Setting a <code>non-null</code> value
 	 * indicates an error has occurred, setting <code>null</code> indicates
 	 * everything went fine.
-	 * 
+	 *
 	 * @param editorInitializationError
 	 *            The error message
 	 * @since 0.12
@@ -686,7 +691,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Creates the default error page in case an error occurred while
 	 * initializing this behavior.
-	 * 
+	 *
 	 * @param parent
 	 *            The parent {@link Composite} to add the UI to
 	 */
@@ -747,7 +752,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Returns the dirty state of this behavior object
-	 * 
+	 *
 	 * @return <code>true</code> in case the stored saved command is different
 	 *         from the next undo command.
 	 */
@@ -762,7 +767,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * {@link DefaultPaletteBehavior#createPaletteViewerProvider()
 	 * #createPaletteViewerProvider()} to create the
 	 * {@link PaletteViewerProvider} used inside the GEF editor.
-	 * 
+	 *
 	 * @return the {@link PaletteViewerProvider} to use
 	 */
 	protected final PaletteViewerProvider createPaletteViewerProvider() {
@@ -778,7 +783,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Delegates to the method (or the method in a subclass of)
 	 * {@link DefaultPaletteBehavior#getPalettePreferences()}. To change the
 	 * palette override the behavior there.
-	 * 
+	 *
 	 * @return the {@link PaletteViewerProvider} preferences to use.
 	 */
 	protected final FlyoutPreferences getPalettePreferences() {
@@ -788,7 +793,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Returns the {@link PaletteRoot} to use in the GEF editor by delegating to
 	 * {@link DefaultPaletteBehavior#getPaletteRoot()}.
-	 * 
+	 *
 	 * @return the {@link PaletteRoot} to use
 	 */
 	protected final PaletteRoot getPaletteRoot() {
@@ -812,7 +817,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * delegating to
 	 * {@link DefaultRefreshBehavior#refreshRenderingDecorators(PictogramElement)}
 	 * for the given {@link PictogramElement}.
-	 * 
+	 *
 	 * @param pe
 	 *            the {@link PictogramElement} for which the decorators shall be
 	 *            refreshed.
@@ -858,7 +863,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Selects the given {@link PictogramElement}s in the diagram.
-	 * 
+	 *
 	 * @param pictogramElements
 	 *            an array of {@link PictogramElement}s to select.
 	 */
@@ -914,7 +919,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Returns the {@link PictogramElement}s that are currently selected in the
 	 * diagram.
-	 * 
+	 *
 	 * @return an array of {@link PictogramElement}s.
 	 */
 	public PictogramElement[] getSelectedPictogramElements() {
@@ -960,7 +965,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
 	 * in the Graphiti framework in direct editing to restore the previous
 	 * selection, but can also be used by clients.
-	 * 
+	 *
 	 * @param pictogramElement
 	 *            the {@link PictogramElement} that shall be stored for later
 	 *            selection
@@ -986,7 +991,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
 	 * in the Graphiti framework in direct editing to restore the previous
 	 * selection, but can also be used by clients.
-	 * 
+	 *
 	 * @param pictogramElements
 	 *            the {@link PictogramElement}s that shall be stored for later
 	 *            selection
@@ -1032,7 +1037,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * {@link #selectBufferedPictogramElements()}. This mechanism is used e.g.
 	 * in the Graphiti framework in direct editing to restore the previous
 	 * selection, but can also be used by clients.
-	 * 
+	 *
 	 * @return the {@link PictogramElement}s stored for later selection
 	 */
 	protected PictogramElement[] getPictogramElementsForSelection() {
@@ -1045,7 +1050,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Returns the EMF {@link TransactionalEditingDomain} used within this
 	 * behavior object by delegating to the update behavior extension, by
 	 * default {@link DefaultUpdateBehavior#getEditingDomain()}.
-	 * 
+	 *
 	 * @return the {@link TransactionalEditingDomain} instance used in the
 	 *         behavior
 	 */
@@ -1057,7 +1062,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * The EMF {@link ResourceSet} used within this {@link DiagramBehavior}. The
 	 * resource set is always associated in a 1:1 relation to the
 	 * {@link TransactionalEditingDomain}.
-	 * 
+	 *
 	 * @return the resource set used within this behavior object
 	 */
 	public ResourceSet getResourceSet() {
@@ -1073,7 +1078,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Returns the {@link IDiagramTypeProvider} instance associated with this
 	 * {@link DiagramBehavior}. There is always a 1:1 relation between the
 	 * behavior and the provider.
-	 * 
+	 *
 	 * @return the associated {@link IDiagramTypeProvider} instance.
 	 */
 	public IDiagramTypeProvider getDiagramTypeProvider() {
@@ -1088,7 +1093,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * the scope of this {@link DiagramBehavior}, meaning within its
 	 * {@link TransactionalEditingDomain} and on its
 	 * {@link org.eclipse.emf.common.command.CommandStack}.
-	 * 
+	 *
 	 * @param feature
 	 *            the feature to execute
 	 * @param context
@@ -1100,7 +1105,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 *         newly added {@link PictogramElement} will be returned (in case
 	 *         the add method returning it), in all other cases
 	 *         <code>null</code>
-	 * 
+	 *
 	 * @since 0.9
 	 */
 	public Object executeFeature(IFeature feature, IContext context) {
@@ -1150,7 +1155,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * {@link #enableAdapters()} after the operation has finished (best in a
 	 * finally clause to do that also in case of exceptions), otherwise strange
 	 * errors may happen.
-	 * 
+	 *
 	 * @since 0.12
 	 */
 	public void disableAdapters() {
@@ -1166,7 +1171,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Must be called after {@link #disableAdapters()} has been called and the
 	 * operation has finshed (best in a finally clause to also enable the
 	 * exception case), otherwise strange errors may occur within the editor.
-	 * 
+	 *
 	 * @since 0.12
 	 */
 	public void enableAdapters() {
@@ -1176,7 +1181,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Checks if this behavior is alive.
-	 * 
+	 *
 	 * @return <code>true</code>, if editor contains a model connector and a
 	 *         valid Diagram, <code>false</code> otherwise.
 	 */
@@ -1212,7 +1217,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * IPropertySheetPage, Diagram, KeyHandler, SelectionSynchronizer and
 	 * IContextButtonManager. It also delegates to the super implementation in
 	 * {@link GraphicalEditorWithFlyoutPalette#getAdapter(Class)}.
-	 * 
+	 *
 	 * @param type
 	 *            the type to which shall be adapted
 	 * @return the adapter instance
@@ -1271,7 +1276,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Returns the {@link ConfigurationProvider} for this behavior. It is mainly
 	 * a wrapper around various objects that are connected to the diagram
 	 * behavior.
-	 * 
+	 *
 	 * @return an {@link IConfigurationProvider} instance.
 	 * @since 0.12
 	 */
@@ -1282,7 +1287,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Returns the contents {@link EditPart} of this behavior. This is the
 	 * topmost EditPart in the {@link GraphicalViewer}.
-	 * 
+	 *
 	 * @return The contents {@link EditPart} of this behavior.
 	 */
 	public EditPart getContentEditPart() {
@@ -1295,7 +1300,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Method to retrieve the GEF {@link EditPart} for a given
 	 * {@link PictogramElement}.
-	 * 
+	 *
 	 * @param pe
 	 *            the {@link PictogramElement} to retrieve the GEF
 	 *            representation for
@@ -1316,7 +1321,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Gets the current mouse location as a {@link Point}.
-	 * 
+	 *
 	 * @return the mouse location
 	 */
 	public Point getMouseLocation() {
@@ -1328,7 +1333,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Calculates the mouse location depending on scrollbars and zoom factor.
-	 * 
+	 *
 	 * @param nativeLocation
 	 *            the native location given as {@link Point}
 	 * @return the {@link Point} of the real mouse location
@@ -1355,7 +1360,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Returns if direct editing is currently active for this behavior.
-	 * 
+	 *
 	 * @return <code>true</code> in case direct editing is currently active
 	 *         within this editor, <code>false</code> otherwise.
 	 */
@@ -1368,7 +1373,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * this flag set to <code>true</code> does not actually start direct editing
 	 * it is simply an indication that prevents certain operations from running
 	 * (e.g. refresh)
-	 * 
+	 *
 	 * @param directEditingActive
 	 *            <code>true</code> to set the flag to direct editing currently
 	 *            active, <code>false</code> otherwise.
@@ -1381,7 +1386,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Returns the zoom level currently used in the diagram.
-	 * 
+	 *
 	 * @return the zoom level
 	 */
 	public double getZoomLevel() {
@@ -1399,7 +1404,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Method to retrieve the Draw2D {@link IFigure} for a given
 	 * {@link PictogramElement}.
-	 * 
+	 *
 	 * @param pe
 	 *            the {@link PictogramElement} to retrieve the Draw2D
 	 *            representation for
@@ -1417,10 +1422,10 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Initializes the given {@link IConfigurationProvider} for this
 	 * {@link DiagramBehavior} instance and sets it.
-	 * 
+	 *
 	 * @param configurationProvider
 	 *            The configuration provider
-	 * 
+	 *
 	 * @since 0.12
 	 */
 	protected void initConfigurationProvider(IDiagramTypeProvider diagramTypeProvider) {
@@ -1448,7 +1453,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * default implementation will create a default
 	 * {@link ConfigurationProvider} which should suite for all Graphiti
 	 * clients.
-	 * 
+	 *
 	 * @since 0.12
 	 */
 	protected IConfigurationProvider createConfigurationProvider(IDiagramTypeProvider diagramTypeProvider) {
@@ -1462,7 +1467,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Returns a new {@link ContextMenuProvider}. Clients can return null, if no
 	 * context-menu shall be displayed.
-	 * 
+	 *
 	 * @return A new instance of {@link ContextMenuProvider}.
 	 */
 	protected ContextMenuProvider createContextMenuProvider() {
@@ -1480,7 +1485,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * <p>
 	 * For details see Bugzilla 345347
 	 * (https://bugs.eclipse.org/bugs/show_bug.cgi?id=345347).
-	 * 
+	 *
 	 * @return <code>true</code> in case extensions shall be allowed (default),
 	 *         <code>false</code> otherwise.
 	 * @since 0.9
@@ -1491,7 +1496,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Registers the given action with the Eclipse {@link ActionRegistry}.
-	 * 
+	 *
 	 * @param action
 	 *            the action to register
 	 * @since 0.9
@@ -1519,7 +1524,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * remove, delete, copy, paste, zooming, direct editing, alignment and
 	 * toggling actions for the diagram grip and hiding of the context button
 	 * pad.
-	 * 
+	 *
 	 * @param zoomManager
 	 *            the GEF zoom manager to use
 	 */
@@ -1595,7 +1600,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Returns the KeyHandler with common bindings to be used for both the
 	 * Outline and the Graphical Viewer.
-	 * 
+	 *
 	 * @return The KeyHandler with common bindings for both the Outline and the
 	 *         Graphical Viewer.
 	 * @since 0.9
@@ -1622,11 +1627,11 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Gets the diagram scrolling behavior.
-	 * 
+	 *
 	 * @return the diagram scrolling behavior
 	 * @deprecated Scroll bar based infinite canvas is a workaround for GEF
 	 *             limitations.
-	 * 
+	 *
 	 * @see DefaultToolBehaviorProvider#getDiagramScrollingBehavior()
 	 */
 	@Deprecated
@@ -1663,7 +1668,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Hook to unregister the listeners for diagram changes.
-	 * 
+	 *
 	 * @see #registerDiagramResourceSetListener()
 	 */
 	protected void unregisterDiagramResourceSetListener() {
@@ -1679,7 +1684,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Hook that is called to unregister the listeners for changes of the
 	 * business objects (domain objects).
-	 * 
+	 *
 	 * @see DiagramBehavior#registerBusinessObjectsListener()
 	 */
 	protected void unregisterBusinessObjectsListener() {
@@ -1717,7 +1722,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Returns the {@link DiagramEditorInput} instance used in this behavior.
-	 * 
+	 *
 	 * @return An {@link IDiagramEditorInput} instance.
 	 */
 	protected IDiagramEditorInput getInput() {
@@ -1726,7 +1731,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 
 	/**
 	 * Setter for the field storing the editor input.
-	 * 
+	 *
 	 * @param diagramEditorInput
 	 *            The new input
 	 * @since 0.12
@@ -1789,14 +1794,14 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		if (getEditDomain() != null) {
 			getEditDomain().setCommandStack(null);
 		}
-
+		resourceManager.dispose();
 	}
 
 	/**
 	 * We provide migration from 0.8.0 to 0.9.0. You can override if you want to
 	 * migrate manually. WARNING: If your diagram is under version control, this
 	 * method can cause a check out dialog to be opened etc.
-	 * 
+	 *
 	 * @since 0.9
 	 */
 	protected void migrateDiagramModelIfNecessary() {
@@ -1814,7 +1819,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Delegation method to retrieve the GEF edit domain also here. Simply
 	 * delegates to the container.
-	 * 
+	 *
 	 * @return The GEF edit domain used used in the container
 	 */
 	public DefaultEditDomain getEditDomain() {
@@ -1824,7 +1829,7 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	/**
 	 * Sets the parent {@link IWorkbenchPart} for this behavior. Can be used to
 	 * embed this behavior in various UIs.
-	 * 
+	 *
 	 * @param parentPart
 	 */
 	protected void setParentPart(IWorkbenchPart parentPart) {
@@ -1835,11 +1840,20 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 * Returns the parent {@link IWorkbenchPart} this behavior is embedded into.
 	 * May be <code>null</code> in case the behavior is embedded in a non part
 	 * UI, like a popup.
-	 * 
+	 *
 	 * @return The parent {@link IWorkbenchPart} or <code>null</code> in case it
 	 *         does not exist
 	 */
 	protected IWorkbenchPart getParentPart() {
 		return parentPart;
+	}
+
+	/**
+	 *
+	 * @return the JFace ResourceManager to be used to create images, fonts etc
+	 *         for an open diagram.
+	 */
+	public ResourceManager getResourceManager() {
+		return resourceManager;
 	}
 }
