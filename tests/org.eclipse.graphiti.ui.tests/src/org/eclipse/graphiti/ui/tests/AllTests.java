@@ -37,6 +37,6 @@ import org.junit.runners.Suite;
 		CustomUndoableFeatureTest.class, RollbackTest.class, LayoutServiceTest.class, CommandTest.class,
 		CompatibilityTests.class, GFFigureUtilTest.class, CustomUndoRedoFeatureTest.class,
 		DefaultDeleteFeatureTest.class, DefaultRemoveFeatureTest.class, GFPaletteRootTest.class,
-		CreateConnectionCommandTest.class })
+		CreateConnectionCommandTest.class, ResourceManagerTest.class })
 public class AllTests {
 }
