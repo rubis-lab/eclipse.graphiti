@@ -70,6 +70,14 @@ public interface IGefService {
 	 */
 	Object getLayoutConstraint(EditPart editPart);
 
+	/**
+	 * @param viewer
+	 * @param location
+	 *            : the absolute location for the whole RootEditpart (if any,
+	 *            the scroll should be considered)
+	 * @param includeConnections
+	 * @return
+	 */
 	EditPart findEditPartAt(EditPartViewer viewer, Point location, boolean includeConnections);
 
 	/**

@@ -20,9 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Shape;
+import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -62,6 +64,7 @@ import org.eclipse.graphiti.ui.internal.util.draw2d.GFColorConstants;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Control;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -107,7 +110,9 @@ public class DefaultConnectionEditPolicy extends ConnectionEditPolicy {
 			Point location = request.getLocation();
 
 			GraphicalViewer graphicalViewer = getConfigurationProvider().getDiagramContainer().getGraphicalViewer();
-			EditPart findEditPartAt = GraphitiUiInternal.getGefService().findEditPartAt(graphicalViewer, request.getLocation(), false);
+			Point searchLocation = getAbsolutePosition(request.getLocation(), graphicalViewer);
+			EditPart findEditPartAt = GraphitiUiInternal.getGefService().findEditPartAt(graphicalViewer, searchLocation,
+					false);
 			if (findEditPartAt != null && findEditPartAt.getModel() instanceof ContainerShape) {
 				targetContainerShape = (ContainerShape) findEditPartAt.getModel();
 				location = createRealLocation(request.getLocation(), findEditPartAt);
@@ -125,6 +130,17 @@ public class DefaultConnectionEditPolicy extends ConnectionEditPolicy {
 
 		return result;
 
+	}
+
+	private Point getAbsolutePosition(Point requestLocation, GraphicalViewer graphicalViewer) {
+		Control control = graphicalViewer.getControl();
+		Point searchLocation = requestLocation.getCopy();
+		if (control instanceof FigureCanvas) {
+			Viewport viewport = ((FigureCanvas) control).getViewport();
+			Point viewPortLocation = viewport.getViewLocation();
+			searchLocation.translate(viewPortLocation);
+		}
+		return searchLocation;
 	}
 
 	protected IMoveShapeContext createMoveShapeContext(org.eclipse.graphiti.mm.pictograms.Shape shape, ContainerShape source,
@@ -164,6 +180,7 @@ public class DefaultConnectionEditPolicy extends ConnectionEditPolicy {
 		ContainerShape targetContainerShape;
 
 		GraphicalViewer graphicalViewer = getConfigurationProvider().getDiagramContainer().getGraphicalViewer();
+		Point searchLocation = getAbsolutePosition(request.getLocation(), graphicalViewer);
 		EditPart findEditPartAt = GraphitiUiInternal.getGefService().findEditPartAt(graphicalViewer, request.getLocation(), false);
 		if (findEditPartAt != null && findEditPartAt.getModel() instanceof ContainerShape) {
 			targetContainerShape = (ContainerShape) findEditPartAt.getModel();
