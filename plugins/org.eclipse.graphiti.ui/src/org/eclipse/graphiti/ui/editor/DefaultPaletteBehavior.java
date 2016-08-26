@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2011, 2011 SAP AG.
+ * Copyright (c) 2011, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,16 +10,19 @@
  * Contributors:
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 499428 - NullPointerException in DefaultPaletteBehavior$2$1.keyReleased
  *
  * </copyright>
  *
  *******************************************************************************/
 package org.eclipse.graphiti.ui.editor;
 
+import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.tools.ConnectionCreationTool;
 import org.eclipse.gef.tools.CreationTool;
 import org.eclipse.gef.ui.palette.DefaultPaletteViewerPreferences;
@@ -225,12 +228,22 @@ public class DefaultPaletteBehavior {
 						 */
 						public boolean keyReleased(KeyEvent event) {
 							if (event.keyCode == SWT.Selection) {
-								Tool tool = getEditDomain().getPaletteViewer().getActiveTool().createTool();
-								if (tool instanceof CreationTool || tool instanceof ConnectionCreationTool) {
-									tool.keyUp(event, diagramBehavior.getDiagramContainer().getGraphicalViewer());
-									// Deactivate current selection
-									getEditDomain().getPaletteViewer().setActiveTool(null);
-									return true;
+								EditDomain editDomain = getEditDomain();
+								if (editDomain != null) {
+									PaletteViewer paletteViewer = editDomain.getPaletteViewer();
+									if (paletteViewer != null) {
+										ToolEntry activeTool = paletteViewer.getActiveTool();
+										if (activeTool != null) {
+											Tool tool = activeTool.createTool();
+											if (tool instanceof CreationTool || tool instanceof ConnectionCreationTool) {
+												tool.keyUp(event, diagramBehavior.getDiagramContainer()
+														.getGraphicalViewer());
+												// Deactivate current selection
+												paletteViewer.setActiveTool(null);
+												return true;
+											}
+										}
+									}
 								}
 							}
 							return super.keyReleased(event);
