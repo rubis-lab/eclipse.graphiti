@@ -6,7 +6,7 @@
 <unit id="org.eclipse.emf.transaction.sdk.feature.group" version="1.9.0.201506010221"/>
 <unit id="org.eclipse.emf.sdk.feature.group" version="2.11.0.v20150601-0402"/>
 <unit id="org.eclipse.gef.sdk.feature.group" version="3.10.0.201506010206"/>
-<repository location="http://download.eclipse.org/releases/mars"/>
+<repository location="http://download.eclipse.org/releases/neon"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.graphiti.feature.examples.feature.group" version="0.12.0.v20150603-0807"/>
@@ -15,7 +15,7 @@
 <unit id="org.eclipse.graphiti.feature.feature.group" version="0.12.0.v20150603-0807"/>
 <unit id="org.eclipse.graphiti.feature.tools.feature.group" version="0.12.0.v20150603-0807"/>
 <unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.12.0.v20150603-0807"/>
-<repository location="http://download.eclipse.org/graphiti/updates/0.12.0"/>
+<repository location="http://archive.eclipse.org/graphiti/updates/0.12.0"/>
 </location>
 </locations>
 </target>
