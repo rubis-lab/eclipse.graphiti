@@ -35,13 +35,48 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Oxygen</h1>
-	<p>Last revised August 26, 2016</p>
+	<p>Last revised September 21, 2016</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.14.0 within the
 		Oxygen release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M2 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M2</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on fixing bugs.</td>
+		</tr>
+		<tr id="bug 499428">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=499428">Bug
+					499428</a></td>
+			<td class="content">A potential NullPointerException in the in
+				the key handling of DefaultPaletteBehavior has been fixed.
+			</td>
+		</tr>
+		<tr id="bug 499720">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=499720">Bug
+					499720</a></td>
+			<td class="content">The DefaultConnectionEditPolicy now
+				correctly supports scrolling. Until now in case of scrolled diagrams
+				the positions might not have been mapped correctly.
+			</td>
+		</tr>
+		<tr id="bug 500581">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=500581">Bug
+					500581</a></td>
+			<td class="content">A potential NullPointerException in
+				disposing the DiagramBehavior has been fixed.
+			</td>
+		</tr>
 		<!-- ---------------------------------------- M1 ------------------------------- -->
 		<tr>
 			<td colspan="2">
@@ -57,7 +92,7 @@ table.news tr td.content {
 				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=497237">Bug
 					497237</a></td>
 			<td class="content">A potential NullPointerException in the
-				disposal of the default marker behavior has been fixed.</b>
+				disposal of the default marker behavior has been fixed.
 			</td>
 		</tr>
 		<tr id="bug 496822">
