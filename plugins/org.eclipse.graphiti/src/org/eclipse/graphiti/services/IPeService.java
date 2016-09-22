@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    Moritz Eysholdt,  Jerome Sivadier (mwenz) - Bug 433998 - peService.deletePictogramElement() is extremely slow
  *
  * </copyright>
  *
@@ -42,12 +43,45 @@ public interface IPeService extends IPeCreateService, IPeLayoutService {
 
 	/**
 	 * Deletes the given pictogram element (and with it all aggregated
-	 * elements!).
+	 * elements!). This method will also follow all cross references which might
+	 * for large models cause performance issues. In case you suffer from that
+	 * you might check to use
+	 * {@link #deletePictogramElementIgnoringCrossReferences(Iterable)} and
+	 * {@link #deletePictogramElementIgnoringCrossReferences(PictogramElement)}
+	 * instead.
 	 * 
 	 * @param pe
-	 *            the pictogram element to delete
+	 *            The pictogram element to delete
 	 */
 	void deletePictogramElement(PictogramElement pe);
+
+	/**
+	 * Deletes the given pictogram element (and with it all aggregated
+	 * elements!). This method will not follow cross references which might for
+	 * large models have performance advantages over using
+	 * {@link #deletePictogramElement(PictogramElement)}. In case you need to
+	 * follow cross references as well and update them you will need to use
+	 * {@link #deletePictogramElement(PictogramElement)} instead.
+	 * 
+	 * @param pe
+	 *            The pictogram element to delete
+	 * @since 0.13
+	 */
+	void deletePictogramElementIgnoringCrossReferences(PictogramElement pe);
+
+	/**
+	 * Deletes the given pictogram elements (and with it all aggregated
+	 * elements!). This method will not follow cross references which might for
+	 * large models have performance advantages over using
+	 * {@link #deletePictogramElement(PictogramElement)}. In case you need to
+	 * follow cross references as well and update them you will need to use
+	 * {@link #deletePictogramElement(PictogramElement)} instead.
+	 * 
+	 * @param pes
+	 *            The pictogram elements to delete
+	 * @since 0.13
+	 */
+	void deletePictogramElementIgnoringCrossReferences(Iterable<PictogramElement> pes);
 
 	/**
 	 * Gets the active container pe.

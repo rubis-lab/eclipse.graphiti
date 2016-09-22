@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  *                         not context.getNewAnchor()
  *    Henrik Rentz-Reichert - mwenz - Bug 376544 - bug in re-connecting a connection with identical start and end anchor
  *    mlypik - Bug 401792 - Disable starting reconnection
+ *    mwenz - Bug 489834 - DefaultReconnectionFeature#getNewAnchor() should be called for the connection end, not for the start
  *
  * </copyright>
  *
@@ -108,12 +109,11 @@ public class DefaultReconnectionFeature extends AbstractFeature implements IReco
 		preReconnect(context);
 
 		Connection connection = context.getConnection();
-		Anchor newAnchor = context.getNewAnchor();
 
 		if (context.getReconnectType().equals(ReconnectionContext.RECONNECT_SOURCE)) {
 			connection.setStart(getNewAnchor(context));
 		} else {
-			connection.setEnd(newAnchor);
+			connection.setEnd(getNewAnchor(context));
 		}
 
 		postReconnect(context);

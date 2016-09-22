@@ -6,7 +6,7 @@
 	<name>Parent</name>
 	<groupId>org.eclipse.graphiti</groupId>
 	<artifactId>parent</artifactId>
-	<version>0.13.0-SNAPSHOT</version>
+	<version>0.14.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -14,13 +14,13 @@
 		<tycho-extras-version>${tycho-version}</tycho-extras-version>
 		<jboss-tycho-plugins-version>0.22.0</jboss-tycho-plugins-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<platform-site>http://download.eclipse.org/eclipse/updates/4.6milestones/S-4.6M4-201512092300/</platform-site>
-		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/S20151204220443/repository/</orbit-site>
-		<gef-site>http://download.eclipse.org/tools/gef/updates/milestones/</gef-site>
-		<emf-site>http://download.eclipse.org/modeling/emf/emf/updates/2.12milestones/</emf-site>
-		<emf-transactions-site>http://download.eclipse.org/modeling/emf/transaction/updates/milestones/</emf-transactions-site>
-		<emf-validation-site>http://download.eclipse.org/modeling/emf/validation/updates/milestones/</emf-validation-site>
-		<swtbot-site>http://download.eclipse.org/technology/swtbot/releases/2.3.0/</swtbot-site>
+		<platform-site>http://download.eclipse.org/eclipse/updates/4.7milestones/S-4.7M2-201609150230/</platform-site>
+		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/S20160916162009/repository/</orbit-site>
+		<gef-site>http://download.eclipse.org/tools/gef/updates/legacy/releases/4.0.0_gef-master_1952/</gef-site>
+		<emf-site>http://download.eclipse.org/modeling/emf/emf/updates/2.12/</emf-site>
+		<emf-transactions-site>http://download.eclipse.org/modeling/emf/transaction/updates/releases/</emf-transactions-site>
+		<emf-validation-site>http://download.eclipse.org/modeling/emf/validation/updates/releases/</emf-validation-site>
+		<swtbot-site>http://download.eclipse.org/technology/swtbot/releases/2.4.0/</swtbot-site>
 		<license-site>http://download.eclipse.org/cbi/updates/license/</license-site>
 	</properties>
 

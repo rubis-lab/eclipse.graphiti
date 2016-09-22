@@ -34,89 +34,14 @@ table.news tr td.content {
 
 <body>
 
-	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Neon</h1>
-	<p>Last revised December 8, 2015</p>
+	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Oxygen</h1>
+	<p>Last revised September 21, 2016</p>
 	<p>This document describes the new development topics that were
-		addressed during the milestones towards the release 0.13.0 within the
-		Neon release train.</p>
+		addressed during the milestones towards the release 0.14.0 within the
+		Oxygen release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
-		<!-- ---------------------------------------- M4 ------------------------------- -->
-		<tr>
-			<td colspan="2">
-				<h2>M4</h2>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">The main focus for this milestone has been set
-				on fixing bugs.</td>
-		</tr>
-		<tr id="bug 460485">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=460485"> Bug
-					460485</a></td>
-			<td class="content">A typo in a UI text has been fixed.</td>
-		</tr>
-		<tr id="bug 481935">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=481935"> Bug
-					481935</a></td>
-			<td class="content">A potential NullPointerException in
-				GaServiceImpl has been fixed.</td>
-		</tr>
-		<tr id="bug 481936">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=481936"> Bug
-					481936</a></td>
-			<td class="content">A potential NullPointerException in
-				DiagramChangeListener has been fixed.</td>
-		</tr>
-		<tr id="bug 481994">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=481994"> Bug
-					481994</a></td>
-			<td class="content">A bug has been fixed that caused in patterns
-				implementing custom undoable functionality that e.g. instead of
-				postRedo redo is called. There were several wrong delegations in
-				this area that were fixed and might cause slight differences in
-				behavior in rare cases. <b>Minor API behavior change!</b>
-			</td>
-		</tr>
-		<!-- ---------------------------------------- M3 ------------------------------- -->
-		<tr>
-			<td colspan="2">
-				<h2>M3</h2>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">The main focus for this milestone has been set
-				on fixing bugs and incorporating a contribution.</td>
-		</tr>
-		<tr id="bug 423018">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=423018">Direct
-					Diagram Export</a></td>
-			<td class="content">Graphiti now supports to export any diagram
-				without the need to hav a diagram open in an editor, view or plain
-				composite. The functionality can now be triggered programmatically
-				and included in non-graphical parts of Graphiti-based tools. The
-				digram will be rendered using the associated diagram type provider
-				and tool-provided functionality (e.g. images and platform graphics
-				algorithms) in case the tool is installed in Eclipse. In case no
-				diagram type provider can be found for a diagram (e.g. because the
-				tool is not installed) a default one will be used; of course, in
-				that case any images or platform graphics algorithms cannot be
-				rendered and a dummy image or shape will be rendered. This change
-				comes with a minor API enhancement.</td>
-		</tr>
-		<tr id="bug 480961">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=480961">Bug
-					480961</a></td>
-			<td class="content">A potential NullPointerException in
-				ScrollingGraphicalViewer has been fixed.</td>
-		</tr>
 		<!-- ---------------------------------------- M2 ------------------------------- -->
 		<tr>
 			<td colspan="2">
@@ -127,55 +52,30 @@ table.news tr td.content {
 			<td colspan="2">The main focus for this milestone has been set
 				on fixing bugs.</td>
 		</tr>
-		<tr id="bug 473087">
+		<tr id="bug 499428">
 			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=473087">Bug
-					473087</a></td>
-			<td class="content">A potential ClassCastException in diagram
-				loading has been fixed.</td>
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=499428">Bug
+					499428</a></td>
+			<td class="content">A potential NullPointerException in the in
+				the key handling of DefaultPaletteBehavior has been fixed.
+			</td>
 		</tr>
-		<tr id="bug 477083">
+		<tr id="bug 499720">
 			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477083">Bug
-					477083</a></td>
-			<td class="content">A bug in transaction reuse handling has been
-				fixed. Read-only transactions and transactions owned by other
-				threads will not be used any more.</td>
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=499720">Bug
+					499720</a></td>
+			<td class="content">The DefaultConnectionEditPolicy now
+				correctly supports scrolling. Until now in case of scrolled diagrams
+				the positions might not have been mapped correctly.
+			</td>
 		</tr>
-		<tr id="bug 477132">
+		<tr id="bug 500581">
 			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477132">Bug
-					477132</a></td>
-			<td class="content">A potential stack overflow in diagram update
-				has been fixed.</td>
-		</tr>
-		<tr id="bug 477420">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477420">Bug
-					477420</a></td>
-			<td class="content">A potential NullPointerException painting
-				the diagram grid has been fixed.</td>
-		</tr>
-		<tr id="bug 477421">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477421">Bug
-					477421</a></td>
-			<td class="content">A potential SWTException in the font cache
-				handling in combination with scaling has been fixed.</td>
-		</tr>
-		<tr id="bug 477526">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477526">Bug
-					477526</a></td>
-			<td class="content">A potential NullPointerException in the
-				Graphiti GEF change handling has been fixed.</td>
-		</tr>
-		<tr id="bug 477659">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=477659">Bug
-					477659</a></td>
-			<td class="content">A potential NullPointerException in the
-				editor default refresh behavior has been fixed.</td>
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=500581">Bug
+					500581</a></td>
+			<td class="content">A potential NullPointerException in
+				disposing the DiagramBehavior has been fixed.
+			</td>
 		</tr>
 		<!-- ---------------------------------------- M1 ------------------------------- -->
 		<tr>
@@ -187,56 +87,20 @@ table.news tr td.content {
 			<td colspan="2">The main focus for this milestone has been set
 				on fixing bugs.</td>
 		</tr>
-		<tr id="bug 441676">
+		<tr id="bug 497237">
 			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=441676">Bug
-					441676</a></td>
-			<td class="content">The read-only state of EMF resource files is
-				now respected on saving the editor. Errors that happened during the
-				save are displayed in a popup; clients may override and react to
-				such errors in a more suitable way. <b>Minor API enhancement.</b></td>
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=497237">Bug
+					497237</a></td>
+			<td class="content">A potential NullPointerException in the
+				disposal of the default marker behavior has been fixed.
+			</td>
 		</tr>
-		<tr id="bug 470038">
+		<tr id="bug 496822">
 			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=470038">Bug
-					470038</a></td>
-			<td class="content">A potential NullPointerException in
-				DiagramBehavior on unregistering listeners has been fixed.</td>
-		</tr>
-		<tr id="bug 470150">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=470150">Bug
-					470150</a></td>
-			<td class="content">A potential NullPointerException in
-				DiagramBehavior adaptation mechanism has been fixed.</td>
-		</tr>
-		<tr id="bug 470455">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=470455">Bug
-					470455</a></td>
-			<td class="content">A bug causing problems in creating
-				connections when the top shape has no anchor has been fixed.</td>
-		</tr>
-		<tr id="bug 472219">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=472219">Bug
-					472219</a></td>
-			<td class="content">ImageServices now handles bundleentry and
-				bundleresource urls correctly.</td>
-		</tr>
-		<tr id="bug 475133">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=475133">Bug
-					475133</a></td>
-			<td class="content">A potential NullPointerException in
-				ShapeEditPart while creating edit policies has been fixed.</td>
-		</tr>
-		<tr id="bug 475240">
-			<td class="title"><a
-				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=475240">Bug
-					475240</a></td>
-			<td class="content">A bug in the undo/redo handling of Graphiti
-				has been fixed.</td>
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=496822">Bug
+					496822</a></td>
+			<td class="content">A potential NullPointerException in the XY
+				layout when moving connection decorators has been fixed.</td>
 		</tr>
 	</table>
 	<!-- ---------------------------------------- END OF TABLE ------------------------------- -->

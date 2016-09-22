@@ -6,7 +6,7 @@
 	<name>Releng</name>
 	<groupId>org.eclipse.graphiti</groupId>
 	<artifactId>releng</artifactId>
-	<version>0.13.0-SNAPSHOT</version>
+	<version>0.14.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<build>
@@ -34,7 +34,7 @@
 								</copy>
 
 								<echo message="Unpacking archive to last_success updatesite area"/>
-								<unzip src="${WORKSPACE}/graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/org.eclipse.graphiti.site-0.13.0-SNAPSHOT.zip" dest="${WORKSPACE}/last_success/updatesite/"/>
+								<unzip src="${WORKSPACE}/graphiti/org.eclipse.graphiti/features/org.eclipse.graphiti.site/target/org.eclipse.graphiti.site-0.14.0-SNAPSHOT.zip" dest="${WORKSPACE}/last_success/updatesite/"/>
 							</tasks>
 						</configuration>
 					</execution>

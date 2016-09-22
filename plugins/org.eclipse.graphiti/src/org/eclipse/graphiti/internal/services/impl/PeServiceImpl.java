@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2014 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@
  *    mwenz - Bug 364126 - Make GaServiceImpl extensible
  *    mwenz - Bug 421813 - Relative position to diagram of active Shape nested in inactive ContainerShape is calculated incorrectly
  *    mwenz - Bug 417454 - Proposal to add an additional createDiagram() method to IPeCreateService
+ *    Moritz Eysholdt,  Jerome Sivadier (mwenz) - Bug 433998 - peService.deletePictogramElement() is extremely slow
  *
  * </copyright>
  *
@@ -25,8 +26,10 @@ package org.eclipse.graphiti.internal.services.impl;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -364,6 +367,41 @@ public final class PeServiceImpl implements IPeService {
 			EcoreUtil.delete(linkForPictogramElement, true);
 		}
 		EcoreUtil.delete(pe, true);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.graphiti.services.IPeService#
+	 * deletePictogramElementIgnoringCrossReferences(PictogramElement pe)
+	 */
+	public void deletePictogramElementIgnoringCrossReferences(PictogramElement pe) {
+		deletePictogramElementIgnoringCrossReferences(Collections.singletonList(pe));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.graphiti.services.IPeService#
+	 * deletePictogramElementIgnoringCrossReferences(Iterable<PictogramElement>
+	 * pes)
+	 */
+	public void deletePictogramElementIgnoringCrossReferences(Iterable<PictogramElement> pes) {
+		Set<EObject> toBeDeletedElements = new LinkedHashSet<EObject>();
+		Set<EObject> toBeDeletedRoots = new LinkedHashSet<EObject>();
+		for (PictogramElement pe : pes) {
+			collectToBeDeletedElements(pe, toBeDeletedElements);
+		}
+		for (EObject del : toBeDeletedElements) {
+			resetReferencesWithOpposites(del);
+			EObject container = del.eContainer();
+			if (!toBeDeletedElements.contains(container)) {
+				toBeDeletedRoots.add(del);
+			}
+		}
+		for (EObject del : toBeDeletedRoots) {
+			EcoreUtil.remove(del);
+		}
 	}
 
 	/*
@@ -1442,5 +1480,44 @@ public final class PeServiceImpl implements IPeService {
 		property.setKey(key);
 		property.setValue(value);
 		propertyContainer.getProperties().add(property);
+	}
+
+	private void collectToBeDeletedElements(EObject pe, Set<EObject> toBeDeleted) {
+		if (pe == null || pe.eIsProxy()) {
+			return;
+		}
+		toBeDeleted.add(pe);
+		for (EObject child : pe.eContents()) {
+			collectToBeDeletedElements(child, toBeDeleted);
+		}
+		if (pe instanceof Anchor) {
+			Anchor anchor = (Anchor) pe;
+			for (Connection in : anchor.getIncomingConnections()) {
+				collectToBeDeletedElements(in, toBeDeleted);
+			}
+			for (Connection out : anchor.getOutgoingConnections()) {
+				collectToBeDeletedElements(out, toBeDeleted);
+			}
+		}
+	}
+
+	private void resetReferencesWithOpposites(EObject pe) {
+		if (pe instanceof Connection) {
+			Connection connection = (Connection) pe;
+			connection.setEnd(null);
+			connection.setStart(null);
+		}
+		if (pe instanceof Anchor) {
+			Anchor anchor = (Anchor) pe;
+			anchor.getOutgoingConnections().clear();
+			anchor.getIncomingConnections().clear();
+		}
+		if (pe instanceof PictogramElement) {
+			PictogramLink link = ((PictogramElement) pe).getLink();
+			if (link != null && !link.eIsProxy()) {
+				Diagram diagram = getDiagramForPictogramElement((PictogramElement) pe);
+				diagram.getPictogramLinks().remove(link);
+			}
+		}
 	}
 }
