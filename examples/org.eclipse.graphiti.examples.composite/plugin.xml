@@ -25,7 +25,7 @@
 				id="org.eclipse.graphiti.examples.composite.diagramViewExample"
 				minimized="false"
 				relationship="stack"
-				relative="org.eclipse.ui.views.ProgressView">
+				relative="org.eclipse.ui.views.ProblemView">
 			</view>
 		</perspectiveExtension>
 	</extension>

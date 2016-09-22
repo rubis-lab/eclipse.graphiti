@@ -88,10 +88,11 @@ public interface IPeCreateService {
 	 *            <code>true</code>, if the created shape should be active,
 	 *            <code>false</code> otherwise. An active shape can be selected
 	 *            in the diagram editor and it is also relevant for layouting:
-	 *            an active shape opens a coordinate system which can be used
-	 *            for layouting its {@link PictogramElement} children, while an
-	 *            inactive one does not provide one but uses the coordinate
-	 *            system of its next active parent for layouting its children.
+	 *            an active shape opens a coordinate system relative to its next
+	 *            active parent which can be used for layouting its
+	 *            {@link PictogramElement} children, while an inactive one uses
+	 *            the coordinate system of its next direct parent for layouting
+	 *            its children.
 	 *            <p>
 	 *            By default all shapes should be active, inactive shapes should
 	 *            be used for grouping purposes or for linking a group of

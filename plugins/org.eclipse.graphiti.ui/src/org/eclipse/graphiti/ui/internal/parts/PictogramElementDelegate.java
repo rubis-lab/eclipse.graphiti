@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2015 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@
  *    mwenz - Bug 434458 - Connections don't support Color decorators
  *    mwenz - Bug 459386 - Refresh Connection when getDiagramBehavior().refreshRenderingDecorators(PEInstance) is called
  *    mwenz - Bug 464857 - Images created by GFImageFigure are not destroyed
+ *    mwenz - Bug 481619 - Graphiti is not using custom PlatformGraphicsAlgorithm's layout manager; enforces XYLayout
  *
  * </copyright>
  *
@@ -842,9 +843,13 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			}
 
 			if (ret != null) {
-
 				if (graphicsAlgorithm.getGraphicsAlgorithmChildren().size() > 0) {
-					ret.setLayoutManager(new XYLayout());
+					// Bug 481619 - in case we have a platform graphics
+					// algorithm and a layout manager is set then do not
+					// override with XYLayout.
+					if (!(graphicsAlgorithm instanceof PlatformGraphicsAlgorithm) || ret.getLayoutManager() == null) {
+						ret.setLayoutManager(new XYLayout());
+					}
 				}
 
 				addGraphicsAlgorithmForFigure(ret, graphicsAlgorithm);
@@ -883,7 +888,11 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		// attributes);
 
 		if (pe instanceof ContainerShape) {
-			ret.setLayoutManager(new XYLayout());
+			// Bug 481619 - in case we have a platform graphics algorithm and a
+			// layout manager is set then do not override with XYLayout.
+			if (!(graphicsAlgorithm instanceof PlatformGraphicsAlgorithm) || ret.getLayoutManager() == null) {
+				ret.setLayoutManager(new XYLayout());
+			}
 			ContainerShape containerShape = (ContainerShape) pe;
 			List<org.eclipse.graphiti.mm.pictograms.Shape> containersChildren = containerShape.getChildren();
 			for (org.eclipse.graphiti.mm.pictograms.Shape shape : containersChildren) {

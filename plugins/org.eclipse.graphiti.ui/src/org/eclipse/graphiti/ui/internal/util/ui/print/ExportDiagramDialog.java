@@ -289,7 +289,7 @@ public class ExportDiagramDialog extends AbstractFigureSelectionDialog implement
 	@Override
 	protected void okPressed() {
 		if (getImageFormat() == SWT.IMAGE_PNG) {
-			setScaledImage(getImageScaleFactor(), 10000.0d);
+			setScaledImage(getImageScaleFactor(), 100000.0d);
 		} else {
 			setScaledImage(getImageScaleFactor());
 		}

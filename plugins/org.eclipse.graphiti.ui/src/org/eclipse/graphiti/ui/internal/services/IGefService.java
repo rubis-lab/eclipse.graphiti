@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG, Redhat.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 415884 - Cannot query size of a multi-line text
+ *    Aurelien Pupier - Bug 499720 - DefaultConnectionEditPolicy doesn't support scroll
  *
  * </copyright>
  *
@@ -70,6 +71,14 @@ public interface IGefService {
 	 */
 	Object getLayoutConstraint(EditPart editPart);
 
+	/**
+	 * @param viewer
+	 * @param location
+	 *            : the absolute location for the whole RootEditpart (if any,
+	 *            the scroll should be considered)
+	 * @param includeConnections
+	 * @return
+	 */
 	EditPart findEditPartAt(EditPartViewer viewer, Point location, boolean includeConnections);
 
 	/**
