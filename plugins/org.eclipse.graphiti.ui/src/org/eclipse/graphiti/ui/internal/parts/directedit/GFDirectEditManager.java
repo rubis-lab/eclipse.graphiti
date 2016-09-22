@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
  *    mgorning - Bug 347262 - DirectEditingFeature with TYPE_DIALOG type
  *    mgorning - Bug 377419 - Hide text in underlying GA while DirectEditing is enabled
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 492362 - Error when calling Help (F1) while direct edit is active
  *
  * </copyright>
  *
@@ -49,6 +50,7 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorPart;
@@ -320,9 +322,14 @@ public class GFDirectEditManager extends DirectEditManager implements IDirectEdi
 		}
 
 		if (diagramBehavior.isAlive()) {
-			super.bringDown();
-			disposeCellEditorFont();
-			GraphitiUiInternal.getWorkbenchService().getActiveStatusLineManager().setErrorMessage(null);
+			Display.getDefault().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					GFDirectEditManager.super.bringDown();
+					disposeCellEditorFont();
+					GraphitiUiInternal.getWorkbenchService().getActiveStatusLineManager().setErrorMessage(null);
+				}
+			});
 		}
 
 		((ShapeEditPart) getEditPart()).delayDirectEditing();

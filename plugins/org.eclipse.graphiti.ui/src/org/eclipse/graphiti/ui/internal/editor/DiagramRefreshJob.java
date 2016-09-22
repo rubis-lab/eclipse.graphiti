@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2015 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    mwenz - Bug 477659 - NullPointerException in DefaultRefreshBehavior.internalRefreshEditPart
+ *    mwenz - Bug 494997 - EditPart does not refresh for active shapes inside inactive ContainerShapes
  *
  * </copyright>
  *
@@ -30,6 +31,8 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.internal.pref.GFPreferences;
 import org.eclipse.graphiti.internal.util.T;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.internal.parts.ConnectionDecoratorEditPart;
 import org.eclipse.graphiti.ui.internal.parts.DiagramEditPart;
@@ -141,11 +144,20 @@ class DiagramRefreshJob extends UIJob {
 		Object parentModel = ep.getParent().getModel();
 		if (parentModel != null && ep.getModel() instanceof EObject) {
 			EObject eo = (EObject) ep.getModel();
-			if (!parentModel.equals(eo.eContainer())) {
+			if (!parentModel.equals(getActiveShapeContainer(eo))) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	private EObject getActiveShapeContainer(EObject eo) {
+		EObject container = eo.eContainer();
+		while (container != null && container instanceof Shape && !(container instanceof Diagram)
+				&& !((Shape) container).isActive()) {
+			container = container.eContainer();
+		}
+		return container;
 	}
 
 	void setRefreshAll() {

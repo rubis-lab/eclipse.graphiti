@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2015 SRC
+ * Copyright (c) 2016 SRC
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,7 +21,8 @@
  *    mwenz - Bug 470150 - NullPointerException in DiagramBehavior.getAdapter
  *    mwenz - Bug 477526 - NullPointerException in DiagramBehavior.addGefListeners
  *    mwenz - Bug 480961 - NullPointerException below ScrollingGraphicalViewer.reveal
- *
+ *	  edeley - Bug 498164 - Providing a JFace ResourceManager in DiagramBehavior to manage SWT resources
+ *    mwenz - Bug 500851 - Probable NullPointerException in DiagramBehavior.disposeAfterGefDispose 
  * </copyright>
  *
  *******************************************************************************/
@@ -117,6 +118,9 @@ import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.util.TransferDropTargetListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -182,6 +186,8 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	private IWorkbenchPart parentPart;
 
 	private ContextMenuProvider contextMenuProvider = null;
+
+	private ResourceManager resourceManager = null;
 
 	public DiagramBehavior(IDiagramContainerUI diagramContainer) {
 		super();
@@ -1789,7 +1795,9 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 		if (getEditDomain() != null) {
 			getEditDomain().setCommandStack(null);
 		}
-
+		if (resourceManager != null) {
+			resourceManager.dispose();
+		}
 	}
 
 	/**
@@ -1841,5 +1849,38 @@ public class DiagramBehavior implements IDiagramBehaviorUI {
 	 */
 	protected IWorkbenchPart getParentPart() {
 		return parentPart;
+	}
+	
+	/**
+	 * Creates a new instance of a {@link ResourceManager} implementation.
+	 * <p>
+	 * By default this creates a {@link LocalResourceManager} instance.
+	 * Subclasses may override this method to enforce the usage of another 
+	 * implementation.
+	 * </p>
+	 * @return A new instance of a {@link ResourceManager}.
+	 *
+	 * @since 0.14
+	 */
+	protected ResourceManager createResourceManager() {
+		return new LocalResourceManager(JFaceResources.getResources());
+	}
+
+	/**
+	 *
+	 * @return the JFace {@link ResourceManager} to be used to create images, 
+	 *         fonts etc for an open diagram.
+	 *
+	 * @since 0.14
+	 */
+	public ResourceManager getResourceManager() {
+		synchronized(this) {
+			// don't initialize in the constructor as that seems to break mock
+			// DiagramBehavior instances in e.g. CustomUndoableFeatureTest.
+			if(resourceManager==null) {
+				resourceManager = createResourceManager();
+			}
+		}
+		return resourceManager;
 	}
 }
