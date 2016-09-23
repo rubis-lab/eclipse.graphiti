@@ -33,6 +33,9 @@ import org.eclipse.graphiti.tb.IContextButtonPadData;
  * 
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
+ * 
+ * @author Aurélien Pupier : fix Bug 502049 to avoid extra spaces for Context
+ *         Pad
  */
 public abstract class AbstractContextButtonPadDeclaration implements IContextButtonPadDeclaration {
 
@@ -436,15 +439,15 @@ public abstract class AbstractContextButtonPadDeclaration implements IContextBut
 	protected void initializeDomainButtonLists() {
 		// calculate maximum number of domain buttons right
 		int maxNumberOfButtons;
-		int referenceHeight = getPadReferenceRectangle().height + (2 * getPadVerticalOverlap());
+		int referenceHeight = getPadReferenceRectangle().height - (2 * getPadVerticalOverlap());
 		// substract one button from reference height
-		referenceHeight -= (2 * getPadPaddingOutside()) + getButtonSize();
+		referenceHeight -= (2 * getButtonPadding()) + getButtonSize();
 		if (referenceHeight < 0) { // not even one button fits
 			maxNumberOfButtons = 0;
 		} else { // one button fits, plus how many other buttons with padding
 			double additionalButtons = ((double) referenceHeight) / (getButtonSize() + getButtonPadding());
-			// always round up
-			maxNumberOfButtons = 1 + (int) Math.ceil(additionalButtons);
+			// always round down to avoid extra spaces
+			maxNumberOfButtons = 1 + (int) Math.floor(additionalButtons);
 		}
 
 		// determine domain buttons right
@@ -467,7 +470,12 @@ public abstract class AbstractContextButtonPadDeclaration implements IContextBut
 	 */
 	protected void initializeRectangles() {
 		Rectangle innerRectangle = new Rectangle(getPadReferenceRectangle());
-		innerRectangle.height = getPadDynamicSize(getDomainButtonsRight().size());
+		if (!getDomainButtonsBottom().isEmpty()) {
+			innerRectangle.height = Math.max(getPadDynamicSize(getDomainButtonsRight().size()),
+					getPadReferenceRectangle().height + (2 * getPadPaddingInside()));
+		} else {
+			innerRectangle.height = getPadDynamicSize(getDomainButtonsRight().size());
+		}
 		innerRectangle.height -= 2 * getPadVerticalOverlap();
 		if (getDomainButtonsBottom().size() > 0 && innerRectangle.height > getPadReferenceRectangle().height) {
 			// move upwards into the middle of the top buttons and bottom buttons
