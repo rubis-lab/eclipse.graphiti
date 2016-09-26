@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *    Ali Akar, mwenz - Bug 348420 - Opening a user contributed editor
  *    Bug 336488 - DiagramEditor API
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    mwenz - Bug 502091 - NPE in GFDirectEditManager.bringDown
  *
  * </copyright>
  *
@@ -48,16 +49,19 @@ import org.eclipse.ui.part.EditorActionBarContributor;
 public class WorkbenchService implements IWorkbenchService {
 
 	public IStatusLineManager getActiveStatusLineManager() {
-		final IWorkbenchPart activePart = getActiveOrFirstWorkbenchWindow().getActivePage().getActivePart();
-		if (activePart instanceof IViewPart) {
-			final IViewPart viewPart = (IViewPart) activePart;
-			return viewPart.getViewSite().getActionBars().getStatusLineManager();
-		} else if (activePart instanceof IEditorPart) {
-			final IEditorPart editorPart = (IEditorPart) activePart;
-			final IEditorActionBarContributor contributor = editorPart.getEditorSite().getActionBarContributor();
-			if (contributor instanceof EditorActionBarContributor) {
-				final EditorActionBarContributor editorContributor = (EditorActionBarContributor) contributor;
-				return editorContributor.getActionBars().getStatusLineManager();
+		IWorkbenchWindow activeWindow = getActiveOrFirstWorkbenchWindow();
+		if (activeWindow != null) {
+			IWorkbenchPart activePart = activeWindow.getActivePage().getActivePart();
+			if (activePart instanceof IViewPart) {
+				IViewPart viewPart = (IViewPart) activePart;
+				return viewPart.getViewSite().getActionBars().getStatusLineManager();
+			} else if (activePart instanceof IEditorPart) {
+				IEditorPart editorPart = (IEditorPart) activePart;
+				IEditorActionBarContributor contributor = editorPart.getEditorSite().getActionBarContributor();
+				if (contributor instanceof EditorActionBarContributor) {
+					EditorActionBarContributor editorContributor = (EditorActionBarContributor) contributor;
+					return editorContributor.getActionBars().getStatusLineManager();
+				}
 			}
 		}
 		// this is a useless dummy but avoids nasty null pointer checks when
