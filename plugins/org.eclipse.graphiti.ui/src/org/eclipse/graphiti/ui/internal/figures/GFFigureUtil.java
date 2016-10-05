@@ -172,9 +172,9 @@ public class GFFigureUtil {
 		if (!lineBounds.contains(x, y))
 			return Boolean.FALSE;
 
-		int v1x, v1y, v2x, v2y;
-		int numerator, denominator;
-		int result = 0;
+		long v1x, v1y, v2x, v2y;
+		long numerator, denominator;
+		long result = 0;
 
 		// calculates the length squared of the cross product of two vectors, v1
 		// & v2.
@@ -186,7 +186,7 @@ public class GFFigureUtil {
 
 			numerator = v2x * v1y - v1x * v2y;
 			denominator = v1x * v1x + v1y * v1y;
-			result = (int) ((long) numerator * numerator / denominator);
+			result = numerator * numerator / denominator;
 		}
 
 		// if it is the same point, and it passes the bounding box test,
