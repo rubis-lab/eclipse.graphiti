@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    palldredge - Bug 465675 - Improve SWT Font management 
  *
  * </copyright>
  *
@@ -16,6 +17,8 @@
 package org.eclipse.graphiti.ui.internal;
 
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 
 /**
  * @noimplement This interface is not intended to be implemented by clients.
@@ -43,4 +46,14 @@ public interface IResourceRegistry extends IDisposable {
 	 * @see org.eclipse.swt.graphics.Color
 	 */
 	Color getSwtColor(String hexRGBString);
+
+	/**
+	 * Provides an SWT font instance with the given font data.
+	 * 
+	 * @param fontData the font data describing the desired font
+	 * @return an SWT font instance
+	 * 
+	 * @see org.eclipse.swt.graphics.Font
+	 */
+	Font getSwtFont(FontData fontData);
 }
