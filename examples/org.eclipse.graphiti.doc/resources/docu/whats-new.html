@@ -35,13 +35,54 @@ table.news tr td.content {
 <body>
 
 	<h1>Graphiti &quot;New and Noteworthy&quot; for Eclipse Oxygen</h1>
-	<p>Last revised September 21, 2016</p>
+	<p>Last revised October 31, 2016</p>
 	<p>This document describes the new development topics that were
 		addressed during the milestones towards the release 0.14.0 within the
 		Oxygen release train.</p>
 	<!-- --------------------------------- Table ----------------------------------------- -->
 	<table border="0" cellpadding="10" cellspacing="0" class="news"
 		width="600">
+		<!-- ---------------------------------------- M3 ------------------------------- -->
+		<tr>
+			<td colspan="2">
+				<h2>M3</h2>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">The main focus for this milestone has been set
+				on fixing bugs.</td>
+		</tr>
+		<tr id="bug 465675">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=465675">Improve
+					SWT Font Management</a></td>
+			<td class="content">Graphiti now comes with a font registry that
+				manages the fonts used in a diagram and allows reuse of the fonts in
+				case they are used more than once. This was implemented in a very
+				similar way to what was already in place for SWL colors.</td>
+		</tr>
+		<tr id="bug 497669">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=497669">Bug
+					497669</a></td>
+			<td class="content">A potential IndexOutOfBoundsException has
+				been fixed in the path creation of polylines.</td>
+		</tr>
+		<tr id="bug 502049">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=502049">Bug
+					502049</a></td>
+			<td class="content">A bug in the space calculation of the
+				context button pads that causes waste of space in some cases has
+				been fixed.</td>
+		</tr>
+		<tr id="bug 502091">
+			<td class="title"><a
+				href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=502091">Bug
+					502091</a></td>
+			<td class="content">A potential NullPointerException in direct
+				editing has been fixed.</td>
+		</tr>
 		<!-- ---------------------------------------- M2 ------------------------------- -->
 		<tr>
 			<td colspan="2">
