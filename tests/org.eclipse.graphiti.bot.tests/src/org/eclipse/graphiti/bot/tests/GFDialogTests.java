@@ -33,6 +33,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class GFDialogTests extends AbstractGFTests {
@@ -42,6 +43,7 @@ public class GFDialogTests extends AbstractGFTests {
 	}
 
 	@Test
+	@Ignore
 	public void testPrintDialog() throws Exception {
 		final IDiagramContainerUI diagramEditor = openDiagramEditor(ITestConstants.DIAGRAM_TYPE_ID_SKETCH);
 		final boolean[] enabled = new boolean[1];
