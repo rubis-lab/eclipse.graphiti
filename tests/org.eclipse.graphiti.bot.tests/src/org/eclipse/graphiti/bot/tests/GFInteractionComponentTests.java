@@ -187,7 +187,7 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		// Select the newly added shapes with the marquee tool.
 		syncExec(new VoidResult() {
 			public void run() {
-				ed.drag(x - 10, y - 10, x + SHORT_DELAY, y + SHORT_DELAY);
+				ed.drag(x - 50, y - 50, x + SHORT_DELAY, y + SHORT_DELAY);
 			}
 		});
 		Thread.sleep(DELAY);
@@ -200,8 +200,14 @@ public class GFInteractionComponentTests extends AbstractGFTests {
 		});
 		Thread.sleep(DELAY);
 		IFigure figure = ed.getFigureWithLabel(SHAPE_NAME);
-		// Drag might not be accurate, add tolerance +-1
-		assertTrue((x + 149 <= figure.getBounds().x) && (figure.getBounds().x <= x + 151));
+		int realX = figure.getBounds().x;
+		int expectedX = x + 150;
+		// Drag might not be accurate, add tolerance +-1, increase tolerance
+		// after move to new HIPP instance
+		int tolerance = 2;
+		assertTrue(
+				"X value is " + realX + ", expected was " + expectedX + " which is out of tolerance of " + tolerance,
+				(expectedX - tolerance <= realX) && (realX <= expectedX + tolerance));
 		page.shutdownEditor(diagramEditor);
 	}
 
