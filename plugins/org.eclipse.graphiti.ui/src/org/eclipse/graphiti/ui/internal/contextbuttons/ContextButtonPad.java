@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    mwenz - Bug 397303 - Accessibility issue with Graphiti diagram in High Contrast Mode
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
+ *    apupier - Bug 508133 - Use FontRegistry for Tooltip
  *
  * </copyright>
  *
@@ -549,16 +550,6 @@ public class ContextButtonPad extends Shape implements ITransparencyProvider {
 		control.removeMouseTrackListener(mouseTrackListener);
 
 		super.removeNotify();
-
-		// Notify the ContextButton children of this pad to free its resources
-		// (holds a font). Introduced to fix bug 373298
-		List<?> childrenList = getChildren();
-		for (Object object : childrenList) {
-			if (object instanceof ContextButton) {
-				((ContextButton) object).dispose();
-			}
-
-		}
 	}
 
 	// ============================== painting ================================
