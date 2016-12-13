@@ -17,6 +17,7 @@
  *    mwenz - Bug 421813 - Relative position to diagram of active Shape nested in inactive ContainerShape is calculated incorrectly
  *    mwenz - Bug 417454 - Proposal to add an additional createDiagram() method to IPeCreateService
  *    Moritz Eysholdt,  Jerome Sivadier (mwenz) - Bug 433998 - peService.deletePictogramElement() is extremely slow
+ *    mwenz - Bug 509122 - NullPointerException in PeServiceImpl.getLocationInfo
  *
  * </copyright>
  *
@@ -1033,9 +1034,11 @@ public final class PeServiceImpl implements IPeService {
 			}
 		}
 
-		GraphicsAlgorithm ga = getGraphicsAlgorithmForLocation(shape.getGraphicsAlgorithm(), x, y);
-		if (ga != null) {
-			return new LocationInfo(shape, ga);
+		if (shape != null) {
+			GraphicsAlgorithm ga = getGraphicsAlgorithmForLocation(shape.getGraphicsAlgorithm(), x, y);
+			if (ga != null) {
+				return new LocationInfo(shape, ga);
+			}
 		}
 
 		return null;
