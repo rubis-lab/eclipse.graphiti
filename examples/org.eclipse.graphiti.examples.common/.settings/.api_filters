@@ -13,4 +13,12 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/graphiti/examples/common/util/T.java" type="org.eclipse.graphiti.examples.common.util.T">
+        <filter id="576720909">
+            <message_arguments>
+                <message_argument value="AbstractTracer"/>
+                <message_argument value="T"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>

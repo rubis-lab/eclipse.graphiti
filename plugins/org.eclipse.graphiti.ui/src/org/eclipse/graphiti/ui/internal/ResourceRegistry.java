@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    palldredge - Bug 465675 - Improve SWT Font management 
  *
  * </copyright>
  *
@@ -20,6 +21,8 @@ import java.util.Map;
 
 import org.eclipse.graphiti.util.ColorUtil;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Resource;
 
@@ -89,5 +92,25 @@ public class ResourceRegistry implements IResourceRegistry {
 	public Color getSwtColor(String hexRGBString) {
 		return getSwtColor(ColorUtil.getRedFromHex(hexRGBString), ColorUtil.getGreenFromHex(hexRGBString), ColorUtil
 				.getBlueFromHex(hexRGBString));
+	}
+
+	/**
+	 * Provides an SWT font instance with the given font data.
+	 * 
+	 * @param fontData the font data describing the desired font
+	 * @return an SWT font instance
+	 * 
+	 * @see org.eclipse.swt.graphics.Font
+	 */
+	@Override
+	public Font getSwtFont(final FontData fontData) {
+		Resource ret = registry.get(fontData);
+		if (ret == null) {
+			ret = new Font(null, fontData);
+			registry.put(fontData, ret);
+			ResourceManager.getResourceManager().manageResource(this, ret);
+		}
+
+		return ret instanceof Font ? ((Font) ret) : null;
 	}
 }

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 505659 - NullPointerException below RenameActionProvider.fillContextMenu
  *
  * </copyright>
  *
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.graphiti.examples.common.util.T;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -47,27 +49,29 @@ public class RenameActionProvider extends CommonActionProvider {
 	public void fillContextMenu(IMenuManager menu) {
 		super.fillContextMenu(menu);
 		ISelection selection = getContext().getSelection();
-		if (selection.isEmpty())
-			return;
-		if (selection instanceof IStructuredSelection) {
-			IStructuredSelection sel = (IStructuredSelection) selection;
-			Object el = sel.getFirstElement();
-			if (el instanceof EClass) {
-				EClass eclass = (EClass) el;
-				String platformString = eclass.eResource().getURI().toPlatformString(true);
-				Path path = new Path(platformString);
-				IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
-				if (file == null)
-					return;
-				IProject project = file.getProject();
-				try {
-					if (!project.hasNature(ExampleProjectNature.NATURE_ID))
-						return;
-				} catch (CoreException e) {
-					e.printStackTrace();
+		if (!selection.isEmpty()) {
+			if (selection instanceof IStructuredSelection) {
+				IStructuredSelection sel = (IStructuredSelection) selection;
+				Object el = sel.getFirstElement();
+				if (el instanceof EClass) {
+					EClass eclass = (EClass) el;
+					String platformString = eclass.eResource().getURI().toPlatformString(true);
+					if (platformString != null) {
+						Path path = new Path(platformString);
+						IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+						if (file != null) {
+							IProject project = file.getProject();
+							try {
+								if (project.hasNature(ExampleProjectNature.NATURE_ID)) {
+									menu.appendToGroup(ICommonMenuConstants.GROUP_ADDITIONS, getAction(eclass));
+								}
+							} catch (CoreException e) {
+								T.racer().error("Error while checking project nature for project " + project.getName(),
+										e);
+							}
+						}
+					}
 				}
-				menu.appendToGroup(ICommonMenuConstants.GROUP_ADDITIONS, getAction(eclass));
-
 			}
 		}
 	}

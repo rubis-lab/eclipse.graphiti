@@ -28,7 +28,7 @@
  *    mwenz - Bug 459386 - Refresh Connection when getDiagramBehavior().refreshRenderingDecorators(PEInstance) is called
  *    mwenz - Bug 464857 - Images created by GFImageFigure are not destroyed
  *    mwenz - Bug 481619 - Graphiti is not using custom PlatformGraphicsAlgorithm's layout manager; enforces XYLayout
- *
+ *    palldredge - Bug 465675 - Improve SWT Font management 
  * </copyright>
  *
  *******************************************************************************/
@@ -37,7 +37,6 @@ package org.eclipse.graphiti.ui.internal.parts;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -140,6 +139,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.model.IWorkbenchAdapter;
@@ -163,9 +163,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 	private IConfigurationProviderInternal configurationProvider;
 
 	private final Hashtable<GraphicsAlgorithm, IFigure> elementFigureHash = new Hashtable<GraphicsAlgorithm, IFigure>();
-
-	private final HashSet<Font> fontList = new HashSet<Font>();
-	private final HashSet<Font> decoratorFontList = new HashSet<Font>();
 
 	private PictogramElement pictogramElement;
 
@@ -239,8 +236,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 				((ImageFigure) figure).setImage(null);
 			}
 		}
-
-		disposeFonts();
 	}
 
 	/*
@@ -682,23 +677,8 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 		// create/change swt-font of label
 		org.eclipse.graphiti.mm.algorithms.styles.Font font = Graphiti.getGaService().getFont(text, true);
 		if (font != null && font.getName() != null) {
-
-			Font currentSwtFont = label.getFont();
-			if (currentSwtFont == null || currentSwtFont.isDisposed()) {
-				Font newSwtFont = DataTypeTransformation.toSwtFont(font);
-				fontList.add(newSwtFont);
-				label.setFont(newSwtFont);
-			} else {
-				Font newSwtFont = DataTypeTransformation.syncToSwtFont(font, currentSwtFont);
-				if (newSwtFont != currentSwtFont) {
-					fontList.add(newSwtFont);
-					label.setFont(newSwtFont);
-					boolean wasInList = fontList.remove(currentSwtFont);
-					if (wasInList) {
-						currentSwtFont.dispose();
-					}
-				}
-			}
+			IResourceRegistry resourceRegistry = getConfigurationProvider().getResourceRegistry();
+			label.setFont(resourceRegistry.getSwtFont(DataTypeTransformation.toFontData(font)));
 		}
 	}
 
@@ -994,15 +974,15 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			String text = textDecorator.getText();
 			decoratorFigure = new Label(text);
 
-			Font font = new org.eclipse.swt.graphics.Font(null, textDecorator.getFontName(),
-					textDecorator.getFontSize(), SWT.NORMAL);
-			decoratorFontList.add(font);
+			IResourceRegistry resourceRegistry = getConfigurationProvider().getResourceRegistry();
+			final Font font = resourceRegistry
+					.getSwtFont(new FontData(textDecorator.getFontName(), textDecorator.getFontSize(), SWT.NORMAL));
+
 			Dimension dimension = TextUtilities.INSTANCE.getStringExtents(text, font);
 			boundsForDecoratorFigure.setSize(dimension.width, dimension.height);
 
 			decoratorFigure.setFont(font);
 
-			IResourceRegistry resourceRegistry = getConfigurationProvider().getResourceRegistry();
 			IColorConstant backgroundColor = textDecorator.getBackgroundColor();
 			if (backgroundColor != null) {
 				decoratorFigure.setOpaque(true);
@@ -1104,24 +1084,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 
 		// Return additionally created figure
 		return decoratorFigure;
-	}
-
-	/*
-	 * must be called from the edit-part if this edit-part is de-activated
-	 */
-	private void disposeFonts() {
-		for (Iterator<Font> iter = fontList.iterator(); iter.hasNext();) {
-			Font font = iter.next();
-			font.dispose();
-		}
-		disposeDecoratorFonts();
-	}
-
-	private void disposeDecoratorFonts() {
-		for (Iterator<Font> iter = decoratorFontList.iterator(); iter.hasNext();) {
-			Font font = iter.next();
-			font.dispose();
-		}
 	}
 
 	/**
@@ -1654,7 +1616,6 @@ public class PictogramElementDelegate implements IPictogramElementDelegate {
 			decFigureList.clear();
 			decoratorMap.remove(figure);
 		}
-		disposeDecoratorFonts();
 	}
 
 	public boolean isValid() {

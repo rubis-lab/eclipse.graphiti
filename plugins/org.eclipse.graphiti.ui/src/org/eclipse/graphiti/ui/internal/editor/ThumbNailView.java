@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2010 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
+ *    mwenz - Bug 502091 - NPE in GFDirectEditManager.bringDown
  *
  * </copyright>
  *
@@ -79,9 +80,11 @@ public class ThumbNailView extends ViewPart implements IPartListener {
 	@Override
 	public void dispose() {
 		IWorkbenchWindow workbenchWindow = GraphitiUiInternal.getWorkbenchService().getActiveOrFirstWorkbenchWindow();
-		workbenchWindow.getPartService().removePartListener(this);
-		super.dispose();
-		clearThumbnail();
+		if (workbenchWindow != null) {
+			workbenchWindow.getPartService().removePartListener(this);
+			super.dispose();
+			clearThumbnail();
+		}
 	}
 
 	public void partActivated(IWorkbenchPart part) {

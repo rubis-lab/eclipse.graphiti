@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2013 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@
  *    fvelasco - Bug 396247 - ImageDescriptor changes
  *    pjpaulin - Bug 352120 - Now uses IDiagramContainerUI interface
  *    fvelasco - Bug 417577 - state call backs review
+ *    apupier - Bug 508133 - Use FontRegistry for Tooltip
  *
  * </copyright>
  *
@@ -653,15 +654,6 @@ public class ContextButton extends Clickable implements MouseMotionListener, Act
 		}
 
 		getContextButtonPad().getContextButtonManagerForPad().hideContextButtonsInstantly();
-	}
-
-	/*
-	 * Introduced to fix bug 373298
-	 */
-	void dispose() {
-		if (tooltip != null) {
-			tooltip.dispose();
-		}
 	}
 
 	/**

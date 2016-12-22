@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2011 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 352440 - Fixed deprecation warnings - contributed by Felix Velasco
  *    mwenz - Bug 363796 - Make setting of selection width of connections public
+ *    mwenz - Bug 497669 - IndexOutOfBoundsException below GFPolyline.createPath (thrown in ArrayList.rangeCheck)
  *
  * </copyright>
  *
@@ -396,7 +397,10 @@ public class GFPolyline extends GFAbstractPointListShape {
 		PointList points = getAdjustedPointList(getPoints(), zoom, lw);
 
 		List<BezierPoint> bezierPoints = getBezierPoints(points, zoom);
-		boolean isClosed = bezierPoints.get(0).equals(bezierPoints.get(bezierPoints.size() - 1));
+		boolean isClosed = false;
+		if (bezierPoints != null && bezierPoints.size() > 0) {
+			isClosed = bezierPoints.get(0).equals(bezierPoints.get(bezierPoints.size() - 1));
+		}
 
 		Path path = GFFigureUtil.getBezierPath(bezierPoints, isClosed);
 		return path;

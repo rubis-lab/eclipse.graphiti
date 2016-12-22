@@ -1,7 +1,7 @@
 /*******************************************************************************
  * <copyright>
  *
- * Copyright (c) 2005, 2012 SAP AG.
+ * Copyright (c) 2005, 2016 SAP AG.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  * Contributors:
  *    SAP AG - initial API, implementation and documentation
  *    mwenz - Bug 373298 - Possible Resource leaks in Graphiti
+ *    apupier - Bug 508133 - Use FontRegistry for Tooltip
  *
  * </copyright>
  *
@@ -22,10 +23,8 @@ import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.text.FlowPage;
 import org.eclipse.draw2d.text.TextFlow;
-import org.eclipse.swt.SWT;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -35,8 +34,6 @@ public class Tooltip extends FlowPage {
 
 	private static final int TOOLTIP_MAX_WIDTH = 250;
 	private static final Border TOOLTIP_BORDER = new MarginBorder(0, 2, 1, 2);
-
-	private static Font boldFont;
 
 	private TextFlow header;
 	private TextFlow description;
@@ -87,22 +84,7 @@ public class Tooltip extends FlowPage {
 		return d;
 	}
 
-	/*
-	 * Introduced to fix bug 373298
-	 */
-	public void dispose() {
-		if (boldFont != null) {
-			boldFont.dispose();
-			boldFont = null;
-		}
-	}
-
 	private Font getBoldFont() {
-		if (boldFont == null) {
-			FontData fd = Display.getDefault().getSystemFont().getFontData()[0];
-			fd.setStyle(fd.getStyle() | SWT.BOLD);
-			boldFont = new Font(Display.getDefault(), fd);
-		}
-		return boldFont;
+		return JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT);
 	}
 }
