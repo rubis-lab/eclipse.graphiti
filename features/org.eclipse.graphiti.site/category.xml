@@ -3,19 +3,37 @@
    <feature id="org.eclipse.graphiti.feature" version="0.0.0">
       <category name="org.eclipse.graphiti"/>
    </feature>
+   <feature id="org.eclipse.graphiti.feature.source" version="0.0.0">
+      <category name="org.eclipse.graphiti"/>
+   </feature>
    <feature id="org.eclipse.graphiti.export.feature" version="0.0.0">
+      <category name="org.eclipse.graphiti"/>
+   </feature>
+   <feature id="org.eclipse.graphiti.export.feature.source" version="0.0.0">
       <category name="org.eclipse.graphiti"/>
    </feature>
    <feature id="org.eclipse.graphiti.feature.examples" version="0.0.0">
       <category name="org.eclipse.graphiti"/>
    </feature>
+   <feature id="org.eclipse.graphiti.feature.examples.source" version="0.0.0">
+      <category name="org.eclipse.graphiti"/>
+   </feature>
    <feature id="org.eclipse.graphiti.feature.tools" version="0.0.0">
+      <category name="org.eclipse.graphiti"/>
+   </feature>
+   <feature id="org.eclipse.graphiti.feature.tools.source" version="0.0.0">
       <category name="org.eclipse.graphiti"/>
    </feature>
    <feature id="org.eclipse.graphiti.sdk.feature" version="0.0.0">
       <category name="org.eclipse.graphiti"/>
    </feature>
+   <feature id="org.eclipse.graphiti.sdk.feature.source" version="0.0.0">
+      <category name="org.eclipse.graphiti"/>
+   </feature>
    <feature id="org.eclipse.graphiti.sdk.plus.feature" version="0.0.0">
+      <category name="org.eclipse.graphiti"/>
+   </feature>
+   <feature id="org.eclipse.graphiti.sdk.plus.feature.source" version="0.0.0">
       <category name="org.eclipse.graphiti"/>
    </feature>
    <category-def name="org.eclipse.graphiti" label="Graphiti">

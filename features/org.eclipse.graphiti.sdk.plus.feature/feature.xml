@@ -42,8 +42,4 @@ http://www.eclipse.org/legal/epl-v10.html
          id="org.eclipse.graphiti.export.feature"
          version="0.0.0"/>
 
-   <includes
-         id="org.eclipse.graphiti.export.feature.source"
-         version="0.0.0"/>
-
 </feature>
