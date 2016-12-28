@@ -64,11 +64,7 @@ public class PluginWizardTests extends AbstractGFTests {
 	@Test
 	public void testPluginWizardRun() throws Exception {
 		// Check problems view and remember number of errors before test
-		SWTBotView view = bot.viewById(IPageLayout.ID_PROBLEM_VIEW);
-		view.show();
-		SWTBotTree tree = view.bot().tree();
-		SWTBotTreeItem[] allItems = tree.getAllItems();
-		int numberOfErrorsBeforeTest = allItems.length;
+		int numberOfErrorsBeforeTest = extractAllItemsFromProblemsView().length;
 
 		// Start wizard
 		bot.menu("File").menu("New").menu("Project...").click();
@@ -112,9 +108,9 @@ public class PluginWizardTests extends AbstractGFTests {
 		assertTrue(newProject.exists());
 
 		// Check problems view for any errors
-		allItems = extractAllItemsFromProblemsView();
+		SWTBotTreeItem[] allItems = extractAllItemsFromProblemsView();
 		counter = 0;
-		while ((allItems == null || allItems.length != numberOfErrorsBeforeTest) && counter < 20) {
+		while ((allItems == null || allItems.length != numberOfErrorsBeforeTest) && counter < 60) {
 			counter++;
 			Thread.sleep(1000);
 			allItems = extractAllItemsFromProblemsView();
