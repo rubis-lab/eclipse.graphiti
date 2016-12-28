@@ -14,13 +14,13 @@
 		<tycho-extras-version>${tycho-version}</tycho-extras-version>
 		<jboss-tycho-plugins-version>0.22.0</jboss-tycho-plugins-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<platform-site>http://download.eclipse.org/eclipse/updates/4.7milestones/S-4.7M2-201609150230/</platform-site>
-		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/S20160916162009/repository/</orbit-site>
+		<platform-site>http://download.eclipse.org/eclipse/updates/4.7milestones/S-4.7M3-201610270700/</platform-site>
+		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/S20161021172207/repository/</orbit-site>
 		<gef-site>http://download.eclipse.org/tools/gef/updates/legacy/releases/4.0.0_gef-master_1952/</gef-site>
 		<emf-site>http://download.eclipse.org/modeling/emf/emf/updates/2.12/</emf-site>
 		<emf-transactions-site>http://download.eclipse.org/modeling/emf/transaction/updates/releases/</emf-transactions-site>
 		<emf-validation-site>http://download.eclipse.org/modeling/emf/validation/updates/releases/</emf-validation-site>
-		<swtbot-site>http://download.eclipse.org/technology/swtbot/releases/2.4.0/</swtbot-site>
+		<swtbot-site>http://download.eclipse.org/technology/swtbot/milestones/neon-ur1-rc4/</swtbot-site>
 		<license-site>http://download.eclipse.org/cbi/updates/license/</license-site>
 	</properties>
 
