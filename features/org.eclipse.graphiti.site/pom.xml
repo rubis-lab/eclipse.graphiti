@@ -54,6 +54,7 @@
 							<symbols>
 								<!-- parsedVersion property is filled by build-helper-maven-plugin goal parse-version -->
 								<update.site.version>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}</update.site.version>
+								<update.site.name>Graphiti ${update.site.version} Update Site</update.site.name>
 							</symbols>
 						</configuration>
 					</execution>
