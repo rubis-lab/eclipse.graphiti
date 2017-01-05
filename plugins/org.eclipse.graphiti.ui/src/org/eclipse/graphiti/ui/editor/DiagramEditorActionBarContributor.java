@@ -29,7 +29,6 @@ import org.eclipse.gef.ui.actions.AlignmentRetargetAction;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.MatchHeightRetargetAction;
 import org.eclipse.gef.ui.actions.MatchWidthRetargetAction;
-import org.eclipse.gef.ui.actions.ZoomComboContributionItem;
 import org.eclipse.gef.ui.actions.ZoomInRetargetAction;
 import org.eclipse.gef.ui.actions.ZoomOutRetargetAction;
 import org.eclipse.graphiti.features.ISaveImageFeature;
@@ -150,38 +149,38 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 	 */
 	@Override
 	public void contributeToToolBar(IToolBarManager tbm) {
-		tbm.add(getAction(ActionFactory.UNDO.getId()));
-		tbm.add(getAction(ActionFactory.REDO.getId()));
-
-		tbm.add(new Separator());
-		tbm.add(getAction(ActionFactory.COPY.getId()));
-		tbm.add(getAction(ActionFactory.PASTE.getId()));
-
-		tbm.add(new Separator());
-		tbm.add(getAction(GEFActionConstants.ALIGN_LEFT));
-		tbm.add(getAction(GEFActionConstants.ALIGN_CENTER));
-		tbm.add(getAction(GEFActionConstants.ALIGN_RIGHT));
-		tbm.add(new Separator());
-		tbm.add(getAction(GEFActionConstants.ALIGN_TOP));
-		tbm.add(getAction(GEFActionConstants.ALIGN_MIDDLE));
-		tbm.add(getAction(GEFActionConstants.ALIGN_BOTTOM));
-		tbm.add(new Separator());
-		tbm.add(getAction(GEFActionConstants.MATCH_WIDTH));
-		tbm.add(getAction(GEFActionConstants.MATCH_HEIGHT));
-
-		// Bug 323351: Add button to toggle a flag if the context pad buttons
-		// shall be shown or not
-		tbm.add(new Separator());
-		tbm.add(getAction(ToggleContextButtonPadAction.ACTION_ID));
-		// End bug 323351
-
-		tbm.add(new Separator());
-		tbm.add(getAction(GEFActionConstants.ZOOM_OUT));
-		tbm.add(getAction(GEFActionConstants.ZOOM_IN));
-		ZoomComboContributionItem zoomCombo = new ZoomComboContributionItem(getPage());
-		tbm.add(zoomCombo);
-
-		tbm.add(new Separator());
+		// Delete all toolbar
+		/*
+		 * tbm.add(getAction(ActionFactory.UNDO.getId()));
+		 * tbm.add(getAction(ActionFactory.REDO.getId()));
+		 * 
+		 * tbm.add(new Separator());
+		 * tbm.add(getAction(ActionFactory.COPY.getId()));
+		 * tbm.add(getAction(ActionFactory.PASTE.getId()));
+		 * 
+		 * tbm.add(new Separator());
+		 * tbm.add(getAction(GEFActionConstants.ALIGN_LEFT));
+		 * tbm.add(getAction(GEFActionConstants.ALIGN_CENTER));
+		 * tbm.add(getAction(GEFActionConstants.ALIGN_RIGHT)); tbm.add(new
+		 * Separator()); tbm.add(getAction(GEFActionConstants.ALIGN_TOP));
+		 * tbm.add(getAction(GEFActionConstants.ALIGN_MIDDLE));
+		 * tbm.add(getAction(GEFActionConstants.ALIGN_BOTTOM)); tbm.add(new
+		 * Separator()); tbm.add(getAction(GEFActionConstants.MATCH_WIDTH));
+		 * tbm.add(getAction(GEFActionConstants.MATCH_HEIGHT));
+		 * 
+		 * // Bug 323351: Add button to toggle a flag if the context pad buttons
+		 * // shall be shown or not tbm.add(new Separator());
+		 * tbm.add(getAction(ToggleContextButtonPadAction.ACTION_ID)); // End
+		 * bug 323351
+		 * 
+		 * tbm.add(new Separator());
+		 * tbm.add(getAction(GEFActionConstants.ZOOM_OUT));
+		 * tbm.add(getAction(GEFActionConstants.ZOOM_IN));
+		 * ZoomComboContributionItem zoomCombo = new
+		 * ZoomComboContributionItem(getPage()); tbm.add(zoomCombo);
+		 * 
+		 * tbm.add(new Separator());
+		 */
 	}
 
 	/**
@@ -195,11 +194,13 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 	 */
 	@Override
 	public void contributeToMenu(IMenuManager menubar) {
+		// Hide all new menu
 		super.contributeToMenu(menubar);
 		IMenuManager editMenu = menubar.findMenuUsingPath(IWorkbenchActionConstants.M_EDIT);
 
 		if (editMenu != null) {
 			MenuManager alignments = new MenuManager(Messages.DiagramEditorActionBarContributor_0_xmen);
+			alignments.setVisible(false);
 			alignments.add(getAction(GEFActionConstants.ALIGN_LEFT));
 			alignments.add(getAction(GEFActionConstants.ALIGN_CENTER));
 			alignments.add(getAction(GEFActionConstants.ALIGN_RIGHT));
@@ -218,6 +219,7 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 
 		// Create view menu ...
 		MenuManager viewMenu = new MenuManager(Messages.GraphicsActionBarContributor_0_xmen, MENU_ID_VIEW);
+		viewMenu.setVisible(false);
 		viewMenu.add(getAction(GEFActionConstants.ZOOM_IN));
 		viewMenu.add(getAction(GEFActionConstants.ZOOM_OUT));
 		viewMenu.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
