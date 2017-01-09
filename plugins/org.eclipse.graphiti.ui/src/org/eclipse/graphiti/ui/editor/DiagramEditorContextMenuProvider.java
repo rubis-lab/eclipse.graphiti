@@ -51,9 +51,7 @@ import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.CustomAction;
-import org.eclipse.graphiti.ui.internal.action.DeleteAction;
 import org.eclipse.graphiti.ui.internal.action.IAvailable;
-import org.eclipse.graphiti.ui.internal.action.RemoveAction;
 import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
@@ -175,7 +173,8 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 			IPrintFeature pf = fp.getPrintFeature();
 
 			if (pf != null) {
-				addActionToMenu(manager, ActionFactory.PRINT.getId(), GEFActionConstants.GROUP_PRINT);
+				// addActionToMenu(manager, ActionFactory.PRINT.getId(),
+				// GEFActionConstants.GROUP_PRINT);
 			}
 		}
 	}
@@ -190,8 +189,10 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 		addAlignmentSubMenu(manager, GEFActionConstants.GROUP_REST);
 
 		addActionToMenuIfAvailable(manager, UpdateAction.ACTION_ID, GEFActionConstants.GROUP_REST);
-		addActionToMenuIfAvailable(manager, RemoveAction.ACTION_ID, GEFActionConstants.GROUP_REST);
-		addActionToMenuIfAvailable(manager, DeleteAction.ACTION_ID, GEFActionConstants.GROUP_REST);
+		// addActionToMenuIfAvailable(manager, RemoveAction.ACTION_ID,
+		// GEFActionConstants.GROUP_REST);
+		// addActionToMenuIfAvailable(manager, DeleteAction.ACTION_ID,
+		// GEFActionConstants.GROUP_REST);
 
 		PictogramElement pes[] = getEditor().getSelectedPictogramElements();
 		ICustomContext context = new CustomContext(pes);
