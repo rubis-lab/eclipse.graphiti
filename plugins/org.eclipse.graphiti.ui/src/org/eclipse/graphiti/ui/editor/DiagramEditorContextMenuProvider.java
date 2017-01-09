@@ -136,8 +136,10 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            the manager
 	 */
 	protected void addDefaultMenuGroupUndo(IMenuManager manager) {
-		addActionToMenu(manager, ActionFactory.UNDO.getId(), GEFActionConstants.GROUP_UNDO);
-		addActionToMenu(manager, ActionFactory.REDO.getId(), GEFActionConstants.GROUP_UNDO);
+		// addActionToMenu(manager, ActionFactory.UNDO.getId(),
+		// GEFActionConstants.GROUP_UNDO);
+		// addActionToMenu(manager, ActionFactory.REDO.getId(),
+		// GEFActionConstants.GROUP_UNDO);
 	}
 
 	/**
