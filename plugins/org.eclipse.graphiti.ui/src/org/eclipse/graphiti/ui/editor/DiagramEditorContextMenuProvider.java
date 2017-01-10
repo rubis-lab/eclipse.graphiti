@@ -52,7 +52,6 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.graphiti.ui.internal.Messages;
 import org.eclipse.graphiti.ui.internal.action.CustomAction;
 import org.eclipse.graphiti.ui.internal.action.IAvailable;
-import org.eclipse.graphiti.ui.internal.action.SaveImageAction;
 import org.eclipse.graphiti.ui.internal.action.UpdateAction;
 import org.eclipse.graphiti.ui.internal.feature.DebugFeature;
 import org.eclipse.graphiti.ui.internal.parts.CompositeConnectionEditPart;
@@ -149,7 +148,8 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	 *            the manager
 	 */
 	protected void addDefaultMenuGroupSave(IMenuManager manager) {
-		addActionToMenu(manager, SaveImageAction.ACTION_ID, GEFActionConstants.GROUP_SAVE);
+		// addActionToMenu(manager, SaveImageAction.ACTION_ID,
+		// GEFActionConstants.GROUP_SAVE);
 	}
 
 	/**
@@ -190,7 +190,8 @@ public class DiagramEditorContextMenuProvider extends ContextMenuProvider {
 	protected void addDefaultMenuGroupRest(IMenuManager manager) {
 		addAlignmentSubMenu(manager, GEFActionConstants.GROUP_REST);
 
-		addActionToMenuIfAvailable(manager, UpdateAction.ACTION_ID, GEFActionConstants.GROUP_REST);
+		// addActionToMenuIfAvailable(manager, UpdateAction.ACTION_ID,
+		// GEFActionConstants.GROUP_REST);
 		// addActionToMenuIfAvailable(manager, RemoveAction.ACTION_ID,
 		// GEFActionConstants.GROUP_REST);
 		// addActionToMenuIfAvailable(manager, DeleteAction.ACTION_ID,
