@@ -29,6 +29,7 @@ import org.eclipse.gef.ui.actions.AlignmentRetargetAction;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.MatchHeightRetargetAction;
 import org.eclipse.gef.ui.actions.MatchWidthRetargetAction;
+import org.eclipse.gef.ui.actions.ZoomComboContributionItem;
 import org.eclipse.gef.ui.actions.ZoomInRetargetAction;
 import org.eclipse.gef.ui.actions.ZoomOutRetargetAction;
 import org.eclipse.graphiti.features.ISaveImageFeature;
@@ -174,13 +175,14 @@ public class DiagramEditorActionBarContributor extends ActionBarContributor {
 		 * bug 323351
 		 * 
 		 * tbm.add(new Separator());
-		 * tbm.add(getAction(GEFActionConstants.ZOOM_OUT));
-		 * tbm.add(getAction(GEFActionConstants.ZOOM_IN));
-		 * ZoomComboContributionItem zoomCombo = new
-		 * ZoomComboContributionItem(getPage()); tbm.add(zoomCombo);
-		 * 
-		 * tbm.add(new Separator());
 		 */
+		tbm.add(getAction(GEFActionConstants.ZOOM_OUT));
+		tbm.add(getAction(GEFActionConstants.ZOOM_IN));
+		ZoomComboContributionItem zoomCombo = new ZoomComboContributionItem(getPage());
+		tbm.add(zoomCombo);
+
+		tbm.add(new Separator());
+		 
 	}
 
 	/**
